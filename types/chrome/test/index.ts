@@ -3766,24 +3766,300 @@ async function testPageCapture() {
     await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
-// https://developer.chrome.com/docs/extensions/reference/downloads
+// https://developer.chrome.com/docs/extensions/reference/api/downloads
 function testDownloads() {
-    chrome.downloads.search({}, (results) => {});
-    chrome.downloads.pause(1, () => {});
-    chrome.downloads.getFileIcon(1, (iconURL) => {});
-    chrome.downloads.getFileIcon(1, {}, (iconURL) => {});
-    chrome.downloads.resume(1, () => {});
-    chrome.downloads.cancel(1, () => {});
-    chrome.downloads.download({ url: "https://example.com" }, (downloadId) => {});
-    chrome.downloads.open(1);
-    chrome.downloads.show(1);
-    chrome.downloads.showDefaultFolder();
-    chrome.downloads.erase({}, (erasedIds) => {});
-    chrome.downloads.removeFile(1, () => {});
-    chrome.downloads.acceptDanger(1, () => {});
-    chrome.downloads.drag(1);
-    chrome.downloads.setShelfEnabled(true);
-    chrome.downloads.setUiOptions({ enabled: true }, () => {});
+    chrome.downloads.DangerType.ACCEPTED === "accepted";
+    chrome.downloads.DangerType.ACCOUNT_COMPROMISE === "accountCompromise";
+    chrome.downloads.DangerType.ALLOWLISTED_BY_POLICY === "allowlistedByPolicy";
+    chrome.downloads.DangerType.ASYNC_LOCAL_PASSWORD_SCANNING === "asyncLocalPasswordScanning";
+    chrome.downloads.DangerType.ASYNC_SCANNING === "asyncScanning";
+    chrome.downloads.DangerType.BLOCKED_SCAN_FAILED === "blockedScanFailed";
+    chrome.downloads.DangerType.BLOCKED_TOO_LARGE === "blockedTooLarge";
+    chrome.downloads.DangerType.CONTENT === "content";
+    chrome.downloads.DangerType.DEEP_SCANNED_FAILED === "deepScannedFailed";
+    chrome.downloads.DangerType.DEEP_SCANNED_OPENED_DANGEROUS === "deepScannedOpenedDangerous";
+    chrome.downloads.DangerType.DEEP_SCANNED_SAFE === "deepScannedSafe";
+    chrome.downloads.DangerType.FILE === "file";
+    chrome.downloads.DangerType.HOST === "host";
+    chrome.downloads.DangerType.PASSWORD_PROTECTED === "passwordProtected";
+    chrome.downloads.DangerType.PROMPT_FOR_LOCAL_PASSWORD_SCANNING === "promptForLocalPasswordScanning";
+    chrome.downloads.DangerType.PROMPT_FOR_SCANNING === "promptForScanning";
+    chrome.downloads.DangerType.SAFE === "safe";
+    chrome.downloads.DangerType.SENSITIVE_CONTENT_BLOCK === "sensitiveContentBlock";
+    chrome.downloads.DangerType.SENSITIVE_CONTENT_WARNING === "sensitiveContentWarning";
+    chrome.downloads.DangerType.UNCOMMON === "uncommon";
+    chrome.downloads.DangerType.UNWANTED === "unwanted";
+    chrome.downloads.DangerType.URL === "url";
+
+    chrome.downloads.FilenameConflictAction.OVERWRITE === "overwrite";
+    chrome.downloads.FilenameConflictAction.PROMPT === "prompt";
+    chrome.downloads.FilenameConflictAction.UNIQUIFY === "uniquify";
+
+    chrome.downloads.HttpMethod.GET === "GET";
+    chrome.downloads.HttpMethod.POST === "POST";
+
+    chrome.downloads.InterruptReason.CRASH === "CRASH";
+    chrome.downloads.InterruptReason.FILE_ACCESS_DENIED === "FILE_ACCESS_DENIED";
+    chrome.downloads.InterruptReason.FILE_BLOCKED === "FILE_BLOCKED";
+    chrome.downloads.InterruptReason.FILE_FAILED === "FILE_FAILED";
+    chrome.downloads.InterruptReason.FILE_HASH_MISMATCH === "FILE_HASH_MISMATCH";
+    chrome.downloads.InterruptReason.FILE_NAME_TOO_LONG === "FILE_NAME_TOO_LONG";
+    chrome.downloads.InterruptReason.FILE_NO_SPACE === "FILE_NO_SPACE";
+    chrome.downloads.InterruptReason.FILE_SAME_AS_SOURCE === "FILE_SAME_AS_SOURCE";
+    chrome.downloads.InterruptReason.FILE_SECURITY_CHECK_FAILED === "FILE_SECURITY_CHECK_FAILED";
+    chrome.downloads.InterruptReason.FILE_TOO_LARGE === "FILE_TOO_LARGE";
+    chrome.downloads.InterruptReason.FILE_TOO_SHORT === "FILE_TOO_SHORT";
+    chrome.downloads.InterruptReason.FILE_TRANSIENT_ERROR === "FILE_TRANSIENT_ERROR";
+    chrome.downloads.InterruptReason.FILE_VIRUS_INFECTED === "FILE_VIRUS_INFECTED";
+    chrome.downloads.InterruptReason.NETWORK_DISCONNECTED === "NETWORK_DISCONNECTED";
+    chrome.downloads.InterruptReason.NETWORK_FAILED === "NETWORK_FAILED";
+    chrome.downloads.InterruptReason.NETWORK_INVALID_REQUEST === "NETWORK_INVALID_REQUEST";
+    chrome.downloads.InterruptReason.NETWORK_SERVER_DOWN === "NETWORK_SERVER_DOWN";
+    chrome.downloads.InterruptReason.NETWORK_TIMEOUT === "NETWORK_TIMEOUT";
+    chrome.downloads.InterruptReason.SERVER_BAD_CONTENT === "SERVER_BAD_CONTENT";
+    chrome.downloads.InterruptReason.SERVER_CERT_PROBLEM === "SERVER_CERT_PROBLEM";
+    chrome.downloads.InterruptReason.SERVER_CONTENT_LENGTH_MISMATCH === "SERVER_CONTENT_LENGTH_MISMATCH";
+    chrome.downloads.InterruptReason.SERVER_CROSS_ORIGIN_REDIRECT === "SERVER_CROSS_ORIGIN_REDIRECT";
+    chrome.downloads.InterruptReason.SERVER_FAILED === "SERVER_FAILED";
+    chrome.downloads.InterruptReason.SERVER_FORBIDDEN === "SERVER_FORBIDDEN";
+    chrome.downloads.InterruptReason.SERVER_NO_RANGE === "SERVER_NO_RANGE";
+    chrome.downloads.InterruptReason.SERVER_UNAUTHORIZED === "SERVER_UNAUTHORIZED";
+    chrome.downloads.InterruptReason.SERVER_UNREACHABLE === "SERVER_UNREACHABLE";
+    chrome.downloads.InterruptReason.USER_CANCELED === "USER_CANCELED";
+    chrome.downloads.InterruptReason.USER_SHUTDOWN === "USER_SHUTDOWN";
+
+    chrome.downloads.State.COMPLETE === "complete";
+    chrome.downloads.State.INTERRUPTED === "interrupted";
+    chrome.downloads.State.IN_PROGRESS === "in_progress";
+
+    const downloadId = 1;
+
+    chrome.downloads.acceptDanger(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.acceptDanger(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.acceptDanger(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.cancel(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.cancel(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.cancel(downloadId, () => {}).then(() => {});
+
+    const downloadOptions: chrome.downloads.DownloadOptions = {
+        body: "body",
+        conflictAction: "overwrite",
+        filename: "filename",
+        headers: [{
+            name: "Content-Type",
+            value: "application/json",
+        }],
+        method: "GET",
+        saveAs: true,
+        url: "https://example.com",
+    };
+
+    chrome.downloads.download(downloadOptions); // $ExpectType Promise<number>
+    chrome.downloads.download(downloadOptions, (downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.downloads.download(downloadOptions, () => {}).then(() => {});
+
+    const downloadQuery: chrome.downloads.DownloadQuery = {
+        bytesReceived: 100,
+        danger: "safe",
+        endTime: "2025-05-30",
+        endedAfter: "2025-05-30",
+        endedBefore: "2025-05-30",
+        error: "CRASH",
+        exists: true,
+        fileSize: 100,
+        filename: "filename",
+        filenameRegex: "https://example.com/*",
+        finalUrl: "https://example.com",
+        finalUrlRegex: "https://example.com/*",
+        id: 1,
+        limit: 100,
+        mime: "application/json",
+        orderBy: ["startTime"],
+        paused: true,
+        query: ["https://example.com/*"],
+        startTime: "2025-05-30",
+        startedAfter: "2025-05-30",
+        startedBefore: "2025-05-30",
+        state: "complete",
+        totalBytes: 100,
+        url: "https://example.com",
+        urlRegex: "https://example.com/*",
+    };
+
+    chrome.downloads.erase(downloadQuery); // $ExpectType Promise<number[]>
+    chrome.downloads.erase(downloadQuery, (erasedIds) => { // $ExpectType void
+        erasedIds; // $ExpectType number[]
+    });
+    // @ts-expect-error
+    chrome.downloads.erase(downloadQuery, () => {}).then(() => {});
+
+    const getFileIconOptions: chrome.downloads.GetFileIconOptions = {
+        size: 32,
+    };
+
+    chrome.downloads.getFileIcon(downloadId); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, getFileIconOptions); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    chrome.downloads.getFileIcon(downloadId, getFileIconOptions, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.downloads.getFileIcon(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.open(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.open(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.open(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.pause(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.pause(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.pause(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.removeFile(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.removeFile(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.removeFile(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.resume(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.resume(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.resume(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.search(downloadQuery); // $ExpectType Promise<DownloadItem[]>
+    chrome.downloads.search(downloadQuery, ([result]) => { // $ExpectType void
+        result.byExtensionId; // $ExpectType string | undefined
+        result.byExtensionName; // $ExpectType string | undefined
+        result.bytesReceived; // $ExpectType number
+        result.canResume; // $ExpectType boolean
+        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        result.endTime; // $ExpectType string | undefined
+        result.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
+        result.estimatedEndTime; // $ExpectType string | undefined
+        result.exists; // $ExpectType boolean
+        result.fileSize; // $ExpectType number
+        result.filename; // $ExpectType string
+        result.finalUrl; // $ExpectType string
+        result.id; // $ExpectType number
+        result.incognito; // $ExpectType boolean
+        result.mime; // $ExpectType string
+        result.paused; // $ExpectType boolean
+        result.referrer; // $ExpectType string
+        result.startTime; // $ExpectType string
+        result.state; // $ExpectType "complete" | "in_progress" | "interrupted"
+        result.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.downloads.search(downloadQuery, () => {}).then(() => {});
+
+    chrome.downloads.setShelfEnabled(true); // $ExpectType void
+
+    const uiOptions: chrome.downloads.UiOptions = {
+        enabled: true,
+    };
+
+    chrome.downloads.setUiOptions(uiOptions); // $ExpectType Promise<void>
+    chrome.downloads.setUiOptions(uiOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.setUiOptions(uiOptions, () => {}).then(() => {});
+
+    chrome.downloads.show(downloadId); // $ExpectType void
+
+    chrome.downloads.showDefaultFolder(); // $ExpectType void
+
+    chrome.downloads.onChanged.addListener((downloadDelta) => { // $ExpectType void
+        downloadDelta.canResume; // $ExpectType BooleanDelta | undefined
+        downloadDelta.danger; // $ExpectType StringDelta | undefined
+        downloadDelta.endTime; // $ExpectType StringDelta | undefined
+        downloadDelta.error; // $ExpectType StringDelta | undefined
+        downloadDelta.exists; // $ExpectType BooleanDelta | undefined
+        downloadDelta.fileSize; // $ExpectType DoubleDelta | undefined
+        downloadDelta.filename; // $ExpectType StringDelta | undefined
+        downloadDelta.finalUrl; // $ExpectType StringDelta | undefined
+        downloadDelta.id; // $ExpectType number
+        downloadDelta.mime; // $ExpectType StringDelta | undefined
+        downloadDelta.paused; // $ExpectType BooleanDelta | undefined
+        downloadDelta.startTime; // $ExpectType StringDelta | undefined
+        downloadDelta.state; // $ExpectType StringDelta | undefined
+        downloadDelta.totalBytes; // $ExpectType DoubleDelta | undefined
+        downloadDelta.url; // $ExpectType StringDelta | undefined
+    });
+    chrome.downloads.onChanged.removeListener((downloadDelta) => { // $ExpectType void
+        downloadDelta; // $ExpectType DownloadDelta
+    });
+    chrome.downloads.onChanged.hasListener((downloadDelta) => { // $ExpectType boolean
+        downloadDelta; // $ExpectType DownloadDelta
+    });
+    chrome.downloads.onChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.downloads.onCreated.addListener((downloadItem) => { // $ExpectType void
+        downloadItem.byExtensionId; // $ExpectType string | undefined
+        downloadItem.byExtensionName; // $ExpectType string | undefined
+        downloadItem.bytesReceived; // $ExpectType number
+        downloadItem.canResume; // $ExpectType boolean
+        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        downloadItem.endTime; // $ExpectType string | undefined
+        downloadItem.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
+        downloadItem.estimatedEndTime; // $ExpectType string | undefined
+        downloadItem.exists; // $ExpectType boolean
+        downloadItem.fileSize; // $ExpectType number
+        downloadItem.filename; // $ExpectType string
+        downloadItem.finalUrl; // $ExpectType string
+        downloadItem.id; // $ExpectType number
+        downloadItem.incognito; // $ExpectType boolean
+        downloadItem.mime; // $ExpectType string
+        downloadItem.paused; // $ExpectType boolean
+        downloadItem.referrer; // $ExpectType string
+        downloadItem.startTime; // $ExpectType string
+        downloadItem.state; // $ExpectType "complete" | "in_progress" | "interrupted"
+        downloadItem.totalBytes; // $ExpectType number
+        downloadItem.url; // $ExpectType string
+    });
+    chrome.downloads.onCreated.removeListener((downloadItem) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+    });
+    chrome.downloads.onCreated.hasListener((downloadItem) => { // $ExpectType boolean
+        downloadItem; // $ExpectType DownloadItem
+    });
+    chrome.downloads.onCreated.hasListeners(); // $ExpectType boolean
+
+    const filenameSuggestion: chrome.downloads.FilenameSuggestion = {
+        filename: "filename",
+        conflictAction: "overwrite",
+    };
+
+    chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.removeListener((downloadItem, suggest) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.hasListener((downloadItem, suggest) => { // $ExpectType boolean
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.hasListeners(); // $ExpectType boolean
+
+    chrome.downloads.onErased.addListener((downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.removeListener((downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.hasListener((downloadId) => { // $ExpectType boolean
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
