@@ -55,6 +55,11 @@ interface LiferayOAuth2 {
      * @param externalReferenceCode
      */
     getUserAgentApplication(externalReferenceCode: string): UserAgentApplication;
+
+    /**
+     * All the user agent applications with their external reference codes as keys
+     */
+    _userAgentApplications: Record<string, UserAgentApplication>;
 }
 
 interface OAuth2ClientFromParametersOptions {
