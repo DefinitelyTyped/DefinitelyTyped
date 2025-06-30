@@ -1043,4 +1043,4 @@ declare namespace BPMNModdle {
 }
 
 declare const BPMNModdle: BPMNModdle.BPMNModdleConstructor;
-export default BPMNModdle;
+export = BPMNModdle;
