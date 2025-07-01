@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/gulp-match": "*",
-        "@types/minimatch": "5",
+        "@types/minimatch": "<=5",
         "@types/node": "*"
     },
     "devDependencies": {
