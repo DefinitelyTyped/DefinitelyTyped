@@ -1192,6 +1192,10 @@
             "libraryName": "cordova-plugin-camera",
             "asOfVersion": "2.4.0"
         },
+        "cordova-plugin-canvascamera": {
+            "libraryName": "com.virtuoworks.cordova-plugin-canvascamera",
+            "asOfVersion": "1.2.1"
+        },
         "cordova-plugin-contacts": {
             "libraryName": "cordova-plugin-contacts",
             "asOfVersion": "2.3.0"
