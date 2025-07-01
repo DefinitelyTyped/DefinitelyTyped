@@ -12366,6 +12366,11 @@ declare namespace chrome {
             color: `${Color}`;
             /** The ID of the group. Group IDs are unique within a browser session. */
             id: number;
+            /**
+             * Whether the group is shared.
+             * @since Chrome 137
+             */
+            shared: boolean;
             /** The title of the group. */
             title?: string;
             /** The ID of the window that contains the group. */
@@ -12381,13 +12386,18 @@ declare namespace chrome {
 
         export interface QueryInfo {
             /** Whether the groups are collapsed. */
-            collapsed?: boolean;
+            collapsed?: boolean | undefined;
             /** The color of the groups. */
-            color?: `${Color}`;
+            color?: `${Color}` | undefined;
+            /**
+             * Whether the group is shared.
+             * @since Chrome 137
+             */
+            shared?: boolean | undefined;
             /** Match group titles against a pattern. */
-            title?: string;
+            title?: string | undefined;
             /** The ID of the parent window, or {@link windows.WINDOW_ID_CURRENT} for the current window. */
-            windowId?: number;
+            windowId?: number | undefined;
         }
 
         export interface UpdateProperties {
