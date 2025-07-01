@@ -20,16 +20,16 @@ declare module '@playwright/test' {
         workers (): never;
     }
 
-    export interface Browser {
+    class Browser {
         new (): never;
     }
-    export interface BrowserContext {
+    class BrowserContext {
         new (): never;
     }
-    export interface BrowserServer {
+    class BrowserServer {
         new (): never;
     }
-    export interface BrowserType {
+    class BrowserType {
         new (): never;
     }
 }
