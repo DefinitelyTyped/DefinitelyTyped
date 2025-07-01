@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "@types/catchpoint-playwright",
+  "version": "1.0.0",
+  "description": "Type definition for Playwright use in Catchpoint",
+  "projects": [
+    "https://github.com/catchpoint",
+    "https://docs.catchpoint.com/docs/playwright-scripting-guide"
+  ],
+  "devDependencies": {
+        "@playwright/test": "*"
+    },
+    "owners": [
+        {
+            "name": "Jabran Rafique",
+            "githubUsername": "jabranr"
+        }
+    ]
+}
