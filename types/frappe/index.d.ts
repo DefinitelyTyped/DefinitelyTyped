@@ -8,8 +8,8 @@
 /// <reference path="./types/requests/requests.d.ts" />
 /// <reference path="./types/db/db.d.ts" />
 
-import type FrappeResponse from "./types/common/response.d.ts";
-import type { DocTypeName } from "./types/model/doctype.d.ts";
+import type FrappeResponse from './types/common/response.d.ts'
+import type { DocTypeName } from './types/model/doctype.d.ts'
 
 // Set as global so we can allow interface merging from generators
 declare global {
@@ -19,7 +19,4 @@ declare global {
   interface FrappeWhitelistedMethods {}
 }
 
-export {
-  FrappeResponse,
-  DocTypeName
-}
+export { FrappeResponse, DocTypeName }

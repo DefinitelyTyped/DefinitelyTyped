@@ -16,10 +16,7 @@ declare global {
      * Accepts route as string(s), array, or array with options.
      */
     function set_route(first: RouteSegment, ...route: RouteSegment[]): void
-    function set_route(
-      route: string | string[],
-      options?: { [key: string]: any }
-    ): void
+    function set_route(route: string | string[], options?: { [key: string]: any }): void
 
     /**
      * Format a raw value into user presentable format.

@@ -50,10 +50,7 @@ declare global {
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         function on<DK extends ChildDocTypeKey, Parent extends DocType>(
           doctype: DK,
-          handlers: FormEventHandlersChildTable<
-            DocTypeMap[DK],
-            ChildTableField<Parent, DocTypeMap[DK]>
-          >
+          handlers: FormEventHandlersChildTable<DocTypeMap[DK], ChildTableField<Parent, DocTypeMap[DK]>>
         ): void
       }
     }
@@ -72,12 +69,7 @@ type FormEventHandlerChildTable<DT extends DocTypeChildTable> = (
  * Triggered when the field value changes.
  */
 type FieldHandler<DT extends DocType> = Partial<
-  Record<
-    keyof DT,
-    DT extends DocTypeChildTable
-      ? FormEventHandlerChildTable<DT>
-      : FormEventHandler<DT>
-  >
+  Record<keyof DT, DT extends DocTypeChildTable ? FormEventHandlerChildTable<DT> : FormEventHandler<DT>>
 >
 
 interface EmailRecipientField {
@@ -229,20 +221,14 @@ type FormEventHandlers<DT extends DocType = DocType> = {
    *
    * @param frm The form instance for filtering recipients.
    */
-  get_email_recipient_filters?(
-    frm: FrappeForm<DT>,
-    field: EmailRecipientField
-  ): { [key: string]: string } | string[]
+  get_email_recipient_filters?(frm: FrappeForm<DT>, field: EmailRecipientField): { [key: string]: string } | string[]
 
   /**
    * Called by the email dialog to fetch default recipients. Should accept two parameters frm (the current form) and field ("recipients", "cc" or "bcc"), and return a list of email addresses for this field.
    *
    * @param frm The form instance for email recipients.
    */
-  get_email_recipients?(
-    frm: FrappeForm<DT>,
-    field: EmailRecipientField
-  ): string[]
+  get_email_recipients?(frm: FrappeForm<DT>, field: EmailRecipientField): string[]
 } & FieldHandler<DT>
 
 /**
@@ -274,10 +260,9 @@ type TableFieldEvents<F extends string> =
  * @template F The parent DocType's child table field name.
  */
 
-type FormEventHandlersChildTable<
-  DT extends DocTypeChildTable,
-  F extends string,
-> = Partial<Record<TableFieldEvents<F>, FormEventHandlerChildTable<DT>>> &
+type FormEventHandlersChildTable<DT extends DocTypeChildTable, F extends string> = Partial<
+  Record<TableFieldEvents<F>, FormEventHandlerChildTable<DT>>
+> &
   FieldHandler<DT>
 
 type DocTypeKey = keyof DocTypeMap
@@ -290,9 +275,7 @@ type ChildDocTypeKey = {
   [K in DocTypeKey]: DocTypeMap[K] extends DocTypeChildTable ? K : never
 }[DocTypeKey]
 
-type ChildTableField<
-  Parent extends DocType,
-  Child extends DocTypeChildTable,
-> = ConditionalKeys<Parent, Child[]> & string
+type ChildTableField<Parent extends DocType, Child extends DocTypeChildTable> = ConditionalKeys<Parent, Child[]> &
+  string
 
 export {}

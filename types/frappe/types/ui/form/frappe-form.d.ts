@@ -20,12 +20,7 @@ interface FrappeForm<T extends DocType = DocType> {
    * @param skip_dirty_trigger Skip triggering dirty state.
    * @returns Promise resolving when values are set.
    */
-  set_value(
-    field: string,
-    value: any,
-    if_missing?: boolean,
-    skip_dirty_trigger?: boolean
-  ): Promise<void>
+  set_value(field: string, value: any, if_missing?: boolean, skip_dirty_trigger?: boolean): Promise<void>
   set_value(fieldValues: { [field: string]: any }): Promise<void>
 
   /**
@@ -75,10 +70,7 @@ interface FrappeForm<T extends DocType = DocType> {
    * @param message The intro message.
    * @param color Color of the message ('blue', 'red', 'orange', 'green', 'yellow'). Defaults is blue.
    */
-  set_intro(
-    message: string,
-    color?: 'blue' | 'red' | 'orange' | 'green' | 'yellow'
-  ): void
+  set_intro(message: string, color?: 'blue' | 'red' | 'orange' | 'green' | 'yellow'): void
 
   /**
    * Add a custom button to the form toolbar. Alias to `page.add_inner_button`
@@ -94,11 +86,7 @@ interface FrappeForm<T extends DocType = DocType> {
    * @param group Optional button group.
    * @param type Button style type (e.g., 'primary', 'danger').
    */
-  change_custom_button_type(
-    label: string,
-    group: string | null,
-    type: string
-  ): void
+  change_custom_button_type(label: string, group: string | null, type: string): void
 
   /**
    * Remove a specific custom button.
@@ -178,11 +166,7 @@ interface FrappeForm<T extends DocType = DocType> {
    * @param callback Optional callback invoked with response.
    * @returns Promise resolving with server response.
    */
-  call(
-    method: string,
-    args?: any,
-    callback?: (response: any) => void
-  ): Promise<any>
+  call(method: string, args?: any, callback?: (response: any) => void): Promise<any>
 
   /**
    * Trigger a form event programmatically.

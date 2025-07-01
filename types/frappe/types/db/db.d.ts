@@ -50,10 +50,7 @@ declare global {
        *
        * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
        */
-      function get_single_value<
-        DT extends DocTypeKey,
-        K extends keyof DocTypeMap[DT]
-      >(
+      function get_single_value<DT extends DocTypeKey, K extends keyof DocTypeMap[DT]>(
         doctype: LiteralStringUnion<DT>,
         field: LiteralStringUnion<K>
       ): Promise<DocTypeMap[DT][K]>
@@ -92,20 +89,14 @@ declare global {
        *
        * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
        */
-      function delete_doc(
-        doctype: LiteralStringUnion<DocTypeKey>,
-        name: string
-      ): Promise<void>
+      function delete_doc(doctype: LiteralStringUnion<DocTypeKey>, name: string): Promise<void>
 
       /**
        * Returns true if a document record exists.
        *
        * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
        */
-      function exists(
-        doctype: LiteralStringUnion<DocTypeKey>,
-        name: string
-      ): Promise<boolean>
+      function exists(doctype: LiteralStringUnion<DocTypeKey>, name: string): Promise<boolean>
     }
   }
 }

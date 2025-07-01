@@ -49,19 +49,12 @@ declare global {
       /**
        * Fill a field in the form.
        */
-      fill_field(
-        fieldname: string,
-        value: string,
-        fieldtype?: string
-      ): Chainable<JQuery<HTMLElement>>
+      fill_field(fieldname: string, value: string, fieldtype?: string): Chainable<JQuery<HTMLElement>>
 
       /**
        * Get a field element.
        */
-      get_field(
-        fieldname: string,
-        fieldtype?: string
-      ): Chainable<JQuery<HTMLElement>>
+      get_field(fieldname: string, fieldtype?: string): Chainable<JQuery<HTMLElement>>
 
       /**
        * Fill a field in a table row.
@@ -142,11 +135,7 @@ declare global {
       /**
        * Insert a document via API.
        */
-      insert_doc(
-        doctype: string,
-        args: any,
-        ignore_duplicate?: boolean
-      ): Chainable<any>
+      insert_doc(doctype: string, args: any, ignore_duplicate?: boolean): Chainable<any>
 
       /**
        * Update a document via API.

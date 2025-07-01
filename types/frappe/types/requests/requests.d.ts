@@ -1,5 +1,5 @@
 import type FrappeResponse from '../common/response.d.ts'
-import type { UnknownRecord, LiteralStringUnion }  from '../../utils/type-fest.d.ts'
+import type { UnknownRecord, LiteralStringUnion } from '../../utils/type-fest.d.ts'
 
 /**
  * Requests APIs
@@ -17,9 +17,7 @@ declare global {
      * const res = await frappe.call({ method: "frappe.core.doctype.user.user.get_roles", args: {} })
      * ```
      */
-    function call<R = unknown>(
-      opts: CallOptions<FrappeWhitelistedPathKey, R>
-    ): Promise<FrappeResponse<R>>
+    function call<R = unknown>(opts: CallOptions<FrappeWhitelistedPathKey, R>): Promise<FrappeResponse<R>>
     function call<M extends FrappeWhitelistedPathKey, R = unknown>(
       method: LiteralStringUnion<M>,
       args?: FrappeWhitelistedMethods[M] | UnknownRecord,

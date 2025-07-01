@@ -62,35 +62,20 @@ export default class Grid {
   toggle_display(fieldname: string, show: boolean): void
 
   /** Add or unhide a custom button. */
-  add_custom_button(
-    label: string,
-    click: (...args: any[]) => void,
-    position?: 'top' | 'bottom'
-  ): JQuery<HTMLElement>
+  add_custom_button(label: string, click: (...args: any[]) => void, position?: 'top' | 'bottom'): JQuery<HTMLElement>
   /** Hide all custom buttons. */
   clear_custom_buttons(): void
   /** Update a DocField property on each row and in definitions. */
-  update_docfield_property(
-    fieldname: string,
-    property: string,
-    value: any
-  ): void
+  update_docfield_property(fieldname: string, property: string, value: any): void
 
   // Private (internal use)
   private setup_add_row(): void
   private setup_grid_pagination(): void
   private setup_toolbar(): void
   private setup_check(): void
-  private check_range(
-    docname1: string,
-    docname2: string,
-    checked?: boolean
-  ): void
+  private check_range(docname1: string, docname2: string, checked?: boolean): void
   private update_search_columns(): void
-  private render_result_rows(
-    $rows: JQuery<HTMLElement>,
-    append_row: boolean
-  ): void
+  private render_result_rows($rows: JQuery<HTMLElement>, append_row: boolean): void
   private setup_fields(): void
   private make_head(): void
   private truncate_rows(): void

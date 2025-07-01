@@ -44,12 +44,7 @@ declare global {
     function throw_(error_message: string): never
 
     /** Prompt user for a value or list of values */
-    function prompt(
-      label: string,
-      callback: (values: any) => void,
-      title?: string,
-      primary_label?: string
-    ): void
+    function prompt(label: string, callback: (values: any) => void, title?: string, primary_label?: string): void
     function prompt(
       df: Arrayable<FrappeDFBase>,
       callback: (values: any) => void,
@@ -58,11 +53,7 @@ declare global {
     ): void
 
     /** Show a confirmation modal */
-    function confirm(
-      message: string,
-      if_yes: () => void,
-      if_no?: () => void
-    ): void
+    function confirm(message: string, if_yes: () => void, if_no?: () => void): void
 
     /** Show a warning modal */
     function warn(
@@ -74,18 +65,10 @@ declare global {
     ): void
 
     /** Show a non-blocking alert */
-    function show_alert(
-      message: string | { message: string; indicator?: string },
-      seconds?: number
-    ): void
+    function show_alert(message: string | { message: string; indicator?: string }, seconds?: number): void
 
     /** Show a progress bar */
-    function show_progress(
-      title: string,
-      count: number,
-      total: number,
-      description?: string
-    ): void
+    function show_progress(title: string, count: number, total: number, description?: string): void
   }
 }
 
