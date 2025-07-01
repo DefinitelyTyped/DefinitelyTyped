@@ -1,14 +1,14 @@
-import ConstNode from "../../nodes/core/ConstNode.js";
+import InputNode from "../../nodes/core/InputNode.js";
 import Node from "../../nodes/core/Node.js";
 import MeshPhysicalNodeMaterial, { MeshPhysicalNodeMaterialParameters } from "./MeshPhysicalNodeMaterial.js";
 
 export default class MeshSSSNodeMaterial extends MeshPhysicalNodeMaterial {
     thicknessColorNode: Node | null;
-    thicknessDistortionNode: ConstNode<number>;
-    thicknessAmbientNode: ConstNode<number>;
-    thicknessAttenuationNode: ConstNode<number>;
-    thicknessPowerNode: ConstNode<number>;
-    thicknessScaleNode: ConstNode<number>;
+    thicknessDistortionNode: InputNode<number>;
+    thicknessAmbientNode: InputNode<number>;
+    thicknessAttenuationNode: InputNode<number>;
+    thicknessPowerNode: InputNode<number>;
+    thicknessScaleNode: InputNode<number>;
 
     constructor(parameters?: MeshPhysicalNodeMaterialParameters);
 

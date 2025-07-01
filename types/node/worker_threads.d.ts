@@ -15,28 +15,31 @@
  *
  * ```js
  * import {
- *   Worker, isMainThread, parentPort, workerData,
+ *   Worker,
+ *   isMainThread,
+ *   parentPort,
+ *   workerData,
  * } from 'node:worker_threads';
- * import { parse } from 'some-js-parsing-library';
  *
- * if (isMainThread) {
- *   module.exports = function parseJSAsync(script) {
- *     return new Promise((resolve, reject) => {
- *       const worker = new Worker(__filename, {
- *         workerData: script,
- *       });
- *       worker.on('message', resolve);
- *       worker.on('error', reject);
- *       worker.on('exit', (code) => {
- *         if (code !== 0)
- *           reject(new Error(`Worker stopped with exit code ${code}`));
- *       });
- *     });
- *   };
- * } else {
+ * if (!isMainThread) {
+ *   const { parse } = await import('some-js-parsing-library');
  *   const script = workerData;
  *   parentPort.postMessage(parse(script));
  * }
+ *
+ * export default function parseJSAsync(script) {
+ *   return new Promise((resolve, reject) => {
+ *     const worker = new Worker(new URL(import.meta.url), {
+ *       workerData: script,
+ *     });
+ *     worker.on('message', resolve);
+ *     worker.on('error', reject);
+ *     worker.on('exit', (code) => {
+ *       if (code !== 0)
+ *         reject(new Error(`Worker stopped with exit code ${code}`));
+ *     });
+ *   });
+ * };
  * ```
  *
  * The above example spawns a Worker thread for each `parseJSAsync()` call. In
@@ -49,17 +52,18 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/worker_threads.js)
  */
 declare module "worker_threads" {
-    import { Blob } from "node:buffer";
     import { Context } from "node:vm";
     import { EventEmitter } from "node:events";
     import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
     import { Readable, Writable } from "node:stream";
+    import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { X509Certificate } from "node:crypto";
+    import { HeapInfo } from "node:v8";
+    const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
@@ -88,7 +92,17 @@ declare module "worker_threads" {
     interface WorkerPerformance {
         eventLoopUtilization: EventLoopUtilityFunction;
     }
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate | Blob;
+    type Transferable =
+        | ArrayBuffer
+        | MessagePort
+        | AbortSignal
+        | FileHandle
+        | ReadableStream
+        | WritableStream
+        | TransformStream;
+    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
+    // TODO: remove in a future major @types/node version.
+    type TransferListItem = Transferable;
     /**
      * Instances of the `worker.MessagePort` class represent one end of an
      * asynchronous, two-way communications channel. It can be used to transfer
@@ -173,7 +187,12 @@ declare module "worker_threads" {
          * behind this API, see the `serialization API of the node:v8 module`.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
+        /**
+         * If true, the `MessagePort` object will keep the Node.js event loop active.
+         * @since v18.1.0, v16.17.0
+         */
+        hasRef(): boolean;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -260,7 +279,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[] | undefined;
+        transferList?: Transferable[] | undefined;
         /**
          * @default true
          */
@@ -408,7 +427,7 @@ declare module "worker_threads" {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
          * Sends a value to another worker, identified by its thread ID.
          * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
@@ -424,7 +443,7 @@ declare module "worker_threads" {
         postMessageToThread(
             threadId: number,
             value: any,
-            transferList: readonly TransferListItem[],
+            transferList: readonly Transferable[],
             timeout?: number,
         ): Promise<void>;
         /**
@@ -456,6 +475,13 @@ declare module "worker_threads" {
          * @return A promise for a Readable Stream containing a V8 heap snapshot
          */
         getHeapSnapshot(): Promise<Readable>;
+        /**
+         * This method returns a `Promise` that will resolve to an object identical to `v8.getHeapStatistics()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v24.0.0
+         */
+        getHeapStatistics(): Promise<HeapInfo>;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
@@ -700,7 +726,7 @@ declare module "worker_threads" {
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.
      */
-    function setEnvironmentData(key: Serializable, value: Serializable): void;
+    function setEnvironmentData(key: Serializable, value?: Serializable): void;
 
     import {
         BroadcastChannel as _BroadcastChannel,
@@ -708,6 +734,10 @@ declare module "worker_threads" {
         MessagePort as _MessagePort,
     } from "worker_threads";
     global {
+        function structuredClone<T>(
+            value: T,
+            options?: { transfer?: Transferable[] },
+        ): T;
         /**
          * `BroadcastChannel` class is a global reference for `import { BroadcastChannel } from 'worker_threads'`
          * https://nodejs.org/api/globals.html#broadcastchannel

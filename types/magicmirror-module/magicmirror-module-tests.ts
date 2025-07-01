@@ -91,7 +91,14 @@ Module.register<TestConfig>("test", {
     hidden: false,
 });
 
-NodeHelper.create({
+Module.register<TestConfig>("test2", {
+    async start() {
+        console.log("started");
+        await Promise.resolve();
+    },
+});
+
+const ModuleClass = NodeHelper.create({
     start() {
         Log.debug("Starting module: " + this.name);
         return;
@@ -113,3 +120,8 @@ NodeHelper.create({
         console.log("hi");
     },
 });
+
+const moduleInstance = new ModuleClass();
+moduleInstance.start();
+moduleInstance.start();
+moduleInstance.socketNotificationReceived("abc", { data: "test" });

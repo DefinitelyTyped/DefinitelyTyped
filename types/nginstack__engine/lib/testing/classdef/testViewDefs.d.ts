@@ -1,5 +1,5 @@
 declare function _exports(
-    opt_options?:
+    options?:
         | {
               baseClass: number;
               products: number[];

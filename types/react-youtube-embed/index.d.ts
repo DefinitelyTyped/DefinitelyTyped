@@ -1,11 +1,31 @@
 import * as React from "react";
 
-export interface YouTubeEmbedProps {
-    id: string;
-    aspectRatio?: string | undefined;
-    prependSrc?: string | undefined;
-    appendSrc?: string | undefined;
-    width?: number | undefined;
+declare namespace YouTubeEmbed {
+    interface YouTubeEmbedProps {
+        id: string;
+
+        /**
+         * Set an aspect ratio or percentage.
+         * @default "16:9"
+         */
+        aspectRatio?: string | undefined;
+
+        /**
+         * Prepends a string to the embed URL (before the YouTube ID).
+         * @default "https://www.youtube.com/embed/"
+         */
+        prependSrc?: string | undefined;
+
+        /**
+         * Appends a string to the embed URL.
+         * @default ""
+         */
+        appendSrc?: string | undefined;
+
+        width?: number | string | undefined;
+    }
 }
 
-export default class YouTubeEmbed extends React.Component<YouTubeEmbedProps> {}
+declare class YouTubeEmbed extends React.Component<YouTubeEmbed.YouTubeEmbedProps> {}
+
+export = YouTubeEmbed;

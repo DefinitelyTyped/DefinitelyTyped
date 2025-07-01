@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Radios component
  */
-export class Radios extends GOVUKFrontendComponent<HTMLElement> {
+export class Radios extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

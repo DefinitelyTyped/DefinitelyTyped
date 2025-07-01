@@ -180,6 +180,10 @@ function test_table() {
 
     table.rows.add("name", 42, 3.50);
     table.rows.add("name2", 7, 3.14);
+
+    table.rows.clear();
+
+    table.rows.add("name3", 21, 3.12);
 }
 
 function test_table2() {
@@ -194,6 +198,8 @@ function test_table2() {
     table.columns.add("col5", sql.Decimal(7, 2), { nullable: false });
 
     [["name", 42, 3.50], ["name2", 7, 3.14]].forEach((row: sql.IRow) => table.rows.add(...row));
+
+    table.rows.clear();
 }
 
 function _getSqlType(type: any): sql.ISqlType {

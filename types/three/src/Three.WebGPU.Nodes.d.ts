@@ -8,9 +8,10 @@ export { default as PostProcessing } from "./renderers/common/PostProcessing.js"
 export { default as QuadMesh } from "./renderers/common/QuadMesh.js";
 export type { default as Renderer } from "./renderers/common/Renderer.js";
 export { default as WebGPURenderer } from "./renderers/webgpu/WebGPURenderer.Nodes.js";
-import * as PostProcessingUtils from "./renderers/common/PostProcessingUtils.js";
-export { PostProcessingUtils };
+import * as RendererUtils from "./renderers/common/RendererUtils.js";
+export { RendererUtils };
 export { default as IESSpotLight } from "./lights/webgpu/IESSpotLight.js";
+export { default as ProjectorLight } from "./lights/webgpu/ProjectorLight.js";
 export { default as NodeLoader } from "./loaders/nodes/NodeLoader.js";
 export { default as NodeMaterialLoader } from "./loaders/nodes/NodeMaterialLoader.js";
 export { default as NodeObjectLoader } from "./loaders/nodes/NodeObjectLoader.js";

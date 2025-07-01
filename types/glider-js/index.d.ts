@@ -178,6 +178,11 @@ declare namespace Glider {
          * requires setting the `itemWidth` option.
          */
         slidesToShow?: number | "auto" | undefined;
+
+        /**
+         * Use passive event listeners—improves scroll performance.
+         */
+        passiveListeners?: boolean | undefined;
     }
 
     interface Arrow extends HTMLElement {

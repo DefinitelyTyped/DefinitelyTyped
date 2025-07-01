@@ -33,6 +33,7 @@ function runTests(BN: typeof BN_esm) {
     const actualArray = new BN([0x40, 0x20]);
     const actualUint8Array = new BN(new Uint8Array([0x40, 0x20]));
     const actualString = new BN("0x4020");
+    const actualBigint = new BN(BigInt("0x4020"));
 
     new BN("10", 16).modrn(256); // $ExpectType number
     BN.BN; // $ExpectType typeof BN

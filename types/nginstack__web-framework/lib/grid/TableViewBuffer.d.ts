@@ -14,10 +14,7 @@ declare class TableViewBuffer {
     resyncRecord(recNo: any): void;
     syncBookmarkAfterInsert: boolean;
     editedRecBuffer: any;
-    clientBufferIndex: any;
-    fEditingRecBuffer: any;
-    setEditingRecBuffer(value: any): void;
-    getEditingRecBuffer(): any;
+    fEditingRecBuffer: number;
     lastRecordIndex: number;
     reset(): void;
     clear(): void;

@@ -220,6 +220,7 @@ Returns true if the user's app supports a version of the Bot API that is equal t
     /**
   A method that sets the app event handler. Check the list of available events.
     */
+
     onEvent: <T extends keyof EventMap>(
         eventType: T,
         eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue,
@@ -227,6 +228,7 @@ Returns true if the user's app supports a version of the Bot API that is equal t
     /**
   A method that deletes a previously set event handler.
     */
+
     offEvent: <T extends keyof EventMap>(
         eventType: T,
         eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue,
@@ -240,6 +242,7 @@ Returns true if the user's app supports a version of the Bot API that is equal t
     /**
   Bot API 6.7+ A method that inserts the bot's username and the specified inline query in the current chat's input field. Query may be empty, in which case only the bot's username will be inserted. If an optional choose_chat_types parameter was passed, the client prompts the user to choose a specific chat, then opens that chat and inserts the bot's username and the specified inline query in the input field. You can specify which types of chats the user will be able to choose from. It can be one or more of the following types: users, bots, groups, channels.
     */
+
     switchInlineQuery: (
         query: (string & {}) | "",
         choose_chat_types?: ("users" | "bots" | "groups" | "channels")[],
@@ -330,6 +333,7 @@ Returns true if the user's app supports a version of the Bot API that is equal t
     /**
   A method that closes the Mini App.
     */
+
     close: () => void;
 }
 

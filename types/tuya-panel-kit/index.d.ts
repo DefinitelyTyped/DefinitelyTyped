@@ -1,3 +1,6 @@
+import { NavigationContainerProps, NavigationContainerRef, ParamListBase, RouteProp } from "@react-navigation/native";
+import { StackNavigationOptions } from "@react-navigation/stack";
+import { TransitionPreset } from "@react-navigation/stack/lib/typescript/src/types";
 import * as React from "react";
 import {
     FlatListProps,
@@ -21,9 +24,6 @@ import {
     ViewProps,
     ViewStyle,
 } from "react-native";
-import { NavigationContainerProps, NavigationContainerRef, ParamListBase, RouteProp } from "./@react-navigation/native";
-import { StackNavigationOptions } from "./@react-navigation/stack";
-import { TransitionPreset } from "./@react-navigation/stack/types";
 import { BackgroundProps, GlobalTheme, LinearGradientBackground, RadialGradientBackground, StopsProps } from "./theme";
 
 export { GlobalTheme } from "./theme";

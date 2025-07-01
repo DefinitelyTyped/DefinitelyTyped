@@ -13,7 +13,7 @@ declare class PostProcessing {
 
     render(): void;
 
-    update(): void;
+    dispose(): void;
 
     renderAsync(): Promise<void>;
 }

@@ -1,4 +1,4 @@
-import { Camera, DirectionalLightShadow, Light, Node, Object3D } from "three/webgpu";
+import { Camera, DirectionalLightShadow, Light, Object3D, ShadowBaseNode } from "three/webgpu";
 import { CSMFrustum } from "./CSMFrustum.js";
 
 export type CSMShadowNodeMode = "uniform" | "logarithmic" | "practical" | "custom";
@@ -20,8 +20,7 @@ declare class LwLight extends Object3D {
     constructor();
 }
 
-declare class CSMShadowNode extends Node {
-    light: Light;
+declare class CSMShadowNode extends ShadowBaseNode {
     camera: Camera | null;
     cascades: number;
     maxFar: number;

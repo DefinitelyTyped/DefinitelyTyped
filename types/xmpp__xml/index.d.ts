@@ -1,8 +1,6 @@
 export = xml;
 
 import * as ltx from "ltx";
-import * as escape from "ltx/lib/escape";
-import LtxParser = require("ltx/lib/parsers/ltx");
 
 declare function xml(...args: Parameters<typeof ltx.createElement>): ReturnType<typeof ltx.createElement>;
 
@@ -13,14 +11,14 @@ declare namespace xml {
     const Element: typeof ltx.Element;
     const createElement: typeof ltx.createElement;
 
-    const escapeXML: typeof escape.escapeXML;
-    const unescapeXML: typeof escape.unescapeXML;
-    const escapeXMLText: typeof escape.escapeXMLText;
-    const unescapeXMLText: typeof escape.unescapeXMLText;
+    const escapeXML: typeof ltx.escapeXML;
+    const unescapeXML: typeof ltx.unescapeXML;
+    const escapeXMLText: typeof ltx.escapeXMLText;
+    const unescapeXMLText: typeof ltx.unescapeXMLText;
 
     class Parser extends ltx.Parser {
         static readonly XMLError: typeof XMLError;
-        readonly parser: LtxParser;
+        readonly parser: ltx.Parser;
         root: Element | null;
         cursor: Element | null;
 

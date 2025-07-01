@@ -237,6 +237,8 @@ declare namespace Less {
         } | undefined;
         /** Read files synchronously in Node.js */
         syncImport?: boolean | undefined;
+        /** Rewrite URLs in imported files  */
+        rewriteUrls?: "off" | "all" | "local";
     }
 
     interface RenderError {

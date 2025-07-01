@@ -27,10 +27,16 @@ declare global {
 import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
 
+export type BootstrapScriptDescriptor = {
+    src: string;
+    integrity?: string | undefined;
+    crossOrigin?: string | undefined;
+};
+
 export interface PrerenderOptions {
     bootstrapScriptContent?: string;
-    bootstrapScripts?: string[];
-    bootstrapModules?: string[];
+    bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
+    bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
     identifierPrefix?: string;
     namespaceURI?: string;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;

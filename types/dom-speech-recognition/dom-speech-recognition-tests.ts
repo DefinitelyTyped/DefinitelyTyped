@@ -64,6 +64,11 @@ const speechRecognition2: SpeechRecognition = {
 };
 const speechRecognition3 = new webkitSpeechRecognition();
 
+const speechRecognition4: SpeechRecognition = {
+    ...speechRecognition2,
+    start: (audioTrack: MediaStreamTrack) => undefined,
+};
+
 const speechRecognitionResultList = new SpeechRecognitionResultList();
 
 const speechRecognitionEventInit: SpeechRecognitionEventInit = {

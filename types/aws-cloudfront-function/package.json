@@ -5,7 +5,9 @@
     "nonNpm": true,
     "nonNpmDescription": "AWS CloudFront Functions",
     "projects": [
-        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html"
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html",
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-custom-methods.html",
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/helper-functions-origin-modification.html"
     ],
     "devDependencies": {
         "@types/aws-cloudfront-function": "workspace:."

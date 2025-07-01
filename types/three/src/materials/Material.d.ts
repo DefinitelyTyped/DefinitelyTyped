@@ -52,6 +52,7 @@ export interface MaterialParameters {
     precision?: "highp" | "mediump" | "lowp" | null | undefined;
     premultipliedAlpha?: boolean | undefined;
     forceSinglePass?: boolean | undefined;
+    allowOverride?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -286,7 +287,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendDst: BlendingDstFactor;
 
     /**
-     * The tranparency of the .blendDst. Default is null.
+     * The transparency of the .blendDst. Default is null.
      * @default null
      */
     blendDstAlpha: number | null;
@@ -298,7 +299,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendEquation: BlendingEquation;
 
     /**
-     * The tranparency of the .blendEquation. Default is null.
+     * The transparency of the .blendEquation. Default is null.
      * @default null
      */
     blendEquationAlpha: number | null;
@@ -316,7 +317,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendSrc: BlendingSrcFactor | BlendingDstFactor;
 
     /**
-     * The tranparency of the .blendSrc. Default is null.
+     * The transparency of the .blendSrc. Default is null.
      * @default null
      */
     blendSrcAlpha: number | null;
@@ -479,6 +480,8 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      */
     forceSinglePass: boolean;
 
+    allowOverride: boolean;
+
     /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
      * @default false
@@ -573,7 +576,9 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
      * This function is called with the shader source code as a parameter.
-     * Useful for the modification of built-in materials.
+     * Useful for the modification of built-in materials, but the recommended approach moving forward is to use
+     * `WebGPURenderer` with the new Node Material system and
+     * [TSL]{@link https://github.com/mrdoob/three.js/wiki/Three.js-Shading-Language}.
      * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
      * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
      * @param parameters WebGL program parameters
@@ -623,9 +628,4 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     set needsUpdate(value: boolean);
-
-    /**
-     * @deprecated onBuild() has been removed.
-     */
-    onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 }

@@ -68,7 +68,7 @@ export namespace Storage {
         onChanged: Events.Event<(changes: StorageAreaOnChangedChangesType) => void>;
     }
 
-    interface StorageAreaSync {
+    interface StorageAreaWithUsage {
         /**
          * Gets one or more items from storage.
          *
@@ -121,7 +121,7 @@ export namespace Storage {
          *
          * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
          */
-        onChanged: Events.Event<(changes: StorageAreaSyncOnChangedChangesType) => void>;
+        onChanged: Events.Event<(changes: StorageAreaWithUsageOnChangedChangesType) => void>;
     }
 
     /**
@@ -134,7 +134,7 @@ export namespace Storage {
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
-    interface StorageAreaSyncOnChangedChangesType {
+    interface StorageAreaWithUsageOnChangedChangesType {
         [s: string]: StorageChange;
     }
 
@@ -151,7 +151,7 @@ export namespace Storage {
         /**
          * Items in the <code>sync</code> storage area are synced by the browser.
          */
-        sync: StorageAreaSync;
+        sync: StorageAreaWithUsage;
 
         /**
          * Items in the <code>local</code> storage area are local to each machine.
@@ -168,6 +168,6 @@ export namespace Storage {
          * Items in the <code>session</code> storage area are kept in memory, and only until the either browser or extension is
          * closed or reloaded.
          */
-        session: StorageArea;
+        session: StorageAreaWithUsage;
     }
 }

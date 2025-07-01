@@ -13,6 +13,7 @@ import {
     MultiPolygon,
     Point,
     Polygon,
+    Position,
 } from "geojson";
 
 let featureCollection: FeatureCollection = {
@@ -103,6 +104,14 @@ featureWithPolygon.type; // $ExpectType "Feature"
 featureWithPolygon.geometry; // $ExpectType Polygon
 featureWithPolygon.geometry.type; // $ExpectType "Polygon"
 featureWithPolygon.geometry.coordinates; // $ExpectType number[][][] || Position[][]
+
+const position2D: Position = [12, 34];
+const position3D: Position = [12, 34, 56];
+// valid types, even if the spec requires exactly 2 or 3 dimensions
+const position0D: Position = [];
+const position1D: Position = [12];
+const position4D: Position = [12, 34, 56, 78];
+const position5D: Position = [12, 34, 56, 78, 90];
 
 const point: Point = {
     type: "Point",

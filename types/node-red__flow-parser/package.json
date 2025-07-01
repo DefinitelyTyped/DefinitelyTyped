@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/node-red__flow-parser",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/node-red/flow-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/node-red__flow-parser": "workspace:."
+    },
+    "owners": []
+}
