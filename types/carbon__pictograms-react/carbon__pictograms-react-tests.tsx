@@ -3,16 +3,20 @@ import {
     AddDocument,
     AdvancedFraudProtection,
     AdvocateMask,
+    Agile,
+    AgileCoaching,
     Ai,
     AiExplainability,
     Airplane,
     AppModernization,
     AudioData,
+    B2bCommerce,
     Backpack,
     BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
+    CodeConversion,
     ContentDesign,
     Dashboard,
     DoctorPatient,
@@ -23,6 +27,8 @@ import {
     IbmCloud,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    MachineLearningModel,
+    MagicWand,
     MovingDolly,
     RedHatApplications,
     ShanghaiSkyline,
@@ -73,3 +79,9 @@ import * as React from "react";
 <Spss />; // $ExpectType Element
 <BentoBoxTray />; // $ExpectType Element
 <ShanghaiSkyline />; // $ExpectType Element
+<MagicWand />; // $ExpectType Element
+<B2bCommerce />; // $ExpectType Element
+<MachineLearningModel />; // $ExpectType Element
+<Agile />; // $ExpectType Element
+<AgileCoaching />; // $ExpectType Element
+<CodeConversion />; // $ExpectType Element

@@ -41,8 +41,8 @@
  * });
  * ```
  *
- * See the [Implementation considerations section](https://nodejs.org/docs/latest-v22.x/api/dns.html#implementation-considerations) for more information.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/dns.js)
+ * See the [Implementation considerations section](https://nodejs.org/docs/latest-v24.x/api/dns.html#implementation-considerations) for more information.
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/dns.js)
  */
 declare module "dns" {
     import * as dnsPromises from "node:dns/promises";
@@ -71,7 +71,7 @@ declare module "dns" {
          */
         family?: number | "IPv4" | "IPv6" | undefined;
         /**
-         * One or more [supported `getaddrinfo`](https://nodejs.org/docs/latest-v22.x/api/dns.html#supported-getaddrinfo-flags) flags. Multiple flags may be
+         * One or more [supported `getaddrinfo`](https://nodejs.org/docs/latest-v24.x/api/dns.html#supported-getaddrinfo-flags) flags. Multiple flags may be
          * passed by bitwise `OR`ing their values.
          */
         hints?: number | undefined;
@@ -84,7 +84,7 @@ declare module "dns" {
          * When `verbatim`, the resolved addresses are return unsorted. When `ipv4first`, the resolved addresses are sorted
          * by placing IPv4 addresses before IPv6 addresses. When `ipv6first`, the resolved addresses are sorted by placing IPv6
          * addresses before IPv4 addresses. Default value is configurable using
-         * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--dns-result-orderorder).
+         * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--dns-result-orderorder).
          * @default `verbatim` (addresses are not reordered)
          * @since v22.1.0
          */
@@ -133,7 +133,7 @@ declare module "dns" {
      * The implementation uses an operating system facility that can associate names
      * with addresses and vice versa. This implementation can have subtle but
      * important consequences on the behavior of any Node.js program. Please take some
-     * time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v22.x/api/dns.html#implementation-considerations)
+     * time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v24.x/api/dns.html#implementation-considerations)
      * before using `dns.lookup()`.
      *
      * Example usage:
@@ -155,7 +155,7 @@ declare module "dns" {
      * // addresses: [{"address":"2606:2800:220:1:248:1893:25c8:1946","family":6}]
      * ```
      *
-     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v22.x/api/util.html#utilpromisifyoriginal) ed
+     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v24.x/api/util.html#utilpromisifyoriginal) ed
      * version, and `all` is not set to `true`, it returns a `Promise` for an `Object` with `address` and `family` properties.
      * @since v0.1.90
      */
@@ -195,7 +195,7 @@ declare module "dns" {
      * If `address` is not a valid IP address, a `TypeError` will be thrown.
      * The `port` will be coerced to a number. If it is not a legal port, a `TypeError` will be thrown.
      *
-     * On an error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object,
+     * On an error, `err` is an [`Error`](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-error) object,
      * where `err.code` is the error code.
      *
      * ```js
@@ -206,7 +206,7 @@ declare module "dns" {
      * });
      * ```
      *
-     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v22.x/api/util.html#utilpromisifyoriginal) ed
+     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v24.x/api/util.html#utilpromisifyoriginal) ed
      * version, it returns a `Promise` for an `Object` with `hostname` and `service` properties.
      * @since v0.11.14
      */
@@ -289,6 +289,15 @@ declare module "dns" {
     export interface AnySrvRecord extends SrvRecord {
         type: "SRV";
     }
+    export interface TlsaRecord {
+        certUsage: number;
+        selector: number;
+        match: number;
+        data: ArrayBuffer;
+    }
+    export interface AnyTlsaRecord extends TlsaRecord {
+        type: "TLSA";
+    }
     export interface AnyTxtRecord {
         type: "TXT";
         entries: string[];
@@ -315,6 +324,7 @@ declare module "dns" {
         | AnyPtrRecord
         | AnySoaRecord
         | AnySrvRecord
+        | AnyTlsaRecord
         | AnyTxtRecord;
     /**
      * Uses the DNS protocol to resolve a host name (e.g. `'nodejs.org'`) into an array
@@ -323,7 +333,7 @@ declare module "dns" {
      *
      * <omitted>
      *
-     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object,
+     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-error) object,
      * where `err.code` is one of the `DNS error codes`.
      * @since v0.1.27
      * @param hostname Host name to resolve.
@@ -385,6 +395,11 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
+        rrtype: "TLSA",
+        callback: (err: NodeJS.ErrnoException | null, addresses: TlsaRecord[]) => void,
+    ): void;
+    export function resolve(
+        hostname: string,
         rrtype: "TXT",
         callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void,
     ): void;
@@ -393,7 +408,15 @@ declare module "dns" {
         rrtype: string,
         callback: (
             err: NodeJS.ErrnoException | null,
-            addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[],
+            addresses:
+                | string[]
+                | MxRecord[]
+                | NaptrRecord[]
+                | SoaRecord
+                | SrvRecord[]
+                | TlsaRecord[]
+                | string[][]
+                | AnyRecord[],
         ) => void,
     ): void;
     export namespace resolve {
@@ -403,11 +426,14 @@ declare module "dns" {
         function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
         function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+        function __promisify__(hostname: string, rrtype: "TLSA"): Promise<TlsaRecord[]>;
         function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
         function __promisify__(
             hostname: string,
             rrtype: string,
-        ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+        ): Promise<
+            string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | TlsaRecord[] | string[][] | AnyRecord[]
+        >;
     }
     /**
      * Uses the DNS protocol to resolve a IPv4 addresses (`A` records) for the `hostname`. The `addresses` argument passed to the `callback` function
@@ -610,6 +636,33 @@ declare module "dns" {
         function __promisify__(hostname: string): Promise<SrvRecord[]>;
     }
     /**
+     * Uses the DNS protocol to resolve certificate associations (`TLSA` records) for
+     * the `hostname`. The `records` argument passed to the `callback` function is an
+     * array of objects with these properties:
+     *
+     * * `certUsage`
+     * * `selector`
+     * * `match`
+     * * `data`
+     *
+     * ```js
+     * {
+     *   certUsage: 3,
+     *   selector: 1,
+     *   match: 1,
+     *   data: [ArrayBuffer]
+     * }
+     * ```
+     * @since v23.9.0, v22.15.0
+     */
+    export function resolveTlsa(
+        hostname: string,
+        callback: (err: NodeJS.ErrnoException | null, addresses: TlsaRecord[]) => void,
+    ): void;
+    export namespace resolveTlsa {
+        function __promisify__(hostname: string): Promise<TlsaRecord[]>;
+    }
+    /**
      * Uses the DNS protocol to resolve text queries (`TXT` records) for the `hostname`. The `records` argument passed to the `callback` function is a
      * two-dimensional array of the text records available for `hostname` (e.g.`[ ['v=spf1 ip4:0.0.0.0 ', '~all' ] ]`). Each sub-array contains TXT chunks of
      * one record. Depending on the use case, these could be either joined together or
@@ -664,8 +717,8 @@ declare module "dns" {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object, where `err.code` is
-     * one of the [DNS error codes](https://nodejs.org/docs/latest-v22.x/api/dns.html#error-codes).
+     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-error) object, where `err.code` is
+     * one of the [DNS error codes](https://nodejs.org/docs/latest-v24.x/api/dns.html#error-codes).
      * @since v0.1.16
      */
     export function reverse(
@@ -673,7 +726,7 @@ declare module "dns" {
         callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void,
     ): void;
     /**
-     * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v24.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
      * * `ipv4first`: for `order` defaulting to `ipv4first`.
@@ -728,7 +781,7 @@ declare module "dns" {
      */
     export function getServers(): string[];
     /**
-     * Set the default value of `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Set the default value of `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v24.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
      * * `ipv4first`: sets default `order` to `ipv4first`.
@@ -736,8 +789,8 @@ declare module "dns" {
      * * `verbatim`: sets default `order` to `verbatim`.
      *
      * The default is `verbatim` and {@link setDefaultResultOrder} have higher
-     * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--dns-result-orderorder). When using
-     * [worker threads](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
+     * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--dns-result-orderorder). When using
+     * [worker threads](https://nodejs.org/docs/latest-v24.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
      * thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
      * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
@@ -783,7 +836,7 @@ declare module "dns" {
      * An independent resolver for DNS requests.
      *
      * Creating a new resolver uses the default server settings. Setting
-     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnssetserversservers) does not affect
+     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v24.x/api/dns.html#dnssetserversservers) does not affect
      * other resolvers:
      *
      * ```js
@@ -838,6 +891,7 @@ declare module "dns" {
         resolvePtr: typeof resolvePtr;
         resolveSoa: typeof resolveSoa;
         resolveSrv: typeof resolveSrv;
+        resolveTlsa: typeof resolveTlsa;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
         /**

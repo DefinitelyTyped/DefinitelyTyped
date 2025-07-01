@@ -1,4 +1,4 @@
-// For Library Version: 1.131.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -34,7 +34,7 @@ declare module "sap/ui/unified/library" {
    * 'CalendarAppointmentRoundWidth'.
    *
    * @since 1.81.0
-   * @experimental (since 1.81.0)
+   * @experimental As of version 1.81.0.
    */
   export enum CalendarAppointmentRoundWidth {
     /**
@@ -233,7 +233,7 @@ declare module "sap/ui/unified/library" {
    * 'ContentSwitcherAnimation'.
    *
    * @since 1.16.0
-   * @experimental (since 1.16.0) - API is not yet finished and might change completely
+   * @experimental As of version 1.16.0. API is not yet finished and might change completely
    */
   export enum ContentSwitcherAnimation {
     /**
@@ -369,11 +369,11 @@ declare module "sap/ui/unified/Calendar" {
 
   import UI5Date from "sap/ui/core/date/UI5Date";
 
-  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+  import CalendarWeekNumbering from "sap/base/i18n/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -948,7 +948,10 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -1015,8 +1018,14 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Gets current value of property {@link #getNonWorkingDays nonWorkingDays}.
      *
-     * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
-     * to 6. If not set, the weekend defined in the locale settings is displayed as non-working days.
+     * This property sets chosen days of the week as non-working days, and overrides the weekend days defined
+     * in the locale settings. If set, the provided weekdays are displayed as non-working days.
+     *
+     * Users could override the non-working days for each week. Valid values inside the array are from 0
+     * to 6. For example:
+     * 	 - A single day for each week - `[3]`.
+     * 	 - All days for each week - `[0,1,2,3,4,5,6]`.
+     * 	 - None of the days for each week - `[]`. In this case all weekdays are working days.
      *
      * **Note:** Keep in mind that this property sets only weekly-recurring days as non-working. If you need
      * specific dates or dates ranges, such as national holidays, use the `specialDates` aggregation to set
@@ -1089,7 +1098,10 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
+     * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
+     *
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `true`.
      *
@@ -1320,7 +1332,9 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?: CalendarWeekNumbering
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
     ): this;
     /**
      * Sets a new value for property {@link #getFirstDayOfWeek firstDayOfWeek}.
@@ -1362,22 +1376,19 @@ declare module "sap/ui/unified/Calendar" {
       oInitialFocusedDate?: object
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of dates can be selected.
      *
-     * If set, interval selection is allowed
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setIntervalSelection(
       /**
-       * New value for property `intervalSelection`
+       * Indicates if `intervalSelection` should be enabled
        */
-      bIntervalSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * Sets the associated {@link #getLegend legend}.
@@ -1443,8 +1454,14 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Sets a new value for property {@link #getNonWorkingDays nonWorkingDays}.
      *
-     * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
-     * to 6. If not set, the weekend defined in the locale settings is displayed as non-working days.
+     * This property sets chosen days of the week as non-working days, and overrides the weekend days defined
+     * in the locale settings. If set, the provided weekdays are displayed as non-working days.
+     *
+     * Users could override the non-working days for each week. Valid values inside the array are from 0
+     * to 6. For example:
+     * 	 - A single day for each week - `[3]`.
+     * 	 - All days for each week - `[0,1,2,3,4,5,6]`.
+     * 	 - None of the days for each week - `[]`. In this case all weekdays are working days.
      *
      * **Note:** Keep in mind that this property sets only weekly-recurring days as non-working. If you need
      * specific dates or dates ranges, such as national holidays, use the `specialDates` aggregation to set
@@ -1478,7 +1495,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
@@ -1496,7 +1513,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets the visibility of the Current date button in the calendar.
@@ -1533,22 +1550,20 @@ declare module "sap/ui/unified/Calendar" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getSingleSelection singleSelection}.
+     * Setter for the property `singleSelection`. If set to `true` only a single date or single interval, when
+     * `intervalSelection` is set to `true`, can be selected.
      *
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
      *
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setSingleSelection(
       /**
-       * New value for property `singleSelection`
+       * Indicates if `singleSelection` should be enabled
        */
-      bSingleSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -1575,12 +1590,18 @@ declare module "sap/ui/unified/Calendar" {
    */
   export interface $CalendarSettings extends $ControlSettings {
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      */
     intervalSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
+     * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
+     *
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
      */
     singleSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -1605,8 +1626,14 @@ declare module "sap/ui/unified/Calendar" {
     firstDayOfWeek?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
-     * to 6. If not set, the weekend defined in the locale settings is displayed as non-working days.
+     * This property sets chosen days of the week as non-working days, and overrides the weekend days defined
+     * in the locale settings. If set, the provided weekdays are displayed as non-working days.
+     *
+     * Users could override the non-working days for each week. Valid values inside the array are from 0
+     * to 6. For example:
+     * 	 - A single day for each week - `[3]`.
+     * 	 - All days for each week - `[0,1,2,3,4,5,6]`.
+     * 	 - None of the days for each week - `[]`. In this case all weekdays are working days.
      *
      * **Note:** Keep in mind that this property sets only weekly-recurring days as non-working. If you need
      * specific dates or dates ranges, such as national holidays, use the `specialDates` aggregation to set
@@ -1622,7 +1649,10 @@ declare module "sap/ui/unified/Calendar" {
      *
      * @since 1.34.0
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
@@ -1630,7 +1660,10 @@ declare module "sap/ui/unified/Calendar" {
      *
      * @since 1.34.0
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Width of Calendar
@@ -1694,7 +1727,7 @@ declare module "sap/ui/unified/Calendar" {
      * @since 1.108.0
      */
     calendarWeekNumbering?:
-      | CalendarWeekNumbering
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -1902,7 +1935,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
 
   import UI5Date from "sap/ui/core/date/UI5Date";
 
-  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+  import CalendarWeekNumbering from "sap/base/i18n/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2057,7 +2090,9 @@ declare module "sap/ui/unified/calendar/DatesRow" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?: CalendarWeekNumbering
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
     ): this;
     /**
      * Setter for property `date`.
@@ -2157,7 +2192,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * @since 1.110.0
      */
     calendarWeekNumbering?:
-      | CalendarWeekNumbering
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
       | PropertyBindingInfo
       | `{${string}}`;
   }
@@ -3368,11 +3403,11 @@ declare module "sap/ui/unified/calendar/Month" {
 
   import UI5Date from "sap/ui/core/date/UI5Date";
 
-  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+  import CalendarWeekNumbering from "sap/base/i18n/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -4186,7 +4221,9 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `calendarWeekNumbering`
        */
-      sCalendarWeekNumbering?: CalendarWeekNumbering
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
     ): this;
     /**
      * Sets a date for the month.
@@ -4287,7 +4324,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
@@ -4305,7 +4342,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -4431,7 +4468,10 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * @since 1.34.0
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
@@ -4439,7 +4479,10 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * @since 1.34.0
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Width of Month
@@ -4465,7 +4508,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * @since 1.108.0
      */
     calendarWeekNumbering?:
-      | CalendarWeekNumbering
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -4641,7 +4684,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import {
     PropertyBindingInfo,
@@ -4938,7 +4981,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -5112,23 +5158,16 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       iColumns?: int
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of months can be selected.
      *
-     * If set, interval selection is allowed
      *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @since 1.74
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setIntervalSelection(
       /**
-       * New value for property `intervalSelection`
+       * Indicates if `intervalSelection` should be enabled
        */
-      bIntervalSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * sets a minimum and maximum month
@@ -5199,7 +5238,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
@@ -5217,7 +5256,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
   }
   /**
@@ -5237,7 +5276,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     months?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * @since 1.74
      */
@@ -5257,7 +5299,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      *
      * @since 1.34.0
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If set, the months are also displayed in this calendar type If not set, the months are only displayed
@@ -5265,7 +5310,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      *
      * @since 1.104.0
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Date Ranges for selected dates of the MonthPicker
@@ -6955,7 +7003,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import {
     PropertyBindingInfo,
@@ -7252,7 +7300,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -7298,7 +7349,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * Default value is `2000`.
      *
-     * @deprecated (since 1.34.0) - replaced by `date` property
+     * @deprecated As of version 1.34.0. replaced by `date` property
      *
      * @returns Value of property `year`
      */
@@ -7417,23 +7468,16 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of years can be selected.
      *
-     * If set, interval selection is allowed
      *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @since 1.74
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setIntervalSelection(
       /**
-       * New value for property `intervalSelection`
+       * Indicates if `intervalSelection` should be enabled
        */
-      bIntervalSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
@@ -7451,7 +7495,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
@@ -7469,7 +7513,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType: CalendarType
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getYears years}.
@@ -7498,7 +7542,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * The year is initial focused and selected The value must be between 0 and 9999
      *
-     * @deprecated (since 1.34.0) - replaced by `date` property
+     * @deprecated As of version 1.34.0. replaced by `date` property
      */
     year?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7510,7 +7554,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     years?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * @since 1.74
      */
@@ -7537,7 +7584,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * @since 1.34.0
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
@@ -7545,7 +7595,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * @since 1.104.0
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Date Ranges for selected dates of the YearPicker
@@ -8717,7 +8770,7 @@ declare module "sap/ui/unified/CalendarLegendItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): CalendarDayType | keyof typeof CalendarDayType;
+    getType(): CalendarDayType;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -10300,9 +10353,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * @returns Value of property `appointmentHeight`
      */
-    getAppointmentHeight():
-      | CalendarAppointmentHeight
-      | keyof typeof CalendarAppointmentHeight;
+    getAppointmentHeight(): CalendarAppointmentHeight;
     /**
      * Gets current value of property {@link #getAppointmentRoundWidth appointmentRoundWidth}.
      *
@@ -10315,9 +10366,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * @returns Value of property `appointmentRoundWidth`
      */
-    getAppointmentRoundWidth():
-      | CalendarAppointmentRoundWidth
-      | keyof typeof CalendarAppointmentRoundWidth;
+    getAppointmentRoundWidth(): CalendarAppointmentRoundWidth;
     /**
      * Gets content of aggregation {@link #getAppointments appointments}.
      *
@@ -10337,7 +10386,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * Default value is `false`.
      *
      * @since 1.38.0
-     * @deprecated (since 1.81) - Please use the `appointmentHeight` with value "Automatic" property instead.
+     * @deprecated As of version 1.81. Please use the `appointmentHeight` with value "Automatic" property instead.
      *
      * @returns Value of property `appointmentsReducedHeight`
      */
@@ -10355,9 +10404,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * @returns Value of property `appointmentsVisualization`
      */
-    getAppointmentsVisualization():
-      | CalendarAppointmentVisualization
-      | keyof typeof CalendarAppointmentVisualization;
+    getAppointmentsVisualization(): CalendarAppointmentVisualization;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -10401,9 +10448,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * @returns Value of property `groupAppointmentsMode`
      */
-    getGroupAppointmentsMode():
-      | GroupAppointmentsMode
-      | keyof typeof GroupAppointmentsMode;
+    getGroupAppointmentsMode(): GroupAppointmentsMode;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -10845,7 +10890,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * Default value is `false`.
      *
      * @since 1.38.0
-     * @deprecated (since 1.81) - Please use the `appointmentHeight` with value "Automatic" property instead.
+     * @deprecated As of version 1.81. Please use the `appointmentHeight` with value "Automatic" property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11319,7 +11364,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * to allow touching.
      *
      * @since 1.38.0
-     * @deprecated (since 1.81) - Please use the `appointmentHeight` with value "Automatic" property instead.
+     * @deprecated As of version 1.81. Please use the `appointmentHeight` with value "Automatic" property instead.
      */
     appointmentsReducedHeight?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -12837,9 +12882,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * @returns Value of property `displayMode`
      */
-    getDisplayMode():
-      | ColorPickerDisplayMode
-      | keyof typeof ColorPickerDisplayMode;
+    getDisplayMode(): ColorPickerDisplayMode;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -12855,7 +12898,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): ColorPickerMode | keyof typeof ColorPickerMode;
+    getMode(): ColorPickerMode;
     /**
      * Gets current RGB values.
      *
@@ -13402,9 +13445,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      *
      * @returns Value of property `displayMode`
      */
-    getDisplayMode():
-      | ColorPickerDisplayMode
-      | keyof typeof ColorPickerDisplayMode;
+    getDisplayMode(): ColorPickerDisplayMode;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -13416,7 +13457,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): ColorPickerMode | keyof typeof ColorPickerMode;
+    getMode(): ColorPickerMode;
     /**
      * Opens the `ColorPickerPopover`. The popover is positioned relative to the control parameter on tablet
      * or desktop and is full screen on phone. Therefore the openBy parameter is only used on tablet or desktop
@@ -13677,8 +13718,8 @@ declare module "sap/ui/unified/ContentSwitcher" {
    * Switches between two control areas and animates it via CSS transitions
    *
    * @since 1.16.0
-   * @deprecated (since 1.44.0) - the concept has been discarded.
-   * @experimental (since 1.16.0) - API is not yet finished and might change completely
+   * @deprecated As of version 1.44.0. the concept has been discarded.
+   * @experimental As of version 1.16.0. API is not yet finished and might change completely
    */
   export default class ContentSwitcher extends Control {
     /**
@@ -13970,8 +14011,8 @@ declare module "sap/ui/unified/ContentSwitcher" {
   /**
    * Describes the settings that can be provided to the ContentSwitcher constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
-   * @experimental (since 1.16.0) - API is not yet finished and might change completely
+   * @deprecated As of version 1.44.0. the concept has been discarded.
+   * @experimental As of version 1.16.0. API is not yet finished and might change completely
    */
   export interface $ContentSwitcherSettings extends $ControlSettings {
     /**
@@ -14544,7 +14585,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      *
      * @returns Value of property `secondaryType`
      */
-    getSecondaryType(): CalendarDayType | keyof typeof CalendarDayType;
+    getSecondaryType(): CalendarDayType;
     /**
      * Gets current value of property {@link #getType type}.
      *
@@ -14555,7 +14596,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      *
      * @returns Value of property `type`
      */
-    getType(): CalendarDayType | keyof typeof CalendarDayType;
+    getType(): CalendarDayType;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -16248,7 +16289,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateText valueStateText}.
      *
@@ -17954,7 +17995,7 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
 declare module "sap/ui/unified/Menu" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IContextMenu, ID, Dock, Collision } from "sap/ui/core/library";
+  import { IContextMenu, ID, Collision } from "sap/ui/core/library";
 
   import { IMenuItem } from "sap/ui/unified/library";
 
@@ -17963,6 +18004,8 @@ declare module "sap/ui/unified/Menu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Element from "sap/ui/core/Element";
+
+  import Popup from "sap/ui/core/Popup";
 
   import {
     PropertyBindingInfo,
@@ -18330,7 +18373,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * Accessible label / description of the menu for assistive technologies like screenreaders.
      *
-     * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
+     * @deprecated As of version 1.27.0. replaced by `ariaLabelledBy` association
      *
      * @returns Value of property `ariaDescription`
      */
@@ -18458,11 +18501,11 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The reference docking location of the menu for positioning the menu on the screen
        */
-      my: Dock,
+      my: typeof Popup.Dock | keyof typeof Popup.Dock,
       /**
        * The 'of' element's reference docking location for positioning the menu on the screen
        */
-      at: Dock,
+      at: typeof Popup.Dock | keyof typeof Popup.Dock,
       /**
        * The menu is positioned relatively to this element based on the given dock locations
        */
@@ -18541,7 +18584,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
+     * @deprecated As of version 1.27.0. replaced by `ariaLabelledBy` association
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -18629,7 +18672,7 @@ declare module "sap/ui/unified/Menu" {
     /**
      * Accessible label / description of the menu for assistive technologies like screenreaders.
      *
-     * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
+     * @deprecated As of version 1.27.0. replaced by `ariaLabelledBy` association
      */
     ariaDescription?: string | PropertyBindingInfo;
 
@@ -18834,7 +18877,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Adds some endContent to the aggregation {@link #getEndContent endContent}.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -18848,7 +18890,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Destroys all the endContent in the aggregation {@link #getEndContent endContent}.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -18864,7 +18905,6 @@ declare module "sap/ui/unified/MenuItem" {
      * of custom elements, such as icons and buttons.
      *
      * @since 1.131
-     * @experimental
      */
     getEndContent(): Control[];
     /**
@@ -18916,7 +18956,6 @@ declare module "sap/ui/unified/MenuItem" {
      * returns its index if found or -1 otherwise.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -18930,7 +18969,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Inserts a endContent into the aggregation {@link #getEndContent endContent}.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -18959,7 +18997,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Additionally, it unregisters them from the hosting UIArea.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -18980,7 +19017,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Removes a endContent from the aggregation {@link #getEndContent endContent}.
      *
      * @since 1.131
-     * @experimental
      *
      * @returns The removed endContent or `null`
      */
@@ -19101,7 +19137,6 @@ declare module "sap/ui/unified/MenuItem" {
      * of custom elements, such as icons and buttons.
      *
      * @since 1.131
-     * @experimental
      */
     endContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
@@ -19824,8 +19859,8 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     /**
      * The aggregation `submenu` (inherited from parent class) is not supported for this type of menu item.
      *
-     * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
-     * this type of menu item.
+     * @deprecated As of version 1.21. the aggregation `submenu` (inherited from parent class) is not supported
+     * for this type of menu item.
      *
      * @returns `this` to allow method chaining
      */
@@ -19852,8 +19887,8 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     /**
      * The aggregation `submenu` (inherited from parent class) is not supported for this type of menu item.
      *
-     * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
-     * this type of menu item.
+     * @deprecated As of version 1.21. the aggregation `submenu` (inherited from parent class) is not supported
+     * for this type of menu item.
      */
     getSubmenu(): Menu;
     /**
@@ -19876,7 +19911,7 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -19913,8 +19948,8 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     /**
      * The aggregation `submenu` (inherited from parent class) is not supported for this type of menu item.
      *
-     * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
-     * this type of menu item.
+     * @deprecated As of version 1.21. the aggregation `submenu` (inherited from parent class) is not supported
+     * for this type of menu item.
      *
      * @returns `this` to allow method chaining
      */
@@ -20004,7 +20039,7 @@ declare module "sap/ui/unified/NonWorkingPeriod" {
    * NonWorkingPeriod
    *
    * @since 1.27.0
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export default class NonWorkingPeriod extends UI5Element {
     /**
@@ -20130,7 +20165,7 @@ declare module "sap/ui/unified/NonWorkingPeriod" {
   /**
    * Describes the settings that can be provided to the NonWorkingPeriod constructor.
    *
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export interface $NonWorkingPeriodSettings extends $ElementSettings {
     /**
@@ -20163,7 +20198,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
    * Applications can inherit from this element to add own fields.
    *
    * @since 1.127.0
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export default class RecurringNonWorkingPeriod extends NonWorkingPeriod {
     /**
@@ -20260,7 +20295,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      *
      * @returns Value of property `recurrenceType`
      */
-    getRecurrenceType(): RecurrenceType | keyof typeof RecurrenceType;
+    getRecurrenceType(): RecurrenceType;
     /**
      * Sets a new value for property {@link #getRecurrenceEndDate recurrenceEndDate}.
      *
@@ -20319,7 +20354,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
   /**
    * Describes the settings that can be provided to the RecurringNonWorkingPeriod constructor.
    *
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export interface $RecurringNonWorkingPeriodSettings
     extends $NonWorkingPeriodSettings {
@@ -20375,7 +20410,7 @@ declare module "sap/ui/unified/Shell" {
    * than the root control usecase.
    *
    * @since 1.15.1
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export default class Shell extends ShellLayout {
     /**
@@ -20599,7 +20634,7 @@ declare module "sap/ui/unified/Shell" {
      *
      * Shows / Hides the curtain.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * @returns Value of property `showCurtain`
      */
@@ -20609,7 +20644,7 @@ declare module "sap/ui/unified/Shell" {
      *
      * Shows / Hides the side pane on the curtain.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * @returns Value of property `showCurtainPane`
      */
@@ -20898,7 +20933,7 @@ declare module "sap/ui/unified/Shell" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -20915,7 +20950,7 @@ declare module "sap/ui/unified/Shell" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -20942,7 +20977,7 @@ declare module "sap/ui/unified/Shell" {
   /**
    * Describes the settings that can be provided to the Shell constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export interface $ShellSettings extends $ShellLayoutSettings {
     /**
@@ -20953,14 +20988,14 @@ declare module "sap/ui/unified/Shell" {
     /**
      * Shows / Hides the curtain.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      */
     showCurtain?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Shows / Hides the side pane on the curtain.
      *
-     * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
+     * @deprecated As of version 1.16.3. Curtain is deprecated and replaced by ShellOverlay mechanism.
      */
     showCurtainPane?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -21043,7 +21078,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
    * Header Action item of the Shell.
    *
    * @since 1.15.1
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export default class ShellHeadItem extends UI5Element {
     /**
@@ -21230,7 +21265,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.18) - Markers should not be used anymore.
+     * @deprecated As of version 1.18. Markers should not be used anymore.
      *
      * @returns Value of property `showMarker`
      */
@@ -21254,7 +21289,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.18) - Dividers are not supported anymore.
+     * @deprecated As of version 1.18. Dividers are not supported anymore.
      *
      * @returns Value of property `startsSection`
      */
@@ -21348,7 +21383,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.18) - Markers should not be used anymore.
+     * @deprecated As of version 1.18. Markers should not be used anymore.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -21386,7 +21421,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.18) - Dividers are not supported anymore.
+     * @deprecated As of version 1.18. Dividers are not supported anymore.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -21440,13 +21475,13 @@ declare module "sap/ui/unified/ShellHeadItem" {
   /**
    * Describes the settings that can be provided to the ShellHeadItem constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export interface $ShellHeadItemSettings extends $ElementSettings {
     /**
      * If set to true, a divider is displayed before the item.
      *
-     * @deprecated (since 1.18) - Dividers are not supported anymore.
+     * @deprecated As of version 1.18. Dividers are not supported anymore.
      */
     startsSection?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -21474,7 +21509,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
     /**
      * If set to true, a theme dependent marker is shown on the item.
      *
-     * @deprecated (since 1.18) - Markers should not be used anymore.
+     * @deprecated As of version 1.18. Markers should not be used anymore.
      */
     showMarker?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -21533,7 +21568,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
    * User Header Action Item of the Shell.
    *
    * @since 1.22.0
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export default class ShellHeadUserItem extends UI5Element {
     /**
@@ -21802,7 +21837,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
   /**
    * Describes the settings that can be provided to the ShellHeadUserItem constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export interface $ShellHeadUserItemSettings extends $ElementSettings {
     /**
@@ -21865,7 +21900,7 @@ declare module "sap/ui/unified/ShellLayout" {
    * do not use it for other scenarios than the root control usecase.
    *
    * @since 1.25.0
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export default class ShellLayout extends Control {
     /**
@@ -22202,7 +22237,7 @@ declare module "sap/ui/unified/ShellLayout" {
   /**
    * Describes the settings that can be provided to the ShellLayout constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export interface $ShellLayoutSettings extends $ControlSettings {
     /**
@@ -22255,7 +22290,7 @@ declare module "sap/ui/unified/ShellOverlay" {
    * ShellOverlay to be opened in front of an sap.ui.unified.Shell
    *
    * @since 1.16.3
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export default class ShellOverlay extends Control {
     /**
@@ -22565,7 +22600,7 @@ declare module "sap/ui/unified/ShellOverlay" {
   /**
    * Describes the settings that can be provided to the ShellOverlay constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
+   * @deprecated As of version 1.44.0. the concept has been discarded.
    */
   export interface $ShellOverlaySettings extends $ControlSettings {
     /**
@@ -22625,8 +22660,8 @@ declare module "sap/ui/unified/SplitContainer" {
    * Provides a main content and a secondary content area
    *
    * @since 1.15.0
-   * @deprecated (since 1.44.0) - the concept has been discarded.
-   * @experimental (since 1.15.0) - API is not yet finished and might change completely
+   * @deprecated As of version 1.44.0. the concept has been discarded.
+   * @experimental As of version 1.15.0. API is not yet finished and might change completely
    */
   export default class SplitContainer extends Control {
     /**
@@ -22746,7 +22781,7 @@ declare module "sap/ui/unified/SplitContainer" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): Orientation | keyof typeof Orientation;
+    getOrientation(): Orientation;
     /**
      * Gets content of aggregation {@link #getSecondaryContent secondaryContent}.
      *
@@ -22771,7 +22806,7 @@ declare module "sap/ui/unified/SplitContainer" {
      *
      * Default value is `'250px'`.
      *
-     * @deprecated (since 1.22) - Only available for backwards compatibility.
+     * @deprecated As of version 1.22. Only available for backwards compatibility.
      *
      * @returns Value of property `secondaryContentWidth`
      */
@@ -22935,7 +22970,7 @@ declare module "sap/ui/unified/SplitContainer" {
      *
      * Default value is `'250px'`.
      *
-     * @deprecated (since 1.22) - Only available for backwards compatibility.
+     * @deprecated As of version 1.22. Only available for backwards compatibility.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -22965,8 +23000,8 @@ declare module "sap/ui/unified/SplitContainer" {
   /**
    * Describes the settings that can be provided to the SplitContainer constructor.
    *
-   * @deprecated (since 1.44.0) - the concept has been discarded.
-   * @experimental (since 1.15.0) - API is not yet finished and might change completely
+   * @deprecated As of version 1.44.0. the concept has been discarded.
+   * @experimental As of version 1.15.0. API is not yet finished and might change completely
    */
   export interface $SplitContainerSettings extends $ControlSettings {
     /**
@@ -22982,7 +23017,7 @@ declare module "sap/ui/unified/SplitContainer" {
     /**
      * Do not use. Use secondaryContentSize instead.
      *
-     * @deprecated (since 1.22) - Only available for backwards compatibility.
+     * @deprecated As of version 1.22. Only available for backwards compatibility.
      */
     secondaryContentWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
@@ -23025,7 +23060,7 @@ declare module "sap/ui/unified/TimeRange" {
    * Time range for use in `NonWorkingPeriod`
    *
    * @since 1.127.0
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export default class TimeRange extends UI5Element {
     /**
@@ -23191,7 +23226,7 @@ declare module "sap/ui/unified/TimeRange" {
   /**
    * Describes the settings that can be provided to the TimeRange constructor.
    *
-   * @experimental (since 1.127.0)
+   * @experimental As of version 1.127.0.
    */
   export interface $TimeRangeSettings extends $ElementSettings {
     /**

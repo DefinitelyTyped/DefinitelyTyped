@@ -31,12 +31,12 @@ export default class StorageTextureNode extends TextureNode {
 
 export const storageTexture: (
     value: Texture,
-    uvNode?: NodeRepresentation,
+    uvNode?: NodeRepresentation | null,
     storeNode?: NodeRepresentation,
 ) => ShaderNodeObject<StorageTextureNode>;
 
 export const textureStore: (
     value: Texture,
-    uvNode?: NodeRepresentation,
+    uvNode?: NodeRepresentation | null,
     storeNode?: NodeRepresentation,
 ) => ShaderNodeObject<StorageTextureNode>;

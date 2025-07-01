@@ -9,5 +9,6 @@ export default ComputeBuiltinNode;
 
 export const numWorkgroups: ShaderNodeObject<ComputeBuiltinNode>;
 export const workgroupId: ShaderNodeObject<ComputeBuiltinNode>;
+export const globalId: ShaderNodeObject<ComputeBuiltinNode>;
 export const localId: ShaderNodeObject<ComputeBuiltinNode>;
 export const subgroupSize: ShaderNodeObject<ComputeBuiltinNode>;

@@ -25,7 +25,6 @@
         "test/integration/objects-reflector.ts",
         "test/integration/three-examples/webgl2_rendertarget_texture2darray.ts",
         "test/integration/three-examples/webgl_loader_ldraw.ts",
-        "test/integration/three-examples/webgl_loader_mmd.ts",
         "test/integration/three-examples/webgl_materials_channels.ts",
         "test/integration/three-examples/webxr_vr_handinput_cubes.ts",
         "test/integration/webxr-cube.ts",

@@ -1348,7 +1348,7 @@ export interface ScaleSequentialBase<Output, Unknown = never> {
     /**
      * See continuous.range.
      */
-    range(): () => [Output, Output];
+    range(): [Output, Output];
     /**
      * See continuous.range.
      * The given two-element array is converted to an interpolator function using d3.interpolate.
@@ -1676,7 +1676,7 @@ export interface ScaleDiverging<Output, Unknown = never> {
     /**
      * See continuous.range.
      */
-    range(): () => [Output, Output, Output];
+    range(): [Output, Output, Output];
     /**
      * See continuous.range.
      * The given two-element array is converted to an interpolator function using d3.interpolate and d3.piecewise.

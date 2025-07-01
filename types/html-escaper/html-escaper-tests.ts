@@ -1,7 +1,14 @@
 import { escape, unescape } from "html-escaper";
+import htmlEscaper = require("html-escaper");
 
 // $ExpectType string
-const escaped = escape("<bella>");
+escape("<bella>");
 
 // $ExpectType string
-const unescaped = unescape(escaped);
+unescape(escape("<bella>"));
+
+// $ExpectType string
+htmlEscaper.escape("<bella>");
+
+// $ExpectType string
+htmlEscaper.unescape(htmlEscaper.escape("<bella>"));

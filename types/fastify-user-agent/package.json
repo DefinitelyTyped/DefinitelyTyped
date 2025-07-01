@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/fastify-user-agent",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Eomm/fastify-user-agent"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/useragent": "^2.3.0",
+        "fastify": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/fastify-user-agent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleš Blaznik",
+            "githubUsername": "alesblaznik"
+        }
+    ]
+}

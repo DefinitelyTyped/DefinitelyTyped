@@ -44,7 +44,7 @@ dagre.graphlib.alg.components(gDagre);
 dagre.graphlib.alg.dijkstra(gDagre, "a", edge => 5);
 dagre.graphlib.alg.dijkstraAll(gDagre);
 dagre.graphlib.alg.findCycles(gDagre);
-dagre.graphlib.alg.floydWarchall(gDagre);
+dagre.graphlib.alg.floydWarshall(gDagre);
 dagre.graphlib.alg.isAcyclic(gDagre);
 dagre.graphlib.alg.postorder(gDagre, "a");
 dagre.graphlib.alg.preorder(gDagre, ["b", "c"]);

@@ -5,12 +5,12 @@
  * The module exports two specific components:
  *
  * * A `Console` class with methods such as `console.log()`, `console.error()`, and `console.warn()` that can be used to write to any Node.js stream.
- * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdout) and
- * [`process.stderr`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstderr). The global `console` can be used without importing the `node:console` module.
+ * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstdout) and
+ * [`process.stderr`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstderr). The global `console` can be used without importing the `node:console` module.
  *
  * _**Warning**_: The global console object's methods are neither consistently
  * synchronous like the browser APIs they resemble, nor are they consistently
- * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v22.x/api/process.html#a-note-on-process-io) for
+ * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v24.x/api/process.html#a-note-on-process-io) for
  * more information.
  *
  * Example using the global `console`:
@@ -54,7 +54,7 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/console.js)
  */
 declare module "console" {
     import console = require("node:console");
@@ -70,7 +70,7 @@ declare module "node:console" {
              * `console.assert()` writes a message if `value` is [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) or omitted. It only
              * writes a message and does not otherwise affect execution. The output always
              * starts with `"Assertion failed"`. If provided, `message` is formatted using
-             * [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args).
+             * [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args).
              *
              * If `value` is [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy), nothing happens.
              *
@@ -152,7 +152,7 @@ declare module "node:console" {
              */
             debug(message?: any, ...optionalParams: any[]): void;
             /**
-             * Uses [`util.inspect()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilinspectobject-options) on `obj` and prints the resulting string to `stdout`.
+             * Uses [`util.inspect()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilinspectobject-options) on `obj` and prints the resulting string to `stdout`.
              * This function bypasses any custom `inspect()` function defined on `obj`.
              * @since v0.1.101
              */
@@ -167,7 +167,7 @@ declare module "node:console" {
              * Prints to `stderr` with newline. Multiple arguments can be passed, with the
              * first used as the primary message and all additional used as substitution
              * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html)
-             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args)).
+             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args)).
              *
              * ```js
              * const code = 5;
@@ -178,8 +178,8 @@ declare module "node:console" {
              * ```
              *
              * If formatting elements (e.g. `%d`) are not found in the first string then
-             * [`util.inspect()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilinspectobject-options) is called on each argument and the
-             * resulting string values are concatenated. See [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args)
+             * [`util.inspect()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilinspectobject-options) is called on each argument and the
+             * resulting string values are concatenated. See [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args)
              * for more information.
              * @since v0.1.100
              */
@@ -211,7 +211,7 @@ declare module "node:console" {
              * Prints to `stdout` with newline. Multiple arguments can be passed, with the
              * first used as the primary message and all additional used as substitution
              * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html)
-             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args)).
+             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args)).
              *
              * ```js
              * const count = 5;
@@ -221,7 +221,7 @@ declare module "node:console" {
              * // Prints: count: 5, to stdout
              * ```
              *
-             * See [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args) for more information.
+             * See [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args) for more information.
              * @since v0.1.100
              */
             log(message?: any, ...optionalParams: any[]): void;
@@ -297,7 +297,7 @@ declare module "node:console" {
              */
             timeLog(label?: string, ...data: any[]): void;
             /**
-             * Prints to `stderr` the string `'Trace: '`, followed by the [`util.format()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilformatformat-args)
+             * Prints to `stderr` the string `'Trace: '`, followed by the [`util.format()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilformatformat-args)
              * formatted message and stack trace to the current position in the code.
              *
              * ```js
@@ -361,12 +361,12 @@ declare module "node:console" {
          * The module exports two specific components:
          *
          * * A `Console` class with methods such as `console.log()`, `console.error()` and `console.warn()` that can be used to write to any Node.js stream.
-         * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdout) and
-         * [`process.stderr`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstderr). The global `console` can be used without importing the `node:console` module.
+         * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstdout) and
+         * [`process.stderr`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstderr). The global `console` can be used without importing the `node:console` module.
          *
          * _**Warning**_: The global console object's methods are neither consistently
          * synchronous like the browser APIs they resemble, nor are they consistently
-         * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v22.x/api/process.html#a-note-on-process-io) for
+         * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v24.x/api/process.html#a-note-on-process-io) for
          * more information.
          *
          * Example using the global `console`:
@@ -410,7 +410,7 @@ declare module "node:console" {
          * myConsole.warn(`Danger ${name}! Danger!`);
          * // Prints: Danger Will Robinson! Danger!, to err
          * ```
-         * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/console.js)
+         * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/console.js)
          */
         namespace console {
             interface ConsoleConstructorOptions {
@@ -431,7 +431,7 @@ declare module "node:console" {
                 colorMode?: boolean | "auto" | undefined;
                 /**
                  * Specifies options that are passed along to
-                 * [`util.inspect()`](https://nodejs.org/docs/latest-v22.x/api/util.html#utilinspectobject-options).
+                 * [`util.inspect()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilinspectobject-options).
                  */
                 inspectOptions?: InspectOptions | undefined;
                 /**

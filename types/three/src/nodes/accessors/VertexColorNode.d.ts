@@ -6,7 +6,7 @@ export default class VertexColorNode extends AttributeNode {
 
     index: number;
 
-    constructor(index?: number);
+    constructor(index: number);
 }
 
 export const vertexColor: (index?: number) => ShaderNodeObject<VertexColorNode>;

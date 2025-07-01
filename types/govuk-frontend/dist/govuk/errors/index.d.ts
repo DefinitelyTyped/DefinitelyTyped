@@ -19,8 +19,7 @@ import { type ComponentWithModuleName } from "../common/index.js";
  * }
  * ```
  */
-export abstract class GOVUKFrontendError extends Error {
-}
+export abstract class GOVUKFrontendError extends Error {}
 
 /**
  * Indicates that GOV.UK Frontend is not supported
@@ -37,8 +36,7 @@ export class SupportError extends GOVUKFrontendError {
 /**
  * Indicates that a component has received an illegal configuration
  */
-export class ConfigError extends GOVUKFrontendError {
-}
+export class ConfigError extends GOVUKFrontendError {}
 
 /**
  * Indicates an issue with an element (possibly `null` or `undefined`)

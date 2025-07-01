@@ -128,7 +128,8 @@ export class Matrix4 {
     makeRotationFromQuaternion(q: Quaternion): this;
 
     /**
-     * Constructs a rotation matrix, looking from eye towards center with defined up vector.
+     * Sets the rotation component of the transformation matrix, looking from [eye]{@link Vector3} towards
+     * [target]{@link Vector3}, and oriented by the up-direction [up]{@link Vector3}.
      */
     lookAt(eye: Vector3, target: Vector3, up: Vector3): this;
 

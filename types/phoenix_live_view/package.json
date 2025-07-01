@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/phoenix_live_view",
-    "version": "0.20.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/phoenixframework/phoenix_live_view"
     ],

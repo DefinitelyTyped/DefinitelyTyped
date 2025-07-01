@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/microsoft-graph",
     "version": "2.40.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "microsoft-graph",
     "projects": [
         "https://github.com/microsoftgraph/msgraph-typescript-typings"

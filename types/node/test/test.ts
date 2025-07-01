@@ -1,3 +1,4 @@
+import * as assert from "node:assert";
 import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
@@ -35,6 +36,7 @@ run({
 // $ExpectType TestsStream
 run({
     concurrency: 1,
+    cwd: "/home/nodejs",
     files: ["test-file-name.js"],
     signal: new AbortController().signal,
     timeout: 100,
@@ -839,10 +841,10 @@ spec();
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
-lcov();
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
+// $ExpectType LcovReporter
 new lcov();
+// $ExpectType LcovReporter
+lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
@@ -992,11 +994,34 @@ test("test on the default export", (t) => {
     contextTest(t);
 });
 
+test("waitFor()", (t) => {
+    // $ExpectType Promise<void>
+    t.waitFor(() => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<void>
+    t.waitFor(async () => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<boolean>
+    t.waitFor(() => true);
+    // $ExpectType Promise<boolean>
+    t.waitFor(async () => true);
+});
+
+test("test plan options", (t) => {
+    t.plan(1, { wait: true });
+    t.plan(1, { wait: false });
+    t.plan(1, { wait: 1000 });
+});
+
 // @ts-expect-error Should not be able to instantiate a TestContext
 const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("check all assertion functions are re-exported", t => {
+    type AssertModuleExports = keyof typeof import("assert");
+    const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
+        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+});
 
 test("planning with streams", (t: TestContext, done) => {
     function* generate() {
@@ -1020,8 +1045,39 @@ test("planning with streams", (t: TestContext, done) => {
     });
 });
 
+// Test custom assertion functions.
+// extend the TestContextAssert interface so we have correct typing
+declare module "node:test" {
+    interface TestContextAssert {
+        isOdd(value: number): void;
+    }
+}
+
+{
+    test.assert.register("isOdd", (n: number) => {
+        assert.strictEqual(n % 2, 1);
+    });
+    test("invokes a custom assertion as part of the test plan", (t) => {
+        t.plan(2);
+        t.assert.isOdd(5);
+        assert.throws(() => {
+            t.assert.isOdd(4);
+        });
+    });
+    test.assert.register("context", function() {
+        // $ExpectType TestContext
+        this;
+    });
+}
+
 // Test snapshot assertion.
 test(t => {
+    // $ExpectType void
+    t.assert.fileSnapshot({ value1: true, value2: false }, "./snapshots/snapshot.json");
+    // $ExpectType void
+    t.assert.fileSnapshot({ value3: "foo", value4: "bar" }, "./snapshots/snapshot.json", {
+        serializers: [value => JSON.stringify(value)],
+    });
     // $ExpectType void
     t.assert.snapshot({ value1: true, value2: false });
     // $ExpectType void

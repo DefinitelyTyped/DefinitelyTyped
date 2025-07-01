@@ -5,6 +5,8 @@ import { SpriteMaterialParameters } from "../SpriteMaterial.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
 export interface SpriteNodeMaterialParameters extends NodeMaterialParameters, SpriteMaterialParameters {
+    rotationNode?: Node | null | undefined;
+    scaleNode?: Node | null | undefined;
 }
 
 export default class SpriteNodeMaterial extends NodeMaterial {

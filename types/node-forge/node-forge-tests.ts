@@ -213,7 +213,7 @@ if (forge.util.fillString("1", 5) !== "11111") throw Error("forge.util.fillStrin
 }
 
 {
-    let src: Uint8Array;
+    let src = new Uint8Array(2); // indirectly resolve type to ensure assignability to forge.util.ArrayBufferView in TS 5.9+
     let encode: string;
     let decode: Uint8Array;
 

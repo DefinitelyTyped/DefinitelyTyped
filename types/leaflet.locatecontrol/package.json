@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/leaflet.locatecontrol",
-    "version": "0.74.9999",
+    "version": "0.82.9999",
     "projects": [
         "https://github.com/domoritz/leaflet-locatecontrol"
     ],

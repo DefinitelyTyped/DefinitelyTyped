@@ -97,7 +97,7 @@ declare module "stream/web" {
         signal?: AbortSignal;
     }
     interface ReadableStreamGenericReader {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         cancel(reason?: any): Promise<void>;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
@@ -301,9 +301,9 @@ declare module "stream/web" {
      * sink.
      */
     interface WritableStreamDefaultWriter<W = any> {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         readonly desiredSize: number | null;
-        readonly ready: Promise<undefined>;
+        readonly ready: Promise<void>;
         abort(reason?: any): Promise<void>;
         close(): Promise<void>;
         releaseLock(): void;

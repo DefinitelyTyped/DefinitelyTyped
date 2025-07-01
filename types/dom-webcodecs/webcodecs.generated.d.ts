@@ -318,48 +318,6 @@ declare var EncodedVideoChunk: {
     new(init: EncodedVideoChunkInit): EncodedVideoChunk;
 };
 
-/** Available only in secure contexts. */
-interface ImageDecoder {
-    readonly complete: boolean;
-    readonly completed: Promise<void>;
-    readonly tracks: ImageTrackList;
-    readonly type: string;
-    close(): void;
-    decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
-    reset(): void;
-}
-
-declare var ImageDecoder: {
-    prototype: ImageDecoder;
-    new(init: ImageDecoderInit): ImageDecoder;
-    isTypeSupported(type: string): Promise<boolean>;
-};
-
-interface ImageTrack {
-    readonly animated: boolean;
-    readonly frameCount: number;
-    readonly repetitionCount: number;
-    selected: boolean;
-}
-
-declare var ImageTrack: {
-    prototype: ImageTrack;
-    new(): ImageTrack;
-};
-
-interface ImageTrackList {
-    readonly length: number;
-    readonly ready: Promise<void>;
-    readonly selectedIndex: number;
-    readonly selectedTrack: ImageTrack | null;
-    [index: number]: ImageTrack;
-}
-
-declare var ImageTrackList: {
-    prototype: ImageTrackList;
-    new(): ImageTrackList;
-};
-
 interface VideoColorSpace {
     readonly fullRange: boolean | null;
     readonly matrix: VideoMatrixCoefficients | null;
@@ -502,7 +460,7 @@ interface WebCodecsErrorCallback {
 
 // type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
 // type BitrateMode = "constant" | "variable";
-type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
+// type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
 // type AlphaOption = "discard" | "keep";
 // type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
 // type AvcBitstreamFormat = "annexb" | "avc";

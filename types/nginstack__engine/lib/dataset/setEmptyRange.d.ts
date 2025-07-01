@@ -9,8 +9,8 @@ declare namespace setEmptyRange {
         DataSet,
     };
 }
-type DataSet = import('./DataSet');
 declare let NUMERIC_EMPTY_RANGE_START_: number;
 declare let NUMERIC_EMPTY_RANGE_END_: number;
 declare let STRING_EMPTY_RANGE_START_: string;
 declare let STRING_EMPTY_RANGE_END_: string;
+type DataSet = import('./DataSet');

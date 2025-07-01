@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/colorthief",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/lokesh/color-thief"
+    ],
+    "devDependencies": {
+        "@types/colorthief": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "sillyangel",
+            "githubUsername": "sillyangel"
+        }
+    ]
+}

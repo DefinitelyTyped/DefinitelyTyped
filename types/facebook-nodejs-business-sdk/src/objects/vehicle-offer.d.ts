@@ -17,6 +17,16 @@ export default class VehicleOffer extends AbstractCrudObject {
         cashback_price: "cashback_price";
         category_specific_fields: "category_specific_fields";
         currency: "currency";
+        custom_label_0: "custom_label_0";
+        custom_label_1: "custom_label_1";
+        custom_label_2: "custom_label_2";
+        custom_label_3: "custom_label_3";
+        custom_label_4: "custom_label_4";
+        custom_number_0: "custom_number_0";
+        custom_number_1: "custom_number_1";
+        custom_number_2: "custom_number_2";
+        custom_number_3: "custom_number_3";
+        custom_number_4: "custom_number_4";
         dma_codes: "dma_codes";
         downpayment_currency: "downpayment_currency";
         downpayment_price: "downpayment_price";
@@ -38,9 +48,15 @@ export default class VehicleOffer extends AbstractCrudObject {
         offer_disclaimer: "offer_disclaimer";
         offer_type: "offer_type";
         price: "price";
+        product_priority_0: "product_priority_0";
+        product_priority_1: "product_priority_1";
+        product_priority_2: "product_priority_2";
+        product_priority_3: "product_priority_3";
+        product_priority_4: "product_priority_4";
         sanitized_images: "sanitized_images";
         start_date: "start_date";
         start_time: "start_time";
+        tags: "tags";
         term_length: "term_length";
         term_qualifier: "term_qualifier";
         title: "title";
@@ -64,8 +80,8 @@ export default class VehicleOffer extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<VehicleOffer>;
 }

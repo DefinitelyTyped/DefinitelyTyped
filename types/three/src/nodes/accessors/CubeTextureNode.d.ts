@@ -20,9 +20,20 @@ declare class CubeTextureNode extends TextureNode {
 
 export default CubeTextureNode;
 
-export const cubeTexture: (
+export const cubeTextureBase: (
     value: CubeTexture,
     uvNode?: NodeRepresentation,
     levelNode?: NodeRepresentation,
     biasNode?: NodeRepresentation,
+) => ShaderNodeObject<CubeTextureNode>;
+
+export const cubeTexture: (
+    value?: CubeTexture,
+    uvNode?: NodeRepresentation | null,
+    levelNode?: NodeRepresentation | null,
+    biasNode?: NodeRepresentation | null,
+) => ShaderNodeObject<CubeTextureNode>;
+
+export const uniformCubeTexture: (
+    value?: CubeTexture,
 ) => ShaderNodeObject<CubeTextureNode>;

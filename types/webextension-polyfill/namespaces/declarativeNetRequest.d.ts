@@ -29,6 +29,7 @@ export namespace DeclarativeNetRequest {
         | "imageset"
         | "web_manifest"
         | "speculative"
+        | "json"
         | "other";
 
     /**

@@ -6,7 +6,7 @@ This fork of the [DefinitelyTyped](https://github.com/DefinitelyTyped/Definitely
 
 ## Using the Type Definitions
 
-The Data Standards Body publishes the Type Definitions as a [npm package](https://www.npmjs.com/package/@types/consumer-data-standards). To use these type definitions in your TypeScript projects, you can install them via npm as part of your development dependencies. Please refer to the [Quick Start Guide](#quick-start-guide) section below for more information. 
+The Data Standards Body publishes the Type Definitions as a [npm package](https://www.npmjs.com/package/@types/consumer-data-standards). To use these type definitions in your TypeScript projects, you can install them via npm as part of your development dependencies. Please refer to the [Quick Start Guide](#quick-start-guide) section below for more information.
 
 This tool:
 
@@ -18,29 +18,28 @@ This tool:
 Please follow these steps to integrate the CDR-specific type definitions into your TypeScript projects:
 
 1. **Install** via npm or Yarn: Depending on your preference, you can use npm or Yarn to install the CDS type definitions package published to npm.
-    
-    ```bash
-    npm install @types/consumer-data-standards
-    ```
-    
-    Or
-    
-    ```bash
-    yarn install @types/consumer-data-standards
-    ```
-    
-2. **Usage**: Utilise the types in your TypeScript code as needed:
-    
-    ```tsx
-    import { YourType } from 'your-package';
-    
-    function processData(data: YourType) {
-    // your code here
-    }
-    ```
-    
-3. **Stay Updated**: Regularly check for updates to ensure you have the latest type definitions.
 
+   ```bash
+   npm install @types/consumer-data-standards
+   ```
+
+   Or
+
+   ```bash
+   yarn install @types/consumer-data-standards
+   ```
+
+2. **Usage**: Utilise the types in your TypeScript code as needed:
+
+   ```tsx
+   import { YourType } from "your-package";
+
+   function processData(data: YourType) {
+       // your code here
+   }
+   ```
+
+3. **Stay Updated**: Regularly check for updates to ensure you have the latest type definitions.
 
 ## Reporting Issues
 

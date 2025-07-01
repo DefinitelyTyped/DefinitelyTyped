@@ -95,6 +95,103 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
+export type ApplePayErrorCode =
+    /**
+     * Shipping address or contact information is invalid or missing.
+     */
+    | "shippingContactInvalid"
+    /**
+     * Billing address information is invalid or missing.
+     */
+    | "billingContactInvalid"
+    /**
+     * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
+     */
+    | "addressUnserviceable"
+    /**
+     * The code that indicates an invalid coupon.
+     */
+    | "couponCodeInvalid"
+    /**
+     * The code that indicates an expired coupon.
+     */
+    | "couponCodeExpired"
+    /**
+     * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
+     */
+    | "unknown";
+
+export interface ApplePayError {
+    /**
+     * The error code for this instance.
+     */
+    code: ApplePayErrorCode;
+
+    /**
+     * The name of the field that contains the error.
+     */
+    contactField?: ApplePayErrorContactField | undefined;
+
+    /**
+     * A localized, user-facing string that describes the error.
+     */
+    message: string;
+}
+
+/**
+ * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
+ */
+export type ApplePayErrorContactField =
+    | "phoneNumber"
+    | "emailAddress"
+    | "name"
+    | "phoneticName"
+    | "postalAddress"
+    | "addressLines"
+    | "locality"
+    | "subLocality"
+    | "postalCode"
+    | "administrativeArea"
+    | "subAdministrativeArea"
+    | "country"
+    | "countryCode";
+
+export interface ApplePayPaymentOrderDetails {
+    /**
+     * An identifier for the order type associated with the order.
+     */
+    orderTypeIdentifier: string;
+    /**
+     * A unique order identifier scoped to your order type identifier.
+     */
+    orderIdentifier: string;
+    /**
+     * The URL of your web service.
+     */
+    webServiceURL: string;
+    /**
+     * The authentication token supplied to your web service.
+     */
+    authenticationToken: string;
+}
+
+export interface ApplePayPaymentAuthorizationResult {
+    /**
+     * The status code for the authorization result.
+     */
+    status: number;
+
+    /**
+     * A list of custom errors to display on the payment sheet.
+     */
+    errors?: ApplePayError[] | undefined;
+
+    /**
+     * Optional metadata for an order that the customer placed using this payment method.
+     */
+    orderDetails?: ApplePayPaymentOrderDetails;
+}
+
 export type ApplePayTokenizeValues = "Yes" | "No" | "Unknown";
 
 export interface ApplePayDetails {
@@ -137,7 +234,12 @@ export class ApplePaySession {
 
     begin(): void;
 
-    completePayment(status: ApplePayStatusCodes): void;
+    /**
+     * Completes the payment authorization with a result.
+     * @param result - The status of the payment, whether it succeeded or failed for Apple Pay JS versions 1 and 2,
+     * or the result of the payment authorization, including its status and list of errors for Apple Pay JS version 3.
+     */
+    completePayment(status: ApplePayStatusCodes | ApplePayPaymentAuthorizationResult): void;
 
     completePaymentMethodSelection(newTotal: any, newLineItems: any): void;
 
