@@ -107,7 +107,6 @@
         "ember-task-scheduler",
         "encoding-down",
         "error-cause",
-        "es-get-iterator",
         "eslint-utils",
         "evaporate",
         "express-async-wrap",
