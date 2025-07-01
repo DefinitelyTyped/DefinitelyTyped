@@ -1,32 +1,32 @@
 export type FrappeFieldType =
-  | 'Attach'
-  | 'Attach Image'
-  | 'Autocomplete'
-  | 'Barcode'
-  | 'Check'
-  | 'Code'
-  | 'Color'
-  | 'Currency'
-  | 'Data'
-  | 'Date Range'
-  | 'Date'
-  | 'Datetime'
-  | 'Dynamic Link'
-  | 'Float'
-  | 'Geolocation'
-  | 'HTML Editor'
-  | 'Int'
-  | 'Link'
-  | 'Markdown Editor'
-  | 'MultiCheck'
-  | 'MultiSelect'
-  | 'Password'
-  | 'Rating'
-  | 'Select'
-  | 'Signature'
-  | 'Text Editor'
-  | 'Time'
-  | 'Button'
-  | 'Icon'
+    | "Attach"
+    | "Attach Image"
+    | "Autocomplete"
+    | "Barcode"
+    | "Check"
+    | "Code"
+    | "Color"
+    | "Currency"
+    | "Data"
+    | "Date Range"
+    | "Date"
+    | "Datetime"
+    | "Dynamic Link"
+    | "Float"
+    | "Geolocation"
+    | "HTML Editor"
+    | "Int"
+    | "Link"
+    | "Markdown Editor"
+    | "MultiCheck"
+    | "MultiSelect"
+    | "Password"
+    | "Rating"
+    | "Select"
+    | "Signature"
+    | "Text Editor"
+    | "Time"
+    | "Button"
+    | "Icon";
 
-export default FrappeFieldType
+export default FrappeFieldType;

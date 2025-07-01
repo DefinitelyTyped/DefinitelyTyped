@@ -1,22 +1,22 @@
 {
-  "compilerOptions": {
-    "module": "node16",
-    "lib": ["es6", "dom"],
-    "types": [],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "tests/common-utilities-tests.ts",
-    "tests/control-tests.ts",
-    "tests/db-tests.ts",
-    "tests/dialog-tests.ts",
-    "tests/form-handler-tests.ts",
-    "tests/requests-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "node16",
+        "lib": ["es6", "dom"],
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "tests/common-utilities-tests.ts",
+        "tests/control-tests.ts",
+        "tests/db-tests.ts",
+        "tests/dialog-tests.ts",
+        "tests/form-handler-tests.ts",
+        "tests/requests-tests.ts"
+    ]
 }

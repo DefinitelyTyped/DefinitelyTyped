@@ -1,5 +1,5 @@
 interface FrappeResponse<T> {
-  message: T
+    message: T;
 }
 
-export default FrappeResponse
+export default FrappeResponse;

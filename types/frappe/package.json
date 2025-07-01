@@ -1,25 +1,25 @@
 {
-  "private": true,
-  "name": "@types/frappe",
-  "version": "0.0.9999",
-  "projects": [
-    "https://github.com/frappe/frappe"
-  ],
-  "nonNpm": "conflict",
-  "nonNpmDescription": "These are types meant to be used for the global `frappe` object within the Frappe framework. The npm package 'frappe' is not the correct package this types to.",
-  "dependencies": {
-    "@types/jquery": "*",
-    "cypress": "*"
-  },
-  "devDependencies": {
-    "@types/frappe": "workspace:."
-  },
-  "minimumTypeScriptVersion": "5.7",
-  "owners": [
-    {
-      "name": "Hakim Bawa",
-      "githubUsername": "bawahakim"
-    }
-  ],
-  "type": "module"
+    "private": true,
+    "name": "@types/frappe",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/frappe/frappe"
+    ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "These are types meant to be used for the global `frappe` object within the Frappe framework. The npm package 'frappe' is not the correct package this types to.",
+    "dependencies": {
+        "@types/jquery": "*",
+        "cypress": "*"
+    },
+    "devDependencies": {
+        "@types/frappe": "workspace:."
+    },
+    "minimumTypeScriptVersion": "5.7",
+    "owners": [
+        {
+            "name": "Hakim Bawa",
+            "githubUsername": "bawahakim"
+        }
+    ],
+    "type": "module"
 }

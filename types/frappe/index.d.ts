@@ -8,15 +8,15 @@
 /// <reference path="./types/requests/requests.d.ts" />
 /// <reference path="./types/db/db.d.ts" />
 
-import type FrappeResponse from './types/common/response.d.ts'
-import type { DocTypeName } from './types/model/doctype.d.ts'
+import type FrappeResponse from "./types/common/response.d.ts";
+import type { DocTypeName } from "./types/model/doctype.d.ts";
 
 // Set as global so we can allow interface merging from generators
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DocTypeMap {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface FrappeWhitelistedMethods {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface DocTypeMap {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface FrappeWhitelistedMethods {}
 }
 
-export { FrappeResponse, DocTypeName }
+export { DocTypeName, FrappeResponse };
