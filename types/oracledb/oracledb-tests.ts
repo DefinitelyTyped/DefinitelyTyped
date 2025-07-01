@@ -732,3 +732,37 @@ export const version6Tests = async (): Promise<void> => {
         user: DB_USER,
     });
 };
+
+export const version6point8Tests = async (): Promise<void> => {
+    console.log("Testing Vector constants...");
+    console.log(defaultOracledb.VECTOR_FORMAT_BINARY);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT32);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT64);
+    console.log(defaultOracledb.VECTOR_FORMAT_INT8);
+    console.log("Testing IntervalYM...");
+    const intervalYM = new oracledb.IntervalYM();
+    console.log(intervalYM.years);
+    console.log(intervalYM.months);
+    console.log("Testing IntervalDS...");
+    const intervalDS = new oracledb.IntervalDS();
+    console.log(intervalDS.days);
+    console.log(intervalDS.hours);
+    console.log(intervalDS.minutes);
+    console.log(intervalDS.seconds);
+    console.log(intervalDS.fseconds);
+    console.log("Testing Sparse vector...");
+    const vec = new oracledb.SparseVector<Float32Array>([0, 0.2, 0, 1.5]);
+    const values = vec.values;
+    const dense = vec.dense();
+    console.log("Testing oracledb settable properties...");
+    defaultOracledb.driverName = "ndb-thin";
+    defaultOracledb.machine = "my-machine";
+    defaultOracledb.osUser = "default-user";
+    defaultOracledb.program = "testPgm";
+    defaultOracledb.terminal = "testTerminal";
+    function testFunction() {
+        console.log("testing function");
+    }
+    defaultOracledb.registerProcessConfigurationHook(testFunction());
+
+};

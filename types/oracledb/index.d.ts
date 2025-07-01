@@ -4911,7 +4911,8 @@ declare namespace OracleDB {
      * 
      * @since 6.8
      */
-    function registerProcessConfigurationHook(fn: Function): void;
+    type hookFn = (opts: any) => void;
+    function registerProcessConfigurationHook(fn: hookFn): void;
 
     type DBCredentials =
         | {
