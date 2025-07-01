@@ -246,6 +246,10 @@ declare module "../index" {
     type PropertyPath = Many<PropertyName>;
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
+    interface MutableList<T> { // Needed since ArrayLike is readonly
+        length: number;
+        [k: number]: T;
+    }
     interface Dictionary<T> {
         [index: string]: T;
     }
