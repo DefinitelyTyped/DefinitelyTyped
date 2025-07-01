@@ -2,7 +2,7 @@
  * Various tests of ShaderNode and related type inference
  */
 
-import { color, nodeArray, nodeImmutable, ShaderNode, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/tsl";
+import { color, Fn, nodeArray, nodeImmutable, ShaderNode, ShaderNodeObject, Swizzable, vec3 } from "three/tsl";
 import { ConstNode, MaterialNode, Node, PropertyNode } from "three/webgpu";
 
 // just to type check
@@ -25,11 +25,11 @@ const shader = new ShaderNode<{ a: Node; b: Node }>(params => {
 });
 assertSwizzable<Node>(shader.call({ a: s, b: new ConstNode(1) }));
 
-const fnWithoutArgs = tslFn(() => vec3(1, 2, 3));
+const fnWithoutArgs = Fn(() => vec3(1, 2, 3));
 assertSwizzable<Node>(fnWithoutArgs());
 
-const fnWithArrayArgs = tslFn(([a, b]: [a: ShaderNodeObject<Node>, b: ShaderNodeObject<Node>]) => a.add(b));
+const fnWithArrayArgs = Fn(([a, b]: [a: ShaderNodeObject<Node>, b: ShaderNodeObject<Node>]) => a.add(b));
 assertSwizzable<Node>(fnWithArrayArgs(0.5, color(0.0, 0.25, 0.5)));
 
-const fnWithArgs = tslFn(({ a, b }: { a: ShaderNodeObject<Node>; b: ShaderNodeObject<Node> }) => a.add(b));
+const fnWithArgs = Fn(({ a, b }: { a: ShaderNodeObject<Node>; b: ShaderNodeObject<Node> }) => a.add(b));
 assertSwizzable<Node>(fnWithArgs({ a: 0.5, b: color(0.0, 0.25, 0.5) }));

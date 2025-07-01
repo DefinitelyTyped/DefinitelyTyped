@@ -39,6 +39,7 @@ export { default as PropertyNode } from "./core/PropertyNode.js";
 export { default as StackNode } from "./core/StackNode.js";
 export { default as StructNode } from "./core/StructNode.js";
 export { default as StructTypeNode } from "./core/StructTypeNode.js";
+export { default as SubBuildNode } from "./core/SubBuildNode.js";
 export { default as TempNode } from "./core/TempNode.js";
 export { default as UniformGroupNode } from "./core/UniformGroupNode.js";
 export { default as UniformNode } from "./core/UniformNode.js";
@@ -52,11 +53,9 @@ export { NodeUtils };
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
 export { default as DebugNode } from "./utils/DebugNode.js";
-export { default as EquirectUVNode } from "./utils/EquirectUVNode.js";
 export { default as FunctionOverloadingNode } from "./utils/FunctionOverloadingNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as LoopNode } from "./utils/LoopNode.js";
-export { default as MatcapUVNode } from "./utils/MatcapUVNode.js";
 export { default as MaxMipLevelNode } from "./utils/MaxMipLevelNode.js";
 export { default as MemberNode } from "./utils/MemberNode.js";
 export { default as ReflectorNode, ReflectorNodeParameters } from "./utils/ReflectorNode.js";
@@ -67,7 +66,6 @@ export { default as SetNode } from "./utils/SetNode.js";
 export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/StorageArrayElementNode.js";
-export { default as TriplanarTexturesNode } from "./utils/TriplanarTexturesNode.js";
 
 // accessors
 export { default as BatchNode } from "./accessors/BatchNode.js";
