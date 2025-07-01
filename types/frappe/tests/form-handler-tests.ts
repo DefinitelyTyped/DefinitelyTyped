@@ -115,99 +115,111 @@ frappe.ui.form.on('Invoice', {
     },
   })
 
-  // // Test a DocTypeChildTable without specifying the parent
-  // frappe.ui.form.on('Invoice Item', {
-  //   creation(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   docstatus(frm, cdt, cdn) {
-  //     const d: number = frm.doc.docstatus
-  //   },
-  //   form_render(frm, cdt, cdn) {
-  //     const q: number = frm.doc.qty
-  //   },
-  //   idx(frm, cdt, cdn) {
-  //     const i: number = frm.doc.idx
-  //   },
-  //   item(frm, cdt, cdn) {
-  //     const i: string = frm.doc.item
-  //   },
-  //   modified(frm, cdt, cdn) {
-  //     const m: string = frm.doc.modified
-  //   },
-  //   modified_by(frm, cdt, cdn) {
-  //     const m: string = frm.doc.modified_by
-  //   },
-  //   name(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //   },
-  //   owner(frm, cdt, cdn) {
-  //     const o: string = frm.doc.owner
-  //   },
-  //   parent(frm, cdt, cdn) {
-  //     const p: DocTypeName = frm.doc.parent
-  //   },
-  //   parentfield(frm, cdt, cdn) {
-  //     const pf: string = frm.doc.parentfield
-  //   },
-  //   parenttype(frm, cdt, cdn) {
-  //     const pt: string = frm.doc.parenttype
-  //   },
-  //   qty(frm, cdt, cdn) {
-  //     const q: number = frm.doc.qty
-  //   },
-  // })
+  // Test expect error using child table method on parent
+  // @ts-expect-error
+  frappe.ui.form.on('Invoice', {
+    items_add() {},
+  })
 
-  // // Test a DocTypeChildTable when the parent is specified
-  // frappe.ui.form.on<'Invoice Item', Invoice>('Invoice Item', {
-  //   creation(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   before_items_remove(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   before_items_2_remove(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_2_add(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_2_move(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_2_remove(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_add(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_move(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   items_remove(frm, cdt, cdn) {
-  //     const n: number = frm.doc.name
-  //     const _cdt: string = cdt
-  //     const _cdn: DocTypeName = cdn
-  //   },
-  //   form_render(frm, cdt, cdn) {
-  //     const q: number = frm.doc.qty
-  //   },
-  // })
+  // Test a DocTypeChildTable without specifying the parent
+  frappe.ui.form.on('Invoice Item', {
+    creation(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    docstatus(frm, cdt, cdn) {
+      const d: number = frm.doc.docstatus
+    },
+    form_render(frm, cdt, cdn) {
+      const q: number = frm.doc.qty
+    },
+    idx(frm, cdt, cdn) {
+      const i: number = frm.doc.idx
+    },
+    item(frm, cdt, cdn) {
+      const i: string = frm.doc.item
+    },
+    modified(frm, cdt, cdn) {
+      const m: string = frm.doc.modified
+    },
+    modified_by(frm, cdt, cdn) {
+      const m: string = frm.doc.modified_by
+    },
+    name(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+    },
+    owner(frm, cdt, cdn) {
+      const o: string = frm.doc.owner
+    },
+    parent(frm, cdt, cdn) {
+      const p: DocTypeName = frm.doc.parent
+    },
+    parentfield(frm, cdt, cdn) {
+      const pf: string = frm.doc.parentfield
+    },
+    parenttype(frm, cdt, cdn) {
+      const pt: string = frm.doc.parenttype
+    },
+    qty(frm, cdt, cdn) {
+      const q: number = frm.doc.qty
+    },
+  })
+
+  // Test a DocTypeChildTable when the parent is specified
+  frappe.ui.form.on<'Invoice Item', Invoice>('Invoice Item', {
+    creation(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    before_items_remove(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    before_items_2_remove(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_2_add(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_2_move(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_2_remove(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_add(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_move(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    items_remove(frm, cdt, cdn) {
+      const n: number = frm.doc.name
+      const _cdt: string = cdt
+      const _cdn: DocTypeName = cdn
+    },
+    form_render(frm, cdt, cdn) {
+      const q: number = frm.doc.qty
+    },
+  })
+
+  // Expect error when using parent methods on child table
+  // @ts-expect-error
+  frappe.ui.form.on('Invoice Item', {
+    setup() {},
+  })
