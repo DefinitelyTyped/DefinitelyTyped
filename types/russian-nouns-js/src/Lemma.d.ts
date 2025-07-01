@@ -16,6 +16,10 @@ export interface LemmaOptions {
 }
 
 export class Lemma {
+    /**
+     * Not for external use.
+     * Please use createLemma or createLemmaOrNull instead of the constructor.
+     */
     constructor(o: LemmaOptions | Lemma);
 
     /**
