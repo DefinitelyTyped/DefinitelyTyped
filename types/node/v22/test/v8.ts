@@ -91,3 +91,5 @@ v8.deserialize(new DataView(new ArrayBuffer(1)));
 v8.deserialize(new ArrayBuffer(1));
 // @ts-expect-error String is not a valid deserialize parameter
 v8.deserialize("Hello World!");
+
+v8.isStringOneByteRepresentation("你好"); // $ExpectType boolean

@@ -2593,6 +2593,10 @@
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
         },
+        "hapi__basic": {
+            "libraryName": "@hapi/basic",
+            "asOfVersion": "7.0.2"
+        },
         "hapi__bell": {
             "libraryName": "@hapi/bell",
             "asOfVersion": "13.0.2"
@@ -3544,6 +3548,10 @@
         "keyv__sqlite": {
             "libraryName": "@keyv/sqlite",
             "asOfVersion": "3.0.1"
+        },
+        "kii-cloud-sdk": {
+            "libraryName": "kii-cloud-sdk",
+            "asOfVersion": "3.0.0"
         },
         "kiwicom__orbit-design-tokens": {
             "libraryName": "@kiwicom/orbit-design-tokens",
@@ -5299,6 +5307,10 @@
             "libraryName": "private-ip",
             "asOfVersion": "2.3.3"
         },
+        "proj4": {
+            "libraryName": "proj4",
+            "asOfVersion": "2.19.0"
+        },
         "prosemirror-changeset": {
             "libraryName": "prosemirror-changeset",
             "asOfVersion": "2.2.0"
@@ -6535,6 +6547,10 @@
             "libraryName": "router5",
             "asOfVersion": "5.0.0"
         },
+        "rrdir": {
+            "libraryName": "rrdir",
+            "asOfVersion": "13.1.0"
+        },
         "rrule": {
             "libraryName": "rrule",
             "asOfVersion": "2.2.9"
@@ -6626,6 +6642,10 @@
         "selfsigned": {
             "libraryName": "selfsigned",
             "asOfVersion": "2.1.0"
+        },
+        "semantic-release": {
+            "libraryName": "semantic-release",
+            "asOfVersion": "21.1.0"
         },
         "semver-diff": {
             "libraryName": "semver-diff",
@@ -7322,6 +7342,10 @@
         "text-clipper": {
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
+        },
+        "textextensions": {
+            "libraryName": "textextensions",
+            "asOfVersion": "5.0.0"
         },
         "theme-ui": {
             "libraryName": "theme-ui",
