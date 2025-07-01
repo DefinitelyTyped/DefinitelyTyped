@@ -733,6 +733,17 @@ export const version6Tests = async (): Promise<void> => {
     });
 };
 
+export const version6_6Tests = async (): Promise<void> => {
+    await oracledb.getConnection({
+        externalAuth: true,
+        walletContent: "",
+    });
+    await oracledb.createPool({
+        externalAuth: true,
+        walletContent: "",
+    });
+};
+
 export const version6_7Tests = async (): Promise<void> => {
     const s1: string[] = await oracledb.getNetworkServiceNames();
     const s2: string[] = await oracledb.getNetworkServiceNames("/tnsnames.ora");

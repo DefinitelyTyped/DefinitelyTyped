@@ -2018,6 +2018,14 @@ declare namespace OracleDB {
          * @since 6.7.0
          */
         terminal?: string;
+        /**
+         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
+         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
+         * The value of the walletContent property overrides the `walletLocation` value and the `WALLET_LOCATION` parameter in the connection string.
+         *
+         * @since 6.6.0
+         */
+        walletContent?: string;
     }
 
     interface DBError extends Error {
@@ -3066,6 +3074,14 @@ declare namespace OracleDB {
          * @since 6.7.0
          */
         terminal?: string;
+        /**
+         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
+         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
+         * The value of the walletContent property overrides the `walletLocation` value and the `WALLET_LOCATION` parameter in the connection string.
+         *
+         * @since 6.6.0
+         */
+        walletContent?: string;
     }
 
     /**
