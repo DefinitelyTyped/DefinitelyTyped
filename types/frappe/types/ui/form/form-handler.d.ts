@@ -1,6 +1,6 @@
-import FrappeForm from './frappe-form'
-import { DocTypeName } from '../../model/doctype'
-import { UnknownRecord, ConditionalKeys  } from '../../../utils/type-fest'
+import type FrappeForm from './frappe-form.d.ts'
+import type { DocTypeName } from '../../model/doctype.d.ts'
+import type { ConditionalKeys } from '../../../utils/type-fest.d.ts'
 
 /**
  * Form Scripts
@@ -44,10 +44,10 @@ declare global {
          */
         function on<DK extends Exclude<DocTypeKey, ChildDocTypeKey>>(
           doctype: DK,
-          // handlers: InferFormHandler<DocTypeMap[DK]>
           handlers: FormEventHandlers<DocTypeMap[DK]>
         ): void
 
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         function on<DK extends ChildDocTypeKey, Parent extends DocType>(
           doctype: DK,
           handlers: FormEventHandlersChildTable<

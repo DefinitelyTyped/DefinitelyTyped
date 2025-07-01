@@ -1,4 +1,4 @@
-import { FrappeResponse } from "frappe";
+import type { FrappeResponse } from "frappe";
 
 interface User extends DocType {
   name: string

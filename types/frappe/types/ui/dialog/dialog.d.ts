@@ -1,5 +1,5 @@
-import FrappeDFBase from '../../common/frappe-df-base'
-import { Arrayable } from '../../../utils/type-fest'
+import type FrappeDFBase from '../../common/frappe-df-base.d.ts'
+import type { Arrayable } from '../../../utils/type-fest.d.ts'
 
 /**
  * Dialog and notification APIs

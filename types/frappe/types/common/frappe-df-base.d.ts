@@ -1,4 +1,4 @@
-import FrappeFieldType from './frappe-field-type'
+import type FrappeFieldType from './frappe-field-type.d.ts'
 
 interface FrappeDFBase {
   label: string

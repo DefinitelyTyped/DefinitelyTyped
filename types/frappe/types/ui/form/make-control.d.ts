@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import FrappeDFBase from '../../common/frappe-df-base'
+import type FrappeDFBase from '../../common/frappe-df-base.d.ts'
 
 /**
  * Controls

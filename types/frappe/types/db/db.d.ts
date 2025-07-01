@@ -1,5 +1,5 @@
-import FrappeResponse from '../common/response'
-import { UnknownRecord, LiteralStringUnion, Arrayable } from '../../utils/type-fest'
+import type FrappeResponse from '../common/response.d.ts'
+import type { UnknownRecord, LiteralStringUnion, Arrayable } from '../../utils/type-fest.d.ts'
 
 type DocTypeKey = keyof DocTypeMap
 type PartialRecord<T> = Partial<T> & UnknownRecord
