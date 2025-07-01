@@ -320,7 +320,7 @@ declare namespace OracleDB {
 
     class SparseVector<T extends TypedArray = Float64Array> {
         constructor(
-            vec?: SparseVectorType | undefined,
+            vec?: SparseVectorType,
         )
         /**
          * This property is a JavaScript array or a 32-bit unsigned integer (Uint32Array) TypedArray that specifies the indices (zero-based) of non-zero values in the vector.
