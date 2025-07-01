@@ -8183,6 +8183,10 @@
             "libraryName": "yaml",
             "asOfVersion": "1.9.0"
         },
+        "yawn-yaml": {
+            "libraryName": "yawn-yaml",
+            "asOfVersion": "2.0.0"
+        },
         "year-days": {
             "libraryName": "year-days",
             "asOfVersion": "3.0.0"
