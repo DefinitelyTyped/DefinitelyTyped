@@ -1385,22 +1385,6 @@ function testDeclarativeContent() {
     };
 }
 
-// https://developer.chrome.com/docs/extensions/reference/windows
-function testWindows() {
-    chrome.windows.onCreated.addListener(function(window) {
-        var windowResult: chrome.windows.Window = window;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onRemoved.addListener(function(windowId) {
-        var windowIdResult: number = windowId;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onBoundsChanged.addListener(function(window) {
-        var windowResult: chrome.windows.Window = window;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onFocusChanged.addListener(function(windowId) {
-        var windowIdResult: number = windowId;
-    }, { windowTypes: ["normal"] });
-}
-
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
     interface StorageData {
@@ -3170,20 +3154,189 @@ async function testTabGroup() {
     chrome.tabGroups.onUpdated.hasListeners(); // $ExpectType boolean
 }
 
-// https://developer.chrome.com/docs/extensions/reference/windows
-async function testWindowsForPromise() {
-    await chrome.windows.get(0);
-    await chrome.windows.get(0, {});
-    await chrome.windows.getCurrent();
-    await chrome.windows.getCurrent({});
-    await chrome.windows.create();
-    await chrome.windows.create({});
-    await chrome.windows.getAll();
-    await chrome.windows.getAll({});
-    await chrome.windows.update(0, {});
-    await chrome.windows.remove(0);
-    await chrome.windows.getLastFocused();
-    await chrome.windows.getLastFocused({});
+// https://developer.chrome.com/docs/extensions/reference/api/windows
+function testWindows() {
+    chrome.windows.CreateType.NORMAL === "normal";
+    chrome.windows.CreateType.PANEL === "panel";
+    chrome.windows.CreateType.POPUP === "popup";
+
+    chrome.windows.WINDOW_ID_CURRENT === -2;
+    chrome.windows.WINDOW_ID_NONE === -1;
+
+    chrome.windows.WindowState.FULLSCREEN === "fullscreen";
+    chrome.windows.WindowState.LOCKED_FULLSCREEN === "locked-fullscreen";
+    chrome.windows.WindowState.MAXIMIZED === "maximized";
+    chrome.windows.WindowState.MINIMIZED === "minimized";
+    chrome.windows.WindowState.NORMAL === "normal";
+
+    chrome.windows.WindowType.APP === "app";
+    chrome.windows.WindowType.DEVTOOLS === "devtools";
+    chrome.windows.WindowType.NORMAL === "normal";
+    chrome.windows.WindowType.PANEL === "panel";
+    chrome.windows.WindowType.POPUP === "popup";
+
+    const createData: chrome.windows.CreateData = {
+        focused: true,
+        height: 100,
+        incognito: true,
+        left: 100,
+        setSelfAsOpener: true,
+        state: "maximized",
+        tabId: 0,
+        top: 100,
+        type: "normal",
+        url: "https://www.example.com",
+        width: 100,
+    };
+
+    chrome.windows.create(); // $ExpectType Promise<Window | undefined>
+    chrome.windows.create(createData); // $ExpectType Promise<Window | undefined>
+    chrome.windows.create((window) => { // $ExpectType void
+        window; // $ExpectType Window | undefined
+    });
+    chrome.windows.create(createData, (window) => { // $ExpectType void
+        window; // $ExpectType Window | undefined
+    });
+    // @ts-expect-error
+    chrome.windows.create(() => {}).then(() => {});
+
+    const windowId = 0;
+    const queryOptions: chrome.windows.QueryOptions = {
+        populate: true,
+        windowTypes: ["normal", chrome.windows.WindowType.POPUP],
+    };
+
+    chrome.windows.get(windowId); // $ExpectType Promise<Window>
+    chrome.windows.get(windowId, queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.get(windowId, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.get(windowId, queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.get(() => {}).then(() => {});
+
+    chrome.windows.getAll(); // $ExpectType Promise<Window[]>
+    chrome.windows.getAll(queryOptions); // $ExpectType Promise<Window[]>
+    chrome.windows.getAll((windows) => { // $ExpectType void
+        windows; // $ExpectType Window[]
+    });
+    chrome.windows.getAll(queryOptions, (windows) => { // $ExpectType void
+        windows; // $ExpectType Window[]
+    });
+    // @ts-expect-error
+    chrome.windows.getAll(() => {}).then(() => {});
+
+    chrome.windows.getCurrent(); // $ExpectType Promise<Window>
+    chrome.windows.getCurrent(queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.getCurrent((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.getCurrent(queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.getCurrent(() => {}).then(() => {});
+
+    chrome.windows.getLastFocused(); // $ExpectType Promise<Window>
+    chrome.windows.getLastFocused(queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.getLastFocused((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.getLastFocused(queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.getLastFocused(() => {}).then(() => {});
+
+    chrome.windows.remove(windowId); // $ExpectType Promise<void>
+    chrome.windows.remove(windowId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.windows.remove(() => {}).then(() => {});
+
+    const updateInfo: chrome.windows.UpdateInfo = {
+        drawAttention: true,
+        focused: true,
+        height: 100,
+        left: 100,
+        state: "maximized",
+        top: 100,
+        width: 100,
+    };
+
+    chrome.windows.update(windowId, updateInfo); // $ExpectType Promise<Window>
+    chrome.windows.update(windowId, updateInfo, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.update(() => {}).then(() => {});
+
+    chrome.windows.onBoundsChanged.addListener((window) => { // $ExpectType void
+        window.alwaysOnTop; // $ExpectType boolean
+        window.focused; // $ExpectType boolean
+        window.height; // $ExpectType number | undefined
+        window.id; // $ExpectType number | undefined
+        window.incognito; // $ExpectType boolean
+        window.left; // $ExpectType number | undefined
+        window.sessionId; // $ExpectType string | undefined
+        window.state; // $ExpectType "fullscreen" | "locked-fullscreen" | "maximized" | "minimized" | "normal" | undefined
+        window.tabs; // $ExpectType Tab[] | undefined
+        window.top; // $ExpectType number | undefined
+        window.type; // $ExpectType "app" | "devtools" | "normal" | "panel" | "popup" | undefined
+        window.width; // $ExpectType number | undefined
+    });
+    chrome.windows.onBoundsChanged.removeListener((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.onBoundsChanged.hasListener((window) => { // $ExpectType boolean
+        window; // $ExpectType Window
+    });
+    chrome.windows.onBoundsChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onCreated.addListener((window) => { // $ExpectType void
+        window.alwaysOnTop; // $ExpectType boolean
+        window.focused; // $ExpectType boolean
+        window.height; // $ExpectType number | undefined
+        window.id; // $ExpectType number | undefined
+        window.incognito; // $ExpectType boolean
+        window.left; // $ExpectType number | undefined
+        window.sessionId; // $ExpectType string | undefined
+        window.state; // $ExpectType "fullscreen" | "locked-fullscreen" | "maximized" | "minimized" | "normal" | undefined
+        window.tabs; // $ExpectType Tab[] | undefined
+        window.top; // $ExpectType number | undefined
+        window.type; // $ExpectType "app" | "devtools" | "normal" | "panel" | "popup" | undefined
+        window.width; // $ExpectType number | undefined
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onCreated.removeListener((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.onCreated.hasListener((window) => { // $ExpectType boolean
+        window; // $ExpectType Window
+    });
+    chrome.windows.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onFocusChanged.addListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onFocusChanged.removeListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onFocusChanged.hasListener((windowId) => { // $ExpectType boolean
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onFocusChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onRemoved.addListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onRemoved.removeListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onRemoved.hasListener((windowId) => { // $ExpectType boolean
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest
