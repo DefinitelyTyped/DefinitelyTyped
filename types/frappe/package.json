@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/frappe",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/frappe/frappe"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "cypress": "*",
+        "type-fest": "*"
+    },
+    "devDependencies": {
+        "@types/frappe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hakim Bawa",
+            "githubUsername": "bawahakim"
+        }
+    ]
+}
