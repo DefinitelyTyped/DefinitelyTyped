@@ -3,7 +3,7 @@ tippy.setDefaultProps({
     placement: "right",
     showOnCreate: true,
     trigger: "manual",
-    hideOnClick: true
+    hideOnClick: true,
 });
 
 tippy("#someHtmlId", {
@@ -12,8 +12,8 @@ tippy("#someHtmlId", {
     arrow: false,
     maxWidth: 100,
     onCreate: instance => {
-        instance.hide()
-    }
+        instance.hide();
+    },
 });
 
 tippy.hideAll({});
@@ -23,13 +23,13 @@ const bubble = tippy(document.body, {
     delay: 1000,
     followCursor: true,
     hideOnClick: "toggle",
-    placement: "top-end"
+    placement: "top-end",
 });
 
 bubble.destroy();
 
 tippy(document.querySelectorAll("div"), {
-    content: "Hello World!"
+    content: "Hello World!",
 });
 
 const elements: readonly Element[] = [];
@@ -38,9 +38,9 @@ tippy(elements, {
     interactive: true,
     aria: {
         content: null,
-        expanded: "auto"
+        expanded: "auto",
     },
     triggerTarget: document.body,
     sticky: "reference",
-    zIndex: 10
+    zIndex: 10,
 });

@@ -130,14 +130,16 @@ declare namespace Tippy {
         /**
          * Used as the positioning reference for the tippy.
          */
-        getReferenceClientRect?: null | (() => {
-            width: number,
-            height: number,
-            left: number;
-            right: number;
-            top: number;
-            bottom: number;
-        });
+        getReferenceClientRect?:
+            | null
+            | (() => {
+                width: number;
+                height: number;
+                left: number;
+                right: number;
+                top: number;
+                bottom: number;
+            });
 
         /**
          * Determines if the tippy hides upon clicking the reference or outside of the tippy. The behavior can depend upon the `trigger` events used.
@@ -252,7 +254,7 @@ declare namespace Tippy {
          * Invoked once the tippy has been fully transitioned in.
          *
          * Note: Since this is achieved via CSS `transitionend`, it relies on your own event listeners if using a custom render function. You'll need to call the lifecycle manually in this case.
-            */
+         */
         onShown?: (instance: Tippy.Tippy) => void;
 
         /**
@@ -268,7 +270,22 @@ declare namespace Tippy {
         /**
          * The *preferred* placement of the tippy. Note that Popper's `flip` modifier can change this to the opposite placement if it has more space.
          */
-        placement?: "top" | "top-start" | "top-end" | "right" | "right-start" | "right-end" | "bottom" | "bottom-start" | "bottom-end" | "left" | "left-start" | "left-end" | "auto" | "auto-start" | "auto-end";
+        placement?:
+            | "top"
+            | "top-start"
+            | "top-end"
+            | "right"
+            | "right-start"
+            | "right-end"
+            | "bottom"
+            | "bottom-start"
+            | "bottom-end"
+            | "left"
+            | "left-start"
+            | "left-end"
+            | "auto"
+            | "auto-start"
+            | "auto-end";
 
         /**
          * Plugins to use. See [Plugins](https://atomiks.github.io/tippyjs/v6/plugins/) for details.
@@ -355,8 +372,8 @@ declare namespace Tippy {
          * Hide all visible tippies on the document.
          */
         hideAll(args: {
-            duration?: number,
-            exclude?: Tippy.Tippy | string | Element | ReadonlyArray<Element> | NodeList
+            duration?: number;
+            exclude?: Tippy.Tippy | string | Element | ReadonlyArray<Element> | NodeList;
         }): void;
     }
 }
