@@ -32,6 +32,11 @@ declare module "https" {
     class Agent extends http.Agent {
         constructor(options?: AgentOptions);
         options: AgentOptions;
+
+        createConnection(
+            options: tls.ConnectionOptions,
+            callback?: (err: Error | null, stream: Duplex) => void,
+        ): Duplex;
     }
     interface Server<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
