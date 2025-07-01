@@ -9,8 +9,7 @@
   "nonNpmDescription": "These are types meant to be used for the global `frappe` object within the Frappe framework. The npm package 'frappe' is not the correct package this types to.",
   "dependencies": {
     "@types/jquery": "*",
-    "cypress": "*",
-    "type-fest": "*"
+    "cypress": "*"
   },
   "devDependencies": {
     "@types/frappe": "workspace:."
