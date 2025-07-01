@@ -6,7 +6,7 @@
         "https://github.com/derhuerst/transform-coordinates"
     ],
     "dependencies": {
-        "proj4": "^2.4.4"
+        "proj4": "^2.19.0"
     },
     "devDependencies": {
         "@types/transform-coordinates": "workspace:."
