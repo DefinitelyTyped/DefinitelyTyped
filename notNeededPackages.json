@@ -2465,6 +2465,10 @@
             "libraryName": "gl-matrix",
             "asOfVersion": "3.2.0"
         },
+        "glob": {
+            "libraryName": "glob",
+            "asOfVersion": "9.0.0"
+        },
         "global-dirs": {
             "libraryName": "global-dirs",
             "asOfVersion": "1.0.0"
