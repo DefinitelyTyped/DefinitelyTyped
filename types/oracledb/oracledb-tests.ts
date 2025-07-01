@@ -760,9 +760,4 @@ export const version6point8Tests = async (): Promise<void> => {
     defaultOracledb.osUser = "default-user";
     defaultOracledb.program = "testPgm";
     defaultOracledb.terminal = "testTerminal";
-    function testFunction() {
-        console.log("testing function");
-    }
-    defaultOracledb.registerProcessConfigurationHook(testFunction());
-
 };

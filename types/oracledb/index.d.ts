@@ -319,6 +319,9 @@ declare namespace OracleDB {
     type SparseVectorType = SparseVectorInputObject | Array<number> | string | TypedArray;
 
     class SparseVector<T extends TypedArray = Float64Array> {
+        constructor(
+            vec?: SparseVectorType | undefined,
+        )
         /**
          * This property is a JavaScript array or a 32-bit unsigned integer (Uint32Array) TypedArray that specifies the indices (zero-based) of non-zero values in the vector.
          * 
@@ -4911,8 +4914,8 @@ declare namespace OracleDB {
      * 
      * @since 6.8
      */
-    type hookFn = (opts: any) => void;
-    function registerProcessConfigurationHook(fn: hookFn): void;
+    type HookFn = (opts: AccessTokenConfigAzure | AccessTokenConfigOCI) => void;
+    function registerProcessConfigurationHook(fn: HookFn): void;
 
     type DBCredentials =
         | {
