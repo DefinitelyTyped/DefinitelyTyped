@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "1.0.9999",
+    "version": "1.1.9999",
     "type": "module",
     "projects": [
         "https://grafana.com/docs/k6/latest/"
@@ -27,7 +27,6 @@
         "./experimental/csv": "./experimental/csv/index.d.ts",
         "./experimental/fs": "./experimental/fs/index.d.ts",
         "./experimental/redis": "./experimental/redis/index.d.ts",
-        "./experimental/webcrypto": "./experimental/webcrypto/index.d.ts",
         "./experimental/streams": "./experimental/streams/index.d.ts",
         "./experimental/websockets": "./experimental/websockets/index.d.ts"
     },
