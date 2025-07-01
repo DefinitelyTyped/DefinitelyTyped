@@ -280,7 +280,7 @@ declare namespace OracleDB {
     class IntervalYM {
         /**
          * It returns an object containing optional integer attributes: 'years' and 'months'..
-         * 
+         *
          * @since 6.8
          */
         years?: number | undefined;
@@ -290,7 +290,7 @@ declare namespace OracleDB {
     class IntervalDS {
         /**
          * It returns an object containing optional integer attributes: 'days', 'hours', 'minutes', 'seconds', and 'fseconds' (fractional seconds denoted in nanoseconds).
-         * 
+         *
          * @since 6.8
          */
         days?: number | undefined;
@@ -309,7 +309,7 @@ declare namespace OracleDB {
     }
 
     type TypedArray = Float32Array | Float64Array | Int8Array | Uint8Array | Uint32Array;
-    
+
     interface SparseVectorInputObject {
         numDimensions: number;
         indices: Array<number> | Uint32Array;
@@ -321,29 +321,29 @@ declare namespace OracleDB {
     class SparseVector<T extends TypedArray = Float64Array> {
         constructor(
             vec?: SparseVectorType,
-        )
+        );
         /**
          * This property is a JavaScript array or a 32-bit unsigned integer (Uint32Array) TypedArray that specifies the indices (zero-based) of non-zero values in the vector.
-         * 
+         *
          * @since 6.8
          */
         indices?: Array<number> | Uint32Array | undefined;
         /**
          * This property is an integer that specifies the number of dimensions of the vector.
-         * 
+         *
          * @since 6.8
          */
         numDimensions?: number | undefined;
         /**
          * This property is a JavaScript array or TypedArray that specifies the non-zero values stored in the vector.
-         * 
+         *
          * @since 6.8
          */
         values?: Array<number> | TypedArray | undefined;
         /**
          * Converts a sparse vector to a dense vector and returns a TypedArray of 8-bit signed integers, 32-bit floating-point numbers,
          * or 64-bit floating-point numbers depending on the storage format of the sparse vector column’s non-zero values in Oracle Database.
-         * 
+         *
          * @since 6.8
          */
         dense(): T | undefined;
@@ -577,11 +577,11 @@ declare namespace OracleDB {
      * typeName: The name of the object.
      * precision: Set only for oracledb.DB_TYPE_NUMBER type.
      * scale: Set only for oracledb.DB_TYPE_NUMBER type.
-     * 
+     *
      * The function is expected to return an object containing a converter attribute which works similar to the existing fetch type handler’s converters.
      * The DbObject type handler’s converter attribute is a function which accepts the incoming read value of the DbObject property and returns a transformed value (based on the required data type) for the same DbObject property.
      * This property is not applicable for LOB data type attributes of a DbObject type.
-     * 
+     *
      * @since 6.8
      */
     function dbObjectTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
@@ -934,35 +934,35 @@ declare namespace OracleDB {
     /**
      * This property is a string that specifies the name of the driver used by the client to connect to Oracle Database.
      * Available only in node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7
      */
     let driverName: string;
     /**
      * This property is a string that specifies the name of the host machine where the connection originates.
      * Available only in node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7
      */
     let machine: string;
     /**
      * This property is a string that specifies the name of the operating system user that initiates the database connection.
      * Available only in node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7
      */
     let osUser: string;
     /**
      * This property is a string that specifies the name of the program connecting to the database.
      * Available only in node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7
      */
     let program: string;
     /**
      * This property is a string that specifies the name of the terminal from where the connection originates.
      * Available only in node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7
      */
     let terminal: string;
@@ -1078,7 +1078,7 @@ declare namespace OracleDB {
         /**
          * This read-only property identifies the connect string used to connect to Oracle Database.
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7
          */
         readonly connectString: string;
@@ -1089,42 +1089,34 @@ declare namespace OracleDB {
         connectTraceConfig?: {
             /**
              * ConnectString used to connect to the database.
-             * 
              */
             readonly connectString?: string;
             /**
              * hostName of Oracle database.
-             * 
              */
             readonly hostName?: string | undefined;
             /**
              * instanceName associated with the connection.
-             * 
              */
             readonly instanceName?: string;
             /**
              * The name of pluggable Oracle database associated with connection.
-             * 
              */
             readonly pdbName?: string;
             /**
              * port to Oracle database for associated connection.
-             * 
              */
             readonly port?: number | undefined;
             /**
              * protocol used to establish connection to Oracle database.
-             * 
              */
             readonly protocol?: string | undefined;
             /**
              * serviceName of Oracle database instance associated with connection.
-             * 
              */
             readonly serviceName?: string;
             /**
              * Name of the user used to estaiblish connection.
-             * 
              */
             readonly user: string;
         } | undefined;
@@ -1171,7 +1163,7 @@ declare namespace OracleDB {
         /**
          * This read-only property is a string that identifies the host name of Oracle Database.
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7
          */
         readonly hostName?: string;
@@ -1181,10 +1173,10 @@ declare namespace OracleDB {
          * @since 6.1
          */
         instanceName?: string | undefined;
-         /**
+        /**
          * This read-only attribute specifies the maximum database identifier length in bytes supported by the database to which the connection has been established.
          * The value may be undefined, 30, or 128. The value undefined indicates the size cannot be reliably determined by node-oracledb, which occurs when using Oracle Client libraries 12.1 (or older) to connect to Oracle Database 12.2, or later.
-         * 
+         *
          * @since 6.8
          */
         readonly maxIdentifierLength?: number | undefined;
@@ -1221,14 +1213,14 @@ declare namespace OracleDB {
         /**
          * This read-only property identifies the port to which the client is connected.
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7
          */
         readonly port: number;
         /**
          * This read-only property identifies the protocol used to connect to Oracle Database.
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7
          */
         readonly protocol: string;
@@ -1284,7 +1276,7 @@ declare namespace OracleDB {
         readonly transactionInProgress?: boolean | undefined;
         /**
          * This read-only identifies the user provided to connect to Oracle Database.
-         * 
+         *
          * @since 6.7
          */
         readonly user?: string;
@@ -2187,7 +2179,7 @@ declare namespace OracleDB {
          * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
          * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the ewallet.pem file specified in the walletLocation property.
          * Available with thin driver mode only.
-         * 
+         *
          * @since 6.6
          */
         walletContent?: string | undefined;
@@ -2195,7 +2187,7 @@ declare namespace OracleDB {
          * Enables the connection to use the TLS extension, Server Name Indication (SNI).
          * This property requires Oracle Database 23.7 (or later).
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @default false
          * @since 6.8
          */
@@ -2204,7 +2196,7 @@ declare namespace OracleDB {
          * Indicates if network data compression needs to be enabled or disabled for a database connection.
          * Enabling data compression reduces the size of the Oracle Net Session Data Unit (SDU) that is to be sent over a connection.
          * Available only in thin driver mode.
-         * 
+         *
          * @default false
          * @since 6.8
          */
@@ -2212,7 +2204,7 @@ declare namespace OracleDB {
         /**
          * The minimum data size, in bytes, for which compression should be performed on the Oracle Net Session Data Unit (SDU).
          * The minimum data size is 200 bytes.
-         * 
+         *
          * @default 1024
          * @since 6.8
          */
@@ -3224,7 +3216,7 @@ declare namespace OracleDB {
          * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
          * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the ewallet.pem file specified in the walletLocation property.
          * Available with thin driver mode only.
-         * 
+         *
          * @since 6.6
          */
         walletContent?: string | undefined;
@@ -3232,7 +3224,7 @@ declare namespace OracleDB {
          * Enables the connection to use the TLS extension, Server Name Indication (SNI).
          * This property requires Oracle Database 23.7 (or later).
          * Available only in node-oracledb Thin mode.
-         * 
+         *
          * @default false
          * @since 6.8
          */
@@ -3241,7 +3233,7 @@ declare namespace OracleDB {
          * Indicates if network data compression needs to be enabled or disabled for a database connection.
          * Enabling data compression reduces the size of the Oracle Net Session Data Unit (SDU) that is to be sent over a connection.
          * Available only in thin driver mode.
-         * 
+         *
          * @default false
          * @since 6.8
          */
@@ -3249,7 +3241,7 @@ declare namespace OracleDB {
         /**
          * The minimum data size, in bytes, for which compression should be performed on the Oracle Net Session Data Unit (SDU).
          * The minimum data size is 200 bytes.
-         * 
+         *
          * @default 1024
          * @since 6.8
          */
@@ -3422,7 +3414,7 @@ declare namespace OracleDB {
         /**
          * Creates a copy of the object and returns it.
          * For node-oracledb Thick mode, this method requires Oracle Client libraries 12.2 or higher, if you are copying PL/SQL collection VARRAY types.
-         * 
+         *
          * @since 6.8
          */
         copy(): T;
@@ -4832,9 +4824,9 @@ declare namespace OracleDB {
     /**
      * Returns a list of TNS Aliases, also known as Network Service Names, defined in the tnsnames.ora file which is inside the directory that is specified in the configDir property or the TNS_ADMIN environment variable if configDir is not specified.
      * If a tnsnames.ora file does not exist, then an exception is raised.
-     * 
+     *
      * @param configDir
-     * 
+     *
      * @since 6.7
      */
     function getNetworkServiceNames(configDir?: string): Array<string>;
@@ -4911,7 +4903,7 @@ declare namespace OracleDB {
      * The parameter of the registerProcessConfigurationHook() method is a user hook function that needs to be registered.
      * This hook function will be invoked when oracledb.getConnection() or oracledb.createPool() are called.
      * The user hook function is expected to return an accessToken that needs to be registered.
-     * 
+     *
      * @since 6.8
      */
     type HookFn = (opts: AccessTokenConfigAzure | AccessTokenConfigOCI) => void;
