@@ -3,7 +3,6 @@ declare global {
         Telegram: Telegram;
     }
 }
-declare var Telegram: Telegram;
 
 export interface Telegram {
     WebApp: WebApp;
