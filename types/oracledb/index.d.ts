@@ -1981,7 +1981,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        driverName?: string;
+        driverName?: string | undefined;
         /**
          * The name of the host machine from where the connection originates.
          * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
@@ -1990,7 +1990,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        machine?: string;
+        machine?: string | undefined;
         /**
          * The name of the operating system user that initiates the database connection.
          * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
@@ -1999,7 +1999,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        osUser?: string;
+        osUser?: string | undefined;
         /**
          * The name of the program connecting to the database.
          * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
@@ -2008,7 +2008,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        program?: string;
+        program?: string | undefined;
         /**
          * The name of the terminal from where the connection originates.
          * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
@@ -2017,7 +2017,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        terminal?: string;
+        terminal?: string | undefined;
         /**
          * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
          * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
@@ -2025,7 +2025,7 @@ declare namespace OracleDB {
          *
          * @since 6.6.0
          */
-        walletContent?: string;
+        walletContent?: string | undefined;
     }
 
     interface DBError extends Error {
@@ -3037,7 +3037,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        driverName?: string;
+        driverName?: string | undefined;
         /**
          * The name of the host machine from where the connection originates.
          * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
@@ -3046,8 +3046,8 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        machine?: string;
-        /**
+        machine?: string | undefined;
+        /*
          * The name of the operating system user that initiates the database connection.
          * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.osUser` property.
@@ -3055,7 +3055,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        osUser?: string;
+        osUser?: string | undefined;
         /**
          * The name of the program connecting to the database.
          * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
@@ -3064,7 +3064,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        program?: string;
+        program?: string | undefined;
         /**
          * The name of the terminal from where the connection originates.
          * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
@@ -3073,7 +3073,7 @@ declare namespace OracleDB {
          *
          * @since 6.7.0
          */
-        terminal?: string;
+        terminal?: string | undefined;
         /**
          * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
          * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
@@ -3081,7 +3081,7 @@ declare namespace OracleDB {
          *
          * @since 6.6.0
          */
-        walletContent?: string;
+        walletContent?: string | undefined;
     }
 
     /**
@@ -4874,7 +4874,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.driverName
      */
-    let driverName: string;
+    let driverName: string | undefined;
 
     /**
      * This property is a string that specifies the name of the host machine where the connection originates.
@@ -4885,7 +4885,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.machine
      */
-    let machine: string;
+    let machine: string | undefined;
 
     /**
      * This property is a string that specifies the name of the operating system user that initiates the database connection.
@@ -4896,7 +4896,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.osUser
      */
-    let osUser: string;
+    let osUser: string | undefined;
 
     /**
      * This property is a string that specifies the name of the program connecting to the database.
@@ -4907,7 +4907,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.program
      */
-    let program: string;
+    let program: string | undefined;
 
     /**
      * This property is a string that specifies the name of the terminal from where the connection originates.
@@ -4918,7 +4918,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.terminal
      */
-    let terminal: string;
+    let terminal: string | undefined;
 
     /**
      * Returns a list of TNS Aliases, also known as Network Service Names, defined in the `tnsnames.ora` file which is inside the directory that is specified in the `configDir` property or the `TNS_ADMIN` environment variable if `configDir` is not specified.
