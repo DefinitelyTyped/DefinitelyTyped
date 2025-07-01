@@ -2651,6 +2651,8 @@ export class Popup extends DivOverlay {
     options: PopupOptions;
 }
 
+export function popup(latlng: LatLngExpression, options?: PopupOptions): Popup;
+
 export function popup(options?: PopupOptions, source?: Layer): Popup;
 
 export type Direction = "right" | "left" | "top" | "bottom" | "center" | "auto";
@@ -2671,6 +2673,8 @@ export class Tooltip extends DivOverlay {
 
     options: TooltipOptions;
 }
+
+export function tooltip(latlng: LatLngExpression, options?: TooltipOptions): Tooltip;
 
 export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 

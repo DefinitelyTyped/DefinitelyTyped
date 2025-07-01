@@ -84,7 +84,8 @@ declare namespace google {
 
             /**
              * Sets the Id of the application needing to access the user's files via
-             * the {@link https://developers.google.com/drive/api | Drive API}.
+             * the {@link https://developers.google.com/workspace/drive/api | Drive
+             * API}.
              *
              * This is required for the `https://www.googleapis.com/auth/drive.file`
              * scope.
@@ -104,8 +105,8 @@ declare namespace google {
              * Set the callback method. This method is called when the user selects
              * items or cancels.  The callback method receives a single callback
              * object. The structure of the callback object is described in the {@link
-             * https://developers.google.com/drive/picker/reference/results | JSON
-             * Guide}.
+             * https://developers.google.com/workspace/drive/picker/reference/results
+             * | JSON Guide}.
              */
             setCallback(method: (result: ResponseObject) => void): PickerBuilder;
 
@@ -538,8 +539,9 @@ declare namespace google {
             /**
              * Shows shared drives and the files they contain. Before enabling, refer
              * to
-             * {@link https://developers.google.com/drive/v3/web/enable-shareddrives |
-             * GoogleDrive API documentation for enabling shared drives}.
+             * {@link
+             * https://developers.google.com/workspace/drive/v3/web/enable-shareddrives
+             * | GoogleDrive API documentation for enabling shared drives}.
              *
              * If `true`, only shared drives are included in the view.
              *
