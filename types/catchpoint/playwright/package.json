@@ -1,14 +1,17 @@
 {
-  "private": true,
-  "name": "@types/catchpoint-playwright",
-  "version": "1.0.0",
-  "description": "Type definition for Playwright use in Catchpoint",
-  "projects": [
-    "https://github.com/catchpoint",
-    "https://docs.catchpoint.com/docs/playwright-scripting-guide"
-  ],
-  "devDependencies": {
+    "private": true,
+    "name": "@types/catchpoint-playwright",
+    "version": "1.0.0",
+    "description": "Type definition for Playwright use in Catchpoint",
+    "projects": [
+        "https://github.com/catchpoint",
+        "https://docs.catchpoint.com/docs/playwright-scripting-guide"
+    ],
+    "dependencies": {
         "@playwright/test": "*"
+    },
+    "devDependencies": {
+        "@types/catchpoint-playwright": "workspace:."
     },
     "owners": [
         {
