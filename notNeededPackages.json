@@ -5751,6 +5751,10 @@
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
         },
+        "react-component-benchmark": {
+            "libraryName": "react-component-benchmark",
+            "asOfVersion": "2.0.0"
+        },
         "react-content-loader": {
             "libraryName": "react-content-loader",
             "asOfVersion": "4.0.0"
