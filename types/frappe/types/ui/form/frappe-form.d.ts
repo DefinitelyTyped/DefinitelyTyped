@@ -157,7 +157,7 @@ interface FrappeForm<T extends DocType = DocType> {
      * @param values Optional initial values for the new row.
      * @returns The newly created child row.
      */
-    add_child(fieldname: string, values?: { [key: string]: any }): any;
+    add_child(fieldname: Exclude<keyof T, keyof DocTypeChildTable>, values?: { [key: string]: any }): DocTypeChildTable;
 
     /**
      * Call a server-side method with optional arguments and callback.
