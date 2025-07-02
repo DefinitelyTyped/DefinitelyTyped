@@ -28,10 +28,10 @@ frappe.db.get_doc("Foo");
 const getList1: Promise<User[]> = frappe.db.get_list("User", { filters: { age: 30, foo: "bar" } });
 const getList2: Promise<User[]> = frappe.db.get_list("User", {
     fields: [
-        "name", 
+        "name",
         "age",
         // @ts-expect-error
-        "foo" 
+        "foo",
     ],
     filters: { active: true },
 });
@@ -57,10 +57,10 @@ const singleValue2: Promise<boolean> = frappe.db.get_single_value("User", "activ
 const setValue1: Promise<FrappeResponse<User>> = frappe.db.set_value("User", "test", "age", 40);
 const setValue2: Promise<FrappeResponse<User>> = frappe.db.set_value("User", "test", "active");
 const setValue3: Promise<FrappeResponse<User>> = frappe.db.set_value(
-    "User", 
-    "test", 
+    "User",
+    "test",
     // @ts-expect-error
-    "foo"
+    "foo",
 );
 
 // @ts-expect-error
@@ -103,4 +103,3 @@ frappe.db.exists("User");
 frappe.db.exists(123, "test");
 // @ts-expect-error
 frappe.db.exists("Foo");
-
