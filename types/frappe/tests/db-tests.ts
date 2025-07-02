@@ -21,11 +21,18 @@ const getDoc3: Promise<User> = frappe.db.get_doc("User", undefined, { age: 30, f
 frappe.db.get_doc(123);
 // @ts-expect-error
 frappe.db.get_doc("User", 123);
+// @ts-expect-error
+frappe.db.get_doc("Foo");
 
 // -- get_list --
 const getList1: Promise<User[]> = frappe.db.get_list("User", { filters: { age: 30, foo: "bar" } });
 const getList2: Promise<User[]> = frappe.db.get_list("User", {
-    fields: ["name", "age", "foo"],
+    fields: [
+        "name", 
+        "age",
+        // @ts-expect-error
+        "foo" 
+    ],
     filters: { active: true },
 });
 const getList3: Promise<User[]> = frappe.db.get_list("User");
@@ -39,6 +46,8 @@ const getValue2: Promise<FrappeResponse<Pick<User, "name" | "active">>> = frappe
 
 // @ts-expect-error
 frappe.db.get_value("User", { name: "test" }, "foo");
+// @ts-expect-error
+frappe.db.get_value("Foo");
 
 // -- get_single_value --
 const singleValue1: Promise<string> = frappe.db.get_single_value("User", "name");
@@ -47,12 +56,19 @@ const singleValue2: Promise<boolean> = frappe.db.get_single_value("User", "activ
 // -- set_value --
 const setValue1: Promise<FrappeResponse<User>> = frappe.db.set_value("User", "test", "age", 40);
 const setValue2: Promise<FrappeResponse<User>> = frappe.db.set_value("User", "test", "active");
-const setValue3: Promise<FrappeResponse<User>> = frappe.db.set_value("User", "test", "foo", "bar");
+const setValue3: Promise<FrappeResponse<User>> = frappe.db.set_value(
+    "User", 
+    "test", 
+    // @ts-expect-error
+    "foo"
+);
 
 // @ts-expect-error
 frappe.db.set_value("User", 123, "age", 20);
 // @ts-expect-error
 frappe.db.set_value("User", "test");
+// @ts-expect-error
+frappe.db.set_value("Foo");
 
 // -- insert --
 const insertResult: Promise<DocType> = frappe.db.insert({});
@@ -67,6 +83,8 @@ const count2: Promise<number> = frappe.db.count("User", { age: 30 });
 frappe.db.count();
 // @ts-expect-error
 frappe.db.count("User", { foo: "bar" });
+// @ts-expect-error
+frappe.db.count("Foo");
 
 // -- delete_doc --
 const deleteResult: Promise<void> = frappe.db.delete_doc("User", "test");
@@ -74,6 +92,8 @@ const deleteResult: Promise<void> = frappe.db.delete_doc("User", "test");
 frappe.db.delete_doc("User");
 // @ts-expect-error
 frappe.db.delete_doc("User", 123);
+// @ts-expect-error
+frappe.db.delete_doc("Foo");
 
 // -- exists --
 const existsResult: Promise<boolean> = frappe.db.exists("User", "test");
@@ -81,3 +101,6 @@ const existsResult: Promise<boolean> = frappe.db.exists("User", "test");
 frappe.db.exists("User");
 // @ts-expect-error
 frappe.db.exists(123, "test");
+// @ts-expect-error
+frappe.db.exists("Foo");
+

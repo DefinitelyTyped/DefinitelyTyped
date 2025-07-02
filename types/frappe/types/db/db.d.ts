@@ -1,4 +1,4 @@
-import type { Arrayable, LiteralStringUnion, UnknownRecord } from "../../utils/type-fest.d.ts";
+import type { Arrayable, UnknownRecord } from "../../utils/type-fest.d.ts";
 import type FrappeResponse from "../common/response.d.ts";
 
 type DocTypeKey = keyof DocTypeMap;
@@ -16,7 +16,7 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function get_doc<DT extends DocTypeKey>(
-                doctype: LiteralStringUnion<DT>,
+                doctype: DT,
                 name?: string | null,
                 filters?: PartialRecord<DocTypeMap[DT]>,
             ): Promise<DocTypeMap[DT]>;
@@ -27,9 +27,9 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function get_list<DT extends DocTypeKey>(
-                doctype: LiteralStringUnion<DT>,
+                doctype: DT,
                 opts?: {
-                    fields?: Array<LiteralStringUnion<keyof DocTypeMap[DT]>>;
+                    fields?: Array<keyof DocTypeMap[DT]>;
                     filters?: PartialRecord<DocTypeMap[DT]>;
                 },
             ): Promise<DocTypeMap[DT][]>;
@@ -40,7 +40,7 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function get_value<DT extends DocTypeKey, K extends keyof DocTypeMap[DT]>(
-                doctype: LiteralStringUnion<DT>,
+                doctype: DT,
                 nameOrFilters: PartialRecord<DocTypeMap[DT]>,
                 fieldnames: Arrayable<K>,
             ): Promise<FrappeResponse<Pick<DocTypeMap[DT], K>>>;
@@ -51,8 +51,8 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function get_single_value<DT extends DocTypeKey, K extends keyof DocTypeMap[DT]>(
-                doctype: LiteralStringUnion<DT>,
-                field: LiteralStringUnion<K>,
+                doctype: DT,
+                field: K,
             ): Promise<DocTypeMap[DT][K]>;
 
             /**
@@ -61,9 +61,9 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function set_value<DT extends DocTypeKey, K extends keyof DocTypeMap[DT]>(
-                doctype: LiteralStringUnion<DT>,
+                doctype: DT,
                 docname: string,
-                fieldname: LiteralStringUnion<K>,
+                fieldname: K,
                 value?: DocTypeMap[DT][K],
             ): Promise<FrappeResponse<DocTypeMap[DT]>>;
 
@@ -80,7 +80,7 @@ declare global {
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
             function count<DT extends DocTypeKey>(
-                doctype: LiteralStringUnion<DT>,
+                doctype: DT,
                 filters?: Partial<DocTypeMap[DT]>,
             ): Promise<number>;
 
@@ -89,14 +89,14 @@ declare global {
              *
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
-            function delete_doc(doctype: LiteralStringUnion<DocTypeKey>, name: string): Promise<void>;
+            function delete_doc(doctype: DocTypeKey, name: string): Promise<void>;
 
             /**
              * Returns true if a document record exists.
              *
              * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/server-calls)}
              */
-            function exists(doctype: LiteralStringUnion<DocTypeKey>, name: string): Promise<boolean>;
+            function exists(doctype: DocTypeKey, name: string): Promise<boolean>;
         }
     }
 }
