@@ -171,6 +171,10 @@ frappe.ui.form.on<"Invoice Item", Invoice>("Invoice Item", {
     creation(frm, cdt, cdn) {
         const n: number = frm.doc.name;
         const _cdt: string = cdt;
+        // Should be exactly "Invoice Item"
+        const _cdt2: "Invoice Item" = cdt;
+        // @ts-expect-error
+        const _cdt3: "SomeString" = cdt;
         const _cdn: DocTypeName = cdn;
     },
     before_items_remove(frm, cdt, cdn) {

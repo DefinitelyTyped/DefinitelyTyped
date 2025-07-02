@@ -44,13 +44,13 @@ declare global {
                  */
                 function on<DK extends Exclude<DocTypeKey, ChildDocTypeKey>>(
                     doctype: DK,
-                    handlers: FormEventHandlers<DocTypeMap[DK]>,
+                    handlers: FormEventHandlers<DK>,
                 ): void;
 
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 function on<DK extends ChildDocTypeKey, Parent extends DocType>(
                     doctype: DK,
-                    handlers: FormEventHandlersChildTable<DocTypeMap[DK], ChildTableField<Parent, DocTypeMap[DK]>>,
+                    handlers: FormEventHandlersChildTable<DK, ChildTableField<Parent, DocTypeMap[DK]>>,
                 ): void;
             }
         }
@@ -58,9 +58,9 @@ declare global {
 }
 
 type FormEventHandler<DT extends DocType> = (frm: FrappeForm<DT>) => void;
-type FormEventHandlerChildTable<DT extends DocTypeChildTable> = (
-    frm: FrappeForm<DT>,
-    cdt: string,
+type FormEventHandlerChildTable<CK extends ChildDocTypeKey> = (
+    frm: FrappeForm<DocTypeMap[CK]>,
+    cdt: CK,
     cdn: DocTypeName,
 ) => void;
 
@@ -68,8 +68,8 @@ type FormEventHandlerChildTable<DT extends DocTypeChildTable> = (
  * Handlers keyed by field names of the DocType.
  * Triggered when the field value changes.
  */
-type FieldHandler<DT extends DocType> = Partial<
-    Record<keyof DT, DT extends DocTypeChildTable ? FormEventHandlerChildTable<DT> : FormEventHandler<DT>>
+type FieldHandler<DK extends DocTypeKey> = Partial<
+    Record<keyof DocTypeMap[DK], DK extends ChildDocTypeKey ? FormEventHandlerChildTable<DK> : FormEventHandler<DocTypeMap[DK]>>
 >;
 
 interface EmailRecipientField {
@@ -103,14 +103,14 @@ interface EmailRecipientField {
  * @template DT The DocType model type.
  */
 
-type FormEventHandlers<DT extends DocType = DocType> = {
+type FormEventHandlers<DK extends DocTypeKey = DocTypeKey> = {
     /**
      * Runs once when the form is initialized,
      * after metadata is loaded but before data load.
      *
      * @param frm The form instance being initialized.
      */
-    setup?(frm: FrappeForm<DT>): void;
+    setup?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires before document data is bound to form fields,
@@ -118,7 +118,7 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance before data binding.
      */
-    before_load?(frm: FrappeForm<DT>): void;
+    before_load?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after document data is loaded into form fields,
@@ -126,7 +126,7 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance with data loaded.
      */
-    onload?(frm: FrappeForm<DT>): void;
+    onload?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after the form is fully rendered to the DOM,
@@ -134,7 +134,7 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance after render.
      */
-    onload_post_render?(frm: FrappeForm<DT>): void;
+    onload_post_render?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Runs on every form refresh,
@@ -142,7 +142,7 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance being refreshed.
      */
-    refresh?(frm: FrappeForm<DT>): void;
+    refresh?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Invoked before saving,
@@ -150,7 +150,7 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance to validate.
      */
-    validate?(frm: FrappeForm<DT>): void;
+    validate?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires just before sending data to the server,
@@ -158,78 +158,78 @@ type FormEventHandlers<DT extends DocType = DocType> = {
      *
      * @param frm The form instance about to save.
      */
-    before_save?(frm: FrappeForm<DT>): void;
+    before_save?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after a successful save, before the form refreshes.
      *
      * @param frm The form instance after save.
      */
-    after_save?(frm: FrappeForm<DT>): void;
+    after_save?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires before document submission, after save and validation.
      *
      * @param frm The form instance before submit.
      */
-    before_submit?(frm: FrappeForm<DT>): void;
+    before_submit?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after document submission, before form refresh.
      *
      * @param frm The form instance after submit.
      */
-    on_submit?(frm: FrappeForm<DT>): void;
+    on_submit?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires before document cancellation.
      *
      * @param frm The form instance before cancel.
      */
-    before_cancel?(frm: FrappeForm<DT>): void;
+    before_cancel?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after document cancellation, before form refresh.
      *
      * @param frm The form instance after cancel.
      */
-    after_cancel?(frm: FrappeForm<DT>): void;
+    after_cancel?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires before discarding unsaved changes, such as navigating away.
      *
      * @param frm The form instance before discard.
      */
-    before_discard?(frm: FrappeForm<DT>): void;
+    before_discard?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires after discarding unsaved changes.
      *
      * @param frm The form instance after discard.
      */
-    after_discard?(frm: FrappeForm<DT>): void;
+    after_discard?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Fires when the activity timeline is loaded or refreshed.
      *
      * @param frm The form instance whose timeline refreshed.
      */
-    timeline_refresh?(frm: FrappeForm<DT>): void;
+    timeline_refresh?(frm: FrappeForm<DocTypeMap[DK]>): void;
 
     /**
      * Called by the email dialog to fetch default filters for email recipients. Should accept two parameters frm (the current form) and field ("recipients", "cc" or "bcc"), and return an array or dict of filters (related to the Contact doctype).
      *
      * @param frm The form instance for filtering recipients.
      */
-    get_email_recipient_filters?(frm: FrappeForm<DT>, field: EmailRecipientField): { [key: string]: string } | string[];
+    get_email_recipient_filters?(frm: FrappeForm<DocTypeMap[DK]>, field: EmailRecipientField): { [key: string]: string } | string[];
 
     /**
      * Called by the email dialog to fetch default recipients. Should accept two parameters frm (the current form) and field ("recipients", "cc" or "bcc"), and return a list of email addresses for this field.
      *
      * @param frm The form instance for email recipients.
      */
-    get_email_recipients?(frm: FrappeForm<DT>, field: EmailRecipientField): string[];
-} & FieldHandler<DT>;
+    get_email_recipients?(frm: FrappeForm<DocTypeMap[DK]>, field: EmailRecipientField): string[];
+} & FieldHandler<DK>;
 
 /**
  * Table field event hook names for child table lifecycle.
@@ -260,16 +260,13 @@ type TableFieldEvents<F extends string> =
  * @template F The parent DocType's child table field name.
  */
 
-type FormEventHandlersChildTable<DT extends DocTypeChildTable, F extends string> =
+type FormEventHandlersChildTable<DK extends ChildDocTypeKey, F extends string> =
     & Partial<
-        Record<TableFieldEvents<F>, FormEventHandlerChildTable<DT>>
+        Record<TableFieldEvents<F>, FormEventHandlerChildTable<DK>>
     >
-    & FieldHandler<DT>;
+    & FieldHandler<DK>;
 
 type DocTypeKey = keyof DocTypeMap;
-
-type InferFormHandler<DT extends DocType> = DT extends DocTypeChildTable ? FormEventHandlersChildTable<DT, string>
-    : FormEventHandlers<DT>;
 
 type ChildDocTypeKey = {
     [K in DocTypeKey]: DocTypeMap[K] extends DocTypeChildTable ? K : never;
