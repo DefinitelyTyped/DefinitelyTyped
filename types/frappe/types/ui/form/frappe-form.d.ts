@@ -23,7 +23,12 @@ interface FrappeForm<T extends DocType = DocType> {
      * @param skip_dirty_trigger Skip triggering dirty state.
      * @returns Promise resolving when values are set.
      */
-    set_value<K extends keyof T>(field: K, value: T[K], if_missing?: boolean, skip_dirty_trigger?: boolean): Promise<void>;
+    set_value<K extends keyof T>(
+        field: K,
+        value: T[K],
+        if_missing?: boolean,
+        skip_dirty_trigger?: boolean,
+    ): Promise<void>;
     set_value(fieldValues: Partial<T>): Promise<void>;
 
     /**
@@ -116,7 +121,7 @@ interface FrappeForm<T extends DocType = DocType> {
         value: any,
         docname?: string,
         tableField?: string,
-        tableRowName?: string
+        tableRowName?: string,
     ): void;
 
     /**
@@ -162,7 +167,7 @@ interface FrappeForm<T extends DocType = DocType> {
      */
     add_child<K extends keyof T>(
         fieldname: K,
-        values?: Partial<T[K] extends Array<infer U> ? U : never>
+        values?: Partial<T[K] extends Array<infer U> ? U : never>,
     ): T[K] extends Array<infer U> ? U : never;
 
     /**
@@ -196,12 +201,12 @@ type MessageColor = "blue" | "red" | "orange" | "green" | "yellow";
 
 interface QueryFilter<T extends DocType> {
     /**
-     * Override for the filter method to provide your own custom method on the server side. 
+     * Override for the filter method to provide your own custom method on the server side.
      * Just set the query to the module path of your python method.
      */
-    query?: string
+    query?: string;
     /**
      * See {@link Filters}
      */
-    filters: Filters<keyof T>
+    filters: Filters<keyof T>;
 }

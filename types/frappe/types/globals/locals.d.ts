@@ -1,6 +1,6 @@
 type Local = {
-    [K in keyof DocTypeMap]: { [docName: string]: DocTypeMap[K] }
-}
+    [K in keyof DocTypeMap]: { [docName: string]: DocTypeMap[K] };
+};
 
 /**
  * Global object containing all local data in the form

@@ -1,4 +1,3 @@
-
 interface MyDoc extends DocType {
     id: number;
     name: string;
@@ -15,16 +14,16 @@ declare global {
     }
 }
 
-const id: number = locals.MyDoc['doc1'].id;
+const id: number = locals.MyDoc["doc1"].id;
 
-const name: string = locals.MyDoc['doc1'].name;
+const name: string = locals.MyDoc["doc1"].name;
 
-const flag: boolean = locals.Another['row1'].flag;
-
-// @ts-expect-error
-locals.Unknown['x'];
+const flag: boolean = locals.Another["row1"].flag;
 
 // @ts-expect-error
-locals.MyDoc['doc1'].unknown;
+locals.Unknown["x"];
 
-export {}
+// @ts-expect-error
+locals.MyDoc["doc1"].unknown;
+
+export {};

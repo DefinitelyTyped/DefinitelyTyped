@@ -12,7 +12,7 @@ interface Item extends DocTypeChildTable {
     value: boolean;
 }
 
-const frm = {} as FrappeForm<MyDoc> 
+const frm = {} as FrappeForm<MyDoc>;
 
 // set_value tests
 const promise1: Promise<void> = frm.set_value("field1", "test");

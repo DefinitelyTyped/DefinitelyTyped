@@ -1,22 +1,22 @@
 /** A single field value in Frappe filters */
-type FrappeFilterValue = string | number | boolean | Date
+type FrappeFilterValue = string | number | boolean | Date;
 
 /** Standard comparison operators */
 type ComparisonOperator =
-  | "="
-  | "!="
-  | ">"
-  | ">="
-  | "<"
-  | "<="
-  | "like"
-  | "not like"
+    | "="
+    | "!="
+    | ">"
+    | ">="
+    | "<"
+    | "<="
+    | "like"
+    | "not like";
 
 /** Operators that take an array of values */
-type ArrayOperator = "in" | "not in"
+type ArrayOperator = "in" | "not in";
 
 /** Operators that take two scalar values (“between”/“not between”) */
-type RangeOperator = "between" | "not between"
+type RangeOperator = "between" | "not between";
 
 /**
  * A single filter expression for one field:
@@ -26,14 +26,14 @@ type RangeOperator = "between" | "not between"
  *  - Range comparitor    ⇒  [ "between", 10, 20 ]
  */
 export type FilterCondition =
-  | FrappeFilterValue
-  | [ComparisonOperator, FrappeFilterValue]
-  | [ArrayOperator, FrappeFilterValue[]]
-  | [RangeOperator, FrappeFilterValue, FrappeFilterValue]
+    | FrappeFilterValue
+    | [ComparisonOperator, FrappeFilterValue]
+    | [ArrayOperator, FrappeFilterValue[]]
+    | [RangeOperator, FrappeFilterValue, FrappeFilterValue];
 
 /**
  * The full filters map you can return from set_query:
- * 
+ *
  * ```
  * frm.set_query("customer", () => ({
  *   filters: {
@@ -46,7 +46,7 @@ export type FilterCondition =
  * ```
  */
 export type Filters<Field extends PropertyKey> = Partial<
-  Record<Field, FilterCondition>
->   
+    Record<Field, FilterCondition>
+>;
 
-export {}
+export {};

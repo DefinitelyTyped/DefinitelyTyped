@@ -69,7 +69,10 @@ type FormEventHandlerChildTable<CK extends ChildDocTypeKey> = (
  * Triggered when the field value changes.
  */
 type FieldHandler<DK extends DocTypeKey> = Partial<
-    Record<keyof DocTypeMap[DK], DK extends ChildDocTypeKey ? FormEventHandlerChildTable<DK> : FormEventHandler<DocTypeMap[DK]>>
+    Record<
+        keyof DocTypeMap[DK],
+        DK extends ChildDocTypeKey ? FormEventHandlerChildTable<DK> : FormEventHandler<DocTypeMap[DK]>
+    >
 >;
 
 interface EmailRecipientField {
@@ -221,7 +224,10 @@ type FormEventHandlers<DK extends DocTypeKey = DocTypeKey> = {
      *
      * @param frm The form instance for filtering recipients.
      */
-    get_email_recipient_filters?(frm: FrappeForm<DocTypeMap[DK]>, field: EmailRecipientField): { [key: string]: string } | string[];
+    get_email_recipient_filters?(
+        frm: FrappeForm<DocTypeMap[DK]>,
+        field: EmailRecipientField,
+    ): { [key: string]: string } | string[];
 
     /**
      * Called by the email dialog to fetch default recipients. Should accept two parameters frm (the current form) and field ("recipients", "cc" or "bcc"), and return a list of email addresses for this field.
