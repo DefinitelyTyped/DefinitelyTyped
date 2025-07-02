@@ -25,7 +25,7 @@ type RangeOperator = "between" | "not between"
  *  - Array comparitor    ⇒  [ "in", [1,2,3] ]
  *  - Range comparitor    ⇒  [ "between", 10, 20 ]
  */
-type FilterCondition =
+export type FilterCondition =
   | FrappeFilterValue
   | [ComparisonOperator, FrappeFilterValue]
   | [ArrayOperator, FrappeFilterValue[]]

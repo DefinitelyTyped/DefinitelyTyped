@@ -7,10 +7,12 @@
 /// <reference path="./types/ui/dialog/dialog.d.ts" />
 /// <reference path="./types/requests/requests.d.ts" />
 /// <reference path="./types/db/db.d.ts" />
+/// <reference path="./types/globals/locals.d.ts" />
 
 import type FrappeResponse from "./types/common/response.d.ts";
 import type { DocTypeName } from "./types/model/doctype.d.ts";
 import type FrappeForm from "./types/ui/form/frappe-form.d.ts";
+import type { FilterCondition, Filters } from "./types/common/filters.d.ts";
 
 // Set as global so we can allow interface merging from generators
 declare global {
@@ -20,4 +22,4 @@ declare global {
     interface FrappeWhitelistedMethods {}
 }
 
-export { DocTypeName, FrappeResponse, FrappeForm };
+export { DocTypeName, FrappeResponse, FrappeForm, FilterCondition, Filters };
