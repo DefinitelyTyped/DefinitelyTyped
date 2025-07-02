@@ -2681,6 +2681,10 @@
             "libraryName": "@hapi/yar",
             "asOfVersion": "11.0.2"
         },
+        "hapipal__toys": {
+            "libraryName": "@hapipal/toys",
+            "asOfVersion": "4.0.0"
+        },
         "hard-rejection": {
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
