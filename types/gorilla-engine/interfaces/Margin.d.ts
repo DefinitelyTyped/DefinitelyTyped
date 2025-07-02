@@ -2,7 +2,7 @@ declare namespace GorillaEngine.UI {
     /**
      * TODO::
      * Margin interface for Gorilla Engine UI.
-     * I don't even know if this works
+     * Configures the positioning of the text element inside the components container. Provides more precise text alignment than the `textAlign` property.
      */
     interface Margin {
         /**

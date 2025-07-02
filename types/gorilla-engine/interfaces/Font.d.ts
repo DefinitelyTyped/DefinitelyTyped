@@ -16,8 +16,7 @@ declare namespace GorillaEngine.UI {
          */
         fontKerning: number;
         /**
-         * Sets the color of the text. This can be a named color (e.g., "red"), a hexadecimal value (e.g., "#FF0000"),
-         * or an RGB/RGBA function (e.g., "rgb(255, 0, 0)").
+         * Sets the color of the text. This can be a named color (e.g., "red") or a hexadecimal value (e.g., "FF0000"). To specify an RGBA color set the hex alpha as a prefix (e.g., "80FF0000").
          */
         textColor: string;
         /**
