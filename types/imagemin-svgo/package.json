@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/imagemin-svgo",
-    "version": "11.0.0",
+    "version": "11.0.9999",
     "projects": [
         "https://github.com/imagemin/imagemin-svgo#readme"
     ],
