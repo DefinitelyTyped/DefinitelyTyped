@@ -17,6 +17,7 @@
         "tests/db-tests.ts",
         "tests/dialog-tests.ts",
         "tests/form-handler-tests.ts",
-        "tests/requests-tests.ts"
+        "tests/requests-tests.ts",
+        "tests/frappe-form-tests.ts"
     ]
 }

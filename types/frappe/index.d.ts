@@ -10,6 +10,7 @@
 
 import type FrappeResponse from "./types/common/response.d.ts";
 import type { DocTypeName } from "./types/model/doctype.d.ts";
+import type FrappeForm from "./types/ui/form/frappe-form.d.ts";
 
 // Set as global so we can allow interface merging from generators
 declare global {
@@ -19,4 +20,4 @@ declare global {
     interface FrappeWhitelistedMethods {}
 }
 
-export { DocTypeName, FrappeResponse };
+export { DocTypeName, FrappeResponse, FrappeForm };
