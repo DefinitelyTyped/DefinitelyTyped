@@ -19,6 +19,7 @@
         "tests/form-handler-tests.ts",
         "tests/requests-tests.ts",
         "tests/frappe-form-tests.ts",
-        "tests/filters-tests.ts"
+        "tests/filters-tests.ts",
+        "tests/locals-tests.ts"
     ]
 }
