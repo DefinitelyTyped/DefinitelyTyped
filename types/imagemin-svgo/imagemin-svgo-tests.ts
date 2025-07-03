@@ -13,10 +13,10 @@ imagemin(["*.svg"], {
                     params: {
                         overrides: {
                             convertShapeToPath: {
-                                convertArcs: false
-                            }
-                        }
-                    }
+                                convertArcs: false,
+                            },
+                        },
+                    },
                 },
             ],
             multipass: false,
