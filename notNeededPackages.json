@@ -6771,6 +6771,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simpl-schema": {
+            "libraryName": "simpl-schema",
+            "asOfVersion": "1.13.0"
+        },
         "simple-datatables": {
             "libraryName": "simple-datatables",
             "asOfVersion": "6.0.0"
