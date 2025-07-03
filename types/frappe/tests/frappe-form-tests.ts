@@ -10,6 +10,12 @@ interface MyDoc extends DocType {
 interface Item extends DocTypeChildTable {
     name: number;
     value: boolean;
+    attribute: string;
+}
+
+interface Attribute extends DocType {
+    name: string;
+    attr_value: string;
 }
 
 const frm = {} as FrappeForm<MyDoc>;
@@ -101,7 +107,7 @@ frm.toggle_display("field1", "yes");
 
 // query
 frm.set_query("field1", () => ({ filters: { field1: "value" } }));
-frm.set_query("field1", "items", () => ({ filters: { field1: ["in", ["value1", "value2"]] } }));
+frm.set_query<Item, Attribute>("attribute", "items", () => ({ filters: { attr_value: ["in", ["value1", "value2"]] } }));
 
 // @ts-expect-error
 frm.set_query("field1", () => ({ wrong: "value" }));

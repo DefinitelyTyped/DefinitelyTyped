@@ -149,6 +149,26 @@ interface FrappeForm<T extends DocType = DocType> {
      * Apply filters on a Link field.
      * @param fieldname Link field name.
      * @param queryFn Function returning filter options.
+     * 
+     * @example
+     * // show only customers whose territory is set to India
+     * frm.set_query('customer', () => {
+     *     return {
+     *         filters: {
+     *             territory: 'India'
+     *         }
+     *     }
+     * })
+     * 
+     * @example
+     * // show customers whose territory is any of India, Nepal, Japan
+     * frm.set_query('customer', () => {
+     *     return {
+     *         filters: {
+     *             territory: ['in', ['India', 'Nepal', 'Japan']]
+     *         }
+     *     }
+     * })
      */
     set_query(fieldname: keyof T, queryFn: () => QueryFilter<T>): void;
     /**
@@ -156,8 +176,31 @@ interface FrappeForm<T extends DocType = DocType> {
      * @param fieldname Link field name.
      * @param tableFieldname Child table field name.
      * @param queryFn Function returning filter options.
+     * 
+     * @typeParam ChildType - The type of the child table.
+     * @typeParam DT - The type of the linked DocType.
+     * 
+     * @example
+     * 
+     * // set filters for Link field item_code in
+     * // items field which is a Child Table
+     * ```ts
+     * frm.set_query('item_code', 'items', () => {
+     *     return {
+     *         filters: {
+     *             item_group: 'Products'
+     *         }
+     *     }
+     * })
+     * ``` 
      */
-    set_query(fieldname: keyof T, tableFieldname: keyof T, queryFn: () => QueryFilter<T>): void;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    set_query<ChildType extends DocTypeChildTable, DT extends DocType>(
+        fieldname: keyof ChildType,
+        tableFieldname: { [K in keyof T]: T[K] extends ChildType[] ? K : never }[keyof T],
+        queryFn: () => QueryFilter<DT>
+    ): void;
+
 
     /**
      * Add a new row to a child table. Make sure to call {@link refresh_field} after adding a row.
