@@ -206,7 +206,7 @@ export interface OptionsPagination {
     paginationMode?: SortMode;
 
     /** Set the number of rows in each page. */
-    paginationSize?: number | undefined;
+    paginationSize?: number | true | undefined;
 
     /**
      * Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
@@ -3138,10 +3138,10 @@ declare class Tabulator {
     setPageToRow: (row: RowLookup) => Promise<void>;
 
     /** You can change the page size at any point by using the setPageSize function. (this setting will be ignored if using remote pagination with the page size set by the server) */
-    setPageSize: (size: number) => void;
+    setPageSize: (size: number | true) => void;
 
     /** To retrieve the number of rows allowed per page you can call the getPageSize function: */
-    getPageSize: () => number;
+    getPageSize: () => number | true;
 
     /** You can change to show the previous page using the previousPage function. */
     previousPage: () => Promise<void>;

@@ -1312,6 +1312,44 @@ table = new Tabulator("#testPagination", {
     },
 });
 
+// Testing paginationSize to number and to "All"
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: true,
+});
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+
+// Testing setPageSize/getPageSize to number and to "All"
+table = new Tabulator("#testSetPagenSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+table.setPageSize(10);
+table.setPageSize(true);
+// $ExpectType number | true
+table.getPageSize();
+
 // Testing data loader element
 table = new Tabulator("#testDataLoader", {
     data: [],
