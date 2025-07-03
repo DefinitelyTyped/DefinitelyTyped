@@ -167,7 +167,7 @@ frappe.ui.form.on("Invoice Item", {
 });
 
 // Test a DocTypeChildTable when the parent is specified
-frappe.ui.form.on<"Invoice Item", Invoice>("Invoice Item", {
+frappe.ui.form.on<Invoice, "Invoice Item">("Invoice Item", {
     creation(frm, cdt, cdn) {
         const n: number = frm.doc.name;
         const _cdt: string = cdt;
@@ -176,6 +176,9 @@ frappe.ui.form.on<"Invoice Item", Invoice>("Invoice Item", {
         // @ts-expect-error
         const _cdt3: "SomeString" = cdt;
         const _cdn: DocTypeName = cdn;
+    },
+    item(frm, cdt, cdn) {
+        const i: string = frm.doc.item;
     },
     before_items_remove(frm, cdt, cdn) {
         const n: number = frm.doc.name;
@@ -225,5 +228,6 @@ frappe.ui.form.on<"Invoice Item", Invoice>("Invoice Item", {
 // Expect error when using parent methods on child table
 // @ts-expect-error
 frappe.ui.form.on("Invoice Item", {
-    setup() {},
+    // @ts-expect-error
+    setup(frm) {},
 });

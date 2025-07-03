@@ -13,9 +13,6 @@ declare global {
                  * Binds event handlers for a specific DocType.
                  *
                  * @typeParam DK            The key of the DocType to bind handlers for. Inferred from {@link doctype}.
-                 * @typeParam ParentDocType (Optional) When DK refers to a child‐table doctype,
-                 *                          you can specify the parent’s child‐table type
-                 *                          to add the appropriate triggers for that table.
                  *
                  * @param doctype           The DocType key to bind handlers for.
                  * @param handlers          The event handlers to bind.
@@ -31,26 +28,39 @@ declare global {
                  *   }
                  * })
                  * ```
-                 *
-                 * @example
-                 * For a child table, where the parent child-table type is `Invoice`, in which `Invoice` has a field named `items` of type `Invoice Item`. If the type is not specified, the trigger methods for that field will not show up in intellisense (but the typing of the arguments will still work)
-                 * ```ts
-                 * frappe.ui.form.on<'Invoice Item', Invoice>('Invoice Item', {
-                 *   items_add(frm, cdt, cdn) {
-                 *     const row = locals[cdt][cdn]
-                 *   }
-                 * })
-                 * ```
                  */
                 function on<DK extends Exclude<DocTypeKey, ChildDocTypeKey>>(
                     doctype: DK,
                     handlers: FormEventHandlers<DK>,
                 ): void;
 
+                /**
+                 * Binds event handlers for a specific DocType Child Table
+                 *
+                 * @typeParam Parent        When DK refers to a child‐table doctype,
+                 *                          you can specify the parent’s child‐table type
+                 *                          to add the appropriate triggers for that table.
+                 * @typeParam DK            The key of the DocType to bind handlers for. Inferred from {@link doctype}.
+                 *
+                 * @param doctype           The DocType key to bind handlers for.
+                 * @param handlers          The event handlers to bind.
+                 *
+                 * {@link [Documentation](https://docs.frappe.io/framework/user/en/api/form)}
+                 *
+                 * @example
+                 * For a child table, where the parent child-table type is `Invoice`, in which `Invoice` has a field named `items` of type `Invoice Item`. If the type is not specified, the trigger methods for that field will not show up in intellisense (but the typing of the arguments will still work)
+                 * ```ts
+                 * frappe.ui.form.on<Invoice, 'Invoice Item'>('Invoice Item', {
+                 *   items_add(frm, cdt, cdn) {
+                 *     const row = locals[cdt][cdn]
+                 *   }
+                 * })
+                 * ```
+                 */
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-                function on<DK extends ChildDocTypeKey, Parent extends DocType>(
-                    doctype: DK,
-                    handlers: FormEventHandlersChildTable<DK, ChildTableField<Parent, DocTypeMap[DK]>>,
+                function on<Parent extends DocType = DocType, CK extends ChildDocTypeKey = ChildDocTypeKey>(
+                    doctype: CK,
+                    handlers: FormEventHandlersChildTable<CK, ChildTableField<Parent, DocTypeMap[CK]>>,
                 ): void;
             }
         }

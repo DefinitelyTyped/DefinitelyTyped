@@ -114,6 +114,21 @@ interface FrappeForm<T extends DocType = DocType> {
      * @param docname Optional document name.
      * @param tableField Optional child table field name.
      * @param tableRowName Optional child table row name.
+     *
+     * @example
+     * ```ts
+     * // change the fieldtype of description field to Text
+     * frm.set_df_property('description', 'fieldtype', 'Text');
+     *
+     * // set the options of the status field to only be [Open, Closed]
+     * frm.set_df_property('status', 'options', ['Open', 'Closed'])
+
+     * // set a field as mandatory
+     * frm.set_df_property('title', 'reqd', 1)
+     *
+     * // set a field as read only
+     * frm.set_df_property('status', 'read_only', 1)
+     * ```
      */
     set_df_property(
         fieldname: keyof T,
@@ -149,7 +164,7 @@ interface FrappeForm<T extends DocType = DocType> {
      * Apply filters on a Link field.
      * @param fieldname Link field name.
      * @param queryFn Function returning filter options.
-     * 
+     *
      * @example
      * // show only customers whose territory is set to India
      * frm.set_query('customer', () => {
@@ -159,7 +174,7 @@ interface FrappeForm<T extends DocType = DocType> {
      *         }
      *     }
      * })
-     * 
+     *
      * @example
      * // show customers whose territory is any of India, Nepal, Japan
      * frm.set_query('customer', () => {
@@ -176,12 +191,12 @@ interface FrappeForm<T extends DocType = DocType> {
      * @param fieldname Link field name.
      * @param tableFieldname Child table field name.
      * @param queryFn Function returning filter options.
-     * 
+     *
      * @typeParam ChildType - The type of the child table.
      * @typeParam DT - The type of the linked DocType.
-     * 
+     *
      * @example
-     * 
+     *
      * // set filters for Link field item_code in
      * // items field which is a Child Table
      * ```ts
@@ -192,15 +207,14 @@ interface FrappeForm<T extends DocType = DocType> {
      *         }
      *     }
      * })
-     * ``` 
+     * ```
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     set_query<ChildType extends DocTypeChildTable, DT extends DocType>(
         fieldname: keyof ChildType,
         tableFieldname: { [K in keyof T]: T[K] extends ChildType[] ? K : never }[keyof T],
-        queryFn: () => QueryFilter<DT>
+        queryFn: () => QueryFilter<DT>,
     ): void;
-
 
     /**
      * Add a new row to a child table. Make sure to call {@link refresh_field} after adding a row.
