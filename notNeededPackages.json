@@ -5951,6 +5951,10 @@
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
         },
+        "react-medium-image-zoom": {
+            "libraryName": "react-medium-image-zoom",
+            "asOfVersion": "5.0.0"
+        },
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
