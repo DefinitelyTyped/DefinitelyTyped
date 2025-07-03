@@ -12,9 +12,11 @@ imagemin(["*.svg"], {
                     name: "preset-default",
                     params: {
                         overrides: {
-                            removeViewBox: false
+                            convertShapeToPath: {
+                                convertArcs: false
+                            }
                         }
-                    },
+                    }
                 },
             ],
             multipass: false,
