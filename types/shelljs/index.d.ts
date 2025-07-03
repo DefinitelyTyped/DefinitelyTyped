@@ -1240,7 +1240,7 @@ export interface ShellConfig {
     /**
      * Passed to glob.sync() instead of the default options ({}).
      */
-    globOptions: glob.IOptions;
+    globOptions: glob.GlobOptions;
 
     /**
      * Absolute path of the Node binary. Default is null (inferred).

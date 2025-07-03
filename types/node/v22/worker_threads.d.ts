@@ -15,28 +15,31 @@
  *
  * ```js
  * import {
- *   Worker, isMainThread, parentPort, workerData,
+ *   Worker,
+ *   isMainThread,
+ *   parentPort,
+ *   workerData,
  * } from 'node:worker_threads';
- * import { parse } from 'some-js-parsing-library';
  *
- * if (isMainThread) {
- *   module.exports = function parseJSAsync(script) {
- *     return new Promise((resolve, reject) => {
- *       const worker = new Worker(__filename, {
- *         workerData: script,
- *       });
- *       worker.on('message', resolve);
- *       worker.on('error', reject);
- *       worker.on('exit', (code) => {
- *         if (code !== 0)
- *           reject(new Error(`Worker stopped with exit code ${code}`));
- *       });
- *     });
- *   };
- * } else {
+ * if (!isMainThread) {
+ *   const { parse } = await import('some-js-parsing-library');
  *   const script = workerData;
  *   parentPort.postMessage(parse(script));
  * }
+ *
+ * export default function parseJSAsync(script) {
+ *   return new Promise((resolve, reject) => {
+ *     const worker = new Worker(new URL(import.meta.url), {
+ *       workerData: script,
+ *     });
+ *     worker.on('message', resolve);
+ *     worker.on('error', reject);
+ *     worker.on('exit', (code) => {
+ *       if (code !== 0)
+ *         reject(new Error(`Worker stopped with exit code ${code}`));
+ *     });
+ *   });
+ * };
  * ```
  *
  * The above example spawns a Worker thread for each `parseJSAsync()` call. In
@@ -59,6 +62,7 @@ declare module "worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
+    import { HeapInfo } from "node:v8";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -465,6 +469,13 @@ declare module "worker_threads" {
          * @return A promise for a Readable Stream containing a V8 heap snapshot
          */
         getHeapSnapshot(): Promise<Readable>;
+        /**
+         * This method returns a `Promise` that will resolve to an object identical to `v8.getHeapStatistics()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v22.16.0
+         */
+        getHeapStatistics(): Promise<HeapInfo>;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;

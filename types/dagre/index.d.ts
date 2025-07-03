@@ -37,8 +37,8 @@ export namespace graphlib {
         setDefaultNodeLabel(callback: string | ((nodeId: string) => string | Label)): Graph<T>;
         setNode(name: string, label: string | Label): Graph<T>;
         setParent(childName: string, parentName: string): void;
-        sinks(): Array<Node<T>>;
-        sources(): Array<Node<T>>;
+        sinks(): string[];
+        sources(): string[];
         successors(name: string): Array<Node<T>> | undefined;
     }
 
@@ -49,10 +49,23 @@ export namespace graphlib {
 
     namespace alg {
         function components(graph: Graph): string[][];
-        function dijkstra(graph: Graph, source: string, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
-        function dijkstraAll(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        function dijkstra(
+            graph: Graph,
+            source: string,
+            weightFn?: WeightFn,
+            edgeFn?: EdgeFn,
+        ): Record<string, { distance: number; predecessor?: string }>;
+        function dijkstraAll(
+            graph: Graph,
+            weightFn?: WeightFn,
+            edgeFn?: EdgeFn,
+        ): Record<string, Record<string, { distance: number; predecessor?: string }>>;
         function findCycles(graph: Graph): string[][];
-        function floydWarchall(graph: Graph, weightFn?: WeightFn, edgeFn?: EdgeFn): any;
+        function floydWarshall(
+            graph: Graph,
+            weightFn?: WeightFn,
+            edgeFn?: EdgeFn,
+        ): Record<string, Record<string, { distance: number; predecessor?: string }>>;
         function isAcyclic(graph: Graph): boolean;
         function postorder(graph: Graph, nodeNames: string | string[]): string[];
         function preorder(graph: Graph, nodeNames: string | string[]): string[];

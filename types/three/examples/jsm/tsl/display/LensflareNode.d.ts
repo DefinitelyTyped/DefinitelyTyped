@@ -1,12 +1,12 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
-import { TempNode, TextureNode, UniformNode, Vector3 } from "three/webgpu";
+import { ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, TextureNode, UniformNode, Vector3 } from "three/webgpu";
 
 interface LensflareNodeParams {
-    ghostTint?: NodeRepresentation | undefined;
-    threshold?: NodeRepresentation | undefined;
-    ghostSamples?: NodeRepresentation | undefined;
-    ghostSpacing?: NodeRepresentation | undefined;
-    ghostAttenuationFactor?: NodeRepresentation | undefined;
+    ghostTint?: Node | undefined;
+    threshold?: Node | undefined;
+    ghostSamples?: Node | undefined;
+    ghostSpacing?: Node | undefined;
+    ghostAttenuationFactor?: Node | undefined;
     downSampleRatio?: number | undefined;
 }
 
@@ -30,6 +30,6 @@ declare class LensflareNode extends TempNode {
 export default LensflareNode;
 
 export const lensflare: (
-    inputNode: NodeRepresentation,
+    inputNode: Node,
     params?: LensflareNodeParams,
 ) => ShaderNodeObject<LensflareNode>;

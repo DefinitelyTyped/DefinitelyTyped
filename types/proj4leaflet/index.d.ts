@@ -1,6 +1,6 @@
 import * as geojson from "geojson";
 import * as L from "leaflet";
-import * as proj4 from "proj4";
+import { Converter } from "proj4/dist/lib/core";
 
 declare module "leaflet" {
     namespace Proj {
@@ -12,7 +12,7 @@ declare module "leaflet" {
             wrapLat?: [number, number] | undefined;
             infinite: boolean;
 
-            constructor(projection: proj4.InterfaceProjection, options?: ProjCRSOptions);
+            constructor(projection: Converter, options?: ProjCRSOptions);
             constructor(code: string, proj4def: string, options?: ProjCRSOptions);
 
             latLngToPoint(latlng: LatLngExpression, zoom: number): Point;

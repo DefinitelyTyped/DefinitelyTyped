@@ -20,7 +20,7 @@
 // https://issuetracker.google.com/issues/new?component=191628
 
 // Skipping tests by updating with checksum
-// b03a54c16f601e791ab7dee3dfd08fe7
+// 860712ae1e08361c68900a5571d8c33e
 
 // tslint:disable:no-unused-expression
 google.picker.PickerBuilder;

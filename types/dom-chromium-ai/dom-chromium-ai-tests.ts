@@ -11,8 +11,27 @@ async function topLevel() {
         temperature: 0,
         expectedInputs: [{ type: "text", languages: ["de"] }],
         expectedOutputs: [{ type: "text", languages: ["de"] }],
+        tools: [
+            {
+                name: "getWeather",
+                description: "Get the weather in a location.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        location: {
+                            type: "string",
+                            description: "The city to check for the weather condition.",
+                        },
+                    },
+                    required: ["location"],
+                },
+                async execute({ location }) {
+                    return `The weather in ${location} is sunny.`;
+                },
+            },
+        ],
         signal: (new AbortController()).signal,
-        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo" }],
+        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo", prefix: true }],
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -53,10 +72,11 @@ async function topLevel() {
     const assistantResult1: string = await languageModel.prompt("foo", {
         signal: (new AbortController()).signal,
         responseConstraint: schema,
+        omitResponseConstraintInput: true,
     });
     console.log(assistantResult1);
 
-    const assistantResult2: string = await languageModel.prompt([{ role: "assistant", content: "foo" }]);
+    const assistantResult2: string = await languageModel.prompt([{ role: "assistant", content: "foo", prefix: true }]);
     console.log(assistantResult2);
 
     const assistantResult3: string = await languageModel.prompt([
@@ -69,6 +89,7 @@ async function topLevel() {
         const chunk of languageModel.promptStreaming("foo", {
             signal: (new AbortController()).signal,
             responseConstraint: schema,
+            omitResponseConstraintInput: true,
         })
     ) {
         console.log(chunk);

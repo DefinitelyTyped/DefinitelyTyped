@@ -80,6 +80,7 @@ declare namespace GoogleAppsScript {
         interface CalendarApp {
             Color: typeof Color;
             EventColor: typeof EventColor;
+            EventType: typeof EventType;
             GuestStatus: typeof GuestStatus;
             Month: typeof Base.Month;
             Visibility: typeof Visibility;
