@@ -4737,6 +4737,10 @@
             "libraryName": "open-editor",
             "asOfVersion": "2.0.0"
         },
+        "open-graph-scraper": {
+            "libraryName": "open-graph-scraper",
+            "asOfVersion": "5.2.3"
+        },
         "openapi-factory": {
             "libraryName": "openapi-factory",
             "asOfVersion": "5.2.31"
