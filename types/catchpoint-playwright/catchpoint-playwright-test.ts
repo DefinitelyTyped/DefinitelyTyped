@@ -1,5 +1,3 @@
-import { test } from '@playwright/test';
-
 // $ExpectType Promise<string | null>
 Catchpoint.username('testUsername')
 

@@ -8,11 +8,6 @@
         "https://github.com/catchpoint",
         "https://docs.catchpoint.com/docs/playwright-scripting-guide"
     ],
-    "dependencies": {
-        "@playwright/test": "*",
-        "eslint": "*",
-        "eslint-plugin-playwright": "*"
-    },
     "devDependencies": {
         "@types/catchpoint-playwright": "workspace:."
     },
