@@ -695,8 +695,8 @@ declare module "stream" {
             write?(
                 this: T,
                 chunk: any,
-                encoding: BufferEncoding,
-                callback: (error?: Error | null) => void,
+                encoding?: BufferEncoding | undefined,
+                callback?: ((error?: Error | null) => void) | undefined,
             ): void;
             writev?(
                 this: T,

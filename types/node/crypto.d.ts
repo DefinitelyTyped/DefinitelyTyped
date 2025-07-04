@@ -3663,7 +3663,7 @@ declare module "crypto" {
          * Third-party code should be prepared to handle both possible entry formats.
          * @since v15.6.0
          */
-        readonly infoAccess: string | undefined;
+        infoAccess: string | undefined;
         /**
          * An array detailing the key usages for this certificate.
          * @since v15.6.0
