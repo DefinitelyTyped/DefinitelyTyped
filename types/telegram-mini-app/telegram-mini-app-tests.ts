@@ -103,3 +103,80 @@ if (!webApp.LocationManager.isInited) {
 }
 
 webApp.close();
+
+// 9.0
+
+webApp.SecureStorage.setItem("first-key", "my-data", (err, success) => {
+    console.log("after set");
+
+    console.log("Error", err);
+    console.log("Success", success);
+});
+
+const obj = {
+    age: 22,
+    name: "Nikita",
+    arr: [1, 2, 3, 4],
+    inner: {
+        a: 2,
+        list: [1, 2, 3, 4],
+    },
+};
+
+webApp.DeviceStorage.setItem("second-key", JSON.stringify(obj), (err, success) => {
+    console.log("after set");
+
+    console.log("Error", err);
+    console.log("Success", success);
+});
+
+webApp.DeviceStorage.getItem("second-key", (err, value) => {
+    console.log("after get");
+
+    console.log("Error - ", err);
+    console.log("Value - ", value);
+});
+
+webApp.DeviceStorage.getItem("second", (err, value) => {
+    console.log("after get");
+
+    console.log("Error - ", err);
+    console.log("Value - ", value);
+});
+
+webApp.DeviceStorage.removeItem("second-key", (err, success) => {
+    console.log("after remove");
+
+    console.log("Error - ", err);
+    console.log("success - ", success);
+});
+
+webApp.DeviceStorage.clear((err, success) => {
+    console.log("after clear");
+
+    console.log("Error - ", err);
+    console.log("success - ", success);
+});
+
+webApp.SecureStorage.setItem("first", "hello", (err, success) => {
+    console.log("after set");
+
+    console.log("Error - ", err);
+    console.log("Success - ", success);
+});
+
+webApp.SecureStorage.getItem("first", (err, value, canBeRestored) => {
+    console.log("after get");
+
+    console.log("Error - ", err);
+    console.log("Value - ", value);
+    console.log("CanBeRestored - ", canBeRestored);
+});
+
+webApp.SecureStorage.getItem("second-------", (err, value, canBeRestored) => {
+    console.log("after get");
+
+    console.log("Error - ", err);
+    console.log("Value - ", value);
+    console.log("CanBeRestored - ", canBeRestored);
+});
