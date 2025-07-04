@@ -1,3 +1,18 @@
+/**
+ * Check all listeners for a Chrome event.
+ * @param event - The event to check.
+ * @param callback - The callback to check.
+ */
+const checkChromeEvent = <T extends chrome.events.Event<(...args: any) => void>>(
+    event: T,
+    callback: Parameters<T["addListener"]>[0],
+) => {
+    event.addListener(callback); // $ExpectType void
+    event.removeListener(callback); // $ExpectType void
+    event.hasListener(callback); // $ExpectType boolean
+    event.hasListeners(); // $ExpectType boolean
+};
+
 // https://developer.chrome.com/docs/extensions/reference/api/bookmarks
 function testBookmarks() {
     chrome.bookmarks.BookmarkTreeNodeUnmodifiable.MANAGED === "managed";
@@ -776,12 +791,342 @@ async function testTabInterface() {
     tab.sessionId; // $ExpectType string | undefined
 }
 
-// https://developer.chrome.com/extensions/runtime#method-openOptionsPage
-function testOptionsPage() {
-    chrome.runtime.openOptionsPage();
-    chrome.runtime.openOptionsPage(function() {
-        // Do a thing ...
+// https://developer.chrome.com/docs/extensions/reference/api/runtime
+function testRuntime() {
+    chrome.runtime.id; // $ExpectType string
+    chrome.runtime.lastError; // $ExpectType { message?: string | undefined } | undefined
+
+    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
+    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
+    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
+    chrome.runtime.ContextType.POPUP === "POPUP";
+    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
+    chrome.runtime.ContextType.TAB === "TAB";
+
+    chrome.runtime.OnInstalledReason.CHROME_UPDATE === "chrome_update";
+    chrome.runtime.OnInstalledReason.INSTALL === "install";
+    chrome.runtime.OnInstalledReason.SHARED_MODULE_UPDATE === "shared_module_update";
+    chrome.runtime.OnInstalledReason.UPDATE === "update";
+
+    chrome.runtime.OnRestartRequiredReason.APP_UPDATE === "app_update";
+    chrome.runtime.OnRestartRequiredReason.OS_UPDATE === "os_update";
+    chrome.runtime.OnRestartRequiredReason.PERIODIC === "periodic";
+
+    chrome.runtime.PlatformArch.ARM === "arm";
+    chrome.runtime.PlatformArch.ARM64 === "arm64";
+    chrome.runtime.PlatformArch.MIPS === "mips";
+    chrome.runtime.PlatformArch.MIPS64 === "mips64";
+    chrome.runtime.PlatformArch.X86_32 === "x86-32";
+    chrome.runtime.PlatformArch.X86_64 === "x86-64";
+
+    chrome.runtime.PlatformNaclArch.ARM === "arm";
+    chrome.runtime.PlatformNaclArch.MIPS === "mips";
+    chrome.runtime.PlatformNaclArch.MIPS64 === "mips64";
+    chrome.runtime.PlatformNaclArch.X86_32 === "x86-32";
+    chrome.runtime.PlatformNaclArch.X86_64 === "x86-64";
+
+    chrome.runtime.PlatformOs.ANDROID === "android";
+    chrome.runtime.PlatformOs.CROS === "cros";
+    chrome.runtime.PlatformOs.FUCHSIA === "fuchsia";
+    chrome.runtime.PlatformOs.LINUX === "linux";
+    chrome.runtime.PlatformOs.MAC === "mac";
+    chrome.runtime.PlatformOs.OPENBSD === "openbsd";
+    chrome.runtime.PlatformOs.WIN === "win";
+
+    chrome.runtime.RequestUpdateCheckStatus.NO_UPDATE === "no_update";
+    chrome.runtime.RequestUpdateCheckStatus.THROTTLED === "throttled";
+    chrome.runtime.RequestUpdateCheckStatus.UPDATE_AVAILABLE === "update_available";
+
+    const extensionId = "abcdefghijklmnopqrstuvwxyzabcdef";
+    const application = "com.example.app";
+
+    const connectInfo: chrome.runtime.ConnectInfo = {
+        includeTlsChannelId: true,
+        name: "test",
+    };
+
+    chrome.runtime.connect(); // $ExpectType Port
+    chrome.runtime.connect(extensionId); // $ExpectType Port
+    chrome.runtime.connect(connectInfo); // $ExpectType Port
+    chrome.runtime.connect(extensionId, connectInfo); // $ExpectType Port
+
+    chrome.runtime.connectNative(application); // $ExpectType Port
+
+    chrome.runtime.getBackgroundPage(); // $ExpectType Promise<Window | undefined>
+    chrome.runtime.getBackgroundPage((backgroundPage) => { // $ExpectType void
+        backgroundPage; // $ExpectType Window | undefined
     });
+    // @ts-expect-error
+    chrome.runtime.getBackgroundPage(() => {}).then(() => {});
+
+    const filter: chrome.runtime.ContextFilter = {
+        contextIds: ["id"],
+        contextTypes: ["TAB", chrome.runtime.ContextType.BACKGROUND],
+        documentIds: ["id"],
+        documentOrigins: ["https://example.com"],
+        documentUrls: ["https://example.com/file.html"],
+        frameIds: [1],
+        incognito: true,
+        tabIds: [1],
+        windowIds: [1],
+    };
+
+    chrome.runtime.getContexts(filter); // $ExpectType Promise<ExtensionContext[]>
+    chrome.runtime.getContexts(filter, (contexts) => { // $ExpectType void
+        contexts; // $ExpectType ExtensionContext[]
+    });
+    // @ts-expect-error
+    chrome.runtime.getContexts(() => {}).then(() => {});
+
+    chrome.runtime.getManifest(); // $ExpectType Manifest
+
+    chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
+    chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
+        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+    });
+    // @ts-expect-error
+    chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});
+
+    chrome.runtime.getPlatformInfo(); // $ExpectType Promise<PlatformInfo>
+    chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
+        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
+        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64"
+        platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
+    });
+    // @ts-expect-error
+    chrome.runtime.getPlatformInfo(() => {}).then(() => {});
+
+    chrome.runtime.getURL(""); // $ExpectType string
+
+    chrome.runtime.openOptionsPage(); // $ExpectType Promise<void>
+    chrome.runtime.openOptionsPage(() => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.openOptionsPage(() => {}).then(() => {});
+
+    chrome.runtime.reload(); // $ExpectType void
+
+    chrome.runtime.requestUpdateCheck(); // $ExpectType Promise<RequestUpdateCheckResult>
+    chrome.runtime.requestUpdateCheck((status, details) => { // $ExpectType void
+        status; // $ExpectType "throttled" | "no_update" | "update_available"
+        if (details) {
+            details.version; // $ExpectType string
+        }
+    });
+    // @ts-expect-error
+    chrome.runtime.requestUpdateCheck(() => {}).then(() => {});
+
+    chrome.runtime.restart(); // $ExpectType void
+
+    chrome.runtime.restartAfterDelay(10); // $ExpectType Promise<void>
+    chrome.runtime.restartAfterDelay(10, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.restartAfterDelay(10, () => {}).then(() => {});
+
+    const message = "Hello, world!";
+
+    const options: chrome.runtime.MessageOptions = {
+        includeTlsChannelId: true,
+    };
+
+    chrome.runtime.sendMessage(message); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(extensionId, message); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(extensionId, message, options); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(message, options); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage<string, string>(message, options); // $ExpectType Promise<string>
+    chrome.runtime.sendMessage<number, number>(10, options); // $ExpectType Promise<number>
+    chrome.runtime.sendMessage(message, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(extensionId, message, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(extensionId, message, options, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(message, options, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage<string, string>(message, options, (response) => { // $ExpectType void
+        response; // $ExpectType string
+    });
+    chrome.runtime.sendMessage<number, number>(10, options, (response) => { // $ExpectType void
+        response; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.runtime.sendMessage(message, () => {}).then(() => {});
+
+    chrome.runtime.sendNativeMessage(application, {}); // $ExpectType Promise<any>
+    chrome.runtime.sendNativeMessage(application, {}, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    // @ts-expect-error
+    chrome.runtime.sendNativeMessage(application, {}, () => {}).then(() => {});
+
+    const url = "https://example.com";
+
+    chrome.runtime.setUninstallURL(url); // $ExpectType Promise<void>
+    chrome.runtime.setUninstallURL(url, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.setUninstallURL(url, () => {}).then(() => {});
+
+    chrome.runtime.onBrowserUpdateAvailable.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onBrowserUpdateAvailable.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onBrowserUpdateAvailable.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onBrowserUpdateAvailable.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnect.addListener((port) => { // $ExpectType void
+        port.name; // $ExpectType string
+        port.onDisconnect; // $ExpectType Event<(port: Port) => void>
+        port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
+        port.sender; // $ExpectType MessageSender | undefined
+        port.disconnect(); // $ExpectType void
+        port.postMessage(""); // $ExpectType void
+    });
+    chrome.runtime.onConnect.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnect.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnect.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnectExternal.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnectNative.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onInstalled.addListener((details) => { // $ExpectType void
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.removeListener((details) => { // $ExpectType void
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.hasListener((details) => { // $ExpectType boolean
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onRestartRequired.addListener((reason) => { // $ExpectType void
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.removeListener((reason) => { // $ExpectType void
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.hasListener((reason) => { // $ExpectType boolean
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onStartup.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onStartup.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onStartup.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onStartup.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onSuspend.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspend.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspend.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onSuspend.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onSuspendCanceled.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspendCanceled.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspendCanceled.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onSuspendCanceled.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUpdateAvailable.addListener((details) => { // $ExpectType void
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.removeListener((details) => { // $ExpectType void
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.hasListener((details) => { // $ExpectType boolean
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUserScriptConnect.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUserScriptMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.hasListeners(); // $ExpectType boolean
 }
 
 function testGetManifest() {
@@ -891,53 +1236,6 @@ function testGetManifest() {
             },
         ],
     };
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restart
-function testRestart() {
-    chrome.runtime.restart();
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restartAfterDelay
-function testRestartAfterDelay() {
-    chrome.runtime.restartAfterDelay(10);
-    chrome.runtime.restartAfterDelay(10, () => {
-        console.log("This is a callback!");
-    });
-}
-
-async function testGetPlatformInfo() {
-    chrome.runtime.getPlatformInfo(platformInfo => {
-        platformInfo; // $ExpectType PlatformInfo
-
-        platformInfo.arch; // $ExpectType PlatformArch
-        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
-        platformInfo.os; // $ExpectType PlatformOs
-
-        // @ts-expect-error
-        platformInfo.arch = "invalid-arch";
-        // @ts-expect-error
-        platformInfo.nacl_arch = "invalid-nacl_arch";
-        // @ts-expect-error
-        platformInfo.os = "invalid-os";
-    });
-}
-
-async function testGetPlatformForPromise() {
-    chrome.runtime.getPlatformInfo().then(platformInfo => {
-        platformInfo; // $ExpectType PlatformInfo
-
-        platformInfo.arch; // $ExpectType PlatformArch
-        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
-        platformInfo.os; // $ExpectType PlatformOs
-
-        // @ts-expect-error
-        platformInfo.arch = "invalid-arch";
-        // @ts-expect-error
-        platformInfo.nacl_arch = "invalid-nacl_arch";
-        // @ts-expect-error
-        platformInfo.os = "invalid-os";
-    });
 }
 
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
@@ -1085,22 +1383,6 @@ function testDeclarativeContent() {
             }),
         ],
     };
-}
-
-// https://developer.chrome.com/docs/extensions/reference/windows
-function testWindows() {
-    chrome.windows.onCreated.addListener(function(window) {
-        var windowResult: chrome.windows.Window = window;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onRemoved.addListener(function(windowId) {
-        var windowIdResult: number = windowId;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onBoundsChanged.addListener(function(window) {
-        var windowResult: chrome.windows.Window = window;
-    }, { windowTypes: ["normal"] });
-    chrome.windows.onFocusChanged.addListener(function(windowId) {
-        var windowIdResult: number = windowId;
-    }, { windowTypes: ["normal"] });
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
@@ -1404,43 +1686,6 @@ function testTtsEngine() {
         uninstallOptions; // $ExpectType LanguageUninstallOptions
     });
     chrome.ttsEngine.onUninstallLanguageRequest.hasListeners(); // $ExpectType boolean
-}
-
-chrome.runtime.onInstalled.addListener((details) => {
-    details; // $ExpectType InstalledDetails
-    details.previousVersion; // $ExpectType string | undefined
-    details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
-    details.id; // $ExpectType string | undefined
-    if (details.reason === "install") { // Accept string version of enum
-        return;
-    }
-
-    // @ts-expect-error
-    details.reason = "not-real-reason";
-});
-
-function testRuntimeOnMessageAddListener() {
-    // @ts-expect-error
-    chrome.runtime.onMessage.addListener();
-    // @ts-expect-error
-    chrome.runtime.onMessage.addListener((_1, _2, _3, _4) => {});
-
-    chrome.runtime.onMessage.addListener((_, sender) => {
-        console.log(
-            sender.documentId,
-            sender.documentLifecycle,
-            sender.frameId,
-            sender.id,
-            sender.nativeApplication,
-            sender.origin,
-            sender.tab,
-            sender.tlsChannelId,
-            sender.url,
-        );
-
-        // @ts-expect-error
-        console.log(sender.documentLifecycle === "invalid_value");
-    });
 }
 
 function testDevtools() {
@@ -2816,7 +3061,12 @@ async function testTabGroup() {
 
     chrome.tabGroups.get(groupId); // $ExpectType Promise<TabGroup>
     chrome.tabGroups.get(groupId, (group) => { // $ExpectType void
-        group; // $ExpectType TabGroup
+        group.collapsed; // $ExpectType boolean
+        group.color; // $ExpectType "blue" | "cyan" | "green" | "grey" | "orange" | "pink" | "purple" | "red" | "yellow"
+        group.id; // $ExpectType number
+        group.shared; // $ExpectType boolean
+        group.title; // $ExpectType string | undefined
+        group.windowId; // $ExpectType number
     });
     // @ts-expect-error
     chrome.tabGroups.get(() => {}).then(() => {});
@@ -2835,6 +3085,7 @@ async function testTabGroup() {
 
     const queryInfo: chrome.tabGroups.QueryInfo = {
         collapsed: false,
+        shared: false,
         title: "Test",
     };
 
@@ -2903,20 +3154,189 @@ async function testTabGroup() {
     chrome.tabGroups.onUpdated.hasListeners(); // $ExpectType boolean
 }
 
-// https://developer.chrome.com/docs/extensions/reference/windows
-async function testWindowsForPromise() {
-    await chrome.windows.get(0);
-    await chrome.windows.get(0, {});
-    await chrome.windows.getCurrent();
-    await chrome.windows.getCurrent({});
-    await chrome.windows.create();
-    await chrome.windows.create({});
-    await chrome.windows.getAll();
-    await chrome.windows.getAll({});
-    await chrome.windows.update(0, {});
-    await chrome.windows.remove(0);
-    await chrome.windows.getLastFocused();
-    await chrome.windows.getLastFocused({});
+// https://developer.chrome.com/docs/extensions/reference/api/windows
+function testWindows() {
+    chrome.windows.CreateType.NORMAL === "normal";
+    chrome.windows.CreateType.PANEL === "panel";
+    chrome.windows.CreateType.POPUP === "popup";
+
+    chrome.windows.WINDOW_ID_CURRENT === -2;
+    chrome.windows.WINDOW_ID_NONE === -1;
+
+    chrome.windows.WindowState.FULLSCREEN === "fullscreen";
+    chrome.windows.WindowState.LOCKED_FULLSCREEN === "locked-fullscreen";
+    chrome.windows.WindowState.MAXIMIZED === "maximized";
+    chrome.windows.WindowState.MINIMIZED === "minimized";
+    chrome.windows.WindowState.NORMAL === "normal";
+
+    chrome.windows.WindowType.APP === "app";
+    chrome.windows.WindowType.DEVTOOLS === "devtools";
+    chrome.windows.WindowType.NORMAL === "normal";
+    chrome.windows.WindowType.PANEL === "panel";
+    chrome.windows.WindowType.POPUP === "popup";
+
+    const createData: chrome.windows.CreateData = {
+        focused: true,
+        height: 100,
+        incognito: true,
+        left: 100,
+        setSelfAsOpener: true,
+        state: "maximized",
+        tabId: 0,
+        top: 100,
+        type: "normal",
+        url: "https://www.example.com",
+        width: 100,
+    };
+
+    chrome.windows.create(); // $ExpectType Promise<Window | undefined>
+    chrome.windows.create(createData); // $ExpectType Promise<Window | undefined>
+    chrome.windows.create((window) => { // $ExpectType void
+        window; // $ExpectType Window | undefined
+    });
+    chrome.windows.create(createData, (window) => { // $ExpectType void
+        window; // $ExpectType Window | undefined
+    });
+    // @ts-expect-error
+    chrome.windows.create(() => {}).then(() => {});
+
+    const windowId = 0;
+    const queryOptions: chrome.windows.QueryOptions = {
+        populate: true,
+        windowTypes: ["normal", chrome.windows.WindowType.POPUP],
+    };
+
+    chrome.windows.get(windowId); // $ExpectType Promise<Window>
+    chrome.windows.get(windowId, queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.get(windowId, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.get(windowId, queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.get(() => {}).then(() => {});
+
+    chrome.windows.getAll(); // $ExpectType Promise<Window[]>
+    chrome.windows.getAll(queryOptions); // $ExpectType Promise<Window[]>
+    chrome.windows.getAll((windows) => { // $ExpectType void
+        windows; // $ExpectType Window[]
+    });
+    chrome.windows.getAll(queryOptions, (windows) => { // $ExpectType void
+        windows; // $ExpectType Window[]
+    });
+    // @ts-expect-error
+    chrome.windows.getAll(() => {}).then(() => {});
+
+    chrome.windows.getCurrent(); // $ExpectType Promise<Window>
+    chrome.windows.getCurrent(queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.getCurrent((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.getCurrent(queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.getCurrent(() => {}).then(() => {});
+
+    chrome.windows.getLastFocused(); // $ExpectType Promise<Window>
+    chrome.windows.getLastFocused(queryOptions); // $ExpectType Promise<Window>
+    chrome.windows.getLastFocused((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.getLastFocused(queryOptions, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.getLastFocused(() => {}).then(() => {});
+
+    chrome.windows.remove(windowId); // $ExpectType Promise<void>
+    chrome.windows.remove(windowId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.windows.remove(() => {}).then(() => {});
+
+    const updateInfo: chrome.windows.UpdateInfo = {
+        drawAttention: true,
+        focused: true,
+        height: 100,
+        left: 100,
+        state: "maximized",
+        top: 100,
+        width: 100,
+    };
+
+    chrome.windows.update(windowId, updateInfo); // $ExpectType Promise<Window>
+    chrome.windows.update(windowId, updateInfo, (window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.windows.update(() => {}).then(() => {});
+
+    chrome.windows.onBoundsChanged.addListener((window) => { // $ExpectType void
+        window.alwaysOnTop; // $ExpectType boolean
+        window.focused; // $ExpectType boolean
+        window.height; // $ExpectType number | undefined
+        window.id; // $ExpectType number | undefined
+        window.incognito; // $ExpectType boolean
+        window.left; // $ExpectType number | undefined
+        window.sessionId; // $ExpectType string | undefined
+        window.state; // $ExpectType "fullscreen" | "locked-fullscreen" | "maximized" | "minimized" | "normal" | undefined
+        window.tabs; // $ExpectType Tab[] | undefined
+        window.top; // $ExpectType number | undefined
+        window.type; // $ExpectType "app" | "devtools" | "normal" | "panel" | "popup" | undefined
+        window.width; // $ExpectType number | undefined
+    });
+    chrome.windows.onBoundsChanged.removeListener((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.onBoundsChanged.hasListener((window) => { // $ExpectType boolean
+        window; // $ExpectType Window
+    });
+    chrome.windows.onBoundsChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onCreated.addListener((window) => { // $ExpectType void
+        window.alwaysOnTop; // $ExpectType boolean
+        window.focused; // $ExpectType boolean
+        window.height; // $ExpectType number | undefined
+        window.id; // $ExpectType number | undefined
+        window.incognito; // $ExpectType boolean
+        window.left; // $ExpectType number | undefined
+        window.sessionId; // $ExpectType string | undefined
+        window.state; // $ExpectType "fullscreen" | "locked-fullscreen" | "maximized" | "minimized" | "normal" | undefined
+        window.tabs; // $ExpectType Tab[] | undefined
+        window.top; // $ExpectType number | undefined
+        window.type; // $ExpectType "app" | "devtools" | "normal" | "panel" | "popup" | undefined
+        window.width; // $ExpectType number | undefined
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onCreated.removeListener((window) => { // $ExpectType void
+        window; // $ExpectType Window
+    });
+    chrome.windows.onCreated.hasListener((window) => { // $ExpectType boolean
+        window; // $ExpectType Window
+    });
+    chrome.windows.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onFocusChanged.addListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onFocusChanged.removeListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onFocusChanged.hasListener((windowId) => { // $ExpectType boolean
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onFocusChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.windows.onRemoved.addListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    }, { windowTypes: ["normal", chrome.windows.WindowType.POPUP] });
+    chrome.windows.onRemoved.removeListener((windowId) => { // $ExpectType void
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onRemoved.hasListener((windowId) => { // $ExpectType boolean
+        windowId; // $ExpectType number
+    });
+    chrome.windows.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest
@@ -3163,67 +3583,6 @@ function testStorageForPromise() {
     chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(
         () => {},
     );
-}
-
-// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
-function testRuntimeGetContexts() {
-    chrome.runtime.ContextType.TAB === "TAB";
-    chrome.runtime.ContextType.POPUP === "POPUP";
-    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
-    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
-    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
-    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
-
-    const options = { incognito: true, tabIds: [1, 2, 3] };
-
-    chrome.runtime.getContexts(options);
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
-function testRuntimeSendMessage() {
-    const options = { includeTlsChannelId: true };
-
-    chrome.runtime.sendMessage("Hello World!").then(() => {});
-    chrome.runtime.sendMessage("Hello World!", console.log);
-    chrome.runtime.sendMessage<string>("Hello World!", console.log);
-    chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num + 1));
-    chrome.runtime.sendMessage("Hello World!", options).then(() => {});
-    chrome.runtime.sendMessage("Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string>("Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string, number>("Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("Hello World!", options, (num: number) => alert(num + 1));
-
-    chrome.runtime.sendMessage("extension-id", "Hello World!").then(() => {});
-    chrome.runtime.sendMessage("extension-id", "Hello World!", console.log);
-    chrome.runtime.sendMessage<string>("extension-id", "Hello World!", console.log);
-    chrome.runtime.sendMessage<string, number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("extension-id", "Hello World!", (num: number) => alert(num + 1));
-    chrome.runtime.sendMessage("extension-id", "Hello World!", options).then(() => {});
-    chrome.runtime.sendMessage("extension-id", "Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string>("extension-id", "Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string, number>("extension-id", "Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("extension-id", "Hello World!", (num: number) => alert(num + 1));
-
-    chrome.runtime.sendMessage(undefined, "Hello World!", console.log);
-    chrome.runtime.sendMessage(null, "Hello World!", console.log);
-}
-
-function testRuntimeSendNativeMessage() {
-    chrome.runtime.sendNativeMessage("application", {}).then(() => {});
-    chrome.runtime.sendNativeMessage("application", {}, (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
@@ -3766,24 +4125,300 @@ async function testPageCapture() {
     await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
-// https://developer.chrome.com/docs/extensions/reference/downloads
+// https://developer.chrome.com/docs/extensions/reference/api/downloads
 function testDownloads() {
-    chrome.downloads.search({}, (results) => {});
-    chrome.downloads.pause(1, () => {});
-    chrome.downloads.getFileIcon(1, (iconURL) => {});
-    chrome.downloads.getFileIcon(1, {}, (iconURL) => {});
-    chrome.downloads.resume(1, () => {});
-    chrome.downloads.cancel(1, () => {});
-    chrome.downloads.download({ url: "https://example.com" }, (downloadId) => {});
-    chrome.downloads.open(1);
-    chrome.downloads.show(1);
-    chrome.downloads.showDefaultFolder();
-    chrome.downloads.erase({}, (erasedIds) => {});
-    chrome.downloads.removeFile(1, () => {});
-    chrome.downloads.acceptDanger(1, () => {});
-    chrome.downloads.drag(1);
-    chrome.downloads.setShelfEnabled(true);
-    chrome.downloads.setUiOptions({ enabled: true }, () => {});
+    chrome.downloads.DangerType.ACCEPTED === "accepted";
+    chrome.downloads.DangerType.ACCOUNT_COMPROMISE === "accountCompromise";
+    chrome.downloads.DangerType.ALLOWLISTED_BY_POLICY === "allowlistedByPolicy";
+    chrome.downloads.DangerType.ASYNC_LOCAL_PASSWORD_SCANNING === "asyncLocalPasswordScanning";
+    chrome.downloads.DangerType.ASYNC_SCANNING === "asyncScanning";
+    chrome.downloads.DangerType.BLOCKED_SCAN_FAILED === "blockedScanFailed";
+    chrome.downloads.DangerType.BLOCKED_TOO_LARGE === "blockedTooLarge";
+    chrome.downloads.DangerType.CONTENT === "content";
+    chrome.downloads.DangerType.DEEP_SCANNED_FAILED === "deepScannedFailed";
+    chrome.downloads.DangerType.DEEP_SCANNED_OPENED_DANGEROUS === "deepScannedOpenedDangerous";
+    chrome.downloads.DangerType.DEEP_SCANNED_SAFE === "deepScannedSafe";
+    chrome.downloads.DangerType.FILE === "file";
+    chrome.downloads.DangerType.HOST === "host";
+    chrome.downloads.DangerType.PASSWORD_PROTECTED === "passwordProtected";
+    chrome.downloads.DangerType.PROMPT_FOR_LOCAL_PASSWORD_SCANNING === "promptForLocalPasswordScanning";
+    chrome.downloads.DangerType.PROMPT_FOR_SCANNING === "promptForScanning";
+    chrome.downloads.DangerType.SAFE === "safe";
+    chrome.downloads.DangerType.SENSITIVE_CONTENT_BLOCK === "sensitiveContentBlock";
+    chrome.downloads.DangerType.SENSITIVE_CONTENT_WARNING === "sensitiveContentWarning";
+    chrome.downloads.DangerType.UNCOMMON === "uncommon";
+    chrome.downloads.DangerType.UNWANTED === "unwanted";
+    chrome.downloads.DangerType.URL === "url";
+
+    chrome.downloads.FilenameConflictAction.OVERWRITE === "overwrite";
+    chrome.downloads.FilenameConflictAction.PROMPT === "prompt";
+    chrome.downloads.FilenameConflictAction.UNIQUIFY === "uniquify";
+
+    chrome.downloads.HttpMethod.GET === "GET";
+    chrome.downloads.HttpMethod.POST === "POST";
+
+    chrome.downloads.InterruptReason.CRASH === "CRASH";
+    chrome.downloads.InterruptReason.FILE_ACCESS_DENIED === "FILE_ACCESS_DENIED";
+    chrome.downloads.InterruptReason.FILE_BLOCKED === "FILE_BLOCKED";
+    chrome.downloads.InterruptReason.FILE_FAILED === "FILE_FAILED";
+    chrome.downloads.InterruptReason.FILE_HASH_MISMATCH === "FILE_HASH_MISMATCH";
+    chrome.downloads.InterruptReason.FILE_NAME_TOO_LONG === "FILE_NAME_TOO_LONG";
+    chrome.downloads.InterruptReason.FILE_NO_SPACE === "FILE_NO_SPACE";
+    chrome.downloads.InterruptReason.FILE_SAME_AS_SOURCE === "FILE_SAME_AS_SOURCE";
+    chrome.downloads.InterruptReason.FILE_SECURITY_CHECK_FAILED === "FILE_SECURITY_CHECK_FAILED";
+    chrome.downloads.InterruptReason.FILE_TOO_LARGE === "FILE_TOO_LARGE";
+    chrome.downloads.InterruptReason.FILE_TOO_SHORT === "FILE_TOO_SHORT";
+    chrome.downloads.InterruptReason.FILE_TRANSIENT_ERROR === "FILE_TRANSIENT_ERROR";
+    chrome.downloads.InterruptReason.FILE_VIRUS_INFECTED === "FILE_VIRUS_INFECTED";
+    chrome.downloads.InterruptReason.NETWORK_DISCONNECTED === "NETWORK_DISCONNECTED";
+    chrome.downloads.InterruptReason.NETWORK_FAILED === "NETWORK_FAILED";
+    chrome.downloads.InterruptReason.NETWORK_INVALID_REQUEST === "NETWORK_INVALID_REQUEST";
+    chrome.downloads.InterruptReason.NETWORK_SERVER_DOWN === "NETWORK_SERVER_DOWN";
+    chrome.downloads.InterruptReason.NETWORK_TIMEOUT === "NETWORK_TIMEOUT";
+    chrome.downloads.InterruptReason.SERVER_BAD_CONTENT === "SERVER_BAD_CONTENT";
+    chrome.downloads.InterruptReason.SERVER_CERT_PROBLEM === "SERVER_CERT_PROBLEM";
+    chrome.downloads.InterruptReason.SERVER_CONTENT_LENGTH_MISMATCH === "SERVER_CONTENT_LENGTH_MISMATCH";
+    chrome.downloads.InterruptReason.SERVER_CROSS_ORIGIN_REDIRECT === "SERVER_CROSS_ORIGIN_REDIRECT";
+    chrome.downloads.InterruptReason.SERVER_FAILED === "SERVER_FAILED";
+    chrome.downloads.InterruptReason.SERVER_FORBIDDEN === "SERVER_FORBIDDEN";
+    chrome.downloads.InterruptReason.SERVER_NO_RANGE === "SERVER_NO_RANGE";
+    chrome.downloads.InterruptReason.SERVER_UNAUTHORIZED === "SERVER_UNAUTHORIZED";
+    chrome.downloads.InterruptReason.SERVER_UNREACHABLE === "SERVER_UNREACHABLE";
+    chrome.downloads.InterruptReason.USER_CANCELED === "USER_CANCELED";
+    chrome.downloads.InterruptReason.USER_SHUTDOWN === "USER_SHUTDOWN";
+
+    chrome.downloads.State.COMPLETE === "complete";
+    chrome.downloads.State.INTERRUPTED === "interrupted";
+    chrome.downloads.State.IN_PROGRESS === "in_progress";
+
+    const downloadId = 1;
+
+    chrome.downloads.acceptDanger(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.acceptDanger(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.acceptDanger(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.cancel(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.cancel(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.cancel(downloadId, () => {}).then(() => {});
+
+    const downloadOptions: chrome.downloads.DownloadOptions = {
+        body: "body",
+        conflictAction: "overwrite",
+        filename: "filename",
+        headers: [{
+            name: "Content-Type",
+            value: "application/json",
+        }],
+        method: "GET",
+        saveAs: true,
+        url: "https://example.com",
+    };
+
+    chrome.downloads.download(downloadOptions); // $ExpectType Promise<number>
+    chrome.downloads.download(downloadOptions, (downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.downloads.download(downloadOptions, () => {}).then(() => {});
+
+    const downloadQuery: chrome.downloads.DownloadQuery = {
+        bytesReceived: 100,
+        danger: "safe",
+        endTime: "2025-05-30",
+        endedAfter: "2025-05-30",
+        endedBefore: "2025-05-30",
+        error: "CRASH",
+        exists: true,
+        fileSize: 100,
+        filename: "filename",
+        filenameRegex: "https://example.com/*",
+        finalUrl: "https://example.com",
+        finalUrlRegex: "https://example.com/*",
+        id: 1,
+        limit: 100,
+        mime: "application/json",
+        orderBy: ["startTime"],
+        paused: true,
+        query: ["https://example.com/*"],
+        startTime: "2025-05-30",
+        startedAfter: "2025-05-30",
+        startedBefore: "2025-05-30",
+        state: "complete",
+        totalBytes: 100,
+        url: "https://example.com",
+        urlRegex: "https://example.com/*",
+    };
+
+    chrome.downloads.erase(downloadQuery); // $ExpectType Promise<number[]>
+    chrome.downloads.erase(downloadQuery, (erasedIds) => { // $ExpectType void
+        erasedIds; // $ExpectType number[]
+    });
+    // @ts-expect-error
+    chrome.downloads.erase(downloadQuery, () => {}).then(() => {});
+
+    const getFileIconOptions: chrome.downloads.GetFileIconOptions = {
+        size: 32,
+    };
+
+    chrome.downloads.getFileIcon(downloadId); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, getFileIconOptions); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    chrome.downloads.getFileIcon(downloadId, getFileIconOptions, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.downloads.getFileIcon(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.open(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.open(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.open(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.pause(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.pause(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.pause(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.removeFile(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.removeFile(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.removeFile(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.resume(downloadId); // $ExpectType Promise<void>
+    chrome.downloads.resume(downloadId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.resume(downloadId, () => {}).then(() => {});
+
+    chrome.downloads.search(downloadQuery); // $ExpectType Promise<DownloadItem[]>
+    chrome.downloads.search(downloadQuery, ([result]) => { // $ExpectType void
+        result.byExtensionId; // $ExpectType string | undefined
+        result.byExtensionName; // $ExpectType string | undefined
+        result.bytesReceived; // $ExpectType number
+        result.canResume; // $ExpectType boolean
+        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        result.endTime; // $ExpectType string | undefined
+        result.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
+        result.estimatedEndTime; // $ExpectType string | undefined
+        result.exists; // $ExpectType boolean
+        result.fileSize; // $ExpectType number
+        result.filename; // $ExpectType string
+        result.finalUrl; // $ExpectType string
+        result.id; // $ExpectType number
+        result.incognito; // $ExpectType boolean
+        result.mime; // $ExpectType string
+        result.paused; // $ExpectType boolean
+        result.referrer; // $ExpectType string
+        result.startTime; // $ExpectType string
+        result.state; // $ExpectType "complete" | "in_progress" | "interrupted"
+        result.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.downloads.search(downloadQuery, () => {}).then(() => {});
+
+    chrome.downloads.setShelfEnabled(true); // $ExpectType void
+
+    const uiOptions: chrome.downloads.UiOptions = {
+        enabled: true,
+    };
+
+    chrome.downloads.setUiOptions(uiOptions); // $ExpectType Promise<void>
+    chrome.downloads.setUiOptions(uiOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.downloads.setUiOptions(uiOptions, () => {}).then(() => {});
+
+    chrome.downloads.show(downloadId); // $ExpectType void
+
+    chrome.downloads.showDefaultFolder(); // $ExpectType void
+
+    chrome.downloads.onChanged.addListener((downloadDelta) => { // $ExpectType void
+        downloadDelta.canResume; // $ExpectType BooleanDelta | undefined
+        downloadDelta.danger; // $ExpectType StringDelta | undefined
+        downloadDelta.endTime; // $ExpectType StringDelta | undefined
+        downloadDelta.error; // $ExpectType StringDelta | undefined
+        downloadDelta.exists; // $ExpectType BooleanDelta | undefined
+        downloadDelta.fileSize; // $ExpectType DoubleDelta | undefined
+        downloadDelta.filename; // $ExpectType StringDelta | undefined
+        downloadDelta.finalUrl; // $ExpectType StringDelta | undefined
+        downloadDelta.id; // $ExpectType number
+        downloadDelta.mime; // $ExpectType StringDelta | undefined
+        downloadDelta.paused; // $ExpectType BooleanDelta | undefined
+        downloadDelta.startTime; // $ExpectType StringDelta | undefined
+        downloadDelta.state; // $ExpectType StringDelta | undefined
+        downloadDelta.totalBytes; // $ExpectType DoubleDelta | undefined
+        downloadDelta.url; // $ExpectType StringDelta | undefined
+    });
+    chrome.downloads.onChanged.removeListener((downloadDelta) => { // $ExpectType void
+        downloadDelta; // $ExpectType DownloadDelta
+    });
+    chrome.downloads.onChanged.hasListener((downloadDelta) => { // $ExpectType boolean
+        downloadDelta; // $ExpectType DownloadDelta
+    });
+    chrome.downloads.onChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.downloads.onCreated.addListener((downloadItem) => { // $ExpectType void
+        downloadItem.byExtensionId; // $ExpectType string | undefined
+        downloadItem.byExtensionName; // $ExpectType string | undefined
+        downloadItem.bytesReceived; // $ExpectType number
+        downloadItem.canResume; // $ExpectType boolean
+        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        downloadItem.endTime; // $ExpectType string | undefined
+        downloadItem.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
+        downloadItem.estimatedEndTime; // $ExpectType string | undefined
+        downloadItem.exists; // $ExpectType boolean
+        downloadItem.fileSize; // $ExpectType number
+        downloadItem.filename; // $ExpectType string
+        downloadItem.finalUrl; // $ExpectType string
+        downloadItem.id; // $ExpectType number
+        downloadItem.incognito; // $ExpectType boolean
+        downloadItem.mime; // $ExpectType string
+        downloadItem.paused; // $ExpectType boolean
+        downloadItem.referrer; // $ExpectType string
+        downloadItem.startTime; // $ExpectType string
+        downloadItem.state; // $ExpectType "complete" | "in_progress" | "interrupted"
+        downloadItem.totalBytes; // $ExpectType number
+        downloadItem.url; // $ExpectType string
+    });
+    chrome.downloads.onCreated.removeListener((downloadItem) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+    });
+    chrome.downloads.onCreated.hasListener((downloadItem) => { // $ExpectType boolean
+        downloadItem; // $ExpectType DownloadItem
+    });
+    chrome.downloads.onCreated.hasListeners(); // $ExpectType boolean
+
+    const filenameSuggestion: chrome.downloads.FilenameSuggestion = {
+        filename: "filename",
+        conflictAction: "overwrite",
+    };
+
+    chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.removeListener((downloadItem, suggest) => { // $ExpectType void
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.hasListener((downloadItem, suggest) => { // $ExpectType boolean
+        downloadItem; // $ExpectType DownloadItem
+        suggest(filenameSuggestion); // $ExpectType void
+    });
+    chrome.downloads.onDeterminingFilename.hasListeners(); // $ExpectType boolean
+
+    chrome.downloads.onErased.addListener((downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.removeListener((downloadId) => { // $ExpectType void
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.hasListener((downloadId) => { // $ExpectType boolean
+        downloadId; // $ExpectType number
+    });
+    chrome.downloads.onErased.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
@@ -3854,6 +4489,80 @@ async function testFontSettingsForPromise() {
     await chrome.fontSettings.clearMinimumFontSize({});
     await chrome.fontSettings.getFontList();
     await chrome.fontSettings.clearDefaultFixedFontSize({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/gcm
+function testGcm() {
+    chrome.gcm.MAX_MESSAGE_SIZE === 4096;
+
+    const senderIds = ["id1", "id2"];
+
+    chrome.gcm.register(senderIds); // $ExpectType Promise<string>
+    chrome.gcm.register(senderIds, (registrationId) => { // $ExpectType void
+        registrationId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.gcm.register(senderIds, () => {}).then(() => {});
+
+    const message: chrome.gcm.OutgoingMessage = {
+        destinationId: "destinationId",
+        messageId: "messageId",
+        data: {
+            key: "value",
+        },
+        timeToLive: 1000,
+    };
+
+    chrome.gcm.send(message); // $ExpectType Promise<string>
+    chrome.gcm.send(message, (messageId) => { // $ExpectType void
+        messageId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.gcm.send(message, () => {}).then(() => {});
+
+    chrome.gcm.unregister(); // $ExpectType Promise<void>
+    chrome.gcm.unregister(() => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.gcm.unregister(senderIds, () => {}).then(() => {});
+
+    chrome.gcm.onMessage.addListener((message) => { // $ExpectType void
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.removeListener((message) => { // $ExpectType void
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.hasListener((message) => { // $ExpectType boolean
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.hasListeners(); // $ExpectType boolean
+
+    chrome.gcm.onMessagesDeleted.addListener(() => {}); // $ExpectType void
+    chrome.gcm.onMessagesDeleted.removeListener(() => {}); // $ExpectType void
+    chrome.gcm.onMessagesDeleted.hasListener(() => {}); // $ExpectType boolean
+    chrome.gcm.onMessagesDeleted.hasListeners(); // $ExpectType boolean
+
+    chrome.gcm.onSendError.addListener((error) => { // $ExpectType void
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.removeListener((error) => { // $ExpectType void
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.hasListener((error) => { // $ExpectType boolean
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/history

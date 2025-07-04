@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/ember-changeset-validations": "workspace:."
     },
-    "owners": [
-        {
-            "name": "golovkoe",
-            "githubUsername": "elenagolovko"
-        }
-    ]
+    "owners": []
 }

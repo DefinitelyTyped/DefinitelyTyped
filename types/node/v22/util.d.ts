@@ -433,7 +433,6 @@ declare module "util" {
      * });
      * ```
      * @since v19.7.0
-     * @experimental
      * @param resource Any non-null object tied to the abortable operation and held weakly.
      * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
      * allowing Node.js to stop tracking it.
@@ -1481,7 +1480,7 @@ declare module "util" {
     /**
      * This function returns a formatted text considering the `format` passed
      * for printing in a terminal. It is aware of the terminal's capabilities
-     * and acts according to the configuration set via `NO_COLORS`,
+     * and acts according to the configuration set via `NO_COLOR`,
      * `NODE_DISABLE_COLORS` and `FORCE_COLOR` environment variables.
      *
      * ```js
@@ -2226,6 +2225,19 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isExternal(object: unknown): boolean;
+    /**
+     * Returns `true` if the value is a built-in `Float16Array` instance.
+     *
+     * ```js
+     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
+     * util.types.isFloat16Array(new Float16Array());  // Returns true
+     * util.types.isFloat16Array(new Float32Array());  // Returns false
+     * ```
+     * @since v22.16.0
+     */
+    // This does NOT return a type predicate in v22.x.
+    // The Float16Array feature does not yet exist in this version of Node.js.
+    function isFloat16Array(object: unknown): boolean;
     /**
      * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
      *

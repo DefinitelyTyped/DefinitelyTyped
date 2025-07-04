@@ -7,6 +7,7 @@ export * from "../core/BypassNode.js";
 export * from "../core/CacheNode.js";
 export * from "../core/ContextNode.js";
 export * from "../core/PropertyNode.js";
+export * from "../core/SubBuildNode.js";
 export * from "../core/UniformNode.js";
 export * from "../core/VarNode.js";
 export * from "../core/VaryingNode.js";

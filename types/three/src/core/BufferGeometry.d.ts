@@ -57,6 +57,10 @@ export interface GeometryGroup {
     materialIndex?: number | undefined;
 }
 
+export interface BufferGeometryEventMap {
+    dispose: {};
+}
+
 /**
  * A representation of mesh, line, or point geometry
  * Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.
@@ -117,7 +121,8 @@ export interface GeometryGroup {
  */
 export class BufferGeometry<
     Attributes extends NormalOrGLBufferAttributes = NormalBufferAttributes,
-> extends EventDispatcher<{ dispose: {} }> {
+    TEventMap extends BufferGeometryEventMap = BufferGeometryEventMap,
+> extends EventDispatcher<TEventMap> {
     /**
      * This creates a new {@link THREE.BufferGeometry | BufferGeometry} object.
      */
