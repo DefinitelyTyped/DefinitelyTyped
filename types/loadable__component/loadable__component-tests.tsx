@@ -220,4 +220,7 @@ function importLibLoader() {
 
     // Should allow passing options with namespace
     loadableReady(() => {}, { namespace: "foo" });
+
+    // Should allow passing options with chunkLoadingGlobal
+    loadableReady(() => {}, { chunkLoadingGlobal: "foo" });
 }
