@@ -1,0 +1,75 @@
+/**
+ "* @docs": https://docs.catchpoint.com/docs/playwright-scripting-guide#unsupported-functions-and-classes
+ */
+{
+    "extends": [
+        "plugin:playwright/recommended"
+    ],
+    "rules": {
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "@playwright/test",
+                        "importNames": [
+                            "Browser",
+                            "BrowserContext",
+                            "BrowserServer",
+                            "BrowserType"
+                        ],
+                        "message": "Not supported in Catchpoint tests."
+                    }
+                ]
+            }
+        ],
+        "no-restricted-properties": [
+            "error",
+            {
+                "object": "page",
+                "property": "addInitScript",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "close",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "pdf",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "routeFromHAR",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "screenshot",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "setDefaultNavigationTimeout",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "setDefaultTimeout",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "video",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "workers",
+                "message": "Not supported in Catchpoint tests."
+            }
+        ]
+    }
+}

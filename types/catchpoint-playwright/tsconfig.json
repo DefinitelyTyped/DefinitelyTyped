@@ -14,5 +14,7 @@
     },
     "files": [
         "index.d.ts",
+        "playwright.d.ts",
+        "catchpoint-playwright-test.ts"
     ]
 }
