@@ -39,6 +39,7 @@ import {
     TIMEOUT,
     V4MAPPED,
 } from "node:dns";
+import { promisify } from "node:util";
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;
@@ -97,21 +98,130 @@ lookupService("127.0.0.1", 0, (err, hostname, service) => {
     const _service: string = service;
 });
 
-resolve("nodejs.org", (err, addresses) => {
-    const _addresses: string[] = addresses;
-});
-resolve("nodejs.org", "A", (err, addresses) => {
-    const _addresses: string[] = addresses;
-});
-resolve("nodejs.org", "AAAA", (err, addresses) => {
-    const _addresses: string[] = addresses;
-});
-resolve("nodejs.org", "ANY", (err, addresses) => {
-    const _addresses: AnyRecord[] = addresses;
-});
-resolve("nodejs.org", "MX", (err, addresses) => {
-    const _addresses: MxRecord[] = addresses;
-});
+{
+    const resolvePromisified = promisify(resolve);
+
+    resolve("nodejs.org", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType string[]
+        addresses;
+    });
+    // $ExpectType Promise<string[]>
+    resolvePromisified("nodejs.org");
+    // $ExpectType Promise<string[]>
+    promises.resolve("nodejs.org");
+
+    resolve("nodejs.org", "" as "A" | "AAAA" | "CNAME" | "NS" | "PTR", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType string[]
+        addresses;
+    });
+    // $ExpectType Promise<string[]>
+    resolvePromisified("nodejs.org", "" as "A" | "AAAA" | "CNAME" | "NS" | "PTR");
+    // $ExpectType Promise<string[]>
+    promises.resolve("nodejs.org", "" as "A" | "AAAA" | "CNAME" | "NS" | "PTR");
+
+    resolve("nodejs.org", "ANY", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType AnyRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<AnyRecord[]>
+    resolvePromisified("nodejs.org", "ANY");
+    // $ExpectType Promise<AnyRecord[]>
+    promises.resolve("nodejs.org", "ANY");
+
+    resolve("nodejs.org", "CAA", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType CaaRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<CaaRecord[]>
+    resolvePromisified("nodejs.org", "CAA");
+    // $ExpectType Promise<CaaRecord[]>
+    promises.resolve("nodejs.org", "CAA");
+
+    resolve("nodejs.org", "MX", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType MxRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<MxRecord[]>
+    resolvePromisified("nodejs.org", "MX");
+    // $ExpectType Promise<MxRecord[]>
+    promises.resolve("nodejs.org", "MX");
+
+    resolve("nodejs.org", "NAPTR", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType NaptrRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<NaptrRecord[]>
+    resolvePromisified("nodejs.org", "NAPTR");
+    // $ExpectType Promise<NaptrRecord[]>
+    promises.resolve("nodejs.org", "NAPTR");
+
+    resolve("nodejs.org", "SOA", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType SoaRecord
+        addresses;
+    });
+    // $ExpectType Promise<SoaRecord>
+    resolvePromisified("nodejs.org", "SOA");
+    // $ExpectType Promise<SoaRecord>
+    promises.resolve("nodejs.org", "SOA");
+
+    resolve("nodejs.org", "SRV", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType SrvRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<SrvRecord[]>
+    resolvePromisified("nodejs.org", "SRV");
+    // $ExpectType Promise<SrvRecord[]>
+    promises.resolve("nodejs.org", "SRV");
+
+    resolve("nodejs.org", "TLSA", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType TlsaRecord[]
+        addresses;
+    });
+    // $ExpectType Promise<TlsaRecord[]>
+    resolvePromisified("nodejs.org", "TLSA");
+    // $ExpectType Promise<TlsaRecord[]>
+    promises.resolve("nodejs.org", "TLSA");
+
+    resolve("nodejs.org", "TXT", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType string[][]
+        addresses;
+    });
+    // $ExpectType Promise<string[][]>
+    resolvePromisified("nodejs.org", "TXT");
+    // $ExpectType Promise<string[][]>
+    promises.resolve("nodejs.org", "TXT");
+
+    resolve("nodejs.org", "unknown", (err, addresses) => {
+        // $ExpectType ErrnoException | null
+        err;
+        // $ExpectType string[] | SoaRecord | AnyRecord[] | CaaRecord[] | MxRecord[] | NaptrRecord[] | SrvRecord[] | TlsaRecord[] | string[][]
+        addresses;
+    });
+    // $ExpectType Promise<string[] | SoaRecord | AnyRecord[] | CaaRecord[] | MxRecord[] | NaptrRecord[] | SrvRecord[] | TlsaRecord[] | string[][]>
+    resolvePromisified("nodejs.org", "unknown");
+    // $ExpectType Promise<string[] | SoaRecord | AnyRecord[] | CaaRecord[] | MxRecord[] | NaptrRecord[] | SrvRecord[] | TlsaRecord[] | string[][]>
+    promises.resolve("nodejs.org", "unknown");
+}
 
 resolve4("nodejs.org", (err, addresses) => {
     const _addresses: string[] = addresses;
