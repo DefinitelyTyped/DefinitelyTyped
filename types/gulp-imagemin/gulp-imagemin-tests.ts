@@ -9,12 +9,15 @@ const plugins = [
         floatPrecision: 2,
         plugins: [
             {
-                name: "removeViewBox",
-                active: true,
-            },
-            {
-                name: "cleanupIDs",
-                active: false,
+                name: "preset-default",
+                params: {
+                    overrides: {
+                        removeViewBox: false,
+                        cleanupIds: {
+                            remove: true,
+                        },
+                    },
+                },
             },
         ],
     }),
