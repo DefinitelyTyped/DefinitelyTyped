@@ -13772,14 +13772,15 @@ declare namespace chrome {
 
         /** Fired when a request is about to occur. */
         export const onBeforeRequest: WebRequestEvent<
-            (details: OnBeforeRequestDetails) => BlockingResponse | undefined,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: OnBeforeRequestDetails) => BlockingResponse | void,
             `${OnBeforeRequestOptions}`[]
         >;
 
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
         export const onBeforeSendHeaders: WebRequestEvent<
             // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            (details: OnBeforeSendHeadersDetails) => BlockingResponse | undefined,
+            (details: OnBeforeSendHeadersDetails) => BlockingResponse | void,
             `${OnBeforeSendHeadersOptions}`[]
         >;
 
@@ -13791,7 +13792,8 @@ declare namespace chrome {
 
         /** Fired when HTTP response headers of a request have been received. */
         export const onHeadersReceived: WebRequestEvent<
-            (details: OnHeadersReceivedDetails) => BlockingResponse | undefined,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: OnHeadersReceivedDetails) => BlockingResponse | void,
             `${OnHeadersReceivedOptions}`[]
         >;
 
@@ -13808,7 +13810,8 @@ declare namespace chrome {
                 details: OnAuthRequiredDetails,
                 /** @since Chrome 58 */
                 asyncCallback?: (response: BlockingResponse) => void,
-            ) => BlockingResponse | undefined,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            ) => BlockingResponse | void,
             `${OnAuthRequiredOptions}`[]
         >;
         // export const onAuthRequired: WebAuthenticationChallengeEvent;
