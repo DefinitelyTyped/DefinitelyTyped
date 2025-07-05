@@ -1308,6 +1308,10 @@
             "libraryName": "cpy",
             "asOfVersion": "7.1.1"
         },
+        "craco__craco": {
+            "libraryName": "@craco/craco",
+            "asOfVersion": "7.0.0"
+        },
         "crc": {
             "libraryName": "crc",
             "asOfVersion": "4.0.0"
