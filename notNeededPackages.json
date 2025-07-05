@@ -4097,6 +4097,10 @@
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
         },
+        "mem-fs": {
+            "libraryName": "mem-fs",
+            "asOfVersion": "2.2.0"
+        },
         "mem-fs-editor": {
             "libraryName": "mem-fs-editor",
             "asOfVersion": "10.0.1"
