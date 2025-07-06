@@ -13,8 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "test/fuzzy-finder-tests.ts",
-        "test/fuzzy-finder-umd-tests.ts"
+        "index.d.ts"
     ]
 }

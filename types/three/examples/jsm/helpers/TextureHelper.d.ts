@@ -1,6 +1,6 @@
-import { Mesh, Texture } from "three";
+import { BufferGeometry, Mesh, ShaderMaterial, Texture } from "three";
 
-export class TextureHelper extends Mesh {
+export class TextureHelper extends Mesh<BufferGeometry, ShaderMaterial> {
     texture: Texture;
     type: "TextureHelper";
 

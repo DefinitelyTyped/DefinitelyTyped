@@ -41,8 +41,6 @@ interface DestroyableModel {
 // Prompt API
 // https://github.com/webmachinelearning/prompt-api?tab=readme-ov-file#full-api-surface-in-web-idl
 
-// todo: all tests
-
 declare abstract class LanguageModel extends EventTarget implements DestroyableModel {
     static create(options?: LanguageModelCreateOptions): Promise<LanguageModel>;
     static availability(options?: LanguageModelCreateCoreOptions): Promise<Availability>;
@@ -106,6 +104,7 @@ interface LanguageModelCreateCoreOptions {
 
     expectedInputs?: LanguageModelExpected[];
     expectedOutputs?: LanguageModelExpected[];
+    tools?: LanguageModelTool[];
 }
 
 interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
@@ -119,6 +118,7 @@ interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
 
 interface LanguageModelPromptOptions {
     responseConstraint?: Record<string, unknown>;
+    omitResponseConstraintInput?: boolean;
     signal?: AbortSignal;
 }
 
@@ -135,11 +135,23 @@ interface LanguageModelExpected {
     languages?: string[];
 }
 
+interface LanguageModelTool {
+    name: string;
+    description: string;
+    inputSchema: object;
+    execute: LanguageModelToolFunction;
+}
+
+interface LanguageModelToolFunction {
+    (...args: any[]): Promise<string>;
+}
+
 type LanguageModelPrompt = LanguageModelMessage[] | string;
 
 interface LanguageModelMessage {
     role: LanguageModelMessageRole;
     content: LanguageModelMessageContent[] | string;
+    prefix?: boolean;
 }
 
 // Not in IDL, split up here for enforcing the system message as the first element

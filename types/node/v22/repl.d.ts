@@ -37,12 +37,10 @@ declare module "repl" {
         terminal?: boolean | undefined;
         /**
          * The function to be used when evaluating each given line of input.
-         * Default: an async wrapper for the JavaScript `eval()` function. An `eval` function can
+         * **Default:** an async wrapper for the JavaScript `eval()` function. An `eval` function can
          * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
-         * additional lines.
-         *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_default_evaluation
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_custom_evaluation_functions
+         * additional lines. See the [custom evaluation functions](https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#custom-evaluation-functions)
+         * section for more details.
          */
         eval?: REPLEval | undefined;
         /**

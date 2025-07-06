@@ -1,4 +1,12 @@
 import _ = require("../index");
+
+// Helper types to reject readonly arrays
+type _Eq<T, U> = (<X>() => X extends T ? 1 : 2) extends (<X>() => X extends U ? 1 : 2) ? true : false
+type _IsWritable<T> = _Eq<{ [K in keyof T]: T[K] }, { -readonly [K in keyof T]: T[K] }>
+type RejectReadonly<T extends _.MutableList<unknown>> = _IsWritable<T> extends true ? T : never
+
+export {}
+
 declare module "../index" {
     interface LoDashStatic {
         /**
@@ -342,7 +350,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T>(array: List<any> | null | undefined, value: T): List<T>;
+        fill<T, AnyList extends MutableList<any>>(array: RejectReadonly<AnyList> | null | undefined, value: T): List<T>;
         /**
          * @see _.fill
          */
@@ -350,7 +358,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T, U>(array: List<U> | null | undefined, value: T, start?: number, end?: number): List<T | U>;
+        fill<T, UList extends MutableList<any>>(array: RejectReadonly<UList> | null | undefined, value: T, start?: number, end?: number): List<T | UList[0]>;
     }
     interface Collection<T> {
         /**
@@ -932,7 +940,7 @@ declare module "../index" {
         /**
          * @see _.pull
          */
-        pull<T>(array: List<T>, ...values: T[]): List<T>;
+        pull<TList extends MutableList<any>>(array: RejectReadonly<TList>, ...values: TList[0][]): TList;
     }
     interface Collection<T> {
         /**
@@ -968,7 +976,7 @@ declare module "../index" {
         /**
          * @see _.pullAll
          */
-        pullAll<T>(array: List<T>, values?: List<T>): List<T>;
+        pullAll<TList extends MutableList<any>>(array: RejectReadonly<TList>, values?: List<TList[0]>): TList;
     }
     interface Collection<T> {
         /**
@@ -1007,7 +1015,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(array: List<T>, values?: List<T>, iteratee?: ValueIteratee<T>): List<T>;
+        pullAllBy<TList extends MutableList<any>>(array: RejectReadonly<TList>, values?: List<TList[0]>, iteratee?: ValueIteratee<TList[0]>): TList;
         /**
          * @see _.pullAllBy
          */
@@ -1015,7 +1023,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T2>(array: List<T1>, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): List<T1>;
+        pullAllBy<T1List extends MutableList<any>, T2>(array: RejectReadonly<T1List>, values: List<T2>, iteratee: ValueIteratee<T1List[0] | T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1054,7 +1062,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(array: List<T>, values?: List<T>, comparator?: Comparator<T>): List<T>;
+        pullAllWith<TList extends MutableList<any>>(array: RejectReadonly<TList>, values?: List<TList[0]>, comparator?: Comparator<TList[0]>): TList;
         /**
          * @see _.pullAllWith
          */
@@ -1062,7 +1070,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T2>(array: List<T1>, values: List<T2>, comparator: Comparator2<T1, T2>): List<T1>;
+        pullAllWith<T1List extends MutableList<any>, T2>(array: RejectReadonly<T1List>, values: List<T2>, comparator: Comparator2<T1List[0], T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1091,7 +1099,7 @@ declare module "../index" {
         /**
          * @see _.pullAt
          */
-        pullAt<T>(array: List<T>, ...indexes: Array<Many<number>>): List<T>;
+        pullAt<TList extends MutableList<any>>(array: RejectReadonly<TList>, ...indexes: Array<Many<number>>): TList;
     }
     interface Collection<T> {
         /**
@@ -1116,7 +1124,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
+        remove<TList extends MutableList<any>>(array: RejectReadonly<TList>, predicate?: ListIteratee<TList[0]>): TList[0][];
     }
     interface Collection<T> {
         /**
@@ -1150,7 +1158,7 @@ declare module "../index" {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        reverse<TList extends List<any>>(array: TList): TList;
+        reverse<TList extends MutableList<any>>(array: RejectReadonly<TList>): TList;
     }
     interface LoDashStatic {
         /**

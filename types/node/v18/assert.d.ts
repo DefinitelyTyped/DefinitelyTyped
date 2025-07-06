@@ -64,7 +64,9 @@ declare module "assert" {
              * @return that wraps `fn`.
              */
             calls(exact?: number): () => void;
-            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            calls(fn: undefined, exact?: number): () => void;
+            calls<Func extends (...args: any[]) => any>(fn: Func, exact?: number): Func;
+            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func | (() => void);
             /**
              * Example:
              *

@@ -717,7 +717,7 @@ export interface Axis {
     /**
      * Ticks
      */
-    tickmode: "auto" | "linear" | "array";
+    tickmode: "auto" | "linear" | "array" | "sync";
     nticks: number;
     tick0: number | string;
     dtick: DTickValue;
@@ -1568,53 +1568,294 @@ export interface PlotData {
 }
 
 export interface ColorBarTitle {
+    /**
+     * Sets the title of the color bar.
+     */
     text: string;
+
+    /**
+     * Sets this color bar"s title font.
+     */
     font: Partial<Font>;
+
+    /**
+     * Determines the location of color bar"s title with respect to the color bar.
+     * Defaults to *top* when `orientation` is *v* and defaults to *right* when `orientation` is *h*.
+     */
     side: "right" | "top" | "bottom";
 }
 
 export interface ColorBar {
+    /**
+     * Sets the orientation of the colorbar.
+     * @default "v"
+     */
+    orientation: "h" | "v";
+
+    /**
+     * Determines whether this color bar's thickness (i.e. the measure in the constant color direction)
+     * is set in units of plot *fraction* or in *pixels*. Use `thickness` to set the value.
+     * @default "pixels"
+     */
     thicknessmode: "fraction" | "pixels";
+
+    /**
+     * Sets the thickness of the color bar. This measure excludes the size of the padding, ticks, and labels.
+     * @default 30
+     */
     thickness: number;
+
+    /**
+     * Determines whether this color bar"s length (i.e. the measure in the color variation direction)
+     * is set in units of plot *fraction* or in *pixels*. Use `len` to set the value.
+     * @default "fraction"
+     */
     lenmode: "fraction" | "pixels";
+
+    /**
+     * Sets the length of the color bar. This measure excludes the padding of both ends.
+     * That is, the color bar length is this length minus the padding on both ends.
+     * @default 1
+     */
     len: number;
+
+    /**
+     * Sets the x position with respect to `xref` of the color bar (in plot fraction).
+     * When `xref` is *paper*, defaults to 1.02 when `orientation` is *v* and 0.5 when `orientation` is *h*.
+     * When `xref` is *container*, defaults to *1* when `orientation` is *v* and 0.5 when `orientation` is *h*.
+     * Must be between *0* and *1* if `xref` is *container* and between *-2* and *3* if `xref` is *paper*.
+     */
     x: number;
+
+    /**
+     * Sets the container `x` refers to. *container* spans the entire `width` of the plot.
+     * *paper* refers to the width of the plotting area only.
+     * @default "paper"
+     */
+    xref: "container" | "paper";
+
+    /**
+     * Sets this color bar"s horizontal position anchor. This anchor binds the `x` position
+     * to the *left*, *center*, or *right* of the color bar.
+     * Defaults to *left* when `orientation` is *v* and *center* when `orientation` is *h*.
+     */
     xanchor: "left" | "center" | "right";
+
+    /**
+     * Sets the amount of padding (in px) along the x direction.
+     * @default 10
+     */
     xpad: number;
+
+    /**
+     * Sets the y position with respect to `yref` of the color bar (in plot fraction).
+     * When `yref` is *paper*, defaults to 0.5 when `orientation` is *v* and 1.02 when `orientation` is *h*.
+     * When `yref` is *container*, defaults to 0.5 when `orientation` is *v* and 1 when `orientation` is *h*.
+     * Must be between *0* and *1* if `yref` is *container* and between *-2* and *3* if `yref` is *paper*.
+     */
     y: number;
+
+    /**
+     * Sets the container `y` refers to. *container* spans the entire `height` of the plot.
+     * *paper* refers to the height of the plotting area only.
+     * @default "paper"
+     */
+    yref: "container" | "paper";
+
+    /**
+     * Sets this color bar"s vertical position anchor. This anchor binds the `y` position
+     * to the *top*, *middle*, or *bottom* of the color bar.
+     * Defaults to *middle* when `orientation` is *v* and *bottom* when `orientation` is *h*.
+     */
     yanchor: "top" | "middle" | "bottom";
+
+    /**
+     * Sets the amount of padding (in px) along the y direction.
+     * @default 10
+     */
     ypad: number;
+
+    /**
+     * Sets the color of the outline around the color bar.
+     */
     outlinecolor: Color;
+
+    /**
+     * Sets the width (in px) of the outline around the color bar.
+     * @default 1
+     */
     outlinewidth: number;
+
+    /**
+     * Sets the color of the border enclosing this color bar.
+     */
     bordercolor: Color;
-    borderwidth: Color;
+
+    /**
+     * Sets the width (in px) of the border enclosing this color bar.
+     * @default 0
+     */
+    borderwidth: number;
+
+    /**
+     * Sets the color of padded area.
+     * @default "rgba(0,0,0,0)"
+     */
     bgcolor: Color;
+
+    /**
+     * Determines the tick mode for the color bar.
+     */
     tickmode: "auto" | "linear" | "array";
+
+    /**
+     * Sets the number of ticks.
+     */
     nticks: number;
+
+    /**
+     * Sets the starting tick.
+     */
     tick0: number | string;
+
+    /**
+     * Sets the step between ticks.
+     */
     dtick: DTickValue;
+
+    /**
+     * Sets the values at which ticks should appear.
+     */
     tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+
+    /**
+     * Sets the text displayed at the ticks.
+     */
     ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+
+    /**
+     * Determines whether ticks are drawn.
+     * @default ""
+     */
     ticks: "outside" | "inside" | "";
+
+    /**
+     * Determines how we handle tick labels that would overflow either the graph div or the domain of the axis.
+     * The default value for inside tick labels is *hide past domain*. In other cases the default is *hide past div*.
+     */
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+
+    /**
+     * Determines where tick labels are drawn relative to the ticks.
+     * Left and right options are used when `orientation` is *h*, top and bottom when `orientation` is *v*.
+     * @default "outside"
+     */
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
+
+    /**
+     * Sets the length of the ticks.
+     */
     ticklen: number;
+
+    /**
+     * Sets the width of the ticks.
+     */
     tickwidth: number;
+
+    /**
+     * Sets the color of the ticks.
+     */
     tickcolor: Color;
+
+    /**
+     * Sets the step between tick labels.
+     */
+    ticklabelstep: number;
+
+    /**
+     * Determines whether tick labels are shown.
+     */
     showticklabels: boolean;
-    tickfont: Font;
+
+    /**
+     * Allows specifying an alias for tick labels.
+     */
+    labelalias: DTickValue;
+
+    /**
+     * Sets the color bar"s tick label font.
+     */
+    tickfont: Partial<Font>;
+
+    /**
+     * Sets the angle of the tick labels.
+     */
     tickangle: "auto" | number;
+
+    /**
+     * Sets the format for tick labels.
+     */
     tickformat: string;
+
+    /**
+     * Sets the format stops for tick labels.
+     */
     tickformatstops: Array<Partial<TickFormatStop>>;
+
+    /**
+     * Sets the prefix for tick labels.
+     */
     tickprefix: string;
+
+    /**
+     * Determines which tick labels show the prefix.
+     */
     showtickprefix: "all" | "first" | "last" | "none";
+
+    /**
+     * Sets the suffix for tick labels.
+     */
     ticksuffix: string;
+
+    /**
+     * Determines which tick labels show the suffix.
+     */
     showticksuffix: "all" | "first" | "last" | "none";
+
+    /**
+     * Determines whether thousands are separated.
+     */
     separatethousands: boolean;
+
+    /**
+     * Sets the format for exponents.
+     */
     exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
-    showexponent: "all" | "first" | "last" | "none";
+
+    /**
+     * Sets the minimum exponent for which to use exponent notation.
+     */
     minexponent: number;
+
+    /**
+     * Determines which tick labels show the exponent.
+     */
+    showexponent: "all" | "first" | "last" | "none";
+
+    /**
+     * Configuration for the color bar title.
+     */
     title: Partial<ColorBarTitle>;
-    tickvalssrc: any;
-    ticktextsrc: any;
 }
 
 export type MarkerSymbol = string | number | Array<string | number>;
