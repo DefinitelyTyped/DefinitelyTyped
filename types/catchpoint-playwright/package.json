@@ -10,7 +10,8 @@
     ],
     "dependencies": {
         "eslint": "*",
-        "eslint-plugin-playwright": "*"
+        "eslint-plugin-playwright": "*",
+        "@playwright/test": "*"
     },
     "devDependencies": {
         "@types/catchpoint-playwright": "workspace:."
