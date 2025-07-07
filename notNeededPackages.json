@@ -1028,6 +1028,10 @@
             "libraryName": "cli-cursor",
             "asOfVersion": "3.0.0"
         },
+        "cli-spinners": {
+            "libraryName": "cli-spinners",
+            "asOfVersion": "2.0.0"
+        },
         "cli-truncate": {
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
@@ -2680,6 +2684,10 @@
         "hapi__yar": {
             "libraryName": "@hapi/yar",
             "asOfVersion": "11.0.2"
+        },
+        "hapipal__toys": {
+            "libraryName": "@hapipal/toys",
+            "asOfVersion": "4.0.0"
         },
         "hard-rejection": {
             "libraryName": "hard-rejection",
@@ -4737,6 +4745,10 @@
             "libraryName": "open-editor",
             "asOfVersion": "2.0.0"
         },
+        "open-graph-scraper": {
+            "libraryName": "open-graph-scraper",
+            "asOfVersion": "5.2.3"
+        },
         "openapi-factory": {
             "libraryName": "openapi-factory",
             "asOfVersion": "5.2.31"
@@ -5751,6 +5763,10 @@
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
         },
+        "react-component-benchmark": {
+            "libraryName": "react-component-benchmark",
+            "asOfVersion": "2.0.0"
+        },
         "react-content-loader": {
             "libraryName": "react-content-loader",
             "asOfVersion": "4.0.0"
@@ -5950,6 +5966,10 @@
         "react-mathquill": {
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
+        },
+        "react-medium-image-zoom": {
+            "libraryName": "react-medium-image-zoom",
+            "asOfVersion": "5.0.0"
         },
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
@@ -6750,6 +6770,10 @@
         "simonwep__selection-js": {
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
+        },
+        "simpl-schema": {
+            "libraryName": "simpl-schema",
+            "asOfVersion": "1.13.0"
         },
         "simple-datatables": {
             "libraryName": "simple-datatables",
