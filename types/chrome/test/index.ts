@@ -2403,91 +2403,145 @@ async function testManagementForPromise() {
     await chrome.management.generateAppForLink("url1", "title1");
 }
 
-// https://developer.chrome.com/docs/extensions/reference/scripting
-async function testScriptingForPromise() {
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 } });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {}, args: [] });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [""] });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ["", 0] });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} }); // $ExpectType InjectionResult<void>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => 0 }); // $ExpectType InjectionResult<number>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => "" }); // $ExpectType InjectionResult<string>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ["", 0] }); // $ExpectType InjectionResult<void>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => 0, args: ["", 0] }); // $ExpectType InjectionResult<number>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => "", args: ["", 0] }); // $ExpectType InjectionResult<string>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => {} }); // $ExpectType InjectionResult<void>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => 0 }); // $ExpectType InjectionResult<number>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => "" }); // $ExpectType InjectionResult<string>[]
-    // $ExpectType InjectionResult<void>[]
-    await chrome.scripting.executeScript({
-        target: { tabId: 0 },
-        func: async (str: string, n: number) => {},
-        args: ["", 0],
-    });
-    // $ExpectType InjectionResult<number>[]
-    await chrome.scripting.executeScript({
-        target: { tabId: 0 },
-        func: async (str: string, n: number) => 0,
-        args: ["", 0],
-    });
-    // $ExpectType InjectionResult<string>[]
-    await chrome.scripting.executeScript({
-        target: { tabId: 0 },
-        func: async (str: string, n: number) => "",
-        args: ["", 0],
-    });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: "ISOLATED", func: () => {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: true, func: () => {} }); // $ExpectType InjectionResult<void>[]
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: false, func: () => {} }); // $ExpectType InjectionResult<void>[]
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: "not-real-world", func: () => {} });
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ""] });
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] });
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [""] });
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] });
-    // @ts-expect-error
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ["script.js"] }); // $ExpectType InjectionResult<unknown>[]
+// https://developer.chrome.com/docs/extensions/reference/api/scripting
+async function testScripting() {
+    chrome.scripting.ExecutionWorld.ISOLATED === "ISOLATED";
+    chrome.scripting.ExecutionWorld.MAIN === "MAIN";
 
-    await chrome.scripting.insertCSS({ target: { tabId: 0 } });
+    chrome.scripting.StyleOrigin.AUTHOR === "AUTHOR";
+    chrome.scripting.StyleOrigin.USER === "USER";
 
-    await chrome.scripting.removeCSS({ target: { tabId: 0 } });
+    const target: chrome.scripting.InjectionTarget = {
+        tabId: 0,
+    };
 
-    await chrome.scripting.registerContentScripts([
-        { id: "id1", js: ["script1.js"] },
-        { id: "id2", js: ["script2.js"], runAt: "document_start", allFrames: true, world: "ISOLATED" },
-        {
-            id: "id3",
-            css: ["style1.css"],
-            excludeMatches: ["*://*.example.com/*"],
-            runAt: "document_end",
-            allFrames: true,
-            world: "MAIN",
+    chrome.scripting.executeScript({ target, func: () => {} }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: () => {}, args: [] }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: (str: string) => {}, args: [""] }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: (str: string, n: number) => {}, args: ["", 0] }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: () => {} }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: () => 0 }); // $ExpectType Promise<InjectionResult<number>[]>
+    chrome.scripting.executeScript({ target, func: () => "" }); // $ExpectType Promise<InjectionResult<string>[]>
+    chrome.scripting.executeScript({ target, func: (str: string, n: number) => {}, args: ["", 0] }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: (str: string, n: number) => 0, args: ["", 0] }); // $ExpectType Promise<InjectionResult<number>[]>
+    chrome.scripting.executeScript({ target, func: (str: string, n: number) => "", args: ["", 0] }); // $ExpectType Promise<InjectionResult<string>[]>
+    chrome.scripting.executeScript({ target, func: async () => {} }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: async () => 0 }); // $ExpectType Promise<InjectionResult<number>[]>
+    chrome.scripting.executeScript({ target, func: async () => "" }); // $ExpectType Promise<InjectionResult<string>[]>
+    chrome.scripting.executeScript({ target, func: async (str: string, n: number) => {}, args: ["", 0] }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript({ target, func: async (str: string, n: number) => 0, args: ["", 0] }); // $ExpectType Promise<InjectionResult<number>[]>
+    chrome.scripting.executeScript({ target, func: async (str: string, n: number) => "", args: ["", 0] }); // $ExpectType Promise<InjectionResult<string>[]>
+    chrome.scripting.executeScript({ target, world: "ISOLATED", injectImmediately: true, func: () => {} }); // $ExpectType Promise<InjectionResult<void>[]>
+    chrome.scripting.executeScript( // $ExpectType void
+        { target, world: "ISOLATED", injectImmediately: true, func: () => {} },
+        (results) => {
+            results; // $ExpectType InjectionResult<void>[]
         },
-    ]);
-    await chrome.scripting.updateContentScripts([
-        { id: "id1", js: ["script1.js"] },
-        { id: "id2", js: ["script2.js"], runAt: "document_start", allFrames: true, world: "ISOLATED" },
-        {
-            id: "id3",
-            css: ["style1.css"],
-            excludeMatches: ["*://*.example.com/*"],
-            runAt: "document_end",
-            allFrames: true,
-            world: "MAIN",
-        },
-    ]);
-    await chrome.scripting.unregisterContentScripts({ ids: ["id1", "id2"] });
-    await chrome.scripting.unregisterContentScripts({ files: ["script1.js", "style1.css"] });
-    await chrome.scripting.getRegisteredContentScripts();
+    );
+    chrome.scripting.executeScript({ target, files: ["script.js"] }); // $ExpectType Promise<InjectionResult<unknown>[]
+    chrome.scripting.executeScript({ target, files: ["script.js"] }, (results) => { // $ExpectType void
+        results; // $ExpectType InjectionResult<unknown>[]
+    });
+    // @ts-expect-error Exactly one of 'func' and 'files' must be specified.
+    chrome.scripting.executeScript({ target });
+    // @ts-expect-error Exactly one of 'func' and 'files' must be specified.
+    chrome.scripting.executeScript({ target, func: () => {}, files: [] });
+    // @ts-expect-error 'args' may not be used with file injections.
+    chrome.scripting.executeScript({ target, files: [], args: [] });
+    // @ts-expect-error Cannot specify both 'frameIds' and 'documentIds'.
+    chrome.scripting.executeScript({ target: { tabId: 0, frameIds: [], documentIds: [] }, func: () => {} });
+    chrome.scripting.executeScript({
+        // @ts-expect-error Cannot specify 'allFrames' if either 'frameIds' or 'documentIds' is specified.
+        target: { tabId: 0, allFrames: true, frameIds: [], documentIds: [] },
+        func: () => {},
+    });
+    // @ts-expect-error
+    chrome.scripting.executeScript({ target, func: (str: string, n: number) => {}, args: [0, ""] });
+    // @ts-expect-error
+    chrome.scripting.executeScript({ target, func: (str: string) => {}, args: [0] });
+    // @ts-expect-error
+    chrome.scripting.executeScript({ target, func: () => {}, args: [""] });
+    // @ts-expect-error
+    chrome.scripting.executeScript({ target, func: (name: string) => {}, args: [] });
+    // @ts-expect-error
+    chrome.scripting.executeScript({ target, func: () => {}, args: {} });
+
+    const contentScriptFilter: chrome.scripting.ContentScriptFilter = {
+        ids: ["id1", "id2"],
+    };
+
+    const registeredContentScript: chrome.scripting.RegisteredContentScript = {
+        allFrames: true,
+        css: ["style.css"],
+        excludeMatches: [],
+        id: "id",
+        js: ["script.js"],
+        matchOriginAsFallback: true,
+        matches: ["*://*.example.com/*"],
+        persistAcrossSessions: true,
+        runAt: "document_start",
+        world: "ISOLATED",
+    };
+
+    chrome.scripting.getRegisteredContentScripts(); // $ExpectType Promise<RegisteredContentScript[]>
+    chrome.scripting.getRegisteredContentScripts(contentScriptFilter); // $ExpectType Promise<RegisteredContentScript[]>
+    chrome.scripting.getRegisteredContentScripts((scripts) => { // $ExpectType void
+        scripts; // $ExpectType RegisteredContentScript[]
+    });
+    chrome.scripting.getRegisteredContentScripts(contentScriptFilter, (scripts) => { // $ExpectType void
+        scripts; // $ExpectType RegisteredContentScript[]
+    });
+    // @ts-expect-error
+    chrome.scripting.getRegisteredContentScripts(() => {}).then(() => {});
+
+    chrome.scripting.insertCSS({ target, css: "styles" }); // $ExpectType Promise<void>
+    chrome.scripting.insertCSS({ target, files: ["styles.css"] }); // $ExpectType Promise<void>
+    chrome.scripting.insertCSS({ target, css: "styles" }, () => {}); // $ExpectType void
+    chrome.scripting.insertCSS({ target, files: ["styles.css"] }, () => {}); // $ExpectType void
+    // @ts-expect-error Exactly one of 'css' and 'files' must be specified.
+    chrome.scripting.insertCSS({ target });
+    // @ts-expect-error Exactly one of 'css' and 'files' must be specified.
+    chrome.scripting.insertCSS({ target, css: "styles", files: [] });
+    // @ts-expect-error Cannot specify both 'frameIds' and 'documentIds'.
+    chrome.scripting.insertCSS({ target: { tabId: 0, frameIds: [], documentIds: [] }, css: "styles" });
+    // @ts-expect-error Cannot specify 'allFrames' if either 'frameIds' or 'documentIds' is specified.
+    chrome.scripting.insertCSS({ target: { tabId: 0, allFrames: true, frameIds: [], documentIds: [] }, css: "styles" });
+    // @ts-expect-error
+    chrome.scripting.insertCSS({ target }, () => {}).then(() => {});
+
+    chrome.scripting.registerContentScripts([registeredContentScript]); // $ExpectType Promise<void>
+    chrome.scripting.registerContentScripts([registeredContentScript], () => {}); // $ExpectType void
+    // @ts-expect-error must specify at least one js or css file.
+    chrome.scripting.registerContentScripts([{ id: "id", matches: ["*://*.example.com/*"] }], () => {});
+    // @ts-expect-error
+    chrome.scripting.registerContentScripts([], () => {}).then(() => {});
+
+    chrome.scripting.removeCSS({ target, css: "styles" }); // $ExpectType Promise<void>
+    chrome.scripting.removeCSS({ target, files: ["styles.css"] }); // $ExpectType Promise<void>
+    chrome.scripting.removeCSS({ target, css: "styles" }, () => {}); // $ExpectType void
+    chrome.scripting.removeCSS({ target, files: ["styles.css"] }, () => {}); // $ExpectType void
+    // @ts-expect-error Exactly one of 'css' and 'files' must be specified.
+    chrome.scripting.removeCSS({ target });
+    // @ts-expect-error Exactly one of 'css' and 'files' must be specified.
+    chrome.scripting.removeCSS({ target, css: "styles", files: [] });
+    // @ts-expect-error Cannot specify both 'frameIds' and 'documentIds'.
+    chrome.scripting.removeCSS({ target: { tabId: 0, frameIds: [], documentIds: [] }, css: "styles" });
+    // @ts-expect-error Cannot specify 'allFrames' if either 'frameIds' or 'documentIds' is specified.
+    chrome.scripting.removeCSS({ target: { tabId: 0, allFrames: true, frameIds: [], documentIds: [] }, css: "styles" });
+    // @ts-expect-error
+    chrome.scripting.removeCSS({ target }, () => {}).then(() => {});
+
+    chrome.scripting.unregisterContentScripts(); // $ExpectType Promise<void>
+    chrome.scripting.unregisterContentScripts(contentScriptFilter); // $ExpectType Promise<void>
+    chrome.scripting.unregisterContentScripts(() => {}); // $ExpectType void
+    chrome.scripting.unregisterContentScripts(contentScriptFilter, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.scripting.unregisterContentScripts(() => {}).then(() => {});
+
+    chrome.scripting.updateContentScripts([registeredContentScript]); // $ExpectType Promise<void>
+    chrome.scripting.updateContentScripts([registeredContentScript], () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.scripting.updateContentScripts([], () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
