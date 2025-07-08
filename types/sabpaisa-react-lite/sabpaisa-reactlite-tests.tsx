@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Button } from "react-native";
-import RazorpayCheckout, { SabpaisaErrorResponse } from "sabpaisa-react-lite";
-import SabPaisaCheckout from ".";
+import SabPaisaCheckout , {SabpaisaErrorResponse } from "sabpaisa-react-lite";
 
 /**
  * Steps to test
