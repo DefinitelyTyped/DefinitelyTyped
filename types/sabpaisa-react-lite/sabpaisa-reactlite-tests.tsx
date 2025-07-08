@@ -23,13 +23,13 @@ const SabpaisaCheckoutOptions = {
     currency: 'INR',
     mobile_number: '9999999999',
     email_id: 'lokesh.d@eywa.com',
-    client_code: 'DJ020',
-    aes_iv: 'M+aUFgRMPq7ci+Cmoytp3KJ2GPBOwO72Z2Cjbr55zY7++pT9mLES2M5cIblnBtaX',
-    aes_key: 'ISTrmmDC2bTvkxzlDRrVguVwetGS8xC/UFPsp6w+Itg=',
-    user_name: 'DJL754@sp',
-    password: '4q3qhgmJNM4m',
+    client_code: '<client_code>',
+    aes_iv: '<aes_iv>',
+    aes_key: '<aes_key>',
+    user_name: '<user_name>',
+    password: '<password>',
     env: 'staging',
-    txn_id: '11223344343',
+    txn_id: '11223344343', // unique transaction_id
     amount:'100'
  };
 
