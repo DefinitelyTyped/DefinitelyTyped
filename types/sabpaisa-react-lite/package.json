@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/sabpaisa-react-lite",
-    "version": "0.0.1",
+    "version": "1.0.9999",
     "projects": [
         "https://www.npmjs.com/package/sabpaisa-react-lite"
     ],
     "devDependencies": {
-        "@types/react-native-razorpay": "workspace:.",
+        "@types/sabpaisa-react-lite": "workspace:.",
         "react-native": "*"
     },
     "owners": [
