@@ -32,7 +32,7 @@ export interface SabpaisaCheckoutOptions {
     password: string;
     env: string;
     txn_id: string;
-    amount:string;
+    amount: string;
 }
 
 declare const SabPaisaCheckout: {
