@@ -11501,11 +11501,108 @@ declare namespace chrome {
             groupId?: number | undefined;
         }
 
-        export interface TabRemoveInfo {
-            /** The window whose tab is closed */
+        export interface OnHighlightedInfo {
+            /** All highlighted tabs in the window. */
+            tabIds: number[];
+            /** The window whose tabs changed. */
             windowId: number;
+        }
+
+        export interface OnRemovedInfo {
             /** True when the tab was closed because its parent window was closed. */
             isWindowClosing: boolean;
+            /** The window whose tab is closed */
+            windowId: number;
+        }
+
+        export interface OnUpdatedInfo {
+            /** The tab's new audible state. */
+            audible?: boolean;
+            /**
+             * The tab's new auto-discardable state.
+             * @since Chrome 54
+             */
+            autoDiscardable?: boolean;
+            /**
+             * The tab's new discarded state.
+             * @since Chrome 54
+             */
+            discarded?: boolean;
+            /** The tab's new favicon URL. */
+            favIconUrl?: string;
+            /**
+             * The tab's new frozen state.
+             * @since Chrome 132
+             */
+            frozen?: boolean;
+            /**
+             * The tab's new group.
+             * @since Chrome 88
+             */
+            groupId?: number;
+            /**
+             * The tab's new muted state and the reason for the change.
+             * @since Chrome 46
+             */
+            mutedInfo?: MutedInfo;
+            /** The tab's new pinned state. */
+            pinned?: boolean;
+            /** The tab's loading status. */
+            status?: `${TabStatus}`;
+            /**
+             * The tab's new title.
+             * @since Chrome 48
+             */
+            title?: string;
+            /** The tab's URL if it has changed. */
+            url?: string;
+        }
+
+        export interface OnAttachedInfo {
+            newPosition: number;
+            newWindowId: number;
+        }
+
+        export interface OnMovedInfo {
+            fromIndex: number;
+            toIndex: number;
+            windowId: number;
+        }
+
+        export interface OnDetachedInfo {
+            oldPosition: number;
+            oldWindowId: number;
+        }
+
+        export interface OnActivatedInfo {
+            /** The ID of the tab that has become active. */
+            tabId: number;
+            /** The ID of the window the active tab changed inside of. */
+            windowId: number;
+        }
+
+        export interface OnSelectionChangedInfo {
+            /** The ID of the window the selected tab changed inside of. */
+            windowId: number;
+        }
+
+        export interface OnActiveChangedInfo {
+            /** The ID of the window the selected tab changed inside of. */
+            windowId: number;
+        }
+
+        export interface OnHighlightChangedInfo {
+            /** All highlighted tabs in the window. */
+            tabIds: number[];
+            /** The window whose tabs changed. */
+            windowId: number;
+        }
+
+        export interface OnZoomChangeInfo {
+            newZoomFactor: number;
+            oldZoomFactor: number;
+            tabId: number;
+            zoomSettings: ZoomSettings;
         }
 
         /**
@@ -11858,93 +11955,32 @@ declare namespace chrome {
 
         /** Fired when the highlighted or selected tabs in a window changes */
         export const onHighlighted: events.Event<
-            (highlightInfo: {
-                /** All highlighted tabs in the window. */
-                tabIds: number[];
-                /** The window whose tabs changed. */
-                windowId: number;
-            }) => void
+            (highlightInfo: OnHighlightedInfo) => void
         >;
 
         /** Fired when a tab is closed. */
         export const onRemoved: events.Event<
-            (tabId: number, removeInfo: {
-                /** True when the tab was closed because its parent window was closed. */
-                isWindowClosing: boolean;
-                /** The window whose tab is closed */
-                windowId: number;
-            }) => void
+            (tabId: number, removeInfo: OnRemovedInfo) => void
         >;
 
         /** Fired when a tab is updated. */
         export const onUpdated: events.Event<
-            (tabId: number, changeInfo: {
-                /** The tab's new audible state. */
-                audible?: boolean;
-                /**
-                 * The tab's new auto-discardable state.
-                 * @since Chrome 54
-                 */
-                autoDiscardable?: boolean;
-                /**
-                 * The tab's new discarded state.
-                 * @since Chrome 54
-                 */
-                discarded?: boolean;
-                /** The tab's new favicon URL. */
-                favIconUrl?: string;
-                /**
-                 * The tab's new frozen state.
-                 * @since Chrome 132
-                 */
-                frozen?: boolean;
-                /**
-                 * The tab's new group.
-                 * @since Chrome 88
-                 */
-                groupId?: number;
-                /**
-                 * The tab's new muted state and the reason for the change.
-                 * @since Chrome 46
-                 */
-                mutedInfo?: MutedInfo;
-                /** The tab's new pinned state. */
-                pinned?: boolean;
-                /** The tab's loading status. */
-                status?: `${TabStatus}`;
-                /**
-                 * The tab's new title.
-                 * @since Chrome 48
-                 */
-                title?: string;
-                /** The tab's URL if it has changed. */
-                url?: string;
-            }, tab: Tab) => void
+            (tabId: number, changeInfo: OnUpdatedInfo, tab: Tab) => void
         >;
 
         /** Fired when a tab is attached to a window, for example because it was moved between windows. */
         export const onAttached: events.Event<
-            (tabId: number, attachInfo: {
-                newPosition: number;
-                newWindowId: number;
-            }) => void
+            (tabId: number, attachInfo: OnAttachedInfo) => void
         >;
 
         /** Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response to the manually-moved tab. This event is not fired when a tab is moved between windows; for details, see {@link tabs.onDetached}. */
         export const onMoved: events.Event<
-            (tabId: number, moveInfo: {
-                fromIndex: number;
-                toIndex: number;
-                windowId: number;
-            }) => void
+            (tabId: number, moveInfo: OnMovedInfo) => void
         >;
 
         /** Fired when a tab is detached from a window; for example, because it was moved between windows. */
         export const onDetached: events.Event<
-            (tabId: number, detachInfo: {
-                oldPosition: number;
-                oldWindowId: number;
-            }) => void
+            (tabId: number, detachInfo: OnDetachedInfo) => void
         >;
 
         /** Fired when a tab is created. Note that the tab's URL and tab group membership may not be set at the time this event is fired, but you can listen to onUpdated events so as to be notified when a URL is set or the tab is added to a tab group. */
@@ -11952,16 +11988,13 @@ declare namespace chrome {
 
         /** Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events so as to be notified when a URL is set */
         export const onActivated: events.Event<
-            (activeInfo: {
-                /** The ID of the tab that has become active. */
-                tabId: number;
-                /** The ID of the window the active tab changed inside of. */
-                windowId: number;
-            }) => void
+            (activeInfo: OnActivatedInfo) => void
         >;
 
         /** Fired when a tab is replaced with another tab due to prerendering or instant */
-        export const onReplaced: events.Event<(addedTabId: number, removedTabId: number) => void>;
+        export const onReplaced: events.Event<
+            (addedTabId: number, removedTabId: number) => void
+        >;
 
         /**
          * Fires when the selected tab in a window changes.
@@ -11970,10 +12003,7 @@ declare namespace chrome {
          * @deprecated Please use {@link tabs.onActivated}.
          */
         export const onSelectionChanged: events.Event<
-            (tabId: number, selectInfo: {
-                /** The ID of the window the selected tab changed inside of. */
-                windowId: number;
-            }) => void
+            (tabId: number, selectInfo: OnSelectionChangedInfo) => void
         >;
 
         /**
@@ -11983,10 +12013,7 @@ declare namespace chrome {
          * @deprecated Please use {@link tabs.onActivated}.
          */
         export const onActiveChanged: events.Event<
-            (tabId: number, selectInfo: {
-                /** The ID of the window the selected tab changed inside of. */
-                windowId: number;
-            }) => void
+            (tabId: number, selectInfo: OnActiveChangedInfo) => void
         >;
 
         /**
@@ -11996,24 +12023,12 @@ declare namespace chrome {
          * @deprecated Please use {@link tabs.onHighlighted}.
          */
         export const onHighlightChanged: events.Event<
-            (
-                (selectInfo: {
-                    /** All highlighted tabs in the window. */
-                    tabIds: number[];
-                    /** The window whose tabs changed. */
-                    windowId: number;
-                }) => void
-            )
+            (selectInfo: OnHighlightChangedInfo) => void
         >;
 
         /** Fired when a tab is zoomed */
         export const onZoomChange: events.Event<
-            (ZoomChangeInfo: {
-                newZoomFactor: number;
-                oldZoomFactor: number;
-                tabId: number;
-                zoomSettings: ZoomSettings;
-            }) => void
+            (ZoomChangeInfo: OnZoomChangeInfo) => void
         >;
     }
 
