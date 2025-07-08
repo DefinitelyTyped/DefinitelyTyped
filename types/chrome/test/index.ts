@@ -2873,131 +2873,51 @@ async function testTabs() {
     // @ts-expect-error
     chrome.tabs.update(() => {}).then(() => {});
 
-    chrome.tabs.onActivated.addListener((activeInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onActivated, (activeInfo) => {
         activeInfo.tabId; // $ExpectType number
         activeInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onActivated.removeListener((activeInfo) => { // $ExpectType void
-        activeInfo.tabId; // $ExpectType number
-        activeInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onActivated.hasListener((activeInfo) => { // $ExpectType boolean
-        activeInfo.tabId; // $ExpectType number
-        activeInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onActivated.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onAttached.addListener((tabId, attachInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onAttached, (tabId, attachInfo) => {
         tabId; // $ExpectType number
         attachInfo.newPosition; // $ExpectType number
         attachInfo.newWindowId; // $ExpectType number
     });
-    chrome.tabs.onAttached.removeListener((tabId, attachInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        attachInfo.newPosition; // $ExpectType number
-        attachInfo.newWindowId; // $ExpectType number
-    });
-    chrome.tabs.onAttached.hasListener((tabId, attachInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        attachInfo.newPosition; // $ExpectType number
-        attachInfo.newWindowId; // $ExpectType number
-    });
-    chrome.tabs.onAttached.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onCreated.addListener((tab) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onCreated, (tab) => {
         tab; // $ExpectType Tab
     });
-    chrome.tabs.onCreated.removeListener((tab) => { // $ExpectType void
-        tab; // $ExpectType Tab
-    });
-    chrome.tabs.onCreated.hasListener((tab) => { // $ExpectType boolean
-        tab; // $ExpectType Tab
-    });
-    chrome.tabs.onCreated.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onDetached.addListener((tabId, detachInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onDetached, (tabId, detachInfo) => {
         tabId; // $ExpectType number
         detachInfo.oldPosition; // $ExpectType number
         detachInfo.oldWindowId; // $ExpectType number
     });
-    chrome.tabs.onDetached.removeListener((tabId, detachInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        detachInfo.oldPosition; // $ExpectType number
-        detachInfo.oldWindowId; // $ExpectType number
-    });
-    chrome.tabs.onDetached.hasListener((tabId, detachInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        detachInfo.oldPosition; // $ExpectType number
-        detachInfo.oldWindowId; // $ExpectType number
-    });
-    chrome.tabs.onDetached.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onHighlighted.addListener((highlightInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onHighlighted, (highlightInfo) => {
         highlightInfo.tabIds; // $ExpectType number[]
         highlightInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onHighlighted.removeListener((highlightInfo) => { // $ExpectType void
-        highlightInfo.tabIds; // $ExpectType number[]
-        highlightInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onHighlighted.hasListener((highlightInfo) => { // $ExpectType boolean
-        highlightInfo.tabIds; // $ExpectType number[]
-        highlightInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onHighlighted.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onMoved.addListener((tabId, moveInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onMoved, (tabId, moveInfo) => {
         tabId; // $ExpectType number
         moveInfo.fromIndex; // $ExpectType number
         moveInfo.toIndex; // $ExpectType number
         moveInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onMoved.removeListener((tabId, moveInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        moveInfo.fromIndex; // $ExpectType number
-        moveInfo.toIndex; // $ExpectType number
-        moveInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onMoved.hasListener((tabId, moveInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        moveInfo.fromIndex; // $ExpectType number
-        moveInfo.toIndex; // $ExpectType number
-        moveInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onMoved.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onRemoved.addListener((tabId, removeInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onRemoved, (tabId, removeInfo) => {
         tabId; // $ExpectType number
         removeInfo.isWindowClosing; // $ExpectType boolean
         removeInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onRemoved.removeListener((tabId, removeInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        removeInfo.isWindowClosing; // $ExpectType boolean
-        removeInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onRemoved.hasListener((tabId, removeInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        removeInfo.isWindowClosing; // $ExpectType boolean
-        removeInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onRemoved.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onReplaced.addListener((addedTabId, removedTabId) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onReplaced, (addedTabId, removedTabId) => {
         addedTabId; // $ExpectType number
         removedTabId; // $ExpectType number
     });
-    chrome.tabs.onReplaced.removeListener((addedTabId, removedTabId) => { // $ExpectType void
-        addedTabId; // $ExpectType number
-        removedTabId; // $ExpectType number
-    });
-    chrome.tabs.onReplaced.hasListener((addedTabId, removedTabId) => { // $ExpectType boolean
-        addedTabId; // $ExpectType number
-        removedTabId; // $ExpectType number
-    });
-    chrome.tabs.onReplaced.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onUpdated, (tabId, changeInfo, tab) => {
         tabId; // $ExpectType number
         changeInfo.audible; // $ExpectType boolean | undefined
         changeInfo.autoDiscardable; // $ExpectType boolean | undefined
@@ -3012,57 +2932,13 @@ async function testTabs() {
         changeInfo.url; // $ExpectType string | undefined
         tab; // $ExpectType Tab
     });
-    chrome.tabs.onUpdated.removeListener((tabId, changeInfo, tab) => { // $ExpectType void
-        tabId; // $ExpectType number
-        changeInfo.audible; // $ExpectType boolean | undefined
-        changeInfo.autoDiscardable; // $ExpectType boolean | undefined
-        changeInfo.discarded; // $ExpectType boolean | undefined
-        changeInfo.favIconUrl; // $ExpectType string | undefined
-        changeInfo.frozen; // $ExpectType boolean | undefined
-        changeInfo.groupId; // $ExpectType number | undefined
-        changeInfo.mutedInfo; // $ExpectType MutedInfo | undefined
-        changeInfo.pinned; // $ExpectType boolean | undefined
-        changeInfo.status; // $ExpectType "unloaded" | "loading" | "complete" | undefined
-        changeInfo.title; // $ExpectType string | undefined
-        changeInfo.url; // $ExpectType string | undefined
-        tab; // $ExpectType Tab
-    });
-    chrome.tabs.onUpdated.hasListener((tabId, changeInfo, tab) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        changeInfo.audible; // $ExpectType boolean | undefined
-        changeInfo.autoDiscardable; // $ExpectType boolean | undefined
-        changeInfo.discarded; // $ExpectType boolean | undefined
-        changeInfo.favIconUrl; // $ExpectType string | undefined
-        changeInfo.frozen; // $ExpectType boolean | undefined
-        changeInfo.groupId; // $ExpectType number | undefined
-        changeInfo.mutedInfo; // $ExpectType MutedInfo | undefined
-        changeInfo.pinned; // $ExpectType boolean | undefined
-        changeInfo.status; // $ExpectType "unloaded" | "loading" | "complete" | undefined
-        changeInfo.title; // $ExpectType string | undefined
-        changeInfo.url; // $ExpectType string | undefined
-        tab; // $ExpectType Tab
-    });
-    chrome.tabs.onUpdated.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onZoomChange.addListener((zoomChangeInfo) => { // $ExpectType void
-        zoomChangeInfo.newZoomFactor; // $ExpectType number
-        zoomChangeInfo.oldZoomFactor; // $ExpectType number
-        zoomChangeInfo.tabId; // $ExpectType number
-        zoomChangeInfo.zoomSettings; // $ExpectType ZoomSettings
-    });
-    chrome.tabs.onZoomChange.removeListener((zoomChangeInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onZoomChange, (zoomChangeInfo) => {
         zoomChangeInfo.tabId; // $ExpectType number
         zoomChangeInfo.newZoomFactor; // $ExpectType number
         zoomChangeInfo.oldZoomFactor; // $ExpectType number
         zoomChangeInfo.zoomSettings; // $ExpectType ZoomSettings
     });
-    chrome.tabs.onZoomChange.hasListener((zoomChangeInfo) => { // $ExpectType boolean
-        zoomChangeInfo.newZoomFactor; // $ExpectType number
-        zoomChangeInfo.oldZoomFactor; // $ExpectType number
-        zoomChangeInfo.tabId; // $ExpectType number
-        zoomChangeInfo.zoomSettings; // $ExpectType ZoomSettings
-    });
-    chrome.tabs.onZoomChange.hasListeners(); // $ExpectType boolean
 
     const details: chrome.extensionTypes.InjectDetails = {
         allFrames: true,
@@ -3129,47 +3005,20 @@ async function testTabs() {
     // @ts-expect-error
     chrome.tabs.sendRequest(() => {}).then(() => {});
 
-    chrome.tabs.onActiveChanged.addListener((tabId, selectInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onActiveChanged, (tabId, selectInfo) => {
         tabId; // $ExpectType number
         selectInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onActiveChanged.removeListener((tabId, selectInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onActiveChanged.hasListener((tabId, selectInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onActiveChanged.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onHighlightChanged.addListener((selectInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onHighlightChanged, (selectInfo) => {
         selectInfo.tabIds; // $ExpectType number[]
         selectInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onHighlightChanged.removeListener((selectInfo) => { // $ExpectType void
-        selectInfo.tabIds; // $ExpectType number[]
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onHighlightChanged.hasListener((selectInfo) => { // $ExpectType boolean
-        selectInfo.tabIds; // $ExpectType number[]
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onHighlightChanged.hasListeners(); // $ExpectType boolean
 
-    chrome.tabs.onSelectionChanged.addListener((tabId, selectInfo) => { // $ExpectType void
+    checkChromeEvent(chrome.tabs.onSelectionChanged, (tabId, selectInfo) => {
         tabId; // $ExpectType number
         selectInfo.windowId; // $ExpectType number
     });
-    chrome.tabs.onSelectionChanged.removeListener((tabId, selectInfo) => { // $ExpectType void
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onSelectionChanged.hasListener((tabId, selectInfo) => { // $ExpectType boolean
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
-    chrome.tabs.onSelectionChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/tabGroups
