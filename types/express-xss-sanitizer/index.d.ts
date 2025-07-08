@@ -1,12 +1,10 @@
-declare module 'express-xss-sanitizer' {
-  import type { RequestHandler } from 'express';
-
-  export interface XssSanitizerOptions {
+interface XssSanitizerOptions {
     allowedTags?: string[];
     allowedAttributes?: Record<string, string[]>;
     allowedKeys?: string[];
   }
 
-  export function xss(options?: XssSanitizerOptions): RequestHandler;
-  export function sanitize<T = unknown>(data: T, options?: XssSanitizerOptions): T;
-}
+declare function xss(options?: XssSanitizerOptions): (req: any, res: any, next: any) => void;
+declare function sanitize<T = unknown>(data: T, options?: XssSanitizerOptions): T;
+
+export { sanitize, xss, type XssSanitizerOptions };
