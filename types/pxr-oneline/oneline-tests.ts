@@ -58,7 +58,7 @@ const ndOne: OneLine.OneLine = {
             console.log(`Subscribed to topic`);
         },
 
-        subscribeAdsLoaded: (fn: NoParamFunction | ((data: SocialConsents) => void)) => {
+        subscribeAdsLoaded: (fn: NoParamFunction | ((data: {adsLoaded: boolean}) => void)) => {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic ads Loaded `);
         },
