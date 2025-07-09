@@ -67,7 +67,6 @@ declare namespace OneLine {
             isEmpty: string;
             isNotEmpty: string;
             ageGateReady: string;
-            adsLoaded: string;
         };
         cons: {
             OneTime: string;
