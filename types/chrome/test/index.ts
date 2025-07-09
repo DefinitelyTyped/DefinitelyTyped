@@ -719,7 +719,7 @@ function testContentSettings() {
 // https://developer.chrome.com/docs/extensions/reference/api/runtime
 function testRuntime() {
     chrome.runtime.id; // $ExpectType string
-    chrome.runtime.lastError; // $ExpectType { message?: string | undefined } | undefined
+    chrome.runtime.lastError; // $ExpectType LastError | undefined
 
     chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
     chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";

@@ -8939,11 +8939,13 @@ declare namespace chrome {
      * Use the `chrome.runtime` API to retrieve the service worker, return details about the manifest, and listen for and respond to events in the extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
      */
     export namespace runtime {
-        /** Populated with an error message if calling an API function fails; otherwise undefined. This is only defined within the scope of that function's callback. If an error is produced, but `runtime.lastError` is not accessed within the callback, a message is logged to the console listing the API function that produced the error. API functions that return promises do not set this property. */
-        export const lastError: {
+        export interface LastError {
             /** Details about the error which occurred.  */
             message?: string;
-        } | undefined;
+        }
+
+        /** Populated with an error message if calling an API function fails; otherwise undefined. This is only defined within the scope of that function's callback. If an error is produced, but `runtime.lastError` is not accessed within the callback, a message is logged to the console listing the API function that produced the error. API functions that return promises do not set this property. */
+        export const lastError: LastError | undefined;
 
         /** The ID of the extension/app. */
         export const id: string;
@@ -9169,6 +9171,11 @@ declare namespace chrome {
             onMessage: events.Event<(message: any, port: Port) => void>;
             /** The name of the port, as specified in the call to {@link runtime.connect}. */
             name: string;
+        }
+
+        export interface UpdateAvailableDetails {
+            /** The version number of the available update. */
+            version: string;
         }
 
         export interface UpdateCheckDetails {
@@ -9650,7 +9657,7 @@ declare namespace chrome {
          */
         export function requestUpdateCheck(): Promise<RequestUpdateCheckResult>;
         export function requestUpdateCheck(
-            callback: (status: `${RequestUpdateCheckStatus}`, details?: { version: string }) => void,
+            callback: (status: `${RequestUpdateCheckStatus}`, details?: UpdateCheckDetails) => void,
         ): void;
 
         /** Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op. */
@@ -9769,7 +9776,7 @@ declare namespace chrome {
         export const onRestartRequired: events.Event<(reason: `${OnRestartRequiredReason}`) => void>;
 
         /** Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time Chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event. */
-        export const onUpdateAvailable: events.Event<(details: { version: string }) => void>;
+        export const onUpdateAvailable: events.Event<(details: UpdateAvailableDetails) => void>;
 
         /**
          * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
