@@ -67,13 +67,13 @@ declare namespace OneLine {
             isEmpty: string;
             isNotEmpty: string;
             ageGateReady: string;
-            adsLoaded: string;
         };
         cons: {
             OneTime: string;
         };
         subscribe(topic: string, fn: NoParamFunction): void;
         subscribeSocialConsents(fn: (data: SocialConsents) => void): void;
+        subscribeAdsLoaded(fn: (data: { adsLoaded: boolean }) => void): void;
     }
 
     interface SocialConsents {

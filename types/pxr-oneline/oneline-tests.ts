@@ -42,8 +42,7 @@ const ndOne: OneLine.OneLine = {
             documentReady: "documentReady",
             isEmpty: "isEmpty",
             isNotEmpty: "isNotEmpty",
-            ageGateReady: "ageGateReady",
-            adsLoaded: "adsLoaded",
+            ageGateReady: "ageGateReady"
         },
         cons: {
             OneTime: "OneTime",
@@ -57,6 +56,11 @@ const ndOne: OneLine.OneLine = {
         subscribeSocialConsents: (fn: NoParamFunction | ((data: SocialConsents) => void)) => {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic`);
+        },
+
+        subscribeAdsLoaded: (fn: NoParamFunction | ((data: {adsLoaded: boolean}) => void)) => {
+            // Mock implementation for subscribe
+            console.log(`Subscribed to topic ads Loaded `);
         },
     },
     adUnitRequest: (arrFoAdIds?: string[], allowReload?: boolean) => {
