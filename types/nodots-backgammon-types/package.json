@@ -1,0 +1,19 @@
+{
+  "name": "@types/nodots-backgammon-types",
+  "version": "3.2.9999",
+  "private": true,
+  "nonNpm": true,
+  "nonNpmDescription": "Type definitions for the nodots-backgammon-types library",
+  "devDependencies": {
+    "@types/nodots-backgammon-types": "workspace:."
+  },
+  "projects": [
+    "https://github.com/nodots/nodots-backgammon-types"
+  ],
+  "owners": [
+    {
+      "name": "Ken Riley",
+      "githubUsername": "nodots"
+    }
+  ]
+}
