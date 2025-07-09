@@ -39,7 +39,6 @@ import BaseObject from "sap/ui/base/Object";
 import ObjectMarker from "sap/m/ObjectMarker";
 import Theming from "sap/ui/core/Theming";
 import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
-import RouterHashChanger from "sap/ui/core/routing/RouterHashChanger";
 import List from "sap/m/List";
 
 /*
