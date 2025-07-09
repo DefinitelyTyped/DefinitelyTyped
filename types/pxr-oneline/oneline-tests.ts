@@ -13,6 +13,7 @@ interface BidderConfig {
 }
 
 type NoParamFunction = () => void;
+type ParamFunction = (arg: any) => void;
 
 interface SocialConsents {
     vendors: {
