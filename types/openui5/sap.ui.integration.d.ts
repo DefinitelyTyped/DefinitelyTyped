@@ -1,4 +1,4 @@
-// For Library Version: 1.136.0
+// For Library Version: 1.138.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1718,12 +1718,11 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets translated text from the i18n properties files configured for this card.
      *
-     * For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
+     * This method uses `ResourceBundle.getText()`. For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
      *
-     * @experimental As of version 1.83. The API might change.
      *
-     * @returns The value belonging to the key, if found; otherwise the key itself or `undefined` depending
-     * on `bIgnoreKeyFallback`.
+     * @returns The value belonging to the key, if found; otherwise, it returns the key itself or `undefined`
+     * depending on `bIgnoreKeyFallback`.
      */
     getTranslatedText(
       /**
@@ -1742,7 +1741,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * fallback bundle.
        */
       bIgnoreKeyFallback?: boolean
-    ): string;
+    ): string | undefined;
     /**
      * Gets current value of property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
      *
@@ -1899,15 +1898,26 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         method?: string;
         /**
-         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put into the body of the request.
+         * The request parameters to be sent to the server. They are sent as follows:
+         * 	 -  When the HTTP method is "GET" or "HEAD", and parameters are set as:
+         * 	object - Sent as part of the URL, appended as key/value pairs in the query string
+         * 	 - FormData - Not sent
+         * 	 - string - Not sent
+         * 	 -  When the HTTP method is "POST", "PUT", "PATCH", or "DELETE", the parameters will be sent in the
+         *     request body, encoded based on the `Content-Type` header and parameters type:
+         * 	 object - Supports the following encodings, decided based on the Content-Type header of the request:
          *
-         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
-         * and others. It will be sent as it is.
+         * 	`application/x-www-form-urlencoded` - Default
+         * 	 - `application/json`
+         * 	 -  FormData - Encoded as `multipart/form-data`. The `Content-Type` header on the request must not be
+         *     set explicitly. **Note:** FormData will not be resolved for bindings, destinations and others. It will
+         *     be sent as it is. Added since version 1.130
+         * 	 - string - Must be used in combination with `Content-Type: text/plain`. Will be sent as is. Added since
+         *     version 1.138
          */
-        parameters?: object | FormData;
+        parameters?: object | FormData | string;
         /**
-         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
+         * Deprecated. Use the correct `Accept` headers and set correct `Content-Type` header in the response.
          */
         dataType?: string;
         /**
@@ -2358,12 +2368,11 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets translated text from the i18n properties files configured for this card.
      *
-     * For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
+     * This method uses `ResourceBundle.getText()`. For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
      *
-     * @experimental As of version 1.83. The API might change.
      *
-     * @returns The value belonging to the key, if found; otherwise the key itself or `undefined` depending
-     * on `bIgnoreKeyFallback`.
+     * @returns The value belonging to the key, if found; otherwise, it returns the key itself or `undefined`
+     * depending on `bIgnoreKeyFallback`.
      */
     getTranslatedText(
       /**
@@ -2382,7 +2391,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * fallback bundle.
        */
       bIgnoreKeyFallback?: boolean
-    ): string;
+    ): string | undefined;
     /**
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      *
@@ -2494,15 +2503,26 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         method?: string;
         /**
-         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put into the body of the request.
+         * The request parameters to be sent to the server. They are sent as follows:
+         * 	 -  When the HTTP method is "GET" or "HEAD", and parameters are set as:
+         * 	object - Sent as part of the URL, appended as key/value pairs in the query string
+         * 	 - FormData - Not sent
+         * 	 - string - Not sent
+         * 	 -  When the HTTP method is "POST", "PUT", "PATCH", or "DELETE", the parameters will be sent in the
+         *     request body, encoded based on the `Content-Type` header and parameters type:
+         * 	 object - Supports the following encodings, decided based on the Content-Type header of the request:
          *
-         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
-         * and others. It will be sent as it is.
+         * 	`application/x-www-form-urlencoded` - Default
+         * 	 - `application/json`
+         * 	 -  FormData - Encoded as `multipart/form-data`. The `Content-Type` header on the request must not be
+         *     set explicitly. **Note:** FormData will not be resolved for bindings, destinations and others. It will
+         *     be sent as it is. Added since version 1.130
+         * 	 - string - Must be used in combination with `Content-Type: text/plain`. Will be sent as is. Added since
+         *     version 1.138
          */
-        parameters?: object | FormData;
+        parameters?: object | FormData | string;
         /**
-         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
+         * Deprecated. Use the correct `Accept` headers and set correct `Content-Type` header in the response.
          */
         dataType?: string;
         /**
@@ -3706,7 +3726,7 @@ declare module "sap/ui/integration/Extension" {
      *
      * @returns Value of property `formatters`
      */
-    getFormatters(): Record<string, () => void> | undefined;
+    getFormatters(): Record<string, Function> | undefined;
     /**
      * Override this method to lazy load dependencies for the extension.
      *
