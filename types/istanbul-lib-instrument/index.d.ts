@@ -1,4 +1,5 @@
 import * as babelTypes from "babel-types";
+import { GeneratorOptions } from "babel__generator";
 import { FileCoverage, FileCoverageData, Range } from "istanbul-lib-coverage";
 import { RawSourceMap } from "source-map";
 
@@ -11,6 +12,11 @@ export interface InstrumenterOptions {
     produceSourceMap: boolean;
     sourceMapUrlCallback(filename: string, url: string): void;
     debug: boolean;
+    coverageGlobalScope?: string;
+    coverageGlobalScopeFunc?: boolean;
+    ignoreClassMethods?: string[];
+    parserPlugins?: any[];
+    generatorOpts?: GeneratorOptions;
 }
 
 export type InstrumenterCallback = (error: Error | null, code: string) => void;
