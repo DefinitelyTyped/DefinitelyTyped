@@ -20,6 +20,7 @@ declare module "dns/promises" {
         ResolveWithTtlOptions,
         SoaRecord,
         SrvRecord,
+        TlsaRecord,
     } from "node:dns";
     /**
      * Returns an array of IP address strings, formatted according to [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6),
@@ -126,22 +127,26 @@ declare module "dns/promises" {
      * @param [rrtype='A'] Resource record type.
      */
     function resolve(hostname: string): Promise<string[]>;
-    function resolve(hostname: string, rrtype: "A"): Promise<string[]>;
-    function resolve(hostname: string, rrtype: "AAAA"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
     function resolve(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
     function resolve(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
-    function resolve(hostname: string, rrtype: "CNAME"): Promise<string[]>;
     function resolve(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
     function resolve(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
-    function resolve(hostname: string, rrtype: "NS"): Promise<string[]>;
-    function resolve(hostname: string, rrtype: "PTR"): Promise<string[]>;
     function resolve(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
     function resolve(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+    function resolve(hostname: string, rrtype: "TLSA"): Promise<TlsaRecord[]>;
     function resolve(hostname: string, rrtype: "TXT"): Promise<string[][]>;
-    function resolve(
-        hostname: string,
-        rrtype: string,
-    ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+    function resolve(hostname: string, rrtype: string): Promise<
+        | string[]
+        | CaaRecord[]
+        | MxRecord[]
+        | NaptrRecord[]
+        | SoaRecord
+        | SrvRecord[]
+        | TlsaRecord[]
+        | string[][]
+        | AnyRecord[]
+    >;
     /**
      * Uses the DNS protocol to resolve IPv4 addresses (`A` records) for the `hostname`. On success, the `Promise` is resolved with an array of IPv4
      * addresses (e.g. `['74.125.79.104', '74.125.79.105', '74.125.79.106']`).
@@ -292,6 +297,27 @@ declare module "dns/promises" {
      * @since v10.6.0
      */
     function resolveSrv(hostname: string): Promise<SrvRecord[]>;
+    /**
+     * Uses the DNS protocol to resolve certificate associations (`TLSA` records) for
+     * the `hostname`. On success, the `Promise` is resolved with an array of objectsAdd commentMore actions
+     * with these properties:
+     *
+     * * `certUsage`
+     * * `selector`
+     * * `match`
+     * * `data`
+     *
+     * ```js
+     * {
+     *   certUsage: 3,
+     *   selector: 1,
+     *   match: 1,
+     *   data: [ArrayBuffer]
+     * }
+     * ```
+     * @since v22.15.0
+     */
+    function resolveTlsa(hostname: string): Promise<TlsaRecord[]>;
     /**
      * Uses the DNS protocol to resolve text queries (`TXT` records) for the `hostname`. On success, the `Promise` is resolved with a two-dimensional array
      * of the text records available for `hostname` (e.g.`[ ['v=spf1 ip4:0.0.0.0 ', '~all' ] ]`). Each sub-array contains TXT chunks of
@@ -450,6 +476,7 @@ declare module "dns/promises" {
         resolvePtr: typeof resolvePtr;
         resolveSoa: typeof resolveSoa;
         resolveSrv: typeof resolveSrv;
+        resolveTlsa: typeof resolveTlsa;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
         /**

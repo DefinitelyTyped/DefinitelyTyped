@@ -8,6 +8,8 @@ export {};
 type OptionalOptionParameters = "authorizationURL" | "tokenURL" | "scopeSeparator" | "customHeaders";
 
 interface MicrosoftSpecificStrategyOptions {
+    apiEntryPoint: string;
+    graphApiVersion: string;
     tenant: string;
 }
 

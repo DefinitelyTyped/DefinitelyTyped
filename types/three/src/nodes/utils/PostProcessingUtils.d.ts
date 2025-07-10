@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 /**
  * Computes a position in view space based on a fragment's screen position expressed as uv coordinates, the fragments
@@ -11,9 +11,9 @@ import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
  * @return {vec3} The fragments position in view space.
  */
 export const getViewPosition: (
-    screenPosition: NodeRepresentation,
-    depth: NodeRepresentation,
-    projectionMatrixInverse: NodeRepresentation,
+    screenPosition: Node,
+    depth: Node,
+    projectionMatrixInverse: Node,
 ) => ShaderNodeObject<Node>;
 
 /**
@@ -25,8 +25,8 @@ export const getViewPosition: (
  * @return {vec2} The fragment's screen position expressed as uv coordinates.
  */
 export const getScreenPosition: (
-    viewPosition: NodeRepresentation,
-    projectionMatrix: NodeRepresentation,
+    viewPosition: Node,
+    projectionMatrix: Node,
 ) => ShaderNodeObject<Node>;
 
 /**
@@ -39,7 +39,7 @@ export const getScreenPosition: (
  * @return {vec3} The computed normal vector.
  */
 export const getNormalFromDepth: (
-    uv: NodeRepresentation,
-    depthTexture: NodeRepresentation,
-    projectionMatrixInverse: NodeRepresentation,
+    uv: Node,
+    depthTexture: Node,
+    projectionMatrixInverse: Node,
 ) => ShaderNodeObject<Node>;

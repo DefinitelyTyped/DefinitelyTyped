@@ -370,6 +370,26 @@ import * as url from "node:url";
     agent.on("free", () => {});
     agent.once("free", () => {});
     agent.emit("free");
+
+    agent.getName({ host: "for", port: 1234, localAddress: "bar", family: 4 });
+
+    // ensure direct call and override
+    agent.createConnection({ port: 1234 });
+    agent.createConnection = function createConnection(options, callback) {
+        return new stream.Duplex(options);
+    };
+
+    // ensure direct call and override
+    agent.keepSocketAlive(new stream.Duplex());
+    agent.keepSocketAlive = function keepSocketAlive(socket) {
+        socket.isPaused();
+    };
+
+    // ensure direct call and override
+    agent.reuseSocket(new stream.Duplex(), new http.ClientRequest(""));
+    agent.reuseSocket = function reuseSocket(socket, request) {
+        socket.isPaused();
+    };
 }
 
 {

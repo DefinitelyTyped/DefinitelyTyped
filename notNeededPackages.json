@@ -1028,6 +1028,10 @@
             "libraryName": "cli-cursor",
             "asOfVersion": "3.0.0"
         },
+        "cli-spinners": {
+            "libraryName": "cli-spinners",
+            "asOfVersion": "2.0.0"
+        },
         "cli-truncate": {
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
@@ -1191,6 +1195,10 @@
         "cordova-plugin-camera": {
             "libraryName": "cordova-plugin-camera",
             "asOfVersion": "2.4.0"
+        },
+        "cordova-plugin-canvascamera": {
+            "libraryName": "com.virtuoworks.cordova-plugin-canvascamera",
+            "asOfVersion": "1.2.1"
         },
         "cordova-plugin-contacts": {
             "libraryName": "cordova-plugin-contacts",
@@ -2465,6 +2473,10 @@
             "libraryName": "gl-matrix",
             "asOfVersion": "3.2.0"
         },
+        "glob": {
+            "libraryName": "glob",
+            "asOfVersion": "9.0.0"
+        },
         "global-dirs": {
             "libraryName": "global-dirs",
             "asOfVersion": "1.0.0"
@@ -2593,6 +2605,10 @@
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
         },
+        "hapi__basic": {
+            "libraryName": "@hapi/basic",
+            "asOfVersion": "7.0.2"
+        },
         "hapi__bell": {
             "libraryName": "@hapi/bell",
             "asOfVersion": "13.0.2"
@@ -2668,6 +2684,10 @@
         "hapi__yar": {
             "libraryName": "@hapi/yar",
             "asOfVersion": "11.0.2"
+        },
+        "hapipal__toys": {
+            "libraryName": "@hapipal/toys",
+            "asOfVersion": "4.0.0"
         },
         "hard-rejection": {
             "libraryName": "hard-rejection",
@@ -3545,6 +3565,10 @@
             "libraryName": "@keyv/sqlite",
             "asOfVersion": "3.0.1"
         },
+        "kii-cloud-sdk": {
+            "libraryName": "kii-cloud-sdk",
+            "asOfVersion": "3.0.0"
+        },
         "kiwicom__orbit-design-tokens": {
             "libraryName": "@kiwicom/orbit-design-tokens",
             "asOfVersion": "1.5.2"
@@ -4257,6 +4281,10 @@
             "libraryName": "mini-html-webpack-plugin",
             "asOfVersion": "3.0.0"
         },
+        "minimatch": {
+            "libraryName": "minimatch",
+            "asOfVersion": "6.0.0"
+        },
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
@@ -4716,6 +4744,10 @@
         "open-editor": {
             "libraryName": "open-editor",
             "asOfVersion": "2.0.0"
+        },
+        "open-graph-scraper": {
+            "libraryName": "open-graph-scraper",
+            "asOfVersion": "5.2.3"
         },
         "openapi-factory": {
             "libraryName": "openapi-factory",
@@ -5299,6 +5331,10 @@
             "libraryName": "private-ip",
             "asOfVersion": "2.3.3"
         },
+        "proj4": {
+            "libraryName": "proj4",
+            "asOfVersion": "2.19.0"
+        },
         "prosemirror-changeset": {
             "libraryName": "prosemirror-changeset",
             "asOfVersion": "2.2.0"
@@ -5727,6 +5763,10 @@
             "libraryName": "react-collapsible",
             "asOfVersion": "2.3.0"
         },
+        "react-component-benchmark": {
+            "libraryName": "react-component-benchmark",
+            "asOfVersion": "2.0.0"
+        },
         "react-content-loader": {
             "libraryName": "react-content-loader",
             "asOfVersion": "4.0.0"
@@ -5927,6 +5967,10 @@
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
         },
+        "react-medium-image-zoom": {
+            "libraryName": "react-medium-image-zoom",
+            "asOfVersion": "5.0.0"
+        },
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
@@ -5946,6 +5990,10 @@
         "react-native-appsflyer": {
             "libraryName": "react-native-appsflyer",
             "asOfVersion": "5.1.2"
+        },
+        "react-native-auth0": {
+            "libraryName": "react-native-auth0",
+            "asOfVersion": "3.0.0"
         },
         "react-native-calendars": {
             "libraryName": "react-native-calendars",
@@ -5970,6 +6018,10 @@
         "react-native-draggable-flatlist": {
             "libraryName": "react-native-draggable-flatlist",
             "asOfVersion": "2.0.0"
+        },
+        "react-native-drawer-layout": {
+            "libraryName": "react-native-drawer-layout",
+            "asOfVersion": "3.0.0"
         },
         "react-native-elements": {
             "libraryName": "react-native-elements",
@@ -6535,6 +6587,10 @@
             "libraryName": "router5",
             "asOfVersion": "5.0.0"
         },
+        "rrdir": {
+            "libraryName": "rrdir",
+            "asOfVersion": "13.1.0"
+        },
         "rrule": {
             "libraryName": "rrule",
             "asOfVersion": "2.2.9"
@@ -6627,6 +6683,10 @@
             "libraryName": "selfsigned",
             "asOfVersion": "2.1.0"
         },
+        "semantic-release": {
+            "libraryName": "semantic-release",
+            "asOfVersion": "21.1.0"
+        },
         "semver-diff": {
             "libraryName": "semver-diff",
             "asOfVersion": "3.0.0"
@@ -6710,6 +6770,10 @@
         "simonwep__selection-js": {
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
+        },
+        "simpl-schema": {
+            "libraryName": "simpl-schema",
+            "asOfVersion": "1.13.0"
         },
         "simple-datatables": {
             "libraryName": "simple-datatables",
@@ -7323,6 +7387,10 @@
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
         },
+        "textextensions": {
+            "libraryName": "textextensions",
+            "asOfVersion": "5.0.0"
+        },
         "theme-ui": {
             "libraryName": "theme-ui",
             "asOfVersion": "0.6.0"
@@ -7478,6 +7546,10 @@
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "asOfVersion": "4.0.0"
+        },
+        "umzug": {
+            "libraryName": "umzug",
+            "asOfVersion": "3.0.0"
         },
         "unbox-primitive": {
             "libraryName": "unbox-primitive",
@@ -8142,6 +8214,10 @@
         "yaml": {
             "libraryName": "yaml",
             "asOfVersion": "1.9.0"
+        },
+        "yawn-yaml": {
+            "libraryName": "yawn-yaml",
+            "asOfVersion": "2.0.0"
         },
         "year-days": {
             "libraryName": "year-days",

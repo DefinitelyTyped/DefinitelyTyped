@@ -302,7 +302,7 @@ export class Color {
     getHex(colorSpace?: string): number;
 
     /**
-     * Returns the string formated hexadecimal value of this color.
+     * Returns the string formatted hexadecimal value of this color.
      */
     getHexString(colorSpace?: string): string;
 

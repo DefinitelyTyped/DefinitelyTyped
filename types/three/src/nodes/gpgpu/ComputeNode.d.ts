@@ -1,6 +1,6 @@
 import Renderer from "../../renderers/common/Renderer.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class ComputeNode extends Node {
     isComputeNode: true;
@@ -22,7 +22,7 @@ export default class ComputeNode extends Node {
 }
 
 export const compute: (
-    node: NodeRepresentation,
+    node: Node,
     count: number,
     workgroupSize?: number[],
 ) => ShaderNodeObject<ComputeNode>;
