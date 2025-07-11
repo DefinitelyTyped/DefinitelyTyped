@@ -1,6 +1,8 @@
 {
     "private": true,
     "name": "@types/web-install-api",
+    "nonNpm": true,
+    "nonNpmDescription": "Web Install API",
     "version": "2025.1.9999",
     "projects": [
         "https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)"

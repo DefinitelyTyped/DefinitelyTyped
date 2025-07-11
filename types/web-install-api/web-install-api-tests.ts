@@ -1,9 +1,11 @@
-if (navigator.install) {
-    await navigator.install( => "https://foo.com/manifest-id");
+// $ExpectType Promise<string>
+navigator.install();
 
-    navigator.install("https://foo.com") => "https://foo.com/manifest-id";
+// $ExpectType Promise<string>
+navigator.install("https://foo.com");
 
-    navigator.install("https://foo.com", "manifest-id") => "https://foo.com/manifest-id";
+// $ExpectType Promise<string>
+navigator.install("https://foo.com", "manifest-id");
 
-    navigator.install(45) => "";
-}
+// @ts-expect-error
+navigator.install(45);

@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -17,5 +18,5 @@
         "web-install-api-tests.ts"
     ],
     "baseUrl": "types",
-    "typeRoots": ["types"],
+    "typeRoots": ["types"]
 }

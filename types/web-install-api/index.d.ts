@@ -1,6 +1,5 @@
-export type WebInstallServiceResult = "DataError" | "AbortError" | "Success";
-
 interface Navigator {
-  install(install_url?: String | undefined, manifest_id?: String | undefined)
-      : Promise<String | undefined>;
+  install(): Promise<string>;
+  install(installUrl: string): Promise<string>;
+  install(installUrl: string, manifestId: string): Promise<string>;
 }
