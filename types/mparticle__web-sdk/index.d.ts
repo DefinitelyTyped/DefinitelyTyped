@@ -3,6 +3,45 @@ import { Batch } from "@mparticle/event-models";
 // Placeholder for Dictionary-like Types
 export type Dictionary<V = any> = Record<string, V>;
 
+// Rokt Manager Types
+export interface IRoktPartnerAttributes {
+    [key: string]: string | number | boolean | undefined | null;
+}
+
+export interface IRoktPartnerExtensionData<T> {
+    [extensionName: string]: T;
+}
+
+export interface IRoktSelectPlacementsOptions {
+    attributes: IRoktPartnerAttributes;
+    identifier?: string;
+}
+
+export interface IRoktPlacement {}
+
+export interface IRoktSelection {
+    close: () => void;
+    getPlacements: () => Promise<IRoktPlacement[]>;
+}
+
+export interface IRoktLauncher {
+    selectPlacements: (options: IRoktSelectPlacementsOptions) => Promise<IRoktSelection>;
+    hashAttributes: (attributes: IRoktPartnerAttributes) => Promise<Record<string, string>>;
+}
+
+export interface IRoktMessage {
+    methodName: string;
+    payload: any;
+}
+
+export interface IRoktOptions {
+    sandbox?: boolean;
+    launcherOptions?: IRoktLauncherOptions;
+    domain?: string;
+}
+
+export type IRoktLauncherOptions = Dictionary<any>;
+
 export as namespace mParticle;
 export {};
 export interface MPConfiguration {
@@ -309,6 +348,19 @@ interface GetSession {
     (): string;
 }
 
+// Rokt Method Interfaces
+interface SelectPlacements {
+    (options: IRoktSelectPlacementsOptions): Promise<IRoktSelection>;
+}
+
+interface HashAttributes {
+    (attributes: IRoktPartnerAttributes): Promise<Record<string, string>>;
+}
+
+interface SetExtensionData {
+    <T>(extensionData: IRoktPartnerExtensionData<T>): void;
+}
+
 export const endSession: EndSession;
 export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
@@ -489,6 +541,12 @@ export namespace eCommerce {
     // expandCommerceEvent function for internal use
 
     const Cart: Cart;
+}
+
+export namespace Rokt {
+    const selectPlacements: SelectPlacements;
+    const hashAttributes: HashAttributes;
+    const setExtensionData: SetExtensionData;
 }
 
 export interface IdentifyRequest {
@@ -743,6 +801,11 @@ declare class mParticleInstance {
         logRefund: LogRefund;
         setCurrencyCode: SetCurrencyCode;
         Cart: Cart;
+    };
+    Rokt: {
+        selectPlacements: SelectPlacements;
+        hashAttributes: HashAttributes;
+        setExtensionData: SetExtensionData;
     };
     PromotionType: {
         Unknown: PromotionType.Unknown;
