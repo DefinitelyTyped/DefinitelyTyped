@@ -4315,7 +4315,7 @@
         },
         "mixpanel": {
             "libraryName": "mixpanel",
-            "asOfVersion": "0.9.2"
+            "asOfVersion": "2.15.0"
         },
         "mixpanel-browser": {
             "libraryName": "mixpanel-browser",
