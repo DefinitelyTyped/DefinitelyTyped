@@ -31,7 +31,7 @@ declare const any: any;
     result = emitter.getMaxListeners();
     result = emitter.listenerCount(event);
 
-    const handler: Function = () => {};
+    const handler = () => {};
     result = emitter.listenerCount(event, handler);
 }
 
@@ -141,7 +141,7 @@ async function testEventTarget() {
     captureRejectionSymbol2 = events.captureRejectionSymbol;
 
     const emitter = new events.EventEmitter();
-    emitter[events.captureRejectionSymbol] = (err: Error, name: string, ...args: any[]) => {};
+    emitter[events.captureRejectionSymbol] = (err: Error, name: string | symbol, ...args: any[]) => {};
 }
 
 {
@@ -193,16 +193,16 @@ async function testEventTarget() {
 
 {
     class MyEmitter extends events.EventEmitter {
-        addListener(event: string, listener: () => void): this {
+        addListener(event: string | symbol, listener: () => void): this {
             return this;
         }
-        listeners(event: string): Array<() => void> {
+        listeners(event: string | symbol): Array<() => void> {
             return [];
         }
-        emit(event: string, ...args: any[]): boolean {
+        emit(event: string | symbol, ...args: any[]): boolean {
             return true;
         }
-        listenerCount(type: string): number {
+        listenerCount(type: string | symbol): number {
             return 0;
         }
     }
