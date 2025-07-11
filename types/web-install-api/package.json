@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/web-install-api",
+    "version": "2025.1.9999",
+    "projects": [
+        "https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)"
+    ],
+    "devDependencies": {
+        "@types/web-install-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lia Hiscock",
+            "githubUsername": "LiaHiscock"
+        }
+    ]
+}
