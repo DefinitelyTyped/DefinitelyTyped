@@ -2133,6 +2133,10 @@
             "libraryName": "@fcostarodrigo/walk",
             "asOfVersion": "6.0.0"
         },
+        "feathersjs__authentication": {
+            "libraryName": "@feathersjs/authentication",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
