@@ -2173,6 +2173,10 @@
             "libraryName": "@feathersjs/socketio",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__socketio-client": {
+            "libraryName": "@feathersjs/socketio-client",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
