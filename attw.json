@@ -119,7 +119,6 @@
         "feathersjs__authentication-jwt",
         "feathersjs__authentication-oauth1",
         "feathersjs__authentication-oauth2",
-        "feathersjs__configuration",
         "feathersjs__express",
         "feathersjs__primus-client",
         "feathersjs__primus",

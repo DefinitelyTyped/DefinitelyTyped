@@ -2145,6 +2145,10 @@
             "libraryName": "@feathersjs/authentication-local",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__configuration": {
+            "libraryName": "@feathersjs/configuration",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
