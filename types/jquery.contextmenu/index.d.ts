@@ -7,7 +7,7 @@ interface JQueryContextMenuOptions {
     autoHide?: boolean | undefined;
     delay?: number | undefined;
     determinePosition?: ((menu: JQuery) => void) | undefined;
-    position?: ((opt: JQuery, x: number, y: number) => void) | undefined;
+    position?: ((opt: JQueryContextMenuOptions & { $menu: JQuery }, x: number, y: number) => void) | undefined;
     positionSubmenu?: ((menu: JQuery) => void) | undefined;
     zIndex?: number | undefined;
     animation?: {
