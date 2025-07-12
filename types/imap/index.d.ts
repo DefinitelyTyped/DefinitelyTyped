@@ -267,18 +267,6 @@ declare namespace Connection {
 declare class Connection extends EventEmitter implements Connection.MessageFunctions {
     constructor(config: Connection.Config);
 
-    // from NodeJS.EventEmitter
-    addListener(event: string, listener: Function): this;
-    on(event: string, listener: Function): this;
-    once(event: string, listener: Function): this;
-    removeListener(event: string, listener: Function): this;
-    removeAllListeners(event?: string): this;
-    setMaxListeners(n: number): this;
-    getMaxListeners(): number;
-    listeners(event: string): Function[];
-    emit(event: string, ...args: any[]): boolean;
-    listenerCount(type: string): number;
-
     // from MessageFunctions
     /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */
     search(criteria: any[], callback: (error: Error, uids: number[]) => void): void;
