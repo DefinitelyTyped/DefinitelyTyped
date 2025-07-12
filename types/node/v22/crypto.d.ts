@@ -4331,17 +4331,48 @@ declare module "crypto" {
              * @since v15.0.0
              */
             generateKey(
-                algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
+                algorithm: RsaHashedKeyGenParams & { name: "RSA-OAEP" },
                 extractable: boolean,
-                keyUsages: readonly KeyUsage[],
+                keyUsages: readonly ("encrypt" | "decrypt" | "wrapKey" | "unwrapKey")[],
             ): Promise<CryptoKeyPair>;
             generateKey(
-                algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
+                algorithm:
+                    | (RsaHashedKeyGenParams & { name: "RSA-PSS" | "RSASSA-PKCS1-v1_5" })
+                    | EcKeyGenParams
+                    | "Ed25519"
+                    | { name: "Ed25519" }
+                    | "Ed448"
+                    | { name: "Ed448" },
                 extractable: boolean,
-                keyUsages: readonly KeyUsage[],
+                keyUsages: readonly ("sign" | "verify")[],
+            ): Promise<CryptoKeyPair>;
+            generateKey(
+                algorithm:
+                    | "X25519"
+                    | { name: "X25519" }
+                    | "X448"
+                    | { name: "X448" },
+                extractable: boolean,
+                keyUsages: readonly ("deriveKey" | "deriveBits")[],
+            ): Promise<CryptoKeyPair>;
+            generateKey(
+                algorithm: AesKeyGenParams & { name: "AES-CBC" | "AES-CTR" | "AES-GCM" },
+                extractable: boolean,
+                keyUsages: readonly ("encrypt" | "decrypt" | "wrapKey" | "unwrapKey")[],
             ): Promise<CryptoKey>;
             generateKey(
-                algorithm: AlgorithmIdentifier,
+                algorithm: AesKeyGenParams & { name: "AES-KW" },
+                extractable: boolean,
+                keyUsages: readonly ("wrapKey" | "unwrapKey")[],
+            ): Promise<CryptoKey>;
+            generateKey(
+                algorithm: HmacKeyGenParams,
+                extractable: boolean,
+                keyUsages: readonly ("sign" | "verify")[],
+            ): Promise<CryptoKey>;
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            generateKey<T extends Algorithm>(
+                algorithm: string | T,
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKeyPair | CryptoKey>;
