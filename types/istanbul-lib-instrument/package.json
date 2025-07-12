@@ -8,6 +8,7 @@
     ],
     "dependencies": {
         "@types/babel-types": "*",
+        "@types/babel__generator": "*",
         "@types/istanbul-lib-coverage": "*",
         "source-map": "^0.6.1"
     },
@@ -18,6 +19,10 @@
         {
             "name": "Jason Cheatham",
             "githubUsername": "jason0x43"
+        },
+        {
+            "name": "Travis Zhang",
+            "githubUsername": "travzhang"
         }
     ]
 }
