@@ -77,9 +77,13 @@ interface WebApp {
      * isStateStable=true, which will allow you to track when the stable state
      * of the height of the visible area changes.
      */
+    isFullscreen: boolean;
+    /**
+    * Allows you to open a mini-application in full screen mode.
+    */
     viewportStableHeight: number;
     /**
-     * Current header color in the #RRGGBB format.
+     * Constant viewport height without taking keyboard appearance into account.
      */
     headerColor: string;
     /**
@@ -178,6 +182,8 @@ interface WebApp {
     onEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     onEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     onEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    onEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
+
 
     /** A method that deletes a previously set event handler. */
     offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
@@ -195,6 +201,7 @@ interface WebApp {
     offEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     offEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     offEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    offEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -329,6 +336,9 @@ interface WebApp {
      * the method is not called, the placeholder will be hidden only when the
      * page is fully loaded.
      */
+    requestFullscreen(): void;
+  /** A method is used to enable fullscreen mode inside Telegram WebApp. */
+
     ready(): void;
     /**
      * A method that expands the Web App to the maximum available height. To
@@ -376,6 +386,7 @@ type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
 type BiometricManagerUpdatedCallback = () => void;
 type BiometricAuthRequestedCallback = (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void;
 type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
+type FullscreenChangedCallback = (eventData: { is_fullscreen: boolean }) => void;
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram
