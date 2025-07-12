@@ -2149,6 +2149,10 @@
             "libraryName": "@feathersjs/configuration",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__errors": {
+            "libraryName": "@feathersjs/errors",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
