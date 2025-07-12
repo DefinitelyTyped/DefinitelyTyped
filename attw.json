@@ -120,7 +120,6 @@
         "feathersjs__authentication-oauth1",
         "feathersjs__authentication-oauth2",
         "feathersjs__primus-client",
-        "feathersjs__primus",
         "feathersjs__rest-client",
         "feathersjs__socketio-client",
         "fetch.io",
