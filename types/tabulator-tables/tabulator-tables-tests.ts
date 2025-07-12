@@ -925,8 +925,8 @@ table = new Tabulator("#example-table", {
 
 new Tabulator("#example-table", {
     autoColumnsDefinitions: [
-        {field: "migration_up", formatter: "textarea" }
-    ]
+        { field: "migration_up", formatter: "textarea" },
+    ],
 });
 
 let colDefs: ColumnDefinition[] = [];
