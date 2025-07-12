@@ -2157,6 +2157,10 @@
             "libraryName": "@feathersjs/express",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__feathers": {
+            "libraryName": "@feathersjs/feathers",
+            "asOfVersion": "4.3.0"
+        },
         "feathersjs__primus": {
             "libraryName": "@feathersjs/primus",
             "asOfVersion": "4.3.0"
