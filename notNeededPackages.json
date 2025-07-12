@@ -2137,6 +2137,10 @@
             "libraryName": "@feathersjs/authentication",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__authentication-client": {
+            "libraryName": "@feathersjs/authentication-client",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"

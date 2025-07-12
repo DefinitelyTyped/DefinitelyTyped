@@ -116,7 +116,6 @@
         "falcor-http-datasource",
         "famous",
         "feather-route-matcher",
-        "feathersjs__authentication-client",
         "feathersjs__authentication-jwt",
         "feathersjs__authentication-local",
         "feathersjs__authentication-oauth1",
