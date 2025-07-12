@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/catchpoint-playwright",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Catchpoint Playwright Types",
+    "projects": [
+        "https://github.com/catchpoint",
+        "https://docs.catchpoint.com/docs/playwright-scripting-guide"
+    ],
+    "dependencies": {
+        "eslint": "*",
+        "eslint-plugin-playwright": "*",
+        "@playwright/test": "*"
+    },
+    "devDependencies": {
+        "@types/catchpoint-playwright": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jabran Rafique",
+            "githubUsername": "jabranr"
+        }
+    ]
+}
