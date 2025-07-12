@@ -2169,6 +2169,10 @@
             "libraryName": "@feathersjs/rest-client",
             "asOfVersion": "4.3.0"
         },
+        "feathersjs__socketio": {
+            "libraryName": "@feathersjs/socketio",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
