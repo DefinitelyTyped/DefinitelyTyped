@@ -1681,6 +1681,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "easy-speech": {
+            "libraryName": "easy-speech",
+            "asOfVersion": "2.1.1"
+        },
         "easy-table": {
             "libraryName": "easy-table",
             "asOfVersion": "1.2.0"
