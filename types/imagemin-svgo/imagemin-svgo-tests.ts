@@ -9,8 +9,14 @@ imagemin(["*.svg"], {
             floatPrecision: 2,
             plugins: [
                 {
-                    name: "removeViewBox",
-                    active: true,
+                    name: "preset-default",
+                    params: {
+                        overrides: {
+                            convertShapeToPath: {
+                                convertArcs: false,
+                            },
+                        },
+                    },
                 },
             ],
             multipass: false,
