@@ -10,6 +10,7 @@ export default class AdRule extends AbstractCrudObject {
         account_id: "account_id";
         created_by: "created_by";
         created_time: "created_time";
+        disable_error_code: "disable_error_code";
         evaluation_spec: "evaluation_spec";
         execution_spec: "execution_spec";
         id: "id";
@@ -40,6 +41,7 @@ export default class AdRule extends AbstractCrudObject {
         am_syd_resolution_flow: "AM_SYD_RESOLUTION_FLOW";
         am_syd_resolution_flow_modal: "AM_SYD_RESOLUTION_FLOW_MODAL";
         am_table_delivery_column_popover: "AM_TABLE_DELIVERY_COLUMN_POPOVER";
+        am_table_more_rules_dropdown: "AM_TABLE_MORE_RULES_DROPDOWN";
         am_table_toggle_popover: "AM_TABLE_TOGGLE_POPOVER";
         am_toolbar_create_rule_dropdown: "AM_TOOLBAR_CREATE_RULE_DROPDOWN";
         pe_campaign_structure_menu: "PE_CAMPAIGN_STRUCTURE_MENU";

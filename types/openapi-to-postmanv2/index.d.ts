@@ -155,11 +155,11 @@ export interface Options {
     allowUrlPathVarMatching?: boolean | undefined;
 
     /**
-     * Whether to set optional parameters as disabled
+     * Whether to set optional parameters as enabled
      *
-     * default: false
+     * default: true
      */
-    disableOptionalParameters?: boolean | undefined;
+    enableOptionalParameters?: boolean | undefined;
 
     /**
      * Whether to keep implicit headers from the OpenAPI specification, which are removed by default.

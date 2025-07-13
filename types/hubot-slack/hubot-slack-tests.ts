@@ -74,7 +74,7 @@ brain.remove("test"); // $ExpectType Brain<SlackBot>
 brain.setAutoSave(false); // $ExpectType void
 brain.resetSaveInterval(15); // $ExpectType void
 brain.mergeData({ foo: "bar" }); // $ExpectType void
-brain.users(); // $ExpectType any
+brain.users(); // $ExpectType User[]
 brain.userForId("123"); // $ExpectType User
 brain.userForName("jon"); // $ExpectType User | null
 brain.usersForRawFuzzyName("fuzzy"); // $ExpectType User[]

@@ -538,13 +538,18 @@ declare namespace CodeMirror {
 
         /**
          * Adjust the indentation of the given line.
+         *
          * The second argument (which defaults to "smart") may be one of:
-         * "prev" Base indentation on the indentation of the previous line.
-         * "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
-         * "add" Increase the indentation of the line by one indent unit.
-         * "subtract" Reduce the indentation of the line.
+         * - "prev" Base indentation on the indentation of the previous line.
+         * - "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
+         * - "add" Increase the indentation of the line by one indent unit.
+         * - "subtract" Reduce the indentation of the line.
+         *
+         * When aggressive is false (typically set to true for forced single-line indents), empty
+         * lines are not indented, and places where the mode returns Pass
+         * are left alone.
          */
-        indentLine(line: number, dir?: string): void;
+        indentLine(line: number, dir?: string | null, aggresive?: boolean): void;
 
         /** Indent a selection */
         indentSelection(how: string): void;
@@ -880,14 +885,14 @@ declare namespace CodeMirror {
          * Replace the selection with the given string. By default, the new selection will span the inserted text.
          * The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text.
          */
-        replaceSelection(replacement: string, collapse?: string): void;
+        replaceSelection(replacement: string, collapse?: string | null, origin?: string | null): void;
 
         /**
          * Replaces the content of the selections with the strings in the array.
          * The length of the given array should be the same as the number of active selections.
          * The collapse argument works the same as in replaceSelection.
          */
-        replaceSelections(replacements: string[], collapse?: string): void;
+        replaceSelections(replacements: string[], collapse?: string | null, origin?: string | null): void;
 
         /**
          * start is a an optional string indicating which end of the selection to return.
@@ -1283,12 +1288,12 @@ declare namespace CodeMirror {
         value?: string | Doc | undefined;
 
         /**
-         * string|object. The mode to use. When not given, this will default to the first mode that was loaded.
+         * The mode to use. When not given, this will default to the first mode that was loaded.
          * It may be a string, which either simply names the mode or is a MIME type associated with the mode.
          * Alternatively, it may be an object containing configuration options for the mode,
          * with a name property that names the mode (for example {name: "javascript", json: true}).
          */
-        mode?: string | ModeSpec<ModeSpecOptions> | undefined;
+        mode?: string | ModeSpec<ModeSpecOptions> | null | undefined;
 
         /**
          * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well

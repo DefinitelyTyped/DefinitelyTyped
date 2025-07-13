@@ -100,6 +100,7 @@ RegExp.escape(s);
 
 const j: JQuery = $(s).ariaDisabled(true);
 $(s).wiki(s);
+$(s).wikiPassage(s);
 $.wiki(s);
 $.wikiPassage(s);
 

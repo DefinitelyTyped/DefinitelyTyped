@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/kendo-ui",
     "version": "2023.2.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "kendo-ui",
     "projects": [
         "http://www.telerik.com/kendo-ui"

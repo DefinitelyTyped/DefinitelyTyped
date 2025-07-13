@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/json-socket": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Sven Reglitzki",
-            "githubUsername": "svi3c"
-        }
-    ]
+    "owners": []
 }

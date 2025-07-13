@@ -1,19 +1,20 @@
 {
-    "private": true,
     "name": "@types/ysdk",
-    "version": "1.0.9999",
-    "nonNpm": true,
-    "nonNpmDescription": "TypeScript type definitions for Yandex.Games SDK",
-    "projects": [
-        "https://yandex.ru/dev/games/doc/en/"
-    ],
+    "version": "1.1.9999",
+    "private": true,
+    "dependencies": {},
     "devDependencies": {
         "@types/ysdk": "workspace:."
     },
     "owners": [
         {
-            "name": "Musa Asukhanov",
-            "githubUsername": "koteelok"
+            "name": "Yandex Games Plugins",
+            "githubUsername": "yandex-games-plugins"
         }
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "TypeScript type definitions for Yandex.Games SDK",
+    "projects": [
+        "https://yandex.ru/dev/games/doc/en/"
     ]
 }

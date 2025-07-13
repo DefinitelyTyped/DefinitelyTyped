@@ -89,6 +89,6 @@ database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
 function getVersion(): string {
-    return '71.0.253';
+    return '72.0.12';
 }
 getVersion(); // $ExpectType string

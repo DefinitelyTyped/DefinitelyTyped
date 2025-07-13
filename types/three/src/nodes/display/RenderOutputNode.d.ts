@@ -1,7 +1,7 @@
 import { ToneMapping } from "../../constants.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class RenderOutputNode extends TempNode {
     colorNode: Node;
@@ -16,7 +16,7 @@ declare class RenderOutputNode extends TempNode {
 export default RenderOutputNode;
 
 export const renderOutput: (
-    color: NodeRepresentation,
+    color: Node,
     toneMapping?: ToneMapping | null,
     outputColorSpace?: string | null,
 ) => ShaderNodeObject<RenderOutputNode>;

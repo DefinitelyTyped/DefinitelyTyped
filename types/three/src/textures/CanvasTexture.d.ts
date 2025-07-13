@@ -31,7 +31,7 @@ export class CanvasTexture extends Texture {
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      */
     constructor(
-        canvas: TexImageSource | OffscreenCanvas,
+        canvas?: TexImageSource | OffscreenCanvas,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,

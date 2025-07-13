@@ -2,16 +2,35 @@ import * as Highcharts from "highcharts";
 import * as React from "react";
 import ReactHighcharts from "react-highcharts";
 
-const config: Highcharts.Options = {};
+// @ts-ignore - `props.config` is required
+<ReactHighcharts />;
 
-function callback(chart: Highcharts.ChartObject): void {}
+// With required props
+<ReactHighcharts config={{}} />;
 
-const isPureConfig = true;
+// With optional props
+<ReactHighcharts
+    config={{}}
+    isPureConfig={true}
+    neverReflow={true}
+    callback={(chart) => {
+        // $ExpectType ChartObject
+        chart;
+    }}
+    domProps={{
+        className: "div-classname",
+    }}
+/>;
 
-export const _ = () => (
-    <>
-        <ReactHighcharts config={config} />
-        <ReactHighcharts config={config} callback={callback} />
-        <ReactHighcharts config={config} callback={callback} isPureConfig={isPureConfig} />
-    </>
-);
+// $ExpectType string
+ReactHighcharts.chartType;
+
+// $ExpectType Static
+ReactHighcharts.Highcharts;
+
+// $ExpectType string
+ReactHighcharts.displayName;
+
+// $ExpectType typeof ReactHighcharts
+const AnotherReactHighcharts = ReactHighcharts.withHighcharts(ReactHighcharts.Highcharts);
+<AnotherReactHighcharts config={{}} />;

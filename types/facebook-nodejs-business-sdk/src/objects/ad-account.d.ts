@@ -19,7 +19,9 @@ import CustomConversion from "./custom-conversion";
 import AdReportRun from "./ad-report-run";
 import PublisherBlockList from "./publisher-block-list";
 import ReachFrequencyPrediction from "./reach-frequency-prediction";
+import AdAccountRecommendations from "./ad-account-recommendations";
 import AdAccountSubscribedApps from "./ad-account-subscribed-apps";
+import AdsValueAdjustmentRuleCollection from "./ads-value-adjustment-rule-collection";
 /**
  * AdAccount
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -55,6 +57,7 @@ export default class AdAccount extends AbstractCrudObject {
         end_advertiser: "end_advertiser";
         end_advertiser_name: "end_advertiser_name";
         existing_customers: "existing_customers";
+        expired_funding_source_details: "expired_funding_source_details";
         extended_credit_invoice_group: "extended_credit_invoice_group";
         failed_delivery_checks: "failed_delivery_checks";
         fb_entity: "fb_entity";
@@ -65,6 +68,7 @@ export default class AdAccount extends AbstractCrudObject {
         id: "id";
         io_number: "io_number";
         is_attribution_spec_system_default: "is_attribution_spec_system_default";
+        is_ba_skip_delayed_eligible: "is_ba_skip_delayed_eligible";
         is_direct_deals_enabled: "is_direct_deals_enabled";
         is_in_3ds_authorization_enabled_market: "is_in_3ds_authorization_enabled_market";
         is_notifications_enabled: "is_notifications_enabled";
@@ -169,6 +173,20 @@ export default class AdAccount extends AbstractCrudObject {
         draft: "DRAFT";
         manage: "MANAGE";
     }>;
+    static get BrandSafetyContentFilterLevels(): Readonly<{
+        an_relaxed: "AN_RELAXED";
+        an_standard: "AN_STANDARD";
+        an_strict: "AN_STRICT";
+        facebook_relaxed: "FACEBOOK_RELAXED";
+        facebook_standard: "FACEBOOK_STANDARD";
+        facebook_strict: "FACEBOOK_STRICT";
+        feed_dnm: "FEED_DNM";
+        feed_relaxed: "FEED_RELAXED";
+        feed_standard: "FEED_STANDARD";
+        feed_strict: "FEED_STRICT";
+        uninitialized: "UNINITIALIZED";
+        unknown: "UNKNOWN";
+    }>;
     static get ClaimObjective(): Readonly<{
         automotive_model: "AUTOMOTIVE_MODEL";
         collaborative_ads: "COLLABORATIVE_ADS";
@@ -206,12 +224,12 @@ export default class AdAccount extends AbstractCrudObject {
         lookalike: "LOOKALIKE";
         managed: "MANAGED";
         measurement: "MEASUREMENT";
+        messenger_subscriber_list: "MESSENGER_SUBSCRIBER_LIST";
         offline_conversion: "OFFLINE_CONVERSION";
         partner: "PARTNER";
         primary: "PRIMARY";
         regulated_categories_audience: "REGULATED_CATEGORIES_AUDIENCE";
         study_rule_audience: "STUDY_RULE_AUDIENCE";
-        subscriber_segment: "SUBSCRIBER_SEGMENT";
         video: "VIDEO";
         website: "WEBSITE";
     }>;
@@ -270,6 +288,7 @@ export default class AdAccount extends AbstractCrudObject {
     createAsyncAdRequestSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAsyncRequestSet>;
     getAudienceFunnel(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createBlockListDraft(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
+    createBrandSafetyContentFilterLevel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
     getBroadTargetingCategories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getBusinessProjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteCampaigns(params?: Record<string, any>): Promise<any>;
@@ -295,9 +314,10 @@ export default class AdAccount extends AbstractCrudObject {
     getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
     getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getIosFourteenCampaignLimits(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createMAnAgeDPartnerAd(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createManagedPartnerAd(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getMatchedSearchApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMaxBid(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getMcmeConversions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMinimumBudgets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOnBehalfRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProductAudience(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
@@ -307,10 +327,13 @@ export default class AdAccount extends AbstractCrudObject {
     getReachEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getReachFrequencyPredictions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createReachFrequencyPrediction(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ReachFrequencyPrediction>;
+    getRecommendations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createRecommendation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccountRecommendations>;
     getSavedAudiences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
     getSubscribedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSubscribedApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccountSubscribedApps>;
+    getSuggestedProductTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingBrowse(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSearch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -320,8 +343,11 @@ export default class AdAccount extends AbstractCrudObject {
     createTracking(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
     getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteUsersOfAnyAudience(params?: Record<string, any>): Promise<any>;
-    getValueAdjustmentRuleCollections(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getValueAdjustmentRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getValueRuleSet(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createValueRuleSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsValueAdjustmentRuleCollection>;
+    getVideoAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideoAd(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
     get(fields: string[], params?: Record<string, any>): Promise<AdAccount>;
     update(fields: string[], params?: Record<string, any>): Promise<AdAccount>;
 }

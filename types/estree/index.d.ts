@@ -247,7 +247,7 @@ export interface FunctionDeclaration extends MaybeNamedFunctionDeclaration {
 export interface VariableDeclaration extends BaseDeclaration {
     type: "VariableDeclaration";
     declarations: VariableDeclarator[];
-    kind: "var" | "let" | "const";
+    kind: "var" | "let" | "const" | "using" | "await using";
 }
 
 export interface VariableDeclarator extends BaseNode {
@@ -633,6 +633,7 @@ export interface BaseModuleSpecifier extends BaseNode {
 export interface ImportDeclaration extends BaseModuleDeclaration {
     type: "ImportDeclaration";
     specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
+    attributes: ImportAttribute[];
     source: Literal;
 }
 
@@ -641,9 +642,16 @@ export interface ImportSpecifier extends BaseModuleSpecifier {
     imported: Identifier | Literal;
 }
 
+export interface ImportAttribute extends BaseNode {
+    type: "ImportAttribute";
+    key: Identifier | Literal;
+    value: Literal;
+}
+
 export interface ImportExpression extends BaseExpression {
     type: "ImportExpression";
     source: Expression;
+    options?: Expression | null | undefined;
 }
 
 export interface ImportDefaultSpecifier extends BaseModuleSpecifier {
@@ -658,6 +666,7 @@ export interface ExportNamedDeclaration extends BaseModuleDeclaration {
     type: "ExportNamedDeclaration";
     declaration?: Declaration | null | undefined;
     specifiers: ExportSpecifier[];
+    attributes: ImportAttribute[];
     source?: Literal | null | undefined;
 }
 
@@ -675,6 +684,7 @@ export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
     type: "ExportAllDeclaration";
     exported: Identifier | Literal | null;
+    attributes: ImportAttribute[];
     source: Literal;
 }
 

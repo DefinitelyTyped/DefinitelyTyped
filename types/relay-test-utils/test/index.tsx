@@ -1,4 +1,4 @@
-import { FragmentRefs, graphql } from "relay-runtime";
+import { ConcreteRequest, FragmentRefs, graphql } from "relay-runtime";
 import { readFragment } from "relay-runtime/lib/store/ResolverFragments";
 import { createMockEnvironment, MockPayloadGenerator, testResolver } from "relay-test-utils";
 
@@ -111,7 +111,9 @@ function environmentTests() {
         <Modal queryRef={queryRef} />
     </RelayEnvironmentProvider>;
 
-    const operation = environment.mock.findOperation(operation => operation.root.node === userQuery);
+    const operation = environment.mock.findOperation(operation =>
+        operation.root.node === (userQuery as ConcreteRequest).operation
+    );
 
     environment.mock.complete(operation);
 

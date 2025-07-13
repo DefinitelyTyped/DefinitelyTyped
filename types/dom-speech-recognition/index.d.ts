@@ -32,7 +32,7 @@ interface SpeechRecognition extends EventTarget {
     onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
     onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
     abort(): void;
-    start(): void;
+    start(audioTrack?: MediaStreamTrack): void;
     stop(): void;
     addEventListener<K extends keyof SpeechRecognitionEventMap>(
         type: K,

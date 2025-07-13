@@ -1,7 +1,7 @@
 export = formatImageTag;
 declare function formatImageTag(
     uri: number | string,
-    opt_options?: {
+    options?: {
         style?: string;
         id?: string;
         cssClass?: string;

@@ -1,12 +1,17 @@
 import StorageBufferAttribute from "../../renderers/common/StorageBufferAttribute.js";
 import StorageInstancedBufferAttribute from "../../renderers/common/StorageInstancedBufferAttribute.js";
 import { NodeAccess } from "../core/constants.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import Node from "../core/Node.js";
+import { Struct } from "../core/StructNode.js";
+import StructTypeNode from "../core/StructTypeNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import StorageArrayElementNode from "../utils/StorageArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
-export default class StorageBufferNode extends BufferNode {
+export default class StorageBufferNode extends BufferNode<StorageBufferAttribute | StorageInstancedBufferAttribute> {
     readonly isStorageBufferNode: true;
+
+    structTypeNode: StructTypeNode | null;
 
     access: NodeAccess;
     isAtomic: boolean;
@@ -16,11 +21,11 @@ export default class StorageBufferNode extends BufferNode {
 
     constructor(
         value: StorageBufferAttribute | StorageInstancedBufferAttribute,
-        bufferType?: string | null,
+        bufferType?: string | Struct | null,
         bufferCount?: number,
     );
 
-    element(indexNode: NodeRepresentation): ShaderNodeObject<StorageArrayElementNode>;
+    element(indexNode: Node | number): ShaderNodeObject<StorageArrayElementNode>;
 
     setPBO(value: boolean): this;
 
@@ -29,11 +34,15 @@ export default class StorageBufferNode extends BufferNode {
     setAccess(value: NodeAccess): this;
 
     toReadOnly(): this;
+
+    setAtmoic(value: boolean): this;
+
+    toAtomic(): this;
 }
 
 export const storage: (
     value: StorageBufferAttribute | StorageInstancedBufferAttribute,
-    type?: string | null,
+    type?: string | Struct | null,
     count?: number,
 ) => ShaderNodeObject<StorageBufferNode>;
 
@@ -42,6 +51,6 @@ export const storage: (
  */
 export const storageObject: (
     value: StorageBufferAttribute | StorageInstancedBufferAttribute,
-    type?: string | null,
+    type?: string | Struct | null,
     count?: number,
 ) => ShaderNodeObject<StorageBufferNode>;

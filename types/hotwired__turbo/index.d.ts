@@ -218,6 +218,11 @@ export type TurboFetchRequestErrorEvent = CustomEvent<{
     error: Error;
 }>;
 
+export interface TurboElementTagNameMap {
+    "turbo-frame": FrameElement;
+    "turbo-stream": StreamElement;
+}
+
 export interface TurboElementEventMap {
     "turbo:before-frame-render": TurboBeforeFrameRenderEvent;
     "turbo:before-fetch-request": TurboBeforeFetchRequestEvent;
@@ -245,6 +250,7 @@ export interface TurboGlobalEventHandlersEventMap extends TurboElementEventMap {
 
 declare global {
     /* eslint-disable @typescript-eslint/no-empty-interface */
+    interface HTMLElementTagNameMap extends TurboElementTagNameMap {}
     interface ElementEventMap extends TurboElementEventMap {}
     interface GlobalEventHandlersEventMap extends TurboGlobalEventHandlersEventMap {}
     /* eslint-enable @typescript-eslint/no-empty-interface */

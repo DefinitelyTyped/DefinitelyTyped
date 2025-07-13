@@ -153,7 +153,7 @@ pmCollection.ItemGroup.isItemGroup(ig); // $ExpectType boolean
 
 // CollectionDefinition Tests
 const colDef: pmCollection.CollectionDefinition = {};
-colDef.info; // $ExpectType { id?: string | undefined; name?: string | undefined; version?: string | undefined; } | undefined
+colDef.info; // $ExpectType { id?: string | undefined; name?: string | undefined; version?: string | undefined; description?: { content?: string | undefined; type?: string | undefined; version?: string | undefined; } | undefined; } | undefined
 colDef.variable; // $ExpectType VariableDefinition[] | undefined
 
 let collection: pmCollection.Collection;

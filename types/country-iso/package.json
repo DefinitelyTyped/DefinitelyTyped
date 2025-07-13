@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/country-iso",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/simonepri/country-iso#readme"
+    ],
+    "devDependencies": {
+        "@types/country-iso": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tyler Won",
+            "githubUsername": "TylerWon"
+        }
+    ]
+}

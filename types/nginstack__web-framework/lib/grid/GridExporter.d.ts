@@ -3,7 +3,7 @@ declare function GridExporter(grid: Grid): void;
 declare class GridExporter {
     constructor(grid: Grid);
     title: string;
-    grid: Grid;
+    grid: import("./Grid");
     dataSet: import("@nginstack/engine/lib/dataset/DataSet");
     private _addFields;
     fieldIsExportable(field: GridField): boolean;

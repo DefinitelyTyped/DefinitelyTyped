@@ -9,11 +9,7 @@ declare class VisualizationFilters {
     getFilter(name: string): VisualizationFilter;
     toArray(): VisualizationFilter[];
     tryGetFilter(name: string): VisualizationFilter;
-    toLayoutHeader(): Array<{
-        label: string;
-        group: string;
-        value: any;
-    }>;
+    toLayoutHeader(): FilterDef[];
 }
 declare namespace VisualizationFilters {
     export {
@@ -21,6 +17,7 @@ declare namespace VisualizationFilters {
         DATE_EXPRESSION_PREFIX,
         evaluateFilterExpressions,
         Field,
+        FilterDef,
         getFilterValuesFromGrid,
         Grid,
         updateFilterFields,
@@ -48,5 +45,6 @@ declare function updateFilterFields(grid: Grid, filterValues: Record<string, any
 declare function evaluateFilterExpressions(filterValues: Record<string, any>): any;
 type VisualizationFilter = import("./VisualizationFilter");
 type Visualization = import("./Visualization");
+type FilterDef = import("../simple-layout/SimpleLayout").FilterDef;
 type Field = import("@nginstack/engine/lib/classdef/Field");
-type Grid = import("@nginstack/web-framework/lib/grid/Grid");
+type Grid = import("../grid/Grid");

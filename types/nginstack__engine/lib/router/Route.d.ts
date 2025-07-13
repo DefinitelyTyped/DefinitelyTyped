@@ -18,7 +18,6 @@ declare class Route {
 declare namespace Route {
     export { resolveGlobalParameter, parseAction, testScope, RouteSet };
 }
-type RouteSet = import('./RouteSet');
 import RouteDef = require('./RouteDef.js');
 declare let resolveGlobalParameter: any;
 declare function parseAction(action: string): {
@@ -31,3 +30,4 @@ declare function testScope(
     scope: string | string[],
     requiredScope: string | string[]
 ): boolean;
+type RouteSet = import('./RouteSet');

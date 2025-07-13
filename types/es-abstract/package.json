@@ -6,7 +6,7 @@
         "https://github.com/ljharb/es-abstract"
     ],
     "dependencies": {
-        "@types/es-to-primitive": "*"
+        "es-to-primitive": "^1.3.0"
     },
     "devDependencies": {
         "@types/es-abstract": "workspace:."

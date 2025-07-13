@@ -33,12 +33,12 @@ declare class APIRequest {
     get endpoint(): string;
     /**
      * Getter function for path tokens
-     * @return {Array<string>} Array of path tokens
+     * @return {string[]} Array of path tokens
      */
     get path(): string[];
     /**
      * Getter function for requested fields
-     * @return {Array<string>} Array of request fields
+     * @return {string[]} Array of request fields
      */
     get fields(): string[];
     /**

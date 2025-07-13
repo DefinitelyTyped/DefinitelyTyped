@@ -768,7 +768,7 @@ declare module "events" {
                 setMaxListeners(n: number): this;
                 /**
                  * Returns the current max listener value for the `EventEmitter` which is either
-                 * set by `emitter.setMaxListeners(n)` or defaults to {@link defaultMaxListeners}.
+                 * set by `emitter.setMaxListeners(n)` or defaults to {@link EventEmitter.defaultMaxListeners}.
                  * @since v1.0.0
                  */
                 getMaxListeners(): number;

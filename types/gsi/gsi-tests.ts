@@ -41,7 +41,7 @@ google.accounts.id.prompt(notification => {
 /**
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.renderButton
  */
-google.accounts.id.renderButton("#parent-element", { type: "standard" });
+google.accounts.id.renderButton(document.getElementById("#parent-element")!, { type: "standard" });
 
 /**
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.disableAutoSelect

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/usercentrics-browser-ui",
-    "version": "3.27.9999",
+    "version": "3.28.9999",
     "nonNpm": true,
     "nonNpmDescription": "Usercentrics Consent Management Platform (CMP) Browser UI",
     "projects": [

@@ -1,6 +1,29 @@
 /// <reference types="node" />
 import * as newrelic from "newrelic";
 
+const config: newrelic.Config = {
+    app_name: "My Application",
+    license_key: "f596af15a89ea28a6c15c689c09a5f8aFFFFNRAL",
+    allow_all_headers: true,
+    logging: {
+        level: "info",
+    },
+    strip_exception_messages: {
+        enabled: false,
+    },
+    api: {
+        custom_attributes_enabled: true,
+        custom_events_enabled: true,
+        notice_error_enabled: true,
+    },
+    application_logging: {
+        enabled: true,
+        forwarding: {
+            enabled: true,
+        },
+    },
+};
+
 newrelic.setTransactionName("foo"); // $ExpectType void
 
 const trans = newrelic.getTransaction();
@@ -50,7 +73,8 @@ newrelic.addIgnoringRule(/^[0-9]+$/); // $ExpectType void
 newrelic.getBrowserTimingHeader(); // $ExpectType string
 newrelic.getBrowserTimingHeader({ nonce: "foo" }); // $ExpectType string
 newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true }); // $ExpectType string
-newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true, nonce: "foo" }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ allowTransactionlessInjection: true }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ nonce: "foo", hasToRemoveScriptWrapper: true, allowTransactionlessInjection: true }); // $ExpectType string
 
 newrelic.startSegment("foo", false, () => "bar"); // $ExpectType string
 newrelic.startSegment("foo", false, () => "bar", () => "baz"); // $ExpectType string

@@ -269,3 +269,15 @@ options = {
 options = {
     shippedProposals: false,
 };
+
+// ===================//
+// BROWSERSLIST ENV //
+// ===================//
+
+options = {
+    browserslistEnv: "production",
+};
+
+options = {
+    browserslistEnv: "dev",
+};

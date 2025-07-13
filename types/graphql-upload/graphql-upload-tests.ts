@@ -33,7 +33,7 @@ export const storeUpload = async (fileUpload: Promise<FileUpload>) => {
     const { createReadStream, filename } = await fileUpload;
     const stream = createReadStream();
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         const writeStream = createWriteStream(filename);
         writeStream.on("finish", resolve);
         writeStream.on("error", (error) => {

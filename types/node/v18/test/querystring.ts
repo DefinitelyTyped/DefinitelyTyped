@@ -25,17 +25,14 @@ interface SampleObject {
     querystring.stringify({ foo: { bar: 1 } });
 
     querystring.stringify({
-        foo: "foo",
-        bar: 1,
-        baz: true,
-        foo2: ["a", "b"],
-        bar2: [1, 2],
-        baz2: [true, false],
-        rfoo2: ["a", "b"] as readonly string[],
-        rbar2: [1, 2] as readonly number[],
-        rbaz2: [true, false] as readonly boolean[],
-        a: undefined,
-        b: null,
+        str: "foo",
+        num: 1,
+        bool: true,
+        bigInt: 1n,
+        list: ["a", 1, true, 1n],
+        listReadonly: ["a", 1, true, 1n] as const,
+        undef: undefined,
+        nul: null,
     });
 }
 

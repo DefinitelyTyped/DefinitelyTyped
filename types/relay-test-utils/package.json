@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/relay-test-utils",
-    "version": "18.0.9999",
+    "version": "19.0.9999",
     "projects": [
         "https://relay.dev"
     ],
@@ -17,10 +17,6 @@
         {
             "name": "Renan Machado",
             "githubUsername": "renanmav"
-        },
-        {
-            "name": "Stephen Pittman",
-            "githubUsername": "Stephen2"
         },
         {
             "name": "Marais Rossouw",

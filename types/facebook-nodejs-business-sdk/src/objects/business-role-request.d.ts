@@ -14,6 +14,7 @@ export default class BusinessRoleRequest extends AbstractCrudObject {
         finance_role: "finance_role";
         id: "id";
         invite_link: "invite_link";
+        invited_user_type: "invited_user_type";
         ip_role: "ip_role";
         owner: "owner";
         role: "role";

@@ -83,6 +83,12 @@ declare namespace braces {
          * @default undefined
          */
         keepEscaping?: boolean | undefined;
+        /**
+         * Do not strip quotes from the result.
+         *
+         * @default undefined
+         */
+        keepQuotes?: boolean | undefined;
     }
 }
 interface Braces {

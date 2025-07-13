@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pdf2html",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/shebinleo/pdf2html#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pdf2html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "manuz cheruz",
+            "githubUsername": "manuzcheruz"
+        }
+    ]
+}

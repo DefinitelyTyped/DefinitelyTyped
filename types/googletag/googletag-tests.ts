@@ -696,9 +696,9 @@ function test_googletag_config_AdExpansionConfig_enabled() {
  */
 function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
     const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicUrl's origin
+        // Seller URL should be https and the same as decisionLogicURL's origin
         seller: "https://testSeller.com",
-        decisionLogicUrl: "https://testSeller.com/ssp/decision-logic.js",
+        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
         interestGroupBuyers: ["https://example-buyer.com"],
         auctionSignals: { auction_signals: "auction_signals" },
         sellerSignals: { seller_signals: "seller_signals" },
@@ -708,6 +708,7 @@ function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
                 per_buyer_signals: "per_buyer_signals",
             },
         },
+        trustedScoringSignalsURL: "",
     };
     const auctionSlot = googletag.defineSlot("/1234567/example", [160, 600])!;
     // To add configKey to the component auction:
@@ -749,6 +750,22 @@ function test_googletag_config_InterstitialConfig_triggers() {
             },
         },
     });
+}
+
+/**
+ * Test for {@link googletag.config.PageSettingsConfig.threadYield}
+ */
+function test_googletag_config_PageSettingsConfig_threadYield() {
+    // Disable yielding.
+    googletag.setConfig({ threadYield: "DISABLED" });
+    // Enable yielding for all slots.
+    googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
+    // Enable yielding only for slots outside of the viewport (default).
+    googletag.setConfig({ threadYield: null });
+    // Deprecated option name
+    googletag.setConfig({ adYield: "DISABLED" });
+    googletag.setConfig({ adYield: "ENABLED_ALL_SLOTS" });
+    googletag.setConfig({ adYield: null });
 }
 
 /**
@@ -795,6 +812,60 @@ function test_googletag_config_SlotSettingsConfig() {
         componentAuction: [{ configKey: "https://testSeller2.com", auctionConfig: null }],
         interstitial: null,
     });
+}
+
+/**
+ * Test for {@link googletag.events.GameManualInterstitialSlotClosedEvent}
+ */
+function test_googletag_events_GameManualInterstitialSlotClosedEvent() {
+    // This listener is called when a game manual interstitial slot is closed.
+    const targetSlot = googletag.defineOutOfPageSlot(
+        "/1234567/example",
+        googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+    );
+    // Slot returns null if the page or device does not support game manual interstitial ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
+        googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", (event) => {
+            const slot = event.slot;
+            console.log("Game manual interstital slot", slot.getSlotElementId(), "is closed.");
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
+}
+
+/**
+ * Test for {@link googletag.events.GameManualInterstitialSlotReadyEvent}
+ */
+function test_googletag_events_GameManualInterstitialSlotReadyEvent() {
+    // This listener is called when a game manual interstitial slot is ready to
+    // be displayed.
+    const targetSlot = googletag.defineOutOfPageSlot(
+        "/1234567/example",
+        googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+    );
+    // Slot returns null if the page or device does not support game manual interstitial ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
+        googletag.pubads().addEventListener("gameManualInterstitialSlotReady", (event) => {
+            const slot = event.slot;
+            console.log(
+                "Game manual interstital slot",
+                slot.getSlotElementId(),
+                "is ready to be displayed.",
+            );
+            // Replace with custom logic.
+            const displayGmiAd = true;
+            if (displayGmiAd) {
+                event.makeGameManualInterstitialVisible();
+            }
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }
 
 /**

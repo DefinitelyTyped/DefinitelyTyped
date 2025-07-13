@@ -35,6 +35,16 @@ export interface JalCalResult {
 }
 
 /**
+ *  Saturday and Friday day of a week
+ */
+export interface JalaaliWeek {
+    /** Saturday day **/
+    saturday: JalaaliDateObject;
+    /** Friday day **/
+    friday: JalaaliDateObject;
+}
+
+/**
  * Converts a Gregorian date to Jalaali.
  * @param gy Gregorian Calendar year (years BC numbered 0, -1, -2, ...)
  * @param gm Gregorian Calendar month (1 to 12)
@@ -135,3 +145,36 @@ export function g2d(gy: number, gm: number, gd: number): number;
  *   gd: Gregorian Calendar day of the month M (1 to 28/29/30/31)
  */
 export function d2g(jdn: number): GregorianDateObject;
+
+/**
+ * Convert Jalaali calendar date to javascript Date object by giving Jalaali
+ * year, month, and day.
+ * @param jy Jalaali year (1 to 3100)
+ * @param jm Jalaali month (1 to 12)
+ * @param jd Jalaali day (1 to 29/31)
+ * @param [h] hours
+ * @param [m] minutes
+ * @param [s] seconds
+ * @param [ms] milliseconds
+ * @return javascript Date object
+ */
+export function jalaaliToDateObject(
+    jy: number,
+    jm: number,
+    jd: number,
+    h?: number,
+    m?: number,
+    s?: number,
+    ms?: number,
+): Date;
+
+/**
+ * Return Saturday and Friday day of current week(week start in Saturday).
+ * @param jy Jalaali year (1 to 3100)
+ * @param jm Jalaali month (1 to 12)
+ * @param jd Jalaali day (1 to 29/31)
+ * @return
+ *   saturday: Saturday day of current week
+ *   friday: Friday day of current week
+ */
+export function jalaaliWeek(jy: number, jm: number, jd: number): JalaaliWeek;

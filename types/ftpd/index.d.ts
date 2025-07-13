@@ -92,6 +92,10 @@ export interface FtpServerOptions {
      * Integer from 0-4 representing the Log Level to show.
      */
     logLevel?: LogLevel | undefined;
+    /**
+     * String array, specifies commands that the FTP client can execute (e.g: XMKD, AUTH, etc...)
+     */
+    allowedCommands?: string[] | undefined;
 }
 
 /**

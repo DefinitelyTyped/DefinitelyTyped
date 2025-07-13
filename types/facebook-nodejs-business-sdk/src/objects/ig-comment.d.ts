@@ -10,6 +10,7 @@ export default class IGComment extends AbstractCrudObject {
         from: "from";
         hidden: "hidden";
         id: "id";
+        legacy_instagram_comment_id: "legacy_instagram_comment_id";
         like_count: "like_count";
         media: "media";
         parent_id: "parent_id";

@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/crypto.js)
  */
 declare module "crypto" {
     import * as stream from "node:stream";
@@ -96,7 +96,7 @@ declare module "crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v22.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v24.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -682,9 +682,10 @@ declare module "crypto" {
          */
         type: KeyObjectType;
     }
-    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm" | "chacha20-poly1305";
+    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm";
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
+    type CipherChaCha20Poly1305Types = "chacha20-poly1305";
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -695,6 +696,10 @@ declare module "crypto" {
     }
     interface CipherOCBOptions extends stream.TransformOptions {
         authTagLength: number;
+    }
+    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
+        /** @default 16 */
+        authTagLength?: number | undefined;
     }
     /**
      * Creates and returns a `Cipher` object, with the given `algorithm`, `key` and
@@ -745,13 +750,19 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
+    function createCipheriv(
         algorithm: string,
         key: CipherKey,
         iv: BinaryLike | null,
         options?: stream.TransformOptions,
-    ): Cipher;
+    ): Cipheriv;
     /**
-     * Instances of the `Cipher` class are used to encrypt data. The class can be
+     * Instances of the `Cipheriv` class are used to encrypt data. The class can be
      * used in one of two ways:
      *
      * * As a `stream` that is both readable and writable, where plain unencrypted
@@ -760,10 +771,10 @@ declare module "crypto" {
      * the encrypted data.
      *
      * The {@link createCipheriv} method is
-     * used to create `Cipher` instances. `Cipher` objects are not to be created
+     * used to create `Cipheriv` instances. `Cipheriv` objects are not to be created
      * directly using the `new` keyword.
      *
-     * Example: Using `Cipher` objects as streams:
+     * Example: Using `Cipheriv` objects as streams:
      *
      * ```js
      * const {
@@ -798,7 +809,7 @@ declare module "crypto" {
      * });
      * ```
      *
-     * Example: Using `Cipher` and piped streams:
+     * Example: Using `Cipheriv` and piped streams:
      *
      * ```js
      * import {
@@ -869,7 +880,7 @@ declare module "crypto" {
      * ```
      * @since v0.1.94
      */
-    class Cipher extends stream.Transform {
+    class Cipheriv extends stream.Transform {
         private constructor();
         /**
          * Updates the cipher with `data`. If the `inputEncoding` argument is given,
@@ -890,7 +901,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
         update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         /**
-         * Once the `cipher.final()` method has been called, the `Cipher` object can no
+         * Once the `cipher.final()` method has been called, the `Cipheriv` object can no
          * longer be used to encrypt data. Attempts to call `cipher.final()` more than
          * once will result in an error being thrown.
          * @since v0.1.94
@@ -900,7 +911,7 @@ declare module "crypto" {
         final(): Buffer;
         final(outputEncoding: BufferEncoding): string;
         /**
-         * When using block encryption algorithms, the `Cipher` class will automatically
+         * When using block encryption algorithms, the `Cipheriv` class will automatically
          * add padding to the input data to the appropriate block size. To disable the
          * default padding call `cipher.setAutoPadding(false)`.
          *
@@ -916,7 +927,7 @@ declare module "crypto" {
          */
         setAutoPadding(autoPadding?: boolean): this;
     }
-    interface CipherCCM extends Cipher {
+    interface CipherCCM extends Cipheriv {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options: {
@@ -925,7 +936,7 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
-    interface CipherGCM extends Cipher {
+    interface CipherGCM extends Cipheriv {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
@@ -934,17 +945,26 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
-    interface CipherOCB extends Cipher {
+    interface CipherOCB extends Cipheriv {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
+                plaintextLength: number;
+            },
+        ): this;
+        getAuthTag(): Buffer;
+    }
+    interface CipherChaCha20Poly1305 extends Cipheriv {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
                 plaintextLength: number;
             },
         ): this;
         getAuthTag(): Buffer;
     }
     /**
-     * Creates and returns a `Decipher` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
+     * Creates and returns a `Decipheriv` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the `authTagLength` option is required and specifies the length of the
@@ -991,13 +1011,19 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
+    function createDecipheriv(
         algorithm: string,
         key: CipherKey,
         iv: BinaryLike | null,
         options?: stream.TransformOptions,
-    ): Decipher;
+    ): Decipheriv;
     /**
-     * Instances of the `Decipher` class are used to decrypt data. The class can be
+     * Instances of the `Decipheriv` class are used to decrypt data. The class can be
      * used in one of two ways:
      *
      * * As a `stream` that is both readable and writable, where plain encrypted
@@ -1006,10 +1032,10 @@ declare module "crypto" {
      * produce the unencrypted data.
      *
      * The {@link createDecipheriv} method is
-     * used to create `Decipher` instances. `Decipher` objects are not to be created
+     * used to create `Decipheriv` instances. `Decipheriv` objects are not to be created
      * directly using the `new` keyword.
      *
-     * Example: Using `Decipher` objects as streams:
+     * Example: Using `Decipheriv` objects as streams:
      *
      * ```js
      * import { Buffer } from 'node:buffer';
@@ -1048,7 +1074,7 @@ declare module "crypto" {
      * decipher.end();
      * ```
      *
-     * Example: Using `Decipher` and piped streams:
+     * Example: Using `Decipheriv` and piped streams:
      *
      * ```js
      * import {
@@ -1104,7 +1130,7 @@ declare module "crypto" {
      * ```
      * @since v0.1.94
      */
-    class Decipher extends stream.Transform {
+    class Decipheriv extends stream.Transform {
         private constructor();
         /**
          * Updates the decipher with `data`. If the `inputEncoding` argument is given,
@@ -1125,7 +1151,7 @@ declare module "crypto" {
         update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
         update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         /**
-         * Once the `decipher.final()` method has been called, the `Decipher` object can
+         * Once the `decipher.final()` method has been called, the `Decipheriv` object can
          * no longer be used to decrypt data. Attempts to call `decipher.final()` more
          * than once will result in an error being thrown.
          * @since v0.1.94
@@ -1148,7 +1174,7 @@ declare module "crypto" {
          */
         setAutoPadding(auto_padding?: boolean): this;
     }
-    interface DecipherCCM extends Decipher {
+    interface DecipherCCM extends Decipheriv {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(
             buffer: NodeJS.ArrayBufferView,
@@ -1157,7 +1183,7 @@ declare module "crypto" {
             },
         ): this;
     }
-    interface DecipherGCM extends Decipher {
+    interface DecipherGCM extends Decipheriv {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(
             buffer: NodeJS.ArrayBufferView,
@@ -1166,11 +1192,20 @@ declare module "crypto" {
             },
         ): this;
     }
-    interface DecipherOCB extends Decipher {
+    interface DecipherOCB extends Decipheriv {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
+                plaintextLength: number;
+            },
+        ): this;
+    }
+    interface DecipherChaCha20Poly1305 extends Decipheriv {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
                 plaintextLength: number;
             },
         ): this;
@@ -3317,10 +3352,17 @@ declare module "crypto" {
     ): void;
     /**
      * Computes the Diffie-Hellman secret based on a `privateKey` and a `publicKey`.
-     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'` (for Diffie-Hellman), `'ec'` (for ECDH), `'x448'`, or `'x25519'` (for ECDH-ES).
+     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'`
+     * (for Diffie-Hellman), `'ec'`, `'x448'`, or `'x25519'` (for ECDH).
+     *
+     * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+    function diffieHellman(
+        options: { privateKey: KeyObject; publicKey: KeyObject },
+        callback: (err: Error | null, secret: Buffer) => void,
+    ): void;
     /**
      * A utility for creating one-shot hash digests of data. It can be faster than the object-based `crypto.createHash()` when hashing a smaller amount of data
      * (<= 5MB) that's readily available. If the data can be big or if it is streamed, it's still recommended to use `crypto.createHash()` instead. The `algorithm`
@@ -3347,7 +3389,7 @@ declare module "crypto" {
      * @since v21.7.0, v20.12.0
      * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different input encoding is desired for a string input, user
      *             could encode the string into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing the encoded `TypedArray` into this API instead.
-     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v22.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
+     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v24.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
      */
     function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
     function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
@@ -4186,9 +4228,13 @@ declare module "crypto" {
              * - `'PBKDF2'`
              * @since v15.0.0
              */
-            deriveBits(algorithm: EcdhKeyDeriveParams, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
             deriveBits(
-                algorithm: AlgorithmIdentifier | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams,
+                baseKey: CryptoKey,
+                length?: number | null,
+            ): Promise<ArrayBuffer>;
+            deriveBits(
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
                 length: number,
             ): Promise<ArrayBuffer>;
@@ -4210,14 +4256,9 @@ declare module "crypto" {
              * @since v15.0.0
              */
             deriveKey(
-                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm:
-                    | AlgorithmIdentifier
-                    | AesDerivedKeyParams
-                    | HmacImportParams
-                    | HkdfParams
-                    | Pbkdf2Params,
+                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;

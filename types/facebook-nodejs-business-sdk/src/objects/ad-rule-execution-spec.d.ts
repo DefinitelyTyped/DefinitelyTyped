@@ -7,11 +7,13 @@ export default class AdRuleExecutionSpec extends AbstractCrudObject {
     static get Fields(): Readonly<{
         execution_options: "execution_options";
         execution_type: "execution_type";
+        is_once_off: "is_once_off";
         id: "id";
     }>;
     static get ExecutionType(): Readonly<{
         add_interest_relaxation: "ADD_INTEREST_RELAXATION";
         add_questionnaire_interests: "ADD_QUESTIONNAIRE_INTERESTS";
+        ad_recommendation_apply: "AD_RECOMMENDATION_APPLY";
         audience_consolidation: "AUDIENCE_CONSOLIDATION";
         audience_consolidation_ask_first: "AUDIENCE_CONSOLIDATION_ASK_FIRST";
         change_bid: "CHANGE_BID";

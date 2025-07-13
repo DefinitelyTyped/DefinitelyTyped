@@ -1,16 +1,9 @@
 /// <reference types="node" />
 
-import * as Stream from "stream";
-
-import {
-    Context,
-    GitRawCommitsOptions,
-    Options as BaseOptions,
-    ParserOptions,
-    WriterOptions,
-} from "conventional-changelog-core";
+import conventionalChangelogCore from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit } from "conventional-commits-parser";
+import * as Stream from "stream";
 
 /**
  * Returns a readable stream.
@@ -21,12 +14,15 @@ import { Commit } from "conventional-commits-parser";
  * @param parserOpts
  * @param writerOpts
  */
-declare function conventionalChangelog<TCommit extends Commit = Commit, TContext extends WriterContext = Context>(
+declare function conventionalChangelog<
+    TCommit extends Commit = Commit,
+    TContext extends WriterContext = conventionalChangelogCore.Context,
+>(
     options?: Options<TCommit, TContext>,
     context?: Partial<TContext>,
-    gitRawCommitsOpts?: GitRawCommitsOptions,
-    parserOpts?: ParserOptions,
-    writerOpts?: WriterOptions<TCommit, TContext>,
+    gitRawCommitsOpts?: conventionalChangelogCore.GitRawCommitsOptions,
+    parserOpts?: conventionalChangelogCore.ParserOptions,
+    writerOpts?: conventionalChangelogCore.WriterOptions<TCommit, TContext>,
 ): Stream.Readable;
 
 declare namespace conventionalChangelog {
@@ -35,7 +31,7 @@ declare namespace conventionalChangelog {
      * docs. The API is the same with the following changes or additions:
      */
     interface Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext>
-        extends BaseOptions<TCommit, TContext>
+        extends conventionalChangelogCore.Options<TCommit, TContext>
     {
         /**
          * It's recommended to use a preset so you don't have to define everything
@@ -55,4 +51,4 @@ declare namespace conventionalChangelog {
 type Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext> =
     conventionalChangelog.Options<TCommit, TContext>;
 
-export = conventionalChangelog;
+export default conventionalChangelog;

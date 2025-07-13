@@ -34,11 +34,12 @@ declare class XMLStreamReader {
 declare namespace XMLStreamReader {
     export { parseFile, TokenString, XMLStreamReaderOptions, ResolvedAttribute };
 }
+declare function parseFile(filePath: string, options?: XMLStreamReaderOptions): XMLStreamReader;
+type TokenString = import('./TokenType').TokenString;
 interface XMLStreamReaderOptions {
     expandEmpty?: boolean;
     trimText?: boolean;
 }
-type TokenString = import('./TokenType').TokenString;
 interface ResolvedAttribute {
     name: string;
     localName: string;
@@ -46,4 +47,3 @@ interface ResolvedAttribute {
     namespaceUri: string;
     value: string;
 }
-declare function parseFile(filePath: string, options?: XMLStreamReaderOptions): XMLStreamReader;

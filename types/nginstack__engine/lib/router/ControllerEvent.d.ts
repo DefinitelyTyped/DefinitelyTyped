@@ -11,7 +11,7 @@ declare class ControllerEvent {
 declare namespace ControllerEvent {
     export { Response, Request, Controller, RouteResult };
 }
-type Controller = import('./Controller');
-type Request = import('../http/Request');
 type Response = import('../http/Response');
+type Request = import('../http/Request');
+type Controller = import('./Controller');
 type RouteResult = import('./RouteResult');

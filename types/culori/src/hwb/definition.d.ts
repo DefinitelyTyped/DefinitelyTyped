@@ -1,14 +1,14 @@
-import { averageAngle } from "../average";
-import { differenceHueNaive } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertHwbToRgb from "./convertHwbToRgb";
-import convertRgbToHwb from "./convertRgbToHwb";
-import parseHwb from "./parseHwb";
-import { Hwb } from "./types";
+import { averageAngle } from "../average.js";
+import { differenceHueNaive } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertHwbToRgb from "./convertHwbToRgb.js";
+import convertRgbToHwb from "./convertRgbToHwb.js";
+import parseHwb from "./parseHwb.js";
+import { Hwb } from "./types.js";
 
-declare const definition: {
+declare const modeHwb: {
     mode: "hwb";
 
     toMode: {
@@ -44,4 +44,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeHwb;

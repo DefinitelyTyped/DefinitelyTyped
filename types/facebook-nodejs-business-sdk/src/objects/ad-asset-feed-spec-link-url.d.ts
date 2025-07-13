@@ -9,6 +9,7 @@ export default class AdAssetFeedSpecLinkURL extends AbstractCrudObject {
         carousel_see_more_url: "carousel_see_more_url";
         deeplink_url: "deeplink_url";
         display_url: "display_url";
+        object_store_urls: "object_store_urls";
         url_tags: "url_tags";
         website_url: "website_url";
     }>;

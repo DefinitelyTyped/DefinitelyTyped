@@ -6,5 +6,7 @@ declare class ComponentFactoryResolver {
     registerFactory(componentName: string, factory: ComponentFactory): void;
 }
 declare namespace ComponentFactoryResolver {
-    function getInstance(): ComponentFactoryResolver;
+    export { ComponentFactory, getInstance };
 }
+declare function getInstance(): ComponentFactoryResolver;
+type ComponentFactory = import("./ComponentFactory.js");

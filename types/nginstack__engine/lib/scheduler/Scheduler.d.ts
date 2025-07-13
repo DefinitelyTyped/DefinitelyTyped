@@ -1,6 +1,10 @@
 export = Scheduler;
 declare function Scheduler(): void;
 declare class Scheduler {
+    taskCount: number;
+    runningTaskCount: number;
+    failingTaskCount: number;
+    maxConcurrentTaskCount: number;
     maxSimultaneousTasks: number;
     getTasks(): DataSet;
     saveTasks(tasks: DataSet, userId?: string, password?: string): void;

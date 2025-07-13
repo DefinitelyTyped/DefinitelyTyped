@@ -31,6 +31,7 @@ export default class User extends AbstractCrudObject {
         id: "id";
         id_for_avatars: "id_for_avatars";
         inspirational_people: "inspirational_people";
+        instagram_user_self_asset: "instagram_user_self_asset";
         install_type: "install_type";
         installed: "installed";
         is_guest_user: "is_guest_user";
@@ -51,6 +52,7 @@ export default class User extends AbstractCrudObject {
         profile_pic: "profile_pic";
         quotes: "quotes";
         relationship_status: "relationship_status";
+        religion: "religion";
         shared_login_upgrade_required_by: "shared_login_upgrade_required_by";
         short_name: "short_name";
         significant_other: "significant_other";
@@ -118,6 +120,7 @@ export default class User extends AbstractCrudObject {
     getLiveVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLiveVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<LiveVideo>;
     createMessengerDesktopPerformanceTrace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
+    createMessengerKidsAccountsUnreadBadge(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getMusic(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createNotification(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getPaymentTransactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

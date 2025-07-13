@@ -1,4 +1,4 @@
-import parser, { Parser, Tag } from "bbcode-to-react";
+import parser, { Parser, Renderer, Tag, TagType } from "bbcode-to-react";
 
 // $ExpectType void
 parser.registerTag("br", Tag);
@@ -12,10 +12,10 @@ parser.toReact("[B]strong[/B]");
 new (class extends Parser {
     testParser() {
         // $ExpectType { [name: string]: Tag<{ linkify: boolean; }>; }
-        this.tags;
+        this.tags as { [name: string]: Tag<{ linkify: boolean }> };
 
         // $ExpectType Renderer<{ linkify: boolean; }>
-        this.renderer;
+        this.renderer as Renderer<{ linkify: boolean }>;
 
         // $ExpectType Tag<{ linkify: boolean; }>
         this.parse("");
@@ -74,9 +74,9 @@ new (class extends Parser {
                 // @ExpectedType ReactNode
                 this.toReact();
             }
-        })(this.renderer);
+        })(this.renderer) as Tag;
     }
-})();
+})() as Parser;
 
 new (class extends Parser<{ canEscape: boolean }> {
     testParser() {
@@ -91,4 +91,4 @@ new (class extends Parser<{ canEscape: boolean }> {
         // $ExpectType { canEscape: boolean; }[]
         this.renderer.contexts;
     }
-})();
+})() as Parser<{ canEscape: boolean }>;

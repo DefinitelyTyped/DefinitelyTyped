@@ -51,13 +51,17 @@ declare function deleteDirectory(dirName: string, recursive?: boolean): boolean;
 declare function findFirst(fileName: string, opt_attributes?: string): SearchRecord;
 declare function findNext(searchRecord: SearchRecord): boolean;
 declare function findClose(searchRecord: SearchRecord): void;
-declare function createDirectory(dirName: string): boolean;
+declare function createDirectory(path: string): boolean;
 declare function moveFile(existingFileName: string, newFileName: string): boolean;
 declare function copyFile(existingFileName: string, newFileName: string): boolean;
 declare function getTempFileName(): string;
 declare function createTempFile(): File;
 declare function createTempDirName(): string;
-declare function fileFromString(fileName: string, content: string, opt_encoding?: string): void;
+declare function fileFromString(
+    fileName: string,
+    content: string | Uint8Array | ArrayBuffer,
+    encoding?: string
+): void;
 declare function stringFromFile(fileName: string, opt_encoding?: string): string;
 declare function pathAppend(path: string, append: Array<string[] | string>): string;
 declare let pathSeparator: string;
@@ -67,9 +71,10 @@ declare function extractFilePath(fileName: string): string;
 declare function getSize(fileName: string): number;
 declare function listEntries(
     path: string,
-    opt_options?: {
+    options?: {
         recursive?: boolean;
         onlyFiles?: boolean;
+        filter?: (arg0: FileListEntry) => boolean;
     }
 ): FileListEntry[];
 declare function copyDirectory(sourceDir: string, targetDir: string, opt_replace?: boolean): void;

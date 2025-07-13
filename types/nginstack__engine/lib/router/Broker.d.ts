@@ -3,7 +3,6 @@ declare function Broker(): void;
 declare class Broker {
     private controllerCache_;
     private realmConfigCache_;
-    private vfsForCheckChange_;
     private logger_;
     private errorLoadingConfig_;
     private serverId_;
@@ -42,7 +41,7 @@ declare class Broker {
     ): void;
     clear(): void;
     clearIncludeCaches(): void;
-    getModuleVersion_(path: any): any;
+    getModuleVersion_(path: any): number;
 }
 declare namespace Broker {
     export { getInstance, runStartupScripts, Request, Response };

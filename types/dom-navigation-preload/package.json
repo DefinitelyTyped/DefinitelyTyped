@@ -12,12 +12,16 @@
     },
     "owners": [
         {
-            "name": "Jan Kuehle",
-            "githubUsername": "frigus02"
+            "name": "Bradford Smith",
+            "githubUsername": "brad4d"
         },
         {
-            "name": "Martin Probst",
-            "githubUsername": "mprobst"
+            "name": "Ben Lickly",
+            "githubUsername": "blickly"
+        },
+        {
+            "name": "James Wright",
+            "githubUsername": "12wrigja"
         }
     ]
 }

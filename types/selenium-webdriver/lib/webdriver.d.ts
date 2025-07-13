@@ -11,6 +11,7 @@ import {
     WebElementPromise,
     Window,
 } from "..";
+import { Index as BIDI } from "../bidi";
 import { HttpResponse } from "../devtools/networkinterceptor";
 import { Command, Executor } from "./command";
 import { FileDetector } from "./input";
@@ -667,6 +668,12 @@ export class WebDriver {
      * @return {!Promise<resolved>} A new CDP instance.
      */
     createCDPConnection(target: string): Promise<any>;
+
+    /**
+     * Initiates bidi connection using 'webSocketUrl'
+     * @returns {BIDI}
+     */
+    getBidi(): Promise<BIDI>;
 
     /**
      * Retrieves 'webSocketDebuggerUrl' by sending a http request using debugger address

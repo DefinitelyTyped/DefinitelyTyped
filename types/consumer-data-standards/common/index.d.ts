@@ -173,7 +173,7 @@ export interface CommonOrganisationDetailV2 extends CommonOrganisation {
                  */
                 thoroughfareNumber1?: number | null;
                 /**
-                 * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+                 * Suffix for the thoroughfare number. Only relevant if _thoroughfareNumber1_ is populated
                  */
                 thoroughfareNumber1Suffix?: string | null;
                 /**
@@ -181,7 +181,7 @@ export interface CommonOrganisationDetailV2 extends CommonOrganisation {
                  */
                 thoroughfareNumber2?: number | null;
                 /**
-                 * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+                 * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated
                  */
                 thoroughfareNumber2Suffix?: string | null;
                 [k: string]: unknown;

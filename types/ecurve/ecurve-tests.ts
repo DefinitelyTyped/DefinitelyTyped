@@ -19,7 +19,7 @@ const curvePt = ecparams.G.multiply(BigInteger.fromBuffer(privateKey));
 const x = curvePt.affineX.toBuffer(32);
 const y = curvePt.affineY.toBuffer(32);
 
-let publicKey = Buffer.concat([new Buffer([0x04]), x, y]);
+let publicKey: Buffer = Buffer.concat([new Buffer([0x04]), x, y]);
 console.log(publicKey.toString("hex"));
 // => 04d0988bfa799f7d7ef9ab3de97ef481cd0f75d2367ad456607647edde665d6f6fbdd594388756a7beaf73b4822bc22d36e9bda7db82df2b8b623673eefc0b7495
 

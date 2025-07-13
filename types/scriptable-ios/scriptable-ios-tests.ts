@@ -37,6 +37,110 @@
 }
 
 {
+    // TODO: args
+}
+
+{
+    // @ts-expect-error
+    const cError = new Calendar();
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forReminders();
+    // @ts-expect-error
+    Calendar.forReminders("foo");
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forEvents();
+    // @ts-expect-error
+    Calendar.forEvents("foo");
+
+    // @ts-expect-error
+    Calendar.forRemindersByTitle();
+    // @ts-expect-error
+    Calendar.forRemindersByTitle(42);
+    // $ExpectType Promise<Calendar>
+    const promise = Calendar.forRemindersByTitle("foo");
+
+    // @ts-expect-error
+    Calendar.forEventsByTitle();
+    // @ts-expect-error
+    Calendar.forEventsByTitle(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.forEventsByTitle("foo");
+
+    // @ts-expect-error
+    Calendar.createForReminders();
+    // @ts-expect-error
+    Calendar.createForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.createForReminders("foo");
+
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders();
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.findOrCreateForReminders("foo");
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForReminders();
+    // @ts-expect-error
+    Calendar.defaultForReminders("foo");
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForEvents();
+    // @ts-expect-error
+    Calendar.defaultForEvents("foo");
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker();
+    // @ts-expect-error
+    Calendar.presentPicker("foo");
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(false);
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(true);
+
+    promise.then(calendar => {
+        // $ExpectType string
+        calendar.identifier;
+        calendar.identifier = "foo";
+        // $ExpectType string
+        calendar.title;
+        calendar.title = "foo";
+        // $ExpectType boolean
+        calendar.isSubscribed;
+        calendar.isSubscribed = true;
+        // $ExpectType boolean
+        calendar.allowsContentModifications;
+        calendar.allowsContentModifications = true;
+        // $ExpectType Color
+        calendar.color;
+        calendar.color = new Color("000000");
+
+        // @ts-expect-error
+        calendar.supportsAvailability();
+        // @ts-expect-error
+        calendar.supportsAvailability("foo");
+        // $ExpectType boolean
+        calendar.supportsAvailability("busy");
+
+        // $ExpectType void
+        calendar.save();
+        // @ts-expect-error
+        calendar.save(42);
+
+        // $ExpectType void
+        calendar.remove();
+        // @ts-expect-error
+        calendar.remove(42);
+    });
+}
+
+{
+    // TODO: CalendarEvent
+}
+
+{
     const cb = new CallbackURL("my-app://");
     cb.addParameter("foo", "bar");
     // $ExpectType Promise<Record<string, string | number | boolean | null>>
@@ -87,6 +191,35 @@
 }
 
 {
+    // TODO: console
+}
+
+{
+    // TODO: Contact
+}
+
+{
+    // @ts-expect-error
+    new ContactsContainer();
+
+    // $ExpectType Promise<ContactsContainer>
+    const promise = ContactsContainer.default();
+    // $ExpectType Promise<ContactsContainer[]>
+    ContactsContainer.all();
+    // @ts-expect-error
+    ContactsContainer.withIdentifier();
+    // $ExpectType Promise<ContactsContainer>
+    ContactsContainer.withIdentifier("foo");
+
+    promise.then(container => {
+        // $ExpectType string
+        container.identifier;
+        // $ExpectType string
+        container.name;
+    });
+}
+
+{
     // @ts-expect-error
     new Data();
     // $ExpectType Data
@@ -129,6 +262,22 @@
 }
 
 {
+    // TODO: DateFormatter
+}
+
+{
+    // TODO: DatePicker
+}
+
+{
+    // TODO: Device
+}
+
+{
+    // TODO: Dictation
+}
+
+{
     // $ExpectType Promise<string[]>
     DocumentPicker.open(["public.plain-text"]);
     // $ExpectType Promise<string>
@@ -150,6 +299,10 @@
     DocumentPicker.exportData(Data.fromFile("test.bin"));
     // $ExpectType Promise<string[]>
     DocumentPicker.exportData(Data.fromFile("test.bin"), "super interesting data.bin");
+}
+
+{
+    // TODO: DrawContext
 }
 
 {
@@ -182,6 +335,18 @@
     Font.italicSystemFont(15);
     // $ExpectType Font
     Font.regularRoundedSystemFont(15);
+}
+
+{
+    // TODO: Image
+}
+
+{
+    // TODO: Keychain
+}
+
+{
+    // TODO: LinearGradient
 }
 
 {
@@ -589,155 +754,145 @@
 }
 
 {
-    const url = "http://httpbin.org/POST";
-    const req = new Request(url);
-    req.url === url;
-    req.method = "POST";
-    req.headers = {
-        "Content-Type": "application/json",
-    };
-    req.body = "{\"answer\":42}";
-    req.timeoutInterval = 5;
-    req.allowInsecureRequest = true;
-    // $ExpectType Promise<any>
-    const res = req.loadJSON();
-    res.then(() => {});
+    // TODO: Mail
 }
 
 {
-    const sf = SFSymbol.named("car");
-    // @ts-expect-error
-    const err = new SFSymbol();
-
-    // $ExpectType void
-    sf.applyFont(Font.blackSystemFont(16));
-    // $ExpectType void
-    sf.applyUltraLightWeight();
-    // $ExpectType void
-    sf.applyThinWeight();
-    // $ExpectType void
-    sf.applyLightWeight();
-    // $ExpectType void
-    sf.applyRegularWeight();
-    // $ExpectType void
-    sf.applyMediumWeight();
-    // $ExpectType void
-    sf.applySemiboldWeight();
-    // $ExpectType void
-    sf.applyBoldWeight();
-    // $ExpectType void
-    sf.applyHeavyWeight();
-    // $ExpectType void
-    sf.applyBlackWeight();
+    // TODO: Message
 }
 
 {
-    // @ts-expect-error
-    ShareSheet.present("foobar");
-    // @ts-expect-error
-    ShareSheet.present(42);
-    // $ExpectType Promise<ShareSheetResult>
-    ShareSheet.present([]);
-    // $ExpectType Promise<ShareSheetResult>
-    ShareSheet.present(["test"]);
-    // $ExpectType Promise<ShareSheetResult>
-    ShareSheet.present([42]);
+    // TODO: module
 }
 
 {
-    // @ts-expect-error
-    const cError = new Calendar();
-    // $ExpectType Promise<Calendar[]>
-    Calendar.forReminders();
-    // @ts-expect-error
-    Calendar.forReminders("foo");
+    const notification = new Notification();
 
-    // $ExpectType Promise<Calendar[]>
-    Calendar.forEvents();
+    // $ExpectType string
+    notification.identifier;
+    notification.identifier = "test-identifier";
     // @ts-expect-error
-    Calendar.forEvents("foo");
+    notification.identifier = 0;
+    // @ts-expect-error
+    notification.identifier = null;
 
+    // $ExpectType string
+    notification.title;
+    notification.title = "test-title";
     // @ts-expect-error
-    Calendar.forRemindersByTitle();
+    notification.title = 0;
     // @ts-expect-error
-    Calendar.forRemindersByTitle(42);
-    // $ExpectType Promise<Calendar>
-    const promise = Calendar.forRemindersByTitle("foo");
+    notification.title = null;
 
+    // $ExpectType string
+    notification.subtitle;
+    notification.subtitle = "test-subtitle";
     // @ts-expect-error
-    Calendar.forEventsByTitle();
+    notification.subtitle = 0;
     // @ts-expect-error
-    Calendar.forEventsByTitle(42);
-    // $ExpectType Promise<Calendar>
-    Calendar.forEventsByTitle("foo");
+    notification.subtitle = null;
 
+    // $ExpectType string
+    notification.body;
+    notification.body = "test-body";
     // @ts-expect-error
-    Calendar.createForReminders();
+    notification.body = 0;
     // @ts-expect-error
-    Calendar.createForReminders(42);
-    // $ExpectType Promise<Calendar>
-    Calendar.createForReminders("foo");
+    notification.body = null;
 
+    // $ExpectType number | null
+    notification.preferredContentHeight;
+    notification.preferredContentHeight = 100;
+    notification.preferredContentHeight = null;
     // @ts-expect-error
-    Calendar.findOrCreateForReminders();
+    notification.preferredContentHeight = "100";
+
+    // $ExpectType number | null
+    notification.badge;
+    notification.badge = 5;
+    notification.badge = null;
     // @ts-expect-error
-    Calendar.findOrCreateForReminders(42);
-    // $ExpectType Promise<Calendar>
-    Calendar.findOrCreateForReminders("foo");
+    notification.badge = "5";
 
-    // $ExpectType Promise<Calendar>
-    Calendar.defaultForReminders();
+    // $ExpectType string
+    notification.threadIdentifier;
+    notification.threadIdentifier = "test-thread";
     // @ts-expect-error
-    Calendar.defaultForReminders("foo");
-
-    // $ExpectType Promise<Calendar>
-    Calendar.defaultForEvents();
+    notification.threadIdentifier = 0;
     // @ts-expect-error
-    Calendar.defaultForEvents("foo");
+    notification.threadIdentifier = null;
 
-    // $ExpectType Promise<Calendar[]>
-    Calendar.presentPicker();
+    // $ExpectType "default" | "accept" | "alert" | "complete" | "event" | "failure" | "piano_error" | "piano_success" | "popup" | null
+    notification.sound;
+    notification.sound = "accept";
+    notification.sound = null;
     // @ts-expect-error
-    Calendar.presentPicker("foo");
-    // $ExpectType Promise<Calendar[]>
-    Calendar.presentPicker(false);
-    // $ExpectType Promise<Calendar[]>
-    Calendar.presentPicker(true);
+    notification.sound = 0;
+    // @ts-expect-error
+    notification.sound = "";
 
-    promise.then(calendar => {
-        // $ExpectType string
-        calendar.identifier;
-        calendar.identifier = "foo";
-        // $ExpectType string
-        calendar.title;
-        calendar.title = "foo";
-        // $ExpectType boolean
-        calendar.isSubscribed;
-        calendar.isSubscribed = true;
-        // $ExpectType boolean
-        calendar.allowsContentModifications;
-        calendar.allowsContentModifications = true;
-        // $ExpectType Color
-        calendar.color;
-        calendar.color = new Color("000000");
+    // $ExpectType string | null
+    notification.openURL;
+    notification.openURL = "https://example.com";
+    notification.openURL = null;
+    // @ts-expect-error
+    notification.openURL = 0;
 
-        // @ts-expect-error
-        calendar.supportsAvailability();
-        // @ts-expect-error
-        calendar.supportsAvailability("foo");
-        // $ExpectType boolean
-        calendar.supportsAvailability("busy");
+    // $ExpectType Date | null
+    notification.deliveryDate;
+    // @ts-expect-error
+    notification.deliveryDate = new Date();
 
-        // $ExpectType void
-        calendar.save();
-        // @ts-expect-error
-        calendar.save(42);
+    // $ExpectType Date | null
+    notification.nextTriggerDate;
+    // @ts-expect-error
+    notification.nextTriggerDate = new Date();
 
-        // $ExpectType void
-        calendar.remove();
-        // @ts-expect-error
-        calendar.remove(42);
-    });
+    // $ExpectType string | null
+    notification.scriptName;
+    notification.scriptName = "test-script";
+    notification.scriptName = null;
+    // @ts-expect-error
+    notification.scriptName = 0;
+
+    // $ExpectType readonly Action[]
+    notification.actions;
+    // @ts-expect-error
+    notification.actions = [];
+    // @ts-expect-error
+    notification.actions.push({} as unknown as Notification.Action);
+}
+
+{
+    // TODO: Pasteboard
+}
+
+{
+    // TODO: Path
+}
+
+{
+    // TODO: Photos
+}
+
+{
+    // TODO: Point
+}
+
+{
+    // TODO: QuickLook
+}
+
+{
+    // TODO: Rect
+}
+
+{
+    // TODO: RecurrenceRule
+}
+
+{
+    // TODO: RelativeDateTimeFormatter
 }
 
 {
@@ -788,22 +943,153 @@
 }
 
 {
-    // @ts-expect-error
-    new ContactsContainer();
+    const url = "http://httpbin.org/POST";
+    const req = new Request(url);
+    req.url === url;
+    req.method = "POST";
+    req.headers = {
+        "Content-Type": "application/json",
+    };
+    req.body = "{\"answer\":42}";
+    req.timeoutInterval = 5;
+    req.allowInsecureRequest = true;
+    // $ExpectType Promise<any>
+    const res = req.loadJSON();
+    res.then(() => {});
+}
 
-    // $ExpectType Promise<ContactsContainer>
-    const promise = ContactsContainer.default();
-    // $ExpectType Promise<ContactsContainer[]>
-    ContactsContainer.all();
+{
+    const sf = SFSymbol.named("car");
     // @ts-expect-error
-    ContactsContainer.withIdentifier();
-    // $ExpectType Promise<ContactsContainer>
-    ContactsContainer.withIdentifier("foo");
+    const err = new SFSymbol();
 
-    promise.then(container => {
-        // $ExpectType string
-        container.identifier;
-        // $ExpectType string
-        container.name;
-    });
+    // $ExpectType void
+    sf.applyFont(Font.blackSystemFont(16));
+    // $ExpectType void
+    sf.applyUltraLightWeight();
+    // $ExpectType void
+    sf.applyThinWeight();
+    // $ExpectType void
+    sf.applyLightWeight();
+    // $ExpectType void
+    sf.applyRegularWeight();
+    // $ExpectType void
+    sf.applyMediumWeight();
+    // $ExpectType void
+    sf.applySemiboldWeight();
+    // $ExpectType void
+    sf.applyBoldWeight();
+    // $ExpectType void
+    sf.applyHeavyWeight();
+    // $ExpectType void
+    sf.applyBlackWeight();
+}
+
+{
+    // TODO: Safari
+}
+
+{
+    // TODO: Script
+}
+
+{
+    // @ts-expect-error
+    ShareSheet.present("foobar");
+    // @ts-expect-error
+    ShareSheet.present(42);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present([]);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present(["test"]);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present([42]);
+}
+
+{
+    // TODO: Size
+}
+
+{
+    // TODO: Speech
+}
+
+{
+    // TODO: TextField
+}
+
+{
+    // TODO: Timer
+}
+
+{
+    // TODO: UITable
+}
+
+{
+    // TODO: UITableCell
+}
+
+{
+    // TODO: UITableRow
+}
+
+{
+    // TODO: URLScheme
+}
+
+{
+    // TODO: UUID
+}
+
+{
+    // TODO: WebView
+}
+
+{
+    // TODO: WidgetDate
+}
+
+{
+    // TODO: WidgetImage
+}
+
+{
+    // TODO: WidgetSpacer
+}
+
+{
+    // TODO: WidgetStack
+}
+
+{
+    // TODO: WidgetText
+}
+
+{
+    // TODO: XMLParser
+}
+
+{
+    // TODO: log
+}
+
+{
+    // TODO: logWarning
+}
+
+{
+    // TODO: logError
+}
+
+{
+    // TODO: atob
+}
+
+{
+    // TODO: btoa
+}
+
+{
+    // TODO: importModule
 }

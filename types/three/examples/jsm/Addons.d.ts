@@ -1,7 +1,5 @@
 export * from "./animation/AnimationClipCreator.js";
 export * from "./animation/CCDIKSolver.js";
-export * from "./animation/MMDAnimationHelper.js";
-export * from "./animation/MMDPhysics.js";
 
 export { default as WebGL } from "./capabilities/WebGL.js";
 
@@ -30,7 +28,6 @@ export * from "./effects/AnaglyphEffect.js";
 export * from "./effects/AsciiEffect.js";
 export * from "./effects/OutlineEffect.js";
 export * from "./effects/ParallaxBarrierEffect.js";
-export * from "./effects/PeppersGhostEffect.js";
 export * from "./effects/StereoEffect.js";
 
 export * from "./environments/DebugEnvironment.js";
@@ -40,7 +37,6 @@ export * from "./exporters/DRACOExporter.js";
 export * from "./exporters/EXRExporter.js";
 export * from "./exporters/GLTFExporter.js";
 export * from "./exporters/KTX2Exporter.js";
-export * from "./exporters/MMDExporter.js";
 export * from "./exporters/OBJExporter.js";
 export * from "./exporters/PLYExporter.js";
 export * from "./exporters/STLExporter.js";
@@ -49,7 +45,7 @@ export * from "./exporters/USDZExporter.js";
 export * from "./geometries/BoxLineGeometry.js";
 export * from "./geometries/ConvexGeometry.js";
 export * from "./geometries/DecalGeometry.js";
-export * from "./geometries/ParametricGeometries.js";
+export * from "./geometries/ParametricFunctions.js";
 export * from "./geometries/ParametricGeometry.js";
 export * from "./geometries/RoundedBoxGeometry.js";
 export * from "./geometries/TeapotGeometry.js";
@@ -104,7 +100,6 @@ export * from "./loaders/LUTCubeLoader.js";
 export * from "./loaders/LWOLoader.js";
 export * from "./loaders/MD2Loader.js";
 export * from "./loaders/MDDLoader.js";
-export * from "./loaders/MMDLoader.js";
 export * from "./loaders/MTLLoader.js";
 export * from "./loaders/NRRDLoader.js";
 export * from "./loaders/OBJLoader.js";
@@ -241,7 +236,6 @@ export * from "./shaders/KaleidoShader.js";
 export * from "./shaders/LuminosityHighPassShader.js";
 export * from "./shaders/LuminosityShader.js";
 export * from "./shaders/MirrorShader.js";
-export * from "./shaders/MMDToonShader.js";
 export * from "./shaders/NormalMapShader.js";
 export * from "./shaders/OutputShader.js";
 export * from "./shaders/RGBShiftShader.js";

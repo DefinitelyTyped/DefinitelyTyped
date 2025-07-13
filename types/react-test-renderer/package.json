@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/react-test-renderer",
-    "version": "19.0.9999",
+    "version": "19.1.9999",
     "projects": [
-        "https://facebook.github.io/react/"
+        "https://react.dev/"
     ],
     "dependencies": {
         "@types/react": "*"

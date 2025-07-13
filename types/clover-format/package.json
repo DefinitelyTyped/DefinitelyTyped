@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/clover-format",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "clover file format",
+    "projects": [
+        "https://bitbucket.org/atlassian/clover/src/master/etc/schema/clover.xsd"
+    ],
+    "devDependencies": {
+        "@types/clover-format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyℓe Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

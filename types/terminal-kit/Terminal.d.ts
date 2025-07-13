@@ -1,4 +1,5 @@
 import EventEmitter = require("nextgen-events");
+import { Readable, Writable } from "node:stream";
 
 type Terminal = Terminal.Impl & EventEmitter;
 
@@ -384,9 +385,9 @@ declare namespace Terminal {
         | ((inputString: string) => Promise<string | AutocompletionArray<string>>);
 
     interface CreateOptions {
-        stdin?: NodeJS.Process | undefined;
-        stdout?: NodeJS.Process | undefined;
-        stderr?: NodeJS.Process | undefined;
+        stdin?: Readable | undefined;
+        stdout?: Writable | undefined;
+        stderr?: Writable | undefined;
         generic?: string | undefined;
         appId: string;
         appName: string;

@@ -2,11 +2,9 @@ import * as DataSource from "@nginstack/datasource/lib/DataSource";
 import * as DataSourceColumnDef from "@nginstack/datasource/lib/DataSourceColumnDef";
 import * as DataSourceColumns from "@nginstack/datasource/lib/DataSourceColumns";
 import * as DataSourceFilters from "@nginstack/datasource/lib/DataSourceFilters";
-import DataSourceFilterDef = require("@nginstack/datasource/lib/DataSourceFilterDef");
 
 const datasource = new DataSource(1); // $ExpectType DataSource
 const filters = new DataSourceFilters(datasource); // $ExpectType DataSourceFilters
-const filterDefs = [new DataSourceFilterDef()]; // $ExpectType DataSourceFilterDef[]
 const columns = new DataSourceColumns(datasource); // $ExpectType DataSourceColumns
 const columnDefs = [new DataSourceColumnDef()]; // $ExpectType DataSourceColumnDef[]
 
@@ -21,11 +19,8 @@ datasource.createFilters([""]); // $ExpectType DataSourceFilters
 datasource.createFiltersFromMap({ a: 1 }); // $ExpectType DataSourceFilters
 datasource.createColumns(columnDefs); // $ExpectType DataSourceColumns
 datasource.getDataSet(filters, columns); // $ExpectType DataSet
-datasource.getKey(); // $ExpectType number
-datasource.getUrl(); // $ExpectType string
-datasource.getResult(filterDefs, columnDefs); // $ExpectType DataSourceResult
 
 function getVersion(): string {
-    return "71.0.87";
+    return "72.0.5";
 }
 getVersion(); // $ExpectType string

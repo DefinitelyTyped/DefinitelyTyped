@@ -6,7 +6,7 @@
         "https://github.com/vadimdemedes/ink-spinner#readme"
     ],
     "dependencies": {
-        "@types/cli-spinners": "*",
+        "@types/cli-spinners": "<2",
         "@types/react": "*"
     },
     "devDependencies": {

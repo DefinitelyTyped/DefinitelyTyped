@@ -1,8 +1,6 @@
 /// <reference types="webrtc" />
 
-declare class ImageCapture {
-    constructor(videoTrack: MediaStreamTrack);
-
+interface ImageCapture {
     takePhoto(photoSettings?: PhotoSettings): Promise<Blob>;
 
     getPhotoCapabilities(): Promise<PhotoCapabilities>;
@@ -14,28 +12,30 @@ declare class ImageCapture {
     readonly track: MediaStreamTrack;
 }
 
+declare var ImageCapture: {
+    prototype: ImageCapture;
+    new(videoTrack: MediaStreamTrack): ImageCapture;
+};
+
 interface PhotoCapabilities {
-    readonly redEyeReduction: RedEyeReduction;
-    readonly imageHeight: MediaSettingsRange;
-    readonly imageWidth: MediaSettingsRange;
-    readonly fillLightMode: FillLightMode[];
+    redEyeReduction?: "never" | "always" | "controllable";
+    imageHeight?: MediaSettingsRange;
+    imageWidth?: MediaSettingsRange;
+    fillLightMode?: ("auto" | "off" | "flash")[];
 }
 
 interface PhotoSettings {
-    fillLightMode?: FillLightMode | undefined;
+    fillLightMode?: "auto" | "off" | "flash" | undefined;
     imageHeight?: number | undefined;
     imageWidth?: number | undefined;
     redEyeReduction?: boolean | undefined;
 }
 
 interface MediaSettingsRange {
-    readonly max: number;
-    readonly min: number;
-    readonly step: number;
+    max?: number;
+    min?: number;
+    step?: number;
 }
-
-type RedEyeReduction = "never" | "always" | "controllable";
-type FillLightMode = "auto" | "off" | "flash";
 
 interface MediaTrackCapabilities {
     whiteBalanceMode: MeteringMode[];
@@ -85,7 +85,7 @@ interface MediaTrackConstraintSet {
 }
 
 interface MediaTrackSettings {
-    whiteBalanceMode?: MeteringMode | undefined;
+    whiteBalanceMode?: string | undefined;
     exposureMode?: MeteringMode | undefined;
     focusMode?: MeteringMode | undefined;
     pointsOfInterest?: Point2D[] | undefined;

@@ -10,6 +10,9 @@ export class Octree {
     triangles: Triangle[];
     layers: Layers;
 
+    trianglesPerLeaf: number;
+    maxLevel: number;
+
     constructor(box?: Box3 | null);
 
     addTriangle(triangle: Triangle): this;

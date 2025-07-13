@@ -29,6 +29,7 @@ declare module "fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadPosition,
         ReadStream,
         ReadVResult,
         RmDirOptions,
@@ -69,7 +70,7 @@ declare module "fs/promises" {
          * @default `buffer.byteLength`
          */
         length?: number | null;
-        position?: number | null;
+        position?: ReadPosition | null;
     }
     interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
@@ -86,13 +87,6 @@ declare module "fs/promises" {
         start?: number | undefined;
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
-    }
-    interface ReadableWebStreamOptions {
-        /**
-         * Whether to open a normal or a `'bytes'` stream.
-         * @since v20.0.0
-         */
-        type?: "bytes" | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -112,7 +106,7 @@ declare module "fs/promises" {
         appendFile(
             data: string | Uint8Array,
             options?:
-                | (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<void>;
@@ -236,7 +230,7 @@ declare module "fs/promises" {
             buffer: T,
             offset?: number | null,
             length?: number | null,
-            position?: number | null,
+            position?: ReadPosition | null,
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(
             buffer: T,
@@ -244,7 +238,8 @@ declare module "fs/promises" {
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
-         * Returns a `ReadableStream` that may be used to read the files data.
+         * Returns a byte-oriented `ReadableStream` that may be used to read the file's
+         * contents.
          *
          * An error will be thrown if this method is called more than once or is called
          * after the `FileHandle` is closed or closing.
@@ -265,9 +260,8 @@ declare module "fs/promises" {
          * While the `ReadableStream` will read the file to completion, it will not
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
-         * @experimental
          */
-        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
+        readableWebStream(): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -283,36 +277,26 @@ declare module "fs/promises" {
          * data will be a string.
          */
         readFile(
-            options?: {
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } | null,
+            options?:
+                | ({ encoding?: null | undefined } & Abortable)
+                | null,
         ): Promise<Buffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options:
-                | {
-                    encoding: BufferEncoding;
-                    flag?: OpenMode | undefined;
-                }
+                | ({ encoding: BufferEncoding } & Abortable)
                 | BufferEncoding,
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options?:
-                | (ObjectEncodingOptions & {
-                    flag?: OpenMode | undefined;
-                })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<string | Buffer>;
@@ -402,7 +386,7 @@ declare module "fs/promises" {
         writeFile(
             data: string | Uint8Array,
             options?:
-                | (ObjectEncodingOptions & FlagAndOpenMode & Abortable & { flush?: boolean | undefined })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<void>;
@@ -734,6 +718,19 @@ declare module "fs/promises" {
             recursive?: boolean | undefined;
         },
     ): Promise<Dirent[]>;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Promise<Dirent<Buffer>[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
      * fulfilled with the`linkString` upon success.
@@ -1254,20 +1251,28 @@ declare module "fs/promises" {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { glob } from 'node:fs/promises';
+     *
+     * for await (const entry of glob('*.js'))
+     *   console.log(entry);
+     * ```
+     * @since v22.0.0
+     * @returns An AsyncIterator that yields the paths of files
+     * that match the pattern.
      */
-    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
+    function glob(pattern: string | readonly string[]): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithFileTypes,
     ): NodeJS.AsyncIterator<Dirent>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithoutFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithoutFileTypes,
     ): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptions,
+        pattern: string | readonly string[],
+        options: GlobOptions,
     ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {

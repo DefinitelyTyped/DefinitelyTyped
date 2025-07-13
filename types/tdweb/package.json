@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/tdweb": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Alexander Krisko",
-            "githubUsername": "esindger"
-        }
-    ]
+    "owners": []
 }

@@ -1,7 +1,12 @@
 {
     "private": true,
     "name": "@types/rangy",
-    "version": "0.0.9999",
+    "version": "1.3.9999",
+    "exports": {
+        ".": {
+            "types": "./lib/rangy-core.d.ts"
+        }
+    },
     "projects": [
         "https://github.com/timdown/rangy"
     ],
@@ -12,6 +17,10 @@
         {
             "name": "Rudolph Gottesheim",
             "url": "http://www.midnight-design.at/"
+        },
+        {
+            "name": "Kyu Sung Park",
+            "url": "https://github.com/kyusungpark"
         }
     ]
 }

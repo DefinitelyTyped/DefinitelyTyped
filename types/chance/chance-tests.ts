@@ -58,6 +58,12 @@ const chanceCalledWithSeed100 = Chance();
 const chanceConstructedWithStringSeed = new Chance("test");
 const chanceConstructedWithMultipleParameters = new Chance("test", 1, 1.5);
 
+// Allow picking from readonly arrays
+const arr: readonly number[] = [1, 2, 3];
+chance.pickone(arr);
+const picked: number[] = chance.pickset(arr, 2);
+chance.shuffle(arr);
+
 // Test new added typed functions
 
 let letter = chance.letter();

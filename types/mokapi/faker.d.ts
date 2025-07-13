@@ -13,116 +13,160 @@
 export function fake(schema: Schema | JSONSchema): any;
 
 /**
- * Gets the tree node with the given name
- * @param name name - tree node's name
+ * Retrieves a node from the faker tree by its name.
+ *
+ * @param name name - The name of the node to find.
+ * @returns The matching {@link Node} from the faker tree.
+ *
  * @example
  * export default function() {
  *   const root = findByName(RootName)
- *   root.insert(0, { name: 'foo', test: () => { return true }, fake: () => { return 'foobar' } })
+ *   root.children.unshift({
+ *      name: 'foo',
+ *      fake: () => {
+ *          return 'foobar'
+ *      }
+ *   })
  *   console.log(fake({type: 'string'}))
+ *   // Expected output: foobar
  * }
  */
-export function findByName(name: string): Tree;
+export function findByName(name: string): Node;
 
 /**
- * The name of the root faker tree
+ * The name of the root node in the faker tree.
  */
-export const RootName = "Faker";
+export const ROOT_NAME = "root";
 
 /**
- * The Tree object represents a node in the faker tree
+ * Represents a node in the faker tree.
+ * Nodes can have children and can generate fake values based on a request.
  */
-export interface Tree {
+export interface Node {
     /**
-     * Gets the name of the tree node
+     * The unique name of the node.
      */
     name: string;
 
     /**
-     * Inserts a Tree objects after the last child of this tree.
-     * @param node node - A Tree node to insert after the last child.
+     * Attributes associated with this node.
+     * These will be used for matching path or schema properties.
      */
-    append: (node: Tree | CustomTree) => void;
+    attributes: string[];
 
     /**
-     * Inserts a Tree objects at a specified index position
-     * @param index index - The zero-based index position of the insertion.
-     * @param node node - The tree node to insert
+     * A weight that determines how likely this node is to be selected,
+     * if multiple nodes match.
      */
-    insert: (index: number, node: Tree | CustomTree) => void;
+    weight: number;
 
     /**
-     * Removes a Tree node at the specific index position
-     * @param index index - The zero-based index position to remove.
+     * The child nodes of this node.
      */
-    removeAt: (index: number) => void;
+    children: Array<Node | AddNode>;
 
     /**
-     * Removes a Tree node with the given name
-     * @param name name - The name of a node to remove
-     */
-    remove: (name: string) => void;
-}
-
-/**
- * The CustomTree object represents a custom node in the faker tree
- */
-export interface CustomTree {
-    /**
-     * Gets the name of the custom tree node
-     */
-    name: string;
-
-    /**
-     * Tests whether the tree node supports the request.
-     * @param request request - Request for a new fake value
+     * Generates a fake value based on the given request.
+     *
+     * @param r r - The request describing the value to generate.
+     * @returns A generated fake value.
+     *
      * @example
      * export default function() {
      *   const frequencyItems = ['never', 'daily', 'weekly', 'monthly', 'yearly']
-     *   const node = findByName('Strings')
-     *   node.append({
+     *   const node = findByName(ROOT_NAME)
+     *   node.children.unshift({
      *     name: 'Frequency',
-     *     test: (r) => { return r.lastName() === 'frequency' },
+     *     attributes: [ 'frequency' ]
      *     fake: (r) => {
      *       return frequencyItems[Math.floor(Math.random()*frequencyItems.length)]
      *     }
      *   })
-     *   return fake({ type: 'string' })
-     * }
-     */
-    test: (r: Request) => boolean;
-
-    /**
-     * Gets a new fake value
-     * @param request request - Request for a new fake value
-     * @example
-     * export default function() {
-     *   const frequencyItems = ['never', 'daily', 'weekly', 'monthly', 'yearly']
-     *   const node = findByName('Strings')
-     *   node.append({
-     *     name: 'Frequency',
-     *     test: (r) => { return r.lastName() === 'frequency' },
-     *     fake: (r) => {
-     *       return frequencyItems[Math.floor(Math.random()*frequencyItems.length)]
-     *     }
-     *   })
-     *   return fake({ type: 'string' })
+     *   console.log(fake({ properties: { frequency } }))
+     *   // Expected output: an object with a frequency attribute containing a random value of frequency
      * }
      */
     fake: (r: Request) => any;
 }
 
-export interface Request {
-    path: PathElement[];
+export interface AddNode {
+    /**
+     * The unique name of the node.
+     */
+    name: string;
 
-    last: () => PathElement;
-    lastName: () => string;
-    lastSchema: () => JSONSchema;
+    /**
+     * Attributes associated with this node.
+     * These will be used for matching path or schema properties.
+     */
+    attributes?: string[];
+
+    /**
+     * A weight that determines how likely this node is to be selected,
+     * if multiple nodes match.
+     */
+    weight?: number;
+
+    /**
+     * The child nodes of this node.
+     */
+    children?: Array<Node | AddNode>;
+
+    /**
+     * Generates a fake value based on the given request.
+     *
+     * @param r r - The request describing the value to generate.
+     * @returns A generated fake value.
+     *
+     * @example
+     * export default function() {
+     *   const frequencyItems = ['never', 'daily', 'weekly', 'monthly', 'yearly']
+     *   const node = findByName(ROOT_NAME)
+     *   node.children.unshift({
+     *     name: 'Frequency',
+     *     attributes: [ 'frequency' ]
+     *     fake: (r) => {
+     *       return frequencyItems[Math.floor(Math.random()*frequencyItems.length)]
+     *     }
+     *   })
+     *   console.log(fake({ properties: { frequency } }))
+     *   // Expected output: an object with a frequency attribute containing a random value of frequency
+     * }
+     */
+    fake: (r: Request) => any;
 }
 
-export interface PathElement {
-    name: string;
+/**
+ * Represents the input provided to the `fake` function of a {@link Node}.
+ */
+export interface Request {
+    /**
+     * The path to the value to generate.
+     * This may include paths from an API endpoint or the structure of a nested object.
+     */
+    path: string[];
+
+    /**
+     * The {@link JSONSchema} definition that describes the value to generate.
+     */
     schema: JSONSchema;
+
+    /**
+     * A shared context holding values generated by other nodes.
+     * This allows for interdependent data generation — for example, creating an email
+     * address using a previously generated first and last name.
+     */
+    context: Context;
+}
+
+/**
+ * A context map holding values generated during the faker tree evaluation.
+ */
+export interface Context {
+    /**
+     * A map of names to previously generated values.
+     */
+    values: { [name: string]: any };
 }
 
 /**
@@ -171,7 +215,7 @@ export interface JSONSchema {
     maximum?: number;
 
     /**
-     * Restricts the number to a exclusive maximum number
+     * Restricts the number to an exclusive maximum number
      */
     exclusiveMaximum?: number;
 
@@ -181,7 +225,7 @@ export interface JSONSchema {
     minimum?: number;
 
     /**
-     * Restricts the number to a exclusive minimum number
+     * Restricts the number to an exclusive minimum number
      */
     exclusiveMinimum?: number;
 

@@ -1,4 +1,4 @@
-import { Data3DTexture, Loader, Texture } from "three";
+import { Data3DTexture, Loader, LoadingManager, Texture } from "three";
 
 export interface LUTImageResult {
     size: number;
@@ -8,7 +8,7 @@ export interface LUTImageResult {
 export class LUTImageLoader extends Loader<LUTImageResult> {
     flip: boolean;
 
-    constructor(flipVertical?: boolean);
+    constructor(manager?: LoadingManager);
 
     getImageData(texture: Texture): ImageData;
 

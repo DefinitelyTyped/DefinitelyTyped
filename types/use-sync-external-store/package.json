@@ -1,10 +1,32 @@
 {
     "private": true,
     "name": "@types/use-sync-external-store",
-    "version": "0.0.9999",
+    "version": "1.5.9999",
     "projects": [
-        "https://github.com/facebook/react#readme"
+        "https://react.dev/"
     ],
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        },
+        "./with-selector": {
+            "types": {
+                "default": "./with-selector.d.ts"
+            }
+        },
+        "./shim": {
+            "types": {
+                "default": "./shim/index.d.ts"
+            }
+        },
+        "./shim/with-selector": {
+            "types": {
+                "default": "./shim/with-selector.d.ts"
+            }
+        }
+    },
     "devDependencies": {
         "@types/use-sync-external-store": "workspace:."
     },

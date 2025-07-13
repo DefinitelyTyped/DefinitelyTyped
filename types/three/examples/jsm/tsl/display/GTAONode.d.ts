@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Camera, Node, TempNode, TextureNode, UniformNode, Vector2 } from "three/webgpu";
 
 declare class GTAONode extends TempNode {
@@ -25,7 +25,7 @@ declare class GTAONode extends TempNode {
 export default GTAONode;
 
 export const ao: (
-    depthNode: NodeRepresentation,
-    normalNode: NodeRepresentation,
+    depthNode: Node,
+    normalNode: Node,
     camera: Camera,
 ) => ShaderNodeObject<GTAONode>;

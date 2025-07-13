@@ -545,6 +545,24 @@ declare namespace SteamCommunity {
         aid: string;
     }
 
+    interface CreateWebApiKeyOptions {
+        /** A string containing a domain name to link with this API key. You can use 'localhost' if you don't have a domain. */
+        domain: string;
+        /** If you include your account's identity_secret, then node-steamcommunity will internally take care of accepting the confirmation, and you won't need to make a second call to createWebApiKey(). */
+        identitySecret?: string;
+        /** A string containing the ID of an outstanding API key creation request. This should be omitted the first time you call createWebApiKey() to create a new session. You probably don't need to worry about this value at all because the full options object is provided for you to send in your finalize request. */
+        requestId?: string;
+    }
+
+    interface CreateWebApiKeyResult {
+        /** true if you need to accept a mobile confirmation, or false if not */
+        confirmationRequired: boolean;
+        /** If creating your API key has succeeded, this is a string containing your new API key */
+        apiKey: string;
+        /** If confirmationRequired is true, then this is an object containing the options you should pass to createWebApiKey() after you have accepted your mobile confirmation */
+        finalizeOptions: Record<string, any>;
+    }
+
     namespace Events {
         /**
          * @param err An `Error` object.

@@ -16,9 +16,18 @@ export const modelWorldMatrix: ShaderNodeObject<ModelNode>;
 export const modelPosition: ShaderNodeObject<ModelNode>;
 export const modelScale: ShaderNodeObject<ModelNode>;
 export const modelViewPosition: ShaderNodeObject<ModelNode>;
+export const modelRadius: ShaderNodeObject<ModelNode>;
 export const modelNormalMatrix: ShaderNodeObject<Node>;
 export const modelWorldMatrixInverse: ShaderNodeObject<UniformNode<Matrix4>>;
+
 export const modelViewMatrix: ShaderNodeObject<ModelNode>;
 
-export const highPrecisionModelViewMatrix: ShaderNodeObject<Node>;
-export const highPrecisionModelNormalViewMatrix: ShaderNodeObject<Node>;
+// GPU Precision
+
+export const mediumpModelViewMatrix: ShaderNodeObject<Node>;
+
+// CPU Precision
+
+export const highpModelViewMatrix: ShaderNodeObject<Node>;
+
+export const highpModelNormalViewMatrix: ShaderNodeObject<Node>;

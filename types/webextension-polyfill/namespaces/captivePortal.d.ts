@@ -27,12 +27,12 @@ export namespace CaptivePortal {
         /**
          * Returns the current portal state, one of `unknown`, `not_captive`, `unlocked_portal`, `locked_portal`.
          */
-        getState(): void;
+        getState(): Promise<"unknown" | "not_captive" | "unlocked_portal" | "locked_portal">;
 
         /**
          * Returns the time difference between NOW and the last time a request was completed in milliseconds.
          */
-        getLastChecked(): void;
+        getLastChecked(): Promise<number>;
 
         /**
          * Fired when the captive portal state changes.

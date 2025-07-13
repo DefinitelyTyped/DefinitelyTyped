@@ -40,6 +40,15 @@ const getEnvelope = async (
     return results;
 };
 
+const getEnvelopeDocGenFormFields = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const results = await envelopesApi.getEnvelopeDocGenFormFields(params.accountId, envelopeId);
+    return results;
+};
+
 const getEnvelopeWithStoredConfiguredClient = async (
     envelopeId: string,
     options: { advancedUpdate?: string | undefined; include?: string | undefined },
@@ -151,5 +160,15 @@ const getDocumentWithCallback = async (envelopeId: string, documentId: string, o
     const client = apiClient();
     const envelopesApi = new docusign.EnvelopesApi(client);
     const results = await envelopesApi.getDocument(params.accountId, envelopeId, documentId, options, callback);
+    return results;
+};
+
+const updateEnvelopeDocGenFormFields = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const formFields = await envelopesApi.getEnvelopeDocGenFormFields(params.accountId, envelopeId);
+    const results = await envelopesApi.updateEnvelopeDocGenFormFields(params.accountId, envelopeId, formFields);
     return results;
 };

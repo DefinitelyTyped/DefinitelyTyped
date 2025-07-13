@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 

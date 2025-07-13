@@ -86,7 +86,7 @@ export namespace Search {
         /**
          * Perform a search.
          */
-        search(searchProperties: SearchSearchPropertiesType): void;
+        search(searchProperties: SearchSearchPropertiesType): Promise<void>;
 
         /**
          * Use the chrome.search API to search via the default provider.

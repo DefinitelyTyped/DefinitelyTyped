@@ -6,7 +6,7 @@
         "https://github.com/zynga/viewporter"
     ],
     "devDependencies": {
-        "@types/google-maps": "*",
+        "@types/google-maps": "<4",
         "@types/jquery": "*",
         "@types/viewporter": "workspace:."
     },

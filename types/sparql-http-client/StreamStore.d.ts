@@ -3,7 +3,13 @@ import SimpleClient from "./SimpleClient.js";
 
 type HTTPMethod = "POST" | "PUT" | "DELETE";
 
-declare class StreamStore<Q extends BaseQuad = Quad> {
+export interface StreamStore<Q extends BaseQuad = Quad> {
+    get(graph: Quad_Graph): Stream<Q>;
+    post(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
+    put(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
+}
+
+declare class Impl<Q extends BaseQuad = Quad> implements StreamStore<Q> {
     constructor(options: { client: SimpleClient });
 
     get(graph: Quad_Graph): Stream<Q>;
@@ -14,4 +20,4 @@ declare class StreamStore<Q extends BaseQuad = Quad> {
     write(options?: { graph?: Quad_Graph; method: HTTPMethod; stream: Stream }): Promise<void>;
 }
 
-export default StreamStore;
+export default Impl;

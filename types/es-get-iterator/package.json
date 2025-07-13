@@ -8,6 +8,14 @@
     "devDependencies": {
         "@types/es-get-iterator": "workspace:."
     },
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./package": "./package.json",
+        "./package.json": "./package.json"
+    },
     "owners": [
         {
             "name": "Jason Kwok",

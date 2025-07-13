@@ -31,10 +31,12 @@ export default class AdActivity extends AbstractCrudObject {
         ad_account_remove_user_from_role: "ad_account_remove_user_from_role";
         ad_account_reset_spend_limit: "ad_account_reset_spend_limit";
         ad_account_set_business_information: "ad_account_set_business_information";
+        ad_account_update_audience_type_url_parameter: "ad_account_update_audience_type_url_parameter";
         ad_account_update_spend_limit: "ad_account_update_spend_limit";
         ad_account_update_status: "ad_account_update_status";
         ad_review_approved: "ad_review_approved";
         ad_review_declined: "ad_review_declined";
+        adaccount_update_audience_segment: "adaccount_update_audience_segment";
         add_funding_source: "add_funding_source";
         add_images: "add_images";
         billing_event: "billing_event";
@@ -90,6 +92,7 @@ export default class AdActivity extends AbstractCrudObject {
         update_campaign_budget_optimization_toggling_status: "update_campaign_budget_optimization_toggling_status";
         update_campaign_budget_scheduling_state: "update_campaign_budget_scheduling_state";
         update_campaign_conversion_goal: "update_campaign_conversion_goal";
+        update_campaign_delivery_destination: "update_campaign_delivery_destination";
         update_campaign_delivery_type: "update_campaign_delivery_type";
         update_campaign_group_ad_scheduling: "update_campaign_group_ad_scheduling";
         update_campaign_group_budget_scheduling_state: "update_campaign_group_budget_scheduling_state";

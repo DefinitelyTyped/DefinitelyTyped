@@ -1,9 +1,23 @@
-import { ContentBlock } from "draft-js";
+import { RawDraftEntity } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
+
+htmlToDraft("<p>test</p>");
+
+declare const entity: RawDraftEntity;
+htmlToDraft("<p>test</p>", (nodeName, node) => {
+    // $ExpectType string
+    nodeName;
+
+    // $ExpectType HTMLElement
+    node;
+
+    return entity;
+});
 
 const blocksFromHtml = htmlToDraft("<p>test</p>");
 
 // $ExpectType ContentBlock[]
-const contentBlocks = blocksFromHtml.contentBlocks;
+blocksFromHtml.contentBlocks;
+
 // $ExpectType any
-const entityMap = blocksFromHtml.entityMap;
+blocksFromHtml.entityMap;

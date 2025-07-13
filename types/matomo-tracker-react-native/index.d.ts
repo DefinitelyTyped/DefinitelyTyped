@@ -1,31 +1,30 @@
 import * as React from "react";
 
+export type UserInfo = {
+    uid?: string;
+    cid?: string;
+    urlref?: string;
+    lang?: string;
+    ua?: string;
+    _idvc?: string;
+    new_visit?: number;
+    _viewts?: number;
+    _idts?: number;
+    res?: number;
+    h?: number;
+    m?: number;
+    s?: number;
+    cookie?: number;
+    uadata?: object;
+} & Partial<Record<`dimension${number}`, string>>;
+
 export interface AppStart {
-    userInfo?: {
-        uid?: string;
-        cid?: string;
-        urlref?: string;
-        lang?: string;
-        ua?: string;
-        _idvc?: string;
-        new_visit?: number;
-        _viewts?: number;
-        _idts?: number;
-        res?: number;
-        h?: number;
-        m?: number;
-        s?: number;
-        cookie?: number;
-        uadata?: object;
-        dimension?: number;
-    };
+    userInfo?: UserInfo;
 }
 
 export interface Action {
     name: string;
-    userInfo?: {
-        uid?: string;
-    };
+    userInfo?: UserInfo;
 }
 
 export interface Event {
@@ -33,34 +32,25 @@ export interface Event {
     action: string;
     name?: string;
     value?: number;
-    userInfo?: {
-        uid?: string;
-    };
+    campaign?: string;
+    userInfo?: UserInfo;
 }
 
 export interface SiteSearch {
     keyword: string;
     category?: string;
     count?: number;
-    userInfo?: {
-        uid?: string;
-    };
+    userInfo?: UserInfo;
 }
 
 export interface Link {
     link: string;
-    url?: string;
-    userInfo?: {
-        uid?: string;
-    };
+    userInfo?: UserInfo;
 }
 
 export interface Download {
     download: string;
-    url?: string;
-    userInfo?: {
-        uid?: string;
-    };
+    userInfo?: UserInfo;
 }
 
 export function useMatomo(): {

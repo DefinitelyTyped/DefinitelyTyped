@@ -1,18 +1,28 @@
 {
     "private": true,
     "name": "@types/swagger-ui",
-    "version": "3.52.9999",
+    "version": "5.21.9999",
     "projects": [
         "https://github.com/swagger-api/swagger-ui"
     ],
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./dist/oauth2-redirect.html": {
+            "types": "./dist/oauth2-redirect.html.d.ts"
+        },
+        "./dist/swagger-ui.css": {
+            "types": "./dist/swagger-ui.css.d.ts"
+        },
+        "./dist/swagger-ui-standalone-preset": {
+            "types": "./dist/swagger-ui-standalone-preset.d.ts"
+        }
+    },
     "devDependencies": {
         "@types/swagger-ui": "workspace:."
     },
     "owners": [
-        {
-            "name": "Julian Pfeil",
-            "githubUsername": "juarrow"
-        },
         {
             "name": "Piotr Błażejewicz",
             "githubUsername": "peterblazejewicz"

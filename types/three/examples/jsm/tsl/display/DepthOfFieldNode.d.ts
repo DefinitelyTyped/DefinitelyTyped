@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class DepthOfFieldNode extends TempNode {
@@ -15,9 +15,9 @@ declare class DepthOfFieldNode extends TempNode {
 export default DepthOfFieldNode;
 
 export const dof: (
-    node: NodeRepresentation,
-    viewZNode: NodeRepresentation,
-    focus?: NodeRepresentation,
-    aperture?: NodeRepresentation,
-    maxblur?: NodeRepresentation,
+    node: Node,
+    viewZNode: Node,
+    focus?: Node,
+    aperture?: Node,
+    maxblur?: Node,
 ) => ShaderNodeObject<DepthOfFieldNode>;

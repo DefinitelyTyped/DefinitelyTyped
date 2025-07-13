@@ -147,7 +147,7 @@ declare namespace pica {
          * Pica already knows how to use multiple cores (if browser allows).
          */
         resize(
-            from: HTMLCanvasElement | HTMLImageElement | ImageBitmap | File | Blob,
+            from: HTMLCanvasElement | HTMLImageElement | ImageBitmap,
             to: HTMLCanvasElement,
             options?: PicaResizeOptions,
         ): Promise<HTMLCanvasElement>;

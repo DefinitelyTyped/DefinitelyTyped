@@ -1,11 +1,12 @@
 {
     "private": true,
     "name": "@types/nginstack__devops",
-    "version": "71.0.9999",
+    "version": "72.0.9999",
     "projects": [
         "https://dev.azure.com/nginstack/nginstack"
     ],
     "dependencies": {
+        "@types/nginstack__datasource": "*",
         "@types/nginstack__engine": "*",
         "@types/nginstack__jsunit": "*",
         "@types/nginstack__web-framework": "*"

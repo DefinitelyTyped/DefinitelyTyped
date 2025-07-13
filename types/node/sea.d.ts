@@ -111,7 +111,7 @@
  * ```
  * @since v19.7.0, v18.16.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v22.x/src/node_sea.cc)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/src/node_sea.cc)
  */
 declare module "node:sea" {
     type AssetKey = string;
@@ -149,5 +149,5 @@ declare module "node:sea" {
      * writes to the returned array buffer is likely to result in a crash.
      * @since v20.12.0
      */
-    function getRawAsset(key: AssetKey): string | ArrayBuffer;
+    function getRawAsset(key: AssetKey): ArrayBuffer;
 }

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/readme-filename": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Manuel Thalmann",
-            "githubUsername": "manuth"
-        }
-    ]
+    "owners": []
 }

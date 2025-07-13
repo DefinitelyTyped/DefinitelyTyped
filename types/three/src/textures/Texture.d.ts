@@ -1,6 +1,7 @@
 import {
     AnyMapping,
     AnyPixelFormat,
+    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -10,11 +11,38 @@ import {
     Wrapping,
 } from "../constants.js";
 import { EventDispatcher } from "../core/EventDispatcher.js";
+import { RenderTarget } from "../core/RenderTarget.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
 import { CompressedTextureMipmap } from "./CompressedTexture.js";
 import { CubeTexture } from "./CubeTexture.js";
 import { Source } from "./Source.js";
+
+// NOTE: DOM upload fields are not implemented where parameters are accepted.
+export interface TextureParameters {
+    mapping?: AnyMapping | undefined;
+    // image?: TexImageSource | OffscreenCanvas | undefined;
+    // channel?: number | undefined;
+
+    wrapS?: Wrapping | undefined;
+    wrapT?: Wrapping | undefined;
+    wrapR?: Wrapping | undefined;
+
+    format?: PixelFormat | undefined;
+    internalFormat?: PixelFormatGPU | null | undefined;
+    type?: TextureDataType | undefined;
+    colorSpace?: ColorSpace | undefined;
+
+    magFilter?: MagnificationTextureFilter | undefined;
+    minFilter?: MinificationTextureFilter | undefined;
+    anisotropy?: number | undefined;
+
+    flipY?: boolean | undefined;
+
+    generateMipmaps?: boolean | undefined;
+    // premultiplyAlpha?: boolean | undefined;
+    // unpackAlignment?: number | undefined;
+}
 
 export interface TextureJSON {
     metadata: { version: number; type: string; generator: string };
@@ -98,7 +126,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: string,
+        colorSpace?: ColorSpace,
     );
 
     /**
@@ -149,6 +177,21 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * but with different {@link Texture} transformations.
      */
     source: Source;
+
+    /**
+     * The width of the texture in pixels.
+     */
+    get width(): number;
+
+    /**
+     * The height of the texture in pixels.
+     */
+    get height(): number;
+
+    /**
+     * The depth of the texture in pixels.
+     */
+    get depth(): number;
 
     /**
      * An image object, typically created using the {@link THREE.TextureLoader.load | TextureLoader.load()} method.
@@ -377,11 +420,24 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     isRenderTargetTexture: boolean;
 
     /**
+     * Indicates if a texture should be handled like a texture array.
+     *
+     * @default false
+     */
+    isArrayTexture: boolean;
+
+    /**
      * An object that can be used to store custom data about the texture.
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
     userData: Record<string, any>;
+
+    /**
+     * This can be used to only update a subregion or specific rows of the texture (for example, just the
+     * first 3 rows). Use the `addUpdateRange()` function to add ranges to this array.
+     */
+    updateRanges: Array<{ start: number; count: number }>;
 
     /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.
@@ -426,10 +482,12 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      */
     static DEFAULT_MAPPING: Mapping;
 
+    renderTarget: RenderTarget | null;
+
     /**
      * A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_.
      */
-    onUpdate: () => void;
+    onUpdate: ((texture: Texture) => void) | null;
 
     /**
      * Transform the **UV** based on the value of this texture's
@@ -452,15 +510,31 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     updateMatrix(): void;
 
     /**
-     * Make copy of the texture
-     * @remarks Note this is not a **"deep copy"**, the image is shared
-     * @remarks
-     * Besides, cloning a texture does not automatically mark it for a texture upload
-     * You have to set {@link needsUpdate | .needsUpdate} to `true` as soon as it's image property (the data source) is fully loaded or ready.
+     * Adds a range of data in the data texture to be updated on the GPU.
+     *
+     * @param {number} start - Position at which to start update.
+     * @param {number} count - The number of components to update.
+     */
+    addUpdateRange(start: number, count: number): void;
+
+    /**
+     * Clears the update ranges.
+     */
+    clearUpdateRanges(): void;
+
+    /**
+     * Make copy of the texture. Note this is not a "deep copy", the image is shared. Cloning the texture automatically
+     * marks it for texture upload.
      */
     clone(): this;
 
     copy(source: Texture): this;
+
+    /**
+     * Sets this texture's properties based on `values`.
+     * @param values - A container with texture parameters.
+     */
+    setValues(values: TextureParameters): void;
 
     /**
      * Convert the texture to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.

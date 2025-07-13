@@ -1,6 +1,7 @@
 import type {
     ComponentClass,
     ComponentType,
+    createElement,
     CSSProperties,
     FocusEventHandler,
     FunctionComponent,
@@ -1257,6 +1258,10 @@ export function useWindowDimensions(): {
     scale: number;
     width: number;
 };
+
+// unstable APIs
+
+export const unstable_createElement: typeof createElement;
 
 export {};
 

@@ -1,4 +1,4 @@
-import { Color, FindColorByMode, Mode } from "./common";
+import { Color, FindColorByMode, Mode } from "./common.js";
 
 export interface ConvertFn<M extends Mode = "rgb"> {
     (color: undefined, target_mode?: M): undefined;

@@ -17,7 +17,7 @@ export default class CustomData {
     /**
      * @param {Number} value value of the order Eg: 123.45
      * @param {String} currency currency involved in the transaction Eg: usd
-     * @param {Array<Content>} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {Content[]} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} order_id Unique id representing the order
      * @param {String} status Status of order
      * @param {String} shipping_contact Shipping contact information. User {UserData} class to define a contact.
@@ -26,7 +26,7 @@ export default class CustomData {
      * @param {String} original_order_id Original order id for refund. For Refund event only.
      * @param {String} message Reason for refund. For Refund event only.
      */
-    constructor(value: number, currency: string, contents: Content[], order_id: string, status: string, shipping_contact: UserData, billing_contact: UserData, external_order_id: string, original_order_id: string, message: string);
+    constructor(value?: number, currency?: string, contents?: Content[], order_id?: string, status?: string, shipping_contact?: UserData, billing_contact?: UserData, external_order_id?: string, original_order_id?: string, message?: string);
     /**
      * Gets the total value of the order.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -77,7 +77,7 @@ export default class CustomData {
     set contents(contents: Content[]);
     /**
      * Sets the contents for the custom data.
-     * @param { Array< Content >} contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
+     * @param { Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
     setContents(contents: Content[]): CustomData;

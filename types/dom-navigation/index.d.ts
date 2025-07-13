@@ -67,7 +67,7 @@ interface NavigationHistoryEntryEventMap {
     dispose: Event;
 }
 
-declare class NavigationHistoryEntry extends EventTarget {
+interface NavigationHistoryEntry extends EventTarget {
     readonly key: string;
     readonly id: string;
     readonly url: string | null;
@@ -99,6 +99,11 @@ declare class NavigationHistoryEntry extends EventTarget {
         options?: boolean | EventListenerOptions,
     ): void;
 }
+
+declare var NavigationHistoryEntry: {
+    prototype: NavigationHistoryEntry;
+    new(): NavigationHistoryEntry;
+};
 
 type NavigationTypeString = "reload" | "push" | "replace" | "traverse";
 

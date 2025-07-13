@@ -88,10 +88,8 @@ declare namespace GoogleAppsScript {
             clear(): Body;
             copy(): Body;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -116,13 +114,10 @@ declare namespace GoogleAppsScript {
             insertImage(childIndex: Integer, image: InlineImage): InlineImage;
             insertListItem(childIndex: Integer, listItem: ListItem): ListItem;
             insertListItem(childIndex: Integer, text: string): ListItem;
-            insertPageBreak(childIndex: Integer): PageBreak;
-            insertPageBreak(childIndex: Integer, pageBreak: PageBreak): PageBreak;
+            insertPageBreak(childIndex: Integer, pageBreak?: PageBreak | null): PageBreak;
             insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
             insertParagraph(childIndex: Integer, text: string): Paragraph;
-            insertTable(childIndex: Integer): Table;
-            insertTable(childIndex: Integer, cells: string[][]): Table;
-            insertTable(childIndex: Integer, table: Table): Table;
+            insertTable(childIndex: Integer, cellsOrTable?: string[][] | Table | null): Table;
             removeChild(child: Element): Body;
             replaceText(searchPattern: string, replacement: string): Element;
             setAttributes(attributes: any): Body;
@@ -175,10 +170,8 @@ declare namespace GoogleAppsScript {
             clear(): ContainerElement;
             copy(): ContainerElement;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -238,6 +231,7 @@ declare namespace GoogleAppsScript {
             addViewer(emailAddress: string): Document;
             addViewer(user: Base.User): Document;
             addViewers(emailAddresses: string[]): Document;
+            getActiveTab(): Tab;
             getAs(contentType: string): Base.Blob;
             getBlob(): Base.Blob;
             getBody(): Body;
@@ -252,10 +246,11 @@ declare namespace GoogleAppsScript {
             getLanguage(): string;
             getName(): string;
             getNamedRangeById(id: string): NamedRange;
-            getNamedRanges(): NamedRange[];
-            getNamedRanges(name: string): NamedRange[];
+            getNamedRanges(name?: string | null): NamedRange[];
             getSelection(): Range;
             getSupportedLanguageCodes(): string[];
+            getTab(tabId: string): Tab;
+            getTabs(): Tab[];
             getUrl(): string;
             getViewers(): Base.User[];
             newPosition(element: Element, offset: Integer): Position;
@@ -265,6 +260,7 @@ declare namespace GoogleAppsScript {
             removeViewer(emailAddress: string): Document;
             removeViewer(user: Base.User): Document;
             saveAndClose(): void;
+            setActiveTab(tabId: string): void;
             setCursor(position: Position): Document;
             setLanguage(languageCode: string): Document;
             setName(name: string): Document;
@@ -431,10 +427,8 @@ declare namespace GoogleAppsScript {
             clear(): Equation;
             copy(): Equation;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -462,10 +456,8 @@ declare namespace GoogleAppsScript {
             clear(): EquationFunction;
             copy(): EquationFunction;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -592,16 +584,12 @@ declare namespace GoogleAppsScript {
             appendListItem(text: string): ListItem;
             appendParagraph(paragraph: Paragraph): Paragraph;
             appendParagraph(text: string): Paragraph;
-            appendTable(): Table;
-            appendTable(cells: string[][]): Table;
-            appendTable(table: Table): Table;
+            appendTable(cellsOrTable?: string[][] | Table | null): Table;
             clear(): FooterSection;
             copy(): FooterSection;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -621,9 +609,7 @@ declare namespace GoogleAppsScript {
             insertListItem(childIndex: Integer, text: string): ListItem;
             insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
             insertParagraph(childIndex: Integer, text: string): Paragraph;
-            insertTable(childIndex: Integer): Table;
-            insertTable(childIndex: Integer, cells: string[][]): Table;
-            insertTable(childIndex: Integer, table: Table): Table;
+            insertTable(childIndex: Integer, cellsOrTable?: string[][] | Table | null): Table;
             removeChild(child: Element): FooterSection;
             removeFromParent(): FooterSection;
             replaceText(searchPattern: string, replacement: string): Element;
@@ -667,10 +653,8 @@ declare namespace GoogleAppsScript {
             clear(): FootnoteSection;
             copy(): FootnoteSection;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -732,16 +716,12 @@ declare namespace GoogleAppsScript {
             appendListItem(text: string): ListItem;
             appendParagraph(paragraph: Paragraph): Paragraph;
             appendParagraph(text: string): Paragraph;
-            appendTable(): Table;
-            appendTable(cells: string[][]): Table;
-            appendTable(table: Table): Table;
+            appendTable(cellsOrTable?: string[][] | Table | null): Table;
             clear(): HeaderSection;
             copy(): HeaderSection;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -761,9 +741,7 @@ declare namespace GoogleAppsScript {
             insertListItem(childIndex: Integer, text: string): ListItem;
             insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
             insertParagraph(childIndex: Integer, text: string): Paragraph;
-            insertTable(childIndex: Integer): Table;
-            insertTable(childIndex: Integer, cells: string[][]): Table;
-            insertTable(childIndex: Integer, table: Table): Table;
+            insertTable(childIndex: Integer, cellsOrTable?: string[][] | Table | null): Table;
             removeChild(child: Element): HeaderSection;
             removeFromParent(): HeaderSection;
             replaceText(searchPattern: string, replacement: string): Element;
@@ -909,17 +887,14 @@ declare namespace GoogleAppsScript {
             appendHorizontalRule(): HorizontalRule;
             appendInlineImage(image: Base.BlobSource): InlineImage;
             appendInlineImage(image: InlineImage): InlineImage;
-            appendPageBreak(): PageBreak;
-            appendPageBreak(pageBreak: PageBreak): PageBreak;
+            appendPageBreak(pageBreak?: PageBreak | null): PageBreak;
             appendText(text: string): Text;
             appendText(text: Text): Text;
             clear(): ListItem;
             copy(): ListItem;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAlignment(): HorizontalAlignment;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
@@ -947,8 +922,7 @@ declare namespace GoogleAppsScript {
             insertHorizontalRule(childIndex: Integer): HorizontalRule;
             insertInlineImage(childIndex: Integer, image: Base.BlobSource): InlineImage;
             insertInlineImage(childIndex: Integer, image: InlineImage): InlineImage;
-            insertPageBreak(childIndex: Integer): PageBreak;
-            insertPageBreak(childIndex: Integer, pageBreak: PageBreak): PageBreak;
+            insertPageBreak(childIndex: Integer, pageBreak?: PageBreak | null): PageBreak;
             insertText(childIndex: Integer, text: string): Text;
             insertText(childIndex: Integer, text: Text): Text;
             isAtDocumentEnd(): boolean;
@@ -1041,17 +1015,14 @@ declare namespace GoogleAppsScript {
             appendHorizontalRule(): HorizontalRule;
             appendInlineImage(image: Base.BlobSource): InlineImage;
             appendInlineImage(image: InlineImage): InlineImage;
-            appendPageBreak(): PageBreak;
-            appendPageBreak(pageBreak: PageBreak): PageBreak;
+            appendPageBreak(pageBreak?: PageBreak | null): PageBreak;
             appendText(text: string): Text;
             appendText(text: Text): Text;
             clear(): Paragraph;
             copy(): Paragraph;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAlignment(): HorizontalAlignment;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
@@ -1076,8 +1047,7 @@ declare namespace GoogleAppsScript {
             insertHorizontalRule(childIndex: Integer): HorizontalRule;
             insertInlineImage(childIndex: Integer, image: Base.BlobSource): InlineImage;
             insertInlineImage(childIndex: Integer, image: InlineImage): InlineImage;
-            insertPageBreak(childIndex: Integer): PageBreak;
-            insertPageBreak(childIndex: Integer, pageBreak: PageBreak): PageBreak;
+            insertPageBreak(childIndex: Integer, pageBreak?: PageBreak | null): PageBreak;
             insertText(childIndex: Integer, text: string): Text;
             insertText(childIndex: Integer, text: Text): Text;
             isAtDocumentEnd(): boolean;
@@ -1336,10 +1306,8 @@ declare namespace GoogleAppsScript {
             clear(): Table;
             copy(): Table;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getBorderColor(): string;
             getBorderWidth(): number;
@@ -1357,8 +1325,7 @@ declare namespace GoogleAppsScript {
             getText(): string;
             getTextAlignment(): TextAlignment;
             getType(): ElementType;
-            insertTableRow(childIndex: Integer): TableRow;
-            insertTableRow(childIndex: Integer, tableRow: TableRow): TableRow;
+            insertTableRow(childIndex: Integer, tableRow?: TableRow | null): TableRow;
             isAtDocumentEnd(): boolean;
             removeChild(child: Element): Table;
             removeFromParent(): Table;
@@ -1383,16 +1350,12 @@ declare namespace GoogleAppsScript {
             appendListItem(text: string): ListItem;
             appendParagraph(paragraph: Paragraph): Paragraph;
             appendParagraph(text: string): Paragraph;
-            appendTable(): Table;
-            appendTable(cells: string[][]): Table;
-            appendTable(table: Table): Table;
+            appendTable(cellsOrTable?: string[][] | Table | null): Table;
             clear(): TableCell;
             copy(): TableCell;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getBackgroundColor(): string;
             getChild(childIndex: Integer): Element;
@@ -1422,9 +1385,7 @@ declare namespace GoogleAppsScript {
             insertListItem(childIndex: Integer, text: string): ListItem;
             insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
             insertParagraph(childIndex: Integer, text: string): Paragraph;
-            insertTable(childIndex: Integer): Table;
-            insertTable(childIndex: Integer, cells: string[][]): Table;
-            insertTable(childIndex: Integer, table: Table): Table;
+            insertTable(childIndex: Integer, cellsOrTable?: string[][] | Table | null): Table;
             isAtDocumentEnd(): boolean;
             merge(): TableCell;
             removeChild(child: Element): TableCell;
@@ -1451,10 +1412,8 @@ declare namespace GoogleAppsScript {
             clear(): TableOfContents;
             copy(): TableOfContents;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getChild(childIndex: Integer): Element;
             getChildIndex(child: Element): Integer;
@@ -1479,16 +1438,12 @@ declare namespace GoogleAppsScript {
          * Google Docs.
          */
         interface TableRow extends Element {
-            appendTableCell(): TableCell;
-            appendTableCell(textContents: string): TableCell;
-            appendTableCell(tableCell: TableCell): TableCell;
+            appendTableCell(textContentsOrCell?: string | TableCell | null): TableCell;
             clear(): TableRow;
             copy(): TableRow;
             editAsText(): Text;
-            findElement(elementType: ElementType): RangeElement;
-            findElement(elementType: ElementType, from: RangeElement): RangeElement;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
+            findElement(elementType: ElementType, from?: RangeElement | null): RangeElement;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
             getAttributes(): any;
             getCell(cellIndex: Integer): TableCell;
             getChild(childIndex: Integer): Element;
@@ -1504,9 +1459,7 @@ declare namespace GoogleAppsScript {
             getText(): string;
             getTextAlignment(): TextAlignment;
             getType(): ElementType;
-            insertTableCell(childIndex: Integer): TableCell;
-            insertTableCell(childIndex: Integer, textContents: string): TableCell;
-            insertTableCell(childIndex: Integer, tableCell: TableCell): TableCell;
+            insertTableCell(childIndex: Integer, textContentsOrCell?: string | TableCell | null): TableCell;
             isAtDocumentEnd(): boolean;
             merge(): TableRow;
             removeCell(cellIndex: Integer): TableCell;
@@ -1544,38 +1497,26 @@ declare namespace GoogleAppsScript {
             copy(): Text;
             deleteText(startOffset: Integer, endOffsetInclusive: Integer): Text;
             editAsText(): Text;
-            findText(searchPattern: string): RangeElement;
-            findText(searchPattern: string, from: RangeElement): RangeElement;
-            getAttributes(): any;
-            getAttributes(offset: Integer): any;
-            getBackgroundColor(): string;
-            getBackgroundColor(offset: Integer): string;
-            getFontFamily(): string;
-            getFontFamily(offset: Integer): string;
-            getFontSize(): Integer;
-            getFontSize(offset: Integer): Integer;
-            getForegroundColor(): string;
-            getForegroundColor(offset: Integer): string;
-            getLinkUrl(): string;
-            getLinkUrl(offset: Integer): string;
+            findText(searchPattern: string, from?: RangeElement | null): RangeElement;
+            getAttributes(offset?: Integer | null): any;
+            getBackgroundColor(offset?: Integer | null): string;
+            getFontFamily(offset?: Integer | null): string;
+            getFontSize(offset?: Integer | null): Integer;
+            getForegroundColor(offset?: Integer | null): string;
+            getLinkUrl(offset?: Integer | null): string;
             getNextSibling(): Element;
             getParent(): ContainerElement;
             getPreviousSibling(): Element;
             getText(): string;
-            getTextAlignment(): TextAlignment;
-            getTextAlignment(offset: Integer): TextAlignment;
+            getTextAlignment(offset?: Integer | null): TextAlignment;
             getTextAttributeIndices(): Integer[];
             getType(): ElementType;
             insertText(offset: Integer, text: string): Text;
             isAtDocumentEnd(): boolean;
-            isBold(): boolean;
-            isBold(offset: Integer): boolean;
-            isItalic(): boolean;
-            isItalic(offset: Integer): boolean;
-            isStrikethrough(): boolean;
-            isStrikethrough(offset: Integer): boolean;
-            isUnderline(): boolean;
-            isUnderline(offset: Integer): boolean;
+            isBold(offset?: Integer | null): boolean;
+            isItalic(offset?: Integer | null): boolean;
+            isStrikethrough(offset?: Integer | null): boolean;
+            isUnderline(offset?: Integer | null): boolean;
             merge(): Text;
             removeFromParent(): Text;
             replaceText(searchPattern: string, replacement: string): Element;
@@ -1654,6 +1595,73 @@ declare namespace GoogleAppsScript {
             BOTTOM,
             CENTER,
             TOP,
+        }
+
+        /**
+         * A tab within a Google Docs document.
+         *
+         *     // Get all of the first-level tabs (tabs that are not nested within a parent
+         *     // tab) in the document.
+         *     const tabs = DocumentApp.openById('123abc').getTabs();
+         *
+         *     // Get a specific tab based on the tab ID.
+         *     const tab = DocumentApp.openById('123abc').getTab('123abc');
+         *
+         *     // Get current tab of current document
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab();
+         */
+        interface Tab {
+            asDocumentTab(): DocumentTab;
+            getChildTabs(): Tab[];
+            getId(): string;
+            getIndex(): number;
+            getTitle(): string;
+            getType(): TabType;
+        }
+
+        /**
+         * A document tab, containing rich text and elements such as tables and lists.
+         *
+         * Retrieve a document tab using Document.getTabs()[tabIndex].asDocumentTab().
+         *
+         *     // Get the current document tab of the active tab in the active document
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab().asDocumentTab();
+         */
+        interface DocumentTab {
+            addBookmark(position: Position): Bookmark;
+            addFooter(): FooterSection;
+            addHeader(): HeaderSection;
+            addNamedRange(name: string, range: Range): NamedRange;
+            getBody(): Body;
+            getBookmark(id: string): Bookmark;
+            getBookmarks(): Bookmark[];
+            getFooter(): FooterSection;
+            getFootnotes(): Footnote[];
+            getHeader(): HeaderSection;
+            getNamedRangeById(id: string): NamedRange;
+            getNamedRanges(name?: string | null): NamedRange[];
+            newPosition(element: Element, offset: Integer): Position;
+            newRange(): RangeBuilder;
+        }
+
+        /**
+         * An enumeration of all the tab types.
+         *
+         * To call an enum, you call its parent class, name, and property. For example, DocumentApp.TabType.TAB.
+         *
+         * Use the TabType enumeration to check the type of a given element, for instance:
+         *
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab();
+         *     // Use getType() to determine the tab's type before casting.
+         *     if (tab.getType() === DocumentApp.TabType.DOCUMENT_TAB) {
+         *       // It's a document tab, write some text to it.
+         *       tab.asDocumentTab().setText('Hello World!');
+         *     } else {
+         *       // There are currently no types other than DOCUMENT_TAB.
+         *     }
+         */
+        enum TabType {
+            DOCUMENT_TAB,
         }
     }
 }

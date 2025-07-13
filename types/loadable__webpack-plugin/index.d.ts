@@ -1,28 +1,38 @@
 import * as webpack from "webpack";
 
-interface PluginOptions {
-    /**
-     * The stats filename.
-     *
-     * @default loadable-stats.json
-     */
-    filename?: string | undefined;
+declare namespace LoadablePlugin {
+    interface PluginOptions {
+        /**
+         * The stats filename.
+         *
+         * @default loadable-stats.json
+         */
+        filename?: string | undefined;
 
-    /**
-     * Always write stats file to disk.
-     *
-     * @default false
-     */
-    writeToDisk?: boolean | { filename: string } | undefined;
+        /**
+         * Always write stats file to disk.
+         *
+         * @default false
+         */
+        writeToDisk?:
+            | boolean
+            | {
+                /** Write assets to disk at given `filename` location */
+                filename: string;
+            }
+            | undefined;
 
-    /**
-     * @default true
-     */
-    outputAsset?: boolean | undefined;
+        /**
+         * Always write stats file to the `output.path` directory.
+         *
+         * @default true
+         */
+        outputAsset?: boolean | undefined;
+    }
 }
 
 declare class LoadablePlugin extends webpack.Plugin {
-    constructor(options?: PluginOptions);
+    constructor(options?: LoadablePlugin.PluginOptions);
 }
 
-export default LoadablePlugin;
+export = LoadablePlugin;

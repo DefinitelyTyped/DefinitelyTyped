@@ -75,6 +75,16 @@ declare namespace CustomFunctions {
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         parameterAddresses?: string[];
+
+        /**
+         * Indicates whether the function is invoked as part of the formula value preview.
+         * `isInValuePreview` is read-only and can't be set by a custom functions add-in.
+         * This value is `true` if the function is invoked to preview the formula value; otherwise it is `false`.
+         * 
+         * @remarks
+         * [Api set: CustomFunctionsRuntime 1.5]
+         */
+        isInValuePreview?: string;
     }
 
     /**

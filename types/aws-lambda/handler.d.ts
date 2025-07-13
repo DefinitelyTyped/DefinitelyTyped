@@ -1,3 +1,4 @@
+import type { Writable } from "node:stream";
 /**
  * The interface that AWS Lambda will invoke your handler with.
  * There are more specialized types for many cases where AWS services
@@ -170,3 +171,97 @@ export interface ClientContextEnv {
  *   Pass `null` or `undefined` for the `error` parameter to use this parameter.
  */
 export type Callback<TResult = any> = (error?: Error | string | null, result?: TResult) => void;
+
+/**
+ * Interface for using response streaming from AWS Lambda.
+ * To indicate to the runtime that Lambda should stream your function’s responses, you must wrap your function handler with the `awslambda.streamifyResponse()` decorator.
+ *
+ * The `streamifyResponse` decorator accepts the following additional parameter, `responseStream`, besides the default node handler parameters, `event`, and `context`.
+ * The new `responseStream` object provides a stream object that your function can write data to. Data written to this stream is sent immediately to the client. You can optionally set the Content-Type header of the response to pass additional metadata to your client about the contents of the stream.
+ *
+ * {@link https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/ AWS blog post}
+ * {@link https://docs.aws.amazon.com/lambda/latest/dg/config-rs-write-functions.html AWS documentation}
+ *
+ * @example <caption>Writing to the response stream</caption>
+ * import 'aws-lambda';
+ *
+ * export const handler = awslambda.streamifyResponse(
+ *   async (event, responseStream, context) => {
+ *       responseStream.setContentType("text/plain");
+ *       responseStream.write("Hello, world!");
+ *       responseStream.end();
+ *   }
+ * );
+ *
+ * @example <caption>Using pipeline</caption>
+ * import 'aws-lambda';
+ * import { Readable } from 'stream';
+ * import { pipeline } from 'stream/promises';
+ * import zlib from 'zlib';
+ *
+ * export const handler = awslambda.streamifyResponse(
+ *   async (event, responseStream, context) => {
+ *     // As an example, convert event to a readable stream.
+ *     const requestStream = Readable.from(Buffer.from(JSON.stringify(event)));
+ *
+ *     await pipeline(requestStream, zlib.createGzip(), responseStream);
+ *   }
+ * );
+ */
+export type StreamifyHandler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    responseStream: awslambda.HttpResponseStream,
+    context: Context,
+) => TResult | Promise<TResult>;
+
+declare global {
+    namespace awslambda {
+        class HttpResponseStream extends Writable {
+            static from(
+                writable: Writable,
+                metadata: Record<string, unknown>,
+            ): HttpResponseStream;
+            setContentType: (contentType: string) => void;
+        }
+
+        /**
+         * Decorator for using response streaming from AWS Lambda.
+         * To indicate to the runtime that Lambda should stream your function’s responses, you must wrap your function handler with the `awslambda.streamifyResponse()` decorator.
+         *
+         * The `streamifyResponse` decorator accepts the following additional parameter, `responseStream`, besides the default node handler parameters, `event`, and `context`.
+         * The new `responseStream` object provides a stream object that your function can write data to. Data written to this stream is sent immediately to the client. You can optionally set the Content-Type header of the response to pass additional metadata to your client about the contents of the stream.
+         *
+         * {@link https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/ AWS blog post}
+         * {@link https://docs.aws.amazon.com/lambda/latest/dg/config-rs-write-functions.html AWS documentation}
+         *
+         * @example <caption>Writing to the response stream</caption>
+         * import 'aws-lambda';
+         *
+         * export const handler = awslambda.streamifyResponse(
+         *   async (event, responseStream, context) => {
+         *       responseStream.setContentType("text/plain");
+         *       responseStream.write("Hello, world!");
+         *       responseStream.end();
+         *   }
+         * );
+         *
+         * @example <caption>Using pipeline</caption>
+         * import 'aws-lambda';
+         * import { Readable } from 'stream';
+         * import { pipeline } from 'stream/promises';
+         * import zlib from 'zlib';
+         *
+         * export const handler = awslambda.streamifyResponse(
+         *   async (event, responseStream, context) => {
+         *     // As an example, convert event to a readable stream.
+         *     const requestStream = Readable.from(Buffer.from(JSON.stringify(event)));
+         *
+         *     await pipeline(requestStream, zlib.createGzip(), responseStream);
+         *   }
+         * );
+         */
+        function streamifyResponse<TEvent = any, TResult = void>(
+            handler: StreamifyHandler<TEvent, TResult>,
+        ): StreamifyHandler<TEvent, TResult>;
+    }
+}

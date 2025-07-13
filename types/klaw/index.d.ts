@@ -4,6 +4,15 @@ declare module "klaw" {
     import * as fs from "fs";
     import { Readable, ReadableOptions } from "stream";
 
+    // forward-compatible iterator type for TS <5.6
+    global {
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface AsyncIteratorObject<T, TReturn, TNext> {}
+    }
+    interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObject<T, any, any> {
+        [Symbol.asyncIterator](): StreamIterator<T>;
+    }
+
     function K(root: string, options?: K.Options): K.Walker;
 
     namespace K {
@@ -33,7 +42,7 @@ declare module "klaw" {
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
             read(): Item;
-            [Symbol.asyncIterator](): AsyncIterableIterator<Item>;
+            [Symbol.asyncIterator](): StreamIterator<Item>;
         }
     }
 

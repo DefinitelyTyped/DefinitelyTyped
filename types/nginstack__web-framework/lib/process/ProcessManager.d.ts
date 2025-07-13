@@ -6,16 +6,15 @@ declare class ProcessManager {
     iVfs: DataSet;
     iClass: DataSet;
     publishedFileIds: {};
-    processList: {};
-    onBeforeRun: Event;
-    onAfterRun: Event;
+    processesById_: Record<string, Process>;
+    onBeforeRun: import("@nginstack/engine/lib/event/Event");
+    onAfterRun: import("@nginstack/engine/lib/event/Event");
     ctrlChannel: ControlChannel;
     private environment_;
     private openedTabs_;
     ctrlSessionId: any;
     private lastUse_;
     private currentProcess_;
-    pendingTaskCounter: any;
     private lastExpiredExportedFilesPurge_;
     private inactivityTimeout_;
     private inactiveSessionHandling_;
@@ -31,8 +30,6 @@ declare class ProcessManager {
     private handleHit;
     private isScreenLocked;
     private setEvaluateCode;
-    private _justToGroupEvaluator;
-    private isENativeError;
     private isEAbort;
     private errorTreatment;
     private getDefaultProcessKeyOfClass;
@@ -42,8 +39,8 @@ declare class ProcessManager {
     private getParameterFromRequestObject;
     private createProcess;
     getProcessById(id: string): Process;
+    findProcess(id: string): Process;
     private getEntityShortcuts;
-    private getShortcutsScript;
     private runProcess;
     private updateTabInfo_;
     private getTabIcon;
@@ -54,8 +51,8 @@ declare class ProcessManager {
     private emitBeforeExitEvent_;
     private handleCloseTabCall;
     private finalize;
-    private handleUpdateTaskCounter;
-    private handleExecuteAnchor;
+    private handleExecuteLink;
+    private handleExecuteButton;
     private handleHistoryNavigation;
     private handleRefreshTabCall;
     private handleRunInteractionRequest;
@@ -73,12 +70,12 @@ declare class ProcessManager {
 declare namespace ProcessManager {
     export { Controller, DataSet, Event, getInstance, parseLayoutLinkContent, SessionTimeoutsInfo, TabInfo };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type Event = import("@nginstack/engine/lib/event/Event");
-import ControlChannel = require("../ifp/ControlChannel.js");
 import Process = require("./Process.js");
+import ControlChannel = require("../ifp/ControlChannel.js");
 declare function getInstance(): ProcessManager;
 declare function parseLayoutLinkContent(content: any): DBKey;
+type Event = import("@nginstack/engine/lib/event/Event");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
 type Controller = import("../messaging/Controller");
 interface TabInfo {
     processIds: string[];

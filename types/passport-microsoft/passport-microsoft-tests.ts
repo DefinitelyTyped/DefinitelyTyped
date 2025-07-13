@@ -11,6 +11,8 @@ const User = {
 passport.use(
     new MicrosoftStrategy(
         {
+            apiEntryPoint: "https://graph.microsoft.us",
+            graphApiVersion: "beta",
             tenant: "thisIsMyTenant",
             clientID: "thisIsMyClientId",
             clientSecret: "thisIsMyClientSecret",

@@ -1,6 +1,7 @@
 import {
     AsyncLocalStorage,
     AsyncResource,
+    asyncWrapProviders,
     createHook,
     executionAsyncId,
     executionAsyncResource,
@@ -97,4 +98,21 @@ import {
     const result = asyncLocalStorage.run(321, () => { // $ExpectType number | undefined
         return runInAsyncScope(() => asyncLocalStorage.getStore());
     });
+}
+
+{
+    // $ExpectType number
+    asyncWrapProviders.NONE;
+    // $ExpectType number
+    asyncWrapProviders.DIRHANDLE;
+
+    // $ExpectType number
+    asyncWrapProviders.TLSWRAP;
+    // $ExpectType number
+    asyncWrapProviders.VERIFYREQUEST;
+
+    // @ts-expect-error - Cannot assign to asyncWrapProviders.NONE
+    asyncWrapProviders.NONE = 1;
+    // @ts-expect-error - Cannot assign to asyncWrapProviders['...']
+    asyncWrapProviders.foo = 1;
 }

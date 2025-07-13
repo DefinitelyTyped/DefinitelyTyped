@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode, Vector2 } from "three/webgpu";
 
 declare class GaussianBlurNode extends TempNode {
@@ -24,12 +24,12 @@ declare class GaussianBlurNode extends TempNode {
 export default GaussianBlurNode;
 
 export const gaussianBlur: (
-    node: NodeRepresentation,
-    directionNode?: NodeRepresentation | null,
+    node: Node,
+    directionNode?: Node | number | null,
     sigma?: number,
 ) => ShaderNodeObject<GaussianBlurNode>;
 export const premultipliedGaussianBlur: (
-    node: NodeRepresentation,
-    directionNode?: NodeRepresentation | null,
+    node: Node,
+    directionNode?: Node | number | null,
     sigma?: number,
 ) => ShaderNodeObject<GaussianBlurNode>;

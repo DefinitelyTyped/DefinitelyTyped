@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Skip link component
  */
-export class SkipLink extends GOVUKFrontendComponent<HTMLAnchorElement> {
+export class SkipLink extends Component<HTMLAnchorElement> {
     static elementType: {
         new(): HTMLAnchorElement;
         prototype: HTMLAnchorElement;

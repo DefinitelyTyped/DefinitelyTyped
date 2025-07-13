@@ -9,12 +9,15 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         additional_data: "additional_data";
         app_product_page_id: "app_product_page_id";
         asset_customization_rules: "asset_customization_rules";
+        audios: "audios";
         autotranslate: "autotranslate";
         bodies: "bodies";
+        call_ads_configuration: "call_ads_configuration";
         call_to_action_types: "call_to_action_types";
         call_to_actions: "call_to_actions";
         captions: "captions";
         carousels: "carousels";
+        ctwa_consent_data: "ctwa_consent_data";
         descriptions: "descriptions";
         events: "events";
         groups: "groups";
@@ -61,6 +64,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         follow_user: "FOLLOW_USER";
         get_a_quote: "GET_A_QUOTE";
         get_directions: "GET_DIRECTIONS";
+        get_in_touch: "GET_IN_TOUCH";
         get_offer: "GET_OFFER";
         get_offer_view: "GET_OFFER_VIEW";
         get_promotions: "GET_PROMOTIONS";
@@ -109,8 +113,11 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         use_mobile_app: "USE_MOBILE_APP";
         video_annotation: "VIDEO_ANNOTATION";
         video_call: "VIDEO_CALL";
+        view_cart: "VIEW_CART";
+        view_channel: "VIEW_CHANNEL";
         view_product: "VIEW_PRODUCT";
         visit_pages_feed: "VISIT_PAGES_FEED";
+        watch_live_video: "WATCH_LIVE_VIDEO";
         watch_more: "WATCH_MORE";
         watch_video: "WATCH_VIDEO";
         whatsapp_message: "WHATSAPP_MESSAGE";

@@ -1,6 +1,8 @@
-import UserData from "./user-data";
-import CustomData from "./custom-data";
 import AppData from "./app-data";
+import AttributionData from "./attribution-data";
+import CustomData from "./custom-data";
+import OriginalEventData from "./original-event-data";
+import UserData from "./user-data";
 /**
  * ServerEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event}
@@ -21,6 +23,8 @@ export default class ServerEvent {
     _advanced_measurement_table: string;
     _advertiser_tracking_enabled: boolean;
     _messaging_channel: string;
+    _original_event_data: OriginalEventData;
+    _attribution_data: AttributionData;
     /**
      * @param {String} event_name A Facebook pixel Standard Event or Custom Event name.
      * @param {Number} event_time A Unix timestamp in seconds indicating when the actual event occurred.
@@ -30,14 +34,16 @@ export default class ServerEvent {
      * @param {Boolean} opt_out A flag that indicates we should not use this event for ads delivery optimization.
      * @param {UserData} user_data A map that contains user data. See UserData Class for options.
      * @param {CustomData} custom_data A map that contains user data. See CustomData Class for options.
-     * @param {Array<string>} data_processing_options Processing options you would like to enable for a specific event.
+     * @param {string[]} data_processing_options Processing options you would like to enable for a specific event.
      * @param {Number} data_processing_options_country A country that you want to associate to this data processing option.
      * @param {Number} data_processing_options_state A state that you want to associate with this data processing option.
      * @param {String} advanced_measurement_table Name of Advanced Measurement table. Only used for the Advanced Measurement API in the Advanced Analytics product.
      * @param {Boolean} advertiser_tracking_enabled A boolean that indicates whether the user has opted into/out of advertiser tracker on apps.
      * @param {String} messaging_channel Indicates which channel was used to send the message.
+     * @param {OriginalEventData} original_event_data Contains original event info used for attribution passback event or generalized value optimization(GVO).
+     * @param {AttributionData} attribution_data Used for attribution passback event to optimize the performance.
      */
-    constructor(event_name?: string, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string);
+    constructor(event_name?: string, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string, original_event_data?: OriginalEventData, attribution_data?: AttributionData);
     /**
      * Gets the Event Name for the current Event.
      */
@@ -179,13 +185,13 @@ export default class ServerEvent {
     get data_processing_options(): string[];
     /**
      * Sets the data_processing_options for the current event.
-     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      * @see {@link https://developers.facebook.com/docs/marketing-apis/data-processing-options}
      */
     set data_processing_options(data_processing_options: string[]);
     /**
      * Sets the data_processing_options for the current event.
-     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      * @see {@link https://developers.facebook.com/docs/marketing-apis/data-processing-options}
      */
     setDataProcessingOptions(data_processing_options: string[]): ServerEvent;
@@ -265,6 +271,34 @@ export default class ServerEvent {
      * @param {number} messaging_channel represents where the conversation occurred.
      */
     setMessagingChannel(messaging_channel: string): ServerEvent;
+    /**
+     * Gets the original_event_data for the current event.
+     */
+    get original_event_data(): OriginalEventData;
+    /**
+     * Sets the original_event_data for the current event.
+     * @param {OriginalEventData} original_event_data represents the original event info.
+     */
+    set original_event_data(original_event_data: OriginalEventData);
+    /**
+     * Sets the original_event_data for the current event.
+     * @param {OriginalEventData} original_event_data represents the original event info.
+     */
+    setOriginalEventData(original_event_data: OriginalEventData): ServerEvent;
+    /**
+     * Gets the attribution_data for the current event.
+     */
+    get attribution_data(): AttributionData;
+    /**
+     * Sets the attribution_data for the current event.
+     * @param {AttributionData} attribution_data represents the attribution data info.
+     */
+    set attribution_data(attribution_data: AttributionData);
+    /**
+     * Sets the attribution_data for the current event.
+     * @param {AttributionData} attribution_data represents the attribution data info.
+     */
+    setAttributionData(attribution_data: AttributionData): ServerEvent;
     /**
      * Returns the normalized payload for the event.
      * @returns {Object} normalized event payload.

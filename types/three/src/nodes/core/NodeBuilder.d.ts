@@ -3,7 +3,6 @@ import { Object3D } from "../../core/Object3D.js";
 import { Material } from "../../materials/Material.js";
 import Renderer from "../../renderers/common/Renderer.js";
 import { Texture } from "../../textures/Texture.js";
-import FogNode from "../fog/FogNode.js";
 import LightsNode from "../lighting/LightsNode.js";
 import { NodeShaderStage } from "./constants.js";
 import Node from "./Node.js";
@@ -41,7 +40,7 @@ export default abstract class NodeBuilder {
     hashNodes: { [hash: string]: Node };
 
     lightsNode: LightsNode;
-    fogNode: FogNode;
+    fogNode: Node;
 
     vertexShader: string;
     fragmentShader: string;

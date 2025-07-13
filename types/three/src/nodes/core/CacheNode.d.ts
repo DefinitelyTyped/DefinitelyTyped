@@ -1,4 +1,5 @@
 import { ShaderNodeObject } from "../tsl/TSLCore.js";
+import ContextNode from "./ContextNode.js";
 import Node from "./Node.js";
 import NodeCache from "./NodeCache.js";
 

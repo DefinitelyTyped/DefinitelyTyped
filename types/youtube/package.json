@@ -5,6 +5,8 @@
     "projects": [
         "https://developers.google.com/youtube/"
     ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "These types are for the YouTube IFrame Player API. See the API reference at https://developers.google.com/youtube/iframe_api_reference",
     "devDependencies": {
         "@types/youtube": "workspace:."
     },

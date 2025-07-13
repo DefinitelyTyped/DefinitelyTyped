@@ -32,6 +32,7 @@ Dialog.setup("Character Sheet", "charsheet");
 Dialog.wiki("Blah //blah// ''blah''.");
 Dialog.wiki(Story.get("PC Sheet").processText());
 Dialog.wiki(Story.get("PC Sheet").processText());
+Dialog.wikiPassage("PC Sheet");
 
 // #endregion
 

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/sandboxed-module": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Sven Reglitzki",
-            "githubUsername": "svi3c"
-        }
-    ]
+    "owners": []
 }

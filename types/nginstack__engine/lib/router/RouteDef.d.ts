@@ -15,5 +15,5 @@ declare class RouteDef {
 declare namespace RouteDef {
     export { isLike, Method };
 }
-type Method = import('../http/Method');
 declare function isLike(obj: any): boolean;
+type Method = import('../http/Method');

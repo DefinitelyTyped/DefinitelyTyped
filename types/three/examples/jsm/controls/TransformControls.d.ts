@@ -1,4 +1,4 @@
-import { Camera, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3 } from "three";
+import { Camera, ColorRepresentation, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3 } from "three";
 
 export type TransformControlsMode = "translate" | "rotate" | "scale";
 
@@ -240,6 +240,21 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
      * @param space The coordinate space in which transformations are applied.
      */
     setSpace(space: "world" | "local"): void;
+
+    /**
+     * Sets the colors of the control's gizmo.
+     *
+     * @param {number|Color|string} xAxis - The x-axis color.
+     * @param {number|Color|string} yAxis - The y-axis color.
+     * @param {number|Color|string} zAxis - The z-axis color.
+     * @param {number|Color|string} active - The color for active elements.
+     */
+    setColors(
+        xAxis: ColorRepresentation,
+        yAxis: ColorRepresentation,
+        zAxis: ColorRepresentation,
+        active: ColorRepresentation,
+    ): void;
 }
 
 declare class TransformControlsRoot extends Object3D {

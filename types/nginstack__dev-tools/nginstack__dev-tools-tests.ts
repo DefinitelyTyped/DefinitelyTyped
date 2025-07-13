@@ -4,6 +4,6 @@ QueryAnalyzer.getTxtExecutionPlan("query", { disableHeader: true }); // $ExpectT
 QueryAnalyzer.getHtmlExecutionPlan("query", { disableHeader: true }); // $ExpectType string
 
 function getVersion(): string {
-    return "71.0.205";
+    return "72.0.1";
 }
 getVersion(); // $ExpectType string

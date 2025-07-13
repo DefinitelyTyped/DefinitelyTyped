@@ -226,3 +226,9 @@ Git.Clone("repo_url", "local_path", cloneOptions).then(repoClone => {
     // Use Repo
     repoClone.cleanup();
 });
+
+// Test the Reference.TYPE enum values
+Git.Reference.TYPE.INVALID; // $ExpectType TYPE.INVALID
+Git.Reference.TYPE.DIRECT; // $ExpectType TYPE.DIRECT
+Git.Reference.TYPE.SYMBOLIC; // $ExpectType TYPE.SYMBOLIC
+Git.Reference.TYPE.ALL; // $ExpectType TYPE.ALL

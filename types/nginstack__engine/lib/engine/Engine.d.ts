@@ -30,6 +30,7 @@ declare class Engine {
     restart(delay?: number): void;
     exit(exitCode?: number, delay?: number): void;
     discardEndpointInfoCache(): void;
+    isEdgeServer(): boolean;
 }
 declare namespace Engine {
     export { ProgressMonitor, SessionManager, VersionInfo, JavaInfo };

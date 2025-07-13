@@ -61,7 +61,7 @@ vstruct.DoubleLE; // $ExpectType Codec<number>
 
 vstruct.Array(1, vstruct.String(10)); // $ExpectType Codec<string[]>
 vstruct.VarArray(vstruct.Int16BE, vstruct.Buffer(10)); // $ExpectType Codec<Buffer[]> || Codec<Buffer<ArrayBufferLike>[]>
-// $ExpectType Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer | undefined>]>> || Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer<ArrayBuffer> | undefined>]>>
+// $ExpectType Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer | undefined>]>> || Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer<ArrayBuffer> | undefined>]>> || Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer<ArrayBufferLike> | undefined>]>>
 const seq = vstruct.Sequence([vstruct.UInt32LE, vstruct.Value(vstruct.Buffer(1), Buffer.alloc(1))] as const);
 seq.encode([1, Buffer.alloc(10)]);
 seq.encode([1, undefined]);

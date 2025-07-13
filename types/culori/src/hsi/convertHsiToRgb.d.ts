@@ -1,4 +1,7 @@
-import { Rgb } from "../rgb/types";
-import { Hsi } from "./types";
+import { Rgb } from "../rgb/types.js";
+import { Hsi } from "./types.js";
 
-export default function convertHsiToRgb(color: Omit<Hsi, "mode">): Rgb;
+/** Based on: https://en.wikipedia.org/wiki/HSL_and_HSV#Converting_to_RGB */
+declare function convertHsiToRgb(color: Omit<Hsi, "mode">): Rgb;
+
+export default convertHsiToRgb;

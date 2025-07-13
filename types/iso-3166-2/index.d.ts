@@ -42,7 +42,7 @@ export function country(countryCodeOrName: string): CountryInfo | null;
 
 export const data: CountryInfo.Map;
 
-// map of alpha 3 codes to alpha 3 codes
+// map of alpha 3 codes to alpha 2 codes
 export const codes: {
     [alpha3: string]: string;
 };

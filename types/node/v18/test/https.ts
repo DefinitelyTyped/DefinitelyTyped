@@ -93,7 +93,13 @@ import * as url from "node:url";
         const maxHeadersCount: number | null = server.maxHeadersCount;
         const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;
         const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server.setTimeout().setTimeout(1000);
+        server.setTimeout((socket) => {
+            socket; // $ExpectType Socket
+        });
+        server.setTimeout(100, (socket) => {
+            socket; // $ExpectType Socket
+        });
         server.closeIdleConnections(); // $ExpectType void
         server.closeAllConnections(); // $ExpectType void
     }
@@ -299,7 +305,7 @@ import * as url from "node:url";
 {
     let server = new https.Server();
     let _socket = new tls.TLSSocket(new net.Socket());
-    let _buffer = Buffer.from("");
+    let _buffer: Buffer = Buffer.from("");
     let _err = new Error();
     let _boolean = true;
     let sessionCallback = (err: Error, resp: Buffer) => {};
@@ -450,7 +456,7 @@ import * as url from "node:url";
     let _req = new http.IncomingMessage(new net.Socket());
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
-    let _head = Buffer.from("");
+    let _head: Buffer = Buffer.from("");
     let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {

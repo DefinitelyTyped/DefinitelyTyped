@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/iframe-resizer",
-    "version": "3.5.9999",
+    "version": "4.0.9999",
     "projects": [
         "https://github.com/davidjbradshaw/iframe-resizer"
     ],
@@ -12,6 +12,10 @@
         {
             "name": "Armin Baljic",
             "githubUsername": "arminbaljic"
+        },
+        {
+            "name": "Mateusz Turcza",
+            "githubUsername": "xemlock"
         }
     ]
 }

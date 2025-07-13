@@ -51,6 +51,9 @@ pManager.addEventListener(
 );
 
 const ttManager = new cast.framework.TextTracksManager();
+ttManager.setActiveByIds(null);
+ttManager.setActiveByIds([2, 3]);
+
 const qManager = new cast.framework.QueueManager();
 const qBase = new cast.framework.QueueBase();
 const items = qBase.fetchItems(1, 3, 4);

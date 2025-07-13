@@ -5,12 +5,15 @@ import {
     StringUnitLength,
     ToISOFormat,
     ToISOTimeDurationOptions,
+    WeekSettings,
     ZoneOptions,
 } from "../index";
 import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { Duration, DurationLike, DurationUnits } from "./duration";
 import { Interval } from "./interval";
 import { Zone } from "./zone";
+
+export {}; // Turn off default exports
 
 export type DateTimeUnit = "year" | "quarter" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
 export type ToRelativeUnit = "years" | "quarters" | "months" | "weeks" | "days" | "hours" | "minutes" | "seconds";
@@ -304,6 +307,7 @@ export interface LocaleOptions {
     locale?: string | undefined;
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
+    weekSettings?: WeekSettings | undefined;
 }
 
 export type ResolvedLocaleOptions = Required<LocaleOptions>;
@@ -396,6 +400,91 @@ export interface ExplainedFormat {
 }
 
 export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
+
+declare const tokenParserBrand: unique symbol;
+export interface TokenParser {
+    [tokenParserBrand]: true;
+}
+
+type ManyDateTimes = Array<DateTime<boolean>>;
+
+export type PickedDateTime<Values extends ManyDateTimes> = Values extends [] ? undefined
+    :
+        | (Values extends Array<DateTime<infer AllValues>> ?
+                | (AllValues extends true ? DateTime<Valid> : never)
+                | (AllValues extends false ? DateTime<Invalid> : never)
+            : never)
+        | ([] extends Values ? undefined : never);
+
+/**
+ * # Table of tokens
+ *
+ * (The example values below come from this time `2014-08-06T13:07:04.054`
+ * considered as a local time in America/New_York).
+ *
+ * Note that many tokens supported by the formatter are **not** supported by the parser.
+ *
+ * | Standalone token | Format token | Description                                                       | Example                     |
+ * | ---------------- | ------------ | ----------------------------------------------------------------- | --------------------------- |
+ * | S                |              | millisecond, no padding                                           | `54`                        |
+ * | SSS              |              | millisecond, padded to 3                                          | `054`                       |
+ * | u                |              | fractional seconds, (5 is a half second, 54 is slightly more)     | `54`                        |
+ * | uu               |              | fractional seconds, (one or two digits)                           | `05`                        |
+ * | uuu              |              | fractional seconds, (only one digit)                              | `5`                         |
+ * | s                |              | second, no padding                                                | `4`                         |
+ * | ss               |              | second, padded to 2 padding                                       | `04`                        |
+ * | m                |              | minute, no padding                                                | `7`                         |
+ * | mm               |              | minute, padded to 2                                               | `07`                        |
+ * | h                |              | hour in 12-hour time, no padding                                  | `1`                         |
+ * | hh               |              | hour in 12-hour time, padded to 2                                 | `01`                        |
+ * | H                |              | hour in 24-hour time, no padding                                  | `13`                        |
+ * | HH               |              | hour in 24-hour time, padded to 2                                 | `13`                        |
+ * | Z                |              | narrow offset                                                     | `+5`                        |
+ * | ZZ               |              | short offset                                                      | `+05:00`                    |
+ * | ZZZ              |              | techie offset                                                     | `+0500`                     |
+ * | z                |              | IANA zone                                                         | `America/New_York`          |
+ * | a                |              | meridiem                                                          | `AM`                        |
+ * | d                |              | day of the month, no padding                                      | `6`                         |
+ * | dd               |              | day of the month, padded to 2                                     | `06`                        |
+ * | E                | c            | day of the week, as number from 1-7 (Monday is 1, Sunday is 7)    | `3`                         |
+ * | EEE              | ccc          | day of the week, as an abbreviate localized string                | `Wed`                       |
+ * | EEEE             | cccc         | day of the week, as an unabbreviated localized string             | `Wednesday`                 |
+ * | M                | L            | month as an unpadded number                                       | `8`                         |
+ * | MM               | LL           | month as an padded number                                         | `08`                        |
+ * | MMM              | LLL          | month as an abbreviated localized string                          | `Aug`                       |
+ * | MMMM             | LLLL         | month as an unabbreviated localized string                        | `August`                    |
+ * | y                |              | year, 1-6 digits, very literally                                  | `2014`                      |
+ * | yy               |              | two-digit year, interpreted as > 1960 by default (also accepts 4) | `14`                        |
+ * | yyyy             |              | four-digit year                                                   | `2014`                      |
+ * | yyyyy            |              | four- to six-digit years                                          | `10340`                     |
+ * | yyyyyy           |              | six-digit years                                                   | `010340`                    |
+ * | G                |              | abbreviated localized era                                         | `AD`                        |
+ * | GG               |              | unabbreviated localized era                                       | `Anno Domini`               |
+ * | GGGGG            |              | one-letter localized era                                          | `A`                         |
+ * | kk               |              | ISO week year, unpadded                                           | `17`                        |
+ * | kkkk             |              | ISO week year, padded to 4                                        | `2014`                      |
+ * | W                |              | ISO week number, unpadded                                         | `32`                        |
+ * | WW               |              | ISO week number, padded to 2                                      | `32`                        |
+ * | o                |              | ordinal (day of year), unpadded                                   | `218`                       |
+ * | ooo              |              | ordinal (day of year), padded to 3                                | `218`                       |
+ * | q                |              | quarter, no padding                                               | `3`                         |
+ * | D                |              | localized numeric date                                            | `9/6/2014`                  |
+ * | DD               |              | localized date with abbreviated month                             | `Aug 6, 2014`               |
+ * | DDD              |              | localized date with full month                                    | `August 6, 2014`            |
+ * | DDDD             |              | localized date with full month and weekday                        | `Wednesday, August 6, 2014` |
+ * | t                |              | localized time                                                    | `1:07 AM`                   |
+ * | tt               |              | localized time with seconds                                       | `1:07:04 PM`                |
+ * | T                |              | localized 24-hour time                                            | `13:07`                     |
+ * | TT               |              | localized 24-hour time with seconds                               | `13:07:04`                  |
+ * | f                |              | short localized date and time                                     | `8/6/2014, 1:07 PM`         |
+ * | ff               |              | less short localized date and time                                | `Aug 6, 2014, 1:07 PM`      |
+ * | F                |              | short localized date and time with seconds                        | `8/6/2014, 1:07:04 PM`      |
+ * | FF               |              | less short localized date and time with seconds                   | `Aug 6, 2014, 1:07:04 PM`   |
+ * | '                |              | literal start/end, characters between are not tokenized           | `'T'`                       |
+ *
+ * Sourced from [here](https://moment.github.io/luxon/#/parsing?id=table-of-tokens).
+ */
+type Tokens = string;
 
 /**
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
@@ -711,24 +800,33 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
 
     /**
      * Create a DateTime from an input string and format string.
-     * Defaults to en-US if no locale has been specified, regardless of the system's locale. For a table of tokens and their interpretations,
+     *
+     * Defaults to en-US if no locale has been specified, regardless of the system's locale.
+     *
+     * For a table of tokens and their interpretations,
      * see [here](https://moment.github.io/luxon/#/parsing?id=table-of-tokens).
      *
      * @param text - the string to parse
-     * @param fmt - the format the string is expected to be in (see the link below for the formats)
+     * @param format - the format the string is expected to be in (see the link below for the formats)
      * @param opts - options to affect the creation
-     * @param opts.zone - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone. Defaults to 'local'.
-     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one. Defaults to false.
-     * @param opts.locale - a locale string to use when parsing. Will also set the DateTime to this locale. Defaults to 'en-US'.
-     * @param opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+     * @param opts.zone - use this zone if no offset is specified in the input string itself.
+     * Will also convert the DateTime to this zone.
+     * Defaults to 'local'.
+     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one.
+     * Defaults to false.
+     * @param opts.locale - a locale string to use when parsing.
+     * Will also set the DateTime to this locale.
+     * Defaults to 'en-US'.
+     * @param opts.numberingSystem - the numbering system to use when parsing.
+     * Will also set the resulting DateTime to this numbering system
      * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
      */
-    static fromFormat(text: string, fmt: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromFormat(text: string, format: Tokens, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * @deprecated use fromFormat instead
      */
-    static fromString(text: string, format: string, options?: DateTimeOptions): DateTimeMaybeValid;
+    static fromString(text: string, format: Tokens, options?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a SQL date, time, or datetime
@@ -789,11 +887,13 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
 
     /**
      * Produce the fully expanded format token for the locale
+     *
      * Does NOT quote characters, so quoted tokens will not round trip correctly
-     * @param fmt - the format string
-     * @param localeOpts - Opts to override the configuration options on this DateTime
+     *
+     * @param format - the format string - see {@link Tokens}
+     * @param localeOptions - Options to override the configuration options on this DateTime
      */
-    static expandFormat(fmt: string, localeOpts?: LocaleOptions): string;
+    static expandFormat(format: Tokens, localeOptions?: LocaleOptions): string;
 
     private constructor(config: unknown);
 
@@ -1251,8 +1351,8 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * see [here](https://moment.github.io/luxon/#/formatting?id=table-of-tokens).
      * Defaults to en-US if no locale has been specified, regardless of the system's locale.
      *
-     * @param fmt - the format string
-     * @param opts - opts to override the configuration options on this DateTime
+     * @param format - the format string - see {@link Tokens}
+     * @param options - opts to override the configuration options on this DateTime
      *
      * @example
      * DateTime.now().toFormat('yyyy LLL dd') //=> '2017 Apr 22'
@@ -1263,7 +1363,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.now().toFormat("HH 'hours and' mm 'minutes'") //=> '20 hours and 55 minutes'
      */
-    toFormat(fmt: string, opts?: LocaleOptions): IfValid<string, "Invalid DateTime", IsValid>;
+    toFormat(format: Tokens, options?: LocaleOptions): IfValid<string, "Invalid DateTime", IsValid>;
 
     /**
      * Returns a localized string representing this date. Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon,
@@ -1587,34 +1687,52 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param dateTimes - the DateTimes from which to choose the minimum
      */
-    static min<AllValid extends boolean>(
-        ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
+    static min<Values extends ManyDateTimes>(...dateTimes: Values): PickedDateTime<Values>;
 
     /**
      * Return the max of several date times
      *
      * @param dateTimes - the DateTimes from which to choose the maximum
      */
-    static max<AllValid extends boolean>(
-        ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
+    static max<Values extends ManyDateTimes>(...dateTimes: Values): PickedDateTime<Values>;
 
     // MISC
 
     /**
-     * Explain how a string would be parsed by fromFormat()
+     * Explain how a string would be parsed by {@link fromFormat}
      *
      * @param text - the string to parse
-     * @param fmt - the format the string is expected to be in (see description)
-     * @param options - options taken by fromFormat()
+     * @param format - the format the string is expected to be in - see {@link Tokens}
+     * @param options - options taken by {@link fromFormat}
      */
-    static fromFormatExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+    static fromFormatExplain(text: string, format: Tokens, options?: DateTimeOptions): ExplainedFormat;
 
     /**
-     * @deprecated use fromFormatExplain instead
+     * @deprecated use {@link fromFormatExplain} instead
      */
-    static fromStringExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+    static fromStringExplain(text: string, format: Tokens, options?: DateTimeOptions): ExplainedFormat;
+
+    /**
+     * Build a parser for a given format using the given locale.
+     *
+     * This parser can be passed to {@link fromFormatParser} to a parse a date in this format.
+     * This can be used to optimize cases where many dates need to be parsed in a specific format.
+     *
+     * @param format - the format the string is expected to be in - see {@link Tokens}
+     * @param options - the Locale options
+     */
+    static buildFormatParser(format: Tokens, options?: LocaleOptions): TokenParser;
+
+    /**
+     * Create a DateTime from an input string and format parser.
+     *
+     * The format parser must have been created with the same locale as this call.
+     *
+     * @param text the string to parse
+     * @param parser - parser from {@link buildFormatParser}
+     * @param options options taken by {@link fromFormat}
+     */
+    static fromFormatParser(text: string, parser: TokenParser, options?: DateTimeOptions): DateTimeMaybeValid;
 
     // FORMAT PRESETS
 

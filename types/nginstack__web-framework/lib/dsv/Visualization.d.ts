@@ -7,13 +7,13 @@ declare class Visualization {
     messageWhenEmpty: string;
     help: string;
     private canExport_;
-    includes: Array<number | string>;
+    includes: Array<string | number>;
     extraExportFormats: Array<{
         name: string;
         processKey: number;
         useRawData: boolean;
     }>;
-    onCreate: Event;
+    onCreate: import("@nginstack/engine/lib/event/Event");
     protected afterCreate_(): void;
     initialized: boolean;
     protected prepareHeaderFromDefinition_(): void;
@@ -27,7 +27,7 @@ declare class Visualization {
     ): void;
     canExport: boolean;
     protected dataSource_: DataSource;
-    mustIncludeCssFiles: boolean;
+    includeCss: boolean;
     protected ds_: DataSet;
     filters: VisualizationFilters;
     path: string | null;
@@ -49,10 +49,10 @@ declare class Visualization {
 declare namespace Visualization {
     export { DataExporter, DataSet, DataSource, Event, VisualizationFilters };
 }
-type Event = import("@nginstack/engine/lib/event/Event");
 import ReportHeader = require("../simple-layout/Header.js");
 import ReportFooter = require("../simple-layout/Footer.js");
-type DataSource = import("@nginstack/datasource/lib/DataSource");
+type Event = import("@nginstack/engine/lib/event/Event");
 type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataSource = import("@nginstack/datasource/lib/DataSource");
 type VisualizationFilters = import("./VisualizationFilters");
 type DataExporter = import("../export/DataExporter");

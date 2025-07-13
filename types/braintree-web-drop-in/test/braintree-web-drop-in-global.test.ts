@@ -87,7 +87,13 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
         return;
     }
     function onPaymentMethodRequestable({ type, paymentMethodIsSelected }: PaymentMethodRequestablePayload) {
-        const myType: "CreditCard" | "PayPalAccount" = type;
+        const myType:
+            | "CreditCard"
+            | "PayPalAccount"
+            | "VenmoAccount"
+            | "ApplePayCard"
+            | "AndroidPayCard"
+            | "LocalPayment" = type;
         const myBool: boolean = paymentMethodIsSelected;
     }
     function onPaymentOptionSelected({ paymentOption }: PaymentOptionSelectedPayload) {

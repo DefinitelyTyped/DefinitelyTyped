@@ -7,8 +7,7 @@ interface TestProps {
     height: number;
 }
 
-const mapSizesToProps = ({ width, height }: Sizes): TestProps => ({
-    foo: "foo",
+const mapSizesToProps = ({ width, height }: Sizes) => ({
     width,
     height,
 });
@@ -26,4 +25,4 @@ const TestComponent: React.ComponentType<TestProps> = ({ foo, width, height }) =
     );
 };
 
-WithSizes(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<TestProps>
+WithSizes<ReturnType<typeof mapSizesToProps>, TestProps>(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<Omit<TestProps, "width" | "height">>

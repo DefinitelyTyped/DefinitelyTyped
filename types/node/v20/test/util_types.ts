@@ -18,6 +18,9 @@ if (types.isArrayBufferView(object)) {
 if (types.isBigInt64Array(object)) {
     object; // $ExpectType BigInt64Array || BigInt64Array<ArrayBufferLike>
 }
+if (types.isBigIntObject(object)) {
+    object; // $ExpectType BigInt
+}
 if (types.isBigUint64Array(object)) {
     object; // $ExpectType BigUint64Array || BigUint64Array<ArrayBufferLike>
 }

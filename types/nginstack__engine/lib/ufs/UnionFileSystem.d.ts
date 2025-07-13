@@ -9,6 +9,7 @@ declare class UnionFileSystem {
     getLastUpdateTimestamp(path: string): number;
     getFileOrigin(path: string): string;
     configureWithLocalSettings(): void;
+    enableCaseInsensitiveMode(): void;
 }
 declare namespace UnionFileSystem {
     let FILTER_FILES: number;

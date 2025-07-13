@@ -189,8 +189,20 @@ declare namespace Aws {
         audience: string[];
     }
 
+    interface CustomAuthorizer {
+        type: "request";
+        functionName?: string;
+        functionArn?: string;
+        name?: string;
+        resultTtlInSeconds?: number;
+        enableSimpleResponses?: boolean;
+        payloadVersion?: string;
+        identitySource?: string[];
+        managedExternally?: boolean;
+    }
+
     interface Authorizers {
-        [key: string]: CognitoAuthorizer | OidcAuthorizer | JwtAuthorizer;
+        [key: string]: CognitoAuthorizer | OidcAuthorizer | JwtAuthorizer | CustomAuthorizer;
     }
 
     interface Alb {

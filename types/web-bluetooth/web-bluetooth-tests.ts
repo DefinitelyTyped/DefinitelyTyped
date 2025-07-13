@@ -25,6 +25,10 @@ navigator.bluetooth.addEventListener("advertisementreceived", event => {
     event; // $ExpectType BluetoothAdvertisingEvent
 });
 
+navigator.bluetooth.addEventListener("advertisementreceived", event => {
+    event; // $ExpectType BluetoothAdvertisingEvent
+}, { once: true, signal: AbortSignal.timeout(1000) });
+
 BluetoothUUID.getService(0x180D); // $ExpectType string
 
 BluetoothUUID.getCharacteristic(0x2A37); // $ExpectType string
@@ -92,6 +96,10 @@ function handleHeartRateMeasurementCharacteristic(characteristic: BluetoothRemot
     return characteristic.startNotifications()
         .then(char => {
             characteristic.addEventListener("characteristicvaluechanged", onHeartRateChanged);
+            characteristic.addEventListener("characteristicvaluechanged", onHeartRateChanged, {
+                once: true,
+                signal: AbortSignal.timeout(1000),
+            });
         });
 }
 

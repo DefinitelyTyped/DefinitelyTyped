@@ -953,6 +953,8 @@ declare namespace GoogleAppsScript {
                 phones?: object[] | undefined;
                 posixAccounts?: object[] | undefined;
                 primaryEmail?: string | undefined;
+                recoveryEmail?: string | undefined;
+                recoveryPhone?: string | undefined;
                 relations?: object[] | undefined;
                 sshPublicKeys?: object[] | undefined;
                 suspended?: boolean | undefined;

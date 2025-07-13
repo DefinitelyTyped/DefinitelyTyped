@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/chroma-js",
-    "version": "2.4.9999",
+    "version": "3.1.9999",
+    "type": "module",
     "projects": [
         "https://github.com/gka/chroma.js"
     ],
@@ -21,5 +22,15 @@
             "name": "Charlie Zhuo",
             "githubUsername": "CharlieZhuo"
         }
-    ]
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./light": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    }
 }

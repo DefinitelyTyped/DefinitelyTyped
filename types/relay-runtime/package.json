@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/relay-runtime",
-    "version": "18.2.9999",
+    "version": "19.0.9999",
     "projects": [
         "https://github.com/facebook/relay",
         "https://facebook.github.io/relay"
@@ -10,6 +10,10 @@
         "@types/relay-runtime": "workspace:."
     },
     "owners": [
+        {
+            "name": "Jordan Eldredge",
+            "githubUsername": "captbaritone"
+        },
         {
             "name": "Eloy Durán",
             "githubUsername": "alloy"

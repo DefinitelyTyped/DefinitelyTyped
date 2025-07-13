@@ -24,8 +24,13 @@ declare namespace i18n {
     }
 
     interface Gettext {
-        setMessages(domain: string, locale: string, messages: JsonDataMessages, plural_forms?: PluralForm): Gettext;
-        loadJSON(jsonData: JsonData, domain?: string): Gettext;
+        setMessages(
+            domain: string,
+            locale: string,
+            messages: JsonDataMessages,
+            plural_forms?: string,
+        ): Gettext;
+        loadJSON(jsonData: JsonData | string, domain?: string): Gettext;
         setLocale(locale: string): Gettext;
         getLocale(): string;
         textdomain(domain?: string): Gettext | string;

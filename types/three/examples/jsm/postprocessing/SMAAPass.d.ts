@@ -3,7 +3,7 @@ import { ShaderMaterial, Texture, WebGLRenderTarget } from "three";
 import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class SMAAPass extends Pass {
-    constructor(width: number, height: number);
+    constructor();
     edgesRT: WebGLRenderTarget;
     weightsRT: WebGLRenderTarget;
     areaTexture: Texture;

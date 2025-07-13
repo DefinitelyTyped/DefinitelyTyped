@@ -1,5 +1,3 @@
-export type exports = number;
-declare let STATELESS: number;
-declare let STATEFUL: number;
-declare let STATEFULL: number;
-export {};
+export const STATELESS = 0;
+export const STATEFUL = 1;
+export const STATEFULL = 1;

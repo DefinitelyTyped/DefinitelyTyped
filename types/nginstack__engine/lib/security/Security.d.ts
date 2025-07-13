@@ -10,6 +10,7 @@ declare class Security {
     getUserStatus(userKey: number | DBKey): DBKey;
     setUserAccountType(userKey: number | DBKey, accountType: DBKey): void;
     getUserAccountType(userKey: number | DBKey): DBKey;
+    userSignatureIsValid(userKey: number | DBKey): boolean;
     changePassword(userKey: number, oldPassword: string, newPassword: string): void;
     setPassword(userKey: any, password: any): void;
     authenticateUser(userId: string, password: string): number;

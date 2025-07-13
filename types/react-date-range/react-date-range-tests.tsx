@@ -101,7 +101,18 @@ class ReactDatePicker extends React.Component<any, any> {
         return (
             <div>
                 <DateRange
-                    ariaLabels={{ yearPicker: "year-aria" }}
+                    ariaLabels={{
+                        dateInput: {
+                            selection: {
+                                startDate: "start-aria",
+                                endDate: "end-aria",
+                            },
+                        },
+                        monthPicker: "month-aria",
+                        yearPicker: "year-aria",
+                        prevButton: "prev-aria",
+                        nextButton: "next-aria",
+                    }}
                     calendarFocus="backwards"
                     className="customClassName"
                     classNames={{ dateDisplay: "dateDisplayCustom" }}

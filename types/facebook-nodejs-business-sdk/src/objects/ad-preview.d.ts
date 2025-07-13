@@ -49,6 +49,7 @@ export default class AdPreview extends AbstractCrudObject {
         instream_banner_immersive_mobile: "INSTREAM_BANNER_IMMERSIVE_MOBILE";
         instream_banner_mobile: "INSTREAM_BANNER_MOBILE";
         instream_video_desktop: "INSTREAM_VIDEO_DESKTOP";
+        instream_video_fullscreen_ios: "INSTREAM_VIDEO_FULLSCREEN_IOS";
         instream_video_fullscreen_mobile: "INSTREAM_VIDEO_FULLSCREEN_MOBILE";
         instream_video_image: "INSTREAM_VIDEO_IMAGE";
         instream_video_immersive_mobile: "INSTREAM_VIDEO_IMMERSIVE_MOBILE";

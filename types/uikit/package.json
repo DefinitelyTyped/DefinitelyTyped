@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/uikit",
-    "version": "3.14.9999",
+    "version": "3.23.9999",
     "projects": [
         "https://getuikit.com"
     ],

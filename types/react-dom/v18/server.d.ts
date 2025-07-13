@@ -24,13 +24,18 @@ declare global {
 import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
 
+export type BootstrapScriptDescriptor = {
+    src: string;
+    integrity?: string | undefined;
+    crossOrigin?: string | undefined;
+};
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
     nonce?: string;
     bootstrapScriptContent?: string;
-    bootstrapScripts?: string[];
-    bootstrapModules?: string[];
+    bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
+    bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
     progressiveChunkSize?: number;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
@@ -100,8 +105,8 @@ export interface RenderToReadableStreamOptions {
     namespaceURI?: string;
     nonce?: string;
     bootstrapScriptContent?: string;
-    bootstrapScripts?: string[];
-    bootstrapModules?: string[];
+    bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
+    bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;

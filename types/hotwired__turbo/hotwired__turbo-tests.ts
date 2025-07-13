@@ -1,6 +1,9 @@
-import { FrameElement, StreamActions, StreamElement, visit } from "@hotwired/turbo";
+import { StreamActions, visit } from "@hotwired/turbo";
 
-const turboFrame = document.querySelector<FrameElement>("turbo-frame")!;
+const turboFrame = document.querySelector("turbo-frame")!;
+
+// $ExpectType FrameElement
+turboFrame;
 
 // @ts-expect-error
 turboFrame.complete = true;
@@ -16,7 +19,10 @@ turboFrame.loading = "slow";
 
 turboFrame.reload().catch(console.error);
 
-const turboStream = document.querySelector<StreamElement>("turbo-stream")!;
+const turboStream = document.querySelector("turbo-stream")!;
+
+// $ExpectType StreamElement
+turboStream;
 
 // @ts-expect-error
 turboStream.action = "123";

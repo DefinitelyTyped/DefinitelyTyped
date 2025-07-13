@@ -57,7 +57,7 @@ declare module "koa-generic-session" {
     }
 }
 
-app.use((context: Koa.Context) => {
+app.use(context => {
     if (!context.session) {
         return;
     }
@@ -67,8 +67,11 @@ app.use((context: Koa.Context) => {
     }
 
     context.regenerateSession();
+    context.sessionSave; // $ExpectType boolean | null
     context.sessionSave = true;
+    context.session; // $ExpectType Session
     context.session.cookie;
+    context.session.foo; // $ExpectType "bar"
     context.session.foo = "bar";
     context.session = null;
 });

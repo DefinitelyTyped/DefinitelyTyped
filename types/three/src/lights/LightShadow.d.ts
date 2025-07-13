@@ -1,4 +1,5 @@
 import { Camera } from "../cameras/Camera.js";
+import { TextureDataType } from "../constants.js";
 import { Object3DJSONObject } from "../core/Object3D.js";
 import { Frustum } from "../math/Frustum.js";
 import { Matrix4 } from "../math/Matrix4.js";
@@ -85,6 +86,13 @@ export class LightShadow<TCamera extends Camera = Camera> {
      * @defaultValue `new THREE.Vector2(512, 512)`
      */
     mapSize: Vector2;
+
+    /**
+     * The type of shadow texture. The default is `UnsignedByteType`.
+     *
+     * @default UnsignedByteType
+     */
+    mapType: TextureDataType;
 
     /**
      * The depth map generated using the internal camera; a location beyond a pixel's depth is in shadow. Computed internally during rendering.

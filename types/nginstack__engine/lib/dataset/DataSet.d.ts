@@ -4,7 +4,7 @@ declare class DataSet {
     constructor(idoDB?: IdoDB);
     sqlStatement: string;
     createField(fieldName: string, fieldType: string, opt_fieldSize?: number): void;
-    create(): void;
+    create(tableName?: string): void;
     reload(): void;
     append(
         dataSet?: DataSet | any[],
@@ -126,7 +126,7 @@ declare class DataSet {
         uniqueId: number;
         kind: string;
     };
-    iterate(func: (arg0: DataSet) => any, thisObj?: any): void;
+    iterate(func: (arg0: DataSet) => any, thisObj?: any): any;
     getDeltaInspector(): DeltaInspector;
     updateAll(
         fieldNames: string[],
@@ -168,6 +168,7 @@ declare namespace DataSet {
         setIntegerDataType,
         setStringOverflowMode,
         getStringOverflowMode,
+        MAX_FIELDS_PER_TABLE,
         File,
         MemoryStream,
         GetFieldOptions,
@@ -178,7 +179,6 @@ declare namespace DataSet {
         DataSetFieldDef,
     };
 }
-type IdoDB = import('../ido/IdoDB');
 declare function DataSetFieldDefs(): void;
 declare class DataSetFieldDefs {
     size: number;
@@ -200,10 +200,12 @@ declare function getIntegerDataType(): DataSetFieldType;
 declare function setIntegerDataType(type: DataSetFieldType): void;
 declare function setStringOverflowMode(mode: string): void;
 declare function getStringOverflowMode(): string;
+declare let MAX_FIELDS_PER_TABLE: number;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
 type GetFieldOptions = import('./GetFieldOptions');
 type DeltaInspector = import('./DeltaInspector');
+type IdoDB = import('../ido/IdoDB');
 type DataSetFieldType = import('./DataSetDataType').DataSetFieldType;
 interface ApplyUndoLogOptions {
     startVersion: number | null;

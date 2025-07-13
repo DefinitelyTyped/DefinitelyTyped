@@ -16,6 +16,30 @@ export interface MasonryProps {
     gutter?: string;
     className?: string;
     style?: CSSProperties;
+    /**
+     * Tag name of the container element
+     *
+     * Default Value = "div"
+     */
+    containerTag?: string;
+    /**
+     * Tag name of the item element
+     *
+     * Default Value = "div"
+     */
+    itemTag?: string;
+    /**
+     * Style object applied to each item
+     *
+     * Default Value = {}
+     */
+    itemStyle?: CSSProperties;
+    /**
+     * If true, items are placed in the order they are passed
+     *
+     * Default Value = false
+     */
+    sequential?: boolean;
 }
 
 export interface ResponsiveMasonryProps {

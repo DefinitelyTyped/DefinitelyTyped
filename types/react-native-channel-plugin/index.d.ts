@@ -374,6 +374,15 @@ export interface RNChannelIO {
     openChat(chatId?: string | null, message?: string | null): void;
 
     /**
+     * Opens a user chat and starts the specified workflow. Only available when the workflow trigger is set to “Start a new chat from the Channel button”.
+     *
+     * @param workflowId The id of the workflow. No action is taken if the workflowId is not provided. If the workflowId is invalid, an error page is displayed.
+     *
+     * @see https://developers.channel.io/docs/react-native-channelio#openworkflow
+     */
+    openWorkflow(workflowId?: string): void;
+
+    /**
      * Track the user’s event. See event tracking for more details.
      *
      * @param eventName Event name. max length is 30

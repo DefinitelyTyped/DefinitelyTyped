@@ -13,19 +13,35 @@ declare class Database {
     userLanguage: number;
     workloadType: string;
     trackingId: string;
+    scope: string;
     referrer: string;
     protocol: string;
+    readTimeout: number;
+    writeTimeout: number;
     authenticateUser(userId: string, password: string): number;
     login(userId: string, password: string): boolean;
     loginByAuthToken(authToken: string): void;
     loginBySession(session: Session): boolean;
     logout(): void;
-    query(sql: string | string[], options?: any): DataSet | DataSet[];
+    query(
+        sql: string | string[],
+        options?: {
+            queryCacheLifeTime?: number;
+            workloadType?: string;
+        }
+    ): DataSet | DataSet[];
+    parallelQuery(
+        sqls: string[],
+        options?: {
+            workloadType?: string;
+            workers?: number;
+        }
+    ): DataSet[];
     executeSQL(sql: string | string[]): void;
     executeDDL(statement: string): void;
     createKey(keysQty: number, useHighKeys?: boolean): number;
     incVersion(): number;
-    applyUpdates(dataSets: DataSet | any[], logChanges?: boolean): number;
+    applyUpdates(dataSets: DataSet | DataSet[], logChanges?: boolean): number;
     getReferences(
         key: number,
         tableName: string,
@@ -71,6 +87,7 @@ declare class Database {
     discardCaches(): void;
     sendEmail(email: Email): void;
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
+    isEdgeServer(): boolean;
 }
 declare namespace Database {
     export { fromConfig, Email, Session, VersionInfo, DatabaseVersionInfo };

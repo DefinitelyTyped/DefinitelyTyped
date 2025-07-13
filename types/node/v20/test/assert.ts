@@ -45,6 +45,48 @@ import assert = require("node:assert");
     }
 }
 
+{
+    const tracker = new assert.CallTracker();
+
+    let exact: number | undefined;
+
+    // $ExpectType () => void
+    tracker.calls();
+    // $ExpectType () => void
+    tracker.calls(7);
+    // $ExpectType () => void
+    tracker.calls(exact);
+
+    // $ExpectType () => void
+    tracker.calls(undefined);
+    // $ExpectType () => void
+    tracker.calls(undefined, undefined);
+    // $ExpectType () => void
+    tracker.calls(undefined, 7);
+    // $ExpectType () => void
+    tracker.calls(undefined, exact);
+
+    let f1: (a: number) => number = () => 3;
+    // $ExpectType (a: number) => number
+    tracker.calls(f1);
+    // $ExpectType (a: number) => number
+    tracker.calls(f1, undefined);
+    // $ExpectType (a: number) => number
+    tracker.calls(f1, 42);
+    // $ExpectType (a: number) => number
+    tracker.calls(f1, exact);
+
+    let f2: ((a: number) => number) | undefined;
+    // $ExpectType ((a: number) => number) | (() => void)
+    tracker.calls(f2);
+    // $ExpectType ((a: number) => number) | (() => void)
+    tracker.calls(f2, undefined);
+    // $ExpectType ((a: number) => number) | (() => void)
+    tracker.calls(f2, 42);
+    // $ExpectType ((a: number) => number) | (() => void)
+    tracker.calls(f2, exact);
+}
+
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
 assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
@@ -182,3 +224,9 @@ assert["fail"](true, true, "works like a charm");
     assert.deepStrictEqual(a, { b: 2 });
     a; // $ExpectType { b: number; }
 }
+
+// This is a regression test for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/71889.
+// Due to the nature of the bug this can't be switched to `import strict from "node:assert/strict";`
+// or to `import strict = require("node:assert/strict");`
+import { AssertionError } from "node:assert/strict";
+new AssertionError({ message: "some message" });

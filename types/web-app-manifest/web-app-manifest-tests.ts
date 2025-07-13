@@ -47,13 +47,18 @@ const example2: WebAppManifest = {
     screenshots: [
         {
             src: "screenshots/in-game-1x.jpg",
-            sizes: "640x480",
+            sizes: "480x640",
             type: "image/jpeg",
+            form_factor: "narrow",
+            label: "Example screenshot",
+            platform: "android",
         },
         {
             src: "screenshots/in-game-2x.jpg",
             sizes: "1280x920",
             type: "image/jpeg",
+            form_factor: "wide",
+            label: "Example screenshot",
         },
     ],
 };
@@ -101,6 +106,7 @@ const example9: WebAppManifest = {
 const example11: WebAppManifest = {
     name: "custom manifest",
     start_url: "https://boo",
+    display_override: ["window-controls-overlay"],
     icons: [
         {
             src: "//icons.example.com/lowres",
@@ -116,7 +122,6 @@ const example12: WebAppManifest = {
     name: "News",
     icons: [
         {
-            platform: "play",
             purpose: "badge",
             sizes: "16x16",
             src: "icons/badges/android.png",
@@ -143,10 +148,6 @@ const example13: WebAppManifest = {
                     value: "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2",
                 },
             ],
-        },
-        {
-            platform: "itunes",
-            url: "https://itunes.apple.com/app/example-app1/id123456789",
         },
     ],
 };

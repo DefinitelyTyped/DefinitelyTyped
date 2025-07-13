@@ -96,7 +96,7 @@ export class TextTracksManager {
      * Sets text tracks to be active by id.
      * @throws Error If id is invalid.
      */
-    setActiveByIds(newIds: number[]): void;
+    setActiveByIds(newIds: number[] | null): void;
 
     /**
      * Sets text tracks to be active by language.

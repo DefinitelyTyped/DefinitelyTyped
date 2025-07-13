@@ -1,5 +1,6 @@
 // Example from https://github.com/babel/babel/tree/master/packages/babel-generator
-import generate from "@babel/generator";
+// Named import from docs (added in @babel/generator@7.27.0): https://github.com/babel/website/blob/main/docs/generator.md#usage
+import generate, { generate as generate2 } from "@babel/generator";
 import * as t from "@babel/types";
 
 const code = "class Example {}";
@@ -27,3 +28,20 @@ const result = generate(
 );
 result.code;
 result.map;
+
+const result2 = generate2(
+    ast,
+    {
+        retainLines: false,
+        compact: "auto",
+        concise: false,
+        jsescOption: {
+            quotes: "double",
+        },
+        jsonCompatibleStrings: true,
+        // ...
+    },
+    code,
+);
+result2.code;
+result2.map;

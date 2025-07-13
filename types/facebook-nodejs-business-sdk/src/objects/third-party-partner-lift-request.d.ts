@@ -11,8 +11,11 @@ export default class ThirdPartyPartnerLiftRequest extends AbstractCrudObject {
         description: "description";
         holdout_size: "holdout_size";
         id: "id";
+        legacy_ads_data_partner_id: "legacy_ads_data_partner_id";
+        legacy_ads_data_partner_name: "legacy_ads_data_partner_name";
         modified_time: "modified_time";
         owner_instance_id: "owner_instance_id";
+        partner_household_graph_dataset_id: "partner_household_graph_dataset_id";
         region: "region";
         status: "status";
         study_cells: "study_cells";

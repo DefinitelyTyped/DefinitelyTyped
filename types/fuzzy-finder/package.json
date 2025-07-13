@@ -5,14 +5,6 @@
     "projects": [
         "https://github.com/tiaanduplessis/fuzzy-finder"
     ],
-    "exports": {
-        ".": {
-            "types": {
-                "import": "./dist/fuzzy-finder.m.d.ts",
-                "default": "./index.d.ts"
-            }
-        }
-    },
     "devDependencies": {
         "@types/fuzzy-finder": "workspace:."
     },

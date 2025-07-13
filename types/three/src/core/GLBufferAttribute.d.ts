@@ -18,8 +18,16 @@ export class GLBufferAttribute {
      * @param itemSize How many values make up each item (vertex). See {@link GLBufferAttribute.itemSize | .itemSize}
      * @param elementSize `1`, `2` or `4`. The corresponding size (in bytes) for the given {@link type} param. See {@link GLBufferAttribute.elementSize | .elementSize}
      * @param count The expected number of vertices in VBO. See {@link GLBufferAttribute.count | .count}
+     * @param {boolean} [normalized=false] - Whether the data are normalized or not.
      */
-    constructor(buffer: WebGLBuffer, type: GLenum, itemSize: number, elementSize: 1 | 2 | 4, count: number);
+    constructor(
+        buffer: WebGLBuffer,
+        type: GLenum,
+        itemSize: number,
+        elementSize: 1 | 2 | 4,
+        count: number,
+        normalized?: boolean,
+    );
 
     /**
      * Read-only flag to check if a given object is of type {@link GLBufferAttribute}.
@@ -86,6 +94,15 @@ export class GLBufferAttribute {
      * @remarks Expects a `Integer`
      */
     count: number;
+
+    /**
+     * Applies to integer data only. Indicates how the underlying data in the buffer maps to
+     * the values in the GLSL code. For instance, if `buffer` contains data of `gl.UNSIGNED_SHORT`,
+     * and `normalized` is `true`, the values `0 - +65535` in the buffer data will be mapped to
+     * `0.0f - +1.0f` in the GLSL attribute. If `normalized` is `false`, the values will be converted
+     * to floats unmodified, i.e. `65535` becomes `65535.0f`.
+     */
+    normalized: boolean;
 
     /**
      * A version number, incremented every time the needsUpdate property is set to true.

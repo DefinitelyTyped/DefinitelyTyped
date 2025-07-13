@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/cacache",
-    "version": "17.0.9999",
+    "version": "19.0.9999",
     "projects": [
         "https://github.com/npm/cacache#readme"
     ],

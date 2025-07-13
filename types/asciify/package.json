@@ -5,9 +5,6 @@
     "projects": [
         "https://www.npmjs.org/package/asciify"
     ],
-    "dependencies": {
-        "@types/node": "*"
-    },
     "devDependencies": {
         "@types/asciify": "workspace:."
     },

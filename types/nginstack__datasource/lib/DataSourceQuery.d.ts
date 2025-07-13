@@ -3,12 +3,12 @@ declare function DataSourceQuery(definition: Record<any, any> | number): void;
 declare class DataSourceQuery {
     constructor(definition: Record<any, any> | number);
     definition: any;
-    dataSource: Record<any, any> | number;
+    dataSource: number | Record<any, any>;
     dataSourceKey: number;
     filters: any;
     columns: any;
-    orderBy: string | null;
-    help: string | null;
+    orderBy: string;
+    help: string;
     includes: any;
     private dataSourceInstance_;
     dataSourceInstance: any;

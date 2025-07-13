@@ -58,7 +58,14 @@ declare class Entity {
     private suggestDefaultValues_;
     protected insert_(): void;
     set(name: string, value: any): void;
+    private normalizeAndCheckFieldPermission_;
     get(name: any): any;
+    val(expr: string): string | number | null | boolean | Date;
+    str(expr: string): string;
+    num(expr: string): number;
+    bool(expr: string): boolean;
+    date(expr: string): Date | null;
+    dbkey(expr: string): DBKey | null;
     assign(values: { [x: string]: any }): void;
     edit(): void;
     cancel(): void;
@@ -88,9 +95,7 @@ declare namespace Entity {
         requiresStrictMode,
     };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type EntityOptions = import("./EntityOptions");
-import EntityState = require("./EntityState.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 declare function fromKey(
     key: number,
     opt_options?:
@@ -117,10 +122,7 @@ type Field = import("@nginstack/engine/lib/classdef/Field");
 type Event = import("@nginstack/engine/lib/event/Event");
 type Emitter = import("@nginstack/engine/lib/event/Emitter");
 type FieldPermissions = import("@nginstack/engine/lib/security/FieldPermissions");
-interface EntityState {
-    UNCHANGED: number;
-    ADDED: number;
-    MODIFIED: number;
-    DELETED: number;
-    DETACHED: number;
-}
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type EntityOptions = import("./EntityOptions");
+type EntityState = typeof EntityState;
+import EntityState = require("./EntityState.js");

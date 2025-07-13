@@ -6,7 +6,7 @@ export interface ApiGatewayEvent {
         | string
         | {
             path: string;
-            mehtod: HttpMethod;
+            method: HttpMethod;
             authorizer?: any;
             cors?: any;
             integration?: string | undefined;

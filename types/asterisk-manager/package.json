@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/asterisk-manager",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/uchkunrakhimow/NodeJS-AsteriskManager"
+    ],
+    "dependencies": {
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/asterisk-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Uchkun Rakhimov",
+            "githubUsername": "uchkunrakhimow"
+        },
+        {
+            "name": "Philipp Dunkel",
+            "githubUsername": "pipobscure"
+        }
+    ]
+}

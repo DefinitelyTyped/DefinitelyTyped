@@ -1,3 +1,4 @@
+export as namespace Guacamole;
 export * from "./lib/ArrayBufferReader";
 export * from "./lib/ArrayBufferWriter";
 export * from "./lib/AudioPlayer";

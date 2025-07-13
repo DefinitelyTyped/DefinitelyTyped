@@ -295,22 +295,22 @@ export interface EventWrapperProps<TEvent extends object = Event> {
 }
 
 export interface Messages<TEvent extends object = Event> {
-    date?: string | undefined;
-    time?: string | undefined;
-    event?: string | undefined;
-    allDay?: string | undefined;
-    week?: string | undefined;
-    work_week?: string | undefined;
-    day?: string | undefined;
-    month?: string | undefined;
-    previous?: string | undefined;
-    next?: string | undefined;
-    yesterday?: string | undefined;
-    tomorrow?: string | undefined;
-    today?: string | undefined;
-    agenda?: string | undefined;
-    showMore?: ((count: number, remainingEvents: TEvent[], events: TEvent[]) => string) | undefined;
-    noEventsInRange?: string | undefined;
+    date?: React.ReactNode | undefined;
+    time?: React.ReactNode | undefined;
+    event?: React.ReactNode | undefined;
+    allDay?: React.ReactNode | undefined;
+    week?: React.ReactNode | undefined;
+    work_week?: React.ReactNode | undefined;
+    day?: React.ReactNode | undefined;
+    month?: React.ReactNode | undefined;
+    previous?: React.ReactNode | undefined;
+    next?: React.ReactNode | undefined;
+    yesterday?: React.ReactNode | undefined;
+    tomorrow?: React.ReactNode | undefined;
+    today?: React.ReactNode | undefined;
+    agenda?: React.ReactNode | undefined;
+    showMore?: ((count: number, remainingEvents: TEvent[], events: TEvent[]) => React.ReactNode) | undefined;
+    noEventsInRange?: React.ReactNode | undefined;
 }
 
 export interface SlotInfo {

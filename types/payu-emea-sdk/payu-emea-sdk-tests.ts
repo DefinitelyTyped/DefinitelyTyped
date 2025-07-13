@@ -38,6 +38,7 @@ const options = {
     frameTitle: "TITLE",
     disabled: false,
     cardIcon: false,
+    enableInstallments: true,
 };
 
 const optionsWithError = {

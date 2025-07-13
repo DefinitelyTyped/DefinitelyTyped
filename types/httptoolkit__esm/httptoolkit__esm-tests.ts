@@ -1,14 +1,14 @@
 import esm = require("@httptoolkit/esm");
 
-// $ExpectType NodeRequire
+// $ExpectType Require
 esm(exports);
 
-// $ExpectType NodeRequire
+// $ExpectType Require
 esm(module, { cjs: true });
 // @ts-expect-error
 esm(module, { cjs: "1234" });
 
-// $ExpectType NodeRequire
+// $ExpectType Require
 esm(module, { mode: "auto" });
 // @ts-expect-error
 esm(module, { mode: "unknown" });

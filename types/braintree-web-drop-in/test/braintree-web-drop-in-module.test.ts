@@ -83,7 +83,13 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
         return;
     }
     function onPaymentMethodRequestable({ type, paymentMethodIsSelected }: dropin.PaymentMethodRequestablePayload) {
-        const myType: "CreditCard" | "PayPalAccount" = type;
+        const myType:
+            | "CreditCard"
+            | "PayPalAccount"
+            | "VenmoAccount"
+            | "ApplePayCard"
+            | "AndroidPayCard"
+            | "LocalPayment" = type;
         const myBool: boolean = paymentMethodIsSelected;
     }
     function onPaymentOptionSelected({ paymentOption }: dropin.PaymentOptionSelectedPayload) {

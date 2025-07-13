@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Data3DTexture, Node, TempNode, Texture3DNode, UniformNode } from "three/webgpu";
 
 declare class Lut3DNode extends TempNode {
@@ -13,8 +13,8 @@ declare class Lut3DNode extends TempNode {
 export default Lut3DNode;
 
 export const lut3D: (
-    node: NodeRepresentation,
-    lut: NodeRepresentation,
+    node: Node,
+    lut: Node,
     size: number,
-    intensity: NodeRepresentation,
+    intensity: Node,
 ) => ShaderNodeObject<Lut3DNode>;

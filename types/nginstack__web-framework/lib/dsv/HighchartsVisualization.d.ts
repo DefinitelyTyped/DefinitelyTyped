@@ -2,7 +2,7 @@ export = HighchartsVisualization;
 declare function HighchartsVisualization(definition: any): void;
 declare class HighchartsVisualization {
     constructor(definition: any);
-    onGetOptions: Event;
+    onGetOptions: import("@nginstack/engine/lib/event/Event");
     private canExport_;
     setCanExport(): never;
     private chart_;

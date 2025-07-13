@@ -5,7 +5,6 @@ import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class SkinningNode extends Node {
     skinnedMesh: SkinnedMesh;
-    useReference: boolean;
 
     skinIndexNode: Node;
     skinWeightNode: Node;
@@ -13,9 +12,11 @@ export default class SkinningNode extends Node {
     bindMatrixNode: Node;
     bindMatrixInverseNode: Node;
     boneMatricesNode: Node;
+    positionNode: Node;
+    toPositionNode: Node;
     previousBoneMatricesNode: Node | null;
 
-    constructor(skinnedMesh: SkinnedMesh, useReference?: boolean);
+    constructor(skinnedMesh: SkinnedMesh);
 
     getSkinnedPosition(boneMatrices?: Node, position?: Node): ShaderNodeObject<Node>;
 
@@ -27,4 +28,4 @@ export default class SkinningNode extends Node {
 }
 
 export const skinning: (skinnedMesh: SkinnedMesh) => ShaderNodeObject<SkinningNode>;
-export const skinningReference: (skinnedMesh: SkinnedMesh) => ShaderNodeObject<SkinningNode>;
+export const computeSkinning: (skinnedMesh: SkinnedMesh, toPosition?: Node | null) => ShaderNodeObject<SkinningNode>;

@@ -14,10 +14,5 @@
     "devDependencies": {
         "@types/tablesorter": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Manuel Thalmann",
-            "githubUsername": "manuth"
-        }
-    ]
+    "owners": []
 }

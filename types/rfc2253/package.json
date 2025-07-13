@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rfc2253",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/foss-haas/rfc2253"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rfc2253": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arnd Issler",
+            "githubUsername": "arndissler"
+        }
+    ]
+}

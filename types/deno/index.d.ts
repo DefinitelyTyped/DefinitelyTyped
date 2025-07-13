@@ -1,4 +1,4 @@
-// Copyright 2018-2024 the Deno authors. MIT license.
+// Copyright 2018-2025 the Deno authors. MIT license.
 
 /** The global namespace where Deno specific, non-standard APIs are located. */
 declare namespace Deno {
@@ -397,10 +397,7 @@ declare namespace Deno {
      * set of permissions to the test context.
      *
      * @category Permissions */
-    export type PermissionOptions =
-        | "inherit"
-        | "none"
-        | PermissionOptionsObject;
+    export type PermissionOptions = "inherit" | "none" | PermissionOptionsObject;
 
     /**
      * A set of options which can define the permissions within a test or worker
@@ -417,14 +414,23 @@ declare namespace Deno {
          */
         env?: "inherit" | boolean | string[];
 
-        /** Specifies if the `sys` permission should be requested or revoked.
-         * If set to `"inherit"`, the current `sys` permission will be inherited.
-         * If set to `true`, the global `sys` permission will be requested.
-         * If set to `false`, the global `sys` permission will be revoked.
+        /** Specifies if the `ffi` permission should be requested or revoked.
+         * If set to `"inherit"`, the current `ffi` permission will be inherited.
+         * If set to `true`, the global `ffi` permission will be requested.
+         * If set to `false`, the global `ffi` permission will be revoked.
          *
          * @default {false}
          */
-        sys?: "inherit" | boolean | string[];
+        ffi?: "inherit" | boolean | Array<string | URL>;
+
+        /** Specifies if the `import` permission should be requested or revoked.
+         * If set to `"inherit"` the current `import` permission will be inherited.
+         * If set to `true`, the global `import` permission will be requested.
+         * If set to `false`, the global `import` permission will be revoked.
+         * If set to `Array<string>`, the `import` permissions will be requested with the
+         * specified domains.
+         */
+        import?: "inherit" | boolean | Array<string>;
 
         /** Specifies if the `net` permission should be requested or revoked.
          * if set to `"inherit"`, the current `net` permission will be inherited.
@@ -499,15 +505,6 @@ declare namespace Deno {
          */
         net?: "inherit" | boolean | string[];
 
-        /** Specifies if the `ffi` permission should be requested or revoked.
-         * If set to `"inherit"`, the current `ffi` permission will be inherited.
-         * If set to `true`, the global `ffi` permission will be requested.
-         * If set to `false`, the global `ffi` permission will be revoked.
-         *
-         * @default {false}
-         */
-        ffi?: "inherit" | boolean | Array<string | URL>;
-
         /** Specifies if the `read` permission should be requested or revoked.
          * If set to `"inherit"`, the current `read` permission will be inherited.
          * If set to `true`, the global `read` permission will be requested.
@@ -527,6 +524,15 @@ declare namespace Deno {
          * @default {false}
          */
         run?: "inherit" | boolean | Array<string | URL>;
+
+        /** Specifies if the `sys` permission should be requested or revoked.
+         * If set to `"inherit"`, the current `sys` permission will be inherited.
+         * If set to `true`, the global `sys` permission will be requested.
+         * If set to `false`, the global `sys` permission will be revoked.
+         *
+         * @default {false}
+         */
+        sys?: "inherit" | boolean | string[];
 
         /** Specifies if the `write` permission should be requested or revoked.
          * If set to `"inherit"`, the current `write` permission will be inherited.
@@ -805,10 +811,7 @@ declare namespace Deno {
          *
          * @category Testing
          */
-        (
-            name: string,
-            fn: (t: TestContext) => void | Promise<void>,
-        ): void;
+        (name: string, fn: (t: TestContext) => void | Promise<void>): void;
 
         /** Register a test which will be run when `deno test` is used on the command
          * line and the containing module looks like a test module.
@@ -940,10 +943,7 @@ declare namespace Deno {
          *
          * @category Testing
          */
-        ignore(
-            name: string,
-            fn: (t: TestContext) => void | Promise<void>,
-        ): void;
+        ignore(name: string, fn: (t: TestContext) => void | Promise<void>): void;
 
         /** Shorthand property for ignoring a particular test case.
          *
@@ -989,10 +989,7 @@ declare namespace Deno {
          *
          * @category Testing
          */
-        only(
-            name: string,
-            fn: (t: TestContext) => void | Promise<void>,
-        ): void;
+        only(name: string, fn: (t: TestContext) => void | Promise<void>): void;
 
         /** Shorthand property for focusing a particular test case.
          *
@@ -1103,6 +1100,17 @@ declare namespace Deno {
         /** If at least one bench has `only` set to true, only run benches that have
          * `only` set to `true` and fail the bench suite. */
         only?: boolean;
+        /** Number of iterations to perform.
+         * @remarks When the benchmark is very fast, this will only be used as a
+         * suggestion in order to get a more accurate measurement.
+         */
+        n?: number;
+        /** Number of warmups to do before running the benchmark.
+         * @remarks A warmup will always be performed even if this is `0` in order to
+         * determine the speed of the benchmark in order to improve the measurement. When
+         * the benchmark is very fast, this will be used as a suggestion.
+         */
+        warmup?: number;
         /** Ensure the bench case does not prematurely cause the process to exit,
          * for example via a call to {@linkcode Deno.exit}.
          *
@@ -1647,7 +1655,7 @@ declare namespace Deno {
          * }
          * ```
          */
-        readonly readable: ReadableStream<Uint8Array>;
+        readonly readable: ReadableStream<Uint8Array<ArrayBuffer>>;
         /** A {@linkcode WritableStream} instance to write the contents of the
          * file. This makes it easy to interoperate with other web streams based
          * APIs.
@@ -1662,7 +1670,7 @@ declare namespace Deno {
          * }
          * ```
          */
-        readonly writable: WritableStream<Uint8Array>;
+        readonly writable: WritableStream<Uint8Array<ArrayBufferLike>>;
         /** Write the contents of the array buffer (`p`) to the file.
          *
          * Resolves to the number of bytes written.
@@ -1971,8 +1979,7 @@ declare namespace Deno {
          * @category File System
          */
         utimeSync(atime: number | Date, mtime: number | Date): void;
-        /** **UNSTABLE**: New API, yet to be vetted.
-         *
+        /**
          * Checks if the file resource is a TTY (terminal).
          *
          * ```ts
@@ -1982,8 +1989,7 @@ declare namespace Deno {
          * ```
          */
         isTerminal(): boolean;
-        /** **UNSTABLE**: New API, yet to be vetted.
-         *
+        /**
          * Set TTY to be under raw mode or not. In raw mode, characters are read and
          * returned as is, without being processed. All special processing of
          * characters by the terminal is disabled, including echoing input
@@ -2129,7 +2135,7 @@ declare namespace Deno {
          */
         close(): void;
         /** A readable stream interface to `stdin`. */
-        readonly readable: ReadableStream<Uint8Array>;
+        readonly readable: ReadableStream<Uint8Array<ArrayBuffer>>;
         /**
          * Set TTY to be under raw mode or not. In raw mode, characters are read and
          * returned as is, without being processed. All special processing of
@@ -2207,7 +2213,7 @@ declare namespace Deno {
          */
         close(): void;
         /** A writable stream interface to `stdout`. */
-        readonly writable: WritableStream<Uint8Array>;
+        readonly writable: WritableStream<Uint8Array<ArrayBufferLike>>;
         /**
          * Checks if `stdout` is a TTY (terminal).
          *
@@ -2271,7 +2277,7 @@ declare namespace Deno {
          */
         close(): void;
         /** A writable stream interface to `stderr`. */
-        readonly writable: WritableStream<Uint8Array>;
+        readonly writable: WritableStream<Uint8Array<ArrayBufferLike>>;
         /**
          * Checks if `stderr` is a TTY (terminal).
          *
@@ -2766,7 +2772,7 @@ declare namespace Deno {
 
     /** Reads and resolves to the entire contents of a file as an array of bytes.
      * `TextDecoder` can be used to transform the bytes to string if required.
-     * Reading a directory returns an empty data array.
+     * Rejects with an error when reading a directory.
      *
      * ```ts
      * const decoder = new TextDecoder("utf-8");
@@ -2782,11 +2788,11 @@ declare namespace Deno {
     export function readFile(
         path: string | URL,
         options?: ReadFileOptions,
-    ): Promise<Uint8Array>;
+    ): Promise<Uint8Array<ArrayBuffer>>;
 
     /** Synchronously reads and returns the entire contents of a file as an array
      * of bytes. `TextDecoder` can be used to transform the bytes to string if
-     * required. Reading a directory returns an empty data array.
+     * required. Throws an error when reading a directory.
      *
      * ```ts
      * const decoder = new TextDecoder("utf-8");
@@ -2799,7 +2805,7 @@ declare namespace Deno {
      * @tags allow-read
      * @category File System
      */
-    export function readFileSync(path: string | URL): Uint8Array;
+    export function readFileSync(path: string | URL): Uint8Array<ArrayBuffer>;
 
     /** Provides information about a file and is returned by
      * {@linkcode Deno.stat}, {@linkcode Deno.lstat}, {@linkcode Deno.statSync},
@@ -2832,6 +2838,10 @@ declare namespace Deno {
          * field from `stat` on Mac/BSD and `ftCreationTime` on Windows. This may
          * not be available on all platforms. */
         birthtime: Date | null;
+        /** The last change time of the file. This corresponds to the `ctime`
+         * field from `stat` on Mac/BSD and `ChangeTime` on Windows. This may
+         * not be available on all platforms. */
+        ctime: Date | null;
         /** ID of the device containing the file. */
         dev: number;
         /** Inode number.
@@ -2840,8 +2850,7 @@ declare namespace Deno {
         ino: number | null;
         /** The underlying raw `st_mode` bits that contain the standard Unix
          * permissions for this file/directory.
-         *
-         * _Linux/Mac OS only._ */
+         */
         mode: number | null;
         /** Number of hard links pointing to this file.
          *
@@ -2982,7 +2991,7 @@ declare namespace Deno {
      * @tags allow-read
      * @category File System
      */
-    export function readDirSync(path: string | URL): Iterable<DirEntry>;
+    export function readDirSync(path: string | URL): IteratorObject<DirEntry>;
 
     /** Copies the contents and permissions of one file to another specified path,
      * by default creating a new file if needed, else overwriting. Fails if target
@@ -3357,10 +3366,6 @@ declare namespace Deno {
         close(): void;
         /**
          * Stops watching the file system and closes the watcher resource.
-         *
-         * @deprecated This will be removed in Deno 2.0. See the
-         * {@link https://docs.deno.com/runtime/manual/advanced/migrate_deprecations | Deno 1.x to 2.x Migration Guide}
-         * for migration instructions.
          */
         return?(value?: any): Promise<IteratorResult<FsEvent>>;
         [Symbol.asyncIterator](): AsyncIterableIterator<FsEvent>;
@@ -3593,9 +3598,9 @@ declare namespace Deno {
      * @category Subprocess
      */
     export class ChildProcess implements AsyncDisposable {
-        get stdin(): WritableStream<Uint8Array>;
-        get stdout(): ReadableStream<Uint8Array>;
-        get stderr(): ReadableStream<Uint8Array>;
+        get stdin(): WritableStream<Uint8Array<ArrayBufferLike>>;
+        get stdout(): ReadableStream<Uint8Array<ArrayBuffer>>;
+        get stderr(): ReadableStream<Uint8Array<ArrayBuffer>>;
         readonly pid: number;
         /** Get the status of the child. */
         readonly status: Promise<CommandStatus>;
@@ -3707,9 +3712,9 @@ declare namespace Deno {
      */
     export interface CommandOutput extends CommandStatus {
         /** The buffered output from the child process' `stdout`. */
-        readonly stdout: Uint8Array;
+        readonly stdout: Uint8Array<ArrayBuffer>;
         /** The buffered output from the child process' `stderr`. */
-        readonly stderr: Uint8Array;
+        readonly stderr: Uint8Array<ArrayBuffer>;
     }
 
     /** Option which can be specified when performing {@linkcode Deno.inspect}.
@@ -3825,10 +3830,7 @@ declare namespace Deno {
      *
      * @category Permissions
      */
-    export type PermissionState =
-        | "granted"
-        | "denied"
-        | "prompt";
+    export type PermissionState = "granted" | "denied" | "prompt";
 
     /** The permission descriptor for the `allow-run` and `deny-run` permissions, which controls
      * access to what sub-processes can be executed by Deno. The option `command`
@@ -3968,7 +3970,7 @@ declare namespace Deno {
      *
      * @category Permissions */
     export interface PermissionStatusEventMap {
-        "change": Event;
+        change: Event;
     }
 
     /** An {@linkcode EventTarget} returned from the {@linkcode Deno.permissions}
@@ -4223,6 +4225,7 @@ declare namespace Deno {
             | "aix"
             | "solaris"
             | "illumos";
+        standalone: boolean;
         /** The computer vendor that the Deno CLI was built for. */
         vendor: string;
         /** Optional environment flags that were set for this build of Deno CLI. */
@@ -4400,7 +4403,7 @@ declare namespace Deno {
     /** The object that is returned from a {@linkcode Deno.upgradeWebSocket}
      * request.
      *
-     * @category Web Sockets */
+     * @category WebSockets */
     export interface WebSocketUpgrade {
         /** The response object that represents the HTTP response to the client,
          * which should be used to the {@linkcode RequestEvent} `.respondWith()` for
@@ -4414,7 +4417,7 @@ declare namespace Deno {
     /** Options which can be set when performing a
      * {@linkcode Deno.upgradeWebSocket} upgrade of a {@linkcode Request}
      *
-     * @category Web Sockets */
+     * @category WebSockets */
     export interface UpgradeWebSocketOptions {
         /** Sets the `.protocol` property on the client side web socket to the
          * value provided here, which should be one of the strings specified in the
@@ -4462,7 +4465,7 @@ declare namespace Deno {
      * This operation does not yet consume the request or open the websocket. This
      * only happens once the returned response has been passed to `respondWith()`.
      *
-     * @category Web Sockets
+     * @category WebSockets
      */
     export function upgradeWebSocket(
         request: Request,
@@ -5015,6 +5018,25 @@ declare namespace Deno {
     }
 
     /**
+     * Options that can be passed to `Deno.serve` to create a server listening on
+     * a VSOCK socket.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category HTTP Server
+     */
+    export interface ServeVsockOptions extends ServeOptions<Deno.VsockAddr> {
+        /** The transport to use. */
+        transport?: "vsock";
+
+        /** The context identifier to use. */
+        cid: number;
+
+        /** The port to use. */
+        port: number;
+    }
+
+    /**
      * @category HTTP Server
      */
     export interface ServeInit<Addr extends Deno.Addr = Deno.Addr> {
@@ -5116,6 +5138,60 @@ declare namespace Deno {
     ): HttpServer<Deno.UnixAddr>;
     /** Serves HTTP requests with the given option bag and handler.
      *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * You can specify an object with the cid and port options for the VSOCK interface.
+     *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * ```ts
+     * Deno.serve(
+     *   { cid: -1, port: 3000 },
+     *   (_req) => new Response("Hello, world")
+     * );
+     * ```
+     *
+     * You can stop the server with an {@linkcode AbortSignal}. The abort signal
+     * needs to be passed as the `signal` option in the options bag. The server
+     * aborts when the abort signal is aborted. To wait for the server to close,
+     * await the promise returned from the `Deno.serve` API.
+     *
+     * ```ts
+     * const ac = new AbortController();
+     *
+     * const server = Deno.serve(
+     *    { signal: ac.signal, cid: -1, port: 3000 },
+     *    (_req) => new Response("Hello, world")
+     * );
+     * server.finished.then(() => console.log("Server closed"));
+     *
+     * console.log("Closing server...");
+     * ac.abort();
+     * ```
+     *
+     * By default `Deno.serve` prints the message `Listening on cid:port`.
+     * If you want to change this behavior, you can specify a custom `onListen`
+     * callback.
+     *
+     * ```ts
+     * Deno.serve({
+     *   onListen({ cid, port }) {
+     *     console.log(`Server started at ${cid}:${port}`);
+     *     // ... more info specific to your server ..
+     *   },
+     *   cid: -1,
+     *   port: 3000,
+     * }, (_req) => new Response("Hello, world"));
+     * ```
+     *
+     * @category HTTP Server
+     */
+    export function serve(
+        options: ServeVsockOptions,
+        handler: ServeHandler<Deno.VsockAddr>,
+    ): HttpServer<Deno.VsockAddr>;
+    /** Serves HTTP requests with the given option bag and handler.
+     *
      * You can specify an object with a port and hostname option, which is the
      * address to listen on. The default is port `8000` on hostname `"0.0.0.0"`.
      *
@@ -5171,9 +5247,7 @@ declare namespace Deno {
      * @category HTTP Server
      */
     export function serve(
-        options:
-            | ServeTcpOptions
-            | (ServeTcpOptions & TlsCertifiedKeyPem),
+        options: ServeTcpOptions | (ServeTcpOptions & TlsCertifiedKeyPem),
         handler: ServeHandler<Deno.NetAddr>,
     ): HttpServer<Deno.NetAddr>;
     /** Serves HTTP requests with the given option bag.
@@ -5205,6 +5279,37 @@ declare namespace Deno {
     ): HttpServer<Deno.UnixAddr>;
     /** Serves HTTP requests with the given option bag.
      *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * You can specify an object with the cid and port options for the VSOCK interface.
+     *
+     * ```ts
+     * const ac = new AbortController();
+     *
+     * const server = Deno.serve({
+     *   cid: -1,
+     *   port: 3000,
+     *   handler: (_req) => new Response("Hello, world"),
+     *   signal: ac.signal,
+     *   onListen({ cid, port }) {
+     *     console.log(`Server started at ${cid}:${port}`);
+     *   },
+     * });
+     * server.finished.then(() => console.log("Server closed"));
+     *
+     * console.log("Closing server...");
+     * ac.abort();
+     * ```
+     *
+     * @category HTTP Server
+     */
+    export function serve(
+        options: ServeVsockOptions & ServeInit<Deno.VsockAddr>,
+    ): HttpServer<Deno.VsockAddr>;
+    /** Serves HTTP requests with the given option bag.
+     *
      * You can specify an object with a port and hostname option, which is the
      * address to listen on. The default is port `8000` on hostname `"0.0.0.0"`.
      *
@@ -5234,8 +5339,6 @@ declare namespace Deno {
             & ServeInit<Deno.NetAddr>,
     ): HttpServer<Deno.NetAddr>;
 
-    export {}; // only export exports
-
     /** All plain number types for interfacing with foreign functions.
      *
      * @category FFI
@@ -5254,11 +5357,7 @@ declare namespace Deno {
      *
      * @category FFI
      */
-    export type NativeBigIntType =
-        | "u64"
-        | "i64"
-        | "usize"
-        | "isize";
+    export type NativeBigIntType = "u64" | "i64" | "usize" | "isize";
 
     /** The native boolean type for interfacing to foreign functions.
      *
@@ -5301,7 +5400,7 @@ declare namespace Deno {
     /**
      * @category FFI
      */
-    export const brand: unique symbol;
+    const brand: unique symbol;
 
     /**
      * @category FFI
@@ -5374,7 +5473,8 @@ declare namespace Deno {
             : number
         : T extends NativeBigIntType ? bigint
         : T extends NativeBooleanType ? boolean
-        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null : PointerValue
+        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null
+            : PointerValue
         : T extends NativeFunctionType ? T extends NativeTypedFunction<infer U> ? PointerValue<U> | null
             : PointerValue
         : T extends NativeBufferType ? BufferSource | null
@@ -5396,7 +5496,8 @@ declare namespace Deno {
             : number
         : T extends NativeBigIntType ? bigint
         : T extends NativeBooleanType ? boolean
-        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null : PointerValue
+        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null
+            : PointerValue
         : T extends NativeFunctionType ? T extends NativeTypedFunction<infer U> ? PointerObject<U> | null
             : PointerValue
         : T extends NativeBufferType ? BufferSource | null
@@ -5409,8 +5510,8 @@ declare namespace Deno {
      */
     export type ToNativeParameterTypes<T extends readonly NativeType[]> =
         //
-        [(T[number])[]] extends [T] ? ToNativeType<T[number]>[]
-            : [readonly (T[number])[]] extends [T] ? readonly ToNativeType<T[number]>[]
+        [T[number][]] extends [T] ? ToNativeType<T[number]>[]
+            : [readonly T[number][]] extends [T] ? readonly ToNativeType<T[number]>[]
             : T extends readonly [...NativeType[]] ? {
                     [K in keyof T]: ToNativeType<T[K]>;
                 }
@@ -5431,7 +5532,8 @@ declare namespace Deno {
             : number
         : T extends NativeBigIntType ? bigint
         : T extends NativeBooleanType ? boolean
-        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null : PointerValue
+        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null
+            : PointerValue
         : T extends NativeBufferType ? PointerValue
         : T extends NativeFunctionType ? T extends NativeTypedFunction<infer U> ? PointerObject<U> | null
             : PointerValue
@@ -5453,7 +5555,8 @@ declare namespace Deno {
             : number
         : T extends NativeBigIntType ? bigint
         : T extends NativeBooleanType ? boolean
-        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null : PointerValue
+        : T extends NativePointerType ? T extends NativeTypedPointer<infer U> ? U | null
+            : PointerValue
         : T extends NativeBufferType ? PointerValue
         : T extends NativeFunctionType ? T extends NativeTypedFunction<infer U> ? PointerObject<U> | null
             : PointerValue
@@ -5462,12 +5565,10 @@ declare namespace Deno {
 
     /** @category FFI
      */
-    export type FromNativeParameterTypes<
-        T extends readonly NativeType[],
-    > =
+    export type FromNativeParameterTypes<T extends readonly NativeType[]> =
         //
-        [(T[number])[]] extends [T] ? FromNativeType<T[number]>[]
-            : [readonly (T[number])[]] extends [T] ? readonly FromNativeType<T[number]>[]
+        [T[number][]] extends [T] ? FromNativeType<T[number]>[]
+            : [readonly T[number][]] extends [T] ? readonly FromNativeType<T[number]>[]
             : T extends readonly [...NativeType[]] ? {
                     [K in keyof T]: FromNativeType<T[K]>;
                 }
@@ -5549,7 +5650,10 @@ declare namespace Deno {
 
     /** @category FFI
      */
-    export type ConditionalAsync<IsAsync extends boolean | undefined, T> = IsAsync extends true ? Promise<T> : T;
+    export type ConditionalAsync<
+        IsAsync extends boolean | undefined,
+        T,
+    > = IsAsync extends true ? Promise<T> : T;
 
     /** A utility type that infers a foreign library interface.
      *
@@ -5657,10 +5761,7 @@ declare namespace Deno {
         getCString(offset?: number): string;
         /** Gets a C string (`null` terminated string) at the specified byte offset
          * from the specified pointer. */
-        static getCString(
-            pointer: PointerObject,
-            offset?: number,
-        ): string;
+        static getCString(pointer: PointerObject, offset?: number): string;
         /** Gets an `ArrayBuffer` of length `byteLength` at the specified byte
          * offset from the pointer. */
         getArrayBuffer(byteLength: number, offset?: number): ArrayBuffer;
@@ -5700,9 +5801,10 @@ declare namespace Deno {
         /** The definition of the function. */
         definition: Fn;
 
-        constructor(pointer: PointerObject<NoInfer<Fn>>, definition: Fn);
-        /** @deprecated Properly type {@linkcode pointer} using {@linkcode NativeTypedFunction} or {@linkcode UnsafeCallbackDefinition} types. */
-        constructor(pointer: PointerObject, definition: Fn);
+        constructor(
+            pointer: PointerObject<NoInfer<Omit<Fn, "nonblocking">>>,
+            definition: Fn,
+        );
 
         /** Call the foreign function. */
         call: FromForeignFunction<Fn>;
@@ -5729,9 +5831,10 @@ declare namespace Deno {
     export type UnsafeCallbackFunction<
         Parameters extends readonly NativeType[] = readonly NativeType[],
         Result extends NativeResultType = NativeResultType,
-    > = Parameters extends readonly [] ? () => ToNativeResultType<Result> : (
-        ...args: FromNativeParameterTypes<Parameters>
-    ) => ToNativeResultType<Result>;
+    > = Parameters extends readonly [] ? () => ToNativeResultType<Result>
+        : (
+            ...args: FromNativeParameterTypes<Parameters>
+        ) => ToNativeResultType<Result>;
 
     /** An unsafe function pointer for passing JavaScript functions as C function
      * pointers to foreign function calls.
@@ -5909,9 +6012,11 @@ declare namespace Deno {
      *
      * @category Fetch
      */
-    export interface HttpClient extends Disposable {
+    export class HttpClient implements Disposable {
         /** Close the HTTP client. */
         close(): void;
+
+        [Symbol.dispose](): void;
     }
 
     /**
@@ -5948,6 +6053,8 @@ declare namespace Deno {
          * @default {false}
          */
         allowHost?: boolean;
+        /** Sets the local address where the socket will connect from. */
+        localAddress?: string;
     }
 
     /**
@@ -5978,7 +6085,12 @@ declare namespace Deno {
 
     /** Create a custom HttpClient to use with {@linkcode fetch}. This is an
      * extension of the web platform Fetch API which allows Deno to use custom
-     * TLS certificates and connect via a proxy while using `fetch()`.
+     * TLS CA certificates and connect via a proxy while using `fetch()`.
+     *
+     * The `cert` and `key` options can be used to specify a client certificate
+     * and key to use when connecting to a server that requires client
+     * authentication (mutual TLS or mTLS). The `cert` and `key` options must be
+     * provided in PEM format.
      *
      * @example ```ts
      * const caCert = await Deno.readTextFile("./ca.pem");
@@ -5993,31 +6105,22 @@ declare namespace Deno {
      * const response = await fetch("https://myserver.com", { client });
      * ```
      *
-     * @category Fetch
-     */
-    export function createHttpClient(
-        options: CreateHttpClientOptions,
-    ): HttpClient;
-
-    /**
-     * Create a custom HttpClient to use with {@linkcode fetch}. This is an
-     * extension of the web platform Fetch API which allows Deno to use custom
-     * TLS certificates and connect via a proxy while using `fetch()`.
-     *
      * @example ```ts
-     * const caCert = await Deno.readTextFile("./ca.pem");
-     * // Load a client key and certificate that we'll use to connect
-     * const key = await Deno.readTextFile("./key.key");
-     * const cert = await Deno.readTextFile("./cert.crt");
-     * const client = Deno.createHttpClient({ caCerts: [ caCert ], key, cert });
+     * const key = "----BEGIN PRIVATE KEY----...";
+     * const cert = "----BEGIN CERTIFICATE----...";
+     * const client = Deno.createHttpClient({ key, cert });
      * const response = await fetch("https://myserver.com", { client });
      * ```
      *
      * @category Fetch
      */
     export function createHttpClient(
-        options: CreateHttpClientOptions & TlsCertifiedKeyPem,
+        options:
+            | CreateHttpClientOptions
+            | (CreateHttpClientOptions & TlsCertifiedKeyPem),
     ): HttpClient;
+
+    export {}; // only export exports
 }
 
 /** @category GPU */
@@ -6032,36 +6135,39 @@ interface GPUObjectDescriptorBase {
 
 /** @category GPU */
 declare class GPUSupportedLimits {
-    maxTextureDimension1D?: number;
-    maxTextureDimension2D?: number;
-    maxTextureDimension3D?: number;
-    maxTextureArrayLayers?: number;
-    maxBindGroups?: number;
-    maxBindingsPerBindGroup?: number;
-    maxDynamicUniformBuffersPerPipelineLayout?: number;
-    maxDynamicStorageBuffersPerPipelineLayout?: number;
-    maxSampledTexturesPerShaderStage?: number;
-    maxSamplersPerShaderStage?: number;
-    maxStorageBuffersPerShaderStage?: number;
-    maxStorageTexturesPerShaderStage?: number;
-    maxUniformBuffersPerShaderStage?: number;
-    maxUniformBufferBindingSize?: number;
-    maxStorageBufferBindingSize?: number;
-    minUniformBufferOffsetAlignment?: number;
-    minStorageBufferOffsetAlignment?: number;
-    maxVertexBuffers?: number;
-    maxBufferSize?: number;
-    maxVertexAttributes?: number;
-    maxVertexBufferArrayStride?: number;
-    maxInterStageShaderComponents?: number;
-    maxColorAttachments?: number;
-    maxColorAttachmentBytesPerSample?: number;
-    maxComputeWorkgroupStorageSize?: number;
-    maxComputeInvocationsPerWorkgroup?: number;
-    maxComputeWorkgroupSizeX?: number;
-    maxComputeWorkgroupSizeY?: number;
-    maxComputeWorkgroupSizeZ?: number;
-    maxComputeWorkgroupsPerDimension?: number;
+    readonly maxTextureDimension1D: number;
+    readonly maxTextureDimension2D: number;
+    readonly maxTextureDimension3D: number;
+    readonly maxTextureArrayLayers: number;
+    readonly maxBindGroups: number;
+    // TODO(@crowlKats): support max_bind_groups_plus_vertex_buffers
+    readonly maxBindGroupsPlusVertexBuffers?: number;
+    readonly maxBindingsPerBindGroup: number;
+    readonly maxDynamicUniformBuffersPerPipelineLayout: number;
+    readonly maxDynamicStorageBuffersPerPipelineLayout: number;
+    readonly maxSampledTexturesPerShaderStage: number;
+    readonly maxSamplersPerShaderStage: number;
+    readonly maxStorageBuffersPerShaderStage: number;
+    readonly maxStorageTexturesPerShaderStage: number;
+    readonly maxUniformBuffersPerShaderStage: number;
+    readonly maxUniformBufferBindingSize: number;
+    readonly maxStorageBufferBindingSize: number;
+    readonly minUniformBufferOffsetAlignment: number;
+    readonly minStorageBufferOffsetAlignment: number;
+    readonly maxVertexBuffers: number;
+    readonly maxBufferSize: number;
+    readonly maxVertexAttributes: number;
+    readonly maxVertexBufferArrayStride: number;
+    // TODO(@crowlKats): support max_inter_stage_shader_variables
+    readonly maxInterStageShaderVariables?: number;
+    readonly maxColorAttachments: number;
+    readonly maxColorAttachmentBytesPerSample: number;
+    readonly maxComputeWorkgroupStorageSize: number;
+    readonly maxComputeInvocationsPerWorkgroup: number;
+    readonly maxComputeWorkgroupSizeX: number;
+    readonly maxComputeWorkgroupSizeY: number;
+    readonly maxComputeWorkgroupSizeZ: number;
+    readonly maxComputeWorkgroupsPerDimension: number;
 }
 
 /** @category GPU */
@@ -6088,9 +6194,42 @@ declare class GPUAdapterInfo {
     readonly architecture: string;
     readonly device: string;
     readonly description: string;
+    readonly subgroupMinSize: number;
+    readonly subgroupMaxSize: number;
+    readonly isFallbackAdapter: boolean;
 }
 
-/** @category GPU */
+/**
+ * The entry point to WebGPU in Deno, accessed via the global navigator.gpu property.
+ *
+ * @example
+ * ```ts
+ * // Basic WebGPU initialization in Deno
+ * const gpu = navigator.gpu;
+ * if (!gpu) {
+ *   console.error("WebGPU not supported in this Deno environment");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Request an adapter (physical GPU device)
+ * const adapter = await gpu.requestAdapter();
+ * if (!adapter) {
+ *   console.error("Couldn't request WebGPU adapter");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Get the preferred format for canvas rendering
+ * // Useful when working with canvas in browser/Deno environments
+ * const preferredFormat = gpu.getPreferredCanvasFormat();
+ * console.log(`Preferred canvas format: ${preferredFormat}`);
+ *
+ * // Create a device with default settings
+ * const device = await adapter.requestDevice();
+ * console.log("WebGPU device created successfully");
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPU {
     requestAdapter(
         options?: GPURequestAdapterOptions,
@@ -6107,12 +6246,47 @@ interface GPURequestAdapterOptions {
 /** @category GPU */
 type GPUPowerPreference = "low-power" | "high-performance";
 
-/** @category GPU */
+/**
+ * Represents a physical GPU device that can be used to create a logical GPU device.
+ *
+ * @example
+ * ```ts
+ * // Request an adapter with specific power preference
+ * const adapter = await navigator.gpu.requestAdapter({
+ *   powerPreference: "high-performance"
+ * });
+ *
+ * if (!adapter) {
+ *   console.error("WebGPU not supported or no appropriate adapter found");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Check adapter capabilities
+ * if (adapter.features.has("shader-f16")) {
+ *   console.log("Adapter supports 16-bit shader operations");
+ * }
+ *
+ * console.log(`Maximum buffer size: ${adapter.limits.maxBufferSize} bytes`);
+ *
+ * // Get adapter info (vendor, device, etc.)
+ * console.log(`GPU Vendor: ${adapter.info.vendor}`);
+ * console.log(`GPU Device: ${adapter.info.device}`);
+ *
+ * // Request a logical device with specific features and limits
+ * const device = await adapter.requestDevice({
+ *   requiredFeatures: ["shader-f16"],
+ *   requiredLimits: {
+ *     maxStorageBufferBindingSize: 128 * 1024 * 1024, // 128MB
+ *   }
+ * });
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUAdapter {
     readonly features: GPUSupportedFeatures;
     readonly limits: GPUSupportedLimits;
     readonly info: GPUAdapterInfo;
-    readonly isFallbackAdapter: boolean;
 
     requestDevice(descriptor?: GPUDeviceDescriptor): Promise<GPUDevice>;
 }
@@ -6120,38 +6294,80 @@ declare class GPUAdapter {
 /** @category GPU */
 interface GPUDeviceDescriptor extends GPUObjectDescriptorBase {
     requiredFeatures?: GPUFeatureName[];
-    requiredLimits?: Record<string, number>;
+    requiredLimits?: Record<string, number | undefined>;
 }
 
 /** @category GPU */
 type GPUFeatureName =
     | "depth-clip-control"
-    | "depth32float-stencil8"
-    | "pipeline-statistics-query"
-    | "texture-compression-bc"
-    | "texture-compression-etc2"
-    | "texture-compression-astc"
     | "timestamp-query"
     | "indirect-first-instance"
     | "shader-f16"
+    | "depth32float-stencil8"
+    | "texture-compression-bc"
+    | "texture-compression-bc-sliced-3d"
+    | "texture-compression-etc2"
+    | "texture-compression-astc"
     | "rg11b10ufloat-renderable"
     | "bgra8unorm-storage"
     | "float32-filterable"
+    | "dual-source-blending"
+    | "subgroups"
     // extended from spec
+    | "texture-format-16-bit-norm"
+    | "texture-compression-astc-hdr"
+    | "texture-adapter-specific-format-features"
+    | "pipeline-statistics-query"
+    | "timestamp-query-inside-passes"
     | "mappable-primary-buffers"
-    | "sampled-texture-binding-array"
-    | "sampled-texture-array-dynamic-indexing"
-    | "sampled-texture-array-non-uniform-indexing"
-    | "unsized-binding-array"
+    | "texture-binding-array"
+    | "buffer-binding-array"
+    | "storage-resource-binding-array"
+    | "sampled-texture-and-storage-buffer-array-non-uniform-indexing"
+    | "uniform-buffer-and-storage-texture-array-non-uniform-indexing"
+    | "partially-bound-binding-array"
     | "multi-draw-indirect"
     | "multi-draw-indirect-count"
     | "push-constants"
+    | "address-mode-clamp-to-zero"
     | "address-mode-clamp-to-border"
-    | "texture-adapter-specific-format-features"
-    | "shader-float64"
-    | "vertex-attribute-64bit";
+    | "polygon-mode-line"
+    | "polygon-mode-point"
+    | "conservative-rasterization"
+    | "vertex-writable-storage"
+    | "clear-texture"
+    | "spirv-shader-passthrough"
+    | "multiview"
+    | "vertex-attribute-64-bit"
+    | "shader-f64"
+    | "shader-i16"
+    | "shader-primitive-index"
+    | "shader-early-depth-test";
 
-/** @category GPU */
+/**
+ * The primary interface for interacting with a WebGPU device.
+ *
+ * @example
+ * ```ts
+ * // Request a GPU adapter from the browser/Deno
+ * const adapter = await navigator.gpu.requestAdapter();
+ * if (!adapter) throw new Error("WebGPU not supported");
+ *
+ * // Request a device from the adapter
+ * const device = await adapter.requestDevice();
+ *
+ * // Create a buffer on the GPU
+ * const buffer = device.createBuffer({
+ *   size: 128,
+ *   usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
+ * });
+ *
+ * // Use device.queue to submit commands
+ * device.queue.writeBuffer(buffer, 0, new Uint8Array([1, 2, 3, 4]));
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUDevice extends EventTarget implements GPUObjectBase {
     label: string;
 
@@ -6161,6 +6377,7 @@ declare class GPUDevice extends EventTarget implements GPUObjectBase {
 
     readonly features: GPUSupportedFeatures;
     readonly limits: GPUSupportedLimits;
+    readonly adapterInfo: GPUAdapterInfo;
     readonly queue: GPUQueue;
 
     destroy(): undefined;
@@ -6201,7 +6418,35 @@ declare class GPUDevice extends EventTarget implements GPUObjectBase {
     createQuerySet(descriptor: GPUQuerySetDescriptor): GPUQuerySet;
 }
 
-/** @category GPU */
+/**
+ * Represents a block of memory allocated on the GPU.
+ *
+ * @example
+ * ```ts
+ * // Create a buffer that can be used as a vertex buffer and can be written to
+ * const vertexBuffer = device.createBuffer({
+ *   label: "Vertex Buffer",
+ *   size: vertices.byteLength,
+ *   usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+ * });
+ *
+ * // Write data to the buffer
+ * device.queue.writeBuffer(vertexBuffer, 0, vertices);
+ *
+ * // Example of creating a mapped buffer for CPU access
+ * const stagingBuffer = device.createBuffer({
+ *   size: data.byteLength,
+ *   usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC,
+ *   mappedAtCreation: true,
+ * });
+ *
+ * // Copy data to the mapped buffer
+ * new Uint8Array(stagingBuffer.getMappedRange()).set(data);
+ * stagingBuffer.unmap();
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUBuffer implements GPUObjectBase {
     label: string;
 
@@ -6259,7 +6504,35 @@ declare class GPUMapMode {
     static WRITE: 0x0002;
 }
 
-/** @category GPU */
+/**
+ * Represents a texture (image) in GPU memory.
+ *
+ * @example
+ * ```ts
+ * // Create a texture to render to
+ * const texture = device.createTexture({
+ *   label: "Output Texture",
+ *   size: { width: 640, height: 480 },
+ *   format: "rgba8unorm",
+ *   usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING,
+ * });
+ *
+ * // Get a view of the texture (needed for most operations)
+ * const textureView = texture.createView();
+ *
+ * // When the texture is no longer needed
+ * texture.destroy();
+ *
+ * // Example: Creating a depth texture
+ * const depthTexture = device.createTexture({
+ *   size: { width: 640, height: 480 },
+ *   format: "depth24plus",
+ *   usage: GPUTextureUsage.RENDER_ATTACHMENT,
+ * });
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUTexture implements GPUObjectBase {
     label: string;
 
@@ -6311,6 +6584,7 @@ declare class GPUTextureView implements GPUObjectBase {
 interface GPUTextureViewDescriptor extends GPUObjectDescriptorBase {
     format?: GPUTextureFormat;
     dimension?: GPUTextureViewDimension;
+    usage?: GPUTextureUsageFlags;
     aspect?: GPUTextureAspect;
     baseMipLevel?: number;
     mipLevelCount?: number;
@@ -6618,9 +6892,44 @@ interface GPUPipelineErrorInit {
 /** @category GPU */
 type GPUPipelineErrorReason = "validation" | "internal";
 
-/** @category GPU */
+/**
+ * Represents a compiled shader module that can be used to create graphics or compute pipelines.
+ *
+ * @example
+ * ```ts
+ * // Create a shader module using WGSL (WebGPU Shading Language)
+ * const shaderModule = device.createShaderModule({
+ *   label: "My Shader",
+ *   code: `
+ *     @vertex
+ *     fn vertexMain(@location(0) pos: vec2f) -> @builtin(position) vec4f {
+ *       return vec4f(pos, 0.0, 1.0);
+ *     }
+ *
+ *     @fragment
+ *     fn fragmentMain() -> @location(0) vec4f {
+ *       return vec4f(1.0, 0.0, 0.0, 1.0); // red color
+ *     }
+ *   `
+ * });
+ *
+ * // Can optionally check for compilation errors/warnings
+ * const compilationInfo = await shaderModule.getCompilationInfo();
+ * for (const message of compilationInfo.messages) {
+ *   console.log(`${message.type}: ${message.message} at ${message.lineNum}:${message.linePos}`);
+ * }
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUShaderModule implements GPUObjectBase {
     label: string;
+
+    /**
+     * Returns compilation messages for this shader module,
+     * which can include errors, warnings and info messages.
+     */
+    getCompilationInfo(): Promise<GPUCompilationInfo>;
 }
 
 /** @category GPU */
@@ -6759,7 +7068,11 @@ type GPUBlendFactor =
     | "one-minus-dst-alpha"
     | "src-alpha-saturated"
     | "constant"
-    | "one-minus-constant";
+    | "one-minus-constant"
+    | "src1"
+    | "one-minus-src1"
+    | "src1-alpha"
+    | "one-minus-src1-alpha";
 
 /** @category GPU */
 type GPUBlendOperation =
@@ -6773,8 +7086,8 @@ type GPUBlendOperation =
 interface GPUDepthStencilState {
     format: GPUTextureFormat;
 
-    depthWriteEnabled: boolean;
-    depthCompare: GPUCompareFunction;
+    depthWriteEnabled?: boolean;
+    depthCompare?: GPUCompareFunction;
 
     stencilFront?: GPUStencilFaceState;
     stencilBack?: GPUStencilFaceState;
@@ -6867,7 +7180,7 @@ interface GPUVertexAttribute {
 }
 
 /** @category GPU */
-interface GPUImageDataLayout {
+interface GPUTexelCopyBufferLayout {
     offset?: number;
     bytesPerRow?: number;
     rowsPerImage?: number;
@@ -6881,7 +7194,50 @@ declare class GPUCommandBuffer implements GPUObjectBase {
 /** @category GPU */
 interface GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {}
 
-/** @category GPU */
+/**
+ * Used to record GPU commands for later execution by the GPU.
+ *
+ * @example
+ * ```ts
+ * // Create a command encoder
+ * const commandEncoder = device.createCommandEncoder({
+ *   label: "Main Command Encoder"
+ * });
+ *
+ * // Record a copy from one buffer to another
+ * commandEncoder.copyBufferToBuffer(
+ *   sourceBuffer, 0, // Source buffer and offset
+ *   destinationBuffer, 0, // Destination buffer and offset
+ *   sourceBuffer.size // Size to copy
+ * );
+ *
+ * // Begin a compute pass to execute a compute shader
+ * const computePass = commandEncoder.beginComputePass();
+ * computePass.setPipeline(computePipeline);
+ * computePass.setBindGroup(0, bindGroup);
+ * computePass.dispatchWorkgroups(32, 1, 1); // Run 32 workgroups
+ * computePass.end();
+ *
+ * // Begin a render pass to draw to a texture
+ * const renderPass = commandEncoder.beginRenderPass({
+ *   colorAttachments: [{
+ *     view: textureView,
+ *     clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+ *     loadOp: "clear",
+ *     storeOp: "store"
+ *   }]
+ * });
+ * renderPass.setPipeline(renderPipeline);
+ * renderPass.draw(3, 1, 0, 0); // Draw a triangle
+ * renderPass.end();
+ *
+ * // Finish encoding and submit to GPU
+ * const commandBuffer = commandEncoder.finish();
+ * device.queue.submit([commandBuffer]);
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUCommandEncoder implements GPUObjectBase {
     label: string;
 
@@ -6899,20 +7255,20 @@ declare class GPUCommandEncoder implements GPUObjectBase {
     ): undefined;
 
     copyBufferToTexture(
-        source: GPUImageCopyBuffer,
-        destination: GPUImageCopyTexture,
+        source: GPUTexelCopyBufferInfo,
+        destination: GPUTexelCopyTextureInfo,
         copySize: GPUExtent3D,
     ): undefined;
 
     copyTextureToBuffer(
-        source: GPUImageCopyTexture,
-        destination: GPUImageCopyBuffer,
+        source: GPUTexelCopyTextureInfo,
+        destination: GPUTexelCopyBufferInfo,
         copySize: GPUExtent3D,
     ): undefined;
 
     copyTextureToTexture(
-        source: GPUImageCopyTexture,
-        destination: GPUImageCopyTexture,
+        source: GPUTexelCopyTextureInfo,
+        destination: GPUTexelCopyTextureInfo,
         copySize: GPUExtent3D,
     ): undefined;
 
@@ -6943,12 +7299,12 @@ declare class GPUCommandEncoder implements GPUObjectBase {
 interface GPUCommandEncoderDescriptor extends GPUObjectDescriptorBase {}
 
 /** @category GPU */
-interface GPUImageCopyBuffer extends GPUImageDataLayout {
+interface GPUTexelCopyBufferInfo extends GPUTexelCopyBufferLayout {
     buffer: GPUBuffer;
 }
 
 /** @category GPU */
-interface GPUImageCopyTexture {
+interface GPUTexelCopyTextureInfo {
     texture: GPUTexture;
     mipLevel?: number;
     origin?: GPUOrigin3D;
@@ -6959,13 +7315,13 @@ interface GPUImageCopyTexture {
 interface GPUProgrammablePassEncoder {
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsets?: number[],
     ): undefined;
 
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsetsData: Uint32Array,
         dynamicOffsetsDataStart: number,
         dynamicOffsetsDataLength: number,
@@ -6981,12 +7337,12 @@ declare class GPUComputePassEncoder implements GPUObjectBase, GPUProgrammablePas
     label: string;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsets?: number[],
     ): undefined;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsetsData: Uint32Array,
         dynamicOffsetsDataStart: number,
         dynamicOffsetsDataLength: number,
@@ -7059,12 +7415,12 @@ declare class GPURenderPassEncoder implements GPUObjectBase, GPUProgrammablePass
     label: string;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsets?: number[],
     ): undefined;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsetsData: Uint32Array,
         dynamicOffsetsDataStart: number,
         dynamicOffsetsDataLength: number,
@@ -7210,12 +7566,12 @@ declare class GPURenderBundleEncoder implements GPUObjectBase, GPUProgrammablePa
     pushDebugGroup(groupLabel: string): undefined;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsets?: number[],
     ): undefined;
     setBindGroup(
         index: number,
-        bindGroup: GPUBindGroup,
+        bindGroup: GPUBindGroup | null,
         dynamicOffsetsData: Uint32Array,
         dynamicOffsetsDataStart: number,
         dynamicOffsetsDataLength: number,
@@ -7250,7 +7606,48 @@ interface GPURenderBundleEncoderDescriptor extends GPURenderPassLayout {
     stencilReadOnly?: boolean;
 }
 
-/** @category GPU */
+/**
+ * Represents a queue to submit commands to the GPU.
+ *
+ * @example
+ * ```ts
+ * // Get a queue from the device (each device has a default queue)
+ * const queue = device.queue;
+ *
+ * // Write data to a buffer
+ * const buffer = device.createBuffer({
+ *   size: data.byteLength,
+ *   usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.STORAGE
+ * });
+ * queue.writeBuffer(buffer, 0, data);
+ *
+ * // Submit command buffers to the GPU for execution
+ * const commandBuffer = commandEncoder.finish();
+ * queue.submit([commandBuffer]);
+ *
+ * // Wait for all submitted operations to complete
+ * await queue.onSubmittedWorkDone();
+ *
+ * // Example: Write data to a texture
+ * const texture = device.createTexture({
+ *   size: { width: 256, height: 256 },
+ *   format: "rgba8unorm",
+ *   usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST
+ * });
+ *
+ * const data = new Uint8Array(256 * 256 * 4); // RGBA data
+ * // Fill data with your texture content...
+ *
+ * queue.writeTexture(
+ *   { texture },
+ *   data,
+ *   { bytesPerRow: 256 * 4 },
+ *   { width: 256, height: 256 }
+ * );
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUQueue implements GPUObjectBase {
     label: string;
 
@@ -7267,9 +7664,9 @@ declare class GPUQueue implements GPUObjectBase {
     ): undefined;
 
     writeTexture(
-        destination: GPUImageCopyTexture,
+        destination: GPUTexelCopyTextureInfo,
         data: BufferSource,
-        dataLayout: GPUImageDataLayout,
+        dataLayout: GPUTexelCopyBufferLayout,
         size: GPUExtent3D,
     ): undefined;
 }
@@ -7382,9 +7779,8 @@ interface GPUCanvasConfiguration {
     viewFormats?: GPUTextureFormat[];
     colorSpace?: "srgb" | "display-p3";
     alphaMode?: GPUCanvasAlphaMode;
-    width: number;
-    height: number;
 }
+
 /** @category GPU */
 interface GPUCanvasContext {
     configure(configuration: GPUCanvasConfiguration): undefined;
@@ -7406,8 +7802,18 @@ declare namespace Deno {
         path: string;
     }
 
+    /**
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     * @category Network
+     */
+    export interface VsockAddr {
+        transport: "vsock";
+        cid: number;
+        port: number;
+    }
+
     /** @category Network */
-    export type Addr = NetAddr | UnixAddr;
+    export type Addr = NetAddr | UnixAddr | VsockAddr;
 
     /** A generic network listener for stream-oriented protocols.
      *
@@ -7453,6 +7859,14 @@ declare namespace Deno {
      * @category Network
      */
     export type UnixListener = Listener<UnixConn, UnixAddr>;
+
+    /** Specialized listener that accepts VSOCK connections.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category Network
+     */
+    export type VsockListener = Listener<VsockConn, VsockAddr>;
 
     /** @category Network */
     export interface Conn<A extends Addr = Addr> extends Disposable {
@@ -7523,8 +7937,8 @@ declare namespace Deno {
         /** Make the connection not block the event loop from finishing. */
         unref(): void;
 
-        readonly readable: ReadableStream<Uint8Array>;
-        readonly writable: WritableStream<Uint8Array>;
+        readonly readable: ReadableStream<Uint8Array<ArrayBuffer>>;
+        readonly writable: WritableStream<Uint8Array<ArrayBufferLike>>;
     }
 
     /** @category Network */
@@ -7610,6 +8024,38 @@ declare namespace Deno {
         options: UnixListenOptions & { transport: "unix" },
     ): UnixListener;
 
+    /** Options which can be set when opening a VSOCK listener via
+     * {@linkcode Deno.listen}.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category Network
+     */
+    export interface VsockListenOptions {
+        cid: number;
+        port: number;
+    }
+
+    /** Listen announces on the local transport address.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * ```ts
+     * const listener = Deno.listen({ cid: -1, port: 80, transport: "vsock" })
+     * ```
+     *
+     * Requires `allow-net` permission.
+     *
+     * @tags allow-net
+     * @category Network
+     */
+    // deno-lint-ignore adjacent-overload-signatures
+    export function listen(
+        options: VsockListenOptions & { transport: "vsock" },
+    ): VsockListener;
+
     /**
      * Provides certified key material from strings. The key material is provided in
      * `PEM`-format (Privacy Enhanced Mail, https://www.rfc-editor.org/rfc/rfc1422) which can be identified by having
@@ -7676,7 +8122,10 @@ declare namespace Deno {
          *
          * @default {"127.0.0.1"} */
         hostname?: string;
+        /** The transport layer protocol to use. */
         transport?: "tcp";
+        /** An {@linkcode AbortSignal} to close the tcp connection. */
+        signal?: AbortSignal;
     }
 
     /**
@@ -7737,6 +8186,41 @@ declare namespace Deno {
     // deno-lint-ignore adjacent-overload-signatures
     export function connect(options: UnixConnectOptions): Promise<UnixConn>;
 
+    /**
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     * @category Network
+     */
+    export interface VsockConnectOptions {
+        transport: "vsock";
+        cid: number;
+        port: number;
+    }
+
+    /** @category Network */
+    export interface VsockConn extends Conn<VsockAddr> {}
+
+    /** Connects to the hostname (default is "127.0.0.1") and port on the named
+     * transport (default is "tcp"), and resolves to the connection (`Conn`).
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * ```ts
+     * const conn1 = await Deno.connect({ port: 80 });
+     * const conn2 = await Deno.connect({ hostname: "192.0.2.1", port: 80 });
+     * const conn3 = await Deno.connect({ hostname: "[2001:db8::1]", port: 80 });
+     * const conn4 = await Deno.connect({ hostname: "golang.org", port: 80, transport: "tcp" });
+     * const conn5 = await Deno.connect({ path: "/foo/bar.sock", transport: "unix" });
+     * const conn6 = await Deno.connect({ cid: -1, port: 80, transport: "vsock" });
+     * ```
+     *
+     * Requires `allow-net` permission for "tcp" and "vsock", and `allow-read` for "unix".
+     *
+     * @tags allow-net, allow-read
+     * @category Network
+     */
+    // deno-lint-ignore adjacent-overload-signatures
+    export function connect(options: VsockConnectOptions): Promise<VsockConn>;
+
     /** @category Network */
     export interface ConnectTlsOptions {
         /** The port to connect to. */
@@ -7758,9 +8242,14 @@ declare namespace Deno {
     }
 
     /** Establishes a secure connection over TLS (transport layer security) using
-     * an optional cert file, hostname (default is "127.0.0.1") and port.  The
-     * cert file is optional and if not included Mozilla's root certificates will
-     * be used (see also https://github.com/ctz/webpki-roots for specifics)
+     * an optional list of CA certs, hostname (default is "127.0.0.1") and port.
+     *
+     * The CA cert list is optional and if not included Mozilla's root
+     * certificates will be used (see also https://github.com/ctz/webpki-roots for
+     * specifics).
+     *
+     * Mutual TLS (mTLS or client certificates) are supported by providing a
+     * `key` and `cert` in the options as PEM-encoded strings.
      *
      * ```ts
      * const caCert = await Deno.readTextFile("./certs/my_custom_root_CA.pem");
@@ -7768,28 +8257,10 @@ declare namespace Deno {
      * const conn2 = await Deno.connectTls({ caCerts: [caCert], hostname: "192.0.2.1", port: 80 });
      * const conn3 = await Deno.connectTls({ hostname: "[2001:db8::1]", port: 80 });
      * const conn4 = await Deno.connectTls({ caCerts: [caCert], hostname: "golang.org", port: 80});
-     * ```
      *
-     * Requires `allow-net` permission.
-     *
-     * @tags allow-net
-     * @category Network
-     */
-    export function connectTls(options: ConnectTlsOptions): Promise<TlsConn>;
-
-    /** Establishes a secure connection over TLS (transport layer security) using
-     * an optional cert file, client certificate, hostname (default is "127.0.0.1") and
-     * port.  The cert file is optional and if not included Mozilla's root certificates will
-     * be used (see also https://github.com/ctz/webpki-roots for specifics)
-     *
-     * ```ts
-     * const caCert = await Deno.readTextFile("./certs/my_custom_root_CA.pem");
      * const key = "----BEGIN PRIVATE KEY----...";
      * const cert = "----BEGIN CERTIFICATE----...";
-     * const conn1 = await Deno.connectTls({ port: 80, key, cert });
-     * const conn2 = await Deno.connectTls({ caCerts: [caCert], hostname: "192.0.2.1", port: 80, key, cert });
-     * const conn3 = await Deno.connectTls({ hostname: "[2001:db8::1]", port: 80, key, cert });
-     * const conn4 = await Deno.connectTls({ caCerts: [caCert], hostname: "golang.org", port: 80, key, cert });
+     * const conn5 = await Deno.connectTls({ port: 80, key, cert });
      * ```
      *
      * Requires `allow-net` permission.
@@ -7798,7 +8269,7 @@ declare namespace Deno {
      * @category Network
      */
     export function connectTls(
-        options: ConnectTlsOptions & TlsCertifiedKeyPem,
+        options: ConnectTlsOptions | (ConnectTlsOptions & TlsCertifiedKeyPem),
     ): Promise<TlsConn>;
 
     /** @category Network */
@@ -7850,6 +8321,417 @@ declare namespace Deno {
         options?: StartTlsOptions,
     ): Promise<TlsConn>;
 
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicEndpointOptions {
+        /**
+         * A literal IP address or host name that can be resolved to an IP address.
+         * @default {"::"}
+         */
+        hostname?: string;
+        /**
+         * The port to bind to.
+         * @default {0}
+         */
+        port?: number;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicTransportOptions {
+        /** Period of inactivity before sending a keep-alive packet. Keep-alive
+         * packets prevent an inactive but otherwise healthy connection from timing
+         * out. Only one side of any given connection needs keep-alive enabled for
+         * the connection to be preserved.
+         * @default {undefined}
+         */
+        keepAliveInterval?: number;
+        /** Maximum duration of inactivity to accept before timing out the
+         * connection. The true idle timeout is the minimum of this and the peer’s
+         * own max idle timeout.
+         * @default {undefined}
+         */
+        maxIdleTimeout?: number;
+        /** Maximum number of incoming bidirectional streams that may be open
+         * concurrently.
+         * @default {100}
+         */
+        maxConcurrentBidirectionalStreams?: number;
+        /** Maximum number of incoming unidirectional streams that may be open
+         * concurrently.
+         * @default {100}
+         */
+        maxConcurrentUnidirectionalStreams?: number;
+        /**
+         * The congestion control algorithm used when sending data over this connection.
+         * @default {"default"}
+         */
+        congestionControl?: "throughput" | "low-latency" | "default";
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface ConnectQuicOptions<ZRTT extends boolean> extends QuicTransportOptions {
+        /** The port to connect to. */
+        port: number;
+        /** A literal IP address or host name that can be resolved to an IP address. */
+        hostname: string;
+        /** The name used for validating the certificate provided by the server. If
+         * not provided, defaults to `hostname`. */
+        serverName?: string | undefined;
+        /** Application-Layer Protocol Negotiation (ALPN) protocols supported by
+         * the client. QUIC requires the use of ALPN.
+         */
+        alpnProtocols: string[];
+        /** A list of root certificates that will be used in addition to the
+         * default root certificates to verify the peer's certificate.
+         *
+         * Must be in PEM format. */
+        caCerts?: string[];
+        /**
+         * If no endpoint is provided, a new one is bound on an ephemeral port.
+         */
+        endpoint?: QuicEndpoint;
+        /**
+         * Attempt to convert the connection into 0-RTT. Any data sent before
+         * the TLS handshake completes is vulnerable to replay attacks.
+         * @default {false}
+         */
+        zeroRtt?: ZRTT;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicServerTransportOptions extends QuicTransportOptions {
+        /**
+         * Preferred IPv4 address to be communicated to the client during
+         * handshaking. If the client is able to reach this address it will switch
+         * to it.
+         * @default {undefined}
+         */
+        preferredAddressV4?: string;
+        /**
+         * Preferred IPv6 address to be communicated to the client during
+         * handshaking. If the client is able to reach this address it will switch
+         * to it.
+         * @default {undefined}
+         */
+        preferredAddressV6?: string;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicListenOptions extends QuicServerTransportOptions {
+        /** Application-Layer Protocol Negotiation (ALPN) protocols to announce to
+         * the client. QUIC requires the use of ALPN.
+         */
+        alpnProtocols: string[];
+        /** Server private key in PEM format */
+        key: string;
+        /** Cert chain in PEM format */
+        cert: string;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicAcceptOptions<ZRTT extends boolean> extends QuicServerTransportOptions {
+        /** Application-Layer Protocol Negotiation (ALPN) protocols to announce to
+         * the client. QUIC requires the use of ALPN.
+         */
+        alpnProtocols?: string[];
+        /**
+         * Convert this connection into 0.5-RTT at the cost of weakened security, as
+         * 0.5-RTT data may be sent before TLS client authentication has occurred.
+         * @default {false}
+         */
+        zeroRtt?: ZRTT;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export interface QuicCloseInfo {
+        /** A number representing the error code for the error. */
+        closeCode: number;
+        /** A string representing the reason for closing the connection. */
+        reason: string;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicSendStreamOptions {
+        /** Indicates the send priority of this stream relative to other streams for
+         * which the value has been set.
+         * @default {0}
+         */
+        sendOrder?: number;
+        /** Wait until there is sufficient flow credit to create the stream.
+         * @default {false}
+         */
+        waitUntilAvailable?: boolean;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * @experimental
+     * @category Network
+     */
+    export class QuicEndpoint {
+        /**
+         * Create a QUIC endpoint which may be used for client or server connections.
+         *
+         * Requires `allow-net` permission.
+         *
+         * @experimental
+         * @tags allow-net
+         * @category Network
+         */
+        constructor(options?: QuicEndpointOptions);
+
+        /** Return the address of the `QuicListener`. */
+        readonly addr: NetAddr;
+
+        /**
+         * **UNSTABLE**: New API, yet to be vetted.
+         * Listen announces on the local transport address over QUIC.
+         *
+         * @experimental
+         * @category Network
+         */
+        listen(options: QuicListenOptions): QuicListener;
+
+        /**
+         * Closes the endpoint. All associated connections will be closed and incoming
+         * connections will be rejected.
+         */
+        close(info?: QuicCloseInfo): void;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * Specialized listener that accepts QUIC connections.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicListener extends AsyncIterable<QuicConn> {
+        /** Waits for and resolves to the next incoming connection. */
+        incoming(): Promise<QuicIncoming>;
+
+        /** Wait for the next incoming connection and accepts it. */
+        accept(): Promise<QuicConn>;
+
+        /** Stops the listener. This does not close the endpoint. */
+        stop(): void;
+
+        [Symbol.asyncIterator](): AsyncIterableIterator<QuicConn>;
+
+        /** The endpoint for this listener. */
+        readonly endpoint: QuicEndpoint;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * An incoming connection for which the server has not yet begun its part of
+     * the handshake.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicIncoming {
+        /**
+         * The local IP address which was used when the peer established the
+         * connection.
+         */
+        readonly localIp: string;
+
+        /**
+         * The peer’s UDP address.
+         */
+        readonly remoteAddr: NetAddr;
+
+        /**
+         * Whether the socket address that is initiating this connection has proven
+         * that they can receive traffic.
+         */
+        readonly remoteAddressValidated: boolean;
+
+        /**
+         * Accept this incoming connection.
+         */
+        accept<ZRTT extends boolean>(
+            options?: QuicAcceptOptions<ZRTT>,
+        ): ZRTT extends true ? QuicConn : Promise<QuicConn>;
+
+        /**
+         * Refuse this incoming connection.
+         */
+        refuse(): void;
+
+        /**
+         * Ignore this incoming connection attempt, not sending any packet in response.
+         */
+        ignore(): void;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicConn {
+        /** Close closes the listener. Any pending accept promises will be rejected
+         * with errors. */
+        close(info?: QuicCloseInfo): void;
+        /** Opens and returns a bidirectional stream. */
+        createBidirectionalStream(
+            options?: QuicSendStreamOptions,
+        ): Promise<QuicBidirectionalStream>;
+        /** Opens and returns a unidirectional stream. */
+        createUnidirectionalStream(
+            options?: QuicSendStreamOptions,
+        ): Promise<QuicSendStream>;
+        /** Send a datagram. The provided data cannot be larger than
+         * `maxDatagramSize`. */
+        sendDatagram(data: Uint8Array): Promise<void>;
+        /** Receive a datagram. */
+        readDatagram(): Promise<Uint8Array<ArrayBuffer>>;
+
+        /** The endpoint for this connection. */
+        readonly endpoint: QuicEndpoint;
+        /** Returns a promise that resolves when the TLS handshake is complete. */
+        readonly handshake: Promise<void>;
+        /** Return the remote address for the connection. Clients may change
+         * addresses at will, for example when switching to a cellular internet
+         * connection.
+         */
+        readonly remoteAddr: NetAddr;
+        /**
+         * The negotiated ALPN protocol, if provided. Only available after the
+         * handshake is complete. */
+        readonly protocol: string | undefined;
+        /** The negotiated server name. Only available on the server after the
+         * handshake is complete. */
+        readonly serverName: string | undefined;
+        /** Returns a promise that resolves when the connection is closed. */
+        readonly closed: Promise<QuicCloseInfo>;
+        /** A stream of bidirectional streams opened by the peer. */
+        readonly incomingBidirectionalStreams: ReadableStream<
+            QuicBidirectionalStream
+        >;
+        /** A stream of unidirectional streams opened by the peer. */
+        readonly incomingUnidirectionalStreams: ReadableStream<QuicReceiveStream>;
+        /** Returns the datagram stream for sending and receiving datagrams. */
+        readonly maxDatagramSize: number;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicBidirectionalStream {
+        /** Returns a QuicReceiveStream instance that can be used to read incoming data. */
+        readonly readable: QuicReceiveStream;
+        /** Returns a QuicSendStream instance that can be used to write outgoing data. */
+        readonly writable: QuicSendStream;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicSendStream extends WritableStream<Uint8Array<ArrayBufferLike>> {
+        /** Indicates the send priority of this stream relative to other streams for
+         * which the value has been set. */
+        sendOrder: number;
+
+        /**
+         * 62-bit stream ID, unique within this connection.
+         */
+        readonly id: bigint;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @experimental
+     * @category Network
+     */
+    export interface QuicReceiveStream extends ReadableStream<Uint8Array<ArrayBuffer>> {
+        /**
+         * 62-bit stream ID, unique within this connection.
+         */
+        readonly id: bigint;
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     * Establishes a secure connection over QUIC using a hostname and port.  The
+     * cert file is optional and if not included Mozilla's root certificates will
+     * be used. See also https://github.com/ctz/webpki-roots for specifics.
+     *
+     * ```ts
+     * const caCert = await Deno.readTextFile("./certs/my_custom_root_CA.pem");
+     * const conn1 = await Deno.connectQuic({ hostname: "example.com", port: 443, alpnProtocols: ["h3"] });
+     * const conn2 = await Deno.connectQuic({ caCerts: [caCert], hostname: "example.com", port: 443, alpnProtocols: ["h3"] });
+     * ```
+     *
+     * If an endpoint is shared among many connections, 0-RTT can be enabled.
+     * When 0-RTT is successful, a QuicConn will be synchronously returned
+     * and data can be sent immediately with it. **Any data sent before the
+     * TLS handshake completes is vulnerable to replay attacks.**
+     *
+     * Requires `allow-net` permission.
+     *
+     * @experimental
+     * @tags allow-net
+     * @category Network
+     */
+    export function connectQuic<ZRTT extends boolean>(
+        options: ConnectQuicOptions<ZRTT>,
+    ): ZRTT extends true ? (QuicConn | Promise<QuicConn>) : Promise<QuicConn>;
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * Upgrade a QUIC connection into a WebTransport instance.
+     *
+     * @category Network
+     * @experimental
+     */
+    export function upgradeWebTransport(
+        conn: QuicConn,
+    ): Promise<WebTransport & { url: string }>;
+
     export {}; // only export exports
 }
 
@@ -7865,7 +8747,7 @@ declare namespace Deno {
      *
      *  | system            | winHandle     | displayHandle   |
      *  | ----------------- | ------------- | --------------- |
-     *  | "cocoa" (macOS)   | `NSView*`     | -               |
+     *  | "cocoa" (macOS)   | -             | `NSView*`       |
      *  | "win32" (Windows) | `HWND`        | `HINSTANCE`     |
      *  | "x11" (Linux)     | Xlib `Window` | Xlib `Display*` |
      *  | "wayland" (Linux) | `wl_surface*` | `wl_display*`   |
@@ -7875,9 +8757,13 @@ declare namespace Deno {
      */
     export class UnsafeWindowSurface {
         constructor(
-            system: "cocoa" | "win32" | "x11" | "wayland",
-            windowHandle: PointerValue<unknown>,
-            displayHandle: PointerValue<unknown>,
+            options: {
+                system: "cocoa" | "win32" | "x11" | "wayland";
+                windowHandle: Deno.PointerValue<unknown>;
+                displayHandle: Deno.PointerValue<unknown>;
+                width: number;
+                height: number;
+            },
         );
         getContext(context: "webgpu"): GPUCanvasContext;
         present(): void;
@@ -7920,7 +8806,7 @@ declare namespace Deno {
      * @category Network
      * @experimental
      */
-    export interface DatagramConn extends AsyncIterable<[Uint8Array, Addr]> {
+    export interface DatagramConn extends AsyncIterable<[Uint8Array<ArrayBuffer>, Addr]> {
         /** Joins an IPv4 multicast group. */
         joinMulticastV4(
             address: string,
@@ -7938,7 +8824,7 @@ declare namespace Deno {
          * Messages are received in the format of a tuple containing the data array
          * and the address information.
          */
-        receive(p?: Uint8Array): Promise<[Uint8Array, Addr]>;
+        receive(p?: Uint8Array): Promise<[Uint8Array<ArrayBuffer>, Addr]>;
         /** Sends a message to the target via the connection. The method resolves
          * with the number of bytes sent. */
         send(p: Uint8Array, addr: Addr): Promise<number>;
@@ -7947,7 +8833,9 @@ declare namespace Deno {
         close(): void;
         /** Return the address of the instance. */
         readonly addr: Addr;
-        [Symbol.asyncIterator](): AsyncIterableIterator<[Uint8Array, Addr]>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<
+            [Uint8Array<ArrayBuffer>, Addr]
+        >;
     }
 
     /**
@@ -8136,7 +9024,8 @@ declare namespace Deno {
      * executions. Each element in the array represents the number of milliseconds
      * to wait before retrying the execution. For example, `[1000, 5000, 10000]`
      * means that a failed execution will be retried at most 3 times, with 1
-     * second, 5 seconds, and 10 seconds delay between each retry.
+     * second, 5 seconds, and 10 seconds delay between each retry. There is a
+     * limit of 5 retries and a maximum interval of 1 hour (3600000 milliseconds).
      *
      * @category Cloud
      * @experimental
@@ -9024,6 +9913,32 @@ declare namespace Deno {
         ): Displayable;
 
         /**
+         * Display a JPG or PNG image.
+         *
+         * ```
+         * Deno.jupyter.image("./cat.jpg");
+         * Deno.jupyter.image("./dog.png");
+         * ```
+         *
+         * @category Jupyter
+         * @experimental
+         */
+        export function image(path: string): Displayable;
+
+        /**
+         * Display a JPG or PNG image.
+         *
+         * ```
+         * const img = Deno.readFileSync("./cat.jpg");
+         * Deno.jupyter.image(img);
+         * ```
+         *
+         * @category Jupyter
+         * @experimental
+         */
+        export function image(data: Uint8Array): Displayable;
+
+        /**
          * Format an object for displaying in Deno
          *
          * @param obj - The object to be displayed
@@ -9064,6 +9979,3184 @@ declare namespace Deno {
                 buffers?: Uint8Array[];
             },
         ): Promise<void>;
+
+        export {}; // only export exports
+    }
+
+    /**
+     * **UNSTABLE**: New API, yet to be vetted.
+     *
+     * APIs for working with the OpenTelemetry observability framework. Deno can
+     * export traces, metrics, and logs to OpenTelemetry compatible backends via
+     * the OTLP protocol.
+     *
+     * Deno automatically instruments the runtime with OpenTelemetry traces and
+     * metrics. This data is exported via OTLP to OpenTelemetry compatible
+     * backends. User logs from the `console` API are exported as OpenTelemetry
+     * logs via OTLP.
+     *
+     * User code can also create custom traces, metrics, and logs using the
+     * OpenTelemetry API. This is done using the official OpenTelemetry package
+     * for JavaScript:
+     * [`npm:@opentelemetry/api`](https://opentelemetry.io/docs/languages/js/).
+     * Deno integrates with this package to provide tracing, metrics, and trace
+     * context propagation between native Deno APIs (like `Deno.serve` or `fetch`)
+     * and custom user code. Deno automatically registers the providers with the
+     * OpenTelemetry API, so users can start creating custom traces, metrics, and
+     * logs without any additional setup.
+     *
+     * @example Using OpenTelemetry API to create custom traces
+     * ```ts,ignore
+     * import { trace } from "npm:@opentelemetry/api@1";
+     *
+     * const tracer = trace.getTracer("example-tracer");
+     *
+     * async function doWork() {
+     *   return tracer.startActiveSpan("doWork", async (span) => {
+     *     span.setAttribute("key", "value");
+     *     await new Promise((resolve) => setTimeout(resolve, 1000));
+     *     span.end();
+     *   });
+     * }
+     *
+     * Deno.serve(async (req) => {
+     *   await doWork();
+     *   const resp = await fetch("https://example.com");
+     *   return resp;
+     * });
+     * ```
+     *
+     * @category Telemetry
+     * @experimental
+     */
+    export namespace telemetry {
+        /**
+         * A TracerProvider compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.TracerProvider.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * TracerProvider interface.
+         *
+         * @category Telemetry
+         * @experimental
+         */
+        // deno-lint-ignore no-explicit-any
+        export const tracerProvider: any;
+
+        /**
+         * A ContextManager compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.ContextManager.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * ContextManager interface.
+         *
+         * @category Telemetry
+         * @experimental
+         */
+        // deno-lint-ignore no-explicit-any
+        export const contextManager: any;
+
+        /**
+         * A MeterProvider compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.MeterProvider.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * MeterProvider interface.
+         *
+         * @category Telemetry
+         * @experimental
+         */
+        // deno-lint-ignore no-explicit-any
+        export const meterProvider: any;
+
+        export {}; // only export exports
+    }
+
+    /**
+     * @category Linter
+     * @experimental
+     */
+    export namespace lint {
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export type Range = [number, number];
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Fix {
+            range: Range;
+            text?: string;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Fixer {
+            insertTextAfter(node: Node, text: string): Fix;
+            insertTextAfterRange(range: Range, text: string): Fix;
+            insertTextBefore(node: Node, text: string): Fix;
+            insertTextBeforeRange(range: Range, text: string): Fix;
+            remove(node: Node): Fix;
+            removeRange(range: Range): Fix;
+            replaceText(node: Node, text: string): Fix;
+            replaceTextRange(range: Range, text: string): Fix;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ReportData {
+            node?: Node;
+            range?: Range;
+            message: string;
+            hint?: string;
+            fix?(fixer: Fixer): Fix | Iterable<Fix>;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface SourceCode {
+            /**
+             * Get the source test of a node. Omit `node` to get the
+             * full source code.
+             */
+            getText(node?: Node): string;
+            /**
+             * Returns array of ancestors of the current node, excluding the
+             * current node.
+             */
+            getAncestors(node: Node): Node[];
+            /**
+             * Get the full source code.
+             */
+            text: string;
+            /**
+             * Get the root node of the file. It's always the `Program` node.
+             */
+            ast: Program;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface RuleContext {
+            /**
+             * The running rule id: `<plugin-name>/<rule-name>`
+             */
+            id: string;
+            /**
+             * Name of the file that's currently being linted.
+             */
+            filename: string;
+            /**
+             * Helper methods for working with the raw source code.
+             */
+            sourceCode: SourceCode;
+            /**
+             * Report a lint error.
+             */
+            report(data: ReportData): void;
+            /**
+             * @deprecated Use `ctx.filename` instead.
+             */
+            getFilename(): string;
+            /**
+             * @deprecated Use `ctx.sourceCode` instead.
+             */
+            getSourceCode(): SourceCode;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export type LintVisitor =
+            & {
+                [P in Node["type"]]?: (node: Extract<Node, { type: P }>) => void;
+            }
+            & {
+                [P in Node["type"] as `${P}:exit`]?: (
+                    node: Extract<Node, { type: P }>,
+                ) => void;
+            }
+            & // Custom selectors which cannot be typed by us
+            // deno-lint-ignore no-explicit-any
+            Partial<{ [key: string]: (node: any) => void }>;
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Rule {
+            create(ctx: RuleContext): LintVisitor;
+            destroy?(ctx: RuleContext): void;
+        }
+
+        /**
+         * In your plugins file do something like
+         *
+         * ```ts
+         * export default {
+         *   name: "my-plugin",
+         *   rules: {
+         *     "no-foo": {
+         *        create(ctx) {
+         *          return {
+         *             VariableDeclaration(node) {}
+         *          }
+         *        }
+         *     }
+         *   }
+         * } satisfies Deno.lint.Plugin
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface Plugin {
+            name: string;
+            rules: Record<string, Rule>;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Diagnostic {
+            id: string;
+            message: string;
+            hint?: string;
+            range: Range;
+            fix?: Fix[];
+        }
+
+        /**
+         * This API is useful for testing lint plugins.
+         *
+         * It throws an error if it's not used in `deno test` subcommand.
+         * @category Linter
+         * @experimental
+         */
+        export function runPlugin(
+            plugin: Plugin,
+            fileName: string,
+            source: string,
+        ): Diagnostic[];
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Program {
+            type: "Program";
+            range: Range;
+            sourceType: "module" | "script";
+            body: Statement[];
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportSpecifier {
+            type: "ImportSpecifier";
+            range: Range;
+            imported: Identifier | StringLiteral;
+            local: Identifier;
+            importKind: "type" | "value";
+            parent: ExportAllDeclaration | ExportNamedDeclaration | ImportDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportDefaultSpecifier {
+            type: "ImportDefaultSpecifier";
+            range: Range;
+            local: Identifier;
+            parent: ImportDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportNamespaceSpecifier {
+            type: "ImportNamespaceSpecifier";
+            range: Range;
+            local: Identifier;
+            parent: ImportDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportAttribute {
+            type: "ImportAttribute";
+            range: Range;
+            key: Identifier | Literal;
+            value: Literal;
+            parent:
+                | ExportAllDeclaration
+                | ExportNamedDeclaration
+                | ImportDeclaration
+                | TSImportType;
+        }
+
+        /**
+         * An import declaration, examples:
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportDeclaration {
+            type: "ImportDeclaration";
+            range: Range;
+            importKind: "type" | "value";
+            source: StringLiteral;
+            specifiers: Array<
+                | ImportDefaultSpecifier
+                | ImportNamespaceSpecifier
+                | ImportSpecifier
+            >;
+            attributes: ImportAttribute[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ExportDefaultDeclaration {
+            type: "ExportDefaultDeclaration";
+            range: Range;
+            declaration:
+                | ClassDeclaration
+                | Expression
+                | FunctionDeclaration
+                | TSDeclareFunction
+                | TSEnumDeclaration
+                | TSInterfaceDeclaration
+                | TSModuleDeclaration
+                | TSTypeAliasDeclaration
+                | VariableDeclaration;
+            exportKind: "type" | "value";
+            parent: BlockStatement | Program | TSModuleBlock;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ExportNamedDeclaration {
+            type: "ExportNamedDeclaration";
+            range: Range;
+            exportKind: "type" | "value";
+            specifiers: ExportSpecifier[];
+            declaration:
+                | ClassDeclaration
+                | FunctionDeclaration
+                | TSDeclareFunction
+                | TSEnumDeclaration
+                | TSImportEqualsDeclaration
+                | TSInterfaceDeclaration
+                | TSModuleDeclaration
+                | TSTypeAliasDeclaration
+                | VariableDeclaration
+                | null;
+            source: StringLiteral | null;
+            attributes: ImportAttribute[];
+            parent: BlockStatement | Program | TSModuleBlock;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ExportAllDeclaration {
+            type: "ExportAllDeclaration";
+            range: Range;
+            exportKind: "type" | "value";
+            exported: Identifier | null;
+            source: StringLiteral;
+            attributes: ImportAttribute[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNamespaceExportDeclaration {
+            type: "TSNamespaceExportDeclaration";
+            range: Range;
+            id: Identifier;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSImportEqualsDeclaration {
+            type: "TSImportEqualsDeclaration";
+            range: Range;
+            importKind: "type" | "value";
+            id: Identifier;
+            moduleReference: Identifier | TSExternalModuleReference | TSQualifiedName;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSExternalModuleReference {
+            type: "TSExternalModuleReference";
+            range: Range;
+            expression: StringLiteral;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface ExportSpecifier {
+            type: "ExportSpecifier";
+            range: Range;
+            exportKind: "type" | "value";
+            exported: Identifier | StringLiteral;
+            local: Identifier | StringLiteral;
+            parent: ExportNamedDeclaration;
+        }
+
+        /**
+         * Variable declaration.
+         * @category Linter
+         * @experimental
+         */
+        export interface VariableDeclaration {
+            type: "VariableDeclaration";
+            range: Range;
+            declare: boolean;
+            kind: "let" | "var" | "const" | "await using" | "using";
+            declarations: VariableDeclarator[];
+            parent: Node;
+        }
+
+        /**
+         * A VariableDeclaration can declare multiple variables. This node
+         * represents a single declaration out of that.
+         * @category Linter
+         * @experimental
+         */
+        export interface VariableDeclarator {
+            type: "VariableDeclarator";
+            range: Range;
+            id: ArrayPattern | ObjectPattern | Identifier;
+            init: Expression | null;
+            definite: boolean;
+            parent: VariableDeclaration;
+        }
+
+        /**
+         * Function/Method parameter
+         * @category Linter
+         * @experimental
+         */
+        export type Parameter =
+            | ArrayPattern
+            | AssignmentPattern
+            | Identifier
+            | ObjectPattern
+            | RestElement
+            | TSParameterProperty;
+
+        /**
+         * TypeScript accessibility modifiers used in classes
+         * @category Linter
+         * @experimental
+         */
+        export type Accessibility = "private" | "protected" | "public";
+
+        /**
+         * Declares a function in the current scope
+         * @category Linter
+         * @experimental
+         */
+        export interface FunctionDeclaration {
+            type: "FunctionDeclaration";
+            range: Range;
+            declare: boolean;
+            async: boolean;
+            generator: boolean;
+            id: Identifier | null;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            returnType: TSTypeAnnotation | undefined;
+            body: BlockStatement | null;
+            params: Parameter[];
+            parent:
+                | BlockStatement
+                | ExportDefaultDeclaration
+                | ExportNamedDeclaration
+                | Program;
+        }
+
+        /**
+         * Experimental: Decorators
+         * @category Linter
+         * @experimental
+         */
+        export interface Decorator {
+            type: "Decorator";
+            range: Range;
+            expression:
+                | ArrayExpression
+                | ArrayPattern
+                | ArrowFunctionExpression
+                | CallExpression
+                | ClassExpression
+                | FunctionExpression
+                | Identifier
+                | JSXElement
+                | JSXFragment
+                | Literal
+                | TemplateLiteral
+                | MemberExpression
+                | MetaProperty
+                | ObjectExpression
+                | ObjectPattern
+                | SequenceExpression
+                | Super
+                | TaggedTemplateExpression
+                | ThisExpression
+                | TSAsExpression
+                | TSNonNullExpression
+                | TSTypeAssertion;
+            parent: Node;
+        }
+
+        /**
+         * Declares a class in the current scope
+         * @category Linter
+         * @experimental
+         */
+        export interface ClassDeclaration {
+            type: "ClassDeclaration";
+            range: Range;
+            declare: boolean;
+            abstract: boolean;
+            id: Identifier | null;
+            superClass:
+                | ArrayExpression
+                | ArrayPattern
+                | ArrowFunctionExpression
+                | CallExpression
+                | ClassExpression
+                | FunctionExpression
+                | Identifier
+                | JSXElement
+                | JSXFragment
+                | Literal
+                | TemplateLiteral
+                | MemberExpression
+                | MetaProperty
+                | ObjectExpression
+                | ObjectPattern
+                | SequenceExpression
+                | Super
+                | TaggedTemplateExpression
+                | ThisExpression
+                | TSAsExpression
+                | TSNonNullExpression
+                | TSTypeAssertion
+                | null;
+            implements: TSClassImplements[];
+            body: ClassBody;
+            parent: Node;
+        }
+
+        /**
+         * Similar to ClassDeclaration but for declaring a class as an
+         * expression. The main difference is that the class name(=id) can
+         * be omitted.
+         * @category Linter
+         * @experimental
+         */
+        export interface ClassExpression {
+            type: "ClassExpression";
+            range: Range;
+            declare: boolean;
+            abstract: boolean;
+            id: Identifier | null;
+            superClass:
+                | ArrayExpression
+                | ArrayPattern
+                | ArrowFunctionExpression
+                | CallExpression
+                | ClassExpression
+                | FunctionExpression
+                | Identifier
+                | JSXElement
+                | JSXFragment
+                | Literal
+                | TemplateLiteral
+                | MemberExpression
+                | MetaProperty
+                | ObjectExpression
+                | ObjectPattern
+                | SequenceExpression
+                | Super
+                | TaggedTemplateExpression
+                | ThisExpression
+                | TSAsExpression
+                | TSNonNullExpression
+                | TSTypeAssertion
+                | null;
+            superTypeArguments: TSTypeParameterInstantiation | undefined;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            implements: TSClassImplements[];
+            body: ClassBody;
+            parent: Node;
+        }
+
+        /**
+         * Represents the body of a class and contains all members
+         * @category Linter
+         * @experimental
+         */
+        export interface ClassBody {
+            type: "ClassBody";
+            range: Range;
+            body: Array<
+                | AccessorProperty
+                | MethodDefinition
+                | PropertyDefinition
+                | StaticBlock
+                // Stage 1 Proposal:
+                // https://github.com/tc39/proposal-grouped-and-auto-accessors
+                // | TSAbstractAccessorProperty
+                | TSAbstractMethodDefinition
+                | TSAbstractPropertyDefinition
+                | TSIndexSignature
+            >;
+            parent: ClassDeclaration | ClassExpression;
+        }
+
+        /**
+         * Static class initializiation block.
+         * @category Linter
+         * @experimental
+         */
+        export interface StaticBlock {
+            type: "StaticBlock";
+            range: Range;
+            body: Statement[];
+            parent: ClassBody;
+        }
+
+        // Stage 1 Proposal:
+        // https://github.com/tc39/proposal-grouped-and-auto-accessors
+        // | TSAbstractAccessorProperty
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface AccessorProperty {
+            type: "AccessorProperty";
+            range: Range;
+            declare: boolean;
+            computed: boolean;
+            optional: boolean;
+            override: boolean;
+            readonly: boolean;
+            static: boolean;
+            accessibility: Accessibility | undefined;
+            decorators: Decorator[];
+            key: Expression | Identifier | NumberLiteral | StringLiteral;
+            value: Expression | null;
+            parent: ClassBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface PropertyDefinition {
+            type: "PropertyDefinition";
+            range: Range;
+            declare: boolean;
+            computed: boolean;
+            optional: boolean;
+            override: boolean;
+            readonly: boolean;
+            static: boolean;
+            accessibility: Accessibility | undefined;
+            decorators: Decorator[];
+            key:
+                | Expression
+                | Identifier
+                | NumberLiteral
+                | StringLiteral
+                | PrivateIdentifier;
+            value: Expression | null;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            parent: ClassBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface MethodDefinition {
+            type: "MethodDefinition";
+            range: Range;
+            declare: boolean;
+            computed: boolean;
+            optional: boolean;
+            override: boolean;
+            readonly: boolean;
+            static: boolean;
+            kind: "constructor" | "get" | "method" | "set";
+            accessibility: Accessibility | undefined;
+            decorators: Decorator[];
+            key:
+                | PrivateIdentifier
+                | Identifier
+                | NumberLiteral
+                | StringLiteral
+                | Expression;
+            value: FunctionExpression | TSEmptyBodyFunctionExpression;
+            parent: ClassBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface BlockStatement {
+            type: "BlockStatement";
+            range: Range;
+            body: Statement[];
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * The `debugger;` statement.
+         * @category Linter
+         * @experimental
+         */
+        export interface DebuggerStatement {
+            type: "DebuggerStatement";
+            range: Range;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Legacy JavaScript feature, that's discouraged from being used today.
+         * @deprecated
+         * @category Linter
+         * @experimental
+         */
+        export interface WithStatement {
+            type: "WithStatement";
+            range: Range;
+            object: Expression;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Returns a value from a function.
+         * @category Linter
+         * @experimental
+         */
+        export interface ReturnStatement {
+            type: "ReturnStatement";
+            range: Range;
+            argument: Expression | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Custom control flow based on labels.
+         * @category Linter
+         * @experimental
+         */
+        export interface LabeledStatement {
+            type: "LabeledStatement";
+            range: Range;
+            label: Identifier;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Break any loop or labeled statement, example:
+         *
+         * ```ts
+         * while (true) {
+         *   break;
+         * }
+         *
+         * for (let i = 0; i < 10; i++) {
+         *   if (i > 5) break;
+         * }
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface BreakStatement {
+            type: "BreakStatement";
+            range: Range;
+            label: Identifier | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Terminates the current loop and continues with the next iteration.
+         * @category Linter
+         * @experimental
+         */
+        export interface ContinueStatement {
+            type: "ContinueStatement";
+            range: Range;
+            label: Identifier | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Execute a statement the test passes, otherwise the alternate
+         * statement, if it was defined.
+         * @category Linter
+         * @experimental
+         */
+        export interface IfStatement {
+            type: "IfStatement";
+            range: Range;
+            test: Expression;
+            consequent: Statement;
+            alternate: Statement | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Match an expression against a series of cases.
+         * @category Linter
+         * @experimental
+         */
+        export interface SwitchStatement {
+            type: "SwitchStatement";
+            range: Range;
+            discriminant: Expression;
+            cases: SwitchCase[];
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * A single case of a SwitchStatement.
+         * @category Linter
+         * @experimental
+         */
+        export interface SwitchCase {
+            type: "SwitchCase";
+            range: Range;
+            test: Expression | null;
+            consequent: Statement[];
+            parent: SwitchStatement;
+        }
+
+        /**
+         * Throw a user defined exception. Stops execution
+         * of the current function.
+         * @category Linter
+         * @experimental
+         */
+        export interface ThrowStatement {
+            type: "ThrowStatement";
+            range: Range;
+            argument: Expression;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Run a loop while the test expression is truthy.
+         * @category Linter
+         * @experimental
+         */
+        export interface WhileStatement {
+            type: "WhileStatement";
+            range: Range;
+            test: Expression;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Re-run loop for as long as test expression is truthy.
+         * @category Linter
+         * @experimental
+         */
+        export interface DoWhileStatement {
+            type: "DoWhileStatement";
+            range: Range;
+            test: Expression;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Classic for-loop.
+         * @category Linter
+         * @experimental
+         */
+        export interface ForStatement {
+            type: "ForStatement";
+            range: Range;
+            init: Expression | VariableDeclaration | null;
+            test: Expression | null;
+            update: Expression | null;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Enumerate over all enumerable string properties of an object.
+         * @category Linter
+         * @experimental
+         */
+        export interface ForInStatement {
+            type: "ForInStatement";
+            range: Range;
+            left: Expression | VariableDeclaration;
+            right: Expression;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Iterate over sequence of values from an iterator.
+         * @category Linter
+         * @experimental
+         */
+        export interface ForOfStatement {
+            type: "ForOfStatement";
+            range: Range;
+            await: boolean;
+            left: Expression | VariableDeclaration;
+            right: Expression;
+            body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Statement that holds an expression.
+         * @category Linter
+         * @experimental
+         */
+        export interface ExpressionStatement {
+            type: "ExpressionStatement";
+            range: Range;
+            expression: Expression;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Try/catch statement
+         * @category Linter
+         * @experimental
+         */
+        export interface TryStatement {
+            type: "TryStatement";
+            range: Range;
+            block: BlockStatement;
+            handler: CatchClause | null;
+            finalizer: BlockStatement | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * The catch clause of a try/catch statement
+         * @category Linter
+         * @experimental
+         */
+        export interface CatchClause {
+            type: "CatchClause";
+            range: Range;
+            param: ArrayPattern | ObjectPattern | Identifier | null;
+            body: BlockStatement;
+            parent: TryStatement;
+        }
+
+        /**
+         * An array literal
+         * @category Linter
+         * @experimental
+         */
+        export interface ArrayExpression {
+            type: "ArrayExpression";
+            range: Range;
+            elements: Array<Expression | SpreadElement>;
+            parent: Node;
+        }
+
+        /**
+         * An object literal.
+         * @category Linter
+         * @experimental
+         */
+        export interface ObjectExpression {
+            type: "ObjectExpression";
+            range: Range;
+            properties: Array<Property | SpreadElement>;
+            parent: Node;
+        }
+
+        /**
+         * Compare left and right value with the specifier operator.
+         * @category Linter
+         * @experimental
+         */
+        export interface BinaryExpression {
+            type: "BinaryExpression";
+            range: Range;
+            operator:
+                | "&"
+                | "**"
+                | "*"
+                | "||"
+                | "|"
+                | "^"
+                | "==="
+                | "=="
+                | "!=="
+                | "!="
+                | ">="
+                | ">>>"
+                | ">>"
+                | ">"
+                | "in"
+                | "instanceof"
+                | "<="
+                | "<<"
+                | "<"
+                | "-"
+                | "%"
+                | "+"
+                | "/";
+            left: Expression | PrivateIdentifier;
+            right: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Chain expressions based on the operator specified
+         * @category Linter
+         * @experimental
+         */
+        export interface LogicalExpression {
+            type: "LogicalExpression";
+            range: Range;
+            operator: "&&" | "??" | "||";
+            left: Expression;
+            right: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Declare a function as an expression. Similar to `FunctionDeclaration`,
+         * with an optional name (=id).
+         * @category Linter
+         * @experimental
+         */
+        export interface FunctionExpression {
+            type: "FunctionExpression";
+            range: Range;
+            async: boolean;
+            generator: boolean;
+            id: Identifier | null;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            body: BlockStatement;
+            parent: Node;
+        }
+
+        /**
+         * Arrow function expression
+         * @category Linter
+         * @experimental
+         */
+        export interface ArrowFunctionExpression {
+            type: "ArrowFunctionExpression";
+            range: Range;
+            async: boolean;
+            generator: boolean;
+            id: null;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            body: BlockStatement | Expression;
+            parent: Node;
+        }
+
+        /**
+         * The `this` keyword used in classes.
+         * @category Linter
+         * @experimental
+         */
+        export interface ThisExpression {
+            type: "ThisExpression";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * The `super` keyword used in classes.
+         * @category Linter
+         * @experimental
+         */
+        export interface Super {
+            type: "Super";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * Apply operand on value based on the specified operator.
+         * @category Linter
+         * @experimental
+         */
+        export interface UnaryExpression {
+            type: "UnaryExpression";
+            range: Range;
+            operator: "!" | "+" | "~" | "-" | "delete" | "typeof" | "void";
+            argument: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Create a new instance of a class.
+         * @category Linter
+         * @experimental
+         */
+        export interface NewExpression {
+            type: "NewExpression";
+            range: Range;
+            callee: Expression;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            arguments: Array<Expression | SpreadElement>;
+            parent: Node;
+        }
+
+        /**
+         * Dynamically import a module.
+         * @category Linter
+         * @experimental
+         */
+        export interface ImportExpression {
+            type: "ImportExpression";
+            range: Range;
+            source: Expression;
+            options: Expression | null;
+            parent: Node;
+        }
+
+        /**
+         * A function call.
+         * @category Linter
+         * @experimental
+         */
+        export interface CallExpression {
+            type: "CallExpression";
+            range: Range;
+            optional: boolean;
+            callee: Expression;
+            typeArguments: TSTypeParameterInstantiation | null;
+            arguments: Array<Expression | SpreadElement>;
+            parent: Node;
+        }
+
+        /**
+         * Syntactic sugar to increment or decrement a value.
+         * @category Linter
+         * @experimental
+         */
+        export interface UpdateExpression {
+            type: "UpdateExpression";
+            range: Range;
+            prefix: boolean;
+            operator: "++" | "--";
+            argument: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Updaate a variable or property.
+         * @category Linter
+         * @experimental
+         */
+        export interface AssignmentExpression {
+            type: "AssignmentExpression";
+            range: Range;
+            operator:
+                | "&&="
+                | "&="
+                | "**="
+                | "*="
+                | "||="
+                | "|="
+                | "^="
+                | "="
+                | ">>="
+                | ">>>="
+                | "<<="
+                | "-="
+                | "%="
+                | "+="
+                | "??="
+                | "/=";
+            left: Expression;
+            right: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Inline if-statement.
+         * @category Linter
+         * @experimental
+         */
+        export interface ConditionalExpression {
+            type: "ConditionalExpression";
+            range: Range;
+            test: Expression;
+            consequent: Expression;
+            alternate: Expression;
+            parent: Node;
+        }
+
+        /**
+         * MemberExpression
+         * @category Linter
+         * @experimental
+         */
+        export interface MemberExpression {
+            type: "MemberExpression";
+            range: Range;
+            optional: boolean;
+            computed: boolean;
+            object: Expression;
+            property: Expression | Identifier | PrivateIdentifier;
+            parent: Node;
+        }
+
+        /**
+         * ChainExpression
+         * @category Linter
+         * @experimental
+         */
+        export interface ChainExpression {
+            type: "ChainExpression";
+            range: Range;
+            expression:
+                | CallExpression
+                | MemberExpression
+                | TSNonNullExpression;
+            parent: Node;
+        }
+
+        /**
+         * Execute multiple expressions in sequence.
+         * @category Linter
+         * @experimental
+         */
+        export interface SequenceExpression {
+            type: "SequenceExpression";
+            range: Range;
+            expressions: Expression[];
+            parent: Node;
+        }
+
+        /**
+         * A template literal string.
+         * @category Linter
+         * @experimental
+         */
+        export interface TemplateLiteral {
+            type: "TemplateLiteral";
+            range: Range;
+            quasis: TemplateElement[];
+            expressions: Expression[];
+            parent: Node;
+        }
+
+        /**
+         * The static portion of a template literal.
+         * @category Linter
+         * @experimental
+         */
+        export interface TemplateElement {
+            type: "TemplateElement";
+            range: Range;
+            tail: boolean;
+            raw: string;
+            cooked: string;
+            parent: TemplateLiteral | TSTemplateLiteralType;
+        }
+
+        /**
+         * Tagged template expression.
+         * @category Linter
+         * @experimental
+         */
+        export interface TaggedTemplateExpression {
+            type: "TaggedTemplateExpression";
+            range: Range;
+            tag: Expression;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            quasi: TemplateLiteral;
+            parent: Node;
+        }
+
+        /**
+         * Pause or resume a generator function.
+         * @category Linter
+         * @experimental
+         */
+        export interface YieldExpression {
+            type: "YieldExpression";
+            range: Range;
+            delegate: boolean;
+            argument: Expression | null;
+            parent: Node;
+        }
+
+        /**
+         * Await a `Promise` and get its fulfilled value.
+         * @category Linter
+         * @experimental
+         */
+        export interface AwaitExpression {
+            type: "AwaitExpression";
+            range: Range;
+            argument: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Can either be `import.meta` or `new.target`.
+         * @category Linter
+         * @experimental
+         */
+        export interface MetaProperty {
+            type: "MetaProperty";
+            range: Range;
+            meta: Identifier;
+            property: Identifier;
+            parent: Node;
+        }
+
+        /**
+         * Custom named node by the developer. Can be a variable name,
+         * a function name, parameter, etc.
+         * @category Linter
+         * @experimental
+         */
+        export interface Identifier {
+            type: "Identifier";
+            range: Range;
+            name: string;
+            optional: boolean;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            parent: Node;
+        }
+
+        /**
+         * Private members inside of classes, must start with `#`.
+         * @category Linter
+         * @experimental
+         */
+        export interface PrivateIdentifier {
+            type: "PrivateIdentifier";
+            range: Range;
+            name: string;
+            parent:
+                | TSAbstractPropertyDefinition
+                | TSPropertySignature
+                | PropertyDefinition
+                | MethodDefinition
+                | BinaryExpression
+                | MemberExpression;
+        }
+
+        /**
+         * Assign default values in parameters.
+         * @category Linter
+         * @experimental
+         */
+        export interface AssignmentPattern {
+            type: "AssignmentPattern";
+            range: Range;
+            left: ArrayPattern | ObjectPattern | Identifier;
+            right: Expression;
+            parent: Node;
+        }
+
+        /**
+         * Destructure an array.
+         * @category Linter
+         * @experimental
+         */
+        export interface ArrayPattern {
+            type: "ArrayPattern";
+            range: Range;
+            optional: boolean;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            elements: Array<
+                | ArrayPattern
+                | AssignmentPattern
+                | Identifier
+                | MemberExpression
+                | ObjectPattern
+                | RestElement
+                | null
+            >;
+            parent: Node;
+        }
+
+        /**
+         * Destructure an object.
+         * @category Linter
+         * @experimental
+         */
+        export interface ObjectPattern {
+            type: "ObjectPattern";
+            range: Range;
+            optional: boolean;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            properties: Array<Property | RestElement>;
+            parent: Node;
+        }
+
+        /**
+         * The rest of function parameters.
+         * @category Linter
+         * @experimental
+         */
+        export interface RestElement {
+            type: "RestElement";
+            range: Range;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            argument:
+                | ArrayPattern
+                | AssignmentPattern
+                | Identifier
+                | MemberExpression
+                | ObjectPattern
+                | RestElement;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface SpreadElement {
+            type: "SpreadElement";
+            range: Range;
+            argument: Expression;
+            parent:
+                | ArrayExpression
+                | CallExpression
+                | NewExpression
+                | ObjectExpression;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface Property {
+            type: "Property";
+            range: Range;
+            shorthand: boolean;
+            computed: boolean;
+            method: boolean;
+            kind: "get" | "init" | "set";
+            key: Expression | Identifier | NumberLiteral | StringLiteral;
+            value:
+                | AssignmentPattern
+                | ArrayPattern
+                | ObjectPattern
+                | Identifier
+                | Expression
+                | TSEmptyBodyFunctionExpression;
+            parent: ObjectExpression | ObjectPattern;
+        }
+
+        /**
+         * Represents numbers that are too high or too low to be represented
+         * by the `number` type.
+         *
+         * ```ts
+         * const a = 9007199254740991n;
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface BigIntLiteral {
+            type: "Literal";
+            range: Range;
+            raw: string;
+            bigint: string;
+            value: bigint;
+            parent: Node;
+        }
+
+        /**
+         * Either `true` or `false`
+         * @category Linter
+         * @experimental
+         */
+        export interface BooleanLiteral {
+            type: "Literal";
+            range: Range;
+            raw: "false" | "true";
+            value: boolean;
+            parent: Node;
+        }
+
+        /**
+         * A number literal
+         *
+         * ```ts
+         * 1;
+         * 1.2;
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface NumberLiteral {
+            type: "Literal";
+            range: Range;
+            raw: string;
+            value: number;
+            parent: Node;
+        }
+
+        /**
+         * The `null` literal
+         * @category Linter
+         * @experimental
+         */
+        export interface NullLiteral {
+            type: "Literal";
+            range: Range;
+            raw: "null";
+            value: null;
+            parent: Node;
+        }
+
+        /**
+         * A string literal
+         *
+         * ```ts
+         * "foo";
+         * 'foo "bar"';
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface StringLiteral {
+            type: "Literal";
+            range: Range;
+            raw: string;
+            value: string;
+            parent: Node;
+        }
+
+        /**
+         * A regex literal:
+         *
+         * ```ts
+         * /foo(bar|baz)$/g
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface RegExpLiteral {
+            type: "Literal";
+            range: Range;
+            raw: string;
+            regex: {
+                flags: string;
+                pattern: string;
+            };
+            value: RegExp | null;
+            parent: Node;
+        }
+
+        /**
+         * Union type of all Literals
+         * @category Linter
+         * @experimental
+         */
+        export type Literal =
+            | BigIntLiteral
+            | BooleanLiteral
+            | NullLiteral
+            | NumberLiteral
+            | RegExpLiteral
+            | StringLiteral;
+
+        /**
+         * User named identifier inside JSX.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXIdentifier {
+            type: "JSXIdentifier";
+            range: Range;
+            name: string;
+            parent:
+                | JSXNamespacedName
+                | JSXOpeningElement
+                | JSXAttribute
+                | JSXClosingElement
+                | JSXMemberExpression;
+        }
+
+        /**
+         * Namespaced name in JSX
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXNamespacedName {
+            type: "JSXNamespacedName";
+            range: Range;
+            namespace: JSXIdentifier;
+            name: JSXIdentifier;
+            parent:
+                | JSXOpeningElement
+                | JSXAttribute
+                | JSXClosingElement
+                | JSXMemberExpression;
+        }
+
+        /**
+         * Empty JSX expression.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXEmptyExpression {
+            type: "JSXEmptyExpression";
+            range: Range;
+            parent: JSXAttribute | JSXElement | JSXFragment;
+        }
+
+        /**
+         * A JSX element.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXElement {
+            type: "JSXElement";
+            range: Range;
+            openingElement: JSXOpeningElement;
+            closingElement: JSXClosingElement | null;
+            children: JSXChild[];
+            parent: Node;
+        }
+
+        /**
+         * The opening tag of a JSXElement
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXOpeningElement {
+            type: "JSXOpeningElement";
+            range: Range;
+            selfClosing: boolean;
+            name:
+                | JSXIdentifier
+                | JSXMemberExpression
+                | JSXNamespacedName;
+            attributes: Array<JSXAttribute | JSXSpreadAttribute>;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: JSXElement;
+        }
+
+        /**
+         * A JSX attribute
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXAttribute {
+            type: "JSXAttribute";
+            range: Range;
+            name: JSXIdentifier | JSXNamespacedName;
+            value:
+                | JSXElement
+                | JSXExpressionContainer
+                | Literal
+                | null;
+            parent: JSXOpeningElement;
+        }
+
+        /**
+         * Spreads an object as JSX attributes.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXSpreadAttribute {
+            type: "JSXSpreadAttribute";
+            range: Range;
+            argument: Expression;
+            parent: JSXOpeningElement;
+        }
+
+        /**
+         * The closing tag of a JSXElement. Only used when the element
+         * is not self-closing.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXClosingElement {
+            type: "JSXClosingElement";
+            range: Range;
+            name:
+                | JSXIdentifier
+                | JSXMemberExpression
+                | JSXNamespacedName;
+            parent: JSXElement;
+        }
+
+        /**
+         * Usually a passthrough node to pass multiple sibling elements as
+         * the JSX syntax requires one root element.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXFragment {
+            type: "JSXFragment";
+            range: Range;
+            openingFragment: JSXOpeningFragment;
+            closingFragment: JSXClosingFragment;
+            children: JSXChild[];
+            parent: Node;
+        }
+
+        /**
+         * The opening tag of a JSXFragment.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXOpeningFragment {
+            type: "JSXOpeningFragment";
+            range: Range;
+            parent: JSXFragment;
+        }
+
+        /**
+         * The closing tag of a JSXFragment.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXClosingFragment {
+            type: "JSXClosingFragment";
+            range: Range;
+            parent: JSXFragment;
+        }
+
+        /**
+         * Inserts a normal JS expression into JSX.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXExpressionContainer {
+            type: "JSXExpressionContainer";
+            range: Range;
+            expression: Expression | JSXEmptyExpression;
+            parent: JSXAttribute | JSXElement | JSXFragment;
+        }
+
+        /**
+         * Plain text in JSX.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXText {
+            type: "JSXText";
+            range: Range;
+            raw: string;
+            value: string;
+            parent: JSXElement | JSXFragment;
+        }
+
+        /**
+         * JSX member expression.
+         * @category Linter
+         * @experimental
+         */
+        export interface JSXMemberExpression {
+            type: "JSXMemberExpression";
+            range: Range;
+            object:
+                | JSXIdentifier
+                | JSXMemberExpression
+                | JSXNamespacedName;
+            property: JSXIdentifier;
+            parent: JSXOpeningElement | JSXClosingElement;
+        }
+
+        /**
+         * Union type of all possible child nodes in JSX
+         * @category Linter
+         * @experimental
+         */
+        export type JSXChild =
+            | JSXElement
+            | JSXExpressionContainer
+            | JSXFragment
+            | JSXText;
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSModuleDeclaration {
+            type: "TSModuleDeclaration";
+            range: Range;
+            declare: boolean;
+            kind: "global" | "module" | "namespace";
+            id: Identifier | Literal | TSQualifiedName;
+            body: TSModuleBlock | undefined;
+            parent:
+                | ExportDefaultDeclaration
+                | ExportNamedDeclaration
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
+        }
+
+        /**
+         * Body of a `TSModuleDeclaration`
+         * @category Linter
+         * @experimental
+         */
+        export interface TSModuleBlock {
+            type: "TSModuleBlock";
+            range: Range;
+            body: Array<
+                | ExportAllDeclaration
+                | ExportDefaultDeclaration
+                | ExportNamedDeclaration
+                | ImportDeclaration
+                | Statement
+                | TSImportEqualsDeclaration
+                | TSNamespaceExportDeclaration
+            >;
+            parent: TSModuleDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSClassImplements {
+            type: "TSClassImplements";
+            range: Range;
+            expression: Expression;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: ClassDeclaration | ClassExpression;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSAbstractMethodDefinition {
+            type: "TSAbstractMethodDefinition";
+            range: Range;
+            computed: boolean;
+            optional: boolean;
+            override: boolean;
+            static: boolean;
+            accessibility: Accessibility | undefined;
+            kind: "method";
+            key: Expression | Identifier | NumberLiteral | StringLiteral;
+            value: FunctionExpression | TSEmptyBodyFunctionExpression;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSAbstractPropertyDefinition {
+            type: "TSAbstractPropertyDefinition";
+            range: Range;
+            computed: boolean;
+            optional: boolean;
+            override: boolean;
+            static: boolean;
+            definite: boolean;
+            declare: boolean;
+            readonly: boolean;
+            accessibility: Accessibility | undefined;
+            decorators: Decorator[];
+            key:
+                | Expression
+                | PrivateIdentifier
+                | Identifier
+                | NumberLiteral
+                | StringLiteral;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            value: Expression | null;
+            parent: ClassBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSEmptyBodyFunctionExpression {
+            type: "TSEmptyBodyFunctionExpression";
+            range: Range;
+            declare: boolean;
+            expression: boolean;
+            async: boolean;
+            generator: boolean;
+            id: null;
+            body: null;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            parent:
+                | MethodDefinition
+                | Property
+                | TSAbstractMethodDefinition
+                | TSParameterProperty;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSParameterProperty {
+            type: "TSParameterProperty";
+            range: Range;
+            override: boolean;
+            readonly: boolean;
+            static: boolean;
+            accessibility: Accessibility | undefined;
+            decorators: Decorator[];
+            parameter:
+                | AssignmentPattern
+                | ArrayPattern
+                | ObjectPattern
+                | Identifier
+                | RestElement;
+            parent:
+                | ArrowFunctionExpression
+                | FunctionDeclaration
+                | FunctionExpression
+                | TSDeclareFunction
+                | TSEmptyBodyFunctionExpression;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSCallSignatureDeclaration {
+            type: "TSCallSignatureDeclaration";
+            range: Range;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSPropertySignature {
+            type: "TSPropertySignature";
+            range: Range;
+            computed: boolean;
+            optional: boolean;
+            readonly: boolean;
+            static: boolean;
+            key:
+                | PrivateIdentifier
+                | Expression
+                | Identifier
+                | NumberLiteral
+                | StringLiteral;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSDeclareFunction {
+            type: "TSDeclareFunction";
+            range: Range;
+            async: boolean;
+            declare: boolean;
+            generator: boolean;
+            body: undefined;
+            id: Identifier | null;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: Node;
+        }
+
+        /**
+         * ```ts
+         * enum Foo { A, B };
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface TSEnumDeclaration {
+            type: "TSEnumDeclaration";
+            range: Range;
+            declare: boolean;
+            const: boolean;
+            id: Identifier;
+            body: TSEnumBody;
+            parent: Node;
+        }
+
+        /**
+         * The body of a `TSEnumDeclaration`
+         * @category Linter
+         * @experimental
+         */
+        export interface TSEnumBody {
+            type: "TSEnumBody";
+            range: Range;
+            members: TSEnumMember[];
+            parent: TSEnumDeclaration;
+        }
+
+        /**
+         * A member of a `TSEnumDeclaration`
+         * @category Linter
+         * @experimental
+         */
+        export interface TSEnumMember {
+            type: "TSEnumMember";
+            range: Range;
+            id:
+                | Identifier
+                | NumberLiteral
+                | StringLiteral;
+            initializer: Expression | undefined;
+            parent: TSEnumBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeAssertion {
+            type: "TSTypeAssertion";
+            range: Range;
+            expression: Expression;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeParameterInstantiation {
+            type: "TSTypeParameterInstantiation";
+            range: Range;
+            params: TypeNode[];
+            parent:
+                | ClassExpression
+                | NewExpression
+                | CallExpression
+                | TaggedTemplateExpression
+                | JSXOpeningElement
+                | TSClassImplements
+                | TSInstantiationExpression
+                | TSInterfaceHeritage
+                | TSTypeQuery
+                | TSTypeReference
+                | TSImportType;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeAliasDeclaration {
+            type: "TSTypeAliasDeclaration";
+            range: Range;
+            declare: boolean;
+            id: Identifier;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSSatisfiesExpression {
+            type: "TSSatisfiesExpression";
+            range: Range;
+            expression: Expression;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSAsExpression {
+            type: "TSAsExpression";
+            range: Range;
+            expression: Expression;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSInstantiationExpression {
+            type: "TSInstantiationExpression";
+            range: Range;
+            expression: Expression;
+            typeArguments: TSTypeParameterInstantiation;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNonNullExpression {
+            type: "TSNonNullExpression";
+            range: Range;
+            expression: Expression;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSThisType {
+            type: "TSThisType";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSInterfaceDeclaration {
+            type: "TSInterfaceDeclaration";
+            range: Range;
+            declare: boolean;
+            id: Identifier;
+            extends: TSInterfaceHeritage[];
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            body: TSInterfaceBody;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSInterfaceBody {
+            type: "TSInterfaceBody";
+            range: Range;
+            body: Array<
+                | TSCallSignatureDeclaration
+                | TSConstructSignatureDeclaration
+                | TSIndexSignature
+                | TSMethodSignature
+                | TSPropertySignature
+            >;
+            parent: TSInterfaceDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSConstructSignatureDeclaration {
+            type: "TSConstructSignatureDeclaration";
+            range: Range;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            params: Parameter[];
+            returnType: TSTypeAnnotation;
+            parent: TSInterfaceBody | TSTypeLiteral;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSMethodSignature {
+            type: "TSMethodSignature";
+            range: Range;
+            computed: boolean;
+            optional: boolean;
+            readonly: boolean;
+            static: boolean;
+            kind: "get" | "set" | "method";
+            key: Expression | Identifier | NumberLiteral | StringLiteral;
+            returnType: TSTypeAnnotation | undefined;
+            params: Parameter[];
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSInterfaceHeritage {
+            type: "TSInterfaceHeritage";
+            range: Range;
+            expression: Expression;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: TSInterfaceBody;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSIndexSignature {
+            type: "TSIndexSignature";
+            range: Range;
+            readonly: boolean;
+            static: boolean;
+            parameters: Parameter[];
+            typeAnnotation: TSTypeAnnotation | undefined;
+            parent: ClassBody | TSInterfaceBody | TSTypeLiteral;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSUnionType {
+            type: "TSUnionType";
+            range: Range;
+            types: TypeNode[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSIntersectionType {
+            type: "TSIntersectionType";
+            range: Range;
+            types: TypeNode[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSInferType {
+            type: "TSInferType";
+            range: Range;
+            typeParameter: TSTypeParameter;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeOperator {
+            type: "TSTypeOperator";
+            range: Range;
+            operator: "keyof" | "readonly" | "unique";
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSIndexedAccessType {
+            type: "TSIndexedAccessType";
+            range: Range;
+            indexType: TypeNode;
+            objectType: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * ```ts
+         * const a: any = null;
+         * ```
+         * @category Linter
+         * @experimental
+         */
+        export interface TSAnyKeyword {
+            type: "TSAnyKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSUnknownKeyword {
+            type: "TSUnknownKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNumberKeyword {
+            type: "TSNumberKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSObjectKeyword {
+            type: "TSObjectKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSBooleanKeyword {
+            type: "TSBooleanKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSBigIntKeyword {
+            type: "TSBigIntKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSStringKeyword {
+            type: "TSStringKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSSymbolKeyword {
+            type: "TSSymbolKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSVoidKeyword {
+            type: "TSVoidKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSUndefinedKeyword {
+            type: "TSUndefinedKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNullKeyword {
+            type: "TSNullKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNeverKeyword {
+            type: "TSNeverKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSIntrinsicKeyword {
+            type: "TSIntrinsicKeyword";
+            range: Range;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSRestType {
+            type: "TSRestType";
+            range: Range;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSConditionalType {
+            type: "TSConditionalType";
+            range: Range;
+            checkType: TypeNode;
+            extendsType: TypeNode;
+            trueType: TypeNode;
+            falseType: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSMappedType {
+            type: "TSMappedType";
+            range: Range;
+            readonly: boolean;
+            optional: boolean;
+            nameType: TypeNode | null;
+            typeAnnotation: TypeNode | undefined;
+            constraint: TypeNode;
+            key: Identifier;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSLiteralType {
+            type: "TSLiteralType";
+            range: Range;
+            literal: Literal | TemplateLiteral | UnaryExpression | UpdateExpression;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTemplateLiteralType {
+            type: "TSTemplateLiteralType";
+            range: Range;
+            quasis: TemplateElement[];
+            types: TypeNode[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeLiteral {
+            type: "TSTypeLiteral";
+            range: Range;
+            members: Array<
+                | TSCallSignatureDeclaration
+                | TSConstructSignatureDeclaration
+                | TSIndexSignature
+                | TSMethodSignature
+                | TSPropertySignature
+            >;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSOptionalType {
+            type: "TSOptionalType";
+            range: Range;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeAnnotation {
+            type: "TSTypeAnnotation";
+            range: Range;
+            typeAnnotation: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSArrayType {
+            type: "TSArrayType";
+            range: Range;
+            elementType: TypeNode;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeQuery {
+            type: "TSTypeQuery";
+            range: Range;
+            exprName: Identifier | ThisExpression | TSQualifiedName | TSImportType;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeReference {
+            type: "TSTypeReference";
+            range: Range;
+            typeName: Identifier | ThisExpression | TSQualifiedName;
+            typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypePredicate {
+            type: "TSTypePredicate";
+            range: Range;
+            asserts: boolean;
+            parameterName: Identifier | TSThisType;
+            typeAnnotation: TSTypeAnnotation | undefined;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTupleType {
+            type: "TSTupleType";
+            range: Range;
+            elementTypes: TypeNode[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSNamedTupleMember {
+            type: "TSNamedTupleMember";
+            range: Range;
+            label: Identifier;
+            elementType: TypeNode;
+            optional: boolean;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeParameterDeclaration {
+            type: "TSTypeParameterDeclaration";
+            range: Range;
+            params: TSTypeParameter[];
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSTypeParameter {
+            type: "TSTypeParameter";
+            range: Range;
+            in: boolean;
+            out: boolean;
+            const: boolean;
+            name: Identifier;
+            constraint: TypeNode | null;
+            default: TypeNode | null;
+            parent: TSInferType | TSMappedType | TSTypeParameterDeclaration;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSImportType {
+            type: "TSImportType";
+            range: Range;
+            argument: TypeNode;
+            qualifier: Identifier | ThisExpression | TSQualifiedName | null;
+            typeArguments: TSTypeParameterInstantiation | null;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSExportAssignment {
+            type: "TSExportAssignment";
+            range: Range;
+            expression: Expression;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSFunctionType {
+            type: "TSFunctionType";
+            range: Range;
+            params: Parameter[];
+            returnType: TSTypeAnnotation | undefined;
+            typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: Node;
+        }
+
+        /**
+         * @category Linter
+         * @experimental
+         */
+        export interface TSQualifiedName {
+            type: "TSQualifiedName";
+            range: Range;
+            left: Identifier | ThisExpression | TSQualifiedName;
+            right: Identifier;
+            parent: Node;
+        }
+
+        /**
+         * Union type of all possible statement nodes
+         * @category Linter
+         * @experimental
+         */
+        export type Statement =
+            | BlockStatement
+            | BreakStatement
+            | ClassDeclaration
+            | ContinueStatement
+            | DebuggerStatement
+            | DoWhileStatement
+            | ExportAllDeclaration
+            | ExportDefaultDeclaration
+            | ExportNamedDeclaration
+            | ExpressionStatement
+            | ForInStatement
+            | ForOfStatement
+            | ForStatement
+            | FunctionDeclaration
+            | IfStatement
+            | ImportDeclaration
+            | LabeledStatement
+            | ReturnStatement
+            | SwitchStatement
+            | ThrowStatement
+            | TryStatement
+            | TSDeclareFunction
+            | TSEnumDeclaration
+            | TSExportAssignment
+            | TSImportEqualsDeclaration
+            | TSInterfaceDeclaration
+            | TSModuleDeclaration
+            | TSNamespaceExportDeclaration
+            | TSTypeAliasDeclaration
+            | VariableDeclaration
+            | WhileStatement
+            | WithStatement;
+
+        /**
+         * Union type of all possible expression nodes
+         * @category Linter
+         * @experimental
+         */
+        export type Expression =
+            | ArrayExpression
+            | ArrayPattern
+            | ArrowFunctionExpression
+            | AssignmentExpression
+            | AwaitExpression
+            | BinaryExpression
+            | CallExpression
+            | ChainExpression
+            | ClassExpression
+            | ConditionalExpression
+            | FunctionExpression
+            | Identifier
+            | ImportExpression
+            | JSXElement
+            | JSXFragment
+            | Literal
+            | TemplateLiteral
+            | LogicalExpression
+            | MemberExpression
+            | MetaProperty
+            | NewExpression
+            | ObjectExpression
+            | ObjectPattern
+            | SequenceExpression
+            | Super
+            | TaggedTemplateExpression
+            | TemplateLiteral
+            | ThisExpression
+            | TSAsExpression
+            | TSInstantiationExpression
+            | TSNonNullExpression
+            | TSSatisfiesExpression
+            | TSTypeAssertion
+            | UnaryExpression
+            | UpdateExpression
+            | YieldExpression;
+
+        /**
+         * Union type of all possible type nodes in TypeScript
+         * @category Linter
+         * @experimental
+         */
+        export type TypeNode =
+            | TSAnyKeyword
+            | TSArrayType
+            | TSBigIntKeyword
+            | TSBooleanKeyword
+            | TSConditionalType
+            | TSFunctionType
+            | TSImportType
+            | TSIndexedAccessType
+            | TSInferType
+            | TSIntersectionType
+            | TSIntrinsicKeyword
+            | TSLiteralType
+            | TSMappedType
+            | TSNamedTupleMember
+            | TSNeverKeyword
+            | TSNullKeyword
+            | TSNumberKeyword
+            | TSObjectKeyword
+            | TSOptionalType
+            | TSQualifiedName
+            | TSRestType
+            | TSStringKeyword
+            | TSSymbolKeyword
+            | TSTemplateLiteralType
+            | TSThisType
+            | TSTupleType
+            | TSTypeLiteral
+            | TSTypeOperator
+            | TSTypePredicate
+            | TSTypeQuery
+            | TSTypeReference
+            | TSUndefinedKeyword
+            | TSUnionType
+            | TSUnknownKeyword
+            | TSVoidKeyword;
+
+        /**
+         * Union type of all possible AST nodes
+         * @category Linter
+         * @experimental
+         */
+        export type Node =
+            | Program
+            | Expression
+            | Statement
+            | TypeNode
+            | ImportSpecifier
+            | ImportDefaultSpecifier
+            | ImportNamespaceSpecifier
+            | ImportAttribute
+            | TSExternalModuleReference
+            | ExportSpecifier
+            | VariableDeclarator
+            | Decorator
+            | ClassBody
+            | StaticBlock
+            | PropertyDefinition
+            | MethodDefinition
+            | SwitchCase
+            | CatchClause
+            | TemplateElement
+            | PrivateIdentifier
+            | AssignmentPattern
+            | RestElement
+            | SpreadElement
+            | Property
+            | JSXIdentifier
+            | JSXNamespacedName
+            | JSXEmptyExpression
+            | JSXOpeningElement
+            | JSXAttribute
+            | JSXSpreadAttribute
+            | JSXClosingElement
+            | JSXOpeningFragment
+            | JSXClosingFragment
+            | JSXExpressionContainer
+            | JSXText
+            | JSXMemberExpression
+            | TSModuleBlock
+            | TSClassImplements
+            | TSAbstractMethodDefinition
+            | TSAbstractPropertyDefinition
+            | TSEmptyBodyFunctionExpression
+            | TSCallSignatureDeclaration
+            | TSPropertySignature
+            | TSEnumBody
+            | TSEnumMember
+            | TSTypeParameterInstantiation
+            | TSInterfaceBody
+            | TSConstructSignatureDeclaration
+            | TSMethodSignature
+            | TSInterfaceHeritage
+            | TSIndexSignature
+            | TSTypeAnnotation
+            | TSTypeParameterDeclaration
+            | TSTypeParameter;
+
+        export {}; // only export exports
+    }
+
+    /**
+     * The webgpu namespace provides additional APIs that the WebGPU specification
+     * does not specify.
+     *
+     * @category GPU
+     * @experimental
+     */
+    export namespace webgpu {
+        /**
+         * Starts a frame capture.
+         *
+         * This API is useful for debugging issues related to graphics, and makes
+         * the captured data available to RenderDoc or XCode
+         * (or other software for debugging frames)
+         *
+         * @category GPU
+         * @experimental
+         */
+        export function deviceStartCapture(device: GPUDevice): void;
+        /**
+         * Stops a frame capture.
+         *
+         * This API is useful for debugging issues related to graphics, and makes
+         * the captured data available to RenderDoc or XCode
+         * (or other software for debugging frames)
+         *
+         * @category GPU
+         * @experimental
+         */
+        export function deviceStopCapture(device: GPUDevice): void;
 
         export {}; // only export exports
     }

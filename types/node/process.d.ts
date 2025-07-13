@@ -186,12 +186,15 @@ declare module "process" {
                 readonly inspector: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for IPv6.
+                 *
+                 * Since all Node.js builds have IPv6 support, this value is always `true`.
                  * @since v0.5.3
+                 * @deprecated This property is always true, and any checks based on it are redundant.
                  */
                 readonly ipv6: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build supports
-                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v22.x/api/modules.md#loading-ecmascript-modules-using-require).
+                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v24.x/api/modules.md#loading-ecmascript-modules-using-require).
                  * @since v22.10.0
                  */
                 readonly require_module: boolean;
@@ -202,29 +205,44 @@ declare module "process" {
                 readonly tls: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for ALPN in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional ALPN support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v4.8.0
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_alpn: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for OCSP in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional OCSP support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v0.11.13
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_ocsp: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for SNI in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional SNI support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v0.5.3
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_sni: boolean;
                 /**
-                 * A value that is `"strip"` if Node.js is run with `--experimental-strip-types`,
-                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` otherwise.
+                 * A value that is `"strip"` by default,
+                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
+                 * Node.js is run with `--no-experimental-strip-types`.
                  * @since v22.10.0
                  */
                 readonly typescript: "strip" | "transform" | false;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for libuv.
-                 * Since it's currently not possible to build Node.js without libuv, this value is always `true`.
+                 *
+                 * Since it's not possible to build Node.js without libuv, this value is always `true`.
                  * @since v0.5.3
+                 * @deprecated This property is always true, and any checks based on it are redundant.
                  */
                 readonly uv: boolean;
             }
@@ -257,10 +275,8 @@ declare module "process" {
                 | "loong64"
                 | "mips"
                 | "mipsel"
-                | "ppc"
                 | "ppc64"
                 | "riscv64"
-                | "s390"
                 | "s390x"
                 | "x64";
             type Signals =
@@ -333,11 +349,43 @@ declare module "process" {
                 TZ?: string;
             }
             interface HRTime {
+                /**
+                 * This is the legacy version of {@link process.hrtime.bigint()}
+                 * before bigint was introduced in JavaScript.
+                 *
+                 * The `process.hrtime()` method returns the current high-resolution real time in a `[seconds, nanoseconds]` tuple `Array`,
+                 * where `nanoseconds` is the remaining part of the real time that can't be represented in second precision.
+                 *
+                 * `time` is an optional parameter that must be the result of a previous `process.hrtime()` call to diff with the current time.
+                 * If the parameter passed in is not a tuple `Array`, a TypeError will be thrown.
+                 * Passing in a user-defined array instead of the result of a previous call to `process.hrtime()` will lead to undefined behavior.
+                 *
+                 * These times are relative to an arbitrary time in the past,
+                 * and not related to the time of day and therefore not subject to clock drift.
+                 * The primary use is for measuring performance between intervals:
+                 * ```js
+                 * const { hrtime } = require('node:process');
+                 * const NS_PER_SEC = 1e9;
+                 * const time = hrtime();
+                 * // [ 1800216, 25 ]
+                 *
+                 * setTimeout(() => {
+                 *   const diff = hrtime(time);
+                 *   // [ 1, 552 ]
+                 *
+                 *   console.log(`Benchmark took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds`);
+                 *   // Benchmark took 1000000552 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since 0.7.6
+                 * @legacy Use {@link process.hrtime.bigint()} instead.
+                 * @param time The result of a previous call to `process.hrtime()`
+                 */
                 (time?: [number, number]): [number, number];
                 /**
-                 * The `bigint` version of the `{@link hrtime()}` method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 * The `bigint` version of the {@link process.hrtime()} method returning the current high-resolution real time in nanoseconds as a `bigint`.
                  *
-                 * Unlike `{@link hrtime()}`, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * Unlike {@link process.hrtime()}, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
                  * ```js
                  * import { hrtime } from 'node:process';
                  *
@@ -352,6 +400,7 @@ declare module "process" {
                  *   // Benchmark took 1154389282 nanoseconds
                  * }, 1000);
                  * ```
+                 * @since v10.7.0
                  */
                 bigint(): bigint;
             }
@@ -698,7 +747,7 @@ declare module "process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v22.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v24.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -1441,6 +1490,18 @@ declare module "process" {
                  */
                 readonly ppid: number;
                 /**
+                 * The `process.threadCpuUsage()` method returns the user and system CPU time usage of
+                 * the current worker thread, in an object with properties `user` and `system`, whose
+                 * values are microsecond values (millionth of a second).
+                 *
+                 * The result of a previous call to `process.threadCpuUsage()` can be passed as the
+                 * argument to the function, to get a diff reading.
+                 * @since v23.9.0
+                 * @param previousValue A previous return value from calling
+                 * `process.threadCpuUsage()`
+                 */
+                threadCpuUsage(previousValue?: CpuUsage): CpuUsage;
+                /**
                  * The `process.title` property returns the current process title (i.e. returns
                  * the current value of `ps`). Assigning a new value to `process.title` modifies
                  * the current value of `ps`.
@@ -1460,7 +1521,8 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`,
+                 * `'mipsel'`, `'ppc64'`, `'riscv64'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
@@ -1516,13 +1578,11 @@ declare module "process" {
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
-                 * @experimental
                  */
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v22.x/api/process.html#processavailablememory) for more information.
-                 * @experimental
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v24.x/api/process.html#processavailablememory) for more information.
                  * @since v20.13.0
                  */
                 availableMemory(): number;
@@ -1643,7 +1703,7 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
-                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 * This API is available through the [--permission](https://nodejs.org/api/cli.html#--permission) flag.
                  *
                  * `process.permission` is an object whose methods are used to manage permissions for the current process.
                  * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).
@@ -1795,7 +1855,7 @@ declare module "process" {
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
                  * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
-                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v22.x/api/report.html).
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v24.x/api/report.html).
                  * @since v11.8.0
                  */
                 report: ProcessReport;
@@ -1860,6 +1920,56 @@ declare module "process" {
                  * @since v0.8.0
                  */
                 traceDeprecation: boolean;
+                /**
+                 * An object is "refable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "refable".
+                 */
+                ref(maybeRefable: any): void;
+                /**
+                 * An object is "unrefable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "unref'd".
+                 */
+                unref(maybeRefable: any): void;
+                /**
+                 * Replaces the current process with a new process.
+                 *
+                 * This is achieved by using the `execve` POSIX function and therefore no memory or other
+                 * resources from the current process are preserved, except for the standard input,
+                 * standard output and standard error file descriptor.
+                 *
+                 * All other resources are discarded by the system when the processes are swapped, without triggering
+                 * any exit or close events and without running any cleanup handler.
+                 *
+                 * This function will never return, unless an error occurred.
+                 *
+                 * This function is not available on Windows or IBM i.
+                 * @since v22.15.0
+                 * @experimental
+                 * @param file The name or path of the executable file to run.
+                 * @param args List of string arguments. No argument can contain a null-byte (`\u0000`).
+                 * @param env Environment key-value pairs.
+                 * No key or value can contain a null-byte (`\u0000`).
+                 * **Default:** `process.env`.
+                 */
+                execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;
                 addListener(event: "disconnect", listener: DisconnectListener): this;

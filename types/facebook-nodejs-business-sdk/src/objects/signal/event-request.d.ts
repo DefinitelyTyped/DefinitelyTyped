@@ -12,7 +12,7 @@ export default class EventRequest {
      * @param {String} access_token Access Token for the user calling Graph API
      * @param {String} pixel_id Pixel Id to which you are sending the events
      * @param {String} page_id Page Id to which you are sending the events
-     * @param {Array<SignalEvent>} events Data for the request Payload for a Server Side Event
+     * @param {SignalEvent[]} events Data for the request Payload for a Server Side Event
      * @param {?String} partner_agent Platform from which the event is sent e.g. wordpress
      * @param {?String} test_event_code Test Event Code used to verify that your server events are received correctly by Facebook.
      * @param {?String} namespace_id Scope used to resolve extern_id or Third-party ID. Can be another data set or data partner ID.
@@ -22,7 +22,7 @@ export default class EventRequest {
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
      */
-    constructor(access_token: string, pixel_id: string, page_id: string, events?: SignalEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
+    constructor(access_token?: string, pixel_id?: string, page_id?: string, events?: SignalEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
     /**
      * Gets the data for the request Payload for a Server Side Event and Business Data Event.
      */
@@ -34,7 +34,7 @@ export default class EventRequest {
     set events(events: SignalEvent[]);
     /**
      * Sets the events for the request Payload for a Server Side Event and Business Data Event.
-     * @param {Array<SignalEvent>} events for the current event
+     * @param {SignalEvent[]} events for the current event
      */
     setEvents(events: SignalEvent[]): EventRequest;
     /**

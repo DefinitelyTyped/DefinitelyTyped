@@ -19,7 +19,7 @@ export default class Content {
      * @param {Number} tax Subtotal tax for the content/product.
      * @param {String} external_content_id Unique ID for the contents/products that are being involved in the customer interaction.
      */
-    constructor(id: string, quantity: number, price: number, item_price: number, title: string, description: string, brand: string, category: string, delivery_category: string, tax: number, external_content_id: string);
+    constructor(id?: string, quantity?: number, price?: number, item_price?: number, title?: string, description?: string, brand?: string, category?: string, delivery_category?: string, tax?: number, external_content_id?: string);
     /**
      * Gets the Product Id of the Item.
      * A string representing the unique Id for the product.

@@ -126,6 +126,15 @@ const childProc = shell.exec("node --version", (code: number) => {
 });
 pid = childProc.pid;
 
+const cmdVersion = shell.cmd("node", "--version").stdout;
+
+// $ExpectType ShellString
+shell.cmd("echo", "1st arg", "2nd arg");
+shell.cmd("echo", "1st arg", "2nd arg", {});
+shell.cmd("echo", "1st arg", "2nd arg", { cwd: "~/", timeout: 1000 });
+shell.cmd("echo", "1st arg", "2nd arg", { maxBuffer: 20 * 1024, timeout: 1000 });
+shell.cmd("echo", "1st arg", "2nd arg", { timeout: 1000 });
+
 shell.set("+e");
 shell.set("-e");
 shell.set("+v");

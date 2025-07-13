@@ -42,6 +42,8 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity,
     TouchableWithoutFeedback,
+    // unstable APIs
+    unstable_createElement,
     // hooks
     useColorScheme,
     useLocaleContext,
@@ -381,6 +383,9 @@ const yellowBox = <YellowBox />;
 const colorScheme = useColorScheme();
 const localeContext = useLocaleContext();
 const windowDimensions = useWindowDimensions();
+
+// Unstable APIs
+const videoElement = unstable_createElement("video", { src: "a_url", controls: true, muted: "arst" });
 
 const node = 0;
 UIManager.blur(node);

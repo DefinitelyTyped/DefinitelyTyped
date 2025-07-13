@@ -9,10 +9,5 @@
         "@types/jquery": "*",
         "@types/webicon": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Manuel Thalmann",
-            "githubUsername": "manuth"
-        }
-    ]
+    "owners": []
 }

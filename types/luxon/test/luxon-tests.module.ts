@@ -32,6 +32,8 @@ DateTime.utc(2019, { locale: "en-GB" }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
 DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); // $ExpectType string | null
 DateTime.expandFormat("d", { locale: "en-US" }); // $ExpectType string
+const parser = DateTime.buildFormatParser("dd/MM/yyyy", { locale: "en-US" });
+DateTime.fromFormatParser("22/11/1948", parser);
 // @ts-expect-error
 new DateTime();
 
@@ -231,8 +233,13 @@ DateTime.local().toUTC(); // $ExpectType DateTime<true>
 DateTime.utc().toLocal(); // $ExpectType DateTime<true>
 
 DateTime.max(dt, now); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.max(now, now); // $ExpectType DateTime<true>
+DateTime.max(...[dt, now].filter(date => date)); // $ExpectType DateTime<true> | DateTime<false> | undefined
+DateTime.max(); // $ExpectType undefined
 DateTime.min(dt, now); // $ExpectType DateTime<true> | DateTime<false>
 DateTime.min(now, now); // $ExpectType DateTime<true>
+DateTime.min(...[dt, now].filter(date => date)); // $ExpectType DateTime<true> | DateTime<false> | undefined
+DateTime.min(); // $ExpectType undefined
 
 const anything: unknown = 0;
 if (DateTime.isDateTime(anything)) {

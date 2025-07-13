@@ -27,7 +27,7 @@ declare class PermissionManager {
     update(key: number, assignment: PermissionAssignment): number;
     remove(key: number): number;
     removeOrphans(): number;
-    fixClasses(): void;
+    fixClasses(): number;
     fixInheritance(options?: {
         transaction?: Transaction;
         resources?: number[];

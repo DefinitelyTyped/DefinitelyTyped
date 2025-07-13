@@ -7,13 +7,14 @@ declare class UploadDialog {
     private resolveFn_;
     private rejectFn_;
     private pairName_;
-    open(opt_options?: UploadOptions | Record<any, any>): any;
+    open(opt_options?: UploadOptions | Record<any, any>): Promise;
     private act_close_;
     private act_finish_;
 }
 declare namespace UploadDialog {
     export { Process, UploadedFile };
 }
-type Process = import("../process/Process");
 import UploadOptions = require("../file-loader/UploadOptions.js");
+import Promise = require("../promise/Promise.js");
 type UploadedFile = import("../file-loader/UploadedFile");
+type Process = import("../process/Process");

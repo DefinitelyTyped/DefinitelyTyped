@@ -6,6 +6,9 @@
 
 import { ShaderMaterial, ShaderMaterialParameters } from "three";
 
+/**
+ * @deprecated Use THREE.MeshLambertMaterial instead.
+ */
 export class MeshGouraudMaterial extends ShaderMaterial {
     isMeshGouraudMaterial: true;
 

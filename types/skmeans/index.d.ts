@@ -1,11 +1,16 @@
 type CentroidValues<TPoint extends number | number[]> = TPoint[] | "kmrand" | "kmpp";
 
+interface TestResult<TPoint> {
+    idx: number;
+    centroid: TPoint;
+}
+
 interface DataResult<TPoint extends number | number[]> {
     it: number;
     k: number;
     centroids: TPoint[];
     idxs: number[];
-    test: (x: TPoint, distance?: (x: TPoint, y: TPoint) => number) => void;
+    test: (x: TPoint, distance?: (x: TPoint, y: TPoint) => number) => TestResult<TPoint>;
 }
 
 /**

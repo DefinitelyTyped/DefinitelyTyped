@@ -48,6 +48,7 @@ export default class WGSLNodeBuilder extends NodeBuilder {
         texture: Texture,
         textureProperty: string,
         uvIndexSnippet: string,
+        depthSnippet: string | null,
         valueSnippet: string,
     ): string;
     isUnfilterable(texture: Texture): boolean;

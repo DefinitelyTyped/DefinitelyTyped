@@ -37,6 +37,7 @@ declare class ViewDef {
     zoomImageWidth: number;
     zoomImageHeight: number;
     zoomImageOnHover: boolean;
+    defaultGlobalActionName: string;
     canNavigate: boolean;
     tooltip: string;
     icon: string;

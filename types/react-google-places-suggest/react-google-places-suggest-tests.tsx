@@ -1,46 +1,54 @@
 import * as React from "react";
 import ReactGooglePlacesSuggest from "react-google-places-suggest";
 
-const defaultProps: ReactGooglePlacesSuggest.Props = {
-    googleMaps: google.maps,
-    autocompletionRequest: { input: "" },
-};
+// @ts-expect-error -- Some props are required.
+<ReactGooglePlacesSuggest />;
 
-const ReactGooglePlacesSuggestWithChildrenTest: React.FC = () => (
-    <ReactGooglePlacesSuggest {...defaultProps}>
-        <div />
-    </ReactGooglePlacesSuggest>
-);
+declare const autocompletionRequest: ReactGooglePlacesSuggest.AutocompletionRequest;
+declare const googleMaps: ReactGooglePlacesSuggest.GoogleMaps;
 
-const ReactGooglePlacesSuggestWithTextNoResultsPropTest: React.FC = () => (
-    <ReactGooglePlacesSuggest {...defaultProps} textNoResults="No results..." />
-);
+// Required props
+<ReactGooglePlacesSuggest
+    autocompletionRequest={autocompletionRequest}
+    children={null}
+    googleMaps={googleMaps}
+/>;
 
-const ReactGooglePlacesSuggestWithCustomRenderPropTest: React.FC = () => (
-    <ReactGooglePlacesSuggest
-        {...defaultProps}
-        customRender={(prediction?: ReactGooglePlacesSuggest.Prediction) => {
-            return "123";
-        }}
-    />
-);
+// Required props + other optional props
+<ReactGooglePlacesSuggest
+    autocompletionRequest={autocompletionRequest}
+    children={null}
+    googleMaps={googleMaps}
+    onNoResult={(geocodedPrediction, originalPrediction) => {
+        // $ExpectType GeocoderResult
+        geocodedPrediction;
 
-const ReactGooglePlacesSuggestWithOnSelectSuggestPropTest: React.FC = () => (
-    <ReactGooglePlacesSuggest
-        {...defaultProps}
-        onSelectSuggest={(geocodedPrediction, originalPrediction) => {
-            return "123";
-        }}
-    />
-);
+        // $ExpectType AutocompletePrediction
+        originalPrediction;
+    }}
+    onSelectSuggest={(geocodedPrediction, originalPrediction) => {
+        // $ExpectType GeocoderResult
+        geocodedPrediction;
 
-const ReactGooglePlacesSuggestWithCustomContainerRenderPropTest: React.FC = () => (
-    <ReactGooglePlacesSuggest
-        {...defaultProps}
-        customContainerRender={(
-            predictions: readonly ReactGooglePlacesSuggest.Prediction[],
-        ) => {
-            return "123";
-        }}
-    />
-);
+        // $ExpectType AutocompletePrediction
+        originalPrediction;
+    }}
+    onStatusUpdate={(status) => {
+        // $ExpectType PlacesServiceStatus
+        status;
+    }}
+    customRender={(prediction) => {
+        // $ExpectType AutocompletePrediction | undefined
+        prediction;
+
+        return <div />;
+    }}
+    customContainerRender={(predictions) => {
+        // $ExpectType AutocompletePrediction[]
+        predictions;
+
+        return <div />;
+    }}
+    displayPoweredByGoogle={true}
+    textNoResults="No results from props"
+/>;

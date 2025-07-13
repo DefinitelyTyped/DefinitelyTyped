@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jalaali-js",
-    "version": "1.1.9999",
+    "version": "1.2.9999",
     "projects": [
         "https://github.com/jalaali/jalaali-js"
     ],

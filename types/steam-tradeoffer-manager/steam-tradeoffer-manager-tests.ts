@@ -118,10 +118,10 @@ manager.loadUserInventory("123", 440, 2, true, (err, inventory, currencies) => {
 manager.getOfferToken((err, token: string) => {
 });
 
-manager.getOffersContainingItem(item, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
+manager.getOffersContainingItems(item, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
 });
 
-manager.getOffersContainingItem(item, (err, sent, received) => {
+manager.getOffersContainingItems(item, (err, sent, received) => {
 });
 
 manager.doPoll();

@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/geojson": "*",
         "@types/leaflet": "*",
-        "@types/proj4": "*"
+        "proj4": "^2.19.0"
     },
     "devDependencies": {
         "@types/proj4leaflet": "workspace:."

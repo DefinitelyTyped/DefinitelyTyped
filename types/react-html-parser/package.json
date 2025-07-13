@@ -6,7 +6,7 @@
         "https://github.com/wrakky/react-html-parser#readme"
     ],
     "dependencies": {
-        "@types/htmlparser2": "*",
+        "@types/htmlparser2": "^3.9.0",
         "@types/react": "*"
     },
     "devDependencies": {

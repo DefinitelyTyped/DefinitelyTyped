@@ -30,10 +30,10 @@ declare namespace Document {
         EntityReference,
     };
 }
-type DocumentType = import('./DocumentType');
-type Element = import('./Element');
 type Attr = import('./Attr');
 type NodeList = import('./NodeList');
+type DocumentType = import('./DocumentType');
+type Element = import('./Element');
 type DocumentFragment = import('./DocumentFragment');
 type Text = import('./Text');
 type Comment = import('./Comment');

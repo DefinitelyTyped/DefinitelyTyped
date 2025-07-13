@@ -1,10 +1,10 @@
-import rgb from "../rgb/definition";
+import rgb from "../rgb/definition.js";
 
-import convertProphotoToXyz50 from "./convertProphotoToXyz50";
-import convertXyz50ToProphoto from "./convertXyz50ToProphoto";
+import convertProphotoToXyz50 from "./convertProphotoToXyz50.js";
+import convertXyz50ToProphoto from "./convertXyz50ToProphoto.js";
 
-import { Rgb } from "../rgb/types";
-import { Prophoto } from "./types";
+import { Rgb } from "../rgb/types.js";
+import { Prophoto } from "./types.js";
 
 interface ProphotoDefinitionMixin {
     mode: "prophoto";
@@ -22,6 +22,6 @@ interface ProphotoDefinitionMixin {
     };
 }
 
-declare const definition: Omit<typeof rgb, keyof ProphotoDefinitionMixin> & ProphotoDefinitionMixin;
+declare const modeProphoto: Omit<typeof rgb, keyof ProphotoDefinitionMixin> & ProphotoDefinitionMixin;
 
-export default definition;
+export default modeProphoto;

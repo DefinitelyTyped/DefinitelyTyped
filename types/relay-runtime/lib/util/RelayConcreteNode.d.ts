@@ -9,7 +9,7 @@ import { OperationType } from "./RelayRuntimeTypes";
  * fragments).
  */
 export interface ConcreteRequest {
-    readonly kind: string; // 'Request';
+    readonly kind: "Request";
     readonly fragment: ReaderFragment;
     readonly operation: NormalizationOperation;
     readonly params: RequestParameters;
@@ -22,12 +22,12 @@ export interface ConcreteRequest {
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
 export interface PreloadableConcreteRequest<TQuery extends OperationType> {
-    readonly kind: string; // 'PreloadableConcreteRequest';
+    readonly kind: "PreloadableConcreteRequest";
     readonly params: RequestParameters;
 }
 
 export interface ConcreteUpdatableQuery {
-    readonly kind: string; // 'UpdatableQuery';
+    readonly kind: "UpdatableQuery";
     readonly fragment: ReaderFragment;
 }
 
@@ -43,7 +43,7 @@ export type RequestParameters =
         readonly text: null;
         // common fields
         readonly name: string;
-        readonly operationKind: string; // 'mutation' | 'query' | 'subscription';
+        readonly operationKind: "mutation" | "query" | "subscription";
         readonly providedVariables?: ProvidedVariablesType;
         readonly metadata: { [key: string]: unknown };
     }
@@ -53,7 +53,7 @@ export type RequestParameters =
         readonly text: string | null;
         // common fields
         readonly name: string;
-        readonly operationKind: string; // 'mutation' | 'query' | 'subscription';
+        readonly operationKind: "mutation" | "query" | "subscription";
         readonly providedVariables?: ProvidedVariablesType;
         readonly metadata: { [key: string]: unknown };
     };

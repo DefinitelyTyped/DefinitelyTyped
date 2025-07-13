@@ -72,8 +72,8 @@ const exceeds: number = monitor.exceeds;
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
-    min: 1,
-    max: 2,
+    lowest: 1,
+    highest: 2,
 });
 histogram = createHistogram();
 

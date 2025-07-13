@@ -38,7 +38,7 @@ if (element) {
         // $ExpectType HTMLElement
         const element = this;
 
-        // $ExpectType MouseEvent
+        // $ExpectType MouseEvent || PointerEvent
         const event = e;
 
         console.log(event, element);

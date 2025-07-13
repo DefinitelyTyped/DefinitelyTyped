@@ -16,7 +16,7 @@ import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/F
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
-import { TitleLevel } from "sap/ui/core/library";
+import { CSSGapShortHand, TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
@@ -35,6 +35,11 @@ import UploadItem from "sap/m/upload/UploadItem";
 import DragDropInfo from "sap/ui/core/dnd/DragDropInfo";
 import nextUIUpdate from "sap/ui/test/utils/nextUIUpdate";
 import Link from "sap/m/Link";
+import BaseObject from "sap/ui/base/Object";
+import ObjectMarker from "sap/m/ObjectMarker";
+import Theming from "sap/ui/core/Theming";
+import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
+import List from "sap/m/List";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -245,3 +250,26 @@ link.hasLabelableHTMLElement();
 
 // 1.131.1
 const preventDefault: boolean = oUploadDialog.fireBeforeOpen();
+
+// 1.132
+let something: unknown;
+if (BaseObject.isObjectA<Dialog>(something, "sap.m.Dialog")) {
+    something.open();
+}
+
+// 1.133
+new ObjectMarker().setReactiveAreaMode("Inline");
+
+// 1.134
+const gap: CSSGapShortHand = "1px 2px 3px 4px";
+
+// 1.135
+const theming = Theming.setFavicon("favicon.ico");
+
+// 1.136
+const caia = new ColumnAIAction();
+
+// 1.138
+new List().attachItemActionPress((oEvent) => {
+    oEvent.getParameters().listItem;
+});

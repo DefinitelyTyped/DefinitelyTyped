@@ -12,7 +12,10 @@ export type ApplePayPaymentTiming =
  */
 export type ApplePayRecurringPaymentDateUnit =
   | 'year'
-  | 'month';
+  | 'month'
+  | 'day'
+  | 'hour'
+  | 'minute';
 
 /**
  * Field names for requesting contact information in a payment request.

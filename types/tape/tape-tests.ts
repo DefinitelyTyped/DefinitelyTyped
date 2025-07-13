@@ -234,6 +234,16 @@ tape(name, (test: tape.Test) => {
     test.doesNotThrow(fn, CustomException, msg);
     test.doesNotThrow(fn, CustomException, msg, extra);
 
+    test.test(name, { todo: "to do" });
+    test.test(name, { skip: "skip" });
+
+    test.test(name, { todo: "to do" }, (t) => {
+        t.end();
+    });
+    test.test(name, { skip: "skip" }, (t) => {
+        t.end();
+    });
+
     test.test(name, st => {
         t = st;
     });

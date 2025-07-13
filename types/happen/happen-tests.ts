@@ -17,7 +17,7 @@ happen.dblclick(document.querySelector("div")!);
 happen.dispatchEvent(new EventTarget(), new Event("click"));
 happen.dispatchEvent(document, happen.makeEvent({ type: "click" }));
 
-// $ExpectType MouseEvent
+// $ExpectType MouseEvent || PointerEvent
 happen.makeEvent({ type: "click" });
 // $ExpectType KeyboardEvent
 happen.makeEvent({ type: "keypress" });

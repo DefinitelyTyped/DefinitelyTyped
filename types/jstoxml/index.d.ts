@@ -45,12 +45,7 @@ export interface XmlOptions {
     header?: string | boolean | undefined;
 
     /**
-     * Custom filter for XML entities.
-     */
-    filter?: { [char: string]: string } | undefined;
-
-    /**
-     * Custom filter for XML attributes
+     * XML content strings to replace (e.g. <a>This & that</a> becomes <a>This &amp; that</a>).
      * Default filters are:
      * @example
      * <code>
@@ -58,17 +53,50 @@ export interface XmlOptions {
      *   "<": "&lt;",
      *   ">": "&gt;",
      *   "&": "&amp;",
+     *   "\"": "&quot;"
      * };
      * </code>
-     * Setting this to `false` disables attribute filters.
      */
-    attributesFilter?: {} | undefined;
+    contentReplacements?: { [char: string]: string } | undefined;
 
     /**
-     * If for some reason you want to avoid self-closing tags, you can pass in a special config option _selfCloseTag.
+     * XML attribute value substrings to replace (e.g. <a attributeKey="attributeValue" />).
+     * Does not double encode HTML entities (e.g. &lt; is preserved and NOT converted to &amp;lt).
+     * Default filters are:
+     * @example
+     * <code>
+     * const defaultEntityFilter = {
+     *   "<": "&lt;",
+     *   ">": "&gt;",
+     *   "&": "&amp;",
+     *   "\"": "&quot;"
+     * };
+     * </code>
+     */
+    attributeReplacements?: {} | undefined;
+
+    /**
+     * Filters out attributes based on user-supplied function.
+     */
+    attributeFilter?: (key: string, value: unknown) => boolean;
+
+    /**
+     * Whether tags should be self-closing.
      * @default true
      */
-    _selfCloseTag?: boolean | undefined;
+    selfCloseTags?: boolean | undefined;
+
+    /**
+     * Custom map function to transform XML content. Runs after contentReplacements.
+     */
+    contentMap?: (val: unknown) => unknown;
+
+    /**
+     * When true explicitly outputs true attribute value strings,
+     * e.g. <a foo='true' /> instead of <a foo />.
+     * @default boolean
+     */
+    attributeExplicitTrue?: boolean;
 }
 
 export function toXML(obj?: XmlElement | XmlElement[], options?: XmlOptions): string;

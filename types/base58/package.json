@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/base58",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jimeh/node-base58#readme"
+    ],
+    "devDependencies": {
+        "@types/base58": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Outvi V",
+            "githubUsername": "outloudvi"
+        }
+    ]
+}

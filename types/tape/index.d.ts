@@ -33,7 +33,7 @@ declare namespace tape {
          */
         objectPrintDepth?: number | undefined;
         /** Test will be allowed to fail. */
-        todo?: boolean | undefined;
+        todo?: boolean | string | undefined;
     }
 
     /**
@@ -103,6 +103,8 @@ declare namespace tape {
      */
     export function createStream(opts?: tape.StreamOptions): NodeJS.ReadableStream;
 
+    type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
     export interface Test {
         /**
          * Create a subtest with a new test handle st from cb(st) inside the current test.
@@ -111,6 +113,11 @@ declare namespace tape {
          */
         test(name: string, cb: tape.TestCase): void;
         test(name: string, opts: TestOptions, cb: tape.TestCase): void;
+        test(
+            name: string,
+            opts: WithRequired<TestOptions, "skip"> | WithRequired<TestOptions, "todo">,
+            cb?: tape.TestCase,
+        ): void;
 
         /**
          * Declare that n assertions should be run. end() will be called automatically after the nth assertion.

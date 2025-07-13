@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/piexifjs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hMatoba/piexifjs"
+    ],
+    "devDependencies": {
+        "@types/piexifjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bohan Wang",
+            "githubUsername": "Cygra"
+        }
+    ]
+}

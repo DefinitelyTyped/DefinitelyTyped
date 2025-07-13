@@ -63,4 +63,12 @@ export class Box3 {
      * @deprecated Use {@link Box3#intersectsSphere .intersectsSphere()} instead.
      */
     isIntersectionSphere(s: any): any;
+
+    toJSON(): Box3JSON;
+    fromJSON(json: Box3JSON): this;
+}
+
+export interface Box3JSON {
+    min: number[];
+    max: number[];
 }

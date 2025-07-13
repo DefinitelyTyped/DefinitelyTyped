@@ -24,6 +24,7 @@ declare namespace spreedly {
         | "errors.account_inactive"
         | "errors.environment_key_parameter_required"
         | "errors.invalid_environment_key_parameter"
+        | "errors.invalid_enhanced_authentication_params"
         | "errors.blank"
         | "errors.invalid"
         | "errors.blank_card_type"
@@ -44,6 +45,10 @@ declare namespace spreedly {
     interface InitOptions {
         numberEl: string;
         cvvEl: string;
+        nonce: string;
+        certificateToken: string;
+        signature: string;
+        timestamp: string;
     }
 
     interface TokenizeCreditCardAdditionalFields {

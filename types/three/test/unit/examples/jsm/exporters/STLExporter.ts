@@ -11,8 +11,8 @@ function exportASCII() {
 }
 
 function exportBinary() {
-    const result = exporter.parse(mesh, { binary: true });
-    saveArrayBuffer(result, "box.stl");
+    const result = exporter.parse(mesh, { binary: true }); // $ExpectType DataView || DataView<ArrayBufferLike>
+    saveArrayBuffer(result as BufferSource, "box.stl");
 }
 
 const link = document.createElement("a");

@@ -10,12 +10,12 @@ export default class EventResponse {
     _num_processed_entries: number;
     /**
      * @param {Number} events_received
-     * @param {Array<string>} messages
+     * @param {string[]} messages
      * @param {String} fbtrace_id
      * @param {String} id
      * @param {Number} num_processed_entries
      */
-    constructor(events_received: number, messages: string[], fbtrace_id: string, id: string, num_processed_entries: number);
+    constructor(events_received?: number, messages?: string[], fbtrace_id?: string, id?: string, num_processed_entries?: number);
     /**
      * Sets the events received for the response received from Graph API.
      * events_received is represented by integer.

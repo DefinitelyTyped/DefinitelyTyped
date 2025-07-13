@@ -6,7 +6,7 @@
         "http://www.vexflow.com/vextab/"
     ],
     "dependencies": {
-        "@types/vexflow": "*"
+        "@types/vexflow": "<4"
     },
     "devDependencies": {
         "@types/vextab": "workspace:."

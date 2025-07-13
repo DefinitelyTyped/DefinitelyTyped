@@ -1,15 +1,16 @@
 import { PointLight } from "../../lights/PointLight.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import AnalyticLightNode from "./AnalyticLightNode.js";
+import { DirectLightData } from "./LightsNode.js";
 import PointShadowNode from "./PointShadowNode.js";
 
-export const directPointLight: (
-    color: NodeRepresentation,
-    lightViewPosition: NodeRepresentation,
-    cutoffDistance: NodeRepresentation,
-    decayExponent: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+export const directPointLight: (params: {
+    color: ShaderNodeObject<Node>;
+    lightViewPosition: ShaderNodeObject<Node>;
+    cutoffDistance: ShaderNodeObject<Node>;
+    decayExponent: ShaderNodeObject<Node>;
+}) => DirectLightData;
 
 declare class PointLightNode extends AnalyticLightNode<PointLight> {
     cutoffDistanceNode: Node;

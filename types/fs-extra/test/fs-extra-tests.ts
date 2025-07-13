@@ -836,7 +836,7 @@ fs.readdir(path, "utf-8"); // $ExpectType Promise<string[]>
 fs.readdir(path, "buffer"); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
 fs.readdir(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
 fs.readdir(path, { encoding: "utf-8" }); // $ExpectType Promise<string[]>
-fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent[]>
+fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent<string>[]>
 // $ExpectType void
 fs.readdir(path, (err, files) => {
     err; // $ExpectType ErrnoException | null
@@ -865,17 +865,17 @@ fs.readdir(path, { encoding: "utf-8" }, (err, files) => {
 // $ExpectType void
 fs.readdir(path, { withFileTypes: true }, (err, files) => {
     err; // $ExpectType ErrnoException | null
-    files; // $ExpectType Dirent[]
+    files; // $ExpectType Dirent<string>[]
 });
 
-fs.readFile(path); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readFile(path); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>> || Promise<NonSharedBuffer>
 fs.readFile(path, "utf-8"); // $ExpectType Promise<string>
 fs.readFile(path, { encoding: "utf-8" }); // $ExpectType Promise<string>
-fs.readFile(path, { flag: "r" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readFile(path, { flag: "r" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>> || Promise<NonSharedBuffer>
 // $ExpectType void
 fs.readFile(path, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike> || NonSharedBuffer
 });
 // $ExpectType void
 fs.readFile(path, "utf-8", (err, data) => {
@@ -890,12 +890,12 @@ fs.readFile(path, { encoding: "utf-8" }, (err, data) => {
 // $ExpectType void
 fs.readFile(path, { flag: "r" }, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike> || NonSharedBuffer
 });
 // $ExpectType void
 fs.readFile(path, { signal: new AbortController().signal }, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike> || NonSharedBuffer
 });
 
 fs.readlink(path); // $ExpectType Promise<string>

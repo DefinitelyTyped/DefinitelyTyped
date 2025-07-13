@@ -27,7 +27,7 @@ declare namespace DBus {
         objectPath: string;
         interfaceName: string;
 
-        getProperty(name: string, callback: (err: Error | null, name: string) => void): void;
+        getProperty(name: string, callback: (err: Error | null, value: any) => void): void;
         setProperty(name: string, value: any, callback: (err: Error | null) => void): void;
         getProperties(callback: (err: Error | null, properties: { [name: string]: any }) => void): void;
         /**

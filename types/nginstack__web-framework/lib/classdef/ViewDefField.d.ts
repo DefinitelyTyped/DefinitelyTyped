@@ -15,7 +15,7 @@ declare class ViewDefField {
     private defaultAdapterDescriptor_;
     private unrestrictedOn_;
     private registerEvents_;
-    duplicationHandling: any;
+    duplicationHandling: number;
     private _propertiesToAssign;
     private _ownControlledProperties;
     resyncPending: boolean;
@@ -30,13 +30,7 @@ declare class ViewDefField {
     alignment: string;
     height: number;
     width: number;
-    enterKeyAction:
-        | {
-            IGNORE: string;
-            NEWLINE: string;
-            DONE: string;
-        }
-        | string;
+    enterKeyAction: typeof EnterKeyAction | string;
     private tableViewLabel;
     controlType: string;
     private controlType_;
@@ -51,7 +45,6 @@ declare class ViewDefField {
     private totalContent;
     zoomMaxHeight: number | string | null;
     zoomMaxWidth: number | string | null;
-    tableViewHeight: number | string | null;
     tableViewWidth: number;
     parent: Grid | ViewDef;
     editable: boolean;
@@ -69,12 +62,7 @@ declare class ViewDefField {
     wrap: boolean;
     private classDef;
     private lastMasterFieldValues;
-    private nextField;
-    private priorField;
-    private nextEditableField;
-    private priorEditableField;
     private tableViewIndex;
-    private inTableView;
     private inSetValue;
     cssClass: string;
     private _index;
@@ -86,10 +74,11 @@ declare class ViewDefField {
     onCalculate: Event;
     onGetTreeIcon: Event;
     onFocus: Event;
-    onBlur: Event;
+    private onBlur;
     onLookupMultipleInsert: Event;
     onDefineGrid: Event;
-    links: AnchorCollection;
+    links: LinkSet;
+    private links_;
     private getIsDataSetField;
     private _getClassDef;
     thumbnail: CellThumbnail;
@@ -119,12 +108,13 @@ declare class ViewDefField {
 declare namespace ViewDefField {
     export { Event, FieldAggregator, Grid, Link, ViewDef, VM_LIST, VM_THUMBNAIL };
 }
-type Grid = import("../grid/Grid");
-type ViewDef = import("./ViewDef");
-type Event = import("@nginstack/engine/lib/event/Event");
-import AnchorCollection = require("../anchor/AnchorCollection.js");
+import EnterKeyAction = require("./EnterKeyAction.js");
+import LinkSet = require("../anchor/LinkSet.js");
 import CellThumbnail = require("./CellThumbnail.js");
-type Link = import("../anchor/Link");
-type FieldAggregator = import("../field-aggregator/FieldAggregator");
 declare let VM_THUMBNAIL: number;
 declare let VM_LIST: number;
+type FieldAggregator = import("../field-aggregator/FieldAggregator");
+type Event = import("@nginstack/engine/lib/event/Event");
+type ViewDef = import("./ViewDef");
+type Grid = import("../grid/Grid");
+type Link = import("../anchor/Link");

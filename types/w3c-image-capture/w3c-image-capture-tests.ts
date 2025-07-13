@@ -21,9 +21,9 @@ const updateCameraPanZoomTiltAndTakePhoto = async () => {
 
                 // Map it to a slider element.
                 const input = <HTMLInputElement> document.getElementById(ptz);
-                input.min = capabilities[ptz].min.toString();
-                input.max = capabilities[ptz].max.toString();
-                input.step = capabilities[ptz].step.toString();
+                input.min = capabilities[ptz].min!.toString();
+                input.max = capabilities[ptz].max!.toString();
+                input.step = capabilities[ptz].step!.toString();
                 const settingsPtz = settings[ptz];
                 input.value = (settingsPtz && settingsPtz.toString()) || "0";
                 input.disabled = false;
@@ -155,9 +155,9 @@ const updateFocusAndTrakePhoto = () => {
 
         // Map focus distance to a slider element.
         const input = <HTMLInputElement> document.querySelector("input[type=\"range\"]");
-        input.min = capabilities.focusDistance.min.toString();
-        input.max = capabilities.focusDistance.max.toString();
-        input.step = capabilities.focusDistance.step.toString();
+        input.min = capabilities.focusDistance.min!.toString();
+        input.max = capabilities.focusDistance.max!.toString();
+        input.step = capabilities.focusDistance.step!.toString();
         const focusDistance = track.getSettings().focusDistance;
         input.value = (focusDistance && focusDistance.toString()) || "0";
 

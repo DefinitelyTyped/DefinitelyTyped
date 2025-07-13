@@ -27,12 +27,8 @@ interface SettingOptions {
     type: SettingType;
     multiple?: boolean;
     classKey?: DBKey | number;
-    lookupType?: {
-        NONE: number;
-        RECORD: number;
-        CLASS: number;
-        FILE: number;
-    };
+    lookupType?: typeof LookupType;
 }
 type DataSet = import('../dataset/DataSet');
 import SettingType = require('./SettingType.js');
+import LookupType = require('../classdef/LookupType.js');

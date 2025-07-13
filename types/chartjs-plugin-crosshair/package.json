@@ -6,7 +6,7 @@
         "https://chartjs-plugin-crosshair.netlify.com"
     ],
     "dependencies": {
-        "@types/chart.js": "*"
+        "@types/chart.js": "<3"
     },
     "devDependencies": {
         "@types/chartjs-plugin-crosshair": "workspace:."

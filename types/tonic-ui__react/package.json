@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tonic-ui__react",
-    "version": "2.0.9999",
+    "version": "2.7.9999",
     "projects": [
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react"
     ],
@@ -19,6 +19,10 @@
         {
             "name": "Zachary Legros",
             "githubUsername": "ZachLegros"
+        },
+        {
+            "name": "Georgiana Chiriac",
+            "githubUsername": "georgids9"
         }
     ]
 }

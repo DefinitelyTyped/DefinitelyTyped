@@ -8,11 +8,11 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-instantsearch-core": "*"
+        "@types/react-instantsearch-core": "<7"
     },
     "devDependencies": {
         "@types/react-dom": "*",
-        "@types/react-instantsearch": "*",
+        "@types/react-instantsearch": "<7",
         "@types/react-instantsearch-dom": "workspace:."
     },
     "owners": [

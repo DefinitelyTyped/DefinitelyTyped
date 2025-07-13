@@ -1,6 +1,6 @@
 (async () => {
     ZWJSBridge.onReady(() => {
-        ZWJSBridge.ssoTicket();
+        ZWJSBridge.ssoTicket({});
 
         ZWJSBridge.setLocalStorage({
             key: "key",

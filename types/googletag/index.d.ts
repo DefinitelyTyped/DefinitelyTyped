@@ -937,6 +937,16 @@ declare namespace googletag {
          * The only valid value is `true` (cannot be forced to `false`). Note that the sandbox attribute disables plugins (e.g. Flash).
          */
         sandbox?: boolean;
+
+        /**
+         * Whether SafeFrame should use randomized subdomains for Reservation creatives. Pass in null to clear the stored value.
+         *
+         * **Note:** this feature is enabled by default.
+         *
+         * @see [Render creatives using SafeFrame](https://support.google.com/admanager/answer/9999596)
+         * @deprecated Whether SafeFrame should use randomized subdomains for Reservation creatives.
+         */
+        useUniqueDomain?: boolean | null;
     }
 
     /**
@@ -945,6 +955,8 @@ declare namespace googletag {
     interface Service {
         /**
          * Registers a listener that allows you to set up and call a JavaScript function when a specific GPT event happens on the page. The following events are supported:
+         * - {@link googletag.events.GameManualInterstitialSlotClosedEvent}
+         * - {@link googletag.events.GameManualInterstitialSlotReadyEvent}
          * - {@link googletag.events.ImpressionViewableEvent}
          * - {@link googletag.events.RewardedSlotClosedEvent}
          * - {@link googletag.events.RewardedSlotGrantedEvent}
@@ -1079,7 +1091,7 @@ declare namespace googletag {
          * If any invalid mappings have been supplied, this method will return `null`.
          * Otherwise it returns a specification in the correct format to pass to {@link Slot.defineSizeMapping}.
          *
-         * Note: the behavior of the builder after calling this method is undefined.
+         * **Note:** the behavior of the builder after calling this method is undefined.
          *
          * @returns The result built by this builder. Can be null if invalid size mappings were supplied.
          */
@@ -1487,19 +1499,24 @@ declare namespace googletag {
         /**
          * Attribute name for all [AdSense Attributes](https://developers.google.com/publisher-tag/adsense_attributes).
          *
-         * | Attribute name           | Legacy attribute    | Example             | Allowed values                                                                                             |
-         * | :----------------------- | :------------------ | :------------------ | :--------------------------------------------------------------------------------------------------------- |
-         * | adsense_channel_ids      | google_ad_channel   | 271828183+314159265 | valid AdSense channel IDs, separated by `+`                                                                |
-         * | adsense_ad_types         | google_ad_type      | text_image          | text, image, text_image                                                                                    |
-         * | adsense_ad_format        | google_ad_format    | 250x250_as          | 160x600_as, 300x250_as, 336x280_as, 728x90_as, ...                                                         |
-         * | adsense_background_color | google_color_bg     | #000000             | hexadecimal colors                                                                                         |
-         * | adsense_border_color     | google_color_border | #000000             | hexadecimal colors                                                                                         |
-         * | adsense_link_color       | google_color_link   | #000000             | hexadecimal colors                                                                                         |
-         * | adsense_test_mode        | N/A                 | on                  | on                                                                                                         |
-         * | adsense_text_color       | google_color_text   | #000000             | hexadecimal colors                                                                                         |
-         * | adsense_url_color        | google_color_url    | #000000             | hexadecimal colors                                                                                         |
-         * | adsense_ui_features      | google_ui_features  | rc:10               | `rc:10` for very rounded corners, `rc:6` for slightly rounded corners, `rc:0` for square corners (default) |
-         * | page_url                 | N/A                 | www.mysite.com      | valid URLs                                                                                                 |
+         * | Attribute name           | Legacy attribute    | Example             | Allowed values                                                                           |
+         * | :----------------------- | :------------------ | :------------------ | :--------------------------------------------------------------------------------------- |
+         * | adsense_channel_ids      | google_ad_channel   | 271828183+314159265 | Valid AdSense channel IDs, separated by `+`                                              |
+         * | adsense_ad_types         | google_ad_type      | text_image          | `text`, `image`, `text_image`                                                            |
+         * | adsense_ad_format        | google_ad_format    | 250x250_as          | `468x60_as`, `234x60_as`, `125x125_as`, `120x600_as`, `160x600_as`, `180x150_as`,        |
+         * |                          |                     |                     | `120x240_as`, `200x200_as`, `250x250_as`, `300x250_as`, `336x280_as`, `728x90_as`        |
+         * | adsense_background_color | google_color_bg     | #000000           | Hexadecimal colors                                                                       |
+         * | adsense_border_color     | google_color_border | #000000           | Hexadecimal colors                                                                       |
+         * | adsense_link_color       | google_color_link   | #000000           | Hexadecimal colors                                                                       |
+         * | adsense_test_mode        | N/A                 | on                  | `on`                                                                                     |
+         * |                          |                     |                     | Set `on` for testing (excluded from billing). Omit for production, non-test traffic.     |
+         * | adsense_text_color       | google_color_text   | #000000           | Hexadecimal colors                                                                       |
+         * | adsense_url_color        | google_color_url    | #000000           | Hexadecimal colors                                                                       |
+         * | adsense_ui_features      | google_ui_features  | rc:10               | `rc:10` for very rounded corners,                                                        |
+         * |                          |                     |                     | `rc:6` for slightly rounded corners,                                                     |
+         * |                          |                     |                     | `rc:0` for square corners (default)                                                      |
+         * | document_language        | N/A                 | en                  | A valid [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) |
+         * | page_url                 | N/A                 | www.mysite.com      | Valid URLs                                                                               |
          */
         type AttributeName =
             | "adsense_channel_ids"
@@ -1512,6 +1529,7 @@ declare namespace googletag {
             | "adsense_text_color"
             | "adsense_url_color"
             | "adsense_ui_features"
+            | "document_language"
             | "page_url";
     }
 
@@ -1567,9 +1585,9 @@ declare namespace googletag {
              *
              * @example
              *   const componentAuctionConfig = {
-             *     // Seller URL should be https and the same as decisionLogicUrl's origin
+             *     // Seller URL should be https and the same as decisionLogicURL's origin
              *     seller: 'https://testSeller.com',
-             *     decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *     decisionLogicURL: 'https://testSeller.com/ssp/decision-logic.js',
              *     interestGroupBuyers: [
              *       'https://example-buyer.com',
              *     ],
@@ -1602,7 +1620,7 @@ declare namespace googletag {
              */
             auctionConfig: {
                 auctionSignals?: unknown;
-                decisionLogicUrl: string;
+                decisionLogicURL: string;
                 interestGroupBuyers?: string[];
                 perBuyerExperimentGroupIds?: { [buyer: string]: number };
                 perBuyerGroupLimits?: { [buyer: string]: number };
@@ -1612,7 +1630,7 @@ declare namespace googletag {
                 sellerExperimentGroupId?: number;
                 sellerSignals?: unknown;
                 sellerTimeout?: number;
-                trustedScoringSignalsUrl?: string;
+                trustedScoringSignalsURL?: string;
             } | null;
 
             /**
@@ -1672,6 +1690,11 @@ declare namespace googletag {
             adExpansion?: AdExpansionConfig | null;
 
             /**
+             * @deprecated Use {@link threadYield} instead. This will be removed in the near future.
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
              * Settings to control publisher provided signals (PPS).
              */
             pps?: PublisherProvidedSignalsConfig | null;
@@ -1680,6 +1703,30 @@ declare namespace googletag {
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when rendering creatives.
+             *
+             * GPT will yield only for browsers that support the Scheduler.postTask or Scheduler.yield API.
+             *
+             * Supported values:
+             * - `null` (default): GPT will yield the JS thread for slots outside of the viewport.
+             * - `ENABLED_ALL_SLOTS`: GPT will yield the JS thread for all slots regardless of whether the slot is within the viewport.
+             * - `DISABLED`: GPT will not yield the JS thread.
+             *
+             * @example
+             * ```
+             *   // Disable yielding.
+             *   googletag.setConfig({ threadYield: "DISABLED" });
+             *   // Enable yielding for all slots.
+             *   googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
+             *   // Enable yielding only for slots outside of the viewport (default).
+             *   googletag.setConfig({ threadYield: null });
+             * ```
+             *
+             * @see [Scheduler](https://developer.mozilla.org/docs/Web/API/Scheduler)
+             */
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
@@ -1789,6 +1836,12 @@ declare namespace googletag {
              */
             BOTTOM_ANCHOR,
             /**
+             * Game manual interstitial format.
+             *
+             * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+             */
+            GAME_MANUAL_INTERSTITIAL,
+            /**
              * Web interstitial creative format.
              */
             INTERSTITIAL,
@@ -1856,6 +1909,16 @@ declare namespace googletag {
          */
         interface EventTypeMap {
             /**
+             * Alias for {@link events.GameManualInterstitialSlotClosedEvent}.
+             */
+            gameManualInterstitialSlotClosed: GameManualInterstitialSlotClosedEvent;
+
+            /**
+             * Alias for {@link events.GameManualInterstitialSlotReadyEvent}.
+             */
+            gameManualInterstitialSlotReady: GameManualInterstitialSlotReadyEvent;
+
+            /**
              * Alias for {@link events.ImpressionViewableEvent}.
              */
             impressionViewable: ImpressionViewableEvent;
@@ -1899,6 +1962,82 @@ declare namespace googletag {
              * Alias for {@link events.SlotVisibilityChangedEvent}.
              */
             slotVisibilityChanged: SlotVisibilityChangedEvent;
+        }
+
+        /**
+         * This event is fired when a game manual interstitial slot has been closed by the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         * ```
+         *  // This listener is called when a game manual interstitial slot is closed.
+         *  const targetSlot = googletag.defineOutOfPageSlot(
+         *    "/1234567/example",
+         *    googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+         *  );
+         *  // Slot returns null if the page or device does not support game manual interstitial ads.
+         *  if (targetSlot) {
+         *    targetSlot.addService(googletag.pubads());
+         *    googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", (event) => {
+         *      const slot = event.slot;
+         *      console.log("Game manual interstital slot", slot.getSlotElementId(), "is closed.");
+         *      if (slot === targetSlot) {
+         *        // Slot specific logic.
+         *      }
+         *    });
+         *  }
+         * ```
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface GameManualInterstitialSlotClosedEvent extends Event {}
+
+        /**
+         * This event is fired when a game manual interstitial slot is ready to be shown to the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         * ```
+         *  // This listener is called when a game manual interstitial slot is ready to
+         *  // be displayed.
+         *  const targetSlot = googletag.defineOutOfPageSlot(
+         *    "/1234567/example",
+         *    googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+         *  );
+         *  // Slot returns null if the page or device does not support game manual interstitial ads.
+         *  if (targetSlot) {
+         *    targetSlot.addService(googletag.pubads());
+         *    googletag.pubads().addEventListener("gameManualInterstitialSlotReady", (event) => {
+         *      const slot = event.slot;
+         *      console.log(
+         *        "Game manual interstital slot",
+         *        slot.getSlotElementId(),
+         *        "is ready to be displayed.",
+         *      );
+         *      // Replace with custom logic.
+         *      const displayGmiAd = true;
+         *      if (displayGmiAd) {
+         *        event.makeGameManualInterstitialVisible();
+         *      }
+         *      if (slot === targetSlot) {
+         *        // Slot specific logic.
+         *      }
+         *    });
+         *  }
+         * ```
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        interface GameManualInterstitialSlotReadyEvent extends Event {
+            /**
+             * Displays the game manual interstitial ad to the user.
+             */
+            makeGameManualInterstitialVisible(): void;
         }
 
         /**
@@ -2111,6 +2250,8 @@ declare namespace googletag {
 
             /**
              * Label IDs of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             *
+             * @deprecated This field is no longer populated.
              */
             labelIds: number[] | null;
 

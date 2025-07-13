@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/leaflet-pixi-overlay",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/manubb/Leaflet.PixiOverlay#readme"
+    ],
+    "peerDependencies": {
+        "pixi.js": "4.6 - 7"
+    },
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-pixi-overlay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Nemitko",
+            "githubUsername": "ivannemitko"
+        }
+    ]
+}

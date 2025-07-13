@@ -528,6 +528,7 @@ function preloadTest() {
             imageSrcSet: "fooset",
             imageSizes: "foosizes",
             referrerPolicy: "no-referrer",
+            media: "(max-width: 600px)",
         });
         ReactDOM.preload("foo", {
             as: "image",

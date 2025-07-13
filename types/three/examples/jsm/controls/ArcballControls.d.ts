@@ -168,7 +168,7 @@ declare class ArcballControls extends Controls<ArcballControlsEventMap> {
     setGizmosVisible(value: boolean): void;
 
     /**
-     * Update the `radiusFactor` value, redraw the gizmo and send a `changeEvent` to visualise the changes.
+     * Update the `radiusFactor` value, redraw the gizmo and send a `changeEvent` to visualize the changes.
      */
     setTbRadius(value: number): void;
 

@@ -6,7 +6,7 @@
 /**
  * The `node:inspector` module provides an API for interacting with the V8
  * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1721,6 +1721,38 @@ declare module 'inspector' {
          */
         type MonotonicTime = number;
         /**
+         * Information about the request initiator.
+         */
+        interface Initiator {
+            /**
+             * Type of this initiator.
+             */
+            type: string;
+            /**
+             * Initiator JavaScript stack trace, set for Script only.
+             * Requires the Debugger domain to be enabled.
+             */
+            stack?: Runtime.StackTrace | undefined;
+            /**
+             * Initiator URL, set for Parser type or for Script type (when script is importing module) or for SignedExchange type.
+             */
+            url?: string | undefined;
+            /**
+             * Initiator line number, set for Parser type or for Script type (when script is importing
+             * module) (0-based).
+             */
+            lineNumber?: number | undefined;
+            /**
+             * Initiator column number, set for Parser type or for Script type (when script is importing
+             * module) (0-based).
+             */
+            columnNumber?: number | undefined;
+            /**
+             * Set if another request triggered this request (e.g. preflight).
+             */
+            requestId?: RequestId | undefined;
+        }
+        /**
          * HTTP request data.
          */
         interface Request {
@@ -1751,6 +1783,10 @@ declare module 'inspector' {
              * Request data.
              */
             request: Request;
+            /**
+             * Request initiator.
+             */
+            initiator: Initiator;
             /**
              * Timestamp.
              */
@@ -2829,7 +2865,7 @@ declare module 'inspector' {
      * If wait is `true`, will block until a client has connected to the inspect port
      * and flow control has been passed to the debugger client.
      *
-     * See the [security warning](https://nodejs.org/docs/latest-v22.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
+     * See the [security warning](https://nodejs.org/docs/latest-v24.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
      * regarding the `host` parameter usage.
      * @param port Port to listen on for inspector connections. Defaults to what was specified on the CLI.
      * @param host Host to listen on for inspector connections. Defaults to what was specified on the CLI.
@@ -2912,7 +2948,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.requestWillBeSent` event to connected frontends. This event indicates that
          * the application is about to send an HTTP request.
          * @since v22.6.0
-         * @experimental
          */
         function requestWillBeSent(params: RequestWillBeSentEventDataType): void;
         /**
@@ -2921,7 +2956,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.responseReceived` event to connected frontends. This event indicates that
          * HTTP response is available.
          * @since v22.6.0
-         * @experimental
          */
         function responseReceived(params: ResponseReceivedEventDataType): void;
         /**
@@ -2930,7 +2964,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.loadingFinished` event to connected frontends. This event indicates that
          * HTTP request has finished loading.
          * @since v22.6.0
-         * @experimental
          */
         function loadingFinished(params: LoadingFinishedEventDataType): void;
         /**
@@ -2939,7 +2972,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.loadingFailed` event to connected frontends. This event indicates that
          * HTTP request has failed to load.
          * @since v22.7.0
-         * @experimental
          */
         function loadingFailed(params: LoadingFailedEventDataType): void;
     }
@@ -2956,7 +2988,7 @@ declare module 'node:inspector' {
 /**
  * The `node:inspector/promises` module provides an API for interacting with the V8
  * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector/promises.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector/promises.js)
  * @since v19.0.0
  */
 declare module 'inspector/promises' {

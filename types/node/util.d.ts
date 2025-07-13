@@ -6,7 +6,7 @@
  * ```js
  * import util from 'node:util';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -108,16 +108,22 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
-    export interface StacktraceObject {
+    export interface CallSiteObject {
         /**
-         * Returns the name of the function associated with this stack frame.
+         * Returns the name of the function associated with this call site.
          */
         functionName: string;
         /**
          * Returns the name of the resource that contains the script for the
-         * function for this StackFrame.
+         * function for this call site.
          */
         scriptName: string;
+        /**
+         * Returns the unique id of the script, as in Chrome DevTools protocol
+         * [`Runtime.ScriptId`](https://chromedevtools.github.io/devtools-protocol/1-3/Runtime/#type-ScriptId).
+         * @since v22.14.0
+         */
+        scriptId: string;
         /**
          * Returns the number, 1-based, of the line for the associate function call.
          */
@@ -125,8 +131,60 @@ declare module "util" {
         /**
          * Returns the 1-based column offset on the line for the associated function call.
          */
-        column: number;
+        columnNumber: number;
     }
+    export type DiffEntry = [operation: -1 | 0 | 1, value: string];
+    /**
+     * `util.diff()` compares two string or array values and returns an array of difference entries.
+     * It uses the Myers diff algorithm to compute minimal differences, which is the same algorithm
+     * used internally by assertion error messages.
+     *
+     * If the values are equal, an empty array is returned.
+     *
+     * ```js
+     * const { diff } = require('node:util');
+     *
+     * // Comparing strings
+     * const actualString = '12345678';
+     * const expectedString = '12!!5!7!';
+     * console.log(diff(actualString, expectedString));
+     * // [
+     * //   [0, '1'],
+     * //   [0, '2'],
+     * //   [1, '3'],
+     * //   [1, '4'],
+     * //   [-1, '!'],
+     * //   [-1, '!'],
+     * //   [0, '5'],
+     * //   [1, '6'],
+     * //   [-1, '!'],
+     * //   [0, '7'],
+     * //   [1, '8'],
+     * //   [-1, '!'],
+     * // ]
+     * // Comparing arrays
+     * const actualArray = ['1', '2', '3'];
+     * const expectedArray = ['1', '3', '4'];
+     * console.log(diff(actualArray, expectedArray));
+     * // [
+     * //   [0, '1'],
+     * //   [1, '2'],
+     * //   [0, '3'],
+     * //   [-1, '4'],
+     * // ]
+     * // Equal values return empty array
+     * console.log(diff('same', 'same'));
+     * // []
+     * ```
+     * @since v22.15.0
+     * @experimental
+     * @param actual The first value to compare
+     * @param expected The second value to compare
+     * @returns An array of difference entries. Each entry is an array with two elements:
+     * * Index 0: `number` Operation code: `-1` for delete, `0` for no-op/unchanged, `1` for insert
+     * * Index 1: `string` The value associated with the operation
+     */
+    export function diff(actual: string | readonly string[], expected: string | readonly string[]): DiffEntry[];
     /**
      * The `util.format()` method returns a formatted string using the first argument
      * as a `printf`-like format string which can contain zero or more format
@@ -185,15 +243,22 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    interface GetCallSitesOptions {
+        /**
+         * Reconstruct the original location in the stacktrace from the source-map.
+         * Enabled by default with the flag `--enable-source-maps`.
+         */
+        sourceMap?: boolean | undefined;
+    }
     /**
-     * Returns an array of stacktrace objects containing the stack of
+     * Returns an array of call site objects containing the stack of
      * the caller function.
      *
      * ```js
-     * const util = require('node:util');
+     * import { getCallSites } from 'node:util';
      *
      * function exampleFunction() {
-     *   const callSites = util.getCallSite();
+     *   const callSites = getCallSites();
      *
      *   console.log('Call Sites:');
      *   callSites.forEach((callSite, index) => {
@@ -225,12 +290,40 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
-     * @param frames Number of frames returned in the stacktrace.
+     *
+     * It is possible to reconstruct the original locations by setting the option `sourceMap` to `true`.
+     * If the source map is not available, the original location will be the same as the current location.
+     * When the `--enable-source-maps` flag is enabled, for example when using `--experimental-transform-types`,
+     * `sourceMap` will be true by default.
+     *
+     * ```ts
+     * import { getCallSites } from 'node:util';
+     *
+     * interface Foo {
+     *   foo: string;
+     * }
+     *
+     * const callSites = getCallSites({ sourceMap: true });
+     *
+     * // With sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 7
+     * // Column Number: 26
+     *
+     * // Without sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 2
+     * // Column Number: 26
+     * ```
+     * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
-     * @return An array of stacktrace objects
+     * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSite(frames?: number): StacktraceObject[];
+    export function getCallSites(frameCount?: number, options?: GetCallSitesOptions): CallSiteObject[];
+    export function getCallSites(options: GetCallSitesOptions): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
@@ -261,18 +354,19 @@ declare module "util" {
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
     /**
-     * The `util.log()` method prints the given `string` to `stdout` with an included
-     * timestamp.
+     * Returns the string message for a numeric error code that comes from a Node.js
+     * API.
+     * The mapping between error codes and string messages is platform-dependent.
      *
      * ```js
-     * import util from 'node:util';
-     *
-     * util.log('Timestamped message.');
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const message = util.getSystemErrorMessage(err.errno);
+     *   console.error(message);  // no such file or directory
+     * });
      * ```
-     * @since v0.3.0
-     * @deprecated Since v6.0.0 - Use a third party module instead.
+     * @since v22.12.0
      */
-    export function log(string: string): void;
+    export function getSystemErrorMessage(err: number): string;
     /**
      * Returns the `string` after replacing any surrogate code points
      * (or equivalently, any unpaired surrogate code units) with the
@@ -284,7 +378,6 @@ declare module "util" {
      * Creates and returns an `AbortController` instance whose `AbortSignal` is marked
      * as transferable and can be used with `structuredClone()` or `postMessage()`.
      * @since v18.11.0
-     * @experimental
      * @returns A transferable AbortController
      */
     export function transferableAbortController(): AbortController;
@@ -297,40 +390,48 @@ declare module "util" {
      * channel.port2.postMessage(signal, [signal]);
      * ```
      * @since v18.11.0
-     * @experimental
      * @param signal The AbortSignal
      * @returns The same AbortSignal
      */
     export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
     /**
-     * Listens to abort event on the provided `signal` and
-     * returns a promise that is fulfilled when the `signal` is
-     * aborted. If the passed `resource` is garbage collected before the `signal` is
-     * aborted, the returned promise shall remain pending indefinitely.
+     * Listens to abort event on the provided `signal` and returns a promise that resolves when the `signal` is aborted.
+     * If `resource` is provided, it weakly references the operation's associated object,
+     * so if `resource` is garbage collected before the `signal` aborts,
+     * then returned promise shall remain pending.
+     * This prevents memory leaks in long-running or non-cancelable operations.
      *
      * ```js
      * import { aborted } from 'node:util';
      *
+     * // Obtain an object with an abortable signal, like a custom resource or operation.
      * const dependent = obtainSomethingAbortable();
      *
+     * // Pass `dependent` as the resource, indicating the promise should only resolve
+     * // if `dependent` is still in memory when the signal is aborted.
      * aborted(dependent.signal, dependent).then(() => {
-     *   // Do something when dependent is aborted.
+     *   // This code runs when `dependent` is aborted.
+     *   console.log('Dependent resource was aborted.');
      * });
      *
+     * // Simulate an event that triggers the abort.
      * dependent.on('event', () => {
-     *   dependent.abort();
+     *   dependent.abort(); // This will cause the `aborted` promise to resolve.
      * });
      * ```
      * @since v19.7.0
-     * @experimental
-     * @param resource Any non-null entity, reference to which is held weakly.
+     * @param resource Any non-null object tied to the abortable operation and held weakly.
+     * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
+     * allowing Node.js to stop tracking it.
+     * This helps prevent memory leaks in long-running or non-cancelable operations.
      */
     export function aborted(signal: AbortSignal, resource: any): Promise<void>;
     /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
-     * passed that alter the result. `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
+     * passed that alter the result.
+     * `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
      * an identifiable tag for an inspected value.
      *
      * ```js
@@ -378,7 +479,7 @@ declare module "util" {
      * The following example highlights the effect of the `compact` option:
      *
      * ```js
-     * import util from 'node:util';
+     * import { inspect } from 'node:util';
      *
      * const o = {
      *   a: [1, 2, [[
@@ -388,7 +489,7 @@ declare module "util" {
      *     'foo']], 4],
      *   b: new Map([['za', 1], ['zb', 'test']]),
      * };
-     * console.log(util.inspect(o, { compact: true, depth: 5, breakLength: 80 }));
+     * console.log(inspect(o, { compact: true, depth: 5, breakLength: 80 }));
      *
      * // { a:
      * //   [ 1,
@@ -400,7 +501,7 @@ declare module "util" {
      * //   b: Map(2) { 'za' => 1, 'zb' => 'test' } }
      *
      * // Setting `compact` to false or an integer creates more reader friendly output.
-     * console.log(util.inspect(o, { compact: false, depth: 5, breakLength: 80 }));
+     * console.log(inspect(o, { compact: false, depth: 5, breakLength: 80 }));
      *
      * // {
      * //   a: [
@@ -427,11 +528,10 @@ declare module "util" {
      * // single line.
      * ```
      *
-     * The `showHidden` option allows [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and
-     * [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) entries to be
+     * The `showHidden` option allows `WeakMap` and `WeakSet` entries to be
      * inspected. If there are more entries than `maxArrayLength`, there is no
-     * guarantee which entries are displayed. That means retrieving the same [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) entries twice may
-     * result in different output. Furthermore, entries
+     * guarantee which entries are displayed. That means retrieving the same
+     * `WeakSet` entries twice may result in different output. Furthermore, entries
      * with no remaining strong references may be garbage collected at any time.
      *
      * ```js
@@ -479,10 +579,10 @@ declare module "util" {
      * ```js
      * import { inspect } from 'node:util';
      *
-     * const thousand = 1_000;
-     * const million = 1_000_000;
-     * const bigNumber = 123_456_789n;
-     * const bigDecimal = 1_234.123_45;
+     * const thousand = 1000;
+     * const million = 1000000;
+     * const bigNumber = 123456789n;
+     * const bigDecimal = 1234.12345;
      *
      * console.log(inspect(thousand, { numericSeparator: true }));
      * // 1_000
@@ -538,84 +638,23 @@ declare module "util" {
      */
     export function isArray(object: unknown): object is unknown[];
     /**
-     * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isRegExp(/some regexp/);
-     * // Returns: true
-     * util.isRegExp(new RegExp('another regexp'));
-     * // Returns: true
-     * util.isRegExp({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Deprecated
-     */
-    export function isRegExp(object: unknown): object is RegExp;
-    /**
-     * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isDate(new Date());
-     * // Returns: true
-     * util.isDate(Date());
-     * // false (without 'new' returns a String)
-     * util.isDate({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isDate} instead.
-     */
-    export function isDate(object: unknown): object is Date;
-    /**
-     * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isError(new Error());
-     * // Returns: true
-     * util.isError(new TypeError());
-     * // Returns: true
-     * util.isError({ name: 'Error', message: 'an error occurred' });
-     * // Returns: false
-     * ```
-     *
-     * This method relies on `Object.prototype.toString()` behavior. It is
-     * possible to obtain an incorrect result when the `object` argument manipulates `@@toStringTag`.
-     *
-     * ```js
-     * import util from 'node:util';
-     * const obj = { name: 'Error', message: 'an error occurred' };
-     *
-     * util.isError(obj);
-     * // Returns: false
-     * obj[Symbol.toStringTag] = 'Error';
-     * util.isError(obj);
-     * // Returns: true
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isNativeError} instead.
-     */
-    export function isError(object: unknown): object is Error;
-    /**
-     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note
+     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and
+     * `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
      *
-     * Inherit the prototype methods from one [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
-     * prototype of `constructor` will be set to a new object created from `superConstructor`.
+     * Inherit the prototype methods from one
+     * [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
+     * prototype of `constructor` will be set to a new object created from
+     * `superConstructor`.
      *
-     * This mainly adds some input validation on top of`Object.setPrototypeOf(constructor.prototype, superConstructor.prototype)`.
+     * This mainly adds some input validation on top of
+     * `Object.setPrototypeOf(constructor.prototype, superConstructor.prototype)`.
      * As an additional convenience, `superConstructor` will be accessible
      * through the `constructor.super_` property.
      *
      * ```js
-     * import util from 'node:util';
-     * import EventEmitter from 'node:events';
+     * const util = require('node:util');
+     * const EventEmitter = require('node:events');
      *
      * function MyStream() {
      *   EventEmitter.call(this);
@@ -662,18 +701,42 @@ declare module "util" {
     export function inherits(constructor: unknown, superConstructor: unknown): void;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
     export interface DebugLogger extends DebugLoggerFunction {
+        /**
+         * The `util.debuglog().enabled` getter is used to create a test that can be used
+         * in conditionals based on the existence of the `NODE_DEBUG` environment variable.
+         * If the `section` name appears within the value of that environment variable,
+         * then the returned value will be `true`. If not, then the returned value will be
+         * `false`.
+         *
+         * ```js
+         * import { debuglog } from 'node:util';
+         * const enabled = debuglog('foo').enabled;
+         * if (enabled) {
+         *   console.log('hello from foo [%d]', 123);
+         * }
+         * ```
+         *
+         * If this program is run with `NODE_DEBUG=foo` in the environment, then it will
+         * output something like:
+         *
+         * ```console
+         * hello from foo [123]
+         * ```
+         */
         enabled: boolean;
     }
     /**
      * The `util.debuglog()` method is used to create a function that conditionally
-     * writes debug messages to `stderr` based on the existence of the `NODE_DEBUG`environment variable. If the `section` name appears within the value of that
-     * environment variable, then the returned function operates similar to `console.error()`. If not, then the returned function is a no-op.
+     * writes debug messages to `stderr` based on the existence of the `NODE_DEBUG`
+     * environment variable. If the `section` name appears within the value of that
+     * environment variable, then the returned function operates similar to
+     * `console.error()`. If not, then the returned function is a no-op.
      *
      * ```js
-     * import util from 'node:util';
-     * const debuglog = util.debuglog('foo');
+     * import { debuglog } from 'node:util';
+     * const log = debuglog('foo');
      *
-     * debuglog('hello from foo [%d]', 123);
+     * log('hello from foo [%d]', 123);
      * ```
      *
      * If this program is run with `NODE_DEBUG=foo` in the environment, then
@@ -689,10 +752,10 @@ declare module "util" {
      * The `section` supports wildcard also:
      *
      * ```js
-     * import util from 'node:util';
-     * const debuglog = util.debuglog('foo-bar');
+     * import { debuglog } from 'node:util';
+     * const log = debuglog('foo');
      *
-     * debuglog('hi there, it\'s foo-bar [%d]', 2333);
+     * log('hi there, it\'s foo-bar [%d]', 2333);
      * ```
      *
      * if it is run with `NODE_DEBUG=foo*` in the environment, then it will output
@@ -702,18 +765,19 @@ declare module "util" {
      * FOO-BAR 3257: hi there, it's foo-bar [2333]
      * ```
      *
-     * Multiple comma-separated `section` names may be specified in the `NODE_DEBUG`environment variable: `NODE_DEBUG=fs,net,tls`.
+     * Multiple comma-separated `section` names may be specified in the `NODE_DEBUG`
+     * environment variable: `NODE_DEBUG=fs,net,tls`.
      *
      * The optional `callback` argument can be used to replace the logging function
      * with a different function that doesn't have any initialization or
      * unnecessary wrapping.
      *
      * ```js
-     * import util from 'node:util';
-     * let debuglog = util.debuglog('internals', (debug) => {
+     * import { debuglog } from 'node:util';
+     * let log = debuglog('internals', (debug) => {
      *   // Replace with a logging function that optimizes out
      *   // testing if the section is enabled
-     *   debuglog = debug;
+     *   log = debug;
      * });
      * ```
      * @since v0.11.3
@@ -722,231 +786,21 @@ declare module "util" {
      * @return The logging function
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
-    export const debug: typeof debuglog;
-    /**
-     * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBoolean(1);
-     * // Returns: false
-     * util.isBoolean(0);
-     * // Returns: false
-     * util.isBoolean(false);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'boolean'` instead.
-     */
-    export function isBoolean(object: unknown): object is boolean;
-    /**
-     * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBuffer({ length: 0 });
-     * // Returns: false
-     * util.isBuffer([]);
-     * // Returns: false
-     * util.isBuffer(Buffer.from('hello world'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `isBuffer` instead.
-     */
-    export function isBuffer(object: unknown): object is Buffer;
-    /**
-     * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * function Foo() {}
-     * const Bar = () => {};
-     *
-     * util.isFunction({});
-     * // Returns: false
-     * util.isFunction(Foo);
-     * // Returns: true
-     * util.isFunction(Bar);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'function'` instead.
-     */
-    export function isFunction(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNull(0);
-     * // Returns: false
-     * util.isNull(undefined);
-     * // Returns: false
-     * util.isNull(null);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === null` instead.
-     */
-    export function isNull(object: unknown): object is null;
-    /**
-     * Returns `true` if the given `object` is `null` or `undefined`. Otherwise,
-     * returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNullOrUndefined(0);
-     * // Returns: false
-     * util.isNullOrUndefined(undefined);
-     * // Returns: true
-     * util.isNullOrUndefined(null);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === undefined || value === null` instead.
-     */
-    export function isNullOrUndefined(object: unknown): object is null | undefined;
-    /**
-     * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNumber(false);
-     * // Returns: false
-     * util.isNumber(Infinity);
-     * // Returns: true
-     * util.isNumber(0);
-     * // Returns: true
-     * util.isNumber(NaN);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'number'` instead.
-     */
-    export function isNumber(object: unknown): object is number;
-    /**
-     * Returns `true` if the given `object` is strictly an `Object`**and** not a`Function` (even though functions are objects in JavaScript).
-     * Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isObject(5);
-     * // Returns: false
-     * util.isObject(null);
-     * // Returns: false
-     * util.isObject({});
-     * // Returns: true
-     * util.isObject(() => {});
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value !== null && typeof value === 'object'` instead.
-     */
-    export function isObject(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isPrimitive(5);
-     * // Returns: true
-     * util.isPrimitive('foo');
-     * // Returns: true
-     * util.isPrimitive(false);
-     * // Returns: true
-     * util.isPrimitive(null);
-     * // Returns: true
-     * util.isPrimitive(undefined);
-     * // Returns: true
-     * util.isPrimitive({});
-     * // Returns: false
-     * util.isPrimitive(() => {});
-     * // Returns: false
-     * util.isPrimitive(/^$/);
-     * // Returns: false
-     * util.isPrimitive(new Date());
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead.
-     */
-    export function isPrimitive(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isString('');
-     * // Returns: true
-     * util.isString('foo');
-     * // Returns: true
-     * util.isString(String('foo'));
-     * // Returns: true
-     * util.isString(5);
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'string'` instead.
-     */
-    export function isString(object: unknown): object is string;
-    /**
-     * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isSymbol(5);
-     * // Returns: false
-     * util.isSymbol('foo');
-     * // Returns: false
-     * util.isSymbol(Symbol('foo'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'symbol'` instead.
-     */
-    export function isSymbol(object: unknown): object is symbol;
-    /**
-     * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * const foo = undefined;
-     * util.isUndefined(5);
-     * // Returns: false
-     * util.isUndefined(foo);
-     * // Returns: true
-     * util.isUndefined(null);
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === undefined` instead.
-     */
-    export function isUndefined(object: unknown): object is undefined;
+    export { debuglog as debug };
     /**
      * The `util.deprecate()` method wraps `fn` (which may be a function or class) in
      * such a way that it is marked as deprecated.
      *
      * ```js
-     * import util from 'node:util';
+     * import { deprecate } from 'node:util';
      *
-     * exports.obsoleteFunction = util.deprecate(() => {
+     * export const obsoleteFunction = deprecate(() => {
      *   // Do something here.
      * }, 'obsoleteFunction() is deprecated. Use newShinyFunction() instead.');
      * ```
      *
-     * When called, `util.deprecate()` will return a function that will emit a `DeprecationWarning` using the `'warning'` event. The warning will
+     * When called, `util.deprecate()` will return a function that will emit a
+     * `DeprecationWarning` using the `'warning'` event. The warning will
      * be emitted and printed to `stderr` the first time the returned function is
      * called. After the warning is emitted, the wrapped function is called without
      * emitting a warning.
@@ -955,16 +809,24 @@ declare module "util" {
      * the warning will be emitted only once for that `code`.
      *
      * ```js
-     * import util from 'node:util';
+     * import { deprecate } from 'node:util';
      *
-     * const fn1 = util.deprecate(someFunction, someMessage, 'DEP0001');
-     * const fn2 = util.deprecate(someOtherFunction, someOtherMessage, 'DEP0001');
+     * const fn1 = deprecate(
+     *   () => 'a value',
+     *   'deprecation message',
+     *   'DEP0001',
+     * );
+     * const fn2 = deprecate(
+     *   () => 'a  different value',
+     *   'other dep message',
+     *   'DEP0001',
+     * );
      * fn1(); // Emits a deprecation warning with code DEP0001
      * fn2(); // Does not emit a deprecation warning because it has the same code
      * ```
      *
      * If either the `--no-deprecation` or `--no-warnings` command-line flags are
-     * used, or if the `process.noDeprecation` property is set to `true`_prior_ to
+     * used, or if the `process.noDeprecation` property is set to `true` _prior_ to
      * the first deprecation warning, the `util.deprecate()` method does nothing.
      *
      * If the `--trace-deprecation` or `--trace-warnings` command-line flags are set,
@@ -972,10 +834,13 @@ declare module "util" {
      * stack trace are printed to `stderr` the first time the deprecated function is
      * called.
      *
-     * If the `--throw-deprecation` command-line flag is set, or the `process.throwDeprecation` property is set to `true`, then an exception will be
+     * If the `--throw-deprecation` command-line flag is set, or the
+     * `process.throwDeprecation` property is set to `true`, then an exception will be
      * thrown when the deprecated function is called.
      *
-     * The `--throw-deprecation` command-line flag and `process.throwDeprecation` property take precedence over `--trace-deprecation` and `process.traceDeprecation`.
+     * The `--throw-deprecation` command-line flag and `process.throwDeprecation`
+     * property take precedence over `--trace-deprecation` and
+     * `process.traceDeprecation`.
      * @since v0.8.0
      * @param fn The function that is being deprecated.
      * @param msg A warning message to display when the deprecated function is invoked.
@@ -1006,15 +871,16 @@ declare module "util" {
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the
-     * first argument will be the rejection reason (or `null` if the `Promise` resolved), and the second argument will be the resolved value.
+     * first argument will be the rejection reason (or `null` if the `Promise`
+     * resolved), and the second argument will be the resolved value.
      *
      * ```js
-     * import util from 'node:util';
+     * import { callbackify } from 'node:util';
      *
      * async function fn() {
      *   return 'hello world';
      * }
-     * const callbackFunction = util.callbackify(fn);
+     * const callbackFunction = callbackify(fn);
      *
      * callbackFunction((err, ret) => {
      *   if (err) throw err;
@@ -1029,11 +895,13 @@ declare module "util" {
      * ```
      *
      * The callback is executed asynchronously, and will have a limited stack trace.
-     * If the callback throws, the process will emit an `'uncaughtException'` event, and if not handled will exit.
+     * If the callback throws, the process will emit an `'uncaughtException'`
+     * event, and if not handled will exit.
      *
      * Since `null` has a special meaning as the first argument to a callback, if a
      * wrapped function rejects a `Promise` with a falsy value as a reason, the value
-     * is wrapped in an `Error` with the original value stored in a field named `reason`.
+     * is wrapped in an `Error` with the original value stored in a field named
+     * `reason`.
      *
      * ```js
      * function fn() {
@@ -1044,7 +912,7 @@ declare module "util" {
      * callbackFunction((err, ret) => {
      *   // When the Promise was rejected with `null` it is wrapped with an Error and
      *   // the original value is stored in `reason`.
-     *   err &#x26;&#x26; Object.hasOwn(err, 'reason') &#x26;&#x26; err.reason === null;  // true
+     *   err && Object.hasOwn(err, 'reason') && err.reason === null;  // true
      * });
      * ```
      * @since v8.2.0
@@ -1135,11 +1003,11 @@ declare module "util" {
      * that returns promises.
      *
      * ```js
-     * import util from 'node:util';
-     * import fs from 'node:fs';
+     * import { promisify } from 'node:util';
+     * import { stat } from 'node:fs';
      *
-     * const stat = util.promisify(fs.stat);
-     * stat('.').then((stats) => {
+     * const promisifiedStat = promisify(stat);
+     * promisifiedStat('.').then((stats) => {
      *   // Do something with `stats`
      * }).catch((error) => {
      *   // Handle the error.
@@ -1149,23 +1017,25 @@ declare module "util" {
      * Or, equivalently using `async function`s:
      *
      * ```js
-     * import util from 'node:util';
-     * import fs from 'node:fs';
+     * import { promisify } from 'node:util';
+     * import { stat } from 'node:fs';
      *
-     * const stat = util.promisify(fs.stat);
+     * const promisifiedStat = promisify(stat);
      *
      * async function callStat() {
-     *   const stats = await stat('.');
+     *   const stats = await promisifiedStat('.');
      *   console.log(`This directory is owned by ${stats.uid}`);
      * }
      *
      * callStat();
      * ```
      *
-     * If there is an `original[util.promisify.custom]` property present, `promisify` will return its value, see `Custom promisified functions`.
+     * If there is an `original[util.promisify.custom]` property present, `promisify`
+     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v24.x/api/util.html#custom-promisified-functions).
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
-     * final argument in all cases. If `original` is not a function, `promisify()` will throw an error. If `original` is a function but its last argument is not
+     * final argument in all cases. If `original` is not a function, `promisify()`
+     * will throw an error. If `original` is a function but its last argument is not
      * an error-first callback, it will still be passed an error-first
      * callback as its last argument.
      *
@@ -1173,7 +1043,7 @@ declare module "util" {
      * work as expected unless handled specially:
      *
      * ```js
-     * import util from 'node:util';
+     * import { promisify } from 'node:util';
      *
      * class Foo {
      *   constructor() {
@@ -1187,8 +1057,8 @@ declare module "util" {
      *
      * const foo = new Foo();
      *
-     * const naiveBar = util.promisify(foo.bar);
-     * // TypeError: Cannot read property 'a' of undefined
+     * const naiveBar = promisify(foo.bar);
+     * // TypeError: Cannot read properties of undefined (reading 'a')
      * // naiveBar().then(a => console.log(a));
      *
      * naiveBar.call(foo).then((a) => console.log(a)); // '42'
@@ -1251,7 +1121,7 @@ declare module "util" {
      * @param content The raw contents of a `.env` file.
      * @since v20.12.0
      */
-    export function parseEnv(content: string): object;
+    export function parseEnv(content: string): NodeJS.Dict<string>;
     // https://nodejs.org/docs/latest/api/util.html#foreground-colors
     type ForegroundColors =
         | "black"
@@ -1306,18 +1176,42 @@ declare module "util" {
         | "reset"
         | "strikethrough"
         | "underline";
+    export interface StyleTextOptions {
+        /**
+         * When true, `stream` is checked to see if it can handle colors.
+         * @default true
+         */
+        validateStream?: boolean | undefined;
+        /**
+         * A stream that will be validated if it can be colored.
+         * @default process.stdout
+         */
+        stream?: NodeJS.WritableStream | undefined;
+    }
     /**
-     * Stability: 1.1 - Active development
-     *
-     * This function returns a formatted text considering the `format` passed.
+     * This function returns a formatted text considering the `format` passed
+     * for printing in a terminal. It is aware of the terminal's capabilities
+     * and acts according to the configuration set via `NO_COLOR`,
+     * `NODE_DISABLE_COLORS` and `FORCE_COLOR` environment variables.
      *
      * ```js
      * import { styleText } from 'node:util';
-     * const errorMessage = styleText('red', 'Error! Error!');
-     * console.log(errorMessage);
+     * import { stderr } from 'node:process';
+     *
+     * const successMessage = styleText('green', 'Success!');
+     * console.log(successMessage);
+     *
+     * const errorMessage = styleText(
+     *   'red',
+     *   'Error! Error!',
+     *   // Validate if process.stderr has TTY
+     *   { stream: stderr },
+     * );
+     * console.error(errorMessage);
      * ```
      *
-     * `util.inspect.colors` also provides text formats such as `italic`, and `underline` and you can combine both:
+     * `util.inspect.colors` also provides text formats such as `italic`, and
+     * `underline` and you can combine both:
      *
      * ```js
      * console.log(
@@ -1325,8 +1219,8 @@ declare module "util" {
      * );
      * ```
      *
-     * When passing an array of formats, the order of the format applied is left to right so the following style
-     * might overwrite the previous one.
+     * When passing an array of formats, the order of the format applied
+     * is left to right so the following style might overwrite the previous one.
      *
      * ```js
      * console.log(
@@ -1334,7 +1228,7 @@ declare module "util" {
      * );
      * ```
      *
-     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v22.x/api/util.html#modifiers).
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
@@ -1346,6 +1240,7 @@ declare module "util" {
             | Modifiers
             | Array<ForegroundColors | BackgroundColors | Modifiers>,
         text: string,
+        options?: StyleTextOptions,
     ): string;
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
@@ -1499,11 +1394,17 @@ declare module "util" {
      * @return The parsed command line arguments:
      */
     export function parseArgs<T extends ParseArgsConfig>(config?: T): ParsedResults<T>;
-    interface ParseArgsOptionConfig {
+
+    /**
+     * Type of argument used in {@link parseArgs}.
+     */
+    export type ParseArgsOptionsType = "boolean" | "string";
+
+    export interface ParseArgsOptionDescriptor {
         /**
          * Type of argument.
          */
-        type: "string" | "boolean";
+        type: ParseArgsOptionsType;
         /**
          * Whether this option can be provided multiple times.
          * If `true`, all values will be collected in an array.
@@ -1516,15 +1417,16 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default option value when it is not set by args.
-         * It must be of the same type as the the `type` property.
-         * When `multiple` is `true`, it must be an array.
+         * The default value to
+         * be used if (and only if) the option does not appear in the arguments to be
+         * parsed. It must be of the same type as the `type` property. When `multiple`
+         * is `true`, it must be an array.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;
     }
-    interface ParseArgsOptionsConfig {
-        [longOption: string]: ParseArgsOptionConfig;
+    export interface ParseArgsOptionsConfig {
+        [longOption: string]: ParseArgsOptionDescriptor;
     }
     export interface ParseArgsConfig {
         /**
@@ -1576,7 +1478,7 @@ declare module "util" {
         : T extends true ? IfTrue
         : IfFalse;
 
-    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
+    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
         O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
         string | boolean
@@ -1609,7 +1511,7 @@ declare module "util" {
 
     type PreciseTokenForOptions<
         K extends string,
-        O extends ParseArgsOptionConfig,
+        O extends ParseArgsOptionDescriptor,
     > = O["type"] extends "string" ? {
             kind: "option";
             index: number;
@@ -1699,7 +1601,6 @@ declare module "util" {
      * components. When parsed, a `MIMEType` object is returned containing
      * properties for each of these components.
      * @since v19.1.0, v18.13.0
-     * @experimental
      */
     export class MIMEType {
         /**
@@ -1918,6 +1819,18 @@ declare module "util/types" {
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
     /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
+    /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *
      * ```js
@@ -1986,7 +1899,9 @@ declare module "util/types" {
      * A native `External` value is a special type of object that contains a
      * raw C++ pointer (`void*`) for access from native code, and has no other
      * properties. Such objects are created either by Node.js internals or native
-     * addons. In JavaScript, they are [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) objects with a`null` prototype.
+     * addons. In JavaScript, they are
+     * [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) objects with a
+     * `null` prototype.
      *
      * ```c
      * #include <js_native_api.h>
@@ -1994,7 +1909,7 @@ declare module "util/types" {
      * napi_value result;
      * static napi_value MyNapi(napi_env env, napi_callback_info info) {
      *   int* raw = (int*) malloc(1024);
-     *   napi_status status = napi_create_external(env, (void*) raw, NULL, NULL, &#x26;result);
+     *   napi_status status = napi_create_external(env, (void*) raw, NULL, NULL, &result);
      *   if (status != napi_ok) {
      *     napi_throw_error(env, NULL, "napi_create_external failed");
      *     return NULL;
@@ -2007,17 +1922,31 @@ declare module "util/types" {
      * ```
      *
      * ```js
-     * const native = require('napi_addon.node');
+     * import native from 'napi_addon.node';
+     * import { types } from 'node:util';
+     *
      * const data = native.myNapi();
-     * util.types.isExternal(data); // returns true
-     * util.types.isExternal(0); // returns false
-     * util.types.isExternal(new String('foo')); // returns false
+     * types.isExternal(data); // returns true
+     * types.isExternal(0); // returns false
+     * types.isExternal(new String('foo')); // returns false
      * ```
      *
-     * For further information on `napi_create_external`, refer to `napi_create_external()`.
+     * For further information on `napi_create_external`, refer to
+     * [`napi_create_external()`](https://nodejs.org/docs/latest-v24.x/api/n-api.html#napi_create_external).
      * @since v10.0.0
      */
     function isExternal(object: unknown): boolean;
+    /**
+     * Returns `true` if the value is a built-in [`Float16Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float16Array) instance.
+     *
+     * ```js
+     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
+     * util.types.isFloat16Array(new Float16Array());  // Returns true
+     * util.types.isFloat16Array(new Float32Array());  // Returns false
+     * ```
+     * @since v24.0.0
+     */
+    function isFloat16Array(object: unknown): object is Float16Array;
     /**
      * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
      *
@@ -2138,7 +2067,8 @@ declare module "util/types" {
      */
     function isModuleNamespaceObject(value: unknown): boolean;
     /**
-     * Returns `true` if the value was returned by the constructor of a [built-in `Error` type](https://tc39.es/ecma262/#sec-error-objects).
+     * Returns `true` if the value was returned by the constructor of a
+     * [built-in `Error` type](https://tc39.es/ecma262/#sec-error-objects).
      *
      * ```js
      * console.log(util.types.isNativeError(new Error()));  // true
@@ -2153,14 +2083,18 @@ declare module "util/types" {
      * console.log(util.types.isNativeError(new MyError()));  // true
      * ```
      *
-     * A value being `instanceof` a native error class is not equivalent to `isNativeError()` returning `true` for that value. `isNativeError()` returns `true` for errors
-     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false` for these errors:
+     * A value being `instanceof` a native error class is not equivalent to `isNativeError()`
+     * returning `true` for that value. `isNativeError()` returns `true` for errors
+     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false`
+     * for these errors:
      *
      * ```js
-     * import vm from 'node:vm';
-     * const context = vm.createContext({});
-     * const myError = vm.runInContext('new Error()', context);
-     * console.log(util.types.isNativeError(myError)); // true
+     * import { createContext, runInContext } from 'node:vm';
+     * import { types } from 'node:util';
+     *
+     * const context = createContext({});
+     * const myError = runInContext('new Error()', context);
+     * console.log(types.isNativeError(myError)); // true
      * console.log(myError instanceof Error); // false
      * ```
      *

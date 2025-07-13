@@ -350,9 +350,11 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {

@@ -1,4 +1,4 @@
-import { fake, findByName, JSONSchema, RootName, Schema } from "mokapi/faker";
+import { fake, findByName, JSONSchema, Request, ROOT_NAME, Schema } from "mokapi/faker";
 
 // @ts-expect-error
 fake();
@@ -100,30 +100,22 @@ s1.allOf = [{ type: "string" }];
 s1.anyOf = [{ type: "string" }];
 s1.oneOf = [{ type: "string" }];
 
-const node = findByName(RootName);
+const node = findByName(ROOT_NAME);
 // @ts-expect-error
-node.append({});
-node.append({
+node.children.push({});
+node.children.push({
     name: "foo",
-    test: () => true,
     fake: () => {},
 });
-node.append({
+node.children.push({
     name: "foo",
-    test: (r) => {
-        r.path[0].name;
-        r.path[0].schema.type === "integer";
-        r.last().name;
-        r.lastName() === "";
-        r.lastSchema().type === "string";
-        return true;
+    fake: (r: Request) => {
+        r.path[0] === "foo";
+        r.schema.type === "integer";
+        return "foo";
     },
-    fake: () => {},
 });
-node.insert(0, {
+node.children.unshift({
     name: "foo",
-    test: () => true,
     fake: () => {},
 });
-node.remove("foo");
-node.removeAt(0);

@@ -1,4 +1,3 @@
-import { FromTerm } from "@rdfjs/data-model/lib/fromTerm.js";
 import * as RDF from "@rdfjs/types";
 import { BlankNodeExt } from "./lib/BlankNode.js";
 import { DefaultGraphExt } from "./lib/DefaultGraph.js";
@@ -27,9 +26,14 @@ export interface DataFactoryExt extends RDF.DataFactory<QuadExt, RDF.Quad> {
         graph?: RDF.Quad_Graph,
     ): QuadExt;
 
-    fromTerm: <T extends RDF.Term>(original: T) => ReturnType<FromTerm<T, this>>;
+    fromTerm(original: RDF.NamedNode): NamedNodeExt;
+    fromTerm(original: RDF.BlankNode): BlankNodeExt;
+    fromTerm(original: RDF.Literal): LiteralExt;
+    fromTerm(original: RDF.Variable): VariableExt;
+    fromTerm(original: RDF.DefaultGraph): DefaultGraphExt;
+    fromTerm(original: RDF.BaseQuad): QuadExt;
 
-    fromQuad: (original: RDF.Quad) => ReturnType<FromTerm<RDF.Quad, this>>;
+    fromQuad(original: RDF.Quad): QuadExt;
 }
 
 interface DataFactoryExtCtor {

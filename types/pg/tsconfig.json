@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "pg-tests.ts"
+        "pg-tests.ts",
+        "pg-tests.mts"
     ]
 }

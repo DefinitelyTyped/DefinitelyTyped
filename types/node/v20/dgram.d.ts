@@ -352,22 +352,22 @@ declare module "dgram" {
          * @param callback Called when the message has been sent.
          */
         send(
-            msg: string | Uint8Array | readonly any[],
+            msg: string | NodeJS.ArrayBufferView | readonly any[],
             port?: number,
             address?: string,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | readonly any[],
+            msg: string | NodeJS.ArrayBufferView | readonly any[],
             port?: number,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | readonly any[],
+            msg: string | NodeJS.ArrayBufferView | readonly any[],
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array,
+            msg: string | NodeJS.ArrayBufferView,
             offset: number,
             length: number,
             port?: number,
@@ -375,14 +375,14 @@ declare module "dgram" {
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array,
+            msg: string | NodeJS.ArrayBufferView,
             offset: number,
             length: number,
             port?: number,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array,
+            msg: string | NodeJS.ArrayBufferView,
             offset: number,
             length: number,
             callback?: (error: Error | null, bytes: number) => void,

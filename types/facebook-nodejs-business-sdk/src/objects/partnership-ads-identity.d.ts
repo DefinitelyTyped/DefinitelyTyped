@@ -5,6 +5,7 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class PartnershipAdsIdentity extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        is_saved: "is_saved";
         post_types: "post_types";
         secondary_identities: "secondary_identities";
     }>;

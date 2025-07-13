@@ -1,24 +1,24 @@
 import { Light } from "../../lights/Light.js";
 import { LightShadow } from "../../lights/LightShadow.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import ShadowNode from "./ShadowNode.js";
 
-export const cubeToUV: (pos: NodeRepresentation, texelSizeY: NodeRepresentation) => ShaderNodeObject<Node>;
+export const cubeToUV: (pos: Node, texelSizeY: Node) => ShaderNodeObject<Node>;
 
 export const BasicPointShadowFilter: (
-    depthTexture: NodeRepresentation,
-    bd3D: NodeRepresentation,
-    dp: NodeRepresentation,
-    texelSize: NodeRepresentation,
+    depthTexture: Node,
+    bd3D: Node,
+    dp: Node,
+    texelSize: Node,
 ) => ShaderNodeObject<Node>;
 
 export const PointShadowFilter: (
-    depthTexture: NodeRepresentation,
-    bd3D: NodeRepresentation,
-    dp: NodeRepresentation,
-    texelSize: NodeRepresentation,
-    shadow: NodeRepresentation,
+    depthTexture: Node,
+    bd3D: Node,
+    dp: Node,
+    texelSize: Node,
+    shadow: Node,
 ) => ShaderNodeObject<Node>;
 
 declare class PointShadowNode extends ShadowNode {

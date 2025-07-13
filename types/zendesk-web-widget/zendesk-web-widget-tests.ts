@@ -46,3 +46,6 @@ const openWidget = () => {
 };
 zE("messenger:set", "conversationFields", [{ id: "123456789", value: 100.50 }], openWidget);
 zE("messenger:set", "conversationTags", ["sales", "computer_accessories"]);
+
+zE("messenger", "resetWidget", function() {
+});

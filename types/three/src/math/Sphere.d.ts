@@ -44,4 +44,12 @@ export class Sphere {
      * @deprecated Use {@link Sphere#isEmpty .isEmpty()} instead.
      */
     empty(): any;
+
+    toJSON(): SphereJSON;
+    fromJSON(json: SphereJSON): this;
+}
+
+export interface SphereJSON {
+    radius: number;
+    center: number[];
 }

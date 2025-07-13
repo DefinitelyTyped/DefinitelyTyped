@@ -72,8 +72,8 @@ const exceeds: number = monitor.exceeds;
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
-    min: 1,
-    max: 2,
+    lowest: 1,
+    highest: 2,
 });
 histogram = createHistogram();
 
@@ -151,3 +151,14 @@ const resource = NodePerf.markResourceTiming(
     "",
 );
 resource; // $ExpectType PerformanceResourceTiming
+
+{
+    const { nodeTiming } = NodePerf;
+
+    // $ExpectType UVMetrics
+    const uvMetrics = nodeTiming.uvMetricsInfo;
+
+    uvMetrics.loopCount; // $ExpectType number
+    uvMetrics.events; // $ExpectType number
+    uvMetrics.eventsWaiting; // $ExpectType number
+}

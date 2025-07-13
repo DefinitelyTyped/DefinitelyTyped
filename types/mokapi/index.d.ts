@@ -1,6 +1,6 @@
 /**
  * Mokapi JavaScript API
- * https://mokapi.io/docs/guides/get-started/welcome
+ * https://mokapi.io/docs/guides/welcome
  */
 
 import "./faker";
@@ -8,6 +8,8 @@ import "./global";
 import "./http";
 import "./mustache";
 import "./yaml";
+import "./encoding";
+import "./mail";
 
 /**
  * Attaches an event handler for the given event.
@@ -93,7 +95,7 @@ export function sleep(time: number | string): void;
 
 /**
  * Specifies the interval of a periodic job.
- * Interval string is a possibly signed sequence of decimal numbers, each with optional
+ * Interval string is a possibly signed sequence of decimal numbers, each with an optional
  * fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m".
  * Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
  */
@@ -120,7 +122,7 @@ export interface EventHandler {
  *   })
  * }
  */
-export type HttpEventHandler = (request: HttpRequest, response: HttpResponse) => boolean;
+export type HttpEventHandler = (request: HttpRequest, response: HttpResponse) => void | Promise<void>;
 
 /**
  * HttpRequest is an object used by HttpEventHandler that contains request-specific
@@ -134,7 +136,7 @@ export interface HttpRequest {
     /** Represents a parsed URL. */
     readonly url: Url;
 
-    /** Body contains request body specified by OpenAPI request body. */
+    /** Body contains the request body specified by OpenAPI request body. */
     readonly body: any;
 
     /** Object contains path parameters specified by OpenAPI path parameters. */
@@ -202,7 +204,7 @@ export interface Url {
  *   })
  * }
  */
-export type KafkaEventHandler = (message: KafkaEventMessage) => boolean;
+export type KafkaEventHandler = (message: KafkaEventMessage) => void | Promise<void>;
 
 /**
  * KafkaEventMessage is an object used by KafkaEventHandler that contains Kafka-specific message data.
@@ -241,7 +243,7 @@ export interface KafkaEventMessage {
  *   })
  * }
  */
-export type LdapEventHandler = (request: LdapSearchRequest, response: LdapSearchResponse) => boolean;
+export type LdapEventHandler = (request: LdapSearchRequest, response: LdapSearchResponse) => void | Promise<void>;
 
 /**
  * LdapSearchRequest is an object used by LdapEventHandler that contains request-specific data.
@@ -341,7 +343,7 @@ export enum LdapResultStatus {
     SizeLimitExceeded = 4,
 }
 
-export type SmtpEventHandler = (record: SmtpEventMessage) => boolean;
+export type SmtpEventHandler = (record: SmtpEventMessage) => void | Promise<void>;
 
 export interface SmtpEventMessage {
     server: string;
@@ -379,7 +381,7 @@ export interface DateArgs {
     /**
      * The format of the textual representation, default is RFC3339
      */
-    layout?: DateLayout;
+    layout?: DateLayout | string;
 
     /**
      * The timestamp of the date, default is current UTC time
@@ -423,7 +425,7 @@ export interface EventArgs {
  *   }, {times: 1, runFirstTimeImmediately: false})
  * }
  */
-export type ScheduledEventHandler = () => void;
+export type ScheduledEventHandler = () => void | Promise<void>;
 
 export interface ScheduledEventArgs {
     /**
@@ -454,4 +456,57 @@ export interface JSONObject {
     [key: string]: JSONValue;
 }
 
+/**
+ * Specifies the date-time format defined in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339).
+ * This constant can be used when defining or validating datetime strings.
+ *
+ * @example
+ * const date = new Date().toISOString()
+ * if (isValidDate(date, RFC3339)) {
+ *   // do something
+ * }
+ */
 export const RFC3339 = "RFC3339";
+
+/**
+ * Applies a patch object to a target object. Only properties that are explicitly defined in the patch
+ * are applied. This includes nested objects. Properties marked with `Delete` will be removed.
+ *
+ * This function is especially useful when working with generated mock data in Mokapi that you want to override
+ * or refine with specific values.
+ *
+ * https://mokapi.io/docs/javascript-api/mokapi/patch
+ *
+ * @param target The original object or value to be patched.
+ * @param patch The patch object or value. Only defined values are applied; undefined values are ignored. Use `Delete` to remove fields.
+ * @returns A new object or value with the patch applied.
+ *
+ * @example
+ * const result = patch({ name: "foo", age: 42 }, { name: "bar" })
+ * // result: { name: "bar", age: 42 }
+ *
+ * @example
+ * const result = patch({ name: "foo", meta: { version: 1 } }, { meta: { version: 2 } })
+ * // result: { name: "foo", meta: { version: 2 } }
+ *
+ * @example
+ * const result = patch({ name: "foo", age: 42 }, { age: Delete })
+ * // result: { name: "foo" }
+ */
+export function patch(target: any, patch: any): any;
+
+/**
+ * Special marker used with the `patch` function to indicate a property should be removed.
+ *
+ * When used as a value inside a patch object, the corresponding property will be deleted
+ * from the result.
+ *
+ * This is useful when refining or overriding mock data in a script while keeping validation logic intact.
+ *
+ * https://mokapi.io/docs/javascript-api/mokapi/patch#delete
+ *
+ * @example
+ * const result = patch({ name: "foo", age: 42 }, { age: Delete })
+ * // result: { name: "foo" }
+ */
+export const Delete: unique symbol;

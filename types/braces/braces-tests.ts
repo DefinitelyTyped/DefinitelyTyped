@@ -17,3 +17,9 @@ braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: false });
 
 // $ExpectType string[]
 braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: true });
+
+// $ExpectType string[]
+braces("file's{A,B}*.md", { ...bracesOpts, keepQuotes: false });
+
+// $ExpectType string[]
+braces("file's{A,B}*.md", { ...bracesOpts, keepQuotes: true });

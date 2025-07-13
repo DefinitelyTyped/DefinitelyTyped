@@ -978,7 +978,7 @@ export interface MetricMessage {
          * to match against the current metric's URL and name tags.
          * Required.
          */
-        matches: {
+        matches: Array<{
             /**
              * The regular expression used to find matches in the current
              * metric's URL and name tags. Required.
@@ -991,7 +991,7 @@ export interface MetricMessage {
              * tag.
              */
             method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT";
-        }[];
+        }>;
     }): void;
 }
 
@@ -1987,6 +1987,19 @@ export interface Locator {
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
+     * Returns the number of elements matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const count = await page.locator('input').count();
+     * ```
+     *
+     * @returns Promise which resolves with the number of elements matching the selector.
+     */
+    count(): Promise<number>;
+
+    /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
@@ -2052,6 +2065,19 @@ export interface Locator {
     fill(value: string, options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Returns locator to the first matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const firstRow = await page.locator('tr').first();
+     * ```
+     *
+     * @returns Locator.
+     */
+    first(): Locator;
+
+    /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
@@ -2092,6 +2118,33 @@ export interface Locator {
      * @returns The input value of the element.
      */
     inputValue(options?: TimeoutOptions): Promise<string>;
+
+    /**
+     * Returns locator to the last matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const lastRow = await page.locator('tr').last();
+     * ```
+     *
+     * @returns Locator.
+     */
+    last(): Locator;
+
+    /**
+     * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const secondRow = await page.locator('tr').nth(1);
+     * ```
+     *
+     * @param index
+     * @returns Locator
+     */
+    nth(index: number): Locator;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
@@ -3035,6 +3088,36 @@ export interface Page {
      * ```
      */
     on(event: "metric", listener: (metricMessage: MetricMessage) => void): void;
+
+    /**
+     * Registers a handler function to listen for the network requests that
+     * the page makes. The handler will receive an instance of {@link Request},
+     * which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('request', request => {
+     *   console.log(request.url());
+     * });
+     * ```
+     */
+    on(event: "request", listener: (request: Request) => void): void;
+
+    /**
+     * Registers a handler function to listen for the network responses that the
+     * page receives. The handler will receive an instance of {@link Response},
+     * which includes information about the response.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('response', response => {
+     *   console.log(response.url());
+     * });
+     * ```
+     */
+    on(event: "response", listener: (response: Response) => void): void;
 
     /**
      * Returns the page that opened the current page. The first page that is

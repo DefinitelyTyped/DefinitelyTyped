@@ -22,6 +22,11 @@ declare namespace OO.ui {
     interface MultilineTextInputWidget extends MultilineTextInputWidget.Props, MultilineTextInputWidget.Prototype {}
 
     namespace MultilineTextInputWidget {
+        interface NonNullRange {
+            from: number;
+            to: number;
+        }
+
         interface EventMap extends TextInputWidget.EventMap {
             resize: [];
         }
@@ -67,6 +72,13 @@ declare namespace OO.ui {
              * @return
              */
             isAutosizing(): boolean;
+
+            /**
+             * Get an object describing the current selection range in a directional manner
+             *
+             * @return Object containing 'from' and 'to' offsets
+             */
+            getRange(): NonNullRange;
 
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(

@@ -8,6 +8,7 @@ export default class AdCreativeMarketingMessageStructuredSpec extends AbstractCr
         buttons: "buttons";
         footer: "footer";
         greeting: "greeting";
+        is_optimized_text: "is_optimized_text";
         language: "language";
         referenced_adgroup_id: "referenced_adgroup_id";
         whats_app_business_phone_number_id: "whats_app_business_phone_number_id";

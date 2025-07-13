@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/gitana": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Juan E. Tenorio Arzola",
-            "githubUsername": "tenoriojuann"
-        }
-    ]
+    "owners": []
 }

@@ -1,0 +1,11 @@
+export const UNSUPPORTED_OS = 'unsupported_os';
+export const UNSUPPORTED_ARCH = 'unsupported_arch';
+export const LOW_FREE_DISK = 'low_free_disk';
+export const LOW_PHYSICAL_MEMORY = 'low_physical_memory';
+export const HIGH_MEMORY_USAGE = 'high_memory_usage';
+export const HIGH_SESSION_COUNT = 'high_session_count';
+export const SLOW_DBCACHE_SYNC = 'slow_dbcache_sync';
+export const DBCACHE_SYNC_ERROR = 'dbcache_sync_error';
+export const TRANSACTION_LOG_SENDING_ERROR = 'transaction_log_sending_error';
+export const HIGH_ENGINE_UPTIME = 'high_engine_uptime';
+export const OUTDATED_ENGINE = 'outdated_engine';

@@ -101,6 +101,11 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     get end(): IfValid<DateTime<Valid>, null, IsValid>;
 
     /**
+     * Returns the last DateTime included in the interval (since end is not part of the interval)
+     */
+    get lastDateTime(): IfValid<DateTime<Valid>, null, IsValid>;
+
+    /**
      * Returns whether this Interval's end is at least its start, meaning that the Interval isn't 'backwards'.
      */
     get isValid(): IfValid<true, false, IsValid>;

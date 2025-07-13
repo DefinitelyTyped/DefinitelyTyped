@@ -13,6 +13,7 @@ interface ClipboardEvent extends Event {}
 interface CompositionEvent extends Event {}
 interface DragEvent extends Event {}
 interface FocusEvent extends Event {}
+interface InputEvent extends Event {}
 interface KeyboardEvent extends Event {}
 interface MouseEvent extends Event {}
 interface TouchEvent extends Event {}

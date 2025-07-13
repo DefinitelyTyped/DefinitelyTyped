@@ -783,7 +783,7 @@ declare namespace Autodesk {
                     needsExternalId?: boolean | undefined;
                 },
             ): Promise<PropertySet>;
-            getPropertyHashes(): Promise<string[]>;
+            getPropertyHashes(nameRE?: RegExp, categoryRE?: RegExp): Promise<string[]>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -2694,6 +2694,12 @@ declare namespace Autodesk {
                 onTreeNodeRightClick(tree: Tree, node: object, event: Event): void;
                 shouldCreateTreeNode(node: object): boolean;
             }
+        }
+
+        class FeatureFlags {
+            static set(name: string, value: boolean): void;
+            static isEnabled(name: string): boolean | undefined;
+            static print(): void;
         }
     }
 

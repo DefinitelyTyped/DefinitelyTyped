@@ -3,7 +3,7 @@ import ReactReconcilerConstants = require("react-reconciler/constants");
 import * as Constants from "./ReactReconcilerPriorityConstant";
 import * as ReactTestHostConfig from "./ReactTestHostConfig";
 
-// $ExpectType Reconciler<Container, Instance, TextInstance, any, PublicInstance>
+// $ExpectType Reconciler<Container, Instance, TextInstance, any, Instance, PublicInstance>
 ReactReconciler<
     ReactTestHostConfig.Type,
     ReactTestHostConfig.Props,
@@ -12,12 +12,13 @@ ReactReconciler<
     ReactTestHostConfig.TextInstance,
     ReactTestHostConfig.SuspenseInstance,
     ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
     ReactTestHostConfig.PublicInstance,
     ReactTestHostConfig.HostContext,
-    ReactTestHostConfig.UpdatePayload,
     ReactTestHostConfig.ChildSet,
     ReactTestHostConfig.TimeoutHandle,
-    ReactTestHostConfig.NoTimeout
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
@@ -41,3 +42,6 @@ isEqual(Constants.LEGACY_ROOT, ReactReconcilerConstants.LegacyRoot);
 
 // $ExpectType boolean
 isEqual(Constants.CONCURRENT_ROOT, ReactReconcilerConstants.ConcurrentRoot);
+
+// $ExpectType boolean
+isEqual(Constants.NO_EVENT_PRIORITY, ReactReconcilerConstants.NoEventPriority);

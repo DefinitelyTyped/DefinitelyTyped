@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/m3u8-parser",
+    "version": "7.2.9999",
+    "projects": [
+        "https://github.com/videojs/m3u8-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/m3u8-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

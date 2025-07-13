@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/layui",
+    "version": "2.9.9999",
+    "projects": [
+        "https://github.com/layui/layui"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/layui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "layui",
+            "url": "https://layui.dev/"
+        },
+        {
+            "name": "javabitar",
+            "githubUsername": "javabitar"
+        },
+        {
+            "name": "sight",
+            "githubUsername": "Sight-wcg"
+        }
+    ]
+}

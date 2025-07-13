@@ -20,5 +20,5 @@ export default class Cursor extends Array<Record<string, any>> {
      * @param  {Object} [params]
      * @param  {String} [endpoint]
      */
-    constructor(sourceObject: Record<string, any>, targetClass: Record<string, any>, params: Record<string, any>, endpoint: string | null | undefined);
+    constructor(sourceObject: Record<string, any>, targetClass: Record<string, any>, params: Record<string, any>, endpoint?: string | null);
 }

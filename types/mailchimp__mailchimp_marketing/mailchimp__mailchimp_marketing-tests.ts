@@ -1,4 +1,4 @@
-import mailchimp = require("@mailchimp/mailchimp_marketing");
+import mailchimp from "@mailchimp/mailchimp_marketing";
 
 // $ExpectType void;
 mailchimp.setConfig({
@@ -145,6 +145,9 @@ const getContentOpts: mailchimp.campaigns.GetCampaignContentOptions = {
 const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJourneyBody = {
     email_address: "test@email.com",
 };
+
+// $ExpectType Promise<APIHealthStatus | ErrorResponse>
+mailchimp.ping.get();
 
 // $ExpectType Promise<SearchMembersSuccessResponse | ErrorResponse>
 mailchimp.searchMembers.search("test");

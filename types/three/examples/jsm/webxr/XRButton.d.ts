@@ -1,5 +1,7 @@
-import { WebGLRenderer } from "three";
+export interface XRButtonRenderer {
+    xr: { setSession(session: XRSession): Promise<void> };
+}
 
 export class XRButton {
-    static createButton(renderer: WebGLRenderer, sessionInit?: XRSessionInit): HTMLElement;
+    static createButton(renderer: XRButtonRenderer, sessionInit?: XRSessionInit): HTMLElement;
 }

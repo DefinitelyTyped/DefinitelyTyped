@@ -22,6 +22,10 @@ export default class BusinessUser extends AbstractCrudObject {
         title: "title";
         two_fac_status: "two_fac_status";
     }>;
+    static get InvitedUserType(): Readonly<{
+        fb: "FB";
+        mwa: "MWA";
+    }>;
     static get Role(): Readonly<{
         admin: "ADMIN";
         ads_rights_reviewer: "ADS_RIGHTS_REVIEWER";

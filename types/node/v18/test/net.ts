@@ -118,7 +118,7 @@ import * as net from "node:net";
     let _socket: net.Socket = new net.Socket(constructorOpts);
 
     let bool = true;
-    let buffer = Buffer.from("123");
+    let buffer: Buffer = Buffer.from("123");
     let error = new Error("asd");
     let str = "123";
     let num = 123;
@@ -382,6 +382,18 @@ import * as net from "node:net";
     _socket.destroy();
     _server.close();
     _server[Symbol.asyncDispose]();
+}
+
+{
+    let _server = net.createServer();
+
+    // $ExpectType Server
+    _server.getConnections((error, count) => {
+        // $ExpectType Error | null
+        error;
+        // $ExpectType number
+        count;
+    });
 }
 
 {

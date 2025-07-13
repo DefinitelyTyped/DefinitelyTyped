@@ -102,6 +102,12 @@ declare module "@novnc/novnc/lib/rfb" {
          * value of `capabilities`.
          */
         capabilities: CustomEvent<{ capabilities: NoVncClient["capabilities"] }>;
+
+        /**
+         * The `clippingviewport` event is fired whenever `clippingViewport` changes between true and false.
+         * The `detail` property is a `boolean` with the new value of `clippingViewport`.
+         */
+        clippingviewport: CustomEvent<NoVncClient["clippingViewport"]>;
     }
 
     type NoVncEventType = keyof NoVncEvents;
@@ -217,6 +223,12 @@ declare module "@novnc/novnc/lib/rfb" {
             /** Machine power control is available */
             power: boolean;
         };
+
+        /**
+         * Is a `boolean` indicating if the remote session is currently being clipped to its container.
+         * Only relevant if `clipViewport` is enabled.
+         */
+        readonly clippingViewport: boolean;
 
         /**
          * Disconnect from the server.

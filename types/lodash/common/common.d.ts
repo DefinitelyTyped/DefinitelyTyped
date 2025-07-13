@@ -117,11 +117,11 @@ declare module "../index" {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp | undefined;
+        escape?: RegExp | null | undefined;
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp | undefined;
+        evaluate?: RegExp | null | undefined;
         /**
         * An object to import into the template as local variables.
         */
@@ -129,7 +129,7 @@ declare module "../index" {
         /**
         * The "interpolate" delimiter.
         */
-        interpolate?: RegExp | undefined;
+        interpolate?: RegExp | null | undefined;
         /**
         * Used to reference the data object in the template text.
         */
@@ -246,6 +246,10 @@ declare module "../index" {
     type PropertyPath = Many<PropertyName>;
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
+    interface MutableList<T> { // Needed since ArrayLike is readonly
+        length: number;
+        [k: number]: T;
+    }
     interface Dictionary<T> {
         [index: string]: T;
     }

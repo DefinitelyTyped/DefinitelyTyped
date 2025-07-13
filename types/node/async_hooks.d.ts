@@ -2,8 +2,8 @@
  * We strongly discourage the use of the `async_hooks` API.
  * Other APIs that can cover most of its use cases include:
  *
- * * [`AsyncLocalStorage`](https://nodejs.org/docs/latest-v22.x/api/async_context.html#class-asynclocalstorage) tracks async context
- * * [`process.getActiveResourcesInfo()`](https://nodejs.org/docs/latest-v22.x/api/process.html#processgetactiveresourcesinfo) tracks active resources
+ * * [`AsyncLocalStorage`](https://nodejs.org/docs/latest-v24.x/api/async_context.html#class-asynclocalstorage) tracks async context
+ * * [`process.getActiveResourcesInfo()`](https://nodejs.org/docs/latest-v24.x/api/process.html#processgetactiveresourcesinfo) tracks active resources
  *
  * The `node:async_hooks` module provides an API to track asynchronous resources.
  * It can be accessed using:
@@ -12,7 +12,7 @@
  * import async_hooks from 'node:async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/async_hooks.js)
  */
 declare module "async_hooks" {
     /**
@@ -44,7 +44,7 @@ declare module "async_hooks" {
      * ```
      *
      * Promise contexts may not get precise `executionAsyncIds` by default.
-     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html#promise-execution-tracking).
+     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v24.x/api/async_hooks.html#promise-execution-tracking).
      * @since v8.1.0
      * @return The `asyncId` of the current execution context. Useful to track when something calls.
      */
@@ -117,7 +117,7 @@ declare module "async_hooks" {
      * ```
      *
      * Promise contexts may not get valid `triggerAsyncId`s by default. See
-     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html#promise-execution-tracking).
+     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v24.x/api/async_hooks.html#promise-execution-tracking).
      * @return The ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
@@ -320,6 +320,16 @@ declare module "async_hooks" {
          */
         triggerAsyncId(): number;
     }
+    interface AsyncLocalStorageOptions {
+        /**
+         * The default value to be used when no store is provided.
+         */
+        defaultValue?: any;
+        /**
+         * A name for the `AsyncLocalStorage` value.
+         */
+        name?: string | undefined;
+    }
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
@@ -358,8 +368,8 @@ declare module "async_hooks" {
      * http.get('http://localhost:8080');
      * // Prints:
      * //   0: start
-     * //   1: start
      * //   0: finish
+     * //   1: start
      * //   1: finish
      * ```
      *
@@ -370,9 +380,13 @@ declare module "async_hooks" {
      */
     class AsyncLocalStorage<T> {
         /**
+         * Creates a new instance of `AsyncLocalStorage`. Store is only provided within a
+         * `run()` call or after an `enterWith()` call.
+         */
+        constructor(options?: AsyncLocalStorageOptions);
+        /**
          * Binds the given function to the current execution context.
          * @since v19.8.0
-         * @experimental
          * @param fn The function to bind to the current execution context.
          * @return A new function that calls `fn` within the captured execution context.
          */
@@ -403,7 +417,6 @@ declare module "async_hooks" {
          * console.log(asyncLocalStorage.run(321, () => foo.get())); // returns 123
          * ```
          * @since v19.8.0
-         * @experimental
          * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
         static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
@@ -432,6 +445,11 @@ declare module "async_hooks" {
          * @since v13.10.0, v12.17.0
          */
         getStore(): T | undefined;
+        /**
+         * The name of the `AsyncLocalStorage` instance if provided.
+         * @since v24.0.0
+         */
+        readonly name: string;
         /**
          * Runs a function synchronously within a context and returns its
          * return value. The store is not accessible outside of the callback function.
@@ -534,6 +552,70 @@ declare module "async_hooks" {
          * @experimental
          */
         enterWith(store: T): void;
+    }
+    /**
+     * @since v17.2.0, v16.14.0
+     * @return A map of provider types to the corresponding numeric id.
+     * This map contains all the event types that might be emitted by the `async_hooks.init()` event.
+     */
+    namespace asyncWrapProviders {
+        const NONE: number;
+        const DIRHANDLE: number;
+        const DNSCHANNEL: number;
+        const ELDHISTOGRAM: number;
+        const FILEHANDLE: number;
+        const FILEHANDLECLOSEREQ: number;
+        const FIXEDSIZEBLOBCOPY: number;
+        const FSEVENTWRAP: number;
+        const FSREQCALLBACK: number;
+        const FSREQPROMISE: number;
+        const GETADDRINFOREQWRAP: number;
+        const GETNAMEINFOREQWRAP: number;
+        const HEAPSNAPSHOT: number;
+        const HTTP2SESSION: number;
+        const HTTP2STREAM: number;
+        const HTTP2PING: number;
+        const HTTP2SETTINGS: number;
+        const HTTPINCOMINGMESSAGE: number;
+        const HTTPCLIENTREQUEST: number;
+        const JSSTREAM: number;
+        const JSUDPWRAP: number;
+        const MESSAGEPORT: number;
+        const PIPECONNECTWRAP: number;
+        const PIPESERVERWRAP: number;
+        const PIPEWRAP: number;
+        const PROCESSWRAP: number;
+        const PROMISE: number;
+        const QUERYWRAP: number;
+        const SHUTDOWNWRAP: number;
+        const SIGNALWRAP: number;
+        const STATWATCHER: number;
+        const STREAMPIPE: number;
+        const TCPCONNECTWRAP: number;
+        const TCPSERVERWRAP: number;
+        const TCPWRAP: number;
+        const TTYWRAP: number;
+        const UDPSENDWRAP: number;
+        const UDPWRAP: number;
+        const SIGINTWATCHDOG: number;
+        const WORKER: number;
+        const WORKERHEAPSNAPSHOT: number;
+        const WRITEWRAP: number;
+        const ZLIB: number;
+        const CHECKPRIMEREQUEST: number;
+        const PBKDF2REQUEST: number;
+        const KEYPAIRGENREQUEST: number;
+        const KEYGENREQUEST: number;
+        const KEYEXPORTREQUEST: number;
+        const CIPHERREQUEST: number;
+        const DERIVEBITSREQUEST: number;
+        const HASHREQUEST: number;
+        const RANDOMBYTESREQUEST: number;
+        const RANDOMPRIMEREQUEST: number;
+        const SCRYPTREQUEST: number;
+        const SIGNREQUEST: number;
+        const TLSWRAP: number;
+        const VERIFYREQUEST: number;
     }
 }
 declare module "node:async_hooks" {

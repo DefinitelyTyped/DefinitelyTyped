@@ -26,6 +26,6 @@ export class UnrealBloomPass extends Pass {
     fsQuad: FullScreenQuad;
 
     dispose(): void;
-    getSeperableBlurMaterial(): ShaderMaterial;
+    getSeparableBlurMaterial(): ShaderMaterial;
     getCompositeMaterial(): ShaderMaterial;
 }

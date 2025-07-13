@@ -12,6 +12,7 @@ export default class CopyrightReferenceContainer extends AbstractCrudObject {
         id: "id";
         iswc: "iswc";
         metadata: "metadata";
+        playable_video_uri: "playable_video_uri";
         published_time: "published_time";
         thumbnail_url: "thumbnail_url";
         title: "title";

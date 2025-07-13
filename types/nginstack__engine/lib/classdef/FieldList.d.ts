@@ -13,7 +13,7 @@ declare class FieldList {
     add(field: Field): void;
     map(func: (arg0: string, ...args: any[]) => any, ...args: any[]): any[];
     private fieldNameMapper_;
-    indexOf(nameOrField: string): any;
+    indexOf(nameOrField: string | Field): any;
     field(nameOrIndex: string | number): Field;
     remove(nameOrIndexOrField: string | number | Field): Field;
     assign(fieldList: FieldList): void;
@@ -24,6 +24,7 @@ declare class FieldList {
         propertyNames: string | string[] | ((arg0: Field) => void),
         ...args: any[]
     ): void;
+    has(fieldName: string): boolean;
     private toArray;
     private getText;
     private findObjectsByString;

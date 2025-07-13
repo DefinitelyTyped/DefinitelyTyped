@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/nw.gui",
     "version": "0.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "nw.gui",
     "projects": [
         "https://github.com/rogerwang/node-webkit"

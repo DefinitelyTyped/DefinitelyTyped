@@ -260,7 +260,7 @@ declare module "diagnostics_channel" {
          * @param store The store to unbind from the channel.
          * @return `true` if the store was found, `false` otherwise.
          */
-        unbindStore(store: any): void;
+        unbindStore(store: AsyncLocalStorage<StoreType>): boolean;
         /**
          * Applies the given data to any AsyncLocalStorage instances bound to the channel
          * for the duration of the given function, then publishes to the channel within
@@ -298,7 +298,12 @@ declare module "diagnostics_channel" {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runStores(): void;
+        runStores<ThisArg = any, Args extends any[] = any[], Result = any>(
+            context: ContextType,
+            fn: (this: ThisArg, ...args: Args) => Result,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
     }
     interface TracingChannelSubscribers<ContextType extends object> {
         start: (message: ContextType) => void;
@@ -439,12 +444,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceSync<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => any,
+        traceSync<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Result;
         /**
          * Trace a promise-returning function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce an `asyncStart event` and `asyncEnd event` when a promise continuation is reached. It may also
@@ -471,12 +476,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return Chained from promise returned by the given function
          */
-        tracePromise<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => Promise<any>,
+        tracePromise<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Promise<Result>,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Promise<Result>;
         /**
          * Trace a callback-receiving function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce a `asyncStart event` and `asyncEnd event` around the callback execution. It may also produce an `error event` if the given function throws an error or
@@ -532,13 +537,13 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceCallback<Fn extends (this: any, ...args: any) => any>(
-            fn: Fn,
-            position: number | undefined,
-            context: ContextType | undefined,
-            thisArg: any,
-            ...args: Parameters<Fn>
-        ): void;
+        traceCallback<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
+            position?: number,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
     }
 }
 declare module "node:diagnostics_channel" {

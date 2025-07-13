@@ -97,7 +97,7 @@ declare module "stream/web" {
         signal?: AbortSignal;
     }
     interface ReadableStreamGenericReader {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         cancel(reason?: any): Promise<void>;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
@@ -205,7 +205,12 @@ declare module "stream/web" {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader) */
     interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
         /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/read) */
-        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        read<T extends ArrayBufferView>(
+            view: T,
+            options?: {
+                min?: number;
+            },
+        ): Promise<ReadableStreamReadResult<T>>;
         /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/releaseLock) */
         releaseLock(): void;
     }
@@ -302,9 +307,9 @@ declare module "stream/web" {
      * sink.
      */
     interface WritableStreamDefaultWriter<W = any> {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         readonly desiredSize: number | null;
-        readonly ready: Promise<undefined>;
+        readonly ready: Promise<void>;
         abort(reason?: any): Promise<void>;
         close(): Promise<void>;
         releaseLock(): void;

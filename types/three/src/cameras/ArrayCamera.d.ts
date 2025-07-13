@@ -12,12 +12,6 @@ import { PerspectiveCamera } from "./PerspectiveCamera.js";
  */
 export class ArrayCamera extends PerspectiveCamera {
     /**
-     * An array of cameras.
-     * @param array. Default `[]`.
-     */
-    constructor(cameras?: PerspectiveCamera[]);
-
-    /**
      * Read-only flag to check if a given object is of type {@link ArrayCamera}.
      * @remarks This is a _constant_ value
      * @defaultValue `true`
@@ -25,8 +19,20 @@ export class ArrayCamera extends PerspectiveCamera {
     readonly isArrayCamera: true;
 
     /**
+     * Whether this camera is used with multiview rendering or not.
+     */
+    isMultiViewCamera: boolean;
+
+    /**
      * An array of cameras.
      * @defaultValue `[]`
      */
     cameras: PerspectiveCamera[];
+
+    index: number;
+
+    /**
+     * An array of cameras.
+     */
+    constructor(cameras?: PerspectiveCamera[]);
 }

@@ -16,5 +16,5 @@ declare class SurrogateListener {
 declare namespace SurrogateListener {
     export { Event };
 }
-type Event = import('./Event');
 import Listener = require('./Listener.js');
+type Event = import('./Event');

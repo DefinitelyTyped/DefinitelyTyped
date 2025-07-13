@@ -9,7 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-bootstrap": "*",
+        "@types/react-bootstrap": "^0.32.0",
         "@types/react-router-bootstrap": "workspace:."
     },
     "owners": [

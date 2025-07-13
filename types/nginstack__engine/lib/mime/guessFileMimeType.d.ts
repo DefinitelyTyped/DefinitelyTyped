@@ -1,3 +1,6 @@
-declare function _exports(fileName: string, opt_content?: string | ArrayBuffer): DBKey;
+declare namespace _exports {
+    export { DBKey };
+}
+declare function _exports(fileName: string, content?: string | ArrayBuffer): DBKey;
 export = _exports;
-import DBKey = require('../dbkey/DBKey.js');
+type DBKey = import('../dbkey/DBKey');

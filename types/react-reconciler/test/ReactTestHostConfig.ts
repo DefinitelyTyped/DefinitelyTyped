@@ -8,6 +8,7 @@
  */
 
 import ReactReconcilerConstants = require("react-reconciler/constants");
+import { ReactContext } from "react-reconciler";
 
 export const REACT_OPAQUE_ID_TYPE: number | symbol = 0xeae0;
 
@@ -41,16 +42,15 @@ export interface TextInstance {
     tag: "TEXT";
 }
 export type HydratableInstance = Instance | TextInstance;
+export type FormInstance = Instance;
 export type PublicInstance = (Instance | TextInstance) & { kind: "PublicInstance" };
 export interface HostContext {
-    [key: string]: any;
-}
-export interface UpdatePayload {
     [key: string]: any;
 }
 export type ChildSet = undefined; // Unused
 export type TimeoutHandle = TimeoutID;
 export type NoTimeout = -1;
+export type TransitionStatus = any;
 export type EventResponder = any;
 export type OpaqueIDType =
     | string
@@ -187,19 +187,6 @@ export function finalizeInitialChildren(
     return false;
 }
 
-export function prepareUpdate(
-    testElement: Instance,
-    type: string,
-    oldProps: Props,
-    newProps: Props,
-    rootContainerInstance: Container,
-    hostContext: {
-        [key: string]: any;
-    },
-): null | {} {
-    return UPDATE_SIGNAL;
-}
-
 export function shouldSetTextContent(type: string, props: Props): boolean {
     return false;
 }
@@ -221,10 +208,6 @@ export function createTextInstance(
     };
 }
 
-export function getCurrentEventPriority() {
-    return ReactReconcilerConstants.DefaultEventPriority;
-}
-
 export const isPrimaryRenderer = false;
 export const warnsIfNotActing = true;
 
@@ -241,7 +224,6 @@ export const supportsMutation = true;
 
 export function commitUpdate(
     instance: Instance,
-    updatePayload: {},
     type: string,
     oldProps: Props,
     newProps: Props,
@@ -334,3 +316,72 @@ export function detachDeletedInstance(node: Instance): void {
 export function logRecoverableError(error: any): void {
     // noop
 }
+
+export const NotPendingTransition = null;
+
+export function shouldAttemptEagerTransition() {
+    return false;
+}
+
+export function startSuspendingCommit() {
+    // noop
+}
+
+export function suspendInstance() {
+    // noop
+}
+
+export function trackSchedulerEvent() {
+    // noop
+}
+
+export function waitForCommitToBeReady() {
+    return null;
+}
+
+export function getCurrentUpdatePriority() {
+    return ReactReconcilerConstants.DefaultEventPriority;
+}
+
+export function resolveUpdatePriority() {
+    return ReactReconcilerConstants.DefaultEventPriority;
+}
+
+export function setCurrentUpdatePriority(newPriority: number) {
+    // noop
+}
+
+export function requestPostPaintCallback() {
+    // noop
+}
+
+export function resetFormInstance() {
+    // noop
+}
+
+export function resolveEventTimeStamp() {
+    return -1.1;
+}
+
+export function resolveEventType() {
+    return null;
+}
+
+export function maySuspendCommit() {
+    return false;
+}
+
+export function preloadInstance() {
+    return true;
+}
+
+const REACT_CONTEXT_TYPE = Symbol.for("react.context");
+
+export const HostTransitionContext: ReactContext<TransitionStatus> = {
+    $$typeof: REACT_CONTEXT_TYPE,
+    Provider: null as any,
+    Consumer: null as any,
+    _currentValue: NotPendingTransition,
+    _currentValue2: NotPendingTransition,
+    _threadCount: 0,
+};
