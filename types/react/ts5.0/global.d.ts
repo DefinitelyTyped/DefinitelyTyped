@@ -153,37 +153,6 @@ interface SVGUseElement extends SVGElement {}
 interface SVGViewElement extends SVGElement {}
 
 interface MathMLElement extends Element {}
-interface MathMLMActionElement extends MathMLElement {}
-interface MathMLMathElement extends MathMLElement {}
-interface MathMLMErrorElement extends MathMLElement {}
-interface MathMLMFracElement extends MathMLElement {}
-interface MathMLMIElement extends MathMLElement {}
-interface MathMLMMultiscriptsElement extends MathMLElement {}
-interface MathMLMNElement extends MathMLElement {}
-interface MathMLMOElement extends MathMLElement {}
-interface MathMLMOverElement extends MathMLElement {}
-interface MathMLMPaddedElement extends MathMLElement {}
-interface MathMLMPhantomElement extends MathMLElement {}
-interface MathMLMPrescriptsElement extends MathMLElement {}
-interface MathMLMRootElement extends MathMLElement {}
-interface MathMLMRowElement extends MathMLElement {}
-interface MathMLMSElement extends MathMLElement {}
-interface MathMLMSpaceElement extends MathMLElement {}
-interface MathMLMSqrtElement extends MathMLElement {}
-interface MathMLMStyleElement extends MathMLElement {}
-interface MathMLMSubElement extends MathMLElement {}
-interface MathMLMSubsupElement extends MathMLElement {}
-interface MathMLMSupElement extends MathMLElement {}
-interface MathMLMTableElement extends MathMLElement {}
-interface MathMLMTDElement extends MathMLElement {}
-interface MathMLMTextElement extends MathMLElement {}
-interface MathMLMTRElement extends MathMLElement {}
-interface MathMLMUnderElement extends MathMLElement {}
-interface MathMLMUnderOverElement extends MathMLElement {}
-interface MathMLSemanticsElement extends MathMLElement {}
-
-interface MathMLAnnotationElement extends MathMLElement {}
-interface MathMLAnnotationXmlElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
