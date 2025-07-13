@@ -3760,6 +3760,12 @@ declare namespace React {
     }
 
     // https://www.w3.org/TR/mathml-core/#global-attributes
+    //
+    // The approach taken with all MathMLElement attribute name casing is the following:
+    //
+    // * Names of attributes for the base MathMLAttributes that have special casings in other elements types use those same casings
+    // * Otherwise, the casing of attributes match that of the mathml-core specification
+    //
     interface MathMLAttributes extends DOMAttributes<MathMLElement> {
         className?: string | undefined;
         dir?: "ltr" | "rtl" | undefined;
@@ -3769,7 +3775,7 @@ declare namespace React {
         nonce?: string | undefined;
         scriptlevel?: string | undefined;
         style?: CSSProperties | undefined;
-        tabindex?: number | undefined;
+        tabIndex?: number | undefined;
         // This attributes are considered legacy but still described in the specification:
         //
         // https://www.w3.org/TR/mathml-core/#legacy-mathml-style-attributes
