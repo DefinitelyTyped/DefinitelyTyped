@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/mybusinessapp__checkout-js",
+    "version": "4.37.1",
+    "nonNpm": true,
+    "nonNpmDescription": "@mybusinessapp/checkout-js",
+    "projects": [
+        "https://github.com/mybusinessapp/checkout-js"
+    ],
+    "devDependencies": {
+        "@types/mybusinessapp__checkout-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Rogers",
+            "githubUsername": "chrissrogers"
+        },
+        {
+            "name": "Douglas Miller",
+            "githubUsername": "douglasmiller"
+        }
+    ]
+}
