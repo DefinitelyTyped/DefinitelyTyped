@@ -1,7 +1,7 @@
 export interface SabpaisaSuccessResponse {
-    razorpay_signature: string;
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
+    sabpaisa_signature: string;
+    sabpaisa_order_id: string;
+    sabpaisa_payment_id: string;
 }
 
 export interface SabpaisaErrorResponse {
@@ -62,7 +62,6 @@ declare const SabPaisaCheckout: {
         successCallback?: (data: SabpaisaSuccessResponse) => void,
         errorCallback?: (data: SabpaisaErrorResponse) => void,
     ) => Promise<SabpaisaSuccessResponse>;
-    onExternalWalletSelection: (externalWalletCallback: (data: unknown) => void) => void;
 };
 
 export default SabPaisaCheckout;
