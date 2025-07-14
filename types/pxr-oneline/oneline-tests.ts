@@ -57,6 +57,11 @@ const ndOne: OneLine.OneLine = {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic`);
         },
+
+        subscribeAdsLoaded: (fn: NoParamFunction | ((data: { adsLoaded: boolean }) => void)) => {
+            // Mock implementation for subscribe
+            console.log(`Subscribed to topic ads Loaded `);
+        },
     },
     adUnitRequest: (arrFoAdIds?: string[], allowReload?: boolean) => {
         // Mock implementation for adUnitRequest

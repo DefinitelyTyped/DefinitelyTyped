@@ -61,6 +61,18 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      */
     ior: number;
     /**
+     * Degree of reflectivity, from `0.0` to `1.0`. Default is `0.5`, which
+     * corresponds to an index-of-refraction of `1.5`.
+     *
+     * This models the reflectivity of non-metallic materials. It has no effect
+     * when `metalness` is `1.0`
+     *
+     * @name MeshPhysicalMaterial#reflectivity
+     * @default 0.5
+     */
+    get reflectivity(): number;
+    set reflectivity(reflectivity: number);
+    /**
      * The red channel of this texture is multiplied against `iridescence`, for per-pixel
      * control over iridescence.
      *

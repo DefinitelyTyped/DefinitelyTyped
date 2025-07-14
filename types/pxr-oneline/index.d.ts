@@ -73,6 +73,7 @@ declare namespace OneLine {
         };
         subscribe(topic: string, fn: NoParamFunction): void;
         subscribeSocialConsents(fn: (data: SocialConsents) => void): void;
+        subscribeAdsLoaded(fn: (data: { adsLoaded: boolean }) => void): void;
     }
 
     interface SocialConsents {

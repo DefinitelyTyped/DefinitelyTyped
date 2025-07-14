@@ -17,7 +17,7 @@ const SabpaisaCheckoutOptions = {
     env: 'staging',
     txn_id: '11223344343',
     amount: '100'
-};
+}
 
 const Test = () => {
     return (
