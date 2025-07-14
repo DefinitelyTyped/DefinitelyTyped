@@ -17,28 +17,28 @@ const SabpaisaCheckoutOptions = {
     env: 'staging',
     txn_id: '11223344343',
     amount: '100',
-    env: 'staging';
-    callback_url: 'http://localhost:8080';
-    udf1: '';
-    udf2: '';
-    udf3: '';
-    udf4: '';
-    udf5: '';
-    udf6: '';
-    udf7: '';
-    udf8: '';
-    udf9: '';
-    udf10: '';
-    udf11: '';
-    udf12: '';
-    udf13: '';
-    udf14: '';
-    udf15: '';
-    udf16: '';
-    udf17: '';
-    udf18: '';
-    udf19: '';
-    udf20: '';
+    env: 'staging',
+    callback_url: 'http://localhost:8080',
+    udf1: '',
+    udf2: '',
+    udf3: '',
+    udf4: '',
+    udf5: '',
+    udf6: '',
+    udf7: '',
+    udf8: '',
+    udf9: '',
+    udf10: '',
+    udf11: '',
+    udf12: '',
+    udf13: '',
+    udf14: '',
+    udf15: '',
+    udf16: '',
+    udf17: '',
+    udf18: '',
+    udf19: '',
+    udf20: ''
 }
 
 const Test = () => {
