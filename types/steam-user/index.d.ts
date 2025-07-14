@@ -244,7 +244,9 @@ declare class SteamUser extends EventEmitter {
      * Get your account's profile privacy settings.
      * @param [callback]
      */
-    getPrivacySettings(callback?: (err: Error | null, response: SteamUser.PrivacySettings) => void): Promise<SteamUser.PrivacySettings>;
+    getPrivacySettings(
+        callback?: (err: Error | null, response: SteamUser.PrivacySettings) => void,
+    ): Promise<SteamUser.PrivacySettings>;
 
     /**
      * Kick any other session logged into your account which is playing a game from Steam.
@@ -259,7 +261,10 @@ declare class SteamUser extends EventEmitter {
      * @param apps - Array of integers (AppIDs) or strings (non-Steam game names) for the games you're playing. Empty to play nothing.
      * @param [force=false] If true, kick any other sessions logged into this account and playing games from Steam
      */
-    gamesPlayed(apps: number | string | SteamUser.PlayedGame | Array<number | string | SteamUser.PlayedGame>, force?: boolean): void;
+    gamesPlayed(
+        apps: number | string | SteamUser.PlayedGame | Array<number | string | SteamUser.PlayedGame>,
+        force?: boolean,
+    ): void;
 
     /**
      * Get count of people playing a Steam app. Use appid 0 to get number of people connected to Steam.
@@ -566,7 +571,9 @@ declare class SteamUser extends EventEmitter {
         language: string,
         callback?: (
             err: Error | null,
-            response: { users: Record<string, { richPresence: SteamUser.RichPresence; localizedString: string | null }> },
+            response: {
+                users: Record<string, { richPresence: SteamUser.RichPresence; localizedString: string | null }>;
+            },
         ) => void,
     ): Promise<{ users: Record<string, { richPresence: SteamUser.RichPresence; localizedString: string | null }> }>;
 

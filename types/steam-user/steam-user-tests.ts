@@ -106,10 +106,18 @@ user.getProductChanges(0)
     })
     .catch(err => console.error(err));
 
-user.getProductChanges(0, (err: Error | null, currentChangeNumber: number, appChanges: SteamUser.AppChanges[], packageChanges: SteamUser.PackageChanges[]) => {
-    void appChanges.length;
-    void packageChanges.length;
-});
+user.getProductChanges(
+    0,
+    (
+        err: Error | null,
+        currentChangeNumber: number,
+        appChanges: SteamUser.AppChanges[],
+        packageChanges: SteamUser.PackageChanges[],
+    ) => {
+        void appChanges.length;
+        void packageChanges.length;
+    },
+);
 
 const owned = user.getOwnedApps();
 console.log(owned);
@@ -119,7 +127,7 @@ console.log(user.ownsApp(730));
 user.getStoreTagNames("spanish", [1])
     .then(response => {
         // $ExpectType StoreTagNames
-        response.tags
+        response.tags;
     })
     .catch(err => console.error(err));
 
@@ -220,16 +228,22 @@ user.chat.on("chatRoomGroupSelfStateChange", (details: SteamUser.SteamChatRoomCl
     console.log(details.group_summary);
 });
 
-user.chat.on("chatRoomGroupMemberStateChange", (details: SteamUser.SteamChatRoomClient.groupMemberStateChangeDetails) => {
-    console.log(details.chat_group_id);
-    console.log(details.member);
-    console.log(details.change);
-});
+user.chat.on(
+    "chatRoomGroupMemberStateChange",
+    (details: SteamUser.SteamChatRoomClient.groupMemberStateChangeDetails) => {
+        console.log(details.chat_group_id);
+        console.log(details.member);
+        console.log(details.change);
+    },
+);
 
-user.chat.on("chatRoomGroupHeaderStateChange", (details: SteamUser.SteamChatRoomClient.groupHeaderStateChangeDetails) => {
-    console.log(details.chat_group_id);
-    console.log(details.header_state);
-});
+user.chat.on(
+    "chatRoomGroupHeaderStateChange",
+    (details: SteamUser.SteamChatRoomClient.groupHeaderStateChangeDetails) => {
+        console.log(details.chat_group_id);
+        console.log(details.header_state);
+    },
+);
 
 // ADDED / MODIFIED in v4.22.0
 user.getOwnedApps((element: SteamUser.Proto_CMsgClientLicenseList_License) => {
@@ -238,18 +252,44 @@ user.getOwnedApps((element: SteamUser.Proto_CMsgClientLicenseList_License) => {
 user.ownsApp(456, (element: SteamUser.Proto_CMsgClientLicenseList_License, index: number) => {
     return element.package_id === 123 && index > 4;
 });
-user.getOwnedDepots((element: SteamUser.Proto_CMsgClientLicenseList_License, index: number, array: SteamUser.Proto_CMsgClientLicenseList_License[]) => {
-    return array.length > 4;
-});
-user.ownsDepot(2, (element: SteamUser.Proto_CMsgClientLicenseList_License, index: number, array: SteamUser.Proto_CMsgClientLicenseList_License[]) => {
-    return array.length > 4;
-});
-user.getOwnedPackages((element: SteamUser.Proto_CMsgClientLicenseList_License, index: number, array: SteamUser.Proto_CMsgClientLicenseList_License[]) => {
-    return array.length > 4;
-});
-user.ownsPackage(4, (element: SteamUser.Proto_CMsgClientLicenseList_License, index: number, array: SteamUser.Proto_CMsgClientLicenseList_License[]) => {
-    return array.length > 4;
-});
+user.getOwnedDepots(
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.ownsDepot(
+    2,
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.getOwnedPackages(
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.ownsPackage(
+    4,
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
 user.getOwnedApps({ excludeFree: true });
 user.ownsApp(456, { excludeExpiring: true });
 user.getOwnedDepots({ excludeShared: true });
