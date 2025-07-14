@@ -276,7 +276,6 @@ const preTokenGenerationv2: PreTokenGenerationV2TriggerHandler = async (event, _
     objectOrUndefined = request.clientMetadata;
 };
 
-
 const preTokenGenerationv3: PreTokenGenerationV3TriggerHandler = async (event, _, callback) => {
     const { request, response, triggerSource } = event;
 

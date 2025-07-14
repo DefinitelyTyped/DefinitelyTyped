@@ -29,7 +29,7 @@ export interface ClaimsAndScopeOverrideDetailsV3 {
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html
  */
 export interface BasePreTokenGenerationV3TriggerEvent<T extends string> extends BaseTriggerEvent<T> {
-    version: '3';
+    version: "3";
     request: {
         userAttributes: StringMap;
         groupConfiguration: GroupOverrideDetailsV3;
@@ -45,7 +45,6 @@ export type PreTokenGenerationClientCredentialsV3TriggerEvent = BasePreTokenGene
     "TokenGeneration_ClientCredentials"
 >;
 
-export type PreTokenGenerationV3TriggerEvent =
-    | PreTokenGenerationClientCredentialsV3TriggerEvent;
+export type PreTokenGenerationV3TriggerEvent = PreTokenGenerationClientCredentialsV3TriggerEvent;
 
 export type PreTokenGenerationV3TriggerHandler = Handler<PreTokenGenerationV3TriggerEvent>;
