@@ -4,43 +4,43 @@ import { Batch } from "@mparticle/event-models";
 export type Dictionary<V = any> = Record<string, V>;
 
 // Rokt Manager Types
-export interface IRoktPartnerAttributes {
+export interface RoktPartnerAttributes {
     [key: string]: string | number | boolean | undefined | null;
 }
 
-export interface IRoktPartnerExtensionData<T> {
+export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
 }
 
-export interface IRoktSelectPlacementsOptions {
-    attributes: IRoktPartnerAttributes;
+export interface RoktSelectPlacementsOptions {
+    attributes: RoktPartnerAttributes;
     identifier?: string;
 }
 
-export interface IRoktPlacement {}
+export type RoktPlacement = Record<string, unknown>;
 
-export interface IRoktSelection {
+export interface RoktSelection {
     close: () => void;
-    getPlacements: () => Promise<IRoktPlacement[]>;
+    getPlacements: () => Promise<RoktPlacement[]>;
 }
 
-export interface IRoktLauncher {
-    selectPlacements: (options: IRoktSelectPlacementsOptions) => Promise<IRoktSelection>;
-    hashAttributes: (attributes: IRoktPartnerAttributes) => Promise<Record<string, string>>;
+export interface RoktLauncher {
+    selectPlacements: (options: RoktSelectPlacementsOptions) => Promise<RoktSelection>;
+    hashAttributes: (attributes: RoktPartnerAttributes) => Promise<Record<string, string>>;
 }
 
-export interface IRoktMessage {
+export interface RoktMessage {
     methodName: string;
     payload: any;
 }
 
-export interface IRoktOptions {
+export interface RoktOptions {
     sandbox?: boolean;
-    launcherOptions?: IRoktLauncherOptions;
+    launcherOptions?: RoktLauncherOptions;
     domain?: string;
 }
 
-export type IRoktLauncherOptions = Dictionary<any>;
+export type RoktLauncherOptions = Dictionary<any>;
 
 export as namespace mParticle;
 export {};
@@ -350,15 +350,15 @@ interface GetSession {
 
 // Rokt Method Interfaces
 interface SelectPlacements {
-    (options: IRoktSelectPlacementsOptions): Promise<IRoktSelection>;
+    (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
 }
 
 interface HashAttributes {
-    (attributes: IRoktPartnerAttributes): Promise<Record<string, string>>;
+    (attributes: RoktPartnerAttributes): Promise<Record<string, string>>;
 }
 
 interface SetExtensionData {
-    <T>(extensionData: IRoktPartnerExtensionData<T>): void;
+    (extensionData: RoktPartnerExtensionData<unknown>): void;
 }
 
 export const endSession: EndSession;
