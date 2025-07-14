@@ -33,7 +33,6 @@ export interface SabpaisaCheckoutOptions {
     env: string;
     txn_id: string;
     amount: string;
-    env: string;
     callback_url: string;
     udf1: string;
     udf2: string;
