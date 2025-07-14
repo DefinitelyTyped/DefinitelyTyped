@@ -1,16 +1,17 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "lib": ["es6", "dom"],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": []
+    "compilerOptions": {
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "lib": ["es6", "dom"],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictFunctionTypes": true,
+      "strictNullChecks": true,
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": "../",
+      "typeRoots": ["../"],
+      "types": []
+    }
   }
-}
+  
