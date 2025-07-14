@@ -10,8 +10,7 @@
     },
     "devDependencies": {
         "@types/hoist-non-react-statics": "workspace:.",
-        "@types/prop-types": "*",
-        "@types/react": "*"
+        "@types/prop-types": "*"
     },
     "peerDependencies": {
          "@types/react": "*"
