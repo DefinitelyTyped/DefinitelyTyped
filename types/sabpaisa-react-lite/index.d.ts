@@ -33,6 +33,28 @@ export interface SabpaisaCheckoutOptions {
     env: string;
     txn_id: string;
     amount: string;
+    env: string;
+    txn_id: string;
+    udf1: string;
+    udf2: string;
+    udf3: string;
+    udf4: string;
+    udf5: string;
+    udf6: string;
+    udf7: string;
+    udf8: string;
+    udf9: string;
+    udf10: string;
+    udf11: string;
+    udf12: string;
+    udf13: string;
+    udf14: string;
+    udf15: string;
+    udf16: string;
+    udf17: string;
+    udf18: string;
+    udf19: string;
+    udf20: string;
 }
 
 declare const SabPaisaCheckout: {
