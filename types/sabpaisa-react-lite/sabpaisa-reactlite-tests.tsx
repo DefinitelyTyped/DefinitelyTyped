@@ -17,7 +17,6 @@ const SabpaisaCheckoutOptions = {
     env: 'staging',
     txn_id: '11223344343',
     amount: '100',
-    env: 'staging',
     callback_url: 'http://localhost:8080',
     udf1: '',
     udf2: '',
