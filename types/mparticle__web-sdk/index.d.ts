@@ -4,9 +4,8 @@ import { Batch } from "@mparticle/event-models";
 export type Dictionary<V = any> = Record<string, V>;
 
 // Rokt Manager Types
-export interface RoktPartnerAttributes {
-    [key: string]: string | number | boolean | undefined | null;
-}
+export type RoktPartnerAttributes = Dictionary<string | number | boolean | undefined | null>;
+export type RoktKit = MPForwarder;
 
 export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
@@ -17,30 +16,38 @@ export interface RoktSelectPlacementsOptions {
     identifier?: string;
 }
 
-export type RoktPlacement = Record<string, unknown>;
+export interface RoktPlacementEvent<T = void> {
+  body: T;
+  event: string;
+  placement: RoktPlacement;
+}
+
+export interface RoktSubscriber<T> {
+    subscribe(handler: T): RoktUnsubscriber;
+}
+
+export interface RoktUnsubscriber {
+    unsubscribe(): void;
+}
+
+export interface RoktPlacement {
+    id: string;
+    element: HTMLIFrameElement;
+    close(): Promise<void>;
+    on(event: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    onClose(): Promise<void>;
+}
 
 export interface RoktSelection {
     close: () => void;
-    getPlacements: () => Promise<RoktPlacement[]>;
+    getPlacements: () => Promise<Array<RoktPlacement>>;
+    on(eventName: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    setAttributes(attributes: RoktPartnerAttributes): Promise<void>;
 }
-
-export interface RoktLauncher {
-    selectPlacements: (options: RoktSelectPlacementsOptions) => Promise<RoktSelection>;
-    hashAttributes: (attributes: RoktPartnerAttributes) => Promise<Record<string, string>>;
-}
-
-export interface RoktMessage {
-    methodName: string;
-    payload: any;
-}
-
-export interface RoktOptions {
-    sandbox?: boolean;
-    launcherOptions?: RoktLauncherOptions;
-    domain?: string;
-}
-
-export type RoktLauncherOptions = Dictionary<any>;
 
 export as namespace mParticle;
 export {};
@@ -349,6 +356,10 @@ interface GetSession {
 }
 
 // Rokt Method Interfaces
+interface AttachKit {
+    (kit: RoktKit): void;
+}
+
 interface SelectPlacements {
     (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
 }
@@ -544,6 +555,7 @@ export namespace eCommerce {
 }
 
 export namespace Rokt {
+    const attachKit: AttachKit;
     const selectPlacements: SelectPlacements;
     const hashAttributes: HashAttributes;
     const setExtensionData: SetExtensionData;
