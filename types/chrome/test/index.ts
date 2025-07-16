@@ -2078,6 +2078,7 @@ async function testAlarms() {
     chrome.alarms.get(); // $ExpectType Promise<Alarm | undefined>
     chrome.alarms.get("name"); // $ExpectType Promise<Alarm | undefined>
     chrome.alarms.get((alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
         if (alarm) {
             alarm.name; // $ExpectType string
             alarm.periodInMinutes; // $ExpectType number | undefined
@@ -2085,6 +2086,7 @@ async function testAlarms() {
         }
     });
     chrome.alarms.get("name", (alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
         if (alarm) {
             alarm.name; // $ExpectType string
             alarm.periodInMinutes; // $ExpectType number | undefined
