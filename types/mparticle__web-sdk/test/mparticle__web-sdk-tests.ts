@@ -193,6 +193,23 @@ mParticle.logPageView("pageName", customAttrs);
 mParticle.logPageView("pageName", customAttrs, customFlags);
 mParticle.logPageView("pageName", customAttrs, customFlags, eventOptions);
 
+mParticle.Rokt.selectPlacements({
+    identifier: "mp-test-identifier",
+    attributes: {
+        email: "test@test.com",
+    },
+});
+
+mParticle.Rokt.hashAttributes({
+    email: "test@test.com",
+});
+
+mParticle.Rokt.setExtensionData({
+    "test-extension": {
+        "test-key": "test-value",
+    },
+});
+
 mParticle.ready(() => {
     console.log("hi");
 });
