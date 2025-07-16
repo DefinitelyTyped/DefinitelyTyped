@@ -6327,6 +6327,10 @@
             "libraryName": "reactstrap",
             "asOfVersion": "8.7.0"
         },
+        "read": {
+            "libraryName": "read",
+            "asOfVersion": "3.0.0"
+        },
         "read-chunk": {
             "libraryName": "read-chunk",
             "asOfVersion": "3.1.0"
