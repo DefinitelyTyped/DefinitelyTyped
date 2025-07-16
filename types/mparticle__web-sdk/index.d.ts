@@ -5,7 +5,6 @@ export type Dictionary<V = any> = Record<string, V>;
 
 // Rokt Manager Types
 export type RoktPartnerAttributes = Dictionary<string | number | boolean | undefined | null>;
-export type RoktKit = MPForwarder;
 
 export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
@@ -356,10 +355,6 @@ interface GetSession {
 }
 
 // Rokt Manager Method Interfaces
-interface AttachKit {
-    (kit: RoktKit): void;
-}
-
 interface SelectPlacements {
     (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
 }
@@ -555,7 +550,6 @@ export namespace eCommerce {
 }
 
 export namespace Rokt {
-    const attachKit: AttachKit;
     const selectPlacements: SelectPlacements;
     const hashAttributes: HashAttributes;
     const setExtensionData: SetExtensionData;

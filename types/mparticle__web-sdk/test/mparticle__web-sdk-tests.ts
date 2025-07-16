@@ -193,8 +193,6 @@ mParticle.logPageView("pageName", customAttrs);
 mParticle.logPageView("pageName", customAttrs, customFlags);
 mParticle.logPageView("pageName", customAttrs, customFlags, eventOptions);
 
-mParticle.Rokt.attachKit({});
-
 mParticle.Rokt.selectPlacements({
     identifier: "mp-test-identifier",
     attributes: {
