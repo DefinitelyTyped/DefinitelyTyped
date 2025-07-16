@@ -471,7 +471,7 @@ declare namespace chrome {
         /**
          * Retrieves details about the specified alarm.
          */
-        export function get(callback: (alarm: Alarm) => void): void;
+        export function get(callback: (alarm?: Alarm) => void): void;
         /**
          * Retrieves details about the specified alarm.
          * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -481,7 +481,7 @@ declare namespace chrome {
          * Retrieves details about the specified alarm.
          * @param name The name of the alarm to get. Defaults to the empty string.
          */
-        export function get(name: string, callback: (alarm: Alarm) => void): void;
+        export function get(name: string, callback: (alarm?: Alarm) => void): void;
         /**
          * Retrieves details about the specified alarm.
          * @param name The name of the alarm to get. Defaults to the empty string.
