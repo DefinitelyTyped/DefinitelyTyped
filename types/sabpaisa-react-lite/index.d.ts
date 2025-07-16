@@ -13,8 +13,6 @@ export interface SabpaisaSuccessResponse {
     challanNumber: string | null;
     clientCode: string;
     clientTxnId: string;
-    code: number;
-    description: string;
     paidAmount: string | null;
     payerAddress: string;
     payerEmail: string;
@@ -61,8 +59,6 @@ export interface SabpaisaErrorResponse {
     challanNumber: string | null;
     clientCode: string;
     clientTxnId: string;
-    code: number;
-    description: string;
     paidAmount: string | null;
     payerAddress: string;
     payerEmail: string;
