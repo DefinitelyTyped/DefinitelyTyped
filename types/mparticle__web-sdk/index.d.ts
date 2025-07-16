@@ -355,7 +355,7 @@ interface GetSession {
     (): string;
 }
 
-// Rokt Method Interfaces
+// Rokt Manager Method Interfaces
 interface AttachKit {
     (kit: RoktKit): void;
 }
