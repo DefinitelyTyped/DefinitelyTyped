@@ -2689,6 +2689,10 @@
             "libraryName": "@hapi/yar",
             "asOfVersion": "11.0.2"
         },
+        "hapipal__schmervice": {
+            "libraryName": "@hapipal/schmervice",
+            "asOfVersion": "3.0.0"
+        },
         "hapipal__toys": {
             "libraryName": "@hapipal/toys",
             "asOfVersion": "4.0.0"
@@ -4101,6 +4105,10 @@
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
         },
+        "mem-fs": {
+            "libraryName": "mem-fs",
+            "asOfVersion": "2.2.0"
+        },
         "mem-fs-editor": {
             "libraryName": "mem-fs-editor",
             "asOfVersion": "10.0.1"
@@ -5427,6 +5435,10 @@
             "libraryName": "ps-list",
             "asOfVersion": "6.2.1"
         },
+        "pseudo-localization": {
+            "libraryName": "pseudo-localization",
+            "asOfVersion": "2.3.7"
+        },
         "ptomasroos__react-native-multi-slider": {
             "libraryName": "@ptomasroos/react-native-multi-slider",
             "asOfVersion": "2.2.1"
@@ -6502,6 +6514,10 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
+        },
+        "rgrove__parse-xml": {
+            "libraryName": "@rgrove/parse-xml",
+            "asOfVersion": "3.0.0"
         },
         "rimraf": {
             "libraryName": "rimraf",

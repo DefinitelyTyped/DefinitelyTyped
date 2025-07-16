@@ -596,8 +596,6 @@
 /types/bloomfilter/                                     @slawiko
 /types/blue-tape/                                       @sodatea
 /types/bluebird/                                        @lhecker
-/types/bluebird/v1/                                     @Bartvds
-/types/bluebird/v2/                                     @Bartvds @falsandtru
 /types/bluebird-global/                                 @d-ph
 /types/bluebird-retry/                                  @pvomhoff
 /types/blueimp-load-image/                              @ebk46 @KonstantinLukaschenko @moeinio @zbarbuto
@@ -1152,7 +1150,6 @@
 /types/cpx/                                             @alan-agius4
 /types/cqrs-domain/                                     @blissi
 /types/crack-json/                                      @johenning
-/types/craco__craco/                                    @fanck0605
 /types/cradle/                                          @panuhorsmalahti
 /types/crawler/                                         @pzmarzly
 /types/crc32-stream/                                    @nadhifikbarw
@@ -3135,7 +3132,6 @@
 /types/hapi__sntp/                                      @lenovouser
 /types/hapi__subtext/                                   @nokel81
 /types/hapipal__avocat/                                 @timcosta
-/types/hapipal__schmervice/                             @timcosta @damusix
 /types/happen/                                          @k-yle
 /types/happo-cypress/                                   @alexanderpolyankin @Belco90
 /types/happyguestmx__web-utilities/                     @HappyGuest
@@ -4803,7 +4799,6 @@
 /types/medium-editor/                                   @pascaliske
 /types/megajs/                                          @danwbyrne
 /types/mem-cache/                                       @MutterPedro
-/types/mem-fs/                                          @MyFoodBag
 /types/memcached/                                       @KentarouTakeda
 /types/memdown/                                         @MeirionHughes @danwbyrne
 /types/memjs/                                           @leizongmin @BendingBender
@@ -5983,7 +5978,6 @@
 /types/ps-tree/                                         @alessiopcc
 /types/psd/                                             @pastelmind
 /types/pseudo-audio-param/                              @kirbysayshi
-/types/pseudo-localization/                             @jhensley
 /types/psi/                                             @peterblazejewicz
 /types/psl/                                             @BendingBender
 /types/pty.js/                                          @enlight
@@ -6916,7 +6910,6 @@
 /types/rewire/                                          @borislavjivkov @CaselIT
 /types/rfc2047/                                         @mugifly
 /types/rfc2253/                                         @arndissler
-/types/rgrove__parse-xml/                               @petejohanson
 /types/rheostat/                                        @kourge @StefanWerW
 /types/rickshaw/                                        @niemyjski
 /types/riderize__passport-strava-oauth2/                @edilson
@@ -7033,6 +7026,7 @@
 /types/s3rver/                                          @DavidBR-SW @feuGeneA @trygveaa
 /types/sabaki__immutable-gametree/                      @tkzwhr
 /types/sabaki__sgf/                                     @tkzwhr
+/types/sabpaisa-react-lite/                             @lokesheywa
 /types/safari-extension/                                @luukd
 /types/safari-extension-content/                        @luukd
 /types/safe-compare/                                    @bevalorous
@@ -7200,8 +7194,6 @@
 /types/sendsay-api/                                     @T0R0NT0T0KY0
 /types/sentencer/                                       @JLambertazzo
 /types/sentiment/                                       @iojw
-/types/sequelize/                                       @samuelneff @codeanimal @drinchev @babolivier @kukoo1 @oktapodia @morpheusxaut @TitaneBoy @zjy01 @Raigen @todd @nrschultz @thomas-b @Antoine38660 @smff @truongkhanhduy95 @emmanuelgautier @dancrumb @lalayueh @rohitsud
-/types/sequelize/v3/                                    @samuelneff @codeanimal @drinchev @morpheusxaut @torhal
 /types/sequelize-fixtures/                              @cschwarz
 /types/sequencify/                                      @npenin
 /types/sequester/                                       @Strate
