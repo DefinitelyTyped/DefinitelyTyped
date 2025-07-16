@@ -16,9 +16,9 @@ export interface RoktSelectPlacementsOptions {
 }
 
 export interface RoktPlacementEvent<T = void> {
-  body: T;
-  event: string;
-  placement: RoktPlacement;
+    body: T;
+    event: string;
+    placement: RoktPlacement;
 }
 
 export interface RoktSubscriber<T> {
