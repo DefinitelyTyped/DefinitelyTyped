@@ -8,9 +8,7 @@ export type RoktPartnerAttributes = Dictionary<string | number | boolean | undef
 export type RoktAttributeValueArray = Array<string | number | boolean>;
 export type RoktAttributeValueType = string | number | boolean | undefined | null;
 export type RoktAttributeValue = RoktAttributeValueType | RoktAttributeValueArray;
-
 export type RoktAttributeCollection = Record<string, RoktAttributeValue>;
-
 
 export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
