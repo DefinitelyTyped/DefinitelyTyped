@@ -911,7 +911,7 @@ declare module "http" {
          * the request body should be sent.
          * @since v10.0.0
          */
-        writeProcessing(): void;
+        writeProcessing(callback?: () => void): void;
     }
     interface InformationEvent {
         statusCode: number;
