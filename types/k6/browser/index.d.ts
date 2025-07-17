@@ -1966,6 +1966,21 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
+     * Returns an array of locators matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Select all options
+     * for (const option of await page.locator('option').all())
+     *   await option.click();
+     * ```
+     *
+     * @returns Array of locators
+     */
+    all(): Promise<Locator[]>;
+
+    /**
      * Clears text boxes and input fields of any existing values.
      *
      * **Usage**
