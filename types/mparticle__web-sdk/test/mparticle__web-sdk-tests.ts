@@ -197,6 +197,10 @@ mParticle.Rokt.selectPlacements({
     identifier: "mp-test-identifier",
     attributes: {
         email: "test@test.com",
+        price: 100,
+        taxes: 6.75,
+        excessbaggage: true,
+        cartItems: ["item1", "item2"],
     },
 });
 
