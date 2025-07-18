@@ -4317,6 +4317,10 @@
             "libraryName": "minizlib",
             "asOfVersion": "3.0.0"
         },
+        "mixpanel-browser": {
+            "libraryName": "mixpanel-browser",
+            "asOfVersion": "2.66.0"
+        },
         "mkdirp": {
             "libraryName": "mkdirp",
             "asOfVersion": "2.0.0"
