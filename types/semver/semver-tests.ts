@@ -37,6 +37,14 @@ import Range = require("semver/classes/range");
 
 // functions for working with versions
 import semverParse = require("semver/functions/parse");
+semverParse("1.2.3", true, false); // $ExpectType SemVer | null
+semverParse("1.2.3", { loose: true }, true); // $ExpectType SemVer | null
+semverParse("1.2.3", undefined, true); // $ExpectType SemVer | null
+semverParse("1.2.3", undefined, false); // $ExpectType SemVer | null
+semverParse("1.2.3", false, false); // $ExpectType SemVer | null
+// @ts-expect-error
+semverParse("1.2.3", false, "notABoolean");
+
 import semverValid = require("semver/functions/valid");
 import semverClean = require("semver/functions/clean");
 import semverInc = require("semver/functions/inc");
