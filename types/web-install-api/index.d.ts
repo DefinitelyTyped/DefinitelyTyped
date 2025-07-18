@@ -1,5 +1,9 @@
+interface InstallFunction {
+    (): Promise<string>;
+    (installUrl: string): Promise<string>;
+    (installUrl: string, manifestId: string): Promise<string>;
+}
+
 interface Navigator {
-    install(): Promise<string>;
-    install(installUrl: string): Promise<string>;
-    install(installUrl: string, manifestId: string): Promise<string>;
+    install?: InstallFunction;
 }
