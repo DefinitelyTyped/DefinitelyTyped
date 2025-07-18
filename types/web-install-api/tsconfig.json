@@ -16,7 +16,5 @@
     "files": [
         "index.d.ts",
         "web-install-api-tests.ts"
-    ],
-    "baseUrl": "types",
-    "typeRoots": ["types"]
+    ]
 }
