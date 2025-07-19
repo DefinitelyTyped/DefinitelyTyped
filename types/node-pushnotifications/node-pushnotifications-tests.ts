@@ -5,6 +5,9 @@ const settings = {
     gcm: {
         id: "null",
     },
+    fcm: {
+        id: "null",
+    },
     apn: {
         token: {
             key: "./certs/key.p8",
@@ -57,6 +60,7 @@ function assertResultTypes(result: PushNotifications.Result) {
 
     result.method === "apn";
     result.method === "gcm";
+    result.method === "fcm";
     result.method === "adm";
     result.method === "wns";
     result.method === "webPush";
