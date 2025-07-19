@@ -186,7 +186,7 @@ declare namespace picomatch {
          */
         posixSlashes?: boolean | undefined;
         /**
-         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself
+         * String to prepend to the generated regex used for matching.
          */
         prepend?: boolean | undefined;
         /**
