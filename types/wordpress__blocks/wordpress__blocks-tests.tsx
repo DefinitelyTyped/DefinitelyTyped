@@ -364,7 +364,7 @@ blocks.registerBlockType<{ foo: string }>("my/foo", {
     attributes: {
         foo: {
             type: "string",
-            enum: ["bar", "baz"]
+            enum: ["bar", "baz"],
         },
     },
     icon: {

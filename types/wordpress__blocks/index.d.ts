@@ -486,12 +486,12 @@ export namespace AttributeSource {
             | {
                 type: "number";
                 default?: number | undefined;
-                enum?: number[]|undefined;
+                enum?: number[] | undefined;
             }
             | {
                 type: "string";
                 default?: string | undefined;
-                enum?: string[]|undefined;
+                enum?: string[] | undefined;
             }
         );
 
@@ -554,12 +554,12 @@ export namespace AttributeSource {
                 | {
                     type: "number";
                     default?: number | undefined;
-                    enum?: number[]|undefined;
+                    enum?: number[] | undefined;
                 }
                 | {
                     type: "string";
                     default?: string | undefined;
-                    enum?: string[]|undefined;
+                    enum?: string[] | undefined;
                 }
             )
         )
