@@ -264,7 +264,7 @@ import * as url from "node:url";
 
     // writeProcessing
     res.writeProcessing();
-    res.writeProcessing(() => { });
+    res.writeProcessing(() => {});
 
     // write string
     res.write("Part of my res.");
