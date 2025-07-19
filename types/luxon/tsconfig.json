@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "index.d.mts",
         "test/luxon-tests.global.ts",
         "test/luxon-tests.module.ts"
     ]
