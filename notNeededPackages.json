@@ -5159,6 +5159,10 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-http": {
+            "libraryName": "pino-http",
+            "asOfVersion": "6.1.0"
+        },
         "pino-pretty": {
             "libraryName": "pino-pretty",
             "asOfVersion": "5.0.0"
