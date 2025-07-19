@@ -6231,6 +6231,10 @@
             "libraryName": "react-native-version-number",
             "asOfVersion": "0.3.5"
         },
+        "react-native-video-player": {
+            "libraryName": "react-native-video-player",
+            "asOfVersion": "0.15.0"
+        },
         "react-native-view-pdf": {
             "libraryName": "react-native-view-pdf",
             "asOfVersion": "0.8.2"
