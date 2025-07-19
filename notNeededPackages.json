@@ -6143,6 +6143,10 @@
             "libraryName": "react-native-share",
             "asOfVersion": "6.0.0"
         },
+        "react-native-shared-group-preferences": {
+            "libraryName": "react-native-shared-group-preferences",
+            "asOfVersion": "1.1.24"
+        },
         "react-native-status-bar-height": {
             "libraryName": "react-native-status-bar-height",
             "asOfVersion": "2.3.0"
