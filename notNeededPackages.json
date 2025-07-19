@@ -1413,6 +1413,10 @@
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
         },
+        "cypress-cdp": {
+            "libraryName": "cypress-cdp",
+            "asOfVersion": "1.4.0"
+        },
         "cypress-recurse": {
             "libraryName": "cypress-recurse",
             "asOfVersion": "1.9.0"
