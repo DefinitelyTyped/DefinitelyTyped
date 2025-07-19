@@ -19,7 +19,9 @@ declare namespace proxy {
         proxyReqPathResolver?: ((req: Request) => string | Promise<string>) | undefined;
         proxyReqOptDecorator?:
             | ((
-                proxyReqOpts: RequestOptions,
+                proxyReqOpts: Omit<RequestOptions, "headers"> & {
+                    headers: OutgoingHttpHeaders;
+                },
                 srcReq: Request,
             ) => RequestOptions | Promise<RequestOptions>)
             | undefined;
