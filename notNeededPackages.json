@@ -2145,6 +2145,54 @@
             "libraryName": "@fcostarodrigo/walk",
             "asOfVersion": "6.0.0"
         },
+        "feathersjs__authentication": {
+            "libraryName": "@feathersjs/authentication",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-client": {
+            "libraryName": "@feathersjs/authentication-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-local": {
+            "libraryName": "@feathersjs/authentication-local",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__configuration": {
+            "libraryName": "@feathersjs/configuration",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__errors": {
+            "libraryName": "@feathersjs/errors",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__express": {
+            "libraryName": "@feathersjs/express",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__feathers": {
+            "libraryName": "@feathersjs/feathers",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus": {
+            "libraryName": "@feathersjs/primus",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus-client": {
+            "libraryName": "@feathersjs/primus-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__rest-client": {
+            "libraryName": "@feathersjs/rest-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio": {
+            "libraryName": "@feathersjs/socketio",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio-client": {
+            "libraryName": "@feathersjs/socketio-client",
+            "asOfVersion": "4.3.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
