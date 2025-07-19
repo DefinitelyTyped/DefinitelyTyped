@@ -1035,11 +1035,11 @@ export namespace Poool {
         /**
          * Destroys the current paywall.
          *
-         * @returns null
+         * @returns a Promise that resolves when the paywall has been destroyed.
          *
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
-        destroy(): null;
+        destroy(): Promise<void>;
     }
 
     interface Audit {

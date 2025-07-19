@@ -148,7 +148,7 @@ access.once("subscribeClick", () => {});
 // $ExpectType AccessFactory
 access.off("subscribeClick", () => {});
 
-// $ExpectType null
+// $ExpectType Promise<void>
 access.destroy();
 
 // AUDIT

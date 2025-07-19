@@ -193,7 +193,7 @@ engage.autoCreate();
 // $ExpectType Promise<EngageElement[]>
 engage.autoCreate({ filters: ["filter"] });
 
-// $ExpectType { id: string; type: "visitsPerDay" value: string;}
+// $ExpectType { id: string; type: "visitsPerDay"; value: string; }
 const display: Poool.EngageDisplayConditions = {
     id: "id",
     type: "visitsPerDay",

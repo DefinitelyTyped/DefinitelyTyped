@@ -184,7 +184,7 @@ export namespace Poool {
          *
          * @returns Promise<void>
          */
-        destroy: () => void;
+        destroy: () => Promise<void>;
     }
 
     interface EngageTexts {
