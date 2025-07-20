@@ -3760,10 +3760,21 @@ function testCertificateProvider() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/commands
+// https://developer.chrome.com/docs/extensions/reference/api/commands
 async function testCommands() {
-    await chrome.commands.getAll();
-    chrome.commands.getAll((commands) => {});
+    chrome.commands.getAll(); // $ExpectType Promise<Command[]>
+    chrome.commands.getAll(([command]) => { // $ExpectType void
+        command.description; // $ExpectType string | undefined
+        command.name; // $ExpectType string | undefined
+        command.shortcut; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.commands.getAll(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.commands.onCommand, (command, tab) => {
+        command; // $ExpectType string
+        tab; // $ExpectType Tab | undefined
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/i18n
