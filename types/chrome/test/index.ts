@@ -856,74 +856,48 @@ function testGetManifest() {
         manifest.author.email; // $ExpectType string
     }
 
-    if (manifest.manifest_version === 2) {
-        manifest.content_security_policy; // $ExpectType string | undefined
+    manifest.action; // $ExpectType ManifestAction | undefined
 
-        manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
-
-        manifest.web_accessible_resources; // $ExpectType string[] | undefined
-    } else if (manifest.manifest_version === 3) {
-        manifest.action; // $ExpectType ManifestAction | undefined
-
-        // @ts-expect-error
-        manifest.content_security_policy = "default-src 'self'";
-        manifest.content_security_policy = {
-            extension_pages: "default-src 'self'",
-            sandbox: "default-src 'self'",
-        };
-
-        manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
-        manifest.optional_host_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
-
-        manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
-        // @ts-expect-error
-        manifest.web_accessible_resources = ["script.js"];
-
-        // @ts-expect-error Permission 'debugger' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["debugger"];
-        // @ts-expect-error Permission 'declarativeNetRequest' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["declarativeNetRequest"];
-        // @ts-expect-error Permission 'devtools' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["devtools"];
-        // @ts-expect-error Permission 'experimental' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["experimental"];
-        // @ts-expect-error Permission 'fontSettings' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["fontSettings"];
-        // @ts-expect-error Permission 'geolocation' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["geolocation"];
-        // @ts-expect-error Permission 'proxy' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["proxy"];
-        // @ts-expect-error Permission 'tts' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["tts"];
-        // @ts-expect-error Permission 'ttsEngine' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["ttsEngine"];
-        // @ts-expect-error Permission 'unlimitedStorage' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["unlimitedStorage"];
-        // @ts-expect-error Permission 'wallpaper' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["wallpaper"];
-        // @ts-expect-error Permission 'webAuthenticationProxy' cannot be listed as optional. This permission will be omitted.
-        manifest.optional_permissions = ["webAuthenticationProxy"];
-    }
-
-    const mv2: chrome.runtime.Manifest = {
-        manifest_version: 2,
-        name: "manifest version 2",
-        version: "2.0.0",
-        background: { persistent: true, scripts: ["background.js"] },
-        browser_action: {
-            default_icon: {
-                16: "icon-16.png",
-            },
-        },
-        content_security_policy: "default-src 'self'",
-        optional_permissions: ["https://*/*"],
-        permissions: ["https://*/*"],
-        web_accessible_resources: ["some-page.html"],
+    // @ts-expect-error
+    manifest.content_security_policy = "default-src 'self'";
+    manifest.content_security_policy = {
+        extension_pages: "default-src 'self'",
+        sandbox: "default-src 'self'",
     };
+
+    manifest.host_permissions; // $ExpectType string[] | undefined
+    manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
+    manifest.optional_host_permissions; // $ExpectType string[] | undefined
+    manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+
+    manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
+    // @ts-expect-error
+    manifest.web_accessible_resources = ["script.js"];
+
+    // @ts-expect-error Permission 'debugger' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["debugger"];
+    // @ts-expect-error Permission 'declarativeNetRequest' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["declarativeNetRequest"];
+    // @ts-expect-error Permission 'devtools' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["devtools"];
+    // @ts-expect-error Permission 'experimental' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["experimental"];
+    // @ts-expect-error Permission 'fontSettings' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["fontSettings"];
+    // @ts-expect-error Permission 'geolocation' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["geolocation"];
+    // @ts-expect-error Permission 'proxy' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["proxy"];
+    // @ts-expect-error Permission 'tts' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["tts"];
+    // @ts-expect-error Permission 'ttsEngine' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["ttsEngine"];
+    // @ts-expect-error Permission 'unlimitedStorage' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["unlimitedStorage"];
+    // @ts-expect-error Permission 'wallpaper' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["wallpaper"];
+    // @ts-expect-error Permission 'webAuthenticationProxy' cannot be listed as optional. This permission will be omitted.
+    manifest.optional_permissions = ["webAuthenticationProxy"];
 
     const mv3: chrome.runtime.Manifest = {
         manifest_version: 3,
