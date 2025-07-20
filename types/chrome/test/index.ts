@@ -2493,76 +2493,6 @@ async function testTabs() {
         matchAboutBlank: true,
         runAt: "document_idle",
     };
-
-    chrome.tabs.executeScript(details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(tabId, details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(details, (result) => { // $ExpectType void
-        result; // $ExpectType any[] | undefined
-    });
-    chrome.tabs.executeScript(tabId, details, (result) => { // $ExpectType void
-        result; // $ExpectType any[] | undefined
-    });
-    // @ts-expect-error
-    chrome.tabs.executeScript(() => {}).then(() => {});
-
-    chrome.tabs.getAllInWindow(); // $ExpectType Promise<Tab[]>
-    chrome.tabs.getAllInWindow(windowId); // $ExpectType Promise<Tab[]>
-    chrome.tabs.getAllInWindow((tabs) => { // $ExpectType void
-        tabs; // $ExpectType Tab[]
-    });
-    chrome.tabs.getAllInWindow(windowId, (tabs) => { // $ExpectType void
-        tabs; // $ExpectType Tab[]
-    });
-    // @ts-expect-error
-    chrome.tabs.getAllInWindow(() => {}).then(() => {});
-
-    chrome.tabs.getSelected(); // $ExpectType Promise<Tab>
-    chrome.tabs.getSelected(windowId); // $ExpectType Promise<Tab>
-    chrome.tabs.getSelected((tab) => { // $ExpectType void
-        tab; // $ExpectType Tab
-    });
-    chrome.tabs.getSelected(windowId, (tab) => { // $ExpectType void
-        tab; // $ExpectType Tab
-    });
-    // @ts-expect-error
-    chrome.tabs.getSelected(() => {}).then(() => {});
-
-    chrome.tabs.insertCSS(details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(tabId, details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(details, () => {}); // $ExpectType void
-    chrome.tabs.insertCSS(tabId, details, () => {}); // $ExpectType void
-    // @ts-expect-error
-    chrome.tabs.insertCSS(() => {}).then(() => {});
-
-    const request = "Hello World!";
-
-    chrome.tabs.sendRequest(tabId, request); // $ExpectType Promise<any>
-    chrome.tabs.sendRequest<string, string>(4, "Hello World!"); // $ExpectType Promise<string>
-    chrome.tabs.sendRequest<string, number>(5, "Hello World!"); // $ExpectType Promise<number>
-    chrome.tabs.sendRequest(tabId, request, (result) => { // $ExpectType void
-        result; // $ExpectType any
-    });
-    // @ts-expect-error
-    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num + 1));
-    // @ts-expect-error
-    chrome.tabs.sendRequest(() => {}).then(() => {});
-
-    checkChromeEvent(chrome.tabs.onActiveChanged, (tabId, selectInfo) => {
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
-
-    checkChromeEvent(chrome.tabs.onHighlightChanged, (selectInfo) => {
-        selectInfo.tabIds; // $ExpectType number[]
-        selectInfo.windowId; // $ExpectType number
-    });
-
-    checkChromeEvent(chrome.tabs.onSelectionChanged, (tabId, selectInfo) => {
-        tabId; // $ExpectType number
-        selectInfo.windowId; // $ExpectType number
-    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/tabGroups
@@ -3070,18 +3000,6 @@ function testStorageForPromise() {
     chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(
         () => {},
     );
-}
-
-function testExtensionSendRequest() {
-    chrome.extension.sendRequest("dummy-id", "Hello World!");
-    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num + 1));
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/contextMenus
@@ -3925,12 +3843,10 @@ async function testDownloadsForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/extension
 function testExtension() {
     chrome.extension.getBackgroundPage();
-    chrome.extension.getURL("/");
     chrome.extension.setUpdateUrlData("");
     chrome.extension.getViews({});
     chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {});
     chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => {});
-    chrome.extension.getExtensionTabs(1);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/extension
