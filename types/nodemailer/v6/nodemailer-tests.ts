@@ -1,3 +1,4 @@
+import aws from "@aws-sdk/client-ses";
 import * as nodemailer from "nodemailer";
 
 import addressparser = require("nodemailer/lib/addressparser");
@@ -27,16 +28,6 @@ import LeUnix = require("nodemailer/lib/sendmail-transport/le-unix");
 
 import * as fs from "fs";
 import * as stream from "stream";
-
-// mock aws-sdk
-const aws = {
-    SES: class MockSES {
-        constructor(options?: object) {}
-    },
-    config: {
-        loadFromPath: (path: string): void => {},
-    },
-};
 
 // 1. Nodemailer
 
@@ -1077,9 +1068,6 @@ function sendmail_line_endings_unix_test() {
 // Send a message using SES transport
 
 function ses_test() {
-    // configure AWS SDK
-    aws.config.loadFromPath("config.json");
-
     // create Nodemailer SES transporter
     let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo, SESTransport.Options>;
     transporter = nodemailer.createTransport({
@@ -1087,8 +1075,19 @@ function ses_test() {
             apiVersion: "2010-12-01",
         }),
     });
+    transporter = nodemailer.createTransport({
+        SES: {
+            aws,
+            ses: new aws.SES({
+                apiVersion: "2010-12-01",
+            }),
+        },
+        maxConnections: 3,
+        sendingRate: 3,
+        component: "ses-transport",
+    });
 
-    let transporterDefault: SMTPTransport.Options;
+    let transporterDefault: SESTransport.Options;
     transporterDefault = transporter._defaults;
 
     const options: SESTransport.MailOptions = {

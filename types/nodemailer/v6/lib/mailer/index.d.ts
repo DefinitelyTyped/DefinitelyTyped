@@ -188,8 +188,11 @@ declare class Mail<T = any, DefaultTransportOptions = TransportOptions> extends 
     use(step: string, plugin: Mail.PluginFunction<T>): this;
 
     /** Sends an email using the preselected transport object */
-    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: T) => void): void;
-    sendMail(mailOptions: Mail.Options): Promise<T>;
+    sendMail(
+        mailOptions: Mail.Options & Partial<DefaultTransportOptions>,
+        callback: (err: Error | null, info: T) => void,
+    ): void;
+    sendMail(mailOptions: Mail.Options & Partial<DefaultTransportOptions>): Promise<T>;
 
     getVersionString(): string;
 
