@@ -2293,17 +2293,8 @@ declare namespace chrome {
             constructor(options: PageStateMatcherProperties);
         }
 
-        /**
-         * Declarative event action that enables the extension's action while the corresponding conditions are met.
-         * Manifest v3.
-         */
+        /** Declarative event action that enables the extension's action while the corresponding conditions are met. */
         export class ShowAction {}
-
-        /**
-         * Declarative event action that shows the extension's page action while the corresponding conditions are met.
-         * Manifest v2.
-         */
-        export class ShowPageAction {}
 
         /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
         export class SetIcon {
@@ -4143,28 +4134,15 @@ declare namespace chrome {
             message: string;
         }
 
-        export interface OnRequestEvent extends
-            chrome.events.Event<
-                | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
-                | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
-            >
-        {}
-
         /**
          * @since Chrome 7
          * True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.
          */
         export var inIncognitoContext: boolean;
-        /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be undefined. */
-        export var lastError: LastError;
 
         /** Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page. */
         export function getBackgroundPage(): Window | null;
-        /**
-         * Converts a relative path within an extension install directory to a fully-qualified URL.
-         * @param path A path to a resource within an extension expressed relative to its install directory.
-         */
-        export function getURL(path: string): string;
+
         /**
          * Sets the value of the ap CGI parameter used in the extension's update URL. This value is ignored for extensions that are hosted in the Chrome Extension Gallery.
          * @since Chrome 9
@@ -4196,46 +4174,6 @@ declare namespace chrome {
          * Parameter isAllowedAccess: True if the extension has access to Incognito mode, false otherwise.
          */
         export function isAllowedIncognitoAccess(callback: (isAllowedAccess: boolean) => void): void;
-        /**
-         * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
-         * @param extensionId The extension ID of the extension you want to connect to. If omitted, default is your own extension.
-         * @param responseCallback If you specify the responseCallback parameter, it should be a function that looks like this:
-         * function(any response) {...};
-         * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
-        export function sendRequest<Request = any, Response = any>(
-            extensionId: string,
-            request: Request,
-            responseCallback?: (response: Response) => void,
-        ): void;
-        /**
-         * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
-         * @param responseCallback If you specify the responseCallback parameter, it should be a function that looks like this:
-         * function(any response) {...};
-         * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
-        export function sendRequest<Request = any, Response = any>(
-            request: Request,
-            responseCallback?: (response: Response) => void,
-        ): void;
-        /**
-         * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.
-         * @deprecated Deprecated since Chrome 33. Please use extension.getViews {type: "tab"}.
-         */
-        export function getExtensionTabs(windowId?: number): Window[];
-
-        /**
-         * Fired when a request is sent from either an extension process or a content script.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.onMessage.
-         */
-        export var onRequest: OnRequestEvent;
-        /**
-         * Fired when a request is sent from another extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.onMessageExternal.
-         */
-        export var onRequestExternal: OnRequestEvent;
     }
 
     ////////////////////
@@ -10709,51 +10647,12 @@ declare namespace chrome {
             windowId: number;
         }
 
-        export interface OnSelectionChangedInfo {
-            /** The ID of the window the selected tab changed inside of. */
-            windowId: number;
-        }
-
-        export interface OnActiveChangedInfo {
-            /** The ID of the window the selected tab changed inside of. */
-            windowId: number;
-        }
-
-        export interface OnHighlightChangedInfo {
-            /** All highlighted tabs in the window. */
-            tabIds: number[];
-            /** The window whose tabs changed. */
-            windowId: number;
-        }
-
         export interface OnZoomChangeInfo {
             newZoomFactor: number;
             oldZoomFactor: number;
             tabId: number;
             zoomSettings: ZoomSettings;
         }
-
-        /**
-         * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
-         *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         *
-         * MV2 only
-         * @param tabId The ID of the tab in which to run the script; defaults to the active tab of the current window.
-         * @param details Details of the script to run. Either the code or the file property must be set, but both may not be set at the same time
-         * @deprecated since Chrome 99. Replaced by {@link scripting.executeScript} in Manifest V3.
-         */
-        export function executeScript(details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
-        export function executeScript(
-            tabId: number | undefined,
-            details: extensionTypes.InjectDetails,
-        ): Promise<any[] | undefined>;
-        export function executeScript(details: extensionTypes.InjectDetails, callback: (result?: any[]) => void): void;
-        export function executeScript(
-            tabId: number | undefined,
-            details: extensionTypes.InjectDetails,
-            callback: (result?: any[]) => void,
-        ): void;
 
         /**
          * Retrieves details about the specified tab
@@ -10764,37 +10663,12 @@ declare namespace chrome {
         export function get(tabId: number, callback: (tab: Tab) => void): void;
 
         /**
-         * Gets details about all tabs in the specified window.
-         *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         *
-         * MV2 only
-         * @deprecated Please use {@link tabs.query} `{windowId: windowId}`.
-         */
-        export function getAllInWindow(windowId?: number): Promise<Tab[]>;
-        export function getAllInWindow(callback: (tabs: Tab[]) => void): void;
-        export function getAllInWindow(windowId: number | undefined, callback: (tabs: Tab[]) => void): void;
-
-        /**
          * Gets the tab that this script call is being made from. Returns `undefined` if called from a non-tab context (for example, a background page or popup view).
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          */
         export function getCurrent(): Promise<Tab | undefined>;
         export function getCurrent(callback: (tab?: Tab) => void): void;
-
-        /**
-         * Gets the tab that is selected in the specified window.
-         *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         *
-         * MV2 only
-         * @param windowId Defaults to the current window.
-         * @deprecated Please use {@link tabs.query} `{active: true}`.
-         */
-        export function getSelected(windowId?: number): Promise<Tab>;
-        export function getSelected(callback: (tab: Tab) => void): void;
-        export function getSelected(windowId: number | undefined, callback: (tab: Tab) => void): void;
 
         /**
          * Creates a new tab.
@@ -10918,43 +10792,10 @@ declare namespace chrome {
         ): void;
 
         /**
-         * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The {@link extension.onRequest} event is fired in each content script running in the specified tab for the current extension.
-         *
-         * MV2 only
-         * @deprecated Please use {@link runtime.sendMessage}.
-         */
-        export function sendRequest<Request = any, Response = any>(
-            tabId: number,
-            request: Request,
-        ): Promise<Response>;
-        export function sendRequest<Request = any, Response = any>(
-            tabId: number,
-            request: Request,
-            /** @since Chrome 99 */
-            callback?: (response: Response) => void,
-        ): void;
-
-        /**
          * Connects to the content script(s) in the specified tab. The {@link runtime.onConnect} event is fired in each content script running in the specified tab for the current extension.
          * @returns A port that can be used to communicate with the content scripts running in the specified tab. The port's {@link runtime.Port} event is fired if the tab closes or does not exist.
          */
         export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
-
-        /**
-         * Injects CSS into a page. Styles inserted with this method can be removed with {@link scripting.removeCSS}`. For details, see the programmatic injection section of the content scripts doc.
-         *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         *
-         * MV2 only
-         * @param tabId The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
-         * @param details Details of the CSS text to insert. Either the code or the file property must be set, but both may not be set at the same time.
-         * @deprecated since Chrome 99. Replaced by {@link scripting.insertCSS} in Manifest V3.
-         */
-        export function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
-        export function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
-        export function insertCSS(details: extensionTypes.InjectDetails, callback: () => void): void;
-        export function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
-        export function insertCSS(tabId: number, details: extensionTypes.InjectDetails, callback: () => void): void;
 
         /**
          * Highlights the given tabs and focuses on the first of group. Will appear to do nothing if the specified tab is currently active.
@@ -11122,36 +10963,6 @@ declare namespace chrome {
         /** Fired when a tab is replaced with another tab due to prerendering or instant */
         export const onReplaced: events.Event<
             (addedTabId: number, removedTabId: number) => void
-        >;
-
-        /**
-         * Fires when the selected tab in a window changes.
-         *
-         * MV2 only
-         * @deprecated Please use {@link tabs.onActivated}.
-         */
-        export const onSelectionChanged: events.Event<
-            (tabId: number, selectInfo: OnSelectionChangedInfo) => void
-        >;
-
-        /**
-         * Fires when the selected tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to {@link tabs.onUpdated} events so as to be notified when a URL is set.
-         *
-         * MV2 only
-         * @deprecated Please use {@link tabs.onActivated}.
-         */
-        export const onActiveChanged: events.Event<
-            (tabId: number, selectInfo: OnActiveChangedInfo) => void
-        >;
-
-        /**
-         * Fired when the highlighted or selected tabs in a window changes.
-         *
-         * MV2 only
-         * @deprecated Please use {@link tabs.onHighlighted}.
-         */
-        export const onHighlightChanged: events.Event<
-            (selectInfo: OnHighlightChangedInfo) => void
         >;
 
         /** Fired when a tab is zoomed */
