@@ -48,7 +48,7 @@ const engage = Engage.init("key-string");
 engage.createElement("key", "value");
 
 // $ExpectType Promise<EngageElement>
-Engage.createElement('key', 'target', { filters: ['filter1', 'filter2'] });
+Engage.createElement("key", "target", { filters: ["filter1", "filter2"] });
 
 // $ExpectType Engage
 engage.config(
