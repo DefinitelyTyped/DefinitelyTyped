@@ -281,10 +281,6 @@ declare module "node-forge" {
         }
         var oids: oids;
 
-        interface MDSigner {
-            sign(md: md.MessageDigest): Bytes;
-        }
-
         namespace rsa {
             type EncryptionScheme = "RSAES-PKCS1-V1_5" | "RSA-OAEP" | "RAW" | "NONE" | null;
             type SignatureScheme = "RSASSA-PKCS1-V1_5" | pss.PSS | "NONE" | null;
@@ -479,10 +475,10 @@ declare module "node-forge" {
             /**
              * Signs this certificate using the given private key.
              *
-             * @param signer the signer used to sign this csr
+             * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            sign(signer: MDSigner, md?: md.MessageDigest): void;
+            sign(key: rsa.PrivateKey, md?: md.MessageDigest): void;
             /**
              * Attempts verify the signature on the passed certificate using this
              * certificate's public key.
@@ -574,10 +570,10 @@ declare module "node-forge" {
             /**
              * Signs this csr using the given private key.
              *
-             * @param signer the signer used to sign this csr
+             * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            sign(signer: MDSigner, md?: md.MessageDigest): void;
+            sign(key: rsa.PrivateKey, md?: md.MessageDigest): void;
             /**
              * Attempts verify the signature on this csr using this
              * csr's public key.
