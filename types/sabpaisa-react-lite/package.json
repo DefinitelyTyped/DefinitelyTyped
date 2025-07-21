@@ -1,12 +1,12 @@
 {
     "private": true,
-    "name": "@types/sabpaisa-react-lite",
+    "name": "@types/sabpaisa-react-lib-lite",
     "version": "2.4.9999",
     "projects": [
-        "https://www.npmjs.com/package/sabpaisa-react-lite"
+        "https://www.npmjs.com/package/sabpaisa-react-lib-lite"
     ],
     "devDependencies": {
-        "@types/sabpaisa-react-lite": "workspace:.",
+        "@types/sabpaisa-react-lib-lite": "workspace:.",
         "react-native": "*"
     },
     "owners": [
