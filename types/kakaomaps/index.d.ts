@@ -33,6 +33,7 @@ declare namespace kakao.maps {
         setMaxLevel(maxLevel: number): void;
         panBy(dx: number, dy: number): void;
         panTo(latlng_or_bounds: LatLng | LatLngBounds, padding?: number): void;
+        jump(center: LatLng, level: number, options?: { animate?: boolean | { duration?: number } }): void;
         addControl(control: MapTypeControl | ZoomControl, position: ControlPosition): void;
         removeControl(control: MapTypeControl | ZoomControl): void;
         setDraggable(draggable: boolean): void;

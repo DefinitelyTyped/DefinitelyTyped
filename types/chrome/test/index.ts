@@ -719,7 +719,7 @@ function testContentSettings() {
 // https://developer.chrome.com/docs/extensions/reference/api/runtime
 function testRuntime() {
     chrome.runtime.id; // $ExpectType string
-    chrome.runtime.lastError; // $ExpectType { message?: string | undefined } | undefined
+    chrome.runtime.lastError; // $ExpectType LastError | undefined
 
     chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
     chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
@@ -894,12 +894,9 @@ function testRuntime() {
     // @ts-expect-error
     chrome.runtime.setUninstallURL(url, () => {}).then(() => {});
 
-    chrome.runtime.onBrowserUpdateAvailable.addListener(() => {}); // $ExpectType void
-    chrome.runtime.onBrowserUpdateAvailable.removeListener(() => {}); // $ExpectType void
-    chrome.runtime.onBrowserUpdateAvailable.hasListener(() => {}); // $ExpectType boolean
-    chrome.runtime.onBrowserUpdateAvailable.hasListeners(); // $ExpectType boolean
+    checkChromeEvent(chrome.runtime.onBrowserUpdateAvailable, () => {});
 
-    chrome.runtime.onConnect.addListener((port) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onConnect, (port) => {
         port.name; // $ExpectType string
         port.onDisconnect; // $ExpectType Event<(port: Port) => void>
         port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
@@ -907,151 +904,71 @@ function testRuntime() {
         port.disconnect(); // $ExpectType void
         port.postMessage(""); // $ExpectType void
     });
-    chrome.runtime.onConnect.removeListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnect.hasListener((port) => { // $ExpectType boolean
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnect.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onConnectExternal.addListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
+    checkChromeEvent(chrome.runtime.onConnectExternal, (port) => {
+        port.name; // $ExpectType string
+        port.onDisconnect; // $ExpectType Event<(port: Port) => void>
+        port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
+        port.sender; // $ExpectType MessageSender | undefined
+        port.disconnect(); // $ExpectType void
+        port.postMessage(""); // $ExpectType void
     });
-    chrome.runtime.onConnectExternal.removeListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnectExternal.hasListener((port) => { // $ExpectType boolean
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnectExternal.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onConnectNative.addListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
+    checkChromeEvent(chrome.runtime.onConnectNative, (port) => {
+        port.name; // $ExpectType string
+        port.onDisconnect; // $ExpectType Event<(port: Port) => void>
+        port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
+        port.sender; // $ExpectType MessageSender | undefined
+        port.disconnect(); // $ExpectType void
+        port.postMessage(""); // $ExpectType void
     });
-    chrome.runtime.onConnectNative.removeListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnectNative.hasListener((port) => { // $ExpectType boolean
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onConnectNative.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onInstalled.addListener((details) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onInstalled, (details) => {
         details.id; // $ExpectType string | undefined
         details.previousVersion; // $ExpectType string | undefined
         details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
     });
-    chrome.runtime.onInstalled.removeListener((details) => { // $ExpectType void
-        details.id; // $ExpectType string | undefined
-        details.previousVersion; // $ExpectType string | undefined
-        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
-    });
-    chrome.runtime.onInstalled.hasListener((details) => { // $ExpectType boolean
-        details.id; // $ExpectType string | undefined
-        details.previousVersion; // $ExpectType string | undefined
-        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
-    });
-    chrome.runtime.onInstalled.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onMessage, (message, sender, sendResponse) => {
         message; // $ExpectType any
         sender; // $ExpectType MessageSender
         sendResponse(); // $ExpectType void
     });
-    chrome.runtime.onMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onMessage.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onMessageExternal, (message, sender, sendResponse) => {
         message; // $ExpectType any
         sender; // $ExpectType MessageSender
         sendResponse(); // $ExpectType void
     });
-    chrome.runtime.onMessageExternal.removeListener((message, sender, sendResponse) => { // $ExpectType void
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onMessageExternal.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onMessageExternal.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onRestartRequired.addListener((reason) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onRestartRequired, (reason) => {
         reason; // $ExpectType "app_update" | "os_update" | "periodic"
     });
-    chrome.runtime.onRestartRequired.removeListener((reason) => { // $ExpectType void
-        reason; // $ExpectType "app_update" | "os_update" | "periodic"
-    });
-    chrome.runtime.onRestartRequired.hasListener((reason) => { // $ExpectType boolean
-        reason; // $ExpectType "app_update" | "os_update" | "periodic"
-    });
-    chrome.runtime.onRestartRequired.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onStartup.addListener(() => {}); // $ExpectType void
-    chrome.runtime.onStartup.removeListener(() => {}); // $ExpectType void
-    chrome.runtime.onStartup.hasListener(() => {}); // $ExpectType boolean
-    chrome.runtime.onStartup.hasListeners(); // $ExpectType boolean
+    checkChromeEvent(chrome.runtime.onStartup, () => {});
 
-    chrome.runtime.onSuspend.addListener(() => {}); // $ExpectType void
-    chrome.runtime.onSuspend.removeListener(() => {}); // $ExpectType void
-    chrome.runtime.onSuspend.hasListener(() => {}); // $ExpectType boolean
-    chrome.runtime.onSuspend.hasListeners(); // $ExpectType boolean
+    checkChromeEvent(chrome.runtime.onSuspend, () => {});
 
-    chrome.runtime.onSuspendCanceled.addListener(() => {}); // $ExpectType void
-    chrome.runtime.onSuspendCanceled.removeListener(() => {}); // $ExpectType void
-    chrome.runtime.onSuspendCanceled.hasListener(() => {}); // $ExpectType boolean
-    chrome.runtime.onSuspendCanceled.hasListeners(); // $ExpectType boolean
+    checkChromeEvent(chrome.runtime.onSuspendCanceled, () => {});
 
-    chrome.runtime.onUpdateAvailable.addListener((details) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onUpdateAvailable, (details) => {
         details.version; // $ExpectType string
     });
-    chrome.runtime.onUpdateAvailable.removeListener((details) => { // $ExpectType void
-        details.version; // $ExpectType string
-    });
-    chrome.runtime.onUpdateAvailable.hasListener((details) => { // $ExpectType boolean
-        details.version; // $ExpectType string
-    });
-    chrome.runtime.onUpdateAvailable.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onUserScriptConnect.addListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
+    checkChromeEvent(chrome.runtime.onUserScriptConnect, (port) => {
+        port.name; // $ExpectType string
+        port.onDisconnect; // $ExpectType Event<(port: Port) => void>
+        port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
+        port.sender; // $ExpectType MessageSender | undefined
+        port.disconnect(); // $ExpectType void
+        port.postMessage(""); // $ExpectType void
     });
-    chrome.runtime.onUserScriptConnect.removeListener((port) => { // $ExpectType void
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onUserScriptConnect.hasListener((port) => { // $ExpectType boolean
-        port; // $ExpectType Port
-    });
-    chrome.runtime.onUserScriptConnect.hasListeners(); // $ExpectType boolean
 
-    chrome.runtime.onUserScriptMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+    checkChromeEvent(chrome.runtime.onUserScriptMessage, (message, sender, sendResponse) => {
         message; // $ExpectType any
         sender; // $ExpectType MessageSender
         sendResponse(); // $ExpectType void
     });
-    chrome.runtime.onUserScriptMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onUserScriptMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
-        message; // $ExpectType any
-        sender; // $ExpectType MessageSender
-        sendResponse(); // $ExpectType void
-    });
-    chrome.runtime.onUserScriptMessage.hasListeners(); // $ExpectType boolean
 }
 
 function testGetManifest() {
@@ -2117,15 +2034,84 @@ async function testAction() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
-async function testAlarmsForPromise() {
-    await chrome.alarms.getAll();
-    await chrome.alarms.create("name1", { when: Date.now() });
-    await chrome.alarms.create({ when: Date.now() });
-    await chrome.alarms.clearAll();
-    await chrome.alarms.clear();
-    await chrome.alarms.clear("name1");
-    await chrome.alarms.get();
-    await chrome.alarms.get("name1");
+async function testAlarms() {
+    const alarmCreateInfo: chrome.alarms.AlarmCreateInfo = {
+        delayInMinutes: 1,
+        periodInMinutes: 1,
+        when: 1,
+    };
+
+    chrome.alarms.create(alarmCreateInfo); // $ExpectType Promise<void>
+    chrome.alarms.create("name", alarmCreateInfo); // $ExpectType Promise<void>
+    chrome.alarms.create(alarmCreateInfo, () => {}); // $ExpectType void
+    chrome.alarms.create("name", alarmCreateInfo, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
+
+    chrome.alarms.getAll(); // $ExpectType Promise<Alarm[]>
+    chrome.alarms.getAll((alarms) => { // $ExpectType void
+        alarms[0].name; // $ExpectType string
+        alarms[0].periodInMinutes; // $ExpectType number | undefined
+        alarms[0].scheduledTime; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.alarms.getAll(() => {}).then(() => {});
+
+    chrome.alarms.clearAll(); // $ExpectType Promise<boolean>
+    chrome.alarms.clearAll((wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.alarms.clearAll(() => {}).then(() => {});
+
+    chrome.alarms.clear(); // $ExpectType Promise<boolean>
+    chrome.alarms.clear("name"); // $ExpectType Promise<boolean>
+    chrome.alarms.clear((wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    chrome.alarms.clear("name", (wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.alarms.clear("name", () => {}).then(() => {});
+
+    chrome.alarms.get(); // $ExpectType Promise<Alarm | undefined>
+    chrome.alarms.get("name"); // $ExpectType Promise<Alarm | undefined>
+    chrome.alarms.get((alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
+        if (alarm) {
+            alarm.name; // $ExpectType string
+            alarm.periodInMinutes; // $ExpectType number | undefined
+            alarm.scheduledTime; // $ExpectType number
+        }
+    });
+    chrome.alarms.get("name", (alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
+        if (alarm) {
+            alarm.name; // $ExpectType string
+            alarm.periodInMinutes; // $ExpectType number | undefined
+            alarm.scheduledTime; // $ExpectType number
+        }
+    });
+    // @ts-expect-error
+    chrome.alarms.get("name", () => {}).then(() => {});
+
+    chrome.alarms.onAlarm.addListener((alarm) => { // $ExpectType void
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.removeListener((alarm) => { // $ExpectType void
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.hasListener((alarm) => { // $ExpectType boolean
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/audio
