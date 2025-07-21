@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button } from "react-native";
-import SabPaisaCheckout, { SabpaisaErrorResponse } from "sabpaisa-react-lite";
+import SabPaisaCheckout, { SabpaisaErrorResponse } from "sabpaisa-react-lib-lite";
 
 
 const SabpaisaCheckoutOptions = {
