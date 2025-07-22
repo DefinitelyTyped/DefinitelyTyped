@@ -12,6 +12,7 @@
         "module": "node16",
         "types": []
     },
+    "include": ["types/gorilla-engine"],
     "files": [
         "index.d.ts",
         "gorilla-engine-tests.ts"
