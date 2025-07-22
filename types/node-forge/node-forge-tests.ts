@@ -30,7 +30,7 @@ let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
 // explicitly cast as PrivateKey to ensure expected typings are accepted
-cert.sign(keypair.privateKey as forge.pki.PrivateKey);
+cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 let certPem = forge.pki.certificateToPem(cert);
 let csr = forge.pki.createCertificationRequest();
@@ -68,7 +68,7 @@ csr.addAttribute({
     name: "challengePassword",
     value: "password",
 });
-csr.sign(keypair.privateKey as forge.pki.PrivateKey);
+csr.sign(keypair.privateKey);
 csr.verify();
 csr.getAttribute({ name: "challengePassword" });
 csr.getAttribute({ name: "extensionRequest" }).extensions;
