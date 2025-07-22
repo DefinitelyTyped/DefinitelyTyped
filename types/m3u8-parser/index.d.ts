@@ -19,7 +19,7 @@ export interface RawAttributes {
 }
 
 export interface Attributes {
-    resoltion?: unknown;
+    resolution?: unknown;
 
     [other: string]: unknown;
 }

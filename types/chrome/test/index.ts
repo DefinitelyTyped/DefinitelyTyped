@@ -2034,15 +2034,84 @@ async function testAction() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
-async function testAlarmsForPromise() {
-    await chrome.alarms.getAll();
-    await chrome.alarms.create("name1", { when: Date.now() });
-    await chrome.alarms.create({ when: Date.now() });
-    await chrome.alarms.clearAll();
-    await chrome.alarms.clear();
-    await chrome.alarms.clear("name1");
-    await chrome.alarms.get();
-    await chrome.alarms.get("name1");
+async function testAlarms() {
+    const alarmCreateInfo: chrome.alarms.AlarmCreateInfo = {
+        delayInMinutes: 1,
+        periodInMinutes: 1,
+        when: 1,
+    };
+
+    chrome.alarms.create(alarmCreateInfo); // $ExpectType Promise<void>
+    chrome.alarms.create("name", alarmCreateInfo); // $ExpectType Promise<void>
+    chrome.alarms.create(alarmCreateInfo, () => {}); // $ExpectType void
+    chrome.alarms.create("name", alarmCreateInfo, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
+
+    chrome.alarms.getAll(); // $ExpectType Promise<Alarm[]>
+    chrome.alarms.getAll((alarms) => { // $ExpectType void
+        alarms[0].name; // $ExpectType string
+        alarms[0].periodInMinutes; // $ExpectType number | undefined
+        alarms[0].scheduledTime; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.alarms.getAll(() => {}).then(() => {});
+
+    chrome.alarms.clearAll(); // $ExpectType Promise<boolean>
+    chrome.alarms.clearAll((wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.alarms.clearAll(() => {}).then(() => {});
+
+    chrome.alarms.clear(); // $ExpectType Promise<boolean>
+    chrome.alarms.clear("name"); // $ExpectType Promise<boolean>
+    chrome.alarms.clear((wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    chrome.alarms.clear("name", (wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.alarms.clear("name", () => {}).then(() => {});
+
+    chrome.alarms.get(); // $ExpectType Promise<Alarm | undefined>
+    chrome.alarms.get("name"); // $ExpectType Promise<Alarm | undefined>
+    chrome.alarms.get((alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
+        if (alarm) {
+            alarm.name; // $ExpectType string
+            alarm.periodInMinutes; // $ExpectType number | undefined
+            alarm.scheduledTime; // $ExpectType number
+        }
+    });
+    chrome.alarms.get("name", (alarm) => { // $ExpectType void
+        alarm; // $ExpectType Alarm | undefined
+        if (alarm) {
+            alarm.name; // $ExpectType string
+            alarm.periodInMinutes; // $ExpectType number | undefined
+            alarm.scheduledTime; // $ExpectType number
+        }
+    });
+    // @ts-expect-error
+    chrome.alarms.get("name", () => {}).then(() => {});
+
+    chrome.alarms.onAlarm.addListener((alarm) => { // $ExpectType void
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.removeListener((alarm) => { // $ExpectType void
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.hasListener((alarm) => { // $ExpectType boolean
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
+    });
+    chrome.alarms.onAlarm.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/audio

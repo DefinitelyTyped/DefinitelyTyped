@@ -268,6 +268,10 @@
             "libraryName": "astring",
             "asOfVersion": "1.7.0"
         },
+        "async-redis": {
+            "libraryName": "async-redis",
+            "asOfVersion": "2.0.0"
+        },
         "asyncblock": {
             "libraryName": "asyncblock",
             "asOfVersion": "2.2.11"
@@ -1308,6 +1312,10 @@
             "libraryName": "cpy",
             "asOfVersion": "7.1.1"
         },
+        "craco__craco": {
+            "libraryName": "@craco/craco",
+            "asOfVersion": "7.0.0"
+        },
         "crc": {
             "libraryName": "crc",
             "asOfVersion": "4.0.0"
@@ -1404,6 +1412,10 @@
         "cypress-axe": {
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
+        },
+        "cypress-cdp": {
+            "libraryName": "cypress-cdp",
+            "asOfVersion": "1.4.0"
         },
         "cypress-recurse": {
             "libraryName": "cypress-recurse",
@@ -1676,6 +1688,10 @@
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
+        },
+        "easy-speech": {
+            "libraryName": "easy-speech",
+            "asOfVersion": "2.1.1"
         },
         "easy-table": {
             "libraryName": "easy-table",
@@ -2128,6 +2144,54 @@
         "fcostarodrigo__walk": {
             "libraryName": "@fcostarodrigo/walk",
             "asOfVersion": "6.0.0"
+        },
+        "feathersjs__authentication": {
+            "libraryName": "@feathersjs/authentication",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-client": {
+            "libraryName": "@feathersjs/authentication-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-local": {
+            "libraryName": "@feathersjs/authentication-local",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__configuration": {
+            "libraryName": "@feathersjs/configuration",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__errors": {
+            "libraryName": "@feathersjs/errors",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__express": {
+            "libraryName": "@feathersjs/express",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__feathers": {
+            "libraryName": "@feathersjs/feathers",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus": {
+            "libraryName": "@feathersjs/primus",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus-client": {
+            "libraryName": "@feathersjs/primus-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__rest-client": {
+            "libraryName": "@feathersjs/rest-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio": {
+            "libraryName": "@feathersjs/socketio",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio-client": {
+            "libraryName": "@feathersjs/socketio-client",
+            "asOfVersion": "4.3.0"
         },
         "fecha": {
             "libraryName": "fecha",
@@ -2684,6 +2748,10 @@
         "hapi__yar": {
             "libraryName": "@hapi/yar",
             "asOfVersion": "11.0.2"
+        },
+        "hapipal__schmervice": {
+            "libraryName": "@hapipal/schmervice",
+            "asOfVersion": "3.0.0"
         },
         "hapipal__toys": {
             "libraryName": "@hapipal/toys",
@@ -4097,6 +4165,10 @@
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
         },
+        "mem-fs": {
+            "libraryName": "mem-fs",
+            "asOfVersion": "2.2.0"
+        },
         "mem-fs-editor": {
             "libraryName": "mem-fs-editor",
             "asOfVersion": "10.0.1"
@@ -4300,6 +4372,10 @@
         "minizlib": {
             "libraryName": "minizlib",
             "asOfVersion": "3.0.0"
+        },
+        "mixpanel-browser": {
+            "libraryName": "mixpanel-browser",
+            "asOfVersion": "2.66.0"
         },
         "mkdirp": {
             "libraryName": "mkdirp",
@@ -5139,6 +5215,10 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-http": {
+            "libraryName": "pino-http",
+            "asOfVersion": "6.1.0"
+        },
         "pino-pretty": {
             "libraryName": "pino-pretty",
             "asOfVersion": "5.0.0"
@@ -5422,6 +5502,10 @@
         "ps-list": {
             "libraryName": "ps-list",
             "asOfVersion": "6.2.1"
+        },
+        "pseudo-localization": {
+            "libraryName": "pseudo-localization",
+            "asOfVersion": "2.3.7"
         },
         "ptomasroos__react-native-multi-slider": {
             "libraryName": "@ptomasroos/react-native-multi-slider",
@@ -6111,6 +6195,10 @@
             "libraryName": "react-native-share",
             "asOfVersion": "6.0.0"
         },
+        "react-native-shared-group-preferences": {
+            "libraryName": "react-native-shared-group-preferences",
+            "asOfVersion": "1.1.24"
+        },
         "react-native-status-bar-height": {
             "libraryName": "react-native-status-bar-height",
             "asOfVersion": "2.3.0"
@@ -6311,6 +6399,10 @@
             "libraryName": "reactstrap",
             "asOfVersion": "8.7.0"
         },
+        "read": {
+            "libraryName": "read",
+            "asOfVersion": "3.0.0"
+        },
         "read-chunk": {
             "libraryName": "read-chunk",
             "asOfVersion": "3.1.0"
@@ -6498,6 +6590,10 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
+        },
+        "rgrove__parse-xml": {
+            "libraryName": "@rgrove/parse-xml",
+            "asOfVersion": "3.0.0"
         },
         "rimraf": {
             "libraryName": "rimraf",
@@ -6714,6 +6810,10 @@
         "sentry__webpack-plugin": {
             "libraryName": "@sentry/webpack-plugin",
             "asOfVersion": "1.10.0"
+        },
+        "sequelize": {
+            "libraryName": "sequelize",
+            "asOfVersion": "6.12.0"
         },
         "sequelize-cursor-pagination": {
             "libraryName": "sequelize-cursor-pagination",
