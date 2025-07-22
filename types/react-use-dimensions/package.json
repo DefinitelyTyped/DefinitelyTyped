@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-use-dimensions",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/Swizec/useDimensions#readme",
+        "https://swizec.com"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-use-dimensions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Balázs Svarczkopf",
+            "githubUsername": "schwarzkopfb"
+        }
+    ]
+}
