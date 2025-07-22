@@ -931,7 +931,7 @@ declare namespace OracleDB {
      * @since 2.1
      */
     const versionSuffix: string;
-    
+
     interface BindParameter {
         /**
          * The direction of the bind. One of the Execute Bind Direction Constants.
@@ -4875,16 +4875,6 @@ declare namespace OracleDB {
          */
         oldJsonColumnAsObj?: boolean | undefined;
     }
-
-    /**
-     * Returns a list of TNS Aliases, also known as Network Service Names, defined in the tnsnames.ora file which is inside the directory that is specified in the configDir property or the TNS_ADMIN environment variable if configDir is not specified.
-     * If a tnsnames.ora file does not exist, then an exception is raised.
-     *
-     * @param configDir
-     *
-     * @since 6.7
-     */
-    function getNetworkServiceNames(configDir?: string): Array<string>;
 
     /**
      * Retrieves a previously created pool from the connection pool cache. Note that this is a synchronous method.
