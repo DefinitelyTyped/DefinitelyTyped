@@ -6,11 +6,10 @@
         "https://github.com/Swizec/useDimensions#readme",
         "https://swizec.com"
     ],
-    "dependencies": {
-        "@types/react": "*"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "@types/react-use-dimensions": "workspace:."
+        "@types/react-use-dimensions": "workspace:.",
+        "@types/react": "*"
     },
     "owners": [
         {
