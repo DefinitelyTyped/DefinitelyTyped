@@ -1987,6 +1987,19 @@ export interface Locator {
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
+     * Returns the number of elements matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const count = await page.locator('input').count();
+     * ```
+     *
+     * @returns Promise which resolves with the number of elements matching the selector.
+     */
+    count(): Promise<number>;
+
+    /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
@@ -2052,6 +2065,19 @@ export interface Locator {
     fill(value: string, options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Returns locator to the first matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const firstRow = await page.locator('tr').first();
+     * ```
+     *
+     * @returns Locator.
+     */
+    first(): Locator;
+
+    /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
@@ -2092,6 +2118,33 @@ export interface Locator {
      * @returns The input value of the element.
      */
     inputValue(options?: TimeoutOptions): Promise<string>;
+
+    /**
+     * Returns locator to the last matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const lastRow = await page.locator('tr').last();
+     * ```
+     *
+     * @returns Locator.
+     */
+    last(): Locator;
+
+    /**
+     * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const secondRow = await page.locator('tr').nth(1);
+     * ```
+     *
+     * @param index
+     * @returns Locator
+     */
+    nth(index: number): Locator;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,

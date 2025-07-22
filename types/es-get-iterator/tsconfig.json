@@ -13,6 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.mts",
         "index.d.ts",
         "es-get-iterator-tests.ts"
     ]

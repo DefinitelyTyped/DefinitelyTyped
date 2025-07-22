@@ -1,36 +1,36 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const blendBurn: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const blendBurn: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
-export const blendDodge: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const blendDodge: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
-export const blendScreen: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const blendScreen: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
-export const blendOverlay: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const blendOverlay: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
-export const blendColor: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const blendColor: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
-export const premult: (color: NodeRepresentation) => ShaderNodeObject<Node>;
+export const premultiplyAlpha: (color: Node) => ShaderNodeObject<Node>;
 
-export const unpremult: (color: NodeRepresentation) => ShaderNodeObject<Node>;
-
-/**
- * @deprecated
- */
-export const burn: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const unpremultiplyAlpha: (color: Node) => ShaderNodeObject<Node>;
 
 /**
  * @deprecated
  */
-export const dodge: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const burn: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
 /**
  * @deprecated
  */
-export const screen: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const dodge: (base: Node, blend: Node) => ShaderNodeObject<Node>;
 
 /**
  * @deprecated
  */
-export const overlay: (base: NodeRepresentation, blend: NodeRepresentation) => ShaderNodeObject<Node>;
+export const screen: (base: Node, blend: Node) => ShaderNodeObject<Node>;
+
+/**
+ * @deprecated
+ */
+export const overlay: (base: Node, blend: Node) => ShaderNodeObject<Node>;

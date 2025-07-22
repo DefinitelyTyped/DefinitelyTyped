@@ -6,7 +6,7 @@
         "https://github.com/joshwnj/minimatch-all"
     ],
     "dependencies": {
-        "@types/minimatch": "*"
+        "@types/minimatch": "<=5"
     },
     "devDependencies": {
         "@types/minimatch-all": "workspace:."

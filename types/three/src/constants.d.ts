@@ -780,23 +780,31 @@ export const TimestampQuery: {
     COMPUTE: "compute";
     RENDER: "render";
 };
-export type TimestampQuery = "compute" | "render";
+export type TimestampQuery = typeof TimestampQuery.COMPUTE | typeof TimestampQuery.RENDER;
 
 export const InterpolationSamplingType: {
     PERSPECTIVE: "perspective";
     LINEAR: "linear";
     FLAT: "flat";
 };
-export type InterpolationSamplingType = "perspective" | "linear" | "flat";
+export type InterpolationSamplingType =
+    | typeof InterpolationSamplingType.PERSPECTIVE
+    | typeof InterpolationSamplingType.LINEAR
+    | typeof InterpolationSamplingType.FLAT;
 
 export const InterpolationSamplingMode: {
     NORMAL: "normal";
     CENTROID: "centroid";
     SAMPLE: "sample";
-    FLAT_FIRST: "flat first";
-    FLAT_EITHER: "flat either";
+    FIRST: "first";
+    EITHER: "either";
 };
-export type InterpolationSamplingMode = "normal" | "centroid" | "sample" | "flat first" | "flat either";
+export type InterpolationSamplingMode =
+    | typeof InterpolationSamplingMode.NORMAL
+    | typeof InterpolationSamplingMode.CENTROID
+    | typeof InterpolationSamplingMode.SAMPLE
+    | typeof InterpolationSamplingMode.FIRST
+    | typeof InterpolationSamplingMode.EITHER;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

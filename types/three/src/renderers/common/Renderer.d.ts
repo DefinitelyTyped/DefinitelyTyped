@@ -239,7 +239,7 @@ declare class Renderer {
      * @param {?Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
      * @return {Promise<Array|undefined>} A Promise that resolves when the compile has been finished.
      */
-    compileAsync(scene: Object3D, camera: Camera, targetScene?: Object3D | null): Promise<void>;
+    compileAsync(scene: Object3D, camera: Camera, targetScene?: Scene | null): Promise<void>;
     /**
      * Renders the scene in an async fashion.
      *
@@ -248,7 +248,7 @@ declare class Renderer {
      * @param {Camera} camera - The camera.
      * @return {Promise} A Promise that resolves when the render has been finished.
      */
-    renderAsync(scene: Scene, camera: Camera): Promise<void>;
+    renderAsync(scene: Object3D, camera: Camera): Promise<void>;
     /**
      * Can be used to synchronize CPU operations with GPU tasks. So when this method is called,
      * the CPU waits for the GPU to complete its operation (e.g. a compute task).
@@ -321,7 +321,7 @@ declare class Renderer {
      * @return {?Promise} A Promise that resolve when the scene has been rendered.
      * Only returned when the renderer has not been initialized.
      */
-    render(scene: Scene, camera: Camera): Promise<void> | undefined;
+    render(scene: Object3D, camera: Camera): Promise<void> | undefined;
     /**
      * Returns an internal render target which is used when computing the output tone mapping
      * and color space conversion. Unlike in `WebGLRenderer`, this is done in a separate render
@@ -340,7 +340,7 @@ declare class Renderer {
      * @param {boolean} [useFrameBufferTarget=true] - Whether to use a framebuffer target or not.
      * @return {RenderContext} The current render context.
      */
-    _renderScene(scene: Scene, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
+    _renderScene(scene: Object3D, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
     _setXRLayerSize(width: number, height: number): void;
     /**
      * The output pass performs tone mapping and color space conversion.
@@ -983,6 +983,6 @@ declare class Renderer {
      * @param {Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
      * @return {function(Object3D, Camera, ?Scene): Promise|undefined} A Promise that resolves when the compile has been finished.
      */
-    get compile(): (scene: Object3D, camera: Camera, targetScene?: Object3D | null) => Promise<void>;
+    get compile(): (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<void>;
 }
 export default Renderer;

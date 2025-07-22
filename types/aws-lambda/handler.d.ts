@@ -104,6 +104,7 @@ export interface Context {
     logStreamName: string;
     identity?: CognitoIdentity | undefined;
     clientContext?: ClientContext | undefined;
+    tenantId?: string | undefined;
 
     getRemainingTimeInMillis(): number;
 

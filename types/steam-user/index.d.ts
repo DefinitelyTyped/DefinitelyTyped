@@ -12,7 +12,7 @@ import SteamChatRoomClient = require("./components/chatroom");
 export = SteamUser;
 
 declare class SteamUser extends EventEmitter {
-    constructor(options?: Options);
+    constructor(options?: SteamUser.Options);
 
     /**
      * The FileManager instance used by the SteamUser.
@@ -38,7 +38,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An object containing options for this `SteamUser`. Read-only; use `setOption` or `setOptions` to change an option.
      */
-    readonly options: Options;
+    readonly options: SteamUser.Options;
 
     /**
      * Only defined if you're currently logged on. This is your public IP as reported by Steam, in "x.x.x.x" format.
@@ -58,7 +58,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An object containing information about your account. `null` until `accountInfo` is emitted.
      */
-    accountInfo: AccountInfo | null;
+    accountInfo: SteamUser.AccountInfo | null;
 
     /**
      * An object containing information about your account's email address. `null` until `emailInfo` is emitted.
@@ -68,7 +68,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An object containing information about your account's limitations. `null` until `accountLimitations` is emitted.
      */
-    limitations: AccountLimitations | null;
+    limitations: SteamUser.AccountLimitations | null;
 
     /**
      * An object containing information about your account's VAC bans. `null` until `vacBans` is emitted.
@@ -88,7 +88,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An array containing gifts and guest passes you've received but haven't accepted (to your library or to your inventory) or declined. `null` until `gifts` is emitted.
      */
-    gifts: Gift[];
+    gifts: SteamUser.Gift[];
 
     /**
      * An object containing persona data about all Steam users we've encountered or requested data for.
@@ -107,7 +107,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An object containing information about all legacy chat rooms we're in. Keys are 64-bit SteamIDs.
      */
-    chats: Record<string, Chat>;
+    chats: Record<string, SteamUser.Chat>;
 
     /**
      * An object whose keys are 64-bit SteamIDs, and whose values are values from the `EFriendRelationship` enum.
@@ -156,38 +156,38 @@ declare class SteamUser extends EventEmitter {
     >;
 
     // EVENTS
-    on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    on<K extends keyof SteamUser.Events>(event: K, listener: (...args: SteamUser.Events[K]) => void): this;
     /**
      * Please use 'ownershipCached'
      * @deprecated since v4.22.1
      */
     on(event: "appOwnershipCached", listener: () => void): this;
-    once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
-    off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
-    removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
-    removeAllListeners(event?: keyof Events): this;
+    once<K extends keyof SteamUser.Events>(event: K, listener: (...args: SteamUser.Events[K]) => void): this;
+    off<K extends keyof SteamUser.Events>(event: K, listener: (...args: SteamUser.Events[K]) => void): this;
+    removeListener<K extends keyof SteamUser.Events>(event: K, listener: (...args: SteamUser.Events[K]) => void): this;
+    removeAllListeners(event?: keyof SteamUser.Events): this;
 
     /**
      * Set a configuration option.
      * @param option
      * @param value
      */
-    setOption<K extends keyof Options>(option: K, value: Options[K]): void;
+    setOption<K extends keyof SteamUser.Options>(option: K, value: SteamUser.Options[K]): void;
 
     /**
      * Set one or more configuration options
      * @param options
      */
-    setOptions(options: Options): void;
+    setOptions(options: SteamUser.Options): void;
 
     logOn(
         details?:
             | true
-            | LogOnDetailsAnon
-            | LogOnDetailsNamePass
-            | LogOnDetailsNameKey
-            | LogOnDetailsNameToken
-            | LogOnDetailsRefresh,
+            | SteamUser.LogOnDetailsAnon
+            | SteamUser.LogOnDetailsNamePass
+            | SteamUser.LogOnDetailsNameKey
+            | SteamUser.LogOnDetailsNameToken
+            | SteamUser.LogOnDetailsRefresh,
     ): void;
 
     /**
@@ -206,8 +206,8 @@ declare class SteamUser extends EventEmitter {
      * @param [callback] - Called when an activation SMS has been sent.
      */
     enableTwoFactor(
-        callback?: (err: Error | null, response: TwoFactorResponse) => void,
-    ): Promise<TwoFactorResponse>;
+        callback?: (err: Error | null, response: SteamUser.TwoFactorResponse) => void,
+    ): Promise<SteamUser.TwoFactorResponse>;
 
     /**
      * Finalize the process of enabling TOTP two-factor authentication
@@ -227,7 +227,7 @@ declare class SteamUser extends EventEmitter {
             timestampTwoFactorEnabled: Date | null,
             isPhoneVerified: boolean,
         ) => void,
-    ): Promise<SteamGuardDetails>;
+    ): Promise<SteamUser.SteamGuardDetails>;
 
     getCredentialChangeTimes(
         callback?: (
@@ -236,15 +236,17 @@ declare class SteamUser extends EventEmitter {
             timestampLastPasswordReset: Date | null,
             timestampLastEmailChange: Date | null,
         ) => void,
-    ): Promise<CredentialChangeTimes>;
+    ): Promise<SteamUser.CredentialChangeTimes>;
 
-    getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<AuthSecret>;
+    getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<SteamUser.AuthSecret>;
 
     /**
      * Get your account's profile privacy settings.
      * @param [callback]
      */
-    getPrivacySettings(callback?: (err: Error | null, response: PrivacySettings) => void): Promise<PrivacySettings>;
+    getPrivacySettings(
+        callback?: (err: Error | null, response: SteamUser.PrivacySettings) => void,
+    ): Promise<SteamUser.PrivacySettings>;
 
     /**
      * Kick any other session logged into your account which is playing a game from Steam.
@@ -259,7 +261,10 @@ declare class SteamUser extends EventEmitter {
      * @param apps - Array of integers (AppIDs) or strings (non-Steam game names) for the games you're playing. Empty to play nothing.
      * @param [force=false] If true, kick any other sessions logged into this account and playing games from Steam
      */
-    gamesPlayed(apps: number | string | PlayedGame | Array<number | string | PlayedGame>, force?: boolean): void;
+    gamesPlayed(
+        apps: number | string | SteamUser.PlayedGame | Array<number | string | SteamUser.PlayedGame>,
+        force?: boolean,
+    ): void;
 
     /**
      * Get count of people playing a Steam app. Use appid 0 to get number of people connected to Steam.
@@ -277,9 +282,9 @@ declare class SteamUser extends EventEmitter {
      * @param [callback]
      */
     serverQuery(
-        conditions: ServerQueryConditions | string,
-        callback?: (err: Error | null, servers: ServerQueryResponse) => void,
-    ): Promise<ServerQueryResponse>;
+        conditions: SteamUser.ServerQueryConditions | string,
+        callback?: (err: Error | null, servers: SteamUser.ServerQueryResponse) => void,
+    ): Promise<SteamUser.ServerQueryResponse>;
 
     /**
      * Get a list of servers including game data.
@@ -289,8 +294,8 @@ declare class SteamUser extends EventEmitter {
     getServerList(
         filter: string,
         limit?: number,
-        callback?: (err: Error | null, servers: Server) => void,
-    ): Promise<Server>;
+        callback?: (err: Error | null, servers: SteamUser.Server) => void,
+    ): Promise<SteamUser.Server>;
 
     /**
      * Get the associated SteamIDs for given server IPs.
@@ -322,10 +327,10 @@ declare class SteamUser extends EventEmitter {
         callback?: (
             err: Error | null,
             currentChangeNumber: number,
-            appChanges: AppChanges[],
-            packageChanges: PackageChanges[],
+            appChanges: SteamUser.AppChanges[],
+            packageChanges: SteamUser.PackageChanges[],
         ) => void,
-    ): Promise<ProductChanges>;
+    ): Promise<SteamUser.ProductChanges>;
 
     /**
      * Get info about some apps and/or packages from Steam.
@@ -336,18 +341,18 @@ declare class SteamUser extends EventEmitter {
      * @param [requestType] - Don't touch
      */
     getProductInfo(
-        apps: Array<number | App>,
-        packages: Array<number | Package>,
+        apps: Array<number | SteamUser.App>,
+        packages: Array<number | SteamUser.Package>,
         inclTokens?: boolean,
         callback?: (
             err: Error | null,
-            apps: Record<number, AppInfo>,
-            packages: Record<number, PackageInfo>,
+            apps: Record<number, SteamUser.AppInfo>,
+            packages: Record<number, SteamUser.PackageInfo>,
             unknownApps: number[],
             unknownPackages: number[],
         ) => void,
         requestType?: number,
-    ): Promise<ProductInfo>;
+    ): Promise<SteamUser.ProductInfo>;
 
     /**
      * Get access tokens for some apps and/or packages
@@ -365,14 +370,14 @@ declare class SteamUser extends EventEmitter {
             appDeniedTokens: number[],
             packageDeniedTokens: number[],
         ) => void,
-    ): Promise<ProductAccessTokens>;
+    ): Promise<SteamUser.ProductAccessTokens>;
 
     /**
      * Get list of appids this account owns. Only works if enablePicsCache option is enabled and appOwnershipCached event
      * has been emitted.
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedApps(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
+    getOwnedApps(filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns an app. Only works if enablePicsCache option is enabled and appOwnershipCached event
@@ -380,13 +385,13 @@ declare class SteamUser extends EventEmitter {
      * @param appid
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsApp(appid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
+    ownsApp(appid: number, filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): boolean;
 
     /**
      * has been emitted.
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedDepots(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
+    getOwnedDepots(filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns a depot. Only works if enablePicsCache option is enabled and appOwnershipCached event
@@ -394,14 +399,14 @@ declare class SteamUser extends EventEmitter {
      * @param depotid
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsDepot(depotid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
+    ownsDepot(depotid: number, filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): boolean;
 
     /**
      * Returns an array of package IDs this account owns (different from owned licenses). The filter only
      * works, if enablePicsCache option is enabled and appOwnershipCached event has been emitted.
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedPackages(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
+    getOwnedPackages(filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns a package. Only works if enablePicsCache option is enabled and appOwnershipCached event
@@ -409,7 +414,7 @@ declare class SteamUser extends EventEmitter {
      * @param packageid
      * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsPackage(packageid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
+    ownsPackage(packageid: number, filter?: SteamUser.OwnsFilterObject | SteamUser.OwnsFilterFunction): boolean;
 
     /**
      * Get the localized names for given store tags.
@@ -420,8 +425,8 @@ declare class SteamUser extends EventEmitter {
     getStoreTagNames(
         language: string,
         tagIDs: number[],
-        callback?: (err: Error | null, tags: StoreTagNames) => void,
-    ): Promise<{ tags: StoreTagNames }>;
+        callback?: (err: Error | null, tags: SteamUser.StoreTagNames) => void,
+    ): Promise<{ tags: SteamUser.StoreTagNames }>;
 
     /**
      * Get details for some UGC files.
@@ -430,8 +435,8 @@ declare class SteamUser extends EventEmitter {
      */
     getPublishedFileDetails(
         ids: number | number[],
-        callback?: (err: Error | null, files: PublishedFileDetails) => void,
-    ): Promise<PublishedFileDetails>;
+        callback?: (err: Error | null, files: SteamUser.PublishedFileDetails) => void,
+    ): Promise<SteamUser.PublishedFileDetails>;
 
     /**
      * Remove a friend from your friends list (or decline an invitiation)
@@ -482,17 +487,17 @@ declare class SteamUser extends EventEmitter {
      * @param [callback]
      */
     createQuickInviteLink(
-        options?: CreateQuickInviteLinkOptions,
-        callback?: (err: Error | null, response: QuickInviteLink) => void,
-    ): Promise<QuickInviteLink>;
+        options?: SteamUser.CreateQuickInviteLinkOptions,
+        callback?: (err: Error | null, response: SteamUser.QuickInviteLink) => void,
+    ): Promise<SteamUser.QuickInviteLink>;
 
     /**
      * Get a list of friend quick-invite links for your account.
      * @param [callback]
      */
     listQuickInviteLinks(
-        callback?: (err: Error | null, response: QuickInviteLink[]) => void,
-    ): Promise<QuickInviteLink[]>;
+        callback?: (err: Error | null, response: SteamUser.QuickInviteLink[]) => void,
+    ): Promise<SteamUser.QuickInviteLink[]>;
 
     /**
      * Revoke an active quick-invite link.
@@ -514,8 +519,8 @@ declare class SteamUser extends EventEmitter {
      */
     checkQuickInviteLinkValidity(
         link: string,
-        callback?: (err: Error | null, response: QuickInviteLinkValidity) => void,
-    ): Promise<QuickInviteLinkValidity>;
+        callback?: (err: Error | null, response: SteamUser.QuickInviteLinkValidity) => void,
+    ): Promise<SteamUser.QuickInviteLinkValidity>;
 
     /**
      * Redeem a quick-invite link and add the sender to your friends list.
@@ -566,9 +571,11 @@ declare class SteamUser extends EventEmitter {
         language: string,
         callback?: (
             err: Error | null,
-            response: { users: Record<string, { richPresence: RichPresence; localizedString: string | null }> },
+            response: {
+                users: Record<string, { richPresence: SteamUser.RichPresence; localizedString: string | null }>;
+            },
         ) => void,
-    ): Promise<{ users: Record<string, { richPresence: RichPresence; localizedString: string | null }> }>;
+    ): Promise<{ users: Record<string, { richPresence: SteamUser.RichPresence; localizedString: string | null }> }>;
 
     /**
      * Gets the Steam Level of one or more Steam users.
@@ -629,9 +636,9 @@ declare class SteamUser extends EventEmitter {
      */
     getUserOwnedApps(
         steamID: SteamID | string,
-        options?: GetUserOwnedAppsOptions,
-        callback?: (err: Error | null, response: UserOwnedApps) => void,
-    ): Promise<UserOwnedApps>;
+        options?: SteamUser.GetUserOwnedAppsOptions,
+        callback?: (err: Error | null, response: SteamUser.UserOwnedApps) => void,
+    ): Promise<SteamUser.UserOwnedApps>;
 
     /**
      * Get a listing of profile items you own.
@@ -640,8 +647,8 @@ declare class SteamUser extends EventEmitter {
      */
     getOwnedProfileItems(
         options?: { language: string },
-        callback?: (err: Error | null, response: ProfileItems) => void,
-    ): Promise<ProfileItems>;
+        callback?: (err: Error | null, response: SteamUser.ProfileItems) => void,
+    ): Promise<SteamUser.ProfileItems>;
 
     /**
      * Get a user's equipped profile items.
@@ -652,8 +659,8 @@ declare class SteamUser extends EventEmitter {
     getEquippedProfileItems(
         steamID: SteamID | string,
         options?: { language: string },
-        callback?: (err: Error | null, response: ProfileItems) => void,
-    ): Promise<ProfileItems>;
+        callback?: (err: Error | null, response: SteamUser.ProfileItems) => void,
+    ): Promise<SteamUser.ProfileItems>;
 
     /**
      * Change your current profile background.
@@ -759,21 +766,21 @@ declare class SteamUser extends EventEmitter {
      * Gets your account's trade URL.
      * @param [callback]
      */
-    getTradeURL(callback?: (err: Error | null, response: TradeURL) => void): Promise<TradeURL>;
+    getTradeURL(callback?: (err: Error | null, response: SteamUser.TradeURL) => void): Promise<SteamUser.TradeURL>;
 
     /**
      * Makes a new trade URL for your account.
      * @param [callback]
      */
-    changeTradeURL(callback?: (err: Error | null, response: TradeURL) => void): Promise<TradeURL>;
+    changeTradeURL(callback?: (err: Error | null, response: SteamUser.TradeURL) => void): Promise<SteamUser.TradeURL>;
 
     /**
      * Gets the list of emoticons your account can use.
      * @param [callback]
      */
     getEmoticonList(
-        callback?: (err: Error | null, response: { emoticons: Record<string, Emoticon> }) => void,
-    ): Promise<{ emoticons: Record<string, Emoticon> }>;
+        callback?: (err: Error | null, response: { emoticons: Record<string, SteamUser.Emoticon> }) => void,
+    ): Promise<{ emoticons: Record<string, SteamUser.Emoticon> }>;
 
     /**
      * Redeem a product code on this account.
@@ -860,8 +867,8 @@ declare class SteamUser extends EventEmitter {
      */
     getAuthorizedBorrowers(
         options?: { includeCanceled?: boolean; includePending?: boolean },
-        callback?: (err: Error | null, response: { borrowers: Borrowers[] }) => void,
-    ): Promise<{ borrowers: Borrowers[] }>;
+        callback?: (err: Error | null, response: { borrowers: SteamUser.Borrowers[] }) => void,
+    ): Promise<{ borrowers: SteamUser.Borrowers[] }>;
 
     /**
      * Get a list of devices we have authorized.
@@ -870,8 +877,8 @@ declare class SteamUser extends EventEmitter {
      */
     getAuthorizedSharingDevices(
         options?: { includeCancelled?: boolean },
-        callback?: (err: Error | null, response: { devices: Device[] }) => void,
-    ): Promise<{ devices: Device[] }>;
+        callback?: (err: Error | null, response: { devices: SteamUser.Device[] }) => void,
+    ): Promise<{ devices: SteamUser.Device[] }>;
 
     /**
      * Authorize local device for library sharing.
@@ -974,488 +981,490 @@ declare class SteamUser extends EventEmitter {
     // #endregion "APP AUTH"
 }
 
-// #region "Events"
-interface Events {
-    debug: [message: string];
-    appLaunched: [appid: number];
-    appQuit: [appid: number];
-    receivedFromGC: [appid: number, msgType: number, payload: Buffer];
-    loggedOn: [details: Record<string, any>, parental: Record<string, any>];
-    steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
-    error: [err: Error & { eresult: SteamUser.EResult }];
-    disconnected: [eresult: SteamUser.EResult, msg?: string];
-    webSession: [sessionID: string, cookies: string[]];
-    loginKey: [key: string];
-    newItems: [count: number];
-    newComments: [count: number, myItems: number, discussions: number];
-    tradeOffers: [count: number];
-    communityMessages: [count: number];
-    offlineMessages: [count: number, friends: SteamID[]];
-    vanityURL: [url: string];
-    accountInfo: [
-        name: string,
-        country: string,
-        authedMachines: number,
-        flags: SteamUser.EAccountFlags,
-        facebookID: string,
-        facebookName: string,
-    ];
-    emailInfo: [address: string, validated: boolean];
-    accountLimitations: [limited: boolean, communityBanned: boolean, locked: boolean, canInviteFriends: boolean];
-    vacBans: [numBans: number, appids: number[]];
-    wallet: [hasWallet: boolean, currency: SteamUser.ECurrencyCode, balance: number];
-    licenses: [licenses: Array<Record<string, any>>];
-    gifts: [gifts: Gift[]];
-    ownershipCached: [];
-    changelist: [changenumber: number, apps: number[], packages: number[]];
-    appUpdate: [appid: number, data: AppInfo];
-    packageUpdate: [packageid: number, data: PackageInfo];
-    marketingMessages: [timestamp: Date, messages: Array<{ id: string; url: string; flags: number }>];
-    tradeRequest: [steamID: SteamID, respond: (accept: boolean) => void];
-    tradeResponse: [steamID: SteamID, response: SteamUser.EEconTradeResponse, restrictions: TradeRestrictions];
-    tradeStarted: [steamID: SteamID];
-    playingState: [blocked: boolean, playingApp: number];
-    user: [sid: SteamID, user: Record<string, any>];
-    group: [sid: SteamID, group: Record<string, any>];
-    groupEvent: [sid: SteamID, headline: string, date: Date, gid: number | string, gameID: number]; // not sure
-    groupAnnouncement: [sid: SteamID, headline: string, gid: number | string]; // not sure
-    friendRelationship: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
-    groupRelationship: [sid: SteamID, relationship: SteamUser.EClanRelationship];
-    friendsList: [];
-    friendPersonasLoad: [];
-    groupList: [];
-    friendsGroupList: [groups: Record<string, { name: string; members: SteamID[] }>];
-    nicknameList: [];
-    nickname: [steamID: SteamID, newNickname: string | null];
-    lobbyInvite: [inviterID: SteamID, lobbyID: SteamID];
-    authTicketStatus: [
-        {
-            steamID: SteamID;
-            appOwnerSteamID: SteamID;
-            appID: number;
-            ticketCrc: ByteBuffer;
-            ticketGcToken: number;
-            state: number;
-            authSessionResponse: SteamUser.EAuthSessionResponse;
-        },
-    ];
-    authTicketValidation: Events["authTicketStatus"];
-    refreshToken: [refreshToken: string];
-}
-// #endregion "Events"
-
-// #region "Helper Types"
-type RegionCode = 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xff; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
-type OwnsFilterFunction = (
-    element: Proto_CMsgClientLicenseList_License,
-    index: number,
-    array: Proto_CMsgClientLicenseList_License[],
-) => boolean;
-interface Proto_CMsgClientLicenseList_License {
-    package_id: number;
-    time_created: number;
-    time_next_process: number;
-    minute_limit: number;
-    minutes_used: number;
-    payment_method: SteamUser.EPaymentMethod;
-    flags: SteamUser.ELicenseFlags;
-    purchase_country_code: string;
-    license_type: SteamUser.ELicenseType;
-    territory_code: number;
-    change_number: number;
-    owner_id: number;
-    initial_period: number;
-    initial_time_unit: number;
-    renewal_period: number;
-    renewal_time_unit: number;
-    access_token: string;
-    master_package_id: number;
-}
-interface OwnsFilterObject {
-    excludeFree?: boolean;
-    excludeShared?: boolean;
-    excludeExpiring?: boolean;
-}
-// #endregion "Helper Types"
-
-// #region "Response Types"
-type StoreTagNames = Record<string, { name: string; englishName: string }>;
-type PublishedFileDetails = Record<string, Record<string, any>>;
-// #endregion "Response Types"
-
-// #region "General Interfaces"
-interface Options {
-    localPort?: number | null;
-    protocol?: SteamUser.EConnectionProtocol;
-    httpProxy?: string | null;
-    socksProxy?: string | null;
-    localAddress?: string | null;
-    autoRelogin?: boolean;
-    machineIdType?: SteamUser.EMachineIDType;
-    machineIdFormat?: [string, string, string];
-    enablePicsCache?: boolean;
-    language?: string;
-    picsCacheAll?: boolean;
-    changelistUpdateInterval?: number;
-    saveAppTickets?: boolean;
-    renewRefreshTokens?: boolean;
-    additionalHeaders?: Record<string, string>;
-    webCompatibilityMode?: boolean;
-    ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
-    dataDirectory?: string | null;
-}
-
-interface CreateQuickInviteLinkOptions {
-    inviteLimit?: number;
-    inviteDuration?: number | null;
-}
-
-interface PlayedGame {
-    game_id: number;
-    game_extra_info: string;
-}
-
-interface ServerQueryConditions {
-    app_id?: number;
-    geo_location_ip?: string;
-    region_code?: RegionCode;
-    filter_text?: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
-    max_servers?: number;
-}
-
-interface AppChanges {
-    appid: number;
-    change_number: number;
-    needs_token: boolean;
-}
-
-interface PackageChanges {
-    packageid: number;
-    change_number: number;
-    needs_token: boolean;
-}
-
-interface App {
-    appid: number;
-    access_token: string;
-}
-
-interface Package {
-    packageid: number;
-    access_token: string;
-}
-
-interface AppInfo {
-    changenumber: number;
-    missingToken: boolean;
-    appinfo: any; // too complex to describe
-}
-
-interface PackageInfo {
-    changenumber: number;
-    missingToken: boolean;
-    packageinfo: any; // too complex to describe
-}
-
-interface RichPresence {
-    status: string;
-    version: string;
-    time?: string;
-    "game:state": string;
-    steam_display: string;
-    connect: string;
-}
-
-interface OwnedApp {
-    appid: number;
-    name: string;
-    playtime_2weeks: number | null;
-    playtime_forever: number;
-    img_icon_url: string;
-    img_logo_url: string;
-    has_community_visible_stats: boolean;
-    playtime_windows_forever: number;
-    playtime_mac_forever: number;
-    playtime_linux_forever: number;
-}
-
-interface GetUserOwnedAppsOptions {
-    includePlayedFreeGames?: boolean;
-    filterAppids?: number[];
-    includeFreeSub?: boolean;
-}
-
-interface ProfileItem {
-    communityitemid: number;
-    image_small: string | null;
-    image_large: string | null;
-    name: string;
-    item_title: string;
-    item_description: string;
-    appid: number;
-    item_type: unknown; // could be improved
-    item_class: unknown; // could be improved
-    movie_webm: string;
-    movie_mp4: string;
-    equipped_flags: unknown; // could be improved
-}
-
-interface Emoticon {
-    name: string;
-    count: number;
-    time_last_used: Date | null;
-    use_count: number;
-    time_received: Date | null;
-}
-
-interface Borrowers {
-    steamid: SteamID;
-    isPending: boolean;
-    isCanceled: boolean;
-    timeCreated: Date;
-}
-
-interface Device {
-    deviceToken: string;
-    deviceName: string;
-    isPending: boolean;
-    isCanceled: boolean;
-    isLimited: boolean;
-    lastTimeUsed: Date | null;
-    lastBorrower: SteamID | null;
-    lastAppPlayed: Date | null;
-}
-
-interface AccountInfo {
-    name: string;
-    country: string;
-    authedMachines: number;
-    flags: SteamUser.EAccountFlags;
-    facebookID: string;
-    facebookName: string;
-}
-
-interface AccountLimitations {
-    limited: boolean;
-    communityBanned: boolean;
-    locked: boolean;
-    canInviteFriends: boolean;
-}
-
-interface Gift {
-    gid: string;
-    packageid: number;
-    TimeCreated: Date;
-    TimeExpiration: Date;
-    TimeSent: Date;
-    TimeAcked: Date;
-    TimeRedeemed: null; // appears to always be null
-    RecipientAddress: ""; // appears to alway be ''
-    SenderAddress: ""; // appears to alway be ''
-    SenderName: string;
-}
-
-interface Chat {
-    name: string | null;
-    private: boolean;
-    invisibleToFriends: boolean;
-    officersOnlyChat: boolean;
-    unjoinable: boolean;
-    members: {
-        rank: SteamUser.EClanRank;
-        permissions: SteamUser.EChatPermission;
-    };
-}
-
-interface TradeRestrictions {
-    steamguardRequiredDays?: number;
-    newDeviceCooldownDays?: number;
-    defaultPasswordResetProbationDays?: number;
-    passwordResetProbationDays?: number;
-    defaultEmailChangeProbationDays?: number;
-    emailChangeProbationDays?: number;
-}
-// #endregion "General Interfaces"
-
-// #region "Response Interfaces"
-interface QuickInviteLinkValidity {
-    valid: boolean;
-    steamid: SteamID;
-    invite_duration: number | null;
-}
-
-interface TradeURL {
-    token: string;
-    url: string;
-}
-
-interface QuickInviteLink {
-    invite_link: string;
-    invite_token: string;
-    invite_limit: number;
-    invite_duration: number | null;
-    time_created: Date;
-    valid: boolean;
-}
-
-interface LogOnDetailsAnon {
-    anonymous: true;
-    password?: string;
-    webLogonToken?: string;
-    steamID?: SteamID | string;
-    authCode?: string;
-    twoFactorCode?: string;
-    logonID?: number | string;
-    machineName?: string;
-    clientOS?: SteamUser.EOSType;
-    autoRelogin?: boolean;
-}
-
-interface LogOnDetailsNamePass {
-    anonymous?: false;
-    accountName: string;
-    password: string;
-    authCode?: string;
-    machineAuthToken?: string;
-    twoFactorCode?: string;
-    logonID?: number | string;
-    machineName?: string;
-    clientOS?: SteamUser.EOSType;
-    autoRelogin?: boolean;
-}
-interface LogOnDetailsNameKey {
-    anonymous?: false;
-    accountName: string;
-    logonID?: number | string;
-    machineName?: string;
-    clientOS?: SteamUser.EOSType;
-    autoRelogin?: boolean;
-}
-
-interface LogOnDetailsNameToken {
-    anonymous?: false;
-    accountName: string;
-    webLogonToken: string;
-    steamID: SteamID | string;
-    autoRelogin?: boolean;
-}
-
-interface LogOnDetailsRefresh {
-    refreshToken: string;
-    steamID?: SteamID | string;
-    logonID?: number | string;
-    machineName?: string;
-    clientOS?: SteamUser.EOSType;
-}
-
-interface SteamGuardDetails {
-    isSteamGuardEnabled: boolean;
-    timestampSteamGuardEnabled: Date | null;
-    timestampMachineSteamGuardEnabled: Date | null;
-    canTrade: boolean;
-    timestampTwoFactorEnabled: Date | null;
-    isPhoneVerified: boolean;
-}
-
-interface CredentialChangeTimes {
-    timestampLastPasswordChange: Date | null;
-    timestampLastPasswordReset: Date | null;
-    timestampLastEmailChange: Date | null;
-}
-
-interface AuthSecret {
-    secretID: number;
-    key: Buffer;
-}
-
-interface PrivacySettings {
-    privacy_state: SteamUser.EPrivacyState;
-    privacy_state_inventory: SteamUser.EPrivacyState;
-    privacy_state_gifts: SteamUser.EPrivacyState;
-    privacy_state_ownedgames: SteamUser.EPrivacyState;
-    privacy_state_playtime: SteamUser.EPrivacyState;
-    privacy_state_friendslist: SteamUser.EPrivacyState;
-}
-
-interface ServerQueryResponse {
-    ip: string;
-    port: number;
-    players: number;
-    gameport: number;
-}
-
-interface Server {
-    addr: string;
-    specport: number | null;
-    steamid: SteamID;
-    name: string;
-    appid: number;
-    gamedir: string;
-    version: string;
-    product: string;
-    region: RegionCode;
-    players: number;
-    max_players: number;
-    bots: number;
-    map: string;
-    secure: boolean;
-    dedicated: boolean;
-    os: "w" | "l";
-    gametype: string;
-}
-
-interface ProductChanges {
-    currentChangeNumber: number;
-    appChanges: AppChanges[];
-    packageChanges: PackageChanges[];
-}
-
-interface ProductInfo {
-    apps: Record<number, AppInfo>;
-    packages: Record<number, PackageInfo>;
-    unknownApps: number[];
-    unknownPackages: number[];
-}
-
-interface ProductAccessTokens {
-    appTokens: Record<string, string>;
-    packageTokens: Record<string, string>;
-    appDeniedTokens: number[];
-    packageDeniedTokens: number[];
-}
-
-interface UserOwnedApps {
-    app_count: number;
-    apps: OwnedApp[];
-}
-
-interface ProfileItems {
-    profile_backgrounds: ProfileItem[];
-    mini_profile_backgrounds: ProfileItem[];
-    avatar_frames: ProfileItem[];
-    animated_avatars: ProfileItem[];
-    profile_modifiers: ProfileItem[];
-}
-
-interface TwoFactorResponse {
-    status: SteamUser.EResult;
-    shared_secret: string;
-    identity_secret: string;
-    revocation_code: string;
-    uri: `otpauth://totp/Steam:${string}?secret=${string}&issuer=Steam`;
-    /** unix timestamp in seconds */
-    server_time: number;
-    account_name: string;
-    token_gid: string;
-    /** present when a phone number is linked to the account */
-    phone_number_hint?: string;
-    [key: string]: any;
-}
-// #endregion "Response Interfaces"
-
 declare namespace SteamUser {
+    export { SteamChatRoomClient };
+
+    // #region "Events"
+    export interface Events {
+        debug: [message: string];
+        appLaunched: [appid: number];
+        appQuit: [appid: number];
+        receivedFromGC: [appid: number, msgType: number, payload: Buffer];
+        loggedOn: [details: Record<string, any>, parental: Record<string, any>];
+        steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
+        error: [err: Error & { eresult: SteamUser.EResult }];
+        disconnected: [eresult: SteamUser.EResult, msg?: string];
+        webSession: [sessionID: string, cookies: string[]];
+        loginKey: [key: string];
+        newItems: [count: number];
+        newComments: [count: number, myItems: number, discussions: number];
+        tradeOffers: [count: number];
+        communityMessages: [count: number];
+        offlineMessages: [count: number, friends: SteamID[]];
+        vanityURL: [url: string];
+        accountInfo: [
+            name: string,
+            country: string,
+            authedMachines: number,
+            flags: SteamUser.EAccountFlags,
+            facebookID: string,
+            facebookName: string,
+        ];
+        emailInfo: [address: string, validated: boolean];
+        accountLimitations: [limited: boolean, communityBanned: boolean, locked: boolean, canInviteFriends: boolean];
+        vacBans: [numBans: number, appids: number[]];
+        wallet: [hasWallet: boolean, currency: SteamUser.ECurrencyCode, balance: number];
+        licenses: [licenses: Array<Record<string, any>>];
+        gifts: [gifts: Gift[]];
+        ownershipCached: [];
+        changelist: [changenumber: number, apps: number[], packages: number[]];
+        appUpdate: [appid: number, data: AppInfo];
+        packageUpdate: [packageid: number, data: PackageInfo];
+        marketingMessages: [timestamp: Date, messages: Array<{ id: string; url: string; flags: number }>];
+        tradeRequest: [steamID: SteamID, respond: (accept: boolean) => void];
+        tradeResponse: [steamID: SteamID, response: SteamUser.EEconTradeResponse, restrictions: TradeRestrictions];
+        tradeStarted: [steamID: SteamID];
+        playingState: [blocked: boolean, playingApp: number];
+        user: [sid: SteamID, user: Record<string, any>];
+        group: [sid: SteamID, group: Record<string, any>];
+        groupEvent: [sid: SteamID, headline: string, date: Date, gid: number | string, gameID: number]; // not sure
+        groupAnnouncement: [sid: SteamID, headline: string, gid: number | string]; // not sure
+        friendRelationship: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
+        groupRelationship: [sid: SteamID, relationship: SteamUser.EClanRelationship];
+        friendsList: [];
+        friendPersonasLoad: [];
+        groupList: [];
+        friendsGroupList: [groups: Record<string, { name: string; members: SteamID[] }>];
+        nicknameList: [];
+        nickname: [steamID: SteamID, newNickname: string | null];
+        lobbyInvite: [inviterID: SteamID, lobbyID: SteamID];
+        authTicketStatus: [
+            {
+                steamID: SteamID;
+                appOwnerSteamID: SteamID;
+                appID: number;
+                ticketCrc: ByteBuffer;
+                ticketGcToken: number;
+                state: number;
+                authSessionResponse: SteamUser.EAuthSessionResponse;
+            },
+        ];
+        authTicketValidation: Events["authTicketStatus"];
+        refreshToken: [refreshToken: string];
+    }
+    // #endregion "Events"
+
+    // #region "Helper Types"
+    export type RegionCode = 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xff; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
+    export type OwnsFilterFunction = (
+        element: Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: Proto_CMsgClientLicenseList_License[],
+    ) => boolean;
+    export interface Proto_CMsgClientLicenseList_License {
+        package_id: number;
+        time_created: number;
+        time_next_process: number;
+        minute_limit: number;
+        minutes_used: number;
+        payment_method: SteamUser.EPaymentMethod;
+        flags: SteamUser.ELicenseFlags;
+        purchase_country_code: string;
+        license_type: SteamUser.ELicenseType;
+        territory_code: number;
+        change_number: number;
+        owner_id: number;
+        initial_period: number;
+        initial_time_unit: number;
+        renewal_period: number;
+        renewal_time_unit: number;
+        access_token: string;
+        master_package_id: number;
+    }
+    export interface OwnsFilterObject {
+        excludeFree?: boolean;
+        excludeShared?: boolean;
+        excludeExpiring?: boolean;
+    }
+    // #endregion "Helper Types"
+
+    // #region "Response Types"
+    export type StoreTagNames = Record<string, { name: string; englishName: string }>;
+    export type PublishedFileDetails = Record<string, Record<string, any>>;
+    // #endregion "Response Types"
+
+    // #region "General Interfaces"
+    export interface Options {
+        localPort?: number | null;
+        protocol?: SteamUser.EConnectionProtocol;
+        httpProxy?: string | null;
+        socksProxy?: string | null;
+        localAddress?: string | null;
+        autoRelogin?: boolean;
+        machineIdType?: SteamUser.EMachineIDType;
+        machineIdFormat?: [string, string, string];
+        enablePicsCache?: boolean;
+        language?: string;
+        picsCacheAll?: boolean;
+        changelistUpdateInterval?: number;
+        saveAppTickets?: boolean;
+        renewRefreshTokens?: boolean;
+        additionalHeaders?: Record<string, string>;
+        webCompatibilityMode?: boolean;
+        ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
+        dataDirectory?: string | null;
+    }
+
+    export interface CreateQuickInviteLinkOptions {
+        inviteLimit?: number;
+        inviteDuration?: number | null;
+    }
+
+    export interface PlayedGame {
+        game_id: number;
+        game_extra_info: string;
+    }
+
+    export interface ServerQueryConditions {
+        app_id?: number;
+        geo_location_ip?: string;
+        region_code?: RegionCode;
+        filter_text?: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
+        max_servers?: number;
+    }
+
+    export interface AppChanges {
+        appid: number;
+        change_number: number;
+        needs_token: boolean;
+    }
+
+    export interface PackageChanges {
+        packageid: number;
+        change_number: number;
+        needs_token: boolean;
+    }
+
+    export interface App {
+        appid: number;
+        access_token: string;
+    }
+
+    export interface Package {
+        packageid: number;
+        access_token: string;
+    }
+
+    export interface AppInfo {
+        changenumber: number;
+        missingToken: boolean;
+        appinfo: any; // too complex to describe
+    }
+
+    export interface PackageInfo {
+        changenumber: number;
+        missingToken: boolean;
+        packageinfo: any; // too complex to describe
+    }
+
+    export interface RichPresence {
+        status: string;
+        version: string;
+        time?: string;
+        "game:state": string;
+        steam_display: string;
+        connect: string;
+    }
+
+    export interface OwnedApp {
+        appid: number;
+        name: string;
+        playtime_2weeks: number | null;
+        playtime_forever: number;
+        img_icon_url: string;
+        img_logo_url: string;
+        has_community_visible_stats: boolean;
+        playtime_windows_forever: number;
+        playtime_mac_forever: number;
+        playtime_linux_forever: number;
+    }
+
+    export interface GetUserOwnedAppsOptions {
+        includePlayedFreeGames?: boolean;
+        filterAppids?: number[];
+        includeFreeSub?: boolean;
+    }
+
+    export interface ProfileItem {
+        communityitemid: number;
+        image_small: string | null;
+        image_large: string | null;
+        name: string;
+        item_title: string;
+        item_description: string;
+        appid: number;
+        item_type: unknown; // could be improved
+        item_class: unknown; // could be improved
+        movie_webm: string;
+        movie_mp4: string;
+        equipped_flags: unknown; // could be improved
+    }
+
+    export interface Emoticon {
+        name: string;
+        count: number;
+        time_last_used: Date | null;
+        use_count: number;
+        time_received: Date | null;
+    }
+
+    export interface Borrowers {
+        steamid: SteamID;
+        isPending: boolean;
+        isCanceled: boolean;
+        timeCreated: Date;
+    }
+
+    export interface Device {
+        deviceToken: string;
+        deviceName: string;
+        isPending: boolean;
+        isCanceled: boolean;
+        isLimited: boolean;
+        lastTimeUsed: Date | null;
+        lastBorrower: SteamID | null;
+        lastAppPlayed: Date | null;
+    }
+
+    export interface AccountInfo {
+        name: string;
+        country: string;
+        authedMachines: number;
+        flags: SteamUser.EAccountFlags;
+        facebookID: string;
+        facebookName: string;
+    }
+
+    export interface AccountLimitations {
+        limited: boolean;
+        communityBanned: boolean;
+        locked: boolean;
+        canInviteFriends: boolean;
+    }
+
+    export interface Gift {
+        gid: string;
+        packageid: number;
+        TimeCreated: Date;
+        TimeExpiration: Date;
+        TimeSent: Date;
+        TimeAcked: Date;
+        TimeRedeemed: null; // appears to always be null
+        RecipientAddress: ""; // appears to alway be ''
+        SenderAddress: ""; // appears to alway be ''
+        SenderName: string;
+    }
+
+    export interface Chat {
+        name: string | null;
+        private: boolean;
+        invisibleToFriends: boolean;
+        officersOnlyChat: boolean;
+        unjoinable: boolean;
+        members: {
+            rank: SteamUser.EClanRank;
+            permissions: SteamUser.EChatPermission;
+        };
+    }
+
+    export interface TradeRestrictions {
+        steamguardRequiredDays?: number;
+        newDeviceCooldownDays?: number;
+        defaultPasswordResetProbationDays?: number;
+        passwordResetProbationDays?: number;
+        defaultEmailChangeProbationDays?: number;
+        emailChangeProbationDays?: number;
+    }
+    // #endregion "General Interfaces"
+
+    // #region "Response Interfaces"
+    export interface QuickInviteLinkValidity {
+        valid: boolean;
+        steamid: SteamID;
+        invite_duration: number | null;
+    }
+
+    export interface TradeURL {
+        token: string;
+        url: string;
+    }
+
+    export interface QuickInviteLink {
+        invite_link: string;
+        invite_token: string;
+        invite_limit: number;
+        invite_duration: number | null;
+        time_created: Date;
+        valid: boolean;
+    }
+
+    export interface LogOnDetailsAnon {
+        anonymous: true;
+        password?: string;
+        webLogonToken?: string;
+        steamID?: SteamID | string;
+        authCode?: string;
+        twoFactorCode?: string;
+        logonID?: number | string;
+        machineName?: string;
+        clientOS?: SteamUser.EOSType;
+        autoRelogin?: boolean;
+    }
+
+    export interface LogOnDetailsNamePass {
+        anonymous?: false;
+        accountName: string;
+        password: string;
+        authCode?: string;
+        machineAuthToken?: string;
+        twoFactorCode?: string;
+        logonID?: number | string;
+        machineName?: string;
+        clientOS?: SteamUser.EOSType;
+        autoRelogin?: boolean;
+    }
+    export interface LogOnDetailsNameKey {
+        anonymous?: false;
+        accountName: string;
+        logonID?: number | string;
+        machineName?: string;
+        clientOS?: SteamUser.EOSType;
+        autoRelogin?: boolean;
+    }
+
+    export interface LogOnDetailsNameToken {
+        anonymous?: false;
+        accountName: string;
+        webLogonToken: string;
+        steamID: SteamID | string;
+        autoRelogin?: boolean;
+    }
+
+    export interface LogOnDetailsRefresh {
+        refreshToken: string;
+        steamID?: SteamID | string;
+        logonID?: number | string;
+        machineName?: string;
+        clientOS?: SteamUser.EOSType;
+    }
+
+    export interface SteamGuardDetails {
+        isSteamGuardEnabled: boolean;
+        timestampSteamGuardEnabled: Date | null;
+        timestampMachineSteamGuardEnabled: Date | null;
+        canTrade: boolean;
+        timestampTwoFactorEnabled: Date | null;
+        isPhoneVerified: boolean;
+    }
+
+    export interface CredentialChangeTimes {
+        timestampLastPasswordChange: Date | null;
+        timestampLastPasswordReset: Date | null;
+        timestampLastEmailChange: Date | null;
+    }
+
+    export interface AuthSecret {
+        secretID: number;
+        key: Buffer;
+    }
+
+    export interface PrivacySettings {
+        privacy_state: SteamUser.EPrivacyState;
+        privacy_state_inventory: SteamUser.EPrivacyState;
+        privacy_state_gifts: SteamUser.EPrivacyState;
+        privacy_state_ownedgames: SteamUser.EPrivacyState;
+        privacy_state_playtime: SteamUser.EPrivacyState;
+        privacy_state_friendslist: SteamUser.EPrivacyState;
+    }
+
+    export interface ServerQueryResponse {
+        ip: string;
+        port: number;
+        players: number;
+        gameport: number;
+    }
+
+    export interface Server {
+        addr: string;
+        specport: number | null;
+        steamid: SteamID;
+        name: string;
+        appid: number;
+        gamedir: string;
+        version: string;
+        product: string;
+        region: RegionCode;
+        players: number;
+        max_players: number;
+        bots: number;
+        map: string;
+        secure: boolean;
+        dedicated: boolean;
+        os: "w" | "l";
+        gametype: string;
+    }
+
+    export interface ProductChanges {
+        currentChangeNumber: number;
+        appChanges: AppChanges[];
+        packageChanges: PackageChanges[];
+    }
+
+    export interface ProductInfo {
+        apps: Record<number, AppInfo>;
+        packages: Record<number, PackageInfo>;
+        unknownApps: number[];
+        unknownPackages: number[];
+    }
+
+    export interface ProductAccessTokens {
+        appTokens: Record<string, string>;
+        packageTokens: Record<string, string>;
+        appDeniedTokens: number[];
+        packageDeniedTokens: number[];
+    }
+
+    export interface UserOwnedApps {
+        app_count: number;
+        apps: OwnedApp[];
+    }
+
+    export interface ProfileItems {
+        profile_backgrounds: ProfileItem[];
+        mini_profile_backgrounds: ProfileItem[];
+        avatar_frames: ProfileItem[];
+        animated_avatars: ProfileItem[];
+        profile_modifiers: ProfileItem[];
+    }
+
+    export interface TwoFactorResponse {
+        status: SteamUser.EResult;
+        shared_secret: string;
+        identity_secret: string;
+        revocation_code: string;
+        uri: `otpauth://totp/Steam:${string}?secret=${string}&issuer=Steam`;
+        /** unix timestamp in seconds */
+        server_time: number;
+        account_name: string;
+        token_gid: string;
+        /** present when a phone number is linked to the account */
+        phone_number_hint?: string;
+        [key: string]: any;
+    }
+    // #endregion "Response Interfaces"
+
     // #region "ENUMS"
-    enum EAccountFlags {
+    export enum EAccountFlags {
         NormalUser = 0,
         PersonaNameSet = 1,
         Unbannable = 2,
@@ -1490,7 +1499,7 @@ declare namespace SteamUser {
         NeedsSSANextSteamLogon = 1073741824,
     }
 
-    enum EAccountType {
+    export enum EAccountType {
         Invalid = 0,
         Individual = 1,
         Multiseat = 2,
@@ -1504,7 +1513,7 @@ declare namespace SteamUser {
         AnonUser = 10,
     }
 
-    enum EActivationCodeClass {
+    export enum EActivationCodeClass {
         WonCDKey = 0,
         ValveCDKey = 1,
         Doom3CDKey = 2,
@@ -1515,20 +1524,20 @@ declare namespace SteamUser {
         Invalid = 4294967295,
     }
 
-    enum EAppAssociationType {
+    export enum EAppAssociationType {
         Invalid = 0,
         Publisher = 1,
         Developer = 2,
         Franchise = 3,
     }
 
-    enum EAppControllerSupportLevel {
+    export enum EAppControllerSupportLevel {
         None = 0,
         Partial = 1,
         Full = 2,
     }
 
-    enum EAppInfoSection {
+    export enum EAppInfoSection {
         Unknown = 0,
         All = 1,
         First = 2,
@@ -1556,7 +1565,7 @@ declare namespace SteamUser {
         Albummetadata = 20,
     }
 
-    enum EAppType {
+    export enum EAppType {
         Invalid = 0,
         Game = 1,
         Application = 2,
@@ -1579,7 +1588,7 @@ declare namespace SteamUser {
         DepotOnly = -2147483648,
     }
 
-    enum EAppUsageEvent {
+    export enum EAppUsageEvent {
         GameLaunch = 1,
         GameLaunchTrial = 2,
         Media = 3,
@@ -1590,13 +1599,13 @@ declare namespace SteamUser {
         GameLaunchFreeWeekend = 8,
     }
 
-    enum EAudioFormat {
+    export enum EAudioFormat {
         None = 0,
         "16BitLittleEndian" = 1,
         Float = 2,
     }
 
-    enum EAuthSessionResponse {
+    export enum EAuthSessionResponse {
         OK = 0,
         UserNotConnectedToSteam = 1,
         NoLicenseOrExpired = 2,
@@ -1609,7 +1618,7 @@ declare namespace SteamUser {
         PublisherIssuedBan = 9,
     }
 
-    enum EBillingType {
+    export enum EBillingType {
         NoCost = 0,
         BillOnceOnly = 1,
         BillMonthly = 2,
@@ -1629,12 +1638,12 @@ declare namespace SteamUser {
         NumBillingTypes = 16,
     }
 
-    enum EBroadcastChatPermission {
+    export enum EBroadcastChatPermission {
         Public = 0,
         OwnsApp = 1,
     }
 
-    enum EBroadcastWatchLocation {
+    export enum EBroadcastWatchLocation {
         Invalid = 0,
         SteamTV_Tab = 1,
         SteamTV_WatchParty = 2,
@@ -1651,7 +1660,7 @@ declare namespace SteamUser {
         SteamTV_Web = 13,
     }
 
-    enum EChatAction {
+    export enum EChatAction {
         InviteChat = 1,
         Kick = 2,
         Ban = 3,
@@ -1670,7 +1679,7 @@ declare namespace SteamUser {
         SetUnmoderated = 16,
     }
 
-    enum EChatActionResult {
+    export enum EChatActionResult {
         Success = 1,
         Error = 2,
         NotPermitted = 3,
@@ -1683,7 +1692,7 @@ declare namespace SteamUser {
         VoiceSlotsFull = 10,
     }
 
-    enum EChatEntryType {
+    export enum EChatEntryType {
         Invalid = 0,
         ChatMsg = 1,
         Typing = 2,
@@ -1701,20 +1710,20 @@ declare namespace SteamUser {
         LinkBlocked = 14,
     }
 
-    enum EChatFlags {
+    export enum EChatFlags {
         Locked = 1,
         InvisibleToFriends = 2,
         Moderated = 4,
         Unjoinable = 8,
     }
 
-    enum EChatInfoType {
+    export enum EChatInfoType {
         StateChange = 1,
         InfoUpdate = 2,
         MemberLimitChange = 3,
     }
 
-    enum EChatMemberStateChange {
+    export enum EChatMemberStateChange {
         Entered = 1,
         Left = 2,
         Disconnected = 4,
@@ -1724,7 +1733,7 @@ declare namespace SteamUser {
         VoiceDoneSpeaking = 8192,
     }
 
-    enum EChatPermission {
+    export enum EChatPermission {
         Close = 1,
         Invite = 2,
         Talk = 8,
@@ -1737,7 +1746,7 @@ declare namespace SteamUser {
         Mask = 1019,
     }
 
-    enum EChatRoomEnterResponse {
+    export enum EChatRoomEnterResponse {
         Success = 1,
         DoesntExist = 2,
         NotAllowed = 3,
@@ -1754,7 +1763,7 @@ declare namespace SteamUser {
         RankOutOfRange = 14,
     }
 
-    enum EChatRoomGroupAction {
+    export enum EChatRoomGroupAction {
         Default = 0,
         CreateRenameDeleteChannel = 1,
         Kick = 2,
@@ -1769,7 +1778,7 @@ declare namespace SteamUser {
         SetWatchingBroadcast = 11,
     }
 
-    enum EChatRoomGroupPermissions {
+    export enum EChatRoomGroupPermissions {
         Default = 0,
         Valid = 1,
         CanInvite = 2,
@@ -1778,7 +1787,7 @@ declare namespace SteamUser {
         CanAdminChannel = 16,
     }
 
-    enum EChatRoomGroupRank {
+    export enum EChatRoomGroupRank {
         Default = 0,
         Viewer = 10,
         Guest = 15,
@@ -1789,19 +1798,19 @@ declare namespace SteamUser {
         TestInvalid = 99,
     }
 
-    enum EChatRoomGroupType {
+    export enum EChatRoomGroupType {
         Default = 0,
         Unmoderated = 1,
     }
 
-    enum EChatRoomJoinState {
+    export enum EChatRoomJoinState {
         Default = 0,
         None = 1,
         Joined = 2,
         TestInvalid = 99,
     }
 
-    enum EChatRoomMemberStateChange {
+    export enum EChatRoomMemberStateChange {
         Invalid = 0,
         Joined = 1,
         Parted = 2,
@@ -1814,7 +1823,7 @@ declare namespace SteamUser {
         RolesChanged = 12,
     }
 
-    enum EChatRoomNotificationLevel {
+    export enum EChatRoomNotificationLevel {
         Invalid = 0,
         None = 1,
         MentionMe = 2,
@@ -1822,7 +1831,7 @@ declare namespace SteamUser {
         AllMessages = 4,
     }
 
-    enum EChatRoomServerMessage {
+    export enum EChatRoomServerMessage {
         Invalid = 0,
         RenameChatRoom = 1,
         Joined = 2,
@@ -1835,7 +1844,7 @@ declare namespace SteamUser {
         AppCustom = 11,
     }
 
-    enum EChatRoomServerMsg {
+    export enum EChatRoomServerMsg {
         Invalid = 0,
         RenameChatRoom = 1,
         Joined = 2,
@@ -1848,13 +1857,13 @@ declare namespace SteamUser {
         AppCustom = 11,
     }
 
-    enum EChatRoomType {
+    export enum EChatRoomType {
         Friend = 1,
         MUC = 2,
         Lobby = 3,
     }
 
-    enum EClanPermission {
+    export enum EClanPermission {
         Nobody = 0,
         Owner = 1,
         Officer = 2,
@@ -1865,7 +1874,7 @@ declare namespace SteamUser {
         NonMember = 128,
     }
 
-    enum EClanRank {
+    export enum EClanRank {
         None = 0,
         Owner = 1,
         Officer = 2,
@@ -1873,7 +1882,7 @@ declare namespace SteamUser {
         Moderator = 4,
     }
 
-    enum EClanRelationship {
+    export enum EClanRelationship {
         None = 0,
         Blocked = 1,
         Invited = 2,
@@ -1884,7 +1893,7 @@ declare namespace SteamUser {
         RequestDenied = 7,
     }
 
-    enum EClientPersonaStateFlag {
+    export enum EClientPersonaStateFlag {
         Status = 1,
         PlayerName = 2,
         QueryPort = 4,
@@ -1904,7 +1913,7 @@ declare namespace SteamUser {
         Watching = 16384,
     }
 
-    enum EClientStat {
+    export enum EClientStat {
         P2PConnectionsUDP = 0,
         P2PConnectionsRelay = 1,
         P2PGameConnections = 2,
@@ -1912,19 +1921,19 @@ declare namespace SteamUser {
         BytesDownloaded = 4,
     }
 
-    enum EClientStatAggregateMethod {
+    export enum EClientStatAggregateMethod {
         LatestOnly = 0,
         Sum = 1,
         Event = 2,
         Scalar = 3,
     }
 
-    enum EContentDeltaChunkDataLocation {
+    export enum EContentDeltaChunkDataLocation {
         InProtobuf = 0,
         AfterProtobuf = 1,
     }
 
-    enum EContentDownloadSourceType {
+    export enum EContentDownloadSourceType {
         Invalid = 0,
         CS = 1,
         CDN = 2,
@@ -1937,7 +1946,7 @@ declare namespace SteamUser {
         LANCache = 9,
     }
 
-    enum EControllerElementType {
+    export enum EControllerElementType {
         None = -1,
         Thumb = 0,
         ButtonSteam = 1,
@@ -1977,12 +1986,12 @@ declare namespace SteamUser {
         Max = 35,
     }
 
-    enum EControllerLayoutType {
+    export enum EControllerLayoutType {
         Phone = 0,
         Tablet = 1,
     }
 
-    enum ECurrencyCode {
+    export enum ECurrencyCode {
         Invalid = 0,
         USD = 1,
         GBP = 2,
@@ -2026,7 +2035,7 @@ declare namespace SteamUser {
         UYU = 41,
     }
 
-    enum EDenyReason {
+    export enum EDenyReason {
         InvalidVersion = 1,
         Generic = 2,
         NotLoggedOn = 3,
@@ -2044,7 +2053,7 @@ declare namespace SteamUser {
         SteamOwnerLeftGuestUser = 15,
     }
 
-    enum EDepotFileFlag {
+    export enum EDepotFileFlag {
         UserConfig = 1,
         VersionedUserConfig = 2,
         Encrypted = 4,
@@ -2057,7 +2066,7 @@ declare namespace SteamUser {
         Symlink = 512,
     }
 
-    enum EDisplayStatus {
+    export enum EDisplayStatus {
         Invalid = 0,
         Launching = 1,
         Uninstalling = 2,
@@ -2093,7 +2102,7 @@ declare namespace SteamUser {
         Purchase = 31,
     }
 
-    enum EDRMBlobDownloadErrorDetail {
+    export enum EDRMBlobDownloadErrorDetail {
         None = 0,
         DownloadFailed = 1,
         TargetLocked = 2,
@@ -2119,7 +2128,7 @@ declare namespace SteamUser {
         NextBase = 131072,
     }
 
-    enum EDRMBlobDownloadType {
+    export enum EDRMBlobDownloadType {
         Error = 0,
         File = 1,
         Parts = 2,
@@ -2131,7 +2140,7 @@ declare namespace SteamUser {
         LowPriority = 64,
     }
 
-    enum EEconTradeResponse {
+    export enum EEconTradeResponse {
         Accepted = 0,
         Declined = 1,
         TradeBannedInitiator = 2,
@@ -2168,7 +2177,7 @@ declare namespace SteamUser {
         OKToDeliver = 50,
     }
 
-    enum EExternalAccountType {
+    export enum EExternalAccountType {
         k_EExternalNone = 0,
         k_EExternalSteamAccount = 1,
         k_EExternalGoogleAccount = 2,
@@ -2179,7 +2188,7 @@ declare namespace SteamUser {
         k_EExternalFacebookPage = 7,
     }
 
-    enum EFrameAccumulatedStat {
+    export enum EFrameAccumulatedStat {
         FPS = 0,
         CaptureDurationMS = 1,
         ConvertDurationMS = 2,
@@ -2201,7 +2210,7 @@ declare namespace SteamUser {
         PacketLossPercentage = 18,
     }
 
-    enum EFriendFlags {
+    export enum EFriendFlags {
         None = 0,
         Blocked = 1,
         FriendshipRequested = 2,
@@ -2217,7 +2226,7 @@ declare namespace SteamUser {
         FlagAll = 65535,
     }
 
-    enum EFriendRelationship {
+    export enum EFriendRelationship {
         None = 0,
         Blocked = 1,
         RequestRecipient = 2,
@@ -2228,14 +2237,14 @@ declare namespace SteamUser {
         SuggestedFriend = 7,
     }
 
-    enum EGameSearchAction {
+    export enum EGameSearchAction {
         None = 0,
         Accept = 1,
         Decline = 2,
         Cancel = 3,
     }
 
-    enum EGameSearchResult {
+    export enum EGameSearchResult {
         Invalid = 0,
         SearchInProgress = 1,
         SearchFailedNoHosts = 2,
@@ -2245,51 +2254,51 @@ declare namespace SteamUser {
         SearchCanceled = 6,
     }
 
-    enum EHIDDeviceDisconnectMethod {
+    export enum EHIDDeviceDisconnectMethod {
         Unknown = 0,
         Bluetooth = 1,
         FeatureReport = 2,
         OutputReport = 3,
     }
 
-    enum EHIDDeviceLocation {
+    export enum EHIDDeviceLocation {
         Local = 0,
         Remote = 2,
         Any = 3,
     }
 
-    enum EInputMode {
+    export enum EInputMode {
         Unknown = 0,
         Mouse = 1,
         Controller = 2,
         MouseAndController = 3,
     }
 
-    enum EInternalAccountType {
+    export enum EInternalAccountType {
         k_EInternalSteamAccountType = 1,
         k_EInternalClanType = 2,
         k_EInternalAppType = 3,
         k_EInternalBroadcastChannelType = 4,
     }
 
-    enum EIntroducerRouting {
+    export enum EIntroducerRouting {
         FileShare = 0,
         P2PVoiceChat = 1,
         P2PNetworking = 2,
     }
 
-    enum EJSRegisterMethodType {
+    export enum EJSRegisterMethodType {
         Invalid = 0,
         Function = 1,
         Callback = 2,
         Promise = 3,
     }
 
-    enum EKeyEscrowUsage {
+    export enum EKeyEscrowUsage {
         StreamingDevice = 0,
     }
 
-    enum ELauncherType {
+    export enum ELauncherType {
         Default = 0,
         PerfectWorld = 1,
         Nexon = 2,
@@ -2301,33 +2310,33 @@ declare namespace SteamUser {
         SingleApp = 8,
     }
 
-    enum ELeaderboardDataRequest {
+    export enum ELeaderboardDataRequest {
         Global = 0,
         GlobalAroundUser = 1,
         Friends = 2,
         Users = 3,
     }
 
-    enum ELeaderboardDisplayType {
+    export enum ELeaderboardDisplayType {
         None = 0,
         Numeric = 1,
         TimeSeconds = 2,
         TimeMilliSeconds = 3,
     }
 
-    enum ELeaderboardSortMethod {
+    export enum ELeaderboardSortMethod {
         None = 0,
         Ascending = 1,
         Descending = 2,
     }
 
-    enum ELeaderboardUploadScoreMethod {
+    export enum ELeaderboardUploadScoreMethod {
         None = 0,
         KeepBest = 1,
         ForceUpdate = 2,
     }
 
-    enum ELicenseFlags {
+    export enum ELicenseFlags {
         None = 0,
         Renew = 1,
         RenewalFailed = 2,
@@ -2343,7 +2352,7 @@ declare namespace SteamUser {
         NotActivated = 2048,
     }
 
-    enum ELicenseType {
+    export enum ELicenseType {
         NoLicense = 0,
         SinglePurchase = 1,
         SinglePurchaseLimitedUse = 2,
@@ -2354,7 +2363,7 @@ declare namespace SteamUser {
         LimitedUseDelayedActivation = 7,
     }
 
-    enum ELobbyComparison {
+    export enum ELobbyComparison {
         EqualToOrLessThan = -2,
         LessThan = -1,
         Equal = 0,
@@ -2363,7 +2372,7 @@ declare namespace SteamUser {
         NotEqual = 3,
     }
 
-    enum ELobbyFilterType {
+    export enum ELobbyFilterType {
         String = 0,
         Numerical = 1,
         SlotsAvailable = 2,
@@ -2371,14 +2380,14 @@ declare namespace SteamUser {
         Distance = 4,
     }
 
-    enum ELobbyStatus {
+    export enum ELobbyStatus {
         Invalid = 0,
         Exists = 1,
         DoesNotExist = 2,
         NotAMember = 3,
     }
 
-    enum ELobbyType {
+    export enum ELobbyType {
         Private = 0,
         FriendsOnly = 1,
         Public = 2,
@@ -2386,13 +2395,13 @@ declare namespace SteamUser {
         PrivateUnique = 4,
     }
 
-    enum ELogFileType {
+    export enum ELogFileType {
         SystemBoot = 0,
         SystemReset = 1,
         SystemDebug = 2,
     }
 
-    enum EMarketingMessageFlags {
+    export enum EMarketingMessageFlags {
         None = 0,
         HighPriority = 1,
         PlatformWindows = 2,
@@ -2400,14 +2409,14 @@ declare namespace SteamUser {
         PlatformLinux = 8,
     }
 
-    enum EMMSLobbyStatus {
+    export enum EMMSLobbyStatus {
         Invalid = 0,
         Exists = 1,
         DoesNotExist = 2,
         NotAMember = 3,
     }
 
-    enum EMouseMode {
+    export enum EMouseMode {
         Unknown = 0,
         RelativeCursor = 1,
         AbsoluteCursor = 2,
@@ -2415,7 +2424,7 @@ declare namespace SteamUser {
         Relative = 4,
     }
 
-    enum EMsg {
+    export enum EMsg {
         Invalid = 0,
         Multi = 1,
         ProtobufWrapped = 2,
@@ -4352,7 +4361,7 @@ declare namespace SteamUser {
         ServerSecretChanged = 12100,
     }
 
-    enum EMsgClanAccountFlags {
+    export enum EMsgClanAccountFlags {
         k_EMsgClanAccountFlagPublic = 1,
         k_EMsgClanAccountFlagLarge = 2,
         k_EMsgClanAccountFlagLocked = 4,
@@ -4360,7 +4369,7 @@ declare namespace SteamUser {
         k_EMsgClanAccountFlagOGG = 16,
     }
 
-    enum ENewsUpdateType {
+    export enum ENewsUpdateType {
         AppNews = 0,
         SteamAds = 1,
         SteamNews = 2,
@@ -4368,13 +4377,13 @@ declare namespace SteamUser {
         ClientUpdate = 4,
     }
 
-    enum ENotificationSetting {
+    export enum ENotificationSetting {
         NotifyUseDefault = 0,
         Always = 1,
         Never = 2,
     }
 
-    enum EOSType {
+    export enum EOSType {
         Unknown = -1,
         Web = -700,
         IOSUnknown = -600,
@@ -4483,14 +4492,14 @@ declare namespace SteamUser {
         WinMAX = 19,
     }
 
-    enum EPackageStatus {
+    export enum EPackageStatus {
         Available = 0,
         Preorder = 1,
         Unavailable = 2,
         Invalid = 3,
     }
 
-    enum EPaymentMethod {
+    export enum EPaymentMethod {
         None = 0,
         ActivationCode = 1,
         CreditCard = 2,
@@ -4586,7 +4595,7 @@ declare namespace SteamUser {
         Complimentary = 1024,
     }
 
-    enum EPersonaState {
+    export enum EPersonaState {
         Offline = 0,
         Online = 1,
         Busy = 2,
@@ -4597,7 +4606,7 @@ declare namespace SteamUser {
         Invisible = 7,
     }
 
-    enum EPersonaStateFlag {
+    export enum EPersonaStateFlag {
         HasRichPresence = 1,
         InJoinableGame = 2,
         Golden = 4,
@@ -4614,7 +4623,7 @@ declare namespace SteamUser {
         LaunchTypeCompatTool = 8192,
     }
 
-    enum EPlatformType {
+    export enum EPlatformType {
         Unknown = 0,
         Win32 = 1,
         Win64 = 2,
@@ -4625,7 +4634,7 @@ declare namespace SteamUser {
         Linux32 = 6,
     }
 
-    enum EProtoAppType {
+    export enum EProtoAppType {
         k_EAppTypeDepotOnly = -2147483648,
         k_EAppTypeInvalid = 0,
         k_EAppTypeGame = 1,
@@ -4648,7 +4657,7 @@ declare namespace SteamUser {
         k_EAppTypeShortcut = 1073741824,
     }
 
-    enum EProtoClanEventType {
+    export enum EProtoClanEventType {
         k_EClanOtherEvent = 1,
         k_EClanGameEvent = 2,
         k_EClanPartyEvent = 3,
@@ -4686,12 +4695,12 @@ declare namespace SteamUser {
         k_EClanInGameEventGeneral = 35,
     }
 
-    enum EProtoExecutionSite {
+    export enum EProtoExecutionSite {
         Unknown = 0,
         SteamClient = 2,
     }
 
-    enum EPublishedFileForSaleStatus {
+    export enum EPublishedFileForSaleStatus {
         NotForSale = 0,
         PendingApproval = 1,
         ApprovedForSale = 2,
@@ -4700,13 +4709,13 @@ declare namespace SteamUser {
         TentativeApproval = 5,
     }
 
-    enum EPublishedFileInappropriateProvider {
+    export enum EPublishedFileInappropriateProvider {
         Invalid = 0,
         Google = 1,
         Amazon = 2,
     }
 
-    enum EPublishedFileInappropriateResult {
+    export enum EPublishedFileInappropriateResult {
         NotScanned = 0,
         VeryUnlikely = 1,
         Unlikely = 30,
@@ -4715,7 +4724,7 @@ declare namespace SteamUser {
         VeryLikely = 100,
     }
 
-    enum EPublishedFileQueryType {
+    export enum EPublishedFileQueryType {
         RankedByVote = 0,
         RankedByPublicationDate = 1,
         AcceptedForGameRankedByAcceptanceDate = 2,
@@ -4738,7 +4747,7 @@ declare namespace SteamUser {
         RankedByInappropriateContentRating = 19,
     }
 
-    enum EPublishedFileRevision {
+    export enum EPublishedFileRevision {
         Default = 0,
         Latest = 1,
         ApprovedSnapshot = 2,
@@ -4747,13 +4756,13 @@ declare namespace SteamUser {
         RejectedSnapshot_China = 5,
     }
 
-    enum EPublishedFileVisibility {
+    export enum EPublishedFileVisibility {
         Public = 0,
         FriendsOnly = 1,
         Private = 2,
     }
 
-    enum EPurchaseResultDetail {
+    export enum EPurchaseResultDetail {
         NoDetail = 0,
         AVSFailure = 1,
         InsufficientFunds = 2,
@@ -4840,7 +4849,7 @@ declare namespace SteamUser {
         PaymentMethodNotSupportedForProduct = 83,
     }
 
-    enum ERegionCode {
+    export enum ERegionCode {
         USEast = 0,
         USWest = 1,
         SouthAmerica = 2,
@@ -4852,7 +4861,7 @@ declare namespace SteamUser {
         World = 255,
     }
 
-    enum ERemoteClientBroadcastMsg {
+    export enum ERemoteClientBroadcastMsg {
         Discovery = 0,
         Status = 1,
         Offline = 2,
@@ -4869,7 +4878,7 @@ declare namespace SteamUser {
         StreamingProgress = 13,
     }
 
-    enum ERemoteClientService {
+    export enum ERemoteClientService {
         None = 0,
         RemoteControl = 1,
         GameStreaming = 2,
@@ -4877,7 +4886,7 @@ declare namespace SteamUser {
         ContentCache = 8,
     }
 
-    enum ERemoteDeviceAuthorizationResult {
+    export enum ERemoteDeviceAuthorizationResult {
         Success = 0,
         Denied = 1,
         NotLoggedIn = 2,
@@ -4889,7 +4898,7 @@ declare namespace SteamUser {
         Canceled = 8,
     }
 
-    enum ERemoteDeviceStreamingResult {
+    export enum ERemoteDeviceStreamingResult {
         Success = 0,
         Unauthorized = 1,
         ScreenLocked = 2,
@@ -4907,7 +4916,7 @@ declare namespace SteamUser {
         GameLaunchFailed = 14,
     }
 
-    enum ERemoteStoragePlatform {
+    export enum ERemoteStoragePlatform {
         None = 0,
         Windows = 1,
         OSX = 2,
@@ -4919,7 +4928,7 @@ declare namespace SteamUser {
         All = -1,
     }
 
-    enum EResult {
+    export enum EResult {
         Invalid = 0,
         OK = 1,
         Fail = 2,
@@ -5060,7 +5069,7 @@ declare namespace SteamUser {
         PhoneNumberIsVOIP = 127,
     }
 
-    enum EServerFlags {
+    export enum EServerFlags {
         None = 0,
         Active = 1,
         Secure = 2,
@@ -5070,7 +5079,7 @@ declare namespace SteamUser {
         Private = 32,
     }
 
-    enum EServerType {
+    export enum EServerType {
         CEconBase = -5,
         CServer = -4,
         Client = -3,
@@ -5211,7 +5220,7 @@ declare namespace SteamUser {
         CrashDump = 126,
     }
 
-    enum ESteamDatagramMsgID {
+    export enum ESteamDatagramMsgID {
         Invalid = 0,
         RouterPingRequest = 1,
         RouterPingReply = 2,
@@ -5245,13 +5254,13 @@ declare namespace SteamUser {
         GameserverRegistration = 30,
     }
 
-    enum ESteamNetworkingSocketsCipher {
+    export enum ESteamNetworkingSocketsCipher {
         INVALID = 0,
         NULL = 1,
         AES_256_GCM = 2,
     }
 
-    enum ESteamNetworkingUDPMsgID {
+    export enum ESteamNetworkingUDPMsgID {
         ChallengeRequest = 32,
         ChallengeReply = 33,
         ConnectRequest = 34,
@@ -5260,19 +5269,19 @@ declare namespace SteamUser {
         NoConnection = 37,
     }
 
-    enum ESteamPipeOperationType {
+    export enum ESteamPipeOperationType {
         Invalid = 0,
         DecryptCPU = 1,
         DiskRead = 2,
         DiskWrite = 3,
     }
 
-    enum ESteamPipeWorkType {
+    export enum ESteamPipeWorkType {
         Invalid = 0,
         StageFromChunkStores = 1,
     }
 
-    enum ESteamReviewScore {
+    export enum ESteamReviewScore {
         None = 0,
         OverwhelminglyNegative = 1,
         VeryNegative = 2,
@@ -5285,14 +5294,14 @@ declare namespace SteamUser {
         OverwhelminglyPositive = 9,
     }
 
-    enum EStreamActivity {
+    export enum EStreamActivity {
         Idle = 1,
         Game = 2,
         Desktop = 3,
         SecureDesktop = 4,
     }
 
-    enum EStreamAudioCodec {
+    export enum EStreamAudioCodec {
         None = 0,
         Raw = 1,
         Vorbis = 2,
@@ -5301,12 +5310,12 @@ declare namespace SteamUser {
         AAC = 5,
     }
 
-    enum EStreamBitrate {
+    export enum EStreamBitrate {
         Autodetect = -1,
         Unlimited = 0,
     }
 
-    enum EStreamChannel {
+    export enum EStreamChannel {
         Invalid = -1,
         Discovery = 0,
         Control = 1,
@@ -5314,7 +5323,7 @@ declare namespace SteamUser {
         DataChannelStart = 3,
     }
 
-    enum EStreamControlMessage {
+    export enum EStreamControlMessage {
         AuthenticationRequest = 1,
         AuthenticationResponse = 2,
         NegotiationInit = 3,
@@ -5387,12 +5396,12 @@ declare namespace SteamUser {
         TouchActionSetLayerRemoved = 131,
     }
 
-    enum EStreamDataMessage {
+    export enum EStreamDataMessage {
         DataPacket = 1,
         DataLost = 2,
     }
 
-    enum EStreamDeviceFormFactor {
+    export enum EStreamDeviceFormFactor {
         Unknown = 0,
         Phone = 1,
         Tablet = 2,
@@ -5400,12 +5409,12 @@ declare namespace SteamUser {
         TV = 4,
     }
 
-    enum EStreamDiscoveryMessage {
+    export enum EStreamDiscoveryMessage {
         PingRequest = 1,
         PingResponse = 2,
     }
 
-    enum EStreamFrameEvent {
+    export enum EStreamFrameEvent {
         InputEventStart = 0,
         InputEventSend = 1,
         InputEventRecv = 2,
@@ -5427,7 +5436,7 @@ declare namespace SteamUser {
         Complete = 18,
     }
 
-    enum EStreamFramerateLimiter {
+    export enum EStreamFramerateLimiter {
         SlowCapture = 1,
         SlowConvert = 2,
         SlowEncode = 4,
@@ -5437,7 +5446,7 @@ declare namespace SteamUser {
         SlowDisplay = 64,
     }
 
-    enum EStreamFrameResult {
+    export enum EStreamFrameResult {
         Pending = 0,
         Displayed = 1,
         DroppedNetworkSlow = 2,
@@ -5448,7 +5457,7 @@ declare namespace SteamUser {
         DroppedReset = 7,
     }
 
-    enum EStreamGamepadInputType {
+    export enum EStreamGamepadInputType {
         Invalid = 0,
         DPadUp = 1,
         DPadDown = 2,
@@ -5473,25 +5482,25 @@ declare namespace SteamUser {
         RightTrigger = 2097152,
     }
 
-    enum EStreamHostPlayAudioPreference {
+    export enum EStreamHostPlayAudioPreference {
         k_EStreamHostPlayAudioDefault = 0,
         k_EStreamHostPlayAudioAlways = 1,
     }
 
-    enum EStreamingDataType {
+    export enum EStreamingDataType {
         AudioData = 0,
         VideoData = 1,
         MicrophoneData = 2,
     }
 
-    enum EStreamInterface {
+    export enum EStreamInterface {
         Default = 0,
         RecentGames = 1,
         BigPicture = 2,
         Desktop = 3,
     }
 
-    enum EStreamMouseButton {
+    export enum EStreamMouseButton {
         Left = 1,
         Right = 2,
         Middle = 16,
@@ -5500,14 +5509,14 @@ declare namespace SteamUser {
         Unknown = 4096,
     }
 
-    enum EStreamMouseWheelDirection {
+    export enum EStreamMouseWheelDirection {
         Down = -120,
         Left = 3,
         Right = 4,
         Up = 120,
     }
 
-    enum EStreamP2PScope {
+    export enum EStreamP2PScope {
         Unknown = 0,
         Disabled = 1,
         OnlyMe = 2,
@@ -5515,13 +5524,13 @@ declare namespace SteamUser {
         Everyone = 4,
     }
 
-    enum EStreamQualityPreference {
+    export enum EStreamQualityPreference {
         Fast = 1,
         Balanced = 2,
         Beautiful = 3,
     }
 
-    enum EStreamStatsMessage {
+    export enum EStreamStatsMessage {
         FrameEvents = 1,
         DebugDump = 2,
         LogMessage = 3,
@@ -5530,7 +5539,7 @@ declare namespace SteamUser {
         LogUploadComplete = 6,
     }
 
-    enum EStreamTransport {
+    export enum EStreamTransport {
         None = 0,
         UDP = 1,
         UDPRelay = 2,
@@ -5541,12 +5550,12 @@ declare namespace SteamUser {
         UDPRelay_SNS = 6,
     }
 
-    enum EStreamVersion {
+    export enum EStreamVersion {
         None = 0,
         Current = 1,
     }
 
-    enum EStreamVideoCodec {
+    export enum EStreamVideoCodec {
         None = 0,
         Raw = 1,
         VP8 = 2,
@@ -5557,7 +5566,7 @@ declare namespace SteamUser {
         ORBX2 = 7,
     }
 
-    enum ESystemIMType {
+    export enum ESystemIMType {
         RawText = 0,
         InvalidCard = 1,
         RecurringPurchaseFailed = 2,
@@ -5570,13 +5579,13 @@ declare namespace SteamUser {
         SupportMessageClearAlert = 9,
     }
 
-    enum ETradeOfferConfirmationMethod {
+    export enum ETradeOfferConfirmationMethod {
         Invalid = 0,
         Email = 1,
         MobileApp = 2,
     }
 
-    enum ETradeOfferState {
+    export enum ETradeOfferState {
         Invalid = 1,
         Active = 2,
         Accepted = 3,
@@ -5590,14 +5599,14 @@ declare namespace SteamUser {
         InEscrow = 11,
     }
 
-    enum EUCMFilePrivacyState {
+    export enum EUCMFilePrivacyState {
         Invalid = -1,
         Private = 2,
         FriendsOnly = 4,
         Public = 8,
     }
 
-    enum EUdpPacketType {
+    export enum EUdpPacketType {
         Invalid = 0,
         ChallengeReq = 1,
         Challenge = 2,
@@ -5609,7 +5618,7 @@ declare namespace SteamUser {
         Max = 8,
     }
 
-    enum EUniverse {
+    export enum EUniverse {
         Invalid = 0,
         Public = 1,
         Beta = 2,
@@ -5617,26 +5626,26 @@ declare namespace SteamUser {
         Dev = 4,
     }
 
-    enum EUserReviewScorePreference {
+    export enum EUserReviewScorePreference {
         Unset = 0,
         IncludeAll = 1,
         ExcludeBombs = 2,
     }
 
-    enum EValveIndexComponent {
+    export enum EValveIndexComponent {
         Unknown = 0,
         HMD = 1,
         LeftKnuckle = 2,
         RightKnuckle = 3,
     }
 
-    enum EVideoFormat {
+    export enum EVideoFormat {
         None = 0,
         YV12 = 1,
         Accel = 2,
     }
 
-    enum EVoiceCallState {
+    export enum EVoiceCallState {
         None = 0,
         ScheduledInitiate = 1,
         RequestedMicAccess = 2,
@@ -5649,7 +5658,7 @@ declare namespace SteamUser {
         Connected = 9,
     }
 
-    enum EWorkshopEnumerationType {
+    export enum EWorkshopEnumerationType {
         RankedByVote = 0,
         Recent = 1,
         Trending = 2,
@@ -5659,52 +5668,52 @@ declare namespace SteamUser {
         RecentFromFollowedUsers = 6,
     }
 
-    enum EWorkshopFileAction {
+    export enum EWorkshopFileAction {
         Played = 0,
         Completed = 1,
     }
 
-    enum EWorkshopFileType {
+    export enum EWorkshopFileType {
         First = 0,
         SteamworksAccessInvite = 13,
         SteamVideo = 14,
         GameManagedItem = 15,
     }
 
-    enum E_STAR_GlyphWriteResult {
+    export enum E_STAR_GlyphWriteResult {
         Success = 0,
         InvalidMessage = 1,
         InvalidJSON = 2,
         SQLError = 3,
     }
 
-    enum EClientUIMode {
+    export enum EClientUIMode {
         None = 0,
         BigPicture = 1,
         Mobile = 2,
         Web = 3,
     }
 
-    enum EConnectionProtocol {
+    export enum EConnectionProtocol {
         Auto = 0,
         TCP = 1,
         WebSocket = 2,
     }
 
-    enum EMachineIDType {
+    export enum EMachineIDType {
         None = 1,
         AlwaysRandom = 2,
         AccountNameGenerated = 3,
         PersistentRandom = 4,
     }
 
-    enum EPrivacyState {
+    export enum EPrivacyState {
         Private = 1,
         FriendsOnly = 2,
         Public = 3,
     }
 
-    enum EPurchaseResult {
+    export enum EPurchaseResult {
         Unknown = -1,
         OK = 0,
         AlreadyOwned = 9,

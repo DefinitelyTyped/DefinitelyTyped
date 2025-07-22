@@ -1,7 +1,7 @@
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class TextureNode extends UniformNode<Texture> {
     readonly isTextureNode: true;
@@ -34,32 +34,32 @@ export default class TextureNode extends UniformNode<Texture> {
     /**
      * @deprecated
      */
-    uv(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+    uv(uvNode: Node): ShaderNodeObject<Node>;
 
-    sample(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+    sample(uvNode: Node): ShaderNodeObject<Node>;
 
-    blur(amountNode: NodeRepresentation): ShaderNodeObject<Node>;
+    blur(amountNode: Node): ShaderNodeObject<Node>;
 
-    level(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+    level(levelNode: Node): ShaderNodeObject<Node>;
 
-    size(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+    size(levelNode: Node): ShaderNodeObject<Node>;
 
-    bias(biasNode: NodeRepresentation): ShaderNodeObject<Node>;
+    bias(biasNode: Node): ShaderNodeObject<Node>;
 
-    compare(compareNode: NodeRepresentation): ShaderNodeObject<Node>;
+    compare(compareNode: Node): ShaderNodeObject<Node>;
 
-    grad(gradeNodeX: NodeRepresentation, gradeNodeY: NodeRepresentation): ShaderNodeObject<Node>;
+    grad(gradeNodeX: Node, gradeNodeY: Node): ShaderNodeObject<Node>;
 
-    depth(depthNode: NodeRepresentation): ShaderNodeObject<Node>;
+    depth(depthNode: Node): ShaderNodeObject<Node>;
 
     clone(): this;
 }
 
 export const texture: (
     value?: Texture,
-    uvNode?: NodeRepresentation | null,
-    levelNode?: NodeRepresentation | null,
-    biasNode?: NodeRepresentation | null,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+    biasNode?: Node | null,
 ) => ShaderNodeObject<TextureNode>;
 
 export const uniformTexture: (
@@ -68,9 +68,9 @@ export const uniformTexture: (
 
 export const textureLoad: (
     value?: Texture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-    biasNode?: NodeRepresentation,
+    uvNode?: Node,
+    levelNode?: Node | number,
+    biasNode?: Node,
 ) => ShaderNodeObject<TextureNode>;
 
 export const sampler: (value: Texture | TextureNode) => ShaderNodeObject<Node>;

@@ -1,14 +1,14 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Node } from "three/webgpu";
 
 interface HashBlurOptions {
-    repeats?: NodeRepresentation | undefined;
-    mask?: NodeRepresentation | null | undefined;
+    repeats?: Node | undefined;
+    mask?: Node | null | undefined;
     premultipliedAlpha?: boolean | undefined;
 }
 
 export const hashBlur: (
-    textureNode: NodeRepresentation,
-    bluramount?: NodeRepresentation,
+    textureNode: Node,
+    bluramount?: Node | number,
     options?: HashBlurOptions,
 ) => ShaderNodeObject<Node>;
