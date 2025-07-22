@@ -3,7 +3,8 @@
     "name": "@types/cronofy-elements",
     "version": "1.64.9999",
     "projects": [
-        "https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)"
+        "https://github.com/cronofy",
+        "https://docs.cronofy.com/developers/ui-elements/"
     ],
     "devDependencies": {
         "@types/cronofy-elements": "workspace:."
