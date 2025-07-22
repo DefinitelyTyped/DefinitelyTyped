@@ -14,7 +14,7 @@ declare function useDimensions<
     T extends HTMLElement = HTMLElement,
 >(args?: Args): [
     (node: T) => void,
-    Dimensions | {},
+    Dimensions | Record<string, never>,
     HTMLElement,
 ];
 
