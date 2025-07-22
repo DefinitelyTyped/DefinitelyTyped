@@ -931,42 +931,7 @@ declare namespace OracleDB {
      * @since 2.1
      */
     const versionSuffix: string;
-    /**
-     * This property is a string that specifies the name of the driver used by the client to connect to Oracle Database.
-     * Available only in node-oracledb Thin mode.
-     *
-     * @since 6.7
-     */
-    let driverName: string;
-    /**
-     * This property is a string that specifies the name of the host machine where the connection originates.
-     * Available only in node-oracledb Thin mode.
-     *
-     * @since 6.7
-     */
-    let machine: string;
-    /**
-     * This property is a string that specifies the name of the operating system user that initiates the database connection.
-     * Available only in node-oracledb Thin mode.
-     *
-     * @since 6.7
-     */
-    let osUser: string;
-    /**
-     * This property is a string that specifies the name of the program connecting to the database.
-     * Available only in node-oracledb Thin mode.
-     *
-     * @since 6.7
-     */
-    let program: string;
-    /**
-     * This property is a string that specifies the name of the terminal from where the connection originates.
-     * Available only in node-oracledb Thin mode.
-     *
-     * @since 6.7
-     */
-    let terminal: string;
-
+    
     interface BindParameter {
         /**
          * The direction of the bind. One of the Execute Bind Direction Constants.
