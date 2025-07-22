@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/request",
-    "version": "2.48.9999",
+    "version": "2.48.10000",
     "projects": [
         "https://github.com/request/request"
     ],
@@ -9,7 +9,7 @@
         "@types/caseless": "*",
         "@types/node": "*",
         "@types/tough-cookie": "*",
-        "form-data": "^2.5.0"
+        "form-data": "^2.5.4"
     },
     "devDependencies": {
         "@types/request": "workspace:."
