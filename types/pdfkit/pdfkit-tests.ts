@@ -714,11 +714,11 @@ const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
 doc.outline.addItem("A");
 
 // $ExpectType TextBounds
-doc.boundsOfString('Bounds of string', 50, 100, {
-    align: 'left'
+doc.boundsOfString("Bounds of string", 50, 100, {
+    align: "left",
 });
 
 // $ExpectType TextBounds
-doc.boundsOfString('Bounds of string', {
-    align: 'left'
+doc.boundsOfString("Bounds of string", {
+    align: "left",
 });
