@@ -268,6 +268,10 @@
             "libraryName": "astring",
             "asOfVersion": "1.7.0"
         },
+        "async-redis": {
+            "libraryName": "async-redis",
+            "asOfVersion": "2.0.0"
+        },
         "asyncblock": {
             "libraryName": "asyncblock",
             "asOfVersion": "2.2.11"
@@ -1409,6 +1413,10 @@
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
         },
+        "cypress-cdp": {
+            "libraryName": "cypress-cdp",
+            "asOfVersion": "1.4.0"
+        },
         "cypress-recurse": {
             "libraryName": "cypress-recurse",
             "asOfVersion": "1.9.0"
@@ -1680,6 +1688,10 @@
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
+        },
+        "easy-speech": {
+            "libraryName": "easy-speech",
+            "asOfVersion": "2.1.1"
         },
         "easy-table": {
             "libraryName": "easy-table",
@@ -2132,6 +2144,54 @@
         "fcostarodrigo__walk": {
             "libraryName": "@fcostarodrigo/walk",
             "asOfVersion": "6.0.0"
+        },
+        "feathersjs__authentication": {
+            "libraryName": "@feathersjs/authentication",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-client": {
+            "libraryName": "@feathersjs/authentication-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__authentication-local": {
+            "libraryName": "@feathersjs/authentication-local",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__configuration": {
+            "libraryName": "@feathersjs/configuration",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__errors": {
+            "libraryName": "@feathersjs/errors",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__express": {
+            "libraryName": "@feathersjs/express",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__feathers": {
+            "libraryName": "@feathersjs/feathers",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus": {
+            "libraryName": "@feathersjs/primus",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__primus-client": {
+            "libraryName": "@feathersjs/primus-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__rest-client": {
+            "libraryName": "@feathersjs/rest-client",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio": {
+            "libraryName": "@feathersjs/socketio",
+            "asOfVersion": "4.3.0"
+        },
+        "feathersjs__socketio-client": {
+            "libraryName": "@feathersjs/socketio-client",
+            "asOfVersion": "4.3.0"
         },
         "fecha": {
             "libraryName": "fecha",
@@ -4313,6 +4373,10 @@
             "libraryName": "minizlib",
             "asOfVersion": "3.0.0"
         },
+        "mixpanel-browser": {
+            "libraryName": "mixpanel-browser",
+            "asOfVersion": "2.66.0"
+        },
         "mkdirp": {
             "libraryName": "mkdirp",
             "asOfVersion": "2.0.0"
@@ -5150,6 +5214,10 @@
         "pino": {
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
+        },
+        "pino-http": {
+            "libraryName": "pino-http",
+            "asOfVersion": "6.1.0"
         },
         "pino-pretty": {
             "libraryName": "pino-pretty",
@@ -6127,6 +6195,10 @@
             "libraryName": "react-native-share",
             "asOfVersion": "6.0.0"
         },
+        "react-native-shared-group-preferences": {
+            "libraryName": "react-native-shared-group-preferences",
+            "asOfVersion": "1.1.24"
+        },
         "react-native-status-bar-height": {
             "libraryName": "react-native-status-bar-height",
             "asOfVersion": "2.3.0"
@@ -6326,6 +6398,10 @@
         "reactstrap": {
             "libraryName": "reactstrap",
             "asOfVersion": "8.7.0"
+        },
+        "read": {
+            "libraryName": "read",
+            "asOfVersion": "3.0.0"
         },
         "read-chunk": {
             "libraryName": "read-chunk",

@@ -5,13 +5,17 @@ export type Dictionary<V = any> = Record<string, V>;
 
 // Rokt Manager Types
 export type RoktPartnerAttributes = Dictionary<string | number | boolean | undefined | null>;
+export type RoktAttributeValueArray = Array<string | number | boolean>;
+export type RoktAttributeValueType = string | number | boolean | undefined | null;
+export type RoktAttributeValue = RoktAttributeValueType | RoktAttributeValueArray;
+export type RoktAttributeCollection = Record<string, RoktAttributeValue>;
 
 export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
 }
 
 export interface RoktSelectPlacementsOptions {
-    attributes: RoktPartnerAttributes;
+    attributes: RoktAttributeCollection;
     identifier?: string;
 }
 

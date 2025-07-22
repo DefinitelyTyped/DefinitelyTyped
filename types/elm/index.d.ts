@@ -1,9 +1,18 @@
-type ElmInstance<
+interface ElmModule<
     P,
     F,
     Entrypoints extends string[] =
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         ["Main"],
+> {
+    Elm: ElmInstance<P, F, Entrypoints>;
+}
+
+type ElmInstance<
+    P,
+    F,
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    Entrypoints extends string[] = ["Main"],
 > = NestedEntrypoints<Entrypoints, P, F>;
 
 type NestedEntrypoints<Entrypoints extends string[], P, F> = Entrypoints extends [

@@ -2176,14 +2176,6 @@ declare namespace OracleDB {
          */
         username?: string | undefined;
         /**
-         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
-         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the ewallet.pem file specified in the walletLocation property.
-         * Available with thin driver mode only.
-         *
-         * @since 6.6
-         */
-        walletContent?: string | undefined;
-        /**
          * Enables the connection to use the TLS extension, Server Name Indication (SNI).
          * This property requires Oracle Database 23.7 (or later).
          * Available only in node-oracledb Thin mode.
@@ -2209,6 +2201,59 @@ declare namespace OracleDB {
          * @since 6.8
          */
         networkCompressionThreshold?: number | undefined;
+        /**
+         * The name of the driver that is used by the client to connect to Oracle Database.
+         * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+         * This optional property overrides the `oracledb.driverName` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        driverName?: string | undefined;
+        /**
+         * The name of the host machine from where the connection originates.
+         * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.machine` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        machine?: string | undefined;
+        /**
+         * The name of the operating system user that initiates the database connection.
+         * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.osUser` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        osUser?: string | undefined;
+        /**
+         * The name of the program connecting to the database.
+         * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.program` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        program?: string | undefined;
+        /**
+         * The name of the terminal from where the connection originates.
+         * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.terminal` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        terminal?: string | undefined;
+        /**
+         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
+         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
+         * The value of the walletContent property overrides the `walletLocation` value and the `WALLET_LOCATION` parameter in the connection string.
+         *
+         * @since 6.6.0
+         */
+        walletContent?: string | undefined;
     }
 
     interface DBError extends Error {
@@ -3213,14 +3258,6 @@ declare namespace OracleDB {
          */
         privilege?: number | undefined;
         /**
-         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
-         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the ewallet.pem file specified in the walletLocation property.
-         * Available with thin driver mode only.
-         *
-         * @since 6.6
-         */
-        walletContent?: string | undefined;
-        /**
          * Enables the connection to use the TLS extension, Server Name Indication (SNI).
          * This property requires Oracle Database 23.7 (or later).
          * Available only in node-oracledb Thin mode.
@@ -3246,6 +3283,59 @@ declare namespace OracleDB {
          * @since 6.8
          */
         networkCompressionThreshold?: number | undefined;
+        /**
+         * The name of the driver that is used by the client to connect to Oracle Database.
+         * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+         * This optional property overrides the `oracledb.driverName` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        driverName?: string | undefined;
+        /**
+         * The name of the host machine from where the connection originates.
+         * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.machine` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        machine?: string | undefined;
+        /*
+         * The name of the operating system user that initiates the database connection.
+         * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.osUser` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        osUser?: string | undefined;
+        /**
+         * The name of the program connecting to the database.
+         * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.program` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        program?: string | undefined;
+        /**
+         * The name of the terminal from where the connection originates.
+         * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.terminal` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         *
+         * @since 6.7.0
+         */
+        terminal?: string | undefined;
+        /**
+         * The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.
+         * This property can be used to directly specify the security credentials instead of storing and reading the credentials from the `ewallet.pem` file specified in the walletLocation property.
+         * The value of the walletContent property overrides the `walletLocation` value and the `WALLET_LOCATION` parameter in the connection string.
+         *
+         * @since 6.6.0
+         */
+        walletContent?: string | undefined;
     }
 
     /**
@@ -5057,6 +5147,69 @@ declare namespace OracleDB {
         isEnabled(): boolean | undefined;
     }
     const traceHandler: traceHandler;
+
+    /**
+     * This property is a string that specifies the name of the driver used by the client to connect to Oracle Database.
+     * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `o`racledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.driverName
+     */
+    let driverName: string | undefined;
+
+    /**
+     * This property is a string that specifies the name of the host machine where the connection originates.
+     * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.machine
+     */
+    let machine: string | undefined;
+
+    /**
+     * This property is a string that specifies the name of the operating system user that initiates the database connection.
+     * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.osUser
+     */
+    let osUser: string | undefined;
+
+    /**
+     * This property is a string that specifies the name of the program connecting to the database.
+     * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.program
+     */
+    let program: string | undefined;
+
+    /**
+     * This property is a string that specifies the name of the terminal from where the connection originates.
+     * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.terminal
+     */
+    let terminal: string | undefined;
+
+    /**
+     * Returns a list of TNS Aliases, also known as Network Service Names, defined in the `tnsnames.ora` file which is inside the directory that is specified in the `configDir` property or the `TNS_ADMIN` environment variable if `configDir` is not specified.
+     * If a `tnsnames.ora` file does not exist, then an exception is raised.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getNetworkServiceNames
+     */
+    function getNetworkServiceNames(configDir?: string): Promise<string[]>;
 }
 
 export = OracleDB;
