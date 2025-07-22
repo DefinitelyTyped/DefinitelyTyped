@@ -4,18 +4,17 @@ import { Batch } from "@mparticle/event-models";
 export type Dictionary<V = any> = Record<string, V>;
 
 // Rokt Manager Types
-export type RoktPartnerAttributes = Dictionary<string | number | boolean | undefined | null>;
-export type RoktAttributeValueArray = Array<string | number | boolean>;
+export type RoktAttributeValueArray = Array<string | number | boolean | Dictionary>;
 export type RoktAttributeValueType = string | number | boolean | undefined | null;
 export type RoktAttributeValue = RoktAttributeValueType | RoktAttributeValueArray;
-export type RoktAttributeCollection = Record<string, RoktAttributeValue>;
+export type RoktPartnerAttributes = Record<string, RoktAttributeValue>;
 
 export interface RoktPartnerExtensionData<T> {
     [extensionName: string]: T;
 }
 
 export interface RoktSelectPlacementsOptions {
-    attributes: RoktAttributeCollection;
+    attributes: RoktPartnerAttributes;
     identifier?: string;
 }
 
