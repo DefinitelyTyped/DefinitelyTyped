@@ -28,15 +28,16 @@ export class DirectUpload {
 
 export interface DirectUploadDelegate {
     directUploadWillCreateBlobWithXHR?: ((xhr: XMLHttpRequest) => void) | undefined;
+
     directUploadWillStoreFileWithXHR?: ((xhr: XMLHttpRequest) => void) | undefined;
 }
 
 export interface Blob {
-    signed_id: string;
-    filename: string;
-    content_type: string;
     byte_size: number;
     checksum: string;
+    content_type: string;
+    filename: string;
+    signed_id: string;
 }
 
 export class DirectUploadController {
