@@ -295,6 +295,19 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default false
      */
     extendedZone?: boolean | undefined;
+
+    /**
+     * truncate output to desired presicion
+     * @default "milliseconds"
+     */
+    precision?:
+        | "years"
+        | "months"
+        | "days"
+        | "hours"
+        | "minutes"
+        | "seconds"
+        | "milliseconds";
 }
 
 /** @deprecated alias for backwards compatibility */
