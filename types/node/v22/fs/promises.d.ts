@@ -474,7 +474,8 @@ declare module "fs/promises" {
          */
         close(): Promise<void>;
         /**
-         * An alias for {@link FileHandle.close()}.
+         * Calls `filehandle.close()` and returns a promise that fulfills when the
+         * filehandle is closed.
          * @since v20.4.0
          */
         [Symbol.asyncDispose](): Promise<void>;

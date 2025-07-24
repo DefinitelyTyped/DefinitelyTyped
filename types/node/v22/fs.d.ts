@@ -329,13 +329,14 @@ declare module "fs" {
          */
         readSync(): Dirent | null;
         /**
-         * An alias for `dir.close()`.
+         * Calls `dir.close()` and returns a promise that fulfills when the
+         * dir is closed.
          * @since v22.17.0
          * @experimental
          */
         [Symbol.asyncDispose](): Promise<void>;
         /**
-         * An alias for `dir.closeSync()`.
+         * Calls `dir.closeSync()` and returns `undefined`.
          * @since v22.17.0
          * @experimental
          */
