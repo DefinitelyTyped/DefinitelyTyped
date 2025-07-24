@@ -74,6 +74,7 @@ export { useFragment } from "./relay-hooks/useFragment";
 export { useLazyLoadQuery } from "./relay-hooks/useLazyLoadQuery";
 export { useMutation } from "./relay-hooks/useMutation";
 export { usePaginationFragment } from "./relay-hooks/usePaginationFragment";
+export { usePrefetchableForwardPaginationFragment } from "./relay-hooks/usePrefetchableForwardPaginationFragment";
 export { usePreloadedQuery } from "./relay-hooks/usePreloadedQuery";
 export { useQueryLoader } from "./relay-hooks/useQueryLoader";
 export { useRefetchableFragment } from "./relay-hooks/useRefetchableFragment";
