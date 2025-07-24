@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-relay",
-    "version": "18.2.9999",
+    "version": "19.0.0",
     "projects": [
         "https://github.com/facebook/relay",
         "https://relay.dev"
