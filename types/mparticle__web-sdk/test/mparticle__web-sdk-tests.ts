@@ -200,7 +200,19 @@ mParticle.Rokt.selectPlacements({
         price: 100,
         taxes: 6.75,
         excessbaggage: true,
-        cartItems: ["item1", "item2"],
+        products: ["product1", "product2"],
+        cartItems: [
+            {
+                name: "item",
+                price: 100,
+                quantity: 1,
+            },
+            {
+                name: "item2",
+                price: 200,
+                quantity: 2,
+            },
+        ],
     },
 });
 

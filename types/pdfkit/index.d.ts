@@ -577,6 +577,13 @@ declare namespace PDFKit.Mixins {
         structTypes?: [string | null, string | null, string | null] | undefined;
     }
 
+    interface TextBounds {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
+
     interface PDFText {
         lineGap(lineGap: number): this;
         moveDown(line?: number): this;
@@ -585,6 +592,8 @@ declare namespace PDFKit.Mixins {
         text(text: string, options?: TextOptions): this;
         widthOfString(text: string, options?: TextOptions): number;
         heightOfString(text: string, options?: TextOptions): number;
+        boundsOfString(text: string, x?: number, y?: number, options?: TextOptions): TextBounds;
+        boundsOfString(text: string, options?: TextOptions): TextBounds;
         list(list: Array<string | any>, x?: number, y?: number, options?: TextOptions): this;
         list(list: Array<string | any>, options?: TextOptions): this;
     }
