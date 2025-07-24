@@ -271,6 +271,7 @@ import { URL } from "node:url";
         unknownProtocolTimeout: 100000,
         streamResetBurst: 1000,
         streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
     const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
@@ -399,6 +400,7 @@ import { URL } from "node:url";
             return new Duplex();
         },
         protocol: "https:",
+        strictFieldWhitespaceValidation: false,
     };
     const secureClientSessionOptions: SecureClientSessionOptions = { ...clientSessionOptions, ca: "..." };
     const onConnectHandler = (session: Http2Session, socket: Socket) => {};
@@ -502,6 +504,7 @@ import { URL } from "node:url";
         unknownProtocolTimeout: 100000,
         streamResetBurst: 1000,
         streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
 
     const http2Stream: Http2Stream = {} as any;
