@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/api-sitna",
+    "version": "4.6.9999",
+    "projects": [
+        "https://sitna.navarra.es/api/doc/"
+    ],
+    "devDependencies": {
+        "@types/api-sitna": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fernando Lacunza",
+            "githubUsername": "flacunza"
+        },
+		{
+			"name": "Tracasa Instrumental",
+			"url": "https://itracasa.es"
+		}
+    ]
+}

@@ -1,0 +1,23 @@
+import { Cfg, Map, Consts, feature, layer } from './sitna';
+
+declare global {
+    interface Window {
+        SITNA: {
+            Cfg: typeof Cfg;
+            Map: typeof Map;
+            Consts: typeof Consts;
+            feature: feature;
+            layer: layer;
+        };
+    }
+    // For environments where globalThis is used
+    var SITNA: {
+        Cfg: typeof Cfg;
+        Map: typeof Map;
+        Consts: typeof Consts;
+        feature: feature;
+        layer: layer;
+    };
+}
+
+export { Map as default, Cfg, Consts, feature, layer };
