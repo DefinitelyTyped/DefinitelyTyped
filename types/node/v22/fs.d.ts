@@ -4372,7 +4372,7 @@ declare module "fs" {
          * Current working directory.
          * @default process.cwd()
          */
-        cwd?: string | undefined;
+        cwd?: string | URL | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false

@@ -1030,6 +1030,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     glob("**/*.js", (err, matches) => {
         matches; // $ExpectType string[]
     });
+    glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
+        matches; // $ExpectType string[]
+    });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
         matches; // $ExpectType Dirent<string>[]
     });
