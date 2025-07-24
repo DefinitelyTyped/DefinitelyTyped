@@ -965,7 +965,10 @@ declare module "http2" {
          * * `:path` \= `/`
          * @since v8.4.0
          */
-        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+        request(
+            headers?: OutgoingHttpHeaders | readonly string[],
+            options?: ClientSessionRequestOptions,
+        ): ClientHttp2Stream;
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "origin", listener: (origins: string[]) => void): this;
         addListener(
