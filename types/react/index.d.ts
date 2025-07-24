@@ -1779,8 +1779,6 @@ declare namespace React {
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
      *
-     * `useImperativeHandle` should be used with `React.forwardRef`.
-     *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
