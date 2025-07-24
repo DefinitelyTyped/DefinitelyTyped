@@ -1,8 +1,7 @@
-import { Feature, FeatureOptions, MeasurementOptions } from './Feature';
-import { PolygonOptions } from './Polygon';
+import { Feature, FeatureOptions, MeasurementOptions } from "./Feature";
+import { PolygonOptions } from "./Polygon";
 
 export class MultiPolygon extends Feature {
-
     constructor(coords: number[][][][], options?: PolygonOptions);
 
     getCoordinates(options?: { pointArray?: boolean } & MeasurementOptions): number[][][][] | number[][];

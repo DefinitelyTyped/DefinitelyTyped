@@ -1,8 +1,8 @@
-import EventTarget from './EventTarget';
-import Layer, { LayerOptions } from '../SITNA/layer/Layer';
-import { StyleOptions } from '../SITNA/layer/Vector';
-import Feature from '../SITNA/feature/Feature';
-import Marker, { MarkerOptions } from '../SITNA/feature/Marker';
+import Feature from "../SITNA/feature/Feature";
+import Marker, { MarkerOptions } from "../SITNA/feature/Marker";
+import Layer, { LayerOptions } from "../SITNA/layer/Layer";
+import { StyleOptions } from "../SITNA/layer/Vector";
+import EventTarget from "./EventTarget";
 
 export interface LayoutOptions {
     config?: string;
@@ -88,13 +88,16 @@ export type AddMarkerCallback = (marker: Marker) => void;
 export type SetExtentCallback = (newExtent: number[]) => void;
 
 export class BasicMap extends EventTarget {
-
     constructor(div: HTMLElement | string, options?: MapOptions);
 
     loaded(callback?: () => void): Promise<void>;
     getCrs(): string;
     setCrs(crs: string, callback?: SetCrsCallback): Promise<string>;
-    addMarker(coordinatesOrMarker: number[] | Marker, options?: MarkerOptions, callback?: AddMarkerCallback): Promise<Marker>;
+    addMarker(
+        coordinatesOrMarker: number[] | Marker,
+        options?: MarkerOptions,
+        callback?: AddMarkerCallback,
+    ): Promise<Marker>;
     addLayer(layer: string | Layer | LayerOptions, callback?: (layer: Layer) => void): Promise<Layer>;
     setBaseLayer(layer: Layer | string, callback?: () => void): Promise<Layer | null>;
     getLayer(layer: string | Layer): Layer | null;

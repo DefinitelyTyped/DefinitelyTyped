@@ -1,4 +1,4 @@
-import Point from './Point';
+import Point from "./Point";
 
 export interface MarkerStyleOptions {
     anchor?: number[];
@@ -25,7 +25,6 @@ export interface MarkerOptions extends MarkerStyleOptions {
 }
 
 export class Marker extends Point {
-
     constructor(coords: number[], options?: MarkerOptions);
     getStyle(): MarkerStyleOptions;
     setStyle(style: MarkerStyleOptions): this;

@@ -1,4 +1,4 @@
-import { Cfg, Map, Consts, feature, layer } from './sitna';
+import { Cfg, Consts, feature, layer, Map } from "./sitna";
 
 declare global {
     interface Window {
@@ -20,4 +20,4 @@ declare global {
     };
 }
 
-export { Map as default, Cfg, Consts, feature, layer };
+export { Cfg, Consts, feature, layer, Map as default };

@@ -1,4 +1,4 @@
-import { Feature, FeatureOptions, MeasurementOptions } from './Feature';
+import { Feature, FeatureOptions, MeasurementOptions } from "./Feature";
 
 export interface PolylineStyleOptions {
     fontColor?: string;
@@ -17,7 +17,6 @@ export interface PolylineOptions extends FeatureOptions, PolylineStyleOptions {
 }
 
 export class Polyline extends Feature {
-
     constructor(coords: number[][], options?: PolylineOptions);
 
     getCoordinates(options?: MeasurementOptions): number[][];

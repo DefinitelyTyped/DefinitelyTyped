@@ -1,4 +1,4 @@
-import BasicMap, { MapOptions } from '../TC/Map';
+import BasicMap, { MapOptions } from "../TC/Map";
 
 export interface SearchResultItem {
     id: string;
@@ -9,7 +9,6 @@ export type SearchDataCallback = (data: SearchResultItem[]) => void;
 export type SearchByIdCallback = (queryId: string | null) => void;
 
 export class SitnaMap extends BasicMap {
-
     getMunicipalities(callback?: SearchDataCallback): Promise<SearchResultItem[]>;
     getUrbanAreas(callback?: SearchDataCallback): Promise<SearchResultItem[]>;
     getCommonwealths(callback?: SearchDataCallback): Promise<SearchResultItem[]>;

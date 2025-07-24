@@ -1,4 +1,4 @@
-import { Layer, LayerOptions } from './Layer';
+import { Layer, LayerOptions } from "./Layer";
 
 export interface RasterOptions extends LayerOptions {
     layerNames?: string | string[];
@@ -23,9 +23,7 @@ export interface RasterOptions extends LayerOptions {
 }
 
 export class Raster extends Layer {
-
     constructor(options?: RasterOptions);
-
 }
 
 export default Raster;

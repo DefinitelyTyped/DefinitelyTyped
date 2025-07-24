@@ -1,4 +1,4 @@
-import { Feature, FeatureOptions, MeasurementOptions } from './Feature';
+import { Feature, FeatureOptions, MeasurementOptions } from "./Feature";
 
 export interface PointStyleOptions {
     fillColor?: string;

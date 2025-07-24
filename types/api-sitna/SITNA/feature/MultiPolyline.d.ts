@@ -1,8 +1,7 @@
-import { Feature, FeatureOptions, MeasurementOptions } from './Feature';
-import Polyline, { PolylineOptions } from './Polyline';
+import { Feature, FeatureOptions, MeasurementOptions } from "./Feature";
+import Polyline, { PolylineOptions } from "./Polyline";
 
 export class MultiPolyline extends Feature {
-
     constructor(coords: number[][][], options?: PolylineOptions);
 
     getCoordinates(options?: { pointArray?: boolean } & MeasurementOptions): number[][][] | number[][];

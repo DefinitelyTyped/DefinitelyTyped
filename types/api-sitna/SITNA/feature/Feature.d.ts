@@ -1,4 +1,4 @@
-import { Layer } from '../../SITNA/layer/Layer';
+import { Layer } from "../../SITNA/layer/Layer";
 
 export interface FeatureOptions {
     data?: object | string;
@@ -21,7 +21,6 @@ export type Geometry = Array<GeometryElement>;
 export type GeometryElement = number | Geometry;
 
 export class Feature {
-    
     constructor(coords: Geometry, options?: FeatureOptions);
 
     getId(): string;

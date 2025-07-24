@@ -1,19 +1,19 @@
-import Consts from './TC/Consts';
-import { SitnaMap } from './SITNA/Map';
-import Feature from './SITNA/feature/Feature';
-import Point from './SITNA/feature/Point';
-import MultiPoint from './SITNA/feature/MultiPoint';
-import Marker from './SITNA/feature/Marker';
-import MultiMarker from './SITNA/feature/MultiMarker';
-import Polyline from './SITNA/feature/Polyline';
-import MultiPolyline from './SITNA/feature/MultiPolyline';
-import Polygon from './SITNA/feature/Polygon';
-import MultiPolygon from './SITNA/feature/MultiPolygon';
-import Circle from './SITNA/feature/Circle';
-import Layer from './SITNA/layer/Layer';
-import Raster from './SITNA/layer/Raster';
-import Vector from './SITNA/layer/Vector';
-import Cfg from './TC/Cfg';
+import Circle from "./SITNA/feature/Circle";
+import Feature from "./SITNA/feature/Feature";
+import Marker from "./SITNA/feature/Marker";
+import MultiMarker from "./SITNA/feature/MultiMarker";
+import MultiPoint from "./SITNA/feature/MultiPoint";
+import MultiPolygon from "./SITNA/feature/MultiPolygon";
+import MultiPolyline from "./SITNA/feature/MultiPolyline";
+import Point from "./SITNA/feature/Point";
+import Polygon from "./SITNA/feature/Polygon";
+import Polyline from "./SITNA/feature/Polyline";
+import Layer from "./SITNA/layer/Layer";
+import Raster from "./SITNA/layer/Raster";
+import Vector from "./SITNA/layer/Vector";
+import { SitnaMap } from "./SITNA/Map";
+import Cfg from "./TC/Cfg";
+import Consts from "./TC/Consts";
 
 interface layer {
     Layer: typeof Layer;
@@ -34,4 +34,4 @@ interface feature {
     Circle: typeof Circle;
 }
 
-export { Cfg, SitnaMap as Map, Consts, feature, layer };
+export { Cfg, Consts, feature, layer, SitnaMap as Map };

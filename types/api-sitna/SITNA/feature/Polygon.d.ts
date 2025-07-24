@@ -1,4 +1,4 @@
-import { Feature, FeatureOptions, MeasurementOptions } from './Feature';
+import { Feature, FeatureOptions, MeasurementOptions } from "./Feature";
 
 export interface PolygonStyleOptions {
     fillColor?: string;
@@ -19,7 +19,6 @@ export interface PolygonOptions extends FeatureOptions, PolygonStyleOptions {
 }
 
 export class Polygon extends Feature {
-
     constructor(coords: number[][][], options?: PolygonOptions);
 
     getCoordinates(options?: { pointArray?: boolean } & MeasurementOptions): number[][][] | number[][];

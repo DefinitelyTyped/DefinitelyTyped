@@ -1,5 +1,5 @@
-import { Feature, FeatureOptions, MeasurementOptions, Geometry } from './Feature';
-import Polygon, { PolygonOptions } from './Polygon';
+import { Feature, FeatureOptions, Geometry, MeasurementOptions } from "./Feature";
+import Polygon, { PolygonOptions } from "./Polygon";
 
 export interface CircleGeometry {
     center: number[];
@@ -7,7 +7,6 @@ export interface CircleGeometry {
 }
 
 export class Circle extends Feature {
-
     constructor(geometry: CircleGeometry | number[][], options?: PolygonOptions);
 
     getCoordinates(options?: MeasurementOptions): number[][];

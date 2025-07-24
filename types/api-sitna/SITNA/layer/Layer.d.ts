@@ -1,4 +1,4 @@
-import { SitnaMap } from '../Map';
+import { SitnaMap } from "../Map";
 
 export interface LayerOptions {
     id?: string;

@@ -1,7 +1,6 @@
-import Feature from '../../SITNA/feature/Feature';
+import Feature from "../../SITNA/feature/Feature";
 
 export default class Filter {
-
 }
 
 export interface filter {
