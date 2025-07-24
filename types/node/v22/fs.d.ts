@@ -243,8 +243,8 @@ declare module "fs" {
          */
         name: Name;
         /**
-         * The base path that this `fs.Dirent` object refers to.
-         * @since v20.12.0
+         * The path to the parent directory of the file this `fs.Dirent` object refers to.
+         * @since v20.12.0, v18.20.0
          */
         parentPath: string;
         /**
@@ -4200,7 +4200,6 @@ declare module "fs" {
      * blob.stream();
      * ```
      * @since v19.8.0
-     * @experimental
      */
     export function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
 
@@ -4386,13 +4385,23 @@ declare module "fs" {
 
     /**
      * Retrieves the files matching the specified pattern.
+     *
+     * ```js
+     * import { glob } from 'node:fs';
+     *
+     * glob('*.js', (err, matches) => {
+     *   if (err) throw err;
+     *   console.log(matches);
+     * });
+     * ```
+     * @since v22.0.0
      */
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4400,7 +4409,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4408,7 +4417,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4416,19 +4425,25 @@ declare module "fs" {
         ) => void,
     ): void;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { globSync } from 'node:fs';
+     *
+     * console.log(globSync('*.js'));
+     * ```
+     * @since v22.0.0
+     * @returns paths of files that match the pattern.
      */
-    export function globSync(pattern: string | string[]): string[];
+    export function globSync(pattern: string | readonly string[]): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
     ): Dirent[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
     ): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
     ): Dirent[] | string[];
 }
