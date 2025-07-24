@@ -328,6 +328,18 @@ declare module "fs" {
          * @since v12.12.0
          */
         readSync(): Dirent | null;
+        /**
+         * An alias for `dir.close()`.
+         * @since v22.17.0
+         * @experimental
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+        /**
+         * An alias for `dir.closeSync()`.
+         * @since v22.17.0
+         * @experimental
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * Class: fs.StatWatcher
