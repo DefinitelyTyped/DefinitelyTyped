@@ -88,6 +88,9 @@ declare module "fs/promises" {
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
     }
+    interface ReadableWebStreamOptions {
+        autoClose?: boolean | undefined;
+    }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
@@ -261,7 +264,7 @@ declare module "fs/promises" {
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
