@@ -147,6 +147,10 @@ declare module "zlib" {
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
+        info?: boolean | undefined;
     }
     interface ZstdOptions {
         /**
