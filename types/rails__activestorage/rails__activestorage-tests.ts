@@ -65,3 +65,28 @@ upload.create((error, response) => {
         console.log(response);
     }
 });
+
+d.directUploadWillCreateBlobWithXHR = (xhr: XMLHttpRequest) => {
+    console.log("Hook on instance:", xhr.status);
+};
+
+if (d.xhr) {
+    console.log("XHR assigned after create:", d.xhr.status);
+}
+
+if (d.uploadRequest?.upload?.onprogress) {
+    console.log("Upload progress callback assigned.");
+}
+
+const inputElement = document.createElement("input");
+const file = new File(["content"], "file.txt");
+const directUploadController = new ActiveStorage.DirectUploadController(inputElement, file);
+directUploadController.start(error => {
+    if (error) console.error("Controller error", error);
+});
+
+const formElement = document.createElement("form");
+const directUploadsController = new ActiveStorage.DirectUploadsController(formElement);
+directUploadsController.start(error => {
+    if (error) console.error("Multiple controller error", error);
+});
