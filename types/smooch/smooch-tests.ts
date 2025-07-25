@@ -21,6 +21,27 @@ Smooch.on("reconnecting", (data: ConversationData) => {});
 Smooch.on("typing:start", (data: ConversationData) => {});
 Smooch.on("typing:stop", (data: ConversationData) => {});
 
+Smooch.off("ready", () => {});
+Smooch.off("destroy", () => {});
+Smooch.off("participant:added", (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.off("participant:removed", (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.off("conversation:added", (participants: ConversationParticipant[], data: ConversationData) => {});
+Smooch.off("conversation:read", (payload: ConversationReadEventPayload, data: ConversationData) => {});
+Smooch.off("conversation:removed", (data: ConversationData) => {});
+Smooch.off("message:received", (message: Message, data: ConversationData) => {});
+Smooch.off("message:sent", (message: Message, data: ConversationData) => {});
+Smooch.off("message", (message: Message, data: ConversationData) => {});
+Smooch.off("unreadCount", (unreadCount: number, data: ConversationData) => {});
+Smooch.off("widget:opened", () => {});
+Smooch.off("widget:closed", () => {});
+Smooch.off("log:debug", (e: DebugLog) => {});
+Smooch.off("connected", (data: ConversationData) => {});
+Smooch.off("disconnected", (data: ConversationData) => {});
+Smooch.off("reconnecting", (data: ConversationData) => {});
+Smooch.off("typing:start", (data: ConversationData) => {});
+Smooch.off("typing:stop", (data: ConversationData) => {});
+Smooch.off();
+
 // InitOptions must always have integrationId
 // @ts-expect-error
 Smooch.init({});
