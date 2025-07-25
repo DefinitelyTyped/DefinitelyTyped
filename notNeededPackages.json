@@ -5507,6 +5507,10 @@
             "libraryName": "pseudo-localization",
             "asOfVersion": "2.3.7"
         },
+        "psl": {
+            "libraryName": "psl",
+            "asOfVersion": "1.11.0"
+        },
         "ptomasroos__react-native-multi-slider": {
             "libraryName": "@ptomasroos/react-native-multi-slider",
             "asOfVersion": "2.2.1"
