@@ -2973,6 +2973,10 @@
             "libraryName": "image-type",
             "asOfVersion": "4.0.1"
         },
+        "imagekit": {
+            "libraryName": "imagekit",
+            "asOfVersion": "3.2.0"
+        },
         "imagemin-pngquant": {
             "libraryName": "imagemin-pngquant",
             "asOfVersion": "8.0.0"
