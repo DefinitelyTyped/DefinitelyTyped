@@ -14,6 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.mts",
         "index.d.ts",
         "test/luxon-tests.global.ts",
         "test/luxon-tests.module.ts"

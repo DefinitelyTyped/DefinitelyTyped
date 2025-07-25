@@ -96,7 +96,8 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     get start(): IfValid<DateTime<Valid>, null, IsValid>;
 
     /**
-     * Returns the end of the Interval
+     * Returns the end of the Interval. This is the first instant which is not part of the interval.
+     * (Interval is half-open).
      */
     get end(): IfValid<DateTime<Valid>, null, IsValid>;
 
