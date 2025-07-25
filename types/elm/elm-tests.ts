@@ -1,8 +1,10 @@
+import { ElmApp, ElmInstance, ElmMain, ElmModule, PortFromElm, PortToElm } from "elm";
+
 declare global {
     var Elm: ElmInstance<{}, {}>;
 }
 
-Elm.Main.init();
+(Elm.Main satisfies ElmMain<{}, {}>).init() satisfies ElmApp<{}>;
 
 // https://gist.github.com/evancz/8521339
 declare var Shanghai: ElmModule<
