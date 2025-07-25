@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hamt_plus",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mattbierner/hamt_plus"
+    ],
+    "devDependencies": {
+        "@types/hamt_plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cedric Mutesa",
+            "githubUsername": "Mutesa-Cedric"
+        }
+    ]
+}
