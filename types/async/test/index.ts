@@ -96,14 +96,18 @@ promiseIterableString = async.sortBy(["file1", "file2", "file3"], (file, callbac
 });
 
 async.some(["file1", "file2", "file3"], funcStringCbErrBoolean, (err: Error, result: boolean) => {});
+promiseBoolean = async.some(["file1", "file2", "file3"], funcStringCbErrBoolean);
 async.someLimit(["file1", "file2", "file3"], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => {});
+promiseBoolean = async.someLimit(["file1", "file2", "file3"], 2, funcStringCbErrBoolean);
 async.any(["file1", "file2", "file3"], funcStringCbErrBoolean, (err: Error, result: boolean) => {});
+promiseBoolean = async.any(["file1", "file2", "file3"], funcStringCbErrBoolean);
 
 async.every(["file1", "file2", "file3"], funcStringCbErrBoolean, (err: Error, result: boolean) => {});
 promiseBoolean = async.every(["file1", "file2", "file3"], funcStringCbErrBoolean);
 async.everyLimit(["file1", "file2", "file3"], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => {});
 promiseBoolean = async.everyLimit(["file1", "file2", "file3"], 2, funcStringCbErrBoolean);
 async.all(["file1", "file2", "file3"], funcStringCbErrBoolean, (err: Error, result: boolean) => {});
+promiseBoolean = async.all(["file1", "file2", "file3"], funcStringCbErrBoolean);
 
 async.concat(["dir1", "dir2", "dir3"], fs.readdir, (err, files) => {}); // $ExpectType void
 async.concat<fs.PathLike, string>(["dir1", "dir2", "dir3"], fs.readdir); // $ExpectType Promise<string[]>
@@ -259,20 +263,6 @@ async.until(whileTest, whileFn, (err: Error) => {});
 async.doWhilst(whileFn, whileTest, (err: Error) => {});
 async.doUntil(whileFn, whileTest, (err: Error) => {});
 
-async.during(testCallback => {
-    testCallback(new Error(), false);
-}, callback => {
-    callback();
-}, error => {
-    console.log(error);
-});
-async.doDuring(callback => {
-    callback();
-}, testCallback => {
-    testCallback(new Error(), false);
-}, error => {
-    console.log(error);
-});
 async.forever(errBack => {
     errBack(new Error("Not going on forever."));
 }, error => {
@@ -1039,3 +1029,176 @@ const wrapped3 = async.timeout(myFunction3, 1000, { bar: "bar" });
 wrapped3((err: Error, data: any) => {
     console.log(`async.timeout 3 end ${data}`);
 });
+
+declare let autoInjectsTask: any;
+// $ExpectType void
+async.autoInject(autoInjectsTask, (error, result) => {
+    // $ExpectType Error | null | undefined
+    error;
+    // $ExpectType any
+    result;
+});
+// $ExpectType Promise<any>
+async.autoInject(autoInjectsTask);
+
+// $ExpectType void
+async.transform<string, number>(
+    [] as string[],
+    (acc, item, key, callback) => {
+        // $ExpectType number[]
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType number
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+    (error, result) => {
+        // $ExpectType Error | null | undefined
+        error;
+        // $ExpectType (string | undefined)[] | undefined
+        result;
+    },
+);
+// $ExpectType Promise<(string | undefined)[]>
+async.transform<string, number>(
+    [] as string[],
+    (acc, item, key, callback) => {
+        // $ExpectType number[]
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType number
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+);
+// $ExpectType void
+async.transform<string, number>(
+    [] as string[],
+    [] as number[],
+    (acc, item, key, callback) => {
+        // $ExpectType number[]
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType number
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+    (error, result) => {
+        // $ExpectType Error | null | undefined
+        error;
+        // $ExpectType (string | undefined)[] | undefined
+        result;
+    },
+);
+// $ExpectType Promise<(string | undefined)[]>
+async.transform<string, number>(
+    [] as string[],
+    [] as number[],
+    (acc, item, key, callback) => {
+        // $ExpectType number[]
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType number
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+);
+// $ExpectType void
+async.transform<string, number>(
+    { key: "value" },
+    (acc, item, key, callback) => {
+        // $ExpectType { [key: string]: number }
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType string
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+    (error, result) => {
+        // $ExpectType Error | undefined
+        error;
+        // $ExpectType Dictionary<string | undefined>
+        result;
+    },
+);
+// $ExpectType Promise<Dictionary<string | undefined>>
+async.transform<string, number>(
+    { key: "value" },
+    (acc, item, key, callback) => {
+        // $ExpectType { [key: string]: number }
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType string
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+);
+// $ExpectType void
+async.transform<string, number>(
+    { key: "value" },
+    { key: 1 },
+    (acc, item, key, callback) => {
+        // $ExpectType { [key: string]: number }
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType string
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+    (error, result) => {
+        // $ExpectType Error | undefined
+        error;
+        // $ExpectType Dictionary<string | undefined>
+        result;
+    },
+);
+// $ExpectType Promise<Dictionary<string | undefined>>
+async.transform<string, number>(
+    { key: "value" },
+    { key: 1 },
+    (acc, item, key, callback) => {
+        // $ExpectType { [key: string]: number }
+        acc;
+        // $ExpectType string
+        item;
+        // $ExpectType string
+        key;
+        // $ExpectType (error?: Error | undefined) => void
+        callback;
+    },
+);
+
+// $ExpectType void
+async.race<string>(
+    [(taskCallback) => {
+        // $ExpectType (err?: Error | null | undefined, result?: string | undefined) => void
+        taskCallback;
+    }],
+    (error, result) => {
+        // $ExpectType Error | null | undefined
+        error;
+        // $ExpectType string | undefined
+        result;
+    },
+);
+// $ExpectType Promise<string>
+async.race<string>(
+    [(taskCallback) => {
+        // $ExpectType (err?: Error | null | undefined, result?: string | undefined) => void
+        taskCallback;
+    }],
+);
