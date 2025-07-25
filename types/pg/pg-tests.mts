@@ -1,12 +1,38 @@
 import pg, {
+    type BindConfig,
     Client,
+    ClientBase,
+    type ClientConfig,
     Connection,
+    type ConnectionConfig,
+    type CustomTypesConfig,
     DatabaseError,
+    type Defaults,
     defaults,
     escapeIdentifier,
     escapeLiteral,
+    Events,
+    type ExecuteConfig,
+    type FieldDef,
+    type MessageConfig,
+    native,
+    type Notification,
     Pool,
+    type PoolClient,
+    type PoolConfig,
+    type PoolOptions,
     Query,
+    type QueryArrayConfig,
+    type QueryArrayResult,
+    type QueryConfig,
+    type QueryConfigValues,
+    type QueryParse,
+    type QueryResult,
+    type QueryResultBase,
+    type QueryResultRow,
+    Result,
+    type ResultBuilder,
+    type Submittable,
     TypeOverrides,
     types,
 } from "pg";
@@ -49,3 +75,15 @@ const myFunc = (c: Client) => {
 const myFunc2 = (c: pg.Client) => {
     c.on("drain", () => {});
 };
+
+// $ExpectType ClientBase
+new pg.ClientBase();
+// $ExpectType ClientBase
+new ClientBase();
+
+// $ExpectType Events
+new pg.Events();
+// $ExpectType Events
+new Events();
+
+typeof native === typeof pg.native;
