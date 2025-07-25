@@ -627,6 +627,7 @@ async function testPromisify() {
     await handle.write(Buffer.from("hurr"), { position: 1 });
 
     handle.readableWebStream();
+    handle.readableWebStream({ autoClose: true });
 
     handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, any, any>
 });
@@ -1028,6 +1029,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     }
 
     glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
