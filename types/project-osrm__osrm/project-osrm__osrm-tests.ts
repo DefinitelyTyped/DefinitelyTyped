@@ -1,10 +1,5 @@
 import * as fs from "fs";
 import OSRM = require("@project-osrm/osrm");
-import assert from "assert";
-
-// Access to Types from namespace
-const tile: OSRM.Tile = [0, 0, 0];
-const overview: OSRM.OverviewTypes = "full";
 
 // Version
 OSRM.version;
@@ -54,6 +49,19 @@ osrm.route({ coordinates, exclude }, (err, result) => {
     if (err) throw err;
     console.log(result.waypoints); // array of Waypoint objects representing all waypoints in order
     console.log(result.routes); // array of Route objects ordered by descending recommendation rank
+
+    const [firstRoute] = result.routes;
+    const [firstLeg] = firstRoute.legs;
+    const [firstStep] = firstLeg.steps;
+
+    // $ExpectType Route
+    firstRoute;
+    // $ExpectType RouteLeg
+    firstLeg;
+    // $ExpectType RouteStep
+    firstStep;
+    // $ExpectType DrivingSide
+    firstStep.driving_side;
 });
 
 osrm.route({ coordinates }, { format: "object" }, (err, result) => {

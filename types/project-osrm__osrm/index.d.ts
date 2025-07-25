@@ -142,11 +142,14 @@ declare namespace OSRM {
         | "uturn"
         | "sharp right"
         | "right"
-        | "slight rigth"
+        | "slight right"
         | "straight"
         | "slight left"
         | "left"
         | "sharp left";
+    type DrivingSide =
+        | "left"
+        | "right";
 
     interface LineString {
         type: "LineString";
@@ -292,6 +295,10 @@ declare namespace OSRM {
          * The pronunciation hint of the rotary name. Optionally included, if the step is a rotary and a rotary pronunciation is available.
          */
         rotary_pronunciation: string;
+        /**
+         * The legal driving side at the location for this step. Either left or right.
+         */
+        driving_side: DrivingSide;
     }
 
     /**
