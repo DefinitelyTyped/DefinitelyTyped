@@ -182,6 +182,7 @@ dt.toRelative({
     round: true,
     padding: 10,
     numberingSystem: "bali",
+    rounding: "trunc",
 });
 
 // $ExpectType string | null
@@ -193,6 +194,7 @@ dt.toRelative({
     round: true,
     padding: 10,
     numberingSystem: "bali",
+    rounding: "trunc",
 });
 
 // $ExpectType string | null

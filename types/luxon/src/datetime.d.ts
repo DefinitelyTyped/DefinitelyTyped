@@ -217,6 +217,7 @@ export type _ToObjectOutput<IncludeConfig extends boolean | undefined = undefine
     & (IncludeConfig extends true ? LocaleOptions : unknown);
 /** @internal */
 export type _ToObjectUnit = Exclude<DateTimeUnit, "quarter" | "week">;
+export type ToRelativeRoundingValues = "trunc" | "expand" | "round" | "floor" | "ceil";
 
 export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, "unit"> {
     /**
@@ -236,6 +237,11 @@ export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, "unit
      * to use from the array. If omitted, the method will pick the unit from a default set.
      */
     unit?: ToRelativeUnit | ToRelativeUnit[] | undefined;
+    /**
+     * Rounding method to use when rounding the numbers in the output. Can be "trunc" (toward zero), "expand" (away from zero), "round", "floor", or "ceil".
+     * @default "trunc"
+     */
+    rounding?: ToRelativeRoundingValues | undefined;
 }
 
 export interface ToRelativeCalendarOptions {
