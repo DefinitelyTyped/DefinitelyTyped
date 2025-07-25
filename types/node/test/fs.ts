@@ -626,6 +626,7 @@ async function testPromisify() {
     await handle.write(Buffer.from("hurr"), { position: 1 });
 
     handle.readableWebStream();
+    handle.readableWebStream({ autoClose: true });
 
     handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, undefined, any>
 });
