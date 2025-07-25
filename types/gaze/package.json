@@ -5,8 +5,16 @@
     "projects": [
         "https://github.com/shama/gaze"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/gaze": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
 }
