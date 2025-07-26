@@ -811,3 +811,38 @@ export const version6point8Tests = async (): Promise<void> => {
     defaultOracledb.program = "testPgm";
     defaultOracledb.terminal = "testTerminal";
 };
+
+export const version6_9Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+        appContext: ['TEST_CONTEXT', 'testAttr', 'testValue'],
+    });
+
+    const txnId = 'testId'
+    await connection.beginSessionlessTransaction({ txnId, timeout: 2, deferRoundTrip: true });
+    await connection.execute('INSERT INTO TEST VALUES(1)', {}, { suspendOnSuccess: true });
+    await connection.suspendSessionlessTransaction();
+    await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });
+
+    console.log(connection.ltxid);
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        password: DB_PASSWORD,
+        maxLifetimeSession: 2,
+        user: DB_USER,
+    });
+
+     interface QueueItem {
+        test: string;
+        connor: boolean;
+        test2: number;
+    }
+
+    const q = await connection.getQueue<QueueItem>("test");
+
+    q.enqOne("test");
+    const msg = await q.deqOne();
+    console.log(msg.enqTime);
+
+};
