@@ -818,8 +818,8 @@ export const version6_9Tests = async (): Promise<void> => {
         appContext: ['TEST_CONTEXT', 'testAttr', 'testValue'],
     });
 
-    const txnId = 'testId'
-    await connection.beginSessionlessTransaction({ txnId, timeout: 2, deferRoundTrip: true });
+    const txnId = 'testId';
+    await connection.beginSessionlessTransaction({ transactionId: txnId, timeout: 2, deferRoundTrip: true });
     await connection.execute('INSERT INTO TEST VALUES(1)', {}, { suspendOnSuccess: true });
     await connection.suspendSessionlessTransaction();
     await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });

@@ -1662,7 +1662,7 @@ declare namespace OracleDB {
          * 
          * @since 6.9
          */
-        resumeSessionlessTransaction(txnId: SessionlessTransactionOpts["transactionId"], resTxnOpts?: ResumeSessionlessTxnOpts): SessionlessTransactionOpts["transactionId"];
+        resumeSessionlessTransaction(transactionId: SessionlessTransactionOpts["transactionId"], resTxnOpts?: ResumeSessionlessTxnOpts): SessionlessTransactionOpts["transactionId"];
         resumeSessionlessTransaction(callback: (error: DBError) => void): void;
         /**
          * Rolls back the current transaction in progress on the connection.
@@ -2799,7 +2799,7 @@ declare namespace OracleDB {
          * @default 0
          * @since 6.9
          */
-        maxLifetimeSession: number;
+        readonly maxLifetimeSession: number;
         /**
          * The time (in milliseconds) that a connection request should wait in the queue before the request is terminated.
          */
@@ -3392,6 +3392,14 @@ declare namespace OracleDB {
          * @since 6.6.0
          */
         walletContent?: string | undefined;
+        /**
+         * This attribute decides how long a connection is allowed to stay in the pool
+         * before it is deemed unfit for user and dropped from the pool.
+         * 
+         * @default 0
+         * @since 6.9
+         */
+        maxLifetimeSession?: number;
     }
 
     /**
