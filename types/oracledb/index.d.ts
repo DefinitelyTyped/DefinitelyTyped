@@ -1027,7 +1027,15 @@ declare namespace OracleDB {
     interface SessionlessTransactionOpts {
         /** A unique identifier for the sessionless transaction. */
         transactionId?: string | Buffer;
-        resTxnOpts?: ResumeSessionlessTxnOpts;
+        /**
+         * The number of seconds before which this transaction can be resumed by a connection the next time that it is suspended.
+         * If a transaction is not resumed within this specified duration, the transaction will be rolled back.
+         * 
+         * @default 60s
+         */
+        timeout?: number;
+        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation. */
+        deferRoundTrip?: boolean;
     }
 
     interface Connection {
@@ -3538,17 +3546,17 @@ declare namespace OracleDB {
                  * 'oracledb.DB_TYPE_RAW', or 'oracledb.DB_TYPE_VARCHAR'.
                  * For all other types, the value returned is undefined.
                  */
-                maxSize: number | undefined;
+                maxSize?: number | undefined;
                 /**
                  * The precision of the attribute when the attribute's type is 'oracledb.DB_TYPE_NUMBER'.
                  * For all other types, the value returned is undefined.
                  */
-                precision: number | undefined;
+                precision?: number | undefined;
                 /**
                  * The scale of the attribute when the attribute's type is 'oracledb.DB_TYPE_NUMBER'.
                  * For all other types, the value returned is undefined.
                  */
-                scale: number | undefined;
+                scale?: number | undefined;
                 /** One of the DB_TYPE constants. */
                 type: DbType | number;
                 /** Type, such as 'VARCHAR2' or 'NUMBER'. */
