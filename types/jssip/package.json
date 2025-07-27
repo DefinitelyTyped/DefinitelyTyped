@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/jssip",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/versatica/JsSIP"
+    ],
+    "dependencies": {
+        "@types/webrtc": "*"
+    },
+    "typeScriptVersion": "4.3",
+    "owners": [
+        {
+            "name": "Shubham Singh Thakur",
+            "githubUsername": "Shubham-Thakur06"
+        }
+    ]
+}
