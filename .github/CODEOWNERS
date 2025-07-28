@@ -5438,6 +5438,7 @@
 /types/openseadragon/                                   @alvaromartmart @jstaab @kristinruben @geoff-harper @justincy @peterblazejewicz
 /types/openssi-websdk/                                  @arner
 /types/openstack-wrapper/                               @sanjaymadane
+/types/opentimestamps/                                  @despotes
 /types/opentok/                                         @westy92 @CatGuardian @pronebird @valencar @zaguiini
 /types/opentype.js/                                     @danmarshall @edzis @peterblazejewicz @alecmev
 /types/openui5/                                         @openui5bot @petermuessig @codeworrior @akudev
@@ -8303,6 +8304,7 @@
 /types/web-app-manifest/                                @ykzts
 /types/web-bluetooth/                                   @urish @xlozinguez @thegecko @DaBs @TooTallNate
 /types/web-ie11/                                        @saschanaz
+/types/web-install-api/                                 @LiaHiscock @Kbhlee2121
 /types/web-locks-api/                                   @magne4000
 /types/web-push/                                        @paullessing
 /types/web-resource-inliner/                            @BendingBender
