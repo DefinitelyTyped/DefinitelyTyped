@@ -7331,6 +7331,10 @@
             "libraryName": "svg-path-bbox",
             "asOfVersion": "1.1.0"
         },
+        "svg-spritemap-webpack-plugin": {
+            "libraryName": "svg-spritemap-webpack-plugin",
+            "asOfVersion": "5.0.0"
+        },
         "svg-tag-names": {
             "libraryName": "svg-tag-names",
             "asOfVersion": "3.0.0"
