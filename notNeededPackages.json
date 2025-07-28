@@ -3517,10 +3517,6 @@
             "libraryName": "jssha",
             "asOfVersion": "3.0.0"
         },
-        "jssip": {
-            "libraryName": "jssip",
-            "asOfVersion": "3.5.0"
-        },
         "jszip": {
             "libraryName": "jszip",
             "asOfVersion": "3.4.0"

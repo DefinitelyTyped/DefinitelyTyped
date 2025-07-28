@@ -8,7 +8,9 @@
     "dependencies": {
         "@types/webrtc": "*"
     },
-    "typeScriptVersion": "4.3",
+    "devDependencies": {
+        "@types/jssip": "workspace:."
+    },
     "owners": [
         {
             "name": "Shubham Singh Thakur",

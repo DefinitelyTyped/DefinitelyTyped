@@ -1,4 +1,4 @@
-/// <reference path="./index.d.ts" />
+/// <reference types="jssip" />
 
 // Create WebSocket interface
 const socket = new JsSIP.WebSocketInterface('wss://sip.example.com');
