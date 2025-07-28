@@ -1930,6 +1930,7 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
+    type AppContextOpts = Array<string>;
     /**
      * Provides connection credentials and connection-specific configuration properties.
      */
@@ -1972,12 +1973,12 @@ declare namespace OracleDB {
          */
         accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
         /**
-         * An array of string values that identifies the application context used by the connection.
+         * An array of array values that identifies the application context used by the connection.
          * The elements of the array should contain three string values - namespace, name, and value.
          *
          * @since 6.9
          */
-        appContext?: Array<string>;
+        appContext?: Array<AppContextOpts>;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance to connect to.
@@ -3006,13 +3007,13 @@ declare namespace OracleDB {
          */
         accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI | undefined;
         /**
-         * An array of string values that identifies the application context used by the connection.
+         * An array of array values that identifies the application context used by the connection.
          * The elements of the array should contain three string values - namespace, name, and value.
          * Available only in node-oracledb Thin mode.
          *
          * @since 6.9
          */
-        appContext?: Array<string>;
+        appContext?: Array<AppContextOpts>;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.

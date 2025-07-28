@@ -815,7 +815,9 @@ export const version6point8Tests = async (): Promise<void> => {
 export const version6_9Tests = async (): Promise<void> => {
     const connection = await oracledb.getConnection({
         user: "test",
-        appContext: ["TEST_CONTEXT", "testAttr", "testValue"],
+        appContext: [
+            ["TEST_CONTEXT", "testAttr", "testValue"],
+        ],
     });
 
     const txnId = "testId";
