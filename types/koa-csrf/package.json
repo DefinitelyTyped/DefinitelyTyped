@@ -6,7 +6,7 @@
         "https://github.com/koajs/csrf"
     ],
     "dependencies": {
-        "@types/koa": "1 || 2"
+        "@types/koa": "*"
     },
     "devDependencies": {
         "@types/koa-csrf": "workspace:."
