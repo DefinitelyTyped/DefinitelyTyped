@@ -90,6 +90,7 @@ async function foo() {
         const inspect = await foo.inspect({ manifests: true });
         const imageDescriptor = inspect.Descriptor;
         const imageManifests = inspect.Manifests;
+        const healthCheck = inspect.Config.Healthcheck;
         await foo.remove();
     }
 
@@ -668,7 +669,7 @@ docker.run(
     "ubuntu",
     ["bash", "-c", "uname -a"],
     process.stdout,
-    { name: "foo", platform: "linux/amd64" },
+    { name: "foo", platform: "linux/amd64", Healthcheck: { Test: ["CMD_SHELL", "echo 'pass' && exit 0"]} },
     (err, data) => {
         console.log(data.StatusCode);
     },
