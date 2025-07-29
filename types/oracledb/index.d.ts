@@ -1166,7 +1166,7 @@ declare namespace OracleDB {
         /**
          * This read-only attribute is an array of bytes that specifies the logical transaction ID for the connection.
          * It is used within Oracle Transaction Guard as a means of ensuring that transactions are not duplicated.
-         * This attribute is only available with Oracle 12.1 or later. In node-oracledb Thick mode,
+         * This attribute is only available with Oracle 12.1 Database or later. In node-oracledb Thick mode,
          * Oracle Client libraries 12.1 or later are additionally required.
          *
          * @since 6.9
@@ -1930,7 +1930,7 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
-    type AppContextOpts = Array<string>;
+    type AppContextOpts = [string, string, string];
     /**
      * Provides connection credentials and connection-specific configuration properties.
      */
