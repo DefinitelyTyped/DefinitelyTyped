@@ -542,7 +542,7 @@ DateTime.fromMillis();
 DateTime.fromMillis(1542674993410); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromSeconds();
-DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true>
+DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromFormat();
 DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<true> | DateTime<false>
