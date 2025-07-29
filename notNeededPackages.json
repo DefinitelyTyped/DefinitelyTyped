@@ -8291,6 +8291,10 @@
             "libraryName": "xregexp",
             "asOfVersion": "4.4.0"
         },
+        "xsd-schema-validator": {
+            "libraryName": "xsd-schema-validator",
+            "asOfVersion": "0.9.0"
+        },
         "xstyled__styled-components": {
             "libraryName": "@xstyled/styled-components",
             "asOfVersion": "2.0.0"
