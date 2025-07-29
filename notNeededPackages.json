@@ -3445,6 +3445,10 @@
             "libraryName": "json-rules-engine",
             "asOfVersion": "4.1.0"
         },
+        "json-schema-faker": {
+            "libraryName": "json-schema-faker",
+            "asOfVersion": "0.5.6"
+        },
         "json-schema-traverse": {
             "libraryName": "json-schema-traverse",
             "asOfVersion": "1.0.0"
