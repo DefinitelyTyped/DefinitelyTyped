@@ -40,7 +40,7 @@ _[관리자 설명서](./docs/admin.md) 링크_
 npm install --save-dev @types/node
 ```
 
-지역 모듈(Scoped module)의 자료형(Typings)을 설치하려면, `@`를 제거하고 스코프 뒤에 밑줄 두 개(__)를 추가하세요. 예를 들어, `@babel/preset-env`의 자로형을 설치하는 방법은 다음과 같습니다.
+지역 모듈(Scoped module)의 자료형(Typings)을 설치하려면, `@`를 제거하고 스코프 뒤에 밑줄 두 개(__)를 추가하세요. 예를 들어, `@babel/preset-env`의 자료형을 설치하는 방법은 다음과 같습니다.
 
 ```sh
 npm install --save-dev @types/babel__preset-env
