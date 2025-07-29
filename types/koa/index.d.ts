@@ -23,7 +23,6 @@ import * as compose from "koa-compose";
 import { ListenOptions, Socket } from "net";
 import { ParsedUrlQuery } from "querystring";
 import * as url from "url";
-import createHttpError = require("http-errors");
 
 declare interface ContextDelegatedRequest {
     /**
@@ -694,7 +693,8 @@ declare namespace Application {
          *
          * See: https://github.com/jshttp/http-errors
          */
-        throw: typeof createHttpError;
+        throw(status: number, ...args: (Error | string | { [key: string]: any })[]): never;
+        throw(...args: (Error | string | { [key: string]: any })[]): never;
 
         /**
          * Default error handling.
