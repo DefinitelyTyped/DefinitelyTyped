@@ -669,7 +669,7 @@ docker.run(
     "ubuntu",
     ["bash", "-c", "uname -a"],
     process.stdout,
-    { name: "foo", platform: "linux/amd64", Healthcheck: { Test: ["CMD_SHELL", "echo 'pass' && exit 0"]} },
+    { name: "foo", platform: "linux/amd64", Healthcheck: { Test: ["CMD-SHELL", "echo 'pass' && exit 0"] } },
     (err, data) => {
         console.log(data.StatusCode);
     },
