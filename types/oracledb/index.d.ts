@@ -1015,13 +1015,17 @@ declare namespace OracleDB {
 
     interface ResumeSessionlessTxnOpts {
         /**
-         * The number of seconds before which this transaction can be resumed by a connection the next time that it is suspended.
-         * If a transaction is not resumed within this specified duration, the transaction will be rolled back.
+         * The number of seconds that the current connection waits to resume a transaction if another connection is using it.
+         * This timeout is only effective when the transaction is in use by another connection.
+         * In this case, the current connection waits for the transaction to be suspended within this timeout period.
          *
          * @default 60s
          */
         timeout?: number;
-        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation. */
+        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation.
+         *
+         * @default false
+         */
         deferRoundTrip?: boolean;
     }
     interface SessionlessTransactionOpts {
@@ -1034,7 +1038,10 @@ declare namespace OracleDB {
          * @default 60s
          */
         timeout?: number;
-        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation. */
+        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation.
+         *
+         * @default false
+         */
         deferRoundTrip?: boolean;
     }
 
