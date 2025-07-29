@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+ 
     interface Zone {
         path: string;
         name: string;
@@ -11,10 +12,12 @@ declare namespace GorillaEngine.UI {
     }
     interface MappingEditorProps extends Common, Bounds, Background, Clickable {
         zones?: Zone[];
+        verticalZoom?: number;
+        horizontalZoom?: number;
         refreshView(index?: number): void;
         selectAllZones(): void;
         deselectAllZones(): void;
-        selectZones(zones: Partial<Zone[]>): void;
+        selectZones(zones: Partial<Zone[]>):void;
         addZone(zone: Partial<Zone>): Zone;
         removeZone(zone: Partial<Zone>): void;
     }
