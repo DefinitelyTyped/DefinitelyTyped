@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "@types/quanter",
+    "version": "4.3.0",
+    "projects": [
+        "https://github.com/jsvibe/quanter"
+    ],
+    "owners": [
+        {
+            "name": "Indian Modassir",
+            "githubUsername": "indianmodassir"
+        }
+    ]
+}
