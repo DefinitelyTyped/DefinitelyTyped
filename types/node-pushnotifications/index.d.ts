@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as webPush from "web-push";
 import { Credential, ServiceAccount } from "firebase-admin/app";
+import * as webPush from "web-push";
 export = PushNotifications;
 
 declare class PushNotifications {
@@ -35,8 +35,8 @@ declare namespace PushNotifications {
         /** Firebase Cloud Messaging  */
         fcm?: {
             /** Firebase settings */
-            appName: string,
-            serviceAccountKey: ServiceAccount,
+            appName: string;
+            serviceAccountKey: ServiceAccount;
             credential: Credential | null;
         } | undefined;
         /** Apple Push Notifications */

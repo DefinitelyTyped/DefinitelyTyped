@@ -7,8 +7,8 @@ const settings: PushNotifications.Settings = {
     },
     fcm: {
         appName: "null",
-        serviceAccountKey: require('path/to/serviceAccountKey.json'),
-        credential: null
+        serviceAccountKey: require("path/to/serviceAccountKey.json"),
+        credential: null,
     },
     apn: {
         token: {
