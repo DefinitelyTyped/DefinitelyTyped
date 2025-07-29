@@ -3,9 +3,9 @@
  */
 export interface HamtConfig<K = any> {
     /** Custom hash function for keys */
-    hash?: (key: K) => number;
+    hash?: ((key: K) => number) | undefined;
     /** Custom key equality comparison function */
-    keyEq?: (a: K, b: K) => boolean;
+    keyEq?: ((a: K, b: K) => boolean) | undefined;
 }
 
 /**
@@ -170,9 +170,9 @@ export function hash(value: any): number;
 declare global {
     interface HamtConfig<K = any> {
         /** Custom hash function for keys */
-        hash?: (key: K) => number;
+        hash?: ((key: K) => number) | undefined;
         /** Custom key equality comparison function */
-        keyEq?: (a: K, b: K) => boolean;
+        keyEq?: ((a: K, b: K) => boolean) | undefined;
     }
 
     interface HamtMap<K = any, V = any> extends Iterable<[K, V]> {
