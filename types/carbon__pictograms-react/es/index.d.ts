@@ -653,6 +653,7 @@ export { IbmGranite } from "../";
 export { IbmIbv } from "../";
 export { IbmIx } from "../";
 export { IbmOneMadisonAvenue } from "../";
+export { IbmPower11 } from "../";
 export { IbmRpa } from "../";
 export { IbmUkLabsHursley } from "../";
 export { IbmZ } from "../";

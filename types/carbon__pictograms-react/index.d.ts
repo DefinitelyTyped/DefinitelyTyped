@@ -1,4 +1,4 @@
-/** 1377 pictograms in total */
+/** 1378 pictograms in total */
 
 export interface CarbonPictogramProps extends
     Omit<
@@ -685,6 +685,7 @@ export const IbmGranite: CarbonPictogramType;
 export const IbmIbv: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
 export const IbmOneMadisonAvenue: CarbonPictogramType;
+export const IbmPower11: CarbonPictogramType;
 export const IbmRpa: CarbonPictogramType;
 export const IbmUkLabsHursley: CarbonPictogramType;
 export const IbmZ: CarbonPictogramType;
