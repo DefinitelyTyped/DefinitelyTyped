@@ -1,12 +1,14 @@
 import PushNotifications = require("node-pushnotifications");
 import { supportedContentEncodings } from "web-push";
 
-const settings = {
+const settings: PushNotifications.Settings = {
     gcm: {
         id: "null",
     },
     fcm: {
-        id: "null",
+        appName: "null",
+        serviceAccountKey: require('path/to/serviceAccountKey.json'),
+        credential: null
     },
     apn: {
         token: {
