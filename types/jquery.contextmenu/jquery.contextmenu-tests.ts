@@ -18,9 +18,9 @@ $.contextMenu({
 // Register a contextMenu with position function
 $.contextMenu({
     selector: ".some-selector",
-    position: function (opt, x, y) {
+    position: function(opt, x, y) {
         opt.$menu.css({ top: 123, left: 123 });
-    }
+    },
 });
 
 // Unregister contextMenu
