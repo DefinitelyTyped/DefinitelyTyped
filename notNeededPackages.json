@@ -2973,6 +2973,10 @@
             "libraryName": "image-type",
             "asOfVersion": "4.0.1"
         },
+        "imagekit": {
+            "libraryName": "imagekit",
+            "asOfVersion": "3.2.0"
+        },
         "imagemin-pngquant": {
             "libraryName": "imagemin-pngquant",
             "asOfVersion": "8.0.0"
@@ -5166,6 +5170,10 @@
             "libraryName": "perfect-scrollbar",
             "asOfVersion": "1.3.0"
         },
+        "persona": {
+            "libraryName": "persona",
+            "asOfVersion": "3.5.2"
+        },
         "pg-connection-string": {
             "libraryName": "pg-connection-string",
             "asOfVersion": "2.0.0"
@@ -5506,6 +5514,10 @@
         "pseudo-localization": {
             "libraryName": "pseudo-localization",
             "asOfVersion": "2.3.7"
+        },
+        "psl": {
+            "libraryName": "psl",
+            "asOfVersion": "1.11.0"
         },
         "ptomasroos__react-native-multi-slider": {
             "libraryName": "@ptomasroos/react-native-multi-slider",
@@ -6127,6 +6139,10 @@
             "libraryName": "react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
         },
+        "react-native-incall-manager": {
+            "libraryName": "react-native-incall-manager",
+            "asOfVersion": "4.2.0"
+        },
         "react-native-input-spinner": {
             "libraryName": "react-native-input-spinner",
             "asOfVersion": "1.4.1"
@@ -6230,6 +6246,10 @@
         "react-native-version-number": {
             "libraryName": "react-native-version-number",
             "asOfVersion": "0.3.5"
+        },
+        "react-native-video-player": {
+            "libraryName": "react-native-video-player",
+            "asOfVersion": "0.15.0"
         },
         "react-native-view-pdf": {
             "libraryName": "react-native-view-pdf",
@@ -8286,6 +8306,10 @@
         "xregexp": {
             "libraryName": "xregexp",
             "asOfVersion": "4.4.0"
+        },
+        "xsd-schema-validator": {
+            "libraryName": "xsd-schema-validator",
+            "asOfVersion": "0.9.0"
         },
         "xstyled__styled-components": {
             "libraryName": "@xstyled/styled-components",

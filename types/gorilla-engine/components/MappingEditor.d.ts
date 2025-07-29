@@ -11,6 +11,8 @@ declare namespace GorillaEngine.UI {
     }
     interface MappingEditorProps extends Common, Bounds, Background, Clickable {
         zones?: Zone[];
+        verticalZoom?: number;
+        horizontalZoom?: number;
         refreshView(index?: number): void;
         selectAllZones(): void;
         deselectAllZones(): void;
