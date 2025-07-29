@@ -1,10 +1,13 @@
 {
     "private": true,
     "name": "@types/quanter",
-    "version": "4.3.0",
+    "version": "4.3.0.999",
     "projects": [
         "https://github.com/jsvibe/quanter"
     ],
+    "devDependencies": {
+        "@types/quanter": "workspace:."
+    },
     "owners": [
         {
             "name": "Indian Modassir",
