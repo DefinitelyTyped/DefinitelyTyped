@@ -2,12 +2,14 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "strict": true,
     "noImplicitAny": true,
-    "esModuleInterop": true
-  },
-  "files": [
-    "index.d.ts",
-    "test.js"
-  ]
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es6"],
+    "types": ["quanter"]
+  }
 }
