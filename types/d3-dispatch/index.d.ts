@@ -1,5 +1,8 @@
 // Last module patch version validated against: 3.0.1
 
+/** helper function, maps over a union type */
+type MapUnion<K extends keyof T, T> = K extends any ? T[K] : never;
+
 export namespace Dispatch {
     /** given a string like `a.1 b c.2`, it returns a union like `'a' | 'b' | 'c'` */
     type ExtractEventNames<Input extends string> = Input extends "" ? never
@@ -8,9 +11,6 @@ export namespace Dispatch {
         : Input extends `${infer A}.${string}` // single event with a name
             ? A
         : Input; // single event with no name
-
-    /** helper function, maps over a union type */
-    type MapUnion<K extends keyof T, T> = K extends any ? T[K] : never;
 
     /**
      * defines all the events that can be emitted.
@@ -58,7 +58,7 @@ export interface Dispatch<This extends object, EventMap extends Dispatch.Generic
     on<Source extends string>(
         typenames: Source,
     ): Dispatch.ExtractEventNames<Source> extends keyof EventMap
-        ? ((this: This, ...args: Dispatch.MapUnion<Dispatch.ExtractEventNames<Source>, EventMap>) => void) | undefined
+        ? ((this: This, ...args: MapUnion<Dispatch.ExtractEventNames<Source>, EventMap>) => void) | undefined
         : never;
 
     /**
@@ -73,7 +73,7 @@ export interface Dispatch<This extends object, EventMap extends Dispatch.Generic
     on<Source extends string>(
         typenames: Source,
         callback: Dispatch.ExtractEventNames<Source> extends keyof EventMap
-            ? ((this: This, ...args: Dispatch.MapUnion<Dispatch.ExtractEventNames<Source>, EventMap>) => void) | null
+            ? ((this: This, ...args: MapUnion<Dispatch.ExtractEventNames<Source>, EventMap>) => void) | null
             : never,
     ): this;
 }
@@ -92,3 +92,5 @@ export function dispatch<
 >(
     ...types: EventNames[]
 ): Dispatch<This, EventMap>;
+
+export {};
