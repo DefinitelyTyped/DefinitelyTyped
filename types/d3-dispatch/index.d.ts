@@ -88,7 +88,7 @@ export interface Dispatch<This extends object, EventMap extends Dispatch.Generic
 export function dispatch<
     This extends object,
     EventMap extends Record<EventNames, any[]>,
-    const EventNames extends keyof any = keyof EventMap,
+    EventNames extends keyof any = keyof EventMap
 >(
     ...types: EventNames[]
 ): Dispatch<This, EventMap>;
