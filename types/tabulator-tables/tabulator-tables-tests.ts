@@ -692,7 +692,7 @@ table.blockRedraw();
 table.restoreRedraw();
 
 table.getRows("visible");
-table.deleteRow([15, 7, 9]);
+await table.deleteRow([15, 7, 9]);
 
 table.addColumn({} as ColumnDefinition).then(() => {});
 
