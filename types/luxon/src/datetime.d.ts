@@ -718,7 +718,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime<Valid>;
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.

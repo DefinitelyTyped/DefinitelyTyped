@@ -2,7 +2,7 @@ import express = require("express");
 import webpack = require("webpack");
 import webpackHotMiddleware = require("webpack-hot-middleware");
 
-const compiler = webpack({});
+const compiler = webpack({})!;
 
 let webpackHotMiddlewareInstance = webpackHotMiddleware(compiler);
 
@@ -12,7 +12,7 @@ webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
     heartbeat: 2000,
 });
 
-const multiCompiler = webpack([{}]);
+const multiCompiler = webpack([{}])!;
 
 webpackHotMiddlewareInstance = webpackHotMiddleware(multiCompiler);
 
