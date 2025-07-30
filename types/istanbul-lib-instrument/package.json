@@ -8,7 +8,7 @@
     ],
     "dependencies": {
         "@types/babel-types": "*",
-        "@babel/generator": "*",
+        "@types/babel-generator": "*",
         "@types/istanbul-lib-coverage": "*",
         "source-map": "^0.6.1"
     },
