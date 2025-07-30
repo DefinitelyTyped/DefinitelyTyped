@@ -782,3 +782,68 @@ export const version6_7Tests = async (): Promise<void> => {
         driverName: "test",
     });
 };
+
+export const version6point8Tests = async (): Promise<void> => {
+    console.log("Testing Vector constants...");
+    console.log(defaultOracledb.VECTOR_FORMAT_BINARY);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT32);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT64);
+    console.log(defaultOracledb.VECTOR_FORMAT_INT8);
+    console.log("Testing IntervalYM...");
+    const intervalYM = new oracledb.IntervalYM();
+    console.log(intervalYM.years);
+    console.log(intervalYM.months);
+    console.log("Testing IntervalDS...");
+    const intervalDS = new oracledb.IntervalDS();
+    console.log(intervalDS.days);
+    console.log(intervalDS.hours);
+    console.log(intervalDS.minutes);
+    console.log(intervalDS.seconds);
+    console.log(intervalDS.fseconds);
+    console.log("Testing Sparse vector...");
+    const vec = new oracledb.SparseVector<Float32Array>([0, 0.2, 0, 1.5]);
+    const values = vec.values;
+    const dense = vec.dense();
+    console.log("Testing oracledb settable properties...");
+    defaultOracledb.driverName = "ndb-thin";
+    defaultOracledb.machine = "my-machine";
+    defaultOracledb.osUser = "default-user";
+    defaultOracledb.program = "testPgm";
+    defaultOracledb.terminal = "testTerminal";
+};
+
+export const version6_9Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+        appContext: [
+            ["TEST_CONTEXT", "testAttr", "testValue"],
+        ],
+    });
+
+    const txnId = "testId";
+    await connection.beginSessionlessTransaction({ transactionId: txnId, timeout: 2, deferRoundTrip: true });
+    await connection.execute("INSERT INTO TEST VALUES(1)", {}, { suspendOnSuccess: true });
+    await connection.suspendSessionlessTransaction();
+    await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });
+
+    console.log(connection.ltxid);
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        password: DB_PASSWORD,
+        maxLifetimeSession: 2,
+        user: DB_USER,
+    });
+
+    interface QueueItem {
+        test: string;
+        connor: boolean;
+        test2: number;
+    }
+
+    const q = await connection.getQueue<QueueItem>("test");
+
+    q.enqOne("test");
+    const msg = await q.deqOne();
+    console.log(msg.enqTime);
+};

@@ -277,12 +277,76 @@ declare namespace OracleDB {
         oraTypeNum: 127;
     };
 
+    class IntervalYM {
+        /**
+         * It returns an object containing optional integer attributes: 'years' and 'months'..
+         *
+         * @since 6.8
+         */
+        years?: number | undefined;
+        months?: number | undefined;
+    }
+
+    class IntervalDS {
+        /**
+         * It returns an object containing optional integer attributes: 'days', 'hours', 'minutes', 'seconds', and 'fseconds' (fractional seconds denoted in nanoseconds).
+         *
+         * @since 6.8
+         */
+        days?: number | undefined;
+        hours?: number | undefined;
+        minutes?: number | undefined;
+        seconds?: number | undefined;
+        fseconds?: number | undefined;
+    }
+
     class JsonId extends Uint8Array {
         /**
          * It returns a SODA document key '_id' in hex string.
          * @since 6.5.0
          */
         toJSON(): string;
+    }
+
+    type TypedArray = Float32Array | Float64Array | Int8Array | Uint8Array | Uint32Array;
+
+    interface SparseVectorInputObject {
+        numDimensions: number;
+        indices: Array<number> | Uint32Array;
+        values: Array<number> | TypedArray;
+    }
+
+    type SparseVectorType = SparseVectorInputObject | Array<number> | string | TypedArray;
+
+    class SparseVector<T extends TypedArray = Float64Array> {
+        constructor(
+            vec?: SparseVectorType,
+        );
+        /**
+         * This property is a JavaScript array or a 32-bit unsigned integer (Uint32Array) TypedArray that specifies the indices (zero-based) of non-zero values in the vector.
+         *
+         * @since 6.8
+         */
+        indices?: Array<number> | Uint32Array | undefined;
+        /**
+         * This property is an integer that specifies the number of dimensions of the vector.
+         *
+         * @since 6.8
+         */
+        numDimensions?: number | undefined;
+        /**
+         * This property is a JavaScript array or TypedArray that specifies the non-zero values stored in the vector.
+         *
+         * @since 6.8
+         */
+        values?: Array<number> | TypedArray | undefined;
+        /**
+         * Converts a sparse vector to a dense vector and returns a TypedArray of 8-bit signed integers, 32-bit floating-point numbers,
+         * or 64-bit floating-point numbers depending on the storage format of the sparse vector column’s non-zero values in Oracle Database.
+         *
+         * @since 6.8
+         */
+        dense(): T | undefined;
     }
 
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
@@ -458,6 +522,14 @@ declare namespace OracleDB {
     const SHUTDOWN_MODE_TRANSACTIONAL: number;
     /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
     const SHUTDOWN_MODE_TRANSACTIONAL_LOCAL: number;
+    /** Constants for the vectorFormat attribute. */
+    const VECTOR_FORMAT_BINARY: number;
+    /** Constants for the vectorFormat attribute. */
+    const VECTOR_FORMAT_FLOAT32: number;
+    /** Constants for the vectorFormat attribute. */
+    const VECTOR_FORMAT_FLOAT64: number;
+    /** Constants for the vectorFormat attribute. */
+    const VECTOR_FORMAT_INT8: number;
 
     /**
      * If true, the transaction in the current connection is automatically committed at the end of statement execution.
@@ -497,6 +569,22 @@ declare namespace OracleDB {
      * @since 5.1
      */
     let dbObjectAsPojo: boolean;
+    /**
+     * This property is a function which converts the data type of the DbObject property to the desired data type.
+     * This function is called once for each property inside a DbObject with a single object argument containing the following attributes:
+     * type: The value of one of the Oracle Database Type Objects.
+     * maxSize: The maximum number of bytes allocated.
+     * typeName: The name of the object.
+     * precision: Set only for oracledb.DB_TYPE_NUMBER type.
+     * scale: Set only for oracledb.DB_TYPE_NUMBER type.
+     *
+     * The function is expected to return an object containing a converter attribute which works similar to the existing fetch type handler’s converters.
+     * The DbObject type handler’s converter attribute is a function which accepts the incoming read value of the DbObject property and returns a transformed value (based on the required data type) for the same DbObject property.
+     * This property is not applicable for LOB data type attributes of a DbObject type.
+     *
+     * @since 6.8
+     */
+    function dbObjectTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
     /**
      * Sets the name used for Edition-Based Redefinition by connections.
      *
@@ -925,6 +1013,38 @@ declare namespace OracleDB {
         drop: boolean;
     }
 
+    interface ResumeSessionlessTxnOpts {
+        /**
+         * The number of seconds that the current connection waits to resume a transaction if another connection is using it.
+         * This timeout is only effective when the transaction is in use by another connection.
+         * In this case, the current connection waits for the transaction to be suspended within this timeout period.
+         *
+         * @default 60s
+         */
+        timeout?: number;
+        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation.
+         *
+         * @default false
+         */
+        deferRoundTrip?: boolean;
+    }
+    interface SessionlessTransactionOpts {
+        /** A unique identifier for the sessionless transaction. */
+        transactionId?: string | Buffer;
+        /**
+         * The number of seconds before which this transaction can be resumed by a connection the next time that it is suspended.
+         * If a transaction is not resumed within this specified duration, the transaction will be rolled back.
+         *
+         * @default 60s
+         */
+        timeout?: number;
+        /** Determines whether the request to start a transaction is to be sent immediately or with the next database operation.
+         *
+         * @default false
+         */
+        deferRoundTrip?: boolean;
+    }
+
     interface Connection {
         /**
          * The action attribute for end-to-end application tracing.
@@ -952,6 +1072,51 @@ declare namespace OracleDB {
          * @since 4.1
          */
         clientInfo?: string | undefined;
+        /**
+         * This read-only property identifies the connect string used to connect to Oracle Database.
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 6.7
+         */
+        readonly connectString: string;
+        /**
+         * Object containing connection related information.
+         * @since 6.7
+         */
+        connectTraceConfig?: {
+            /**
+             * ConnectString used to connect to the database.
+             */
+            readonly connectString?: string;
+            /**
+             * hostName of Oracle database.
+             */
+            readonly hostName?: string | undefined;
+            /**
+             * instanceName associated with the connection.
+             */
+            readonly instanceName?: string;
+            /**
+             * The name of pluggable Oracle database associated with connection.
+             */
+            readonly pdbName?: string;
+            /**
+             * port to Oracle database for associated connection.
+             */
+            readonly port?: number | undefined;
+            /**
+             * protocol used to establish connection to Oracle database.
+             */
+            readonly protocol?: string | undefined;
+            /**
+             * serviceName of Oracle database instance associated with connection.
+             */
+            readonly serviceName?: string;
+            /**
+             * Name of the user used to estaiblish connection.
+             */
+            readonly user: string;
+        } | undefined;
         /**
          * After setting currentSchema, SQL statements using unqualified references to schema objects will resolve to objects in the specified schema.
          * This setting does not change the session user or the current user, nor does it give the session user any additional system or object privileges for the session.
@@ -993,11 +1158,34 @@ declare namespace OracleDB {
          */
         ecid?: string | undefined;
         /**
+         * This read-only property is a string that identifies the host name of Oracle Database.
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 6.7
+         */
+        readonly hostName?: string;
+        /**
          * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
          *
          * @since 6.1
          */
         instanceName?: string | undefined;
+        /**
+         * This read-only attribute is an array of bytes that specifies the logical transaction ID for the connection.
+         * It is used within Oracle Transaction Guard as a means of ensuring that transactions are not duplicated.
+         * This attribute is only available with Oracle 12.1 Database or later. In node-oracledb Thick mode,
+         * Oracle Client libraries 12.1 or later are additionally required.
+         *
+         * @since 6.9
+         */
+        readonly ltxid?: Buffer;
+        /**
+         * This read-only attribute specifies the maximum database identifier length in bytes supported by the database to which the connection has been established.
+         * The value may be undefined, 30, or 128. The value undefined indicates the size cannot be reliably determined by node-oracledb, which occurs when using Oracle Client libraries 12.1 (or older) to connect to Oracle Database 12.2, or later.
+         *
+         * @since 6.8
+         */
+        readonly maxIdentifierLength?: number | undefined;
         /**
          * This read-only property is a number that indicates the maximum number of SQL statements that can be concurrently opened in one connection. This value can be specified in the server parameter file using the open_cursors parameter. This property returns the same value as the SQL expression:
          * SELECT VALUE FROM V$PARAMETER WHERE NAME = 'open_cursors';
@@ -1028,6 +1216,20 @@ declare namespace OracleDB {
          * @since 2.2
          */
         readonly oracleServerVersionString: string;
+        /**
+         * This read-only property identifies the port to which the client is connected.
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 6.7
+         */
+        readonly port: number;
+        /**
+         * This read-only property identifies the protocol used to connect to Oracle Database.
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 6.7
+         */
+        readonly protocol: string;
         /**
          * This read-only property is a string that identifies the Oracle Database service name associated with the connection. This property returns the same value as the SQL expression:
          * SELECT UPPER(SYS_CONTEXT('USERENV', 'SERVICE_NAME')) FROM DUAL;
@@ -1079,6 +1281,12 @@ declare namespace OracleDB {
          */
         readonly transactionInProgress?: boolean | undefined;
         /**
+         * This read-only identifies the user provided to connect to Oracle Database.
+         *
+         * @since 6.7
+         */
+        readonly user?: string;
+        /**
          * This read-only property provides an error object that gives information about any database warnings (such as password being in the grace period) that were generated during connection establishment (both standalone connections and pooled connections). This attribute is present if a warning is thrown by the database but the operation is otherwise completed successfully. The connection will be usable despite the warning.
          * For standalone connections, the error object returned by connection.warning will be present for the lifetime of the connection.
          * For pooled connections, the error object returned by connection.warning will be cleared when a connection is released to the pool using connection.close().
@@ -1087,6 +1295,14 @@ declare namespace OracleDB {
          * @since 6.3
          */
         readonly warning?: DBError | undefined;
+        /**
+         * Begins a new sessionless transaction using the specified transaction identifier.
+         * This method returns the transaction identifier specified by the user or generated by node-oracledb as a Buffer value.
+         *
+         * @since 6.9
+         */
+        beginSessionlessTransaction(opts: SessionlessTransactionOpts): SessionlessTransactionOpts["transactionId"];
+        beginSessionlessTransaction(opts: SessionlessTransactionOpts, callback: (error: DBError) => void): void;
         /**
          * Stops the currently running operation on the connection.
          *
@@ -1456,6 +1672,17 @@ declare namespace OracleDB {
         release(callback: (error: DBError) => void): void;
 
         /**
+         * Resumes an existing sessionless transaction using the specified transaction identifier.
+         * This method returns the transaction identifier used to resume the sessionless transaction as a Buffer value.
+         *
+         * @since 6.9
+         */
+        resumeSessionlessTransaction(
+            transactionId: SessionlessTransactionOpts["transactionId"],
+            resTxnOpts?: ResumeSessionlessTxnOpts,
+        ): SessionlessTransactionOpts["transactionId"];
+        resumeSessionlessTransaction(callback: (error: DBError) => void): void;
+        /**
          * Rolls back the current transaction in progress on the connection.
          */
         rollback(): Promise<void>;
@@ -1524,6 +1751,16 @@ declare namespace OracleDB {
             callback: (error: DBError, result: Subscription) => void,
         ): void;
 
+        /**
+         * Suspends the currently active sessionless transaction immediately.
+         * This detaches the transaction from the connection, allowing it to be resumed later with the transaction identifier that was specified when
+         * creating the sessionless transaction. Also, the timeout value defined in Connection.beginSessionlessTransaction()
+         *  comes into effect and determines how long the transaction can stay suspended.
+         *
+         * @since 6.9
+         */
+        suspendSessionlessTransaction(): void;
+        suspendSessionlessTransaction(callback: (error: DBError) => void): void;
         /**
          * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().
          * No further notifications will be sent. The notification callback does not receive a notification of the
@@ -1700,6 +1937,7 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
+    type AppContextOpts = [string, string, string];
     /**
      * Provides connection credentials and connection-specific configuration properties.
      */
@@ -1741,6 +1979,13 @@ declare namespace OracleDB {
          * @since 6.3
          */
         accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
+        /**
+         * An array of array values that identifies the application context used by the connection.
+         * The elements of the array should contain three string values - namespace, name, and value.
+         *
+         * @since 6.9
+         */
+        appContext?: Array<AppContextOpts>;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance to connect to.
@@ -1852,7 +2097,7 @@ declare namespace OracleDB {
         retryCount?: number | undefined;
         /**
          * The number of seconds to wait before making a new connection attempt.
-         * The default value is 0.
+         * The default value is 1. Changed to 1 from 0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
          *
          * @since 6.0
@@ -1868,7 +2113,7 @@ declare namespace OracleDB {
         connectTimeout?: number | undefined;
         /**
          * The maximum number of seconds to wait to establish a connection to the database host.
-         * The default value is 60.0.
+         * The default value is 20.0. Changed to 20.0 from 60.0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
          *
          * @since 6.0
@@ -1974,6 +2219,32 @@ declare namespace OracleDB {
          */
         username?: string | undefined;
         /**
+         * Enables the connection to use the TLS extension, Server Name Indication (SNI).
+         * This property requires Oracle Database 23.7 (or later).
+         * Available only in node-oracledb Thin mode.
+         *
+         * @default false
+         * @since 6.8
+         */
+        useSNI?: boolean | undefined;
+        /**
+         * Indicates if network data compression needs to be enabled or disabled for a database connection.
+         * Enabling data compression reduces the size of the Oracle Net Session Data Unit (SDU) that is to be sent over a connection.
+         * Available only in thin driver mode.
+         *
+         * @default false
+         * @since 6.8
+         */
+        networkCompression?: boolean | undefined;
+        /**
+         * The minimum data size, in bytes, for which compression should be performed on the Oracle Net Session Data Unit (SDU).
+         * The minimum data size is 200 bytes.
+         *
+         * @default 1024
+         * @since 6.8
+         */
+        networkCompressionThreshold?: number | undefined;
+        /**
          * The name of the driver that is used by the client to connect to Oracle Database.
          * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
          * This optional property overrides the `oracledb.driverName` property.
@@ -2051,6 +2322,12 @@ declare namespace OracleDB {
          * The value may be 0 in non-SQL contexts. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
         offset?: number | undefined;
+        /**
+         * This property is a boolean which determines whether the error is recoverable or not.
+         * This requires Oracle Database 12.1 (or later).
+         * For node-oracledb Thick mode, Oracle Client 12.1 (or later) is also required.
+         */
+        isRecoverable: boolean;
         /**
          * This property is a string. When using Promises or Async/Await, the Error object includes a stack
          *
@@ -2191,6 +2468,16 @@ declare namespace OracleDB {
          * In earlier versions, statements were always added to the statement cache, if caching was enabled.
          */
         keepInStmtCache?: boolean | undefined;
+        /**
+         * Determines whether an active sessionless transaction should be suspended when execute() completes successfully.
+         * This property is only applicable for sessionless transactions.
+         * When this property is used with transactions that are not sessionless, an error will be thrown.
+         *
+         * @default false
+         *
+         * @since 6.9
+         */
+        suspendOnSuccess?: boolean;
     }
 
     /**
@@ -2525,6 +2812,14 @@ declare namespace OracleDB {
          */
         readonly poolTimeout: number;
         /**
+         * This attribute decides how long a connection is allowed to stay in the pool
+         * before it is deemed unfit for user and dropped from the pool.
+         *
+         * @default 0
+         * @since 6.9
+         */
+        readonly maxLifetimeSession: number;
+        /**
          * The time (in milliseconds) that a connection request should wait in the queue before the request is terminated.
          */
         readonly queueTimeout: number;
@@ -2719,6 +3014,14 @@ declare namespace OracleDB {
          */
         accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI | undefined;
         /**
+         * An array of array values that identifies the application context used by the connection.
+         * The elements of the array should contain three string values - namespace, name, and value.
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 6.9
+         */
+        appContext?: Array<AppContextOpts>;
+        /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.
          * The string can be an Easy Connect string, or a Net Service Name from a tnsnames.ora file, or the name of a local Oracle database instance.
@@ -2855,11 +3158,11 @@ declare namespace OracleDB {
         retryCount?: number | undefined;
         /**
          * The number of seconds to wait before making a new connection attempt.
-         * The default value is 0.
+         * The default value is 1. Changed to 1 from 0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
          *
          * @since 6.0
-         * @default 0
+         * @default 1
          */
         retryDelay?: number | undefined;
         /**
@@ -2871,9 +3174,9 @@ declare namespace OracleDB {
         connectTimeout?: number | undefined;
         /**
          * The maximum number of seconds to wait to establish a connection to the database host.
-         * The default value is 60.0.
+         * The default value is 20.0. Changed to 20.0 from 60.0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * @default 60.0
+         * @default 20.0
          * @since 6.0
          */
         transportConnectTimeout?: number | undefined;
@@ -3030,6 +3333,32 @@ declare namespace OracleDB {
          */
         privilege?: number | undefined;
         /**
+         * Enables the connection to use the TLS extension, Server Name Indication (SNI).
+         * This property requires Oracle Database 23.7 (or later).
+         * Available only in node-oracledb Thin mode.
+         *
+         * @default false
+         * @since 6.8
+         */
+        useSNI?: boolean | undefined;
+        /**
+         * Indicates if network data compression needs to be enabled or disabled for a database connection.
+         * Enabling data compression reduces the size of the Oracle Net Session Data Unit (SDU) that is to be sent over a connection.
+         * Available only in thin driver mode.
+         *
+         * @default false
+         * @since 6.8
+         */
+        networkCompression?: boolean | undefined;
+        /**
+         * The minimum data size, in bytes, for which compression should be performed on the Oracle Net Session Data Unit (SDU).
+         * The minimum data size is 200 bytes.
+         *
+         * @default 1024
+         * @since 6.8
+         */
+        networkCompressionThreshold?: number | undefined;
+        /**
          * The name of the driver that is used by the client to connect to Oracle Database.
          * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
          * This optional property overrides the `oracledb.driverName` property.
@@ -3082,6 +3411,14 @@ declare namespace OracleDB {
          * @since 6.6.0
          */
         walletContent?: string | undefined;
+        /**
+         * This attribute decides how long a connection is allowed to stay in the pool
+         * before it is deemed unfit for user and dropped from the pool.
+         *
+         * @default 0
+         * @since 6.9
+         */
+        maxLifetimeSession?: number;
     }
 
     /**
@@ -3215,6 +3552,22 @@ declare namespace OracleDB {
         attributes: Record<
             string,
             {
+                /** The maximum size (in bytes) of the attribute when theattribute's type is one of
+                 * 'oracledb.DB_TYPE_CHAR', 'oracledb.DB_TYPE_NCHAR', 'oracledb.DB_TYPE_NVARCHAR',
+                 * 'oracledb.DB_TYPE_RAW', or 'oracledb.DB_TYPE_VARCHAR'.
+                 * For all other types, the value returned is undefined.
+                 */
+                maxSize?: number | undefined;
+                /**
+                 * The precision of the attribute when the attribute's type is 'oracledb.DB_TYPE_NUMBER'.
+                 * For all other types, the value returned is undefined.
+                 */
+                precision?: number | undefined;
+                /**
+                 * The scale of the attribute when the attribute's type is 'oracledb.DB_TYPE_NUMBER'.
+                 * For all other types, the value returned is undefined.
+                 */
+                scale?: number | undefined;
                 /** One of the DB_TYPE constants. */
                 type: DbType | number;
                 /** Type, such as 'VARCHAR2' or 'NUMBER'. */
@@ -3247,6 +3600,13 @@ declare namespace OracleDB {
          * Add the given value to the end of the collection.
          */
         append(value: T): void;
+        /**
+         * Creates a copy of the object and returns it.
+         * For node-oracledb Thick mode, this method requires Oracle Client libraries 12.2 or higher, if you are copying PL/SQL collection VARRAY types.
+         *
+         * @since 6.8
+         */
+        copy(): T;
         /**
          * Deletes the value from collection at the given index.
          */
@@ -3311,6 +3671,10 @@ declare namespace OracleDB {
         delay: number;
         /** Delivery mode the messages was enqueued with. */
         deliveryMode: number;
+        /** A readonly JavaScript Date object with a precision of seconds containing
+         * the timestamp of when the message was enqueued.
+         */
+        readonly enqTime: Date;
         /** Name of the exception queue defined when the message was enqueued. */
         exceptionQueue: string;
         /** Number of seconds until expiration defined when the message was enqueued. */
@@ -4716,6 +5080,17 @@ declare namespace OracleDB {
      * @since 5.0
      */
     function initOracleClient(opts?: InitialiseOptions): void;
+
+    /**
+     * Registers extension modules. These registered modules will be called and executed during standalone and pooled connection creation.
+     * The parameter of the registerProcessConfigurationHook() method is a user hook function that needs to be registered.
+     * This hook function will be invoked when oracledb.getConnection() or oracledb.createPool() are called.
+     * The user hook function is expected to return an accessToken that needs to be registered.
+     *
+     * @since 6.8
+     */
+    type HookFn = (opts: AccessTokenConfigAzure | AccessTokenConfigOCI) => void;
+    function registerProcessConfigurationHook(fn: HookFn): void;
 
     type DBCredentials =
         | {
