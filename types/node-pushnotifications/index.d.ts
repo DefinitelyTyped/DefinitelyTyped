@@ -32,6 +32,11 @@ declare namespace PushNotifications {
             /** GCM or FCM token */
             id?: string | undefined;
         } | undefined;
+        /** Firebase Cloud Messaging  */
+        fcm?: {
+            /** FCM token */
+            id?: string | undefined;
+        } | undefined;
         /** Apple Push Notifications */
         apn?: {
             /** APN Token */
@@ -110,10 +115,8 @@ declare namespace PushNotifications {
         isAlwaysUseFCM?: boolean | undefined;
     }
     interface Data {
-        /** REQUIRED */
-        title: string;
-        /** REQUIRED */
-        body: string;
+        title?: string;
+        body?: string;
         custom?: { [key: string]: string | number } | string | undefined;
         /**
          * gcm, apn. Supported values are 'high' or 'normal' (gcm). Will be translated to 10 and 5 for apn. Defaults
@@ -185,7 +188,7 @@ declare namespace PushNotifications {
         /** ADM */
         consolidationKey?: string | undefined;
     }
-    type MethodValue = "apn" | "gcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
+    type MethodValue = "apn" | "gcm" | "fcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
     interface Message {
         regId: string;
         originalRegId?: string | undefined;

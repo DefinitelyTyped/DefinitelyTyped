@@ -30,3 +30,8 @@ import React = require("react");
 import ReactDOM = require(".");
 
 export {};
+
+declare module "react" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface CacheSignal extends AbortSignal {}
+}

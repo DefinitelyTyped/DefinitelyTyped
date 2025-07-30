@@ -36,12 +36,6 @@ declare class Visitor {
      * @param node The AST node whose children to visit.
      */
     visitChildren(node: any): void;
-
-    /**
-     * Dynamically defined methods for specific node types (e.g., Literal, Program).
-     * @param node The AST node to process.
-     */
-    [nodeType: string]: ((node: any) => void) | undefined;
 }
 
 /**
