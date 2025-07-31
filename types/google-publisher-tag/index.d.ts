@@ -280,6 +280,29 @@ declare namespace googletag {
     function setConfig(config: config.PageSettingsConfig): void;
 
     /**
+     * Gets general configuration options for the page set by {@link setConfig}.
+     *
+     * Not all `setConfig()` properties are supported by this method. Supported
+     * properties are:
+     * - {@link config.PageSettingsConfig.adsenseAttributes | `adsenseAttributes`}
+     * - {@link config.PageSettingsConfig.disableInitialLoad | `disableInitialLoad`}
+     * - {@link config.PageSettingsConfig.targeting | `targeting`}
+     *
+     * @example
+     *   // Get the value of the `targeting` setting.
+     *   const targetingConfig = googletag.getConfig('targeting');
+     *
+     *   // Get the value of the `adsenseAttributes` and `disableInitialLoad` settings.
+     *   const config = googletag.getConfig(['adsenseAttributes', 'disableInitialLoad']);
+     *
+     * @param keys The keys of the configuration options to get.
+     * @return The configuration options for the slot.
+     */
+    function getConfig(
+        keys: string | string[],
+    ): Pick<config.PageSettingsConfig, "adsenseAttributes" | "disableInitialLoad" | "targeting">;
+
+    /**
      * The command array accepts a sequence of functions and invokes them in
      * order. It is intended to replace a standard array that is used to enqueue
      * functions to be invoked once GPT is loaded.
@@ -442,6 +465,7 @@ declare namespace googletag {
          * @param key Targeting parameter key.
          * @param value Targeting parameter value or array of values.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.targeting | PageSettingsConfig.targeting} instead.
          */
         setTargeting(key: string, value: string | string[]): PubAdsService;
 
@@ -464,6 +488,7 @@ declare namespace googletag {
          * @param key Targeting parameter key. The key is optional; all targeting
          *     parameters will be cleared if it is unspecified.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.targeting | PageSettingsConfig.targeting} instead.
          */
         clearTargeting(key?: string): PubAdsService;
 
@@ -483,6 +508,7 @@ declare namespace googletag {
          * @param key The targeting key to look for.
          * @return The values associated with this key, or an empty array if there
          *     is no such key.
+         * @deprecated Use {@link googletag.getConfig} instead.
          */
         getTargeting(key: string): string[];
 
@@ -498,6 +524,7 @@ declare namespace googletag {
          *   // Returns ['interests', 'colors'].
          *
          * @return Array of targeting keys. Ordering is undefined.
+         * @deprecated Use {@link googletag.getConfig} instead.
          */
         getTargetingKeys(): string[];
 
@@ -511,6 +538,7 @@ declare namespace googletag {
          * @see [Custom labels to block ads](https://support.google.com/admanager/answer/3238504)
          * @param categoryExclusion The ad category exclusion label to add.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.categoryExclusion | PageSettingsConfig.categoryExclusion} instead.
          */
         setCategoryExclusion(categoryExclusion: string): PubAdsService;
 
@@ -531,6 +559,7 @@ declare namespace googletag {
          *
          * @see [Custom labels to block ads](https://support.google.com/admanager/answer/3238504)
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.categoryExclusion | PageSettingsConfig.categoryExclusion} instead.
          */
         clearCategoryExclusions(): PubAdsService;
 
@@ -542,6 +571,7 @@ declare namespace googletag {
          *
          * @see [Control ad loading and refresh](https://developers.google.com/publisher-tag/guides/control-ad-loading)
          * @see [Control SRA batching](https://developers.google.com/publisher-tag/samples/control-sra-batching)
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.disableInitialLoad | PageSettingsConfig.disableInitialLoad} instead.
          */
         disableInitialLoad(): void;
 
@@ -552,6 +582,7 @@ declare namespace googletag {
          * @return Returns `true` if a previous call to
          *     {@link PubAdsService.disableInitialLoad} was successful, `false`
          *     otherwise.
+         * @deprecated Use {@link googletag.getConfig} instead.
          */
         isInitialLoadDisabled(): boolean;
 
@@ -566,6 +597,7 @@ declare namespace googletag {
          * @return Returns `true` if single request mode was enabled and
          *     `false` if it is impossible to enable single request mode
          *     because the method was called after the service was enabled.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.singleRequest | PageSettingsConfig.singleRequest} instead.
          */
         enableSingleRequest(): boolean;
 
@@ -581,8 +613,9 @@ declare namespace googletag {
          *   // Make ads centered.
          *   googletag.pubads().setCentering(true);
          *
-         * @param centerAds `true` to center ads, `false` to
-         *     left-align them.
+         * @param centerAds `true` to center ads, `false` to left-align them.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.centering | PageSettingsConfig.centering}
+         *  instead.
          */
         setCentering(centerAds: boolean): void;
 
@@ -659,6 +692,7 @@ declare namespace googletag {
          * competitive exclusion constraints on display and video ads. If the video
          * content is known, call {@link PubAdsService.setVideoContent} in order to be
          * able to use content exclusion for display ads.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.videoAds | PageSettingsConfig.videoAds} instead.
          */
         enableVideoAds(): void;
 
@@ -672,6 +706,7 @@ declare namespace googletag {
          * @see [VAST ad tag URL parameters](https://support.google.com/admanager/answer/1068325)
          * @param videoContentId The video content ID.
          * @param videoCmsId The video CMS ID.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.videoAds | PageSettingsConfig.videoAds} instead.
          */
         setVideoContent(videoContentId: string, videoCmsId: string): void;
 
@@ -688,6 +723,7 @@ declare namespace googletag {
          * @return Returns `true` if div collapse mode was enabled and
          *     `false` if it is impossible to enable collapse mode
          *     because the method was called after the service was enabled.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.collapseDiv | PageSettingsConfig.collapseDiv} instead.
          */
         collapseEmptyDivs(collapseBeforeAdFetch?: boolean): boolean;
 
@@ -734,6 +770,7 @@ declare namespace googletag {
          *
          * @param address Freeform address.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.location | PageSettingsConfig.location} instead.
          */
         setLocation(address: string): PubAdsService;
 
@@ -766,6 +803,7 @@ declare namespace googletag {
          * @param key The name of the attribute.
          * @param value Attribute value.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.adsenseAttributes | PageSettingsConfig.adsenseAttributes} instead.
          */
         set(key: string, value: string): PubAdsService;
 
@@ -782,6 +820,7 @@ declare namespace googletag {
          * @param key Name of the attribute to look for.
          * @return Current value for the attribute key, or `null` if the
          *     key is not present.
+         * @deprecated Use {@link googletag.getConfig} instead.
          */
         get(key: string): string | null;
 
@@ -796,6 +835,7 @@ declare namespace googletag {
          *
          * @return Array of attribute keys set on this service. Ordering is
          *     undefined.
+         * @deprecated Use {@link googletag.getConfig} instead.
          */
         getAttributeKeys(): string[];
 
@@ -892,7 +932,8 @@ declare namespace googletag {
          *     be rendered in SafeFrames and `false` to change the
          *     previous setting to false. Setting this to `false` when
          *     unspecified earlier, won't change anything.
-         * @return The service object on which the function was called.
+         * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.safeFrame | PageSettingsConfig.safeFrame} instead.
          */
         setForceSafeFrame(forceSafeFrame: boolean): PubAdsService;
 
@@ -933,8 +974,9 @@ declare namespace googletag {
          * @see [Render creatives using SafeFrame](https://support.google.com/admanager/answer/6023110)
          * @param config The configuration object.
          * @return The service object on which the method was called.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.safeFrame | PageSettingsConfig.safeFrame} instead.
          */
-        setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
+        setSafeFrameConfig(config: config.SafeFrameConfig): PubAdsService;
 
         /**
          * Enables lazy loading in GPT as defined by the config object. For more
@@ -982,6 +1024,7 @@ declare namespace googletag {
          *     margins on mobile vs. desktop. For example, a value of 2.0 will
          *     multiply all margins by 2 on mobile devices, increasing the minimum
          *     distance a slot can be before fetching and rendering.
+         * @deprecated Use {@link googletag.config.PageSettingsConfig.lazyLoad | PageSettingsConfig.lazyLoad} instead.
          */
         enableLazyLoad(config?: {
             fetchMarginPercent?: number;
@@ -1051,48 +1094,6 @@ declare namespace googletag {
 
         /** The number of items included in the reward. */
         amount: number;
-    }
-
-    /**
-     * Configuration object for
-     * [SafeFrame](https://support.google.com/admanager/answer/6023110)
-     * containers.
-     *
-     * @see {@link PubAdsService.setSafeFrameConfig}
-     */
-    interface SafeFrameConfig {
-        /**
-         * Whether SafeFrame should allow ad content to expand by overlaying page
-         * content.
-         */
-        allowOverlayExpansion?: boolean;
-
-        /**
-         * Whether SafeFrame should allow ad content to expand by pushing page
-         * content.
-         */
-        allowPushExpansion?: boolean;
-
-        /**
-         * Whether SafeFrame should use the HTML5 sandbox attribute to prevent top
-         * level navigation without user interaction. The only valid value is
-         * `true` (cannot be forced to `false`). Note that the
-         * sandbox attribute disables plugins (e.g. Flash).
-         */
-        sandbox?: boolean;
-
-        /**
-         * Whether SafeFrame should use randomized subdomains for
-         * Reservation creatives. Pass in `null` to clear the stored
-         * value.
-         *
-         * Note: this feature is enabled by default.
-         *
-         * @deprecated It is no longer possible to disable this feature. Setting
-         * `useUniqueDomain` has no effect.
-         * @see [Render creatives using SafeFrame](https://support.google.com/admanager/answer/9999596)
-         */
-        useUniqueDomain?: boolean | null;
     }
 
     /** Base service class that contains methods common for all services. */
@@ -1262,6 +1263,7 @@ declare namespace googletag {
          * @param key The name of the attribute.
          * @param value Attribute value.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.adsenseAttributes | SlotSettingsConfig.adsenseAttributes} instead.
          */
         set(key: string, value: string): Slot;
 
@@ -1282,6 +1284,7 @@ declare namespace googletag {
          * @param key Name of the attribute to look for.
          * @return Current value for the attribute key, or `null` if the
          *     key is not present.
+         * @deprecated Use {@link googletag.Slot.getConfig} instead.
          */
         get(key: string): string | null;
 
@@ -1300,6 +1303,7 @@ declare namespace googletag {
          *   // Returns ['adsense_background_color', 'adsense_border_color'].
          *
          * @return Array of attribute keys. Ordering is undefined.
+         * @deprecated Use {@link googletag.Slot.getConfig} instead.
          */
         getAttributeKeys(): string[];
 
@@ -1356,6 +1360,7 @@ declare namespace googletag {
          *
          * @param value The click URL to set.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.clickUrl | SlotSettingsConfig.clickUrl} instead.
          */
         setClickUrl(value: string): Slot;
 
@@ -1371,6 +1376,7 @@ declare namespace googletag {
          * @see [Custom labels to block ads](https://support.google.com/admanager/answer/3238504)
          * @param categoryExclusion The ad category exclusion label to add.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.categoryExclusion | SlotSettingsConfig.categoryExclusion} instead.
          */
         setCategoryExclusion(categoryExclusion: string): Slot;
 
@@ -1392,6 +1398,7 @@ declare namespace googletag {
          *   // Make an ad request. Any ad can be returned for the slot.
          *
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.categoryExclusion | SlotSettingsConfig.categoryExclusion} instead.
          */
         clearCategoryExclusions(): Slot;
 
@@ -1409,6 +1416,7 @@ declare namespace googletag {
          *
          * @return The ad category exclusion labels for this slot, or an empty array
          *     if none have been set.
+         * @deprecated Use {@link googletag.Slot.getConfig} instead.
          */
         getCategoryExclusions(): string[];
 
@@ -1432,6 +1440,7 @@ declare namespace googletag {
          * @param key Targeting parameter key.
          * @param value Targeting parameter value or array of values.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.targeting | SlotSettingsConfig.targeting} instead.
          */
         setTargeting(key: string, value: string | string[]): Slot;
 
@@ -1457,6 +1466,7 @@ declare namespace googletag {
          * @param key Targeting parameter key. The key is optional; all
          *     targeting parameters will be cleared if it is unspecified.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.targeting | SlotSettingsConfig.targeting} instead.
          */
         clearTargeting(key?: string): Slot;
 
@@ -1478,6 +1488,7 @@ declare namespace googletag {
          * @param key The targeting key to look for.
          * @return The values associated with this key, or an empty array if there
          *     is no such key.
+         * @deprecated Use {@link googletag.Slot.getConfig} instead.
          */
         getTargeting(key: string): string[];
 
@@ -1495,6 +1506,7 @@ declare namespace googletag {
          *   // Returns ['interests', 'allow_expandable'].
          *
          * @return Array of targeting keys. Ordering is undefined.
+         * @deprecated Use {@link googletag.Slot.getConfig} instead.
          */
         getTargetingKeys(): string[];
 
@@ -1521,6 +1533,7 @@ declare namespace googletag {
          * @param collapseBeforeAdFetch Whether to collapse the slot even before an
          *     ad is fetched. Ignored if collapse is not `true`.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.collapseDiv | SlotSettingsConfig.collapseDiv} instead.
          */
         setCollapseEmptyDiv(collapse: boolean, collapseBeforeAdFetch?: boolean): Slot;
 
@@ -1585,6 +1598,7 @@ declare namespace googletag {
          *     page-level setting (if present). Setting this to `false`
          *     when not specified at the page-level won't change anything.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.safeFrame | SlotSettingsConfig.safeFrame} instead.
          */
         setForceSafeFrame(forceSafeFrame: boolean): Slot;
 
@@ -1615,8 +1629,9 @@ declare namespace googletag {
          * @see [Render creatives using SafeFrame](https://support.google.com/admanager/answer/6023110)
          * @param config The configuration object.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.safeFrame | SlotSettingsConfig.safeFrame} instead.
          */
-        setSafeFrameConfig(config: SafeFrameConfig | null): Slot;
+        setSafeFrameConfig(config: config.SafeFrameConfig | null): Slot;
 
         /**
          * Returns the ad response information. This is based on the last ad
@@ -1652,6 +1667,7 @@ declare namespace googletag {
          *
          * @param map Targeting parameter key:value map.
          * @return The slot object on which the method was called.
+         * @deprecated Use {@link googletag.config.SlotSettingsConfig.targeting | SlotSettingsConfig.targeting} instead.
          */
         updateTargetingFromMap(map: { [adUnitPath: string]: string | string[] }): Slot;
 
@@ -1661,6 +1677,31 @@ declare namespace googletag {
          * @param slotConfig The configuration object.
          */
         setConfig(slotConfig: config.SlotSettingsConfig): void;
+
+        /**
+         * Gets general configuration options for the slot set by {@link setConfig}.
+         *
+         * Not all `setConfig()` properties are supported by this method. Supported
+         * properties are:
+         * - {@link googletag.config.SlotSettingsConfig.adsenseAttributes | `adsenseAttributes`}
+         * - {@link googletag.config.SlotSettingsConfig.categoryExclusion | `categoryExclusion`}
+         * - {@link googletag.config.SlotSettingsConfig.targeting | `targeting`}
+         *
+         * @example
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!;
+         *
+         *   // Get the value of the `targeting` setting.
+         *   const targetingConfig = slot.getConfig('targeting');
+         *
+         *   // Get the value of the `adsenseAttributes` and `categoryExclusion` settings.
+         *   const config = slot.getConfig(['adsenseAttributes', 'categoryExclusion']);
+         *
+         * @param keys The keys of the configuration options to get.
+         * @return The configuration options for the slot.
+         */
+        getConfig(
+            keys: string | string[],
+        ): Pick<config.SlotSettingsConfig, "categoryExclusion" | "targeting" | "adsenseAttributes">;
     }
 
     /** Array of two numbers representing [width, height]. */
@@ -1729,6 +1770,126 @@ declare namespace googletag {
              * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
              */
             enabled?: boolean | null;
+        }
+
+        /**
+         * @namespace config
+         */
+
+        /**
+         * Settings to control the behavior of AdSense ads.
+         *
+         * These attributes can be used to override server-side
+         * settings on a per-request basis.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.adsenseAttributes | PageSettingsConfig.adsenseAttributes}
+         * @see {@link googletag.config.SlotSettingsConfig.adsenseAttributes | SlotSettingsConfig.adsenseAttributes}
+         */
+        /* tslint:disable:enforce-name-casing */
+        interface AdSenseAttributesConfig {
+            /**
+             * AdSense channel IDs.
+             *
+             * Allowed values are channel IDs separated by '+'.
+             *
+             * Example: `271828183+314159265`
+             *
+             * @see [Track ad unit performance with custom channels](https://support.google.com/adsense/answer/10078316)
+             */
+            adsense_channel_ids?: string | null;
+
+            /**
+             * AdSense ad format.
+             */
+            adsense_ad_format?:
+                | "120x240_as"
+                | "120x600_as"
+                | "125x125_as"
+                | "160x600_as"
+                | "180x150_as"
+                | "200x200_as"
+                | "234x60_as"
+                | "250x250_as"
+                | "300x250_as"
+                | "336x280_as"
+                | "468x60_as"
+                | "728x90_as"
+                | null;
+
+            /**
+             * URL of the page on which ads are displayed.
+             *
+             * Allowed values are valid URLs.
+             *
+             * Example: `http://www.example.com`
+             */
+            page_url?: string | null;
+
+            /**
+             * Language of the page on which ads are displayed.
+             *
+             * Allowed values are valid ISO 639-1 language codes.
+             *
+             * Example: `en`
+             *
+             * @see [List of ISO 639 language codes](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes)
+             */
+            document_language?: string | null;
+
+            /**
+             * Whether or not test mode is enabled.
+             *
+             * When set to `on`, ads are marked as test-only, and won't be
+             * included in counting or billing. This setting must be unset
+             * for production, non-test traffic.
+             */
+            adsense_test_mode?: "on" | null;
+        }
+
+        /**
+         * Settings to control the use of lazy loading in GPT.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.lazyLoad | PageSettingsConfig.lazyLoad}
+         */
+        interface LazyLoadConfig {
+            /**
+             * The minimum distance from the current viewport a slot must be before
+             * we request an ad, expressed as a percentage of viewport size.
+             *
+             * Used in conjunction with {@link renderMarginPercent}, this setting allows
+             * for prefetching an ad, but waiting to render and download other
+             * subresources. As such, this value should always be greater than or equal
+             * to {@link renderMarginPercent}.
+             *
+             * A value of `0` means "when the slot enters the viewport", `100` means "when
+             * the ad is 1 viewport away", and so on.
+             */
+            fetchMarginPercent?: number | null;
+
+            /**
+             * The minimum distance from the current viewport a slot must be before we
+             * render an ad, expressed as a percentage of viewport size.
+             *
+             * Used in conjunction with {@link fetchMarginPercent}, this setting allows
+             * for prefetching an ad, but waiting to render and download other
+             * subresources. As such, this value should always be less than or equal to
+             * {@link fetchMarginPercent}.
+             *
+             * A value of `0` means "when the slot enters the viewport", `100` means "when
+             * the ad is 1 viewport away", and so on.
+             */
+            renderMarginPercent?: number | null;
+
+            /**
+             * A multiplier applied to margins on mobile devices. This multiplier is
+             * applied to both {@link fetchMarginPercent} and {@link renderMarginPercent}.
+             *
+             * This allows for different margins on mobile vs. desktop, where viewport
+             * sizes and scroll speeds may be different. For example, a value of 2.0 will
+             * multiply all margins by 2 on mobile devices, increasing the minimum
+             * distance a slot can be from the viewport before fetching and rendering.
+             */
+            mobileScaling?: number | null;
         }
 
         /**
@@ -1806,8 +1967,8 @@ declare namespace googletag {
             pps?: PublisherProvidedSignalsConfig | null;
 
             /**
-             * Setting to control whether GPT should yield the JS thread when
-             * rendering creatives.
+             * Setting to control whether GPT should yield the JS thread when requesting
+             * and rendering creatives.
              *
              * GPT will yield only for browsers that support the Scheduler.postTask
              * or Scheduler.yield API.
@@ -1839,6 +2000,267 @@ declare namespace googletag {
              * instead. This will be removed in the near future.
              */
             adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
+             * Setting to geo-target line items to geographic locations.
+             *
+             * @example
+             *   // Geo-target line items to US postal code 10001.
+             *   googletag.setConfig({location: "10001,US"});
+             *
+             *   // Clear the location setting.
+             *   googletag.setConfig({location: null});
+             *
+             * @see [Target geographic locations for delivery](https://support.google.com/admanager/answer/1260290)
+             */
+            location?: string | null;
+
+            /**
+             * Settings to control video ads.
+             *
+             * @example
+             *   // Enable video ads and set video content and content source IDs.
+             *   googletag.setConfig({
+             *     videoAds: {
+             *       enableVideoAds: true,
+             *       videoContentId: 'e1eGlRL7ju8',
+             *       videoCmsId: '1234567'
+             *     }
+             *   });
+             *
+             * @see [Video content ingestion](https://support.google.com/admanager/topic/9210762)
+             */
+            videoAds?: VideoAdsConfig | null;
+
+            /**
+             * Settings to control the use of lazy loading in GPT.
+             *
+             * Lazy loading is a technique to delay the requesting and rendering of ads
+             * until they approach the user's viewport. For a more detailed example, see the
+             * [Lazy loading](https://developers.google.com/publisher-tag/samples/lazy-loading)
+             * sample.
+             *
+             * **Note:** If
+             * {@link config.PageSettingsConfig.singleRequest | `singleRequest`} is enabled,
+             * lazy fetching only works when all slots are outside the fetch margin.
+             *
+             * Any lazy load settings which are not specified when calling
+             * `setConfig()` will use a default value set by Google. These defaults may be
+             * tuned over time. To disable a particular setting, set the value to `null`.
+             *
+             * @example
+             *   // Enable lazy loading.
+             *   googletag.setConfig({
+             *     lazyLoad: {
+             *       // Fetch slots within 5 viewports.
+             *       fetchMarginPercent: 500,
+             *       // Render slots within 2 viewports.
+             *       renderMarginPercent: 200,
+             *       // Double the above values on mobile.
+             *       mobileScaling: 2.0}
+             *   });
+             *
+             *   // Clear fetch margin only.
+             *   googletag.setConfig({
+             *     lazyLoad: {fetchMarginPercent: null}
+             *   });
+             *
+             *   // Clear all lazy loading settings.
+             *   googletag.setConfig({lazyLoad: null});
+             *
+             * @see [Ads best practices: Prioritize &quot;important&quot; ad slots](https://developers.google.com/publisher-tag/guides/ad-best-practices#prioritize_important_ad_slots)
+             * @see [Lazy loading](https://developers.google.com/publisher-tag/samples/lazy-loading)
+             */
+            lazyLoad?: LazyLoadConfig | null;
+
+            /**
+             * Settings to control the use of
+             * [SafeFrame](https://support.google.com/admanager/answer/6023110)
+             * in GPT.
+             *
+             * Values configured via this setting will apply to all ad slots on the page.
+             * Individual ad slots may override these values via
+             * {@link googletag.config.SlotSettingsConfig.safeFrame | SlotSettingsConfig.safeFrame}.
+             *
+             * @example
+             *   // Force SafeFrame for all ads on the page.
+             *   googletag.setConfig({
+             *     safeFrame: {forceSafeFrame: true}
+             *   });
+             *
+             *   // Configure SafeFrame to allow overlay expansion.
+             *   googletag.setConfig({
+             *     safeFrame: {allowOverlayExpansion: true}
+             *   });
+             *
+             *   // Clear forceSafeFrame setting.
+             *   googletag.setConfig({
+             *     safeFrame: {forceSafeFrame: null}
+             *   });
+             *
+             *   // Clear all SafeFrame settings.
+             *   googletag.setConfig({safeFrame: null});
+             */
+            safeFrame?: SafeFrameConfig | null;
+
+            /**
+             * Setting to control the horizontal centering of ads. Centering is disabled
+             * by default.
+             *
+             * Horizontal centering changes only apply to ads requested after this method
+             * has been called. For that reason, it is recommended to call this method before
+             * any calls to {@link googletag.display} or {@link PubAdsService.refresh}.
+             *
+             * @example
+             *   // Make ads centered.
+             *   googletag.setConfig({centering: true});
+             *
+             *   // Clear the centering setting.
+             *   googletag.setConfig({centering: null});
+             */
+            centering?: boolean | null;
+
+            /**
+             * Setting to control the collapsing behavior of ad slots.
+             *
+             * A collapsed ad slot does not take up any space on the page.
+             *
+             * Supported values:
+             *  - `null` (default): The slot will not be collapsed.
+             *  - `DISABLED`: The slot will not collapse, whether or not an ad is
+             *    returned.
+             *  - `BEFORE_FETCH`: The slot will start out collapsed, and expand when
+             *    an ad is returned.
+             *  - `ON_NO_FILL`: The slot will start out expanded, and collapse if no ad
+             *    is returned.
+             *
+             * @example
+             *   // Collapse the div for this slot if no ad is returned.
+             *   googletag.setConfig({collapseDiv: 'ON_NO_FILL'});
+             *
+             *   // Collapse the div for this slot by default, and expand only
+             *   // if an ad is returned.
+             *   googletag.setConfig({collapseDiv: 'BEFORE_FETCH'});
+             *
+             *   // Do not collapse the div for this slot.
+             *   googletag.setConfig({collapseDiv: 'DISABLED'});
+             *
+             *   // Clear the collapse setting.
+             *   googletag.setConfig({collapseDiv: null});
+             *
+             * @see [Collapse empty ad slots](https://developers.google.com/publisher-tag/samples/collapse-empty-ad-slots)
+             * @see [Minimize layout shift](https://developers.google.com/publisher-tag/guides/minimize-layout-shift)
+             */
+            collapseDiv?: "DISABLED" | "BEFORE_FETCH" | "ON_NO_FILL" | null;
+
+            /**
+             * Setting to enable or disable Single Request Architecture (SRA).
+             *
+             * When SRA is enabled, all ad slots defined prior to a
+             * {@link googletag.display} or {@link PubAdsService.refresh} call will be
+             * batched into a single ad request. This provides performance benefits, but
+             * is also necessary to ensure roadblocks and competetive exclusions are
+             * honored.
+             *
+             * When SRA is disabled, each ad slot is requested individually. This is the
+             * default behavior of GPT.
+             *
+             * This method *must* be called prior to calling {@link googletag.enableServices}.
+             *
+             * @example
+             *   // Enable Single Request Architecture.
+             *   googletag.setConfig({singleRequest: true});
+             *
+             * @see [About roadblocks](https://support.google.com/admanager/answer/177277)
+             * @see [Ads best practices: Use Single Request Architecture correctly](https://developers.google.com/publisher-tag/guides/ad-best-practices#use_single_request_architecture_correctly)
+             * @see [Control SRA batching](https://developers.google.com/publisher-tag/samples/control-sra-batching)
+             */
+            singleRequest?: boolean | null;
+
+            /**
+             * Setting to control when ads are requested.
+             *
+             * By default, the {@link googletag.display} method both registers ad slots and
+             * requests ads for them. However, there are times when it may be preferable to
+             * separate these actions, in order to more precisely control when ad content is
+             * loaded.
+             *
+             * By enabling this setting, ads will not be requested for registered slots when the
+             * `display()` method is called. Instead, a separate call to
+             * {@link PubAdsService.refresh} must be made to initiate an ad request.
+             *
+             * This method *must* be called before calling {@link googletag.enableServices}.
+             *
+             * @example
+             * // Prevent requesting ads when `display()` is called.
+             * googletag.setConfig({disableInitialLoad: true});
+             *
+             * @see [Control ad loading and refresh](https://developers.google.com/publisher-tag/guides/control-ad-loading)
+             * @see [Control SRA batching](https://developers.google.com/publisher-tag/samples/control-sra-batching)
+             */
+            disableInitialLoad?: boolean | null;
+
+            /**
+             * Setting to configure ad category exclusions.
+             *
+             * @example
+             *   // Label = AirlineAd.
+             *   googletag.setConfig({categoryExclusion: ['AirlineAd']});
+             *
+             *   // Clearing category exclusion setting.
+             *   googletag.setConfig({categoryExclusion: null});
+             *
+             * @see [Custom labels to block ads](https://support.google.com/admanager/answer/3238504)
+             */
+            categoryExclusion?: string[] | null;
+
+            /**
+             * Setting to control key-value targeting.
+             *
+             * Targeting configured via this setting will apply to all ad slots on the page.
+             * This setting may be called multiple times to define multiple targeting
+             * key-values, or overwrite existing values.
+             * Targeting keys are defined in your Google Ad Manager account.
+             *
+             * @example
+             *   // Setting a single targeting key-value.
+             *   googletag.setConfig({targeting: {interests: 'sports'}});
+             *
+             *   // Setting multiple values for a single targeting key
+             *   googletag.setConfig({targeting: {interests: ['sports', 'music']}});
+             *
+             *   // Setting multiple targeting key-values at once.
+             *   googletag.setConfig({targeting: {interests: ['sports', 'music'], color: 'red'}});
+             *
+             *   // Clearing a single targeting key.
+             *   googletag.setConfig({targeting: {interests: null}});
+             *
+             * @see [Key-value targeting](https://developers.google.com/publisher-tag/guides/key-value-targeting)
+             */
+            targeting?: Record<string, string | string[] | null> | null;
+
+            /**
+             * Setting to configure AdSense attributes.
+             *
+             * AdSense attributes configured via this setting will apply to all ad slots on
+             * the page. This setting may be called multiple times to define multiple
+             * attribute values, or overwrite existing values.
+             *
+             * AdSense attribute changes only apply to ads requested after this method
+             * has been called. For that reason, it is recommended to call this method before
+             * any calls to {@link googletag.display} or {@link PubAdsService.refresh}.
+             *
+             * @example
+             *   // Set the document language and page URL.
+             *   googletag.setConfig({adsenseAttributes: {document_language: 'en', page_url: 'http://www.example.com'}});
+             *
+             *   // Clear the page URL only.
+             *   googletag.setConfig({adsenseAttributes: {page_url: null}});
+             *
+             *   // Clear all AdSense attributes.
+             *   googletag.setConfig({adsenseAttributes: null});
+             */
+            adsenseAttributes?: AdSenseAttributesConfig | null;
         }
 
         /**
@@ -1913,6 +2335,53 @@ declare namespace googletag {
         type Taxonomy = "IAB_AUDIENCE_1_1" | "IAB_CONTENT_2_2";
 
         /**
+         * Settings to control [SafeFrame](https://support.google.com/admanager/answer/6023110)
+         * in GPT.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.safeFrame | PageSettingsConfig.safeFrame}
+         * @see {@link googletag.config.SlotSettingsConfig.safeFrame | SlotSettingsConfig.safeFrame}
+         */
+        interface SafeFrameConfig {
+            /**
+             * Whether ad(s) should be forced to be rendered using a SafeFrame container.
+             */
+            forceSafeFrame?: boolean | null;
+
+            /**
+             * Whether SafeFrame should allow ad content to expand by overlaying page
+             * content.
+             */
+            allowOverlayExpansion?: boolean | null;
+
+            /**
+             * Whether SafeFrame should allow ad content to expand by pushing page
+             * content.
+             */
+            allowPushExpansion?: boolean | null;
+
+            /**
+             * Whether SafeFrame should use the HTML5 sandbox attribute to prevent top
+             * level navigation without user interaction. The only valid value is
+             * `true` (cannot be forced to `false`). Note that the
+             * sandbox attribute disables plugins (e.g. Flash).
+             */
+            sandbox?: boolean | null;
+
+            /**
+             * Whether SafeFrame should use randomized subdomains for
+             * Reservation creatives. Pass in `null` to clear the stored
+             * value.
+             *
+             * Note: this feature is enabled by default.
+             *
+             * @deprecated It is no longer possible to disable this feature. Setting
+             * `useUniqueDomain` has no effect.
+             * @see [Render creatives using SafeFrame](https://support.google.com/admanager/answer/9999596)
+             */
+            useUniqueDomain?: boolean | null;
+        }
+
+        /**
          * Main configuration interface for slot-level settings.
          *
          * Allows setting multiple features with a single API call for a single slot.
@@ -1979,14 +2448,200 @@ declare namespace googletag {
             componentAuction?: ComponentAuctionConfig[] | null;
 
             /**
-             * Settings that control interstitial ad slot behavior.
+             * Settings that configure interstitial ad slot behavior.
+             *
+             * @see [Traffic web interstitials](https://support.google.com/admanager/answer/9840201)
              */
             interstitial?: InterstitialConfig | null;
 
             /**
-             * Settings to control ad expansion.
+             * Settings to configure ad expansion.
+             *
+             * @see [Ad expansion](https://support.google.com/admanager/answer/9117822)
              */
             adExpansion?: AdExpansionConfig | null;
+
+            /**
+             * Setting to configure the URL to which users will be redirected after
+             * clicking on the ad.
+             *
+             * The Google Ad Manager servers still record a click even if the
+             * click URL is replaced. Any landing page URL associated with the creative
+             * that is served is appended to the provided value. Setting this value more
+             * than once will overwrite any previously configured value. Passing in `null`
+             * will clear the value.
+             *
+             * **Note:** This setting only applies to
+             * {@link config.PageSettingsConfig.singleRequest | non-SRA requests}.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *                         .addService(googletag.pubads());
+             *
+             *   // Sets the click URL to 'http://www.example.com?original_click_url='.
+             *   slot.setConfig({
+             *     clickUrl: 'http://www.example.com?original_click_url=',
+             *   });
+             *
+             *   // Clears the click URL.
+             *   slot.setConfig({
+             *     clickUrl: null,
+             *   });
+             */
+            clickUrl?: string | null;
+
+            /**
+             * Settings to configure the use of
+             * [SafeFrame](https://support.google.com/admanager/answer/6023110)
+             * in GPT.
+             *
+             * Values configured via this setting will only apply to the ad slot, and
+             * override values set via
+             * {@link googletag.config.PageSettingsConfig.safeFrame | PageSettingsConfig.safeFrame}.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *                         .addService(googletag.pubads());
+             *
+             *   // Force SafeFrame for the slot.
+             *   slot.setConfig({
+             *     safeFrame: {forceSafeFrame: true}
+             *   });
+             *
+             *   // Configure SafeFrame to allow overlay expansion for the slot.
+             *   slot.setConfig({
+             *     safeFrame: {allowOverlayExpansion: true}
+             *   });
+             *
+             *   // Clear forceSafeFrame setting for the slot.
+             *   slot.setConfig({
+             *     safeFrame: {forceSafeFrame: null}
+             *   });
+             *
+             *   // Clear all SafeFrame settings for the slot.
+             *   slot.setConfig({safeFrame: null});
+             */
+            safeFrame?: SafeFrameConfig | null;
+
+            /**
+             * Setting to configure the collapsing behavior of the ad slot.
+             *
+             * A collapsed ad slot does not take up any space on the page.
+             *
+             * Supported values:
+             *  - `null` (default): The slot will not be collapsed.
+             *  - `DISABLED`: The slot will not collapse, whether or not an ad is
+             *    returned.
+             *  - `BEFORE_FETCH`: The slot will start out collapsed, and expand when
+             *    an ad is returned.
+             *  - `ON_NO_FILL`: The slot will start out expanded, and collapse if no ad
+             *    is returned.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *
+             *   // Collapse the div for this slot if no ad is returned.
+             *   slot.setConfig({
+             *     collapseDiv: 'ON_NO_FILL',
+             *   });
+             *
+             *   // Collapse the div for this slot by default, and expand only
+             *   // if an ad is returned.
+             *   slot.setConfig({
+             *     collapseDiv: 'BEFORE_FETCH',
+             *   });
+             *
+             *   // Do not collapse the div for this slot.
+             *   slot.setConfig({
+             *     collapseDiv: 'DISABLED',
+             *   });
+             *
+             *   // Clear the collapse setting.
+             *   slot.setConfig({
+             *     collapseDiv: null,
+             *   });
+             *
+             * @see [Collapse empty ad slots](https://developers.google.com/publisher-tag/samples/collapse-empty-ad-slots)
+             * @see [Minimize layout shift](https://developers.google.com/publisher-tag/guides/minimize-layout-shift)
+             */
+            collapseDiv?: "DISABLED" | "BEFORE_FETCH" | "ON_NO_FILL" | null;
+
+            /**
+             * Setting to configure ad category exclusions.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *
+             *   // Label = AirlineAd
+             *   slot.setConfig({
+             *     categoryExclusion: ['AirlineAd'],
+             *   });
+             *
+             *   // Clearing category exclusion setting.
+             *   slot.setConfig({categoryExclusion: null});
+             *
+             * @see [Custom labels to block ads](https://support.google.com/admanager/answer/3238504)
+             */
+            categoryExclusion?: string[] | null;
+
+            /**
+             * Setting to configure key-value targeting.
+             *
+             * Targeting configured via this setting will only apply to the ad slot.
+             * This setting may be called multiple times to define multiple targeting
+             * key-values, or overwrite existing values.
+             * Targeting keys are defined in your Google Ad Manager account.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *
+             *   // Setting a single targeting key-value.
+             *   slot.setConfig({targeting: {interests: 'sports'}});
+             *
+             *   // Setting multiple values for a single targeting key.
+             *   slot.setConfig({targeting: {interests: ['sports', 'music']}});
+             *
+             *   // Setting multiple targeting key-values at once.
+             *   slot.setConfig({targeting: {interests: ['sports', 'music'], color: 'red'}});
+             *
+             *   // Clearing a single targeting key.
+             *   slot.setConfig({targeting: {interests: null}});
+             *
+             *   // Clear all targeting keys.
+             *   slot.setConfig({targeting: null});
+             *
+             * @see [Key-value targeting](https://developers.google.com/publisher-tag/guides/key-value-targeting)
+             */
+            targeting?: Record<string, string | string[] | null> | null;
+
+            /**
+             * Setting to configure AdSense attributes.
+             *
+             * AdSense attributes configured via this setting will only apply to the
+             * ad slot. This setting may be called multiple times to define multiple
+             * attribute values, or overwrite existing values.
+             *
+             * AdSense attribute changes only apply to ads requested after this method
+             * has been called. For that reason, it is recommended to call this method before
+             * any calls to {@link googletag.display} or {@link PubAdsService.refresh}.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *
+             *   // Set the AdSense ad format and channel IDs.
+             *   slot.setConfig({adsenseAttributes: {adsense_ad_format: '120x240_as', adsense_channel_ids: '271828183+314159265'}});
+             *
+             *   // Clear the AdSense channel IDs only.
+             *   slot.setConfig({adsenseAttributes: {adsense_channel_ids: null}});
+             *
+             *   // Clear all AdSense attributes.
+             *   slot.setConfig({adsenseAttributes: null});
+             */
+            adsenseAttributes?: AdSenseAttributesConfig | null;
         }
 
         /**
@@ -2132,6 +2787,48 @@ declare namespace googletag {
          * Supported interstitial ad triggers.
          */
         type InterstitialTrigger = "unhideWindow" | "navBar";
+
+        /**
+         * Settings to configure video ad related settings.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.videoAds | PageSettingsConfig.videoAds}
+         */
+        interface VideoAdsConfig {
+            /**
+             * Whether videos ads will be present on the page.
+             *
+             * When set to `true`, this enables content exclusion constraints on
+             * display and video ads.
+             *
+             * If the video content is known, set
+             * {@link videoContentId} and {@link videoCmsId} to the values provided to the
+             * Google Ad Manager content ingestion service to utilize content exclusion
+             * for display ads.
+             */
+            enableVideoAds: boolean | null;
+
+            /**
+             * The video content ID.
+             *
+             * This is a unique value that identifies a particular video from the
+             * content source specified by {@link videoCmsId}. This value is assigned by
+             * the CMS that hosts your video content.
+             *
+             * @see [vid (Video ID)](https://support.google.com/admanager/answer/10678356#vid&zippy=%2Cvid-video-id)
+             */
+            videoContentId?: string | null;
+
+            /**
+             * The video content source ID.
+             *
+             * This is a unique value assigned by the Google Ad Manager content
+             * ingestion service to identify the source of video content specified by
+             * {@link videoContentId}.
+             *
+             * @see [cmsid (Content Source ID)](https://support.google.com/admanager/answer/10678356#cmsid-vid&zippy=%2Ccmsid-content-source-id)
+             */
+            videoCmsId?: string | null;
+        }
     }
 
     /**
