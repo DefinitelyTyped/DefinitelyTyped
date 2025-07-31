@@ -692,7 +692,7 @@ table.blockRedraw();
 table.restoreRedraw();
 
 table.getRows("visible");
-table.deleteRow([15, 7, 9]);
+table.deleteRow([15, 7, 9]).then(() => {});
 
 table.addColumn({} as ColumnDefinition).then(() => {});
 
@@ -921,6 +921,12 @@ table = new Tabulator("#example-table", {
         age: { headerFilter: true },
         myProp: { title: "my title" },
     },
+});
+
+new Tabulator("#example-table", {
+    autoColumnsDefinitions: [
+        { field: "migration_up", formatter: "textarea" },
+    ],
 });
 
 let colDefs: ColumnDefinition[] = [];

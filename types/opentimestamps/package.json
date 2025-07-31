@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/opentimestamps",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/opentimestamps/javascript-opentimestamps#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/opentimestamps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Medeiros",
+            "githubUsername": "despotes"
+        }
+    ]
+}

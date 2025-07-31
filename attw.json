@@ -171,7 +171,6 @@
         "leveldown",
         "lint-staged",
         "locutus",
-        "luxon",
         "mapbox__mapbox-sdk",
         "mapboxgl-spiderifier",
         "marv",

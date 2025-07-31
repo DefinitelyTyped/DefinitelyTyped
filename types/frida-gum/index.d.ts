@@ -476,6 +476,11 @@ declare class Module {
     name: string;
 
     /**
+     * Module version, if available.
+     */
+    version: string | null;
+
+    /**
      * Base address.
      */
     base: NativePointer;

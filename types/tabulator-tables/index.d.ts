@@ -719,8 +719,8 @@ export interface OptionsColumns {
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
     autoColumns?: boolean | undefined | "full";
     autoColumnsDefinitions?:
-        | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
-        | ColumnDefinition[]
+        | ((columnDefinitions?: ColumnDefinition[]) => Partial<ColumnDefinition>[])
+        | Partial<ColumnDefinition>[]
         | Record<string, Partial<ColumnDefinition>>
         | undefined;
 
@@ -2895,7 +2895,7 @@ declare class Tabulator {
     getRowFromPosition: (position: number, activeOnly?: boolean) => RowComponent;
 
     /** You can delete any row in the table using the deleteRow function. */
-    deleteRow: (index: RowLookup | RowLookup[]) => void;
+    deleteRow: (index: RowLookup | RowLookup[]) => Promise<void>;
 
     /**
      * You can add a row to the table using the addRow function.
