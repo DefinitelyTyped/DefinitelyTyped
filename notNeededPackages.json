@@ -1933,6 +1933,10 @@
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
         },
+        "eth-sig-util": {
+            "libraryName": "eth-sig-util",
+            "asOfVersion": "2.5.3"
+        },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
             "asOfVersion": "2.0.0"
