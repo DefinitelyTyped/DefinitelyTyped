@@ -1505,7 +1505,7 @@ export default class Provider extends Koa {
      */
     readonly app: Koa;
 
-    get ctx(): KoaContextWithOIDC | undefined;
+    static get ctx(): KoaContextWithOIDC | undefined;
 
     backchannelResult(
         request: BackchannelAuthenticationRequest | string,
