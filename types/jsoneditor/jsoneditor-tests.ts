@@ -13,7 +13,7 @@ autocomplete.filter = undefined;
 autocomplete.filter = "start";
 autocomplete.filter = "contain";
 autocomplete.filter = input => true;
-autocomplete.filter = (token, match, config) => true;
+autocomplete.filter = (query, match, config) => true;
 
 autocomplete.getOptions = undefined;
 autocomplete.getOptions = (text, path, type, editor) => [];
@@ -22,53 +22,58 @@ autocomplete.getOptions = (text, path, type, editor) => [{ text: "Display Text",
 autocomplete.getOptions = (text, path, type, editor) => [
     "string_option",
     { text: "Object Option", value: "object_value" },
-    { text: "Object with text only", value: "object_text_only" }
+    { text: "Object with text only", value: "object_text_only" },
 ];
 autocomplete.getOptions = (text, path, type, editor) => ({ startFrom: 0, options: ["option1", "option2"] });
-autocomplete.getOptions = (text, path, type, editor) => ({ startFrom: 0, options: [{ text: "Display", value: "val" }] });
+autocomplete.getOptions = (text, path, type, editor) => ({
+    startFrom: 0,
+    options: [{ text: "Display", value: "val" }],
+});
 autocomplete.getOptions = (text, path, type, editor) => new Promise(() => ["async1", "async2"]);
-autocomplete.getOptions = (text, path, type, editor) => new Promise(() => [{ text: "Async Option", value: "async_val" }]);
+autocomplete.getOptions = (text, path, type, editor) =>
+    new Promise(() => [{ text: "Async Option", value: "async_val" }]);
 
 // Test getOptions with extended AutoCompleteOption properties
 autocomplete.getOptions = (text, path, type, editor) => [
     "simple_string",
-    { 
-        text: "Premium Feature", 
+    {
+        text: "Premium Feature",
         value: "premium_val",
         category: "premium",
         icon: "star",
-        description: "This is a premium feature"
+        description: "This is a premium feature",
     },
-    { 
+    {
         text: "Advanced Option",
-        value: "advanced_val", 
+        value: "advanced_val",
         metadata: { id: 123, priority: "high" },
-        customData: { anything: "custom" }
-    }
+        customData: { anything: "custom" },
+    },
 ];
 
-autocomplete.getOptions = (text, path, type, editor) => ({ 
-    startFrom: 0, 
+autocomplete.getOptions = (text, path, type, editor) => ({
+    startFrom: 0,
     options: [
         "basic_option",
-        { 
-            text: "Extended Option", 
+        {
+            text: "Extended Option",
             value: "ext_val",
             tooltip: "Additional information",
             disabled: false,
-            group: "category1"
-        }
-    ] 
+            group: "category1",
+        },
+    ],
 });
 
-autocomplete.getOptions = (text, path, type, editor) => Promise.resolve([
-    { 
-        text: "Async Extended", 
-        value: "async_ext",
-        category: "async",
-        metadata: { loadTime: Date.now() }
-    }
-]);
+autocomplete.getOptions = (text, path, type, editor) =>
+    Promise.resolve([
+        {
+            text: "Async Extended",
+            value: "async_ext",
+            category: "async",
+            metadata: { loadTime: Date.now() },
+        },
+    ]);
 
 autocomplete.trigger = undefined;
 autocomplete.trigger = "keydown";

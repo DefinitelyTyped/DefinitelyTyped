@@ -95,7 +95,10 @@ export interface AutoCompleteOption {
 
 export type AutoCompleteOptionItem = string | AutoCompleteOption;
 
-export type AutoCompleteCompletion = null | AutoCompleteOptionItem[] | { startFrom: number; options: AutoCompleteOptionItem[] };
+export type AutoCompleteCompletion = null | AutoCompleteOptionItem[] | {
+    startFrom: number;
+    options: AutoCompleteOptionItem[];
+};
 
 export type AutoCompleteMatchingStrategy = "start" | "contain";
 
@@ -116,7 +119,10 @@ export interface AutoCompleteOptions {
      * - 'start': Match your input from the start, e.g. 'ap' matches 'apple' but 'pl' does not.
      * - 'contain': Contains the user's input or not, e.g. 'pl' matches 'apple' too.
      */
-    filter?: AutoCompleteMatchingStrategy | ((query: string, match: AutoCompleteOptionItem, config: AutoCompleteOptions) => boolean) | undefined;
+    filter?:
+        | AutoCompleteMatchingStrategy
+        | ((query: string, match: AutoCompleteOptionItem, config: AutoCompleteOptions) => boolean)
+        | undefined;
     /**
      * Indicate the way to trigger autocomplete menu.
      * - 'keydown': When you type something in the field or value, it will trigger autocomplete immediately.
