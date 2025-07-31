@@ -177,7 +177,7 @@ declare module "libname" {
 만약 당신이 타입스크립트로 작성된 라이브러리의 저자(Author)라면, Definitely Typed에 추가하는 대신 당신의 패키지에 [자동생성된 선언(Declaration) 파일을 포함](https://www.typescriptlang.org/ko/docs/handbook/declaration-files/publishing.html)시키세요.
 또한 JSDoc 타입 주석을 사용하여 JavaScript 파일로부터 선언 파일을 생성할 수도 있습니다.
 
-만약 기존 npm 패키지를 위한 타입 패키지를 만드려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
+만약 기존 npm 패키지를 위한 타입 패키지를 만드려면, 패키지의 이름과 같은 이름의 디렉터리를 만들어주세요.
 만약 npm에 올라와 있지 않은 패키지를 위한 타입 패키지를 만드려면, 당신이 선택한 패키지 이름이 다른 npm 패키지와 이름이 겹치지 않는지 확인해주세요.
 (`npm info <my-package>`를 사용하여 `<my-package>` 패키지가 npm에 있는지 확인할 수 있습니다.)
 
@@ -206,7 +206,7 @@ Definitely Typed의 메인테이너들이 주기적으로 새 풀 리퀘스트(P
 
 `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`을 실행하여 제거할 수 있습니다.
 
-- `<typingsPackageName>` : 제거할 디렉토리의 이름입니다.
+- `<typingsPackageName>` : 제거할 디렉터리의 이름입니다.
 - `<asOfVersion>` : 새 스텁(Stub) 용 `@types/<typingsPackageName>` 를 배포(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `<libraryName>` : Definitely Typed의 타입 정의를 대체하는 npm 패키지의 이름입니다. 보통 `<typingsPackageName>`과 동일하며, 이 경우 생략할 수 있습니다.
 
@@ -488,10 +488,10 @@ Definitely Typed는 `package.json` 내 `peerDependencies` 사용을 허용합니
 - `const Class: { new(): IClass; }`의 경우,
   `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }`와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
 - `getMeAT<T>(): T`의 경우,
-  만일 타입 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generis) 함수를 사용할 필요가 없습니다.
-  그 제너릭 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언을 사용하는 게 더 좋습니다.
-  다음은 괜찮은 제너릭의 예시입니다. `function id<T>(value: T): T;`.
-  다음은 문제가 있는 제너릭의 예시입니다. `function parseJson<T>(json: string): T;`.
+  만일 타입 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제네릭(Generis) 함수를 사용할 필요가 없습니다.
+  그 제네릭 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언을 사용하는 게 더 좋습니다.
+  다음은 괜찮은 제네릭의 예시입니다. `function id<T>(value: T): T;`.
+  다음은 문제가 있는 제네릭의 예시입니다. `function parseJson<T>(json: string): T;`.
   예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
 - `Function` 이나 `Object` 와 같은 타입을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 타입을 사용하는게 가능합니다. [함수(Function)](https://www.typescriptlang.org/ko/docs/handbook/2/functions.html#%ED%95%A8%EC%88%98-%ED%83%80%EC%9E%85-%ED%91%9C%ED%98%84%EC%8B%9D) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 타입들을 사용할 수 있습니다. 타입에 대한 정보가 전혀 없을 경우에는, `Object` 타입이 아니라 [`any`](https://www.typescriptlang.org/ko/docs/handbook/2/everyday-types.html#any) 타입을 사용해야 합니다. 만일 어떤 타입이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
 - `var foo: string | any`의 경우,
@@ -737,13 +737,13 @@ DT 메인테이너들은 브레이킹 체인지를 적용할 때, 해당 패키�
 
 타입스크립트 안내서(TypeScript Handbook)은 [선언(Declaration)을 작성하는 방법에 대한 전반적인 정보](https://www.typescriptlang.org/ko/docs/handbook/declaration-files/introduction.html)와 [예시들](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)을 포함하고 있습니다. 이 내용에는 ES6 스타일 모듈 문법을 사용할 수 있는 타입 선언을 만드는 방법과 객체를 전역에서 사용할 수 있도록 하는 방법이 포함되어 있습니다. [`big.js` 패키지의 타입 선언](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)이 실례입니다. 이 패키지는 웹 페이지의 스크립트 태그를 사용해 불러올 수 있으며, 또한 ES6 스타일 임포트(Import) 구문을 사용해서 불러올 수도 있습니다.
 
-당신의 패키지가 임포트(Import) 구문을 사용했을 때와 전역적으로 불렀을 때를 테스트 해보고 싶다면, `test` 디렉토리를 추가하고 `YourLibraryName-global.test.ts` 그리고 `YourLibraryName-module.test.ts` 라는 이름으로 테스트 파일 두 개를 추가해주세요. **전역(Global)** 테스트 파일은 웹 페이지에서 전역적으로 사용될 때를 테스트하는 파일입니다. 이 파일에서는 임포트(Import) 구문을 사용하지 않아야 합니다. **모듈(Module)** 테스트 파일은 임포트 구문을 사용할 때를 테스트 하는 파일입니다. 만약 당신의 `tsconfig.json` 파일이 `files` 필드(Field)를 가지고 있다면, 이 필드는 반드시 두 테스트 파일을 모두 포함해야 합니다. [이 방식을 사용하는 실례](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) 또한 `big.js` 패키지의 타입 선언(Type declaration)에서 확인해보실 수 있습니다.
+당신의 패키지가 임포트(Import) 구문을 사용했을 때와 전역적으로 불렀을 때를 테스트 해보고 싶다면, `test` 디렉터리를 추가하고 `YourLibraryName-global.test.ts` 그리고 `YourLibraryName-module.test.ts` 라는 이름으로 테스트 파일 두 개를 추가해주세요. **전역(Global)** 테스트 파일은 웹 페이지에서 전역적으로 사용될 때를 테스트하는 파일입니다. 이 파일에서는 임포트(Import) 구문을 사용하지 않아야 합니다. **모듈(Module)** 테스트 파일은 임포트 구문을 사용할 때를 테스트 하는 파일입니다. 만약 당신의 `tsconfig.json` 파일이 `files` 필드(Field)를 가지고 있다면, 이 필드는 반드시 두 테스트 파일을 모두 포함해야 합니다. [이 방식을 사용하는 실례](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) 또한 `big.js` 패키지의 타입 선언(Type declaration)에서 확인해보실 수 있습니다.
 
 각각의 테스트 파일에 모든 상황을 테스트할 필요는 없다는 걸 잊지마세요. 전역 테스트 파일에서는 전역적으로 사용될 때만 테스트하고, 모듈 테스트 파일에서 나머지 상황들을 모두 테스트 할 수 있으며, 그 반대의 경우도 괜찮습니다.
 
 #### 지역 패키지(Scoped package)의 경우는 어떻게 하죠?
 
-`@foo/bar` 패키지와 같은 지역 패키지를 위한 타입 패키지(Type package)는 `types/foo__bar` 디렉토리에 추가하면 됩니다. 밑줄 문자가 두 번 있는 것에 주의하세요.
+`@foo/bar` 패키지와 같은 지역 패키지를 위한 타입 패키지(Type package)는 `types/foo__bar` 디렉터리에 추가하면 됩니다. 밑줄 문자가 두 번 있는 것에 주의하세요.
 
 지역 패키지를 위한 타입 패키지(Type package)를 생성하기 위해 `dts-gen` 를 사용한 경우에는,
 다음과 같이 생성된 `tsconfig.json` 안에 지역 패키지를 위한 적절한 경로 대응 규칙(Path mapping rule)을 추가해주어야 합니다.
