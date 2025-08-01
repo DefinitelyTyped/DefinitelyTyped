@@ -2859,6 +2859,8 @@ declare namespace googletag {
              * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
              */
             GAME_MANUAL_INTERSTITIAL,
+            /** Ad Intents format. */
+            AD_INTENTS,
         }
 
         /**
