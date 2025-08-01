@@ -6,10 +6,10 @@ declare global {
 
 export interface SDK<TGlobalSigned extends boolean = false> {
     EVENTS: {
+        ACCOUNT_SELECTION_DIALOG_CLOSED: "ACCOUNT_SELECTION_DIALOG_CLOSED";
+        ACCOUNT_SELECTION_DIALOG_OPENED: "ACCOUNT_SELECTION_DIALOG_OPENED";
         EXIT: "EXIT";
         HISTORY_BACK: "HISTORY_BACK";
-        ACCOUNT_SELECTION_DIALOG_OPENED: "ACCOUNT_SELECTION_DIALOG_OPENED";
-        ACCOUNT_SELECTION_DIALOG_CLOSED: "ACCOUNT_SELECTION_DIALOG_CLOSED";
     };
     adv: {
         getBannerAdvStatus(): Promise<{
@@ -21,7 +21,7 @@ export interface SDK<TGlobalSigned extends boolean = false> {
         showFullscreenAdv(opts?: {
             callbacks?: {
                 onClose?: (wasShown: boolean) => void;
-                onError?: (error: string) => void;
+                onError?: (error: Error) => void;
                 onOffline?: () => void;
                 onOpen?: () => void;
             };
@@ -29,7 +29,7 @@ export interface SDK<TGlobalSigned extends boolean = false> {
         showRewardedVideo(opts?: {
             callbacks?: {
                 onClose?: () => void;
-                onError?: (error: string) => void;
+                onError?: (error: Error) => void;
                 onOpen?: () => void;
                 onRewarded?: () => void;
             };
@@ -48,12 +48,18 @@ export interface SDK<TGlobalSigned extends boolean = false> {
             start(): void;
             stop(): void;
         };
+        GamesAPI: {
+            getAllGames(): Promise<{
+                developerURL: string;
+                games: Game[];
+            }>;
+            getGameByID(id: number): Promise<{
+                game?: Game;
+                isAvailable: boolean;
+            }>;
+        };
         LoadingAPI: {
             ready(): void;
-        };
-        GamesAPI: {
-            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
-            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
         };
     };
     feedback: {
@@ -86,7 +92,7 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     getPayments<TSigned extends boolean = false>(opts?: { signed?: TSigned }): Promise<Payments<TSigned>>;
     getPlayer<TSigned extends boolean = false>(opts?: {
         signed?: TSigned;
-    }): Promise<TSigned extends true ? Signed<Player> : Player>;
+    }): Promise<TSigned extends true ? Signature : Player>;
     getStorage(): Promise<SafeStorage>;
     isAvailableMethod(methodName: string): Promise<boolean>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK event args can be of any type
@@ -109,15 +115,15 @@ export interface GetFlagsParams {
 
 export interface Game {
     appID: string;
-    title: string;
-    url: string;
     coverURL: string;
     iconURL: string;
+    title: string;
+    url: string;
 }
 
 /** When an object is passed through signature, it is not returned as itself,
  * but instead the signature field contains an encrypted string with object fields that can be decrypted on your server */
-export interface Signed<T> {
+export interface Signature {
     signature: string;
 }
 
@@ -135,7 +141,7 @@ export interface Environment {
     get payload(): null | string;
 }
 
-export enum DeviceType {
+export enum DeviceType { // eslint-disable-line @typescript-eslint/naming-convention
     DESKTOP = "desktop",
     MOBILE = "mobile",
     TABLET = "tablet",
@@ -194,11 +200,8 @@ export interface Product {
 export interface Payments<TSigned extends boolean = false> {
     consumePurchase(token: string): Promise<void>;
     getCatalog(): Promise<Product[]>;
-    getPurchases(): Promise<TSigned extends true ? Signed<Purchase[]> : Purchase[]>;
-    purchase(opts?: {
-        developerPayload?: string;
-        id: string;
-    }): Promise<TSigned extends true ? Signed<Purchase> : Purchase>;
+    getPurchases(): Promise<TSigned extends true ? Signature : Purchase[]>;
+    purchase(opts?: { developerPayload?: string; id: string }): Promise<TSigned extends true ? Signature : Purchase>;
 }
 
 export interface GetLeaderboardEntriesOpts {
