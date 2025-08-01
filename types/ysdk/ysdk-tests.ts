@@ -57,7 +57,7 @@ async function Payments() {
 
     const ysdkSigned = await YaGames.init({ signed: true });
 
-    // $ExpectType Signed<Purchase[]>
+    // $ExpectType Signature
     const purchases = await ysdkSigned.payments.getPurchases();
 
     // $ExpectType string
@@ -207,7 +207,7 @@ async function Player() {
     // $ExpectType Promise<Player>
     ysdk.getPlayer();
 
-    // $ExpectType Signed<Player>
+    // $ExpectType Signature
     const signedPlayer = await ysdk.getPlayer({ signed: true });
 
     // $ExpectType string
@@ -320,7 +320,7 @@ async function Misc() {
     // $ExpectType void
     ysdk.features.GameplayAPI.stop();
 
-    // $ExpectType Promise<{ games: Game[]; developerURL: string; }>
+    // $ExpectType Promise<{ developerURL: string; games: Game[]; }>
     ysdk.features.GamesAPI.getAllGames();
 
     // $ExpectType Promise<{ game?: Game | undefined; isAvailable: boolean; }>
