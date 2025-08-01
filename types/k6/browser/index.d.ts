@@ -3219,6 +3219,16 @@ export interface Page {
     }): Promise<Response | null>;
 
     /**
+     * Adds a route to the page to modify network requests made by that page.
+     * 
+     * Once routing is enabled, every request matching the url pattern will stall unless it's continued, fulfilled or aborted.
+     */
+    route(
+        url: string | RegExp,
+        handler: (route: Route) => any,
+    ): Promise<void>;
+
+    /**
      * Returns the buffer with the captured screenshot from the browser.
      *
      * @param options
@@ -4087,6 +4097,112 @@ export interface Response {
      * @returns the URL of the response
      */
     url(): string;
+}
+
+/**
+ * Route represents a network request intercepted by page.route() function and allows to modify its behavior.
+ * 
+ * Once routing is enabled, every request intercepted by a route will stall unless it's continued, fulfilled or aborted.
+ * When several routes match the given pattern, they run in the order opposite to their registration.
+ * That way the last registered route can always override all the previous ones.
+ */
+export interface Route {
+    /**
+     * Aborts the request with the given error code.
+     * 
+     * **Usage**
+     *
+     * ```js
+     * // Abort all images requests
+     * await page.route(/(\.png$)|(\.jpg$)/, async (route) => {
+     *   await route.abort();
+     * });
+     * ```
+     * 
+     * @param errorCode The error code to abort the request with, can be one of the following: 
+     * 'aborted', 'accessdenied', 'addressunreachable', 'blockedbyclient', 'blockedbyresponse', 'connectionaborted','connectionclosed',
+     * 'connectionfailed', 'connectionrefused', 'connectionreset', 'internetdisconnected', 'namenotresolved', 'timedout', 'failed'.
+     */
+    abort(errorCode: string): Promise<void>;
+
+    /**
+     * Continues the request with optional overrides.
+     *
+     * **Usage**
+     *
+     * ```js
+     * await page.route('**\/*', async (route, request) => {
+     *   // Override headers
+     *   const headers = {
+     *     ...request.headers(),
+     *     foo: 'foo-value', // set "foo" header
+     *     bar: undefined, // remove "bar" header
+     *   };
+     *   await route.continue({ headers });
+     * });
+     * ```
+     * 
+     * @param options Optional overrides for the request.
+     */
+    continue(options?: {
+        /**
+         * Optional HTTP headers to override.
+         */
+        headers?: { [key: string]: string; };
+        /**
+         * Optional method to override the request method (e.g., 'GET', 'POST').
+         */
+        method?: string;
+        /**
+         * Optional post data to override the request body.
+         */
+        postData?: string | ArrayBuffer;
+        /**
+         * Optional URL to override the request URL.
+         */
+        url?: string;
+    }): Promise<void>;
+
+    /**
+     * Fulfills the request with the given response.
+     * 
+     * **Usage**
+     * ```js
+     * // Respond with a custom JSON response
+     * await page.route('**\/*', async (route) => {
+     *   await route.fulfill({
+     *     status: 200,
+     *     contentType: 'application/json',
+     *     body: JSON.stringify({ message: 'Hello, world!' }),
+     *   });
+     * });
+     * ```
+     * 
+     * @param options The response options to fulfill the request with.
+     */
+    fulfill(options: {
+        /**
+         * Optional body of the response, can be a string or an ArrayBuffer.
+         */
+        body?: string | ArrayBuffer;
+        /**
+         * Optional content type of the response.
+         */
+        contentType?: string;
+        /**
+         * Optional HTTP headers to return.
+         */
+        headers?: { [key: string]: string; };
+        /**
+         * Optional HTTP status code to return. Defaults to `200`.
+         */
+        status?: number;        
+    }): Promise<void>;
+
+    /**
+     * Returns the matching request that this route is handling.
+     */
+    request(): Request;
 }
 
 /**
