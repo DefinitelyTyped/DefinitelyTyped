@@ -185,12 +185,12 @@ declare module "libname" {
 
 | 파일 이름                                      | 용도                                                                                                                         |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `index.d.ts`                                   | 패키지를 위한 자료형(Typings)을 포함하는 파일입니다.                                                                          |
+| `index.d.ts`                                   | 패키지를 위한 자료형(Typings)을 포함하는 파일입니다.                                                                         |
 | [`<my-package>-tests.ts`](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | [`tsconfig.json`](#tsconfigjson)               | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다.                                                                                 |
-| [`.eslintrc.json`](#linter-eslintrcjson)       | (드물게 사용) eslint를 위해 작성된 린트 규칙을 비활성화할 때만 필요합니다.                                       |
-| [`package.json`](#packagejson)                 | 이름, 버전, 의존성 등 패키지에 대한 메타데이터를 포함합니다.                     |
-| [`.npmignore`](#npmignore)                     | 패키지에 포함될 파일들을 지정합니다.                                   |
+| [`.eslintrc.json`](#linter-eslintrcjson)       | (드물게 사용) eslint를 위해 작성된 린트 규칙을 비활성화할 때만 필요합니다.                                                   |
+| [`package.json`](#packagejson)                 | 이름, 버전, 의존성 등 패키지에 대한 메타데이터를 포함합니다.                                                                 |
+| [`.npmignore`](#npmignore)                     | 패키지에 포함될 파일들을 지정합니다.                                                                                         |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my-package> --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my-package> --template module` 명령으로 만들 수 있습니다.
@@ -225,7 +225,7 @@ Definitely Typed의 메인테이너들이 주기적으로 새 풀 리퀘스트(P
 
 dtslint는 [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli)의 모듈 포맷 및 `package.json` 설정 검사를 포함합니다.이 검사는 npm에서 SemVer 메이저 버전과 호환되는 구현 패키지(SemVer-major-compatible implementation package)를 찾아 DefinitelyTyped 패키지와 비교할 수 있을 때만 실행됩니다. (`package.json`에 `nonNpm`으로 표시된 DefinitelyTyped 패키지는 이 검사를 건너뜁니다.)
 
-현재 많은 패키지가 `attw` 검사를 통과하지 못하며 수정이 필요합니다. 점진적인 개선을 위해, [`attw.json](./attw.json) 파일의 `failingPackages` 목록에 있는 패키지는 `attw` 검사에 실패하더라도 `dtslint` 실행이 실패하지는 않습니다. 하지만 `pnpm test my-package` 출력에는 실패 내용이 계속 보고됩니다. 패키지를 수정했다면 `failingPackages`에서 제거하여, 이후 `attw` 검사 실패 시 `dtslint` 실행도 실패하도록 만들어야 합니다.
+현재 많은 패키지가 `attw` 검사를 통과하지 못하며 수정이 필요합니다. 점진적인 개선을 위해, [`attw.json](./attw.json) 파일의`failingPackages`목록에 있는 패키지는`attw`검사에 실패하더라도`dtslint`실행이 실패하지는 않습니다. 하지만`pnpm test my-package`출력에는 실패 내용이 계속 보고됩니다. 패키지를 수정했다면`failingPackages`에서 제거하여, 이후`attw`검사 실패 시`dtslint` 실행도 실패하도록 만들어야 합니다.
 
 `attw`가 보고하는 모든 문제에는 출력 결과에 관련 문서가 링크되어 있습니다. 문제를 피하는 데 도움이 되는 몇 가지 경험적인 규칙은 다음과 같습니다:
 
@@ -310,7 +310,7 @@ dtslint는 [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetyp
 
 npm 패키지에 대한 자료형(Typings)을 추가하는 경우, 같은 이름의 디렉터리를 생성하세요.
 만약 자료형을 추가하려는 패키지가 npm에 없다면, `package.json`에 `"nonNpm": true`를 설정하고, 선택한 이름이 npm에 있는 다른 패키지 이름과 충돌하지 않는지 확인해야 합니다.
-(`pm info <my-package>` 명령어를 사용하여 `<my-package> `패키지의 존재 여부를 확인할 수 있습니다.)
+(`pm info <my-package>` 명령어를 사용하여 `<my-package>`패키지의 존재 여부를 확인할 수 있습니다.)
 
 드문 경우, `nonNpm`을 `"conflict"`로 설정할 수도 있는데, 이는 npm에 같은 이름의 패키지가 존재하지만 해당 타입이 의도적으로 그 패키지와 충돌한다는 것을 나타냅니다.
 이는 `@types/node`처럼 특정 환경을 정의하는 패키지나 `aws-lambda`와 같은 더미 패키지의 경우에 해당될 수 있습니다. 가능하다면 `"conflict"` 사용은 피하세요.
@@ -318,7 +318,7 @@ npm 패키지에 대한 자료형(Typings)을 추가하는 경우, 같은 이름
 #### `<my-package>-tests.ts`
 
 테스트 파일로 간주되는 `<my-package>-tests.ts` 파일과, 이 파일이 임포트(Import)하는 모든 `*.ts` 파일이 있어야 합니다.
-만약 모듈 폴더에 테스트 파일이 보이지 않는다면, `<my-package>-tests.ts `파일을 생성하세요.
+만약 모듈 폴더에 테스트 파일이 보이지 않는다면, `<my-package>-tests.ts`파일을 생성하세요.
 테스트 파일은 `@types/<my-package>`로 배포되는 `*.d.ts` 파일에서 내보낸(Export) API의 유효성을 검사하는 데 사용됩니다.
 테스트 파일은 배포에는 포함되지 않습니다.
 
@@ -446,7 +446,7 @@ Definitely Typed는 `package.json` 내 `peerDependencies` 사용을 허용합니
 예를 들어,`chai-match-pattern`은 `chai`를 확장하지만 `chai`에 대한 피어 의존성를 선언하지 않았음에도, 동작을 위해 `chai`를 필요로 합니다. `@types/chai-match-pattern`은 `@types/chai`에 대한 피어 의존성을 가져야 합니다.
 
 만약 원본 패키지의 일반 의존성(Regular dependancy) 때문에 어떤 패키지가 단순히 다른 패키지의 타입을 API의 일부로 노출하는 경우라면, 피어 의존성를 사용해서는 안 됩니다.
-예를 들어, `express`는 `dependencies`에 `qs`를 가지고 있습니다. 사용자가 `express`를 설치할 때 `qs`를 수동으로 설치할 필요가 없습니다. 마찬가지로,` @types/express`는 `dependencies`에 `@types/qs`를 가집니다.
+예를 들어, `express`는 `dependencies`에 `qs`를 가지고 있습니다. 사용자가 `express`를 설치할 때 `qs`를 수동으로 설치할 필요가 없습니다. 마찬가지로,`@types/express`는 `dependencies`에 `@types/qs`를 가집니다.
 `@types/qs`를 `@types/express`의 피어 의존성으로 선언하는 것은 올바르지 않은데, 이는 일부 하위 사용자가 `@types/qs`를 수동으로 설치하도록 요구하기 때문입니다.
 
 #### `.npmignore`
@@ -547,7 +547,6 @@ Definitely Typed는 GitHub에서 가장 활발한 리포지터리 중 하나입�
 
 타입 패키지의 `package.json`에 명시된 소유자의 승인을 받은 PR은 일반적으로 더 빠르게 병합됩니다. 반면, 새로운 타입 패키지를 추가하는 PR은 메인테이너의 더 많은 검토가 필요하므로 시간이 더 걸릴 수 있습니다. 모든 PR은 병합되기 전에 TypeScript 또는 Definitely Typed 팀 멤버의 검토를 거칩니다. 그러니, 휴먼 팩터(Haman factors)에 의해 발생할 수 있는 지연을 기다려주시면 감사하겠습니다. 메인테이너들이 열려 있는 PR들을 처리하는 진행 상황은 [풀 리퀘스트 상태 보드](https://github.com/orgs/DefinitelyTyped/projects/1)에서 확인할 수 있습니다.
 
-
 #### 매우 인기 있는 프로젝트에 변경 사항을 제출하고 싶습니다. 왜 인기있는 프로젝트는 다르게 처리되나요?
 
 npm에서 매주 수백만 건씩 다운로드되는 Node, Express, Jest와 같이 매우 인기 있는 모듈의 경우, 기여에 대한 요구 조건이 조금 더 높습니다.
@@ -598,7 +597,6 @@ npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 
 이는 브라우저 전용 자바스크립트 라이브러리나, node, bun 등과 같은 전체 실행 환경(Environment)을 위한 타입을 제공하는 경우와는 다릅니다. 이러한 경우, 타입은 암시적으로 로드되거나 `/// <references types="foo" />` 주석를 통해 참조됩니다.
 
-
 #### ES6 임포트(Import)를 사용하기 위해 모듈을 내보내지 않는 패키지에 빈 네임스페이스(Namespace)를 추가해야 할까요??
 
 [chai-http](https://github.com/chaijs/chai-http)같은 몇몇 패키지들은 함수를 익스포트(Export)합니다.
@@ -613,10 +611,9 @@ npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 `import foo = require("foo");` 구문을 사용하여 모듈을 가져오는 것이 더 적절합니다.
 그럼에도 불구하고 `import foo from "foo";`와 같은 디폴트 임포트(Default import)를 사용하고 싶다면 두 가지 옵션이 있습니다.
 
-  - 모듈 런타임이 비-ECMAScript 모듈에 대한 상호 운용성 체계를 지원하는 경우, 즉 사용자의 환경(예: Webpack, SystemJS, esm)에서 디폴트 임포트가 작동하는 경우 [--allowSyntheticDefaultImports 컴파일러 옵션을](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs4) 사용할 수 있습니다.
+- 모듈 런타임이 비-ECMAScript 모듈에 대한 상호 운용성 체계를 지원하는 경우, 즉 사용자의 환경(예: Webpack, SystemJS, esm)에서 디폴트 임포트가 작동하는 경우 [--allowSyntheticDefaultImports 컴파일러 옵션을](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs4) 사용할 수 있습니다.
 
-  - TypeScript가 비-ECMAScript 모듈과의 상호 운용성을 처리하도록 하려면 (TypeScript 2.7부터) [--esModuleInterop 컴파일러 옵션을](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) 사용할 수 있습니다.
-
+- TypeScript가 비-ECMAScript 모듈과의 상호 운용성을 처리하도록 하려면 (TypeScript 2.7부터) [--esModuleInterop 컴파일러 옵션을](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) 사용할 수 있습니다.
 
 #### 어떤 패키지가 `export =` 를 쓰고 있는데, 저는 디폴트 임포트(Default import)가 더 좋습니다. `export =` 를 `export default` 로 바꿔도 되나요?
 
@@ -656,7 +653,7 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme)를 확인해보세요. 해당 리포지터리의 가이드라인을 확인하세요.
 만약 해당 표준(Standard)가 아직 초안(Draft) 상태라면 여기(Definitely Typed)에 추가하는 것이 맞습니다.
-이 경우, `dom-`으로 시작하는 이름을 사용하고, `package.json`의 "Project" 링크에 해당 표준 문서의 링크를 포함해야 합니다. 해당 표준이 정식으로 채택되면, Definitely Typed에서 해당  패키지를 제거하고 관련된 `@types` 패키지를 사용 중단(Deprecate) 처리할 수 있습니다.
+이 경우, `dom-`으로 시작하는 이름을 사용하고, `package.json`의 "Project" 링크에 해당 표준 문서의 링크를 포함해야 합니다. 해당 표준이 정식으로 채택되면, Definitely Typed에서 해당 패키지를 제거하고 관련된 `@types` 패키지를 사용 중단(Deprecate) 처리할 수 있습니다.
 
 #### Definitely Typed 패키지 버전은 원본 라이브러리 버전과 어떤 관련이 있나요?
 
