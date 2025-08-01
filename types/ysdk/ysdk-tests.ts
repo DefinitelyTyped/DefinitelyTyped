@@ -31,13 +31,13 @@ async function Payments() {
     // $ExpectType Purchase
     purchasesUnsigned[0];
 
-    // @ts-expect-error
+    // @ts-expect-error - for testing purpose
     purchasesUnsigned.signature;
 
     // $ExpectType Purchase
-    const purchaseUnsigned = await ysdk.payments.purchase({ id: "test" });
+    const purchaseUnsigned = await ysdk.payments.purchase({ id: 'test' });
 
-    // @ts-expect-error
+    // @ts-expect-error - for testing purpose
     purchaseUnsigned.signature;
 
     // $ExpectType string
@@ -53,17 +53,17 @@ async function Payments() {
     ysdk.payments.getCatalog();
 
     // $ExpectType Promise<void>
-    ysdk.payments.consumePurchase("test");
+    ysdk.payments.consumePurchase('test');
 
     const ysdkSigned = await YaGames.init({ signed: true });
 
-    // $ExpectType Signed<Purchase[]>
+    // $ExpectType Signature
     const purchases = await ysdkSigned.payments.getPurchases();
 
     // $ExpectType string
     purchases.signature;
 
-    const purchase = await ysdkSigned.payments.purchase({ id: "test" });
+    const purchase = await ysdkSigned.payments.purchase({ id: 'test' });
 
     // $ExpectType string
     purchase.signature;
@@ -74,7 +74,7 @@ async function Leaderboards() {
     const ysdk = await YaGames.init();
 
     // $ExpectType LeaderboardDescription
-    const description = await ysdk.leaderboards.getDescription("top");
+    const description = await ysdk.leaderboards.getDescription('top');
 
     // $ExpectType string
     description.appID;
@@ -98,19 +98,19 @@ async function Leaderboards() {
     description.description.invert_sort_order;
 
     // $ExpectType Promise<LeaderboardEntriesData>
-    ysdk.leaderboards.getEntries("top");
+    ysdk.leaderboards.getEntries('top');
 
     // $ExpectType Promise<LeaderboardEntriesData>
-    ysdk.leaderboards.getEntries("top", { includeUser: true });
+    ysdk.leaderboards.getEntries('top', { includeUser: true });
 
     // $ExpectType Promise<LeaderboardEntriesData>
-    ysdk.leaderboards.getEntries("top", { includeUser: true, quantityAround: 10 });
+    ysdk.leaderboards.getEntries('top', { includeUser: true, quantityAround: 10 });
 
     // $ExpectType Promise<LeaderboardEntriesData>
-    ysdk.leaderboards.getEntries("top", { includeUser: true, quantityAround: 10, quantityTop: 10 });
+    ysdk.leaderboards.getEntries('top', { includeUser: true, quantityAround: 10, quantityTop: 10 });
 
     // $ExpectType LeaderboardEntriesData
-    const entries = await ysdk.leaderboards.getEntries("top");
+    const entries = await ysdk.leaderboards.getEntries('top');
 
     // $ExpectType number
     entries.entries[0].score;
@@ -122,22 +122,22 @@ async function Leaderboards() {
     entries.entries[0].rank;
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrc("small");
+    entries.entries[0].player.getAvatarSrc('small');
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrc("medium");
+    entries.entries[0].player.getAvatarSrc('medium');
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrc("large");
+    entries.entries[0].player.getAvatarSrc('large');
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrcSet("small");
+    entries.entries[0].player.getAvatarSrcSet('small');
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrcSet("medium");
+    entries.entries[0].player.getAvatarSrcSet('medium');
 
     // $ExpectType string
-    entries.entries[0].player.getAvatarSrcSet("large");
+    entries.entries[0].player.getAvatarSrcSet('large');
 
     // $ExpectType string
     entries.entries[0].player.lang;
@@ -155,7 +155,7 @@ async function Leaderboards() {
     entries.entries[0].formattedScore;
 
     // $ExpectType LeaderboardEntry
-    const playerEntry = await ysdk.leaderboards.getPlayerEntry("top");
+    const playerEntry = await ysdk.leaderboards.getPlayerEntry('top');
 
     // $ExpectType number
     playerEntry.rank;
@@ -170,13 +170,13 @@ async function Leaderboards() {
     playerEntry.extraData;
 
     // $ExpectType string
-    playerEntry.player.getAvatarSrc("small");
+    playerEntry.player.getAvatarSrc('small');
 
     // $ExpectType string
-    playerEntry.player.getAvatarSrc("medium");
+    playerEntry.player.getAvatarSrc('medium');
 
     // $ExpectType string
-    playerEntry.player.getAvatarSrc("large");
+    playerEntry.player.getAvatarSrc('large');
 
     // $ExpectType string
     playerEntry.player.lang;
@@ -191,10 +191,10 @@ async function Leaderboards() {
     playerEntry.player.uniqueID;
 
     // $ExpectType Promise<void>
-    ysdk.leaderboards.setScore("top", 123);
+    ysdk.leaderboards.setScore('top', 123);
 
     // $ExpectType Promise<void>
-    ysdk.leaderboards.setScore("top", 123, "test");
+    ysdk.leaderboards.setScore('top', 123, 'test');
 }
 
 async function Player() {
@@ -207,7 +207,7 @@ async function Player() {
     // $ExpectType Promise<Player>
     ysdk.getPlayer();
 
-    // $ExpectType Signed<Player>
+    // $ExpectType Signature
     const signedPlayer = await ysdk.getPlayer({ signed: true });
 
     // $ExpectType string
@@ -229,13 +229,13 @@ async function Player() {
     player.getName();
 
     // $ExpectType string
-    player.getPhoto("small");
+    player.getPhoto('small');
 
     // $ExpectType string
-    player.getPhoto("medium");
+    player.getPhoto('medium');
 
     // $ExpectType string
-    player.getPhoto("large");
+    player.getPhoto('large');
 
     // $ExpectType Promise<{ appID: number; userID: string; }[]>
     player.getIDsPerGame();
@@ -244,16 +244,16 @@ async function Player() {
     player.getData();
 
     // $ExpectType Promise<Partial<Record<'id' | 'name', Serializable>>>
-    player.getData(["id", "name"]);
+    player.getData(['id', 'name']);
 
     // $ExpectType Promise<void>
-    player.setData({ test: "test" });
+    player.setData({ test: 'test' });
 
     // $ExpectType Promise<Partial<Record<string, number>>>
     player.getStats();
 
     // $ExpectType Promise<Partial<Record<'test', number>>>
-    player.getStats(["test"]);
+    player.getStats(['test']);
 
     // $ExpectType Promise<IncrementedStats<{ test: number; }>>
     player.incrementStats({ test: 123 });
@@ -282,22 +282,22 @@ async function Misc() {
     ysdk.environment.payload;
 
     // $ExpectType Promise<unknown>
-    ysdk.dispatchEvent("EXIT");
+    ysdk.dispatchEvent('EXIT');
 
     // $ExpectType () => void
-    ysdk.onEvent("EXIT", () => {});
+    ysdk.onEvent('EXIT', () => {});
 
     // $ExpectType () => void
-    ysdk.on("game_api_pause", () => {});
+    ysdk.on('game_api_pause', () => {});
 
     // $ExpectType void
-    ysdk.off("game_api_pause", () => {});
+    ysdk.off('game_api_pause', () => {});
 
     // $ExpectType () => void
-    ysdk.on("game_api_resume", () => {});
+    ysdk.on('game_api_resume', () => {});
 
     // $ExpectType void
-    ysdk.off("game_api_resume", () => {});
+    ysdk.off('game_api_resume', () => {});
 
     // $ExpectType boolean
     ysdk.deviceInfo.isDesktop();
@@ -320,7 +320,7 @@ async function Misc() {
     // $ExpectType void
     ysdk.features.GameplayAPI.stop();
 
-    // $ExpectType Promise<{ games: Game[]; developerURL: string; }>
+    // $ExpectType Promise<{ developerURL: string; games: Game[]; }>
     ysdk.features.GamesAPI.getAllGames();
 
     // $ExpectType Promise<{ game?: Game | undefined; isAvailable: boolean; }>
@@ -339,10 +339,10 @@ async function Misc() {
     ysdk.shortcut.showPrompt();
 
     // $ExpectType void
-    ysdk.clipboard.writeText("test");
+    ysdk.clipboard.writeText('test');
 
     // $ExpectType Promise<boolean>
-    ysdk.isAvailableMethod("leaderboards.setLeaderboardScore");
+    ysdk.isAvailableMethod('leaderboards.setLeaderboardScore');
 
     // $ExpectType 'on'
     ysdk.screen.fullscreen.STATUS_ON;
@@ -364,12 +364,14 @@ async function Misc() {
 
     // $ExpectType Promise<Record<string, string>>
     ysdk.getFlags({
-        clientFeatures: [{
-            name: "feature-name",
-            value: "feature-value",
-        }],
+        clientFeatures: [
+            {
+                name: 'feature-name',
+                value: 'feature-value',
+            },
+        ],
         defaultFlags: {
-            "test-flag": "default-value",
+            'test-flag': 'default-value',
         },
     });
 
@@ -386,6 +388,7 @@ async function Misc() {
 // Features API
 async function Features() {
     const ysdk = await YaGames.init();
+
     // $ExpectType void
     ysdk.features.GameplayAPI.start();
     // $ExpectType void
@@ -397,12 +400,13 @@ async function Features() {
 // Multiplayer API
 async function Multiplayer() {
     const ysdk = await YaGames.init();
+
     // $ExpectType Multiplayer
     ysdk.multiplayer;
     // $ExpectType MultiplayerSessions
     ysdk.multiplayer.sessions;
     // $ExpectType void
-    ysdk.multiplayer.sessions.commit({ data: { foo: "bar" }, time: 123 });
+    ysdk.multiplayer.sessions.commit({ data: { foo: 'bar' }, time: 123 });
     // $ExpectType Promise<MultiplayerSessionsOpponent[]>
     ysdk.multiplayer.sessions.init({
         count: 2,
@@ -416,12 +420,14 @@ async function Multiplayer() {
 
 async function IsAvailableMethodTest() {
     const ysdk = await YaGames.init();
+
     // $ExpectType Promise<boolean>
-    ysdk.isAvailableMethod("not.existing.method");
+    ysdk.isAvailableMethod('not.existing.method');
 }
 
 async function ServerTimeTest() {
     const ysdk = await YaGames.init();
+
     // $ExpectType number
     ysdk.serverTime();
 }
