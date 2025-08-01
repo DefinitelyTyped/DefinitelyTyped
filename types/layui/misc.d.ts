@@ -97,6 +97,7 @@ declare namespace Layui {
         carousel: Carousel;
         code: Code;
         colorpicker: ColorPicker;
+        component: ComponentBuilder;
         dropdown: Dropdown;
         element: Element;
         flow: Flow;
@@ -112,6 +113,7 @@ declare namespace Layui {
         rate: Rate;
         slider: Slider;
         table: Table;
+        tabs: Tabs;
         treeTable: TreeTable;
         transfer: Transfer;
         tree: Tree;
@@ -125,7 +127,11 @@ declare namespace Layui {
     interface UrlHash {
         hash: string;
         href?: string;
+        /**
+         * @deprecated 2.11.0 已废弃，使用 {@link UrlHash["pathname"]|pathname}
+         */
         path: string[];
+        pathname: string[];
         search: { [index: string]: string };
     }
 
