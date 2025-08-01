@@ -6,10 +6,10 @@ declare global {
 
 export interface SDK<TGlobalSigned extends boolean = false> {
     EVENTS: {
-        ACCOUNT_SELECTION_DIALOG_CLOSED: 'ACCOUNT_SELECTION_DIALOG_CLOSED';
-        ACCOUNT_SELECTION_DIALOG_OPENED: 'ACCOUNT_SELECTION_DIALOG_OPENED';
-        EXIT: 'EXIT';
-        HISTORY_BACK: 'HISTORY_BACK';
+        ACCOUNT_SELECTION_DIALOG_CLOSED: "ACCOUNT_SELECTION_DIALOG_CLOSED";
+        ACCOUNT_SELECTION_DIALOG_OPENED: "ACCOUNT_SELECTION_DIALOG_OPENED";
+        EXIT: "EXIT";
+        HISTORY_BACK: "HISTORY_BACK";
     };
     adv: {
         getBannerAdvStatus(): Promise<{
@@ -74,16 +74,16 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     payments: Payments<TGlobalSigned>;
     screen: {
         fullscreen: {
-            STATUS_OFF: 'off';
-            STATUS_ON: 'on';
-            status: 'off' | 'on';
+            STATUS_OFF: "off";
+            STATUS_ON: "on";
+            status: "off" | "on";
             exit(): Promise<void>;
             request(): Promise<void>;
         };
     };
     shortcut: {
         canShowPrompt(): Promise<{ canShow: boolean }>;
-        showPrompt(): Promise<{ outcome: 'accepted' | 'rejected' }>;
+        showPrompt(): Promise<{ outcome: "accepted" | "rejected" }>;
     };
     dispatchEvent(eventName: SdkEventName, detail?: object): Promise<unknown>;
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
@@ -96,9 +96,9 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     getStorage(): Promise<SafeStorage>;
     isAvailableMethod(methodName: string): Promise<boolean>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK event args can be of any type
-    off(event: 'game_api_pause' | 'game_api_resume', observer: (...args: any) => any): void;
+    off(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK event args can be of any type
-    on(event: 'game_api_pause' | 'game_api_resume', observer: (...args: any) => any): () => void;
+    on(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): () => void;
     onEvent(eventName: SdkEventName, listener: () => void): () => void;
     serverTime(): number;
 }
@@ -142,10 +142,10 @@ export interface Environment {
 }
 
 export enum DeviceType { // eslint-disable-line @typescript-eslint/naming-convention
-    DESKTOP = 'desktop',
-    MOBILE = 'mobile',
-    TABLET = 'tablet',
-    TV = 'tv',
+    DESKTOP = "desktop",
+    MOBILE = "mobile",
+    TABLET = "tablet",
+    TV = "tv",
 }
 
 export interface DeviceInfo {
@@ -162,10 +162,10 @@ export interface Player {
     getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     /** @deprecated - use isAuthorized */
-    getMode(): '' | 'lite';
+    getMode(): "" | "lite";
     getName(): string;
-    getPayingStatus(): 'not_paying' | 'partially_paying' | 'paying' | 'unknown';
-    getPhoto(size: 'large' | 'medium' | 'small'): string;
+    getPayingStatus(): "not_paying" | "partially_paying" | "paying" | "unknown";
+    getPhoto(size: "large" | "medium" | "small"): string;
     getStats<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, number>>>;
     getUniqueID(): string;
     incrementStats<T extends Record<number | string, number>>(stats: T): Promise<IncrementedStats<T>>;
@@ -194,7 +194,7 @@ export interface Product {
     priceCurrencyCode: string;
     priceValue: string;
     title: string;
-    getPriceCurrencyImage(size: 'medium' | 'small' | 'svg'): string;
+    getPriceCurrencyImage(size: "medium" | "small" | "svg"): string;
 }
 
 export interface Payments<TSigned extends boolean = false> {
@@ -248,8 +248,8 @@ export interface LeaderboardEntry {
             public_name: string;
         };
         uniqueID: string;
-        getAvatarSrc(size: 'large' | 'medium' | 'small'): string;
-        getAvatarSrcSet(size: 'large' | 'medium' | 'small'): string;
+        getAvatarSrc(size: "large" | "medium" | "small"): string;
+        getAvatarSrcSet(size: "large" | "medium" | "small"): string;
     };
     rank: number;
     score: number;
@@ -265,110 +265,110 @@ export interface LeaderboardDescription {
                 decimal_offset: number;
             };
         };
-        type: 'numberic' | 'time';
+        type: "numberic" | "time";
     };
     name: string;
     title: Record<string, string>;
 }
 
-export type FeedbackError = 'GAME_RATED' | 'NO_AUTH' | 'REVIEW_ALREADY_REQUESTED' | 'UNKNOWN';
+export type FeedbackError = "GAME_RATED" | "NO_AUTH" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
 
-export type StickyAdvError = 'ADV_IS_NOT_CONNECTED' | 'UNKNOWN';
+export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
 
-export type SdkEventName = 'EXIT' | 'HISTORY_BACK';
+export type SdkEventName = "EXIT" | "HISTORY_BACK";
 
 export type ISO_639_1 =
-    | 'af'
-    | 'am'
-    | 'ar'
-    | 'az'
-    | 'be'
-    | 'bg'
-    | 'bn'
-    | 'ca'
-    | 'cs'
-    | 'da'
-    | 'de'
-    | 'el'
-    | 'en'
-    | 'es'
-    | 'et'
-    | 'eu'
-    | 'fa'
-    | 'fi'
-    | 'fr'
-    | 'gl'
-    | 'he'
-    | 'hi'
-    | 'hr'
-    | 'hu'
-    | 'hy'
-    | 'id'
-    | 'is'
-    | 'it'
-    | 'ja'
-    | 'ka'
-    | 'kk'
-    | 'km'
-    | 'kn'
-    | 'ko'
-    | 'ky'
-    | 'lo'
-    | 'lt'
-    | 'lv'
-    | 'mk'
-    | 'ml'
-    | 'mn'
-    | 'mr'
-    | 'ms'
-    | 'my'
-    | 'ne'
-    | 'nl'
-    | 'no'
-    | 'pl'
-    | 'pt'
-    | 'ro'
-    | 'ru'
-    | 'si'
-    | 'sk'
-    | 'sl'
-    | 'sr'
-    | 'sv'
-    | 'sw'
-    | 'ta'
-    | 'te'
-    | 'tg'
-    | 'th'
-    | 'tk'
-    | 'tl'
-    | 'tr'
-    | 'uk'
-    | 'ur'
-    | 'uz'
-    | 'vi'
-    | 'zh'
-    | 'zu';
+    | "af"
+    | "am"
+    | "ar"
+    | "az"
+    | "be"
+    | "bg"
+    | "bn"
+    | "ca"
+    | "cs"
+    | "da"
+    | "de"
+    | "el"
+    | "en"
+    | "es"
+    | "et"
+    | "eu"
+    | "fa"
+    | "fi"
+    | "fr"
+    | "gl"
+    | "he"
+    | "hi"
+    | "hr"
+    | "hu"
+    | "hy"
+    | "id"
+    | "is"
+    | "it"
+    | "ja"
+    | "ka"
+    | "kk"
+    | "km"
+    | "kn"
+    | "ko"
+    | "ky"
+    | "lo"
+    | "lt"
+    | "lv"
+    | "mk"
+    | "ml"
+    | "mn"
+    | "mr"
+    | "ms"
+    | "my"
+    | "ne"
+    | "nl"
+    | "no"
+    | "pl"
+    | "pt"
+    | "ro"
+    | "ru"
+    | "si"
+    | "sk"
+    | "sl"
+    | "sr"
+    | "sv"
+    | "sw"
+    | "ta"
+    | "te"
+    | "tg"
+    | "th"
+    | "tk"
+    | "tl"
+    | "tr"
+    | "uk"
+    | "ur"
+    | "uz"
+    | "vi"
+    | "zh"
+    | "zu";
 
 export type TopLevelDomain =
-    | 'az'
-    | 'by'
-    | 'co.il'
-    | 'com'
-    | 'com.am'
-    | 'com.ge'
-    | 'com.tr'
-    | 'ee'
-    | 'fr'
-    | 'kg'
-    | 'kz'
-    | 'lt'
-    | 'lv'
-    | 'md'
-    | 'ru'
-    | 'tj'
-    | 'tm'
-    | 'ua'
-    | 'uz';
+    | "az"
+    | "by"
+    | "co.il"
+    | "com"
+    | "com.am"
+    | "com.ge"
+    | "com.tr"
+    | "ee"
+    | "fr"
+    | "kg"
+    | "kz"
+    | "lt"
+    | "lv"
+    | "md"
+    | "ru"
+    | "tj"
+    | "tm"
+    | "ua"
+    | "uz";
 
 export type Serializable = { [key: string]: Serializable } | Serializable[] | boolean | null | number | string;
 
@@ -410,7 +410,7 @@ export interface CallbackBaseMessageData {
     error?: {
         message: string;
     };
-    status: 'error' | 'ok';
+    status: "error" | "ok";
 }
 
 export interface MultiplayerSessionsCommitPayload {
