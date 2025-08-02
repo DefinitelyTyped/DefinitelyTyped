@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/parse-packagejson-name",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/parse-packagejson-name"
+    ],
+    "devDependencies": {
+        "@types/parse-packagejson-name": "workspace:."
+    },
+    "owners": []
+}
