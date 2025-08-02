@@ -881,7 +881,7 @@ declare module "../index" {
         isMatch(source: object): PrimitiveChain<boolean>;
     }
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean | undefined;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => unknown;
     interface LoDashStatic {
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
