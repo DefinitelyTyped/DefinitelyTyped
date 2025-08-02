@@ -88,6 +88,9 @@ declare module "fs/promises" {
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
     }
+    interface ReadableWebStreamOptions {
+        autoClose?: boolean | undefined;
+    }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
@@ -261,7 +264,7 @@ declare module "fs/promises" {
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -474,8 +477,9 @@ declare module "fs/promises" {
          */
         close(): Promise<void>;
         /**
-         * An alias for {@link FileHandle.close()}.
-         * @since v20.4.0
+         * Calls `filehandle.close()` and returns a promise that fulfills when the
+         * filehandle is closed.
+         * @since v20.4.0, v18.8.0
          */
         [Symbol.asyncDispose](): Promise<void>;
     }

@@ -813,6 +813,20 @@ declare module "perf_hooks" {
          * @since v11.10.0
          */
         disable(): boolean;
+        /**
+         * Disables the update interval timer when the histogram is disposed.
+         *
+         * ```js
+         * const { monitorEventLoopDelay } = require('node:perf_hooks');
+         * {
+         *   using hist = monitorEventLoopDelay({ resolution: 20 });
+         *   hist.enable();
+         *   // The histogram will be disabled when the block is exited.
+         * }
+         * ```
+         * @since v24.2.0
+         */
+        [Symbol.dispose](): void;
     }
     interface RecordableHistogram extends Histogram {
         /**

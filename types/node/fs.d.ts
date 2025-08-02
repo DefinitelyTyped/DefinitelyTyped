@@ -325,13 +325,11 @@ declare module "fs" {
         /**
          * An alias for `dir.close()`.
          * @since v24.1.0
-         * @experimental
          */
         [Symbol.dispose](): void;
         /**
          * An alias for `dir.closeSync()`.
          * @since v24.1.0
-         * @experimental
          */
         [Symbol.asyncDispose](): void;
     }
