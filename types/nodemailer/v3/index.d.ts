@@ -174,6 +174,10 @@ export interface SendMailOptions {
      * optional convert data:images in the HTML content of message to embedded attachments
      */
     attachDataUrls?: boolean | undefined;
+    /**
+     * if set to false then removes x-mailer header, otherwise replaces the default x-mailer header value
+     */
+    xMailer?: false | string;
 }
 
 export interface SentMessageInfo {
