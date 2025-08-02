@@ -1076,6 +1076,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "colorbrewer": {
+            "libraryName": "colorbrewer",
+            "asOfVersion": "1.6.0"
+        },
         "colors": {
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
