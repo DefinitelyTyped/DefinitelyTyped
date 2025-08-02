@@ -46,27 +46,39 @@ declare namespace Layui {
         choose?(value: number): void;
     }
 
+    class RateClass extends Component<RateOptions> {
+        elemTemplate: JQuery<HTMLElement>;
+        action(...args: any[]): any;
+    }
+
+    interface RateReturn extends ComponentReturn<RateOptions> {
+        /**
+         * 设置当前评分值
+         * @param value 评分值
+         */
+        setValue(value: number): void;
+    }
+
     /**
      * 评分
      * @see https://layui.dev/docs/2/rate/
      */
-    interface Rate {
-        config: Record<string, any>;
-        index: number;
-        /**
-         * @param event
-         * @param callback
-         */
-        on(event: string, callback: (obj: any) => any): any;
+    interface Rate extends ComponentInterface<RateOptions, RateClass, RateReturn> {
         /**
          * 核心渲染方法
          * @param option 基础选项
          */
-        render(option: RateOptions): Rate;
-        /**
-         * 设置全局参数
-         * @param options 基础参数
-         */
-        set(options?: RateOptions): Rate;
+        render(option: RateOptions): RateReturn;
+        CONST: {
+            MOD_NAME: "rate";
+            MOD_ID: "lay-rate-id";
+            ELEM: "layui-rate";
+            ICON_RATE: "layui-icon-rate";
+            ICON_RATE_SOLID: "layui-icon-rate-solid";
+            ICON_RATE_HALF: "layui-icon-rate-half";
+            ICON_SOLID_HALF: "layui-icon-rate-solid layui-icon-rate-half";
+            ICON_SOLID_RATE: "layui-icon-rate-solid layui-icon-rate";
+            ICON_HALF_RATE: "layui-icon-rate layui-icon-rate-half";
+        } & ComponentInterface<RateOptions, RateClass, RateReturn>["CONST"];
     }
 }

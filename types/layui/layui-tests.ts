@@ -163,6 +163,13 @@ function B_method() {
         mod2: "{/}http://cdn.xxx.com/lib/mod2", // {/}的意思即代表采用自有路径，即不跟随 base 路径
     });
     layui.extend({ test: "/res/js/test" });
+    // 扩展任意模块
+    layui.extend({
+        mymod: {
+            src: "/res/js/mymod.js",
+            api: "mymod",
+        },
+    });
     // 使用拓展模块
     layui.use(["mymod", "mod1"], () => {
         // let mymod = layui.mymod;
@@ -199,6 +206,7 @@ function B_method() {
     layui.router().path[0];
     layui.router().search["m"];
     layui.router().search.constructor;
+    layui.hash().path;
 
     // 【增】：向 test 表插入一个 nickname 字段，如果该表不存在，则自动建立。
     layui.sessionData("test", {

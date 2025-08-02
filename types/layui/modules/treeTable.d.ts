@@ -316,6 +316,14 @@ declare namespace Layui {
          * @default false
          */
         callbackFlag?: boolean;
+        /**
+         * 展开节点后的回调函数
+         * @param tableId treeTable 的 id，唯一实例标识
+         * @param trData 节点数据
+         * @param trExpand 节点是否展开
+         * @since 2.11.3
+         */
+        done?(tableId: string, trData: Record<string, any>, trExpand: boolean): void;
     }
 
     interface TreeTableSetRowCheckedOptions {
