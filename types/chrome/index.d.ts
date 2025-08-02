@@ -2926,7 +2926,7 @@ declare namespace chrome {
 
         export interface PanelSearchEvent extends chrome.events.Event<(action: string, queryString?: string) => void> {}
 
-        /** Represents a panel created by extension. */
+        /** Represents a panel created by an extension. */
         export interface ExtensionPanel {
             /**
              * Appends a button to the status bar of the panel.
@@ -8343,10 +8343,7 @@ declare namespace chrome {
              */
             relatedWebsiteSetsEnabled: chrome.types.ChromeSetting<boolean>;
 
-            /**
-             * If disabled, Chrome blocks third-party sites from setting cookies.
-             * The value of this preference is of type boolean, and the default value is `true`.
-             */
+            /** If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error. */
             thirdPartyCookiesAllowed: chrome.types.ChromeSetting<boolean>;
 
             /**
@@ -9915,14 +9912,14 @@ declare namespace chrome {
              */
             get<T = { [key: string]: any }>(callback: (items: T) => void): void;
             /**
-             * Sets the desired access level for the storage area. The default will be only trusted contexts.
+             * Sets the desired access level for the storage area. By default, session storage is restricted to trusted contexts (extension pages and service workers), while managed, local, and sync storage allow access from both trusted and untrusted contexts.
              * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
              * @return A void Promise.
              * @since Chrome 102
              */
             setAccessLevel(accessOptions: { accessLevel: AccessLevel }): Promise<void>;
             /**
-             * Sets the desired access level for the storage area. The default will be only trusted contexts.
+             * Sets the desired access level for the storage area. By default, session storage is restricted to trusted contexts (extension pages and service workers), while managed, local, and sync storage allow access from both trusted and untrusted contexts.
              * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
              * @param callback Optional.
              * @since Chrome 102
