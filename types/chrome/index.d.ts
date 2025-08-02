@@ -8637,6 +8637,8 @@ declare namespace chrome {
             MIPS = "mips",
             /** Specifies the processer architecture as mips64. */
             MIPS64 = "mips64",
+            /** Specifies the processer architecture as riscv64. */
+            RISCV64 = "riscv64",
         }
 
         /**
@@ -8803,7 +8805,7 @@ declare namespace chrome {
             /** The machine's processor architecture. */
             arch: `${PlatformArch}`;
             /** The native client architecture. This may be different from arch on some platforms. */
-            nacl_arch: `${PlatformNaclArch}`;
+            nacl_arch?: `${PlatformNaclArch}`;
         }
 
         /** An object which allows two way communication with other pages. */
