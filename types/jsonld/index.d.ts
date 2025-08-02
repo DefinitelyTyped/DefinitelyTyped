@@ -129,10 +129,10 @@ export function flatten(
     input: JsonLdDocument,
     ctx: ContextDefinition | null,
     options: Options.Flatten,
-    callback: Callback<JsonLdObj>,
+    callback: Callback<JsonLdArray>,
 ): void;
-export function flatten(input: JsonLdDocument, ctx: ContextDefinition | null, callback: Callback<JsonLdObj>): void;
-export function flatten(input: JsonLdDocument, ctx?: ContextDefinition, options?: Options.Flatten): Promise<JsonLdObj>;
+export function flatten(input: JsonLdDocument, ctx: ContextDefinition | null, callback: Callback<JsonLdArray>): void;
+export function flatten(input: JsonLdDocument, ctx?: ContextDefinition, options?: Options.Flatten): Promise<JsonLdArray>;
 
 export function frame(input: JsonLdDocument, frame: Frame, options: Options.Frame, callback: Callback<JsonLdObj>): void;
 export function frame(input: JsonLdDocument, frame: Frame, callback: Callback<JsonLdObj>): void;
