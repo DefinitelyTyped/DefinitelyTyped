@@ -5207,6 +5207,10 @@
             "libraryName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
         },
+        "photoswipe": {
+            "libraryName": "photoswipe",
+            "asOfVersion": "5.2.5"
+        },
         "php-serialize": {
             "libraryName": "php-serialize",
             "asOfVersion": "4.0.0"
