@@ -1,5 +1,6 @@
 import * as eslint from "eslint";
 import { VisitorKeys } from "eslint-visitor-keys";
+import { Visitor, VisitorOptions } from "esrecurse";
 import * as ESTree from "estree";
 
 /**
@@ -60,6 +61,16 @@ export interface AnalyzeOptions {
      */
     jsx?: boolean;
 }
+
+export type PatternVisitorCallback = (
+    pattern: ESTree.Identifier,
+    misc: {
+        topLevel: boolean;
+        rest: boolean;
+        assignments: ESTree.AssignmentPattern[];
+    },
+) => void;
+
 /**
  * Manages the scope hierarchy of an AST.
  */
@@ -509,6 +520,55 @@ export class Definition {
      * The kind of variable (e.g., 'var', 'let', 'const'), if applicable.
      */
     kind: string | null;
+}
+
+/**
+ * Visitor for destructuring patterns.
+ */
+export class PatternVisitor extends Visitor {
+    static isPattern(node: ESTree.Node): node is
+        | ESTree.Identifier
+        | ESTree.ObjectPattern
+        | ESTree.ArrayPattern
+        | ESTree.SpreadElement
+        | ESTree.RestElement
+        | ESTree.AssignmentPattern;
+
+    constructor(
+        options: VisitorOptions | null | undefined,
+        rootPattern: ESTree.Pattern,
+        callback: PatternVisitorCallback,
+    );
+
+    rootPattern: ESTree.Pattern;
+
+    callback: PatternVisitorCallback;
+
+    assignments: ESTree.AssignmentPattern[];
+
+    rightHandNodes: ESTree.Expression[];
+
+    restElements: ESTree.RestElement[];
+
+    Identifier(pattern: ESTree.Identifier): void;
+
+    Property(pattern: ESTree.Property): void;
+
+    ArrayPattern(pattern: ESTree.ArrayPattern): void;
+
+    AssignmentPattern(pattern: ESTree.AssignmentPattern): void;
+
+    RestElement(pattern: ESTree.RestElement): void;
+
+    MemberExpression(pattern: ESTree.MemberExpression): void;
+
+    SpreadElement(pattern: ESTree.SpreadElement): void;
+
+    ArrayExpression(pattern: ESTree.SpreadElement): void;
+
+    AssignmentExpression(pattern: ESTree.AssignmentExpression): void;
+
+    CallExpression(pattern: ESTree.CallExpression): void;
 }
 
 /**
