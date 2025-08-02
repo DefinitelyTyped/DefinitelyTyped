@@ -25,6 +25,8 @@ const d = new ActiveStorage.DirectUpload(
     customHeaders,
 );
 
+console.log(d.delegate);
+
 d.create((error: Error | null) => {
     if (error) {
         console.log(error.message);
