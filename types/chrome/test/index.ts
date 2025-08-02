@@ -3632,46 +3632,119 @@ function testEnterpriseHardwarePlatform() {
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browsingData
+// https://developer.chrome.com/docs/extensions/reference/api/browsingData
 function testBrowsingData() {
-    // @ts-expect-error
-    chrome.browsingData.removeServiceWorkers();
-    chrome.browsingData.removeServiceWorkers({});
-    chrome.browsingData.removeServiceWorkers({}, () => {});
-    chrome.browsingData.settings((result) => {});
-    chrome.browsingData.removePluginData({}, () => {});
-    chrome.browsingData.removeServiceWorkers({}, () => {});
-    chrome.browsingData.removeFormData({}, () => {});
-    chrome.browsingData.removeFileSystems({}, () => {});
-    chrome.browsingData.remove({}, {}, () => {});
-    chrome.browsingData.removePasswords({}, () => {});
-    chrome.browsingData.removeCookies({}, () => {});
-    chrome.browsingData.removeWebSQL({}, () => {});
-    chrome.browsingData.removeAppcache({}, () => {});
-    chrome.browsingData.removeCacheStorage({}, () => {});
-    chrome.browsingData.removeDownloads({}, () => {});
-    chrome.browsingData.removeCache({}, () => {});
-    chrome.browsingData.removeHistory({}, () => {});
-    chrome.browsingData.removeIndexedDB({}, () => {});
-}
+    const removalOptions: chrome.browsingData.RemovalOptions = {
+        excludeOrigins: [],
+        originTypes: {
+            extension: true,
+            protectedWeb: true,
+            unprotectedWeb: true,
+        },
+        origins: ["https://example.com"],
+        since: 0,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browsingData
-async function testBrowsingDataForPromise() {
-    await chrome.browsingData.settings();
-    await chrome.browsingData.removePluginData({});
-    await chrome.browsingData.removeServiceWorkers({});
-    await chrome.browsingData.removeFormData({});
-    await chrome.browsingData.removeFileSystems({});
-    await chrome.browsingData.remove({}, {});
-    await chrome.browsingData.removePasswords({});
-    await chrome.browsingData.removeCookies({});
-    await chrome.browsingData.removeWebSQL({});
-    await chrome.browsingData.removeAppcache({});
-    await chrome.browsingData.removeCacheStorage({});
-    await chrome.browsingData.removeDownloads({});
-    await chrome.browsingData.removeCache({});
-    await chrome.browsingData.removeHistory({});
-    await chrome.browsingData.removeIndexedDB({});
+    const dataTypeSet: chrome.browsingData.DataTypeSet = {
+        appcache: true,
+        cache: true,
+        cacheStorage: true,
+        cookies: true,
+        downloads: true,
+        fileSystems: true,
+        formData: true,
+        history: true,
+        indexedDB: true,
+        localStorage: true,
+        passwords: true,
+        pluginData: true,
+        serviceWorkers: true,
+        webSQL: true,
+    };
+
+    chrome.browsingData.remove(removalOptions, dataTypeSet); // $ExpectType Promise<void>
+    chrome.browsingData.remove(removalOptions, dataTypeSet, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.remove(removalOptions, dataTypeSet, () => {}).then(() => {});
+
+    chrome.browsingData.removeAppcache(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeAppcache(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeAppcache(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeCache(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeCache(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeCache(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeCacheStorage(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeCacheStorage(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeCacheStorage(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeCookies(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeCookies(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeCookies(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeDownloads(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeDownloads(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeDownloads(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeFileSystems(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeFileSystems(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeFileSystems(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeFormData(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeFormData(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeFormData(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeHistory(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeHistory(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeHistory(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeIndexedDB(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeIndexedDB(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeIndexedDB(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeLocalStorage(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeLocalStorage(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeLocalStorage(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removePasswords(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removePasswords(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removePasswords(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removePluginData(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removePluginData(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removePluginData(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeServiceWorkers(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeServiceWorkers(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeServiceWorkers(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.removeWebSQL(removalOptions); // $ExpectType Promise<void>
+    chrome.browsingData.removeWebSQL(removalOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.browsingData.removeWebSQL(removalOptions, () => {}).then(() => {});
+
+    chrome.browsingData.settings(); // $ExpectType Promise<SettingsResult>
+    chrome.browsingData.settings((result) => { // $ExpectType void
+        result.dataRemovalPermitted; // $ExpectType DataTypeSet
+        result.dataToRemove; // $ExpectType DataTypeSet
+        result.options; // $ExpectType RemovalOptions
+    });
+    // @ts-expect-error
+    chrome.browsingData.settings((result) => {}).then((result) => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/certificateProvider
