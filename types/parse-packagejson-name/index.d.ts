@@ -5,4 +5,4 @@ declare function parsePackagejsonName(name: string | { name: string }): {
   moduleName: string | null,
 };
 
-export = parsePackagejsonName;
+export default parsePackagejsonName;
