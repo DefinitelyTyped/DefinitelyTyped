@@ -452,7 +452,7 @@ after(() => {});
 beforeEach(() => {});
 // - with callback
 before((c, cb) => {
-    // $ExpectType TestContext | SuiteContext
+    // $ExpectType SuiteContext
     c;
     // $ExpectType (result?: any) => void
     cb;
@@ -460,7 +460,7 @@ before((c, cb) => {
     cb({ x: "anything" });
 });
 beforeEach((c, cb) => {
-    // $ExpectType TestContext | SuiteContext
+    // $ExpectType TestContext
     c;
     // $ExpectType (result?: any) => void
     cb;
@@ -468,7 +468,7 @@ beforeEach((c, cb) => {
     cb({ x: "anything" });
 });
 after((c, cb) => {
-    // $ExpectType TestContext | SuiteContext
+    // $ExpectType SuiteContext
     c;
     // $ExpectType (result?: any) => void
     cb;
@@ -476,7 +476,7 @@ after((c, cb) => {
     cb({ x: "anything" });
 });
 afterEach((c, cb) => {
-    // $ExpectType TestContext | SuiteContext
+    // $ExpectType TestContext
     c;
     // $ExpectType (result?: any) => void
     cb;
