@@ -1,4 +1,4 @@
-import { getHashDigest, interpolateName, isUrlRequest, urlToRequest, type LoaderInterpolateOption } from "loader-utils";
+import { getHashDigest, interpolateName, isUrlRequest, type LoaderInterpolateOption, urlToRequest } from "loader-utils";
 import type { LoaderContext } from "webpack";
 
 function loader(this: LoaderContext<LoaderInterpolateOption>) {
