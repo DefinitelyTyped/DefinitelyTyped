@@ -35,7 +35,9 @@ export type MathNodeMethod1 =
     | typeof MathNode.TRUNC
     | typeof MathNode.FWIDTH
     | typeof MathNode.BITCAST
-    | typeof MathNode.TRANSPOSE;
+    | typeof MathNode.TRANSPOSE
+    | typeof MathNode.DETERMINANT
+    | typeof MathNode.INVERSE;
 
 export type MathNodeMethod2 =
     | typeof MathNode.MIN
@@ -95,6 +97,8 @@ export default class MathNode extends TempNode {
     static FWIDTH: "fwidth";
     static BITCAST: "bitcast";
     static TRANSPOSE: "transpose";
+    static DETERMINANT: "determinant";
+    static INVERSE: "inverse";
 
     // 2 inputs
 
@@ -175,6 +179,8 @@ export const reciprocal: Unary;
 export const trunc: Unary;
 export const fwidth: Unary;
 export const transpose: Unary;
+export const determinant: (x: Node) => ShaderNodeObject<MathNode>;
+export const inverse: (x: Node) => ShaderNodeObject<MathNode>;
 
 type Binary = (a: MathNodeParameter, b: MathNodeParameter) => ShaderNodeObject<MathNode>;
 
@@ -194,7 +200,7 @@ export const reflect: Binary;
 export const distance: Binary;
 export const difference: Binary;
 export const dot: Binary;
-export const cross: Binary;
+export const cross: (x: Node, y: Node) => ShaderNodeObject<MathNode>;
 export const pow: Binary;
 export const pow2: Unary;
 export const pow3: Unary;
@@ -291,6 +297,8 @@ declare module "../tsl/TSLCore.js" {
         saturate: typeof saturate;
         cbrt: typeof cbrt;
         transpose: typeof transpose;
+        determinant: typeof determinant;
+        inverse: typeof inverse;
         rand: typeof rand;
     }
 }

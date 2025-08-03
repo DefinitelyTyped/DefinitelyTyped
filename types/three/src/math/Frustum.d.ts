@@ -21,7 +21,7 @@ export class Frustum {
     set(p0: Plane, p1: Plane, p2: Plane, p3: Plane, p4: Plane, p5: Plane): Frustum;
     clone(): this;
     copy(frustum: Frustum): this;
-    setFromProjectionMatrix(m: Matrix4, coordinateSystem?: CoordinateSystem): this;
+    setFromProjectionMatrix(m: Matrix4, coordinateSystem?: CoordinateSystem, reversedDepth?: boolean): this;
     intersectsObject(object: Object3D): boolean;
     intersectsSprite(sprite: Sprite): boolean;
     intersectsSphere(sphere: Sphere): boolean;

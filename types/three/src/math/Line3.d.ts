@@ -24,6 +24,7 @@ export class Line3 {
     at(t: number, target: Vector3): Vector3;
     closestPointToPointParameter(point: Vector3, clampToLine?: boolean): number;
     closestPointToPoint(point: Vector3, clampToLine: boolean, target: Vector3): Vector3;
+    distanceSqToLine3(line: Line3, c1?: Vector3, c2?: Vector3): number;
     applyMatrix4(matrix: Matrix4): Line3;
     equals(line: Line3): boolean;
 }

@@ -17,12 +17,6 @@ export interface Line2NodeMaterialNodeProperties extends NodeMaterialNodePropert
      */
     dashOffset: number;
     /**
-     * The line width.
-     *
-     * @default 0
-     */
-    lineWidth: number;
-    /**
      * Defines the lines color.
      *
      * @default null

@@ -24,6 +24,8 @@ declare class Storage3DTexture extends Texture {
      * @param {number} [depth=1] - The storage texture's depth.
      */
     constructor(width?: number, height?: number, depth?: number);
+
+    setSize(width: number, height: number, depth: number): void;
 }
 
 export default Storage3DTexture;
