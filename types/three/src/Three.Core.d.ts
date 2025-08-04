@@ -39,6 +39,7 @@ export * from "./core/Object3D.js";
 export * from "./core/Raycaster.js";
 export * from "./core/RenderTarget.js";
 export * from "./core/RenderTarget3D.js";
+export * from "./core/Timer.js";
 export * from "./core/Uniform.js";
 export * from "./core/UniformsGroup.js";
 export * from "./extras/Controls.js";
