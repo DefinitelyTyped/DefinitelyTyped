@@ -312,6 +312,7 @@ interface Layui extends Layui.GlobalModules {
     router(hash?: string): Layui.UrlHash;
     /**
      * @param hash 默认 location.hash
+     * @since 2.11.0
      */
     hash(hash?: string): Layui.UrlHash;
     /**
