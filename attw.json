@@ -169,7 +169,6 @@
         "koa",
         "kss",
         "leveldown",
-        "lint-staged",
         "locutus",
         "mapbox__mapbox-sdk",
         "mapboxgl-spiderifier",
