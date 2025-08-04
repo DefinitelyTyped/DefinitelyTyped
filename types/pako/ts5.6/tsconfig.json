@@ -3,9 +3,7 @@
         "module": "node16",
         "lib": [
             "es6",
-            "dom",
-            // Not needed by Pako, but it allows testing ArrayBuffer versus SharedArrayBuffer
-            "ES2017.SharedMemory"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

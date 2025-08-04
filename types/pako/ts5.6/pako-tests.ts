@@ -19,7 +19,6 @@ if (deflate.err !== Pako.constants.Z_OK) {
 console.log(deflate.result);
 
 const arr: Uint8Array = Pako.deflate("1234");
-const arrBuffer: Uint8Array<ArrayBuffer> = Pako.deflate("1234");
 
 const data = "           ";
 
