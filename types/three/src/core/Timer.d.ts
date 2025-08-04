@@ -21,7 +21,7 @@
  *
  * @see https://threejs.org/examples/#webgl_morphtargets_sphere
  */
-export class Timer {
+declare class Timer {
     constructor();
 
     /**
@@ -69,23 +69,9 @@ export class Timer {
      * Updates the internal state of the timer. This method should be called once per simulation step and before you
      * perform queries against the timer (e.g. via {@link getDelta()}).
      *
-     * @param timescale (optional) The current time in milliseconds. Can be obtained from the {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame | requestAnimationFrame} callback argument. If not provided, the current time will be determined with {@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now | performance.now}.
+     * @param timestamp The current time in milliseconds. Can be obtained from the {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame | requestAnimationFrame} callback argument. If not provided, the current time will be determined with {@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now | performance.now}.
      */
     update(timestamp?: number): this;
 }
 
-/**
- * A timer that uses a fixed delta.
- */
-export class FixedTimer extends Timer {
-    /**
-     * @param fps The desired fixed delta expressed in frames per second.
-     */
-    constructor(fps?: number);
-
-    /**
-     * Updates the internal state of the timer. This method should be called once per simulation step and before you
-     * perform queries against the timer (e.g. via {@link getDelta()}).
-     */
-    override update(): this;
-}
+export { Timer };

@@ -884,8 +884,8 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:diagnostic": {
-                const { file, column, line, message, nesting } = event.data;
-                callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
+                const { file, column, line, message, nesting, level } = event.data;
+                callback(null, `${message}/${nesting}/${file}/${column}/${line}/${level}`);
                 break;
             }
             case "test:enqueue": {
@@ -941,6 +941,10 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:watch:drained":
+                // event doesn't have any data
+                callback(null);
+                break;
+            case "test:watch:restarted":
                 // event doesn't have any data
                 callback(null);
                 break;
