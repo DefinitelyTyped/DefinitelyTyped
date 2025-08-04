@@ -74,7 +74,7 @@ function test_rtcp_fb_attribute() {
         {
             payload: 98,
             type: "nack",
-            subtype: "pli"
+            subtype: "pli",
         },
     ];
     session.media[1].rtcpFb = [
@@ -100,14 +100,14 @@ function test_datachannel_media_description() {
     session.media[0] = {
         connection: {
             version: 4,
-            ip: "0.0.0.0"
+            ip: "0.0.0.0",
         },
         type: "application",
         protocol: "UDP/DTLS/SCTP",
         port: 9,
         rtp: [],
-        fmtp: []
-    }
+        fmtp: [],
+    };
 
     const sdp: string = write(session);
     const parsed = parse(sdp);

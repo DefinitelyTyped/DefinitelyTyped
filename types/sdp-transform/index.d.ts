@@ -7,9 +7,7 @@
  *
  * @see https://tools.ietf.org/html/rfc4566#section-9
  */
-export interface SessionDescription
-    extends SharedDescriptionFields,
-        SessionAttributes {
+export interface SessionDescription extends SharedDescriptionFields, SessionAttributes {
     // v=
     version: number;
     // o=
@@ -49,7 +47,7 @@ export interface SessionDescription
  */
 export interface SessionAttributes extends SharedAttributes {
     // a=ice-lite
-    icelite?: 'ice-lite';
+    icelite?: "ice-lite";
     // a=msid-semantic: WMS Jvlam5X3SX1OP6pn20zWogvaKJz5Hjf9OnlV
     msidSemantic?: {
         semantic: string;
@@ -65,9 +63,7 @@ export interface SessionAttributes extends SharedAttributes {
 /**
  * Descriptor fields that exist only at the media level (in each m= block).
  */
-export interface MediaDescription
-    extends SharedDescriptionFields,
-        MediaAttributes {
+export interface MediaDescription extends SharedDescriptionFields, MediaAttributes {
     type: string;
     port: number;
     protocol: string;
@@ -127,7 +123,7 @@ export interface MediaAttributes extends SharedAttributes {
         sessionConfig?: string;
     }[];
     // a=bundle-only
-    bundleOnly?: 'bundle-only';
+    bundleOnly?: "bundle-only";
     // a=candidate:0 1 UDP 2113667327 203.0.113.1 54400 typ host
     // a=candidate:1162875081 1 udp 2113937151 192.168.34.75 60017 typ host generation 0 network-id 3 network-cost 10
     // a=candidate:3289912957 2 udp 1845501695 193.84.77.194 60017 typ srflx raddr 192.168.34.75 rport 60017 generation 0 network-id 3 network-cost 10
@@ -145,11 +141,11 @@ export interface MediaAttributes extends SharedAttributes {
         rport?: number;
         tcptype?: string;
         generation?: number;
-        'network-id'?: number;
-        'network-cost'?: number;
+        "network-id"?: number;
+        "network-cost"?: number;
     }[];
     // a=end-of-candidates
-    endOfCandidates?: 'end-of-candidates';
+    endOfCandidates?: "end-of-candidates";
     // a=remote-candidates:1 203.0.113.1 54400 2 203.0.113.1 54401 ...
     remoteCandidates?: string;
     // a=ssrc:2566107569 cname:t9YU8M1UxTF8Y1A1
@@ -165,9 +161,9 @@ export interface MediaAttributes extends SharedAttributes {
         ssrcs: string;
     }[];
     // a=rtcp-mux
-    rtcpMux?: 'rtcp-mux';
+    rtcpMux?: "rtcp-mux";
     // a=rtcp-rsize
-    rtcpRsize?: 'rtcp-rsize';
+    rtcpRsize?: "rtcp-rsize";
     // a=sctpmap:5000 webrtc-datachannel 1024
     sctpmap?: {
         sctpmapNumber: number;
@@ -175,7 +171,7 @@ export interface MediaAttributes extends SharedAttributes {
         maxMessageSize?: number;
     };
     // a=x-google-flag:conference
-    xGoogleFlag?: 'conference';
+    xGoogleFlag?: "conference";
     // a=rid:1 send max-width=1280;max-height=720;max-fps=30;depend=0
     rids?: {
         id: number | string;
@@ -187,17 +183,17 @@ export interface MediaAttributes extends SharedAttributes {
     // a=imageattr:100 recv [x=320,y=240]
     imageattrs?: {
         pt: number | string;
-        dir1: 'send' | 'recv';
+        dir1: "send" | "recv";
         attrs1: string;
-        dir2?: 'send' | 'recv';
+        dir2?: "send" | "recv";
         attrs2?: string;
     }[];
     // a=simulcast:send 1,2,3;~4,~5 recv 6;~7,~8
     // a=simulcast:recv 1;4,5 send 6;7
     simulcast?: {
-        dir1: 'send' | 'recv';
+        dir1: "send" | "recv";
         list1: string;
-        dir2?: 'send' | 'recv';
+        dir2?: "send" | "recv";
         list2?: string;
     };
     // Old simulcast draft 03 (implemented by old Firefox).
@@ -237,7 +233,7 @@ export interface SharedDescriptionFields {
     };
     // b=AS:4000
     bandwidth?: {
-        type: 'TIAS' | 'AS' | 'CT' | 'RR' | 'RS';
+        type: "TIAS" | "AS" | "CT" | "RR" | "RS";
         limit: number;
     }[];
 }
@@ -252,7 +248,7 @@ export interface SharedAttributes {
     // a=recvonly
     // a=sendonly
     // a=inactive
-    direction?: 'sendrecv' | 'recvonly' | 'sendonly' | 'inactive';
+    direction?: "sendrecv" | "recvonly" | "sendonly" | "inactive";
     // a=control:streamid=0
     control?: string;
     // a=extmap:2 urn:ietf:params:rtp-hdrext:toffset
@@ -261,14 +257,14 @@ export interface SharedAttributes {
     ext?: {
         value: number;
         direction?: string;
-        'encrypt-uri'?: string;
+        "encrypt-uri"?: string;
         uri: string;
         config?: string;
     }[];
     // a=setup:actpass
     setup?: string;
     // a=connection:new
-    connectionType?: 'new' | 'existing';
+    connectionType?: "new" | "existing";
     // a=ice-ufrag:F7gI
     iceUfrag?: string;
     // a=ice-pwd:x9cml/YzichV2+XlhiMu8g
@@ -280,7 +276,7 @@ export interface SharedAttributes {
     };
     // a=source-filter: incl IN IP4 239.5.2.31 10.1.15.5
     sourceFilter?: {
-        filterMode: 'excl' | 'incl';
+        filterMode: "excl" | "incl";
         netType: string;
         addressTypes: string;
         destAddress: string;
@@ -300,7 +296,7 @@ export interface SharedAttributes {
         rateDenominator?: string;
     };
     // a=extmap-allow-mixed
-    extmapAllowMixed?: 'extmap-allow-mixed';
+    extmapAllowMixed?: "extmap-allow-mixed";
     // a=ice-options:renomination
     iceOptions?: string;
     // Inalid or unsupported attributes.
@@ -328,5 +324,5 @@ export function parseRemoteCandidates(candidates: string): {
 }[];
 
 export function parseSimulcastStreamList(
-    streams: string
+    streams: string,
 ): { scid: number | string; paused: boolean }[][];
