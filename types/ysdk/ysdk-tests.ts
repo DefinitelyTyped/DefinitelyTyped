@@ -31,13 +31,13 @@ async function Payments() {
     // $ExpectType Purchase
     purchasesUnsigned[0];
 
-    // @ts-expect-error
+    // @ts-expect-error - for testing purpose
     purchasesUnsigned.signature;
 
     // $ExpectType Purchase
     const purchaseUnsigned = await ysdk.payments.purchase({ id: "test" });
 
-    // @ts-expect-error
+    // @ts-expect-error - for testing purpose
     purchaseUnsigned.signature;
 
     // $ExpectType string
@@ -57,7 +57,7 @@ async function Payments() {
 
     const ysdkSigned = await YaGames.init({ signed: true });
 
-    // $ExpectType Signed<Purchase[]>
+    // $ExpectType Signature
     const purchases = await ysdkSigned.payments.getPurchases();
 
     // $ExpectType string
@@ -207,7 +207,7 @@ async function Player() {
     // $ExpectType Promise<Player>
     ysdk.getPlayer();
 
-    // $ExpectType Signed<Player>
+    // $ExpectType Signature
     const signedPlayer = await ysdk.getPlayer({ signed: true });
 
     // $ExpectType string
@@ -320,7 +320,7 @@ async function Misc() {
     // $ExpectType void
     ysdk.features.GameplayAPI.stop();
 
-    // $ExpectType Promise<{ games: Game[]; developerURL: string; }>
+    // $ExpectType Promise<{ developerURL: string; games: Game[]; }>
     ysdk.features.GamesAPI.getAllGames();
 
     // $ExpectType Promise<{ game?: Game | undefined; isAvailable: boolean; }>
@@ -364,10 +364,12 @@ async function Misc() {
 
     // $ExpectType Promise<Record<string, string>>
     ysdk.getFlags({
-        clientFeatures: [{
-            name: "feature-name",
-            value: "feature-value",
-        }],
+        clientFeatures: [
+            {
+                name: "feature-name",
+                value: "feature-value",
+            },
+        ],
         defaultFlags: {
             "test-flag": "default-value",
         },
@@ -386,6 +388,7 @@ async function Misc() {
 // Features API
 async function Features() {
     const ysdk = await YaGames.init();
+
     // $ExpectType void
     ysdk.features.GameplayAPI.start();
     // $ExpectType void
@@ -397,6 +400,7 @@ async function Features() {
 // Multiplayer API
 async function Multiplayer() {
     const ysdk = await YaGames.init();
+
     // $ExpectType Multiplayer
     ysdk.multiplayer;
     // $ExpectType MultiplayerSessions
@@ -416,12 +420,14 @@ async function Multiplayer() {
 
 async function IsAvailableMethodTest() {
     const ysdk = await YaGames.init();
+
     // $ExpectType Promise<boolean>
     ysdk.isAvailableMethod("not.existing.method");
 }
 
 async function ServerTimeTest() {
     const ysdk = await YaGames.init();
+
     // $ExpectType number
     ysdk.serverTime();
 }
