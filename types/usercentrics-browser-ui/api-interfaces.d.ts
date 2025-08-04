@@ -193,4 +193,5 @@ export interface CategoryData {
     state: "ALL_DENIED" | "SOME_ACCEPTED" | "ALL_ACCEPTED";
     dps: Record<string, boolean> | null;
     hidden?: boolean;
+    name: string;
 }

@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "form-data": "^4.0.0"
+        "form-data": "^4.0.4"
     },
     "devDependencies": {
         "@types/node-fetch": "workspace:."

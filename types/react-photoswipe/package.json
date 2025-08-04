@@ -6,7 +6,7 @@
         "https://github.com/minhtranite/react-photoswipe"
     ],
     "dependencies": {
-        "@types/photoswipe": "*",
+        "@types/photoswipe": "4",
         "@types/react": "*"
     },
     "devDependencies": {

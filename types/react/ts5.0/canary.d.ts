@@ -32,4 +32,7 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
     export function unstable_useCacheRefresh(): () => void;
+
+    export interface CacheSignal {}
+    export function cacheSignal(): null | CacheSignal;
 }

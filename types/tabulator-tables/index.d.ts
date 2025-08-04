@@ -2895,7 +2895,7 @@ declare class Tabulator {
     getRowFromPosition: (position: number, activeOnly?: boolean) => RowComponent;
 
     /** You can delete any row in the table using the deleteRow function. */
-    deleteRow: (index: RowLookup | RowLookup[]) => void;
+    deleteRow: (index: RowLookup | RowLookup[]) => Promise<void>;
 
     /**
      * You can add a row to the table using the addRow function.
