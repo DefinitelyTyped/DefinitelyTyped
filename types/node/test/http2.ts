@@ -96,7 +96,6 @@ import { URL } from "node:url";
         endStream: true,
         exclusive: true,
         parent: 0,
-        weight: 0,
         waitForTrailers: true,
         signal: new AbortController().signal,
     };
@@ -154,13 +153,6 @@ import { URL } from "node:url";
     const destroyed: boolean = http2Stream.destroyed;
     const id: number | undefined = http2Stream.id;
     const pending: boolean = http2Stream.pending;
-
-    http2Stream.priority({
-        exclusive: true,
-        parent: 0,
-        weight: 0,
-        silent: true,
-    });
 
     const sesh: Http2Session | undefined = http2Stream.session;
 
@@ -273,6 +265,7 @@ import { URL } from "node:url";
         unknownProtocolTimeout: 100000,
         streamResetBurst: 1000,
         streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
     const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
@@ -401,6 +394,7 @@ import { URL } from "node:url";
             return new Duplex();
         },
         protocol: "https:",
+        strictFieldWhitespaceValidation: false,
     };
     const secureClientSessionOptions: SecureClientSessionOptions = { ...clientSessionOptions, ca: "..." };
     const onConnectHandler = (session: Http2Session, socket: Socket) => {};
@@ -504,6 +498,7 @@ import { URL } from "node:url";
         unknownProtocolTimeout: 100000,
         streamResetBurst: 1000,
         streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
 
     const http2Stream: Http2Stream = {} as any;

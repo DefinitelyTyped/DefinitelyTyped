@@ -25,6 +25,7 @@ export * from "./math/TriNoise3D.js";
 
 // utils
 export * from "./utils/EquirectUV.js";
+export * from "./utils/EventNode.js";
 export * from "./utils/FunctionOverloadingNode.js";
 export * from "./utils/LoopNode.js";
 export * from "./utils/MatcapUV.js";

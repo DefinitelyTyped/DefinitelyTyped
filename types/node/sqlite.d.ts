@@ -369,7 +369,6 @@ declare module "node:sqlite" {
          * Closes the database connection. If the database connection is already closed
          * then this is a no-op.
          * @since v22.15.0
-         * @experimental
          */
         [Symbol.dispose](): void;
     }

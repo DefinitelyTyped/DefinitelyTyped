@@ -1,4 +1,14 @@
-import { DataTextureLoader, LoadingManager, PixelFormat, TextureDataType } from "three";
+import {
+    DataTextureLoader,
+    FloatType,
+    HalfFloatType,
+    LoadingManager,
+    PixelFormat,
+    RedFormat,
+    RGBAFormat,
+    RGFormat,
+    TextureDataType,
+} from "three";
 
 export interface EXR {
     header: object;
@@ -7,13 +17,16 @@ export interface EXR {
     data: Float32Array | Uint16Array;
     format: PixelFormat;
     colorSpace: string;
-    type: TextureDataType;
+    type: typeof HalfFloatType | typeof FloatType;
 }
 
-export class EXRLoader extends DataTextureLoader {
-    constructor(manager?: LoadingManager);
+declare class EXRLoader extends DataTextureLoader {
     type: TextureDataType;
+    outputFormat: typeof RGBAFormat | typeof RGFormat | typeof RedFormat;
+
+    constructor(manager?: LoadingManager);
 
     parse(buffer: ArrayBuffer): EXR;
-    setDataType(type: TextureDataType): this;
+    setDataType(type: typeof HalfFloatType | typeof FloatType): this;
+    setOutputFormat(value: typeof RGBAFormat | typeof RGFormat | typeof RedFormat): this;
 }
