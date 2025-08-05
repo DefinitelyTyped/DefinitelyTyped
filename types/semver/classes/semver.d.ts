@@ -1,4 +1,5 @@
 import semver = require("../index");
+import inc = require("../functions/inc");
 
 declare class SemVer {
     constructor(version: string | SemVer, optionsOrLoose?: boolean | semver.RangeOptions);
@@ -56,7 +57,11 @@ declare class SemVer {
      */
     compareBuild(other: string | SemVer): 1 | 0 | -1;
 
-    inc(release: semver.ReleaseType, identifier?: string): SemVer;
+    inc(
+        release: semver.ReleaseType,
+        identifier?: string,
+        identifierBase?: inc.IdentifierBase,
+    ): SemVer;
 
     toString(): string;
 }
