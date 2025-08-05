@@ -92,6 +92,24 @@ declare namespace TelegramBot {
 
     type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
+    type ReactionType = ReactionTypeEmoji | ReactionTypeCustomEmoji;
+    
+    interface AbstractReactionType {
+        /** Type of the reaction */
+        type: string;
+    }
+
+    type TelegramEmoji = "👍" | "👎" | "❤" | "🔥" | "🥰" | "👏" | "😁" | "🤔" | "🤯" | "😱" | "🤬" | "😢" | "🎉" | "🤩" | "🤮" | "💩" | "🙏" | "👌" | "🕊" | "🤡" | "🥱" | "🥴" | "😍" | "🐳" | "❤‍🔥" | "🌚" | "🌭" | "💯" | "🤣" | "⚡" | "🍌" | "🏆" | "💔" | "🤨" | "😐" | "🍓" | "🍾" | "💋" | "🖕" | "😈" | "😴" | "😭" | "🤓" | "👻" | "👨‍💻" | "👀" | "🎃" | "🙈" | "😇" | "😨" | "🤝" | "✍" | "🤗" | "🫡" | "🎅" | "🎄" | "☃" | "💅" | "🤪" | "🗿" | "🆒" | "💘" | "🙉" | "🦄" | "😘" | "💊" | "🙊" | "😎" | "👾" | "🤷‍♂" | "🤷" | "🤷‍♀" | "😡";
+
+    interface ReactionTypeEmoji extends AbstractReactionType {
+        type: "emoji";
+        emoji: TelegramEmoji;
+    }
+    interface ReactionTypeCustomEmoji extends AbstractReactionType {
+        type: "custom_emoji";
+        custom_emoji_id: string;
+    }
+
     /// METHODS OPTIONS ///
     interface PollingOptions {
         interval?: string | number | undefined;
@@ -1726,6 +1744,15 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         action: TelegramBot.ChatAction,
         options?: TelegramBot.SendChatActionOptions,
+    ): Promise<boolean>;
+
+    setMessageReaction(
+        chatId: TelegramBot.ChatId,
+        messageId: TelegramBot.MessageId,
+        form: {
+            reaction?: TelegramBot.ReactionType[],
+            is_big?: boolean
+        }
     ): Promise<boolean>;
 
     banChatMember(
