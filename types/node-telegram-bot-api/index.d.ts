@@ -93,39 +93,112 @@ declare namespace TelegramBot {
     type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
     interface LinkPreviewOptions {
-        is_disabled?: boolean,
-        url?: string,
-        prefer_small_media?: boolean,
-        prefer_large_media?: boolean,
-        show_above_text?: boolean
+        is_disabled?: boolean;
+        url?: string;
+        prefer_small_media?: boolean;
+        prefer_large_media?: boolean;
+        show_above_text?: boolean;
     }
 
     type ReactionType = ReactionTypeEmoji | ReactionTypeCustomEmoji;
-    
+
     interface AbstractReactionType {
         type: string;
     }
 
-    type TelegramEmoji = "👍" | "👎" | "❤" | "🔥" | "🥰" | "👏" | "😁" | "🤔" | "🤯" | "😱" | "🤬" | "😢" | "🎉" | "🤩" | "🤮" | "💩" | "🙏" | "👌" | "🕊" | "🤡" | "🥱" | "🥴" | "😍" | "🐳" | "❤‍🔥" | "🌚" | "🌭" | "💯" | "🤣" | "⚡" | "🍌" | "🏆" | "💔" | "🤨" | "😐" | "🍓" | "🍾" | "💋" | "🖕" | "😈" | "😴" | "😭" | "🤓" | "👻" | "👨‍💻" | "👀" | "🎃" | "🙈" | "😇" | "😨" | "🤝" | "✍" | "🤗" | "🫡" | "🎅" | "🎄" | "☃" | "💅" | "🤪" | "🗿" | "🆒" | "💘" | "🙉" | "🦄" | "😘" | "💊" | "🙊" | "😎" | "👾" | "🤷‍♂" | "🤷" | "🤷‍♀" | "😡";
+    type TelegramEmoji =
+        | "👍"
+        | "👎"
+        | "❤"
+        | "🔥"
+        | "🥰"
+        | "👏"
+        | "😁"
+        | "🤔"
+        | "🤯"
+        | "😱"
+        | "🤬"
+        | "😢"
+        | "🎉"
+        | "🤩"
+        | "🤮"
+        | "💩"
+        | "🙏"
+        | "👌"
+        | "🕊"
+        | "🤡"
+        | "🥱"
+        | "🥴"
+        | "😍"
+        | "🐳"
+        | "❤‍🔥"
+        | "🌚"
+        | "🌭"
+        | "💯"
+        | "🤣"
+        | "⚡"
+        | "🍌"
+        | "🏆"
+        | "💔"
+        | "🤨"
+        | "😐"
+        | "🍓"
+        | "🍾"
+        | "💋"
+        | "🖕"
+        | "😈"
+        | "😴"
+        | "😭"
+        | "🤓"
+        | "👻"
+        | "👨‍💻"
+        | "👀"
+        | "🎃"
+        | "🙈"
+        | "😇"
+        | "😨"
+        | "🤝"
+        | "✍"
+        | "🤗"
+        | "🫡"
+        | "🎅"
+        | "🎄"
+        | "☃"
+        | "💅"
+        | "🤪"
+        | "🗿"
+        | "🆒"
+        | "💘"
+        | "🙉"
+        | "🦄"
+        | "😘"
+        | "💊"
+        | "🙊"
+        | "😎"
+        | "👾"
+        | "🤷‍♂"
+        | "🤷"
+        | "🤷‍♀"
+        | "😡";
 
     interface ReactionTypeEmoji extends AbstractReactionType {
         type: "emoji";
         emoji: TelegramEmoji;
     }
-    
+
     interface ReactionTypeCustomEmoji extends AbstractReactionType {
         type: "custom_emoji";
         custom_emoji_id: string;
     }
 
     interface ReplyParameters {
-        message_id: number,
-        chat_id?: ChatId,
-        allow_sending_without_reply?: boolean,
-        quote?: string,
-        quote_parse_mode?: ParseMode,
-        quote_entities?: MessageEntity[],
-        quote_position?: number
+        message_id: number;
+        chat_id?: ChatId;
+        allow_sending_without_reply?: boolean;
+        quote?: string;
+        quote_parse_mode?: ParseMode;
+        quote_entities?: MessageEntity[];
+        quote_position?: number;
     }
 
     /// METHODS OPTIONS ///
@@ -1770,9 +1843,9 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         messageId: number,
         form: {
-            reaction?: TelegramBot.ReactionType[],
-            is_big?: boolean
-        }
+            reaction?: TelegramBot.ReactionType[];
+            is_big?: boolean;
+        },
     ): Promise<boolean>;
 
     banChatMember(
