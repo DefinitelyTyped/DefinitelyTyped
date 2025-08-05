@@ -3739,7 +3739,6 @@ declare namespace Matter {
          * @event afterRender
          * @param {} event An event object
          * @param {number} event.timestamp The engine.timing.timestamp of the event
-         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3751,7 +3750,6 @@ declare namespace Matter {
          * @event beforeUpdate
          * @param {} event An event object
          * @param {number} event.timestamp The engine.timing.timestamp of the event
-         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
