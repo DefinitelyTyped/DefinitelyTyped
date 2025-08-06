@@ -227,9 +227,9 @@ export class Decoder extends Transform {
 
     write(chunk: Buffer, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
     write(chunk: Buffer, cb?: (error: Error | null | undefined) => void): boolean;
-    end(cb?: () => void): this;
-    end(chunk: Buffer, cb?: () => void): this;
-    end(chunk: Buffer, encoding?: string, cb?: () => void): this;
+    end(cb?: (error: Error | null | undefined) => void): this;
+    end(chunk: Buffer, cb?: (error: Error | null | undefined) => void): this;
+    end(chunk: Buffer, encoding?: string, cb?: (error: Error | null | undefined) => void): this;
 
     // #endregion
 }

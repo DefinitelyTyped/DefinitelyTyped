@@ -343,9 +343,9 @@ declare module "net" {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): this;
-        end(buffer: Uint8Array | string, callback?: () => void): this;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
+        end(callback?: (err?: Error) => void): this;
+        end(buffer: Uint8Array | string, callback?: (err?: Error) => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: (err?: Error) => void): this;
         /**
          * events.EventEmitter
          *   1. close
