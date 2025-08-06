@@ -1,4 +1,4 @@
-/// <reference types="html2pdf.js" />
+import html2pdf = require("html2pdf.js");
 
 // Interfaces
 let options: html2pdf.Options = {
