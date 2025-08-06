@@ -721,6 +721,17 @@ async function test() {
     page.getByLabel('Password', { exact: 'true' });
 
     // $ExpectType Locator
+    page.getByText('Welcome');
+    // $ExpectType Locator
+    page.getByText(/Welcome/i);
+    // @ts-expect-error
+    page.getByText(123);
+    // $ExpectType Locator
+    page.getByText('Welcome', { exact: true });
+    // @ts-expect-error
+    page.getByText('Welcome', { exact: 'true' });
+
+    // $ExpectType Locator
     page.getByTestId('submit-button');
     // $ExpectType Locator
     page.getByTestId(/submit-button/i);

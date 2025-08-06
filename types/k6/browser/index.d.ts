@@ -2912,6 +2912,62 @@ export interface Page {
     ): Locator;
 
     /**
+     * Allows locating elements by their text content. Returns {@link Locator}.
+     *
+     * Consider the following DOM structure:
+     *
+     * ```html
+     * <div>Hello <span>world</span></div>
+     * <div>Hello</div>
+     * ```
+     *
+     * You can locate by text substring, exact string, or a regular expression:
+     *
+     * @example
+     * ```js
+     * // Matches <span>
+     * page.getByText('world');
+     *
+     * // Matches first <div>
+     * page.getByText('Hello world');
+     *
+     * // Matches second <div>
+     * page.getByText('Hello', { exact: true });
+     *
+     * // Matches both <div>s
+     * page.getByText(/Hello/);
+     *
+     * // Matches second <div>
+     * page.getByText(/^hello$/i);
+     * ```
+     *
+     * Matching by text always normalizes whitespace, even with exact match. For
+     * example, it turns multiple spaces into one, turns line breaks into spaces
+     * and ignores leading and trailing whitespace.
+     *
+     * Input elements of the type `button` and `submit` are matched by their
+     * `value` instead of the text content. For example, locating by text
+     * `"Log in"` matches `<input type=button value="Log in">`.
+     *
+     * @param text Text to locate the element by.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding text content.
+     */
+    getByText(
+        text: string | RegExp,
+        options?: {
+            /**
+             * Whether to find an exact match: case-sensitive and whole-string.
+             * Default to false. Ignored when locating by a regular expression.
+             * Note that exact match still trims whitespace.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        }
+    ): Locator;
+
+    /**
      * Returns {@link Locator} to the element with the corresponding test ID.
      * Note that this method only supports the `data-testid` attribute.
      *
