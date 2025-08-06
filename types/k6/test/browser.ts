@@ -852,6 +852,10 @@ async function test() {
     page.waitForNavigation({ waitUntil: "domcontentloaded" });
     // $ExpectType Promise<Response | null>
     page.waitForNavigation({ waitUntil: "networkidle" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: /.*\/api\/pizza$/ });
 
     // @ts-expect-error
     page.waitForSelector();
@@ -2185,6 +2189,10 @@ async function test() {
     frame.waitForNavigation({ timeout: 10000 });
     // $ExpectType Promise<Response | null>
     frame.waitForNavigation({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: /.*\/api\/pizza$/ });
 
     // @ts-expect-error
     frame.waitForSelector();
