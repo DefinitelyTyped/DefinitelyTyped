@@ -429,7 +429,6 @@ declare namespace Matter {
          * Currently only functions inside `Matter.Bodies` provide a utility using this property as a vertices pre-processing option.
          *
          * Alternatively consider using `Vertices.chamfer` directly on vertices before passing them to a body creation function.
-         *
          */
         chamfer?: IChamfer | null | undefined;
     }
@@ -1983,7 +1982,7 @@ declare namespace Matter {
         world: World;
     }
 
-    export interface IGridDefinition { }
+    export interface IGridDefinition {}
 
     /**
      * This module has now been replaced by `Matter.Detector`.
@@ -2380,7 +2379,6 @@ declare namespace Matter {
          */
         wireframeBackground?: string | undefined;
 
-
         /**
          * A CSS color string to use for stroke when `render.options.wireframes` is enabled.
          * This may be also set to `'transparent'` or equivalent.
@@ -2521,23 +2519,23 @@ declare namespace Matter {
     interface IRenderLookAtObject {
         bounds?: Bounds | undefined;
         position?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         min?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         max?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
     }
 
     /**
@@ -3960,7 +3958,7 @@ declare namespace Matter {
          * @param {} module The module.
          * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: { name?: string | undefined;[_: string]: any }): boolean;
+        static isFor(plugin: Plugin, module: { name?: string | undefined; [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3979,7 +3977,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: { uses?: Array<Plugin | string> | undefined;[_: string]: any },
+            module: { uses?: Array<Plugin | string> | undefined; [_: string]: any },
             plugins: Array<Plugin | string>,
         ): void;
 
