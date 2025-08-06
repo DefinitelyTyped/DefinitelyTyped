@@ -673,6 +673,31 @@ async function test() {
     // $ExpectType Promise<void>
     page.press(selector, "a", { timeout: 10000 });
 
+    // $ExpectType Locator
+    page.getByRole('button', { name: 'Sign in' });
+    // $ExpectType Locator
+    page.getByRole('button', { name: /Sign in/i });
+    // $ExpectType Locator
+    page.getByRole('button', { exact: true });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { checked: true });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { disabled: true });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { expanded: true });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { includeHidden: true });
+    // $ExpectType Locator
+    page.getByRole('heading', { level: 1 });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { pressed: true });
+    // $ExpectType Locator
+    page.getByRole('checkbox', { selected: true });
+    // @ts-expect-error
+    page.getByRole('button', { name: 123 });
+    // @ts-expect-error
+    page.getByRole('invalid-role');
+
     // $ExpectType Promise<Response | null>
     page.reload();
     // $ExpectType Promise<Response | null>

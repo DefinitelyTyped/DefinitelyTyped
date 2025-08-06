@@ -2792,6 +2792,75 @@ export interface Page {
     ): Promise<string | null>;
 
     /**
+     * Returns {@link Locator} to the element with the corresponding role.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByRole('button', { name: 'Pizza, Please!' });
+     * 
+     * await locator.click();
+     * ```
+     *
+     * @param role The role of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding role.
+     */
+    getByRole(
+        role: "alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "meter" | "navigation" | "none" | "note" | "option" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem",
+        options?: {
+            /**
+             * Whether the accessible `options.name` should be checked exactly for equality.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+
+            /**
+             * Whether to include elements that are normally excluded from the accessibility tree.
+             *
+             * @defaultValue false
+             */
+            includeHidden?: boolean;
+
+            /**
+             * A number attribute that is traditionally used for headings h1-h6.
+             */
+            level?: number;
+
+            /**
+             * An accessible name for the element, such as a text in a button or a label for an input.
+             */
+            name?: string | RegExp;
+
+            /**
+             * A boolean attribute that can be used to indicate if a checkbox is checked or not.
+             */
+            checked?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is disabled or not.
+             */
+            disabled?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is expanded or not.
+             */
+            expanded?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is pressed or not.
+             */
+            pressed?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is selected or not.
+             */
+            selected?: boolean;
+        }
+    ): Locator;
+
+
+    /**
      * Navigates to the specified url and returns the main resource response.
      *
      * navigating to `about:blank` or navigation to the same URL with a different
