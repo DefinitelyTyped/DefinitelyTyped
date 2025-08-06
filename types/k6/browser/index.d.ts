@@ -2912,6 +2912,32 @@ export interface Page {
     ): Locator;
 
     /**
+     * Returns {@link Locator} to the element with the corresponding placeholder text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByPlaceholder('name@example.com');
+     *
+     * await locator.fill('my.name@example.com');
+     * ```
+     *
+     * @param placeholder The placeholder text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding placeholder text.
+     */
+    getByPlaceholder(
+        placeholder: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        }
+    ): Locator;
+
+    /**
      * Navigates to the specified url and returns the main resource response.
      *
      * navigating to `about:blank` or navigation to the same URL with a different

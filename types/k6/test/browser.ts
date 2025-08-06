@@ -720,6 +720,17 @@ async function test() {
     // @ts-expect-error
     page.getByLabel('Password', { exact: 'true' });
 
+    // $ExpectType Locator
+    page.getByPlaceholder('name@example.com');
+    // $ExpectType Locator
+    page.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    page.getByPlaceholder(123);
+    // $ExpectType Locator
+    page.getByPlaceholder('name@example.com', { exact: true });
+    // @ts-expect-error
+    page.getByPlaceholder('name@example.com', { exact: 'true' });
+
     // $ExpectType Promise<Response | null>
     page.reload();
     // $ExpectType Promise<Response | null>
