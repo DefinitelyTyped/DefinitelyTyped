@@ -3845,6 +3845,10 @@
             "libraryName": "linqsharp",
             "asOfVersion": "1.0.0"
         },
+        "lint-staged": {
+            "libraryName": "lint-staged",
+            "asOfVersion": "14.0.0"
+        },
         "load-json-file": {
             "libraryName": "load-json-file",
             "asOfVersion": "5.1.0"
