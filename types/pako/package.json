@@ -21,9 +21,5 @@
             "name": "Thibault Poisson",
             "githubUsername": "OrIOg"
         }
-    ],
-    "types": "index",
-    "typesVersions": {
-        "<=5.6": { "*": ["ts5.6/*"] }
-    }
+    ]
 }

@@ -19,7 +19,10 @@ if (deflate.err !== Pako.constants.Z_OK) {
 console.log(deflate.result);
 
 const arr: Uint8Array = Pako.deflate("1234");
-const arrBuffer: Uint8Array<ArrayBuffer> = Pako.deflate("1234");
+
+// For TS <=5.6 compatibility: Uint8Array<ArrayBuffer> in TS >=5.7, Uint8Array in TS <=5.6
+type Uint8ArrayReturnType = InstanceType<typeof Uint8Array>;
+const arrBuffer: Uint8ArrayReturnType = Pako.deflate("1234");
 
 const data = "           ";
 
