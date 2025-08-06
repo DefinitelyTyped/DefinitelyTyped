@@ -480,6 +480,10 @@
             "libraryName": "bin-version",
             "asOfVersion": "3.1.0"
         },
+        "binary-parser": {
+            "libraryName": "binary-parser",
+            "asOfVersion": "1.8.0"
+        },
         "binaryextensions": {
             "libraryName": "binaryextensions",
             "asOfVersion": "4.0.0"
@@ -1167,6 +1171,10 @@
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
+        },
+        "contract-proxy-kit": {
+            "libraryName": "contract-proxy-kit",
+            "asOfVersion": "2.0.0"
         },
         "conventional-changelog-preset-loader": {
             "libraryName": "conventional-changelog-preset-loader",
@@ -1892,6 +1900,10 @@
         "error-stack-parser": {
             "libraryName": "error-stack-parser",
             "asOfVersion": "2.0.0"
+        },
+        "es-feature-detection": {
+            "libraryName": "es-feature-detection",
+            "asOfVersion": "3.0.0"
         },
         "es-module-lexer": {
             "libraryName": "es-module-lexer",

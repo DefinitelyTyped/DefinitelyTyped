@@ -38,6 +38,8 @@ export default class TextureNode extends UniformNode<Texture> {
 
     sample(uvNode: Node): ShaderNodeObject<Node>;
 
+    load(uvNode: Node): ShaderNodeObject<Node>;
+
     blur(amountNode: Node): ShaderNodeObject<Node>;
 
     level(levelNode: Node): ShaderNodeObject<Node>;
