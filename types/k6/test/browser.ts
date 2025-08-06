@@ -698,6 +698,17 @@ async function test() {
     // @ts-expect-error
     page.getByRole('invalid-role');
 
+    // $ExpectType Locator
+    page.getByAltText('pizza');
+    // $ExpectType Locator
+    page.getByAltText(/pizza/i);
+    // @ts-expect-error
+    page.getByAltText(123);
+    // $ExpectType Locator
+    page.getByAltText('pizza', { exact: true });
+    // @ts-expect-error
+    page.getByAltText('pizza', { exact: 'true' });
+
     // $ExpectType Promise<Response | null>
     page.reload();
     // $ExpectType Promise<Response | null>

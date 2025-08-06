@@ -2859,6 +2859,31 @@ export interface Page {
         }
     ): Locator;
 
+    /**
+     * Returns {@link Locator} to the element with the corresponding alt text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByAltText('pizza');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param altText The alt text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding alt text.
+     */
+    getByAltText(
+        altText: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        }
+    ): Locator;
 
     /**
      * Navigates to the specified url and returns the main resource response.
