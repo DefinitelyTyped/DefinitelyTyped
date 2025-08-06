@@ -1,4 +1,4 @@
-import { hashCode } from 'hash-code';
+import { hashCode } from "hash-code";
 
 // $ExpectType number
-hashCode('Hello');
+hashCode("Hello");
