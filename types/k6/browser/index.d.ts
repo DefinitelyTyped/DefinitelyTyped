@@ -2912,6 +2912,28 @@ export interface Page {
     ): Locator;
 
     /**
+     * Returns {@link Locator} to the element with the corresponding test ID.
+     * Note that this method only supports the `data-testid` attribute.
+     *
+     * @example
+     * HTML:
+     * ```html
+     * <button data-testid="submit-button">Submit</button>
+     * ```
+     *
+     * JavaScript:
+     * ```js
+     * const locator = page.getByTestId('submit-button');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param testId The test ID of the element.
+     * @returns The locator to the element with the corresponding test ID.
+     */
+    getByTestId(testId: string | RegExp): Locator;
+
+    /**
      * Returns {@link Locator} to the element with the corresponding placeholder text.
      *
      * @example
