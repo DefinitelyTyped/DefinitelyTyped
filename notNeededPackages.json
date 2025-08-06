@@ -560,6 +560,10 @@
             "libraryName": "bs58",
             "asOfVersion": "5.0.0"
         },
+        "bs58check": {
+            "libraryName": "bs58check",
+            "asOfVersion": "3.0.1"
+        },
         "bson": {
             "libraryName": "bson",
             "asOfVersion": "4.2.0"
