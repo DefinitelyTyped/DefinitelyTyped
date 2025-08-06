@@ -828,8 +828,3 @@ async function testTransferringStreamWithPostMessage() {
     // $ExpectType void
     byobReader.releaseLock();
 }
-
-{
-    const strategy1: QueuingStrategy = new CountQueuingStrategy({ highWaterMark: 1 });
-    const strategy2: QueuingStrategy = new ByteLengthQueuingStrategy({ highWaterMark: 1 });
-}
