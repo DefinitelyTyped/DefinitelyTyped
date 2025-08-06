@@ -858,6 +858,17 @@ async function test() {
     page.waitForNavigation({ url: /.*\/api\/pizza$/ });
 
     // @ts-expect-error
+    page.waitForURL();
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    page.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);
@@ -2193,6 +2204,17 @@ async function test() {
     frame.waitForNavigation({ url: "https://example.com" });
     // $ExpectType Promise<Response | null>
     frame.waitForNavigation({ url: /.*\/api\/pizza$/ });
+
+    // @ts-expect-error
+    frame.waitForURL();
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    frame.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
     frame.waitForSelector();

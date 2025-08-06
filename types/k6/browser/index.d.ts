@@ -1877,6 +1877,49 @@ export interface Frame {
     }): Promise<Response | null>;
 
     /**
+     * Waits for the page to navigate to the specified URL.
+     *
+     * @example
+     * ```js
+     * await page.locator('a[href="/login"]').click();
+     * await page.waitForURL(/.*\/login$/);
+     * ```
+     *
+     * @param url An exact match or regular expression to match the URL.
+     * @param options Options to use.
+     */
+    waitForURL(
+        url: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * When to consider operation succeeded, defaults to `load`. Events can be
+             * either:
+             * - `'domcontentloaded'` - consider operation to be finished when the
+             * `DOMContentLoaded` event is fired.
+             * - `'load'` - consider operation to be finished when the `load` event is
+             * fired.
+             * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+             * when there are no network connections for at least `500` ms. Don't use
+             * this method for testing especially with chatty websites where the event
+             * may never fire, rely on web assertions to assess readiness instead.
+             */
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
+        }
+    ): Promise<void>;
+
+    /**
      * Wait for the given selector to match the waiting criteria.
      * @param selector The selector to use.
      * @param options The options to use.
@@ -3866,6 +3909,49 @@ export interface Page {
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<Response | null>;
+
+    /**
+     * Waits for the page to navigate to the specified URL.
+     *
+     * @example
+     * ```js
+     * await page.locator('a[href="/login"]').click();
+     * await page.waitForURL(/.*\/login$/);
+     * ```
+     *
+     * @param url An exact match or regular expression to match the URL.
+     * @param options Options to use.
+     */
+    waitForURL(
+        url: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * When to consider operation succeeded, defaults to `load`. Events can be
+             * either:
+             * - `'domcontentloaded'` - consider operation to be finished when the
+             * `DOMContentLoaded` event is fired.
+             * - `'load'` - consider operation to be finished when the `load` event is
+             * fired.
+             * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+             * when there are no network connections for at least `500` ms. Don't use
+             * this method for testing especially with chatty websites where the event
+             * may never fire, rely on web assertions to assess readiness instead.
+             */
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
+        }
+    ): Promise<void>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based
