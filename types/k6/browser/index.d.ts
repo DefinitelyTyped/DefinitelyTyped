@@ -2886,6 +2886,32 @@ export interface Page {
     ): Locator;
 
     /**
+     * Returns {@link Locator} to the element with the corresponding label text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByLabel('Password');
+     *
+     * await locator.fill('my-password');
+     * ```
+     *
+     * @param label The label text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding label text.
+     */
+    getByLabel(
+        label: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        }
+    ): Locator;
+
+    /**
      * Navigates to the specified url and returns the main resource response.
      *
      * navigating to `about:blank` or navigation to the same URL with a different

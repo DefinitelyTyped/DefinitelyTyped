@@ -709,6 +709,17 @@ async function test() {
     // @ts-expect-error
     page.getByAltText('pizza', { exact: 'true' });
 
+    // $ExpectType Locator
+    page.getByLabel('Password');
+    // $ExpectType Locator
+    page.getByLabel(/Password/i);
+    // @ts-expect-error
+    page.getByLabel(123);
+    // $ExpectType Locator
+    page.getByLabel('Password', { exact: true });
+    // @ts-expect-error
+    page.getByLabel('Password', { exact: 'true' });
+
     // $ExpectType Promise<Response | null>
     page.reload();
     // $ExpectType Promise<Response | null>
