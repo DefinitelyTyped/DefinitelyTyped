@@ -589,6 +589,72 @@ async function test() {
         });
     });
 
+    // $ExpectType void
+    page.on("request", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+    });
+
+    // $ExpectType void
+    page.on("response", response => {
+        // $ExpectType Promise<Record<string, string>>
+        response.allHeaders();
+        // $ExpectType Promise<ArrayBuffer>
+        response.body();
+        // $ExpectType Frame
+        response.frame();
+        // $ExpectType Record<string, string>
+        response.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        response.headersArray();
+        // $ExpectType Promise<string | null>
+        response.headerValue("content-type");
+        // $ExpectType Promise<string[]>
+        response.headerValues("content-type");
+        // $ExpectType Promise<any>
+        response.json();
+        // $ExpectType boolean
+        response.ok();
+        // $ExpectType Request
+        response.request();
+        // $ExpectType Promise<SecurityDetailsObject | null>
+        response.securityDetails();
+        // $ExpectType Promise<{ ipAddress: string; port: number; } | null>
+        response.serverAddr();
+        // $ExpectType number
+        response.status();
+        // $ExpectType string
+        response.statusText();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        response.size();
+        // $ExpectType string
+        response.url();
+    });
+
     // $ExpectType Promise<Page | null>
     page.opener();
 
