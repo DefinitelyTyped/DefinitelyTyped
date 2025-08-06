@@ -1,5 +1,4 @@
-declare const testHtml2pdf: typeof html2pdf;
-declare const testWorker: typeof html2pdf.Worker;
+/// <reference types="html2pdf.js" />
 
 // Interfaces
 let options: html2pdf.Options = {
@@ -31,8 +30,8 @@ let pagebreakOptions: html2pdf.PagebreakOptions = {
 
 // Worker interface
 let worker: html2pdf.Worker;
-worker = new html2pdf.Worker(options);
 worker = html2pdf();
+worker = html2pdf(document.createElement("div"), options);
 
 // Worker methods
 worker = worker.from(document.createElement("div"));

@@ -1,14 +1,11 @@
 /// <reference lib="dom" />
 
-/**
- * Main html2pdf function that converts HTML elements or strings to PDF
- */
-export function html2pdf(
+declare function html2pdf(
     source?: HTMLElement | string,
     options?: html2pdf.Options,
 ): html2pdf.Worker;
 
-export namespace html2pdf {
+declare namespace html2pdf {
     // Type aliases using branded string pattern for keeping intelisense working
     type ImageType = "png" | "jpeg" | "webp" | (string & {});
     type PagebreakMode = "avoid-all" | "css" | "legacy" | (string & {});
@@ -155,13 +152,6 @@ export namespace html2pdf {
     }
 
     /**
-     * Worker constructor
-     */
-    const Worker: {
-        new(options?: Options): Worker;
-    };
-
-    /**
      * Options for html2pdf configuration
      */
     interface Options {
@@ -253,96 +243,5 @@ export namespace html2pdf {
     }
 }
 
-// Global namespace for browser usage
-declare global {
-    namespace html2pdf {
-        // Type aliases using branded string pattern for keeping intelisense working
-        type ImageType = "png" | "jpeg" | "webp" | (string & {});
-        type PagebreakMode = "avoid-all" | "css" | "legacy" | (string & {});
-        type FromType = "string" | "element" | "canvas" | "img" | (string & {});
-        type ToTarget = "container" | "canvas" | "img" | "pdf" | (string & {});
-        type OutputType = "pdf" | "img" | (string & {});
-        type OutputImgType = "img" | "datauristring" | "dataurlstring" | "datauri" | "dataurl" | (string & {});
-
-        interface Worker extends Promise<any> {
-            from(src: HTMLElement | string, type?: FromType): Worker;
-            to(target: ToTarget): Worker;
-            toContainer(): Worker;
-            toCanvas(): Worker;
-            toImg(): Worker;
-            toPdf(): Worker;
-            output(type?: OutputType, options?: any, src?: any): Worker;
-            outputPdf(type?: string, options?: any): Worker;
-            outputImg(type?: OutputImgType, options?: any): Worker;
-            save(filename?: string): Worker;
-            set(options: html2pdf.Options | Partial<html2pdf.Options>): Worker;
-            get(key: string, callback?: (value: any) => void): Worker;
-            setMargin(margin: number | number[]): Worker;
-            setPageSize(pageSize?: any): Worker;
-            setProgress(val: number, state: any, n: number, stack: any[]): Worker;
-            updateProgress(val: number, state: any, n: number, stack: any[]): Worker;
-            then<TResult1 = any, TResult2 = never>(
-                onfulfilled?: ((value: any) => TResult1 | PromiseLike<TResult1>) | null,
-                onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
-            ): Worker;
-            thenCore<TResult1 = any, TResult2 = never>(
-                onfulfilled?: ((value: any) => TResult1 | PromiseLike<TResult1>) | null,
-                onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
-            ): Worker;
-            thenExternal<TResult1 = any, TResult2 = never>(
-                onfulfilled?: ((value: any) => TResult1 | PromiseLike<TResult1>) | null,
-                onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
-            ): Promise<TResult1 | TResult2>;
-            catch<TResult = never>(
-                onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
-            ): Worker;
-            catchExternal<TResult = never>(
-                onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
-            ): Promise<any>;
-            error(msg: string): Worker;
-            saveAs(filename?: string): Worker;
-            using(options: html2pdf.Options | Partial<html2pdf.Options>): Worker;
-            export(type?: OutputType, options?: any, src?: any): Worker;
-            run<TResult1 = any, TResult2 = never>(
-                onfulfilled?: ((value: any) => TResult1 | PromiseLike<TResult1>) | null,
-                onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
-            ): Worker;
-        }
-
-        interface Options {
-            filename?: string | undefined;
-            margin?: number | number[] | undefined;
-            image?: ImageOptions | undefined;
-            enableLinks?: boolean | undefined;
-            pagebreak?: PagebreakOptions | undefined;
-            html2canvas?: any;
-            jsPDF?: any;
-        }
-
-        interface ImageOptions {
-            type?: ImageType | undefined;
-            quality?: number | undefined;
-        }
-
-        interface PagebreakOptions {
-            mode?: PagebreakMode | Array<PagebreakMode> | undefined;
-            before?: string | string[] | undefined;
-            after?: string | string[] | undefined;
-            avoid?: string | string[] | undefined;
-        }
-    }
-
-    function html2pdf(
-        source?: HTMLElement | string,
-        options?: html2pdf.Options,
-    ): html2pdf.Worker;
-
-    namespace html2pdf {
-        const Worker: {
-            new(options?: html2pdf.Options): html2pdf.Worker;
-        };
-    }
-}
-
-// For CommonJS compatibility
-export default html2pdf;
+export = html2pdf;
+export as namespace html2pdf;
