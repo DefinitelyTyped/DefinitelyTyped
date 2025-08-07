@@ -241,7 +241,7 @@ QUnit.module.if("Conditional module", true, function(hooks) {
 
     QUnit.test("call hooks", function(assert) {
         assert.expect(2);
-    })
+    });
 
     QUnit.module.if("nested conditional module", true, {
         // This will run after the parent module's beforeEach hook
@@ -257,7 +257,7 @@ QUnit.module.if("Conditional module", true, function(hooks) {
     QUnit.test("call nested hooks", function(assert) {
         assert.expect(4);
     });
-})
+});
 
 QUnit.module.only("exclusive module", function(hooks) {
     hooks.beforeEach(function(assert) {

@@ -447,7 +447,12 @@ declare global {
 
     type moduleFunctionWithOptions = (name: string, options?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
     type moduleFunction = (name: string, nested?: (hooks: NestedHooks) => void) => void;
-    type conditionalModuleFunctionWithOptions = (name: string, condition: boolean, options?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
+    type conditionalModuleFunctionWithOptions = (
+        name: string,
+        condition: boolean,
+        options?: Hooks,
+        nested?: (hooks: NestedHooks) => void,
+    ) => void;
     type conditionalModuleFunction = (name: string, condition: boolean, nested?: (hooks: NestedHooks) => void) => void;
     type ModuleOnly = { only: moduleFunction & moduleFunctionWithOptions };
     type ModuleSkip = { skip: moduleFunction & moduleFunctionWithOptions };
