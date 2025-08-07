@@ -1377,6 +1377,19 @@ export interface ElementHandle extends JSHandle {
 
     /**
      * Select one or more options of a `<select>` element which match the values.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * handle.selectOption('blue');
+     *
+     * // single selection matching the label
+     * handle.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * handle.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param values Values of options to select.
      * @param options Element handle options.
      * @returns List of selected options.
@@ -1567,6 +1580,19 @@ export interface Frame {
     /**
      * Select the given options and return the array of option values of the first element
      * found that matches the selector.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * frame.selectOption('blue');
+     *
+     * // single selection matching the label
+     * frame.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * frame.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param selector The selector to use.
      * @param values The values to select.
      * @returns The array of option values of the first element found.
@@ -2240,6 +2266,19 @@ export interface Locator {
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
      * otherwise only the first option matching one of the passed options is selected.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * locator.selectOption('blue');
+     *
+     * // single selection matching the label
+     * locator.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * locator.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param values Values of options to select.
      * @param options Options to use.
      * @returns List of selected options.
@@ -3623,6 +3662,18 @@ export interface Page {
      *
      * This select one or more options which match the values from a <select>
      * element.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * page.selectOption('#colors-options', 'blue');
+     *
+     * // single selection matching the label
+     * page.selectOption('#colors-options', { label: 'Blue' });
+     *
+     * // multiple selection
+     * page.selectOption('#colors-options', ['red', 'green', 'blue']);
+     * ```
      *
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
