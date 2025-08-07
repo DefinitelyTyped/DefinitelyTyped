@@ -6,7 +6,6 @@
         "https://github.com/toboid/express-correlation-id#readme"
     ],
     "dependencies": {
-        "correlation-id": "^5.2.0",
         "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
