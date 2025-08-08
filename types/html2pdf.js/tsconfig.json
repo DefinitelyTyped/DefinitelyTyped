@@ -1,15 +1,8 @@
 {
-    "files": [
-        "index.d.ts",
-        "../node-tests.ts",
-        "../node-tests-webworker.ts"
-    ],
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "esnext",
+        "module": "node16",
         "lib": [
-            "es6",
-            "webworker"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,5 +11,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "html2pdf.js-tests.ts"
+    ]
 }

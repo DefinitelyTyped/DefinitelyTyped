@@ -480,6 +480,10 @@
             "libraryName": "bin-version",
             "asOfVersion": "3.1.0"
         },
+        "binary-parser": {
+            "libraryName": "binary-parser",
+            "asOfVersion": "1.8.0"
+        },
         "binaryextensions": {
             "libraryName": "binaryextensions",
             "asOfVersion": "4.0.0"
@@ -555,6 +559,10 @@
         "bs58": {
             "libraryName": "bs58",
             "asOfVersion": "5.0.0"
+        },
+        "bs58check": {
+            "libraryName": "bs58check",
+            "asOfVersion": "3.0.1"
         },
         "bson": {
             "libraryName": "bson",
@@ -699,6 +707,10 @@
         "chalk": {
             "libraryName": "chalk",
             "asOfVersion": "2.2.0"
+        },
+        "chalk-pipe": {
+            "libraryName": "chalk-pipe",
+            "asOfVersion": "5.1.1"
         },
         "change-case": {
             "libraryName": "change-case",
@@ -1167,6 +1179,10 @@
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
+        },
+        "contract-proxy-kit": {
+            "libraryName": "contract-proxy-kit",
+            "asOfVersion": "2.0.0"
         },
         "conventional-changelog-preset-loader": {
             "libraryName": "conventional-changelog-preset-loader",
@@ -1892,6 +1908,10 @@
         "error-stack-parser": {
             "libraryName": "error-stack-parser",
             "asOfVersion": "2.0.0"
+        },
+        "es-feature-detection": {
+            "libraryName": "es-feature-detection",
+            "asOfVersion": "3.0.0"
         },
         "es-module-lexer": {
             "libraryName": "es-module-lexer",
@@ -3832,6 +3852,10 @@
         "linqsharp": {
             "libraryName": "linqsharp",
             "asOfVersion": "1.0.0"
+        },
+        "lint-staged": {
+            "libraryName": "lint-staged",
+            "asOfVersion": "14.0.0"
         },
         "load-json-file": {
             "libraryName": "load-json-file",

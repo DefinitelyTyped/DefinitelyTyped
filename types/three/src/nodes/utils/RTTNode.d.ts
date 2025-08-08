@@ -9,6 +9,8 @@ export interface RTTNodeOptions {
 }
 
 declare class RTTNode extends TextureNode {
+    readonly isRTTNode: true;
+
     node: Node;
     width: number | null;
     height: number | null;

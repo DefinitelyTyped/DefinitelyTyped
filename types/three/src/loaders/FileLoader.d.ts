@@ -14,6 +14,6 @@ export class FileLoader extends Loader<string | ArrayBuffer> {
     mimeType: string;
     responseType: string;
 
-    setMimeType(mimeType: string): FileLoader;
-    setResponseType(responseType: string): FileLoader;
+    setResponseType(value: string): this;
+    setMimeType(value: string): this;
 }

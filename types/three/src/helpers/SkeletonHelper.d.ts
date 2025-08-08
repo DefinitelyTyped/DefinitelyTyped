@@ -1,4 +1,5 @@
 import { Object3D } from "../core/Object3D.js";
+import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Bone } from "../objects/Bone.js";
 import { LineSegments } from "../objects/LineSegments.js";
@@ -19,7 +20,7 @@ import { SkinnedMesh } from "../objects/SkinnedMesh.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/helpers/SkeletonHelper | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/SkeletonHelper.js | Source}
  */
-export class SkeletonHelper extends LineSegments {
+declare class SkeletonHelper extends LineSegments {
     /**
      * Create a new instance of {@link SkeletonHelper}
      * @param object Usually an instance of {@link THREE.SkinnedMesh | SkinnedMesh}.
@@ -43,19 +44,14 @@ export class SkeletonHelper extends LineSegments {
     override readonly type: string | "SkeletonHelper";
 
     /**
-     * The list of bones that the helper renders as {@link Line | Lines}.
-     */
-    bones: Bone[];
-
-    /**
      * The object passed in the constructor.
      */
     root: SkinnedMesh | Object3D;
 
     /**
-     * Reference to the {@link THREE.Object3D.matrixWorld | root.matrixWorld}.
+     * The list of bones that the helper renders as {@link Line | Lines}.
      */
-    matrix: Matrix4;
+    bones: Bone[];
 
     /**
      * Is set to `false`, as the helper is using the {@link THREE.Object3D.matrixWorld | root.matrixWorld}.
@@ -64,10 +60,7 @@ export class SkeletonHelper extends LineSegments {
      */
     override matrixAutoUpdate: boolean;
 
-    /**
-     * Updates the helper.
-     */
-    update(): void;
+    setColors(color1: Color, color2: Color): this;
 
     /**
      * Frees the GPU-related resources allocated by this instance
@@ -76,3 +69,5 @@ export class SkeletonHelper extends LineSegments {
      */
     dispose(): void;
 }
+
+export { SkeletonHelper };

@@ -3295,7 +3295,7 @@ declare namespace OracleDB {
          */
         sessionCallback?:
             | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
+            | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
             | undefined;
         /**
          * Indicates whether the pool’s connections should share a cache of SODA metadata. This improves SODA performance by reducing round-trips to the database when opening collections. It has no effect on non-SODA operations.
