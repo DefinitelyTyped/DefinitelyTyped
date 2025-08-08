@@ -5,6 +5,8 @@ interface TestJsonResponse {
     key2: number;
 }
 
+const { signal } = new AbortController();
+
 const request = new FetchRequest("post", "https://example.com", {
     body: { name: "Request.JS" },
     contentType: "application/json",
@@ -12,7 +14,23 @@ const request = new FetchRequest("post", "https://example.com", {
     credentials: "include",
     query: { "test": "test" },
     responseKind: "json",
+    signal,
 });
+
+// $ExpectType HeadersInit
+request.headers;
+// $ExpectType string | undefined
+request.csrfToken;
+// $ExpectType string | undefined
+request.contentType;
+// $ExpectType string
+request.accept;
+// $ExpectType BodyInit | Record<any, any> | undefined
+request.body;
+// $ExpectType string
+request.query;
+// $ExpectType AbortSignal | null | undefined
+request.signal;
 
 let testJsonResponseVar: TestJsonResponse;
 let headersVar: Headers;
@@ -36,11 +54,32 @@ async function main() {
     numberVar = response.statusCode;
     stringVar = await response.text;
 
-    response = await get("https://example.com");
+    response = await get("https://example.com", { responseKind: "json" });
     testJsonResponseVar = await response.json as TestJsonResponse;
+
+    response = await get("https://example.com/ex/turbo-stream", { responseKind: "turbo-stream" });
+    await response.renderTurboStream();
+
+    response = await get("https://example.com/ex/script", { responseKind: "script" });
+    await response.activeScript();
 
     response = await post("https://example.com", {
         body: new FormData(),
+    });
+
+    response = await post("https://example.com", {
+        body: new FormData(),
+        keepalive: true,
+    });
+
+    const emptyFile = new File([], "empty.txt", {
+        type: "text/plain",
+        lastModified: Date.now(),
+    });
+
+    response = await post("https://example.com", {
+        body: emptyFile,
+        keepalive: true,
     });
 
     response = await put("https://example.com", {
@@ -48,6 +87,10 @@ async function main() {
     });
 
     response = await patch("https://example.com");
+
+    response = await patch("https://example.com/this-will-redirect", {
+        redirect: "follow",
+    });
 
     response = await destroy("https://example.com");
 
