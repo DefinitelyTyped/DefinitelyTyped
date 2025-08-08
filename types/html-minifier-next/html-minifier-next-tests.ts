@@ -61,3 +61,9 @@ const optionsNamespaced: namespaced.MinifierOptions = options
 
 // $ExpectType Promise<string>
 minify("<p title=\"blah\" id=\"moo\">foo</p>", options)
+
+// $ExpectType Promise<string>
+namespaced.default.minify("<p title=\"blah\" id=\"moo\">foo</p>", options)
+
+// $ExpectType Promise<string>
+required.default.minify("<p title=\"blah\" id=\"moo\">foo</p>", options)

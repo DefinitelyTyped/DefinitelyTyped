@@ -1,7 +1,14 @@
 import * as CleanCSS from "clean-css"
 import RelateUrl = require("relateurl")
+import type * as Terser from "terser" with { "resolution-mode": "import" }
 
 export function minify(value: string, options?: MinifierOptions): Promise<string>
+
+declare namespace _default {
+  export { minify, type MinifierOptions }
+}
+
+export { _default as default }
 
 /**
  * Most of the options are disabled by default
@@ -147,7 +154,7 @@ export interface MinifierOptions {
    * 
    * @default false
    */
-  minifyJS?: boolean | object | ((text: string, inline?: boolean) => string)
+  minifyJS?: boolean | Terser.MinifyOptions | ((text: string, inline?: boolean) => string)
 
   /**
    * Minify URLs in various attributes
