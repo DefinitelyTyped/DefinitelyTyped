@@ -32,6 +32,12 @@ request.query;
 // $ExpectType AbortSignal | null | undefined
 request.signal;
 
+// $ExpectType string
+request.fetchOptions.method;
+
+// $ExpectType (HeadersInit | undefined) & HeadersInit
+request.fetchOptions.headers;
+
 let testJsonResponseVar: TestJsonResponse;
 let headersVar: Headers;
 let stringVar: string;

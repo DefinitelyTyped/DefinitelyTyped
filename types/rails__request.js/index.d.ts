@@ -3,7 +3,7 @@ export class FetchRequest {
     perform(): Promise<FetchResponse>;
     addHeader(key: string, value: string): void;
     sameHostname(): boolean;
-    get fetchOptions(): RequestInit;
+    get fetchOptions(): RequestInit & { method: string; headers: HeadersInit };
     get headers(): HeadersInit;
     get csrfToken(): string | undefined;
     get contentType(): string | undefined;
