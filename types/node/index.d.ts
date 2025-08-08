@@ -35,6 +35,7 @@
 // Definitions for Node.js modules specific to TypeScript 5.7+:
 /// <reference path="globals.typedarray.d.ts" />
 /// <reference path="buffer.buffer.d.ts" />
+/// <reference path="stream/web.arraybuffer.d.ts" />
 
 // Definitions for Node.js modules that are not specific to any version of TypeScript:
 /// <reference path="globals.d.ts" />
