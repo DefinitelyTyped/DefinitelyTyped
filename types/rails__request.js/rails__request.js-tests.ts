@@ -25,7 +25,7 @@ request.csrfToken;
 request.contentType;
 // $ExpectType string
 request.accept;
-// $ExpectType BodyInit | Record<any, any> | undefined
+// $ExpectType BodyInit | Record<string, unknown> | undefined
 request.body;
 // $ExpectType string
 request.query;
