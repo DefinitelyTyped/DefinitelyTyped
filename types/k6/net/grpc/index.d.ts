@@ -105,6 +105,23 @@ export interface GrpcError {
 }
 
 /**
+ * Health check status values as defined by the gRPC Health Checking Protocol.
+ */
+export type HealthCheckStatus = "SERVING" | "NOT_SERVING" | "UNKNOWN";
+
+/**
+ * Response from a gRPC health check.
+ */
+export interface HealthCheckResponse {
+    /**
+     * The health status of the service.
+     */
+    Status: HealthCheckStatus;
+}
+
+
+
+/**
  * gRPC client to interact with a gRPC server.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-net-grpc/client/
  */
@@ -130,6 +147,15 @@ export class Client {
 
     /** Close the connection. */
     close(): void;
+
+    /** 
+     * Performs a health check on the gRPC service.
+     * Uses the standard gRPC Health Checking Protocol.
+     * 
+     * @param service - Optional service name to check. If not provided, checks overall server health.
+     * @returns The health check response
+     */
+    healthCheck(service?: string): HealthCheckResponse;
 }
 
 /**
@@ -214,5 +240,10 @@ export const StatusInternal: number;
 export const StatusUnavailable: number;
 export const StatusDataLoss: number;
 export const StatusUnauthenticated: number;
+
+export const HealthCheckServing: HealthCheckStatus;
+export const HealthCheckNotServing: HealthCheckStatus;
+export const HealthCheckUnknown: HealthCheckStatus;
+export const HealthCheckServiceUnkown: HealthCheckStatus;
 
 export * as default from "k6/net/grpc";
