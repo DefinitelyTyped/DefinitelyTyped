@@ -25,7 +25,7 @@ request.csrfToken;
 request.contentType;
 // $ExpectType string
 request.accept;
-// $ExpectType BodyInit | Record<string, unknown> | undefined
+// $ExpectType BodyInit | Record<string, unknown> | null | undefined
 request.body;
 // $ExpectType string
 request.query;
@@ -100,7 +100,7 @@ async function main() {
         redirect: "follow",
     });
 
-    response = await destroy("https://example.com");
+    response = await destroy("https://example.com", { body: null });
 
     RequestInterceptor.register(async (request) => {
         request.addHeader("Authorization", "Bearer 12345");

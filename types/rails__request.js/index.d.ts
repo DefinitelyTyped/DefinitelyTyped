@@ -8,7 +8,7 @@ export class FetchRequest {
     get csrfToken(): string | undefined;
     get contentType(): string | undefined;
     get accept(): string;
-    get body(): BodyInit | Record<string, unknown> | undefined;
+    get body(): BodyInit | Record<string, unknown> | null | undefined;
     get query(): string;
     get url(): string;
     get responseKind(): ResponseKind;
@@ -23,7 +23,7 @@ export class FetchRequest {
 export type ResponseKind = "html" | "turbo-stream" | "json" | "script";
 
 export interface Options {
-    body?: BodyInit | Record<string, unknown>;
+    body?: BodyInit | Record<string, unknown> | null;
     contentType?: string;
     headers?: HeadersInit;
     credentials?: RequestCredentials;
