@@ -86,7 +86,9 @@ async function main() {
         query: new URLSearchParams(),
     });
 
-    response = await patch("https://example.com");
+    const myURL = new URL("https://example.com");
+
+    response = await patch(myURL);
 
     response = await patch("https://example.com/this-will-redirect", {
         redirect: "follow",

@@ -1,5 +1,5 @@
 export class FetchRequest {
-    constructor(method: string, url: string, options?: Options);
+    constructor(method: string, url: string | URL, options?: Options);
     perform(): Promise<FetchResponse>;
     addHeader(key: string, value: string): void;
     sameHostname(): boolean;
@@ -58,8 +58,8 @@ export class RequestInterceptor {
     static reset(): void;
 }
 
-export function get(url: string, options?: Options): Promise<FetchResponse>;
-export function post(url: string, options?: Options): Promise<FetchResponse>;
-export function put(url: string, options?: Options): Promise<FetchResponse>;
-export function patch(url: string, options?: Options): Promise<FetchResponse>;
-export function destroy(url: string, options?: Options): Promise<FetchResponse>;
+export function get(url: string | URL, options?: Options): Promise<FetchResponse>;
+export function post(url: string | URL, options?: Options): Promise<FetchResponse>;
+export function put(url: string | URL, options?: Options): Promise<FetchResponse>;
+export function patch(url: string | URL, options?: Options): Promise<FetchResponse>;
+export function destroy(url: string | URL, options?: Options): Promise<FetchResponse>;
