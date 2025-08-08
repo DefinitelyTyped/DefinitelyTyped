@@ -6,6 +6,8 @@ type _CountQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").CountQueuingStrategy;
 type _DecompressionStream = typeof globalThis extends { onmessage: any; ReportingObserver: any } ? {}
     : import("stream/web").DecompressionStream;
+type _QueuingStrategy<T = any> = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").QueuingStrategy<T>;
 type _ReadableByteStreamController = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ReadableByteStreamController;
 type _ReadableStream<R = any> = typeof globalThis extends { onmessage: any } ? {}
@@ -462,6 +464,8 @@ declare module "stream/web" {
                     new(format: "deflate" | "deflate-raw" | "gzip"): T;
                 }
             : typeof import("stream/web").DecompressionStream;
+
+        interface QueuingStrategy<T = any> extends _QueuingStrategy<T> {}
 
         interface ReadableByteStreamController extends _ReadableByteStreamController {}
         var ReadableByteStreamController: typeof globalThis extends
