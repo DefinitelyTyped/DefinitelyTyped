@@ -3294,6 +3294,7 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
+            | string
             | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
             | undefined;
         /**
