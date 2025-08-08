@@ -1600,29 +1600,24 @@ declare namespace chrome {
      */
     export namespace commands {
         export interface Command {
-            /** Optional. The name of the Extension Command  */
-            name?: string | undefined;
-            /** Optional. The Extension Command description  */
-            description?: string | undefined;
-            /** Optional. The shortcut active for this command, or blank if not active.  */
-            shortcut?: string | undefined;
+            /** The name of the Extension Command */
+            name?: string;
+            /** The Extension Command description */
+            description?: string;
+            /** The shortcut active for this command, or blank if not active. */
+            shortcut?: string;
         }
 
-        export interface CommandEvent extends chrome.events.Event<(command: string, tab: chrome.tabs.Tab) => void> {}
-
         /**
-         * Returns all the registered extension commands for this extension and their shortcut (if active).
-         * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * Returns all the registered extension commands for this extension and their shortcut (if active). Before Chrome 110, this command did not return `_execute_action`.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function getAll(): Promise<Command[]>;
-        /**
-         * Returns all the registered extension commands for this extension and their shortcut (if active).
-         * @param callback Called to return the registered commands.
-         */
         export function getAll(callback: (commands: Command[]) => void): void;
 
         /** Fired when a registered command is activated using a keyboard shortcut. */
-        export var onCommand: CommandEvent;
+        export const onCommand: events.Event<(command: string, tab?: tabs.Tab) => void>;
     }
 
     ////////////////////
