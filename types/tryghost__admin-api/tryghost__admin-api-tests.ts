@@ -3,10 +3,10 @@ import GhostAdminAPI = require("@tryghost/admin-api");
 // Accept arbitrary version strings
 const api = new GhostAdminAPI({ url: "test", version: "v5.9999", key: "" }); // $ExpectType GhostAPI
 
-const postsBrowsePromise = api.posts.browse(); // $ExpectType Promise<Posts>
+const postsBrowsePromise = api.posts.browse(); // $ExpectType Promise<PostsOrPages>
 
 postsBrowsePromise.then((posts) => {
-    api.posts.read(posts[0], { include: "authors" }); // $ExpectType Promise<PostResponse>
+    api.posts.read(posts[0], { include: "authors" }); // $ExpectType Promise<PostOrPageResponse>
 });
 
 const tagsBrowsePromise = api.tags.browse(); // $ExpectType Promise<Tags>

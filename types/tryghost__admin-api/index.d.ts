@@ -404,7 +404,7 @@ interface UserResponse extends Metadata, Dates {
 type PostStatus = "draft" | "published" | "scheduled" | "archived" | "deleted";
 type PostVisibility = "public" | "members" | "paid";
 
-interface PostRequest extends Partial<Identification>, Excerpt, CodeInjection, Metadata, SocialMedia {
+interface PostOrPageRequest extends Partial<Identification>, Excerpt, CodeInjection, Metadata, SocialMedia {
     /* Title is required */
     title: string;
 
@@ -438,7 +438,7 @@ interface PostRequest extends Partial<Identification>, Excerpt, CodeInjection, M
     canonical_url?: Nullable<string> | undefined;
 }
 
-interface PostResponse extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia, Dates {
+interface PostOrPageResponse extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia, Dates {
     // Identification
     uuid?: string | undefined;
     comment_id?: string | undefined;
@@ -483,9 +483,6 @@ interface PostResponse extends Identification, Excerpt, CodeInjection, Metadata,
     url?: string | undefined;
     canonical_url?: Nullable<string> | undefined;
 }
-
-interface PageRequest extends PostRequest {}
-interface PageResponse extends PostResponse {}
 
 // =================
 // Config & Site
@@ -579,17 +576,15 @@ interface BrowseResults<T> extends Array<T> {
 // Interfaces
 // =================
 
-interface Posts extends BrowseResults<PostResponse> {}
+type PostsOrPages = BrowseResults<PostOrPageResponse>;
 
-interface Pages extends BrowseResults<PageResponse> {}
+type Members = BrowseResults<MemberResponse>;
 
-interface Members extends BrowseResults<MemberResponse> {}
+type Users = BrowseResults<UserResponse>;
 
-interface Users extends BrowseResults<UserResponse> {}
+type Tags = BrowseResults<TagResponse>;
 
-interface Tags extends BrowseResults<TagResponse> {}
-
-interface Newsletters extends BrowseResults<NewsletterResponse> {}
+type Newsletters = BrowseResults<NewsletterResponse>;
 
 // =================
 // SDK options
@@ -646,18 +641,18 @@ interface GhostAdminAPIOptions {
 interface GhostAPI {
     posts: {
         /* Must include either data.id or data.slug or data.email */
-        read: ReadFunction<PostResponse>;
-        browse: BrowseFunction<Posts>;
-        add: AddFunction<PostResponse, PostRequest>;
-        edit: EditFunction<PostResponse, PostRequest>;
+        read: ReadFunction<PostOrPageResponse>;
+        browse: BrowseFunction<PostsOrPages>;
+        add: AddFunction<PostOrPageResponse, PostOrPageRequest>;
+        edit: EditFunction<PostOrPageResponse, PostOrPageRequest>;
         delete: DeleteFunction;
     };
     pages: {
         /* Must include either data.id or data.slug or data.email */
-        read: ReadFunction<PageResponse>;
-        browse: BrowseFunction<Pages>;
-        add: AddFunction<PageResponse, PageRequest>;
-        edit: EditFunction<PageResponse, PageRequest>;
+        read: ReadFunction<PostOrPageResponse>;
+        browse: BrowseFunction<PostsOrPages>;
+        add: AddFunction<PostOrPageResponse, PostOrPageRequest>;
+        edit: EditFunction<PostOrPageResponse, PostOrPageRequest>;
         delete: DeleteFunction;
     };
     tags: {
