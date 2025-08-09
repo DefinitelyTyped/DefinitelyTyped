@@ -989,6 +989,7 @@ declare namespace Dockerode {
             Entrypoint?: string | string[] | undefined;
             OnBuild: any[];
             Labels: { [label: string]: string };
+            Healthcheck?: HealthConfig | undefined;
         };
         Architecture: string;
         Variant?: string | undefined;
