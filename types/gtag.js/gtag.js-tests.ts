@@ -1,15 +1,21 @@
-gtag("config", "GA-TRACKING_ID");
-gtag("config", "GA-TRACKING_ID", { send_page_view: true });
-gtag("config", "GA-TRACKING_ID", { send_page_view: false });
-gtag("config", "GA-TRACKING_ID", {
+gtag!("config", "GA-TRACKING_ID");
+gtag?.("config", "GA-TRACKING_ID");
+
+gtag!("config", "GA-TRACKING_ID", { send_page_view: true });
+gtag?.("config", "GA-TRACKING_ID", { send_page_view: true });
+
+gtag!("config", "GA-TRACKING_ID", { send_page_view: false });
+gtag?.("config", "GA-TRACKING_ID", { send_page_view: false });
+
+gtag?.("config", "GA-TRACKING_ID", {
     page_title: "homepage",
     page_path: "/home",
 });
 
-gtag("event", "login", {
+gtag?.("event", "login", {
     method: "Google",
 });
-gtag("event", "select_item", {
+gtag?.("event", "select_item", {
     item_list_id: "related_products",
     item_list_name: "Related products",
     items: [
@@ -36,7 +42,7 @@ gtag("event", "select_item", {
         },
     ],
 });
-gtag("event", "view_cart", {
+gtag?.("event", "view_cart", {
     currency: "USD",
     value: 7.77,
     items: [
@@ -63,7 +69,7 @@ gtag("event", "view_cart", {
         },
     ],
 });
-gtag("event", "view_item", {
+gtag?.("event", "view_item", {
     currency: "USD",
     value: 7.77,
     items: [
@@ -90,7 +96,7 @@ gtag("event", "view_item", {
         },
     ],
 });
-gtag("event", "view_item_list", {
+gtag?.("event", "view_item_list", {
     item_list_id: "related_products",
     item_list_name: "Related products",
     items: [
@@ -117,21 +123,25 @@ gtag("event", "view_item_list", {
         },
     ],
 });
-gtag("set", "user_properties", {
+gtag?.("set", "user_properties", {
     favorite_composer: "Mahler",
     favorite_instrument: "double bass",
     season_ticketholder: "true",
 });
-gtag("set", { currency: "USD" });
-gtag("js", new Date());
-gtag("set", {
+
+gtag!("set", { currency: "USD" });
+gtag?.("set", { currency: "USD" });
+gtag!("js", new Date());
+gtag?.("js", new Date());
+
+gtag?.("set", {
     country: "US",
     currency: "USD",
 });
-gtag("set", "developer_id", true);
-gtag("set", "page_path", "/new_page.html");
+gtag?.("set", "developer_id", true);
+gtag?.("set", "page_path", "/new_page.html");
 
-gtag(
+gtag?.(
     "get",
     "GA-TRACKING_ID",
     "client_id",
@@ -140,20 +150,20 @@ gtag(
     ) => {},
 );
 
-gtag("consent", "default", {
+gtag?.("consent", "default", {
     ad_storage: "denied",
     analytics_storage: "denied",
     wait_for_update: 500,
 });
-gtag("consent", "default", {
+gtag?.("consent", "default", {
     ad_storage: "denied",
     region: ["ES", "US-AK"],
 });
-gtag("consent", "default", {
+gtag?.("consent", "default", {
     analytics_storage: "denied",
 });
 
-gtag("consent", "default", {
+gtag?.("consent", "default", {
     functionality_storage: "denied",
     personalization_storage: "granted",
     security_storage: "denied",
