@@ -1,3 +1,7 @@
+/// <reference types="node" />
+
+import type { EventEmitter } from "node:events";
+
 type Mode = "auto" | "watch" | "poll";
 
 interface Options {
@@ -21,7 +25,7 @@ interface Options {
 }
 
 declare namespace gaze {
-    class Gaze {
+    class Gaze extends EventEmitter {
         constructor(
             patterns: string | string[],
             options?: Options | null,
@@ -63,6 +67,10 @@ declare namespace gaze {
 declare function gaze(
     patterns: string | string[],
     options?: Options | null,
+    callback?: (error: Error | null, watcher: gaze.Gaze) => void,
+): void;
+declare function gaze(
+    patterns: string | string[],
     callback?: (error: Error | null, watcher: gaze.Gaze) => void,
 ): void;
 
