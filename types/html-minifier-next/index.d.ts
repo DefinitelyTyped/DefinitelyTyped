@@ -1,284 +1,284 @@
-import * as CleanCSS from "clean-css"
-import * as Terser from "terser"
-import RelateUrl = require("relateurl")
+import * as CleanCSS from "clean-css";
+import * as Terser from "terser";
+import RelateUrl = require("relateurl");
 
-export function minify(value: string, options?: MinifierOptions): Promise<string>
+export function minify(value: string, options?: MinifierOptions): Promise<string>;
 
 declare namespace htmlminifier {
-  export { minify, MinifierOptions }
+    export { MinifierOptions, minify };
 }
 
-export default htmlminifier
+export default htmlminifier;
 
 /**
  * Most of the options are disabled by default
  */
 export interface MinifierOptions {
-  /**
-   * Treat attributes in case sensitive manner (useful for custom HTML tags)
-   * @default false
-   */
-  caseSensitive?: boolean
+    /**
+     * Treat attributes in case sensitive manner (useful for custom HTML tags)
+     * @default false
+     */
+    caseSensitive?: boolean;
 
-  /**
-   * [Omit attribute values from boolean attributes](http://perfectionkills.com/experimenting-with-html-minifier#collapse_boolean_attributes)
-   * @default false
-   */
-  collapseBooleanAttributes?: boolean
+    /**
+     * [Omit attribute values from boolean attributes](http://perfectionkills.com/experimenting-with-html-minifier#collapse_boolean_attributes)
+     * @default false
+     */
+    collapseBooleanAttributes?: boolean;
 
-  /**
-   * Don't leave any spaces between `display:inline;` elements when collapsing.
-   * Must be used in conjunction with `collapseWhitespace=true`
-   * 
-   * @default false
-   */
-  collapseInlineTagWhitespace?: boolean
+    /**
+     * Don't leave any spaces between `display:inline;` elements when collapsing.
+     * Must be used in conjunction with `collapseWhitespace=true`
+     *
+     * @default false
+     */
+    collapseInlineTagWhitespace?: boolean;
 
-  /**
-   * [Collapse white space that contributes to text nodes in a document tree](http://perfectionkills.com/experimenting-with-html-minifier#collapse_whitespace)
-   * @default false
-   */
-  collapseWhitespace?: boolean
+    /**
+     * [Collapse white space that contributes to text nodes in a document tree](http://perfectionkills.com/experimenting-with-html-minifier#collapse_whitespace)
+     * @default false
+     */
+    collapseWhitespace?: boolean;
 
-  /**
-   * Always collapse to 1 space (never remove it entirely).
-   * Must be used in conjunction with `collapseWhitespace=true`
-   * 
-   * @default false
-   */
-  conservativeCollapse?: boolean
-  
-  /**
-   * [Handle parse errors](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors) instead of aborting
-   * @default false
-   */
-  continueOnParseError?: boolean
+    /**
+     * Always collapse to 1 space (never remove it entirely).
+     * Must be used in conjunction with `collapseWhitespace=true`
+     *
+     * @default false
+     */
+    conservativeCollapse?: boolean;
 
-  /**
-   * Arrays of regexes that allow to support custom attribute assign expressions
-   * (e.g. `'<div flex?="{{mode != cover}}"></div>'`)
-   * 
-   * @default []
-   */
-  customAttrAssign?: RegExp[]
+    /**
+     * [Handle parse errors](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors) instead of aborting
+     * @default false
+     */
+    continueOnParseError?: boolean;
 
-  /**
-   * Regex that specifies custom attribute to strip newlines from (e.g. `/ng-class/`)
-   */
-  customAttrCollapse?: RegExp
+    /**
+     * Arrays of regexes that allow to support custom attribute assign expressions
+     * (e.g. `'<div flex?="{{mode != cover}}"></div>'`)
+     *
+     * @default []
+     */
+    customAttrAssign?: RegExp[];
 
-  /**
-   * Arrays of regexes that allow to support custom attribute surround expressions
-   * (e.g. `<input {{#if value}}checked="checked"{{/if}}>`)
-   * 
-   * @default []
-   */
-  customAttrSurround?: RegExp[]
+    /**
+     * Regex that specifies custom attribute to strip newlines from (e.g. `/ng-class/`)
+     */
+    customAttrCollapse?: RegExp;
 
-  /**
-   * Arrays of regexes that allow to support custom event attributes for `minifyJS` (e.g. `ng-click`)
-   * @default [/^on[a-z]{3,}$/]
-   */
-  customEventAttributes?: RegExp[]
+    /**
+     * Arrays of regexes that allow to support custom attribute surround expressions
+     * (e.g. `<input {{#if value}}checked="checked"{{/if}}>`)
+     *
+     * @default []
+     */
+    customAttrSurround?: RegExp[];
 
-  /**
-   * Set maximum quantifier limit for custom fragments to prevent ReDoS attacks
-   * @default 200
-   */
-  customFragmentQuantifierLimit?: number
+    /**
+     * Arrays of regexes that allow to support custom event attributes for `minifyJS` (e.g. `ng-click`)
+     * @default [/^on[a-z]{3,}$/]
+     */
+    customEventAttributes?: RegExp[];
 
-  /**
-   * Use direct Unicode characters whenever possible
-   * @default false
-   */
-  decodeEntities?: boolean
+    /**
+     * Set maximum quantifier limit for custom fragments to prevent ReDoS attacks
+     * @default 200
+     */
+    customFragmentQuantifierLimit?: number;
 
-  /**
-   * Parse input according to HTML5 specifications
-   * @default true
-   */
-  html5?: boolean
+    /**
+     * Use direct Unicode characters whenever possible
+     * @default false
+     */
+    decodeEntities?: boolean;
 
-  /**
-   * Array of regexes that allow to ignore certain comments, when matched
-   * @default [/^!/, /^\s*#/]
-   */
-  ignoreCustomComments?: RegExp[]
+    /**
+     * Parse input according to HTML5 specifications
+     * @default true
+     */
+    html5?: boolean;
 
-  /**
-   * Array of regexes that allow to ignore certain fragments, when matched
-   * (e.g. `<?php ... ?>`, `{{ ... }}`, etc.)
-   * 
-   * @default [/<%[\s\S]*?%>/, /<\?[\s\S]*?\?>/]
-   */
-  ignoreCustomFragments?: RegExp[]
+    /**
+     * Array of regexes that allow to ignore certain comments, when matched
+     * @default [/^!/, /^\s*#/]
+     */
+    ignoreCustomComments?: RegExp[];
 
-  /**
-   * Insert tags generated by HTML parser
-   * @default true
-   */
-  includeAutoGeneratedTags?: boolean
+    /**
+     * Array of regexes that allow to ignore certain fragments, when matched
+     * (e.g. `<?php ... ?>`, `{{ ... }}`, etc.)
+     *
+     * @default [/<%[\s\S]*?%>/, /<\?[\s\S]*?\?>/]
+     */
+    ignoreCustomFragments?: RegExp[];
 
-  /**
-   * Keep the trailing slash on singleton elements
-   * @default false
-   */
-  keepClosingSlash?: boolean
+    /**
+     * Insert tags generated by HTML parser
+     * @default true
+     */
+    includeAutoGeneratedTags?: boolean;
 
-  /**
-   * Maximum input length to prevent ReDoS attacks (disabled by default)
-   * @default undefined
-   */
-  maxInputLength?: number
+    /**
+     * Keep the trailing slash on singleton elements
+     * @default false
+     */
+    keepClosingSlash?: boolean;
 
-  /**
-   * Specify a maximum line length.
-   * Compressed output will be split by newlines at valid HTML split-points
-   */
-  maxLineLength?: number
+    /**
+     * Maximum input length to prevent ReDoS attacks (disabled by default)
+     * @default undefined
+     */
+    maxInputLength?: number;
 
-  /**
-   * Minify CSS in style elements and style attributes
-   * (uses [clean-css](https://github.com/jakubpawlowicz/clean-css))
-   * 
-   * @default false
-   */
-  minifyCSS?: boolean | CleanCSS.Options | ((text: string, type?: string) => string)
+    /**
+     * Specify a maximum line length.
+     * Compressed output will be split by newlines at valid HTML split-points
+     */
+    maxLineLength?: number;
 
-  /**
-   * Minify JavaScript in script elements and event attributes
-   * (uses [Terser](https://github.com/terser/terser))
-   * 
-   * @default false
-   */
-  minifyJS?: boolean | Terser.MinifyOptions | ((text: string, inline?: boolean) => string)
+    /**
+     * Minify CSS in style elements and style attributes
+     * (uses [clean-css](https://github.com/jakubpawlowicz/clean-css))
+     *
+     * @default false
+     */
+    minifyCSS?: boolean | CleanCSS.Options | ((text: string, type?: string) => string);
 
-  /**
-   * Minify URLs in various attributes
-   * (uses [relateurl](https://github.com/stevenvachon/relateurl))
-   * 
-   * @default false
-   */
-  minifyURLs?: boolean | string | RelateUrl.Options | ((text: string) => string)
+    /**
+     * Minify JavaScript in script elements and event attributes
+     * (uses [Terser](https://github.com/terser/terser))
+     *
+     * @default false
+     */
+    minifyJS?: boolean | Terser.MinifyOptions | ((text: string, inline?: boolean) => string);
 
-  /**
-   * Never add a newline before a tag that closes an element
-   * @default false
-   */
-  noNewlinesBeforeTagClose?: boolean
+    /**
+     * Minify URLs in various attributes
+     * (uses [relateurl](https://github.com/stevenvachon/relateurl))
+     *
+     * @default false
+     */
+    minifyURLs?: boolean | string | RelateUrl.Options | ((text: string) => string);
 
-  /**
-   * Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break.
-   * Must be used in conjunction with `collapseWhitespace=true`
-   * 
-   * @default false
-   */
-  preserveLineBreaks?: boolean
+    /**
+     * Never add a newline before a tag that closes an element
+     * @default false
+     */
+    noNewlinesBeforeTagClose?: boolean;
 
-  /**
-   * Prevents the escaping of the values of attributes
-   * @default false
-   */
-  preventAttributesEscaping?: boolean
+    /**
+     * Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break.
+     * Must be used in conjunction with `collapseWhitespace=true`
+     *
+     * @default false
+     */
+    preserveLineBreaks?: boolean;
 
-  /**
-   * Process contents of conditional comments through minifier
-   * @default false
-   */
-  processConditionalComments?: boolean
+    /**
+     * Prevents the escaping of the values of attributes
+     * @default false
+     */
+    preventAttributesEscaping?: boolean;
 
-  /**
-   * Array of strings corresponding to types of script elements to process through minifier
-   * (e.g. `text/ng-template`, `text/x-handlebars-template`, etc.)
-   * 
-   * @default []
-   */
-  processScripts?: string[]
+    /**
+     * Process contents of conditional comments through minifier
+     * @default false
+     */
+    processConditionalComments?: boolean;
 
-  /**
-   * Type of quote to use for attribute values (“'” or “"”)
-   */
-  quoteCharacter?: string
+    /**
+     * Array of strings corresponding to types of script elements to process through minifier
+     * (e.g. `text/ng-template`, `text/x-handlebars-template`, etc.)
+     *
+     * @default []
+     */
+    processScripts?: string[];
 
-  /**
-   * [Remove quotes around attributes when possible](http://perfectionkills.com/experimenting-with-html-minifier#remove_attribute_quotes)
-   * @default false
-   */
-  removeAttributeQuotes?: boolean
+    /**
+     * Type of quote to use for attribute values (“'” or “"”)
+     */
+    quoteCharacter?: string;
 
-  /**
-   * [Strip HTML comments](http://perfectionkills.com/experimenting-with-html-minifier#remove_comments)
-   * @default false
-   */
-  removeComments?: boolean
-  
-  /**
-   * [Remove all attributes with whitespace-only values](http://perfectionkills.com/experimenting-with-html-minifier#remove_empty_or_blank_attributes)
-   * @default false
-   */
-  removeEmptyAttributes?: boolean | ((attrName: string, tag: string) => boolean)
+    /**
+     * [Remove quotes around attributes when possible](http://perfectionkills.com/experimenting-with-html-minifier#remove_attribute_quotes)
+     * @default false
+     */
+    removeAttributeQuotes?: boolean;
 
-  /**
-   * [Remove all elements with empty contents](http://perfectionkills.com/experimenting-with-html-minifier#remove_empty_elements)
-   * @default false
-   */
-  removeEmptyElements?: boolean
+    /**
+     * [Strip HTML comments](http://perfectionkills.com/experimenting-with-html-minifier#remove_comments)
+     * @default false
+     */
+    removeComments?: boolean;
 
-  /**
-   * [Remove optional tags](http://perfectionkills.com/experimenting-with-html-minifier#remove_optional_tags)
-   * @default false
-   */
-  removeOptionalTags?: boolean
+    /**
+     * [Remove all attributes with whitespace-only values](http://perfectionkills.com/experimenting-with-html-minifier#remove_empty_or_blank_attributes)
+     * @default false
+     */
+    removeEmptyAttributes?: boolean | ((attrName: string, tag: string) => boolean);
 
-  /**
-   * [Remove attributes when value matches default](http://perfectionkills.com/experimenting-with-html-minifier#remove_redundant_attributes)
-   * @default false
-   */
-  removeRedundantAttributes?: boolean
+    /**
+     * [Remove all elements with empty contents](http://perfectionkills.com/experimenting-with-html-minifier#remove_empty_elements)
+     * @default false
+     */
+    removeEmptyElements?: boolean;
 
-  /**
-   * Remove `type="text/javascript"` from `script` tags.
-   * Other `type` attribute values are left intact
-   * 
-   * @default false
-   */
-  removeScriptTypeAttributes?: boolean
+    /**
+     * [Remove optional tags](http://perfectionkills.com/experimenting-with-html-minifier#remove_optional_tags)
+     * @default false
+     */
+    removeOptionalTags?: boolean;
 
-  /**
-   * Remove `type="text/css"` from `style` and `link` tags.
-   * Other `type` attribute values are left intact
-   * 
-   * @default false
-   */
-  removeStyleLinkTypeAttributes?: boolean
+    /**
+     * [Remove attributes when value matches default](http://perfectionkills.com/experimenting-with-html-minifier#remove_redundant_attributes)
+     * @default false
+     */
+    removeRedundantAttributes?: boolean;
 
-  /**
-   * Remove space between attributes whenever possible. **Note that this will result in invalid HTML!**
-   * @default false
-   */
-  removeTagWhitespace?: boolean
+    /**
+     * Remove `type="text/javascript"` from `script` tags.
+     * Other `type` attribute values are left intact
+     *
+     * @default false
+     */
+    removeScriptTypeAttributes?: boolean;
 
-  /**
-   * [Sort attributes by frequency](https://github.com/j9t/html-minifier-next?tab=readme-ov-file#sorting-attributes--style-classes)
-   * @default false
-   */
-  sortAttributes?: boolean
+    /**
+     * Remove `type="text/css"` from `style` and `link` tags.
+     * Other `type` attribute values are left intact
+     *
+     * @default false
+     */
+    removeStyleLinkTypeAttributes?: boolean;
 
-  /**
-   * [Sort style classes by frequency](https://github.com/j9t/html-minifier-next?tab=readme-ov-file#sorting-attributes--style-classes)
-   * @default false
-   */
-  sortClassName?: boolean
+    /**
+     * Remove space between attributes whenever possible. **Note that this will result in invalid HTML!**
+     * @default false
+     */
+    removeTagWhitespace?: boolean;
 
-  /**
-   * Trim white space around `ignoreCustomFragments`
-   * @default false
-   */
-  trimCustomFragments?: boolean
+    /**
+     * [Sort attributes by frequency](https://github.com/j9t/html-minifier-next?tab=readme-ov-file#sorting-attributes--style-classes)
+     * @default false
+     */
+    sortAttributes?: boolean;
 
-  /**
-   * Replaces the `doctype` with the short (HTML5) doctype
-   * @default false
-   */
-  useShortDoctype?: boolean
+    /**
+     * [Sort style classes by frequency](https://github.com/j9t/html-minifier-next?tab=readme-ov-file#sorting-attributes--style-classes)
+     * @default false
+     */
+    sortClassName?: boolean;
+
+    /**
+     * Trim white space around `ignoreCustomFragments`
+     * @default false
+     */
+    trimCustomFragments?: boolean;
+
+    /**
+     * Replaces the `doctype` with the short (HTML5) doctype
+     * @default false
+     */
+    useShortDoctype?: boolean;
 }
