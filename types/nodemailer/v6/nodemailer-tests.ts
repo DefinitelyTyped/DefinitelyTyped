@@ -1,5 +1,4 @@
-import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
-
+import aws from "@aws-sdk/client-ses";
 import * as nodemailer from "nodemailer";
 
 import addressparser = require("nodemailer/lib/addressparser");
@@ -29,16 +28,6 @@ import LeUnix = require("nodemailer/lib/sendmail-transport/le-unix");
 
 import * as fs from "fs";
 import * as stream from "stream";
-
-// mock aws-sdk
-const aws = {
-    SES: class MockSES {
-        constructor(options?: object) {}
-    },
-    config: {
-        loadFromPath: (path: string): void => {},
-    },
-};
 
 // 1. Nodemailer
 
@@ -1079,16 +1068,22 @@ function sendmail_line_endings_unix_test() {
 // Send a message using SES transport
 
 function ses_test() {
-    // configure AWS SDK
-    aws.config.loadFromPath("config.json");
-
     // create Nodemailer SES transporter
     let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo, SESTransport.Options>;
     transporter = nodemailer.createTransport({
+        SES: new aws.SES({
+            apiVersion: "2010-12-01",
+        }),
+    });
+    transporter = nodemailer.createTransport({
         SES: {
-            sesClient: new SESv2Client(),
-            SendEmailCommand,
+            aws,
+            ses: new aws.SES({
+                apiVersion: "2010-12-01",
+            }),
         },
+        maxConnections: 3,
+        sendingRate: 3,
         component: "ses-transport",
     });
 
@@ -1102,7 +1097,7 @@ function ses_test() {
         text: "I hope this message gets sent!",
         ses: {
             // optional extra arguments for SendRawEmail
-            EmailTags: [
+            Tags: [
                 {
                     Name: "tag name",
                     Value: "tag value",
