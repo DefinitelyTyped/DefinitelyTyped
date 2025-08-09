@@ -423,9 +423,9 @@ declare namespace PDFKit.Mixins {
         /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
         maxWidth?: number;
         /** Column definitions of the table. (default auto) */
-        columnStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        columnStyles?: number | Array<number | string> | ColumnStyle | ((row: number) => number | ColumnStyle | undefined);
         /** Row definitions of the table. (default *) */
-        rowStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        rowStyles?: number | Array<number | string> | RowStyle | ((row: number) => number | RowStyle | undefined);
         /** Defaults to apply to every cell */
         defaultStyle?:
             & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
@@ -471,7 +471,7 @@ declare namespace PDFKit.Mixins {
         debug?: boolean;
     }
 
-    interface ColumnOptions extends CellOptions {
+    interface ColumnStyle extends CellStyle {
         /** The width of the column (default *) */
         width?: string | number;
         /** The minimum width of the column (default 0) */
@@ -480,7 +480,7 @@ declare namespace PDFKit.Mixins {
         maxWidth?: string | number;
     }
 
-    interface RowOptions extends CellOptions {
+    interface RowBase {
         /** The height of the row (default auto) */
         height?: string | number;
         /** The minimum height of the row (default 0) */
@@ -488,6 +488,10 @@ declare namespace PDFKit.Mixins {
         /** The maximum height of the row (default Infinity) */
         maxHeight?: string | number;
     }
+
+    interface RowStyle extends CellStyle, RowBase { }
+
+    interface RowOptions extends CellOptions, RowBase { }
 
     interface PDFTableObject {
         /** Add a row of data (null and undefined are not rendered) */
