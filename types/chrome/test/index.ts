@@ -638,6 +638,7 @@ function testRuntime() {
     chrome.runtime.PlatformArch.MIPS64 === "mips64";
     chrome.runtime.PlatformArch.X86_32 === "x86-32";
     chrome.runtime.PlatformArch.X86_64 === "x86-64";
+    chrome.runtime.PlatformArch.RISCV64 === "riscv64";
 
     chrome.runtime.PlatformNaclArch.ARM === "arm";
     chrome.runtime.PlatformNaclArch.MIPS === "mips";
@@ -709,8 +710,8 @@ function testRuntime() {
 
     chrome.runtime.getPlatformInfo(); // $ExpectType Promise<PlatformInfo>
     chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
-        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
-        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64"
+        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64" | "riscv64"
+        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64" | undefined
         platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
     });
     // @ts-expect-error
