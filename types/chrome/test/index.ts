@@ -3632,6 +3632,14 @@ function testEnterpriseHardwarePlatform() {
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/login
+function testEnterpriseLogin() {
+    chrome.enterprise.login.exitCurrentManagedGuestSession(); // $ExpectType Promise<void>
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => {}).then(() => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/browsingData
 function testBrowsingData() {
     const removalOptions: chrome.browsingData.RemovalOptions = {
