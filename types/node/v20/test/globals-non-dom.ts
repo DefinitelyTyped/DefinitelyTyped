@@ -30,13 +30,8 @@
     crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
     crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
 
-    crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
-        (out) => {
-            out.algorithm; // $ExpectType KeyAlgorithm
-            out.extractable; // $ExpectType boolean
-            out.usages; // $ExpectType KeyUsage[]
-        },
-    );
+    // $ExpectType Promise<CryptoKey | CryptoKeyPair>
+    crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]);
 }
 
 {
