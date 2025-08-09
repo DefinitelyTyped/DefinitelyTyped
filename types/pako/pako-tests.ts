@@ -18,7 +18,8 @@ if (deflate.err !== Pako.constants.Z_OK) {
 
 console.log(deflate.result);
 
-const arr: Uint8Array = Pako.deflate("1234");
+// Ensure that the return type is narrowed correctly in TS 5.7+
+Pako.deflate("1234"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 const data = "           ";
 
