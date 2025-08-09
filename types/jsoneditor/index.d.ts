@@ -77,7 +77,28 @@ export interface Template {
     value: any;
 }
 
-export type AutoCompleteCompletion = null | string[] | { startFrom: number; options: string[] };
+export interface AutoCompleteOption {
+    /**
+     * The display text for the autocomplete option
+     */
+    text?: string;
+    /**
+     * The value to be used when the option is selected
+     */
+    value: string;
+    /**
+     * Additional properties are allowed for custom metadata or future extensibility.
+     * These properties will be preserved but ignored by the current JSONEditor implementation.
+     */
+    [key: string]: any;
+}
+
+export type AutoCompleteOptionItem = string | AutoCompleteOption;
+
+export type AutoCompleteCompletion = null | AutoCompleteOptionItem[] | {
+    startFrom: number;
+    options: AutoCompleteOptionItem[];
+};
 
 export type AutoCompleteMatchingStrategy = "start" | "contain";
 
@@ -98,7 +119,10 @@ export interface AutoCompleteOptions {
      * - 'start': Match your input from the start, e.g. 'ap' matches 'apple' but 'pl' does not.
      * - 'contain': Contains the user's input or not, e.g. 'pl' matches 'apple' too.
      */
-    filter?: AutoCompleteMatchingStrategy | ((query: string) => boolean) | undefined;
+    filter?:
+        | AutoCompleteMatchingStrategy
+        | ((query: string, match: AutoCompleteOptionItem, config: AutoCompleteOptions) => boolean)
+        | undefined;
     /**
      * Indicate the way to trigger autocomplete menu.
      * - 'keydown': When you type something in the field or value, it will trigger autocomplete immediately.
