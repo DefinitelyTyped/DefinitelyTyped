@@ -6460,3 +6460,38 @@ function testReadingList() {
 function testDom() {
     chrome.dom.openOrClosedShadowRoot(document.body); // $ExpectType ShadowRoot | null
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/desktopCapture
+function testDesktopCapture() {
+    chrome.desktopCapture.DesktopCaptureSourceType.AUDIO === "audio";
+    chrome.desktopCapture.DesktopCaptureSourceType.SCREEN === "screen";
+    chrome.desktopCapture.DesktopCaptureSourceType.TAB === "tab";
+    chrome.desktopCapture.DesktopCaptureSourceType.WINDOW === "window";
+
+    chrome.desktopCapture.cancelChooseDesktopMedia(0); // $ExpectType void
+
+    const sources: `${chrome.desktopCapture.DesktopCaptureSourceType}`[] = [
+        "screen",
+        chrome.desktopCapture.DesktopCaptureSourceType.WINDOW,
+    ];
+
+    const tab: chrome.tabs.Tab = {
+        index: 0,
+        pinned: false,
+        highlighted: false,
+        windowId: 0,
+        active: false,
+        frozen: false,
+        incognito: false,
+        selected: false,
+        discarded: false,
+        autoDiscardable: false,
+        groupId: 0,
+    };
+
+    chrome.desktopCapture.chooseDesktopMedia(sources, () => {}); // $ExpectType number
+    chrome.desktopCapture.chooseDesktopMedia(sources, tab, (streamId, options) => {
+        streamId; // $ExpectType string
+        options; // $ExpectType StreamOptions
+    });
+}
