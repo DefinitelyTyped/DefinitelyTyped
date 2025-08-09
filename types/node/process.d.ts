@@ -1455,15 +1455,18 @@ declare module "process" {
                  * Loads the environment configuration from a `.env` file into `process.env`. If
                  * the file is not found, error will be thrown.
                  *
-                 * To load a specific .env file by specifying its path, use the following code:
+                 * Usage of `NODE_OPTIONS` in the `.env` file will not have any effect on Node.js.
+                 *
+                 * To load a specific `.env` file by specifying its path, use the following code:
                  *
                  * ```js
                  * import { loadEnvFile } from 'node:process';
                  *
                  * loadEnvFile('./development.env')
                  * ```
-                 * @since v20.12.0
+                 * @since v21.7.0, v20.12.0
                  * @param path The path to the .env file
+                 * @default './.env'
                  */
                 loadEnvFile(path?: string | URL | Buffer): void;
                 /**
