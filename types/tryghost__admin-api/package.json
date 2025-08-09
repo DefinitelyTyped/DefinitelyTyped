@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/tryghost__admin-api",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/TryGhost/Ghost-SDK/tree/master/packages/admin-api"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/tryghost__admin-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jose Javier",
+            "githubUsername": "josejj10"
+        }
+    ]
+}
