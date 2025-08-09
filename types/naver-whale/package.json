@@ -8,7 +8,7 @@
         "https://developers.whale.naver.com/getting_started/"
     ],
     "dependencies": {
-        "@types/chrome": "*"
+        "@types/chrome": "^0.1.0"
     },
     "devDependencies": {
         "@types/naver-whale": "workspace:."
