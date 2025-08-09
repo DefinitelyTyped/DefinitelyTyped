@@ -807,6 +807,15 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 {
+    // checking receiving an error in a callback passed to the end method.
+    const transform = new Transform();
+    transform.write('foobar', (err) => {
+        // $ExpectType Error | null | undefined
+        err;
+    });
+}
+
+{
     let byobReader = new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
     byobReader = new ReadableStreamBYOBReader(new Blob([]).stream());
 
