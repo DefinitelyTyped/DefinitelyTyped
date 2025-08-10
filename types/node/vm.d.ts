@@ -37,7 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
  */
 declare module "vm" {
-    import { ImportAttributes } from "node:module";
+    import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -60,7 +60,7 @@ declare module "vm" {
         specifier: string,
         referrer: T,
         importAttributes: ImportAttributes,
-        phase: "source" | "evaluation",
+        phase: ImportPhase,
     ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
@@ -792,14 +792,6 @@ declare module "vm" {
      */
     class Module {
         /**
-         * The specifiers of all dependencies of this module. The returned array is frozen
-         * to disallow any changes to it.
-         *
-         * Corresponds to the `[[RequestedModules]]` field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in
-         * the ECMAScript specification.
-         */
-        dependencySpecifiers: readonly string[];
-        /**
          * If the `module.status` is `'errored'`, this property contains the exception
          * thrown by the module during evaluation. If the status is anything else,
          * accessing this property will result in a thrown exception.
@@ -919,6 +911,25 @@ declare module "vm" {
         importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
     /**
+     * A `ModuleRequest` represents the request to import a module with given import attributes and phase.
+     * @since 24.4.0
+     */
+    interface ModuleRequest {
+        /**
+         * The specifier of the requested module.
+         */
+        specifier: string;
+        /**
+         * The `"with"` value passed to the `WithClause` in a `ImportDeclaration`, or an empty object if no value was
+         * provided.
+         */
+        attributes: ImportAttributes;
+        /**
+         * The phase of the requested module (`"source"` or `"evaluation"`).
+         */
+        phase: ImportPhase;
+    }
+    /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
@@ -933,6 +944,58 @@ declare module "vm" {
          * @param code JavaScript Module code to parse
          */
         constructor(code: string, options?: SourceTextModuleOptions);
+        /**
+         * @deprecated Use `sourceTextModule.moduleRequests` instead.
+         */
+        readonly dependencySpecifiers: readonly string[];
+        /**
+         * The requested import dependencies of this module. The returned array is frozen
+         * to disallow any changes to it.
+         *
+         * For example, given a source text:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import fooAlias from 'foo';
+         * import bar from './bar.js';
+         * import withAttrs from '../with-attrs.ts' with { arbitraryAttr: 'attr-val' };
+         * import source Module from 'wasm-mod.wasm';
+         * ```
+         *
+         * The value of the `sourceTextModule.moduleRequests` will be:
+         *
+         * ```js
+         * [
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: './bar.js',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: '../with-attrs.ts',
+         *     attributes: { arbitraryAttr: 'attr-val' },
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'wasm-mod.wasm',
+         *     attributes: {},
+         *     phase: 'source',
+         *   },
+         * ];
+         * ```
+         * @since v24.4.0
+         */
+        readonly moduleRequests: readonly ModuleRequest[];
     }
     interface SyntheticModuleOptions {
         /**

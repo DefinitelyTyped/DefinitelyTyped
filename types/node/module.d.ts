@@ -359,6 +359,7 @@ declare module "module" {
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
+        type ImportPhase = "source" | "evaluation";
         type ModuleFormat =
             | "addon"
             | "builtin"
