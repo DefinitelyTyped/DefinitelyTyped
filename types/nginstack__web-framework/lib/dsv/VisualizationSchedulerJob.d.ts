@@ -27,7 +27,7 @@ declare namespace VisualizationSchedulerJob {
         }>,
     ): string;
     function parseParametersField(value: any): any;
-    function tryGetServer(): number;
+    function tryGetServer(): number | null;
     function getServer(): number;
     function syncServerScheduler(): void;
 }

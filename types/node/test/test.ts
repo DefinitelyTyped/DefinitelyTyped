@@ -1,3 +1,4 @@
+import * as assert from "node:assert";
 import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
@@ -13,12 +14,16 @@ import {
     skip,
     snapshot,
     suite,
-    type SuiteContext,
+    SuiteContext,
     test,
-    type TestContext,
+    TestContext,
     todo,
 } from "node:test";
 import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
+
+// top-level export
+test satisfies typeof import("node:test");
+({} as typeof import("node:test")) satisfies typeof test;
 
 // run without options
 // $ExpectType TestsStream
@@ -35,6 +40,7 @@ run({
 // $ExpectType TestsStream
 run({
     concurrency: 1,
+    cwd: "/home/nodejs",
     files: ["test-file-name.js"],
     signal: new AbortController().signal,
     timeout: 100,
@@ -173,25 +179,6 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
-
-test.after(() => {});
-test.afterEach(() => {});
-test.before(() => {});
-test.beforeEach(() => {});
-test.describe("describe", () => {});
-test.it("it", () => {});
-// $ExpectType MockTracker
-test.mock;
-// $ExpectType typeof test
-test.test;
-test.test.test("chained self ref", (t) => {
-    // $ExpectType typeof test
-    t.test;
-});
-test.skip("skip", () => {});
-test.suite("suite", () => {});
-test.todo("todo", () => {});
-test.only("only", () => {});
 
 describe("foo", () => {
     it("it", () => {});
@@ -839,10 +826,10 @@ spec();
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
-lcov();
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
+// $ExpectType LcovReporter
 new lcov();
+// $ExpectType LcovReporter
+lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
@@ -897,8 +884,8 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:diagnostic": {
-                const { file, column, line, message, nesting } = event.data;
-                callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
+                const { file, column, line, message, nesting, level } = event.data;
+                callback(null, `${message}/${nesting}/${file}/${column}/${line}/${level}`);
                 break;
             }
             case "test:enqueue": {
@@ -957,6 +944,10 @@ class TestReporter extends Transform {
                 // event doesn't have any data
                 callback(null);
                 break;
+            case "test:watch:restarted":
+                // event doesn't have any data
+                callback(null);
+                break;
             default:
                 callback(null);
         }
@@ -992,11 +983,34 @@ test("test on the default export", (t) => {
     contextTest(t);
 });
 
+test("waitFor()", (t) => {
+    // $ExpectType Promise<void>
+    t.waitFor(() => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<void>
+    t.waitFor(async () => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<boolean>
+    t.waitFor(() => true);
+    // $ExpectType Promise<boolean>
+    t.waitFor(async () => true);
+});
+
+test("test plan options", (t) => {
+    t.plan(1, { wait: true });
+    t.plan(1, { wait: false });
+    t.plan(1, { wait: 1000 });
+});
+
 // @ts-expect-error Should not be able to instantiate a TestContext
 const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("check all assertion functions are re-exported", t => {
+    type AssertModuleExports = keyof typeof import("assert");
+    const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
+        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+});
 
 test("planning with streams", (t: TestContext, done) => {
     function* generate() {
@@ -1020,8 +1034,43 @@ test("planning with streams", (t: TestContext, done) => {
     });
 });
 
+// Test custom assertion functions.
+{
+    test.assert.register("isOdd", (n: number) => {
+        assert.strictEqual(n % 2, 1);
+    });
+    test("invokes a custom assertion as part of the test plan", (t) => {
+        t.plan(2);
+        t.assert.isOdd(5);
+        assert.throws(() => {
+            t.assert.isOdd(4);
+        });
+    });
+    test.assert.register("context", function() {
+        // $ExpectType TestContext
+        this;
+    });
+}
+
+// Verify that TestContextAssert can be augmented with custom definitions.
+declare module "node:test" {
+    interface TestContextAssert {
+        custom(value: "yay!"): void;
+    }
+}
+test(t => {
+    // $ExpectType (value: "yay!") => void
+    t.assert.custom;
+});
+
 // Test snapshot assertion.
 test(t => {
+    // $ExpectType void
+    t.assert.fileSnapshot({ value1: true, value2: false }, "./snapshots/snapshot.json");
+    // $ExpectType void
+    t.assert.fileSnapshot({ value3: "foo", value4: "bar" }, "./snapshots/snapshot.json", {
+        serializers: [value => JSON.stringify(value)],
+    });
     // $ExpectType void
     t.assert.snapshot({ value1: true, value2: false });
     // $ExpectType void

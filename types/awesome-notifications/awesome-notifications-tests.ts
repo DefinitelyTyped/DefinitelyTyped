@@ -1,6 +1,12 @@
 import AWN = require("awesome-notifications");
 
-const awn = new AWN();
+const awn = new AWN({
+    icons: {
+        enabled: true,
+        prefix: "",
+        suffix: "",
+    },
+});
 
 const confirmed = () => console.log("Confirmed");
 const cancelled = () => console.log("Cancelled");

@@ -88,7 +88,7 @@ export namespace ActivityLog {
     /**
      * Receives an activityItem for each logging event.
      */
-    interface onExtensionActivityEvent extends Events.Event<(details: OnExtensionActivityDetailsType) => void> {
+    interface OnExtensionActivityEvent extends Events.Event<(details: OnExtensionActivityDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -101,6 +101,6 @@ export namespace ActivityLog {
         /**
          * Receives an activityItem for each logging event.
          */
-        onExtensionActivity: onExtensionActivityEvent;
+        onExtensionActivity: OnExtensionActivityEvent;
     }
 }

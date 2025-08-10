@@ -5,7 +5,7 @@ declare namespace PropTypes {
     type ReactComponentLike =
         | string
         | ((props: any) => any)
-        | (new(props: any) => any);
+        | (new(props: any, context: any) => any);
 
     interface ReactElementLike {
         type: ReactComponentLike;

@@ -6,20 +6,20 @@ imagemin(["*.png"], { destination: "dist", plugins: [] }).then((results: Result[
 
 imagemin
     .buffer(
-        Buffer.from([
+        Uint8Array.from([
             /* ... */
         ]),
     )
-    .then((result: Buffer) => {
+    .then((result: Uint8Array) => {
         /* ... */
     });
 imagemin
     .buffer(
-        Buffer.from([
+        Uint8Array.from([
             /* ... */
         ]),
         { plugins: [] },
     )
-    .then((result: Buffer) => {
+    .then((result: Uint8Array) => {
         /* ... */
     });

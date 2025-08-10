@@ -1,8 +1,4 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class ModelViewProjectionNode extends Node {
-    constructor(positionNode?: Node);
-}
-
-export const modelViewProjection: (position?: NodeRepresentation) => ShaderNodeObject<ModelViewProjectionNode>;
+export const modelViewProjection: ShaderNodeObject<Node>;

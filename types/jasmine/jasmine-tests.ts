@@ -1734,6 +1734,14 @@ describe("Manually ticking the Jasmine Clock", () => {
     });
 });
 
+describe("Automatically ticking the Jasmine Clock", () => {
+    it("ticks automatically", async () => {
+        jasmine.clock().install().autoTick();
+        await new Promise(resolve => setTimeout(resolve));
+        jasmine.clock().uninstall();
+    });
+});
+
 describe("Asynchronous specs", () => {
     var value: number;
     beforeEach((done: DoneFn) => {

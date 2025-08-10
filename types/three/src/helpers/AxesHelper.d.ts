@@ -1,3 +1,5 @@
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { LineBasicMaterial } from "../materials/LineBasicMaterial.js";
 import { ColorRepresentation } from "../math/Color.js";
 import { LineSegments } from "../objects/LineSegments.js";
 
@@ -18,7 +20,7 @@ import { LineSegments } from "../objects/LineSegments.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/helpers/AxesHelper | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/AxesHelper.js | Source}
  */
-export class AxesHelper extends LineSegments {
+export class AxesHelper extends LineSegments<BufferGeometry, LineBasicMaterial> {
     /**
      * Create a new instance of {@link AxesHelper}
      * @param size Size of the lines representing the axes. Default `1`

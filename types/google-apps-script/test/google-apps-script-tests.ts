@@ -39,11 +39,25 @@ const postTest = (payload: object): string => {
     return UrlFetchApp.fetch(url, params).getContentText();
 };
 
+// Test CalendarApp.EventType
+const testCalendarAppEventType = (): void => {
+    const event = CalendarApp.getEventById("testevent");
+    const type = event.getEventType();
+    const birthdayType = CalendarApp.EventType.BIRTHDAY;
+    birthdayType !== type;
+
+    type !== CalendarApp.EventType.FOCUS_TIME;
+
+    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE;
+    // @ts-expect-error
+    type == GoogleAppsScript.Calendar.EventType.STANDARD;
+};
+
 // Advanced Services
 Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
 
 // Calendar (Advanced service)
-const createEvent = (): void => {
+const createEvent = (): GoogleAppsScript.Calendar.Schema.Event => {
     const calendarId = "primary";
     const start = new Date();
     const end = new Date();
@@ -66,6 +80,8 @@ const createEvent = (): void => {
     };
     event = Calendar.Events.insert(event, calendarId);
     Logger.log("Event ID: " + event.id);
+
+    return event;
 };
 
 // Calendar Working Locations (Advanced Service)
@@ -1117,6 +1133,7 @@ function driveFileOperations() {
     const fileList = Drive.Files.list({
         q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
         pageSize: 10, // Optional: Limit the number of results
+        fields: "files(id, name)", // Optional: List of fields in the response
     });
 
     if (fileList.files && fileList.files.length > 0) {
@@ -1147,6 +1164,16 @@ function createFolder() {
     console.log("Created Folder:", folder.name, folder.id);
 }
 
+function getFile() {
+    const file = Drive.Files.get("FileID");
+    console.log(file.name);
+}
+
+function getRawFile() {
+    const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
+    console.log(fileBlob);
+}
+
 // Example showing how to create a folder
 function createDrive() {
     const drive = Drive.Drives.create({
@@ -1165,5 +1192,49 @@ function listDrives() {
         });
     } else {
         console.log("No shared Drives found.");
+    }
+}
+
+// Example: Create a comment and a reply
+function commentAndReply() {
+    const comment = Drive.Comments.create({ content: "Comment text" }, "FileID", { fields: "id" });
+    const reply = Drive.Replies.create({ content: "Reply text" }, "FileID", comment.id, { fields: "id" });
+    console.log(reply.id);
+}
+
+// Example: List tabs (Google Docs)
+function listTabs() {
+    const allTabs = DocumentApp.openById("FileID").getTabs();
+    console.log("Total tabs found: " + allTabs.length);
+
+    const activeTabTitle = DocumentApp.getActiveDocument().getActiveTab().getTitle();
+    console.log("Active tab title: " + activeTabTitle);
+}
+
+// Example: Set active tab (Google Docs)
+function activeTab() {
+    const tabId = DocumentApp.getActiveDocument().getActiveTab().getId();
+    DocumentApp.getActiveDocument().setActiveTab(tabId);
+    console.log("Set active tab to id: " + tabId);
+}
+
+// Follows the example at https://developers.google.com/apps-script/reference/document/body#findelementelementtype,-from
+function optionalFields() {
+    const body = DocumentApp.getActiveDocument()
+        .getActiveTab()
+        .asDocumentTab()
+        .getBody();
+
+    let searchResult: GoogleAppsScript.Document.RangeElement | null = null;
+    let index = -1;
+
+    while (
+        (searchResult = body.findElement(
+            DocumentApp.ElementType.PARAGRAPH,
+            searchResult,
+        ))
+    ) {
+        const element = searchResult.getElement();
+        console.log("Found an element");
     }
 }

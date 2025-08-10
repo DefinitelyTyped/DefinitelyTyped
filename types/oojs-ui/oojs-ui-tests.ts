@@ -2463,6 +2463,9 @@
 
     instance.isAutosizing(); // $ExpectType boolean
 
+    // $ExpectType NonNullRange
+    instance.getRange();
+
     instance.on("resize", () => {});
 }
 // #endregion

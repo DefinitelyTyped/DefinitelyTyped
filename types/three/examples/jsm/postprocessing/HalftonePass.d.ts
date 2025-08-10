@@ -16,7 +16,7 @@ export interface HalftonePassParameters {
 }
 
 export class HalftonePass extends Pass {
-    constructor(width: number, height: number, params: HalftonePassParameters);
+    constructor(params: HalftonePassParameters);
     uniforms: {
         tDiffuse: IUniform;
         shape: IUniform<number>;

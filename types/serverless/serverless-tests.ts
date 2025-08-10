@@ -159,6 +159,8 @@ provider.getServerlessDeploymentBucketName().then(bucketName => {});
 provider.getCredentials();
 
 // Test ApiGateway validator
+// Valid usage. "Method" is supposed to be recognized here.
+// Valid usage. "method" is spelled correctly here:
 getHttp(
     {
         http: {
@@ -168,6 +170,65 @@ getHttp(
     },
     "myFunction",
 );
+
+getHttp(
+    {
+        http: {
+            path: "myPath",
+            mehtod: "get",
+        },
+    },
+    "myFunction",
+);
+
+// 1) Convert "type" to an "interface" to satisfy ESLint rule
+interface CustomEvent {
+    path: string;
+    method: "get" | "post";
+    extraData: number;
+}
+
+// 2) We'll store the result in 'customResult'. Because getHttp returns a union
+//    ({ path: string; method: string } | T), we must type-guard before 'extraData' usage.
+const customResult = getHttp<CustomEvent>(
+    {
+        http: {
+            path: "customPath",
+            method: "post",
+            extraData: 42,
+        },
+    },
+    "myFunction",
+);
+
+// Use a type-guard to confirm "extraData" is accessible:
+if (typeof customResult === "object" && "extraData" in customResult) {
+    customResult.extraData; // number
+    customResult.path; // string
+    customResult.method; // "get" | "post"
+}
+
+// could cast:
+// (customResult as CustomEvent).extraData;
+
+// Test "getHttp" WITHOUT a generic:
+const defaultResult = getHttp(
+    {
+        http: {
+            path: "somePath",
+            method: "get",
+        },
+    },
+    "myFunction",
+);
+
+// return union.
+if (typeof defaultResult !== "string") {
+    defaultResult.path; // string
+    defaultResult.method; // string
+}
+
+// Check some of the existing tests
 getHttp(
     {
         http: "GET mypath",
@@ -330,6 +391,10 @@ const awsServerless: Aws.Serverless = {
                     identitySource: "testidentitySource",
                     issuerUrl: "testissuerUrl",
                     audience: ["testaudience"],
+                },
+                testCustomAuthorizer: {
+                    type: "request",
+                    functionName: "testCustomAuthorizer",
                 },
             },
             useProviderTags: true,
@@ -891,6 +956,9 @@ const awsServerless: Aws.Serverless = {
                 },
                 authorizer: "aws_iam",
             },
+        },
+        testCustomAuthorizer: {
+            handler: "testauthorizer",
         },
     },
     layers: {

@@ -749,3 +749,5 @@ lexer.match("foo", ast); // $ExpectType LexerMatchResult
 lexer.match("foo", "bar"); // $ExpectType LexerMatchResult
 lexer.match(syntax, ast); // $ExpectType LexerMatchResult
 lexer.match(syntax, "bar"); // $ExpectType LexerMatchResult
+
+csstree.lexer; // $ExpectType Lexer

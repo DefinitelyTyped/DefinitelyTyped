@@ -12,12 +12,16 @@ import {
     run,
     skip,
     suite,
-    type SuiteContext,
+    SuiteContext,
     test,
-    type TestContext,
+    TestContext,
     todo,
 } from "node:test";
 import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
+
+// top-level export
+test satisfies typeof import("node:test");
+({} as typeof import("node:test")) satisfies typeof test;
 
 // run without options
 // $ExpectType TestsStream
@@ -159,25 +163,6 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
-
-test.after(() => {});
-test.afterEach(() => {});
-test.before(() => {});
-test.beforeEach(() => {});
-test.describe("describe", () => {});
-test.it("it", () => {});
-// $ExpectType MockTracker
-test.mock;
-// $ExpectType typeof test
-test.test;
-test.test.test("chained self ref", (t) => {
-    // $ExpectType typeof test
-    t.test;
-});
-test.skip("skip", () => {});
-test.suite("suite", () => {});
-test.todo("todo", () => {});
-test.only("only", () => {});
 
 describe("foo", () => {
     it("it", () => {});
@@ -788,6 +773,25 @@ test("mocks a setter", (t) => {
     }
 });
 
+test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
+});
+
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
@@ -951,6 +955,12 @@ const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("check all assertion functions are re-exported", t => {
+    type AssertModuleExports = keyof typeof import("assert");
+    const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
+        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+});
 
 test("planning with streams", (t: TestContext, done) => {
     function* generate() {

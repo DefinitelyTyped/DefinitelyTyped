@@ -1,4 +1,5 @@
 /// <reference types="chai" />
+import "chai/register-should";
 
 declare const expect: Chai.ExpectStatic;
 declare const assert: Chai.AssertStatic;

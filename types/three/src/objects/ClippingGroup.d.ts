@@ -2,7 +2,7 @@ import { Plane } from "../math/Plane.js";
 import { Group } from "./Group.js";
 
 /**
- * A special version of the Group object that defines clipping planes for decendant objects. ClippingGroups can be
+ * A special version of the Group object that defines clipping planes for descendant objects. ClippingGroups can be
  * nested, with clipping planes accumulating by type: intersection or union.
  */
 declare class ClippingGroup extends Group {

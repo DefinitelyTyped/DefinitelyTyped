@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/express": "*",
-        "@types/feathersjs__feathers": "*",
+        "@types/feathersjs__feathers": "<4",
         "@types/passport": "*"
     },
     "devDependencies": {

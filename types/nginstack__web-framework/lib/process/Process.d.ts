@@ -19,7 +19,7 @@ declare class Process {
     private arActivities;
     private activities;
     private _changes;
-    layoutManager: LayoutManager;
+    private layoutManager;
     private _simpleLayouts;
     private labels;
     private requiredFiles_;
@@ -28,21 +28,24 @@ declare class Process {
     key: number;
     dbkey: DBKey;
     uri: string;
-    sourceClass: DBKey;
-    version: number;
-    permissionKeyWords: any[];
+    sourceClass: number | DBKey;
+    private version;
+    permissionKeyWords: string[];
     id: string;
     response: any;
+    menuPath: string;
+    private logger_;
     private pairName_;
     private componentFactoryResolver_;
     private scrollX_;
     private scrollY_;
     bodyClassName: string;
+    private defaultButton;
     private dsLookup;
+    private grLookup;
     private uploadDialog_;
     private fileLoader_;
     private clearHistoryFlag;
-    getLinks(): Record<string, Link>;
     simpleLayoutOutputHandler: any;
     currentInteraction: Interaction;
     lastInteraction: Interaction;
@@ -52,13 +55,10 @@ declare class Process {
     private inConstructor;
     private historyEnabled;
     private recentlyCreated;
-    private alreadyFocusOnGrid;
-    private hasFieldToFocus;
-    private anchorsChanged;
+    private buttonsChanged;
     private labelsChanged;
     private syncInteractionName;
     private realTitle;
-    gridToFocus: Grid;
     private resendUiObjectsChanges;
     name: string;
     pId: string;
@@ -77,12 +77,12 @@ declare class Process {
     private lastPercentProgress;
     private lastLabelProgress;
     private lastMaxStep;
-    private idsvKey;
-    menuPath: string;
+    private refreshingGrids_;
+    private idsvKey_;
     useLayoutManager: boolean;
     help: Record<any, any> | string;
-    private calculateMenuPath_;
-    private letFetchProcessInfo;
+    private actions;
+    getLinks(): Record<string, Link>;
     lookup(field: GridField): void;
     private _prepareLookupGrid;
     write(content: any): void;
@@ -90,6 +90,7 @@ declare class Process {
     requires(uri: string): void;
     private writeRequiredFiles;
     grid(name: string, opt_ds?: DataSet, opt_classKey?: number, opt_masterGrid?: Grid): Grid;
+    findGrid(name: string): Grid;
     deleteGrid(name: string): boolean;
     link(
         name: string,
@@ -106,13 +107,7 @@ declare class Process {
         newTab?: boolean,
     ): Button;
     hasButton(name: string): boolean;
-    action(
-        name: any,
-        target: any,
-        order: any,
-        processKey: any,
-        newTab: any,
-    ): import("../button/Button");
+    action(name: any, target: any, order: any, processKey: any, newTab: any): Button;
     clearButtons(): void;
     clearActions(): void;
     label(name: string, opt_text?: string): import("../label/Label");
@@ -150,10 +145,10 @@ declare class Process {
     private handleGridAction;
     private validateRequiredInputOfLastInteraction;
     private postAllWrittenGridDataSetsInCurrentInteraction_;
-    private handleAnchorsSynchronize;
+    private handleInitialSynchronize;
     private ping;
-    private handleExecuteAnchor;
-    private handleGetLinkFieldNameParamsAndGo;
+    private handleExecuteLink;
+    private handleExecuteButton;
     private handleIfp;
     private addGridToWriteOnCurrentInteraction;
     private _insensitiveCompare;
@@ -165,8 +160,7 @@ declare class Process {
     lastRunParameters: any;
     private updateConnectionReferrer;
     private run;
-    getSimpleLayout(skinScriptKeyOrUrl: any): SimpleLayout;
-    layoutResponseObject: File | Spool;
+    getSimpleLayout(...args: any[]): SimpleLayout;
     private handleIfpFunctionsLength;
     private handleIfpFunctions;
     private closeLookupGrid;
@@ -176,19 +170,13 @@ declare class Process {
     private setEvaluateCode;
     title: string;
     getFileId(filePathOrVfsKey: any, displayFileName: any): string;
-    alert(message: string, title: any): any;
+    alert(message: string): void;
     showProgress(currentStep: number, maxStep: number, label: string): void;
     private hideProgress;
-    prompt(
-        label: string,
-        answers: any[][],
-        opt_verticalAlign?: number,
-        opt_defaultOptionIndex?: number,
-        opt_escapeIndex?: number,
-    ): any;
+    prompt(label: string, answers: any[][], options: PromptOptions, ...args: any[]): any;
     authenticateUser(label: string): number | null;
     confirm(msg: string, opt_noAsDefault?: boolean): boolean;
-    upload(options?: import("../file-loader/UploadOptions")): any;
+    upload(options?: import("../file-loader/UploadOptions")): Promise;
     download(
         files: string | number | DBKey | Array<string | number | DBKey>,
         options?: DownloadOptions | Record<any, any>,
@@ -206,9 +194,9 @@ declare class Process {
     visibleActions: Array<Button | string>;
     private setButtonsStateByArray;
     enabledButtons: Array<Button | string>;
-    enabledActions: any;
+    enabledActions: Array<Button | string>;
     private _createButtonAndLinkIt;
-    private updateTaskCounter;
+    updateTaskCounter(): void;
     hasPermission(permissionKeyWord: string): boolean;
     private _hasPermissionToInteraction;
     private toString;
@@ -218,32 +206,44 @@ declare class Process {
     private defineAllGrids;
     private _prepareConnection;
     private _unprepareConnection;
-    private getChildrenJustToGroup;
     immediateRedirectEnabled: boolean;
     private redirectIfInteractionWasChanged;
-    private logger_;
+    getVisibleGridNames(): string;
     beep(): void;
-    private actions;
+    loadModule(path: string): void;
     private act_preserveScrollPosition_;
-    private act_showHelp_;
 }
 declare namespace Process {
-    export { Button, create, getProcessTitle, getSourceAndInclude, Grid, GridField, Link, UploadedFile };
+    export {
+        Button,
+        create,
+        getProcessTitle,
+        getSourceAndInclude,
+        Grid,
+        GridField,
+        Label,
+        Link,
+        PromptOptions,
+        UploadedFile,
+    };
 }
 import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 import Environment = require("../environment/Environment.js");
-import LayoutManager = require("./LayoutManager.js");
 import Interaction = require("./Interaction.js");
-type Grid = import("../grid/Grid");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 import SimpleLayout = require("../simple-layout/SimpleLayout.js");
-import File = require("@nginstack/engine/lib/io/File.js");
-import Spool = require("@nginstack/engine/lib/print/Spool.js");
+import Promise = require("../promise/Promise.js");
 import DownloadOptions = require("../file-loader/DownloadOptions.js");
-type Button = import("../button/Button");
 declare function getProcessTitle(key: number, processName: string): string;
 declare function getSourceAndInclude(key: number): any[];
 declare function create(keyOrUrl: any, sourceClassKey: any): Process;
+type Button = import("../button/Button");
+type Grid = import("../grid/Grid");
 type Link = import("../anchor/Link");
 type GridField = import("../grid/GridField");
 type UploadedFile = import("../file-loader/UploadedFile");
+type Label = import("../label/Label.js");
+interface PromptOptions {
+    defaultIndex?: number;
+    cancelReturnValue?: any;
+}

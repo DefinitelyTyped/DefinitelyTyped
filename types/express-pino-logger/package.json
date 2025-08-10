@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/pino": "6.3",
-        "@types/pino-http": "*"
+        "@types/pino-http": "<6"
     },
     "devDependencies": {
         "@types/express": "*",

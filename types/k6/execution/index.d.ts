@@ -62,7 +62,7 @@ export const instance: {
 export const test: {
     /**
      * Aborts the test run with the exit code 108.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-execution/#test
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-execution/#test-abort
      * @param input - Aborted message.
      * @example
      * import exec from "k6/execution";
@@ -70,6 +70,18 @@ export const test: {
      * exec.test.abort('this is the reason');
      */
     abort(input?: string): void;
+
+    /**
+     * Marks the test as failed with the exit code 110, without interrupting execution.
+     * This allows all iterations to complete while reporting the run as failed.
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-execution/#test-fail
+     * @param message - Failure reason.
+     * @example
+     * import exec from "k6/execution";
+     * exec.test.fail();
+     * exec.test.fail('this is the reason');
+     */
+    fail(message?: string): void;
 
     options: Options;
 };

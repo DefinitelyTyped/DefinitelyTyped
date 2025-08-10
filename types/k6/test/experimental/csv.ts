@@ -21,6 +21,8 @@ fs.parse(testFile, { skipFirstLine: "should be a boolean" });
 fs.parse(testFile, { fromLine: "should be a number" });
 // @ts-expect-error
 fs.parse(testFile, { toLine: "should be a number" });
+// @ts-expect-error
+fs.parse(testFile, { asObjects: "should be a boolean" });
 
 //
 // Parser constructor

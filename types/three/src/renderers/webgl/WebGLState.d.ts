@@ -11,14 +11,14 @@ import { Vector4 } from "../../math/Vector4.js";
 import { WebGLRenderTarget } from "../WebGLRenderTarget.js";
 import { WebGLExtensions } from "./WebGLExtensions.js";
 
-declare class ColorBuffer {
+declare class WebGLColorBuffer {
     setMask(colorMask: boolean): void;
     setLocked(lock: boolean): void;
     setClear(r: number, g: number, b: number, a: number, premultipliedAlpha: boolean): void;
     reset(): void;
 }
 
-declare class DepthBuffer {
+declare class WebGLDepthBuffer {
     constructor();
 
     setReversed(value: boolean): void;
@@ -31,7 +31,7 @@ declare class DepthBuffer {
     reset(): void;
 }
 
-declare class StencilBuffer {
+declare class WebGLStencilBuffer {
     constructor();
 
     setTest(stencilTest: boolean): void;
@@ -47,9 +47,9 @@ declare class WebGLState {
     constructor(gl: WebGLRenderingContext, extensions: WebGLExtensions);
 
     buffers: {
-        color: ColorBuffer;
-        depth: DepthBuffer;
-        stencil: StencilBuffer;
+        color: WebGLColorBuffer;
+        depth: WebGLDepthBuffer;
+        stencil: WebGLStencilBuffer;
     };
 
     enable(id: number): void;
@@ -117,3 +117,4 @@ declare class WebGLState {
 }
 
 export { WebGLState };
+export type { WebGLColorBuffer, WebGLDepthBuffer, WebGLStencilBuffer };

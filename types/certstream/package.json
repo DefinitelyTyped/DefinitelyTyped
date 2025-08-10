@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/certstream",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/CaliDog/certstream-js#readme"
+    ],
+    "devDependencies": {
+        "@types/certstream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jimmy Leung",
+            "githubUsername": "hkleungai"
+        }
+    ]
+}

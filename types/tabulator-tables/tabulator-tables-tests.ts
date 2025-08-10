@@ -692,7 +692,7 @@ table.blockRedraw();
 table.restoreRedraw();
 
 table.getRows("visible");
-table.deleteRow([15, 7, 9]);
+table.deleteRow([15, 7, 9]).then(() => {});
 
 table.addColumn({} as ColumnDefinition).then(() => {});
 
@@ -921,6 +921,12 @@ table = new Tabulator("#example-table", {
         age: { headerFilter: true },
         myProp: { title: "my title" },
     },
+});
+
+new Tabulator("#example-table", {
+    autoColumnsDefinitions: [
+        { field: "migration_up", formatter: "textarea" },
+    ],
 });
 
 let colDefs: ColumnDefinition[] = [];
@@ -1312,6 +1318,44 @@ table = new Tabulator("#testPagination", {
     },
 });
 
+// Testing paginationSize to number and to "All"
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: true,
+});
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+
+// Testing setPageSize/getPageSize to number and to "All"
+table = new Tabulator("#testSetPagenSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+table.setPageSize(10);
+table.setPageSize(true);
+// $ExpectType number | true
+table.getPageSize();
+
 // Testing data loader element
 table = new Tabulator("#testDataLoader", {
     data: [],
@@ -1545,7 +1589,7 @@ const range1 = table.addRange(cell, cell);
 range1.clearValues();
 table.getRanges().forEach(range => range.remove());
 
-const data1 = table.getRangeData();
+const data1 = table.getRangesData();
 data1[0][0] = { name: "steve" };
 
 // Testing 6.0 features
@@ -1757,3 +1801,40 @@ table = new Tabulator("#example-table", {
 
 table.setData(table.getAjaxUrl());
 table.setData();
+
+// Testing selectableRowsCheck with data and selection verification
+const testData = [
+    { id: 1, name: "John", age: 15, active: true },
+    { id: 2, name: "Jane", age: 25, active: true },
+    { id: 3, name: "Bob", age: 35, active: false },
+];
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    data: testData,
+    selectableRows: true,
+    selectableRowsCheck: (row: RowComponent): boolean => {
+        return row.getData().age >= 18;
+    },
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name" },
+        { title: "Age", field: "age" },
+    ],
+});
+
+table.selectRow([1, 2, 3]);
+const selectedRows = table.getSelectedRows();
+console.log("Number of selected rows:", selectedRows.length); // Should be 2 (only rows with age >= 18)
+
+const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
+    return [{
+        label: "Test",
+    }];
+};
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name", headerMenu: headerMenuFunc },
+    ],
+});

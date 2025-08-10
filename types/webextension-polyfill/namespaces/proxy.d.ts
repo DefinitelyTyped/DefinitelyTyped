@@ -184,7 +184,7 @@ export namespace Proxy {
     /**
      * Fired when proxy data is needed for a request.
      */
-    interface onRequestEvent extends Events.Event<(details: OnRequestDetailsType) => void> {
+    interface OnRequestEvent extends Events.Event<(details: OnRequestDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -203,7 +203,7 @@ export namespace Proxy {
         /**
          * Fired when proxy data is needed for a request.
          */
-        onRequest: onRequestEvent;
+        onRequest: OnRequestEvent;
 
         /**
          * Notifies about errors caused by the invalid use of the proxy API.

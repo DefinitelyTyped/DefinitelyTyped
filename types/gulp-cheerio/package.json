@@ -6,7 +6,7 @@
         "https://github.com/KenPowers/gulp-cheerio"
     ],
     "dependencies": {
-        "@types/cheerio": "*",
+        "@types/cheerio": "<1",
         "@types/node": "*",
         "@types/vinyl": "*"
     },

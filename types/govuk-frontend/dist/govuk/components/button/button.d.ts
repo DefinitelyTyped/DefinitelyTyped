@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * JavaScript enhancements for the Button component
  */
-export class Button extends GOVUKFrontendComponent<HTMLElement> {
+export class Button extends ConfigurableComponent<ButtonConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +13,15 @@ export class Button extends GOVUKFrontendComponent<HTMLElement> {
      * Button default config
      *
      * @see {@link ButtonConfig}
+     * @constant
      */
     static defaults: ButtonConfig;
 
     /**
      * Button config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ButtonConfig>}
      */
     static schema: Readonly<{
         properties: {

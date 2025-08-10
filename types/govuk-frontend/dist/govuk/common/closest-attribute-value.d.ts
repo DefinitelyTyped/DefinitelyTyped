@@ -6,4 +6,7 @@
  * @param {string} attributeName - The name of the attribute
  * @returns {string | null} Attribute value
  */
-export function closestAttributeValue($element: Element, attributeName: string): string | null;
+export function closestAttributeValue(
+    $element: Element,
+    attributeName: string,
+): string | null;
