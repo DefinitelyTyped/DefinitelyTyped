@@ -1100,8 +1100,16 @@ import { promisify } from "node:util";
 }
 
 {
+    // $ExpectType string
     crypto.hash("sha1", "Node.js");
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     crypto.hash("sha1", Buffer.from("Tm9kZS5qcw==", "base64"), "buffer");
+    // $ExpectType string
+    crypto.hash("shake256", "Node.js", { outputLength: 256 });
+    // $ExpectType string
+    crypto.hash("shake256", Buffer.allocUnsafe(0), { outputEncoding: "base64" });
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    crypto.hash("shake256", "Node.js", { outputEncoding: "buffer", outputLength: 256 });
 }
 
 {
