@@ -3088,36 +3088,16 @@ export class Marker<P = any> extends Layer {
 export function marker<P = any>(latlng: LatLngExpression, options?: MarkerOptions): Marker<P>;
 
 export namespace Browser {
-    // sorting according to https://leafletjs.com/reference-1.5.0.html#browser
-    const ie: boolean;
-    const ielt9: boolean;
-    const edge: boolean;
-    const webkit: boolean;
-    const android: boolean;
-    const android23: boolean;
-    const androidStock: boolean;
-    const opera: boolean;
+    // sorting according to https://leafletjs.com/reference.html#browser
     const chrome: boolean;
-    const gecko: boolean;
     const safari: boolean;
-    const opera12: boolean;
-    const win: boolean;
-    const ie3d: boolean;
-    const webkit3d: boolean;
-    const gecko3d: boolean;
-    const any3d: boolean;
     const mobile: boolean;
-    const mobileWebkit: boolean;
-    const mobileWebkit3d: boolean;
-    const msPointer: boolean;
     const pointer: boolean;
+    const touchNative: boolean;
     const touch: boolean;
-    const mobileOpera: boolean;
-    const mobileGecko: boolean;
     const retina: boolean;
-    const canvas: boolean;
-    const svg: boolean;
-    const vml: boolean;
+    const mac: boolean;
+    const linux: boolean;
 }
 
 export namespace Util {
