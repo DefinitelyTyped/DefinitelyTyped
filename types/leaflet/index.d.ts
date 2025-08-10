@@ -5,28 +5,28 @@ import * as geojson from "geojson";
 /** A constant that represents the Leaflet version in use. */
 export const version: string;
 
+// TODO: `this` throws an error, but it is the same as in the original Leaflet code
 export class Class {
     static extend(props: any): { new(...args: any[]): any } & typeof Class;
-    static include(props: any): any & typeof Class;
-    static mergeOptions(props: any): any & typeof Class;
+    static include(props: any): this;
+    static setDefaultOptions(options: any): this;
+    static mergeOptions(options: any): this;
 
-    static addInitHook(initHookFn: () => void): any & typeof Class;
-    static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
+    static addInitHook(initHookFn: () => void): this;
+    static addInitHook(methodName: string, ...args: any[]): this;
 
-    static callInitHooks(): void;
+    initialize(...args: any[]): void;
+    callInitHooks(): void;
 }
 
 export class Transformation {
+    /** Instantiates a Transformation object with the given coefficients. */
     constructor(a: number, b: number, c: number, d: number);
+    /** Expects an coefficients array of the form `[a: Number, b: Number, c: Number, d: Number]`. */
+    constructor(coefficients: [number, number, number, number]);
     transform(point: Point, scale?: number): Point;
     untransform(point: Point, scale?: number): Point;
 }
-
-/** Instantiates a Transformation object with the given coefficients. */
-export function transformation(a: number, b: number, c: number, d: number): Transformation;
-
-/** Expects an coefficients array of the form `[a: Number, b: Number, c: Number, d: Number]`. */
-export function transformation(coefficients: [number, number, number, number]): Transformation;
 
 /**
  * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/src/geometry/LineUtil.js#L118
@@ -35,7 +35,6 @@ export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
-    function isFlat(latlngs: LatLngExpression[]): boolean;
     function clipSegment(
         a: Point,
         b: Point,
@@ -43,12 +42,14 @@ export namespace LineUtil {
         useLastCode?: boolean,
         round?: boolean,
     ): [Point, Point] | false;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
     function polylineCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace PolyUtil {
     function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
     function polygonCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
+    function centroid(latlngs: LatLngExpression[]): LatLng;
 }
 
 export namespace DomUtil {
@@ -56,7 +57,6 @@ export namespace DomUtil {
      * Get Element by its ID or with the given HTML-Element
      */
     function get(element: string | HTMLElement): HTMLElement | null;
-    function getStyle(el: HTMLElement, styleAttrib: string): string | null;
     /**
      * Creates an HTML element with `tagName`, sets its class to `className`, and optionally appends it to `container` element.
      * @param tagName The name of the tag to create (for example: `div` or `canvas`).
@@ -69,32 +69,19 @@ export namespace DomUtil {
         container?: HTMLElement,
     ): HTMLElementTagNameMap[T];
     function create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
-    function remove(el: HTMLElement): void;
-    function empty(el: HTMLElement): void;
     function toFront(el: HTMLElement): void;
     function toBack(el: HTMLElement): void;
-    function hasClass(el: HTMLElement, name: string): boolean;
-    function addClass(el: HTMLElement, name: string): void;
-    function removeClass(el: HTMLElement, name: string): void;
-    function setClass(el: HTMLElement, name: string): void;
-    function getClass(el: HTMLElement): string;
-    function setOpacity(el: HTMLElement, opacity: number): void;
-    function testProp(props: string[]): string | false;
     function setTransform(el: HTMLElement, offset: Point, scale?: number): void;
     function setPosition(el: HTMLElement, position: Point): void;
     function getPosition(el: HTMLElement): Point;
-    function getScale(el: HTMLElement): { x: number; y: number; boundingClientRect: DOMRect };
-    function getSizedParentNode(el: HTMLElement): HTMLElement;
     function disableTextSelection(): void;
     function enableTextSelection(): void;
     function disableImageDrag(): void;
     function enableImageDrag(): void;
     function preventOutline(el: HTMLElement): void;
     function restoreOutline(): void;
-
-    let TRANSFORM: string;
-    let TRANSITION: string;
-    let TRANSITION_END: string;
+    function getSizedParentNode(el: HTMLElement): HTMLElement;
+    function getScale(el: HTMLElement): { x: number; y: number; boundingClientRect: DOMRect };
 }
 
 export class PosAnimation extends Evented {
@@ -102,49 +89,98 @@ export class PosAnimation extends Evented {
     stop(): void;
 }
 
-export interface CRS {
-    latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
-    pointToLatLng(point: PointExpression, zoom: number): LatLng;
-    project(latlng: LatLng | LatLngLiteral): Point;
-    unproject(point: PointExpression): LatLng;
-    scale(zoom: number): number;
-    zoom(scale: number): number;
-    getProjectedBounds(zoom: number): Bounds;
-    distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
-    wrapLatLng(latlng: LatLng | LatLngLiteral): LatLng;
+export class CRS {
+    static projection: undefined;
+    static transformation: undefined;
 
-    code?: string | undefined;
-    wrapLng?: [number, number] | undefined;
-    wrapLat?: [number, number] | undefined;
-    infinite: boolean;
+    static latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
+    static pointToLatLng(point: PointExpression, zoom: number): LatLng;
+    static project(latlng: LatLngExpression): Point;
+    static unproject(point: PointExpression): LatLng;
+    static scale(zoom: number): number;
+    static zoom(scale: number): number;
+    static getProjectedBounds(zoom: number): Bounds;
+
+    static infinite: boolean;
+    static wrapLatLng(latlng: LatLngExpression): LatLng;
+    static wrapLatLngBounds(bounds: LatLngBoundsExpression[]): LatLngBounds;
+
+}
+
+export class Earth extends CRS {
+    static wrapLng: [number, number];
+    static R: number;
+    static distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
+}
+
+// TODO: how to use the `Projection` interface?
+export class EPSG3395 extends Earth {
+    static code: string;
+    static projection: Projection.Mercator;
+    static transformation: Transformation;
+}
+
+export class EPSG3857 extends Earth {
+    static code: string;
+    static projection: Projection.SphericalMercator;
+    static transformation: Transformation;
+}
+
+export class EPSG900913 extends EPSG3857 {
+}
+
+export class EPSG4326 extends Earth {
+    static code: string;
+    static projection: Projection.LonLat;
+    static transformation: Transformation;
+}
+
+export class Simple extends CRS {
+    static projection: Projection.LonLat;
+    static transformation: Transformation;
+
+    static distance(latlng1: LatLngExpression, latlng2: LatLngExpression): Bounds;
 }
 
 export namespace CRS {
-    const EPSG3395: CRS;
-    const EPSG3857: CRS;
-    const EPSG4326: CRS;
-    const EPSG900913: CRS;
-    const Earth: CRS;
+    const Earth: Earth;
+    const EPSG3395: EPSG3395;
+    const EPSG3857: EPSG3857;
+    const EPSG900913: EPSG900913;
+    const EPSG4326: EPSG4326;
     const Simple: CRS;
 }
 
+// TODO: Projection is no own class
 export interface Projection {
-    project(latlng: LatLng | LatLngLiteral): Point;
+    project(latlng: LatLngExpression): Point;
     unproject(point: PointExpression): LatLng;
 
     bounds: Bounds;
 }
 
+export interface Mercator extends Projection {
+    R: 6378137;
+    R_MINOR: 6356752.314245179;
+}
+
+export interface SphericalMercator extends Projection {
+    R: 6378137;
+    MAX_LATITUDE: 85.0511287798;
+}
 export namespace Projection {
     const LonLat: Projection;
-    const Mercator: Projection;
-    const SphericalMercator: Projection;
+    const Mercator: Mercator;
+    const SphericalMercator: SphericalMercator;
 }
 
 export class LatLng {
     constructor(latitude: number, longitude: number, altitude?: number);
+    constructor(coords: LatLngExpression);
+    static validate(latitude: number, longitude: number, altitude?: number): boolean;
+    static validate(coords: LatLngExpression): boolean;
     equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
-    toString(): string;
+    toString(precision?: number): string;
     distanceTo(otherLatLng: LatLngExpression): number;
     wrap(): LatLng;
     toBounds(sizeInMeters: number): LatLngBounds;
@@ -152,28 +188,12 @@ export class LatLng {
 
     lat: number;
     lng: number;
-    alt?: number | undefined;
-}
-
-export interface LatLngLiteral {
-    lat: number;
-    lng: number;
     alt?: number;
 }
 
 export type LatLngTuple = [number, number, number?];
 
-export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
-
-export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
-
-export function latLng(
-    coords: LatLngTuple | [number, number, number] | LatLngLiteral | {
-        lat: number;
-        lng: number;
-        alt?: number | undefined;
-    },
-): LatLng;
+export type LatLngExpression = LatLng | LatLngTuple;
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
@@ -201,14 +221,11 @@ export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLng
 
 export type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
-export function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
-
-export function latLngBounds(latlngs: LatLngExpression[]): LatLngBounds;
-
-export type PointTuple = [number, number];
-
 export class Point {
     constructor(x: number, y: number, round?: boolean);
+    constructor(coords: PointExpression);
+    static validate(x: number, y: number): boolean;
+    static validate(coords: PointExpression): boolean;
     clone(): Point;
     add(otherPoint: PointExpression): Point; // non-destructive, returns a new point
     subtract(otherPoint: PointExpression): Point;
@@ -228,26 +245,21 @@ export class Point {
     y: number;
 }
 
+// TODO: interface Coords?
 export interface Coords extends Point {
     z: number;
 }
 
+export type PointTuple = [number, number];
+
 export type PointExpression = Point | PointTuple;
-
-export function point(x: number, y: number, round?: boolean): Point;
-
-export function point(coords: PointTuple | { x: number; y: number }): Point;
-
-export type BoundsLiteral = [PointTuple, PointTuple];
 
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
-    constructor(points?: Point[] | BoundsLiteral);
+    // TODO: points optional?
+    constructor(points?: PointExpression[] | BoundsExpression);
 
-    // tslint:disable:unified-signatures
-    extend(point: PointExpression): this;
-    extend(otherBounds: BoundsExpression): this;
-    // tslint:enable:unified-signatures
+    extend(pointOrBounds: BoundsExpression | PointExpression): this;
 
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
@@ -262,15 +274,13 @@ export class Bounds {
     pad(bufferRatio: number): Bounds; // Returns a new Bounds
     equals(otherBounds: BoundsExpression): boolean;
 
-    min?: Point | undefined;
-    max?: Point | undefined;
+    min?: Point;
+    max?: Point;
 }
 
+export type BoundsLiteral = [PointTuple, PointTuple];
+
 export type BoundsExpression = Bounds | BoundsLiteral;
-
-export function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
-
-export function bounds(points: Point[] | BoundsLiteral): Bounds;
 
 // Event handler types
 
