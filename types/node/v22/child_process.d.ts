@@ -24,7 +24,7 @@
  * the parent Node.js process and the spawned subprocess. These pipes have
  * limited (and platform-specific) capacity. If the subprocess writes to
  * stdout in excess of that limit without the output being captured, the
- * subprocess blocks waiting for the pipe buffer to accept more data. This is
+ * subprocess blocks, waiting for the pipe buffer to accept more data. This is
  * identical to the behavior of pipes in the shell. Use the `{ stdio: 'ignore' }` option if the output will not be consumed.
  *
  * The command lookup is performed using the `options.env.PATH` environment
