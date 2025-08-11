@@ -817,8 +817,8 @@ declare namespace PDFKit {
         pdfVersion?: "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3" | undefined;
         autoFirstPage?: boolean | undefined;
         size?: number[] | string | undefined;
-        margin?: number | undefined;
-        margins?: { top: number; left: number; bottom: number; right: number } | undefined;
+        margin?: PDFKit.Mixins.Size | undefined;
+        margins?: PDFKit.Mixins.ExpandedSides<PDFKit.Mixins.Size> | undefined;
         layout?: "portrait" | "landscape" | undefined;
         font?: string | undefined;
 
@@ -939,7 +939,7 @@ declare namespace PDFKit {
     interface PDFPage {
         size: string;
         layout: string;
-        margins: { top: number; left: number; bottom: number; right: number };
+        margins: PDFKit.Mixins.ExpandedSides<number>;
         width: number;
         height: number;
         document: PDFDocument;
