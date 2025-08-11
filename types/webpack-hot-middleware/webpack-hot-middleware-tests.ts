@@ -7,6 +7,7 @@ const compiler = webpack({})!;
 let webpackHotMiddlewareInstance = webpackHotMiddleware(compiler);
 
 webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
+    statsOptions: { cached: false },
     log: console.log.bind(console),
     path: "/__what",
     heartbeat: 2000,
