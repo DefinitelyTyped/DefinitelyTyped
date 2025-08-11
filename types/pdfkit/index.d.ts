@@ -419,12 +419,26 @@ declare namespace PDFKit.Mixins {
     }
 
     interface CellStyle {
+        /** The text stroke (default 0) */
+        textStroke?: number | boolean;
+        /** Sets the text stroke color of the cells text (default black) */
+        textStrokeColor?: ColorValue;
+        /** Sets the text color of the cells text (default black) */
+        textColor?: ColorValue;
         /** The border for the cell (default 1pt) */
         border?: Sides<Wideness>;
         /** The border colors for the cell (default black) */
         borderColor?: Sides<ColorValue>;
         /** Set the background color of the cell */
         backgroundColor?: ColorValue;
+        /** The padding for the cell (default 0.25em) */
+        padding?: Sides<Wideness>;
+        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
+        align?: "center" | ExpandedAlign;
+        /** Sets any text options you wish to provide (such as rotation) */
+        textOptions?: TextOptions;
+        /** Whether to show the debug lines for the cell (default false) */
+        debug?: boolean;
     }
 
     interface TableOptions {
@@ -461,24 +475,10 @@ declare namespace PDFKit.Mixins {
         rowSpan?: number;
         /** How many columns this cell covers, follows the same logic as HTML colspan */
         colSpan?: number;
-        /** The padding for the cell (default 0.25em) */
-        padding?: Sides<Wideness>;
         /** Font options for the cell */
         font?: { src?: PDFFontSource; family?: string; size?: number; };
-        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
-        align?: "center" | ExpandedAlign;
-        /** The text stroke (default 0) */
-        textStroke?: number | boolean;
-        /** Sets the text stroke color of the cells text (default black) */
-        textStrokeColor?: ColorValue;
-        /** Sets the text color of the cells text (default black) */
-        textColor?: ColorValue;
         /** Sets the cell type (for accessibility) (default TD) */
         type?: 'TD' | 'TH';
-        /** Sets any text options you wish to provide (such as rotation) */
-        textOptions?: TextOptions;
-        /** Whether to show the debug lines for the cell (default false) */
-        debug?: boolean;
     }
 
     interface ColumnStyle extends CellStyle {
