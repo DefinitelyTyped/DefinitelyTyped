@@ -344,6 +344,26 @@ declare namespace PDFKit.Mixins {
 
     type BoundingBox = [number, number, number, number];
 
+    type SizeUnits = 'em' | 'in' | 'px' | 'cm' | 'mm' | 'pc' | 'ex' | 'ch' | 'rem' | 'vw' | 'vmin' | 'vmax' | '%' | 'pt';
+
+    type Size = number | `${number}` | `${number}${SizeUnits}`;
+
+    type Wideness = Size | boolean;
+
+    type Sides<T> = T | [T, T] | [T, T, T, T] | SlightlyExpandedSides<T> | ExpandedSides<T>;
+
+    interface SlightlyExpandedSides<T> {
+        vertical: T;
+        horizontal: T;
+    }
+
+    interface ExpandedSides<T> {
+        top: T;
+        right: T;
+        bottom: T;
+        left: T;
+    }
+
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
         strokeColor(color: ColorValue, opacity?: number): this;
@@ -400,19 +420,9 @@ declare namespace PDFKit.Mixins {
 
     interface CellStyle {
         /** The border for the cell (default 1pt) */
-        border?: boolean | number | Array<boolean | number> | {
-            top?: number;
-            right?: number;
-            bottom?: number;
-            left?: number;
-        } | undefined;
+        border?: Sides<Wideness>;
         /** The border colors for the cell (default black) */
-        borderColor?: string | Array<string> | {
-            top?: ColorValue;
-            right?: ColorValue;
-            bottom?: ColorValue;
-            left?: ColorValue;
-        };
+        borderColor?: Sides<ColorValue>;
         /** Set the background color of the cell */
         backgroundColor?: ColorValue;
     }
@@ -452,9 +462,9 @@ declare namespace PDFKit.Mixins {
         /** How many columns this cell covers, follows the same logic as HTML colspan */
         colSpan?: number;
         /** The padding for the cell (default 0.25em) */
-        padding?: string;
+        padding?: Sides<Wideness>;
         /** Font options for the cell */
-        font?: any;
+        font?: { src?: PDFFontSource; family?: string; size?: number; };
         /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
         align?: "center" | ExpandedAlign;
         /** The text stroke (default 0) */
@@ -464,7 +474,7 @@ declare namespace PDFKit.Mixins {
         /** Sets the text color of the cells text (default black) */
         textColor?: ColorValue;
         /** Sets the cell type (for accessibility) (default TD) */
-        type?: string;
+        type?: 'TD' | 'TH';
         /** Sets any text options you wish to provide (such as rotation) */
         textOptions?: TextOptions;
         /** Whether to show the debug lines for the cell (default false) */
