@@ -7,6 +7,7 @@ import {
     ColumnDefinition,
     ColumnDefinitionSorterParams,
     DataTreeModule,
+    FilterModule,
     GroupComponent,
     InputParams,
     JSONRecord,
@@ -26,7 +27,6 @@ import {
     TextAreaParams,
     TooltipModule,
     Validator,
-    FilterModule,
 } from "tabulator-tables";
 
 // tslint:disable:no-object-literal-type-assertion
@@ -1851,4 +1851,4 @@ table.getFilters();
 table.getFilters(true);
 table.getFilters(false);
 // $ExpectType HeaderFilterFunc
-FilterModule.filters[0]
+FilterModule.filters[0];

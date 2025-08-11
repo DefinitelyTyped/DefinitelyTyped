@@ -3440,10 +3440,10 @@ declare class ExportModule extends Module {}
 declare class FilterModule extends Module {
     /**
      * Default filter functions (i.e. '=', '<', 'regex', etc.)
-     **/
+     */
     static filters: {
-	[key: string]: HeaderFilterFunc
-    }
+        [key: string]: HeaderFilterFunc;
+    };
 }
 declare class FormatModule extends Module {}
 declare class FrozenColumnsModule extends Module {}
