@@ -381,6 +381,7 @@ declare namespace PDFKit.Mixins {
         font(src: PDFFontSource, size?: number): this;
         font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
+        sizeToPoint(size: Size, defaultValue?: number, page?: PDFPage, percentageWidth?: number): number;
         currentLineHeight(includeGap?: boolean): number;
         /** Helpful method to give a font an alias, eg: `registerFont('bold', './Roboto.ttf')` */
         registerFont(
