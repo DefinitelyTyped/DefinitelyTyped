@@ -352,6 +352,8 @@ declare namespace PDFKit.Mixins {
 
     type Sides<T> = T | [T, T] | [T, T, T, T] | SlightlyExpandedSides<T> | ExpandedSides<T>;
 
+    type PartialSides<T> = T | [T, T] | [T, T, T, T] | Partial<SlightlyExpandedSides<T>> | Partial<ExpandedSides<T>>;
+
     interface SlightlyExpandedSides<T> {
         vertical: T;
         horizontal: T;
@@ -427,9 +429,9 @@ declare namespace PDFKit.Mixins {
         /** Sets the text color of the cells text (default black) */
         textColor?: ColorValue;
         /** The border for the cell (default 1pt) */
-        border?: Sides<Wideness> | undefined;
+        border?: PartialSides<Wideness> | undefined;
         /** The border colors for the cell (default black) */
-        borderColor?: Sides<ColorValue>;
+        borderColor?: PartialSides<ColorValue>;
         /** Set the background color of the cell */
         backgroundColor?: ColorValue;
         /** The padding for the cell (default 0.25em) */
