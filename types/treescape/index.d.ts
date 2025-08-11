@@ -1,3 +1,9 @@
+export class TreeNode {
+    val: number;
+    left: TreeNode | null;
+    right: TreeNode | null;
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null);
+}
 /**
  * Creates a binary tree from a level-order array (use `null` for empty nodes).
  * @param arr Level-order array representing the tree.
