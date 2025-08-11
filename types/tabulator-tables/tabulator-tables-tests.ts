@@ -26,6 +26,7 @@ import {
     TextAreaParams,
     TooltipModule,
     Validator,
+    FilterModule,
 } from "tabulator-tables";
 
 // tslint:disable:no-object-literal-type-assertion
@@ -397,6 +398,10 @@ let validators: Validator[] = [
 
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
+};
+
+colDef.headerFilterFuncParams = {
+    myParam: "my param",
 };
 
 // Calculation
@@ -1838,3 +1843,12 @@ table = new Tabulator("#test-selectableRowsCheck", {
         { title: "Name", field: "name", headerMenu: headerMenuFunc },
     ],
 });
+
+// Testing FilterModule
+// getFilters can take a boolean or no arguments (it defaults to false)
+table.setFilter("name", "<=", 3);
+table.getFilters();
+table.getFilters(true);
+table.getFilters(false);
+// $ExpectType HeaderFilterFunc
+FilterModule.filters[0]
