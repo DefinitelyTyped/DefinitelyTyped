@@ -427,7 +427,7 @@ declare namespace PDFKit.Mixins {
         /** Sets the text color of the cells text (default black) */
         textColor?: ColorValue;
         /** The border for the cell (default 1pt) */
-        border?: Sides<Wideness>;
+        border?: Sides<Wideness> | undefined;
         /** The border colors for the cell (default black) */
         borderColor?: Sides<ColorValue>;
         /** Set the background color of the cell */
