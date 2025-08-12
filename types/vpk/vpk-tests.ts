@@ -21,12 +21,12 @@ archive.load()
 // $ExpectType string[]
 archive.files
 
-// $ExpectType Buffer | null
+// $ExpectType Buffer<ArrayBufferLike> | null
 archive.getFile('some/file.txt')
 
 // Manual construction of types for testing
 
-const header: VPK.Header = {
+const header: VPK.VPKHeader = {
   version: 2,
   treeLength: 1024,
   unknown1: 0,
@@ -38,7 +38,7 @@ const header: VPK.Header = {
 // $ExpectType VPKHeader
 header
 
-const entry: VPK.DirectoryEntry = {
+const entry: VPK.VPKDirectoryEntry = {
   crc: 123456,
   preloadBytes: 128,
   archiveIndex: 1,
