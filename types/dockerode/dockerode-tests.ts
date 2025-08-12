@@ -80,6 +80,7 @@ async function foo() {
     for (const container of containers) {
         const foo = await docker7.getContainer(container.Id);
         const inspect = await foo.inspect();
+        const healthCheck = inspect.Config.Healthcheck;
     }
 
     const images = await docker5.listImages();
