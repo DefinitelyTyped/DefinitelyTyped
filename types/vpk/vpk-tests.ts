@@ -21,7 +21,7 @@ archive.load()
 // $ExpectType string[]
 archive.files
 
-// $ExpectType Buffer<ArrayBufferLike> | null
+// $ExpectType Buffer | null
 archive.getFile('some/file.txt')
 
 // Manual construction of types for testing
