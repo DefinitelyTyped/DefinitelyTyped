@@ -27,6 +27,14 @@ declare class UniformNode<TValue> extends InputNode<TValue> {
      * @param {string} name - The name of the uniform.
      * @return {UniformNode} A reference to this node.
      */
+    setName(name: string): this;
+    /**
+     * Sets the {@link UniformNode#name} property.
+     *
+     * @deprecated
+     * @param {string} name - The name of the uniform.
+     * @return {UniformNode} A reference to this node.
+     */
     label(name: string): this;
     /**
      * Sets the {@link UniformNode#groupNode} property.
@@ -50,6 +58,7 @@ declare class UniformNode<TValue> extends InputNode<TValue> {
      */
     getUniformHash(builder: NodeBuilder): string;
     onUpdate(callback: (frame: NodeFrame, self: this) => TValue | undefined, updateType: NodeUpdateType): this;
+    getInputType(builder: NodeBuilder): string | null;
     generate(builder: NodeBuilder, output: string | null): string;
 }
 export default UniformNode;

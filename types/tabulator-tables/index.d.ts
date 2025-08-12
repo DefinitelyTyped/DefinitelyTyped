@@ -206,7 +206,7 @@ export interface OptionsPagination {
     paginationMode?: SortMode;
 
     /** Set the number of rows in each page. */
-    paginationSize?: number | undefined;
+    paginationSize?: number | true | undefined;
 
     /**
      * Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
@@ -719,8 +719,8 @@ export interface OptionsColumns {
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
     autoColumns?: boolean | undefined | "full";
     autoColumnsDefinitions?:
-        | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
-        | ColumnDefinition[]
+        | ((columnDefinitions?: ColumnDefinition[]) => Partial<ColumnDefinition>[])
+        | Partial<ColumnDefinition>[]
         | Record<string, Partial<ColumnDefinition>>
         | undefined;
 
@@ -1408,7 +1408,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      */
     headerFilterFunc?:
         | FilterType
-        | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
+        | HeaderFilterFunc
         | undefined;
 
     /** additional parameters object passed to the headerFilterFunc function. */
@@ -2895,7 +2895,7 @@ declare class Tabulator {
     getRowFromPosition: (position: number, activeOnly?: boolean) => RowComponent;
 
     /** You can delete any row in the table using the deleteRow function. */
-    deleteRow: (index: RowLookup | RowLookup[]) => void;
+    deleteRow: (index: RowLookup | RowLookup[]) => Promise<void>;
 
     /**
      * You can add a row to the table using the addRow function.
@@ -3069,7 +3069,7 @@ declare class Tabulator {
     addFilter: FilterFunction;
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
-    getFilters: (includeHeaderFilters: boolean) => Filter[];
+    getFilters: (includeHeaderFilters?: boolean) => Filter[];
 
     /** You can programmatically set the header filter value of a column by calling the setHeaderFilterValue function, This function takes any of the standard column component look up options as its first parameter, with the value for the header filter as the second option. */
     setHeaderFilterValue: (column: ColumnLookup, value: string) => void;
@@ -3138,10 +3138,10 @@ declare class Tabulator {
     setPageToRow: (row: RowLookup) => Promise<void>;
 
     /** You can change the page size at any point by using the setPageSize function. (this setting will be ignored if using remote pagination with the page size set by the server) */
-    setPageSize: (size: number) => void;
+    setPageSize: (size: number | true) => void;
 
     /** To retrieve the number of rows allowed per page you can call the getPageSize function: */
-    getPageSize: () => number;
+    getPageSize: () => number | true;
 
     /** You can change to show the previous page using the previousPage function. */
     previousPage: () => Promise<void>;
@@ -3424,6 +3424,11 @@ declare class Module {
      */
     initialize(): void;
 }
+
+export interface HeaderFilterFunc {
+    (headerValue: any, rowValue: any, rowData: any, filterParams: any): boolean;
+}
+
 declare class AccessorModule extends Module {}
 declare class AjaxModule extends Module {}
 declare class ClipboardModule extends Module {}
@@ -3432,7 +3437,14 @@ declare class DataTreeModule extends Module {}
 declare class DownloadModule extends Module {}
 declare class EditModule extends Module {}
 declare class ExportModule extends Module {}
-declare class FilterModule extends Module {}
+declare class FilterModule extends Module {
+    /**
+     * Default filter functions (i.e. '=', '<', 'regex', etc.)
+     */
+    static filters: {
+        [key: string]: HeaderFilterFunc;
+    };
+}
 declare class FormatModule extends Module {}
 declare class FrozenColumnsModule extends Module {}
 declare class FrozenRowsModule extends Module {}

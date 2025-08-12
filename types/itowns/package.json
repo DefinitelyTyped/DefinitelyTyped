@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/itowns": "workspace:.",
-        "@types/proj4": "*"
+        "proj4": "^2.19.0"
     },
     "owners": [
         {

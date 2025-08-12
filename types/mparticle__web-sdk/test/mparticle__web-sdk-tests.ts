@@ -193,6 +193,39 @@ mParticle.logPageView("pageName", customAttrs);
 mParticle.logPageView("pageName", customAttrs, customFlags);
 mParticle.logPageView("pageName", customAttrs, customFlags, eventOptions);
 
+mParticle.Rokt.selectPlacements({
+    identifier: "mp-test-identifier",
+    attributes: {
+        email: "test@test.com",
+        price: 100,
+        taxes: 6.75,
+        excessbaggage: true,
+        products: ["product1", "product2"],
+        cartItems: [
+            {
+                name: "item",
+                price: 100,
+                quantity: 1,
+            },
+            {
+                name: "item2",
+                price: 200,
+                quantity: 2,
+            },
+        ],
+    },
+});
+
+mParticle.Rokt.hashAttributes({
+    email: "test@test.com",
+});
+
+mParticle.Rokt.setExtensionData({
+    "test-extension": {
+        "test-key": "test-value",
+    },
+});
+
 mParticle.ready(() => {
     console.log("hi");
 });

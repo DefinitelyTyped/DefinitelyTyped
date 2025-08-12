@@ -8,6 +8,7 @@ export interface RapierPhysicsObject {
     world: RAPIER.World;
     addScene: (scene: Object3D) => void;
     addMesh: (mesh: Mesh, mass?: number, restitution?: number) => void;
+    removeMesh: (mesh: Mesh) => void;
     setMeshPosition: (mesh: Mesh, position: Vector, index?: number) => void;
     setMeshVelocity: (mesh: Mesh, velocity: Vector, index?: number) => void;
     addHeightfield: (

@@ -334,4 +334,5 @@ function activityTest() {
         // @ts-expect-error -- Unknown mode
         mode="not-a-mode"
     />;
+    <Activity children="peekaboo" name="/" />;
 }

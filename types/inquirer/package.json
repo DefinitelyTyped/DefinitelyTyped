@@ -11,7 +11,7 @@
         "rxjs": "^7.2.0"
     },
     "devDependencies": {
-        "@types/chalk-pipe": "*",
+        "@types/chalk-pipe": "<5",
         "@types/inquirer": "workspace:.",
         "@types/node": "*"
     },

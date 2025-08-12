@@ -6,6 +6,8 @@ type _CountQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").CountQueuingStrategy;
 type _DecompressionStream = typeof globalThis extends { onmessage: any; ReportingObserver: any } ? {}
     : import("stream/web").DecompressionStream;
+type _QueuingStrategy<T = any> = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").QueuingStrategy<T>;
 type _ReadableByteStreamController = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ReadableByteStreamController;
 type _ReadableStream<R = any> = typeof globalThis extends { onmessage: any } ? {}
@@ -143,6 +145,9 @@ declare module "stream/web" {
     interface TransformerTransformCallback<I, O> {
         (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
     }
+    interface TransformerCancelCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
     interface UnderlyingByteSource {
         autoAllocateChunkSize?: number;
         cancel?: ReadableStreamErrorCallback;
@@ -261,6 +266,7 @@ declare module "stream/web" {
         readableType?: undefined;
         start?: TransformerStartCallback<O>;
         transform?: TransformerTransformCallback<I, O>;
+        cancel?: TransformerCancelCallback;
         writableType?: undefined;
     }
     interface TransformStream<I = any, O = any> {
@@ -482,6 +488,8 @@ declare module "stream/web" {
                     new(format: "deflate" | "deflate-raw" | "gzip"): T;
                 }
             : typeof import("stream/web").DecompressionStream;
+
+        interface QueuingStrategy<T = any> extends _QueuingStrategy<T> {}
 
         interface ReadableByteStreamController extends _ReadableByteStreamController {}
         /**

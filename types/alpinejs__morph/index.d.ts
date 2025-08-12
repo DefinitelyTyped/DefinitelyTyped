@@ -54,7 +54,7 @@ interface MorphOptions {
     lookahead: boolean;
 }
 
-type Morph = (from: Node, to: string | Node, options: Partial<MorphOptions>) => void;
+type Morph = (from: Node, to: string | Node, options?: Partial<MorphOptions>) => void;
 
 export const morph: Morph;
 

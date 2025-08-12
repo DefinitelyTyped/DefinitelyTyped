@@ -33,22 +33,135 @@ var doc: PDFKit.PDFDocument = new PDFDocument({
     fontLayoutCache: true,
 });
 
+// $ExpectType PDFDocument
+doc.addPage();
+// $ExpectType PDFDocument
+doc.addPage({});
+// $ExpectType PDFDocument
 doc.addPage({
-    margin: 50,
-});
-
-doc.addPage({
-    margins: {
-        top: 50,
-        bottom: 50,
-        left: 72,
-        right: 72,
+    compress: true,
+    info: {
+        Title: "Sample PDF",
+        Author: "John Doe",
+        Subject: "Testing",
+        Keywords: "typescript, pdf, test",
     },
+    userPassword: "user123",
+    ownerPassword: "owner456",
+    permissions: {
+        printing: "highResolution",
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: false,
+        contentAccessibility: true,
+        documentAssembly: false,
+    },
+    pdfVersion: "1.7",
+    autoFirstPage: false,
+    size: [595.28, 841.89],
+    margin: 10,
+    margins: { top: 20, left: 20, bottom: 20, right: 20 },
+    layout: "portrait",
+    font: "Helvetica",
+    bufferPages: true,
+    tagged: true,
+    lang: "en-US",
+    displayTitle: true,
+    subset: "PDF/A-1",
+    fontLayoutCache: false,
 });
 
-doc.addPage({
-    layout: "landscape",
+// $ExpectType PDFDocument
+doc.continueOnNewPage();
+// $ExpectType PDFDocument
+doc.continueOnNewPage({});
+// $ExpectType PDFDocument
+doc.continueOnNewPage({
+    compress: true,
+    info: {
+        Title: "Sample PDF",
+        Author: "John Doe",
+        Subject: "Testing",
+        Keywords: "typescript, pdf, test",
+    },
+    userPassword: "user123",
+    ownerPassword: "owner456",
+    permissions: {
+        printing: "highResolution",
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: false,
+        contentAccessibility: true,
+        documentAssembly: false,
+    },
+    pdfVersion: "1.7",
+    autoFirstPage: false,
+    size: [595.28, 841.89],
+    margin: 10,
+    margins: { top: 20, left: 20, bottom: 20, right: 20 },
+    layout: "portrait",
+    font: "Helvetica",
+    bufferPages: true,
+    tagged: true,
+    lang: "en-US",
+    displayTitle: true,
+    subset: "PDF/A-1",
+    fontLayoutCache: false,
 });
+
+// $ExpectType { start: number; count: number; }
+doc.bufferedPageRange();
+
+// $ExpectType PDFPage
+doc.switchToPage();
+// $ExpectType PDFPage
+doc.switchToPage(2);
+
+// $ExpectType void
+doc.flushPages();
+
+// $ExpectType void
+doc.addNamedDestination("name");
+// $ExpectType void
+doc.addNamedDestination("name", "Fit");
+// $ExpectType void
+doc.addNamedDestination("name", "FitB");
+// $ExpectType void
+doc.addNamedDestination("name", "FitBH", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitBV", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitH", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitR", 10, 20, 30, 40);
+// $ExpectType void
+doc.addNamedDestination("name", "FitV", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "XYZ", 10, 20, 30);
+// Test the "default" overload
+// $ExpectType void
+doc.addNamedDestination("name", Math.random() < 0.5 ? "XYZ" : "Fit", 10, 20);
+
+declare let ref: PDFKit.PDFKitReference;
+// $ExpectType void
+doc.addNamedEmbeddedFile("name", ref);
+
+// $ExpectType void
+doc.addNamedJavaScript("name", "let it = 'some js script';");
+
+// $ExpectType PDFKitReference
+doc.ref({});
+
+// $ExpectType PDFDocument
+doc.addContent({});
+
+// $ExpectType void
+doc.end();
+
+// $ExpectType string
+doc.toString();
 
 doc.info.Title = "Sample";
 doc.info.Author = "kila Mogrosso";
@@ -436,6 +549,17 @@ doc.text("before")
     })
     .text("after");
 
+doc.table({
+    data: [
+        [
+            {
+                align: { x: "center", y: "bottom" },
+                text: "test",
+            },
+        ],
+    ],
+});
+
 doc.text("Scale", { align: "justify" });
 
 doc.text("Baseline - string literal", { baseline: "alphabetic" });
@@ -588,3 +712,13 @@ const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
 
 // Test outlines
 doc.outline.addItem("A");
+
+// $ExpectType TextBounds
+doc.boundsOfString("Bounds of string", 50, 100, {
+    align: "left",
+});
+
+// $ExpectType TextBounds
+doc.boundsOfString("Bounds of string", {
+    align: "left",
+});

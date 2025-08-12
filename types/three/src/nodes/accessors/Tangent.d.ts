@@ -8,5 +8,3 @@ export const tangentGeometry: ShaderNodeObject<AttributeNode>;
 export const tangentLocal: ShaderNodeObject<VaryingNode>;
 export const tangentView: ShaderNodeObject<MathNode>;
 export const tangentWorld: ShaderNodeObject<MathNode>;
-export const transformedTangentView: ShaderNodeObject<VarNode>;
-export const transformedTangentWorld: ShaderNodeObject<MathNode>;

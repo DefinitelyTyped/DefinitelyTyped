@@ -19,6 +19,7 @@ import {
     CodeConversion,
     ContentDesign,
     Dashboard,
+    Design,
     DoctorPatient,
     Download_01,
     Export_01,
@@ -30,6 +31,7 @@ import {
     MachineLearningModel,
     MagicWand,
     MovingDolly,
+    NoLiquids,
     RedHatApplications,
     ShanghaiSkyline,
     SolarField,
@@ -85,3 +87,5 @@ import * as React from "react";
 <Agile />; // $ExpectType Element
 <AgileCoaching />; // $ExpectType Element
 <CodeConversion />; // $ExpectType Element
+<NoLiquids />; // $ExpectType Element
+<Design />; // $ExpectType Element
