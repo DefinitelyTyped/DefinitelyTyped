@@ -664,6 +664,8 @@ export interface IdentityApiData {
     userIdentities: UserIdentities;
 }
 
+export type IdentityApiMethods = "identify" | "login" | "logout" | "modify";
+
 export interface Callback {
     (): void;
 }

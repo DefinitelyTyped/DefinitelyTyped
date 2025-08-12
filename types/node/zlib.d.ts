@@ -147,6 +147,10 @@ declare module "zlib" {
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
+        info?: boolean | undefined;
     }
     interface ZstdOptions {
         /**
@@ -172,6 +176,10 @@ declare module "zlib" {
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
+        info?: boolean | undefined;
     }
     interface Zlib {
         readonly bytesWritten: number;
@@ -610,8 +618,6 @@ declare module "zlib" {
     const Z_FINISH: number;
     /** @deprecated Use `constants.Z_BLOCK` */
     const Z_BLOCK: number;
-    /** @deprecated Use `constants.Z_TREES` */
-    const Z_TREES: number;
     // Return codes for the compression/decompression functions.
     // Negative values are errors, positive values are used for special but normal events.
     /** @deprecated Use `constants.Z_OK` */

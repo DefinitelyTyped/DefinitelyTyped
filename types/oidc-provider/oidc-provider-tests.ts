@@ -8,6 +8,8 @@ import * as oidc from "oidc-provider";
 
 oidc.errors.AccessDenied.name;
 
+Provider.ctx;
+
 new oidc.Provider("https://op.example.com");
 new Provider("https://op.example.com");
 

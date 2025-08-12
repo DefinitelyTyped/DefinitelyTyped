@@ -210,6 +210,7 @@ export class ShaderNode<T = {}, R extends Node = Node> {
 }
 
 export function nodeObject<T extends NodeObjectOption>(obj: T): NodeObject<T>;
+export function nodeObjectIntent<T extends NodeObjectOption>(obj: T): NodeObject<T>;
 export function nodeObjects<T>(obj: T): NodeObjects<T>;
 
 export function nodeArray<T extends NodeObjectOption[]>(obj: readonly [...T]): NodeArray<T>;
@@ -233,6 +234,21 @@ export function nodeImmutable<T>(
     nodeClass: T,
     ...params: ProxiedTuple<GetConstructors<T>>
 ): ShaderNodeObject<ConstructedNode<T>>;
+
+export function nodeProxyIntent<T>(
+    nodeClass: T,
+): (...params: ProxiedTuple<GetConstructors<T>>) => ShaderNodeObject<ConstructedNode<T>>;
+
+export function nodeProxyIntent<T, S extends GetPossibleScopes<T>>(
+    nodeClass: T,
+    scope: S,
+): (...params: ProxiedTuple<RemoveTail<GetConstructorsByScope<T, S>>>) => ShaderNodeObject<ConstructedNode<T>>;
+
+export function nodeProxyIntent<T, S extends GetPossibleScopes<T>>(
+    nodeClass: T,
+    scope: S,
+    factor: NodeObjectOption,
+): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => ShaderNodeObject<ConstructedNode<T>>;
 
 interface Layout {
     name: string;

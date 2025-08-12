@@ -92,6 +92,115 @@ declare namespace TelegramBot {
 
     type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
+    interface LinkPreviewOptions {
+        is_disabled?: boolean;
+        url?: string;
+        prefer_small_media?: boolean;
+        prefer_large_media?: boolean;
+        show_above_text?: boolean;
+    }
+
+    type ReactionType = ReactionTypeEmoji | ReactionTypeCustomEmoji;
+
+    interface AbstractReactionType {
+        type: string;
+    }
+
+    type TelegramEmoji =
+        | "👍"
+        | "👎"
+        | "❤"
+        | "🔥"
+        | "🥰"
+        | "👏"
+        | "😁"
+        | "🤔"
+        | "🤯"
+        | "😱"
+        | "🤬"
+        | "😢"
+        | "🎉"
+        | "🤩"
+        | "🤮"
+        | "💩"
+        | "🙏"
+        | "👌"
+        | "🕊"
+        | "🤡"
+        | "🥱"
+        | "🥴"
+        | "😍"
+        | "🐳"
+        | "❤‍🔥"
+        | "🌚"
+        | "🌭"
+        | "💯"
+        | "🤣"
+        | "⚡"
+        | "🍌"
+        | "🏆"
+        | "💔"
+        | "🤨"
+        | "😐"
+        | "🍓"
+        | "🍾"
+        | "💋"
+        | "🖕"
+        | "😈"
+        | "😴"
+        | "😭"
+        | "🤓"
+        | "👻"
+        | "👨‍💻"
+        | "👀"
+        | "🎃"
+        | "🙈"
+        | "😇"
+        | "😨"
+        | "🤝"
+        | "✍"
+        | "🤗"
+        | "🫡"
+        | "🎅"
+        | "🎄"
+        | "☃"
+        | "💅"
+        | "🤪"
+        | "🗿"
+        | "🆒"
+        | "💘"
+        | "🙉"
+        | "🦄"
+        | "😘"
+        | "💊"
+        | "🙊"
+        | "😎"
+        | "👾"
+        | "🤷‍♂"
+        | "🤷"
+        | "🤷‍♀"
+        | "😡";
+
+    interface ReactionTypeEmoji extends AbstractReactionType {
+        type: "emoji";
+        emoji: TelegramEmoji;
+    }
+
+    interface ReactionTypeCustomEmoji extends AbstractReactionType {
+        type: "custom_emoji";
+        custom_emoji_id: string;
+    }
+
+    interface ReplyParameters {
+        message_id: number;
+        chat_id?: ChatId;
+        allow_sending_without_reply?: boolean;
+        quote?: string;
+        quote_parse_mode?: ParseMode;
+        quote_entities?: MessageEntity[];
+        quote_position?: number;
+    }
+
     /// METHODS OPTIONS ///
     interface PollingOptions {
         interval?: string | number | undefined;
@@ -150,7 +259,9 @@ declare namespace TelegramBot {
         reply_to_message_id?: number | undefined;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply | undefined;
         protect_content?: boolean | undefined;
+        reply_parameters?: ReplyParameters;
         allow_sending_without_reply?: boolean | undefined;
+        link_preview_options?: LinkPreviewOptions;
     }
 
     interface SendMessageOptions extends SendBasicOptions {
@@ -1726,6 +1837,15 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         action: TelegramBot.ChatAction,
         options?: TelegramBot.SendChatActionOptions,
+    ): Promise<boolean>;
+
+    setMessageReaction(
+        chatId: TelegramBot.ChatId,
+        messageId: number,
+        form: {
+            reaction?: TelegramBot.ReactionType[];
+            is_big?: boolean;
+        },
     ): Promise<boolean>;
 
     banChatMember(

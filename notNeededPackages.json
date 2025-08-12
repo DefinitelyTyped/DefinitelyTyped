@@ -480,6 +480,10 @@
             "libraryName": "bin-version",
             "asOfVersion": "3.1.0"
         },
+        "binary-parser": {
+            "libraryName": "binary-parser",
+            "asOfVersion": "1.8.0"
+        },
         "binaryextensions": {
             "libraryName": "binaryextensions",
             "asOfVersion": "4.0.0"
@@ -555,6 +559,10 @@
         "bs58": {
             "libraryName": "bs58",
             "asOfVersion": "5.0.0"
+        },
+        "bs58check": {
+            "libraryName": "bs58check",
+            "asOfVersion": "3.0.1"
         },
         "bson": {
             "libraryName": "bson",
@@ -699,6 +707,10 @@
         "chalk": {
             "libraryName": "chalk",
             "asOfVersion": "2.2.0"
+        },
+        "chalk-pipe": {
+            "libraryName": "chalk-pipe",
+            "asOfVersion": "5.1.1"
         },
         "change-case": {
             "libraryName": "change-case",
@@ -1076,6 +1088,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "colorbrewer": {
+            "libraryName": "colorbrewer",
+            "asOfVersion": "1.6.0"
+        },
         "colors": {
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
@@ -1163,6 +1179,10 @@
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
+        },
+        "contract-proxy-kit": {
+            "libraryName": "contract-proxy-kit",
+            "asOfVersion": "2.0.0"
         },
         "conventional-changelog-preset-loader": {
             "libraryName": "conventional-changelog-preset-loader",
@@ -1889,6 +1909,10 @@
             "libraryName": "error-stack-parser",
             "asOfVersion": "2.0.0"
         },
+        "es-feature-detection": {
+            "libraryName": "es-feature-detection",
+            "asOfVersion": "3.0.0"
+        },
         "es-module-lexer": {
             "libraryName": "es-module-lexer",
             "asOfVersion": "0.4.1"
@@ -1932,6 +1956,10 @@
         "esm-utils": {
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
+        },
+        "eth-sig-util": {
+            "libraryName": "eth-sig-util",
+            "asOfVersion": "2.5.3"
         },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
@@ -3445,6 +3473,10 @@
             "libraryName": "json-rules-engine",
             "asOfVersion": "4.1.0"
         },
+        "json-schema-faker": {
+            "libraryName": "json-schema-faker",
+            "asOfVersion": "0.5.6"
+        },
         "json-schema-traverse": {
             "libraryName": "json-schema-traverse",
             "asOfVersion": "1.0.0"
@@ -3820,6 +3852,10 @@
         "linqsharp": {
             "libraryName": "linqsharp",
             "asOfVersion": "1.0.0"
+        },
+        "lint-staged": {
+            "libraryName": "lint-staged",
+            "asOfVersion": "14.0.0"
         },
         "load-json-file": {
             "libraryName": "load-json-file",
@@ -5202,6 +5238,10 @@
         "phonegap-plugin-push": {
             "libraryName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
+        },
+        "photoswipe": {
+            "libraryName": "photoswipe",
+            "asOfVersion": "5.2.5"
         },
         "php-serialize": {
             "libraryName": "php-serialize",
@@ -7351,6 +7391,10 @@
             "libraryName": "svg-path-bbox",
             "asOfVersion": "1.1.0"
         },
+        "svg-spritemap-webpack-plugin": {
+            "libraryName": "svg-spritemap-webpack-plugin",
+            "asOfVersion": "5.0.0"
+        },
         "svg-tag-names": {
             "libraryName": "svg-tag-names",
             "asOfVersion": "3.0.0"
@@ -7878,6 +7922,10 @@
         "vue-scrollto": {
             "libraryName": "vue-scrollto",
             "asOfVersion": "2.17.1"
+        },
+        "vue3-json-viewer": {
+            "libraryName": "vue3-json-viewer",
+            "asOfVersion": "2.4.0"
         },
         "vuedraggable": {
             "libraryName": "vuedraggable",
