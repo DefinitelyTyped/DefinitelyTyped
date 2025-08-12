@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { test, expect, type Browser } from '@playwright/test'
+import { test, expect, type Browser, BrowserContext } from '@playwright/test'
 
 // $ExpectType Promise<string | null>
 Catchpoint.username('testUsername')
@@ -23,7 +23,7 @@ Catchpoint.setTracepoint('insightToken', 'insightValue');
 Catchpoint.setIndicator('insightToken', 'insightValue');
 
 // $ExpectType void
-test('unsupported methods', async({ page }) => {
+test('unsupported methods', async({ page, browser }) => {
 
     // eslint-disable-next-line no-restricted-properties
     page.addInitScript('console.log("Test Init Script")');
@@ -52,5 +52,15 @@ test('unsupported methods', async({ page }) => {
     // eslint-disable-next-line no-restricted-properties
     page.workers();
 
+    // eslint-disable-next-line no-restricted-properties
+    page.context();
+
+    // eslint-disable-next-line no-restricted-properties
+    browser.newContext();
+
+    // eslint-disable-next-line no-restricted-properties
+    expect(page.context() as BrowserContext).toBeDefined();
+
+    // eslint-disable-next-line no-restricted-properties
     expect(page.context().browser() as Browser).toBeDefined();
 });

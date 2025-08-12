@@ -1,7 +1,4 @@
 {
-    "extends": [
-        "plugin:playwright/recommended"
-    ],
     "rules": {
         "no-restricted-imports": [
             "error",
@@ -65,6 +62,16 @@
             {
                 "object": "page",
                 "property": "workers",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "page",
+                "property": "context",
+                "message": "Not supported in Catchpoint tests."
+            },
+            {
+                "object": "browser",
+                "property": "newContext",
                 "message": "Not supported in Catchpoint tests."
             }
         ]
