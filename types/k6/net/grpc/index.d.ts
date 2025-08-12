@@ -119,8 +119,6 @@ export interface HealthCheckResponse {
     Status: HealthCheckStatus;
 }
 
-
-
 /**
  * gRPC client to interact with a gRPC server.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-net-grpc/client/
@@ -148,10 +146,10 @@ export class Client {
     /** Close the connection. */
     close(): void;
 
-    /** 
+    /**
      * Performs a health check on the gRPC service.
      * Uses the standard gRPC Health Checking Protocol.
-     * 
+     *
      * @param service - Optional service name to check. If not provided, checks overall server health.
      * @returns The health check response
      */

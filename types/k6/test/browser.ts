@@ -674,91 +674,91 @@ async function test() {
     page.press(selector, "a", { timeout: 10000 });
 
     // $ExpectType Locator
-    page.getByRole('button', { name: 'Sign in' });
+    page.getByRole("button", { name: "Sign in" });
     // $ExpectType Locator
-    page.getByRole('button', { name: /Sign in/i });
+    page.getByRole("button", { name: /Sign in/i });
     // $ExpectType Locator
-    page.getByRole('button', { exact: true });
+    page.getByRole("button", { exact: true });
     // $ExpectType Locator
-    page.getByRole('checkbox', { checked: true });
+    page.getByRole("checkbox", { checked: true });
     // $ExpectType Locator
-    page.getByRole('checkbox', { disabled: true });
+    page.getByRole("checkbox", { disabled: true });
     // $ExpectType Locator
-    page.getByRole('checkbox', { expanded: true });
+    page.getByRole("checkbox", { expanded: true });
     // $ExpectType Locator
-    page.getByRole('checkbox', { includeHidden: true });
+    page.getByRole("checkbox", { includeHidden: true });
     // $ExpectType Locator
-    page.getByRole('heading', { level: 1 });
+    page.getByRole("heading", { level: 1 });
     // $ExpectType Locator
-    page.getByRole('checkbox', { pressed: true });
+    page.getByRole("checkbox", { pressed: true });
     // $ExpectType Locator
-    page.getByRole('checkbox', { selected: true });
+    page.getByRole("checkbox", { selected: true });
     // @ts-expect-error
-    page.getByRole('button', { name: 123 });
+    page.getByRole("button", { name: 123 });
     // @ts-expect-error
-    page.getByRole('invalid-role');
+    page.getByRole("invalid-role");
 
     // $ExpectType Locator
-    page.getByAltText('pizza');
+    page.getByAltText("pizza");
     // $ExpectType Locator
     page.getByAltText(/pizza/i);
     // @ts-expect-error
     page.getByAltText(123);
     // $ExpectType Locator
-    page.getByAltText('pizza', { exact: true });
+    page.getByAltText("pizza", { exact: true });
     // @ts-expect-error
-    page.getByAltText('pizza', { exact: 'true' });
+    page.getByAltText("pizza", { exact: "true" });
 
     // $ExpectType Locator
-    page.getByLabel('Password');
+    page.getByLabel("Password");
     // $ExpectType Locator
     page.getByLabel(/Password/i);
     // @ts-expect-error
     page.getByLabel(123);
     // $ExpectType Locator
-    page.getByLabel('Password', { exact: true });
+    page.getByLabel("Password", { exact: true });
     // @ts-expect-error
-    page.getByLabel('Password', { exact: 'true' });
+    page.getByLabel("Password", { exact: "true" });
 
     // $ExpectType Locator
-    page.getByText('Welcome');
+    page.getByText("Welcome");
     // $ExpectType Locator
     page.getByText(/Welcome/i);
     // @ts-expect-error
     page.getByText(123);
     // $ExpectType Locator
-    page.getByText('Welcome', { exact: true });
+    page.getByText("Welcome", { exact: true });
     // @ts-expect-error
-    page.getByText('Welcome', { exact: 'true' });
+    page.getByText("Welcome", { exact: "true" });
 
     // $ExpectType Locator
-    page.getByTestId('submit-button');
+    page.getByTestId("submit-button");
     // $ExpectType Locator
     page.getByTestId(/submit-button/i);
     // @ts-expect-error
     page.getByTestId(123);
 
     // $ExpectType Locator
-    page.getByTitle('Information box');
+    page.getByTitle("Information box");
     // $ExpectType Locator
     page.getByTitle(/Information box/i);
     // @ts-expect-error
     page.getByTitle(123);
     // $ExpectType Locator
-    page.getByTitle('Information box', { exact: true });
+    page.getByTitle("Information box", { exact: true });
     // @ts-expect-error
-    page.getByTitle('Information box', { exact: 'true' });
+    page.getByTitle("Information box", { exact: "true" });
 
     // $ExpectType Locator
-    page.getByPlaceholder('name@example.com');
+    page.getByPlaceholder("name@example.com");
     // $ExpectType Locator
     page.getByPlaceholder(/name@example.com/i);
     // @ts-expect-error
     page.getByPlaceholder(123);
     // $ExpectType Locator
-    page.getByPlaceholder('name@example.com', { exact: true });
+    page.getByPlaceholder("name@example.com", { exact: true });
     // @ts-expect-error
-    page.getByPlaceholder('name@example.com', { exact: 'true' });
+    page.getByPlaceholder("name@example.com", { exact: "true" });
 
     // $ExpectType Promise<Response | null>
     page.reload();

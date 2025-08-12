@@ -1885,7 +1885,7 @@ export interface Frame {
          * navigation. Note that if the parameter is a string, the method will
          * wait for navigation to URL that is exactly equal to the string.
          */
-        url?: string|RegExp;
+        url?: string | RegExp;
 
         /**
          * When to consider operation succeeded, defaults to `load`. Events can be
@@ -1942,7 +1942,7 @@ export interface Frame {
              * may never fire, rely on web assertions to assess readiness instead.
              */
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
-        }
+        },
     ): Promise<void>;
 
     /**
@@ -2836,7 +2836,7 @@ export interface Page {
      * @example
      * ```js
      * const locator = page.getByRole('button', { name: 'Pizza, Please!' });
-     * 
+     *
      * await locator.click();
      * ```
      *
@@ -2845,7 +2845,87 @@ export interface Page {
      * @returns The locator to the element with the corresponding role.
      */
     getByRole(
-        role: "alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "meter" | "navigation" | "none" | "note" | "option" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem",
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "meter"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
         options?: {
             /**
              * Whether the accessible `options.name` should be checked exactly for equality.
@@ -2895,7 +2975,7 @@ export interface Page {
              * A boolean attribute that can be used to indicate if an element is selected or not.
              */
             selected?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -2921,7 +3001,7 @@ export interface Page {
              * @defaultValue false
              */
             exact?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -2947,7 +3027,7 @@ export interface Page {
              * @defaultValue false
              */
             exact?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -3003,7 +3083,7 @@ export interface Page {
              * @defaultValue false
              */
             exact?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -3051,7 +3131,7 @@ export interface Page {
              * @defaultValue false
              */
             exact?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -3077,7 +3157,7 @@ export interface Page {
              * @defaultValue false
              */
             exact?: boolean;
-        }
+        },
     ): Locator;
 
     /**
@@ -3600,7 +3680,7 @@ export interface Page {
 
     /**
      * Adds a route to the page to modify network requests made by that page.
-     * 
+     *
      * Once routing is enabled, every request matching the url pattern will stall unless it's continued, fulfilled or aborted.
      */
     route(
@@ -4194,7 +4274,7 @@ export interface Page {
          * navigation. Note that if the parameter is a string, the method will
          * wait for navigation to URL that is exactly equal to the string.
          */
-        url?: string|RegExp;
+        url?: string | RegExp;
 
         /**
          * When to consider operation succeeded, defaults to `load`. Events can be
@@ -4251,7 +4331,7 @@ export interface Page {
              * may never fire, rely on web assertions to assess readiness instead.
              */
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
-        }
+        },
     ): Promise<void>;
 
     /**
@@ -4543,7 +4623,7 @@ export interface Response {
 
 /**
  * Route represents a network request intercepted by page.route() function and allows to modify its behavior.
- * 
+ *
  * Once routing is enabled, every request intercepted by a route will stall unless it's continued, fulfilled or aborted.
  * When several routes match the given pattern, they run in the order opposite to their registration.
  * That way the last registered route can always override all the previous ones.
@@ -4551,7 +4631,7 @@ export interface Response {
 export interface Route {
     /**
      * Aborts the request with the given error code.
-     * 
+     *
      * **Usage**
      *
      * ```js
@@ -4560,8 +4640,8 @@ export interface Route {
      *   await route.abort();
      * });
      * ```
-     * 
-     * @param errorCode The error code to abort the request with, can be one of the following: 
+     *
+     * @param errorCode The error code to abort the request with, can be one of the following:
      * 'aborted', 'accessdenied', 'addressunreachable', 'blockedbyclient', 'blockedbyresponse', 'connectionaborted','connectionclosed',
      * 'connectionfailed', 'connectionrefused', 'connectionreset', 'internetdisconnected', 'namenotresolved', 'timedout', 'failed'.
      */
@@ -4583,14 +4663,14 @@ export interface Route {
      *   await route.continue({ headers });
      * });
      * ```
-     * 
+     *
      * @param options Optional overrides for the request.
      */
     continue(options?: {
         /**
          * Optional HTTP headers to override.
          */
-        headers?: { [key: string]: string; };
+        headers?: { [key: string]: string };
         /**
          * Optional method to override the request method (e.g., 'GET', 'POST').
          */
@@ -4607,7 +4687,7 @@ export interface Route {
 
     /**
      * Fulfills the request with the given response.
-     * 
+     *
      * **Usage**
      * ```js
      * // Respond with a custom JSON response
@@ -4619,7 +4699,7 @@ export interface Route {
      *   });
      * });
      * ```
-     * 
+     *
      * @param options The response options to fulfill the request with.
      */
     fulfill(options: {
@@ -4634,11 +4714,11 @@ export interface Route {
         /**
          * Optional HTTP headers to return.
          */
-        headers?: { [key: string]: string; };
+        headers?: { [key: string]: string };
         /**
          * Optional HTTP status code to return. Defaults to `200`.
          */
-        status?: number;        
+        status?: number;
     }): Promise<void>;
 
     /**
