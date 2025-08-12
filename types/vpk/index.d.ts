@@ -30,7 +30,7 @@ declare class VPK {
     isValid(): boolean
     load(): void
     readonly files: string[]
-    getFile(path: string): Buffer | null
+    getFile(path: string): Buffer<ArrayBufferLike> | null
 }
 
 export = VPK
