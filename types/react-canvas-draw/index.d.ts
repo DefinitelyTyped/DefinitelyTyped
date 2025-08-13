@@ -84,25 +84,38 @@ declare namespace CanvasDraw {
 
 declare class CanvasDraw extends React.Component<CanvasDraw.CanvasDrawProps> {
     /**
-     * Returns the drawing's save-data as a stringified object.
+     * @returns the drawing's save-data as a stringified object
      */
     getSaveData(): string;
-
     /**
-     * Loads a previously saved drawing using the saveData string, as well as an optional boolean
-     * flag to load it immediately, instead of live-drawing it.
+     * loads a previously saved drawing using the saveData string, as well as an optional boolean flag to load it immediately, instead of live-drawing it.
      */
     loadSaveData(saveData: string, immediate?: boolean): void;
-
     /**
-     * Clears the canvas completely.
+     * clears the canvas completely, including previously erased lines, and resets the view. After a clear, undo() will have no effect.
      */
     clear(): void;
+    /**
+     * clears the drawn lines but retains their data; calling undo() can restore the erased lines. Note: erased lines are not included in the save data.
+     */
+    eraseAll(): void;
+    /**
+     *  resets the canvas' view to defaults. Has no effect if the enablePanAndZoom property is false.
+     */
+    resetView(): void;
 
     /**
-     * Removes the latest change to the drawing. This includes everything drawn since the last MouseDown event.
+     * removes the latest change to the drawing. This includes everything drawn since the last MouseDown event.
      */
     undo(): void;
+    /**
+     * This function will export the canvas to a data URL, which can subsequently be used to share or manipulate the image file.
+     * @param {string} fileType Specifies the file format to export to. Note: should only be the file type, not the "image/" prefix.
+     *  For supported types see https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL
+     * @param {bool} useBgImage Specifies whether the canvas' current background image should also be exported. Default is false.
+     * @param {string} backgroundColour The desired background colour hex code, e.g. "#ffffff" for white.
+     */
+    getDataURL(fileType?: string, backgroundColor?: string): string;
 }
 
 export = CanvasDraw;
