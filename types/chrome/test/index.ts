@@ -1324,17 +1324,8 @@ function testTtsEngine() {
     });
 }
 
-function testDevtools() {
-    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-        request; // $ExpectType Request
-        console.log("request: ", request);
-    });
-
-    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-        harLog; // $ExpectType HARLog
-        console.log("harLog: ", harLog);
-    });
-
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/recorder
+function testDevtoolsRecorder() {
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
     checkChromeEvent(view.onHidden, () => void 0);
     checkChromeEvent(view.onShown, () => void 0);
@@ -1349,6 +1340,7 @@ function testDevtools() {
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/panels
 function testDevtoolsPanels() {
     const title = "title";
     const iconPath = "iconPath";
@@ -1447,6 +1439,21 @@ function testDevtoolsInspectedWindow() {
 function testDevtoolsPerformance() {
     checkChromeEvent(chrome.devtools.performance.onProfilingStarted, () => void 0);
     checkChromeEvent(chrome.devtools.performance.onProfilingStopped, () => void 0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/network
+function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR((harLog) => {
+        harLog; // $ExpectType Log
+    });
+
+    checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
+        url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
+        request; // $ExpectType Request
+    });
 }
 
 function testAssistiveWindow() {
