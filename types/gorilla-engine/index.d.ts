@@ -175,6 +175,13 @@ declare namespace GorillaEngine {
          */
         setModuleAtPath(path: string, module: string): boolean;
         /**
+         * Method used to replace a module in an instrument in a given path
+         * @param path The path to the module that should be retrieved.
+         * @param module The serialised module to replace as a string
+         */
+        replaceModuleAtPath(path: string, module: string): boolean;
+
+        /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
          * @param path The path to the value that should be determined.
