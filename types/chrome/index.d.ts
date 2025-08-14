@@ -2086,7 +2086,12 @@ declare namespace chrome {
      */
     export namespace cookies {
         /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
-        export type SameSiteStatus = "unspecified" | "no_restriction" | "lax" | "strict";
+        export enum SameSiteStatus {
+            NO_RESTRICTION = "no_restriction",
+            LAX = "lax",
+            STRICT = "strict",
+            UNSPECIFIED = "unspecified",
+        }
 
         /** Represents information about an HTTP cookie. */
         export interface Cookie {
@@ -2107,8 +2112,8 @@ declare namespace chrome {
             session: boolean;
             /** True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie). */
             hostOnly: boolean;
-            /** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.  */
-            expirationDate?: number | undefined;
+            /** The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies. */
+            expirationDate?: number;
             /** The path of the cookie. */
             path: string;
             /** True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts). */
@@ -2119,10 +2124,13 @@ declare namespace chrome {
              * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
              * @since Chrome 51
              */
-            sameSite: SameSiteStatus;
+            sameSite: `${SameSiteStatus}`;
         }
 
-        /** Represents a partitioned cookie's partition key. */
+        /**
+         * Represents a partitioned cookie's partition key.
+         * @since Chrome 119
+         */
         export interface CookiePartitionKey {
             /**
              * Indicates if the cookie was set in a cross-cross site context. This prevents a top-level site embedded in a cross-site context from accessing cookies set by the top-level site in a same-site context.
@@ -2142,31 +2150,31 @@ declare namespace chrome {
         }
 
         export interface GetAllDetails {
-            /** Optional. Restricts the retrieved cookies to those whose domains match or are subdomains of this one.  */
+            /** Restricts the retrieved cookies to those whose domains match or are subdomains of this one. */
             domain?: string | undefined;
-            /** Optional. Filters the cookies by name.  */
+            /** Filters the cookies by name. */
             name?: string | undefined;
             /**
              * The partition key for reading or modifying cookies with the Partitioned attribute.
              * @since Chrome 119
              */
             partitionKey?: CookiePartitionKey | undefined;
-            /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
+            /** Restricts the retrieved cookies to those that would match the given URL. */
             url?: string | undefined;
-            /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
+            /** The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used. */
             storeId?: string | undefined;
-            /** Optional. Filters out session vs. persistent cookies.  */
+            /** Filters out session vs. persistent cookies. */
             session?: boolean | undefined;
-            /** Optional. Restricts the retrieved cookies to those whose path exactly matches this string.  */
+            /** Restricts the retrieved cookies to those whose path exactly matches this string. */
             path?: string | undefined;
-            /** Optional. Filters the cookies by their Secure property.  */
+            /** Filters the cookies by their Secure property. */
             secure?: boolean | undefined;
         }
 
         export interface SetDetails {
-            /** Optional. The domain of the cookie. If omitted, the cookie becomes a host-only cookie.  */
+            /** The domain of the cookie. If omitted, the cookie becomes a host-only cookie. */
             domain?: string | undefined;
-            /** Optional. The name of the cookie. Empty by default if omitted.  */
+            /** The name of the cookie. Empty by default if omitted. */
             name?: string | undefined;
             /**
              * The partition key for reading or modifying cookies with the Partitioned attribute.
@@ -2175,26 +2183,29 @@ declare namespace chrome {
             partitionKey?: CookiePartitionKey | undefined;
             /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
             url: string;
-            /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
+            /** The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store. */
             storeId?: string | undefined;
-            /** Optional. The value of the cookie. Empty by default if omitted.  */
+            /** The value of the cookie. Empty by default if omitted. */
             value?: string | undefined;
-            /** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.  */
+            /** The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie. */
             expirationDate?: number | undefined;
-            /** Optional. The path of the cookie. Defaults to the path portion of the url parameter.  */
+            /** The path of the cookie. Defaults to the path portion of the url parameter. */
             path?: string | undefined;
-            /** Optional. Whether the cookie should be marked as HttpOnly. Defaults to false.  */
+            /** Whether the cookie should be marked as HttpOnly. Defaults to false. */
             httpOnly?: boolean | undefined;
-            /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
+            /** Whether the cookie should be marked as Secure. Defaults to false. */
             secure?: boolean | undefined;
             /**
-             * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
+             * The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
              * @since Chrome 51
              */
-            sameSite?: SameSiteStatus | undefined;
+            sameSite?: `${SameSiteStatus}` | undefined;
         }
 
-        /** Details to identify the cookie. */
+        /**
+         * Details to identify the cookie.
+         * @since Chrome 88
+         */
         export interface CookieDetails {
             /** The name of the cookie to access. */
             name: string;
@@ -2214,11 +2225,8 @@ declare namespace chrome {
             cookie: Cookie;
             /** True if a cookie was removed. */
             removed: boolean;
-            /**
-             * @since Chrome 12
-             * The underlying reason behind the cookie's change.
-             */
-            cause: string;
+            /** The underlying reason behind the cookie's change. */
+            cause: `${OnChangedCause}`;
         }
 
         /**
@@ -2227,30 +2235,37 @@ declare namespace chrome {
          */
         export interface FrameDetails {
             /** The unique identifier for the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID. */
-            documentId?: string;
+            documentId?: string | undefined;
             /** The unique identifier for the frame within the tab. */
-            frameId?: number;
+            frameId?: number | undefined;
             /* The unique identifier for the tab containing the frame. */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
-        export interface CookieChangedEvent extends chrome.events.Event<(changeInfo: CookieChangeInfo) => void> {}
+        /**
+         * The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to "chrome.cookies.remove", "cause" will be "explicit". If a cookie was automatically removed due to expiry, "cause" will be "expired". If a cookie was removed due to being overwritten with an already-expired expiration date, "cause" will be set to "expired_overwrite". If a cookie was automatically removed due to garbage collection, "cause" will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be "overwrite". Plan your response accordingly.
+         * @since Chrome 44
+         */
+        export enum OnChangedCause {
+            EVICTED = "evicted",
+            EXPIRED = "expired",
+            EXPLICIT = "explicit",
+            EXPIRED_OVERWRITE = "expired_overwrite",
+            OVERWRITE = "overwrite",
+        }
 
         /**
          * Lists all existing cookie stores.
-         * Parameter cookieStores: All the existing cookie stores.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          */
+        export function getAllCookieStores(): Promise<CookieStore[]>;
         export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
 
         /**
-         * Lists all existing cookie stores.
-         * @return The `getAllCookieStores` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getAllCookieStores(): Promise<CookieStore[]>;
-
-        /**
          * The partition key for the frame indicated.
-         * Can return its result via Promise in Manifest V3
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 132
          */
         export function getPartitionKey(details: FrameDetails): Promise<{ partitionKey: CookiePartitionKey }>;
@@ -2260,62 +2275,41 @@ declare namespace chrome {
         ): void;
 
         /**
-         * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
-         * @param details Information to filter the cookies being retrieved.
-         * Parameter cookies: All the existing, unexpired cookies that match the given cookie info.
+         * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first. This method only retrieves cookies for domains that the extension has host permissions to
+         * @param details Information to identify the cookie to remove.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          */
+        export function getAll(details: GetAllDetails): Promise<Cookie[]>;
         export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
 
         /**
-         * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
-         * @param details Information to filter the cookies being retrieved.
-         * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getAll(details: GetAllDetails): Promise<Cookie[]>;
-
-        /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
          * @param details Details about the cookie being set.
-         * @return The `set` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          */
         export function set(details: SetDetails): Promise<Cookie | null>;
-
-        /**
-         * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
-         * @param details Details about the cookie being set.
-         * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
-         */
         export function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
 
         /**
          * Deletes a cookie by name.
-         * @param details Information to identify the cookie to remove.
-         * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          */
         export function remove(details: CookieDetails): Promise<CookieDetails>;
-
-        /**
-         * Deletes a cookie by name.
-         * @param details Information to identify the cookie to remove.
-         */
         export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
 
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
-         * @param details Details to identify the cookie being retrieved.
-         * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
-         */
-        export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
-
-        /**
-         * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
-         * @param details Details to identify the cookie being retrieved.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          */
         export function get(details: CookieDetails): Promise<Cookie | null>;
+        export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
 
         /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
-        export var onChanged: CookieChangedEvent;
+        export const onChanged: events.Event<(changeInfo: CookieChangeInfo) => void>;
     }
 
     ////////////////////
@@ -2623,31 +2617,39 @@ declare namespace chrome {
      * Permissions: "desktopCapture"
      */
     export namespace desktopCapture {
-        /** Contains properties that describe the stream. */
+        /** Enum used to define set of desktop media sources used in {@link chooseDesktopMedia}. */
+        export enum DesktopCaptureSourceType {
+            SCREEN = "screen",
+            WINDOW = "window",
+            TAB = "tab",
+            AUDIO = "audio",
+        }
+
+        /**
+         * Contains properties that describe the stream.
+         * @since Chrome 57
+         */
         export interface StreamOptions {
             /** True if "audio" is included in parameter sources, and the end user does not uncheck the "Share audio" checkbox. Otherwise false, and in this case, one should not ask for audio stream through getUserMedia call. */
             canRequestAudioTrack: boolean;
         }
         /**
          * Shows desktop media picker UI with the specified set of sources.
-         * @param sources Set of sources that should be shown to the user.
-         * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
+         * @param sources Set of sources that should be shown to the user. The sources order in the set decides the tab order in the picker.
+         * @param targetTab Optional tab for which the stream is created. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches `tab.url`. The tab's origin must be a secure origin, e.g. HTTPS.
+         * @param callback streamId: An opaque string that can be passed to `getUserMedia()` API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty `streamId`. The created `streamId` can be used only once and expires after a few seconds when it is not used.
+         * @return An id that can be passed to cancelChooseDesktopMedia() in case the prompt need to be canceled.
          */
         export function chooseDesktopMedia(
-            sources: string[],
+            sources: `${DesktopCaptureSourceType}`[],
             callback: (streamId: string, options: StreamOptions) => void,
         ): number;
-        /**
-         * Shows desktop media picker UI with the specified set of sources.
-         * @param sources Set of sources that should be shown to the user.
-         * @param targetTab Optional tab for which the stream is created. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches tab.url.
-         * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
-         */
         export function chooseDesktopMedia(
-            sources: string[],
-            targetTab: chrome.tabs.Tab,
+            sources: `${DesktopCaptureSourceType}`[],
+            targetTab: tabs.Tab | undefined,
             callback: (streamId: string, options: StreamOptions) => void,
         ): number;
+
         /**
          * Hides desktop media picker dialog shown by chooseDesktopMedia().
          * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
@@ -4260,6 +4262,24 @@ declare namespace chrome {
          */
         export function getHardwarePlatformInfo(): Promise<HardwarePlatformInfo>;
         export function getHardwarePlatformInfo(callback: (info: HardwarePlatformInfo) => void): void;
+    }
+
+    ////////////////////
+    // Enterprise Login
+    ////////////////////
+    /**
+     * Use the `chrome.enterprise.login` API to exit Managed Guest sessions. Note: This API is only available to extensions installed by enterprise policy in ChromeOS Managed Guest sessions.
+     *
+     * Permissions: "enterprise.login"
+     *
+     * Note: Only available to policy installed extensions.
+     * @platform ChromeOS only
+     * @since Chrome 139
+     */
+    export namespace enterprise.login {
+        /** Exits the current managed guest session. */
+        export function exitCurrentManagedGuestSession(): Promise<void>;
+        export function exitCurrentManagedGuestSession(callback: () => void): void;
     }
 
     ////////////////////
@@ -8571,6 +8591,8 @@ declare namespace chrome {
             MIPS = "mips",
             /** Specifies the processer architecture as mips64. */
             MIPS64 = "mips64",
+            /** Specifies the processer architecture as riscv64. */
+            RISCV64 = "riscv64",
         }
 
         /**
@@ -8737,7 +8759,7 @@ declare namespace chrome {
             /** The machine's processor architecture. */
             arch: `${PlatformArch}`;
             /** The native client architecture. This may be different from arch on some platforms. */
-            nacl_arch: `${PlatformNaclArch}`;
+            nacl_arch?: `${PlatformNaclArch}`;
         }
 
         /** An object which allows two way communication with other pages. */
@@ -8826,6 +8848,7 @@ declare namespace chrome {
             | "downloads.ui"
             | "enterprise.deviceAttributes"
             | "enterprise.hardwarePlatform"
+            | "enterprise.login"
             | "enterprise.networkingAttributes"
             | "enterprise.platformKeys"
             | "experimental"
