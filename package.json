@@ -46,6 +46,7 @@
         "remark-gfm": "^4.0.0",
         "remark-validate-links": "^13.0.0",
         "typedoc": "^0.28.5",
+        "typedoc-plugin-markdown": "^4.8.1",
         "typescript": "next"
     },
     "type": "module"
