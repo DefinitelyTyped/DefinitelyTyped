@@ -1,12 +1,12 @@
 import { Linter } from "eslint";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
-const flatConfigs: Linter.FlatConfig[] = [
+const flatConfigs: Linter.Config[] = [
     jsxA11y.flatConfigs.recommended,
     jsxA11y.flatConfigs.strict,
 ];
 
-const ownFlatConfig: Linter.FlatConfig = {
+const ownFlatConfig: Linter.Config = {
     plugins: { jsxA11y },
     rules: {
         "jsx-a11y/anchor-has-content": "error",

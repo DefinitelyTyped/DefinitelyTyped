@@ -12,6 +12,6 @@ export interface Box {
     max: Common.Point2D;
     valid: boolean;
     width: number;
-    heigh: number;
+    height: number;
     expandByPoint(point: UtilVertex): void;
 }

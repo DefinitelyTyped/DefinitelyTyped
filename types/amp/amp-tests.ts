@@ -1,9 +1,9 @@
 import { decode, encode, Stream } from "amp";
 
-// $ExpectType Buffer[]
+// $ExpectType Buffer[] || Buffer<ArrayBufferLike>[]
 decode(new Buffer("something"));
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 encode([new Buffer("something"), new Buffer("something")]);
 
 // @ts-expect-error

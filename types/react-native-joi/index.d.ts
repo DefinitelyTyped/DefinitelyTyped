@@ -870,7 +870,7 @@ export interface ObjectSchema extends AnySchema {
      * @param constructor - the constructor function that the object must be an instance of.
      * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     type(constructor: Function, name?: string): this;
 
     /**

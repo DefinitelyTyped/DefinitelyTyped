@@ -398,7 +398,7 @@ const afterResponseFn: AfterResponseFn = (requestConfig, response, context, ee, 
     requestConfig.json; // $ExpectType Record<string, any> | undefined
     requestConfig.form; // $ExpectType Record<string, any> | undefined
     requestConfig.https; // $ExpectType HTTPSOptions | undefined
-    requestConfig.body; // $ExpectType string | Buffer | Readable | undefined || string | Readable | Buffer | undefined
+    requestConfig.body; // $ExpectType string | Buffer | Readable | undefined || string | Readable | Buffer | undefined || string | Readable | Buffer<ArrayBufferLike> | undefined
     requestConfig.followRedirect; // $ExpectType boolean | undefined
     requestConfig.foo; // $ExpectType unknown
 

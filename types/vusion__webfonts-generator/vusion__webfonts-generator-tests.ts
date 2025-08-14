@@ -23,13 +23,13 @@ webfontsGenerator({
 }, (err, res) => {
     // $ExpectType Error | undefined
     const _err = err;
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const eot = res.eot;
     // $ExpectType string
     const svg = res.svg;
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const woff = res.woff;
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const woff2 = res.woff2;
     // @ts-expect-error
     const ttf = res.ttf;

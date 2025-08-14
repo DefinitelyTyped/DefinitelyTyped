@@ -11,16 +11,16 @@ const message = new Message([new Buffer("aaa"), new Buffer("bbb")]);
 // $ExpectType string
 message.inspect();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 message.toBuffer();
 
 // $ExpectType number
 message.push(new Buffer("ccc"));
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | undefined || Buffer<ArrayBufferLike> | undefined
 message.pop();
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | undefined || Buffer<ArrayBufferLike> | undefined
 message.shift();
 
 // $ExpectType number

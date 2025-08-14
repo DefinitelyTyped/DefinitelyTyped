@@ -1,6 +1,7 @@
 import * as moment from "moment";
 import * as React from "react";
 import { Props as ReactOutsideClickHandlerProps } from "react-outside-click-handler";
+import * as constants from "./constants";
 
 // UTILITY TYPES
 export type RenderMonthProps =
@@ -24,13 +25,17 @@ export type RenderMonthProps =
 // SHAPES
 //
 // shapes/AnchorDirectionShape.js
-export type AnchorDirectionShape = "left" | "right";
+export type AnchorDirectionShape = typeof constants.ANCHOR_LEFT | typeof constants.ANCHOR_RIGHT;
 
 // shapes/CalendarInfoPositionShape.js
-export type CalendarInfoPositionShape = "top" | "bottom" | "before" | "after";
+export type CalendarInfoPositionShape =
+    | typeof constants.INFO_POSITION_TOP
+    | typeof constants.INFO_POSITION_BOTTOM
+    | typeof constants.INFO_POSITION_BEFORE
+    | typeof constants.INFO_POSITION_AFTER;
 
 // shapes/NavPositionShape.js
-export type NavPositionShape = "navPositionTop" | "navPositionBottom";
+export type NavPositionShape = typeof constants.NAV_POSITION_TOP | typeof constants.NAV_POSITION_BOTTOM;
 
 // shapes/DateRangePickerShape.js
 export type DateRangePickerShape = RenderMonthProps & {
@@ -146,25 +151,28 @@ export const DateRangePickerShape: DateRangePickerShape;
 export type DayOfWeekShape = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 // shapes/DisabledShape.js
-export type DisabledShape = boolean | "startDate" | "endDate";
+export type DisabledShape = boolean | typeof constants.START_DATE | typeof constants.END_DATE;
 
 // shapes/FocusedInputShape.js
-export type FocusedInputShape = "startDate" | "endDate";
+export type FocusedInputShape = typeof constants.START_DATE | typeof constants.END_DATE;
 
 // shapes/IconPositionShape.js
-export type IconPositionShape = "before" | "after";
+export type IconPositionShape = typeof constants.ICON_BEFORE_POSITION | typeof constants.ICON_AFTER_POSITION;
 
 // shapes/ModifiersShape.js
 export type ModifiersShape = Set<string>;
 
 // shapes/OpenDirectionShape.js
-export type OpenDirectionShape = "down" | "up";
+export type OpenDirectionShape = typeof constants.OPEN_DOWN | typeof constants.OPEN_UP;
 
 // shapes/OrientationShape.js
-export type OrientationShape = "horizontal" | "vertical";
+export type OrientationShape = typeof constants.HORIZONTAL_ORIENTATION | typeof constants.VERTICAL_ORIENTATION;
 
 // shapes/ScrollableOrientationShape.js
-export type ScrollableOrientationShape = "horizontal" | "vertical" | "verticalScrollable";
+export type ScrollableOrientationShape =
+    | typeof constants.HORIZONTAL_ORIENTATION
+    | typeof constants.VERTICAL_ORIENTATION
+    | typeof constants.VERTICAL_SCROLLABLE;
 
 // shapes/SingleDatePickerShape.js
 export type SingleDatePickerShape = RenderMonthProps & {

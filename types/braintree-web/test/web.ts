@@ -1,4 +1,5 @@
 import * as braintree from "braintree-web";
+import { ApplePayError } from "braintree-web/apple-pay";
 import { HostedFieldsBinPayload } from "braintree-web/hosted-fields";
 
 const version: string = braintree.VERSION;
@@ -79,7 +80,41 @@ braintree.client.create(
             .create({
                 client: clientInstance,
             })
-            .then((googlePayInstance: braintree.GooglePayment) => {
+            .then((googlePayInstance) => {
+                const button = new HTMLButtonElement();
+
+                button.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    const paymentDataRequest = googlePayInstance
+                        .createPaymentDataRequest({
+                            transactionInfo: {
+                                currencyCode: "USD",
+                                totalPriceStatus: "FINAL",
+                                totalPrice: "100.00",
+                            },
+                        });
+
+                    googlePaymentsClient
+                        .loadPaymentData(paymentDataRequest)
+                        .then(paymentData => {
+                            return googlePayInstance.parseResponse(paymentData);
+                        })
+                        .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            console.log("nonce", result.nonce);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                });
+            });
+
+        braintree.googlePayment
+            .create({
+                client: clientInstance,
+                useDeferredClient: true,
+            })
+            .then((googlePayInstance) => {
                 const button = new HTMLButtonElement();
 
                 button.addEventListener("click", event => {
@@ -93,7 +128,7 @@ braintree.client.create(
                                 totalPrice: "100.00",
                             },
                         })
-                        .then((paymentDataRequest: google.payments.api.PaymentDataRequest) => {
+                        .then((paymentDataRequest) => {
                             googlePaymentsClient
                                 .loadPaymentData(paymentDataRequest)
                                 .then(paymentData => {
@@ -240,6 +275,10 @@ braintree.client.create(
                 hostedFieldsInstance.tokenize(
                     {
                         vault: true,
+                        fieldsToTokenize: ["number", "cvv"],
+                        billingAddress: {
+                            postalCode: "12345",
+                        },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {
@@ -461,6 +500,44 @@ braintree.client.create(
                         }
 
                         // Send the tokenizedPayload to your server.
+                        console.log(tokenizedPayload.nonce);
+
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
+                    },
+                );
+            };
+        });
+
+        braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
+            const request = {
+                countryCode: "US",
+                currencyCode: "USD",
+                supportedNetworks: ["visa", "masterCard"],
+                merchantCapabilities: ["supports3DS"],
+                total: { label: "Your Label", amount: "10.00" },
+            };
+
+            // Creates apple pay with version 3
+            const session = new braintree.ApplePaySession(3, request);
+
+            session.onpaymentauthorized = event => {
+                applePayInstance.tokenize(
+                    {
+                        token: event.payment.token,
+                    },
+                    (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
+                        if (err) {
+                            const errorVerion3: ApplePayError = {
+                                code: "unknown",
+                                message: "An error occurred",
+                            };
+
+                            session.completePayment({
+                                status: braintree.ApplePaySession.STATUS_FAILURE,
+                                errors: [errorVerion3],
+                            });
+                            return;
+                        }
                         console.log(tokenizedPayload.nonce);
 
                         session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);

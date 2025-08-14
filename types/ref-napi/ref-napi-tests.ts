@@ -130,7 +130,7 @@ ref.readObject(fooPointer, 0);
 // $ExpectType Object
 ref.readObject(fooPointer, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.ref(buffer);
 // $ExpectType Pointer<Pointer<number>>
 ref.ref(numberPointer);
@@ -140,18 +140,18 @@ ref.refType(typeLike);
 // $ExpectType Type<Pointer<number>>
 ref.refType(ref.types.int);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpret(buffer, number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpret(buffer, number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpret(buffer, number, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpretUntilZeros(buffer, number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpretUntilZeros(buffer, number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref.reinterpretUntilZeros(buffer, number, number);
 
 // $ExpectType void
@@ -189,18 +189,18 @@ ref.writeUInt64LE(buffer, number, int64Like);
 // $ExpectType void
 ref._attach(buffer, jsObject);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpret(buffer, number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpret(buffer, number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpret(buffer, number, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpretUntilZeros(buffer, number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpretUntilZeros(buffer, number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ref._reinterpretUntilZeros(buffer, number, number);
 
 // $ExpectType void
@@ -383,7 +383,7 @@ buffer.hexAddress();
 // $ExpectType boolean
 buffer.isNull();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.ref();
 
 // $ExpectType any
@@ -399,17 +399,17 @@ buffer.readObject(number);
 // $ExpectType void
 buffer.writeObject(jsObject, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer();
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer(undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer(undefined, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer(number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer(number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.readPointer(number, number);
 
 // $ExpectType void
@@ -469,18 +469,18 @@ buffer.readUInt64LE(number);
 // $ExpectType void
 buffer.writeUInt64LE(int64Like, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpret(number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpret(number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpret(number, number);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpretUntilZeros(number);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpretUntilZeros(number, undefined);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 buffer.reinterpretUntilZeros(number, number);
 
 // $ExpectType Type<any> | undefined

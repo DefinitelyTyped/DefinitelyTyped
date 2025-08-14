@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 interface SomeModule {
     someMethod(): void;
 }

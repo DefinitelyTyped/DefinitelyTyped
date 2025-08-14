@@ -12,7 +12,7 @@ get.concat("http://example.com", (err, res, data) => {
     err;
     // $ExpectType IncomingMessage | undefined
     res;
-    // $ExpectType object | Buffer | undefined
+    // $ExpectType object | Buffer | undefined || object | Buffer<ArrayBufferLike> | undefined
     data;
 });
 

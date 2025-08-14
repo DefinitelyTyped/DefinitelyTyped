@@ -48,7 +48,7 @@ notifier.addListener("mail", mail => {
     mail.attachments![0].length; // $ExpectType number
     mail.attachments![0].generatedFileName; // $ExpectType string
     mail.attachments![0].checksum; // $ExpectType string
-    mail.attachments![0].content; // $ExpectType Buffer
+    mail.attachments![0].content; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     mail.uid; // $ExpectType number
     mail.flags; // $ExpectType string[]
 });

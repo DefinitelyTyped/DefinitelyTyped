@@ -153,7 +153,7 @@ pmCollection.ItemGroup.isItemGroup(ig); // $ExpectType boolean
 
 // CollectionDefinition Tests
 const colDef: pmCollection.CollectionDefinition = {};
-colDef.info; // $ExpectType { id?: string | undefined; name?: string | undefined; version?: string | undefined; } | undefined
+colDef.info; // $ExpectType { id?: string | undefined; name?: string | undefined; version?: string | undefined; description?: { content?: string | undefined; type?: string | undefined; version?: string | undefined; } | undefined; } | undefined
 colDef.variable; // $ExpectType VariableDefinition[] | undefined
 
 let collection: pmCollection.Collection;
@@ -564,7 +564,7 @@ respDef.code; // $ExpectType number
 respDef.header; // $ExpectType HeaderDefinition[] | undefined
 respDef.cookie; // $ExpectType CookieDefinition[] | undefined
 respDef.body; // $ExpectType string | undefined
-respDef.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
+respDef.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined || Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike> | undefined
 respDef.responseTime; // $ExpectType number
 respDef.originalRequest; // $ExpectType RequestDefinition | undefined
 
@@ -577,7 +577,7 @@ response.headers; // $ExpectType HeaderList
 response.originalRequest; // $ExpectType Request | undefined
 response.responseTime; // $ExpectType number
 response.status; // $ExpectType string
-response.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
+response.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined || Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike> | undefined
 response.responseSize; // $ExpectType number | undefined
 
 response.update(respDef); // $ExpectType void

@@ -68,13 +68,13 @@ export default class UserData {
      * An email address, in lowercase.
      * Example: joe@eg.com
      */
-    get email(): string;
     /**
      * Sets the email address for the user data field.
      * @param email An email address, in lowercase.
      * Example: joe@eg.com
      */
     set email(email: string);
+    get email(): string;
     /**
      * Gets email addresses for the user data field.
      * Email addresses, in lowercase.
@@ -211,14 +211,14 @@ export default class UserData {
      * Gets the last name for the user data.
      * last_name is the last name in lowercase.
      * Example: smith
-     */
-    get last_name(): string;
-    /**
-     * Sets the last name for the user data.
-     * @param last_name is last name in lowercase.
-     * Example: smith
-     */
-    set last_name(last_name: string);
+    */
+   get last_name(): string;
+   /**
+    * Sets the last name for the user data.
+    * @param last_name is last name in lowercase.
+    * Example: smith
+    */
+   set last_name(last_name: string);
     /**
      * Gets the last names for the user data.
      * last_name is the last name in lowercase.

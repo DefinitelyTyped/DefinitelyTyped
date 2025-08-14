@@ -9,6 +9,12 @@ function test_events() {
 
     object.off("change", onChange);
     object.off("change");
+    object.off({
+        change: onChange,
+    });
+    object.off({
+        change: onChange,
+    }, context);
     object.off(null, onChange);
     object.off(null, null, context);
     object.off();
@@ -232,6 +238,12 @@ class Library extends Backbone.Collection<Book> {
     }
 }
 
+class AnotherLibrary extends Backbone.Collection<Book> {
+    model = (...args: any[]): Book => {
+        return new Book();
+    };
+}
+
 class Books extends Backbone.Collection<Book> {}
 
 class ArbitraryCollection extends Backbone.Collection {}
@@ -396,7 +408,11 @@ namespace v1Changes {
             const view = new Backbone.View<Employee>();
             view.stopListening(model, "invalid", () => {});
             view.stopListening(model, "invalid");
+            view.stopListening(model, {
+                invalid: () => {},
+            });
             view.stopListening(model);
+            view.stopListening();
         }
     }
 

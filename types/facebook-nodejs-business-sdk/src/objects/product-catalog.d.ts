@@ -135,6 +135,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     createHotel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Hotel>;
     createItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createLocalizedItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    createMarketPlacePartnerSellersDetail(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getPricingVariablesBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPricingVariablesBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getProductFeeds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -149,6 +150,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVehicle(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Vehicle>;
+    getVersionConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVersionItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductCatalog>;

@@ -10,6 +10,9 @@ const svg = new Identicon("d3b07384d113edec49eaa6238ad5ff00", {
     margin: 0.05,
     size: 64,
     format: "svg",
+    // I don't know why, but previous versions have forgotten these two parameters
+    brightness: 0.48,
+    saturation: 0.65,
 }).image() as Svg;
 svg.getDump();
 // or get the base64 encoded svg

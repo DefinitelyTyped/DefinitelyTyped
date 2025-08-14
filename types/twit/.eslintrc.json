@@ -3,6 +3,7 @@
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
         "@definitelytyped/no-single-declare-module": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }

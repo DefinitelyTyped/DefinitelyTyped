@@ -1,9 +1,12 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Notification Banner component
  */
-export class NotificationBanner extends GOVUKFrontendComponent {
+export class NotificationBanner extends ConfigurableComponent<
+    NotificationBannerConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +16,15 @@ export class NotificationBanner extends GOVUKFrontendComponent {
      * Notification banner default config
      *
      * @see {@link NotificationBannerConfig}
+     * @constant
      */
     static defaults: NotificationBannerConfig;
 
     /**
      * Notification banner config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<NotificationBannerConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -30,10 +35,10 @@ export class NotificationBanner extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for notification banner
+     * @param {Element | null} $root - HTML element to use for notification banner
      * @param {NotificationBannerConfig} [config] - Notification banner config
      */
-    constructor($module: Element | null, config?: NotificationBannerConfig);
+    constructor($root: Element | null, config?: NotificationBannerConfig);
 }
 
 /**

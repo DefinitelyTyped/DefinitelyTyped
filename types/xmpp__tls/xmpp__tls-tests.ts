@@ -28,7 +28,7 @@ sock.write("foo", err => {
 
 sock.addListener("connect", () => {});
 sock.addListener("data", data => {
-    data; // $ExpectType Buffer
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 sock.addListener("close", () => {});
 sock.addListener("error", err => {
@@ -37,7 +37,7 @@ sock.addListener("error", err => {
 
 sock.on("connect", () => {});
 sock.on("data", data => {
-    data; // $ExpectType Buffer
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 sock.on("close", () => {});
 sock.on("error", err => {
@@ -46,7 +46,7 @@ sock.on("error", err => {
 
 sock.once("connect", () => {});
 sock.once("data", data => {
-    data; // $ExpectType Buffer
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 sock.once("close", () => {});
 sock.once("error", err => {
@@ -55,7 +55,7 @@ sock.once("error", err => {
 
 sock.prependListener("connect", () => {});
 sock.prependListener("data", data => {
-    data; // $ExpectType Buffer
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 sock.prependListener("close", () => {});
 sock.prependListener("error", err => {
@@ -64,7 +64,7 @@ sock.prependListener("error", err => {
 
 sock.prependOnceListener("connect", () => {});
 sock.prependOnceListener("data", data => {
-    data; // $ExpectType Buffer
+    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 sock.prependOnceListener("close", () => {});
 sock.prependOnceListener("error", err => {

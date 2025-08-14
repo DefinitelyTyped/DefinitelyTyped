@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/pdfkit",
-    "version": "0.13.9999",
+    "version": "0.17.9999",
     "projects": [
         "http://pdfkit.org"
     ],
@@ -15,10 +15,6 @@
         {
             "name": "Eric Hillah",
             "githubUsername": "erichillah"
-        },
-        {
-            "name": "Erik Berreßem",
-            "githubUsername": "she11sh0cked"
         },
         {
             "name": "Jeroen Vervaeke",

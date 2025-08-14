@@ -34,12 +34,3 @@ store.subscribe(() => {
 });
 
 store.dispatch({ type: "INCREMENT" });
-
-// Additional mock store API tests
-const actions: any[] = store.getActions();
-
-store.clearActions();
-
-// actions access without the need to cast
-const actions2 = store.getActions();
-actions2[10].payload.id;

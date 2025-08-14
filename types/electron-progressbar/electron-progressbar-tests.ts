@@ -1,13 +1,16 @@
 import ProgressBar = require("electron-progressbar");
 
 const progressBar = new ProgressBar({
+    debug: true,
     title: "Test",
+    lang: "ko",
     browserWindow: {
         webPreferences: {
             nodeIntegration: false,
         },
     },
     indeterminate: false,
+    customHTML: "<h1>Hello</h1>",
 });
 
 progressBar.on("ready", () => {

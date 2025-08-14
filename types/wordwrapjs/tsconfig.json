@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
+        "index.d.cts",
         "wordwrapjs-tests.ts"
     ]
 }

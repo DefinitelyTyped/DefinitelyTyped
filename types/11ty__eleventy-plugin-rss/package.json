@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/11ty__eleventy-plugin-rss",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.11ty.dev/docs/plugins/rss/"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "11ty.ts": "*",
+        "posthtml-render": "*"
+    },
+    "devDependencies": {
+        "@types/11ty__eleventy-plugin-rss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

@@ -8,11 +8,19 @@ import Koa from "koa";
 import { createWriteStream, unlink } from "node:fs";
 import Stream from "node:stream";
 
+const expressHandler = graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 });
+// $ExpectType void
+export type ExpressHandlerReturnType = ReturnType<typeof expressHandler>;
+
 express()
-    .use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }))
+    .use(expressHandler)
     .listen(3000);
 
-new Koa().use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 })).listen(3000);
+const koaMiddleware = graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 });
+// $ExpectType Promise<void>
+export type KoaMiddlewareReturnType = ReturnType<typeof koaMiddleware>;
+
+new Koa().use(koaMiddleware).listen(3000);
 
 export const manuallyHandleUpload = async (upload: Upload) => {
     if (upload instanceof Upload) {
@@ -25,7 +33,7 @@ export const storeUpload = async (fileUpload: Promise<FileUpload>) => {
     const { createReadStream, filename } = await fileUpload;
     const stream = createReadStream();
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         const writeStream = createWriteStream(filename);
         writeStream.on("finish", resolve);
         writeStream.on("error", (error) => {

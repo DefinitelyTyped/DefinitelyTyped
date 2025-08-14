@@ -86,6 +86,15 @@ declare const MyTimeoutError: any;
     });
 });
 
+// Besides string, `message` can also be Error or function returning Error
+(async () => {
+    const timer = new Timeout();
+    // Error
+    timer.set(1000, new Error("Timeout"));
+    // function returning Error
+    timer.set(1000, () => new Error("Timeout"));
+});
+
 // If you need to just wait some time - use static version of `.set()` :
 (async () => {
     Timeout.set(1000).then(/*...*/);

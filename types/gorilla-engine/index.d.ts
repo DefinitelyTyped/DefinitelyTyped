@@ -40,6 +40,7 @@
 /// <reference path = "components/TagEditor.d.ts" />
 /// <reference path = "components/XYPad.d.ts" />
 /// <reference path = "components/Rubberband.d.ts" />
+/// <reference path = "components/MappingEditor.d.ts" />
 
 declare namespace GorillaEngine {
     /**
@@ -173,6 +174,13 @@ declare namespace GorillaEngine {
          * @param module The serialised module to set as a string
          */
         setModuleAtPath(path: string, module: string): boolean;
+        /**
+         * Method used to replace a module in an instrument in a given path
+         * @param path The path to the module that should be retrieved.
+         * @param module The serialised module to replace as a string
+         */
+        replaceModuleAtPath(path: string, module: string): boolean;
+
         /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
@@ -597,6 +605,8 @@ declare namespace GorillaEngine {
          * @param x  the x position to place the settings button
          * @param y  the y position to place the settings button
          */
+
         function setSettingsButtonPosition(x: number, y: number): void;  
+
     }
 }

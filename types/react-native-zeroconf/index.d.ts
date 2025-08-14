@@ -151,6 +151,10 @@ export default class Zeroconf extends EventEmitter {
      */
     on(e: "resolved", listener: (service: Service) => any): this;
 
+    on(e: "published", listener: (service: Service) => unknown): this;
+
+    on(e: "unpublished", listener: (service: Service) => unknown): this;
+
     /**
      * Triggered when an error occurs.
      */

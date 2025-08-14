@@ -82,6 +82,13 @@ export type GooglePayOptions = {
   gatewayCode?: string;
 
   /**
+   * If provided, will use Braintree to process the GooglePay transaction.
+   */
+  braintree?: {
+    clientAuthorization: string;
+  };
+
+  /**
    * Specify configuration for Google Pay API.
    */
   paymentDataRequest?: GooglePayPaymentDataRequest;

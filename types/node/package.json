@@ -1,15 +1,24 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "22.7.9999",
+    "version": "24.2.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"
     ],
     "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json", "tsconfig.webworker.json"],
+    "types": "index",
+    "typesVersions": {
+        "<=5.6": {
+            "*": ["ts5.6/*"]
+        },
+        "<=5.7": {
+            "*": ["ts5.7/*"]
+        }
+    },
     "dependencies": {
-        "undici-types": "~6.19.2"
+        "undici-types": "~7.10.0"
     },
     "devDependencies": {
         "@types/node": "workspace:."
@@ -24,10 +33,6 @@
             "githubUsername": "jkomyno"
         },
         {
-            "name": "Alvis HT Tang",
-            "githubUsername": "alvis"
-        },
-        {
             "name": "Andrew Makarov",
             "githubUsername": "r3nya"
         },
@@ -36,44 +41,8 @@
             "githubUsername": "btoueg"
         },
         {
-            "name": "Chigozirim C.",
-            "githubUsername": "smac89"
-        },
-        {
             "name": "David Junger",
             "githubUsername": "touffy"
-        },
-        {
-            "name": "Deividas Bakanas",
-            "githubUsername": "DeividasBakanas"
-        },
-        {
-            "name": "Eugene Y. Q. Shen",
-            "githubUsername": "eyqs"
-        },
-        {
-            "name": "Hannes Magnusson",
-            "githubUsername": "Hannes-Magnusson-CK"
-        },
-        {
-            "name": "Huw",
-            "githubUsername": "hoo29"
-        },
-        {
-            "name": "Kelvin Jin",
-            "githubUsername": "kjin"
-        },
-        {
-            "name": "Klaus Meinhardt",
-            "githubUsername": "ajafff"
-        },
-        {
-            "name": "Lishude",
-            "githubUsername": "islishude"
-        },
-        {
-            "name": "Mariusz Wiktorczyk",
-            "githubUsername": "mwiktorczyk"
         },
         {
             "name": "Mohsen Azimi",
@@ -84,36 +53,12 @@
             "githubUsername": "galkin"
         },
         {
-            "name": "Parambir Singh",
-            "githubUsername": "parambirs"
-        },
-        {
             "name": "Sebastian Silbermann",
             "githubUsername": "eps1lon"
         },
         {
-            "name": "Thomas den Hollander",
-            "githubUsername": "ThomasdenH"
-        },
-        {
             "name": "Wilco Bakker",
             "githubUsername": "WilcoBakker"
-        },
-        {
-            "name": "wwwy3y3",
-            "githubUsername": "wwwy3y3"
-        },
-        {
-            "name": "Samuel Ainsworth",
-            "githubUsername": "samuela"
-        },
-        {
-            "name": "Kyle Uehlein",
-            "githubUsername": "kuehlein"
-        },
-        {
-            "name": "Thanik Bhongbhibhat",
-            "githubUsername": "bhongy"
         },
         {
             "name": "Marcin Kopacz",
@@ -148,10 +93,6 @@
             "githubUsername": "victorperin"
         },
         {
-            "name": "Yongsheng Zhang",
-            "githubUsername": "ZYSzys"
-        },
-        {
             "name": "NodeJS Contributors",
             "githubUsername": "NodeJS"
         },
@@ -170,6 +111,14 @@
         {
             "name": "Dmitry Semigradsky",
             "githubUsername": "Semigradsky"
+        },
+        {
+            "name": "René",
+            "githubUsername": "Renegade334"
+        },
+        {
+            "name": "Yagiz Nizipli",
+            "githubUsername": "anonrig"
         }
     ]
 }

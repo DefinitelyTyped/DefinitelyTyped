@@ -1,10 +1,8 @@
 /**
- * Object for keeping track of time
- * @remarks
- * This uses {@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now | performance.now} if it is available,
- * otherwise it reverts to the less accurate {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/now | Date.now}.
- * @see {@link https://threejs.org/docs/index.html#api/en/core/Clock | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js | Source}
+ * Object for keeping track of time. This uses
+ * [performance.now]{@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now}.
+ * @see [Official Documentation]{@link https://threejs.org/docs/index.html#api/en/core/Clock}
+ * @see [Source]{@link https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js}
  */
 export class Clock {
     /**

@@ -17,7 +17,7 @@ export as namespace events;
  * Player event types for @see{@link framework.PlayerManager}.
  * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
  */
-export enum EventType {
+export const enum EventType {
     ALL = "*",
     ABORT = "ABORT",
     CAN_PLAY = "CAN_PLAY",
@@ -97,7 +97,7 @@ export enum EventType {
     TRACKS_CHANGED = "TRACKS_CHANGED",
 }
 
-export enum DetailedErrorCode {
+export const enum DetailedErrorCode {
     MEDIA_UNKNOWN = 100,
     MEDIA_ABORTED = 101,
     MEDIA_DECODE = 102,
@@ -138,6 +138,15 @@ export enum DetailedErrorCode {
     LOAD_FAILED = 905,
     MEDIA_ERROR_MESSAGE = 906,
     GENERIC = 999,
+}
+
+/**
+ * The error severity. Follows the same naming scheme and numbering as Shaka Player.
+ * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
+ */
+export const enum ErrorSeverity {
+    RECOVERABLE = 1,
+    CRITICAL = 2,
 }
 
 export type EndedReason = "END_OF_STREAM" | "ERROR" | "STOPPED" | "INTERRUPTED" | "SKIPPED" | "BREAK_SWITCH";
@@ -447,7 +456,7 @@ export class BitrateChangedEvent extends Event {
  * Event data for @see{@link EventType.ERROR} event.
  */
 export class ErrorEvent extends Event {
-    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason);
+    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason, severity?: ErrorSeverity);
 
     /**
      * An error code representing the cause of the error.
@@ -463,6 +472,11 @@ export class ErrorEvent extends Event {
      * Optional error reason.
      */
     reason?: ErrorReason | undefined;
+
+    /**
+     * Optional error severity.
+     */
+    severity?: ErrorSeverity | undefined;
 }
 
 /**

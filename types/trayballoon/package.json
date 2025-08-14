@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/trayballoon",
-    "version": "0.0.9999",
+    "version": "2.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/sindresorhus/trayballoon"
     ],

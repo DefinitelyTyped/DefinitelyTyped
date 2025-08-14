@@ -1,10 +1,19 @@
-import shortid = require("shortid");
+import shortId from "shortid";
 
-var my_short_id: string = shortid.generate();
-var my_short_id2: string = shortid();
-console.log(my_short_id);
+// $ExpectType string
+shortId();
 
-console.log("Is valid short id? => %s", shortid.isValid(my_short_id)); // => true
-console.log("Is valid short id? => %s", shortid.isValid(my_short_id2)); // => true
-console.log("Is valid short id? => %s", shortid.isValid(5)); // => false
-console.log("Is valid short id? => %s", shortid.isValid("i have spaces")); // => false
+// $ExpectType string
+shortId.generate();
+
+// $ExpectType string
+shortId.characters("ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ①②③④⑤⑥⑦⑧⑨⑩⑪⑫");
+
+// $ExpectType boolean
+shortId.isValid("ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ①②③④⑤⑥⑦⑧⑨⑩⑪⑫");
+
+// $ExpectType void
+shortId.worker(1);
+
+// $ExpectType void
+shortId.seed(1);

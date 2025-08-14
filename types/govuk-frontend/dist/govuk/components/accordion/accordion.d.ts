@@ -1,4 +1,4 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Accordion component
@@ -12,7 +12,10 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
  * The state of each section is saved to the DOM via the `aria-expanded`
  * attribute, which also provides accessibility.
  */
-export class Accordion extends GOVUKFrontendComponent {
+export class Accordion extends ConfigurableComponent<
+    AccordionConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -22,13 +25,15 @@ export class Accordion extends GOVUKFrontendComponent {
      * Accordion default config
      *
      * @see {@link AccordionConfig}
+     * @constant
      */
     static defaults: AccordionConfig;
 
     /**
      * Accordion config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<AccordionConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -42,10 +47,10 @@ export class Accordion extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for accordion
+     * @param {Element | null} $root - HTML element to use for accordion
      * @param {AccordionConfig} [config] - Accordion config
      */
-    constructor($module: Element | null, config?: AccordionConfig);
+    constructor($root: Element | null, config?: AccordionConfig);
 
     /**
      * Get the identifier for a section

@@ -63,6 +63,7 @@ const options: ShareDB.ShareDBOptions = {
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
     maxSubmitRetries: 3,
+    doNotCommitNoOps: true,
     errorHandler: (error, context) => {
         console.log(error, context.agent.custom);
     },
@@ -156,6 +157,8 @@ backend.use("connect", (context, callback) => {
         context.backend,
         context.stream,
         context.req,
+        context.agent.protocol.major,
+        context.agent.protocol.minor,
     );
     callback();
 });
@@ -289,6 +292,8 @@ doc.fetch((err) => {
 });
 
 doc.create({ foo: true }, "http://sharejs.org/types/JSONv0");
+
+doc.ingestSnapshot(doc.toSnapshot());
 
 function startServer() {
     const server = http.createServer();

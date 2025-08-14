@@ -14,6 +14,8 @@
     },
     "files": [
         "index.d.ts",
-        "ws-tests.ts"
+        "index.d.mts",
+        "ws-tests.ts",
+        "ws-tests.mts"
     ]
 }

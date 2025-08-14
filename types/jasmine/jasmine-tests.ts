@@ -1734,6 +1734,14 @@ describe("Manually ticking the Jasmine Clock", () => {
     });
 });
 
+describe("Automatically ticking the Jasmine Clock", () => {
+    it("ticks automatically", async () => {
+        jasmine.clock().install().autoTick();
+        await new Promise(resolve => setTimeout(resolve));
+        jasmine.clock().uninstall();
+    });
+});
+
 describe("Asynchronous specs", () => {
     var value: number;
     beforeEach((done: DoneFn) => {
@@ -2562,6 +2570,7 @@ describe("Debug logging", function() {
             console.log("id", suite.id);
             console.log("description", suite.description);
             console.log("fullName", suite.fullName);
+            console.log("filename", suite.filename);
             console.log("fe", suite.failedExpectations);
 
             for (const fe of suite.failedExpectations) {

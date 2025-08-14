@@ -11,7 +11,7 @@ conn.query(sql).on("data", (row: Object[]): void => {
     // nothing
 });
 
-conn.query(sql, [1, "s"], (error: Error, result: anyDB.ResultSet): void => {
+conn.query(sql, [1, "s"], (error: Error | null, result: anyDB.ResultSet): void => {
     result.rows.length;
     result.fields.length;
 });
@@ -29,5 +29,7 @@ pool.query(sql).on("data", (row: Object[]): void => {
     // nothing
 });
 
-pool.close((error: Error): void => {
+pool.close((error: Error | null): void => {
 });
+
+anyDB.createPool("mysql://user:password@localhost/testdb");

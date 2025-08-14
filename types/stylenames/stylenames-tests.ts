@@ -1,4 +1,4 @@
-import styleNames from "stylenames";
+import styleNames, { StyleObject, StyleValue, StyleValueConditionFunction, StyleValueObject } from "stylenames";
 
 // @ts-expect-error
 styleNames();

@@ -23,7 +23,7 @@ declare namespace SVGInjector {
          * 'once' — Only run scripts once for each SVG.
          * 'never' — Ignore scripts (default)
          */
-        evalScripts?: string | undefined;
+        evalScripts?: "always" | "once" | "never" | undefined;
 
         /**
          * Location of fallback pngs, if desired.
@@ -38,6 +38,6 @@ declare namespace SVGInjector {
     }
 }
 
-declare var SVGInjector: SVGInjector.SVGInjector;
+declare const SVGInjector: SVGInjector.SVGInjector;
 export = SVGInjector;
 export as namespace SVGInjector;

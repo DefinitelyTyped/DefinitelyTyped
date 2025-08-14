@@ -3,7 +3,7 @@ import { bytesBuffer, bytesBufferIndex, generateId, getRandomBytes, isGenerating
 const sampleId = generateId();
 const sampleRandomBytes = getRandomBytes(10);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const bytesBufferAfterExecution = bytesBuffer;
 
 // $ExpectType number

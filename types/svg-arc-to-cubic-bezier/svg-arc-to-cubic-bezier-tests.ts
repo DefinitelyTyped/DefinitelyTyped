@@ -17,4 +17,8 @@ arc.largeArcFlag = 0;
 arc.sweepFlag = 0;
 
 // $ExpectType CubicBezierCurve[]
-const curves: CubicBezierCurve[] = arcToBezier(arc);
+arcToBezier(arc);
+
+// Should pass argument to the function
+// @ts-expect-error
+arcToBezier();

@@ -15,6 +15,9 @@ import * as net from "node:net";
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
     });
     ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    ds.send(new DataView(new ArrayBuffer(0)), 5000, "127.0.0.1");
+    ds.send(new Uint8Array(), 5000, "127.0.0.1");
+    ds.send([], 5000, "127.0.0.1");
     ds = ds.close();
     ds.setMulticastInterface("127.0.0.1");
     ds = dgram.createSocket({
@@ -135,7 +138,7 @@ sock = dgram.createSocket({
     lookup: dns.lookup,
 });
 sock = dgram.createSocket("udp6", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 sock.addMembership("233.252.0.0");
@@ -196,7 +199,7 @@ sock.on("error", (exception) => {
 });
 sock.on("listening", () => undefined);
 sock.on("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo.address; // $ExpectType string
     rinfo.family; // $ExpectType "IPv4" | "IPv6"
     rinfo.port; // $ExpectType number

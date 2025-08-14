@@ -14,13 +14,13 @@ type IncrementDecrementOptions = memjs.IncrementDecrementOptions;
 type Response = memjs.Response;
 type Header = memjs.Header;
 
-const client = memjs.Client.create(); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create(""); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { failoverTime: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { retries: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { retry_delay: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { expires: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-// $ExpectType Client<string | Buffer, Buffer | null>
+const client = memjs.Client.create(); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create(""); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { failoverTime: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { retries: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { retry_delay: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { expires: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+// $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
 memjs.Client.create("", {
     logger: {
         log(...args) {
@@ -34,39 +34,39 @@ const numClient = memjs.Client.create("", {
     serializer: {
         serialize(opcode, value: number, extras) {
             opcode; // $ExpectType number
-            extras; // $ExpectType Buffer
+            extras; // $ExpectType Buffer || Buffer<ArrayBufferLike>
             return { value: Buffer.from(String(value)), extras };
         },
         deserialize(opcode, value, extras) {
             opcode; // $ExpectType number
-            value; // $ExpectType Buffer | null
-            extras; // $ExpectType Buffer
+            value; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
+            extras; // $ExpectType Buffer || Buffer<ArrayBufferLike>
             return { value: 1, extras };
         },
     },
 });
-memjs.Client.create("", { username: "" }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { password: "" }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { timeout: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { conntimeout: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { keepAlive: true }); // $ExpectType Client<string | Buffer, Buffer | null>
-memjs.Client.create("", { keepAliveDelay: 1 }); // $ExpectType Client<string | Buffer, Buffer | null>
-new memjs.Client([]); // $ExpectType Client<string | Buffer, Buffer | null>
-new memjs.Client([], {}); // $ExpectType Client<string | Buffer, Buffer | null>
+memjs.Client.create("", { username: "" }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { password: "" }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { timeout: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { conntimeout: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { keepAlive: true }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+memjs.Client.create("", { keepAliveDelay: 1 }); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+new memjs.Client([]); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+new memjs.Client([], {}); // $ExpectType Client<string | Buffer, Buffer | null> || Client<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
 
 client.seq; // $ExpectType number
 client.servers; // $ExpectType readonly Server[]
-client.options; // $ExpectType ClientOptions<string | Buffer, Buffer | null>
-client.serializer; // $ExpectType Serializer<string | Buffer, Buffer | null>
+client.options; // $ExpectType ClientOptions<string | Buffer, Buffer | null> || ClientOptions<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
+client.serializer; // $ExpectType Serializer<string | Buffer, Buffer | null> || Serializer<string | Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike> | null>
 numClient.options; // $ExpectType ClientOptions<number, number>
 numClient.serializer; // $ExpectType Serializer<number, number>
 
 client.get("hello", (err, val) => {
     err; // $ExpectType Error | null
-    val; // $ExpectType Buffer | null
+    val; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
 });
-client.get("hello"); // $ExpectType Promise<{ value: Buffer | null; flags: Buffer | null; }>
-numClient.get("hello"); // $ExpectType Promise<{ value: number; flags: Buffer | null; }>
+client.get("hello"); // $ExpectType Promise<{ value: Buffer | null; flags: Buffer | null; }> || Promise<{ value: Buffer<ArrayBufferLike> | null; flags: Buffer<ArrayBufferLike> | null; }>
+numClient.get("hello"); // $ExpectType Promise<{ value: number; flags: Buffer | null; }> || Promise<{ value: number; flags: Buffer<ArrayBufferLike> | null; }>
 numClient.get("hello", (err, val) => {
     err; // $ExpectType Error | null
     val; // $ExpectType number
@@ -275,7 +275,7 @@ new memjs.Server("foo", 123, undefined, undefined, { conntimeout: 1 }); // $Expe
 new memjs.Server("foo", 123, undefined, undefined, { keepAlive: true }); // $ExpectType Server
 new memjs.Server("foo", 123, undefined, undefined, { keepAliveDelay: 1 }); // $ExpectType Server
 
-server.responseBuffer; // $ExpectType Buffer
+server.responseBuffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 server.host; // $ExpectType string
 server.port; // $ExpectType number
 server.connected; // $ExpectType boolean
@@ -303,7 +303,7 @@ server.onError(1, error => {
 server.error(new Error()); // $ExpectType void
 server.listSasl(); // $ExpectType void
 server.saslAuth(); // $ExpectType void
-server.appendToBuffer(Buffer.alloc(1)); // $ExpectType Buffer
+server.appendToBuffer(Buffer.alloc(1)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 server.responseHandler(Buffer.alloc(1)); // $ExpectType void
 // $ExpectType void
 server.sock(true, socket => {
@@ -316,19 +316,19 @@ server.writeSASL("foo"); // $ExpectType void
 server.close(); // $ExpectType void
 server.toString(); // $ExpectType string
 
-memjs.Utils.makeRequestBuffer(1, "foo", "123", "bar", 1); // $ExpectType Buffer
+memjs.Utils.makeRequestBuffer(1, "foo", "123", "bar", 1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Utils.makeRequestBuffer(1, Buffer.from("foo"), Buffer.from("123"), Buffer.from("bar"), 1);
-memjs.Utils.makeAmountInitialAndExpiration(1, 0, 1); // $ExpectType Buffer
-memjs.Utils.makeExpiration(1); // $ExpectType Buffer
+memjs.Utils.makeAmountInitialAndExpiration(1, 0, 1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+memjs.Utils.makeExpiration(1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Utils.hashCode("foo"); // $ExpectType number
 const response = memjs.Utils.parseMessage(Buffer.alloc(10)); // $ExpectType Response
 memjs.Utils.merge({ foo: "bar" }, { quux: "baz" }); // $ExpectType { foo: string; } & { quux: string; }
 memjs.Utils.timestamp(); // $ExpectType number
 
 response.header; // $ExpectType Required<Header>
-response.key; // $ExpectType Buffer
-response.extras; // $ExpectType Buffer
-response.val; // $ExpectType Buffer
+response.key; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+response.extras; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+response.val; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 const header = memjs.Header.fromBuffer(Buffer.alloc(10)); // $ExpectType Required<Header>
 header.magic; // $ExpectType number
@@ -339,9 +339,9 @@ header.dataType; // $ExpectType number
 header.status; // $ExpectType number
 header.totalBodyLength; // $ExpectType number
 header.opaque; // $ExpectType number
-header.cas; // $ExpectType Buffer
+header.cas; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Header.toBuffer({
     magic: 1,
     opcode: 1,
@@ -350,7 +350,7 @@ memjs.Header.toBuffer({
     dataType: 1,
     totalBodyLength: 1,
 });
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Header.toBuffer({
     magic: 1,
     opcode: 1,
@@ -359,7 +359,7 @@ memjs.Header.toBuffer({
     status: 1,
     totalBodyLength: 1,
 });
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Header.toBuffer({
     magic: 1,
     opcode: 1,
@@ -368,7 +368,7 @@ memjs.Header.toBuffer({
     totalBodyLength: 1,
     opaque: 1,
 });
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 memjs.Header.toBuffer({
     magic: 1,
     opcode: 1,

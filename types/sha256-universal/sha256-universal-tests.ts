@@ -19,11 +19,11 @@ hash.update(new Uint8Array(0)); // $ExpectType Sha256
 hash.update([1] as const); // $ExpectType Sha256
 hash.update("hello"); // $ExpectType Sha256
 hash.update("0ff", "hex"); // $ExpectType Sha256
-hash.digest(); // $ExpectType Uint8Array
-hash.digest(new Uint8Array(0)); // $ExpectType Uint8Array
-hash.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array
-hash.digest(Buffer.alloc(0)); // $ExpectType Buffer
-hash.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
+hash.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+hash.digest(new Uint8Array(0)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+hash.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+hash.digest(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+hash.digest(Buffer.alloc(0), 1); // $ExpectType Buffer || Buffer<ArrayBuffer>
 hash.digest("utf8"); // $ExpectType string
 
 if (Sha256.HMAC) {
@@ -34,10 +34,10 @@ if (Sha256.HMAC) {
     hmac.update([1] as const); // $ExpectType HMAC
     hmac.update("hello"); // $ExpectType HMAC
     hmac.update("0ff", "hex"); // $ExpectType HMAC
-    hmac.digest(); // $ExpectType Uint8Array
-    hmac.digest(new Uint8Array(0)); // $ExpectType Uint8Array
-    hmac.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array
-    hmac.digest(Buffer.alloc(0)); // $ExpectType Buffer
-    hmac.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
+    hmac.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+    hmac.digest(new Uint8Array(0)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    hmac.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    hmac.digest(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    hmac.digest(Buffer.alloc(0), 1); // $ExpectType Buffer || Buffer<ArrayBuffer>
     hmac.digest("utf8"); // $ExpectType string
 }

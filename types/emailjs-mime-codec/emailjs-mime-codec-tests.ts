@@ -21,7 +21,7 @@ import {
 
 const int8 = new Uint8Array([]);
 
-encode("testing"); // $ExpectType Uint8Array
+encode("testing"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 // @ts-expect-error
 encode(int8);
 // @ts-expect-error
@@ -32,8 +32,8 @@ decode(int8); // $ExpectType string
 // @ts-expect-error
 decode("some string", "UTF-8");
 
-convert("sample", "UTF-8"); // $ExpectType Uint8Array
-convert(int8, "UTF-8"); // $ExpectType Uint8Array
+convert("sample", "UTF-8"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+convert(int8, "UTF-8"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 foldLines("Content-Type: multipart/alternative; boundary=\"----zzzz----\""); // $ExpectType string
 foldLines("Content-Type: multipart/alternative; boundary=\"----zzzz----\"", true); // $ExpectType string

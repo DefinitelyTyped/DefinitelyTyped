@@ -23,7 +23,14 @@ export type RecurlyOptions = {
   };
   risk?: {
     threeDSecure?: {
-      preflightDeviceDataCollector?: boolean;
+      preflightDeviceDataCollector?: {
+        enabled: boolean;
+        billingInfoId?: string;
+      };
+      proactive?: {
+        enabled: true;
+        gatewayCode: string;
+      }
     }
   };
 

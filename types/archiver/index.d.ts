@@ -10,7 +10,7 @@ type Partial<T> = {
 // This library adds `cwd` to the options
 type GlobOptions = ReaddirGlob.Options & { cwd?: string };
 
-// eslint-disable-next-line @typescript-eslint/ban-types -- support for ConstructorFn function and classes
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- support for ConstructorFn function and classes
 type ConstructorFn<T> = Function | (new(...params: any[]) => T);
 
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
@@ -22,7 +22,7 @@ declare namespace archiver {
 
     /** Check if the format is already registered. */
     function isRegisteredFormat(format: string): boolean;
-    // eslint-disable-next-line @typescript-eslint/ban-types -- Function
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     function registerFormat(format: string, module: Function): void;
 
     interface EntryData {
@@ -84,11 +84,11 @@ declare namespace archiver {
         finalize(): Promise<void>;
 
         setFormat(format: string): this;
-        // eslint-disable-next-line @typescript-eslint/ban-types -- Function
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setModule(module: Function): this;
 
         pointer(): number;
-        // eslint-disable-next-line @typescript-eslint/ban-types -- Function
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         use(plugin: Function): this;
 
         symlink(filepath: string, target: string, mode?: number): this;

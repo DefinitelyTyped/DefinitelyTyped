@@ -14,13 +14,13 @@ const data = [
 // $ExpectType number[]
 doNotZip.toArray(data);
 
-// $ExpectType Buffer | Blob || Blob | Buffer
+// $ExpectType Buffer | Blob || Blob | Buffer || Buffer<ArrayBufferLike> | Blob
 doNotZip.toAuto(data);
 
 // $ExpectType Blob
 doNotZip.toBlob(data);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 doNotZip.toBuffer(data);
 
 // @ts-expect-error

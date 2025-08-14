@@ -43,7 +43,7 @@ extract.on("entry", (entry: any) => undefined);
             c;
             // $ExpectType string
             m;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             p;
         },
         strict: false,
@@ -69,7 +69,7 @@ extract.on("entry", (entry: any) => undefined);
         .end("one-byte.txt")
         .on("data", () => {})
         .on("data", c => {
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             c;
         })
         .on("end", () => {

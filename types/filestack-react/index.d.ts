@@ -1,4 +1,4 @@
-import { ClientOptions, PickerFileMetadata, PickerOptions } from "filestack-js";
+import { ClientOptions, PickerFileMetadata, PickerOptions, PickerResponse } from "filestack-js";
 import * as React from "react";
 
 export * as client from "filestack-js";
@@ -24,7 +24,7 @@ interface PickerBaseProps {
     /**
      * Called when all files have been uploaded
      */
-    onUploadDone?: (result: PickerFileMetadata) => void;
+    onUploadDone?: (result: PickerResponse) => void;
     /**
      * A function to be called when error occurs
      */

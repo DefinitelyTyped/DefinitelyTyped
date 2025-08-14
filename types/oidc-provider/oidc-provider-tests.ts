@@ -2,13 +2,31 @@
 
 import * as crypto from "node:crypto";
 
+import KeyGrip from "keygrip";
 import Provider from "oidc-provider";
 import * as oidc from "oidc-provider";
 
 oidc.errors.AccessDenied.name;
 
+Provider.ctx;
+
 new oidc.Provider("https://op.example.com");
 new Provider("https://op.example.com");
+
+new Provider("https://op.example.com", {
+    cookies: {
+        keys: new KeyGrip([]),
+    },
+});
+
+new Provider("https://op.example.com", {
+    assertJwtClientAuthClaimsAndHeader(ctx, claims, header, client) {
+        ctx.oidc.issuer.substring(0);
+        claims.sub;
+        header.typ;
+        client.clientId.substring(0);
+    },
+});
 
 new oidc.Provider("https://op.example.com", {
     rotateRefreshToken: true,
@@ -229,10 +247,8 @@ const provider = new oidc.Provider("https://op.example.com", {
             },
         },
     },
-    httpOptions(url) {
-        url.searchParams.keys();
-        const c = new AbortController();
-        return { signal: c.signal, "user-agent": "foo" };
+    fetch(...args) {
+        return globalThis.fetch(...args);
     },
     async expiresWithSession(
         ctx: oidc.KoaContextWithOIDC,
@@ -270,7 +286,6 @@ const provider = new oidc.Provider("https://op.example.com", {
     },
     responseTypes: ["code", "code id_token", "none"],
     pkce: {
-        methods: ["plain", "S256"],
         required(ctx: oidc.KoaContextWithOIDC, client: oidc.Client) {
             ctx.oidc.issuer.substring(0);
             client.clientId.substring(0);
@@ -424,7 +439,7 @@ const provider = new oidc.Provider("https://op.example.com", {
         jwtUserinfo: { enabled: false },
         webMessageResponseMode: { enabled: false, ack: "draft" },
         revocation: { enabled: false },
-        jwtIntrospection: { enabled: false, ack: "draft" },
+        jwtIntrospection: { enabled: false },
         jwtResponseModes: { enabled: false },
         pushedAuthorizationRequests: { enabled: false },
         registration: {
@@ -436,6 +451,7 @@ const provider = new oidc.Provider("https://op.example.com", {
                     metadata.client_id.substring(0);
                 },
             },
+            issueRegistrationAccessToken: true,
             idFactory() {
                 return "foo";
             },
@@ -468,10 +484,7 @@ const provider = new oidc.Provider("https://op.example.com", {
             },
         },
         requestObjects: {
-            request: false,
-            requestUri: false,
-            requireUriRegistration: false,
-            mode: "lax",
+            enabled: false,
         },
         encryption: { enabled: false },
         fapi: { enabled: false, profile: "1.0 Final" },
@@ -662,3 +675,31 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
         ]);
     } catch (e) {}
 })();
+
+{
+    const kp = crypto.generateKeyPairSync("ed25519");
+    class MyKey extends oidc.ExternalSigningKey implements oidc.ExternalSigningKey {
+        get alg() {
+            return "Ed25519";
+        }
+
+        sign(data: Uint8Array) {
+            return crypto.sign(undefined, data, kp.privateKey);
+        }
+        keyObject() {
+            return kp.publicKey;
+        }
+    }
+
+    new Provider("", {
+        features: {
+            externalSigningSupport: { enabled: true, ack: "" },
+        },
+        jwks: {
+            keys: [
+                {} as oidc.JWK,
+                new MyKey(),
+            ],
+        },
+    });
+}

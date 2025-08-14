@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@typescript-eslint/ban-types": "off"
-    }
-}

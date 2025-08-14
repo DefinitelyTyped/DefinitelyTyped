@@ -15,10 +15,7 @@ export interface BlocksStoreDescriptor extends StoreDescriptor {
     name: "core/blocks";
 }
 
-// eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@wordpress/blocks" {
-    const store: BlocksStoreDescriptor;
-}
+export const store: BlocksStoreDescriptor;
 
 export type AxialDirection = "horizontal" | "vertical";
 
@@ -489,10 +486,12 @@ export namespace AttributeSource {
             | {
                 type: "number";
                 default?: number | undefined;
+                enum?: number[] | undefined;
             }
             | {
                 type: "string";
                 default?: string | undefined;
+                enum?: string[] | undefined;
             }
         );
 
@@ -555,10 +554,12 @@ export namespace AttributeSource {
                 | {
                     type: "number";
                     default?: number | undefined;
+                    enum?: number[] | undefined;
                 }
                 | {
                     type: "string";
                     default?: string | undefined;
+                    enum?: string[] | undefined;
                 }
             )
         )

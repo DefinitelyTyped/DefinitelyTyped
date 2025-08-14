@@ -3,10 +3,10 @@
  * It can be accessed using:
  *
  * ```js
- * const http2 = require('node:http2');
+ * import http2 from 'node:http2';
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/http2.js)
  */
 declare module "http2" {
     import EventEmitter = require("node:events");
@@ -32,18 +32,14 @@ declare module "http2" {
         ":scheme"?: string | undefined;
     }
     // Http2Stream
-    export interface StreamPriorityOptions {
-        exclusive?: boolean | undefined;
-        parent?: number | undefined;
-        weight?: number | undefined;
-        silent?: boolean | undefined;
-    }
     export interface StreamState {
         localWindowSize?: number | undefined;
         state?: number | undefined;
         localClose?: number | undefined;
         remoteClose?: number | undefined;
+        /** @deprecated */
         sumDependencyWeight?: number | undefined;
+        /** @deprecated */
         weight?: number | undefined;
     }
     export interface ServerStreamResponseOptions {
@@ -151,13 +147,12 @@ declare module "http2" {
          */
         close(code?: number, callback?: () => void): void;
         /**
-         * Updates the priority for this `Http2Stream` instance.
-         * @since v8.4.0
+         * @deprecated Priority signaling is no longer supported in Node.js.
          */
-        priority(options: StreamPriorityOptions): void;
+        priority(options: unknown): void;
         /**
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const client = http2.connect('http://example.org:8000');
          * const { NGHTTP2_CANCEL } = http2.constants;
          * const req = client.request({ ':path': '/' });
@@ -177,7 +172,7 @@ declare module "http2" {
          * trailers can be sent.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond(undefined, { waitForTrailers: true });
@@ -368,7 +363,7 @@ declare module "http2" {
          * Initiates a push stream. The callback is invoked with the new `Http2Stream` instance created for the push stream passed as the second argument, or an `Error` passed as the first argument.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 });
@@ -395,12 +390,12 @@ declare module "http2" {
         ): void;
         pushStream(
             headers: OutgoingHttpHeaders,
-            options?: StreamPriorityOptions,
+            options?: Pick<ClientSessionRequestOptions, "exclusive" | "parent">,
             callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void,
         ): void;
         /**
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 });
@@ -416,7 +411,7 @@ declare module "http2" {
          * close when the final `DATA` frame is transmitted. User code must call either `http2stream.sendTrailers()` or `http2stream.close()` to close the `Http2Stream`.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respond({ ':status': 200 }, { waitForTrailers: true });
@@ -439,8 +434,8 @@ declare module "http2" {
          * automatically.
          *
          * ```js
-         * const http2 = require('node:http2');
-         * const fs = require('node:fs');
+         * import http2 from 'node:http2';
+         * import fs from 'node:fs';
          *
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
@@ -482,8 +477,8 @@ declare module "http2" {
          * or `http2stream.close()` to close the `Http2Stream`.
          *
          * ```js
-         * const http2 = require('node:http2');
-         * const fs = require('node:fs');
+         * import http2 from 'node:http2';
+         * import fs from 'node:fs';
          *
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
@@ -529,7 +524,7 @@ declare module "http2" {
          * Example using a file path:
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   function statCheck(stat, headers) {
@@ -563,7 +558,7 @@ declare module "http2" {
          * results to determine if the file has been modified to return an appropriate `304` response:
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   function statCheck(stat, headers) {
@@ -596,7 +591,7 @@ declare module "http2" {
          * close when the final `DATA` frame is transmitted. User code must call either`http2stream.sendTrailers()` or `http2stream.close()` to close the`Http2Stream`.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer();
          * server.on('stream', (stream) => {
          *   stream.respondWithFile('/some/file',
@@ -629,7 +624,6 @@ declare module "http2" {
         endStream?: boolean | undefined;
         exclusive?: boolean | undefined;
         parent?: number | undefined;
-        weight?: number | undefined;
         waitForTrailers?: boolean | undefined;
         signal?: AbortSignal | undefined;
     }
@@ -805,7 +799,7 @@ declare module "http2" {
          * the delta.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          *
          * const server = http2.createServer();
          * const expectedWindowSize = 2 ** 20;
@@ -932,7 +926,7 @@ declare module "http2" {
          * This method is only available if `http2session.type` is equal to `http2.constants.NGHTTP2_SESSION_CLIENT`.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const clientSession = http2.connect('https://localhost:1234');
          * const {
          *   HTTP2_HEADER_PATH,
@@ -965,7 +959,10 @@ declare module "http2" {
          * * `:path` \= `/`
          * @since v8.4.0
          */
-        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+        request(
+            headers?: OutgoingHttpHeaders | readonly string[],
+            options?: ClientSessionRequestOptions,
+        ): ClientHttp2Stream;
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "origin", listener: (origins: string[]) => void): this;
         addListener(
@@ -1065,7 +1062,7 @@ declare module "http2" {
          * Submits an `ALTSVC` frame (as defined by [RFC 7838](https://tools.ietf.org/html/rfc7838)) to the connected client.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          *
          * const server = http2.createServer();
          * server.on('session', (session) => {
@@ -1106,7 +1103,7 @@ declare module "http2" {
          * authoritative responses.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const options = getSecureOptionsSomehow();
          * const server = http2.createSecureServer(options);
          * server.on('stream', (stream) => {
@@ -1132,7 +1129,7 @@ declare module "http2" {
          * server using the `http2.createSecureServer()` method:
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const options = getSecureOptionsSomehow();
          * options.origins = ['https://example.com', 'https://example.org'];
          * const server = http2.createSecureServer(options);
@@ -1223,14 +1220,66 @@ declare module "http2" {
     }
     // Http2Server
     export interface SessionOptions {
+        /**
+         * Sets the maximum dynamic table size for deflating header fields.
+         * @default 4Kib
+         */
         maxDeflateDynamicTableSize?: number | undefined;
+        /**
+         * Sets the maximum number of settings entries per `SETTINGS` frame.
+         * The minimum value allowed is `1`.
+         * @default 32
+         */
+        maxSettings?: number | undefined;
+        /**
+         * Sets the maximum memory that the `Http2Session` is permitted to use.
+         * The value is expressed in terms of number of megabytes, e.g. `1` equal 1 megabyte.
+         * The minimum value allowed is `1`.
+         * This is a credit based limit, existing `Http2Stream`s may cause this limit to be exceeded,
+         * but new `Http2Stream` instances will be rejected while this limit is exceeded.
+         * The current number of `Http2Stream` sessions, the current memory use of the header compression tables,
+         * current data queued to be sent, and unacknowledged `PING` and `SETTINGS` frames are all counted towards the current limit.
+         * @default 10
+         */
         maxSessionMemory?: number | undefined;
+        /**
+         * Sets the maximum number of header entries.
+         * This is similar to `server.maxHeadersCount` or `request.maxHeadersCount` in the `node:http` module.
+         * The minimum value is `1`.
+         * @default 128
+         */
         maxHeaderListPairs?: number | undefined;
+        /**
+         * Sets the maximum number of outstanding, unacknowledged pings.
+         * @default 10
+         */
         maxOutstandingPings?: number | undefined;
+        /**
+         * Sets the maximum allowed size for a serialized, compressed block of headers.
+         * Attempts to send headers that exceed this limit will result in
+         * a `'frameError'` event being emitted and the stream being closed and destroyed.
+         */
         maxSendHeaderBlockLength?: number | undefined;
+        /**
+         * Strategy used for determining the amount of padding to use for `HEADERS` and `DATA` frames.
+         * @default http2.constants.PADDING_STRATEGY_NONE
+         */
         paddingStrategy?: number | undefined;
+        /**
+         * Sets the maximum number of concurrent streams for the remote peer as if a `SETTINGS` frame had been received.
+         * Will be overridden if the remote peer sets its own value for `maxConcurrentStreams`.
+         * @default 100
+         */
         peerMaxConcurrentStreams?: number | undefined;
+        /**
+         * The initial settings to send to the remote peer upon connection.
+         */
         settings?: Settings | undefined;
+        /**
+         * The array of integer values determines the settings types,
+         * which are included in the `CustomSettings`-property of the received remoteSettings.
+         * Please see the `CustomSettings`-property of the `Http2Settings` object for more information, on the allowed setting types.
+         */
         remoteCustomSettings?: number[] | undefined;
         /**
          * Specifies a timeout in milliseconds that
@@ -1239,11 +1288,35 @@ declare module "http2" {
          * @default 100000
          */
         unknownProtocolTimeout?: number | undefined;
-        selectPadding?(frameLen: number, maxFrameLen: number): number;
+        /**
+         * If `true`, it turns on strict leading
+         * and trailing whitespace validation for HTTP/2 header field names and values
+         * as per [RFC-9113](https://www.rfc-editor.org/rfc/rfc9113.html#section-8.2.1).
+         * @since v24.2.0
+         * @default true
+         */
+        strictFieldWhitespaceValidation?: boolean | undefined;
     }
     export interface ClientSessionOptions extends SessionOptions {
+        /**
+         * Sets the maximum number of reserved push streams the client will accept at any given time.
+         * Once the current number of currently reserved push streams exceeds reaches this limit,
+         * new push streams sent by the server will be automatically rejected.
+         * The minimum allowed value is 0. The maximum allowed value is 2<sup>32</sup>-1.
+         * A negative value sets this option to the maximum allowed value.
+         * @default 200
+         */
         maxReservedRemoteStreams?: number | undefined;
+        /**
+         * An optional callback that receives the `URL` instance passed to `connect` and the `options` object,
+         * and returns any `Duplex` stream that is to be used as the connection for this session.
+         */
         createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
+        /**
+         * The protocol to connect with, if not set in the `authority`.
+         * Value may be either `'http:'` or `'https:'`.
+         * @default 'https:'
+         */
         protocol?: "http:" | "https:" | undefined;
     }
     export interface ServerSessionOptions<
@@ -1252,6 +1325,8 @@ declare module "http2" {
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SessionOptions {
+        streamResetBurst?: number | undefined;
+        streamResetRate?: number | undefined;
         Http1IncomingMessage?: Http1Request | undefined;
         Http1ServerResponse?: Http1Response | undefined;
         Http2ServerRequest?: Http2Request | undefined;
@@ -1787,7 +1862,7 @@ declare module "http2" {
          * If there were no previous values for the header, this is equivalent to calling {@link setHeader}.
          *
          * Attempting to set a header field name or value that contains invalid characters will result in a
-         * [TypeError](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-typeerror) being thrown.
+         * [TypeError](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-typeerror) being thrown.
          *
          * ```js
          * // Returns headers including "set-cookie: a" and "set-cookie: b"
@@ -1835,7 +1910,7 @@ declare module "http2" {
          * All other interactions will be routed directly to the socket.
          *
          * ```js
-         * const http2 = require('node:http2');
+         * import http2 from 'node:http2';
          * const server = http2.createServer((req, res) => {
          *   const ip = req.socket.remoteAddress;
          *   const port = req.socket.remotePort;
@@ -2411,7 +2486,7 @@ declare module "http2" {
      * for use with the `HTTP2-Settings` header field.
      *
      * ```js
-     * const http2 = require('node:http2');
+     * import http2 from 'node:http2';
      *
      * const packed = http2.getPackedSettings({ enablePush: false });
      *
@@ -2436,7 +2511,7 @@ declare module "http2" {
      * with browser clients.
      *
      * ```js
-     * const http2 = require('node:http2');
+     * import http2 from 'node:http2';
      *
      * // Create an unencrypted HTTP/2 server.
      * // Since there are no browsers known that support
@@ -2473,8 +2548,8 @@ declare module "http2" {
      * Returns a `tls.Server` instance that creates and manages `Http2Session` instances.
      *
      * ```js
-     * const http2 = require('node:http2');
-     * const fs = require('node:fs');
+     * import http2 from 'node:http2';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -2513,7 +2588,7 @@ declare module "http2" {
      * Returns a `ClientHttp2Session` instance.
      *
      * ```js
-     * const http2 = require('node:http2');
+     * import http2 from 'node:http2';
      * const client = http2.connect('https://localhost:1234');
      *
      * // Use the client

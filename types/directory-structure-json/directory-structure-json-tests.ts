@@ -32,9 +32,29 @@ const structure: Array<File | Folder> = [
     },
 ];
 
-DirectoryStructureJSON.getStructure(fs, "", (err: Error | null) => {});
-DirectoryStructureJSON.getStructure(fs, "", (err: Error | null, result?: Folder) => {});
-DirectoryStructureJSON.getStructure(fs, "", (err: Error | null, result?: Folder, total?: Total) => {});
+DirectoryStructureJSON.getStructure(
+    fs,
+    "",
+    (error: Error | null, results: Folder | Array<Folder | File>, total: Total) => {
+        if (error) throw new Error(error.message);
+
+        if (total) {
+            const number: number = total.files + total.folders;
+        }
+
+        if (Array.isArray(results)) {
+            DirectoryStructureJSON.traverseStructure(
+                results,
+                "",
+                (folder: Folder, basepath: string) => {
+                    console.info(folder.children.length);
+                },
+                (file: File, basepath: string) => {},
+            );
+        }
+    },
+);
+
 DirectoryStructureJSON.traverseStructure(
     structure,
     "",

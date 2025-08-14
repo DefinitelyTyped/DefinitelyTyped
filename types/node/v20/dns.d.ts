@@ -9,7 +9,7 @@
  * system do, use {@link lookup}.
  *
  * ```js
- * const dns = require('node:dns');
+ * import dns from 'node:dns';
  *
  * dns.lookup('example.org', (err, address, family) => {
  *   console.log('address: %j family: IPv%s', address, family);
@@ -23,7 +23,7 @@
  * DNS queries, bypassing other name-resolution facilities.
  *
  * ```js
- * const dns = require('node:dns');
+ * import dns from 'node:dns';
  *
  * dns.resolve4('archive.org', (err, addresses) => {
  *   if (err) throw err;
@@ -138,7 +138,7 @@ declare module "dns" {
      * Example usage:
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * const options = {
      *   family: 6,
      *   hints: dns.ADDRCONFIG | dns.V4MAPPED,
@@ -198,7 +198,7 @@ declare module "dns" {
      * where `err.code` is the error code.
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * dns.lookupService('127.0.0.1', 22, (err, hostname, service) => {
      *   console.log(hostname, service);
      *   // Prints: localhost ssh
@@ -248,6 +248,9 @@ declare module "dns" {
         iodef?: string | undefined;
         contactemail?: string | undefined;
         contactphone?: string | undefined;
+    }
+    export interface AnyCaaRecord extends CaaRecord {
+        type: "CAA";
     }
     export interface MxRecord {
         priority: number;
@@ -307,6 +310,7 @@ declare module "dns" {
     export type AnyRecord =
         | AnyARecord
         | AnyAaaaRecord
+        | AnyCaaRecord
         | AnyCnameRecord
         | AnyMxRecord
         | AnyNaptrRecord
@@ -334,12 +338,7 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "A",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "AAAA",
+        rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR",
         callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
@@ -349,8 +348,8 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "CNAME",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        rrtype: "CAA",
+        callback: (err: NodeJS.ErrnoException | null, address: CaaRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -361,16 +360,6 @@ declare module "dns" {
         hostname: string,
         rrtype: "NAPTR",
         callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "NS",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "PTR",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -392,12 +381,21 @@ declare module "dns" {
         rrtype: string,
         callback: (
             err: NodeJS.ErrnoException | null,
-            addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[],
+            addresses:
+                | string[]
+                | CaaRecord[]
+                | MxRecord[]
+                | NaptrRecord[]
+                | SoaRecord
+                | SrvRecord[]
+                | string[][]
+                | AnyRecord[],
         ) => void,
     ): void;
     export namespace resolve {
         function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
         function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+        function __promisify__(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
         function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
@@ -406,7 +404,16 @@ declare module "dns" {
         function __promisify__(
             hostname: string,
             rrtype: string,
-        ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+        ): Promise<
+            | string[]
+            | CaaRecord[]
+            | MxRecord[]
+            | NaptrRecord[]
+            | SoaRecord
+            | SrvRecord[]
+            | string[][]
+            | AnyRecord[]
+        >;
     }
     /**
      * Uses the DNS protocol to resolve a IPv4 addresses (`A` records) for the `hostname`. The `addresses` argument passed to the `callback` function
@@ -786,7 +793,7 @@ declare module "dns" {
      * other resolvers:
      *
      * ```js
-     * const { Resolver } = require('node:dns');
+     * import { Resolver } from 'node:dns';
      * const resolver = new Resolver();
      * resolver.setServers(['4.4.4.4']);
      *

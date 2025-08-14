@@ -115,7 +115,7 @@ import * as uartModule from "uart";
     // $ExpectType string
     btoa(new Uint8Array(0));
 
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     atob("0");
 
     // $ExpectType string
@@ -130,7 +130,7 @@ import * as uartModule from "uart";
     let te02 = new TextEncoder("ascii");
     let te03 = new TextEncoder("utf-8");
 
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     te00.encode("a");
     // $ExpectType string
     te00.encoding;
@@ -381,9 +381,9 @@ import * as uartModule from "uart";
     // $ExpectType number
     ic00.write("0", 0, 0, 0);
 
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     ic00.read(0, 0);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     ic00.read(0, 0, 0);
 
     // $ExpectType number
@@ -397,11 +397,11 @@ import * as uartModule from "uart";
     // $ExpectType number
     ic00.memWrite("0", 0, 0, 0, 0, 0);
 
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     ic00.memRead(0, 0, 0);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     ic00.memRead(0, 0, 0, 0);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     ic00.memRead(0, 0, 0, 0, 0);
 
     // $ExpectType void

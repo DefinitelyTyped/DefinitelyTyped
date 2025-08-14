@@ -154,7 +154,7 @@ export namespace ContextualIdentities {
          * @param cookieStoreIds The ID or list of IDs of the contextual identity cookie stores.
          * @param position The position the contextual identity should move to.
          */
-        move(cookieStoreIds: string | string[], position: number): void;
+        move(cookieStoreIds: string | string[], position: number): Promise<void>;
 
         /**
          * Deletes a contextual identity by its cookie Store ID.

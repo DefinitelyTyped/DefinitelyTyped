@@ -1,12 +1,14 @@
 import * as Redux from "redux";
 
-export interface MockStore<T> extends Redux.Store<T> {
-    getActions(): any[];
-    clearActions(): void;
+declare namespace reduxMockStore {
+    type MockStore<T> = Redux.Store<T>;
+    type MockStoreCreator<T = {}> = (state?: T) => MockStore<T>;
+
+    interface ConfigureStore {
+        <T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
+    }
 }
 
-export type MockStoreCreator<T = {}> = (state?: T) => MockStore<T>;
+declare const reduxMockStore: reduxMockStore.ConfigureStore;
 
-declare function createMockStore<T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
-
-export default createMockStore;
+export = reduxMockStore;

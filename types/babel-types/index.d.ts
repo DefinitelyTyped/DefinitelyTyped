@@ -2214,7 +2214,6 @@ export function isWhile(node: object | null | undefined, opts?: object): node is
 export function isExpressionWrapper(node: object | null | undefined, opts?: object): node is ExpressionWrapper;
 export function isFor(node: object | null | undefined, opts?: object): node is For;
 export function isForXStatement(node: object | null | undefined, opts?: object): node is ForXStatement;
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction(node: object | null | undefined, opts?: object): node is Function;
 export function isFunctionParent(node: object | null | undefined, opts?: object): node is FunctionParent;
 export function isPureish(node: object | null | undefined, opts?: object): node is Pureish;
@@ -2721,7 +2720,6 @@ export function assertExpressionWrapper(
 ): asserts node is ExpressionWrapper;
 export function assertFor(node: object | null | undefined, opts?: object): asserts node is For;
 export function assertForXStatement(node: object | null | undefined, opts?: object): asserts node is ForXStatement;
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function assertFunction(node: object | null | undefined, opts?: object): asserts node is Function;
 export function assertFunctionParent(node: object | null | undefined, opts?: object): asserts node is FunctionParent;
 export function assertPureish(node: object | null | undefined, opts?: object): asserts node is Pureish;

@@ -85,6 +85,8 @@ export class Socket {
 
     makeRef(): MessageRef;
     off(refs: MessageRef[]): void;
+
+    ping: (callback: (latency: number) => void) => boolean;
 }
 
 export class LongPoll {

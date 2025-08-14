@@ -78,21 +78,45 @@ export interface TLSParams {
 
 export interface Params {
     /**
-     * @deprecated Use metadata instead.
+     * Object with key-value pairs representing custom metadata the user would like to add to the request.
      */
-    headers?: object;
-
     metadata?: object;
 
+    /**
+     * Key-value pairs where the keys are names of tags and the values are tag values
+     */
     tags?: object;
 
+    /**
+     * Request timeout to use.
+     */
     timeout?: string | number;
+
+    /**
+     * Specify if response messages should be discarded.
+     */
+    discardResponseMessage?: boolean;
 }
 
 export interface GrpcError {
     code: number;
     details: string[] | object[];
     message: string;
+}
+
+/**
+ * Health check status values as defined by the gRPC Health Checking Protocol.
+ */
+export type HealthCheckStatus = "SERVING" | "NOT_SERVING" | "UNKNOWN";
+
+/**
+ * Response from a gRPC health check.
+ */
+export interface HealthCheckResponse {
+    /**
+     * The health status of the service.
+     */
+    Status: HealthCheckStatus;
 }
 
 /**
@@ -121,6 +145,15 @@ export class Client {
 
     /** Close the connection. */
     close(): void;
+
+    /**
+     * Performs a health check on the gRPC service.
+     * Uses the standard gRPC Health Checking Protocol.
+     *
+     * @param service - Optional service name to check. If not provided, checks overall server health.
+     * @returns The health check response
+     */
+    healthCheck(service?: string): HealthCheckResponse;
 }
 
 /**
@@ -142,6 +175,16 @@ export type StreamEvent =
     | "end";
 
 /**
+ * StreamMessageMetadata handles gRPC stream messages's metadata
+ */
+export interface StreamMessageMetadata {
+    /**
+     * Contains the timestamp of the original event (for example, when a message has been received).
+     */
+    ts: number;
+}
+
+/**
  * Stream allows you to use streaming RPCs.
  */
 export class Stream {
@@ -160,7 +203,10 @@ export class Stream {
      * @param event - the event to listen for
      * @param listener - the callback to invoke when the event is emitted
      */
-    on(event: StreamEvent, listener: (data: object | GrpcError | undefined) => void): void;
+    on(
+        event: StreamEvent,
+        listener: (data: object | GrpcError | undefined, metadata: StreamMessageMetadata) => void,
+    ): void;
 
     /**
      * Writes a request to the stream.
@@ -192,5 +238,10 @@ export const StatusInternal: number;
 export const StatusUnavailable: number;
 export const StatusDataLoss: number;
 export const StatusUnauthenticated: number;
+
+export const HealthCheckServing: HealthCheckStatus;
+export const HealthCheckNotServing: HealthCheckStatus;
+export const HealthCheckUnknown: HealthCheckStatus;
+export const HealthCheckServiceUnkown: HealthCheckStatus;
 
 export * as default from "k6/net/grpc";

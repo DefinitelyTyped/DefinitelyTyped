@@ -78,9 +78,9 @@ const myBaseQuadBad = factory.quad(
     factory.namedNode("http://example.org/object"),
 );
 
-// $ExpectType BaseQuad
+// $ExpectType Quad
 const fromQuadValue = factory.fromQuad(myQuad);
-// $ExpectType BaseQuad
+// $ExpectType Quad
 const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
 // @ts-expect-error
@@ -90,5 +90,5 @@ factory.fromQuad(factory.variable("?o"));
 const fromTermValue = factory.fromTerm(factory.variable("?o"));
 
 const baseQuad: RDF.BaseQuad = <any> {};
-// $ExpectType BaseQuad
+// $ExpectType Quad
 const fromTermBaseQuad = factory.fromTerm(baseQuad);

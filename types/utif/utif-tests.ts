@@ -2,7 +2,7 @@ import * as UTIF from "utif";
 
 // $ExpectType IFD[]
 const IFDs = UTIF.decode(new ArrayBuffer(64));
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 const rgba = UTIF.toRGBA8(IFDs[0]);
 
 // $ExpectType ArrayBuffer

@@ -1,4 +1,4 @@
-import { PositiveInteger, State } from "./state";
+import { PositiveInteger, QueryLanguage, State } from "./state";
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-state-machine-structure.html
 export interface StateMachineDefinition {
@@ -9,4 +9,5 @@ export interface StateMachineDefinition {
     Comment?: string;
     Version?: string;
     TimeoutSeconds?: PositiveInteger;
+    QueryLanguage?: QueryLanguage;
 }

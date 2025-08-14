@@ -1,6 +1,6 @@
 export = rison;
 export as namespace rison;
-declare var rison: IRison;
+declare const rison: IRison;
 
 interface IRison {
     /**

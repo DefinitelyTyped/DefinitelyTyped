@@ -1,11 +1,11 @@
 {
     "private": true,
     "name": "@types/method-override",
-    "version": "0.0.9999",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/expressjs/method-override"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/express": "*"
     },
     "devDependencies": {

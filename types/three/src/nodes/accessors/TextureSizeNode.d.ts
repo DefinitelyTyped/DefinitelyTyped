@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class TextureSizeNode extends Node {
     readonly isTextureSizeNode: true;
@@ -13,6 +13,6 @@ declare class TextureSizeNode extends Node {
 export default TextureSizeNode;
 
 export const textureSize: (
-    textureNode: NodeRepresentation,
-    levelNode?: NodeRepresentation | null,
+    textureNode: Node,
+    levelNode?: Node | null,
 ) => ShaderNodeObject<TextureSizeNode>;

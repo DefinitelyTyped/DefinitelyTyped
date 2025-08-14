@@ -8,7 +8,7 @@ cryptoLdTests.generate({ type: "", controller: "" }).then(); // $ExpectType Prom
 cryptoLdTests.fromKeyDocument({ document: {}, checkContext: false, checkRevoked: false }).then(); // $ExpectType Promise<LDKeyPair>
 
 lDKeyPairTests.export({ publicKey: true, privateKey: true }); // $ExpectType object
-lDKeyPairTests.signer(); // $ExpectType { sign: ({ data }: { data: Uint8Array; }) => Promise<string | Uint8Array>; }
+lDKeyPairTests.signer(); // $ExpectType { sign: ({ data }: { data: Uint8Array; }) => Promise<string | Uint8Array>; } || { sign: ({ data }: { data: Uint8Array<ArrayBuffer>; }) => Promise<string | Uint8Array<ArrayBuffer>>; }
 lDKeyPairTests.fingerprint(); // $ExpectType string
 lDKeyPairTests.verifyFingerprint({ fingerprint: "" }); // $ExpectType { verified: boolean; }
-lDKeyPairTests.verifier(); // $ExpectType { verify: ({ data, signature }: { data: Uint8Array; signature: Uint8Array; }) => Promise<boolean>; }
+lDKeyPairTests.verifier(); // $ExpectType { verify: ({ data, signature }: { data: Uint8Array; signature: Uint8Array; }) => Promise<boolean>; } || { verify: ({ data, signature }: { data: Uint8Array<ArrayBuffer>; signature: Uint8Array<ArrayBuffer>; }) => Promise<boolean>; }

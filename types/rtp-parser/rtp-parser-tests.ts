@@ -2,7 +2,7 @@ import { parseRtpPacket, parseRtpPayloadType, payloadTypesHash } from "rtp-parse
 
 const result = parseRtpPacket(new Buffer("fakeRTP"));
 result.csrc; // $ExpectType number[]
-result.payload; // $ExpectType Buffer
+result.payload; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 const parsed3 = parseRtpPayloadType(3);
 parsed3.name; // $ExpectType "GSM"

@@ -30,6 +30,7 @@
         "test/scenario-stream.ts",
         "test/stream.ts",
         "test/transformstream.ts",
+        "test/true-client-ip-tests.ts",
         "test/url-search-params-tests.ts",
         "test/user-location.ts"
     ]

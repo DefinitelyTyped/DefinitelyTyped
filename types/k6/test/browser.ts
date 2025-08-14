@@ -553,6 +553,107 @@ async function test() {
         // $ExpectType string
         msg.type();
     });
+    // @ts-expect-error
+    page.on("metric");
+    // $ExpectType void
+    page.on("metric", msg => {
+        // @ts-expect-error
+        msg.tag();
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // @ts-expect-error
+        msg.tag({
+            name: "test",
+        });
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // $ExpectType void
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/,
+            }],
+        });
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // $ExpectType void
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/,
+                method: "GET",
+            }],
+        });
+    });
+
+    // $ExpectType void
+    page.on("request", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+    });
+
+    // $ExpectType void
+    page.on("response", response => {
+        // $ExpectType Promise<Record<string, string>>
+        response.allHeaders();
+        // $ExpectType Promise<ArrayBuffer>
+        response.body();
+        // $ExpectType Frame
+        response.frame();
+        // $ExpectType Record<string, string>
+        response.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        response.headersArray();
+        // $ExpectType Promise<string | null>
+        response.headerValue("content-type");
+        // $ExpectType Promise<string[]>
+        response.headerValues("content-type");
+        // $ExpectType Promise<any>
+        response.json();
+        // $ExpectType boolean
+        response.ok();
+        // $ExpectType Request
+        response.request();
+        // $ExpectType Promise<SecurityDetailsObject | null>
+        response.securityDetails();
+        // $ExpectType Promise<{ ipAddress: string; port: number; } | null>
+        response.serverAddr();
+        // $ExpectType number
+        response.status();
+        // $ExpectType string
+        response.statusText();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        response.size();
+        // $ExpectType string
+        response.url();
+    });
 
     // $ExpectType Promise<Page | null>
     page.opener();
@@ -571,6 +672,93 @@ async function test() {
     page.press(selector, "a", { strict: true });
     // $ExpectType Promise<void>
     page.press(selector, "a", { timeout: 10000 });
+
+    // $ExpectType Locator
+    page.getByRole("button", { name: "Sign in" });
+    // $ExpectType Locator
+    page.getByRole("button", { name: /Sign in/i });
+    // $ExpectType Locator
+    page.getByRole("button", { exact: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { checked: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { disabled: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { expanded: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { includeHidden: true });
+    // $ExpectType Locator
+    page.getByRole("heading", { level: 1 });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { pressed: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { selected: true });
+    // @ts-expect-error
+    page.getByRole("button", { name: 123 });
+    // @ts-expect-error
+    page.getByRole("invalid-role");
+
+    // $ExpectType Locator
+    page.getByAltText("pizza");
+    // $ExpectType Locator
+    page.getByAltText(/pizza/i);
+    // @ts-expect-error
+    page.getByAltText(123);
+    // $ExpectType Locator
+    page.getByAltText("pizza", { exact: true });
+    // @ts-expect-error
+    page.getByAltText("pizza", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByLabel("Password");
+    // $ExpectType Locator
+    page.getByLabel(/Password/i);
+    // @ts-expect-error
+    page.getByLabel(123);
+    // $ExpectType Locator
+    page.getByLabel("Password", { exact: true });
+    // @ts-expect-error
+    page.getByLabel("Password", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByText("Welcome");
+    // $ExpectType Locator
+    page.getByText(/Welcome/i);
+    // @ts-expect-error
+    page.getByText(123);
+    // $ExpectType Locator
+    page.getByText("Welcome", { exact: true });
+    // @ts-expect-error
+    page.getByText("Welcome", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByTestId("submit-button");
+    // $ExpectType Locator
+    page.getByTestId(/submit-button/i);
+    // @ts-expect-error
+    page.getByTestId(123);
+
+    // $ExpectType Locator
+    page.getByTitle("Information box");
+    // $ExpectType Locator
+    page.getByTitle(/Information box/i);
+    // @ts-expect-error
+    page.getByTitle(123);
+    // $ExpectType Locator
+    page.getByTitle("Information box", { exact: true });
+    // @ts-expect-error
+    page.getByTitle("Information box", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByPlaceholder("name@example.com");
+    // $ExpectType Locator
+    page.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    page.getByPlaceholder(123);
+    // $ExpectType Locator
+    page.getByPlaceholder("name@example.com", { exact: true });
+    // @ts-expect-error
+    page.getByPlaceholder("name@example.com", { exact: "true" });
 
     // $ExpectType Promise<Response | null>
     page.reload();
@@ -624,6 +812,27 @@ async function test() {
     page.selectOption(selector, "option", { strict: true });
     // $ExpectType Promise<string[]>
     page.selectOption(selector, "option", { timeout: 10000 });
+
+    // @ts-expect-error
+    page.setChecked();
+    // @ts-expect-error
+    page.setChecked(selector);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { strict: true });
 
     // @ts-expect-error
     page.setContent();
@@ -767,6 +976,8 @@ async function test() {
     // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { polling: "raf" });
     // $ExpectType Promise<JSHandle<boolean>>
+    page.waitForFunction(() => true, { polling: "mutation" });
+    // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { polling: 100 });
     // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { timeout: 10000 });
@@ -794,6 +1005,21 @@ async function test() {
     page.waitForNavigation({ waitUntil: "domcontentloaded" });
     // $ExpectType Promise<Response | null>
     page.waitForNavigation({ waitUntil: "networkidle" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: /.*\/api\/pizza$/ });
+
+    // @ts-expect-error
+    page.waitForURL();
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    page.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
     page.waitForSelector();
@@ -1031,6 +1257,9 @@ async function test() {
     // $ExpectType Promise<void>
     locator.fill("text", { timeout: 10000 });
 
+    // $ExpectType Locator
+    locator.first();
+
     // $ExpectType Promise<void>
     locator.focus();
     // $ExpectType Promise<void>
@@ -1052,6 +1281,16 @@ async function test() {
     locator.innerText();
     // $ExpectType Promise<string>
     locator.innerText({ timeout: 10000 });
+
+    // $ExpectType Locator
+    locator.last();
+
+    // $ExpectType Locator
+    locator.nth(0);
+    // @ts-expect-error
+    locator.nth();
+    // @ts-expect-error
+    locator.nth("0");
 
     // $ExpectType Promise<string | null>
     locator.textContent();
@@ -1083,6 +1322,23 @@ async function test() {
     locator.selectOption("value", { noWaitAfter: true });
     // $ExpectType Promise<string[]>
     locator.selectOption("value", { timeout: 10000 });
+
+    // @ts-expect-error
+    locator.setChecked();
+    // $ExpectType Promise<void>
+    locator.setChecked(true);
+    // $ExpectType Promise<void>
+    locator.setChecked(false);
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { position: { x: 0, y: 0 } });
 
     // @ts-expect-error
     locator.type();
@@ -1525,6 +1781,25 @@ async function test() {
     elementHandle.selectText({ noWaitAfter: true });
 
     // @ts-expect-error
+    elementHandle.setChecked();
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(false);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { strict: true });
+
+    // @ts-expect-error
     elementHandle.setInputFiles();
     // @ts-expect-error
     elementHandle.setInputFiles({});
@@ -1889,6 +2164,27 @@ async function test() {
     frame.goto("https://example.com", { referer: "https://example.com" });
 
     // @ts-expect-error
+    frame.setChecked();
+    // @ts-expect-error
+    frame.setChecked(selector);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { strict: true });
+
+    // @ts-expect-error
     frame.setContent();
     // $ExpectType Promise<void>
     frame.setContent("<div>content</div>");
@@ -2047,7 +2343,9 @@ async function test() {
     // $ExpectType Promise<JSHandle<boolean>>
     frame.waitForFunction(() => true, { polling: "raf" });
     // $ExpectType Promise<JSHandle<boolean>>
-    frame.waitForFunction(() => true, { polling: "interval", interval: 10000 });
+    frame.waitForFunction(() => true, { polling: "mutation" });
+    // $ExpectType Promise<JSHandle<boolean>>
+    frame.waitForFunction(() => true, { polling: 10000 });
     // $ExpectType Promise<JSHandle<boolean>>
     frame.waitForFunction(() => true, { timeout: 10000 });
     // $ExpectType Promise<JSHandle<boolean>>
@@ -2068,6 +2366,21 @@ async function test() {
     frame.waitForNavigation({ timeout: 10000 });
     // $ExpectType Promise<Response | null>
     frame.waitForNavigation({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: /.*\/api\/pizza$/ });
+
+    // @ts-expect-error
+    frame.waitForURL();
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    frame.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
     frame.waitForSelector();

@@ -43,13 +43,15 @@ http.createServer((req, res) => {
 const app = express();
 app.use(logfmt.bodyParserStream());
 app.post("/logs", (req, res) => {
-    if (!req.body) return res.send("OK");
+    if (!req.body) {
+        return res.send("OK");
+    }
 
     req.body.pipe(through((line) => {
         console.dir(line);
     }));
 
-    res.send("OK");
+    return res.send("OK");
 });
 
 const app2 = express();

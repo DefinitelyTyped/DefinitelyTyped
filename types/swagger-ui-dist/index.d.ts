@@ -93,14 +93,13 @@ export interface SwaggerConfigs {
      *  Function to intercept remote definition, "Try it out", and OAuth 2.0 requests.
      *  Accepts one argument requestInterceptor(request) and must return the modified request, or a Promise that resolves to the modified request.
      */
-    requestInterceptor?: ((request: SwaggerRequest) => SwaggerRequest) | undefined;
+    requestInterceptor?: ((request: SwaggerRequest) => SwaggerRequest | Promise<SwaggerRequest>) | undefined;
 
     /**
      *  Function to intercept remote definition, "Try it out", and OAuth 2.0 responses.
      *  Accepts one argument responseInterceptor(response) and must return the modified response, or a Promise that resolves to the modified response.
      */
-    responseInterceptor?: ((response: SwaggerResponse) => SwaggerResponse) | undefined;
-
+    responseInterceptor?: ((response: SwaggerResponse) => SwaggerResponse | Promise<SwaggerResponse>) | undefined;
     [k: string]: any;
 }
 

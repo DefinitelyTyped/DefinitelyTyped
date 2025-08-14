@@ -3,6 +3,9 @@
 import { Client } from "./client";
 import { callback } from "./core";
 
+// We don't want to export GooglePaymentBase
+export {};
+
 export type GooglePaymentTokenizeValues = "Yes" | "No" | "Unknown";
 
 export interface GooglePaymentDetails {
@@ -31,7 +34,42 @@ export interface GooglePaymentTokenizePayload {
     };
 }
 
-export interface GooglePayment {
+type GooglePaymentDataRequestResult =
+    | google.payments.api.PaymentDataRequest
+    | Promise<google.payments.api.PaymentDataRequest>;
+
+interface GooglePaymentBase<T extends GooglePaymentDataRequestResult> {
+    /**
+     * Parse the response from the tokenization.
+     * @example with callback
+     * var paymentsClient = new google.payments.api.PaymentsClient({
+     *   environment: 'TEST' // or 'PRODUCTION'
+     * })
+     *
+     * paymentsClient.loadPaymentData(paymentDataRequestFromCreatePaymentDataRequest).then(function (response) {
+     *   googlePaymentInstance.parseResponse(response, function (err, data) {
+     *     if (err) {
+     *       // handle errors
+     *     }
+     *     // send parsedResponse.nonce to your server
+     *   });
+     * });
+     * @example with promise
+     * var paymentsClient = new google.payments.api.PaymentsClient({
+     *   environment: 'TEST' // or 'PRODUCTION'
+     * })
+     *
+     * paymentsClient.loadPaymentData(paymentDataRequestFromCreatePaymentDataRequest).then(function (response) {
+     *   return googlePaymentInstance.parseResponse(response);
+     * }).then(function (parsedResponse) {
+     *   // send parsedResponse.nonce to your server
+     * }).catch(function (err) {
+     *   // handle errors
+     * });
+     */
+    parseResponse(response: any): Promise<GooglePaymentTokenizePayload>;
+    parseResponse(response: any, callback?: callback): void;
+
     /**
      * Create a configuration object for use in the `loadPaymentData` method.
      *
@@ -48,6 +86,7 @@ export interface GooglePayment {
      * parameters can be overridden, but note that it is recommended only to override top level parameters to avoid
      * squashing deeply nested configuration objects.
      * An example can be found below showing how to safely edit these deeply nested objects.
+     *
      * @example
      * var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
      *   merchantInfo: {
@@ -76,6 +115,7 @@ export interface GooglePayment {
      *   // handle response with googlePaymentInstance.parseResponse
      *   // (see below)
      * });
+     *
      * @example <caption>With deferred client</caption>
      * googlePaymentInstance.createPaymentDataRequest({
      *   merchantInfo: {
@@ -117,39 +157,11 @@ export interface GooglePayment {
             totalPriceStatus: string;
             totalPrice: string;
         };
-    }): Promise<google.payments.api.PaymentDataRequest>;
-
-    /**
-     * Parse the response from the tokenization.
-     * @example with callback
-     * var paymentsClient = new google.payments.api.PaymentsClient({
-     *   environment: 'TEST' // or 'PRODUCTION'
-     * })
-     *
-     * paymentsClient.loadPaymentData(paymentDataRequestFromCreatePaymentDataRequest).then(function (response) {
-     *   googlePaymentInstance.parseResponse(response, function (err, data) {
-     *     if (err) {
-     *       // handle errors
-     *     }
-     *     // send parsedResponse.nonce to your server
-     *   });
-     * });
-     * @example with promise
-     * var paymentsClient = new google.payments.api.PaymentsClient({
-     *   environment: 'TEST' // or 'PRODUCTION'
-     * })
-     *
-     * paymentsClient.loadPaymentData(paymentDataRequestFromCreatePaymentDataRequest).then(function (response) {
-     *   return googlePaymentInstance.parseResponse(response);
-     * }).then(function (parsedResponse) {
-     *   // send parsedResponse.nonce to your server
-     * }).catch(function (err) {
-     *   // handle errors
-     * });
-     */
-    parseResponse(response: any): Promise<GooglePaymentTokenizePayload>;
-    parseResponse(response: any, callback?: callback): void;
+    }): T;
 }
+
+export type GooglePayment = GooglePaymentBase<google.payments.api.PaymentDataRequest>;
+export type GooglePaymentDeferred = GooglePaymentBase<Promise<google.payments.api.PaymentDataRequest>>;
 
 /**
  * // include https://pay.google.com/gp/p/js/pay.js in a script tag
@@ -255,17 +267,37 @@ export interface GooglePayment {
 export function create(options: {
     client?: Client | undefined;
     authorization?: string | undefined;
-    useDeferredClient?: boolean | undefined;
+    useDeferredClient?: false | undefined;
     googlePayVersion?: number | undefined;
     googleMerchantId?: string | undefined;
 }): Promise<GooglePayment>;
+
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    useDeferredClient: true;
+    googlePayVersion?: number | undefined;
+    googleMerchantId?: string | undefined;
+}): Promise<GooglePaymentDeferred>;
+
 export function create(
     options: {
         client?: Client | undefined;
         authorization?: string | undefined;
-        useDeferredClient?: boolean | undefined;
+        useDeferredClient?: false | undefined;
         googlePayVersion?: number | undefined;
         googleMerchantId?: string | undefined;
     },
     callback?: callback<GooglePayment>,
+): void;
+
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient: true;
+        googlePayVersion?: number | undefined;
+        googleMerchantId?: string | undefined;
+    },
+    callback?: callback<GooglePaymentDeferred>,
 ): void;

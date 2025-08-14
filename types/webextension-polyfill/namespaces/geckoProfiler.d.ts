@@ -34,7 +34,10 @@ export namespace GeckoProfiler {
         | "responsiveness"
         | "cpufreq"
         | "bandwidth"
-        | "memory";
+        | "memory"
+        | "tracing"
+        | "sandbox"
+        | "flows";
 
     type supports = "windowLength";
 

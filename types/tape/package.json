@@ -1,13 +1,21 @@
 {
     "private": true,
     "name": "@types/tape",
-    "version": "5.6.9999",
+    "version": "5.8.9999",
+    "exports": {
+        ".": "./index.d.ts",
+        "./lib/default_stream": "./lib/default_stream.d.ts",
+        "./lib/results": "./lib/results.d.ts",
+        "./lib/test": "./lib/test.d.ts",
+        "./package.json": "./package.json"
+    },
     "projects": [
         "https://github.com/ljharb/tape"
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/through": "*"
+        "@ljharb/through": "*",
+        "mock-property": "*"
     },
     "devDependencies": {
         "@types/tape": "workspace:."

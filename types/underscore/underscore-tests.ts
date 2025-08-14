@@ -3364,7 +3364,7 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
 
 // isDataView
 {
-    _.isDataView(anyValue) ? anyValue : neverValue; // $ExpectType DataView
+    _.isDataView(anyValue) ? anyValue : neverValue; // $ExpectType DataView || DataView<ArrayBuffer>
     _(anyValue).isDataView(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isDataView()); // $ExpectType ChainType<boolean, never>
 }
@@ -3485,6 +3485,50 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
     _.isUndefined(maybeFunction) ? neverValue : maybeFunction; // $ExpectType () => void
     _(anyValue).isUndefined(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isUndefined()); // $ExpectType ChainType<boolean, never>
+}
+
+// isSet
+{
+    _.isSet(anyValue); // $ExpectType boolean
+    _.isSet(anyValue) ? anyValue : neverValue; // $ExpectType Set<any>
+    _(anyValue).isSet(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isSet()); // $ExpectType ChainType<boolean, never>
+}
+
+// isWeakSet
+{
+    _.isWeakSet(anyValue); // $ExpectType boolean
+    _.isWeakSet(anyValue) ? anyValue : neverValue; // $ExpectType WeakSet<any>
+    _(anyValue).isWeakSet(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isWeakSet()); // $ExpectType ChainType<boolean, never>
+}
+
+// isMap
+{
+    _.isMap(anyValue); // $ExpectType boolean
+    _.isMap(anyValue) ? anyValue : neverValue; // $ExpectType Map<any, any>
+    _(anyValue).isMap(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isMap()); // $ExpectType ChainType<boolean, never>
+}
+
+// isWeakMap
+{
+    _.isWeakMap(anyValue); // $ExpectType boolean
+    _.isWeakMap(anyValue) ? anyValue : neverValue; // $ExpectType WeakMap<any, any>
+    _(anyValue).isWeakMap(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isWeakMap()); // $ExpectType ChainType<boolean, never>
+}
+
+// toPath
+{
+    _.toPath(["a", 0, "b"] as const); // $ExpectType readonly ["a", 0, "b"]
+    _.toPath(["a", 0, "b"]); // $ExpectType (string | number)[]
+
+    _(["a", 0, "b"] as const).toPath(); // $ExpectType readonly ["a", 0, "b"]
+    _(["a", 0, "b"]).toPath(); // $ExpectType (string | number)[]
+
+    extractChainTypes(_.chain(["a", 0, "b"] as const).toPath()); // $ExpectType ChainType<readonly ["a", 0, "b"], 0 | "a" | "b">
+    extractChainTypes(_.chain(["a", 0, "b"]).toPath()); // $ExpectType ChainType<(string | number)[], string | number>
 }
 
 /***********

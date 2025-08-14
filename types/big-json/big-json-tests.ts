@@ -1,5 +1,5 @@
 import bigJson = require("big-json");
-import type { Stream } from "node:stream";
+import type { Stream, Transform } from "node:stream";
 
 // ----------------------------------------------------------------
 // stringify
@@ -58,5 +58,7 @@ bigJson.createStringifyStream({ body: "blabla" });
 // ----------------------------------------------------------------
 // createParseStream
 // ----------------------------------------------------------------
-// $ExpectType Stream
+// $ExpectType Transform
 const parseStream = bigJson.createParseStream();
+
+stringifyStream.pipe(parseStream);

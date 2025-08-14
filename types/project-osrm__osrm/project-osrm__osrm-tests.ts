@@ -1,10 +1,5 @@
 import * as fs from "fs";
 import OSRM = require("@project-osrm/osrm");
-import assert from "assert";
-
-// Access to Types from namespace
-const tile: OSRM.Tile = [0, 0, 0];
-const overview: OSRM.OverviewTypes = "full";
 
 // Version
 OSRM.version;
@@ -54,6 +49,19 @@ osrm.route({ coordinates, exclude }, (err, result) => {
     if (err) throw err;
     console.log(result.waypoints); // array of Waypoint objects representing all waypoints in order
     console.log(result.routes); // array of Route objects ordered by descending recommendation rank
+
+    const [firstRoute] = result.routes;
+    const [firstLeg] = firstRoute.legs;
+    const [firstStep] = firstLeg.steps;
+
+    // $ExpectType Route
+    firstRoute;
+    // $ExpectType RouteLeg
+    firstLeg;
+    // $ExpectType RouteStep
+    firstStep;
+    // $ExpectType DrivingSide
+    firstStep.driving_side;
 });
 
 osrm.route({ coordinates }, { format: "object" }, (err, result) => {
@@ -62,12 +70,12 @@ osrm.route({ coordinates }, { format: "object" }, (err, result) => {
 });
 
 osrm.route({ coordinates }, { format: "json_buffer" }, (err, result) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     result;
 });
 
 osrm.route({ coordinates, skip_waypoints: true }, { format: "json_buffer" }, (err, result) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     result;
 });
 
@@ -82,7 +90,7 @@ osrm.nearest({ coordinates, number: 3, bearings }, { format: "object" }, (err, r
 });
 
 osrm.nearest({ coordinates, number: 3, bearings }, { format: "json_buffer" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 
@@ -99,7 +107,7 @@ osrm.table({ coordinates, exclude }, { format: "object" }, (err, response) => {
 });
 
 osrm.table({ coordinates, exclude }, { format: "json_buffer" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 
@@ -132,12 +140,12 @@ osrm.tile([0, 0, 0], (err, response) => {
 });
 
 osrm.tile([0, 0, 0], { format: "object" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 
 osrm.tile([0, 0, 0], { format: "json_buffer" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 
@@ -166,7 +174,7 @@ osrm.match({ coordinates, timestamps, exclude }, { format: "object" }, (err, res
 });
 
 osrm.match({ coordinates, timestamps, exclude }, { format: "json_buffer" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 
@@ -183,7 +191,7 @@ osrm.trip({ coordinates, exclude }, { format: "object" }, (err, response) => {
 });
 
 osrm.trip({ coordinates, exclude }, { format: "json_buffer" }, (err, response) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     response;
 });
 

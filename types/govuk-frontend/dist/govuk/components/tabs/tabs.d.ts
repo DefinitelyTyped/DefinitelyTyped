@@ -1,16 +1,16 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Tabs component
  */
-export class Tabs extends GOVUKFrontendComponent {
+export class Tabs extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
     static moduleName: string;
 
     /**
-     * @param {Element | null} $module - HTML element to use for tabs
+     * @param {Element | null} $root - HTML element to use for tabs
      */
-    constructor($module: Element | null);
+    constructor($root: Element | null);
 }

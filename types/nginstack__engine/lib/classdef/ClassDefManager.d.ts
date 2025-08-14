@@ -20,7 +20,7 @@ declare class ClassDefManager {
     );
     vfs: any;
     classes: any;
-    cache: {};
+    private cache_;
     private masterDetailFieldsToValidate_;
     strictMode: boolean;
     protected runStartupScripts(): void;
@@ -29,14 +29,13 @@ declare class ClassDefManager {
     private strictEvaluator_;
     private validateFields_;
     private getDef_;
+    private hasModelDefCache_;
     getModelDef(
         classKey: number,
-        opt_options?:
-            | {
-                  ignoredFileKeys: number[];
-                  forceStrictMode: boolean;
-              }
-            | Record<any, any>
+        options?: {
+            ignoredFileKeys?: number[];
+            forceStrictMode?: boolean;
+        }
     ): ModelDef;
     getViewDef(
         classKey: number,
@@ -45,7 +44,7 @@ declare class ClassDefManager {
                   ignoredFileKeys: number[];
               }
             | Record<any, any>
-    ): ModelDef;
+    ): ViewDef;
     getConfig(
         classKey: number,
         opt_options?:
@@ -68,6 +67,7 @@ declare class ClassDefManager {
     clearCache(): void;
     hasOwnViewDef(classKey: number): boolean;
     hasOwnModelDef(classKey: number): boolean;
+    getJustToGroupChildren(classKey: number): string;
 }
 declare namespace ClassDefManager {
     export {
@@ -80,10 +80,9 @@ declare namespace ClassDefManager {
         getClassVersion,
         getInstance,
         DataSet,
+        ViewDef,
     };
 }
-type DataSet = import('../dataset/DataSet');
-declare const classes: import('../database/Classes.js');
 import ModelDef = require('./ModelDef.js');
 import ConfigDef = require('./ConfigDef.js');
 declare let protectedFieldProperties: string[];
@@ -99,4 +98,6 @@ declare namespace constructors {
 declare function getParentClass(classKey: number | DBKey): number;
 declare function getClassVersion(classKey: number | DBKey): number;
 declare function getInstance(): ClassDefManager;
+type DataSet = import('../dataset/DataSet');
+type ViewDef = ModelDef;
 import DBKey = require('../dbkey/DBKey.js');

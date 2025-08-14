@@ -230,6 +230,7 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | boolean
     | string
     | number
+    | null
     // Accessing Data - https://jsonlogic.com/operations.html#accessing-data
     | JsonLogicVar<AddOps>
     | JsonLogicMissing<AddOps>

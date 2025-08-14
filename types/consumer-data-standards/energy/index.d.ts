@@ -5125,7 +5125,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
      */
     startDate?: string;
     /**
-     * The type of the payer
+     * Reference to the applicable tariff structure
      */
     tariffUType: "singleTariff" | "timeVaryingTariffs";
     /**
@@ -5398,7 +5398,7 @@ export interface EnergyPlanTariffPeriodV2 {
      */
     dailySupplyCharge?: string;
     /**
-     * Specifies if daily supply charge is single or banded. Default value is SINGLE if field not provided
+     * Specifies if daily supply charge is single or banded.
      */
     dailySupplyChargeType?: "SINGLE" | "BAND";
     /**
@@ -5769,7 +5769,7 @@ export interface EnergyServicePointDetail {
              */
             thoroughfareNumber1?: number | null;
             /**
-             * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+             * Suffix for the thoroughfare number. Only relevant if _thoroughfareNumber1_ is populated
              */
             thoroughfareNumber1Suffix?: string | null;
             /**
@@ -5777,7 +5777,7 @@ export interface EnergyServicePointDetail {
              */
             thoroughfareNumber2?: number | null;
             /**
-             * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+             * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated
              */
             thoroughfareNumber2Suffix?: string | null;
             [k: string]: unknown;

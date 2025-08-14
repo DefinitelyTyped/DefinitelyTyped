@@ -163,7 +163,7 @@ interface Range<T extends Range.Endpoint> {
      * new Range(5, 10).compareBegin(0) // => 1
      * new Range(5, 10).compareBegin(null) // => 1
      */
-    compareBegin(begin: T | null): -1 | 0 | 0;
+    compareBegin(begin: T | null): -1 | 0 | 1;
 
     /**
      * Compares this range's end with the given value.
@@ -179,7 +179,7 @@ interface Range<T extends Range.Endpoint> {
      * new Range(0, 5).compareEnd(10) // => 1
      * new Range(0, 5).compareEnd(null) // => -1
      */
-    compareEnd(end: T | null): -1 | 0 | 0;
+    compareEnd(end: T | null): -1 | 0 | 1;
 
     /**
      * Check whether the range is empty.

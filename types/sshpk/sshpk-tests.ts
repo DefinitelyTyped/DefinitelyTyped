@@ -12,13 +12,13 @@ sshpk.parseSignature("", "ed25519", "ssh");
 // $ExpectType Signature
 sshpk.parseSignature("", "rsa", "ssh");
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 signature.toBuffer();
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 signature.toBuffer("asn1");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 signature.toBuffer("raw");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 signature.toBuffer("ssh");
 
 // $ExpectType string
@@ -57,9 +57,9 @@ sshpk.parseKey("", "ssh");
 // $ExpectType Key
 sshpk.parseKey("", "ssh-private");
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 key.toBuffer("rfc4253");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 key.toBuffer("pem", { hashAlgo: "sha1", comment: "" });
 
 // $ExpectType string
@@ -67,11 +67,11 @@ key.toString("pkcs1");
 // $ExpectType string
 key.toString("pkcs8", { comment: "" });
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 key.hash("sha384");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 key.hash("md5", "spki");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 key.hash("sha512", "ssh");
 
 // $ExpectType Fingerprint
@@ -133,9 +133,9 @@ sshpk.parsePrivateKey("", "ssh");
 // $ExpectType PrivateKey
 sshpk.parsePrivateKey("", "ssh-private");
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 private_key.toBuffer("rfc4253");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 private_key.toBuffer("pem", { hashAlgo: "sha1", comment: "" });
 
 // $ExpectType string
@@ -143,11 +143,11 @@ private_key.toString("pkcs1");
 // $ExpectType string
 private_key.toString("pkcs8", { comment: "" });
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 private_key.hash("sha384");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 private_key.hash("md5", "spki");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 private_key.hash("sha512", "ssh");
 
 // $ExpectType Fingerprint
@@ -297,11 +297,11 @@ sshpk.parseCertificate(Buffer.alloc(0), "x509", "filename");
 // $ExpectType Certificate
 sshpk.parseCertificate("", "openssh", { filename: "" });
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 cert.toBuffer("pem");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 cert.toBuffer("x509", {});
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 cert.toBuffer("openssh", { hashAlgo: "sha256" });
 
 // $ExpectType string
@@ -397,7 +397,7 @@ dhe.setKey(private_key);
 // $ExpectType void
 dhe.setPrivateKey(private_key);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dhe.computeSecret(key);
 
 // $ExpectType PrivateKey

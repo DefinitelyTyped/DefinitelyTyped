@@ -71,7 +71,7 @@ encrypt("publicKey", "userAuth", "myPayload", "unknownEncoding");
 encryptionResult.localPublicKey;
 // $ExpectType string
 encryptionResult.salt;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 encryptionResult.cipherText;
 
 // ===================
@@ -169,6 +169,7 @@ setVapidDetails("subject", "publicKey", buffer);
 
 const pushSubscription: PushSubscription = {
     endpoint: "endpointString",
+    expirationTime: null,
     keys: {
         p256dh: "p256dhString",
         auth: "authString",
@@ -249,15 +250,15 @@ requestOptions = {
 //  generateRequestDetails()
 // ==========================
 
-// $ExpectType RequestDetails & { body: Buffer; }
+// $ExpectType RequestDetails & { body: Buffer; } || RequestDetails & { body: Buffer<ArrayBufferLike>; }
 generateRequestDetails(pushSubscription, "payload", requestOptions);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, "payload", requestOptions).body;
 
 // Payload can be a Buffer
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, buffer).body;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, buffer, requestOptions).body;
 
 // Payload is optional, then body will be null
@@ -282,7 +283,7 @@ generateRequestDetails({ endpoint: null, keys: { p256dh: "p256dh", auth: "auth" 
 // @ts-expect-error
 generateRequestDetails({ endpoint: "endpoint", keys: null });
 
-generateRequestDetails({ endpoint: "endpoint", keys: { p256dh: "p256dh", auth: "auth" } });
+generateRequestDetails({ endpoint: "endpoint", expirationTime: null, keys: { p256dh: "p256dh", auth: "auth" } });
 
 // RequestOptions is optional
 generateRequestDetails(pushSubscription, "payload");
@@ -296,7 +297,7 @@ const requestDetails = generateRequestDetails(pushSubscription, "payload");
 requestDetails.method;
 // $ExpectType Headers
 requestDetails.headers;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 requestDetails.body;
 // $ExpectType string
 requestDetails.endpoint;

@@ -6,7 +6,7 @@
         "https://github.com/oranoran/antlr4-autosuggest-js"
     ],
     "dependencies": {
-        "@types/antlr4": "*"
+        "antlr4": "*"
     },
     "devDependencies": {
         "@types/antlr4-autosuggest": "workspace:."

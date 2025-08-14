@@ -1,53 +1,105 @@
-import wordwrap = require("wordwrapjs");
+import wordwrapRequire = require("wordwrapjs");
+import wordwrapImport from "wordwrapjs";
 
-const options: wordwrap.WordwrapOptions = {};
+const options: wordwrapRequire.WordwrapOptions = {};
 const text = "";
 
 // $ExpectType string[]
-wordwrap.lines(text);
-wordwrap.lines(text, options);
+wordwrapRequire.lines(text);
+// $ExpectType string[]
+wordwrapRequire.lines(text, options);
 
 // $ExpectType string
-wordwrap.wrap(text);
-wordwrap.wrap(text, options);
+wordwrapRequire.wrap(text);
+// $ExpectType string
+wordwrapRequire.wrap(text, options);
 
 // $ExpectType string[]
-wordwrap.getChunks(text);
+wordwrapRequire.getChunks(text);
 
 // $ExpectType boolean
-wordwrap.isWrappable(text);
+wordwrapRequire.isWrappable(text);
 
-const instance: wordwrap = new wordwrap(text);
-const instanceWithOptions = new wordwrap(text, options);
+const instanceRequire: wordwrapRequire = new wordwrapRequire(text);
+const instanceWithOptionsRequire: wordwrapRequire = new wordwrapRequire(text, options);
 
 // $ExpectType string[]
-instance.lines();
+instanceRequire.lines();
 
 // $ExpectType string
-instance.toString();
+instanceRequire.toString();
 
 // $ExpectType string
-instance.wrap();
+instanceRequire.wrap();
 
 // $ExpectType WordwrapOptions
-instance.options;
+instanceRequire.options;
 
-// Test wordwrap.WordwrapOptions
-const optionsAll: wordwrap.WordwrapOptions = {
+const optionsAllRequire: wordwrapRequire.WordwrapOptions = {
     break: false,
     eol: "\n",
     noTrim: false,
     width: 50,
 };
-const optionsWithBreak: wordwrap.WordwrapOptions = {
+const optionsWithBreakRequire: wordwrapRequire.WordwrapOptions = {
     break: false,
 };
-const optionsWithEol: wordwrap.WordwrapOptions = {
+const optionsWithEolRequire: wordwrapRequire.WordwrapOptions = {
     eol: "\n",
 };
-const optionsWithNoTrim: wordwrap.WordwrapOptions = {
+const optionsWithNoTrimRequire: wordwrapRequire.WordwrapOptions = {
     noTrim: false,
 };
-const optionsWithWidth: wordwrap.WordwrapOptions = {
+const optionsWithWidthRequire: wordwrapRequire.WordwrapOptions = {
+    width: 50,
+};
+
+// $ExpectType string[]
+wordwrapImport.lines(text);
+// $ExpectType string[]
+wordwrapImport.lines(text, options);
+
+// $ExpectType string
+wordwrapImport.wrap(text);
+// $ExpectType string
+wordwrapImport.wrap(text, options);
+
+// $ExpectType string[]
+wordwrapImport.getChunks(text);
+
+// $ExpectType boolean
+wordwrapImport.isWrappable(text);
+
+const instanceImport: wordwrapImport = new wordwrapImport(text);
+const instanceWithOptions: wordwrapImport = new wordwrapImport(text, options);
+
+// $ExpectType string[]
+instanceImport.lines();
+
+// $ExpectType string
+instanceImport.toString();
+
+// $ExpectType string
+instanceImport.wrap();
+
+// $ExpectType WordwrapOptions
+instanceImport.options;
+
+const optionsAllImport: wordwrapImport.WordwrapOptions = {
+    break: false,
+    eol: "\n",
+    noTrim: false,
+    width: 50,
+};
+const optionsWithBreakImport: wordwrapImport.WordwrapOptions = {
+    break: false,
+};
+const optionsWithEolImport: wordwrapImport.WordwrapOptions = {
+    eol: "\n",
+};
+const optionsWithNoTrimImport: wordwrapImport.WordwrapOptions = {
+    noTrim: false,
+};
+const optionsWithWidthImport: wordwrapImport.WordwrapOptions = {
     width: 50,
 };

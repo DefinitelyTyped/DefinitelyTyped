@@ -6734,10 +6734,10 @@ function JQuery() {
         }
 
         function closest() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").closest("span", new HTMLElement());
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").closest("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6760,7 +6760,7 @@ function JQuery() {
             // $ExpectType JQuery<HTMLSpanElement>
             $("p").find(new HTMLSpanElement());
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Element>
             $("p").find(new Element());
 
             // $ExpectType JQuery<HTMLElement>
@@ -6802,7 +6802,7 @@ function JQuery() {
         }
 
         function siblings() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").siblings("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6928,7 +6928,7 @@ function JQuery() {
         }
 
         function next() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").next("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6936,7 +6936,7 @@ function JQuery() {
         }
 
         function nextAll() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").nextAll("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6944,13 +6944,13 @@ function JQuery() {
         }
 
         function nextUntil() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").nextUntil("span", "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").nextUntil(new HTMLElement(), "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").nextUntil($("span"), "span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6967,7 +6967,7 @@ function JQuery() {
         }
 
         function prev() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").prev("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6975,7 +6975,7 @@ function JQuery() {
         }
 
         function prevAll() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").prevAll("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -6983,13 +6983,13 @@ function JQuery() {
         }
 
         function prevUntil() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").prevUntil("span", "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").prevUntil(new HTMLElement(), "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").prevUntil($("span"), "span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -7006,7 +7006,7 @@ function JQuery() {
         }
 
         function parent() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").parent("span");
 
             // $ExpectType JQuery<HTMLElement>
@@ -7031,13 +7031,13 @@ function JQuery() {
         }
 
         function parentsUntil() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").parentsUntil("span", "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").parentsUntil(new HTMLElement(), "span");
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $("p").parentsUntil($("span"), "span");
 
             // $ExpectType JQuery<HTMLElement>

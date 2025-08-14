@@ -1,6 +1,6 @@
 import { CubeTexture } from "../../textures/CubeTexture.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import TextureNode from "./TextureNode.js";
 
 declare class CubeTextureNode extends TextureNode {
@@ -20,9 +20,20 @@ declare class CubeTextureNode extends TextureNode {
 
 export default CubeTextureNode;
 
-export const cubeTexture: (
+export const cubeTextureBase: (
     value: CubeTexture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-    biasNode?: NodeRepresentation,
+    uvNode?: Node,
+    levelNode?: Node,
+    biasNode?: Node,
+) => ShaderNodeObject<CubeTextureNode>;
+
+export const cubeTexture: (
+    value?: CubeTexture,
+    uvNode?: Node | null,
+    levelNode?: Node | null,
+    biasNode?: Node | null,
+) => ShaderNodeObject<CubeTextureNode>;
+
+export const uniformCubeTexture: (
+    value?: CubeTexture,
 ) => ShaderNodeObject<CubeTextureNode>;

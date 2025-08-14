@@ -102,5 +102,5 @@ results2[0].score; // $ExpectType number
 results2[0].weight; // $ExpectType number
 results2[0][autocomplete.internalId]; // $ExpectType number
 
-const encoded = encode({ tokens, scores, weights, nrOfTokens, originalIds }); // $ExpectType Buffer
+const encoded = encode({ tokens, scores, weights, nrOfTokens, originalIds }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 decode(encoded); // $ExpectType Index<string>
