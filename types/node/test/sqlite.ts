@@ -69,6 +69,16 @@ import { TextEncoder } from "node:util";
 }
 
 {
+    new DatabaseSync(":memory:", {
+        timeout: 10_000,
+        readBigInts: true,
+        returnArrays: true,
+        allowBareNamedParameters: false,
+        allowUnknownNamedParameters: true,
+    });
+}
+
+{
     const database = new DatabaseSync(":memory:", { allowExtension: true });
     database.loadExtension("/path/to/extension.so");
     database.enableLoadExtension(false);
