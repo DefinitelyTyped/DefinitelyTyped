@@ -97,48 +97,48 @@ declare namespace Pako {
         hcrc?: boolean | undefined;
     }
 
-    type Data = Uint8Array<ArrayBuffer> | ArrayBuffer;
+    type Data = Uint8Array | ArrayBuffer;
 
     /**
      * Compress data with deflate algorithm and options.
      */
-    function deflate(data: Data | string, options?: DeflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function deflate(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function deflateRaw(data: Data | string, options?: DeflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function deflateRaw(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but create gzip wrapper instead of deflate one.
      */
-    function gzip(data: Data | string, options?: DeflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function gzip(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
      * by default. That's why we don't provide separate ungzip method.
      */
     function inflate(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
-    function inflate(data: Data, options?: InflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function inflate(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     /**
      * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
      */
     function inflateRaw(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
-    function inflateRaw(data: Data, options?: InflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function inflateRaw(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     /**
      * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
      */
     function ungzip(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
-    function ungzip(data: Data, options?: InflateFunctionOptions): Uint8Array<ArrayBuffer>;
+    function ungzip(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/deflate.js
     class Deflate {
         constructor(options?: DeflateOptions);
         err: ReturnCodes;
         msg: string;
-        result: Uint8Array<ArrayBuffer>;
+        result: Uint8Array;
         onData(chunk: Data): void;
         onEnd(status: number): void;
         push(data: Data | string, mode?: FlushValues | boolean): boolean;
@@ -150,7 +150,7 @@ declare namespace Pako {
         header?: Header | undefined;
         err: ReturnCodes;
         msg: string;
-        result: Uint8Array<ArrayBuffer> | string;
+        result: Uint8Array | string;
         onData(chunk: Data): void;
         onEnd(status: number): void;
         push(data: Data, mode?: FlushValues | boolean): boolean;

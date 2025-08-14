@@ -5,6 +5,14 @@
     "projects": [
         "https://github.com/nodeca/pako"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.8": {
+            "*": [
+                "ts5.8/*"
+            ]
+        }
+    },
     "devDependencies": {
         "@types/pako": "workspace:."
     },
