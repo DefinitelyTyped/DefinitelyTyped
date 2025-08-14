@@ -122,6 +122,15 @@ export interface DialogAPI {
      * Dialog.wiki("Cry 'Havoc!', and let slip the //ponies// of ''friendship''.");
      */
     wiki(wikiMarkup: string): this;
+    /**
+     * Renders the passage by the given name and appends it to the dialog's content area. Returns a reference to the Dialog object for chaining.
+     *
+     * @param name The name of the passage to render.
+     * @since 2.37.0
+     * @example
+     * Dialog.wikiPassage("Inventory");
+     */
+    wikiPassage(name: string): this;
 }
 
 export interface FullscreenRequestOptions {

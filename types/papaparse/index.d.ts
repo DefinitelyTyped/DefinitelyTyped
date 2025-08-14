@@ -254,6 +254,11 @@ export interface ParseConfig<T = any, TInput = undefined> {
      */
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
+    /**
+     * To skip first N number of lines when converting a CSV file to JSON.
+     * @default 0
+     */
+    skipFirstNLines?: number | undefined;
 }
 
 export interface ParseWorkerConfig<T = any> extends ParseConfig<T> {
@@ -384,7 +389,7 @@ export interface UnparseConfig {
      * If `false`, will omit the header row.
      * If `data` is an array of arrays this option is ignored.
      * If `data` is an array of objects the keys of the first object are the header row.
-     * If `data` is an object with the `keys` fields and `data` the `fields` are the header row.
+     * If `data` is an object with the keys `fields` and `data` the `fields` are the header row.
      * @default true
      */
     header?: boolean | undefined;

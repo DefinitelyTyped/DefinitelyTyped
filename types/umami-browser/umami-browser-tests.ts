@@ -1,17 +1,24 @@
 umami.track();
 
-umami.track({ website: "" });
-umami.track({ website: "", hostname: "" });
-umami.track({ website: "", language: "" });
-umami.track({ website: "", referrer: "" });
-umami.track({ website: "", screen: "" });
-umami.track({ website: "", title: "" });
-umami.track({ website: "", url: "" });
-
-umami.track(properties => {
-    return { ...properties, url: "", title: "" };
+umami.track({
+    website: "e676c9b4-11e4-4ef1-a4d7-87001773e9f2",
+    url: "/home",
+    title: "Home page",
 });
 
-umami.track("custom_event");
+umami.track((props) => ({ ...props, url: "/home", title: "Home page" }));
 
-umami.track("custom_event", { name: "newsletter", id: 123 });
+umami.track("signup-button");
+
+umami.track("signup-button", { name: "newsletter", id: 123 });
+
+umami.track((props) => ({
+    ...props,
+    name: "signup-button",
+    data: {
+        name: "newsletter",
+        id: 123,
+    },
+}));
+
+umami.identify({ email: "bob@aol.com" });

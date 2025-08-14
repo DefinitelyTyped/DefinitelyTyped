@@ -108,7 +108,6 @@ declare namespace BMap {
         strokeWeight?: number | undefined;
     }
     class IconSequence {
-        // eslint-disable-next-line @typescript-eslint/ban-types
         constructor(symbol: Symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
     }
     interface PointCollection extends Overlay {

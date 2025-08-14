@@ -78,6 +78,8 @@ var options: Less.Options = {
     globalVars: null,
     /** Put the declaration at the end of base file. */
     modifyVars: null,
+    /** Rewrite URLs in imported files  */
+    rewriteUrls: "off",
 };
 
 less.render("h1 { background: red; }", options);

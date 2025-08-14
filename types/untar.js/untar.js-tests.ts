@@ -6,5 +6,5 @@ files.forEach(file => {
     file.name; // $ExpectType string
     file.filename; // $ExpectType string
     file.size; // $ExpectType number
-    file.fileData; // $ExpectType Uint8Array
+    file.fileData; // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 });

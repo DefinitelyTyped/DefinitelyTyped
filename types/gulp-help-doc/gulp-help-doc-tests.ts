@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import gulp = require("gulp");
 import usage = require("gulp-help-doc");
 

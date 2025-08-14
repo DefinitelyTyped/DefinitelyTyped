@@ -13,7 +13,7 @@ const lo = new LargeObject({}, oid, {});
 lo.close((error: Error) => {}); // $ExpectType void
 lo.closeAsync(); // $ExpectType Promise<any>
 lo.read(length, (error: Error, data: Buffer) => {}); // $ExpectType void
-lo.readAsync(length); // $ExpectType Promise<Buffer>
+lo.readAsync(length); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 lo.write(buffer, (error: Error) => {}); // $ExpectType void
 lo.writeAsync(buffer); // $ExpectType Promise<any>
 lo.seek(0, LargeObject.SEEK_CUR, (error: Error, position: number) => {}); // $ExpectType void

@@ -198,7 +198,7 @@ function checkExtendedStats(item: ExtendedItem) {
 function checkFile(file: File) {
     file.setContent("ob la di, ob la da");
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     file.getContent();
 
     checkExtendedStats(file);

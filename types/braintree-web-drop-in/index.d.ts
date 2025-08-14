@@ -109,7 +109,14 @@ export interface venmoCreateOptions {
 // Dropin
 
 export interface PaymentMethodRequestablePayload {
-    type: "CreditCard" | "PayPalAccount";
+    type:
+        | "CreditCard"
+        | "PayPalAccount"
+        | "VenmoAccount"
+        | "ApplePayCard"
+        | "AndroidPayCard"
+        | "LocalPayment";
+
     paymentMethodIsSelected: boolean;
 }
 

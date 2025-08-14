@@ -10,7 +10,7 @@ new Chacha20(crypto.randomBytes(32), crypto.randomBytes(24), 1); // $ExpectType 
 
 xor.finalized; // $ExpectType boolean
 xor.pos; // $ExpectType number
-xor.state; // $ExpectType Uint32Array
+xor.state; // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
 
 xor.update(new Uint8Array(10), new Uint8Array(10)); // $ExpectType void
 xor.update(Buffer.alloc(1), Buffer.from("world")); // $ExpectType void

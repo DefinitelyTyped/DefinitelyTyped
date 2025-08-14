@@ -134,19 +134,19 @@ export type MJMLJsonObject = MJMLJsonWithChildren | MJMLJsonWithContent | MJMLJs
 
 export interface MJMLJsonWithChildren {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     children: MJMLJsonObject[];
 }
 
 export interface MJMLJsonWithContent {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     content: string;
 }
 
 export interface MJMLJsonSelfClosingTag {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
 }
 
 /**
@@ -157,7 +157,7 @@ export const components: { [componentName: string]: Component | undefined };
 /**
  * Registers a component for use in mjml
  */
-export function registerComponent(ComponentClass: typeof Component): void;
+export function registerComponent(ComponentClass: typeof Component, options?: { registerDependencies?: boolean }): void;
 
 export abstract class BodyComponent extends Component {
     constructor(initialData: unknown);

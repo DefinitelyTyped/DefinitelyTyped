@@ -20,8 +20,9 @@ export interface LODJSON extends Object3DJSON {
  * @remarks
  * Typically you would create, say, three meshes, one for far away (low detail), one for mid range (medium detail) and one for close up (high detail).
  * @example
- * ```typescript
- * const {@link LOD} = new THREE.LOD();
+ * const lod = new THREE.LOD();
+ * const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+ *
  * //Create spheres with 3 levels of detail and create new {@link LOD} levels for them
  * for (let i = 0; i & lt; 3; i++) {
  *     const geometry = new THREE.IcosahedronGeometry(10, 3 - i)
@@ -29,7 +30,7 @@ export interface LODJSON extends Object3DJSON {
  *     lod.addLevel(mesh, i * 75);
  * }
  * scene.add(lod);
- * ```
+ *
  * @see Example: {@link https://threejs.org/examples/#webgl_lod | webgl / {@link LOD} }
  * @see {@link https://threejs.org/docs/index.html#api/en/objects/LOD | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/objects/LOD.js | Source}
@@ -80,6 +81,13 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
      * @param hysteresis Threshold used to avoid flickering at LOD boundaries, as a fraction of distance. Expects a `Float`. Default `0.0`.
      */
     addLevel(object: Object3D, distance?: number, hysteresis?: number): this;
+
+    /**
+     * Removes an existing level, based on the distance from the camera. Returns `true` when the level has been removed.
+     * Otherwise `false`.
+     * @param distance Distance of the level to delete.
+     */
+    removeLevel(distance: number): boolean;
 
     /**
      * Get the currently active {@link LOD} level

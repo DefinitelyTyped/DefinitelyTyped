@@ -12,7 +12,7 @@ curve.name; // $ExpectType "secp256k1"
 
 const kp = curve.generateKeyPair(); // $ExpectType KeyPair
 curve.generateKeyPair(Buffer.alloc(10)); // $ExpectType KeyPair
-curve.dh(Buffer.alloc(10), { secretKey: Buffer.alloc(10) }); // $ExpectType Buffer
-curve.dh(Buffer.alloc(10), kp); // $ExpectType Buffer
+curve.dh(Buffer.alloc(10), { secretKey: Buffer.alloc(10) }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+curve.dh(Buffer.alloc(10), kp); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 new Noise("IK", true, undefined, { curve });

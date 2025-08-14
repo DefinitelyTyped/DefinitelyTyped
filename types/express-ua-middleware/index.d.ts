@@ -3,7 +3,7 @@ import { RequestHandler } from "express-serve-static-core";
 /**
  * Express middleware to parse user-agent header
  */
-declare function ua(): RequestHandler;
+declare const ua: RequestHandler;
 
 declare namespace ua {
     // types based on @types/ua-parser-js

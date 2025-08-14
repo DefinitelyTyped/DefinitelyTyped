@@ -22,7 +22,7 @@ const uploadHandler = (req: Request) => {
     if (files != null) {
         const fileField = files.field; // $ExpectType UploadedFile | UploadedFile[]
         if (isSingleFile(fileField)) {
-            fileField.data; // $ExpectType Buffer
+            fileField.data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
             fileField.encoding; // $ExpectType string
             fileField.md5; // $ExpectType string
             fileField.mimetype; // $ExpectType string

@@ -72,7 +72,7 @@ client.addListener("error", err => {
 });
 // $ExpectType Client
 client.addListener("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 // $ExpectType Client
@@ -98,7 +98,7 @@ client.on("error", err => {
 });
 // $ExpectType Client
 client.on("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 // $ExpectType Client
@@ -117,7 +117,7 @@ client.once("error", err => {
 });
 // $ExpectType Client
 client.once("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 // $ExpectType Client
@@ -136,7 +136,7 @@ client.prependListener("error", err => {
 });
 // $ExpectType Client
 client.prependListener("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 // $ExpectType Client
@@ -155,7 +155,7 @@ client.prependOnceListener("error", err => {
 });
 // $ExpectType Client
 client.prependOnceListener("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 // $ExpectType Client

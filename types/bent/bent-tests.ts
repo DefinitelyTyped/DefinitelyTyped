@@ -15,15 +15,15 @@ bent("https://example.com", "string");
 // $ExpectType RequestFunction<string>
 bent<string>(200, "string");
 
-// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer> || RequestFunction<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent("buffer");
-// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer> || RequestFunction<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent("buffer", "GET");
-// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer> || RequestFunction<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent("GET", "buffer");
-// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer> || RequestFunction<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent("https://example.com", "buffer");
-// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer>
+// $ExpectType RequestFunction<Buffer | ArrayBuffer> || RequestFunction<ArrayBuffer | Buffer> || RequestFunction<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent<Buffer | ArrayBuffer>(200, "buffer");
 
 // $ExpectType RequestFunction<any>
@@ -59,7 +59,7 @@ bent("string")("https://example.com");
 bent("json")("https://example.com");
 // $ExpectType Promise<Body>
 bent<Body>("json")("https://example.com");
-// $ExpectType Promise<Buffer | ArrayBuffer> || Promise<ArrayBuffer | Buffer>
+// $ExpectType Promise<Buffer | ArrayBuffer> || Promise<ArrayBuffer | Buffer> || Promise<ArrayBuffer | Buffer<ArrayBufferLike>>
 bent("buffer")("https://example.com");
 // $ExpectType Promise<BentResponse>
 bent(200)("https://example.com") as Promise<BentResponse>;

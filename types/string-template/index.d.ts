@@ -39,6 +39,6 @@ declare module "string-template" {
 }
 
 declare module "string-template/compile" {
-    const comile: StringTemplate.Compile;
-    export = comile;
+    const compile: StringTemplate.Compile;
+    export = compile;
 }

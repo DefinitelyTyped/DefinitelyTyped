@@ -19,7 +19,7 @@ font.registerFont("CustomFont", "path/to/font.ttf");
 font.registerFont("CustomFontWithBuffer", Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 text.widthOfString("Kila", { ellipsis: true });
 
-var doc = new PDFDocument({
+var doc: PDFKit.PDFDocument = new PDFDocument({
     compress: false,
     size: [526, 525],
     autoFirstPage: true,
@@ -33,22 +33,135 @@ var doc = new PDFDocument({
     fontLayoutCache: true,
 });
 
+// $ExpectType PDFDocument
+doc.addPage();
+// $ExpectType PDFDocument
+doc.addPage({});
+// $ExpectType PDFDocument
 doc.addPage({
-    margin: 50,
-});
-
-doc.addPage({
-    margins: {
-        top: 50,
-        bottom: 50,
-        left: 72,
-        right: 72,
+    compress: true,
+    info: {
+        Title: "Sample PDF",
+        Author: "John Doe",
+        Subject: "Testing",
+        Keywords: "typescript, pdf, test",
     },
+    userPassword: "user123",
+    ownerPassword: "owner456",
+    permissions: {
+        printing: "highResolution",
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: false,
+        contentAccessibility: true,
+        documentAssembly: false,
+    },
+    pdfVersion: "1.7",
+    autoFirstPage: false,
+    size: [595.28, 841.89],
+    margin: 10,
+    margins: { top: 20, left: 20, bottom: 20, right: 20 },
+    layout: "portrait",
+    font: "Helvetica",
+    bufferPages: true,
+    tagged: true,
+    lang: "en-US",
+    displayTitle: true,
+    subset: "PDF/A-1",
+    fontLayoutCache: false,
 });
 
-doc.addPage({
-    layout: "landscape",
+// $ExpectType PDFDocument
+doc.continueOnNewPage();
+// $ExpectType PDFDocument
+doc.continueOnNewPage({});
+// $ExpectType PDFDocument
+doc.continueOnNewPage({
+    compress: true,
+    info: {
+        Title: "Sample PDF",
+        Author: "John Doe",
+        Subject: "Testing",
+        Keywords: "typescript, pdf, test",
+    },
+    userPassword: "user123",
+    ownerPassword: "owner456",
+    permissions: {
+        printing: "highResolution",
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: false,
+        contentAccessibility: true,
+        documentAssembly: false,
+    },
+    pdfVersion: "1.7",
+    autoFirstPage: false,
+    size: [595.28, 841.89],
+    margin: 10,
+    margins: { top: 20, left: 20, bottom: 20, right: 20 },
+    layout: "portrait",
+    font: "Helvetica",
+    bufferPages: true,
+    tagged: true,
+    lang: "en-US",
+    displayTitle: true,
+    subset: "PDF/A-1",
+    fontLayoutCache: false,
 });
+
+// $ExpectType { start: number; count: number; }
+doc.bufferedPageRange();
+
+// $ExpectType PDFPage
+doc.switchToPage();
+// $ExpectType PDFPage
+doc.switchToPage(2);
+
+// $ExpectType void
+doc.flushPages();
+
+// $ExpectType void
+doc.addNamedDestination("name");
+// $ExpectType void
+doc.addNamedDestination("name", "Fit");
+// $ExpectType void
+doc.addNamedDestination("name", "FitB");
+// $ExpectType void
+doc.addNamedDestination("name", "FitBH", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitBV", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitH", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "FitR", 10, 20, 30, 40);
+// $ExpectType void
+doc.addNamedDestination("name", "FitV", 10);
+// $ExpectType void
+doc.addNamedDestination("name", "XYZ", 10, 20, 30);
+// Test the "default" overload
+// $ExpectType void
+doc.addNamedDestination("name", Math.random() < 0.5 ? "XYZ" : "Fit", 10, 20);
+
+declare let ref: PDFKit.PDFKitReference;
+// $ExpectType void
+doc.addNamedEmbeddedFile("name", ref);
+
+// $ExpectType void
+doc.addNamedJavaScript("name", "let it = 'some js script';");
+
+// $ExpectType PDFKitReference
+doc.ref({});
+
+// $ExpectType PDFDocument
+doc.addContent({});
+
+// $ExpectType void
+doc.end();
+
+// $ExpectType string
+doc.toString();
 
 doc.info.Title = "Sample";
 doc.info.Author = "kila Mogrosso";
@@ -207,6 +320,246 @@ doc.image(
     },
 ).text("Scale", 320, 265);
 
+// $ExpectType PDFDocument
+doc.table({
+    data: [
+        ["Column 1", "Column 2", "Column 3"],
+        ["One value goes here", "Another one here", "OK?"],
+    ],
+});
+
+// $ExpectType PDFTableObject
+doc.table()
+    .row(["Column 1", "Column 2", "Column 3"])
+    .row(["One value goes here", "Another one here", "OK?"]);
+
+doc.table({
+    columnStyles: [100, "*", 200, "*"],
+    data: [
+        ["width=100", "star-sized", "width=200", "star-sized"],
+        [
+            "fixed-width cells have exactly the specified width",
+            { text: "nothing interesting here", textColor: "grey" },
+            { text: "nothing interesting here", textColor: "grey" },
+            { text: "nothing interesting here", textColor: "grey" },
+        ],
+    ],
+});
+
+doc.table({
+    rowStyles: [20, 50, 70],
+    data: [
+        ["row 1 with height 20", "column B"],
+        ["row 2 with height 50", "column B"],
+        ["row 3 with height 70", "column B"],
+    ],
+});
+
+doc.table({
+    rowStyles: 40,
+    data: [
+        ["row 1", "column B"],
+        ["row 2", "column B"],
+        ["row 3", "column B"],
+    ],
+});
+
+doc.table({
+    rowStyles: (row) => (row + 1) * 25,
+    data: [
+        ["row 1", "column B"],
+        ["row 2", "column B"],
+        ["row 3", "column B"],
+    ],
+});
+
+doc.table({
+    columnStyles: [200, "*", "*"],
+    data: [
+        [{ colSpan: 2, text: "Header with Colspan = 2" }, "Header 3"],
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        [
+            {
+                rowSpan: 3,
+                text:
+                    "rowspan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",
+            },
+            "Sample value 2",
+            "Sample value 3",
+        ],
+        ["Sample value 2", "Sample value 3"],
+        ["Sample value 2", "Sample value 3"],
+        [
+            "Sample value 1",
+            {
+                colSpan: 2,
+                rowSpan: 2,
+                text: "Both:\nrowspan and colspan\ncan be defined at the same time",
+            },
+        ],
+        ["Sample value 1"],
+    ],
+});
+
+doc.table({
+    rowStyles: { border: false },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        return i < 1 ? { border: [0, 0, 1, 0] } : { border: false };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        return i < 1
+            ? { border: [0, 0, 2, 0], borderColor: "black" }
+            : { border: [0, 0, 1, 0], borderColor: "#aaa" };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    // Set the style for all cells
+    defaultStyle: { border: 1, borderColor: "gray" },
+    // Set the style for cells based on their column
+    columnStyles: (i) => {
+        if (i === 0) return { border: { left: 2 }, borderColor: { left: "black" } };
+        if (i === 2) return { border: { right: 2 }, borderColor: { right: "black" } };
+    },
+    // Set the style for cells based on their row
+    rowStyles: (i) => {
+        if (i === 0) return { border: { top: 2 }, borderColor: { top: "black" } };
+        if (i === 3) return { border: { bottom: 2 }, borderColor: { bottom: "black" } };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        if (i % 2 === 0) return { backgroundColor: "#ccc" };
+    },
+    data: [
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    data: [
+        [
+            {
+                border: [true, false, false, false],
+                backgroundColor: "#eee",
+                text: "border:\n[true, false, false, false]",
+            },
+            { border: false, backgroundColor: "#ddd", text: "border:\nfalse" },
+            { border: true, backgroundColor: "#eee", text: "border:\ntrue" },
+        ],
+        [
+            { rowSpan: 3, border: true, backgroundColor: "#eef", text: "rowSpan: 3\n\nborder:\ntrue" },
+            { border: undefined, backgroundColor: "#eee", text: "border:\nundefined (default)" },
+            {
+                border: [false, false, false, true],
+                backgroundColor: "#ddd",
+                text: "border:\n[false, false, false, true]",
+            },
+        ],
+        [
+            { colSpan: 2, border: true, backgroundColor: "#efe", text: "colSpan: 2\n\nborder:\ntrue" },
+        ],
+        [
+            { border: 0, backgroundColor: "#eee", text: "border:\n0 (same as false)" },
+            {
+                border: [false, true, true, false],
+                backgroundColor: "#ddd",
+                text: "border:\n[false, true, true, false]",
+            },
+        ],
+    ],
+});
+
+doc.table({
+    defaultStyle: { border: false, width: 60 },
+    data: [
+        ["", "column 1", "column 2", "column 3"],
+        [
+            "row 1",
+            {
+                rowSpan: 3,
+                colSpan: 3,
+                border: true,
+                backgroundColor: "#ccc",
+                text: "rowSpan: 3\ncolSpan: 3\n\nborder:\n[true, true, true, true]",
+            },
+        ],
+        ["row 2"],
+        ["row 3"],
+    ],
+});
+
+doc.table({
+    defaultStyle: { border: 1 },
+    columnStyles: { border: { right: 2 } },
+    rowStyles: { border: { bottom: 3 } },
+    data: [
+        [{ border: { left: 4 } }],
+    ],
+});
+
+doc.text("before")
+    .table({
+        data: [
+            ["Column 1", "Column 2", "Column 3"],
+            ["One value goes here", "Another one here", "OK?"],
+        ],
+    })
+    .text("after");
+
+doc.table({
+    data: [
+        [
+            {
+                align: { x: "center", y: "bottom" },
+                text: "test",
+            },
+        ],
+    ],
+});
+
 doc.text("Scale", { align: "justify" });
 
 doc.text("Baseline - string literal", { baseline: "alphabetic" });
@@ -227,6 +580,9 @@ doc.text("Text with null link", { align: "left" });
 doc.text("Text with null link", { align: "center" });
 doc.text("Text with null link", { align: "right" });
 doc.text("Text with null link", { align: "justify" });
+
+doc.text("Text with all lines indented", { indentAllLines: true });
+
 // @ts-expect-error
 doc.text("Text with null link", { align: "other" }); // Altought this is not an error in JS side, the inclusion of `string` did break type hints
 
@@ -338,3 +694,31 @@ structureElement.add(structureContent);
 structureElement.setAttached();
 structureElement.setParent(doc.ref({}));
 structureElement.end();
+
+// Test optional info types can not be undefined in PDFDocument (See PullRequest 71195)
+const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
+    // @ts-expect-error
+    info: {
+        Producer: undefined,
+        Creator: undefined,
+        CreationDate: undefined,
+        Title: undefined,
+        Author: undefined,
+        Subject: undefined,
+        Keywords: undefined,
+        ModDate: undefined,
+    },
+});
+
+// Test outlines
+doc.outline.addItem("A");
+
+// $ExpectType TextBounds
+doc.boundsOfString("Bounds of string", 50, 100, {
+    align: "left",
+});
+
+// $ExpectType TextBounds
+doc.boundsOfString("Bounds of string", {
+    align: "left",
+});

@@ -12,7 +12,7 @@ wif.decode(testString);
 // $ExpectType WIFReturn
 wif.decode(testString, 0);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 wif.encodeRaw(1, testBuffer, true);
 // $ExpectType string
 wif.encode(1, testBuffer, true);

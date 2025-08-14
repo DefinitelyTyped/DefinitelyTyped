@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/screenshot-desktop",
-    "version": "1.12.9999",
+    "version": "1.15.9999",
     "projects": [
         "https://github.com/bencevans/screenshot-desktop"
     ],

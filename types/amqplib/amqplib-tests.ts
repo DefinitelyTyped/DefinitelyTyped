@@ -6,6 +6,7 @@ const msg = "Hello World";
 // test promise api
 amqp.connect("amqp://localhost")
     .then(connection => {
+        connection.connection;
         return connection.createChannel()
             .then(channel => {
                 channel.connection;
@@ -13,6 +14,12 @@ amqp.connect("amqp://localhost")
                 return channel;
             })
             .then(channel => channel.sendToQueue("myQueue", new Buffer(msg)))
+            .finally(() => connection.close());
+    });
+
+amqp.connect("amqp://localhost")
+    .then(connection => {
+        return connection.updateSecret(Buffer.from("newSecret"), "reason")
             .finally(() => connection.close());
     });
 
@@ -70,6 +77,16 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
                         channel.sendToQueue("myQueue", new Buffer(msg));
                     }
                 });
+            }
+        });
+    }
+});
+
+amqpcb.connect("amqp://localhost", (err, connection) => {
+    if (!err) {
+        connection.updateSecret(Buffer.from(""), "reason", (err) => {
+            if (!err) {
+                connection.close();
             }
         });
     }

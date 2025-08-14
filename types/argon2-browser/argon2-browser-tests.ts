@@ -13,7 +13,7 @@ const verifyOptions = {
 (async () => {
     // $ExpectType string
     (await argon2.hash(mandatoryOptions)).encoded;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     (await argon2.hash(mandatoryOptions)).hash;
     // $ExpectType string
     (await argon2.hash(mandatoryOptions)).hashHex;

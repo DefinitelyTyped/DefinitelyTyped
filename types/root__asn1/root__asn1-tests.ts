@@ -26,7 +26,7 @@ parse({ der: buf, verbose: true });
 // $ExpectType ElementBuffer
 parse({ der: buf, verbose: true, json: false });
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 pack([
     "30",
     [

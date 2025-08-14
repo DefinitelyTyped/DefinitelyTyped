@@ -12,7 +12,7 @@ triplesec.encrypt({
     progress_hook: progressHook,
 }, (err, buff) => {
     if (err === null) {
-        buff; // $ExpectType Buffer | null
+        buff; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
     } else {
         err; // $ExpectType Error
     }
@@ -24,7 +24,7 @@ triplesec.decrypt({
     progress_hook: progressHook,
 }, (err, buff) => {
     if (err === null) {
-        buff; // $ExpectType Buffer | null
+        buff; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
     } else {
         err; // $ExpectType Error
     }

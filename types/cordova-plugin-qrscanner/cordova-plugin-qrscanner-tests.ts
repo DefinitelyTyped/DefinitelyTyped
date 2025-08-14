@@ -74,11 +74,12 @@ QRScanner.prepare((err, status) => {
     bool = status.denied;
     bool = status.restricted;
     bool = status.prepared;
+    bool = status.showing;
     bool = status.scanning;
     bool = status.previewing;
-    bool = status.webviewBackgroundIsTransparent;
     bool = status.lightEnabled;
     bool = status.canOpenSettings;
     bool = status.canEnableLight;
+    bool = status.canChangeCamera;
     var num: number = status.currentCamera;
 });

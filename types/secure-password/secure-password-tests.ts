@@ -30,14 +30,14 @@ sp.opslimit; // $ExpectType number
 // @ts-expect-error
 sp.opslimit = 1;
 
-sp.hash(Buffer.from("passw0rd")); // $ExpectType Promise<Buffer>
+sp.hash(Buffer.from("passw0rd")); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 // $ExpectType void
 sp.hash(Buffer.from("passw0rd"), (err, buffer) => {
     err; // $ExpectType Error | null
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 
-sp.hashSync(Buffer.from("passw0rd")); // $ExpectType Buffer
+sp.hashSync(Buffer.from("passw0rd")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 sp.verify(Buffer.from("passw0rd"), Buffer.from("hash")); // $ExpectType Promise<VerificationResult>
 // $ExpectType void

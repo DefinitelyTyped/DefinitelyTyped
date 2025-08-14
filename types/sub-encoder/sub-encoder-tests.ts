@@ -6,9 +6,9 @@ import type { JsonValue } from "sub-encoder";
 {
     const enc = new SubEncoder();
 
-    enc.encode("str"); // $ExpectType Buffer
-    enc.encode(Buffer.alloc(0)); // $ExpectType Buffer
-    enc.decode(Buffer.alloc(0)); // $ExpectType Buffer
+    enc.encode("str"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    enc.encode(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    enc.decode(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
     // @ts-expect-error
     enc.encode(123);
@@ -17,9 +17,9 @@ import type { JsonValue } from "sub-encoder";
 {
     const enc = new SubEncoder(null, "binary");
 
-    enc.encode(""); // $ExpectType Buffer
-    enc.encode(Buffer.alloc(0)); // $ExpectType Buffer
-    enc.decode(Buffer.alloc(0)); // $ExpectType Buffer
+    enc.encode(""); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    enc.encode(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    enc.decode(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
     // @ts-expect-error
     enc.encode(123);
@@ -30,7 +30,7 @@ import type { JsonValue } from "sub-encoder";
 
     for (const encoding of STRING_ENCODINGS) {
         const enc = new SubEncoder(null, encoding);
-        enc.encode(""); // $ExpectType Buffer
+        enc.encode(""); // $ExpectType Buffer || Buffer<ArrayBufferLike>
         enc.decode(Buffer.alloc(0)); // $ExpectType string
     }
 
@@ -43,7 +43,7 @@ import type { JsonValue } from "sub-encoder";
 
     for (const encoding of JSON_ENCODING) {
         const enc = new SubEncoder(null, encoding);
-        enc.encode({ foo: "bar" }); // $ExpectType Buffer
+        enc.encode({ foo: "bar" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
         enc.decode(Buffer.alloc(0)); // $ExpectType JsonValue
     }
 }

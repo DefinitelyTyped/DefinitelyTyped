@@ -347,7 +347,7 @@ export class DynamicHeightList extends PureComponent<any> {
         return (
             <CellMeasurer cache={this._cache} columnIndex={0} key={key} rowIndex={index} parent={parent}>
                 {({ measure, registerChild }) => (
-                    <div ref={registerChild as React.Ref<HTMLDivElement>} className={classNames} style={style}>
+                    <div ref={registerChild} className={classNames} style={style}>
                         <img
                             onLoad={measure}
                             src={source}
@@ -1668,28 +1668,30 @@ export class WindowScrollerExample extends PureComponent<{}, any> {
         return (
             <div className={"styles.WindowScrollerWrapper"}>
                 <WindowScroller ref={this._setRef} scrollElement={isScrollingCustomElement ? customElement : null}>
-                    {({ height, isScrolling, scrollTop, onChildScroll }) => (
-                        <AutoSizer disableHeight>
-                            {({ width }) => (
-                                <List
-                                    onScroll={onChildScroll}
-                                    autoHeight
-                                    className={"styles.List"}
-                                    height={height}
-                                    isScrolling={isScrolling}
-                                    overscanRowCount={2}
-                                    rowCount={list.size}
-                                    rowHeight={30}
-                                    rowRenderer={params =>
-                                        this._rowRenderer({
-                                            ...params,
-                                            isScrolling,
-                                        })}
-                                    scrollTop={scrollTop}
-                                    width={width}
-                                />
-                            )}
-                        </AutoSizer>
+                    {({ height, isScrolling, scrollTop, onChildScroll, registerChild }) => (
+                        <div ref={registerChild}>
+                            <AutoSizer disableHeight>
+                                {({ width }) => (
+                                    <List
+                                        onScroll={onChildScroll}
+                                        autoHeight
+                                        className={"styles.List"}
+                                        height={height}
+                                        isScrolling={isScrolling}
+                                        overscanRowCount={2}
+                                        rowCount={list.size}
+                                        rowHeight={30}
+                                        rowRenderer={params =>
+                                            this._rowRenderer({
+                                                ...params,
+                                                isScrolling,
+                                            })}
+                                        scrollTop={scrollTop}
+                                        width={width}
+                                    />
+                                )}
+                            </AutoSizer>
+                        </div>
                     )}
                 </WindowScroller>
             </div>

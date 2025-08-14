@@ -2,6 +2,7 @@ export = Label;
 declare function Label(process: Process): void;
 declare class Label {
     constructor(process: Process);
+    layout: LayoutConfig;
     private _changedProperties;
     process: import("../process/Process");
     private logger_;
@@ -15,12 +16,14 @@ declare class Label {
     width: string;
     height: string;
     fontSize: string;
+    size: string;
     border: string;
     color: string;
     backgroundColor: string;
     align: string;
     visible: boolean;
     css: string;
+    cssClass: string;
     text: string;
     autoSanitize: boolean;
     write(): void;
@@ -28,4 +31,5 @@ declare class Label {
 declare namespace Label {
     export { Process };
 }
+import LayoutConfig = require("../process/LayoutConfig.js");
 type Process = import("../process/Process");

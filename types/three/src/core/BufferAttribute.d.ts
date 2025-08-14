@@ -13,6 +13,17 @@ export type TypedArray =
     | Float32Array
     | Float64Array;
 
+export type TypedArrayConstructor =
+    | Int8ArrayConstructor
+    | Uint8ArrayConstructor
+    | Uint8ClampedArrayConstructor
+    | Int16ArrayConstructor
+    | Uint16ArrayConstructor
+    | Int32ArrayConstructor
+    | Uint32ArrayConstructor
+    | Float32ArrayConstructor
+    | Float64ArrayConstructor;
+
 export interface BufferAttributeJSON {
     itemSize: number;
     type: string;
@@ -58,6 +69,11 @@ export class BufferAttribute {
     constructor(array: TypedArray, itemSize: number, normalized?: boolean);
 
     /**
+     * Unique number for this attribute instance.
+     */
+    readonly id: number;
+
+    /**
      * Optional name for this attribute instance.
      * @defaultValue ''
      */
@@ -94,21 +110,6 @@ export class BufferAttribute {
      * float types, see https://threejs.org/docs/#api/en/core/bufferAttributeTypes/BufferAttributeTypes.
      */
     gpuType: AttributeGPUType;
-
-    /**
-     * This can be used to only update some components of stored vectors (for example, just the component related to color).
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /**
-         * Position at which to start update.
-         * @defaultValue `0`
-         */
-        offset: number;
-        /** @defaultValue `-1`, which means don't use update ranges. */
-        count: number;
-    };
 
     /**
      * This can be used to only update some components of stored vectors (for example, just the component related to

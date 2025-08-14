@@ -17,6 +17,11 @@ const h1: ResponseData | Headers = httpHeaders(res);
 const h2: RequestData | ResponseData = httpHeaders(res);
 // @ts-expect-error
 const h3: RequestData | Headers = httpHeaders(res);
+
+const h4: Headers = httpHeaders(res, true);
+// @ts-expect-error
+const h5: RequestData | ResponseData = httpHeaders(res, true);
+
 httpHeaders(Buffer.alloc(1));
 httpHeaders("foo");
 

@@ -15,5 +15,7 @@ export class MaterialLoader extends Loader<Material> {
 
     setTextures(textures: { [key: string]: Texture }): this;
 
+    createMaterialFromType(type: string): Material;
+
     static createMaterialFromType(type: string): Material;
 }

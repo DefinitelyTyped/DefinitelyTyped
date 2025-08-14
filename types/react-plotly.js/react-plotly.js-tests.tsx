@@ -19,7 +19,7 @@ export class SimpleChartComponent extends React.PureComponent<any> {
                     },
                     { type: "bar", x: [1, 2, 3], y: [2, 5, 3] },
                 ]}
-                layout={{ width: 320, height: 240, title: "A Fancy Plot" }}
+                layout={{ width: 320, height: 240, title: { text: "A Fancy Plot" } }}
             />
         );
     }
@@ -72,7 +72,7 @@ export class MinChartComponent extends React.PureComponent<any> {
                     },
                     { type: "bar", x: [1, 2, 3], y: [2, 5, 3] },
                 ]}
-                layout={{ width: 320, height: 240, title: "A Fancy Plot" }}
+                layout={{ width: 320, height: 240, title: { text: "A Fancy Plot" } }}
             />
         );
     }
@@ -88,7 +88,7 @@ export const HoverPlot = () => {
                     type: "scatter",
                 },
             ]}
-            layout={{ width: 320, height: 240, title: "A Fancy Plot" }}
+            layout={{ width: 320, height: 240, title: { text: "A Fancy Plot" } }}
             onHover={e => console.log(e)}
             onBeforeHover={e => Boolean(e.points[0].x === 1)}
         />
@@ -105,7 +105,7 @@ export const WebGLPlot = () => {
                     type: "scattergl",
                 },
             ]}
-            layout={{ width: 320, height: 240, title: "A Fancy Plot" }}
+            layout={{ width: 320, height: 240, title: { text: "A Fancy Plot" } }}
             onHover={e => console.log(e)}
             onWebGlContextLost={() => console.log("WebGL context lost")}
         />

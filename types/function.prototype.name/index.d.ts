@@ -2,7 +2,7 @@ import impl = require("./implementation");
 
 type Impl = typeof impl;
 
-type Func = (...args: any[]) => any;
+type Func = ThisParameterType<Impl>;
 
 interface Index {
     (fn: Func): ReturnType<Impl>;

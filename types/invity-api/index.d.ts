@@ -110,7 +110,14 @@ export type BuyCryptoPaymentMethod =
     | "payid"
     | "toss";
 
-export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget";
+export type BuyTradeTag =
+    | "renewed"
+    | "alternativeCurrency"
+    | "bestRate"
+    | "favorite"
+    | "wantCrypto"
+    | "widget"
+    | "noExternalAddress";
 
 export interface BuyProviderInfo {
     name: string; // simplex
@@ -228,6 +235,7 @@ export type ExchangeTradeStatus =
     | "CONVERTING" // send tx was mined, money is on exchange, receive tx not yet created
     | "APPROVAL_REQ" // it is necessary to perform APPROVAL transaction for DEX
     | "APPROVAL_PENDING" // waiting for DEX approval tx to be confirmed
+    | "SIGN_DATA" // it is necessary to sign data for DEX
     | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
@@ -239,8 +247,8 @@ export type ExchangeMaximum =
     | number // actual maximum amount in 'send' currency
     | "NONE"; // exchange does not have a maximum trade size
 
-export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
-export type ExchangeKYCType = "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
+export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget" | "noExternalAddress";
+export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -277,6 +285,8 @@ export interface ExchangeTrade {
     receive?: CryptoId | undefined; // litecoin
 
     receiveStringAmount?: string | undefined; // "0.01"
+    /** User`s crypto address where tx should be refunded */
+    refundAddress?: string;
     fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
     receiveAddress?: string | undefined; // user's address for receive tx
     rate?: number | undefined; // 100
@@ -286,6 +296,7 @@ export interface ExchangeTrade {
     partnerPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     signature?: string | undefined; // Evercoin only, passed from createTrade response to confirmTrade request
     orderId?: string | undefined; // internal ID assigned to the trade by the exchange
+    quoteId?: string | undefined;
     statusUrl?: string | undefined; // internal URL + ID assigned to the trade by the exchange to check status
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
@@ -319,8 +330,18 @@ export interface ExchangeTrade {
             value: string;
         }
         | undefined;
+    signData?: {
+        type: "eip712-typed-data";
+        data: object;
+    };
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
+    tradeForm?: FormResponse;
+}
+
+export interface ExchangeTradeSigned extends ExchangeTrade {
+    /** SLIP24: Nonce for payment request signature */
+    tradeSignature: string;
 }
 
 export interface ExtendedExchangeTrade extends ExchangeTrade {
@@ -348,11 +369,15 @@ export interface ConfirmExchangeTradeRequest {
     trade: ExchangeTrade;
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
+    approvalFlow?: boolean; // approval flow
     extraField?: string | undefined; // XRP destination tag, XMR label id, ...
+    returnUrl?: string; // URL where to return after the trade is done
 }
 
 export interface WatchExchangeTradeResponse {
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
+    sendAddress?: string; // exchange address for send tx
+    partnerPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it (destinationTag)
     receiveTxHash?: string | undefined;
     rate?: number | undefined;
     receiveStringAmount?: string | undefined; // "0.01"
@@ -453,6 +478,8 @@ export interface SellProviderInfo {
     flow?: SellFiatFlowType | undefined;
     isRefundAddressRequired?: boolean | undefined;
     pendingTimeout?: number | undefined; // Time until a SUBMITTED transaction automatically changes to PENDING. Null means it does not change.
+    /** Should be used when it's necessary to have the exact amount match between the trade and the transaction */
+    lockSendAmount?: boolean;
 }
 
 export interface SellListResponse {
@@ -517,6 +544,11 @@ export interface SellFiatTrade {
     partnerData2?: string | undefined; // arbitrary data specific for the partner
 }
 
+export interface SellFiatTradeSigned extends SellFiatTrade {
+    /** SLIP24: Signature of the trade */
+    tradeSignature: string;
+}
+
 export interface SellVoucherTradeQuoteRequest {
     cryptoCurrency?: CryptoId | undefined; // bitcoin
     language?: string | undefined; // en
@@ -570,3 +602,32 @@ export interface WatchSellTradeResponse {
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
 }
+
+export interface PaymentRequestOutput {
+    address: string;
+    amount: string;
+}
+
+export interface CreateTradeSignatureRequestSell {
+    type: "sell";
+    /** ID of the trade - `paymentId` for sell */
+    id: string;
+    nonce: string;
+    sendSlip44: number;
+    outputs: PaymentRequestOutput[];
+    memoText: string;
+}
+
+export interface CreateTradeSignatureRequestExchange {
+    type: "exchange";
+    /** ID of the trade - `orderId` for exchange */
+    id: string;
+    nonce: string;
+    sendSlip44: number;
+    receiveSlip44: number;
+    outputs: PaymentRequestOutput[];
+}
+
+export type CreateTradeSignatureRequest =
+    | CreateTradeSignatureRequestSell
+    | CreateTradeSignatureRequestExchange;

@@ -47,6 +47,10 @@ stream.on("data", data => {
     data; // $ExpectType object | GrpcError | undefined
 });
 
+stream.on("data", (_, metadata) => {
+    metadata; // $ExpectType StreamMessageMetadata
+});
+
 stream.write({ latitude: 410248224, longitude: -747127767 });
 stream.end();
 
@@ -67,3 +71,19 @@ grpc.StatusInternal;
 grpc.StatusUnavailable;
 grpc.StatusDataLoss;
 grpc.StatusUnauthenticated;
+
+const healthResponse = client.healthCheck();
+healthResponse.Status; // $ExpectType HealthCheckStatus
+
+const healthResponseWithService = client.healthCheck("my.service");
+healthResponseWithService.Status; // $ExpectType HealthCheckStatus
+
+// Health check without service name (server health)
+const serverHealthResponse = client.healthCheck();
+serverHealthResponse.Status; // $ExpectType HealthCheckStatus
+
+// Health check status constants
+grpc.HealthCheckServing; // $ExpectType HealthCheckStatus
+grpc.HealthCheckNotServing; // $ExpectType HealthCheckStatus
+grpc.HealthCheckUnknown; // $ExpectType HealthCheckStatus
+grpc.HealthCheckServiceUnkown; // $ExpectType HealthCheckStatus

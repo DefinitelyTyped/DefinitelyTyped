@@ -67,7 +67,7 @@ const e: string = v5("hello.example.com", v5.DNS);
 const f: string = v5("http://example.com/hello", v5.URL);
 
 const g = Buffer.alloc(16);
-v4(null, g); // $ExpectType Buffer
+v4(null, g); // $ExpectType Buffer || Buffer<ArrayBuffer>
 
 class CustomBuffer extends Uint8Array {}
 const h = new CustomBuffer(10);

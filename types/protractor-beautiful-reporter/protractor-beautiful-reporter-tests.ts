@@ -291,6 +291,7 @@ function app_reporter_js() {
         pendingReason: "text",
         debugLogs: [],
         id: "text",
+        filename: "text",
         description: "text",
         fullName: "text",
         failedExpectations: [],

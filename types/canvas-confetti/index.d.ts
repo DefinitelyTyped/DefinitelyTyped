@@ -64,6 +64,12 @@ declare namespace confetti {
          */
         drift?: number | undefined;
         /**
+         * Optionally turns off the tilt and wobble that three dimensional confetti would have in the real world.
+         * Yeah, they look a little sad, but y'all asked for them, so don't blame me.
+         * @default false
+         */
+        flat?: boolean | undefined;
+        /**
          * How quickly the particles are pulled down. 1 is full gravity, 0.5 is half gravity, etc., but there are no limits.
          * @default 1
          */
@@ -127,6 +133,7 @@ declare namespace confetti {
         /**
          * Disables confetti entirely for users that prefer reduced motion. When set to true, use of this
          * confetti instance will always respect a user's request for reduced motion and disable confetti for them.
+         * @default false
          */
         disableForReducedMotion?: boolean | undefined;
         /**
@@ -144,20 +151,39 @@ declare namespace confetti {
     /**
      * This helper method lets you create a custom confetti shape using an SVG Path string.
      */
-    function shapeFromPath({ path, matrix }: { path: string; matrix?: DOMMatrix }): Shape;
+    function shapeFromPath(pathData: string): Shape;
+    function shapeFromPath(pathData: { path: string; matrix?: DOMMatrix }): Shape;
 
     /**
      * This is the highly anticipated feature to render emoji confetti! Use any standard unicode emoji. Or other text.
      */
-    function shapeFromText({
-        text,
-        scalar,
-        color,
-        fontFamily,
-    }: {
+    function shapeFromText(
+        /**
+         * The text to be rendered as a confetti. If you can't make up your mind, I suggest "🐈".
+         */
+        textData: string,
+    ): Shape;
+    function shapeFromText(textData: {
+        /**
+         * The text to be rendered as a confetti. If you can't make up your mind, I suggest "🐈".
+         */
         text: string;
+        /**
+         * A scale value relative to the default size. It matches the scalar value in the confetti options.
+         * @default 1
+         */
         scalar?: number;
+        /**
+         * The color used to render the text.
+         * @default '#000000'
+         */
         color?: string;
+        /**
+         * The font family name to use when rendering the text.
+         * The default follows [best practices for rendring the native OS emoji of the device](https://nolanlawson.com/2022/04/08/the-struggle-of-using-native-emoji-on-the-web/), falling back to sans-serif.
+         * If using a web font, make sure this [font is loaded](https://developer.mozilla.org/en-US/docs/Web/API/FontFace/load) before rendering your confetti.
+         * @default '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "EmojiOne Color", "Android Emoji", "Twemoji Mozilla", "system emoji", sans-serif'
+         */
         fontFamily?: string;
     }): Shape;
 

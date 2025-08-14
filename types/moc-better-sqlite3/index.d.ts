@@ -66,16 +66,18 @@ declare namespace MocBetterSqlite3 {
         prototype: Database;
 
         Integer: typeof Integer;
-        SqliteError: typeof SqliteError;
+        SqliteError: SqliteErrorType;
     }
 }
 
-declare class SqliteError implements Error {
+declare class SqliteErrorClass implements Error {
     name: string;
     message: string;
     code: string;
     constructor(message: string, code: string);
 }
+
+type SqliteErrorType = typeof SqliteErrorClass;
 
 declare namespace Database {
     interface RunResult {
@@ -117,7 +119,7 @@ declare namespace Database {
     }
 
     type Integer = typeof Integer;
-    type SqliteError = typeof SqliteError;
+    type SqliteError = SqliteErrorType;
     type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
         ? MocBetterSqlite3.Statement<BindParameters>
         : MocBetterSqlite3.Statement<[BindParameters]>;

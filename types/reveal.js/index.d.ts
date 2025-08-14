@@ -653,8 +653,8 @@ declare namespace Reveal {
          * @param callback
          */
         addKeyBinding(
-            binding: string | { keyCode: number; key: string; description: string },
-            callback: (event: KeyboardEvent) => void,
+            keyCode: number | { keyCode: number; key: string; description: string },
+            callback: string | ((event: KeyboardEvent) => void),
         ): void;
 
         /**
@@ -831,7 +831,7 @@ declare namespace Reveal {
          *
          * @defaultValue `true`
          */
-        controls?: boolean;
+        controls?: boolean | "speaker-only";
 
         /**
          * Help the user learn the controls by providing hints, for example by
@@ -1067,7 +1067,7 @@ declare namespace Reveal {
          *
          * @defaultValue `false`
          */
-        showNotes?: boolean;
+        showNotes?: boolean | "separate-page";
 
         /**
          * Flags if slides with data-visibility="hidden" should be kep visible

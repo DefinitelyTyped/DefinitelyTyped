@@ -211,6 +211,7 @@ declare namespace Rax {
     interface RaxNodeArray extends Array<RaxNode> {}
     type RaxFragment = {} | RaxNodeArray;
     type RaxNode = RaxChild | RaxFragment | RaxPortal | boolean | null | undefined;
+    export const RaxFragment: FunctionComponent<{}>;
 
     /**
      * ======================================================================

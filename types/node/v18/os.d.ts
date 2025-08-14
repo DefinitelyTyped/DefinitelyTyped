@@ -3,7 +3,7 @@
  * properties. It can be accessed using:
  *
  * ```js
- * const os = require('os');
+ * import os from 'node:os';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/os.js)
  */
@@ -381,6 +381,13 @@ declare module "os" {
             const WSA_E_NO_MORE: number;
             const WSA_E_CANCELLED: number;
             const WSAEREFUSED: number;
+        }
+        namespace dlopen {
+            const RTLD_LAZY: number;
+            const RTLD_NOW: number;
+            const RTLD_GLOBAL: number;
+            const RTLD_LOCAL: number;
+            const RTLD_DEEPBIND: number;
         }
         namespace priority {
             const PRIORITY_LOW: number;

@@ -7,10 +7,10 @@
     ],
     "minimumTypeScriptVersion": "5.0",
     "dependencies": {
-        "@types/react": "*",
-        "@types/wordpress__editor": "*",
+        "@types/react": "^18",
         "@wordpress/components": "^28.4.0",
         "@wordpress/data": "^10.4.0",
+        "@wordpress/editor": "^14.13.0",
         "@wordpress/element": "^6.4.0"
     },
     "devDependencies": {

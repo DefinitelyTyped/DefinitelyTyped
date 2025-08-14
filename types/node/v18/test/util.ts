@@ -260,7 +260,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -312,6 +312,7 @@ access("file/that/does/not/exist", (err) => {
             x: { type: "string", multiple: true },
         },
     });
+
     // $ExpectType (string | boolean)[] | undefined
     result.values.x;
     // $ExpectType string | boolean | undefined
@@ -327,9 +328,33 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    // args are passed with a default
+    const result = util.parseArgs({
+        args: ["--alpha", "--beta"],
+        options: {
+            alpha: { type: "boolean", default: false },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
+        },
+    });
+
+    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean
+    result.values.alpha; // true
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
+}
+
+{
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {

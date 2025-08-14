@@ -1,5 +1,8 @@
 interface CharacterCount {
     init(root?: HTMLElement | Document): void;
+    FORM_GROUP_ERROR_CLASS: string;
+    LABEL_ERROR_CLASS: string;
+    INPUT_ERROR_CLASS: string;
     MESSAGE_INVALID_CLASS: string;
     VALIDATION_MESSAGE: string;
     STATUS_MESSAGE_CLASS: string;

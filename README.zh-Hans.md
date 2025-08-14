@@ -16,10 +16,10 @@ Definitely Typed 最近已转为正确的 `pnpm` monorepo(包含多项目或模�
 
 此章节跟踪了当前仓库及发布流程的健康状况。如果贡献者的 PR 和软件包遇到任何问题，此处的内容可能有帮助。
 
-- 最新构建全部通过[类型检查/Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint)：[![构建状态](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-- 所有软件包在 typescript@next 版本中全部通过类型检查/Lint：[![构建状态](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-- 所有软件包都在一个半小时内[发布至 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher): [![发布状态](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-- [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 上处于活动状态：[![活动状态](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- 最新构建全部通过[类型检查/Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint)： [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
+- 所有软件包在 typescript@next 版本中全部通过类型检查/Lint： [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
+- 所有软件包都在一个半小时内[发布至 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher): [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
+- [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 上处于活动状态： [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
 - [基础设施更新现状](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 如果此处有任何错误或上述任何操作失败，请在 [TypeScript 社群 Discord 服务器中的 Definitely Typed 频道](https://discord.gg/typescript)提出。
@@ -193,7 +193,7 @@ declare module "libname" {
 
 Definitely Typed 的成员会定期查看新的 PR，但是请留意，当 PR 数量过多的时候，检查速度可能会减慢。
 
-如果你想要真实的示例，[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 是个很好的例子。
+如果你想要真实的示例，[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js) 是个很好的例子。
 
 #### 删除软件包
 
@@ -457,7 +457,7 @@ Definitely Typed 是 GitHub 上最活跃的软件源之一。你可能想知道�
 
 > 如果 PR 仅仅更改了模块中的类型，并且包含了相应的测试，合并过程会大大加快。
 
-被类型定义所有者（在定义文件的标头列明）批准的 PR 通常合并得更快；提交新类型定义的 PR 需要更多时间，因为它们需要维护人员花更多的时间审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待，因为人为因素可能导致延迟。通过查看 [新拉取请求状态板](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)，可以看到维护人员在开启的 PR 上的工作进度。
+被类型定义所有者（在定义文件的标头列明）批准的 PR 通常合并得更快；提交新类型定义的 PR 需要更多时间，因为它们需要维护人员花更多的时间审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待，因为人为因素可能导致延迟。通过查看 [新拉取请求状态板](https://github.com/orgs/DefinitelyTyped/projects/1)，可以看到维护人员在开启的 PR 上的工作进度。
 
 #### 我想给流行项目提交更改，为什么它们受到了特殊对待？
 

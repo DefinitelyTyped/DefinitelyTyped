@@ -138,7 +138,7 @@ async function test_responseReturnTypes() {
     // $ExpectType string
     const text = await response.clone().text();
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const buffer = await response.clone().buffer();
 }
 

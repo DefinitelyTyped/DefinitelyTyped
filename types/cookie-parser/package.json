@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/expressjs/cookie-parser"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/express": "*"
     },
     "devDependencies": {
@@ -19,6 +19,10 @@
         {
             "name": "BendingBender",
             "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Sebastian Beltran",
+            "githubUsername": "bjohansebas"
         }
     ]
 }

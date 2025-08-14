@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/bundle-name",
-    "version": "4.0.9999",
+    "version": "4.1.9999",
+    "type": "module",
     "projects": [
         "https://github.com/sindresorhus/bundle-name#readme"
     ],

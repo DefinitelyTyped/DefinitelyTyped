@@ -25,5 +25,5 @@ wol.wake("00:00:00:00:00:00", optionsAll, (error: Error | null, result: boolean 
     console.log(error, result);
 });
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 wol.createMagicPacket("00:00:00:00:00:00");

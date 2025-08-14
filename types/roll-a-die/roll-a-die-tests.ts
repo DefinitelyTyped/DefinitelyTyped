@@ -1,4 +1,4 @@
-import rollADie from "roll-a-die";
+import rollADie, { Options } from "roll-a-die";
 
 const element = document.createElement("div");
 const cb = (values: number[]) => values;

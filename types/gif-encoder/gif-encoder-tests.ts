@@ -13,12 +13,12 @@ gif.on("finish#start", () => {});
 gif.on("finish#stop", () => {});
 
 gif.on("data", (data) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     data;
 });
 
 gif.on("readable", () => {
-    // $ExpectType Buffer | null
+    // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
     gif.read();
 });
 

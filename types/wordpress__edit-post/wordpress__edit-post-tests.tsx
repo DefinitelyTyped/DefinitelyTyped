@@ -38,66 +38,6 @@ ep.reinitializeEditor("post", 123, document.createElement("div"), { codeEditingE
 <ep.PluginBlockSettingsMenuItem label="Menu item text" onClick={() => console.log("clicked")} />;
 
 //
-// PluginDocumentSettingPanel
-//
-<ep.PluginDocumentSettingPanel name="my-panel" className="my-document-setting-plugin" title="My Panel">
-    <p>My Document Setting Panel</p>
-</ep.PluginDocumentSettingPanel>;
-
-<ep.PluginDocumentSettingPanel name="my-panel">
-    <p>My Document Setting Panel</p>
-</ep.PluginDocumentSettingPanel>;
-
-//
-// PluginMoreMenuItem
-//
-<ep.PluginMoreMenuItem icon="smiley" onClick={() => console.log("clicked!")}>
-    My button title
-</ep.PluginMoreMenuItem>;
-
-<ep.PluginMoreMenuItem href="https://foo.bar">My anchor title</ep.PluginMoreMenuItem>;
-
-//
-// PluginPostPublishPanel
-//
-<ep.PluginPostPublishPanel className="my-plugin-post-publish-panel" title="My panel title" initialOpen={true}>
-    My panel content
-</ep.PluginPostPublishPanel>;
-<ep.PluginPostPublishPanel>My panel content</ep.PluginPostPublishPanel>;
-
-//
-// PluginPostStatusInfo
-//
-<ep.PluginPostStatusInfo className="my-plugin-post-status-info">My post status info</ep.PluginPostStatusInfo>;
-<ep.PluginPostStatusInfo>My post status info</ep.PluginPostStatusInfo>;
-
-//
-// PluginPrePublishPanel
-//
-<ep.PluginPrePublishPanel className="my-plugin-pre-publish-panel" title="My panel title" initialOpen={true}>
-    My panel content
-</ep.PluginPrePublishPanel>;
-<ep.PluginPrePublishPanel>My panel content</ep.PluginPrePublishPanel>;
-
-//
-// PluginSidebar
-//
-<ep.PluginSidebar name="my-sidebar" isPinnable={false} title="My sidebar title" icon={<i>foo</i>}>
-    My sidebar content
-</ep.PluginSidebar>;
-<ep.PluginSidebar name="my-sidebar" title="My sidebar title">
-    My sidebar content
-</ep.PluginSidebar>;
-
-//
-// PluginSidebarMoreMenuItem
-//
-<ep.PluginSidebarMoreMenuItem target="my-sidebar" icon="smiley">
-    My sidebar title
-</ep.PluginSidebarMoreMenuItem>;
-<ep.PluginSidebarMoreMenuItem target="my-sidebar">My sidebar title</ep.PluginSidebarMoreMenuItem>;
-
-//
 // store
 //
 

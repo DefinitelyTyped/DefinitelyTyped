@@ -42,4 +42,14 @@ client.mailboxDelete("INBOX.example");
 // $Expect Promise<StatusObject>
 client.status("INBOX", { uidNext: true });
 
+// $Expect Promise<FetchMessageObject[]>
 client.fetchAll("1:*", { uid: true });
+
+// $Expect Promise<{ [key: string]: DownloadObject }>
+client.downloadMany("*", ["1", "1.1"]);
+
+// $Expect Promise<QuotaResponse | boolean>
+client.getQuota("INBOX");
+
+// $Expect Promise<boolean>
+client.setFlagColor("*", "red");

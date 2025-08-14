@@ -8,7 +8,7 @@ const deflated = new DeflateCRC32Stream(); // $ExpectType DeflateCRC32Stream
 
 // CRC32 using pipe mode
 crc32.on("end", () => {
-    crc32.digest(); // $ExpectType Buffer
+    crc32.digest(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     crc32.digest("hex"); // $ExpectType string
     crc32.digest("base64"); // $ExpectType string
     crc32.digest("binary"); // $ExpectType string
@@ -19,7 +19,7 @@ readStream.pipe(crc32);
 
 // DeflateCRC32 using write mode
 deflated.on("end", () => {
-    deflated.digest(); // $ExpectType Buffer
+    deflated.digest(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     deflated.digest("hex"); // $ExpectType string
     deflated.digest("base64"); // $ExpectType string
     deflated.digest("binary"); // $ExpectType string

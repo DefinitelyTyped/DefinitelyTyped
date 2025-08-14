@@ -1,4 +1,6 @@
 import {
+    createHistory,
+    createMemorySource,
     Link,
     Location,
     LocationProvider,
@@ -88,8 +90,12 @@ const handleRef = (el: HTMLAnchorElement) => {
 <Link innerRef={handleRef} to="./foo"></Link>;
 <Link ref={handleRef} to="./foo"></Link>;
 
-const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
+const refObject: React.RefObject<HTMLAnchorElement | null> = { current: null };
 <Link innerRef={refObject} to="./foo"></Link>;
 <Link ref={refObject} to="./foo"></Link>;
 
 const elem: React.JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;
+
+<LocationProvider history={createHistory(createMemorySource("/"))}>
+    This text has history
+</LocationProvider>;

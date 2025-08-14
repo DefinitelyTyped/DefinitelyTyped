@@ -31,7 +31,7 @@ export interface StructuredHeader {
 /**
  * Possible types of a header value.
  */
-export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader;
+export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader | StructuredHeader[];
 
 /**
  * A Map object with lowercase header keys.
@@ -309,6 +309,7 @@ export interface MailParserOptions extends StreamModule.TransformOptions {
     skipTextToHtml?: boolean | undefined;
     skipTextLinks?: boolean | undefined;
     Iconv?: DecoderStream | undefined;
+    checksumAlgo?: string | undefined;
     keepCidLinks?: boolean | undefined;
 }
 

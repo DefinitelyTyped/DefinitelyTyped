@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/babel__preset-env",
-    "version": "7.9.9999",
+    "version": "7.10.9999",
     "projects": [
         "https://github.com/babel/babel/tree/master/packages/babel-preset-env",
         "https://babeljs.io/docs/en/babel-preset-env"

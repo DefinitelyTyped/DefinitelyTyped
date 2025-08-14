@@ -451,6 +451,11 @@ deck.initialize({
     },
 });
 
+// $ExpectType Promise<void>
+deck.initialize({
+    showNotes: "separate-page",
+}).then(() => {});
+
 // Alternate representations
 
 // $ExpectType Promise<void>
@@ -487,6 +492,12 @@ deck.configure({});
 deck.configure({ slideNumber: true, width: 20, height: 20 });
 
 deck.configure({ view: "scroll" });
+
+deck.configure({ controls: true });
+deck.configure({ controls: false });
+deck.configure({ controls: "speaker-only" });
+// @ts-expect-error
+deck.configure({ controls: "foo" });
 
 // -------------- //
 // destroy method //
@@ -821,7 +832,10 @@ deck.hasNavigatedVertically();
 // Adds/removes a custom key binding
 
 // $ExpectType void
-deck.addKeyBinding("enter", () => {});
+deck.addKeyBinding(82, () => {});
+
+// $ExpectType void
+deck.addKeyBinding(82, "next");
 
 // $ExpectType void
 deck.addKeyBinding({ keyCode: 1, key: "enter", description: "description" }, () => {});

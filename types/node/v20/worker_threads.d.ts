@@ -3,7 +3,7 @@
  * JavaScript in parallel. To access it:
  *
  * ```js
- * const worker = require('node:worker_threads');
+ * import worker from 'node:worker_threads';
  * ```
  *
  * Workers (threads) are useful for performing CPU-intensive JavaScript operations.
@@ -14,9 +14,10 @@
  * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer` instances.
  *
  * ```js
- * const {
+ * import {
  *   Worker, isMainThread, parentPort, workerData,
- * } = require('node:worker_threads');
+ * } from 'node:worker_threads';
+ * import { parse } = from 'some-js-parsing-library';
  *
  * if (isMainThread) {
  *   module.exports = function parseJSAsync(script) {
@@ -33,7 +34,6 @@
  *     });
  *   };
  * } else {
- *   const { parse } = require('some-js-parsing-library');
  *   const script = workerData;
  *   parentPort.postMessage(parse(script));
  * }
@@ -52,14 +52,13 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
  */
 declare module "worker_threads" {
-    import { Blob } from "node:buffer";
     import { Context } from "node:vm";
     import { EventEmitter } from "node:events";
     import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
     import { Readable, Writable } from "node:stream";
+    import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { X509Certificate } from "node:crypto";
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
@@ -72,7 +71,7 @@ declare module "worker_threads" {
      * The `MessageChannel` has no methods of its own. `new MessageChannel()` yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
      *
      * ```js
-     * const { MessageChannel } = require('node:worker_threads');
+     * import { MessageChannel } from 'node:worker_threads';
      *
      * const { port1, port2 } = new MessageChannel();
      * port1.on('message', (message) => console.log('received', message));
@@ -88,7 +87,16 @@ declare module "worker_threads" {
     interface WorkerPerformance {
         eventLoopUtilization: EventLoopUtilityFunction;
     }
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate | Blob;
+    type Transferable =
+        | ArrayBuffer
+        | MessagePort
+        | AbortSignal
+        | FileHandle
+        | ReadableStream
+        | WritableStream
+        | TransformStream;
+    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
+    type TransferListItem = Transferable;
     /**
      * Instances of the `worker.MessagePort` class represent one end of an
      * asynchronous, two-way communications channel. It can be used to transfer
@@ -121,7 +129,7 @@ declare module "worker_threads" {
          * * `value` may not contain native (C++-backed) objects other than:
          *
          * ```js
-         * const { MessageChannel } = require('node:worker_threads');
+         * import { MessageChannel } from 'node:worker_threads';
          * const { port1, port2 } = new MessageChannel();
          *
          * port1.on('message', (message) => console.log(message));
@@ -143,7 +151,7 @@ declare module "worker_threads" {
          * `value` may still contain `ArrayBuffer` instances that are not in `transferList`; in that case, the underlying memory is copied rather than moved.
          *
          * ```js
-         * const { MessageChannel } = require('node:worker_threads');
+         * import { MessageChannel } from 'node:worker_threads';
          * const { port1, port2 } = new MessageChannel();
          *
          * port1.on('message', (message) => console.log(message));
@@ -173,7 +181,7 @@ declare module "worker_threads" {
          * behind this API, see the `serialization API of the node:v8 module`.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -260,7 +268,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[] | undefined;
+        transferList?: Transferable[] | undefined;
         /**
          * @default true
          */
@@ -298,8 +306,8 @@ declare module "worker_threads" {
      * Notable differences inside a Worker environment are:
      *
      * * The `process.stdin`, `process.stdout`, and `process.stderr` streams may be redirected by the parent thread.
-     * * The `require('node:worker_threads').isMainThread` property is set to `false`.
-     * * The `require('node:worker_threads').parentPort` message port is available.
+     * * The `import { isMainThread } from 'node:worker_threads'` property is set to `false`.
+     * * The `import { parentPort } from 'node:worker_threads'` message port is available.
      * * `process.exit()` does not stop the whole program, just the single thread,
      * and `process.abort()` is not available.
      * * `process.chdir()` and `process` methods that set group or user ids
@@ -334,10 +342,10 @@ declare module "worker_threads" {
      * the thread barrier.
      *
      * ```js
-     * const assert = require('node:assert');
-     * const {
+     * import assert from 'node:assert';
+     * import {
      *   Worker, MessageChannel, MessagePort, isMainThread, parentPort,
-     * } = require('node:worker_threads');
+     * } from 'node:worker_threads';
      * if (isMainThread) {
      *   const worker = new Worker(__filename);
      *   const subChannel = new MessageChannel();
@@ -377,7 +385,7 @@ declare module "worker_threads" {
         readonly stderr: Readable;
         /**
          * An integer identifier for the referenced thread. Inside the worker thread,
-         * it is available as `require('node:worker_threads').threadId`.
+         * it is available as `import { threadId } from 'node:node:worker_threads'`.
          * This value is unique for each `Worker` instance inside a single process.
          * @since v10.5.0
          */
@@ -408,7 +416,25 @@ declare module "worker_threads" {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
+        /**
+         * Sends a value to another worker, identified by its thread ID.
+         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+         * @param value The value to send.
+         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+         * @since v20.19.0
+         */
+        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+        postMessageToThread(
+            threadId: number,
+            value: any,
+            transferList: readonly Transferable[],
+            timeout?: number,
+        ): Promise<void>;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has
@@ -495,11 +521,11 @@ declare module "worker_threads" {
      * ```js
      * 'use strict';
      *
-     * const {
+     * import {
      *   isMainThread,
      *   BroadcastChannel,
      *   Worker,
-     * } = require('node:worker_threads');
+     * } from 'node:worker_threads';
      *
      * const bc = new BroadcastChannel('hello');
      *
@@ -553,7 +579,7 @@ declare module "worker_threads" {
      * This operation cannot be undone.
      *
      * ```js
-     * const { MessageChannel, markAsUntransferable } = require('node:worker_threads');
+     * import { MessageChannel, markAsUntransferable } from 'node:worker_threads';
      *
      * const pooledBuffer = new ArrayBuffer(8);
      * const typedArray1 = new Uint8Array(pooledBuffer);
@@ -598,7 +624,7 @@ declare module "worker_threads" {
      * that contains the message payload, corresponding to the oldest message in the `MessagePort`'s queue.
      *
      * ```js
-     * const { MessageChannel, receiveMessageOnPort } = require('node:worker_threads');
+     * import { MessageChannel, receiveMessageOnPort } from 'node:worker_threads';
      * const { port1, port2 } = new MessageChannel();
      * port1.postMessage({ hello: 'world' });
      *
@@ -624,12 +650,12 @@ declare module "worker_threads" {
      * automatically.
      *
      * ```js
-     * const {
+     * import {
      *   Worker,
      *   isMainThread,
      *   setEnvironmentData,
      *   getEnvironmentData,
-     * } = require('node:worker_threads');
+     * } from 'node:worker_threads';
      *
      * if (isMainThread) {
      *   setEnvironmentData('Hello', 'World!');
@@ -649,7 +675,7 @@ declare module "worker_threads" {
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.
      */
-    function setEnvironmentData(key: Serializable, value: Serializable): void;
+    function setEnvironmentData(key: Serializable, value?: Serializable): void;
 
     import {
         BroadcastChannel as _BroadcastChannel,
@@ -657,8 +683,12 @@ declare module "worker_threads" {
         MessagePort as _MessagePort,
     } from "worker_threads";
     global {
+        function structuredClone<T>(
+            value: T,
+            options?: { transfer?: Transferable[] },
+        ): T;
         /**
-         * `BroadcastChannel` class is a global reference for `require('worker_threads').BroadcastChannel`
+         * `BroadcastChannel` class is a global reference for `import { BroadcastChannel } from 'node:worker_threads'`
          * https://nodejs.org/api/globals.html#broadcastchannel
          * @since v18.0.0
          */
@@ -668,7 +698,7 @@ declare module "worker_threads" {
         } ? T
             : typeof _BroadcastChannel;
         /**
-         * `MessageChannel` class is a global reference for `require('worker_threads').MessageChannel`
+         * `MessageChannel` class is a global reference for `import { MessageChannel } from 'node:worker_threads'`
          * https://nodejs.org/api/globals.html#messagechannel
          * @since v15.0.0
          */
@@ -678,7 +708,7 @@ declare module "worker_threads" {
         } ? T
             : typeof _MessageChannel;
         /**
-         * `MessagePort` class is a global reference for `require('worker_threads').MessagePort`
+         * `MessagePort` class is a global reference for `import { MessagePort } from 'node:worker_threads'`
          * https://nodejs.org/api/globals.html#messageport
          * @since v15.0.0
          */

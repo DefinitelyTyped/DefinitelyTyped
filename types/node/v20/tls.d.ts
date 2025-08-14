@@ -4,7 +4,7 @@
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('node:tls');
+ * import tls from 'node:tls';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/tls.js)
  */
@@ -399,6 +399,14 @@ declare module "tls" {
             callback: (err: Error | null) => void,
         ): undefined | boolean;
         /**
+         * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
+         * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.
+         * @since v22.5.0, v20.17.0
+         * @param context An object containing at least `key` and `cert` properties from the {@link createSecureContext()} `options`,
+         * or a TLS context object created with {@link createSecureContext()} itself.
+         */
+        setKeyCert(context: SecureContextOptions | SecureContext): void;
+        /**
          * The `tlsSocket.setMaxSendFragment()` method sets the maximum TLS fragment size.
          * Returns `true` if setting the limit succeeded; `false` otherwise.
          *
@@ -639,7 +647,7 @@ declare module "tls" {
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
          * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *
@@ -809,6 +817,12 @@ declare module "tls" {
          * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
          */
         ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
+        /**
+         * Treat intermediate (non-self-signed)
+         * certificates in the trust CA certificate list as trusted.
+         * @since v22.9.0, v20.18.0
+         */
+        allowPartialTrustChain?: boolean | undefined;
         /**
          * Optionally override the trusted CA certificates. Default is to trust
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
@@ -1000,8 +1014,8 @@ declare module "tls" {
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -1046,8 +1060,8 @@ declare module "tls" {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.

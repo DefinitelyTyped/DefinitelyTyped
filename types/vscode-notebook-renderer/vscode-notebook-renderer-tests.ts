@@ -41,7 +41,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             json;
             // $ExpectType () => Blob
             blob;
-            // $ExpectType () => Uint8Array
+            // $ExpectType () => Uint8Array || () => Uint8Array<ArrayBuffer>
             data;
         },
 

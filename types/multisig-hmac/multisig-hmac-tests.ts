@@ -35,8 +35,8 @@ new MultisigHMAC("foo");
 const key = multisigHmac.keygen(0); // $ExpectType Key
 multisigHmac.keygen(0, Buffer.alloc(0)); // $ExpectType Key
 
-multisigHmac.seedgen(); // $ExpectType Buffer
-multisigHmac.seedgen(Buffer.alloc(0)); // $ExpectType Buffer
+multisigHmac.seedgen(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+multisigHmac.seedgen(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 multisigHmac.deriveKey(Buffer.alloc(0), 0); // $ExpectType Key
 multisigHmac.deriveKey(Buffer.alloc(0), 0, Buffer.alloc(0)); // $ExpectType Key
@@ -62,7 +62,7 @@ multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from("foo"), 1, Bu
 multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from("foo"), 1, Buffer.alloc(0), Buffer.alloc(0)); // $ExpectType boolean
 
 key.index; // $ExpectType number
-key.key; // $ExpectType Buffer
+key.key; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 signature.bitfield; // $ExpectType number
-signature.signature; // $ExpectType Buffer
+signature.signature; // $ExpectType Buffer || Buffer<ArrayBufferLike>

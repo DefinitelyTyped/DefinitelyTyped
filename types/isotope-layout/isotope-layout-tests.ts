@@ -120,3 +120,6 @@ iso.shuffle();
 iso.stamp($("div"));
 iso.unstamp($("div"));
 iso.updateSortData($("div"));
+iso.on("arrangeComplete", () => {});
+iso.off("layoutComplete", () => {});
+iso.once("removeComplete", () => {});

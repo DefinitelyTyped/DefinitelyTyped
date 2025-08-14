@@ -89,10 +89,10 @@ HashAlgorithm;
 // $ExpectType SignatureAlgorithm
 SignatureAlgorithm;
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 pubFlowKey({ privateKey: "...private key..." });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 pubFlowKey({
     privateKey: "...private key...",
     hashAlgorithm: HashAlgorithm.SHA2_256,

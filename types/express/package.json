@@ -1,14 +1,13 @@
 {
     "private": true,
     "name": "@types/express",
-    "version": "4.17.9999",
+    "version": "5.0.9999",
     "projects": [
         "http://expressjs.com"
     ],
     "dependencies": {
         "@types/body-parser": "*",
-        "@types/express-serve-static-core": "^4.17.33",
-        "@types/qs": "*",
+        "@types/express-serve-static-core": "^5.0.0",
         "@types/serve-static": "*"
     },
     "devDependencies": {
@@ -21,16 +20,16 @@
             "githubUsername": "borisyankov"
         },
         {
-            "name": "China Medical University Hospital",
-            "githubUsername": "CMUH"
-        },
-        {
             "name": "Puneet Arora",
             "githubUsername": "puneetar"
         },
         {
             "name": "Dylan Frankland",
             "githubUsername": "dfrankland"
+        },
+        {
+            "name": "Sebastian Beltran",
+            "githubUsername": "bjohansebas"
         }
     ]
 }

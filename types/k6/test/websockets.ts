@@ -51,7 +51,7 @@ const blob = new Blob(["something"]);
 (async () => { // this is required as top-level-await requires a lot more changes
     await blob.text(); // $ExpectType string
     await blob.arrayBuffer(); // $ExpectType ArrayBuffer
-    await blob.bytes(); // $ExpectType Uint8Array
+    await blob.bytes(); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     blob.stream(); // $ExpectType ReadableStream
     blob.slice(10, 2); // $ExpectType Blob
     // @ts-expect-error

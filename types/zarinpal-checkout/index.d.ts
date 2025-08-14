@@ -27,7 +27,7 @@ declare namespace ZarinPal {
 
     interface PaymentVerificationOutput {
         status: number;
-        RefID: number;
+        refId: number;
     }
 
     interface UnverifiedTransactionsOutput {

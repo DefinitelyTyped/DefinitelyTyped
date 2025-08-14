@@ -70,7 +70,7 @@ buf = symmetricState.decryptAndHash(Buffer.alloc(10));
 buf = symmetricState.decryptAndHash("foo");
 buf = symmetricState.getHandshakeHash();
 buf = symmetricState.getHandshakeHash(Buffer.alloc(10));
-symmetricState.split(); // $ExpectType [Buffer, Buffer] | [Uint8Array, Uint8Array]
+symmetricState.split(); // $ExpectType [Buffer, Buffer] | [Uint8Array, Uint8Array] || [Buffer<ArrayBufferLike>, Buffer<ArrayBufferLike>] | [Uint8Array<ArrayBufferLike>, Uint8Array<ArrayBufferLike>]
 symmetricState._clear(); // $ExpectType void
 
 let cipherState: Cipher = symmetricState;

@@ -43,7 +43,7 @@ declare namespace koaSession {
 }
 
 declare module "koa" {
-    interface Context {
+    interface ExtendableContext {
         sessionId: string;
         session: koaSession.Session | null;
         sessionSave: boolean | null;

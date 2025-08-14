@@ -4,7 +4,7 @@ const buffer = Buffer.from([]);
 
 xar.getToc(buffer, (err, xmlBuffer, json, header) => {
     err; // $ExpectType Error | null
-    xmlBuffer; // $ExpectType Buffer
+    xmlBuffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     json; // $ExpectType Record<string, any>
     header; // $ExpectType TOCHeader
 });

@@ -5,11 +5,13 @@
  * @see {@link https://threejs.org/docs/index.html#api/en/extras/Earcut | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/Earcut.js | Source}
  */
-export const Earcut: {
+declare class Earcut {
     /**
      * Triangulates the given shape definition by returning an array of triangles
      * @remarks
      * A triangle is defined by three consecutive integers representing vertex indices.
      */
-    triangulate(data: number[], holeIndices?: number[], dim?: number): number[];
-};
+    static triangulate(data: number[], holeIndices?: number[], dim?: number): number[];
+}
+
+export { Earcut };

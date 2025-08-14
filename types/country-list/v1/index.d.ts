@@ -1,4 +1,4 @@
-export default function Countries(): {
+declare function Countries(): {
     /**
      * Expects a two-digit country code. Returns the name for that country. If not found, it returns undefined.
      */
@@ -34,3 +34,5 @@ export default function Countries(): {
      */
     getData(): Array<{ code: string; name: string }>;
 };
+
+export = Countries;
