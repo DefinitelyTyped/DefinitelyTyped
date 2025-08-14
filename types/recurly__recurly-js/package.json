@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/recurly__recurly-js",
-    "version": "4.37.9999",
+    "version": "4.38.9999",
     "nonNpm": true,
     "nonNpmDescription": "@recurly/recurly-js",
     "projects": [

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/koa",
-    "version": "2.15.9999",
+    "version": "3.0.9999",
     "projects": [
         "http://koajs.com"
     ],
@@ -10,7 +10,7 @@
         "@types/content-disposition": "*",
         "@types/cookies": "*",
         "@types/http-assert": "*",
-        "@types/http-errors": "*",
+        "@types/http-errors": "^2",
         "@types/keygrip": "*",
         "@types/koa-compose": "*",
         "@types/node": "*"

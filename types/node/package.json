@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "24.0.9999",
+    "version": "24.2.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
@@ -10,9 +10,6 @@
     "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json", "tsconfig.webworker.json"],
     "types": "index",
     "typesVersions": {
-        "<=5.1": {
-            "*": ["ts5.1/*"]
-        },
         "<=5.6": {
             "*": ["ts5.6/*"]
         },
@@ -21,7 +18,7 @@
         }
     },
     "dependencies": {
-        "undici-types": "~7.8.0"
+        "undici-types": "~7.10.0"
     },
     "devDependencies": {
         "@types/node": "workspace:."

@@ -616,6 +616,17 @@ declare module "stream" {
              */
             destroy(error?: Error): this;
             /**
+             * @returns `AsyncIterator` to fully consume the stream.
+             * @since v10.0.0
+             */
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
+            /**
+             * Calls `readable.destroy()` with an `AbortError` and returns
+             * a promise that fulfills when the stream is finished.
+             * @since v20.4.0
+             */
+            [Symbol.asyncDispose](): Promise<void>;
+            /**
              * Event emitter
              * The defined events on documents including:
              * 1. close
@@ -682,12 +693,6 @@ declare module "stream" {
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
-            /**
-             * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
-             * @since v20.4.0
-             */
-            [Symbol.asyncDispose](): Promise<void>;
         }
         interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
@@ -957,6 +962,12 @@ declare module "stream" {
              * @param error Optional, an error to emit with `'error'` event.
              */
             destroy(error?: Error): this;
+            /**
+             * Calls `writable.destroy()` with an `AbortError` and returns
+             * a promise that fulfills when the stream is finished.
+             * @since v22.4.0, v20.16.0
+             */
+            [Symbol.asyncDispose](): Promise<void>;
             /**
              * Event emitter
              * The defined events on documents including:

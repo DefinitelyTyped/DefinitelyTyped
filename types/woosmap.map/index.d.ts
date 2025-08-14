@@ -1530,6 +1530,10 @@ declare namespace woosmap.map {
          */
         disableTilt?: boolean;
         /**
+         * Enables the markers to be selected using tab and keyboard arrows.
+         */
+        enableMarkerAccessibleNavigation?: boolean;
+        /**
          * This option controls how the gesture are handled
          * Depending on the value when gesture on the map is detected (scroll on desktop, one finger pan on mobile)
          * an overlay asking the user to use Cmd or Ctrl while scrolling or use two finger gesture to pan on mobile will be

@@ -261,3 +261,75 @@ variableInstance.defs;
 variableInstance.tainted;
 // $ExpectType boolean
 variableInstance.stack;
+
+let node: any;
+if (eslintScope.PatternVisitor.isPattern(node)) {
+    // $ExpectType Identifier | ObjectPattern | ArrayPattern | SpreadElement | RestElement | AssignmentPattern
+    node;
+}
+
+declare let rootPattern: estree.Pattern;
+
+// // $ExpectType PatternVisitor
+const patternVisitor = new eslintScope.PatternVisitor(
+    {
+        fallback: (node: any) => Object.keys(node).filter((key) => key !== "parent"),
+        childVisitorKeys: { TestExpression: ["argument"] },
+    },
+    rootPattern,
+    (pattern, misc) => {
+        // $ExpectType Identifier
+        pattern;
+        // $ExpectType AssignmentPattern[]
+        misc.assignments;
+        // $ExpectType boolean
+        misc.rest;
+        // $ExpectType boolean
+        misc.topLevel;
+    },
+);
+
+// $ExpectType Pattern
+patternVisitor.rootPattern;
+
+// $ExpectType PatternVisitorCallback
+patternVisitor.callback;
+
+// $ExpectType AssignmentPattern[]
+patternVisitor.assignments;
+
+// $ExpectType Expression[]
+patternVisitor.rightHandNodes;
+
+// $ExpectType RestElement[]
+patternVisitor.restElements;
+
+// $ExpectType (pattern: Identifier) => void
+patternVisitor.Identifier;
+
+// $ExpectType (pattern: Property) => void
+patternVisitor.Property;
+
+// $ExpectType (pattern: ArrayPattern) => void
+patternVisitor.ArrayPattern;
+
+// $ExpectType (pattern: AssignmentPattern) => void
+patternVisitor.AssignmentPattern;
+
+// $ExpectType (pattern: RestElement) => void
+patternVisitor.RestElement;
+
+// $ExpectType (pattern: MemberExpression) => void
+patternVisitor.MemberExpression;
+
+// $ExpectType (pattern: SpreadElement) => void
+patternVisitor.SpreadElement;
+
+// $ExpectType (pattern: SpreadElement) => void
+patternVisitor.ArrayExpression;
+
+// $ExpectType (pattern: AssignmentExpression) => void
+patternVisitor.AssignmentExpression;
+
+// $ExpectType (pattern: CallExpression) => void
+patternVisitor.CallExpression;

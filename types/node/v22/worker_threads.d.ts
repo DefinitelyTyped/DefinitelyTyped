@@ -188,6 +188,11 @@ declare module "worker_threads" {
          */
         postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
+         * If true, the `MessagePort` object will keep the Node.js event loop active.
+         * @since v18.1.0, v16.17.0
+         */
+        hasRef(): boolean;
+        /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
          *

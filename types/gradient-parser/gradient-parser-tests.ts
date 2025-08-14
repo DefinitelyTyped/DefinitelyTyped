@@ -323,6 +323,63 @@ ast = [
 ];
 ast = [
     {
+        type: "linear-gradient",
+        colorStops: [
+            {
+                type: "hsl",
+                value: ["120", "100%", "50%"],
+            },
+            {
+                type: "hsla",
+                value: ["240", "100%", "50%", "0.5"],
+            },
+        ],
+    },
+];
+ast = [
+    {
+        type: "linear-gradient",
+        colorStops: [
+            {
+                type: "var",
+                value: "var(--red)",
+            },
+            {
+                type: "var",
+                value: "var(--blue)",
+            },
+        ],
+    },
+];
+ast = [
+    {
+        type: "linear-gradient",
+        orientation: {
+            type: "angular",
+            value: "90",
+        },
+        colorStops: [
+            {
+                type: "literal",
+                value: "yellow",
+                length: {
+                    type: "calc",
+                    value: "100% - 50px",
+                },
+            },
+            {
+                type: "literal",
+                value: "green",
+                length: {
+                    type: "calc",
+                    value: "100% - 20px",
+                },
+            },
+        ],
+    },
+];
+ast = [
+    {
         type: "radial-gradient",
         colorStops: [
             {
