@@ -11,7 +11,7 @@
     },
     "peerDependencies": {
         "webpack": "^5"
-    }
+    },
     "devDependencies": {
         "@types/webpack": "workspace:.",
         "webpack": "^5"
