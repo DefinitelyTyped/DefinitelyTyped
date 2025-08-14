@@ -20,6 +20,7 @@ const mapOptions = expectType({
             ],
         },
     ],
+    enableMarkerAccessibleNavigation: true,
 }) as woosmap.map.MapOptions;
 const map = new woosmap.map.Map(document.getElementById("mapContainer") as HTMLElement, mapOptions);
 

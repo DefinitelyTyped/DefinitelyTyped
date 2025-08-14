@@ -1856,6 +1856,15 @@ declare namespace google.payments.api {
         buttonLocale?: string;
 
         /**
+         * Specifies the border types for the Google Pay button.
+         *
+         * If omitted, defaults to `default_border`.
+         *
+         * @default "default_border"
+         */
+        buttonBorderType?: ButtonBorderType | undefined;
+
+        /**
          * List of allowed payment methods.
          *
          * This is an optional field for filtering card info for dynamic
@@ -2153,6 +2162,21 @@ declare namespace google.payments.api {
         | "subscribe"
         | "long"
         | "short";
+
+    /**
+     * Supported border types for the Google Pay button.
+     *
+     * Options:
+     *
+     * - `no_border`:
+     *   "No border is displayed around the button.
+     *
+     * - `default_border`:
+     *   "A thin border is displayed around the button. (default).
+     */
+    type ButtonBorderType =
+        | "no_border"
+        | "default_border";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.

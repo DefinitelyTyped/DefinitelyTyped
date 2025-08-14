@@ -155,6 +155,9 @@ function addGooglePayButton() {
     buttonOptions.buttonLocale = "qw";
     buttonOptions.buttonLocale = "zh";
 
+    buttonOptions.buttonBorderType = "default_border";
+    buttonOptions.buttonBorderType = "no_border";
+
     const client = getGooglePaymentsClient();
     const button = client.createButton(buttonOptions);
     document.appendChild(document.createElement("div").appendChild(button));

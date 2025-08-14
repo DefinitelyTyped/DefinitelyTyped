@@ -554,7 +554,6 @@
 /types/bin-pack/                                        @orentrutner
 /types/binary-file/                                     @Goldsmith42
 /types/binary-parse-stream/                             @ffflorian
-/types/binary-parser/                                   @riggs @dolanmiu @yuhr @caguiclajmg
 /types/binary-split/                                    @krisztianb
 /types/binary-xml/                                      @atlowChemi
 /types/bind-args/                                       @ChocolateLoverRaj
@@ -681,7 +680,6 @@
 /types/browserify/                                      @AndrewGaspar @jvilk @leonard-thieu @LinusU
 /types/browserify-cipher/                               @aseyfpour
 /types/browserslist-useragent/                          @nju33
-/types/bs58check/                                       @muturgan
 /types/bs58grscheck/                                    @gruve-p
 /types/bser/                                            @claasahl
 /types/btoa/                                            @johngeorgewright @bricka
@@ -1076,7 +1074,6 @@
 /types/contentful-resolve-response/                     @antonkarsten
 /types/contextjs/                                       @kernhanda
 /types/continuation-local-storage/                      @rath @heycalmdown @skwee357
-/types/contract-proxy-kit/                              @cag
 /types/contrast-color/                                  @domdomegg
 /types/conventional-changelog/                          @JasonHK
 /types/conventional-changelog-config-spec/              @JasonHK
@@ -1833,7 +1830,6 @@
 /types/errorhandler/                                    @santialbo @peterblazejewicz
 /types/es-abstract/                                     @ljharb @ExE-Boss
 /types/es-aggregate-error/                              @AverageHelper
-/types/es-feature-detection/                            @Jack-Works
 /types/es-get-iterator/                                 @JasonHK @ljharb
 /types/es6-collections/                                 @rbuckton
 /types/es6-promisify/                                   @bschlenk
@@ -3135,6 +3131,7 @@
 /types/has-values/                                      @Ankan002
 /types/hasbin/                                          @michastreppel
 /types/hash-chain/                                      @BendingBender
+/types/hash-code/                                       @dunal
 /types/hash-file/                                       @HiromiShikata
 /types/hash-stream/                                     @BendingBender
 /types/hash-sum/                                        @DanielRosenwasser
@@ -3221,6 +3218,7 @@
 /types/html-escaper/                                    @panManfredini
 /types/html-minifier/                                   @tkrotoff @peterblazejewicz
 /types/html-minifier/v1/                                @tkrotoff
+/types/html-minifier-next/                              @orpheus6678
 /types/html-minifier-terser/                            @peterblazejewicz
 /types/html-parser/                                     @maxbogus
 /types/html-pdf/                                        @westy92
@@ -3236,6 +3234,7 @@
 /types/html-webpack-plugin/                             @deevus @bumbleblym @tlaziuk
 /types/html-webpack-template/                           @bumbleblym
 /types/html2json/                                       @YEK-PLUS
+/types/html2pdf.js/                                     @Mutesa-Cedric
 /types/html4-id/                                        @peterblazejewicz
 /types/html5-history/                                   @akashishu777
 /types/html5-to-pdf/                                    @samalexander
@@ -4259,7 +4258,6 @@
 /types/linkify-it/                                      @praxxis @alexplumb @ragafus
 /types/linkify-markdown/                                @JamieMagee
 /types/linkifyjs/                                       @g-rath @szhu @ovidiubute
-/types/lint-staged/                                     @okonet @saiichihashimoto
 /types/list-git-remotes/                                @BendingBender
 /types/list-stream/                                     @IanStorm
 /types/list.js/                                         @jeffreymeng
@@ -6936,6 +6934,7 @@
 /types/rosie/                                           @abner @subvertallchris @abukurov @adam187
 /types/roslib/                                          @Pro @alumag
 /types/round/                                           @ChocolateLoverRaj
+/types/round-tofixed/                                   @DesselBane
 /types/route-cache/                                     @yutak23
 /types/route-parser/                                    @ianks @bobbuehler
 /types/routie/                                          @Adilson
@@ -8374,6 +8373,7 @@
 /types/websocket-async/                                 @bigbeno37
 /types/websql/                                          @TeamworkGuy2
 /types/webtorrent/                                      @niieani @tlaziuk @gjuchault @cheeseandcereal
+/types/webvis/                                          @threedy-io @instant3Dhub @tsturm @dbthreed @ErikSpiegelberg @TimLamThreedy
 /types/webvr-api/                                       @efokschaner
 /types/webvtt-parser/                                   @dodomorandi
 /types/webxr/                                           @robrohan @RaananW @capnmidnight @sorskoot

@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/html-minifier-next",
+    "version": "1.1.9999",
+    "type": "module",
+    "minimumTypeScriptVersion": "5.3",
+    "projects": [
+        "https://j9t.github.io/html-minifier-next"
+    ],
+    "owners": [
+        {
+            "name": "Swarup Mazumder",
+            "githubUsername": "orpheus6678"
+        }
+    ],
+    "dependencies": {
+        "@types/clean-css": "*",
+        "@types/relateurl": "*",
+        "terser": "*"
+    },
+    "devDependencies": {
+        "@types/html-minifier-next": "workspace:."
+    },
+    "exports": {
+        ".": {
+            "require": "./index.d.cts",
+            "import": "./index.d.ts"
+        }
+    }
+}

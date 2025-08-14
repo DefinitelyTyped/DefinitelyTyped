@@ -4,7 +4,7 @@ export as namespace system;
  * System events dispatched by {@link framework.CastReceiverContext}.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.EventType
  */
-export enum EventType {
+export const enum EventType {
     ALLOW_GROUP_CHANGE = "allowgroupchange",
     /**
      * Fired when there is a system error.
@@ -61,7 +61,7 @@ export enum EventType {
  * Represents the current system state.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.SystemState
  */
-export enum SystemState {
+export const enum SystemState {
     /**
      * The application has not been requested to start yet.
      */
@@ -92,7 +92,7 @@ export enum SystemState {
  * Types of custom messages.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.MessageType
  */
-export enum MessageType {
+export const enum MessageType {
     /**
      * Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
      */
@@ -108,7 +108,7 @@ export enum MessageType {
  * if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.StandbyState
  */
-export enum StandbyState {
+export const enum StandbyState {
     NOT_STANDBY = "notstandby",
     STANDBY = "standby",
     UNKNOWN = "unknown",
@@ -118,7 +118,7 @@ export enum StandbyState {
  * Represents the disconnect reason.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DisconnectReason
  */
-export enum DisconnectReason {
+export const enum DisconnectReason {
     /**
      * There was a protocol error.
      */
@@ -141,7 +141,7 @@ export enum DisconnectReason {
  * Represent where the receiver was launched from.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.LaunchedFrom
  */
-export enum LaunchedFrom {
+export const enum LaunchedFrom {
     /**
      * App was launched by Cast V2 request.
      */
@@ -164,7 +164,7 @@ export enum LaunchedFrom {
  * Device capabilities.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilities
  */
-export enum DeviceCapabilities {
+export const enum DeviceCapabilities {
     APP_FOREGROUND = "app_foreground",
     /**
      * Audio Assistant support. For example, Google Home and Google Home Mini.
@@ -218,7 +218,7 @@ export enum DeviceCapabilities {
  * It may be UNKNOWN if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
  */
-export enum VisibilityState {
+export const enum VisibilityState {
     NOT_VISIBLE = "notvisible",
     UNKNOWN = "unknown",
     VISIBLE = "visible",

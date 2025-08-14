@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20250728
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/02d9acb6d6e8578a1a5fc39691ec36cd799f0a6b
+// Tests for Google Publisher Tag 1.20250811
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/a3d900bc56c2ce535e539ce139d7e59bc9fe7be4
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -1202,6 +1202,27 @@ function test_googletag_events_rewardedSlotClosedEvent() {
         googletag.pubads().addEventListener("rewardedSlotClosed", event => {
             const slot = event.slot;
             console.log("Rewarded ad slot", slot.getSlotElementId(), "has been closed.");
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
+}
+
+// Test for googletag.events.RewardedSlotVideoCompletedEvent
+function test_googletag_events_rewardedSlotVideoCompletedEvent() {
+    const targetSlot = googletag.defineOutOfPageSlot("/1234567/example", googletag.enums.OutOfPageFormat.REWARDED);
+
+    // Slot returns null if the page or device does not support rewarded ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
+
+        // This listener is called when the video in a rewarded ad slot has
+        // finished playing.
+        googletag.pubads().addEventListener("rewardedSlotVideoCompleted", event => {
+            const slot = event.slot;
+            console.log("Video in rewarded ad slot", slot.getSlotElementId(), "has finished playing.");
 
             if (slot === targetSlot) {
                 // Slot specific logic.

@@ -172,6 +172,93 @@ QUnit.module("grouped tests argument hooks", function(hooks) {
     });
 });
 
+QUnit.module.todo("unfinished module", function(hooks) {
+    hooks.beforeEach(function(assert) {
+        assert.ok(true, "beforeEach called");
+    });
+
+    hooks.afterEach(function(assert) {
+        assert.ok(true, "afterEach called");
+    });
+
+    QUnit.test("call hooks", function(assert) {
+        assert.expect(2);
+    });
+
+    QUnit.module.todo("nested unfinished module", {
+        // This will run after the parent module's beforeEach hook
+        beforeEach: assert => {
+            assert.ok(true, "nested beforeEach called");
+        },
+        // This will run before the parent module's afterEach
+        afterEach: assert => {
+            assert.ok(true, "nested afterEach called");
+        },
+    });
+
+    QUnit.test("call nested hooks", function(assert) {
+        assert.expect(4);
+    });
+});
+
+QUnit.module.skip("skipped module", function(hooks) {
+    hooks.beforeEach(function(assert) {
+        assert.ok(true, "beforeEach called");
+    });
+
+    hooks.afterEach(function(assert) {
+        assert.ok(true, "afterEach called");
+    });
+
+    QUnit.test("call hooks", function(assert) {
+        assert.expect(2);
+    });
+
+    QUnit.module.skip("nested skipped module", {
+        // This will run after the parent module's beforeEach hook
+        beforeEach: assert => {
+            assert.ok(true, "nested beforeEach called");
+        },
+        // This will run before the parent module's afterEach
+        afterEach: assert => {
+            assert.ok(true, "nested afterEach called");
+        },
+    });
+
+    QUnit.test("call nested hooks", function(assert) {
+        assert.expect(4);
+    });
+});
+
+QUnit.module.if("Conditional module", true, function(hooks) {
+    hooks.beforeEach(function(assert) {
+        assert.ok(true, "beforeEach called");
+    });
+
+    hooks.afterEach(function(assert) {
+        assert.ok(true, "afterEach called");
+    });
+
+    QUnit.test("call hooks", function(assert) {
+        assert.expect(2);
+    });
+
+    QUnit.module.if("nested conditional module", true, {
+        // This will run after the parent module's beforeEach hook
+        beforeEach: assert => {
+            assert.ok(true, "nested beforeEach called");
+        },
+        // This will run before the parent module's afterEach
+        afterEach: assert => {
+            assert.ok(true, "nested afterEach called");
+        },
+    });
+
+    QUnit.test("call nested hooks", function(assert) {
+        assert.expect(4);
+    });
+});
+
 QUnit.module.only("exclusive module", function(hooks) {
     hooks.beforeEach(function(assert) {
         assert.ok(true, "beforeEach called");

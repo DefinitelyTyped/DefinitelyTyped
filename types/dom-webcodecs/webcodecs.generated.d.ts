@@ -426,6 +426,7 @@ interface VideoFrame {
     readonly format: VideoPixelFormat | null;
     readonly timestamp: number;
     readonly visibleRect: DOMRectReadOnly | null;
+    readonly rotation?: number;
     allocationSize(options?: VideoFrameCopyToOptions): number;
     clone(): VideoFrame;
     close(): void;

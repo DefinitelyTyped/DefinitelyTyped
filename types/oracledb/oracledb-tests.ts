@@ -24,7 +24,7 @@ const {
     DB_USER,
 } = process.env;
 
-const initSession = (connection: oracledb.Connection, requestedTag: string, callback: () => void): void => {
+const initSession = (connection: oracledb.Connection, requestedTag: string, callback: (e: unknown) => void): void => {
     connection.execute(`alter session set nls_date_format = 'YYYY-MM-DD' nls_language = AMERICAN`, callback);
 };
 

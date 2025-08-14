@@ -445,11 +445,19 @@ declare global {
         beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
     }
 
-    type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
-    type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
-    type ModuleOnly = { only: moduleFunc1 & moduleFunc2 };
-    type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
-    type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
+    type moduleFunctionWithOptions = (name: string, options?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
+    type moduleFunction = (name: string, nested?: (hooks: NestedHooks) => void) => void;
+    type conditionalModuleFunctionWithOptions = (
+        name: string,
+        condition: boolean,
+        options?: Hooks,
+        nested?: (hooks: NestedHooks) => void,
+    ) => void;
+    type conditionalModuleFunction = (name: string, condition: boolean, nested?: (hooks: NestedHooks) => void) => void;
+    type ModuleOnly = { only: moduleFunction & moduleFunctionWithOptions };
+    type ModuleSkip = { skip: moduleFunction & moduleFunctionWithOptions };
+    type ModuleIf = { if: conditionalModuleFunction & conditionalModuleFunctionWithOptions };
+    type ModuleTodo = { todo: moduleFunction & moduleFunctionWithOptions };
 
     namespace QUnit {
         interface BeginDetails {
@@ -739,7 +747,7 @@ declare global {
          * @param hookds Callbacks to run during test execution
          * @param nested A callback with grouped tests and nested modules to run under the current module label
          */
-        module: moduleFunc1 & moduleFunc2 & ModuleOnly & ModuleSkip & ModuleTodo;
+        module: moduleFunction & moduleFunctionWithOptions & ModuleOnly & ModuleSkip & ModuleIf & ModuleTodo;
 
         /**
          * Register a callback to fire whenever a module ends.
