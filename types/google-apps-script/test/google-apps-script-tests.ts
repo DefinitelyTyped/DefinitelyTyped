@@ -319,41 +319,39 @@ XmlService.createElement("")
 
 // https://developers.google.com/apps-script/reference/xml-service
 const parseXml = () => {
-    const xml = (
-        '<root>' +
-        ' <channel>' +
-        '  <item><title>title 1</title><category>cat1</category><category>cat2</category></item>' +
-        '  <item><title>title 2</title><category>cat2</category></item>' +
-        '  <item><title>title 3</title><category>cat1</category><category>cat3</category></item>' +
-        '  <item><title>title 4</title></item>' +
-        ' </channel>' +
-        '</root>'
-    );
+    const xml = "<root>"
+        + " <channel>"
+        + "  <item><title>title 1</title><category>cat1</category><category>cat2</category></item>"
+        + "  <item><title>title 2</title><category>cat2</category></item>"
+        + "  <item><title>title 3</title><category>cat1</category><category>cat3</category></item>"
+        + "  <item><title>title 4</title></item>"
+        + " </channel>"
+        + "</root>";
     const document = XmlService.parse(xml); // $ExpectType Document
     const root = document.getRootElement(); // $ExpectType Element | null
 
-    const channel = root?.getChild('channel');
-    const items = channel?.getChildren('item') ?? [];
+    const channel = root?.getChild("channel");
+    const items = channel?.getChildren("item") ?? [];
     items.forEach(item => {
-        const title = item.getChild('title')?.getText();
-        const categories = item.getChildren('category');
+        const title = item.getChild("title")?.getText();
+        const categories = item.getChildren("category");
         const labels = categories.map(category => category.getText());
-        console.log('%s (%s)', title, labels.join(', '));
+        console.log("%s (%s)", title, labels.join(", "));
     });
 };
 
 // https://developers.google.com/apps-script/reference/xml-service
 const createXml = () => {
-    const root = XmlService.createElement('threads');
+    const root = XmlService.createElement("threads");
     const threads = [
-        { messageCount: 1, isUnread: true, subject: "subject 1"},
-        { messageCount: 10, isUnread: true, subject: "subject 2"},
-        { messageCount: 3, isUnread: false, subject: "subject 3"},
+        { messageCount: 1, isUnread: true, subject: "subject 1" },
+        { messageCount: 10, isUnread: true, subject: "subject 2" },
+        { messageCount: 3, isUnread: false, subject: "subject 3" },
     ];
     threads.forEach(thread => {
-        const child = XmlService.createElement('thread')
-            .setAttribute('messageCount', String(thread.messageCount))
-            .setAttribute('isUnread', String(thread.isUnread))
+        const child = XmlService.createElement("thread")
+            .setAttribute("messageCount", String(thread.messageCount))
+            .setAttribute("isUnread", String(thread.isUnread))
             .setText(thread.subject);
         root.addContent(child);
     });
@@ -417,13 +415,13 @@ const testXmlService = () => {
     XmlService.getCompactFormat().setIndent(null).format(element);
 
     // https://developers.google.com/apps-script/reference/xml-service/processing-instruction
-    const processingInstruction = content.asProcessingInstruction() as GoogleAppsScript.XML_Service.ProcessingInstruction;
+    const processingInstruction = content
+        .asProcessingInstruction() as GoogleAppsScript.XML_Service.ProcessingInstruction;
     processingInstruction.getParentElement(); // $ExpectType Element | null
 
     // https://developers.google.com/apps-script/reference/xml-service/text
     const text = XmlService.createText("");
     text.getParentElement(); // $ExpectType Element | null
-
 };
 
 const createFolderAndGetDescription = () => {
