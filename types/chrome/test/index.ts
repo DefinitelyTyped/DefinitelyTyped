@@ -1972,6 +1972,17 @@ async function testBrowserActionForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
 async function testCookie() {
+    chrome.cookies.OnChangedCause.EVICTED === "evicted";
+    chrome.cookies.OnChangedCause.EXPIRED === "expired";
+    chrome.cookies.OnChangedCause.EXPIRED_OVERWRITE === "expired_overwrite";
+    chrome.cookies.OnChangedCause.EXPLICIT === "explicit";
+    chrome.cookies.OnChangedCause.OVERWRITE === "overwrite";
+
+    chrome.cookies.SameSiteStatus.LAX === "lax";
+    chrome.cookies.SameSiteStatus.NO_RESTRICTION === "no_restriction";
+    chrome.cookies.SameSiteStatus.STRICT === "strict";
+    chrome.cookies.SameSiteStatus.UNSPECIFIED === "unspecified";
+
     const cookieDetails: chrome.cookies.CookieDetails = {
         url: "https://example.com",
         name: "example",
@@ -1979,6 +1990,7 @@ async function testCookie() {
             topLevelSite: "https://example.com",
             hasCrossSiteAncestor: false,
         },
+        storeId: "storeId1",
     };
 
     chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
@@ -1988,12 +2000,26 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.getAll(cookieDetails); // $ExpectType Promise<Cookie[]>
-    chrome.cookies.getAll(cookieDetails, (cookies) => {
+    const cookiesAllDetails: chrome.cookies.GetAllDetails = {
+        domain: "example.com",
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        secure: true,
+        session: true,
+        storeId: "storeId1",
+        url: "https://example.com",
+    };
+
+    chrome.cookies.getAll(cookiesAllDetails); // $ExpectType Promise<Cookie[]>
+    chrome.cookies.getAll(cookiesAllDetails, (cookies) => {
         cookies; // $ExpectType Cookie[]
     });
     // @ts-expect-error
-    chrome.cookies.getAll(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.getAll(cookiesAllDetails, () => {}).then(() => {});
 
     chrome.cookies.getAllCookieStores(); // $ExpectType Promise<CookieStore[]>
     chrome.cookies.getAllCookieStores((cookieStores) => {
@@ -2020,15 +2046,33 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.remove(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.set(cookieDetails); // $ExpectType Promise<Cookie | null>
-    chrome.cookies.set(cookieDetails, (cookie) => {
+    const cookieDetailsSet: chrome.cookies.SetDetails = {
+        domain: "example.com",
+        expirationDate: 1717334400,
+        httpOnly: true,
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        sameSite: "strict",
+        secure: true,
+        url: "https://example.com",
+        value: "value1",
+    };
+
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet, (cookie) => {
         cookie; // $ExpectType Cookie | null
     });
     // @ts-expect-error
-    chrome.cookies.set(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
 
     checkChromeEvent(chrome.cookies.onChanged, (changeInfo) => {
-        changeInfo; // $ExpectType CookieChangeInfo
+        changeInfo.cause; // $ExpectType "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite"
+        changeInfo.cookie; // $ExpectType Cookie
+        changeInfo.removed; // $ExpectType boolean
     });
 }
 
