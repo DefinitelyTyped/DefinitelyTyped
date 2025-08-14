@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/apple-mapkit",
+    "version": "5.80.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "MapKit JS",
+    "projects": [
+        "https://developer.apple.com/documentation/mapkitjs"
+    ],
+    "dependencies": {
+        "@types/geojson": "7946.0.16"
+    },
+    "devDependencies": {
+        "@types/apple-mapkit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita Domin",
+            "githubUsername": "ndomin"
+        },
+        {
+            "name": "Tim Chien",
+            "githubUsername": "gchien"
+        }
+    ]
+}
