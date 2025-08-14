@@ -2817,14 +2817,10 @@ declare namespace chrome {
      * @since Chrome 129
      */
     export namespace devtools.performance {
-        export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
-
-        export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
-
-        /** Fired when the Performance panel begins recording performance data. */
-        export var onProfilingStarted: ProfilingStartedEvent;
-        /** Fired when the Performance panel stops recording performance data. */
-        export var onProfilingStopped: ProfilingStoppedEvent;
+        /** Fired when the Performance panel starts recording. */
+        export const onProfilingStarted: events.Event<() => void>;
+        /** Fired when the Performance panel stops recording. */
+        export const onProfilingStopped: events.Event<() => void>;
     }
 
     ////////////////////
