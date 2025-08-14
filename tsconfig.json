@@ -1,12 +1,1 @@
-{
-    "compilerOptions": {
-      "lib": ["es6"],
-      "target": "ES2020",
-      "module": "ESNext",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true
-    },
-    "include": ["types/gorilla-engine"]
-  }
-  
+{ "extends": "@definitelytyped/dtslint/dt.json" }
