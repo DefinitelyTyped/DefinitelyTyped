@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/number-abbreviate",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/domharrington/js-number-abbreviate#readme"
+    ],
+    "devDependencies": {
+        "@types/number-abbreviate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alton Rose",
+            "githubUsername": "altie122"
+        }
+    ]
+}
