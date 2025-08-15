@@ -1,7 +1,3 @@
-// Apple MapKit JS API Tests
-// Comprehensive examples of all public classes, methods, and interfaces
-
-// Named imports for interfaces and types
 import {
     AbstractLookAround,
     AddressCategory,
@@ -120,7 +116,6 @@ const initOptions: MapKitInitializationOptions = {
     libraries: ["look-around"],
 };
 
-// Initialize MapKit
 mapkit.init(initOptions);
 
 // ===== Basic MapKit Properties =====
@@ -134,7 +129,6 @@ const loadedLibraries: string[] | undefined = mapkit.loadedLibraries;
 
 // ===== Data Types (Classes) =====
 
-// Coordinate
 const coordinate: Coordinate = new mapkit.Coordinate(37.7749, -122.4194);
 const coordinateCopy: Coordinate = coordinate.copy();
 const isEqual: boolean = coordinate.equals(coordinateCopy);
@@ -142,13 +136,11 @@ const mapPoint: MapPoint = coordinate.toMapPoint();
 const unwrappedMapPoint: MapPoint = coordinate.toUnwrappedMapPoint();
 const coordinateString: string = coordinate.toString();
 
-// CoordinateSpan
 const span: CoordinateSpan = new mapkit.CoordinateSpan(0.01, 0.01);
 const spanCopy: CoordinateSpan = span.copy();
 const spansEqual: boolean = span.equals(spanCopy);
 const spanString: string = span.toString();
 
-// CoordinateRegion
 const region: CoordinateRegion = new mapkit.CoordinateRegion(coordinate, span);
 const regionCopy: CoordinateRegion = region.copy();
 const regionsEqual: boolean = region.equals(regionCopy);
@@ -157,26 +149,22 @@ const mapRect: MapRect = region.toMapRect();
 const regionRadius: number = region.radius;
 const regionString: string = region.toString();
 
-// BoundingRegion
 const bounds: BoundingRegion = new mapkit.BoundingRegion(37.8, -122.4, 37.7, -122.5);
 const boundsCopy: BoundingRegion = bounds.copy();
 const boundsRegion: CoordinateRegion = bounds.toCoordinateRegion();
 const boundsString: string = bounds.toString();
 
-// MapPoint
 const point: MapPoint = new mapkit.MapPoint(100, 200);
 const pointCopy: MapPoint = point.copy();
 const pointsEqual: boolean = point.equals(pointCopy);
 const pointCoordinate: Coordinate = point.toCoordinate();
 const pointString: string = point.toString();
 
-// MapSize
 const size: MapSize = new mapkit.MapSize(300, 400);
 const sizeCopy: MapSize = size.copy();
 const sizesEqual: boolean = size.equals(sizeCopy);
 const sizeString: string = size.toString();
 
-// MapRect
 const rect: MapRect = new mapkit.MapRect(0, 0, 1000, 1000);
 const rectCopy: MapRect = rect.copy();
 const rectsEqual: boolean = rect.equals(rectCopy);
@@ -190,7 +178,6 @@ const scaledRect: MapRect = rect.scale(2.0, point);
 const rectRegion: CoordinateRegion = rect.toCoordinateRegion();
 const rectString: string = rect.toString();
 
-// Padding
 const padding: Padding = new mapkit.Padding(10, 20, 30, 40);
 const paddingFromOptions: Padding = new mapkit.Padding({ top: 10, right: 20, bottom: 30, left: 40 });
 const paddingCopy: Padding = padding.copy();
@@ -198,7 +185,6 @@ const paddingsEqual: boolean = padding.equals(paddingCopy);
 const paddingString: string = padding.toString();
 const zeroPadding: Padding = mapkit.Padding.Zero;
 
-// CameraZoomRange
 const zoomRange: CameraZoomRange = new mapkit.CameraZoomRange(100, 10000);
 const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange({
     minCameraDistance: 100,
@@ -230,7 +216,6 @@ const mapOptions: MapConstructorOptions = {
 
 const map: Map = new mapkit.Map(mapContainer, mapOptions);
 
-// Map properties and methods
 map.region = region;
 map.center = coordinate;
 map.rotation = 45;
@@ -249,13 +234,11 @@ map.setCameraDistanceAnimated(3000, true);
 map.setCameraZoomRangeAnimated(zoomRange, true);
 map.setCameraBoundaryAnimated(region, true);
 
-// Coordinate conversion
 const pagePoint: DOMPoint = map.convertCoordinateToPointOnPage(coordinate);
 const mapCoordinate: Coordinate = map.convertPointOnPageToCoordinate(pagePoint);
 
 // ===== Annotations =====
 
-// Basic Annotation
 const customAnnotation: Annotation = new mapkit.Annotation(
     coordinate,
     (coord, options) => {
@@ -272,7 +255,6 @@ const customAnnotation: Annotation = new mapkit.Annotation(
     },
 );
 
-// MarkerAnnotation
 const markerOptions: MarkerAnnotationConstructorOptions = {
     color: "#FF3B30",
     glyphColor: "#FFFFFF",
@@ -283,34 +265,33 @@ const markerOptions: MarkerAnnotationConstructorOptions = {
     subtitleVisibility: true,
 };
 
+const annotationDisplayPriority: DisplayPriority = mapkit.Annotation.DisplayPriority.High;
+
 const marker: MarkerAnnotation = new mapkit.MarkerAnnotation(coordinate, markerOptions);
 
-// ImageAnnotation
 const imageOptions: ImageAnnotationOptions = {
     url: {
         1: "https://example.com/icon.png",
         2: "https://example.com/icon@2x.png",
-    },
+    } satisfies ImageHashObject,
     title: "Image Annotation",
     subtitle: "An image annotation example",
 };
 
 const imageAnnotation: ImageAnnotation = new mapkit.ImageAnnotation(coordinate, imageOptions);
 
-// PlaceAnnotation
 const placeAnnotation: PlaceAnnotation = new mapkit.PlaceAnnotation(coordinate, {
     title: "Place Annotation",
     subtitle: "A place annotation example",
 });
 
-// UserLocationAnnotation (read-only, accessed via map)
+const rectangleCollisionMode: CollisionMode = mapkit.Annotation.CollisionMode.Rectangle;
+
 const userLocationAnnotation: UserLocationAnnotation | null = map.userLocationAnnotation;
 
-// Add annotations to map
 map.addAnnotation(marker);
 map.addAnnotations([customAnnotation, imageAnnotation, placeAnnotation]);
 
-// Annotation management
 map.selectedAnnotation = marker;
 const annotationsInRect: Annotation[] = map.annotationsInMapRect(rect);
 map.removeAnnotation(marker);
@@ -318,8 +299,7 @@ map.removeAnnotations([customAnnotation, imageAnnotation]);
 
 // ===== Overlays =====
 
-// Style for overlays
-const style: Style = new mapkit.Style({
+const styleOptions: StyleConstructorOptions = {
     strokeColor: "#FF3B30",
     strokeOpacity: 0.8,
     lineWidth: 3,
@@ -330,9 +310,10 @@ const style: Style = new mapkit.Style({
     fillColor: "#007AFF",
     fillOpacity: 0.3,
     fillRule: "evenodd",
-});
+};
 
-// LineGradient
+const style: Style = new mapkit.Style(styleOptions);
+
 const gradient: LineGradient = new mapkit.LineGradient({
     0: "#FF3B30",
     0.5: "#FF9500",
@@ -341,14 +322,14 @@ const gradient: LineGradient = new mapkit.LineGradient({
 gradient.addColorStop(0.25, "#FF6B35");
 gradient.addColorStopAtIndex(5, "#34C759");
 
-// CircleOverlay
-const circle: CircleOverlay = new mapkit.CircleOverlay(coordinate, 1000, {
+const circleOverlayOptions: OverlayOptions = {
     style: style,
     visible: true,
     enabled: true,
-});
+};
 
-// PolygonOverlay
+const circle: CircleOverlay = new mapkit.CircleOverlay(coordinate, 1000, circleOverlayOptions);
+
 const polygonPoints = [
     [
         new mapkit.Coordinate(37.7749, -122.4194),
@@ -357,21 +338,18 @@ const polygonPoints = [
         new mapkit.Coordinate(37.7749, -122.4094),
     ],
 ];
-const polygon: PolygonOverlay = new mapkit.PolygonOverlay(polygonPoints, { style: style });
+const polygon: PolygonOverlay = new mapkit.PolygonOverlay(polygonPoints, { style: style } satisfies OverlayOptions);
 
-// PolylineOverlay
 const polylinePoints = [
     new mapkit.Coordinate(37.7749, -122.4194),
     new mapkit.Coordinate(37.7849, -122.4194),
     new mapkit.Coordinate(37.7849, -122.4094),
 ];
-const polyline: PolylineOverlay = new mapkit.PolylineOverlay(polylinePoints, { style: style });
+const polyline: PolylineOverlay = new mapkit.PolylineOverlay(polylinePoints, { style: style } satisfies OverlayOptions);
 
-// Add overlays to map
 map.addOverlay(circle);
 map.addOverlays([polygon, polyline]);
 
-// Overlay management
 map.selectedOverlay = circle;
 const topOverlay: Overlay | undefined = map.topOverlayAtPoint(pagePoint);
 const overlaysAtPoint: Overlay[] = map.overlaysAtPoint(pagePoint);
@@ -380,29 +358,29 @@ map.removeOverlays([polygon, polyline]);
 
 // ===== Tile Overlays =====
 
+const tileOverlayOptions: TileOverlayConstructorOptions = {
+    minimumZ: 5,
+    maximumZ: 15,
+    opacity: 0.7,
+    data: { apiKey: "your-api-key" },
+};
+
 const tileOverlay: TileOverlay = new mapkit.TileOverlay(
     "https://tile.server.com/{z}/{x}/{y}.png",
-    {
-        minimumZ: 5,
-        maximumZ: 15,
-        opacity: 0.7,
-        data: { apiKey: "your-api-key" },
-    },
+    tileOverlayOptions,
 );
 
-// Add tile overlay
 map.addTileOverlay(tileOverlay);
 map.addTileOverlays([tileOverlay]);
 
-// Tile overlay management
 tileOverlay.reload();
 map.removeTileOverlay(tileOverlay);
 map.removeTileOverlays([tileOverlay]);
 
 // ===== Services =====
 
-// Geocoder
-const geocoder: Geocoder = new mapkit.Geocoder({ language: "en-US" });
+const geocoderOptions: ServiceOptions = { language: "en-US" };
+const geocoder: Geocoder = new mapkit.Geocoder(geocoderOptions);
 
 const geocodeLookupOptions: GeocoderLookupOptions = {
     language: "en-US",
@@ -419,23 +397,28 @@ geocoder.lookup("Apple Park", (error, response) => {
     console.log("Geocoder results:", response?.results);
 }, geocodeLookupOptions);
 
-geocoder.reverseLookup(coordinate, (error, response) => {
+const geocoderReverseLookupOptions: GeocoderReverseLookupOptions = {
+    language: "en-US",
+};
+
+geocoder.reverseLookup(coordinate, (error, response: GeocoderResponse | undefined) => {
     if (error) {
         console.error("Reverse geocoder error:", error);
         return;
     }
     console.log("Reverse geocoder results:", response?.results);
-});
+}, geocoderReverseLookupOptions);
 
-// Search
-const search: Search = new mapkit.Search({
+const searchConstructorOptions: SearchConstructorOptions = {
     language: "en-US",
     region: region,
     includeAddresses: true,
     includePointsOfInterest: true,
     includePhysicalFeatures: true,
     includeQueries: true,
-});
+};
+
+const search: Search = new mapkit.Search(searchConstructorOptions);
 
 const searchOptions: SearchOptions = {
     coordinate: coordinate,
@@ -445,7 +428,7 @@ const searchOptions: SearchOptions = {
     includePointsOfInterest: true,
 };
 
-search.search("coffee shops", (error, response) => {
+search.search("coffee shops", (error, response: SearchResponse | undefined) => {
     if (error) {
         console.error("Search error:", error);
         return;
@@ -453,16 +436,22 @@ search.search("coffee shops", (error, response) => {
     console.log("Search results:", response?.places);
 }, searchOptions);
 
-search.autocomplete("coff", (error, response) => {
+const searchAutocompleteOptions: SearchAutocompleteOptions = {
+    coordinate: coordinate,
+    region: region,
+    includeAddresses: true,
+};
+
+search.autocomplete("coff", (error, response: SearchAutocompleteResponse | undefined) => {
     if (error) {
         console.error("Autocomplete error:", error);
         return;
     }
     console.log("Autocomplete results:", response?.results);
-});
+}, searchAutocompleteOptions);
 
-// Directions
-const directions: Directions = new mapkit.Directions({ language: "en-US" });
+const directionsConstructorOptions: DirectionsConstructorOptions = { language: "en-US" };
+const directions: Directions = new mapkit.Directions(directionsConstructorOptions);
 
 const directionsRequest: DirectionsRequest = {
     origin: "Apple Park",
@@ -472,7 +461,7 @@ const directionsRequest: DirectionsRequest = {
     avoidTolls: false,
 };
 
-directions.route(directionsRequest, (error, response) => {
+directions.route(directionsRequest, (error, response: DirectionsResponse | undefined) => {
     if (error) {
         console.error("Directions error:", error);
         return;
@@ -486,7 +475,7 @@ const etaRequest: EtaRequestOptions = {
     transportType: mapkit.Directions.Transport.Walking,
 };
 
-directions.eta(etaRequest, (error, response) => {
+directions.eta(etaRequest, (error, response: EtaResponse | undefined) => {
     if (error) {
         console.error("ETA error:", error);
         return;
@@ -494,9 +483,9 @@ directions.eta(etaRequest, (error, response) => {
     console.log("ETA results:", response?.etas);
 });
 
-// PlaceLookup
-const placeLookup: PlaceLookup = new mapkit.PlaceLookup({ language: "en-US" });
-placeLookup.getPlace("place-id-here", (error, place) => {
+const placeLookupOptions: ServiceOptions = { language: "en-US" };
+const placeLookup: PlaceLookup = new mapkit.PlaceLookup(placeLookupOptions);
+placeLookup.getPlace("place-id-here", (error, place: SearchPlaceResult | undefined) => {
     if (error) {
         console.error("Place lookup error:", error);
         return;
@@ -504,17 +493,18 @@ placeLookup.getPlace("place-id-here", (error, place) => {
     console.log("Place details:", place);
 });
 
-// PointsOfInterestSearch
-const poiSearch: PointsOfInterestSearch = new mapkit.PointsOfInterestSearch({
+const poiSearchOptions: PointsOfInterestSearchOptions = {
     center: coordinate,
     radius: 5000,
     pointOfInterestFilter: mapkit.PointOfInterestFilter.including([
         mapkit.PointOfInterestCategory.Restaurant,
         mapkit.PointOfInterestCategory.Cafe,
     ]),
-});
+};
 
-poiSearch.search((error, response) => {
+const poiSearch: PointsOfInterestSearch = new mapkit.PointsOfInterestSearch(poiSearchOptions);
+
+poiSearch.search((error: Error | null, response?: PointsOfInterestSearchResponse) => {
     if (error) {
         console.error("POI search error:", error);
         return;
@@ -524,25 +514,26 @@ poiSearch.search((error, response) => {
 
 // ===== Filters =====
 
-// AddressFilter
-const addressFilter: AddressFilter = new mapkit.AddressFilter({
+const addressFilterOptions: AddressFilterOptions = {
     includes: [mapkit.AddressCategory.Locality, mapkit.AddressCategory.PostalCode],
     excludes: [mapkit.AddressCategory.Country],
-});
+};
+
+const addressFilter: AddressFilter = new mapkit.AddressFilter(addressFilterOptions);
 
 const includesLocality: boolean = addressFilter.includesCategory(mapkit.AddressCategory.Locality);
 const excludesCountry: boolean = addressFilter.excludesCategory(mapkit.AddressCategory.Country);
 
-// PointOfInterestFilter
-const poiFilter: PointOfInterestFilter = new mapkit.PointOfInterestFilter({
+const poiFilterOptions: PointOfInterestFilterOptions = {
     includes: [mapkit.PointOfInterestCategory.Restaurant],
     excludes: [mapkit.PointOfInterestCategory.Store],
-});
+};
+
+const poiFilter: PointOfInterestFilter = new mapkit.PointOfInterestFilter(poiFilterOptions);
 
 const includesRestaurant: boolean | undefined = poiFilter.includesCategory(mapkit.PointOfInterestCategory.Restaurant);
 const excludesStore: boolean | undefined = poiFilter.excludesCategory(mapkit.PointOfInterestCategory.Store);
 
-// Static filter methods
 const allCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.includingAllCategories();
 const noCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.excludingAllCategories();
 const specificIncludeFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.including([
@@ -556,7 +547,7 @@ const specificExcludeFilter: PointOfInterestFilter = mapkit.PointOfInterestFilte
 // ===== Look Around =====
 
 const lookAroundContainer = document.getElementById("look-around")!;
-const lookAround: LookAround = new mapkit.LookAround(lookAroundContainer, coordinate, {
+const lookAroundOptions: LookAroundOptions = {
     showsDialogControl: true,
     showsCloseControl: true,
     isNavigationEnabled: true,
@@ -565,49 +556,68 @@ const lookAround: LookAround = new mapkit.LookAround(lookAroundContainer, coordi
     showsRoadLabels: true,
     showsPointsOfInterest: true,
     padding: padding,
-});
+};
+
+const lookAround: LookAround = new mapkit.LookAround(lookAroundContainer, coordinate, lookAroundOptions);
 
 // Look Around Preview
 const previewContainer = document.getElementById("look-around-preview")!;
-const lookAroundPreview: LookAroundPreview = new mapkit.LookAroundPreview(previewContainer, coordinate, {
+const lookAroundPreviewOptions: LookAroundPreviewOptions = {
     badgePosition: mapkit.LookAroundPreview.BadgePositions.TopTrailing,
     isNavigationEnabled: false,
     openDialog: false,
-});
+};
+
+const lookAroundPreview: LookAroundPreview = new mapkit.LookAroundPreview(
+    previewContainer,
+    coordinate,
+    lookAroundPreviewOptions,
+);
+
+const badgePosition: LookAroundBadgePosition = mapkit.LookAroundPreview.BadgePositions.BottomTrailing;
 
 // ===== Place Detail =====
 
 const placeDetailContainer = document.getElementById("place-detail")!;
-const placeDetail: PlaceDetail = new mapkit.PlaceDetail(placeDetailContainer, null, {
+const placeDetailOptions: PlaceDetailOptions = {
     colorScheme: mapkit.PlaceDetail.ColorSchemes.Light,
     displaysMap: true,
-});
+};
+
+const placeDetail: PlaceDetail = new mapkit.PlaceDetail(placeDetailContainer, null, placeDetailOptions);
 
 // ===== Place Selection Accessory =====
 
-const selectionAccessory: PlaceSelectionAccessory = new mapkit.PlaceSelectionAccessory({
+const selectionAccessoryOptions: PlaceSelectionAccessoryOptions = {
     style: mapkit.PlaceSelectionAccessory.Styles.Callout,
-});
+};
+
+const selectionAccessory: PlaceSelectionAccessory = new mapkit.PlaceSelectionAccessory(selectionAccessoryOptions);
+
+const accessoryStyle: PlaceSelectionAccessoryStyle = mapkit.PlaceSelectionAccessory.Styles.FullCallout;
 
 // ===== Map Items and Collections =====
 
 const allItems: (Annotation | Overlay)[] = [marker, circle, polygon];
-map.showItems(allItems, {
+const mapShowOptions: MapShowItemsOptions = {
     animate: true,
     padding: padding,
     minimumSpan: span,
     cameraDistance: 5000,
-});
+};
+
+map.showItems(allItems, mapShowOptions);
 
 map.addItems(allItems);
 map.removeItems(allItems);
 
 // ===== Event Handling =====
 
-// Map events
-map.addEventListener("select", (event) => {
+const mapSelectListener: MapKitEventListener = (event: MapKitEvent) => {
     console.log("Map selected:", event);
-});
+};
+
+map.addEventListener("select", mapSelectListener);
 
 map.addEventListener("deselect", (event) => {
     console.log("Map deselected:", event);
@@ -617,12 +627,10 @@ map.addEventListener("user-location-change", (event) => {
     console.log("User location changed:", event);
 });
 
-// Annotation events
 marker.addEventListener("select", (event) => {
     console.log("Marker selected:", event);
 });
 
-// Overlay events
 circle.addEventListener("select", (event) => {
     console.log("Circle selected:", event);
 });
@@ -726,33 +734,36 @@ map.annotationForCluster = (clusterAnnotation) => {
     });
 };
 
-// Set clustering identifier on annotations
 marker.clusteringIdentifier = "default";
 imageAnnotation.clusteringIdentifier = "default";
 
+const satelliteMapType: MapType = mapkit.Map.MapTypes.Satellite;
+
+const walkingTransport: TransportType = mapkit.Directions.Transport.Walking;
+
+const requiredRegionPriority: RegionPriority = mapkit.Search.RegionPriority.Required;
+
+const lookAroundReadyState: LookAroundReadyState = mapkit.LookAround.ReadyStates.Loading;
+
+const annotationSize: Size = { width: 32, height: 32 };
+
 // ===== Utility Methods =====
 
-// Cancel service requests
-const requestId: number = search.search("query", () => { });
+const requestId: number = search.search("query", () => {});
 if (requestId) {
     search.cancel(requestId);
 }
 
-// Map lifecycle
 map.destroy();
 
-// Look around lifecycle
 lookAround.destroy();
 lookAroundPreview.destroy();
 
-// Place detail lifecycle
 placeDetail.destroy();
 
-// Access all maps and look around views
 const allMaps: Map[] = mapkit.maps;
 const allLookAroundViews: AbstractLookAround[] = mapkit.lookAroundViews;
 
-// Global convenience filters
 const includeAllPOIs: PointOfInterestFilter = mapkit.filterIncludingAllCategories;
 const excludeAllPOIs: PointOfInterestFilter = mapkit.filterExcludingAllCategories;
 
