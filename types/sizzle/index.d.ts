@@ -4,13 +4,10 @@ declare const Sizzle: SizzleStatic;
 export = Sizzle;
 
 // For users who don't have "dom" types
-/* eslint-disable @typescript-eslint/no-empty-interface */
-declare global {
-    interface Document {}
-    interface DocumentFragment {}
-    interface Element {}
-}
-/* eslint-enable @typescript-eslint/no-empty-interface */
+// See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73082
+type Element = typeof globalThis extends { Element: { new(): infer T } } ? T : never;
+type Document = typeof globalThis extends { Document: { new(): infer T } } ? T : never;
+type DocumentFragment = typeof globalThis extends { DocumentFragment: { new(): infer T } } ? T : never;
 
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
