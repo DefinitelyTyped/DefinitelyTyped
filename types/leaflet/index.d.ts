@@ -2121,6 +2121,59 @@ export class Handler extends Class {
     removeHooks?(): void;
 }
 
+export class BoxZoom extends Handler {
+    moved(): boolean;
+
+    boxZoom: boolean;
+}
+
+export class DoubleClickZoom extends Handler {
+    doubleClickZoom: boolean;
+}
+
+export class MapDrag extends Handler {
+    dragging: boolean;
+    inertia: boolean;
+    inertiaDeceleration: number;
+    inertiaMaxSpeed: number;
+    easeLinearity: number;
+    worldCopyJump: boolean;
+    maxBoundsViscosity: number;
+
+    moved(): boolean;
+    moving(): boolean;
+}
+
+export class Keyboard extends Handler {
+    keyboard: boolean;
+    keyboardPanDelta: number;
+}
+
+export class PinchZoom extends Handler {
+    pinchZoom: boolean;
+    bounceAtZoomLimits: boolean;
+}
+
+export class ScrollWheelZoom extends Handler {
+    scrollWheelZoom: boolean;
+    wheelDebounceTime: number;
+    wheelPxPerZoomLevel: number;
+}
+
+export class TapHold extends Handler {
+    tapHold: boolean;
+    tapTolerance: number;
+}
+
+export class MarkerDrag extends Handler {
+    constructor(marker: Marker);
+
+    moved(): boolean;
+
+    protected _draggable: Draggable;
+    protected _marker: Marker;
+}
+
 export namespace DomEvent {
     type EventHandlerFn = (event: Event) => void;
 
@@ -2157,6 +2210,12 @@ export namespace DomEvent {
     function getWheelPxFactor(): number;
 
     function isExternalTarget(el: HTMLElement, ev: Event): number;
+
+    // Pointer detection
+    function enablePointerDetection(): void;
+    function disablePointerDetection(): void;
+    function getPointers(): PointerEvent[];
+    function cleanupPointers(): void;
 }
 
 export type Zoom = boolean | "center";
@@ -2354,15 +2413,16 @@ export class Map extends Evented {
     stopLocate(): this;
 
     // Properties
-    attributionControl: Control.Attribution;
-    boxZoom: Handler;
-    doubleClickZoom: Handler;
-    dragging: Handler;
-    keyboard: Handler;
-    scrollWheelZoom: Handler;
-    tapHold?: Handler | undefined;
-    pinchZoom: Handler;
-    zoomControl: Control.Zoom;
+    attributionControl?: Control.Attribution | undefined;
+    zoomControl?: Control.Zoom | undefined;
+
+    boxZoom?: BoxZoom | undefined;
+    doubleClickZoom?: DoubleClickZoom | undefined;
+    dragging?: MapDrag | undefined;
+    keyboard?: Keyboard | undefined;
+    scrollWheelZoom?: ScrollWheelZoom | undefined;
+    tapHold?: TapHold | undefined;
+    pinchZoom?: PinchZoom | undefined;
 
     options: MapOptions;
 }
@@ -2464,8 +2524,7 @@ export class Marker<P = any> extends Layer {
 
     // Properties
     options: MarkerOptions;
-    // TODO: DragHandler
-    dragging?: Handler | undefined;
+    dragging?: MarkerDrag | undefined;
     feature?: geojson.Feature<geojson.Point, P> | undefined;
 
     protected _shadow: HTMLElement | undefined;
