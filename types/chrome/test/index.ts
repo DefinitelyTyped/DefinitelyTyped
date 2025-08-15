@@ -3660,13 +3660,42 @@ function testDocumentScan() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/deviceAttributes
 function testEnterpriseDeviceAttributes() {
-    chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
-    chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
-    chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
-    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
-    chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(annotatedLocation => { // $ExpectType void
+        annotatedLocation; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceAssetId(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => { // $ExpectType void
+        assetId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceAssetId(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceHostname(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => { // $ExpectType void
+        hostName; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceHostname(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => { // $ExpectType void
+        serialNumber; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => { // $ExpectType void
+        deviceId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
