@@ -37,6 +37,7 @@ export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
     function clipSegment(
         a: Point,
         b: Point,
@@ -44,7 +45,6 @@ export namespace LineUtil {
         useLastCode?: boolean,
         round?: boolean,
     ): [Point, Point] | false;
-    function isFlat(latlngs: LatLngExpression[]): boolean;
     function polylineCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
@@ -76,14 +76,14 @@ export namespace DomUtil {
     function setTransform(el: HTMLElement, offset: Point, scale?: number): void;
     function setPosition(el: HTMLElement, position: Point): void;
     function getPosition(el: HTMLElement): Point;
+    function getScale(el: HTMLElement): { x: number; y: number; boundingClientRect: DOMRect };
+    function getSizedParentNode(el: HTMLElement): HTMLElement;
     function disableTextSelection(): void;
     function enableTextSelection(): void;
     function disableImageDrag(): void;
     function enableImageDrag(): void;
     function preventOutline(el: HTMLElement): void;
     function restoreOutline(): void;
-    function getSizedParentNode(el: HTMLElement): HTMLElement;
-    function getScale(el: HTMLElement): { x: number; y: number; boundingClientRect: DOMRect };
 }
 
 export class PosAnimation extends Evented {
@@ -255,9 +255,9 @@ export interface PointLiteral {
 export type PointExpression = Point | PointTuple | PointLiteral;
 
 export class Bounds {
+    constructor();
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
-    // TODO: points optional?
-    constructor(points?: PointExpression[] | BoundsExpression);
+    constructor(points: PointExpression[] | BoundsExpression);
 
     extend(pointOrBounds: BoundsExpression | PointExpression): this;
 
