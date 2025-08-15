@@ -7,7 +7,7 @@ export const version: string;
 
 // TODO: Global: can be undefined removed if option parameter is optional? `baselayerchange?: LayersControlEventHandlerFn | undefined;`
 
-// TODO: `this` throws an error, but it is the same as in the original Leaflet code
+// TODO: `this` throws an error, but it is the same return value as in the original Leaflet code
 export class Class {
     static extend(props: any): { new(...args: any[]): any } & typeof Class;
     static include(props: any): this;
@@ -91,7 +91,7 @@ export class PosAnimation extends Evented {
     stop(): void;
 }
 
-export class CRS extends Class {
+export class CRS {
     static projection: Projection | undefined;
     static transformation: Transformation;
 
@@ -178,10 +178,15 @@ export class LatLng {
     lng: number;
     alt?: number;
 }
+export interface LatLngLiteral {
+    lat: number;
+    lng: number;
+    alt?: number;
+}
 
 export type LatLngTuple = [number, number, number?];
 
-export type LatLngExpression = LatLng | LatLngTuple;
+export type LatLngExpression = LatLng | LatLngTuple | LatLngLiteral;
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
@@ -242,7 +247,12 @@ export interface Coords extends Point {
 
 export type PointTuple = [number, number];
 
-export type PointExpression = Point | PointTuple;
+export interface PointLiteral {
+    x: number;
+    y: number;
+}
+
+export type PointExpression = Point | PointTuple | PointLiteral;
 
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
@@ -2453,7 +2463,7 @@ export class Icon<T extends BaseIconOptions = IconOptions> extends Class {
 }
 
 export namespace Icon {
-    interface DefaultIconOptions extends IconOptions {
+    interface DefaultIconOptions extends BaseIconOptions {
         imagePath?: string | undefined;
     }
     class Default extends Icon<DefaultIconOptions> {
