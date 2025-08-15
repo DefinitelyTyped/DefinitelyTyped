@@ -3,117 +3,112 @@
 
 // Named imports for interfaces and types
 import {
-    // Classes
     AbstractLookAround,
+    AddressCategory,
     AddressFilter,
+    AddressFilterOptions,
     Annotation,
+    AnnotationCalloutDelegate,
+    AnnotationConstructorOptions,
     BoundingRegion,
+    CameraBoundaryDescription,
     CameraZoomRange,
+    CameraZoomRangeConstructorOptions,
     CircleOverlay,
     ClusterAnnotation,
+    CollisionMode,
+    ColorScheme,
+    CommonLookAroundOptions,
     Coordinate,
     CoordinateRegion,
     CoordinateSpan,
     Directions,
-    Geocoder,
-    GeoJSONImportError,
-    ImageAnnotation,
-    ItemCollection,
-    LineGradient,
-    LookAround,
-    LookAroundPreview,
-    LookAroundScene,
-    Map,
-    MapFeatureAnnotation,
-    MapFeatureAnnotationGlyphImage,
-    MapKit,
-    MapKitEventTarget,
-    MapPoint,
-    MapRect,
-    MapSize,
-    MarkerAnnotation,
-    Overlay,
-    Padding,
-    PlaceAnnotation,
-    PlaceDetail,
-    PlaceLookup,
-    PlaceSelectionAccessory,
-    PointOfInterestFilter,
-    PointsOfInterestSearch,
-    PolygonOverlay,
-    PolylineOverlay,
-    Route,
-    Search,
-    SearchAutocompleteResult,
-    SearchPlaceResult,
-    Service,
-    Step,
-    Style,
-    TileOverlay,
-    UserLocationAnnotation,
-
-    // Interfaces
-    AddressFilterOptions,
-    AnnotationCalloutDelegate,
-    AnnotationConstructorOptions,
-    CameraBoundaryDescription,
-    CameraZoomRangeConstructorOptions,
-    CommonLookAroundOptions,
     DirectionsConstructorOptions,
     DirectionsRequest,
     DirectionsResponse,
+    DisplayPriority,
+    Distances,
     EtaRequestOptions,
     EtaResponse,
     EtaResult,
-    GeoJSONDelegate,
+    FeatureVisibility,
+    Geocoder,
     GeocoderLookupOptions,
     GeocoderResponse,
     GeocoderReverseLookupOptions,
+    GeoJSONDelegate,
+    GeoJSONImportError,
+    ImageAnnotation,
     ImageAnnotationOptions,
     ImageDelegate,
     ImageHashObject,
+    ItemCollection,
+    LineGradient,
+    LoadPriorities,
+    LookAround,
+    LookAroundBadgePosition,
     LookAroundOptions,
+    LookAroundPreview,
     LookAroundPreviewOptions,
+    LookAroundReadyState,
+    LookAroundScene,
+    Map,
     MapConstructorOptions,
+    MapFeatureAnnotation,
+    MapFeatureAnnotationGlyphImage,
+    MapFeatureType,
+    MapKit,
     MapKitEvent,
     MapKitEventListener,
+    MapKitEventTarget,
     MapKitInitializationOptions,
+    MapPoint,
+    MapRect,
     MapShowItemsOptions,
-    MarkerAnnotationConstructorOptions,
-    OverlayOptions,
-    PaddingConstructorOptions,
-    PlaceDetailOptions,
-    PlaceSelectionAccessoryOptions,
-    PointOfInterestFilterOptions,
-    PointsOfInterestSearchOptions,
-    PointsOfInterestSearchResponse,
-    SearchAutocompleteOptions,
-    SearchAutocompleteResponse,
-    SearchConstructorOptions,
-    SearchOptions,
-    SearchResponse,
-    ServiceOptions,
-    Size,
-    StyleConstructorOptions,
-    TileOverlayConstructorOptions,
-
-    // Type aliases and enums
-    AddressCategory,
-    ColorScheme,
-    CollisionMode,
-    DisplayPriority,
-    Distances,
-    FeatureVisibility,
-    LoadPriorities,
-    LookAroundBadgePosition,
-    LookAroundReadyState,
-    MapFeatureType,
+    MapSize,
     MapType,
+    MarkerAnnotation,
+    MarkerAnnotationConstructorOptions,
+    Overlay,
+    OverlayOptions,
+    Padding,
+    PaddingConstructorOptions,
+    PlaceAnnotation,
+    PlaceDetail,
+    PlaceDetailOptions,
+    PlaceLookup,
+    PlaceSelectionAccessory,
+    PlaceSelectionAccessoryOptions,
     PlaceSelectionAccessoryStyle,
     PointOfInterestCategory,
+    PointOfInterestFilter,
+    PointOfInterestFilterOptions,
+    PointsOfInterestSearch,
+    PointsOfInterestSearchOptions,
+    PointsOfInterestSearchResponse,
+    PolygonOverlay,
+    PolylineOverlay,
     RegionPriority,
-    TransportType,
+    Route,
+    Search,
+    SearchAutocompleteOptions,
+    SearchAutocompleteResponse,
+    SearchAutocompleteResult,
+    SearchConstructorOptions,
+    SearchOptions,
+    SearchPlaceResult,
+    SearchResponse,
+    Service,
+    ServiceOptions,
+    Size,
+    Step,
+    Style,
+    StyleConstructorOptions,
+    TileOverlay,
+    TileOverlayConstructorOptions,
     TileOverlayUrlTemplate,
+    TransportType,
+    UserLocationAnnotation,
 } from "apple-mapkit";
 
 // ===== MapKit Initialization =====
@@ -122,7 +117,7 @@ const initOptions: MapKitInitializationOptions = {
         done("your-jwt-token-here");
     },
     language: "en-US",
-    libraries: ["look-around"]
+    libraries: ["look-around"],
 };
 
 // Initialize MapKit
@@ -205,7 +200,10 @@ const zeroPadding: Padding = mapkit.Padding.Zero;
 
 // CameraZoomRange
 const zoomRange: CameraZoomRange = new mapkit.CameraZoomRange(100, 10000);
-const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange({ minCameraDistance: 100, maxCameraDistance: 10000 });
+const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange({
+    minCameraDistance: 100,
+    maxCameraDistance: 10000,
+});
 const zoomRangeCopy: CameraZoomRange = zoomRange.copy();
 const minDistance: number = zoomRange.minCameraDistance;
 const maxDistance: number = zoomRange.maxCameraDistance;
@@ -227,7 +225,7 @@ const mapOptions: MapConstructorOptions = {
     isZoomEnabled: true,
     isRotationEnabled: true,
     showsPointsOfInterest: true,
-    loadPriority: mapkit.Map.LoadPriorities.PointsOfInterest
+    loadPriority: mapkit.Map.LoadPriorities.PointsOfInterest,
 };
 
 const map: Map = new mapkit.Map(mapContainer, mapOptions);
@@ -270,8 +268,8 @@ const customAnnotation: Annotation = new mapkit.Annotation(
         subtitle: "A custom annotation example",
         calloutEnabled: true,
         draggable: true,
-        animates: true
-    }
+        animates: true,
+    },
 );
 
 // MarkerAnnotation
@@ -282,7 +280,7 @@ const markerOptions: MarkerAnnotationConstructorOptions = {
     title: "Marker Annotation",
     subtitle: "A marker annotation example",
     titleVisibility: true,
-    subtitleVisibility: true
+    subtitleVisibility: true,
 };
 
 const marker: MarkerAnnotation = new mapkit.MarkerAnnotation(coordinate, markerOptions);
@@ -291,10 +289,10 @@ const marker: MarkerAnnotation = new mapkit.MarkerAnnotation(coordinate, markerO
 const imageOptions: ImageAnnotationOptions = {
     url: {
         1: "https://example.com/icon.png",
-        2: "https://example.com/icon@2x.png"
+        2: "https://example.com/icon@2x.png",
     },
     title: "Image Annotation",
-    subtitle: "An image annotation example"
+    subtitle: "An image annotation example",
 };
 
 const imageAnnotation: ImageAnnotation = new mapkit.ImageAnnotation(coordinate, imageOptions);
@@ -302,7 +300,7 @@ const imageAnnotation: ImageAnnotation = new mapkit.ImageAnnotation(coordinate, 
 // PlaceAnnotation
 const placeAnnotation: PlaceAnnotation = new mapkit.PlaceAnnotation(coordinate, {
     title: "Place Annotation",
-    subtitle: "A place annotation example"
+    subtitle: "A place annotation example",
 });
 
 // UserLocationAnnotation (read-only, accessed via map)
@@ -331,14 +329,14 @@ const style: Style = new mapkit.Style({
     lineDashOffset: 2,
     fillColor: "#007AFF",
     fillOpacity: 0.3,
-    fillRule: "evenodd"
+    fillRule: "evenodd",
 });
 
 // LineGradient
 const gradient: LineGradient = new mapkit.LineGradient({
     0: "#FF3B30",
     0.5: "#FF9500",
-    1: "#FFCC00"
+    1: "#FFCC00",
 });
 gradient.addColorStop(0.25, "#FF6B35");
 gradient.addColorStopAtIndex(5, "#34C759");
@@ -347,7 +345,7 @@ gradient.addColorStopAtIndex(5, "#34C759");
 const circle: CircleOverlay = new mapkit.CircleOverlay(coordinate, 1000, {
     style: style,
     visible: true,
-    enabled: true
+    enabled: true,
 });
 
 // PolygonOverlay
@@ -356,8 +354,8 @@ const polygonPoints = [
         new mapkit.Coordinate(37.7749, -122.4194),
         new mapkit.Coordinate(37.7849, -122.4194),
         new mapkit.Coordinate(37.7849, -122.4094),
-        new mapkit.Coordinate(37.7749, -122.4094)
-    ]
+        new mapkit.Coordinate(37.7749, -122.4094),
+    ],
 ];
 const polygon: PolygonOverlay = new mapkit.PolygonOverlay(polygonPoints, { style: style });
 
@@ -365,7 +363,7 @@ const polygon: PolygonOverlay = new mapkit.PolygonOverlay(polygonPoints, { style
 const polylinePoints = [
     new mapkit.Coordinate(37.7749, -122.4194),
     new mapkit.Coordinate(37.7849, -122.4194),
-    new mapkit.Coordinate(37.7849, -122.4094)
+    new mapkit.Coordinate(37.7849, -122.4094),
 ];
 const polyline: PolylineOverlay = new mapkit.PolylineOverlay(polylinePoints, { style: style });
 
@@ -388,8 +386,8 @@ const tileOverlay: TileOverlay = new mapkit.TileOverlay(
         minimumZ: 5,
         maximumZ: 15,
         opacity: 0.7,
-        data: { apiKey: "your-api-key" }
-    }
+        data: { apiKey: "your-api-key" },
+    },
 );
 
 // Add tile overlay
@@ -410,7 +408,7 @@ const geocodeLookupOptions: GeocoderLookupOptions = {
     language: "en-US",
     region: region,
     coordinate: coordinate,
-    limitToCountries: "US,CA"
+    limitToCountries: "US,CA",
 };
 
 geocoder.lookup("Apple Park", (error, response) => {
@@ -436,7 +434,7 @@ const search: Search = new mapkit.Search({
     includeAddresses: true,
     includePointsOfInterest: true,
     includePhysicalFeatures: true,
-    includeQueries: true
+    includeQueries: true,
 });
 
 const searchOptions: SearchOptions = {
@@ -444,7 +442,7 @@ const searchOptions: SearchOptions = {
     region: region,
     regionPriority: mapkit.Search.RegionPriority.Required,
     includeAddresses: true,
-    includePointsOfInterest: true
+    includePointsOfInterest: true,
 };
 
 search.search("coffee shops", (error, response) => {
@@ -471,7 +469,7 @@ const directionsRequest: DirectionsRequest = {
     destination: coordinate,
     transportType: mapkit.Directions.Transport.Automobile,
     requestsAlternateRoutes: true,
-    avoidTolls: false
+    avoidTolls: false,
 };
 
 directions.route(directionsRequest, (error, response) => {
@@ -485,7 +483,7 @@ directions.route(directionsRequest, (error, response) => {
 const etaRequest: EtaRequestOptions = {
     origin: coordinate,
     destinations: [new mapkit.Coordinate(37.7849, -122.4194)],
-    transportType: mapkit.Directions.Transport.Walking
+    transportType: mapkit.Directions.Transport.Walking,
 };
 
 directions.eta(etaRequest, (error, response) => {
@@ -512,8 +510,8 @@ const poiSearch: PointsOfInterestSearch = new mapkit.PointsOfInterestSearch({
     radius: 5000,
     pointOfInterestFilter: mapkit.PointOfInterestFilter.including([
         mapkit.PointOfInterestCategory.Restaurant,
-        mapkit.PointOfInterestCategory.Cafe
-    ])
+        mapkit.PointOfInterestCategory.Cafe,
+    ]),
 });
 
 poiSearch.search((error, response) => {
@@ -529,7 +527,7 @@ poiSearch.search((error, response) => {
 // AddressFilter
 const addressFilter: AddressFilter = new mapkit.AddressFilter({
     includes: [mapkit.AddressCategory.Locality, mapkit.AddressCategory.PostalCode],
-    excludes: [mapkit.AddressCategory.Country]
+    excludes: [mapkit.AddressCategory.Country],
 });
 
 const includesLocality: boolean = addressFilter.includesCategory(mapkit.AddressCategory.Locality);
@@ -538,7 +536,7 @@ const excludesCountry: boolean = addressFilter.excludesCategory(mapkit.AddressCa
 // PointOfInterestFilter
 const poiFilter: PointOfInterestFilter = new mapkit.PointOfInterestFilter({
     includes: [mapkit.PointOfInterestCategory.Restaurant],
-    excludes: [mapkit.PointOfInterestCategory.Store]
+    excludes: [mapkit.PointOfInterestCategory.Store],
 });
 
 const includesRestaurant: boolean | undefined = poiFilter.includesCategory(mapkit.PointOfInterestCategory.Restaurant);
@@ -549,10 +547,10 @@ const allCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.
 const noCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.excludingAllCategories();
 const specificIncludeFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.including([
     mapkit.PointOfInterestCategory.Hospital,
-    mapkit.PointOfInterestCategory.School
+    mapkit.PointOfInterestCategory.School,
 ]);
 const specificExcludeFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.excluding([
-    mapkit.PointOfInterestCategory.Nightlife
+    mapkit.PointOfInterestCategory.Nightlife,
 ]);
 
 // ===== Look Around =====
@@ -566,7 +564,7 @@ const lookAround: LookAround = new mapkit.LookAround(lookAroundContainer, coordi
     isScrollEnabled: true,
     showsRoadLabels: true,
     showsPointsOfInterest: true,
-    padding: padding
+    padding: padding,
 });
 
 // Look Around Preview
@@ -574,7 +572,7 @@ const previewContainer = document.getElementById("look-around-preview")!;
 const lookAroundPreview: LookAroundPreview = new mapkit.LookAroundPreview(previewContainer, coordinate, {
     badgePosition: mapkit.LookAroundPreview.BadgePositions.TopTrailing,
     isNavigationEnabled: false,
-    openDialog: false
+    openDialog: false,
 });
 
 // ===== Place Detail =====
@@ -582,13 +580,13 @@ const lookAroundPreview: LookAroundPreview = new mapkit.LookAroundPreview(previe
 const placeDetailContainer = document.getElementById("place-detail")!;
 const placeDetail: PlaceDetail = new mapkit.PlaceDetail(placeDetailContainer, null, {
     colorScheme: mapkit.PlaceDetail.ColorSchemes.Light,
-    displaysMap: true
+    displaysMap: true,
 });
 
 // ===== Place Selection Accessory =====
 
 const selectionAccessory: PlaceSelectionAccessory = new mapkit.PlaceSelectionAccessory({
-    style: mapkit.PlaceSelectionAccessory.Styles.Callout
+    style: mapkit.PlaceSelectionAccessory.Styles.Callout,
 });
 
 // ===== Map Items and Collections =====
@@ -598,7 +596,7 @@ map.showItems(allItems, {
     animate: true,
     padding: padding,
     minimumSpan: span,
-    cameraDistance: 5000
+    cameraDistance: 5000,
 });
 
 map.addItems(allItems);
@@ -649,7 +647,7 @@ const calloutDelegate: AnnotationCalloutDelegate = {
         const button = document.createElement("button");
         button.textContent = "Details";
         return button;
-    }
+    },
 };
 
 marker.callout = calloutDelegate;
@@ -660,7 +658,7 @@ const geoJSONDelegate: GeoJSONDelegate = {
     itemForPoint: (coordinate, geoJSON) => {
         return new mapkit.MarkerAnnotation(coordinate, {
             title: "GeoJSON Point",
-            color: "#34C759"
+            color: "#34C759",
         });
     },
     itemForLineString: (polyline, geoJSON) => {
@@ -670,7 +668,7 @@ const geoJSONDelegate: GeoJSONDelegate = {
     itemForPolygon: (polygon, geoJSON) => {
         polygon.style = new mapkit.Style({
             fillColor: "#FF3B30",
-            fillOpacity: 0.3
+            fillOpacity: 0.3,
         });
         return polygon;
     },
@@ -682,7 +680,7 @@ const geoJSONDelegate: GeoJSONDelegate = {
     },
     geoJSONDidError: (error, geoJSON) => {
         console.error("GeoJSON import error:", error);
-    }
+    },
 };
 
 const geoJSONData = {
@@ -692,13 +690,13 @@ const geoJSONData = {
             type: "Feature" as const,
             geometry: {
                 type: "Point" as const,
-                coordinates: [-122.4194, 37.7749]
+                coordinates: [-122.4194, 37.7749],
             },
             properties: {
-                name: "San Francisco"
-            }
-        }
-    ]
+                name: "San Francisco",
+            },
+        },
+    ],
 };
 
 const importedItems: ItemCollection<any> | undefined = mapkit.importGeoJSON(geoJSONData, geoJSONDelegate);
@@ -707,14 +705,14 @@ const importedItems: ItemCollection<any> | undefined = mapkit.importGeoJSON(geoJ
 
 map.selectableMapFeatures = [
     mapkit.MapFeatureType.PointOfInterest,
-    mapkit.MapFeatureType.Territory
+    mapkit.MapFeatureType.Territory,
 ];
 
 map.annotationForMapFeature = (mapFeatureAnnotation) => {
     return new mapkit.MarkerAnnotation(mapFeatureAnnotation.coordinate, {
         title: mapFeatureAnnotation.title,
         subtitle: mapFeatureAnnotation.subtitle,
-        color: "#FF3B30"
+        color: "#FF3B30",
     });
 };
 
@@ -724,7 +722,7 @@ map.annotationForCluster = (clusterAnnotation) => {
     const count = clusterAnnotation.memberAnnotations.length;
     return new mapkit.MarkerAnnotation(clusterAnnotation.coordinate, {
         glyphText: count.toString(),
-        color: "#007AFF"
+        color: "#007AFF",
     });
 };
 

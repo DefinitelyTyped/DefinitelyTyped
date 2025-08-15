@@ -199,9 +199,9 @@ export declare class Annotation extends MapKitEventTarget {
         coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
         factory: (
             coordinate?: Coordinate,
-            options?: AnnotationConstructorOptions
+            options?: AnnotationConstructorOptions,
         ) => HTMLElement,
-        options?: AnnotationConstructorOptions
+        options?: AnnotationConstructorOptions,
     );
 
     /**
@@ -404,7 +404,7 @@ export declare interface AnnotationCalloutDelegate {
      */
     calloutAnchorOffsetForAnnotation?(
         annotation: Annotation,
-        size: Size
+        size: Size,
     ): DOMPoint;
     /**
      * Determines whether the callout appears for an annotation.
@@ -618,7 +618,7 @@ export declare class BoundingRegion {
         northLatitude?: number,
         eastLongitude?: number,
         southLatitude?: number,
-        westLongitude?: number
+        westLongitude?: number,
     );
     /**
      * Returns a copy of the calling bounding region.
@@ -730,7 +730,7 @@ export declare class CircleOverlay extends Overlay {
     constructor(
         coordinate: Coordinate,
         radius: number,
-        options?: OverlayOptions
+        options?: OverlayOptions,
     );
     /**
      * The coordinate of the circle overlay's center.
@@ -1007,7 +1007,7 @@ export declare class Directions extends Service {
      */
     eta(
         request: EtaRequestOptions,
-        callback: (error: Error | null, result?: EtaResponse) => void
+        callback: (error: Error | null, result?: EtaResponse) => void,
     ): number | undefined;
     /**
      * Retrieves directions and estimated travel time based on the specified start and end points.
@@ -1018,7 +1018,7 @@ export declare class Directions extends Service {
      */
     route(
         request: DirectionsRequest,
-        callback: (error: Error | null, result?: DirectionsResponse) => void
+        callback: (error: Error | null, result?: DirectionsResponse) => void,
     ): number;
     static Transport: typeof TransportType;
 }
@@ -1143,7 +1143,7 @@ export declare type Distances = Enum.Values<typeof Distances>;
  * @public
  */
 export declare function Enum<const T extends Record<string, unknown>>(
-    values: T
+    values: T,
 ): Readonly<T>;
 
 /**
@@ -1294,7 +1294,7 @@ export declare class Geocoder extends Service {
     lookup(
         address: string,
         callback: (error: Error | null, result?: GeocoderResponse) => void,
-        options?: GeocoderLookupOptions
+        options?: GeocoderLookupOptions,
     ): number;
     /**
      * Converts a geographic coordinate to an address.
@@ -1306,7 +1306,7 @@ export declare class Geocoder extends Service {
     reverseLookup(
         coordinate: Coordinate,
         callback: (error: Error | null, result?: GeocoderResponse) => void,
-        options?: GeocoderReverseLookupOptions
+        options?: GeocoderReverseLookupOptions,
     ): number;
 }
 
@@ -1379,7 +1379,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForMultiPoint?<D extends GeoJSONTypes.MultiPoint>(
         item: ItemCollection<D>,
-        object: D
+        object: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a multiline string.
@@ -1390,7 +1390,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForMultiLineString?<D extends GeoJSONTypes.MultiLineString>(
         item: ItemCollection<D>,
-        object: D
+        object: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a multipolygon.
@@ -1401,7 +1401,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForMultiPolygon?<D extends GeoJSONTypes.MultiPolygon>(
         item: ItemCollection<D>,
-        object: D
+        object: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a point.
@@ -1420,7 +1420,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForLineString?(
         item: PolylineOverlay,
-        object: GeoJSONTypes.LineString
+        object: GeoJSONTypes.LineString,
     ): PolylineOverlay | null;
     /**
      * Overrides a polygon.
@@ -1431,7 +1431,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForPolygon?(
         item: PolygonOverlay,
-        object: GeoJSONTypes.Polygon
+        object: GeoJSONTypes.Polygon,
     ): PolygonOverlay | null;
     /**
      * Overrides a feature.
@@ -1442,7 +1442,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForFeature?(
         item: Item | null,
-        object: GeoJSONTypes.Feature
+        object: GeoJSONTypes.Feature,
     ): Item | null;
     /**
      * Overrides a feature collection.
@@ -1453,11 +1453,11 @@ export declare interface GeoJSONDelegate {
      */
     itemForFeatureCollection?<D extends GeoJSONTypes.FeatureCollection>(
         item: ItemCollection<D>,
-        object: D
+        object: D,
     ): ItemCollection<D> | Item[] | null;
     itemForGeometryCollection?<D extends GeoJSONTypes.GeometryCollection>(
         item: ItemCollection<D>,
-        object: D
+        object: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides the style of overlays.
@@ -1468,7 +1468,7 @@ export declare interface GeoJSONDelegate {
      */
     styleForOverlay?(
         overlay: PolylineOverlay | PolygonOverlay,
-        object: GeoJSONTypes.LineString | GeoJSONTypes.Polygon
+        object: GeoJSONTypes.LineString | GeoJSONTypes.Polygon,
     ): Style;
     /**
      * Completes the GeoJSON import.
@@ -1479,7 +1479,7 @@ export declare interface GeoJSONDelegate {
      */
     geoJSONDidComplete?<D extends GeoJSONTypes.GeoJSON>(
         items: ItemCollection<D>,
-        object: D
+        object: D,
     ): void;
     /**
      * Indicates when the GeoJSON import fails.
@@ -1490,7 +1490,7 @@ export declare interface GeoJSONDelegate {
      */
     geoJSONDidError?(
         error: GeoJSONImportError | Error,
-        object?: GeoJSONTypes.GeoJSON
+        object?: GeoJSONTypes.GeoJSON,
     ): void;
 }
 
@@ -1525,7 +1525,7 @@ export declare class ImageAnnotation extends Annotation {
      */
     constructor(
         coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options: ImageAnnotationOptions
+        options: ImageAnnotationOptions,
     );
     /**
      * An object containing URLs for the image assets in multiple resolutions.
@@ -1541,8 +1541,7 @@ export declare class ImageAnnotation extends Annotation {
  * {@link https://developer.apple.com/documentation/mapkitjs/imageannotationconstructoroptions Read more.}
  * @public
  */
-export declare interface ImageAnnotationOptions
-    extends AnnotationConstructorOptions {
+export declare interface ImageAnnotationOptions extends AnnotationConstructorOptions {
     /**
      * An object containing URLs for the image assets in multiple resolutions.
      * @public
@@ -1576,7 +1575,7 @@ export declare type ImageHashObject = {
  */
 export declare function importGeoJSON(
     dataOrURI: string | GeoJSONTypes.GeoJSON,
-    callbackOrDelegate?: GeoJSONDelegate | GeoJSONImporterCallback
+    callbackOrDelegate?: GeoJSONDelegate | GeoJSONImporterCallback,
 ):
     | ItemCollection<
         GeoJSONTypes.GeoJSON<
@@ -1685,7 +1684,7 @@ export declare class LookAround extends AbstractLookAround {
     constructor(
         parent?: HTMLElement,
         location?: Coordinate | SearchPlaceResult | LookAroundScene,
-        options?: LookAroundOptions
+        options?: LookAroundOptions,
     );
 
     /**
@@ -1769,7 +1768,7 @@ export declare class LookAroundPreview extends AbstractLookAround {
     constructor(
         parent?: HTMLElement,
         location?: Coordinate | SearchPlaceResult | LookAroundScene,
-        options?: LookAroundPreviewOptions
+        options?: LookAroundPreviewOptions,
     );
 
     /**
@@ -1792,8 +1791,7 @@ export declare class LookAroundPreview extends AbstractLookAround {
  *
  * @public
  */
-export declare interface LookAroundPreviewOptions
-    extends CommonLookAroundOptions {
+export declare interface LookAroundPreviewOptions extends CommonLookAroundOptions {
     /**
      * Sets the badge position of the preview view.
      */
@@ -2083,7 +2081,7 @@ export declare class Map extends MapKitEventTarget {
      */
     setCameraZoomRangeAnimated(
         zoomRange: CameraZoomRange,
-        animated?: boolean
+        animated?: boolean,
     ): Map;
     /**
      * The altitude of the camera relative to the elevation of the center of the map.
@@ -2117,7 +2115,7 @@ export declare class Map extends MapKitEventTarget {
      */
     setCameraBoundaryAnimated(
         cameraBoundary: null | CoordinateRegion | MapRect,
-        animated?: boolean
+        animated?: boolean,
     ): Map;
     /**
      * An array of all of the map's overlays.
@@ -2226,7 +2224,7 @@ export declare class Map extends MapKitEventTarget {
      */
     showItems(
         items: (Overlay | Annotation)[],
-        options?: MapShowItemsOptions
+        options?: MapShowItemsOptions,
     ): (Annotation | Overlay)[];
     /**
      * Adds a collection of annotations, overlays, or other item collections to the map.
@@ -2313,7 +2311,7 @@ export declare class Map extends MapKitEventTarget {
     set annotationForCluster(
         value:
             | ((clusterAnnotation: ClusterAnnotation) => Annotation | undefined)
-            | null
+            | null,
     );
     /**
      * An array of map features that users can select from the map.
@@ -2329,7 +2327,7 @@ export declare class Map extends MapKitEventTarget {
      */
     get selectableMapFeatureSelectionAccessory(): PlaceSelectionAccessory | null;
     set selectableMapFeatureSelectionAccessory(
-        value: PlaceSelectionAccessory | null
+        value: PlaceSelectionAccessory | null,
     );
     /**
      * The method MapKit JS calls when the framework creates a map feature annotation.
@@ -2338,15 +2336,15 @@ export declare class Map extends MapKitEventTarget {
      */
     get annotationForMapFeature():
         | ((
-            mapFeatureAnnotation: MapFeatureAnnotation
+            mapFeatureAnnotation: MapFeatureAnnotation,
         ) => Annotation | undefined)
         | undefined;
     set annotationForMapFeature(
         value:
             | ((
-                mapFeatureAnnotation: MapFeatureAnnotation
+                mapFeatureAnnotation: MapFeatureAnnotation,
             ) => Annotation | undefined)
-            | undefined
+            | undefined,
     );
 }
 
@@ -2521,10 +2519,10 @@ export declare interface MapConstructorOptions {
      * @public
      */
     annotationForCluster?: (
-        clusterAnnotation: ClusterAnnotation
+        clusterAnnotation: ClusterAnnotation,
     ) => Annotation | undefined;
     annotationForMapFeature?: (
-        mapFeatureAnnotation: MapFeatureAnnotation
+        mapFeatureAnnotation: MapFeatureAnnotation,
     ) => Annotation | undefined;
 }
 
@@ -2536,7 +2534,7 @@ export declare interface MapConstructorOptions {
 export declare class MapFeatureAnnotation extends PlaceAnnotation {
     constructor(
         coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options?: MarkerAnnotationConstructorOptions
+        options?: MarkerAnnotationConstructorOptions,
     );
     /**
      * A value that describes the type of place the feature represents.
@@ -2551,7 +2549,7 @@ export declare class MapFeatureAnnotation extends PlaceAnnotation {
      * @public
      */
     fetchPlace(
-        callback: (error: Error | null, result?: SearchPlaceResult) => void
+        callback: (error: Error | null, result?: SearchPlaceResult) => void,
     ): number;
     /**
      * The point-of-interest category of the feature.
@@ -2581,7 +2579,7 @@ export declare class MapFeatureAnnotationGlyphImage {
      */
     getImageUrl(
         scale: number | undefined,
-        callback: (url?: string) => void
+        callback: (url?: string) => void,
     ): void;
 }
 
@@ -2872,12 +2870,12 @@ export declare class MapKitEventTarget {
     addEventListener(
         eventType: string,
         listener: MapKitEventListener,
-        thisObject?: object | null
+        thisObject?: object | null,
     ): boolean;
     removeEventListener(
         eventType?: string,
         listener?: MapKitEventListener,
-        thisObject?: object | null
+        thisObject?: object | null,
     ): boolean;
     /**
      * Dispatches an event object, calling any listeners for that type.
@@ -3161,7 +3159,7 @@ export declare class MarkerAnnotation extends Annotation {
      */
     constructor(
         coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options?: MarkerAnnotationConstructorOptions
+        options?: MarkerAnnotationConstructorOptions,
     );
     get size(): Size;
     set size(_: Size);
@@ -3221,8 +3219,7 @@ export declare class MarkerAnnotation extends Annotation {
  * {@link https://developer.apple.com/documentation/mapkitjs/markerannotationconstructoroptions Read more.}
  * @public
  */
-export declare interface MarkerAnnotationConstructorOptions
-    extends AnnotationConstructorOptions {
+export declare interface MarkerAnnotationConstructorOptions extends AnnotationConstructorOptions {
     /**
      * The background color of the balloon.
      * @public
@@ -3417,17 +3414,17 @@ export declare class Padding {
     constructor(top: number, right: number, bottom: number, left: number);
     /**
      * Object representing no paddings.
-     * */
+     */
     static readonly Zero: Padding;
     /**
      * Return string representation of Padding object.
      * @example
      * Padding(5, 10, 0, 25)
-     * */
+     */
     toString(): string;
     /**
      * Return a cloned copy of this padding object.
-     * */
+     */
     copy(): Padding;
     /**
      * Check if given padding object equals to this one.
@@ -3476,7 +3473,7 @@ export declare class PlaceAnnotation extends MarkerAnnotation {
      */
     constructor(
         coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options?: MarkerAnnotationConstructorOptions
+        options?: MarkerAnnotationConstructorOptions,
     );
     get element(): HTMLElement;
     get coordinate(): Coordinate;
@@ -3507,7 +3504,7 @@ export declare class PlaceDetail {
     constructor(
         parent: HTMLElement,
         place?: SearchPlaceResult | null,
-        options?: PlaceDetailOptions
+        options?: PlaceDetailOptions,
     );
     /**
      * The place detail's DOM element.
@@ -3573,7 +3570,7 @@ export declare class PlaceLookup extends Service {
     getPlace(
         id: string,
         callback: (error: Error | null, result?: SearchPlaceResult) => void,
-        options?: ServiceOptions
+        options?: ServiceOptions,
     ): number;
 }
 
@@ -3961,7 +3958,7 @@ export declare class PointOfInterestFilter {
      * @public
      */
     static including(
-        categories: PointOfInterestCategory[]
+        categories: PointOfInterestCategory[],
     ): PointOfInterestFilter;
     /**
      * Creates a point of interest filter that excludes categories from a list that you provide.
@@ -3969,7 +3966,7 @@ export declare class PointOfInterestFilter {
      * @public
      */
     static excluding(
-        categories: PointOfInterestCategory[]
+        categories: PointOfInterestCategory[],
     ): PointOfInterestFilter;
 }
 
@@ -4029,7 +4026,7 @@ export declare class PointsOfInterestSearch extends Service {
      */
     search(
         callback: PointsOfInterestSearchDelegate,
-        options?: PointsOfInterestSearchOptions
+        options?: PointsOfInterestSearchOptions,
     ): number | undefined;
     /**
      * The maximum distance to use from the center of the region for fetching points of interest.
@@ -4119,7 +4116,7 @@ export declare class PolygonOverlay extends Overlay {
      */
     constructor(
         points: Coordinate[][] | Coordinate[],
-        options?: OverlayOptions
+        options?: OverlayOptions,
     );
     /**
      * One or more arrays of coordinates that define the polygon overlay shape.
@@ -4261,7 +4258,7 @@ export declare class Search extends Service {
     search(
         query: string | SearchAutocompleteResult,
         callback: SearchDelegate<SearchResponse>,
-        options?: SearchOptions
+        options?: SearchOptions,
     ): number;
     /**
      * Retrieves a list of autocomplete results for the specified search query.
@@ -4274,7 +4271,7 @@ export declare class Search extends Service {
     autocomplete(
         query: string,
         callback: SearchDelegate<SearchAutocompleteResponse>,
-        options?: SearchAutocompleteOptions
+        options?: SearchAutocompleteOptions,
     ): number;
     static RegionPriority: typeof RegionPriority;
 }
@@ -4399,8 +4396,9 @@ export declare class SearchAutocompleteResult {
  * {@link https://developer.apple.com/documentation/mapkitjs/searchconstructoroptions Read more.}
  * @public
  */
-export declare type SearchConstructorOptions = SearchAutocompleteOptions &
-    ServiceOptions;
+export declare type SearchConstructorOptions =
+    & SearchAutocompleteOptions
+    & ServiceOptions;
 
 /**
  * An object or callback function the framework calls when performing a search or an autocomplete request.
@@ -4409,8 +4407,8 @@ export declare type SearchConstructorOptions = SearchAutocompleteOptions &
  */
 export declare type SearchDelegate<
     T extends SearchResponse | SearchAutocompleteResponse =
-    | SearchResponse
-    | SearchAutocompleteResponse
+        | SearchResponse
+        | SearchAutocompleteResponse,
 > =
     | {
         /**
@@ -4834,7 +4832,7 @@ export declare class TileOverlay extends MapKitEventTarget {
      */
     constructor(
         urlTemplate: TileOverlayUrlTemplate,
-        options?: TileOverlayConstructorOptions
+        options?: TileOverlayConstructorOptions,
     );
     /**
      * A string, or callback function that returns a string, with a URL that provides the requested tile.
@@ -4945,4 +4943,4 @@ export declare class UserLocationAnnotation extends Annotation {
     set size(_: Size);
 }
 
-export { };
+export {};
