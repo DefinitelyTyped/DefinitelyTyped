@@ -1,7 +1,7 @@
 /**
-     * Represents an instance of the NumberAbbreviate abbreviator.
-     * Created by `new NumberAbbreviate(units)` or internally by the direct function call.
-     */
+ * Represents an instance of the NumberAbbreviate abbreviator.
+ * Created by `new NumberAbbreviate(units)` or internally by the direct function call.
+ */
 interface AbbreviatorInstance {
     /**
      * Units used in the abbreviations

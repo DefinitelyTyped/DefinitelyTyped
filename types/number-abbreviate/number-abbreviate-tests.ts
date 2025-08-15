@@ -1,4 +1,4 @@
-import NumberAbbreviate from 'number-abbreviate';
+import NumberAbbreviate from "number-abbreviate";
 
 const num: number = 12345;
 const strNum: string = "98765";
@@ -12,7 +12,7 @@ const res4: string = NumberAbbreviate(1111, 2);
 const res5: string = NumberAbbreviate(num);
 const res6: string = NumberAbbreviate(strNum, 1);
 const res7: string = NumberAbbreviate(-12345);
-const res8: string = NumberAbbreviate(123456789, 2, ['k', 'M', 'B']);
+const res8: string = NumberAbbreviate(123456789, 2, ["k", "M", "B"]);
 
 // @ts-expect-error
 NumberAbbreviate("invalid", true, ["a"]);
@@ -36,7 +36,7 @@ const res20: string = numAbbr1.abbreviate(strNum);
 numAbbr1.abbreviate("invalid", true);
 
 // Test constructor with custom units
-const customUnits = ['A', 'B', 'C'];
+const customUnits = ["A", "B", "C"];
 const numAbbr2 = new NumberAbbreviate(customUnits);
 const res21: string = numAbbr2.abbreviate(1000, 0);
 const res22: string = numAbbr2.abbreviate(1000000, 1);
