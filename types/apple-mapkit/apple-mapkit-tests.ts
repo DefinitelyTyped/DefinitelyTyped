@@ -179,17 +179,21 @@ const rectRegion: CoordinateRegion = rect.toCoordinateRegion();
 const rectString: string = rect.toString();
 
 const padding: Padding = new mapkit.Padding(10, 20, 30, 40);
-const paddingFromOptions: Padding = new mapkit.Padding({ top: 10, right: 20, bottom: 30, left: 40 });
+const paddingFromOptions: Padding = new mapkit.Padding(
+    { top: 10, right: 20, bottom: 30, left: 40 } satisfies PaddingConstructorOptions,
+);
 const paddingCopy: Padding = padding.copy();
 const paddingsEqual: boolean = padding.equals(paddingCopy);
 const paddingString: string = padding.toString();
 const zeroPadding: Padding = mapkit.Padding.Zero;
 
 const zoomRange: CameraZoomRange = new mapkit.CameraZoomRange(100, 10000);
-const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange({
-    minCameraDistance: 100,
-    maxCameraDistance: 10000,
-});
+const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange(
+    {
+        minCameraDistance: 100,
+        maxCameraDistance: 10000,
+    } satisfies CameraZoomRangeConstructorOptions,
+);
 const zoomRangeCopy: CameraZoomRange = zoomRange.copy();
 const minDistance: number = zoomRange.minCameraDistance;
 const maxDistance: number = zoomRange.maxCameraDistance;
@@ -252,7 +256,7 @@ const customAnnotation: Annotation = new mapkit.Annotation(
         calloutEnabled: true,
         draggable: true,
         animates: true,
-    },
+    } satisfies AnnotationConstructorOptions,
 );
 
 const markerOptions: MarkerAnnotationConstructorOptions = {
