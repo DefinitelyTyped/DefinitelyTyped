@@ -429,7 +429,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
      * Scroll to the specified offset(s).
      * Useful for animating position changes.
      */
-    scrollToPosition(params?: { scrollLeft: number; scrollTop: number }): void;
+    scrollToPosition(params?: { scrollLeft?: number; scrollTop?: number }): void;
 }
 
 export default Grid;
