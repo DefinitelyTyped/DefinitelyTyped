@@ -27,7 +27,7 @@ export class ArrowKeyStepperExample extends PureComponent<any, any> {
         const { mode } = this.state;
 
         return (
-            <ArrowKeyStepper columnCount={'100'} mode={mode as "edges"} rowCount={100}>
+            <ArrowKeyStepper columnCount={100} mode={mode as "edges"} rowCount={100}>
                 {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
                     <div>
                         <AutoSizer disableHeight>
