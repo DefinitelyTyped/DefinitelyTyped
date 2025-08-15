@@ -5,6 +5,8 @@ import * as geojson from "geojson";
 /** A constant that represents the Leaflet version in use. */
 export const version: string;
 
+// TODO: Global: can be undefined removed if option parameter is optional? `baselayerchange?: LayersControlEventHandlerFn | undefined;`
+
 // TODO: `this` throws an error, but it is the same as in the original Leaflet code
 export class Class {
     static extend(props: any): { new(...args: any[]): any } & typeof Class;
@@ -114,7 +116,6 @@ export namespace CRS {
         static distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
     }
 
-    // TODO: how to use the `Projection` interface?
     class EPSG3395 extends Earth {
         static code: string;
         static projection: Projection.Mercator;
@@ -140,7 +141,6 @@ export namespace CRS {
     }
 }
 
-// TODO: Projection is no own class
 export interface Projection {
     project(latlng: LatLngExpression): Point;
     unproject(point: PointExpression): LatLng;
@@ -236,7 +236,6 @@ export class Point {
     y: number;
 }
 
-// TODO: interface Coords?
 export interface Coords extends Point {
     z: number;
 }
@@ -391,7 +390,6 @@ export type TileEventHandlerFn = (event: TileEvent) => void;
 
 export type TileErrorEventHandlerFn = (event: TileErrorEvent) => void;
 
-// TODO: can be undefined removed, because optional?
 export interface LeafletEventHandlerFnMap {
     baselayerchange?: LayersControlEventHandlerFn | undefined;
     overlayadd?: LayersControlEventHandlerFn | undefined;
@@ -1215,7 +1213,7 @@ export interface DraggableOptions {
 /**
  * A class for making DOM elements draggable (including touch support).
  * Used internally for map and marker dragging. Only works for elements
- * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
+ * that were positioned with [`DomUtil.setPosition`](#domutil-setposition).
  */
 export class Draggable extends Evented {
     constructor(
@@ -1362,19 +1360,19 @@ export interface TileLayerOptions extends GridLayerOptions {
     // You are able add additional properties, but it makes this interface uncheckable.
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
     // Example:
-    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+    // tileLayer = new TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
-    getTileUrl(coords: L.Coords): string;
+    getTileUrl(coords: Coords): string;
 
  //?
     protected createTile(coords: Coords, done?: DoneCallback): HTMLElement;
 
-    protected _tileOnLoad(done: L.DoneCallback, tile: HTMLElement): void;
-    protected _tileOnError(done: L.DoneCallback, tile: HTMLElement, e: Error): void;
+    protected _tileOnLoad(done: DoneCallback, tile: HTMLElement): void;
+    protected _tileOnError(done: DoneCallback, tile: HTMLElement, e: Error): void;
     protected _abortLoading(): void;
     protected _getZoomForUrl(): number;
 
@@ -1445,7 +1443,6 @@ export interface ImageOverlayStyleOptions {
     [name: string]: any;
 }
 
-// TODO: is the extending <T extends Element> correct?
 export class ImageOverlay<T extends Element = HTMLImageElement> extends Layer {
     constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
     bringToFront(): this;
@@ -1479,7 +1476,6 @@ export class ImageOverlay<T extends Element = HTMLImageElement> extends Layer {
 export type SVGOverlayOptions = ImageOverlayOptions;
 export type SVGOverlayStyleOptions = ImageOverlayStyleOptions;
 
-// TODO: is the extending <SVGElement> correct?
 export class SVGOverlay extends ImageOverlay<SVGElement> {
     constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: SVGOverlayOptions);
     /** Changes the style of the image element. As of 1.8, only the opacity is changed */
@@ -1535,7 +1531,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     lineJoin?: LineJoinShape | undefined;
     dashArray?: string | number[] | undefined;
     dashOffset?: string | undefined;
-    // TODO: should be fill moved to the correct options? Polygon, CircleMarker
+    // TODO: should be fill moved to the correct options? PolygonOptions, CircleMarkerOptions, ...
     fill?: boolean | undefined;
     fillColor?: string | undefined;
     fillOpacity?: number | undefined;
@@ -1560,7 +1556,6 @@ export interface PolylineOptions extends PathOptions {
     noClip?: boolean | undefined;
 }
 
-// TODO: are the LatLng(-Expression)-Array types correctly separated between Polyline and Polygon?
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any, U = LatLng[] | LatLng[][]>
     extends Path
 {
@@ -1617,7 +1612,7 @@ export class CircleMarker<P = any> extends Path {
     feature?: geojson.Feature<geojson.Point, P> | undefined;
 }
 
-// TODO: sometimes options are "defined" as type and sometimes as interface 
+// TODO: sometimes options are "defined" as type and sometimes as interface, should it be unified?
 export type CircleOptions = CircleMarkerOptions;
 
 export class Circle<P = any> extends CircleMarker<P> {
@@ -1803,7 +1798,7 @@ export interface GeoJSONOptions<P = any, G extends geojson.GeometryObject = geoj
      *
      * ```
      * function(geoJsonPoint, latlng) {
-     *     return L.marker(latlng);
+     *     return new Marker(latlng);
      * }
      * ```
      */
@@ -2004,7 +1999,7 @@ export namespace Control {
         /**
          * A [compare function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
          * that will be used for sorting the layers, when `sortLayers` is `true`. The function receives both the
-         * [`L.Layer`](https://leafletjs.com/reference.html#layer) instances and their names, as in
+         * [`Layer`](https://leafletjs.com/reference.html#layer) instances and their names, as in
          * `sortFunction(layerA, layerB, nameA, nameB)`. By default, it sorts layers alphabetically by their name.
          */
         sortFunction?: ((layerA: Layer, layerB: Layer, nameA: string, nameB: string) => number) | undefined;
@@ -2359,7 +2354,7 @@ export class Map extends Evented {
     stopLocate(): this;
 
     // Properties
-    attributionControl: L.Control.Attribution;
+    attributionControl: Control.Attribution;
     boxZoom: Handler;
     doubleClickZoom: Handler;
     dragging: Handler;
