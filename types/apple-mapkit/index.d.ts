@@ -1,5 +1,5 @@
 import { MapKit } from "./mapkit";
-export * from "./mapkit";
+export type * from "./mapkit";
 
 declare global {
     interface Window {
