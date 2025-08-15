@@ -1219,8 +1219,8 @@ interface XRSession {
     readonly depthType?: XRDepthType | undefined;
     readonly depthActive?: boolean | undefined;
 
-    pauseDepthSensing?: (() => void) | undefined;
-    resumeDepthSensing?: (() => void) | undefined;
+    readonly pauseDepthSensing?: (() => void) | undefined;
+    readonly resumeDepthSensing?: (() => void) | undefined;
 }
 
 interface XRDepthInformation {
