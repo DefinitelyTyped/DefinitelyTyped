@@ -423,7 +423,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
     /**
      * Ensure column and row are visible.
      */
-    scrollToCell(params: { columnIndex: number; rowIndex: number }): void;
+    scrollToCell(params: { columnIndex?: number; rowIndex?: number }): void;
 
     /**
      * Scroll to the specified offset(s).
