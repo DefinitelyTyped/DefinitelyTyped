@@ -259,6 +259,21 @@ function assertNever(value: never) {
     function useCpuDepthInformation(view: XRView, depthInformation: XRCPUDepthInformation) {
         const depthInMeters = depthInformation.getDepthInMeters(0.25, 0.75);
         console.log("Depth at normalized view coordinates (0.25, 0.75) is:", depthInMeters);
+
+        const projectionMatrix: Float32Array | undefined = depthInformation.projectionMatrix;
+        if (projectionMatrix) {
+            console.log("Depth projection matrix:", projectionMatrix);
+        }
+
+        const transformPosition: DOMPointReadOnly | undefined = depthInformation.transform?.position;
+        if (transformPosition) {
+            console.log("Depth transform position:", transformPosition);
+        }
+
+        const transformDirection: DOMPointReadOnly | undefined = depthInformation.transform?.orientation;
+        if (transformDirection) {
+            console.log("Depth transform direction:", transformDirection);
+        }
     }
 
     const glBinding = new XRWebGLBinding(session, ctx);

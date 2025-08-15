@@ -1229,6 +1229,9 @@ interface XRDepthInformation {
 
     readonly normDepthBufferFromNormView: XRRigidTransform;
     readonly rawValueToMeters: number;
+
+    readonly transform?: XRRigidTransform | undefined;
+    readonly projectionMatrix?: Float32Array | undefined;
 }
 
 interface XRCPUDepthInformation extends XRDepthInformation {
