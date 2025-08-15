@@ -1200,6 +1200,8 @@ type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
 
 type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
 
+type XRDepthType = "raw" | "smooth";
+
 interface XRDepthStateInit {
     usagePreference: XRDepthUsage[];
     dataFormatPreference: XRDepthDataFormat[];
@@ -1212,6 +1214,11 @@ interface XRSessionInit {
 interface XRSession {
     readonly depthUsage?: XRDepthUsage | undefined;
     readonly depthDataFormat?: XRDepthDataFormat | undefined;
+    readonly depthType?: XRDepthType | undefined;
+    readonly depthActive?: boolean | undefined;
+
+    pauseDepthSensing?: () => void;
+    resumeDepthSensing?: () => void;
 }
 
 interface XRDepthInformation {
