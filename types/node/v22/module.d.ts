@@ -684,6 +684,30 @@ declare module "module" {
              * @returns The absolute URL string that the specifier would resolve to.
              */
             resolve(specifier: string, parent?: string | URL): string;
+            /**
+             * `true` when the current module is the entry point of the current process; `false` otherwise.
+             *
+             * Equivalent to `require.main === module` in CommonJS.
+             *
+             * Analogous to Python's `__name__ == "__main__"`.
+             *
+             * ```js
+             * export function foo() {
+             *   return 'Hello, world';
+             * }
+             *
+             * function main() {
+             *   const message = foo();
+             *   console.log(message);
+             * }
+             *
+             * if (import.meta.main) main();
+             * // `foo` can be imported from another module without possible side-effects from `main`
+             * ```
+             * @since v22.18.0
+             * @experimental
+             */
+            main: boolean;
         }
         namespace NodeJS {
             interface Module {

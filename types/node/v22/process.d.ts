@@ -231,8 +231,9 @@ declare module "process" {
                  */
                 readonly tls_sni: boolean;
                 /**
-                 * A value that is `"strip"` if Node.js is run with `--experimental-strip-types`,
-                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` otherwise.
+                 * A value that is `"strip"` by default,
+                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
+                 * Node.js is run with `--no-experimental-strip-types`.
                  * @since v22.10.0
                  */
                 readonly typescript: "strip" | "transform" | false;

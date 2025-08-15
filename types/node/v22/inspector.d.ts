@@ -268,7 +268,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            auxData?: {} | undefined;
+            auxData?: object | undefined;
         }
         /**
          * Detailed information about exception (or error) that was thrown during script compilation or execution.
@@ -701,7 +701,7 @@ declare module 'inspector' {
         }
         interface InspectRequestedEventDataType {
             object: RemoteObject;
-            hints: {};
+            hints: object;
         }
     }
     namespace Debugger {
@@ -1173,7 +1173,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {} | undefined;
+            executionContextAuxData?: object | undefined;
             /**
              * True, if this script is generated as a result of the live edit operation.
              * @experimental
@@ -1237,7 +1237,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {} | undefined;
+            executionContextAuxData?: object | undefined;
             /**
              * URL of source map associated with script (if any).
              */
@@ -1282,7 +1282,7 @@ declare module 'inspector' {
             /**
              * Object containing break-specific auxiliary properties.
              */
-            data?: {} | undefined;
+            data?: object | undefined;
             /**
              * Hit breakpoints IDs
              */
@@ -1649,7 +1649,7 @@ declare module 'inspector' {
             categories: string[];
         }
         interface DataCollectedEventDataType {
-            value: Array<{}>;
+            value: object[];
         }
     }
     namespace NodeWorker {
@@ -1759,6 +1759,7 @@ declare module 'inspector' {
             url: string;
             method: string;
             headers: Headers;
+            hasPostData: boolean;
         }
         /**
          * HTTP response data.
@@ -1776,17 +1777,45 @@ declare module 'inspector' {
          */
         interface Headers {
         }
+        interface GetRequestPostDataParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
+        interface GetResponseBodyParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
         interface StreamResourceContentParameterType {
             /**
              * Identifier of the request to stream.
              */
             requestId: RequestId;
         }
+        interface GetRequestPostDataReturnType {
+            /**
+             * Request body string, omitting files from multipart requests
+             */
+            postData: string;
+        }
+        interface GetResponseBodyReturnType {
+            /**
+             * Response body.
+             */
+            body: string;
+            /**
+             * True, if content was sent as base64.
+             */
+            base64Encoded: boolean;
+        }
         interface StreamResourceContentReturnType {
             /**
              * Data that has been buffered until streaming is enabled.
              */
-            bufferedData: never;
+            bufferedData: string;
         }
         interface RequestWillBeSentEventDataType {
             /**
@@ -1877,7 +1906,7 @@ declare module 'inspector' {
              * Data that was received.
              * @experimental
              */
-            data?: never | undefined;
+            data?: string | undefined;
         }
     }
     namespace NodeRuntime {
@@ -2285,6 +2314,16 @@ declare module 'inspector' {
          * Enables network tracking, network events will now be delivered to the client.
          */
         post(method: 'Network.enable', callback?: (err: Error | null) => void): void;
+        /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType, callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        post(method: 'Network.getRequestPostData', callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType, callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        post(method: 'Network.getResponseBody', callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.
@@ -3052,19 +3091,28 @@ declare module 'inspector' {
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
+         * Broadcasts the `Network.requestWillBeSent` event to connected frontends. This event indicates that
+         * the application is about to send an HTTP request.
+         * @since v22.6.0
+         */
+        function requestWillBeSent(params: RequestWillBeSentEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
          * Broadcasts the `Network.dataReceived` event to connected frontends, or buffers the data if
          * `Network.streamResourceContent` command was not invoked for the given request yet.
+         *
+         * Also enables `Network.getResponseBody` command to retrieve the response data.
          * @since v22.17.0
          */
         function dataReceived(params: DataReceivedEventDataType): void;
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
-         * Broadcasts the `Network.requestWillBeSent` event to connected frontends. This event indicates that
-         * the application is about to send an HTTP request.
-         * @since v22.6.0
+         * Enables `Network.getRequestPostData` command to retrieve the request data.
+         * @since v22.18.0
          */
-        function requestWillBeSent(params: RequestWillBeSentEventDataType): void;
+        function dataSent(params: unknown): void;
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
@@ -3450,6 +3498,14 @@ declare module 'inspector/promises' {
          * Enables network tracking, network events will now be delivered to the client.
          */
         post(method: 'Network.enable'): Promise<void>;
+        /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType): Promise<Network.GetRequestPostDataReturnType>;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType): Promise<Network.GetResponseBodyReturnType>;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.

@@ -89,6 +89,41 @@ declare module "node:sqlite" {
          * @default false
          */
         allowExtension?: boolean | undefined;
+        /**
+         * The [busy timeout](https://sqlite.org/c3ref/busy_timeout.html) in milliseconds. This is the maximum amount of
+         * time that SQLite will wait for a database lock to be released before
+         * returning an error.
+         * @since v22.16.0
+         * @default 0
+         */
+        timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v22.18.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v22.18.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v22.18.0
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v22.18.0
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
