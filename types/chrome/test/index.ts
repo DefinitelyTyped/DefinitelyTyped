@@ -1330,14 +1330,6 @@ function testDevtools() {
         console.log("request: ", request);
     });
 
-    chrome.devtools.performance.onProfilingStarted.addListener(() => {
-        console.log("Profiling started");
-    });
-
-    chrome.devtools.performance.onProfilingStopped.addListener(() => {
-        console.log("Profiling stopped");
-    });
-
     chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
         harLog; // $ExpectType HARLog
         console.log("harLog: ", harLog);
@@ -1372,6 +1364,12 @@ function testDevtools() {
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/performance
+function testDevtoolsPerformance() {
+    checkChromeEvent(chrome.devtools.performance.onProfilingStarted, () => void 0);
+    checkChromeEvent(chrome.devtools.performance.onProfilingStopped, () => void 0);
 }
 
 function testAssistiveWindow() {
