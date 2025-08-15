@@ -7095,6 +7095,25 @@ $( "#checkMetaKey" ).click(function( event ) {
         [type: string]: TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
     }
 
+    type RemoveIndexSignature<T> = {
+        [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
+    };
+
+    type EventType = keyof RemoveIndexSignature<TypeToTriggeredEventMap<any, any, any, any>>;
+
+    type NamespacedTypeToTriggeredEventMap<
+        TDelegateTarget,
+        TData,
+        TCurrentTarget,
+        TTarget,
+    > =
+        & TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>
+        & {
+            [K in `${EventType}.${string}`]: K extends `${infer P}.${string}`
+                ? TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[P]
+                : never;
+        };
+
     // Extra parameters can be passed from trigger()
     type EventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => any;
 
@@ -7108,10 +7127,15 @@ $( "#checkMetaKey" ).click(function( event ) {
         TData,
         TCurrentTarget,
         TTarget,
-        TType extends keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>,
+        TType extends keyof NamespacedTypeToTriggeredEventMap<
+            TDelegateTarget,
+            TData,
+            TCurrentTarget,
+            TTarget
+        >,
     > = EventHandlerBase<
         TCurrentTarget,
-        TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]
+        NamespacedTypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]
     >;
 
     interface TypeEventHandlers<
@@ -7135,7 +7159,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TCurrentTarget,
         TTarget,
     > = {
-        [TType in keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>]?:
+        [TType in keyof NamespacedTypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>]?:
             | TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType>
             | false
             | object;

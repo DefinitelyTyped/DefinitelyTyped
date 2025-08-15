@@ -5133,6 +5133,29 @@ function JQuery() {
                         }
                     });
             }
+
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/69610
+            function discussion_69610() {
+                $("table").on("click", function(event) {
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                });
+
+                $("table").on("click.namespace", function(event) {
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                });
+
+                $("table").on("click.namespace.namespace2", function(event) {
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                });
+
+                $("table").on("unknown.namespace", function(event) {
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                });
+            }
         }
 
         function one() {
