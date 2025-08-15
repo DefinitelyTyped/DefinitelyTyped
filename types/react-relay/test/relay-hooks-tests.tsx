@@ -18,6 +18,7 @@ import {
     useLazyLoadQuery,
     useMutation,
     usePaginationFragment,
+    usePrefetchableForwardPaginationFragment,
     usePreloadedQuery,
     useQueryLoader,
     useRefetchableFragment,
@@ -623,6 +624,221 @@ function PaginationFragment_WithNonNullUserProp() {
         );
     };
 }
+
+/**
+ * Tests for usePrefetchableForwardPaginationFragment
+ * see https://relay.dev/docs/v19.0.0/api-reference/use-prefetchable-forward-pagination-fragment/
+ */
+function PrefetchableForwardPaginationFragment() {
+    interface FeedPaginationQueryVariables {
+        count?: number | undefined;
+        cursor?: string | undefined;
+        id: string;
+    }
+
+    interface FeedPaginationQueryResponse {
+        readonly node: {
+            readonly " $fragmentSpreads": FragmentRefs<"FeedComponent_user">;
+        };
+    }
+
+    interface FeedPaginationQuery {
+        readonly response: FeedPaginationQueryResponse;
+        readonly variables: FeedPaginationQueryVariables;
+    }
+
+    interface FeedComponent_user {
+        readonly name: string;
+        readonly posts: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly id: string;
+                    readonly title: string;
+                    readonly content: string;
+                };
+            }>;
+        };
+        readonly id: string;
+        readonly " $fragmentType": "FeedComponent_user";
+    }
+
+    type FeedComponent_user$data = FeedComponent_user;
+
+    interface FeedComponent_user$key {
+        readonly " $data"?: FeedComponent_user$data | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"FeedComponent_user">;
+    }
+
+    type EdgeData = ReadonlyArray<{
+        readonly node: {
+            readonly id: string;
+            readonly title: string;
+            readonly content: string;
+        };
+    }>;
+
+    interface Props {
+        user: FeedComponent_user$key | null | undefined;
+    }
+
+    return function FeedList(props: Props) {
+        const { data, loadNext, hasNext, isLoadingNext, refetch, edges } = usePrefetchableForwardPaginationFragment<
+            FeedPaginationQuery,
+            FeedComponent_user$key,
+            EdgeData
+        >(
+            graphql`
+          fragment FeedComponent_user on User @refetchable(queryName: "FeedPaginationQuery") {
+            name
+            posts(first: $count, after: $cursor) @connection(key: "FeedList_user_posts") {
+              edges {
+                node {
+                  id
+                  title
+                  content
+                }
+              }
+            }
+          }
+        `,
+            props.user,
+            10, // bufferSize
+            5, // initialSize
+            {
+                onComplete: (error) => {
+                    if (error) {
+                        console.error("Prefetch failed:", error);
+                    } else {
+                        console.log("Prefetch completed successfully");
+                    }
+                },
+            },
+            3, // minimalFetchSize
+            false, // disablePrefetching
+        );
+
+        return (
+            <>
+                <h1>Posts by {data!.name}:</h1>
+
+                {edges.map(({ node }) => (
+                    <div key={node.id}>
+                        <h2>{node.title}</h2>
+                        <p>{node.content}</p>
+                    </div>
+                ))}
+
+                {hasNext && (
+                    <button onClick={() => loadNext(5)} disabled={isLoadingNext}>
+                        {isLoadingNext ? "Loading..." : "Load more posts"}
+                    </button>
+                )}
+
+                <button onClick={() => refetch({ count: 10 }, { fetchPolicy: "store-or-network" })}>
+                    Refresh feed
+                </button>
+            </>
+        );
+    };
+}
+
+function PrefetchableForwardPaginationFragment_WithNonNullUserProp() {
+    interface FeedPaginationQueryVariables {
+        count?: number | undefined;
+        cursor?: string | undefined;
+        id: string;
+    }
+
+    interface FeedPaginationQueryResponse {
+        readonly node: {
+            readonly " $fragmentSpreads": FragmentRefs<"FeedComponent_user">;
+        };
+    }
+
+    interface FeedPaginationQuery {
+        readonly response: FeedPaginationQueryResponse;
+        readonly variables: FeedPaginationQueryVariables;
+    }
+
+    interface FeedComponent_user {
+        readonly name: string;
+        readonly posts: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly id: string;
+                    readonly title: string;
+                    readonly content: string;
+                };
+            }>;
+        };
+        readonly id: string;
+        readonly " $fragmentType": "FeedComponent_user";
+    }
+
+    type FeedComponent_user$data = FeedComponent_user;
+
+    interface FeedComponent_user$key {
+        readonly " $data"?: FeedComponent_user$data | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"FeedComponent_user">;
+    }
+
+    type EdgeData = ReadonlyArray<{
+        readonly node: {
+            readonly id: string;
+            readonly title: string;
+            readonly content: string;
+        };
+    }>;
+
+    interface Props {
+        user: FeedComponent_user$key;
+    }
+
+    return function FeedList(props: Props) {
+        const { data, loadNext, hasNext, isLoadingNext, refetch, edges } = usePrefetchableForwardPaginationFragment<
+            FeedPaginationQuery,
+            FeedComponent_user$key,
+            EdgeData
+        >(
+            graphql`
+          fragment FeedComponent_user on User @refetchable(queryName: "FeedPaginationQuery") {
+            name
+            posts(first: $count, after: $cursor) @connection(key: "FeedList_user_posts") {
+              edges {
+                node {
+                  id
+                  title
+                  content
+                }
+              }
+            }
+          }
+        `,
+            props.user,
+            15, // bufferSize - only required parameter besides fragment and fragmentRef
+        );
+
+        return (
+            <>
+                <h1>Posts by {data.name}:</h1>
+
+                {edges.map(({ node }) => (
+                    <div key={node.id}>
+                        <h2>{node.title}</h2>
+                        <p>{node.content}</p>
+                    </div>
+                ))}
+
+                {hasNext && (
+                    <button onClick={() => loadNext(5)} disabled={isLoadingNext}>
+                        {isLoadingNext ? "Loading..." : "Load more posts"}
+                    </button>
+                )}
+            </>
+        );
+    };
+}
+
 
 /**
  * Tests for useMutation
