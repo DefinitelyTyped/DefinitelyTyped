@@ -15,12 +15,8 @@
     },
     "owners": [
         {
-            "name": "Nikita Domin",
-            "githubUsername": "ndomin"
-        },
-        {
-            "name": "Tim Chien",
-            "githubUsername": "gchien"
+            "name": "Apple",
+            "githubUsername": "apple"
         }
     ]
 }
