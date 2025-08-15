@@ -9,7 +9,6 @@
         "https://docs.catchpoint.com/docs/playwright-scripting-guide"
     ],
     "devDependencies": {
-        "@playwright/test": "*",
         "@types/catchpoint-playwright": "workspace:."
     },
     "owners": [
