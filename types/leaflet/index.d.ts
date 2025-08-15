@@ -280,10 +280,6 @@ export interface LeafletEvent {
     target: any;
     sourceTarget: any;
     propagatedFrom: any;
-    /**
-     * @deprecated The same as {@link LeafletEvent.propagatedFrom propagatedFrom}.
-     */
-    layer: any;
 }
 
 export interface LeafletMouseEvent extends LeafletEvent {
