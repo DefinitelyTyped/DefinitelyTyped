@@ -222,6 +222,16 @@ function assertNever(value: never) {
         },
     });
 
+    const depthSensingSession2 = await navigator.xr!.requestSession("immersive-ar", {
+        requiredFeatures: ["depth-sensing"],
+        depthSensing: {
+            usagePreference: ["cpu-optimized", "gpu-optimized"],
+            dataFormatPreference: ["luminance-alpha", "float32"],
+            depthTypeRequest: ["raw", "smooth"],
+            matchDepthView: false
+        },
+    });
+
     function requestAnimationFrameCallback(t: number, frame: XRFrame) {
         session.requestAnimationFrame(requestAnimationFrameCallback);
 
@@ -232,6 +242,16 @@ function assertNever(value: never) {
                 if (depthInformation) {
                     useCpuDepthInformation(view, depthInformation);
                 }
+            }
+        }
+
+        if (session.depthActive) {
+            console.log("Depth type:", session.depthType);
+            if (session.pauseDepthSensing) {
+                session.pauseDepthSensing();
+            }
+            if (session.resumeDepthSensing) {
+                session.resumeDepthSensing();
             }
         }
     }
