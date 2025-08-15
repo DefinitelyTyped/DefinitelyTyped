@@ -1205,6 +1205,8 @@ type XRDepthType = "raw" | "smooth";
 interface XRDepthStateInit {
     usagePreference: XRDepthUsage[];
     dataFormatPreference: XRDepthDataFormat[];
+    depthTypeRequest?: XRDepthType[] | undefined;
+    matchDepthView?: boolean | undefined;
 }
 
 interface XRSessionInit {
@@ -1217,8 +1219,8 @@ interface XRSession {
     readonly depthType?: XRDepthType | undefined;
     readonly depthActive?: boolean | undefined;
 
-    pauseDepthSensing?: () => void;
-    resumeDepthSensing?: () => void;
+    pauseDepthSensing?: (() => void) | undefined;
+    resumeDepthSensing?: (() => void) | undefined;
 }
 
 interface XRDepthInformation {
