@@ -441,6 +441,20 @@ Attached text file`,
     };
 }
 
+// xMailer
+
+function message_xmailer_false_test() {
+    const message: Mail.Options = {
+        xMailer: false,
+    };
+}
+
+function message_xmailer_string_test() {
+    const message: Mail.Options = {
+        xMailer: "foobar",
+    };
+}
+
 // 4. SMTP transport
 
 // Single connection
