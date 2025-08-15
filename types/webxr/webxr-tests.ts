@@ -228,7 +228,7 @@ function assertNever(value: never) {
             usagePreference: ["cpu-optimized", "gpu-optimized"],
             dataFormatPreference: ["luminance-alpha", "float32"],
             depthTypeRequest: ["raw", "smooth"],
-            matchDepthView: false
+            matchDepthView: false,
         },
     });
 
