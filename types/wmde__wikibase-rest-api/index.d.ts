@@ -4,15 +4,18 @@
  */
 
 export interface paths {
-    "/v1/openapi.json": {
+    "/v0/search/items": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Retrieve the OpenAPI document */
-        get: operations["getOpenApiDoc"];
+        /**
+         * [WIP] Simple Item search by label and aliases
+         * @description This endpoint is currently in development and is not recommended for production use
+         */
+        get: operations["simpleItemSearch"];
         put?: never;
         post?: never;
         delete?: never;
@@ -21,15 +24,18 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/property-data-types": {
+    "/v0/search/properties": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Retrieve the map of Property data types to value types */
-        get: operations["getPropertyDataTypes"];
+        /**
+         * [WIP] Simple Property search by label and aliases
+         * @description This endpoint is currently in development and is not recommended for production use
+         */
+        get: operations["simplePropertySearch"];
         put?: never;
         post?: never;
         delete?: never;
@@ -73,6 +79,156 @@ export interface paths {
         patch: operations["patchItem"];
         trace?: never;
     };
+    "/v1/entities/items/{item_id}/aliases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's aliases */
+        get: operations["getItemAliases"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change an Item's aliases */
+        patch: operations["patchItemAliases"];
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/aliases/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's aliases in a specific language */
+        get: operations["getItemAliasesInLanguage"];
+        put?: never;
+        /** Create / Add an Item's aliases in a specific language */
+        post: operations["addItemAliasesInLanguage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/descriptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's descriptions */
+        get: operations["getItemDescriptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change an Item's descriptions */
+        patch: operations["patchItemDescriptions"];
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/descriptions_with_language_fallback/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Item's description in a specific language, with language fallback
+         * @description If a description is defined in the requested language, the API responds with a 200 status code and includes the description in the response payload. If a description only exists in a fallback language, the API returns a 307 status code and provides the location of the description.
+         */
+        get: operations["getItemDescriptionWithFallback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/descriptions/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's description in a specific language */
+        get: operations["getItemDescription"];
+        /** Add / Replace an Item's description in a specific language */
+        put: operations["replaceItemDescription"];
+        post?: never;
+        /** Delete an Item's description in a specific language */
+        delete: operations["deleteItemDescription"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/labels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's labels */
+        get: operations["getItemLabels"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change an Item's Labels */
+        patch: operations["patchItemLabels"];
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/labels_with_language_fallback/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Item's label in a specific language, with language fallback
+         * @description If a label is defined in the requested language, the API responds with a 200 status code and includes the label in the response payload. If a label only exists in a fallback language, the API returns a 307 status code and provides the location of the label.
+         */
+        get: operations["getItemLabelWithFallback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/items/{item_id}/labels/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve an Item's label in a specific language */
+        get: operations["getItemLabel"];
+        /** Add / Replace an Item's label in a specific language */
+        put: operations["replaceItemLabel"];
+        post?: never;
+        /** Delete an Item's label in a specific language */
+        delete: operations["deleteItemLabel"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/entities/items/{item_id}/sitelinks": {
         parameters: {
             query?: never;
@@ -105,155 +261,6 @@ export interface paths {
         post?: never;
         /** Delete an Item's Sitelink */
         delete: operations["deleteSitelink"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Create a Wikibase Property */
-        post: operations["addProperty"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a single Wikibase Property by ID */
-        get: operations["getProperty"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Change a single Wikibase Property by ID */
-        patch: operations["patchProperty"];
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/descriptions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve an Item's descriptions */
-        get: operations["getItemDescriptions"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Change an Item's descriptions */
-        patch: operations["patchItemDescriptions"];
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/descriptions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a Property's descriptions */
-        get: operations["getPropertyDescriptions"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Change a Property's descriptions */
-        patch: operations["patchPropertyDescriptions"];
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/descriptions/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve an Item's description in a specific language */
-        get: operations["getItemDescription"];
-        /** Add / Replace an Item's description in a specific language */
-        put: operations["replaceItemDescription"];
-        post?: never;
-        /** Delete an Item's description in a specific language */
-        delete: operations["deleteItemDescription"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/descriptions_with_language_fallback/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Retrieve an Item's description in a specific language, with language fallback
-         * @description If a description is defined in the requested language, the API responds with a 200 status code and includes the description in the response payload. If a description only exists in a fallback language, the API returns a 307 status code and provides the location of the description.
-         */
-        get: operations["getItemDescriptionWithFallback"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/descriptions/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a Property's description in a specific language */
-        get: operations["getPropertyDescription"];
-        /** Add / Replace a Property's description in a specific language */
-        put: operations["setPropertyDescription"];
-        post?: never;
-        /** Delete a Property's description in a specific language */
-        delete: operations["deletePropertyDescription"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/descriptions_with_language_fallback/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Retrieve a Property's description in a specific language, with language fallback
-         * @description If a description is defined in the requested language, the API responds with a 200 status code and includes the description in the response payload. If a description only exists in a fallback language, the API returns a 307 status code and provides the location of the description.
-         */
-        get: operations["getPropertyDescriptionWithFallback"];
-        put?: never;
-        post?: never;
-        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -309,22 +316,132 @@ export interface paths {
         patch: operations["patchItemStatement"];
         trace?: never;
     };
-    "/v1/entities/items/{item_id}/labels": {
+    "/v1/entities/properties": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Retrieve an Item's labels */
-        get: operations["getItemLabels"];
+        get?: never;
+        put?: never;
+        /** Create a Wikibase Property */
+        post: operations["addProperty"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve a single Wikibase Property by ID */
+        get: operations["getProperty"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        /** Change an Item's Labels */
-        patch: operations["patchItemLabels"];
+        /** Change a single Wikibase Property by ID */
+        patch: operations["patchProperty"];
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}/aliases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve a Property's aliases */
+        get: operations["getPropertyAliases"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change a Property's aliases */
+        patch: operations["patchPropertyAliases"];
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}/aliases/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve a Property's aliases in a specific language */
+        get: operations["getPropertyAliasesInLanguage"];
+        put?: never;
+        /** Create / Add a Property's aliases in a specific language */
+        post: operations["addPropertyAliasesInLanguage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}/descriptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve a Property's descriptions */
+        get: operations["getPropertyDescriptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change a Property's descriptions */
+        patch: operations["patchPropertyDescriptions"];
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}/descriptions_with_language_fallback/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve a Property's description in a specific language, with language fallback
+         * @description If a description is defined in the requested language, the API responds with a 200 status code and includes the description in the response payload. If a description only exists in a fallback language, the API returns a 307 status code and provides the location of the description.
+         */
+        get: operations["getPropertyDescriptionWithFallback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/entities/properties/{property_id}/descriptions/{language_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve a Property's description in a specific language */
+        get: operations["getPropertyDescription"];
+        /** Add / Replace a Property's description in a specific language */
+        put: operations["setPropertyDescription"];
+        post?: never;
+        /** Delete a Property's description in a specific language */
+        delete: operations["deletePropertyDescription"];
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/v1/entities/properties/{property_id}/labels": {
@@ -343,64 +460,6 @@ export interface paths {
         head?: never;
         /** Change a Property's Labels */
         patch: operations["patchPropertyLabels"];
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/labels/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve an Item's label in a specific language */
-        get: operations["getItemLabel"];
-        /** Add / Replace an Item's label in a specific language */
-        put: operations["replaceItemLabel"];
-        post?: never;
-        /** Delete an Item's label in a specific language */
-        delete: operations["deleteItemLabel"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/labels_with_language_fallback/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Retrieve an Item's label in a specific language, with language fallback
-         * @description If a label is defined in the requested language, the API responds with a 200 status code and includes the label in the response payload. If a label only exists in a fallback language, the API returns a 307 status code and provides the location of the label.
-         */
-        get: operations["getItemLabelWithFallback"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/labels/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a Property's label in a specific language */
-        get: operations["getPropertyLabel"];
-        /** Add / Replace a Property's label in a specific language */
-        put: operations["replacePropertyLabel"];
-        post?: never;
-        /** Delete a Property's label in a specific language */
-        delete: operations["deletePropertyLabel"];
-        options?: never;
-        head?: never;
-        patch?: never;
         trace?: never;
     };
     "/v1/entities/properties/{property_id}/labels_with_language_fallback/{language_code}": {
@@ -423,73 +482,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/entities/items/{item_id}/aliases": {
+    "/v1/entities/properties/{property_id}/labels/{language_code}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Retrieve an Item's aliases */
-        get: operations["getItemAliases"];
-        put?: never;
+        /** Retrieve a Property's label in a specific language */
+        get: operations["getPropertyLabel"];
+        /** Add / Replace a Property's label in a specific language */
+        put: operations["replacePropertyLabel"];
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Change an Item's aliases */
-        patch: operations["patchItemAliases"];
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/aliases": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a Property's aliases */
-        get: operations["getPropertyAliases"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Change a Property's aliases */
-        patch: operations["patchPropertyAliases"];
-        trace?: never;
-    };
-    "/v1/entities/items/{item_id}/aliases/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve an Item's aliases in a specific language */
-        get: operations["getItemAliasesInLanguage"];
-        put?: never;
-        /** Create / Add an Item's aliases in a specific language */
-        post: operations["addItemAliasesInLanguage"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/entities/properties/{property_id}/aliases/{language_code}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Retrieve a Property's aliases in a specific language */
-        get: operations["getPropertyAliasesInLanguage"];
-        put?: never;
-        /** Create / Add a Property's aliases in a specific language */
-        post: operations["addPropertyAliasesInLanguage"];
-        delete?: never;
+        /** Delete a Property's label in a specific language */
+        delete: operations["deletePropertyLabel"];
         options?: never;
         head?: never;
         patch?: never;
@@ -545,6 +551,40 @@ export interface paths {
         patch: operations["patchPropertyStatement"];
         trace?: never;
     };
+    "/v1/openapi.json": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve the OpenAPI document */
+        get: operations["getOpenApiDoc"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/property-data-types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Retrieve the map of Property data types to value types */
+        get: operations["getPropertyDataTypes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/statements/{statement_id}": {
         parameters: {
             query?: never;
@@ -577,169 +617,31 @@ export interface paths {
         patch: operations["patchStatement"];
         trace?: never;
     };
-    "/v0/search/items": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * [WIP] Simple Item search by label and aliases
-         * @description This endpoint is currently in development and is not recommended for production use
-         */
-        get: operations["simpleItemSearch"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/search/properties": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * [WIP] Simple Property search by label and aliases
-         * @description This endpoint is currently in development and is not recommended for production use
-         */
-        get: operations["simplePropertySearch"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        Labels: {
-            [key: string]: string;
+        Aliases: {
+            [key: string]: string[];
         };
         Descriptions: {
             [key: string]: string;
         };
-        Aliases: {
-            [key: string]: string[];
-        };
-        Sitelink: {
-            title: string;
-            badges?: string[];
-            readonly url?: string;
-        };
-        Reference: {
-            /** @description Hash of the Reference */
-            readonly hash?: string;
-            parts?: {
-                property?: {
-                    /** @description The ID of the Property */
-                    id?: string;
-                    /** @description The data type of the Property */
-                    readonly data_type?: string | null;
-                };
-                value?: {
-                    /** @description The value, if type == "value", otherwise omitted */
-                    content?: unknown;
-                    /**
-                     * @description The value type
-                     * @enum {string}
-                     */
-                    type?: "value" | "somevalue" | "novalue";
-                };
-            }[];
-        };
-        Statement: {
-            /** @description The globally unique identifier for this Statement */
-            readonly id?: string;
-            /**
-             * @description The rank of the Statement
-             * @default normal
-             * @enum {string}
-             */
-            rank: "deprecated" | "normal" | "preferred";
-        } & {
-            property?: {
-                /** @description The ID of the Property */
-                id?: string;
-                /** @description The data type of the Property */
-                readonly data_type?: string | null;
-            };
-            value?: {
-                /** @description The value, if type == "value", otherwise omitted */
-                content?: unknown;
-                /**
-                 * @description The value type
-                 * @enum {string}
-                 */
-                type?: "value" | "somevalue" | "novalue";
-            };
-        } & {
-            /** @default [] */
-            qualifiers: {
-                property?: {
-                    /** @description The ID of the Property */
-                    id?: string;
-                    /** @description The data type of the Property */
-                    readonly data_type?: string | null;
-                };
-                value?: {
-                    /** @description The value, if type == "value", otherwise omitted */
-                    content?: unknown;
-                    /**
-                     * @description The value type
-                     * @enum {string}
-                     */
-                    type?: "value" | "somevalue" | "novalue";
-                };
-            }[];
-            /** @default [] */
-            references: {
-                /** @description Hash of the Reference */
-                readonly hash?: string;
-                parts?: {
-                    property?: {
-                        /** @description The ID of the Property */
-                        id?: string;
-                        /** @description The data type of the Property */
-                        readonly data_type?: string | null;
-                    };
-                    value?: {
-                        /** @description The value, if type == "value", otherwise omitted */
-                        content?: unknown;
-                        /**
-                         * @description The value type
-                         * @enum {string}
-                         */
-                        type?: "value" | "somevalue" | "novalue";
-                    };
-                }[];
-            }[];
-        };
         Item: {
-            readonly id?: string;
-            /** @constant */
-            readonly type?: "item";
-            labels?: {
-                [key: string]: string;
+            aliases?: {
+                [key: string]: string[];
             };
             descriptions?: {
                 [key: string]: string;
             };
-            aliases?: {
-                [key: string]: string[];
+            readonly id?: string;
+            labels?: {
+                [key: string]: string;
             };
             sitelinks?: {
                 [key: string]: {
-                    title: string;
                     badges?: string[];
+                    title: string;
                     readonly url?: string;
                 };
             };
@@ -750,42 +652,39 @@ export interface components {
                     /**
                      * @description The rank of the Statement
                      * @default normal
-                     * @enum {string}
                      */
-                    rank: "deprecated" | "normal" | "preferred";
+                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                 } & {
                     property?: {
-                        /** @description The ID of the Property */
-                        id?: string;
                         /** @description The data type of the Property */
                         readonly data_type?: string | null;
+                        /** @description The ID of the Property */
+                        id?: string;
                     };
                     value?: {
                         /** @description The value, if type == "value", otherwise omitted */
                         content?: unknown;
                         /**
                          * @description The value type
-                         * @enum {string}
                          */
-                        type?: "value" | "somevalue" | "novalue";
+                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                     };
                 } & {
                     /** @default [] */
                     qualifiers: {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     }[];
                     /** @default [] */
@@ -794,38 +693,40 @@ export interface components {
                         readonly hash?: string;
                         parts?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                     }[];
                 })[];
             };
+            /** @constant */
+            readonly type?: "item";
+        };
+        Labels: {
+            [key: string]: string;
         };
         Property: {
-            readonly id?: string;
-            /** @constant */
-            readonly type?: "property";
-            data_type: string;
-            labels?: {
-                [key: string]: string;
+            aliases?: {
+                [key: string]: string[];
             };
+            data_type: string;
             descriptions?: {
                 [key: string]: string;
             };
-            aliases?: {
-                [key: string]: string[];
+            readonly id?: string;
+            labels?: {
+                [key: string]: string;
             };
             statements?: {
                 [key: string]: ({
@@ -834,42 +735,39 @@ export interface components {
                     /**
                      * @description The rank of the Statement
                      * @default normal
-                     * @enum {string}
                      */
-                    rank: "deprecated" | "normal" | "preferred";
+                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                 } & {
                     property?: {
-                        /** @description The ID of the Property */
-                        id?: string;
                         /** @description The data type of the Property */
                         readonly data_type?: string | null;
+                        /** @description The ID of the Property */
+                        id?: string;
                     };
                     value?: {
                         /** @description The value, if type == "value", otherwise omitted */
                         content?: unknown;
                         /**
                          * @description The value type
-                         * @enum {string}
                          */
-                        type?: "value" | "somevalue" | "novalue";
+                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                     };
                 } & {
                     /** @default [] */
                     qualifiers: {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     }[];
                     /** @default [] */
@@ -878,44 +776,755 @@ export interface components {
                         readonly hash?: string;
                         parts?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                     }[];
                 })[];
             };
+            /** @constant */
+            readonly type?: "property";
         };
         Qualifier: {
             property?: {
-                /** @description The ID of the Property */
-                id?: string;
                 /** @description The data type of the Property */
                 readonly data_type?: string | null;
+                /** @description The ID of the Property */
+                id?: string;
             };
             value?: {
                 /** @description The value, if type == "value", otherwise omitted */
                 content?: unknown;
                 /**
                  * @description The value type
-                 * @enum {string}
                  */
-                type?: "value" | "somevalue" | "novalue";
+                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
             };
+        };
+        Reference: {
+            /** @description Hash of the Reference */
+            readonly hash?: string;
+            parts?: {
+                property?: {
+                    /** @description The data type of the Property */
+                    readonly data_type?: string | null;
+                    /** @description The ID of the Property */
+                    id?: string;
+                };
+                value?: {
+                    /** @description The value, if type == "value", otherwise omitted */
+                    content?: unknown;
+                    /**
+                     * @description The value type
+                     */
+                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                };
+            }[];
+        };
+        Sitelink: {
+            badges?: string[];
+            title: string;
+            readonly url?: string;
+        };
+        Statement: {
+            /** @description The globally unique identifier for this Statement */
+            readonly id?: string;
+            /**
+             * @description The rank of the Statement
+             * @default normal
+             */
+            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+        } & {
+            property?: {
+                /** @description The data type of the Property */
+                readonly data_type?: string | null;
+                /** @description The ID of the Property */
+                id?: string;
+            };
+            value?: {
+                /** @description The value, if type == "value", otherwise omitted */
+                content?: unknown;
+                /**
+                 * @description The value type
+                 */
+                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+            };
+        } & {
+            /** @default [] */
+            qualifiers: {
+                property?: {
+                    /** @description The data type of the Property */
+                    readonly data_type?: string | null;
+                    /** @description The ID of the Property */
+                    id?: string;
+                };
+                value?: {
+                    /** @description The value, if type == "value", otherwise omitted */
+                    content?: unknown;
+                    /**
+                     * @description The value type
+                     */
+                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                };
+            }[];
+            /** @default [] */
+            references: {
+                /** @description Hash of the Reference */
+                readonly hash?: string;
+                parts?: {
+                    property?: {
+                        /** @description The data type of the Property */
+                        readonly data_type?: string | null;
+                        /** @description The ID of the Property */
+                        id?: string;
+                    };
+                    value?: {
+                        /** @description The value, if type == "value", otherwise omitted */
+                        content?: unknown;
+                        /**
+                         * @description The value type
+                         */
+                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                    };
+                }[];
+            }[];
         };
     };
     responses: {
+        /** @description The request cannot be processed */
+        BadRequest: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch cannot be applied */
+        CannotApplyItemPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch cannot be applied */
+        CannotApplyPropertyPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch cannot be applied */
+        CannotApplyStatementPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The edit request violates data policy */
+        DataPolicyViolation: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The description was deleted */
+        DescriptionDeleted: {
+            headers: {
+                /** @description Language code of the language in which response is provided */
+                "Content-Language": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example Description deleted */
+                "application/json": string;
+            };
+        };
+        /** @description A description in a fallback language exists at the indicated location */
+        DescriptionMovedTemporarily: {
+            headers: {
+                /** @description The URL to which the requested resource has been moved */
+                Location: string;
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        /** @description The request cannot be processed */
+        InvalidAddAliasesInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidEntityIdInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidGetItemInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidGetPropertyInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidGetSitelinkInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch is invalid */
+        InvalidItemStatementPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidNewItemInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidNewPropertyInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidNewStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch request is invalid */
+        InvalidPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in invalid Aliases */
+        InvalidPatchedAliases: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in invalid descriptions */
+        InvalidPatchedDescriptions: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in an invalid Property */
+        InvalidPatchedItem: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in invalid Sitelinks */
+        InvalidPatchedItemSitelinks: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in invalid Labels */
+        InvalidPatchedLabels: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in an invalid Property */
+        InvalidPatchedProperty: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description Applying the provided JSON Patch results in an invalid Statement */
+        InvalidPatchedStatement: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The provided JSON Patch is invalid */
+        InvalidPropertyStatementPatch: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemoveDescriptionInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemoveItemStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemoveLabelInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemovePropertyStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemoveSitelinkInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRemoveStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidReplaceItemStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidReplacePropertyStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidReplaceStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRetrieveItemStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRetrievePropertyStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRetrieveStatementInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidRetrieveStatementsInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidSetDescriptionInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidSetLabelInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidSetSitelinkInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description The request cannot be processed */
+        InvalidTermByLanguageInput: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
         /** @description A single Wikibase Item */
         Item: {
             headers: {
@@ -1047,22 +1656,20 @@ export interface components {
                  *       }
                  *     } */
                 "application/json": {
-                    readonly id?: string;
-                    /** @constant */
-                    readonly type?: "item";
-                    labels?: {
-                        [key: string]: string;
+                    aliases?: {
+                        [key: string]: string[];
                     };
                     descriptions?: {
                         [key: string]: string;
                     };
-                    aliases?: {
-                        [key: string]: string[];
+                    readonly id?: string;
+                    labels?: {
+                        [key: string]: string;
                     };
                     sitelinks?: {
                         [key: string]: {
-                            title: string;
                             badges?: string[];
+                            title: string;
                             readonly url?: string;
                         };
                     };
@@ -1073,42 +1680,39 @@ export interface components {
                             /**
                              * @description The rank of the Statement
                              * @default normal
-                             * @enum {string}
                              */
-                            rank: "deprecated" | "normal" | "preferred";
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                         } & {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         } & {
                             /** @default [] */
                             qualifiers: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                             /** @default [] */
@@ -1117,24 +1721,25 @@ export interface components {
                                 readonly hash?: string;
                                 parts?: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                             }[];
                         })[];
                     };
+                    /** @constant */
+                    readonly type?: "item";
                 } & {
                     sitelinks: {
                         [key: string]: unknown;
@@ -1145,187 +1750,8 @@ export interface components {
                 };
             };
         };
-        /** @description The request cannot be processed */
-        InvalidNewItemInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The access to resource was denied */
-        PermissionDenied: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The edit request violates data policy */
-        DataPolicyViolation: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Too many requests */
-        RequestLimitReached: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description An unexpected error has occurred */
-        UnexpectedError: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "code": "unexpected-error",
-                 *       "message": "Unexpected Error"
-                 *     } */
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The specified resource has not been modified since last provided revision number or date */
-        NotModified: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                [name: string]: unknown;
-            };
-            content?: never;
-        };
-        /** @description The specified resource has permanently moved to the indicated location */
-        MovedPermanently: {
-            headers: {
-                /** @description The URL to which the requested resource has been moved */
-                Location: string;
-                [name: string]: unknown;
-            };
-            content?: never;
-        };
-        /** @description The request cannot be processed */
-        InvalidGetItemInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The specified resource was not found */
-        ResourceNotFound: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The condition defined by a conditional request header is not fulfilled */
-        PreconditionFailedError: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content?: never;
-        };
-        /** @description The provided JSON Patch request is invalid */
-        InvalidPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The provided JSON Patch cannot be applied */
-        CannotApplyItemPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in an invalid Property */
-        InvalidPatchedItem: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description A list of Sitelinks by Item id */
-        Sitelinks: {
+        /** @description Item's aliases by language */
+        ItemAliases: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
@@ -1337,58 +1763,21 @@ export interface components {
             };
             content: {
                 /** @example {
-                 *       "enwiki": {
-                 *         "title": "Jane Doe",
-                 *         "badges": [],
-                 *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                 *       },
-                 *       "ruwiki": {
-                 *         "title": "Джейн Доу",
-                 *         "badges": [],
-                 *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
-                 *       }
+                 *       "en": [
+                 *         "Jane M. Doe",
+                 *         "JD"
+                 *       ],
+                 *       "ru": [
+                 *         "Джейн М. Доу"
+                 *       ]
                  *     } */
                 "application/json": {
-                    [key: string]: {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
+                    [key: string]: string[];
                 };
             };
         };
-        /** @description The request cannot be processed */
-        InvalidEntityIdInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in invalid Sitelinks */
-        InvalidPatchedItemSitelinks: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description A Sitelink by Item id */
-        Sitelink: {
+        /** @description Item's aliases in a specific language */
+        ItemAliasesInLanguage: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
@@ -1399,293 +1788,27 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
-                 *       "title": "Jane Doe",
-                 *       "badges": [],
-                 *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                 *     } */
-                "application/json": {
-                    title: string;
-                    badges?: string[];
-                    readonly url?: string;
-                };
+                /** @example [
+                 *       "Jane M. Doe",
+                 *       "JD"
+                 *     ] */
+                "application/json": string[];
             };
         };
-        /** @description The request cannot be processed */
-        InvalidGetSitelinkInput: {
+        /** @description Item's description in a specific language */
+        ItemDescription: {
             headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidSetSitelinkInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The specified Item was redirected */
-        ItemRedirected: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The resource was deleted */
-        SitelinkDeleted: {
-            headers: {
-                /** @description Language code of the language in which response is provided */
-                "Content-Language": string;
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
                 /** @description Optional username of the user making the request */
                 "X-Authenticated-User"?: string;
                 [name: string]: unknown;
             };
             content: {
-                /** @example Sitelink deleted */
+                /** @example famous person */
                 "application/json": string;
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRemoveSitelinkInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description A single Wikibase Property */
-        Property: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "id": "P694",
-                 *       "type": "property",
-                 *       "data_type": "wikibase-item",
-                 *       "labels": {
-                 *         "en": "instance of",
-                 *         "ru": "это частный случай понятия"
-                 *       },
-                 *       "descriptions": {
-                 *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                 *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
-                 *       },
-                 *       "aliases": {
-                 *         "en": [
-                 *           "is a",
-                 *           "is an"
-                 *         ],
-                 *         "ru": [
-                 *           "представляет собой",
-                 *           "является"
-                 *         ]
-                 *       },
-                 *       "statements": {
-                 *         "P1628": [
-                 *           {
-                 *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                 *             "rank": "normal",
-                 *             "property": {
-                 *               "id": "P1628",
-                 *               "data_type": "url"
-                 *             },
-                 *             "value": {
-                 *               "type": "value",
-                 *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *             },
-                 *             "qualifiers": [],
-                 *             "references": []
-                 *           }
-                 *         ]
-                 *       }
-                 *     } */
-                "application/json": {
-                    readonly id?: string;
-                    /** @constant */
-                    readonly type?: "property";
-                    data_type: string;
-                    labels?: {
-                        [key: string]: string;
-                    };
-                    descriptions?: {
-                        [key: string]: string;
-                    };
-                    aliases?: {
-                        [key: string]: string[];
-                    };
-                    statements?: {
-                        [key: string]: ({
-                            /** @description The globally unique identifier for this Statement */
-                            readonly id?: string;
-                            /**
-                             * @description The rank of the Statement
-                             * @default normal
-                             * @enum {string}
-                             */
-                            rank: "deprecated" | "normal" | "preferred";
-                        } & {
-                            property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
-                                /**
-                                 * @description The value type
-                                 * @enum {string}
-                                 */
-                                type?: "value" | "somevalue" | "novalue";
-                            };
-                        } & {
-                            /** @default [] */
-                            qualifiers: {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            }[];
-                            /** @default [] */
-                            references: {
-                                /** @description Hash of the Reference */
-                                readonly hash?: string;
-                                parts?: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                            }[];
-                        })[];
-                    };
-                } & {
-                    statements: {
-                        [key: string]: unknown;
-                    };
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidNewPropertyInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidGetPropertyInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The provided JSON Patch cannot be applied */
-        CannotApplyPropertyPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in an invalid Property */
-        InvalidPatchedProperty: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
             };
         };
         /** @description Item's descriptions by language */
@@ -1709,23 +1832,24 @@ export interface components {
                 };
             };
         };
-        /** @description Applying the provided JSON Patch results in invalid descriptions */
-        InvalidPatchedDescriptions: {
+        /** @description A label in a specific language */
+        ItemLabel: {
             headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
                 [name: string]: unknown;
             };
             content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
+                /** @example Jane Doe */
+                "application/json": string;
             };
         };
-        /** @description Property's descriptions by language */
-        PropertyDescriptions: {
+        /** @description Item's labels by language */
+        ItemLabels: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
@@ -1737,16 +1861,31 @@ export interface components {
             };
             content: {
                 /** @example {
-                 *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                 *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                 *       "en": "Jane Doe",
+                 *       "ru": "Джейн Доу"
                  *     } */
                 "application/json": {
                     [key: string]: string;
                 };
             };
         };
-        /** @description Item's description in a specific language */
-        ItemDescription: {
+        /** @description The specified Item was redirected */
+        ItemRedirected: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
+            };
+        };
+        /** @description A Wikibase Statement. Please note that the value of the `ETag` header field refers to the Item's revision ID. */
+        ItemStatement: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
@@ -1757,92 +1896,120 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example famous person */
-                "application/json": string;
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidTermByLanguageInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidSetDescriptionInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The description was deleted */
-        DescriptionDeleted: {
-            headers: {
-                /** @description Language code of the language in which response is provided */
-                "Content-Language": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example Description deleted */
-                "application/json": string;
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRemoveDescriptionInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description A description in a fallback language exists at the indicated location */
-        DescriptionMovedTemporarily: {
-            headers: {
-                /** @description The URL to which the requested resource has been moved */
-                Location: string;
-                [name: string]: unknown;
-            };
-            content?: never;
-        };
-        /** @description Property's description in a specific language */
-        PropertyDescription: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example the subject is a concrete object (instance) of this class, category, or object group */
-                "application/json": string;
+                /** @example {
+                 *       "id": "Q24$9966A1CA-F3F5-4B1D-A534-7CD5953169DA",
+                 *       "rank": "normal",
+                 *       "property": {
+                 *         "id": "P17",
+                 *         "data_type": "string"
+                 *       },
+                 *       "value": {
+                 *         "type": "value",
+                 *         "content": "Senior Team Supervisor"
+                 *       },
+                 *       "qualifiers": [
+                 *         {
+                 *           "property": {
+                 *             "id": "P706",
+                 *             "data_type": "time"
+                 *           },
+                 *           "value": {
+                 *             "type": "value",
+                 *             "content": {
+                 *               "time": "+2023-06-13T00:00:00Z",
+                 *               "precision": 11,
+                 *               "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                 *             }
+                 *           }
+                 *         }
+                 *       ],
+                 *       "references": [
+                 *         {
+                 *           "hash": "7ccd777f870b71a4c5056c7fd2a83a22cc39be6d",
+                 *           "parts": [
+                 *             {
+                 *               "property": {
+                 *                 "id": "P709",
+                 *                 "data_type": "url"
+                 *               },
+                 *               "value": {
+                 *                 "type": "value",
+                 *                 "content": "https://news.example.org"
+                 *               }
+                 *             }
+                 *           ]
+                 *         }
+                 *       ]
+                 *     } */
+                "application/json": ({
+                    /** @description The globally unique identifier for this Statement */
+                    readonly id?: string;
+                    /**
+                     * @description The rank of the Statement
+                     * @default normal
+                     */
+                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                } & {
+                    property?: {
+                        /** @description The data type of the Property */
+                        readonly data_type?: string | null;
+                        /** @description The ID of the Property */
+                        id?: string;
+                    };
+                    value?: {
+                        /** @description The value, if type == "value", otherwise omitted */
+                        content?: unknown;
+                        /**
+                         * @description The value type
+                         */
+                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                    };
+                } & {
+                    /** @default [] */
+                    qualifiers: {
+                        property?: {
+                            /** @description The data type of the Property */
+                            readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
+                        };
+                        value?: {
+                            /** @description The value, if type == "value", otherwise omitted */
+                            content?: unknown;
+                            /**
+                             * @description The value type
+                             */
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                        };
+                    }[];
+                    /** @default [] */
+                    references: {
+                        /** @description Hash of the Reference */
+                        readonly hash?: string;
+                        parts?: {
+                            property?: {
+                                /** @description The data type of the Property */
+                                readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
+                            };
+                            value?: {
+                                /** @description The value, if type == "value", otherwise omitted */
+                                content?: unknown;
+                                /**
+                                 * @description The value type
+                                 */
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                            };
+                        }[];
+                    }[];
+                }) & ({
+                    property: unknown;
+                    value: unknown;
+                } & {
+                    qualifiers: unknown;
+                    references: unknown;
+                });
             };
         };
         /** @description The Statements of an Item */
@@ -1949,42 +2116,39 @@ export interface components {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -1993,19 +2157,18 @@ export interface components {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -2016,360 +2179,6 @@ export interface components {
                         qualifiers: unknown;
                         references: unknown;
                     }))[];
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRetrieveStatementsInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidNewStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description A Wikibase Statement. Please note that the value of the `ETag` header field refers to the Item's revision ID. */
-        ItemStatement: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "id": "Q24$9966A1CA-F3F5-4B1D-A534-7CD5953169DA",
-                 *       "rank": "normal",
-                 *       "property": {
-                 *         "id": "P17",
-                 *         "data_type": "string"
-                 *       },
-                 *       "value": {
-                 *         "type": "value",
-                 *         "content": "Senior Team Supervisor"
-                 *       },
-                 *       "qualifiers": [
-                 *         {
-                 *           "property": {
-                 *             "id": "P706",
-                 *             "data_type": "time"
-                 *           },
-                 *           "value": {
-                 *             "type": "value",
-                 *             "content": {
-                 *               "time": "+2023-06-13T00:00:00Z",
-                 *               "precision": 11,
-                 *               "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-                 *             }
-                 *           }
-                 *         }
-                 *       ],
-                 *       "references": [
-                 *         {
-                 *           "hash": "7ccd777f870b71a4c5056c7fd2a83a22cc39be6d",
-                 *           "parts": [
-                 *             {
-                 *               "property": {
-                 *                 "id": "P709",
-                 *                 "data_type": "url"
-                 *               },
-                 *               "value": {
-                 *                 "type": "value",
-                 *                 "content": "https://news.example.org"
-                 *               }
-                 *             }
-                 *           ]
-                 *         }
-                 *       ]
-                 *     } */
-                "application/json": ({
-                    /** @description The globally unique identifier for this Statement */
-                    readonly id?: string;
-                    /**
-                     * @description The rank of the Statement
-                     * @default normal
-                     * @enum {string}
-                     */
-                    rank: "deprecated" | "normal" | "preferred";
-                } & {
-                    property?: {
-                        /** @description The ID of the Property */
-                        id?: string;
-                        /** @description The data type of the Property */
-                        readonly data_type?: string | null;
-                    };
-                    value?: {
-                        /** @description The value, if type == "value", otherwise omitted */
-                        content?: unknown;
-                        /**
-                         * @description The value type
-                         * @enum {string}
-                         */
-                        type?: "value" | "somevalue" | "novalue";
-                    };
-                } & {
-                    /** @default [] */
-                    qualifiers: {
-                        property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
-                            /**
-                             * @description The value type
-                             * @enum {string}
-                             */
-                            type?: "value" | "somevalue" | "novalue";
-                        };
-                    }[];
-                    /** @default [] */
-                    references: {
-                        /** @description Hash of the Reference */
-                        readonly hash?: string;
-                        parts?: {
-                            property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
-                                /**
-                                 * @description The value type
-                                 * @enum {string}
-                                 */
-                                type?: "value" | "somevalue" | "novalue";
-                            };
-                        }[];
-                    }[];
-                }) & ({
-                    property: unknown;
-                    value: unknown;
-                } & {
-                    qualifiers: unknown;
-                    references: unknown;
-                });
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRetrieveItemStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidReplaceItemStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The requested Statement was deleted */
-        StatementDeleted: {
-            headers: {
-                /** @description Language code of the language in which response is provided */
-                "Content-Language": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example Statement deleted */
-                "application/json": string;
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRemoveItemStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The provided JSON Patch is invalid */
-        InvalidItemStatementPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The provided JSON Patch cannot be applied */
-        CannotApplyStatementPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in an invalid Statement */
-        InvalidPatchedStatement: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Item's labels by language */
-        ItemLabels: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "en": "Jane Doe",
-                 *       "ru": "Джейн Доу"
-                 *     } */
-                "application/json": {
-                    [key: string]: string;
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in invalid Labels */
-        InvalidPatchedLabels: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description Property's labels by language */
-        PropertyLabels: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "en": "instance of",
-                 *       "ru": "это частный случай понятия"
-                 *     } */
-                "application/json": {
-                    [key: string]: string;
-                };
-            };
-        };
-        /** @description A label in a specific language */
-        ItemLabel: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example Jane Doe */
-                "application/json": string;
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidSetLabelInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
                 };
             };
         };
@@ -2387,21 +2196,6 @@ export interface components {
                 "application/json": string;
             };
         };
-        /** @description The request cannot be processed */
-        InvalidRemoveLabelInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
         /** @description A label in a fallback language exists at the indicated location */
         LabelMovedTemporarily: {
             headers: {
@@ -2411,24 +2205,48 @@ export interface components {
             };
             content?: never;
         };
-        /** @description A label in a specific language */
-        PropertyLabel: {
+        /** @description The specified resource has permanently moved to the indicated location */
+        MovedPermanently: {
+            headers: {
+                /** @description The URL to which the requested resource has been moved */
+                Location: string;
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        /** @description The specified resource has not been modified since last provided revision number or date */
+        NotModified: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        /** @description The access to resource was denied */
+        PermissionDenied: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
                 [name: string]: unknown;
             };
             content: {
-                /** @example instance of */
-                "application/json": string;
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
+                };
             };
         };
-        /** @description Item's aliases by language */
-        ItemAliases: {
+        /** @description The condition defined by a conditional request header is not fulfilled */
+        PreconditionFailedError: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        /** @description A single Wikibase Property */
+        Property: {
             headers: {
                 /** @description Last entity revision number */
                 ETag: string;
@@ -2440,31 +2258,129 @@ export interface components {
             };
             content: {
                 /** @example {
-                 *       "en": [
-                 *         "Jane M. Doe",
-                 *         "JD"
-                 *       ],
-                 *       "ru": [
-                 *         "Джейн М. Доу"
-                 *       ]
+                 *       "id": "P694",
+                 *       "type": "property",
+                 *       "data_type": "wikibase-item",
+                 *       "labels": {
+                 *         "en": "instance of",
+                 *         "ru": "это частный случай понятия"
+                 *       },
+                 *       "descriptions": {
+                 *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
+                 *       },
+                 *       "aliases": {
+                 *         "en": [
+                 *           "is a",
+                 *           "is an"
+                 *         ],
+                 *         "ru": [
+                 *           "представляет собой",
+                 *           "является"
+                 *         ]
+                 *       },
+                 *       "statements": {
+                 *         "P1628": [
+                 *           {
+                 *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                 *             "rank": "normal",
+                 *             "property": {
+                 *               "id": "P1628",
+                 *               "data_type": "url"
+                 *             },
+                 *             "value": {
+                 *               "type": "value",
+                 *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *             },
+                 *             "qualifiers": [],
+                 *             "references": []
+                 *           }
+                 *         ]
+                 *       }
                  *     } */
                 "application/json": {
-                    [key: string]: string[];
-                };
-            };
-        };
-        /** @description Applying the provided JSON Patch results in invalid Aliases */
-        InvalidPatchedAliases: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
+                    aliases?: {
+                        [key: string]: string[];
+                    };
+                    data_type: string;
+                    descriptions?: {
+                        [key: string]: string;
+                    };
+                    readonly id?: string;
+                    labels?: {
+                        [key: string]: string;
+                    };
+                    statements?: {
+                        [key: string]: ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
+                            /**
+                             * @description The rank of the Statement
+                             * @default normal
+                             */
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
+                            property?: {
+                                /** @description The data type of the Property */
+                                readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
+                            };
+                            value?: {
+                                /** @description The value, if type == "value", otherwise omitted */
+                                content?: unknown;
+                                /**
+                                 * @description The value type
+                                 */
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                            };
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            }[];
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })[];
+                    };
+                    /** @constant */
+                    readonly type?: "property";
+                } & {
+                    statements: {
+                        [key: string]: unknown;
+                    };
                 };
             };
         };
@@ -2495,40 +2411,6 @@ export interface components {
                 };
             };
         };
-        /** @description Item's aliases in a specific language */
-        ItemAliasesInLanguage: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example [
-                 *       "Jane M. Doe",
-                 *       "JD"
-                 *     ] */
-                "application/json": string[];
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidAddAliasesInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
         /** @description Property's aliases in a specific language */
         PropertyAliasesInLanguage: {
             headers: {
@@ -2546,6 +2428,177 @@ export interface components {
                  *       "is an"
                  *     ] */
                 "application/json": string[];
+            };
+        };
+        /** @description Property's description in a specific language */
+        PropertyDescription: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                "application/json": string;
+            };
+        };
+        /** @description Property's descriptions by language */
+        PropertyDescriptions: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                 *     } */
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        /** @description A label in a specific language */
+        PropertyLabel: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example instance of */
+                "application/json": string;
+            };
+        };
+        /** @description Property's labels by language */
+        PropertyLabels: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "en": "instance of",
+                 *       "ru": "это частный случай понятия"
+                 *     } */
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        /** @description A Wikibase Statement. Please note that the value of the `ETag` header field refers to the Property's revision ID. */
+        PropertyStatement: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                 *       "rank": "normal",
+                 *       "property": {
+                 *         "id": "P1628",
+                 *         "data_type": "url"
+                 *       },
+                 *       "value": {
+                 *         "type": "value",
+                 *         "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *       },
+                 *       "qualifiers": [],
+                 *       "references": []
+                 *     } */
+                "application/json": ({
+                    /** @description The globally unique identifier for this Statement */
+                    readonly id?: string;
+                    /**
+                     * @description The rank of the Statement
+                     * @default normal
+                     */
+                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                } & {
+                    property?: {
+                        /** @description The data type of the Property */
+                        readonly data_type?: string | null;
+                        /** @description The ID of the Property */
+                        id?: string;
+                    };
+                    value?: {
+                        /** @description The value, if type == "value", otherwise omitted */
+                        content?: unknown;
+                        /**
+                         * @description The value type
+                         */
+                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                    };
+                } & {
+                    /** @default [] */
+                    qualifiers: {
+                        property?: {
+                            /** @description The data type of the Property */
+                            readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
+                        };
+                        value?: {
+                            /** @description The value, if type == "value", otherwise omitted */
+                            content?: unknown;
+                            /**
+                             * @description The value type
+                             */
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                        };
+                    }[];
+                    /** @default [] */
+                    references: {
+                        /** @description Hash of the Reference */
+                        readonly hash?: string;
+                        parts?: {
+                            property?: {
+                                /** @description The data type of the Property */
+                                readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
+                            };
+                            value?: {
+                                /** @description The value, if type == "value", otherwise omitted */
+                                content?: unknown;
+                                /**
+                                 * @description The value type
+                                 */
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                            };
+                        }[];
+                    }[];
+                }) & ({
+                    property: unknown;
+                    value: unknown;
+                } & {
+                    qualifiers: unknown;
+                    references: unknown;
+                });
             };
         };
         /** @description The Statements of a Property */
@@ -2585,42 +2638,39 @@ export interface components {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -2629,19 +2679,18 @@ export interface components {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -2655,109 +2704,8 @@ export interface components {
                 };
             };
         };
-        /** @description A Wikibase Statement. Please note that the value of the `ETag` header field refers to the Property's revision ID. */
-        PropertyStatement: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                 *       "rank": "normal",
-                 *       "property": {
-                 *         "id": "P1628",
-                 *         "data_type": "url"
-                 *       },
-                 *       "value": {
-                 *         "type": "value",
-                 *         "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *       },
-                 *       "qualifiers": [],
-                 *       "references": []
-                 *     } */
-                "application/json": ({
-                    /** @description The globally unique identifier for this Statement */
-                    readonly id?: string;
-                    /**
-                     * @description The rank of the Statement
-                     * @default normal
-                     * @enum {string}
-                     */
-                    rank: "deprecated" | "normal" | "preferred";
-                } & {
-                    property?: {
-                        /** @description The ID of the Property */
-                        id?: string;
-                        /** @description The data type of the Property */
-                        readonly data_type?: string | null;
-                    };
-                    value?: {
-                        /** @description The value, if type == "value", otherwise omitted */
-                        content?: unknown;
-                        /**
-                         * @description The value type
-                         * @enum {string}
-                         */
-                        type?: "value" | "somevalue" | "novalue";
-                    };
-                } & {
-                    /** @default [] */
-                    qualifiers: {
-                        property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
-                            /**
-                             * @description The value type
-                             * @enum {string}
-                             */
-                            type?: "value" | "somevalue" | "novalue";
-                        };
-                    }[];
-                    /** @default [] */
-                    references: {
-                        /** @description Hash of the Reference */
-                        readonly hash?: string;
-                        parts?: {
-                            property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
-                                /**
-                                 * @description The value type
-                                 * @enum {string}
-                                 */
-                                type?: "value" | "somevalue" | "novalue";
-                            };
-                        }[];
-                    }[];
-                }) & ({
-                    property: unknown;
-                    value: unknown;
-                } & {
-                    qualifiers: unknown;
-                    references: unknown;
-                });
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRetrievePropertyStatementInput: {
+        /** @description Too many requests */
+        RequestLimitReached: {
             headers: {
                 /** @description Language code of the language in which error message is provided */
                 "Content-Language": string;
@@ -2766,13 +2714,13 @@ export interface components {
             content: {
                 "application/json": {
                     code: string;
-                    message: string;
                     context?: Record<string, never>;
+                    message: string;
                 };
             };
         };
-        /** @description The request cannot be processed */
-        InvalidReplacePropertyStatementInput: {
+        /** @description The specified resource was not found */
+        ResourceNotFound: {
             headers: {
                 /** @description Language code of the language in which error message is provided */
                 "Content-Language": string;
@@ -2781,83 +2729,8 @@ export interface components {
             content: {
                 "application/json": {
                     code: string;
-                    message: string;
                     context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRemovePropertyStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
                     message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The provided JSON Patch is invalid */
-        InvalidPropertyStatementPatch: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRetrieveStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidReplaceStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        InvalidRemoveStatementInput: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
                 };
             };
         };
@@ -2905,36 +2778,21 @@ export interface components {
                  *     } */
                 "application/json": {
                     results: {
-                        id: string;
-                        "display-label": {
-                            language: string;
-                            value: string;
-                        } | null;
                         description: {
                             language: string;
                             value: string;
                         } | null;
+                        "display-label": {
+                            language: string;
+                            value: string;
+                        } | null;
+                        id: string;
                         match: {
-                            type: string;
                             language: string;
                             text: string;
+                            type: string;
                         };
                     }[];
-                };
-            };
-        };
-        /** @description The request cannot be processed */
-        BadRequest: {
-            headers: {
-                /** @description Language code of the language in which error message is provided */
-                "Content-Language": string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    code: string;
-                    message: string;
-                    context?: Record<string, never>;
                 };
             };
         };
@@ -2982,21 +2840,125 @@ export interface components {
                  *     } */
                 "application/json": {
                     results: {
-                        id: string;
-                        "display-label": {
-                            language: string;
-                            value: string;
-                        } | null;
                         description: {
                             language: string;
                             value: string;
                         } | null;
+                        "display-label": {
+                            language: string;
+                            value: string;
+                        } | null;
+                        id: string;
                         match: {
-                            type: string;
                             language: string;
                             text: string;
+                            type: string;
                         };
                     }[];
+                };
+            };
+        };
+        /** @description A Sitelink by Item id */
+        Sitelink: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "title": "Jane Doe",
+                 *       "badges": [],
+                 *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                 *     } */
+                "application/json": {
+                    badges?: string[];
+                    title: string;
+                    readonly url?: string;
+                };
+            };
+        };
+        /** @description The resource was deleted */
+        SitelinkDeleted: {
+            headers: {
+                /** @description Language code of the language in which response is provided */
+                "Content-Language": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example Sitelink deleted */
+                "application/json": string;
+            };
+        };
+        /** @description A list of Sitelinks by Item id */
+        Sitelinks: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "enwiki": {
+                 *         "title": "Jane Doe",
+                 *         "badges": [],
+                 *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                 *       },
+                 *       "ruwiki": {
+                 *         "title": "Джейн Доу",
+                 *         "badges": [],
+                 *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
+                 *       }
+                 *     } */
+                "application/json": {
+                    [key: string]: {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
+                };
+            };
+        };
+        /** @description The requested Statement was deleted */
+        StatementDeleted: {
+            headers: {
+                /** @description Language code of the language in which response is provided */
+                "Content-Language": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example Statement deleted */
+                "application/json": string;
+            };
+        };
+        /** @description An unexpected error has occurred */
+        UnexpectedError: {
+            headers: {
+                /** @description Language code of the language in which error message is provided */
+                "Content-Language": string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "code": "unexpected-error",
+                 *       "message": "Unexpected Error"
+                 *     } */
+                "application/json": {
+                    code: string;
+                    context?: Record<string, never>;
+                    message: string;
                 };
             };
         };
@@ -3008,12 +2970,17 @@ export interface components {
          */
         Authorization: string;
         /**
-         * @description The ID of the required Item
-         * @example Q24
+         * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+         * @example [
+         *       "\"1276705620\""
+         *     ]
          */
-        ItemId: string;
-        /** @description Comma-separated list of fields to include in each response object. */
-        ItemFields: ("type" | "labels" | "descriptions" | "aliases" | "statements" | "sitelinks")[];
+        IfMatch: string[];
+        /**
+         * @description Conditionally perform the request only if the resource has been modified after the specified date
+         * @example Sat, 06 Jun 2020 16:38:47 GMT
+         */
+        IfModifiedSince: string;
         /**
          * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
          * @example [
@@ -3022,66 +2989,27 @@ export interface components {
          */
         IfNoneMatch: string[];
         /**
-         * @description Conditionally perform the request only if the resource has been modified after the specified date
-         * @example Sat, 06 Jun 2020 16:38:47 GMT
-         */
-        IfModifiedSince: string;
-        /**
-         * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-         * @example [
-         *       "\"1276705620\""
-         *     ]
-         */
-        IfMatch: string[];
-        /**
          * @description Conditionally perform the request only if the resource has not been modified after the specified date
          * @example Sat, 06 Jun 2020 16:38:47 GMT
          */
         IfUnmodifiedSince: string;
-        /**
-         * @description The ID of the required Site
-         * @example enwiki
-         */
-        SiteId: string;
-        /**
-         * @description The ID of the required Property
-         * @example P694
-         */
-        PropertyId: string;
         /** @description Comma-separated list of fields to include in each response object. */
-        PropertyFields: ("type" | "data_type" | "labels" | "descriptions" | "aliases" | "statements")[];
+        ItemFields: PathsV1EntitiesItemsItem_idGetParametersQuery_fields[];
         /**
-         * @description The requested resource language
-         * @example en
+         * @description The ID of the required Item
+         * @example Q24
          */
-        LanguageCode: string;
-        /**
-         * @description Single Property ID to filter Statements by.
-         * @example P1628
-         */
-        PropertyFilter: string;
+        ItemId: string;
         /**
          * @description The ID of a Statement on an Item
          * @example Q24$9966A1CA-F3F5-4B1D-A534-7CD5953169DA
          */
         ItemStatementId: string;
         /**
-         * @description The ID of a Statement on a Property
-         * @example P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71
-         */
-        PropertyStatementId: string;
-        /**
-         * @description The ID of a Statement
-         * @example Q24$9966A1CA-F3F5-4B1D-A534-7CD5953169DA
-         */
-        StatementId: string;
-        /** @description The term to search labels by */
-        SearchQuery: string;
-        /**
-         * @description The language to search labels in
+         * @description The requested resource language
          * @example en
          */
-        SearchLanguage: string;
+        LanguageCode: string;
         /**
          * @description The number of items to show in the results
          * @example 20
@@ -3092,8 +3020,59 @@ export interface components {
          * @example 4
          */
         Offset: number;
+        /** @description Comma-separated list of fields to include in each response object. */
+        PropertyFields: PathsV1EntitiesPropertiesProperty_idGetParametersQuery_fields[];
+        /**
+         * @description Single Property ID to filter Statements by.
+         * @example P1628
+         */
+        PropertyFilter: string;
+        /**
+         * @description The ID of the required Property
+         * @example P694
+         */
+        PropertyId: string;
+        /**
+         * @description The ID of a Statement on a Property
+         * @example P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71
+         */
+        PropertyStatementId: string;
+        /**
+         * @description The language to search labels in
+         * @example en
+         */
+        SearchLanguage: string;
+        /** @description The term to search labels by */
+        SearchQuery: string;
+        /**
+         * @description The ID of the required Site
+         * @example enwiki
+         */
+        SiteId: string;
+        /**
+         * @description The ID of a Statement
+         * @example Q24$9966A1CA-F3F5-4B1D-A534-7CD5953169DA
+         */
+        StatementId: string;
     };
     requestBodies: {
+        /** @description Edit payload containing edit metadata */
+        Delete: {
+            content: {
+                /** @example {
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Example edit using the Wikibase REST API"
+                 *     } */
+                "application/json": {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
         /** @description Payload containing a Wikibase Item and edit metadata */
         Item: {
             content: {
@@ -3198,22 +3177,20 @@ export interface components {
                  *     } */
                 "application/json": {
                     item: {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "item";
-                        labels?: {
-                            [key: string]: string;
+                        aliases?: {
+                            [key: string]: string[];
                         };
                         descriptions?: {
                             [key: string]: string;
                         };
-                        aliases?: {
-                            [key: string]: string[];
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
                         };
                         sitelinks?: {
                             [key: string]: {
-                                title: string;
                                 badges?: string[];
+                                title: string;
                                 readonly url?: string;
                             };
                         };
@@ -3224,42 +3201,39 @@ export interface components {
                                 /**
                                  * @description The rank of the Statement
                                  * @default normal
-                                 * @enum {string}
                                  */
-                                rank?: "deprecated" | "normal" | "preferred";
+                                rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                             } & {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             } & {
                                 /** @default [] */
                                 qualifiers?: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -3268,424 +3242,52 @@ export interface components {
                                     readonly hash?: string;
                                     parts?: {
                                         property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
                                             /** @description The data type of the Property */
                                             readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
                                         };
                                         value?: {
                                             /** @description The value, if type == "value", otherwise omitted */
                                             content?: unknown;
                                             /**
                                              * @description The value type
-                                             * @enum {string}
                                              */
-                                            type?: "value" | "somevalue" | "novalue";
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
                             })[];
                         };
-                    };
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        PatchItem: {
-            content: {
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/labels/en",
-                 *           "value": "Jane Doe"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Update the English label"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/labels/en",
-                 *           "value": "Jane Doe"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Update the English label"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        PatchSitelinks: {
-            content: {
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/ruwiki/title",
-                 *           "value": "Джейн Доу"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Add sitelink to ruwiki"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/ruwiki/title",
-                 *           "value": "Джейн Доу"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Add sitelink to ruwiki"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        /** @description Payload containing a Wikibase Sitelink object and edit metadata */
-        Sitelink: {
-            content: {
-                /** @example {
-                 *       "sitelink": {
-                 *         "title": "Jane Doe",
-                 *         "badges": []
-                 *       },
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Add enwiki sitelink"
-                 *     } */
-                "application/json": {
-                    sitelink: {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        /** @description Edit payload containing edit metadata */
-        Delete: {
-            content: {
-                /** @example {
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Example edit using the Wikibase REST API"
-                 *     } */
-                "application/json": {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        /** @description Payload containing a Wikibase Property and edit metadata */
-        Property: {
-            content: {
-                /** @example {
-                 *       "property": {
-                 *         "data_type": "wikibase-item",
-                 *         "labels": {
-                 *           "en": "instance of",
-                 *           "ru": "это частный случай понятия"
-                 *         },
-                 *         "descriptions": {
-                 *           "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                 *           "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
-                 *         },
-                 *         "aliases": {
-                 *           "en": [
-                 *             "is a",
-                 *             "is an"
-                 *           ],
-                 *           "ru": [
-                 *             "представляет собой",
-                 *             "является"
-                 *           ]
-                 *         },
-                 *         "statements": {
-                 *           "P1628": [
-                 *             {
-                 *               "property": {
-                 *                 "id": "P1628"
-                 *               },
-                 *               "value": {
-                 *                 "type": "value",
-                 *                 "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *               }
-                 *             }
-                 *           ]
-                 *         }
-                 *       }
-                 *     } */
-                "application/json": {
-                    property: {
-                        readonly id?: string;
                         /** @constant */
-                        readonly type?: "property";
-                        data_type: string;
-                        labels?: {
-                            [key: string]: string;
-                        };
-                        descriptions?: {
-                            [key: string]: string;
-                        };
-                        aliases?: {
-                            [key: string]: string[];
-                        };
-                        statements?: {
-                            [key: string]: ({
-                                /** @description The globally unique identifier for this Statement */
-                                readonly id?: string;
-                                /**
-                                 * @description The rank of the Statement
-                                 * @default normal
-                                 * @enum {string}
-                                 */
-                                rank?: "deprecated" | "normal" | "preferred";
-                            } & {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            } & {
-                                /** @default [] */
-                                qualifiers?: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                                /** @default [] */
-                                references?: {
-                                    /** @description Hash of the Reference */
-                                    readonly hash?: string;
-                                    parts?: {
-                                        property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
-                                            /** @description The data type of the Property */
-                                            readonly data_type?: string | null;
-                                        };
-                                        value?: {
-                                            /** @description The value, if type == "value", otherwise omitted */
-                                            content?: unknown;
-                                            /**
-                                             * @description The value type
-                                             * @enum {string}
-                                             */
-                                            type?: "value" | "somevalue" | "novalue";
-                                        };
-                                    }[];
-                                }[];
-                            })[];
-                        };
+                        readonly type?: "item";
                     };
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
-        PatchProperty: {
+        /** @description Payload containing an Item label in the specified language and edit metadata */
+        ItemLabel: {
             content: {
                 /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/aliases/en/-",
-                 *           "value": "is an"
-                 *         }
-                 *       ],
+                 *       "label": "Jane Doe",
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "add 'is an' as an English alias"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/aliases/en/-",
-                 *           "value": "is an"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "add 'is an' as an English alias"
+                 *       "comment": "Update the English label"
                  *     } */
                 "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
+                    label: string;
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -3743,42 +3345,39 @@ export interface components {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -3787,19 +3386,18 @@ export interface components {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -3811,11 +3409,152 @@ export interface components {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        PatchItem: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/labels/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Update the English label"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/labels/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Update the English label"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
+        PatchItemLabels: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -3846,27 +3585,26 @@ export interface components {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -3892,100 +3630,96 @@ export interface components {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
-        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
-        PatchItemLabels: {
+        PatchProperty: {
             content: {
                 /** @example {
                  *       "patch": [
                  *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "Jane Doe"
+                 *           "op": "add",
+                 *           "path": "/aliases/en/-",
+                 *           "value": "is an"
                  *         }
                  *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "replace English label"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "Jane Doe"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "replace English label"
+                 *       "comment": "add 'is an' as an English alias"
                  *     } */
                 "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/aliases/en/-",
+                 *           "value": "is an"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "add 'is an' as an English alias"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -4004,27 +3738,26 @@ export interface components {
                  *       "bot": false,
                  *       "comment": "replace English label"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -4038,47 +3771,296 @@ export interface components {
                  *       "bot": false,
                  *       "comment": "replace English label"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
-        /** @description Payload containing an Item label in the specified language and edit metadata */
-        ItemLabel: {
+        /** @description Payload containing a JSON Patch document to be applied to the Statement and edit metadata */
+        PatchPropertyStatement: {
             content: {
                 /** @example {
-                 *       "label": "Jane Doe",
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/value/content",
+                 *           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *         }
+                 *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Update the English label"
+                 *       "comment": "Update value of the 'equivalent property' Statement"
                  *     } */
                 "application/json": {
-                    label: string;
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/value/content",
+                 *           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Update value of the 'equivalent property' Statement"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        PatchSitelinks: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/ruwiki/title",
+                 *           "value": "Джейн Доу"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Add sitelink to ruwiki"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/ruwiki/title",
+                 *           "value": "Джейн Доу"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Add sitelink to ruwiki"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        /** @description Payload containing a Wikibase Property and edit metadata */
+        Property: {
+            content: {
+                /** @example {
+                 *       "property": {
+                 *         "data_type": "wikibase-item",
+                 *         "labels": {
+                 *           "en": "instance of",
+                 *           "ru": "это частный случай понятия"
+                 *         },
+                 *         "descriptions": {
+                 *           "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *           "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                 *         },
+                 *         "aliases": {
+                 *           "en": [
+                 *             "is a",
+                 *             "is an"
+                 *           ],
+                 *           "ru": [
+                 *             "представляет собой",
+                 *             "является"
+                 *           ]
+                 *         },
+                 *         "statements": {
+                 *           "P1628": [
+                 *             {
+                 *               "property": {
+                 *                 "id": "P1628"
+                 *               },
+                 *               "value": {
+                 *                 "type": "value",
+                 *                 "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *               }
+                 *             }
+                 *           ]
+                 *         }
+                 *       }
+                 *     } */
+                "application/json": {
+                    property: {
+                        aliases?: {
+                            [key: string]: string[];
+                        };
+                        data_type: string;
+                        descriptions?: {
+                            [key: string]: string;
+                        };
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
+                        };
+                        statements?: {
+                            [key: string]: ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
+                                /**
+                                 * @description The rank of the Statement
+                                 * @default normal
+                                 */
+                                rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            } & {
+                                /** @default [] */
+                                qualifiers?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                                /** @default [] */
+                                references?: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })[];
+                        };
+                        /** @constant */
+                        readonly type?: "property";
+                    };
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -4094,11 +4076,11 @@ export interface components {
                 "application/json": {
                     label: string;
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -4126,42 +4108,39 @@ export interface components {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -4170,19 +4149,18 @@ export interface components {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -4194,84 +4172,38 @@ export interface components {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
-        /** @description Payload containing a JSON Patch document to be applied to the Statement and edit metadata */
-        PatchPropertyStatement: {
+        /** @description Payload containing a Wikibase Sitelink object and edit metadata */
+        Sitelink: {
             content: {
                 /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/value/content",
-                 *           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *         }
-                 *       ],
+                 *       "sitelink": {
+                 *         "title": "Jane Doe",
+                 *         "badges": []
+                 *       },
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Update value of the 'equivalent property' Statement"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/value/content",
-                 *           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Update value of the 'equivalent property' Statement"
+                 *       "comment": "Add enwiki sitelink"
                  *     } */
                 "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
+                    sitelink: {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -4281,55 +4213,219 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    getOpenApiDoc: {
+    simpleItemSearch: {
         parameters: {
-            query?: never;
+            query: {
+                /**
+                 * @description The language to search labels in
+                 * @example en
+                 */
+                language: string;
+                /**
+                 * @description The number of items to show in the results
+                 * @example 20
+                 */
+                limit?: number;
+                /**
+                 * @description The index to start showing results from
+                 * @example 4
+                 */
+                offset?: number;
+                /**
+                 * @description The term to search labels by
+                 * @example potato
+                 */
+                q: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OpenAPI document */
+            /** @description A list of search results */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     /** @example {
-                     *       "openapi": "...",
-                     *       "info": {
-                     *         "title": "Wikibase REST API",
-                     *         "version": "...",
-                     *         "description": "OpenAPI definition of Wikibase REST API"
-                     *       },
-                     *       "paths": "..."
+                     *       "results": [
+                     *         {
+                     *           "id": "Q123",
+                     *           "display-label": {
+                     *             "language": "en",
+                     *             "value": "potato"
+                     *           },
+                     *           "description": {
+                     *             "language": "en",
+                     *             "value": "staple food"
+                     *           },
+                     *           "match": {
+                     *             "type": "label",
+                     *             "language": "en",
+                     *             "text": "potato"
+                     *           }
+                     *         },
+                     *         {
+                     *           "id": "Q234",
+                     *           "display-label": {
+                     *             "language": "en",
+                     *             "value": "potato"
+                     *           },
+                     *           "description": {
+                     *             "language": "en",
+                     *             "value": "species of plant"
+                     *           },
+                     *           "match": {
+                     *             "type": "label",
+                     *             "language": "en",
+                     *             "text": "potato"
+                     *           }
+                     *         }
+                     *       ]
                      *     } */
-                    "application/json": Record<string, never>;
+                    "application/json": {
+                        results: {
+                            description: {
+                                language: string;
+                                value: string;
+                            } | null;
+                            "display-label": {
+                                language: string;
+                                value: string;
+                            } | null;
+                            id: string;
+                            match: {
+                                language: string;
+                                text: string;
+                                type: string;
+                            };
+                        }[];
+                    };
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
                 };
             };
         };
     };
-    getPropertyDataTypes: {
+    simplePropertySearch: {
         parameters: {
-            query?: never;
+            query: {
+                /**
+                 * @description The language to search labels in
+                 * @example en
+                 */
+                language: string;
+                /**
+                 * @description The number of items to show in the results
+                 * @example 20
+                 */
+                limit?: number;
+                /**
+                 * @description The index to start showing results from
+                 * @example 4
+                 */
+                offset?: number;
+                /**
+                 * @description The term to search labels by
+                 * @example taxon
+                 */
+                q: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description The map of Property data types to value types */
+            /** @description A list of search results */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     /** @example {
-                     *       "data-type": "value-type"
+                     *       "results": [
+                     *         {
+                     *           "id": "P123",
+                     *           "display-label": {
+                     *             "language": "en",
+                     *             "value": "taxon name"
+                     *           },
+                     *           "description": {
+                     *             "language": "en",
+                     *             "value": "scientific name of a taxon"
+                     *           },
+                     *           "match": {
+                     *             "type": "label",
+                     *             "language": "en",
+                     *             "text": "taxon"
+                     *           }
+                     *         },
+                     *         {
+                     *           "id": "P234",
+                     *           "display-label": {
+                     *             "language": "en",
+                     *             "value": "taxon rank"
+                     *           },
+                     *           "description": {
+                     *             "language": "en",
+                     *             "value": "level in a taxonomic hierarchy"
+                     *           },
+                     *           "match": {
+                     *             "type": "label",
+                     *             "language": "en",
+                     *             "text": "taxon"
+                     *           }
+                     *         }
+                     *       ]
                      *     } */
                     "application/json": {
-                        [key: string]: string;
+                        results: {
+                            description: {
+                                language: string;
+                                value: string;
+                            } | null;
+                            "display-label": {
+                                language: string;
+                                value: string;
+                            } | null;
+                            id: string;
+                            match: {
+                                language: string;
+                                text: string;
+                                type: string;
+                            };
+                        }[];
+                    };
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4452,22 +4548,20 @@ export interface operations {
                  *     } */
                 "application/json": {
                     item: {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "item";
-                        labels?: {
-                            [key: string]: string;
+                        aliases?: {
+                            [key: string]: string[];
                         };
                         descriptions?: {
                             [key: string]: string;
                         };
-                        aliases?: {
-                            [key: string]: string[];
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
                         };
                         sitelinks?: {
                             [key: string]: {
-                                title: string;
                                 badges?: string[];
+                                title: string;
                                 readonly url?: string;
                             };
                         };
@@ -4478,42 +4572,39 @@ export interface operations {
                                 /**
                                  * @description The rank of the Statement
                                  * @default normal
-                                 * @enum {string}
                                  */
-                                rank?: "deprecated" | "normal" | "preferred";
+                                rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                             } & {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             } & {
                                 /** @default [] */
                                 qualifiers?: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -4522,31 +4613,32 @@ export interface operations {
                                     readonly hash?: string;
                                     parts?: {
                                         property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
                                             /** @description The data type of the Property */
                                             readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
                                         };
                                         value?: {
                                             /** @description The value, if type == "value", otherwise omitted */
                                             content?: unknown;
                                             /**
                                              * @description The value type
-                                             * @enum {string}
                                              */
-                                            type?: "value" | "somevalue" | "novalue";
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
                             })[];
                         };
+                        /** @constant */
+                        readonly type?: "item";
                     };
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -4682,22 +4774,20 @@ export interface operations {
                      *       }
                      *     } */
                     "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "item";
-                        labels?: {
-                            [key: string]: string;
+                        aliases?: {
+                            [key: string]: string[];
                         };
                         descriptions?: {
                             [key: string]: string;
                         };
-                        aliases?: {
-                            [key: string]: string[];
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
                         };
                         sitelinks?: {
                             [key: string]: {
-                                title: string;
                                 badges?: string[];
+                                title: string;
                                 readonly url?: string;
                             };
                         };
@@ -4708,42 +4798,39 @@ export interface operations {
                                 /**
                                  * @description The rank of the Statement
                                  * @default normal
-                                 * @enum {string}
                                  */
-                                rank: "deprecated" | "normal" | "preferred";
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                             } & {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             } & {
                                 /** @default [] */
                                 qualifiers: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -4752,24 +4839,25 @@ export interface operations {
                                     readonly hash?: string;
                                     parts?: {
                                         property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
                                             /** @description The data type of the Property */
                                             readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
                                         };
                                         value?: {
                                             /** @description The value, if type == "value", otherwise omitted */
                                             content?: unknown;
                                             /**
                                              * @description The value type
-                                             * @enum {string}
                                              */
-                                            type?: "value" | "somevalue" | "novalue";
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
                             })[];
                         };
+                        /** @constant */
+                        readonly type?: "item";
                     } & {
                         sitelinks: {
                             [key: string]: unknown;
@@ -4790,8 +4878,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4805,8 +4893,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4820,8 +4908,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4835,8 +4923,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4854,8 +4942,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -4865,21 +4953,14 @@ export interface operations {
         parameters: {
             query?: {
                 /** @description Comma-separated list of fields to include in each response object. */
-                _fields?: ("type" | "labels" | "descriptions" | "aliases" | "statements" | "sitelinks")[];
+                _fields?: PathsV1EntitiesItemsItem_idGetParametersQuery_fields[];
             };
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -4888,15 +4969,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -5040,22 +5128,20 @@ export interface operations {
                      *       }
                      *     } */
                     "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "item";
-                        labels?: {
-                            [key: string]: string;
+                        aliases?: {
+                            [key: string]: string[];
                         };
                         descriptions?: {
                             [key: string]: string;
                         };
-                        aliases?: {
-                            [key: string]: string[];
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
                         };
                         sitelinks?: {
                             [key: string]: {
-                                title: string;
                                 badges?: string[];
+                                title: string;
                                 readonly url?: string;
                             };
                         };
@@ -5066,42 +5152,39 @@ export interface operations {
                                 /**
                                  * @description The rank of the Statement
                                  * @default normal
-                                 * @enum {string}
                                  */
-                                rank: "deprecated" | "normal" | "preferred";
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                             } & {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             } & {
                                 /** @default [] */
                                 qualifiers: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -5110,24 +5193,25 @@ export interface operations {
                                     readonly hash?: string;
                                     parts?: {
                                         property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
                                             /** @description The data type of the Property */
                                             readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
                                         };
                                         value?: {
                                             /** @description The value, if type == "value", otherwise omitted */
                                             content?: unknown;
                                             /**
                                              * @description The value type
-                                             * @enum {string}
                                              */
-                                            type?: "value" | "somevalue" | "novalue";
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
                             })[];
                         };
+                        /** @constant */
+                        readonly type?: "item";
                     } & {
                         sitelinks: {
                             [key: string]: unknown;
@@ -5166,8 +5250,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5181,8 +5265,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5207,8 +5291,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5261,27 +5345,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Update the English label"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -5295,27 +5378,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Update the English label"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -5451,22 +5533,20 @@ export interface operations {
                      *       }
                      *     } */
                     "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "item";
-                        labels?: {
-                            [key: string]: string;
+                        aliases?: {
+                            [key: string]: string[];
                         };
                         descriptions?: {
                             [key: string]: string;
                         };
-                        aliases?: {
-                            [key: string]: string[];
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
                         };
                         sitelinks?: {
                             [key: string]: {
-                                title: string;
                                 badges?: string[];
+                                title: string;
                                 readonly url?: string;
                             };
                         };
@@ -5477,42 +5557,39 @@ export interface operations {
                                 /**
                                  * @description The rank of the Statement
                                  * @default normal
-                                 * @enum {string}
                                  */
-                                rank: "deprecated" | "normal" | "preferred";
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                             } & {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             } & {
                                 /** @default [] */
                                 qualifiers: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -5521,24 +5598,25 @@ export interface operations {
                                     readonly hash?: string;
                                     parts?: {
                                         property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
                                             /** @description The data type of the Property */
                                             readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
                                         };
                                         value?: {
                                             /** @description The value, if type == "value", otherwise omitted */
                                             content?: unknown;
                                             /**
                                              * @description The value type
-                                             * @enum {string}
                                              */
-                                            type?: "value" | "somevalue" | "novalue";
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
                             })[];
                         };
+                        /** @constant */
+                        readonly type?: "item";
                     } & {
                         sitelinks: {
                             [key: string]: unknown;
@@ -5559,8 +5637,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5574,8 +5652,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5589,8 +5667,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5604,8 +5682,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5626,8 +5704,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5641,8 +5719,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5660,29 +5738,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    getSitelinks: {
+    getItemAliases: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -5691,15 +5762,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -5712,7 +5790,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description A list of Sitelinks by Item id */
+            /** @description Item's aliases by language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -5725,23 +5803,16 @@ export interface operations {
                 };
                 content: {
                     /** @example {
-                     *       "enwiki": {
-                     *         "title": "Jane Doe",
-                     *         "badges": [],
-                     *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                     *       },
-                     *       "ruwiki": {
-                     *         "title": "Джейн Доу",
-                     *         "badges": [],
-                     *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
-                     *       }
+                     *       "en": [
+                     *         "Jane M. Doe",
+                     *         "JD"
+                     *       ],
+                     *       "ru": [
+                     *         "Джейн М. Доу"
+                     *       ]
                      *     } */
                     "application/json": {
-                        [key: string]: {
-                            title: string;
-                            badges?: string[];
-                            readonly url?: string;
-                        };
+                        [key: string]: string[];
                     };
                 };
             };
@@ -5773,8 +5844,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5788,8 +5859,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5814,14 +5885,14 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    patchSitelinks: {
+    patchItemAliases: {
         parameters: {
             query?: never;
             header?: {
@@ -5854,80 +5925,79 @@ export interface operations {
             };
             cookie?: never;
         };
+        /** @description Payload containing a JSON Patch document to be applied to an Item's aliases and edit metadata */
         requestBody: {
             content: {
                 /** @example {
                  *       "patch": [
                  *         {
                  *           "op": "add",
-                 *           "path": "/ruwiki/title",
-                 *           "value": "Джейн Доу"
+                 *           "path": "/en/-",
+                 *           "value": "JD"
                  *         }
                  *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Add sitelink to ruwiki"
+                 *       "comment": "Add English alias"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
                  *         {
                  *           "op": "add",
-                 *           "path": "/ruwiki/title",
-                 *           "value": "Джейн Доу"
+                 *           "path": "/en/-",
+                 *           "value": "JD"
                  *         }
                  *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Add sitelink to ruwiki"
+                 *       "comment": "Add English alias"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
         responses: {
-            /** @description A list of Sitelinks by Item id */
+            /** @description Item's aliases by language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -5940,23 +6010,16 @@ export interface operations {
                 };
                 content: {
                     /** @example {
-                     *       "enwiki": {
-                     *         "title": "Jane Doe",
-                     *         "badges": [],
-                     *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                     *       },
-                     *       "ruwiki": {
-                     *         "title": "Джейн Доу",
-                     *         "badges": [],
-                     *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
-                     *       }
+                     *       "en": [
+                     *         "Jane M. Doe",
+                     *         "JD"
+                     *       ],
+                     *       "ru": [
+                     *         "Джейн М. Доу"
+                     *       ]
                      *     } */
                     "application/json": {
-                        [key: string]: {
-                            title: string;
-                            badges?: string[];
-                            readonly url?: string;
-                        };
+                        [key: string]: string[];
                     };
                 };
             };
@@ -5970,8 +6033,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -5985,8 +6048,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6000,8 +6063,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6015,8 +6078,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6027,7 +6090,7 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Applying the provided JSON Patch results in invalid Sitelinks */
+            /** @description Applying the provided JSON Patch results in invalid Aliases */
             422: {
                 headers: {
                     /** @description Language code of the language in which error message is provided */
@@ -6037,8 +6100,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6052,8 +6115,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6071,29 +6134,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    getSitelink: {
+    getItemAliasesInLanguage: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -6102,15 +6158,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -6119,16 +6182,16 @@ export interface operations {
                  */
                 item_id: string;
                 /**
-                 * @description The ID of the required Site
-                 * @example enwiki
+                 * @description The requested resource language
+                 * @example en
                  */
-                site_id: string;
+                language_code: string;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description A Sitelink by Item id */
+            /** @description Item's aliases in a specific language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -6140,16 +6203,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example {
-                     *       "title": "Jane Doe",
-                     *       "badges": [],
-                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                     *     } */
-                    "application/json": {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
+                    /** @example [
+                     *       "Jane M. Doe",
+                     *       "JD"
+                     *     ] */
+                    "application/json": string[];
                 };
             };
             /** @description The specified resource has not been modified since last provided revision number or date */
@@ -6180,8 +6238,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6195,8 +6253,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6221,29 +6279,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    setSitelink: {
+    addItemAliasesInLanguage: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -6252,15 +6303,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -6269,42 +6327,37 @@ export interface operations {
                  */
                 item_id: string;
                 /**
-                 * @description The ID of the required Site
-                 * @example enwiki
+                 * @description The requested resource language
+                 * @example en
                  */
-                site_id: string;
+                language_code: string;
             };
             cookie?: never;
         };
-        /** @description Payload containing a Wikibase Sitelink object and edit metadata */
+        /** @description Payload containing a list of Item aliases in the specified language and edit metadata */
         requestBody: {
             content: {
                 /** @example {
-                 *       "sitelink": {
-                 *         "title": "Jane Doe",
-                 *         "badges": []
-                 *       },
+                 *       "aliases": [
+                 *         "JD"
+                 *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Add enwiki sitelink"
+                 *       "comment": "Add English alias"
                  *     } */
                 "application/json": {
-                    sitelink: {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
+                    aliases: string[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
         responses: {
-            /** @description The updated Sitelink */
+            /** @description The updated list of aliases in a specific language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -6316,19 +6369,14 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example {
-                     *       "title": "Jane Doe",
-                     *       "badges": [],
-                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                     *     } */
-                    "application/json": {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
+                    /** @example [
+                     *       "Jane M. Doe",
+                     *       "JD"
+                     *     ] */
+                    "application/json": string[];
                 };
             };
-            /** @description The newly added Sitelink */
+            /** @description The newly created list of aliases in a specific language */
             201: {
                 headers: {
                     /** @description Last entity revision number */
@@ -6340,17 +6388,21 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example {
-                     *       "title": "Jane Doe",
-                     *       "badges": [],
-                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
-                     *     } */
-                    "application/json": {
-                        title: string;
-                        badges?: string[];
-                        readonly url?: string;
-                    };
+                    /** @example [
+                     *       "Jane M. Doe",
+                     *       "JD"
+                     *     ] */
+                    "application/json": string[];
                 };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description The request cannot be processed */
             400: {
@@ -6362,8 +6414,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6377,8 +6429,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6392,8 +6444,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6407,206 +6459,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The edit request violates data policy */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
                         message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    deleteSitelink: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The ID of the required Site
-                 * @example enwiki
-                 */
-                site_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Edit payload containing edit metadata */
-        requestBody?: {
-            content: {
-                /** @example {
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Example edit using the Wikibase REST API"
-                 *     } */
-                "application/json": {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The resource was deleted */
-            200: {
-                headers: {
-                    /** @description Language code of the language in which response is provided */
-                    "Content-Language": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Sitelink deleted */
-                    "application/json": string;
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
                     };
                 };
             };
@@ -6627,8 +6481,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -6646,988 +6500,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    addProperty: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Payload containing a Wikibase Property and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "property": {
-                 *         "data_type": "wikibase-item",
-                 *         "labels": {
-                 *           "en": "instance of",
-                 *           "ru": "это частный случай понятия"
-                 *         },
-                 *         "descriptions": {
-                 *           "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                 *           "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
-                 *         },
-                 *         "aliases": {
-                 *           "en": [
-                 *             "is a",
-                 *             "is an"
-                 *           ],
-                 *           "ru": [
-                 *             "представляет собой",
-                 *             "является"
-                 *           ]
-                 *         },
-                 *         "statements": {
-                 *           "P1628": [
-                 *             {
-                 *               "property": {
-                 *                 "id": "P1628"
-                 *               },
-                 *               "value": {
-                 *                 "type": "value",
-                 *                 "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *               }
-                 *             }
-                 *           ]
-                 *         }
-                 *       }
-                 *     } */
-                "application/json": {
-                    property: {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "property";
-                        data_type: string;
-                        labels?: {
-                            [key: string]: string;
-                        };
-                        descriptions?: {
-                            [key: string]: string;
-                        };
-                        aliases?: {
-                            [key: string]: string[];
-                        };
-                        statements?: {
-                            [key: string]: ({
-                                /** @description The globally unique identifier for this Statement */
-                                readonly id?: string;
-                                /**
-                                 * @description The rank of the Statement
-                                 * @default normal
-                                 * @enum {string}
-                                 */
-                                rank?: "deprecated" | "normal" | "preferred";
-                            } & {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            } & {
-                                /** @default [] */
-                                qualifiers?: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                                /** @default [] */
-                                references?: {
-                                    /** @description Hash of the Reference */
-                                    readonly hash?: string;
-                                    parts?: {
-                                        property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
-                                            /** @description The data type of the Property */
-                                            readonly data_type?: string | null;
-                                        };
-                                        value?: {
-                                            /** @description The value, if type == "value", otherwise omitted */
-                                            content?: unknown;
-                                            /**
-                                             * @description The value type
-                                             * @enum {string}
-                                             */
-                                            type?: "value" | "somevalue" | "novalue";
-                                        };
-                                    }[];
-                                }[];
-                            })[];
-                        };
-                    };
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description A single Wikibase Property */
-            201: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "id": "P694",
-                     *       "type": "property",
-                     *       "data_type": "wikibase-item",
-                     *       "labels": {
-                     *         "en": "instance of",
-                     *         "ru": "это частный случай понятия"
-                     *       },
-                     *       "descriptions": {
-                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
-                     *       },
-                     *       "aliases": {
-                     *         "en": [
-                     *           "is a",
-                     *           "is an"
-                     *         ],
-                     *         "ru": [
-                     *           "представляет собой",
-                     *           "является"
-                     *         ]
-                     *       },
-                     *       "statements": {
-                     *         "P1628": [
-                     *           {
-                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                     *             "rank": "normal",
-                     *             "property": {
-                     *               "id": "P1628",
-                     *               "data_type": "url"
-                     *             },
-                     *             "value": {
-                     *               "type": "value",
-                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                     *             },
-                     *             "qualifiers": [],
-                     *             "references": []
-                     *           }
-                     *         ]
-                     *       }
-                     *     } */
-                    "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "property";
-                        data_type: string;
-                        labels?: {
-                            [key: string]: string;
-                        };
-                        descriptions?: {
-                            [key: string]: string;
-                        };
-                        aliases?: {
-                            [key: string]: string[];
-                        };
-                        statements?: {
-                            [key: string]: ({
-                                /** @description The globally unique identifier for this Statement */
-                                readonly id?: string;
-                                /**
-                                 * @description The rank of the Statement
-                                 * @default normal
-                                 * @enum {string}
-                                 */
-                                rank: "deprecated" | "normal" | "preferred";
-                            } & {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            } & {
-                                /** @default [] */
-                                qualifiers: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                                /** @default [] */
-                                references: {
-                                    /** @description Hash of the Reference */
-                                    readonly hash?: string;
-                                    parts?: {
-                                        property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
-                                            /** @description The data type of the Property */
-                                            readonly data_type?: string | null;
-                                        };
-                                        value?: {
-                                            /** @description The value, if type == "value", otherwise omitted */
-                                            content?: unknown;
-                                            /**
-                                             * @description The value type
-                                             * @enum {string}
-                                             */
-                                            type?: "value" | "somevalue" | "novalue";
-                                        };
-                                    }[];
-                                }[];
-                            })[];
-                        };
-                    } & {
-                        statements: {
-                            [key: string]: unknown;
-                        };
-                    };
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
                         message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The edit request violates data policy */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getProperty: {
-        parameters: {
-            query?: {
-                /** @description Comma-separated list of fields to include in each response object. */
-                _fields?: ("type" | "data_type" | "labels" | "descriptions" | "aliases" | "statements")[];
-            };
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A single Wikibase Property */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "id": "P694",
-                     *       "type": "property",
-                     *       "data_type": "wikibase-item",
-                     *       "labels": {
-                     *         "en": "instance of",
-                     *         "ru": "это частный случай понятия"
-                     *       },
-                     *       "descriptions": {
-                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
-                     *       },
-                     *       "aliases": {
-                     *         "en": [
-                     *           "is a",
-                     *           "is an"
-                     *         ],
-                     *         "ru": [
-                     *           "представляет собой",
-                     *           "является"
-                     *         ]
-                     *       },
-                     *       "statements": {
-                     *         "P1628": [
-                     *           {
-                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                     *             "rank": "normal",
-                     *             "property": {
-                     *               "id": "P1628",
-                     *               "data_type": "url"
-                     *             },
-                     *             "value": {
-                     *               "type": "value",
-                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                     *             },
-                     *             "qualifiers": [],
-                     *             "references": []
-                     *           }
-                     *         ]
-                     *       }
-                     *     } */
-                    "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "property";
-                        data_type: string;
-                        labels?: {
-                            [key: string]: string;
-                        };
-                        descriptions?: {
-                            [key: string]: string;
-                        };
-                        aliases?: {
-                            [key: string]: string[];
-                        };
-                        statements?: {
-                            [key: string]: ({
-                                /** @description The globally unique identifier for this Statement */
-                                readonly id?: string;
-                                /**
-                                 * @description The rank of the Statement
-                                 * @default normal
-                                 * @enum {string}
-                                 */
-                                rank: "deprecated" | "normal" | "preferred";
-                            } & {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            } & {
-                                /** @default [] */
-                                qualifiers: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                                /** @default [] */
-                                references: {
-                                    /** @description Hash of the Reference */
-                                    readonly hash?: string;
-                                    parts?: {
-                                        property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
-                                            /** @description The data type of the Property */
-                                            readonly data_type?: string | null;
-                                        };
-                                        value?: {
-                                            /** @description The value, if type == "value", otherwise omitted */
-                                            content?: unknown;
-                                            /**
-                                             * @description The value type
-                                             * @enum {string}
-                                             */
-                                            type?: "value" | "somevalue" | "novalue";
-                                        };
-                                    }[];
-                                }[];
-                            })[];
-                        };
-                    } & {
-                        statements: {
-                            [key: string]: unknown;
-                        };
-                    };
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    patchProperty: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/aliases/en/-",
-                 *           "value": "is an"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "add 'is an' as an English alias"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/aliases/en/-",
-                 *           "value": "is an"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "add 'is an' as an English alias"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description A single Wikibase Property */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "id": "P694",
-                     *       "type": "property",
-                     *       "data_type": "wikibase-item",
-                     *       "labels": {
-                     *         "en": "instance of",
-                     *         "ru": "это частный случай понятия"
-                     *       },
-                     *       "descriptions": {
-                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
-                     *       },
-                     *       "aliases": {
-                     *         "en": [
-                     *           "is a",
-                     *           "is an"
-                     *         ],
-                     *         "ru": [
-                     *           "представляет собой",
-                     *           "является"
-                     *         ]
-                     *       },
-                     *       "statements": {
-                     *         "P1628": [
-                     *           {
-                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                     *             "rank": "normal",
-                     *             "property": {
-                     *               "id": "P1628",
-                     *               "data_type": "url"
-                     *             },
-                     *             "value": {
-                     *               "type": "value",
-                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                     *             },
-                     *             "qualifiers": [],
-                     *             "references": []
-                     *           }
-                     *         ]
-                     *       }
-                     *     } */
-                    "application/json": {
-                        readonly id?: string;
-                        /** @constant */
-                        readonly type?: "property";
-                        data_type: string;
-                        labels?: {
-                            [key: string]: string;
-                        };
-                        descriptions?: {
-                            [key: string]: string;
-                        };
-                        aliases?: {
-                            [key: string]: string[];
-                        };
-                        statements?: {
-                            [key: string]: ({
-                                /** @description The globally unique identifier for this Statement */
-                                readonly id?: string;
-                                /**
-                                 * @description The rank of the Statement
-                                 * @default normal
-                                 * @enum {string}
-                                 */
-                                rank: "deprecated" | "normal" | "preferred";
-                            } & {
-                                property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
-                                    /** @description The data type of the Property */
-                                    readonly data_type?: string | null;
-                                };
-                                value?: {
-                                    /** @description The value, if type == "value", otherwise omitted */
-                                    content?: unknown;
-                                    /**
-                                     * @description The value type
-                                     * @enum {string}
-                                     */
-                                    type?: "value" | "somevalue" | "novalue";
-                                };
-                            } & {
-                                /** @default [] */
-                                qualifiers: {
-                                    property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
-                                        /** @description The data type of the Property */
-                                        readonly data_type?: string | null;
-                                    };
-                                    value?: {
-                                        /** @description The value, if type == "value", otherwise omitted */
-                                        content?: unknown;
-                                        /**
-                                         * @description The value type
-                                         * @enum {string}
-                                         */
-                                        type?: "value" | "somevalue" | "novalue";
-                                    };
-                                }[];
-                                /** @default [] */
-                                references: {
-                                    /** @description Hash of the Reference */
-                                    readonly hash?: string;
-                                    parts?: {
-                                        property?: {
-                                            /** @description The ID of the Property */
-                                            id?: string;
-                                            /** @description The data type of the Property */
-                                            readonly data_type?: string | null;
-                                        };
-                                        value?: {
-                                            /** @description The value, if type == "value", otherwise omitted */
-                                            content?: unknown;
-                                            /**
-                                             * @description The value type
-                                             * @enum {string}
-                                             */
-                                            type?: "value" | "somevalue" | "novalue";
-                                        };
-                                    }[];
-                                }[];
-                            })[];
-                        };
-                    } & {
-                        statements: {
-                            [key: string]: unknown;
-                        };
-                    };
-                };
-            };
-            /** @description The provided JSON Patch request is invalid */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch cannot be applied */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Applying the provided JSON Patch results in an invalid Property */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
                     };
                 };
             };
@@ -7638,17 +6512,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -7657,15 +6524,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -7727,8 +6601,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7742,8 +6616,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7768,8 +6642,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7823,27 +6697,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "update English description"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -7857,27 +6730,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "update English description"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -7913,8 +6785,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7928,8 +6800,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7943,8 +6815,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7958,8 +6830,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7980,8 +6852,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -7995,8 +6867,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -8014,940 +6886,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getPropertyDescriptions: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Property's descriptions by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                     *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
                         message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    patchPropertyDescriptions: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing a JSON Patch document to be applied to a Property's descriptions and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "the subject is a concrete object (instance) of this class, category, or object group"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "update English description"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "the subject is a concrete object (instance) of this class, category, or object group"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "update English description"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Property's descriptions by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
-                     *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch request is invalid */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch cannot be applied */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Applying the provided JSON Patch results in invalid descriptions */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getItemDescription: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item's description in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example famous person */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    replaceItemDescription: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing Item description in the specified language and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "description": "famous person",
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "set English description"
-                 *     } */
-                "application/json": {
-                    description: string;
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The updated description */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example famous person */
-                    "application/json": string;
-                };
-            };
-            /** @description The newly added description */
-            201: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example famous person */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The edit request violates data policy */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    deleteItemDescription: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Edit payload containing edit metadata */
-        requestBody?: {
-            content: {
-                /** @example {
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Example edit using the Wikibase REST API"
-                 *     } */
-                "application/json": {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The description was deleted */
-            200: {
-                headers: {
-                    /** @description Language code of the language in which response is provided */
-                    "Content-Language": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Description deleted */
-                    "application/json": string;
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
                     };
                 };
             };
@@ -8958,17 +6898,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -8977,15 +6910,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -9056,8 +6996,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9071,8 +7011,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9097,29 +7037,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    getPropertyDescription: {
+    getItemDescription: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -9128,22 +7061,29 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
-                 * @description The ID of the required Property
-                 * @example P694
+                 * @description The ID of the required Item
+                 * @example Q24
                  */
-                property_id: string;
+                item_id: string;
                 /**
                  * @description The requested resource language
                  * @example en
@@ -9154,7 +7094,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Property's description in a specific language */
+            /** @description Item's description in a specific language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -9166,7 +7106,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    /** @example famous person */
                     "application/json": string;
                 };
             };
@@ -9175,6 +7115,15 @@ export interface operations {
                 headers: {
                     /** @description Last entity revision number */
                     ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
                     [name: string]: unknown;
                 };
                 content?: never;
@@ -9189,8 +7138,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9204,8 +7153,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9230,29 +7179,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    setPropertyDescription: {
+    replaceItemDescription: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -9261,22 +7203,29 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
-                 * @description The ID of the required Property
-                 * @example P694
+                 * @description The ID of the required Item
+                 * @example Q24
                  */
-                property_id: string;
+                item_id: string;
                 /**
                  * @description The requested resource language
                  * @example en
@@ -9285,11 +7234,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description Payload containing Property description in the specified language and edit metadata */
-        requestBody?: {
+        /** @description Payload containing Item description in the specified language and edit metadata */
+        requestBody: {
             content: {
                 /** @example {
-                 *       "description": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *       "description": "famous person",
                  *       "tags": [],
                  *       "bot": false,
                  *       "comment": "set English description"
@@ -9297,11 +7246,11 @@ export interface operations {
                 "application/json": {
                     description: string;
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -9318,7 +7267,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    /** @example famous person */
                     "application/json": string;
                 };
             };
@@ -9334,7 +7283,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    /** @example famous person */
                     "application/json": string;
                 };
             };
@@ -9357,8 +7306,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9372,8 +7321,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9387,8 +7336,23 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9409,8 +7373,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9424,8 +7388,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9443,29 +7407,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    deletePropertyDescription: {
+    deleteItemDescription: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -9474,22 +7431,29 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
-                 * @description The ID of the required Property
-                 * @example P694
+                 * @description The ID of the required Item
+                 * @example Q24
                  */
-                property_id: string;
+                item_id: string;
                 /**
                  * @description The requested resource language
                  * @example en
@@ -9507,11 +7471,11 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -9540,8 +7504,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9555,8 +7519,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9570,8 +7534,23 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9592,8 +7571,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9611,29 +7590,22 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    getPropertyDescriptionWithFallback: {
+    getItemLabels: {
         parameters: {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -9642,33 +7614,35 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
-                 * @description The ID of the required Property
-                 * @example P694
+                 * @description The ID of the required Item
+                 * @example Q24
                  */
-                property_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
+                item_id: string;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description Property's description in a specific language. If a description only exists in a fallback language, the API returns a 307 status code and provides its location. */
+            /** @description Item's labels by language */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -9680,8 +7654,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
-                    "application/json": string;
+                    /** @example {
+                     *       "en": "Jane Doe",
+                     *       "ru": "Джейн Доу"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
                 };
             };
             /** @description The specified resource has not been modified since last provided revision number or date */
@@ -9693,8 +7672,8 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description A description in a fallback language exists at the indicated location */
-            307: {
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
                 headers: {
                     /** @description The URL to which the requested resource has been moved */
                     Location: string;
@@ -9712,8 +7691,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9727,8 +7706,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9753,8 +7732,1940 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    patchItemLabels: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "Jane Doe"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Item's labels by language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "en": "Jane Doe",
+                     *       "ru": "Джейн Доу"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch request is invalid */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch cannot be applied */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Applying the provided JSON Patch results in invalid Labels */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getItemLabelWithFallback: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Item's label in a specific language. If a label only exists in a fallback language, the API returns a 307 status code and provides its location. */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Jane Doe */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description A label in a fallback language exists at the indicated location */
+            307: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getItemLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A label in a specific language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Jane Doe */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    replaceItemLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing an Item label in the specified language and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "label": "Jane Doe",
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Update the English label"
+                 *     } */
+                "application/json": {
+                    label: string;
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The updated Label in a specific language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Jane Doe */
+                    "application/json": string;
+                };
+            };
+            /** @description The newly added Label in a specific language */
+            201: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Jane Doe */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The edit request violates data policy */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteItemLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+            };
+            cookie?: never;
+        };
+        /** @description Edit payload containing edit metadata */
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Example edit using the Wikibase REST API"
+                 *     } */
+                "application/json": {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The resource was deleted */
+            200: {
+                headers: {
+                    /** @description Language code of the language in which response is provided */
+                    "Content-Language": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Label deleted */
+                    "application/json": string;
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getSitelinks: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A list of Sitelinks by Item id */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "enwiki": {
+                     *         "title": "Jane Doe",
+                     *         "badges": [],
+                     *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                     *       },
+                     *       "ruwiki": {
+                     *         "title": "Джейн Доу",
+                     *         "badges": [],
+                     *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
+                     *       }
+                     *     } */
+                    "application/json": {
+                        [key: string]: {
+                            badges?: string[];
+                            title: string;
+                            readonly url?: string;
+                        };
+                    };
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    patchSitelinks: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/ruwiki/title",
+                 *           "value": "Джейн Доу"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Add sitelink to ruwiki"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/ruwiki/title",
+                 *           "value": "Джейн Доу"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Add sitelink to ruwiki"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description A list of Sitelinks by Item id */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "enwiki": {
+                     *         "title": "Jane Doe",
+                     *         "badges": [],
+                     *         "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                     *       },
+                     *       "ruwiki": {
+                     *         "title": "Джейн Доу",
+                     *         "badges": [],
+                     *         "url": "https://ruwiki.example.org/wiki/Джейн_Доу"
+                     *       }
+                     *     } */
+                    "application/json": {
+                        [key: string]: {
+                            badges?: string[];
+                            title: string;
+                            readonly url?: string;
+                        };
+                    };
+                };
+            };
+            /** @description The provided JSON Patch request is invalid */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch cannot be applied */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Applying the provided JSON Patch results in invalid Sitelinks */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getSitelink: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The ID of the required Site
+                 * @example enwiki
+                 */
+                site_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A Sitelink by Item id */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "title": "Jane Doe",
+                     *       "badges": [],
+                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                     *     } */
+                    "application/json": {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The specified resource has permanently moved to the indicated location */
+            308: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    setSitelink: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The ID of the required Site
+                 * @example enwiki
+                 */
+                site_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing a Wikibase Sitelink object and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "sitelink": {
+                 *         "title": "Jane Doe",
+                 *         "badges": []
+                 *       },
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Add enwiki sitelink"
+                 *     } */
+                "application/json": {
+                    sitelink: {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The updated Sitelink */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "title": "Jane Doe",
+                     *       "badges": [],
+                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                     *     } */
+                    "application/json": {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
+                };
+            };
+            /** @description The newly added Sitelink */
+            201: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "title": "Jane Doe",
+                     *       "badges": [],
+                     *       "url": "https://enwiki.example.org/wiki/Jane_Doe"
+                     *     } */
+                    "application/json": {
+                        badges?: string[];
+                        title: string;
+                        readonly url?: string;
+                    };
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The edit request violates data policy */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteSitelink: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Item
+                 * @example Q24
+                 */
+                item_id: string;
+                /**
+                 * @description The ID of the required Site
+                 * @example enwiki
+                 */
+                site_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Edit payload containing edit metadata */
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Example edit using the Wikibase REST API"
+                 *     } */
+                "application/json": {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The resource was deleted */
+            200: {
+                headers: {
+                    /** @description Language code of the language in which response is provided */
+                    "Content-Language": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Sitelink deleted */
+                    "application/json": string;
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified Item was redirected */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -9771,17 +9682,10 @@ export interface operations {
             };
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -9790,15 +9694,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -9915,42 +9826,39 @@ export interface operations {
                             /**
                              * @description The rank of the Statement
                              * @default normal
-                             * @enum {string}
                              */
-                            rank: "deprecated" | "normal" | "preferred";
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                         } & {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         } & {
                             /** @default [] */
                             qualifiers: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                             /** @default [] */
@@ -9959,19 +9867,18 @@ export interface operations {
                                 readonly hash?: string;
                                 parts?: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                             }[];
@@ -10013,8 +9920,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10028,8 +9935,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10054,8 +9961,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10073,17 +9980,17 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
                  * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
                  * @example [
                  *       "\"1276705620\""
                  *     ]
                  */
                 "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
             };
             path: {
                 /**
@@ -10148,42 +10055,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -10192,19 +10096,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -10216,11 +10119,11 @@ export interface operations {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -10290,42 +10193,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -10334,19 +10234,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -10369,8 +10268,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10384,8 +10283,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10399,8 +10298,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10414,8 +10313,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10436,8 +10335,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10455,8 +10354,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10467,17 +10366,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -10486,15 +10378,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -10575,42 +10474,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -10619,19 +10515,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -10663,8 +10558,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10678,8 +10573,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10704,8 +10599,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -10803,42 +10698,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -10847,19 +10739,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -10871,11 +10762,11 @@ export interface operations {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -10943,42 +10834,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -10987,19 +10875,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -11022,8 +10909,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11037,8 +10924,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11052,8 +10939,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11074,8 +10961,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11093,8 +10980,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11147,11 +11034,11 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -11180,8 +11067,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11195,8 +11082,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11210,8 +11097,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11232,8 +11119,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11251,8 +11138,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11323,27 +11210,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -11369,27 +11255,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -11457,42 +11342,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -11501,19 +11383,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -11536,8 +11417,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11551,8 +11432,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11566,8 +11447,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11581,8 +11462,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11603,8 +11484,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11618,8 +11499,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -11637,1008 +11518,157 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    getItemLabels: {
+    addProperty: {
         parameters: {
             query?: never;
             header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
                 /**
                  * @description Make authenticated request using a provided bearer token
                  * @example Bearer mF_9.B5f-4.1JqM
                  */
                 Authorization?: string;
             };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-            };
+            path?: never;
             cookie?: never;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Item's labels by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "Jane Doe",
-                     *       "ru": "Джейн Доу"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    patchItemLabels: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
+        /** @description Payload containing a Wikibase Property and edit metadata */
         requestBody: {
             content: {
                 /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "Jane Doe"
+                 *       "property": {
+                 *         "data_type": "wikibase-item",
+                 *         "labels": {
+                 *           "en": "instance of",
+                 *           "ru": "это частный случай понятия"
+                 *         },
+                 *         "descriptions": {
+                 *           "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *           "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                 *         },
+                 *         "aliases": {
+                 *           "en": [
+                 *             "is a",
+                 *             "is an"
+                 *           ],
+                 *           "ru": [
+                 *             "представляет собой",
+                 *             "является"
+                 *           ]
+                 *         },
+                 *         "statements": {
+                 *           "P1628": [
+                 *             {
+                 *               "property": {
+                 *                 "id": "P1628"
+                 *               },
+                 *               "value": {
+                 *                 "type": "value",
+                 *                 "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *               }
+                 *             }
+                 *           ]
                  *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "replace English label"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "Jane Doe"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "replace English label"
+                 *       }
                  *     } */
                 "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
+                    property: {
+                        aliases?: {
+                            [key: string]: string[];
+                        };
+                        data_type: string;
+                        descriptions?: {
+                            [key: string]: string;
+                        };
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
+                        };
+                        statements?: {
+                            [key: string]: ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
+                                /**
+                                 * @description The rank of the Statement
+                                 * @default normal
+                                 */
+                                rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            } & {
+                                /** @default [] */
+                                qualifiers?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                                /** @default [] */
+                                references?: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })[];
+                        };
+                        /** @constant */
+                        readonly type?: "property";
+                    };
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Item's labels by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "Jane Doe",
-                     *       "ru": "Джейн Доу"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch request is invalid */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch cannot be applied */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Applying the provided JSON Patch results in invalid Labels */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getPropertyLabels: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Property's labels by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "instance of",
-                     *       "ru": "это частный случай понятия"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    patchPropertyLabels: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "instance of"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "replace English label"
-                 *     } */
-                "application/json-patch+json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
                     /** @default [] */
                     tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "replace",
-                 *           "path": "/en",
-                 *           "value": "instance of"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "replace English label"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
                 };
             };
         };
         responses: {
-            /** @description Property's labels by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": "instance of",
-                     *       "ru": "это частный случай понятия"
-                     *     } */
-                    "application/json": {
-                        [key: string]: string;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch request is invalid */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The provided JSON Patch cannot be applied */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Applying the provided JSON Patch results in invalid Labels */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getItemLabel: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A label in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Jane Doe */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    replaceItemLabel: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing an Item label in the specified language and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "label": "Jane Doe",
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Update the English label"
-                 *     } */
-                "application/json": {
-                    label: string;
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The updated Label in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Jane Doe */
-                    "application/json": string;
-                };
-            };
-            /** @description The newly added Label in a specific language */
+            /** @description A single Wikibase Property */
             201: {
                 headers: {
                     /** @description Last entity revision number */
@@ -12650,18 +11680,132 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example Jane Doe */
-                    "application/json": string;
+                    /** @example {
+                     *       "id": "P694",
+                     *       "type": "property",
+                     *       "data_type": "wikibase-item",
+                     *       "labels": {
+                     *         "en": "instance of",
+                     *         "ru": "это частный случай понятия"
+                     *       },
+                     *       "descriptions": {
+                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
+                     *       },
+                     *       "aliases": {
+                     *         "en": [
+                     *           "is a",
+                     *           "is an"
+                     *         ],
+                     *         "ru": [
+                     *           "представляет собой",
+                     *           "является"
+                     *         ]
+                     *       },
+                     *       "statements": {
+                     *         "P1628": [
+                     *           {
+                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                     *             "rank": "normal",
+                     *             "property": {
+                     *               "id": "P1628",
+                     *               "data_type": "url"
+                     *             },
+                     *             "value": {
+                     *               "type": "value",
+                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                     *             },
+                     *             "qualifiers": [],
+                     *             "references": []
+                     *           }
+                     *         ]
+                     *       }
+                     *     } */
+                    "application/json": {
+                        aliases?: {
+                            [key: string]: string[];
+                        };
+                        data_type: string;
+                        descriptions?: {
+                            [key: string]: string;
+                        };
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
+                        };
+                        statements?: {
+                            [key: string]: ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
+                                /**
+                                 * @description The rank of the Statement
+                                 * @default normal
+                                 */
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            } & {
+                                /** @default [] */
+                                qualifiers: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                                /** @default [] */
+                                references: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })[];
+                        };
+                        /** @constant */
+                        readonly type?: "property";
+                    } & {
+                        statements: {
+                            [key: string]: unknown;
+                        };
+                    };
                 };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description The request cannot be processed */
             400: {
@@ -12673,8 +11817,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -12688,47 +11832,10 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description The edit request violates data policy */
             422: {
@@ -12740,8 +11847,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -12755,8 +11862,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -12774,29 +11881,25 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    deleteItemLabel: {
+    getProperty: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Comma-separated list of fields to include in each response object. */
+                _fields?: PathsV1EntitiesPropertiesProperty_idGetParametersQuery_fields[];
+            };
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -12805,169 +11908,10 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Edit payload containing edit metadata */
-        requestBody?: {
-            content: {
-                /** @example {
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Example edit using the Wikibase REST API"
-                 *     } */
-                "application/json": {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The resource was deleted */
-            200: {
-                headers: {
-                    /** @description Language code of the language in which response is provided */
-                    "Content-Language": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Label deleted */
-                    "application/json": string;
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getItemLabelWithFallback: {
-        parameters: {
-            query?: never;
-            header?: {
+                "If-Modified-Since"?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
                  * @example [
@@ -12976,178 +11920,10 @@ export interface operations {
                  */
                 "If-None-Match"?: string[];
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item's label in a specific language. If a label only exists in a fallback language, the API returns a 307 status code and provides its location. */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Jane Doe */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description A label in a fallback language exists at the indicated location */
-            307: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getPropertyLabel: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -13155,17 +11931,12 @@ export interface operations {
                  * @example P694
                  */
                 property_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description A label in a specific language */
+            /** @description A single Wikibase Property */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -13177,18 +11948,132 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example instance of */
-                    "application/json": string;
+                    /** @example {
+                     *       "id": "P694",
+                     *       "type": "property",
+                     *       "data_type": "wikibase-item",
+                     *       "labels": {
+                     *         "en": "instance of",
+                     *         "ru": "это частный случай понятия"
+                     *       },
+                     *       "descriptions": {
+                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
+                     *       },
+                     *       "aliases": {
+                     *         "en": [
+                     *           "is a",
+                     *           "is an"
+                     *         ],
+                     *         "ru": [
+                     *           "представляет собой",
+                     *           "является"
+                     *         ]
+                     *       },
+                     *       "statements": {
+                     *         "P1628": [
+                     *           {
+                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                     *             "rank": "normal",
+                     *             "property": {
+                     *               "id": "P1628",
+                     *               "data_type": "url"
+                     *             },
+                     *             "value": {
+                     *               "type": "value",
+                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                     *             },
+                     *             "qualifiers": [],
+                     *             "references": []
+                     *           }
+                     *         ]
+                     *       }
+                     *     } */
+                    "application/json": {
+                        aliases?: {
+                            [key: string]: string[];
+                        };
+                        data_type: string;
+                        descriptions?: {
+                            [key: string]: string;
+                        };
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
+                        };
+                        statements?: {
+                            [key: string]: ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
+                                /**
+                                 * @description The rank of the Statement
+                                 * @default normal
+                                 */
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            } & {
+                                /** @default [] */
+                                qualifiers: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                                /** @default [] */
+                                references: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })[];
+                        };
+                        /** @constant */
+                        readonly type?: "property";
+                    } & {
+                        statements: {
+                            [key: string]: unknown;
+                        };
+                    };
                 };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description The request cannot be processed */
             400: {
@@ -13200,8 +12085,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -13215,17 +12100,10 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description An unexpected error has occurred */
             500: {
@@ -13241,29 +12119,17 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    replacePropertyLabel: {
+    patchProperty: {
         parameters: {
             query?: never;
             header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -13272,15 +12138,17 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -13288,744 +12156,81 @@ export interface operations {
                  * @example P694
                  */
                 property_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
             };
             cookie?: never;
         };
-        /** @description Payload containing a Property label in the specified language and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "label": "instance of",
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Update the English label"
-                 *     } */
-                "application/json": {
-                    label: string;
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The updated Label in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example instance of */
-                    "application/json": string;
-                };
-            };
-            /** @description The newly added Label in a specific language */
-            201: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example instance of */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The edit request violates data policy */
-            422: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    deletePropertyLabel: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Edit payload containing edit metadata */
-        requestBody?: {
-            content: {
-                /** @example {
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Example edit using the Wikibase REST API"
-                 *     } */
-                "application/json": {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The resource was deleted */
-            200: {
-                headers: {
-                    /** @description Language code of the language in which response is provided */
-                    "Content-Language": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example Label deleted */
-                    "application/json": string;
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getPropertyLabelWithFallback: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Property's label in a specific language. If a label only exists in a fallback language, the API returns a 307 status code and provides its location. */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example instance of */
-                    "application/json": string;
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description A label in a fallback language exists at the indicated location */
-            307: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getItemAliases: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item's aliases by language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "en": [
-                     *         "Jane M. Doe",
-                     *         "JD"
-                     *       ],
-                     *       "ru": [
-                     *         "Джейн М. Доу"
-                     *       ]
-                     *     } */
-                    "application/json": {
-                        [key: string]: string[];
-                    };
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    patchItemAliases: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing a JSON Patch document to be applied to an Item's aliases and edit metadata */
         requestBody: {
             content: {
                 /** @example {
                  *       "patch": [
                  *         {
                  *           "op": "add",
-                 *           "path": "/en/-",
-                 *           "value": "JD"
+                 *           "path": "/aliases/en/-",
+                 *           "value": "is an"
                  *         }
                  *       ],
                  *       "tags": [],
                  *       "bot": false,
-                 *       "comment": "Add English alias"
+                 *       "comment": "add 'is an' as an English alias"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "add",
+                 *           "path": "/aliases/en/-",
+                 *           "value": "is an"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "add 'is an' as an English alias"
                  *     } */
                 "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
-                };
-                /** @example {
-                 *       "patch": [
-                 *         {
-                 *           "op": "add",
-                 *           "path": "/en/-",
-                 *           "value": "JD"
-                 *         }
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Add English alias"
-                 *     } */
-                "application/json": {
-                    /** @description A JSON Patch document as defined by RFC 6902 */
-                    patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
-                        /** @description A JSON Pointer */
-                        from?: string;
-                        /** @description The value to be used within the operation */
-                        value?: unknown;
-                    }[];
-                } & {
                     /** @default [] */
                     tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
                 };
             };
         };
         responses: {
-            /** @description Item's aliases by language */
+            /** @description A single Wikibase Property */
             200: {
                 headers: {
                     /** @description Last entity revision number */
@@ -14038,16 +12243,129 @@ export interface operations {
                 };
                 content: {
                     /** @example {
-                     *       "en": [
-                     *         "Jane M. Doe",
-                     *         "JD"
-                     *       ],
-                     *       "ru": [
-                     *         "Джейн М. Доу"
-                     *       ]
+                     *       "id": "P694",
+                     *       "type": "property",
+                     *       "data_type": "wikibase-item",
+                     *       "labels": {
+                     *         "en": "instance of",
+                     *         "ru": "это частный случай понятия"
+                     *       },
+                     *       "descriptions": {
+                     *         "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                     *         "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории."
+                     *       },
+                     *       "aliases": {
+                     *         "en": [
+                     *           "is a",
+                     *           "is an"
+                     *         ],
+                     *         "ru": [
+                     *           "представляет собой",
+                     *           "является"
+                     *         ]
+                     *       },
+                     *       "statements": {
+                     *         "P1628": [
+                     *           {
+                     *             "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                     *             "rank": "normal",
+                     *             "property": {
+                     *               "id": "P1628",
+                     *               "data_type": "url"
+                     *             },
+                     *             "value": {
+                     *               "type": "value",
+                     *               "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                     *             },
+                     *             "qualifiers": [],
+                     *             "references": []
+                     *           }
+                     *         ]
+                     *       }
                      *     } */
                     "application/json": {
-                        [key: string]: string[];
+                        aliases?: {
+                            [key: string]: string[];
+                        };
+                        data_type: string;
+                        descriptions?: {
+                            [key: string]: string;
+                        };
+                        readonly id?: string;
+                        labels?: {
+                            [key: string]: string;
+                        };
+                        statements?: {
+                            [key: string]: ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
+                                /**
+                                 * @description The rank of the Statement
+                                 * @default normal
+                                 */
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            } & {
+                                /** @default [] */
+                                qualifiers: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                                /** @default [] */
+                                references: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })[];
+                        };
+                        /** @constant */
+                        readonly type?: "property";
+                    } & {
+                        statements: {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -14061,8 +12379,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14076,8 +12394,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14091,8 +12409,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14106,8 +12424,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14118,7 +12436,7 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Applying the provided JSON Patch results in invalid Aliases */
+            /** @description Applying the provided JSON Patch results in an invalid Property */
             422: {
                 headers: {
                     /** @description Language code of the language in which error message is provided */
@@ -14128,8 +12446,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14143,8 +12461,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14162,8 +12480,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14174,17 +12492,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -14193,15 +12504,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -14260,8 +12578,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14275,8 +12593,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14301,8 +12619,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14356,27 +12674,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add English alias"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -14390,27 +12707,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add English alias"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -14452,8 +12768,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14467,8 +12783,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14482,8 +12798,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14497,8 +12813,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14519,8 +12835,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14534,8 +12850,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -14553,374 +12869,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    getItemAliasesInLanguage: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item's aliases in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example [
-                     *       "Jane M. Doe",
-                     *       "JD"
-                     *     ] */
-                    "application/json": string[];
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The specified resource has permanently moved to the indicated location */
-            308: {
-                headers: {
-                    /** @description The URL to which the requested resource has been moved */
-                    Location: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
                         message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    addItemAliasesInLanguage: {
-        parameters: {
-            query?: never;
-            header?: {
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
-                 */
-                "If-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
-            };
-            path: {
-                /**
-                 * @description The ID of the required Item
-                 * @example Q24
-                 */
-                item_id: string;
-                /**
-                 * @description The requested resource language
-                 * @example en
-                 */
-                language_code: string;
-            };
-            cookie?: never;
-        };
-        /** @description Payload containing a list of Item aliases in the specified language and edit metadata */
-        requestBody: {
-            content: {
-                /** @example {
-                 *       "aliases": [
-                 *         "JD"
-                 *       ],
-                 *       "tags": [],
-                 *       "bot": false,
-                 *       "comment": "Add English alias"
-                 *     } */
-                "application/json": {
-                    aliases: string[];
-                } & {
-                    /** @default [] */
-                    tags?: string[];
-                    /** @default false */
-                    bot?: boolean;
-                    comment?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description The updated list of aliases in a specific language */
-            200: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example [
-                     *       "Jane M. Doe",
-                     *       "JD"
-                     *     ] */
-                    "application/json": string[];
-                };
-            };
-            /** @description The newly created list of aliases in a specific language */
-            201: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    /** @description Last modified date */
-                    "Last-Modified": string;
-                    /** @description Optional username of the user making the request */
-                    "X-Authenticated-User"?: string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example [
-                     *       "Jane M. Doe",
-                     *       "JD"
-                     *     ] */
-                    "application/json": string[];
-                };
-            };
-            /** @description The specified resource has not been modified since last provided revision number or date */
-            304: {
-                headers: {
-                    /** @description Last entity revision number */
-                    ETag: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The access to resource was denied */
-            403: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified resource was not found */
-            404: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The specified Item was redirected */
-            409: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description The condition defined by a conditional request header is not fulfilled */
-            412: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many requests */
-            429: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-            /** @description An unexpected error has occurred */
-            500: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "code": "unexpected-error",
-                     *       "message": "Unexpected Error"
-                     *     } */
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
                     };
                 };
             };
@@ -14931,17 +12881,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -14950,27 +12893,34 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
                 /**
                  * @description The requested resource language
                  * @example en
                  */
                 language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
             };
             cookie?: never;
         };
@@ -15014,8 +12964,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15029,8 +12979,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15055,8 +13005,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15067,17 +13017,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -15086,27 +13029,34 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
-                /**
-                 * @description The ID of the required Property
-                 * @example P694
-                 */
-                property_id: string;
                 /**
                  * @description The requested resource language
                  * @example en
                  */
                 language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
             };
             cookie?: never;
         };
@@ -15124,11 +13074,11 @@ export interface operations {
                 "application/json": {
                     aliases: string[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -15190,8 +13140,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15205,8 +13155,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15220,8 +13170,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15242,8 +13192,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15261,8 +13211,2074 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyDescriptions: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Property's descriptions by language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                     *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    patchPropertyDescriptions: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing a JSON Patch document to be applied to a Property's descriptions and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "the subject is a concrete object (instance) of this class, category, or object group"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "update English description"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "the subject is a concrete object (instance) of this class, category, or object group"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "update English description"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Property's descriptions by language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "en": "the subject is a concrete object (instance) of this class, category, or object group",
+                     *       "ru": "данный элемент представляет собой конкретный объект (экземпляр / частный случай) класса, категории"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch request is invalid */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch cannot be applied */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Applying the provided JSON Patch results in invalid descriptions */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyDescriptionWithFallback: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Property's description in a specific language. If a description only exists in a fallback language, the API returns a 307 status code and provides its location. */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description A description in a fallback language exists at the indicated location */
+            307: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyDescription: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Property's description in a specific language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    setPropertyDescription: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing Property description in the specified language and edit metadata */
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "description": "the subject is a concrete object (instance) of this class, category, or object group",
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "set English description"
+                 *     } */
+                "application/json": {
+                    description: string;
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The updated description */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    "application/json": string;
+                };
+            };
+            /** @description The newly added description */
+            201: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example the subject is a concrete object (instance) of this class, category, or object group */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The edit request violates data policy */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    deletePropertyDescription: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Edit payload containing edit metadata */
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Example edit using the Wikibase REST API"
+                 *     } */
+                "application/json": {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The description was deleted */
+            200: {
+                headers: {
+                    /** @description Language code of the language in which response is provided */
+                    "Content-Language": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Description deleted */
+                    "application/json": string;
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyLabels: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Property's labels by language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "en": "instance of",
+                     *       "ru": "это частный случай понятия"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    patchPropertyLabels: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing a JSON Patch document to be applied to Labels and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "instance of"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+                /** @example {
+                 *       "patch": [
+                 *         {
+                 *           "op": "replace",
+                 *           "path": "/en",
+                 *           "value": "instance of"
+                 *         }
+                 *       ],
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "replace English label"
+                 *     } */
+                "application/json-patch+json": {
+                    /** @description A JSON Patch document as defined by RFC 6902 */
+                    patch: {
+                        /** @description A JSON Pointer */
+                        from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
+                        /** @description The value to be used within the operation */
+                        value?: unknown;
+                    }[];
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Property's labels by language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "en": "instance of",
+                     *       "ru": "это частный случай понятия"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch request is invalid */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The provided JSON Patch cannot be applied */
+            409: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Applying the provided JSON Patch results in invalid Labels */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyLabelWithFallback: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Property's label in a specific language. If a label only exists in a fallback language, the API returns a 307 status code and provides its location. */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example instance of */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description A label in a fallback language exists at the indicated location */
+            307: {
+                headers: {
+                    /** @description The URL to which the requested resource has been moved */
+                    Location: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getPropertyLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A label in a specific language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example instance of */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    replacePropertyLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Payload containing a Property label in the specified language and edit metadata */
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "label": "instance of",
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Update the English label"
+                 *     } */
+                "application/json": {
+                    label: string;
+                } & {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The updated Label in a specific language */
+            200: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example instance of */
+                    "application/json": string;
+                };
+            };
+            /** @description The newly added Label in a specific language */
+            201: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    /** @description Last modified date */
+                    "Last-Modified": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example instance of */
+                    "application/json": string;
+                };
+            };
+            /** @description The specified resource has not been modified since last provided revision number or date */
+            304: {
+                headers: {
+                    /** @description Last entity revision number */
+                    ETag: string;
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The edit request violates data policy */
+            422: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    deletePropertyLabel: {
+        parameters: {
+            query?: never;
+            header?: {
+                /**
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
+                 */
+                Authorization?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
+            };
+            path: {
+                /**
+                 * @description The requested resource language
+                 * @example en
+                 */
+                language_code: string;
+                /**
+                 * @description The ID of the required Property
+                 * @example P694
+                 */
+                property_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Edit payload containing edit metadata */
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "tags": [],
+                 *       "bot": false,
+                 *       "comment": "Example edit using the Wikibase REST API"
+                 *     } */
+                "application/json": {
+                    /** @default false */
+                    bot?: boolean;
+                    comment?: string;
+                    /** @default [] */
+                    tags?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The resource was deleted */
+            200: {
+                headers: {
+                    /** @description Language code of the language in which response is provided */
+                    "Content-Language": string;
+                    /** @description Optional username of the user making the request */
+                    "X-Authenticated-User"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example Label deleted */
+                    "application/json": string;
+                };
+            };
+            /** @description The request cannot be processed */
+            400: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The access to resource was denied */
+            403: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The specified resource was not found */
+            404: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description The condition defined by a conditional request header is not fulfilled */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Too many requests */
+            429: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+            /** @description An unexpected error has occurred */
+            500: {
+                headers: {
+                    /** @description Language code of the language in which error message is provided */
+                    "Content-Language": string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "code": "unexpected-error",
+                     *       "message": "Unexpected Error"
+                     *     } */
+                    "application/json": {
+                        code: string;
+                        context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15279,17 +15295,10 @@ export interface operations {
             };
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -15298,15 +15307,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -15356,42 +15372,39 @@ export interface operations {
                             /**
                              * @description The rank of the Statement
                              * @default normal
-                             * @enum {string}
                              */
-                            rank: "deprecated" | "normal" | "preferred";
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                         } & {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         } & {
                             /** @default [] */
                             qualifiers: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                             /** @default [] */
@@ -15400,19 +15413,18 @@ export interface operations {
                                 readonly hash?: string;
                                 parts?: {
                                     property?: {
-                                        /** @description The ID of the Property */
-                                        id?: string;
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
                                     };
                                     value?: {
                                         /** @description The value, if type == "value", otherwise omitted */
                                         content?: unknown;
                                         /**
                                          * @description The value type
-                                         * @enum {string}
                                          */
-                                        type?: "value" | "somevalue" | "novalue";
+                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                             }[];
@@ -15445,8 +15457,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15460,8 +15472,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15486,8 +15498,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15505,17 +15517,17 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
-                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Unmodified-Since"?: string;
-                /**
                  * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
                  * @example [
                  *       "\"1276705620\""
                  *     ]
                  */
                 "If-None-Match"?: string[];
+                /**
+                 * @description Conditionally perform the request only if the resource has not been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Unmodified-Since"?: string;
             };
             path: {
                 /**
@@ -15550,42 +15562,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -15594,19 +15603,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -15618,11 +15626,11 @@ export interface operations {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -15661,42 +15669,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -15705,19 +15710,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -15740,8 +15744,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15755,8 +15759,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15770,8 +15774,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15792,8 +15796,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15811,8 +15815,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -15823,17 +15827,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -15842,15 +15839,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -15900,42 +15904,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -15944,19 +15945,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -15988,8 +15988,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16003,8 +16003,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16029,8 +16029,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16098,42 +16098,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -16142,19 +16139,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -16166,11 +16162,11 @@ export interface operations {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -16207,42 +16203,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -16251,19 +16244,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -16286,8 +16278,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16301,8 +16293,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16316,8 +16308,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16338,8 +16330,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16357,8 +16349,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16411,11 +16403,11 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -16444,8 +16436,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16459,8 +16451,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16474,8 +16466,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16496,8 +16488,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16515,8 +16507,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16575,27 +16567,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Update value of the 'equivalent property' Statement"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -16609,27 +16600,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Update value of the 'equivalent property' Statement"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -16666,42 +16656,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -16710,19 +16697,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -16745,8 +16731,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16760,8 +16746,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16775,8 +16761,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16790,8 +16776,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16812,8 +16798,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16827,8 +16813,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -16846,8 +16832,62 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    getOpenApiDoc: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OpenAPI document */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "openapi": "...",
+                     *       "info": {
+                     *         "title": "Wikibase REST API",
+                     *         "version": "...",
+                     *         "description": "OpenAPI definition of Wikibase REST API"
+                     *       },
+                     *       "paths": "..."
+                     *     } */
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    getPropertyDataTypes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The map of Property data types to value types */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "data-type": "value-type"
+                     *     } */
+                    "application/json": {
+                        [key: string]: string;
                     };
                 };
             };
@@ -16858,17 +16898,10 @@ export interface operations {
             query?: never;
             header?: {
                 /**
-                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
-                 * @example [
-                 *       "\"1276705620\""
-                 *     ]
+                 * @description Make authenticated request using a provided bearer token
+                 * @example Bearer mF_9.B5f-4.1JqM
                  */
-                "If-None-Match"?: string[];
-                /**
-                 * @description Conditionally perform the request only if the resource has been modified after the specified date
-                 * @example Sat, 06 Jun 2020 16:38:47 GMT
-                 */
-                "If-Modified-Since"?: string;
+                Authorization?: string;
                 /**
                  * @description Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers
                  * @example [
@@ -16877,15 +16910,22 @@ export interface operations {
                  */
                 "If-Match"?: string[];
                 /**
+                 * @description Conditionally perform the request only if the resource has been modified after the specified date
+                 * @example Sat, 06 Jun 2020 16:38:47 GMT
+                 */
+                "If-Modified-Since"?: string;
+                /**
+                 * @description Conditionally perform the request only if the resource has been modified since the specified entity revision numbers
+                 * @example [
+                 *       "\"1276705620\""
+                 *     ]
+                 */
+                "If-None-Match"?: string[];
+                /**
                  * @description Conditionally perform the request only if the resource has not been modified after the specified date
                  * @example Sat, 06 Jun 2020 16:38:47 GMT
                  */
                 "If-Unmodified-Since"?: string;
-                /**
-                 * @description Make authenticated request using a provided bearer token
-                 * @example Bearer mF_9.B5f-4.1JqM
-                 */
-                Authorization?: string;
             };
             path: {
                 /**
@@ -16961,42 +17001,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -17005,19 +17042,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -17049,8 +17085,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17064,8 +17100,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17090,8 +17126,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17184,42 +17220,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank?: "deprecated" | "normal" | "preferred";
+                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers?: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -17228,19 +17261,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -17252,11 +17284,11 @@ export interface operations {
                         references?: unknown;
                     });
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -17324,42 +17356,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -17368,19 +17397,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -17403,8 +17431,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17418,8 +17446,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17433,8 +17461,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17455,8 +17483,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17474,8 +17502,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17523,11 +17551,11 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -17556,8 +17584,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17571,8 +17599,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17586,8 +17614,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17608,8 +17636,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17627,8 +17655,8 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17694,27 +17722,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json-patch+json": {
+                "application/json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
                 /** @example {
                  *       "patch": [
@@ -17740,27 +17767,26 @@ export interface operations {
                  *       "bot": false,
                  *       "comment": "Add reference to Statement"
                  *     } */
-                "application/json": {
+                "application/json-patch+json": {
                     /** @description A JSON Patch document as defined by RFC 6902 */
                     patch: {
-                        /**
-                         * @description The operation to perform
-                         * @enum {string}
-                         */
-                        op: "add" | "copy" | "move" | "remove" | "replace" | "test";
-                        /** @description A JSON Pointer */
-                        path: string;
                         /** @description A JSON Pointer */
                         from?: string;
+                        /**
+                         * @description The operation to perform
+                         */
+                        op: PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp;
+                        /** @description A JSON Pointer */
+                        path: string;
                         /** @description The value to be used within the operation */
                         value?: unknown;
                     }[];
                 } & {
-                    /** @default [] */
-                    tags?: string[];
                     /** @default false */
                     bot?: boolean;
                     comment?: string;
+                    /** @default [] */
+                    tags?: string[];
                 };
             };
         };
@@ -17828,42 +17854,39 @@ export interface operations {
                         /**
                          * @description The rank of the Statement
                          * @default normal
-                         * @enum {string}
                          */
-                        rank: "deprecated" | "normal" | "preferred";
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
                     } & {
                         property?: {
-                            /** @description The ID of the Property */
-                            id?: string;
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
+                            /** @description The ID of the Property */
+                            id?: string;
                         };
                         value?: {
                             /** @description The value, if type == "value", otherwise omitted */
                             content?: unknown;
                             /**
                              * @description The value type
-                             * @enum {string}
                              */
-                            type?: "value" | "somevalue" | "novalue";
+                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
                     } & {
                         /** @default [] */
                         qualifiers: {
                             property?: {
-                                /** @description The ID of the Property */
-                                id?: string;
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
                             };
                             value?: {
                                 /** @description The value, if type == "value", otherwise omitted */
                                 content?: unknown;
                                 /**
                                  * @description The value type
-                                 * @enum {string}
                                  */
-                                type?: "value" | "somevalue" | "novalue";
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
                         /** @default [] */
@@ -17872,19 +17895,18 @@ export interface operations {
                             readonly hash?: string;
                             parts?: {
                                 property?: {
-                                    /** @description The ID of the Property */
-                                    id?: string;
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
                                 };
                                 value?: {
                                     /** @description The value, if type == "value", otherwise omitted */
                                     content?: unknown;
                                     /**
                                      * @description The value type
-                                     * @enum {string}
                                      */
-                                    type?: "value" | "somevalue" | "novalue";
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
                         }[];
@@ -17907,8 +17929,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17922,8 +17944,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17937,8 +17959,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17952,8 +17974,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17974,8 +17996,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -17989,8 +18011,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
@@ -18008,229 +18030,45 @@ export interface operations {
                      *     } */
                     "application/json": {
                         code: string;
-                        message: string;
                         context?: Record<string, never>;
+                        message: string;
                     };
                 };
             };
         };
     };
-    simpleItemSearch: {
-        parameters: {
-            query: {
-                /**
-                 * @description The term to search labels by
-                 * @example potato
-                 */
-                q: string;
-                /**
-                 * @description The language to search labels in
-                 * @example en
-                 */
-                language: string;
-                /**
-                 * @description The number of items to show in the results
-                 * @example 20
-                 */
-                limit?: number;
-                /**
-                 * @description The index to start showing results from
-                 * @example 4
-                 */
-                offset?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A list of search results */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "results": [
-                     *         {
-                     *           "id": "Q123",
-                     *           "display-label": {
-                     *             "language": "en",
-                     *             "value": "potato"
-                     *           },
-                     *           "description": {
-                     *             "language": "en",
-                     *             "value": "staple food"
-                     *           },
-                     *           "match": {
-                     *             "type": "label",
-                     *             "language": "en",
-                     *             "text": "potato"
-                     *           }
-                     *         },
-                     *         {
-                     *           "id": "Q234",
-                     *           "display-label": {
-                     *             "language": "en",
-                     *             "value": "potato"
-                     *           },
-                     *           "description": {
-                     *             "language": "en",
-                     *             "value": "species of plant"
-                     *           },
-                     *           "match": {
-                     *             "type": "label",
-                     *             "language": "en",
-                     *             "text": "potato"
-                     *           }
-                     *         }
-                     *       ]
-                     *     } */
-                    "application/json": {
-                        results: {
-                            id: string;
-                            "display-label": {
-                                language: string;
-                                value: string;
-                            } | null;
-                            description: {
-                                language: string;
-                                value: string;
-                            } | null;
-                            match: {
-                                type: string;
-                                language: string;
-                                text: string;
-                            };
-                        }[];
-                    };
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
-    simplePropertySearch: {
-        parameters: {
-            query: {
-                /**
-                 * @description The term to search labels by
-                 * @example taxon
-                 */
-                q: string;
-                /**
-                 * @description The language to search labels in
-                 * @example en
-                 */
-                language: string;
-                /**
-                 * @description The number of items to show in the results
-                 * @example 20
-                 */
-                limit?: number;
-                /**
-                 * @description The index to start showing results from
-                 * @example 4
-                 */
-                offset?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A list of search results */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    /** @example {
-                     *       "results": [
-                     *         {
-                     *           "id": "P123",
-                     *           "display-label": {
-                     *             "language": "en",
-                     *             "value": "taxon name"
-                     *           },
-                     *           "description": {
-                     *             "language": "en",
-                     *             "value": "scientific name of a taxon"
-                     *           },
-                     *           "match": {
-                     *             "type": "label",
-                     *             "language": "en",
-                     *             "text": "taxon"
-                     *           }
-                     *         },
-                     *         {
-                     *           "id": "P234",
-                     *           "display-label": {
-                     *             "language": "en",
-                     *             "value": "taxon rank"
-                     *           },
-                     *           "description": {
-                     *             "language": "en",
-                     *             "value": "level in a taxonomic hierarchy"
-                     *           },
-                     *           "match": {
-                     *             "type": "label",
-                     *             "language": "en",
-                     *             "text": "taxon"
-                     *           }
-                     *         }
-                     *       ]
-                     *     } */
-                    "application/json": {
-                        results: {
-                            id: string;
-                            "display-label": {
-                                language: string;
-                                value: string;
-                            } | null;
-                            description: {
-                                language: string;
-                                value: string;
-                            } | null;
-                            match: {
-                                type: string;
-                                language: string;
-                                text: string;
-                            };
-                        }[];
-                    };
-                };
-            };
-            /** @description The request cannot be processed */
-            400: {
-                headers: {
-                    /** @description Language code of the language in which error message is provided */
-                    "Content-Language": string;
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        code: string;
-                        message: string;
-                        context?: Record<string, never>;
-                    };
-                };
-            };
-        };
-    };
+}
+export enum PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank {
+    deprecated = "deprecated",
+    normal = "normal",
+    preferred = "preferred"
+}
+export enum PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType {
+    value = "value",
+    somevalue = "somevalue",
+    novalue = "novalue"
+}
+export enum PathsV1EntitiesItemsItem_idGetParametersQuery_fields {
+    type = "type",
+    labels = "labels",
+    descriptions = "descriptions",
+    aliases = "aliases",
+    statements = "statements",
+    sitelinks = "sitelinks"
+}
+export enum PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp {
+    add = "add",
+    copy = "copy",
+    move = "move",
+    remove = "remove",
+    replace = "replace",
+    test = "test"
+}
+export enum PathsV1EntitiesPropertiesProperty_idGetParametersQuery_fields {
+    type = "type",
+    data_type = "data_type",
+    labels = "labels",
+    descriptions = "descriptions",
+    aliases = "aliases",
+    statements = "statements"
 }

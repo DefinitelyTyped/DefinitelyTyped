@@ -11,11 +11,3 @@ declare const getOpenApiDoc: GetOpenApiDoc;
 
 // Test: components interface is present
 const testComponents: keyof components | undefined = undefined;
-
-// Test: webhooks type is present
-import type { webhooks } from "./index";
-const testWebhooks: webhooks = {};
-
-// Test: $defs type is present
-import type { $defs } from "./index";
-const testDefs: $defs = {};
