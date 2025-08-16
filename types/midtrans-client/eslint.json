@@ -1,0 +1,3 @@
+{
+    "extends": "@definitelytyped/eslint-config"
+}
