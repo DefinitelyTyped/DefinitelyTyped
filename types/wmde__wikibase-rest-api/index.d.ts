@@ -1732,7 +1732,8 @@ export interface components {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                             }[];
@@ -1941,32 +1942,16 @@ export interface components {
                  *         }
                  *       ]
                  *     } */
-                "application/json": ({
-                    /** @description The globally unique identifier for this Statement */
-                    readonly id?: string;
-                    /**
-                     * @description The rank of the Statement
-                     * @default normal
-                     */
-                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                } & {
-                    property?: {
-                        /** @description The data type of the Property */
-                        readonly data_type?: string | null;
-                        /** @description The ID of the Property */
-                        id?: string;
-                    };
-                    value?: {
-                        /** @description The value, if type == "value", otherwise omitted */
-                        content?: unknown;
+                "application/json":
+                    & ({
+                        /** @description The globally unique identifier for this Statement */
+                        readonly id?: string;
                         /**
-                         * @description The value type
+                         * @description The rank of the Statement
+                         * @default normal
                          */
-                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                    };
-                } & {
-                    /** @default [] */
-                    qualifiers: {
+                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                    } & {
                         property?: {
                             /** @description The data type of the Property */
                             readonly data_type?: string | null;
@@ -1981,12 +1966,9 @@ export interface components {
                              */
                             type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                         };
-                    }[];
-                    /** @default [] */
-                    references: {
-                        /** @description Hash of the Reference */
-                        readonly hash?: string;
-                        parts?: {
+                    } & {
+                        /** @default [] */
+                        qualifiers: {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -2002,14 +1984,35 @@ export interface components {
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
                         }[];
-                    }[];
-                }) & ({
-                    property: unknown;
-                    value: unknown;
-                } & {
-                    qualifiers: unknown;
-                    references: unknown;
-                });
+                        /** @default [] */
+                        references: {
+                            /** @description Hash of the Reference */
+                            readonly hash?: string;
+                            parts?: {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            }[];
+                        }[];
+                    })
+                    & ({
+                        property: unknown;
+                        value: unknown;
+                    } & {
+                        qualifiers: unknown;
+                        references: unknown;
+                    });
             };
         };
         /** @description The Statements of an Item */
@@ -2110,32 +2113,16 @@ export interface components {
                  *       ]
                  *     } */
                 "application/json": {
-                    [key: string]: (({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    [key: string]: (
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -2150,12 +2137,9 @@ export interface components {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -2171,14 +2155,37 @@ export interface components {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    }))[];
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        })
+                    )[];
                 };
             };
         };
@@ -2369,7 +2376,8 @@ export interface components {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                             }[];
@@ -2530,109 +2538,8 @@ export interface components {
                  *       "qualifiers": [],
                  *       "references": []
                  *     } */
-                "application/json": ({
-                    /** @description The globally unique identifier for this Statement */
-                    readonly id?: string;
-                    /**
-                     * @description The rank of the Statement
-                     * @default normal
-                     */
-                    rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                } & {
-                    property?: {
-                        /** @description The data type of the Property */
-                        readonly data_type?: string | null;
-                        /** @description The ID of the Property */
-                        id?: string;
-                    };
-                    value?: {
-                        /** @description The value, if type == "value", otherwise omitted */
-                        content?: unknown;
-                        /**
-                         * @description The value type
-                         */
-                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                    };
-                } & {
-                    /** @default [] */
-                    qualifiers: {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
-                            /**
-                             * @description The value type
-                             */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    }[];
-                    /** @default [] */
-                    references: {
-                        /** @description Hash of the Reference */
-                        readonly hash?: string;
-                        parts?: {
-                            property?: {
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                                /** @description The ID of the Property */
-                                id?: string;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
-                                /**
-                                 * @description The value type
-                                 */
-                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                            };
-                        }[];
-                    }[];
-                }) & ({
-                    property: unknown;
-                    value: unknown;
-                } & {
-                    qualifiers: unknown;
-                    references: unknown;
-                });
-            };
-        };
-        /** @description The Statements of a Property */
-        PropertyStatements: {
-            headers: {
-                /** @description Last entity revision number */
-                ETag: string;
-                /** @description Last modified date */
-                "Last-Modified": string;
-                /** @description Optional username of the user making the request */
-                "X-Authenticated-User"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                /** @example {
-                 *       "P1628": [
-                 *         {
-                 *           "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
-                 *           "rank": "normal",
-                 *           "property": {
-                 *             "id": "P1628",
-                 *             "data_type": "url"
-                 *           },
-                 *           "value": {
-                 *             "type": "value",
-                 *             "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                 *           },
-                 *           "qualifiers": [],
-                 *           "references": []
-                 *         }
-                 *       ]
-                 *     } */
-                "application/json": {
-                    [key: string]: (({
+                "application/json":
+                    & ({
                         /** @description The globally unique identifier for this Statement */
                         readonly id?: string;
                         /**
@@ -2694,13 +2601,120 @@ export interface components {
                                 };
                             }[];
                         }[];
-                    }) & ({
+                    })
+                    & ({
                         property: unknown;
                         value: unknown;
                     } & {
                         qualifiers: unknown;
                         references: unknown;
-                    }))[];
+                    });
+            };
+        };
+        /** @description The Statements of a Property */
+        PropertyStatements: {
+            headers: {
+                /** @description Last entity revision number */
+                ETag: string;
+                /** @description Last modified date */
+                "Last-Modified": string;
+                /** @description Optional username of the user making the request */
+                "X-Authenticated-User"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {
+                 *       "P1628": [
+                 *         {
+                 *           "id": "P694$B4C349A2-C504-4FC5-B7D5-8B781C719D71",
+                 *           "rank": "normal",
+                 *           "property": {
+                 *             "id": "P1628",
+                 *             "data_type": "url"
+                 *           },
+                 *           "value": {
+                 *             "type": "value",
+                 *             "content": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                 *           },
+                 *           "qualifiers": [],
+                 *           "references": []
+                 *         }
+                 *       ]
+                 *     } */
+                "application/json": {
+                    [key: string]: (
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
+                            /**
+                             * @description The rank of the Statement
+                             * @default normal
+                             */
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
+                            property?: {
+                                /** @description The data type of the Property */
+                                readonly data_type?: string | null;
+                                /** @description The ID of the Property */
+                                id?: string;
+                            };
+                            value?: {
+                                /** @description The value, if type == "value", otherwise omitted */
+                                content?: unknown;
+                                /**
+                                 * @description The value type
+                                 */
+                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                            };
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
+                                property?: {
+                                    /** @description The data type of the Property */
+                                    readonly data_type?: string | null;
+                                    /** @description The ID of the Property */
+                                    id?: string;
+                                };
+                                value?: {
+                                    /** @description The value, if type == "value", otherwise omitted */
+                                    content?: unknown;
+                                    /**
+                                     * @description The value type
+                                     */
+                                    type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                };
+                            }[];
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        })
+                    )[];
                 };
             };
         };
@@ -3233,7 +3247,8 @@ export interface components {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -3253,7 +3268,8 @@ export interface components {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -3339,32 +3355,16 @@ export interface components {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -3379,12 +3379,9 @@ export interface components {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -3400,14 +3397,36 @@ export interface components {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -4026,7 +4045,8 @@ export interface components {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -4046,7 +4066,8 @@ export interface components {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -4102,32 +4123,16 @@ export interface components {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -4142,12 +4147,9 @@ export interface components {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -4163,14 +4165,36 @@ export interface components {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -4604,7 +4628,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -4624,7 +4649,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -4830,7 +4856,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -4850,7 +4877,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -5184,7 +5212,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -5204,7 +5233,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -5589,7 +5619,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -5609,7 +5640,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -9820,32 +9852,16 @@ export interface operations {
                      *       ]
                      *     } */
                     "application/json": {
-                        [key: string]: (({
-                            /** @description The globally unique identifier for this Statement */
-                            readonly id?: string;
-                            /**
-                             * @description The rank of the Statement
-                             * @default normal
-                             */
-                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                        } & {
-                            property?: {
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                                /** @description The ID of the Property */
-                                id?: string;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
+                        [key: string]: (
+                            & ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
                                 /**
-                                 * @description The value type
+                                 * @description The rank of the Statement
+                                 * @default normal
                                  */
-                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                            };
-                        } & {
-                            /** @default [] */
-                            qualifiers: {
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -9860,12 +9876,9 @@ export interface operations {
                                      */
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
-                            }[];
-                            /** @default [] */
-                            references: {
-                                /** @description Hash of the Reference */
-                                readonly hash?: string;
-                                parts?: {
+                            } & {
+                                /** @default [] */
+                                qualifiers: {
                                     property?: {
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
@@ -9878,17 +9891,41 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
-                            }[];
-                        }) & ({
-                            property: unknown;
-                            value: unknown;
-                        } & {
-                            qualifiers: unknown;
-                            references: unknown;
-                        }))[];
+                                /** @default [] */
+                                references: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })
+                            & ({
+                                property: unknown;
+                                value: unknown;
+                            } & {
+                                qualifiers: unknown;
+                                references: unknown;
+                            })
+                        )[];
                     };
                 };
             };
@@ -10049,32 +10086,16 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -10089,12 +10110,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -10110,14 +10128,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -10187,32 +10227,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -10227,12 +10251,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -10248,14 +10269,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The request cannot be processed */
@@ -10468,32 +10511,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -10508,12 +10535,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -10529,14 +10553,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The specified resource has not been modified since last provided revision number or date */
@@ -10692,32 +10738,16 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -10732,12 +10762,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -10753,14 +10780,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -10828,32 +10877,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -10868,12 +10901,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -10889,14 +10919,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The request cannot be processed */
@@ -11336,32 +11388,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -11376,12 +11412,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -11397,14 +11430,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The provided JSON Patch is invalid */
@@ -11629,7 +11684,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -11649,7 +11705,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -11772,7 +11829,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -11792,7 +11850,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -12040,7 +12099,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -12060,7 +12120,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -12334,7 +12395,8 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
                                 /** @default [] */
@@ -12354,7 +12416,8 @@ export interface operations {
                                             /**
                                              * @description The value type
                                              */
-                                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                         };
                                     }[];
                                 }[];
@@ -15366,32 +15429,16 @@ export interface operations {
                      *       ]
                      *     } */
                     "application/json": {
-                        [key: string]: (({
-                            /** @description The globally unique identifier for this Statement */
-                            readonly id?: string;
-                            /**
-                             * @description The rank of the Statement
-                             * @default normal
-                             */
-                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                        } & {
-                            property?: {
-                                /** @description The data type of the Property */
-                                readonly data_type?: string | null;
-                                /** @description The ID of the Property */
-                                id?: string;
-                            };
-                            value?: {
-                                /** @description The value, if type == "value", otherwise omitted */
-                                content?: unknown;
+                        [key: string]: (
+                            & ({
+                                /** @description The globally unique identifier for this Statement */
+                                readonly id?: string;
                                 /**
-                                 * @description The value type
+                                 * @description The rank of the Statement
+                                 * @default normal
                                  */
-                                type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                            };
-                        } & {
-                            /** @default [] */
-                            qualifiers: {
+                                rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                            } & {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -15406,12 +15453,9 @@ export interface operations {
                                      */
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
-                            }[];
-                            /** @default [] */
-                            references: {
-                                /** @description Hash of the Reference */
-                                readonly hash?: string;
-                                parts?: {
+                            } & {
+                                /** @default [] */
+                                qualifiers: {
                                     property?: {
                                         /** @description The data type of the Property */
                                         readonly data_type?: string | null;
@@ -15424,17 +15468,41 @@ export interface operations {
                                         /**
                                          * @description The value type
                                          */
-                                        type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                     };
                                 }[];
-                            }[];
-                        }) & ({
-                            property: unknown;
-                            value: unknown;
-                        } & {
-                            qualifiers: unknown;
-                            references: unknown;
-                        }))[];
+                                /** @default [] */
+                                references: {
+                                    /** @description Hash of the Reference */
+                                    readonly hash?: string;
+                                    parts?: {
+                                        property?: {
+                                            /** @description The data type of the Property */
+                                            readonly data_type?: string | null;
+                                            /** @description The ID of the Property */
+                                            id?: string;
+                                        };
+                                        value?: {
+                                            /** @description The value, if type == "value", otherwise omitted */
+                                            content?: unknown;
+                                            /**
+                                             * @description The value type
+                                             */
+                                            type?:
+                                                PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                        };
+                                    }[];
+                                }[];
+                            })
+                            & ({
+                                property: unknown;
+                                value: unknown;
+                            } & {
+                                qualifiers: unknown;
+                                references: unknown;
+                            })
+                        )[];
                     };
                 };
             };
@@ -15556,32 +15624,16 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -15596,12 +15648,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -15617,14 +15666,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -15663,32 +15734,16 @@ export interface operations {
                      *       "qualifiers": [],
                      *       "references": []
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -15703,12 +15758,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -15724,14 +15776,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The request cannot be processed */
@@ -15898,32 +15972,16 @@ export interface operations {
                      *       "qualifiers": [],
                      *       "references": []
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -15938,12 +15996,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -15959,14 +16014,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The specified resource has not been modified since last provided revision number or date */
@@ -16092,32 +16169,16 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -16132,12 +16193,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -16153,14 +16211,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -16197,32 +16277,16 @@ export interface operations {
                      *       "qualifiers": [],
                      *       "references": []
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -16237,12 +16301,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -16258,14 +16319,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The request cannot be processed */
@@ -16650,32 +16733,16 @@ export interface operations {
                      *       "qualifiers": [],
                      *       "references": []
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -16690,12 +16757,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -16711,14 +16775,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The provided JSON Patch is invalid */
@@ -16995,32 +17081,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -17035,12 +17105,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -17056,14 +17123,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The specified resource has not been modified since last provided revision number or date */
@@ -17214,32 +17303,16 @@ export interface operations {
                  *       "comment": "Example edit using the Wikibase REST API"
                  *     } */
                 "application/json": {
-                    statement: ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    statement:
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers?: {
+                            rank?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -17254,12 +17327,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references?: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers?: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -17275,14 +17345,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers?: unknown;
-                        references?: unknown;
-                    });
+                            /** @default [] */
+                            references?: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers?: unknown;
+                            references?: unknown;
+                        });
                 } & {
                     /** @default false */
                     bot?: boolean;
@@ -17350,32 +17442,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -17390,12 +17466,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -17411,14 +17484,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The request cannot be processed */
@@ -17848,32 +17943,16 @@ export interface operations {
                      *         }
                      *       ]
                      *     } */
-                    "application/json": ({
-                        /** @description The globally unique identifier for this Statement */
-                        readonly id?: string;
-                        /**
-                         * @description The rank of the Statement
-                         * @default normal
-                         */
-                        rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
-                    } & {
-                        property?: {
-                            /** @description The data type of the Property */
-                            readonly data_type?: string | null;
-                            /** @description The ID of the Property */
-                            id?: string;
-                        };
-                        value?: {
-                            /** @description The value, if type == "value", otherwise omitted */
-                            content?: unknown;
+                    "application/json":
+                        & ({
+                            /** @description The globally unique identifier for this Statement */
+                            readonly id?: string;
                             /**
-                             * @description The value type
+                             * @description The rank of the Statement
+                             * @default normal
                              */
-                            type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
-                        };
-                    } & {
-                        /** @default [] */
-                        qualifiers: {
+                            rank: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank;
+                        } & {
                             property?: {
                                 /** @description The data type of the Property */
                                 readonly data_type?: string | null;
@@ -17888,12 +17967,9 @@ export interface operations {
                                  */
                                 type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                             };
-                        }[];
-                        /** @default [] */
-                        references: {
-                            /** @description Hash of the Reference */
-                            readonly hash?: string;
-                            parts?: {
+                        } & {
+                            /** @default [] */
+                            qualifiers: {
                                 property?: {
                                     /** @description The data type of the Property */
                                     readonly data_type?: string | null;
@@ -17909,14 +17985,36 @@ export interface operations {
                                     type?: PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
                                 };
                             }[];
-                        }[];
-                    }) & ({
-                        property: unknown;
-                        value: unknown;
-                    } & {
-                        qualifiers: unknown;
-                        references: unknown;
-                    });
+                            /** @default [] */
+                            references: {
+                                /** @description Hash of the Reference */
+                                readonly hash?: string;
+                                parts?: {
+                                    property?: {
+                                        /** @description The data type of the Property */
+                                        readonly data_type?: string | null;
+                                        /** @description The ID of the Property */
+                                        id?: string;
+                                    };
+                                    value?: {
+                                        /** @description The value, if type == "value", otherwise omitted */
+                                        content?: unknown;
+                                        /**
+                                         * @description The value type
+                                         */
+                                        type?:
+                                            PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType;
+                                    };
+                                }[];
+                            }[];
+                        })
+                        & ({
+                            property: unknown;
+                            value: unknown;
+                        } & {
+                            qualifiers: unknown;
+                            references: unknown;
+                        });
                 };
             };
             /** @description The provided JSON Patch request is invalid */
@@ -18041,12 +18139,12 @@ export interface operations {
 export enum PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsRank {
     deprecated = "deprecated",
     normal = "normal",
-    preferred = "preferred"
+    preferred = "preferred",
 }
 export enum PathsV1EntitiesItemsPostRequestBodyApplicationJsonItemStatementsValueType {
     value = "value",
     somevalue = "somevalue",
-    novalue = "novalue"
+    novalue = "novalue",
 }
 export enum PathsV1EntitiesItemsItem_idGetParametersQuery_fields {
     type = "type",
@@ -18054,7 +18152,7 @@ export enum PathsV1EntitiesItemsItem_idGetParametersQuery_fields {
     descriptions = "descriptions",
     aliases = "aliases",
     statements = "statements",
-    sitelinks = "sitelinks"
+    sitelinks = "sitelinks",
 }
 export enum PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp {
     add = "add",
@@ -18062,7 +18160,7 @@ export enum PathsV1EntitiesItemsItem_idPatchRequestBodyApplicationJsonPatchOp {
     move = "move",
     remove = "remove",
     replace = "replace",
-    test = "test"
+    test = "test",
 }
 export enum PathsV1EntitiesPropertiesProperty_idGetParametersQuery_fields {
     type = "type",
@@ -18070,5 +18168,5 @@ export enum PathsV1EntitiesPropertiesProperty_idGetParametersQuery_fields {
     labels = "labels",
     descriptions = "descriptions",
     aliases = "aliases",
-    statements = "statements"
+    statements = "statements",
 }

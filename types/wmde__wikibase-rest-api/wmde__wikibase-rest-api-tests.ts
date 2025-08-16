@@ -1,4 +1,4 @@
-import type { paths, operations, components } from "wmde__wikibase-rest-api";
+import type { components, operations, paths } from "wmde__wikibase-rest-api";
 
 // Test: known path exists
 const path: keyof paths = "/v1/openapi.json";
