@@ -6,11 +6,7 @@
         "https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase"
     ],
     "devDependencies": {
-        "@types/wmde__wikibase-rest-api": "workspace:.",
-        "openapi-typescript": "^7.9.1"
-    },
-    "scripts": {
-        "generate-types": "curl -L -o openapi.json 'https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/Wikibase/+/refs/heads/REL1_44/repo/rest-api/src/openapi.json?format=TEXT' && base64 -d openapi.json > openapi.decoded.json && openapi-typescript openapi.decoded.json --output index.d.ts --only-types; rm -f openapi.json openapi.decoded.json"
+        "@types/wmde__wikibase-rest-api": "workspace:."
     },
     "owners": [
         {
