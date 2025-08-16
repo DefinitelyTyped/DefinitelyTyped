@@ -13,7 +13,7 @@ const parameters: midtransClient.SnapTransactionParameters = {
     },
 };
 
-snap.createTransaction(parameters).then((transaction) => {
+snap.createTransaction(parameters).then((transaction: midtransClient.SnapTransactionResponse) => {
     const token: string = transaction.token;
     const redirectUrl: string = transaction.redirect_url;
 });
@@ -24,6 +24,6 @@ const core = new midtransClient.CoreApi({
     clientKey: 'YOUR_CLIENT_KEY',
 });
 
-core.charge({}).then((chargeResponse) => {
+core.charge({}).then((chargeResponse: any) => {
     const response = chargeResponse;
 });

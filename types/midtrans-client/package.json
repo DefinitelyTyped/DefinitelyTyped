@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/midtrans-client",
-    "version": "1.4.3",
+    "version": "1.4.9999",
     "projects": [
         "https://github.com/midtrans/midtrans-nodejs-client"
     ],
