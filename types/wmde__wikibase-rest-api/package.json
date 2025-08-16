@@ -2,8 +2,6 @@
     "private": true,
     "name": "@types/wmde__wikibase-rest-api",
     "version": "1.4.9999",
-    "type": "module",
-    "types": "index.d.ts",
     "projects": [
         "https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase"
     ],
