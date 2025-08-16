@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fsmate",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jsvibe/fsmate"
+    ],
+    "devDependencies": {
+        "@types/fsmate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Indian Modassir",
+            "githubUsername": "indianmodassir"
+        }
+    ]
+}
