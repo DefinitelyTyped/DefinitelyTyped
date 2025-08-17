@@ -4,6 +4,11 @@ declare var umami: umami.umami;
  * @see {@link https://umami.is/docs/tracker-functions|Umami Docs}
  */
 declare namespace umami {
+    interface UmamiSessionData {
+        name: string;
+        email: string;
+    }
+
     interface umami {
         track(): Promise<string> | undefined;
         track(
@@ -25,5 +30,9 @@ declare namespace umami {
                 website: string;
             }) => { website: string; [key: string]: any },
         ): Promise<string> | undefined;
+
+        identify(unique_id: string): Promise<void>;
+        identify(unique_id: string, data: UmamiSessionData): Promise<void>;
+        identify(data: UmamiSessionData): Promise<void>;
     }
 }

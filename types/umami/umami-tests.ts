@@ -16,3 +16,9 @@ umami.track(props => ({
         id: 123,
     },
 }));
+
+umami.identify("");
+
+umami.identify("", { name: "", email: "" });
+
+umami.identify({ name: "", email: "" });
