@@ -382,7 +382,10 @@ const testXmlService = () => {
 
     // https://developers.google.com/apps-script/reference/xml-service/doc-type
     const docType = XmlService.createDocType("html"); // $ExpectType DocType
+    docType.getInternalSubset(); // $ExpectType string | null
     docType.getParentElement(); // $ExpectType Element | null
+    docType.getPublicId(); // $ExpectType string | null
+    docType.getSystemId(); // $ExpectType string | null
 
     // https://developers.google.com/apps-script/reference/xml-service/document
     const doc = XmlService.createDocument(); // $ExpectType Document
@@ -402,6 +405,8 @@ const testXmlService = () => {
     element.getChildText("child"); // $ExpectType string | null
     element.getChildText("child", namespace); // $ExpectType string | null
     element.getContent(1); // $ExpectType Content | null
+    element.getDocument(); // $ExpectType Document | null
+    element.getNamespace("prefix"); // $ExpectType Namespace | null
     element.getParentElement(); // $ExpectType Element | null
     element.removeContent(1); // $ExpectType Content | null
 

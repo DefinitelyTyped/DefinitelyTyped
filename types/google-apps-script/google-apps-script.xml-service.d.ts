@@ -111,10 +111,10 @@ declare namespace GoogleAppsScript {
         interface DocType extends Content {
             detach(): Content;
             getElementName(): string;
-            getInternalSubset(): string;
+            getInternalSubset(): string | null;
             getParentElement(): Element | null;
-            getPublicId(): string;
-            getSystemId(): string;
+            getPublicId(): string | null;
+            getSystemId(): string | null;
             getValue(): string;
             setElementName(name: string): DocType;
             setInternalSubset(data: string): DocType;
@@ -182,10 +182,10 @@ declare namespace GoogleAppsScript {
             getContent(index: Integer): Content | null;
             getContentSize(): Integer;
             getDescendants(): Content[];
-            getDocument(): Document;
+            getDocument(): Document | null;
             getName(): string;
             getNamespace(): Namespace;
-            getNamespace(prefix: string): Namespace;
+            getNamespace(prefix: string): Namespace | null;
             getParentElement(): Element | null;
             getQualifiedName(): string;
             getText(): string;
