@@ -1,7 +1,9 @@
 {
     "private": true,
     "name": "@types/umami",
-    "version": "2.10.9999",
+    "version": "2.18.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Umami is a modern, privacy-focused alternative to Google Analytics",
     "projects": [
         "https://github.com/umami-software/umami"
     ],
