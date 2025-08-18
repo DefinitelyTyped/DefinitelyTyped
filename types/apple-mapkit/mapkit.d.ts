@@ -140,13 +140,13 @@ export declare class AddressFilter {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/includescategory Read more.}
      * @public
      */
-    includesCategory(category: AddressCategory): boolean;
+    includesCategory(category: AddressCategory): boolean | undefined;
     /**
      * A Boolean value that indicates whether to exclude a category from a search.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/excludescategory Read more.}
      * @public
      */
-    excludesCategory(category: AddressCategory): boolean;
+    excludesCategory(category: AddressCategory): boolean | undefined;
     /**
      * A value that excludes all address categories.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/excludingallcategories Read more.}
@@ -730,7 +730,7 @@ export declare class CircleOverlay extends Overlay {
     constructor(
         coordinate: Coordinate,
         radius: number,
-        options?: OverlayOptions,
+        options: OverlayOptions,
     );
     /**
      * The coordinate of the circle overlay's center.
@@ -2849,7 +2849,7 @@ export declare interface MapKitEvent {
 /**
  * @public
  */
-export declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
+declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
     | ((event: T) => void)
     | {
         handleEvent<T>(event: T): void;
@@ -3254,7 +3254,7 @@ export declare interface MarkerAnnotationConstructorOptions extends AnnotationCo
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.overlay Read more.}
  * @public
  */
-export declare abstract class Overlay extends MapKitEventTarget {
+declare abstract class Overlay extends MapKitEventTarget {
     /**
      * Style properties to apply to the overlay.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.overlay/style Read more.}
@@ -3659,7 +3659,7 @@ export declare class PlaceLookup extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/mapkit.placelookup Read more.}
      * @public
      */
-    constructor(options?: ServiceConstructorOptions);
+    constructor(options: ServiceConstructorOptions);
     /**
      * Obtains a place using its identifier.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/getplace Read more.}
@@ -3668,7 +3668,7 @@ export declare class PlaceLookup extends Service {
     getPlace(
         id: string,
         callback: (error: Error | null, result?: Place) => void,
-        options?: ServiceConstructorOptions,
+        options: ServiceConstructorOptions,
     ): number;
 }
 
@@ -4086,7 +4086,7 @@ export declare class PointsOfInterestSearch extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/mapkit.pointsofinterestsearch Read more.}
      * @public
      */
-    constructor(options?: PointsOfInterestSearchConstructorOptions);
+    constructor(options: PointsOfInterestSearchConstructorOptions);
     /**
      * The center point of the request represented as latitude and longitude.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/center Read more.}
@@ -4242,10 +4242,7 @@ export declare class PolygonOverlay extends Overlay {
      * @param options An optional object literal of options for initializing the polygon.
      * @public
      */
-    constructor(
-        points: Coordinate[][] | Coordinate[],
-        options?: OverlayOptions,
-    );
+    constructor(points: Coordinate[][] | Coordinate[], options: OverlayOptions);
     /**
      * One or more arrays of coordinates that define the polygon overlay shape.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.polygonoverlay/points Read more.}
@@ -4383,7 +4380,7 @@ export declare class Search extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.search/mapkit.search Read more.}
      * @public
      */
-    constructor(options?: SearchConstructorOptions);
+    constructor(options: SearchConstructorOptions);
     get coordinate(): Coordinate | null;
     set coordinate(value: Coordinate | null);
     get region(): CoordinateRegion | null;
@@ -4415,7 +4412,7 @@ export declare class Search extends Service {
     search(
         query: string | SearchAutocompleteResult,
         callback: SearchDelegate<SearchResponse>,
-        options?: SearchOptions,
+        options: SearchOptions,
     ): number;
     /**
      * Retrieves a list of autocomplete results for the specified search query.
@@ -4428,7 +4425,7 @@ export declare class Search extends Service {
     autocomplete(
         query: string,
         callback: SearchDelegate<SearchAutocompleteResponse>,
-        options?: SearchAutocompleteOptions,
+        options: SearchAutocompleteOptions,
     ): number;
     static RegionPriority: typeof RegionPriority;
 }
@@ -5012,7 +5009,7 @@ declare type TransportType = Enum.Values<typeof TransportType>;
 /**
  * @public
  */
-export declare class UserLocationAnnotation extends Annotation {
+declare class UserLocationAnnotation extends Annotation {
     set coordinate(coordinate: Coordinate);
     get coordinate(): Coordinate;
     get draggable(): boolean;
