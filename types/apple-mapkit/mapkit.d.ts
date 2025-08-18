@@ -5,7 +5,7 @@ import type * as GeoJSONTypes from "geojson";
  *
  * @public
  */
-export declare abstract class AbstractLookAround extends EventTarget {
+declare abstract class AbstractLookAround extends EventTarget {
     #private;
 
     /**
@@ -79,6 +79,7 @@ export declare abstract class AbstractLookAround extends EventTarget {
 /**
  * The categories of address components that users can search for with an address filter.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addresscategory Read more.}
+ * @enum
  * @public
  * @enum
  */
@@ -134,7 +135,6 @@ export declare type AddressCategory = Enum.Values<typeof AddressCategory>;
  * @public
  */
 export declare class AddressFilter {
-    constructor(options?: AddressFilterOptions);
     /**
      * A Boolean value that indicates whether to include a category from a search.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/includescategory Read more.}
@@ -196,9 +196,9 @@ export declare class Annotation extends MapKitEventTarget {
      * @public
      */
     constructor(
-        coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
+        location: Coordinate | Place | SearchAutocompleteResult,
         factory: (
-            coordinate?: Coordinate,
+            location?: Coordinate,
             options?: AnnotationConstructorOptions,
         ) => HTMLElement,
         options?: AnnotationConstructorOptions,
@@ -475,7 +475,7 @@ export declare interface AnnotationConstructorOptions {
      * An object that allows a custom annotation to potentially supersede a point of interest at the same map coordinates.
      * @public
      */
-    place?: SearchPlaceResult | SearchAutocompleteResult;
+    place?: Place | SearchAutocompleteResult;
     /**
      * The text to display in the annotation's callout.
      * @public
@@ -643,7 +643,7 @@ export declare class BoundingRegion {
  * {@link https://developer.apple.com/documentation/mapkitjs/cameraboundarydescription Read more.}
  * @public
  */
-export declare interface CameraBoundaryDescription {
+declare interface CameraBoundaryDescription {
     /**
      * A rectangular area on a map, defined by coordinates of the rectangle's northeast and southwest corners.
      * @public
@@ -751,7 +751,7 @@ export declare class CircleOverlay extends Overlay {
 /**
  * @public
  */
-export declare class ClusterAnnotation extends MarkerAnnotation {
+declare class ClusterAnnotation extends MarkerAnnotation {
     get memberAnnotations(): Annotation[];
 }
 
@@ -759,7 +759,7 @@ export declare class ClusterAnnotation extends MarkerAnnotation {
  * @enum
  * @public
  */
-export declare const CollisionMode: Readonly<{
+declare const CollisionMode: Readonly<{
     readonly Rectangle: "rectangle";
     readonly Circle: "circle";
     readonly None: "none";
@@ -768,13 +768,13 @@ export declare const CollisionMode: Readonly<{
 /**
  * @public
  */
-export declare type CollisionMode = Enum.Values<typeof CollisionMode>;
+declare type CollisionMode = Enum.Values<typeof CollisionMode>;
 
 /**
  * @enum
  * @public
  */
-export declare const ColorScheme: Readonly<{
+declare const ColorScheme: Readonly<{
     readonly Dark: "dark";
     readonly Light: "light";
     readonly Adaptive: "adaptive";
@@ -783,7 +783,7 @@ export declare const ColorScheme: Readonly<{
 /**
  * @public
  */
-export declare type ColorScheme = Enum.Values<typeof ColorScheme>;
+declare type ColorScheme = Enum.Values<typeof ColorScheme>;
 
 /**
  * Options shared between {@link LookAround} and {@link LookAroundPreview} constructors.
@@ -1048,12 +1048,12 @@ export declare interface DirectionsRequest {
      * The starting point for routing directions.
      * @public
      */
-    origin: string | Coordinate | SearchPlaceResult;
+    origin: string | Coordinate | Place;
     /**
      * The end point for routing directions.
      * @public
      */
-    destination: string | Coordinate | SearchPlaceResult;
+    destination: string | Coordinate | Place;
     /**
      * The mode of transportation the directions apply to.
      * @public
@@ -1096,12 +1096,12 @@ export declare interface DirectionsResponse {
      * An optional starting point for routing directions.
      * @public
      */
-    origin?: Coordinate | SearchPlaceResult;
+    origin?: Coordinate | Place;
     /**
      * An optional end point for routing directions.
      * @public
      */
-    destination?: Coordinate | SearchPlaceResult;
+    destination?: Coordinate | Place;
     /**
      * An array of route objects.
      * @public
@@ -1112,7 +1112,7 @@ export declare interface DirectionsResponse {
 /**
  * @public
  */
-export declare const DisplayPriority: Readonly<{
+declare const DisplayPriority: Readonly<{
     readonly Low: 250;
     readonly High: 750;
     readonly Required: 1000;
@@ -1122,13 +1122,13 @@ export declare const DisplayPriority: Readonly<{
  * @enum
  * @public
  */
-export declare type DisplayPriority = Enum.Values<typeof DisplayPriority>;
+declare type DisplayPriority = Enum.Values<typeof DisplayPriority>;
 
 /**
  * @enum
  * @public
  */
-export declare const Distances: Readonly<{
+declare const Distances: Readonly<{
     readonly Adaptive: "adaptive";
     readonly Metric: "metric";
     readonly Imperial: "imperial";
@@ -1137,19 +1137,19 @@ export declare const Distances: Readonly<{
 /**
  * @public
  */
-export declare type Distances = Enum.Values<typeof Distances>;
+declare type Distances = Enum.Values<typeof Distances>;
 
 /**
  * @public
  */
-export declare function Enum<const T extends Record<string, unknown>>(
+declare function Enum<const T extends Record<string, unknown>>(
     values: T,
 ): Readonly<T>;
 
 /**
  * @public
  */
-export declare namespace Enum {
+declare namespace Enum {
     type Values<T extends Record<string, unknown>> = T[keyof T];
 }
 
@@ -1241,6 +1241,7 @@ export declare interface EtaResult {
 /**
  * Constants indicating the visibility of different adaptive map features.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.featurevisibility Read more.}
+ * @enum
  * @public
  * @enum
  */
@@ -1283,7 +1284,7 @@ export declare class Geocoder extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.geocoder/mapkit.geocoder Read more.}
      * @public
      */
-    constructor(options?: ServiceOptions);
+    constructor(options?: ServiceConstructorOptions);
     /**
      * Converts an address to geographic coordinates.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.geocoder/lookup Read more.}
@@ -1292,7 +1293,7 @@ export declare class Geocoder extends Service {
      * @public
      */
     lookup(
-        address: string,
+        place: string,
         callback: (error: Error | null, result?: GeocoderResponse) => void,
         options?: GeocoderLookupOptions,
     ): number;
@@ -1348,7 +1349,7 @@ export declare interface GeocoderResponse {
      * An array of places that returns from a geocoder lookup or reverse lookup.
      * @public
      */
-    results: SearchPlaceResult[];
+    results: Place[];
 }
 
 /**
@@ -1378,8 +1379,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForMultiPoint?<D extends GeoJSONTypes.MultiPoint>(
-        item: ItemCollection<D>,
-        object: D,
+        itemCollection: ItemCollection<D>,
+        geoJSON: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a multiline string.
@@ -1389,8 +1390,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForMultiLineString?<D extends GeoJSONTypes.MultiLineString>(
-        item: ItemCollection<D>,
-        object: D,
+        itemCollection: ItemCollection<D>,
+        geoJSON: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a multipolygon.
@@ -1400,8 +1401,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForMultiPolygon?<D extends GeoJSONTypes.MultiPolygon>(
-        item: ItemCollection<D>,
-        object: D,
+        itemCollection: ItemCollection<D>,
+        geoJSON: D,
     ): ItemCollection<D> | Item[] | null;
     /**
      * Overrides a point.
@@ -1410,7 +1411,10 @@ export declare interface GeoJSONDelegate {
      * @param geoJSON The original GeoJSON object for the `Point`. This object may be a simple `Point` or a `Feature` with the `Point` geometry type.
      * @public
      */
-    itemForPoint?(item: Coordinate, object: GeoJSONTypes.Point): Item | null;
+    itemForPoint?(
+        coordinate: Coordinate,
+        geoJSON: GeoJSONTypes.Point,
+    ): Item | null;
     /**
      * Overrides a line string.
      * {@link https://developer.apple.com/documentation/mapkitjs/geojsondelegate/itemforlinestring Read more.}
@@ -1419,8 +1423,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForLineString?(
-        item: PolylineOverlay,
-        object: GeoJSONTypes.LineString,
+        overlay: PolylineOverlay,
+        geoJSON: GeoJSONTypes.LineString,
     ): PolylineOverlay | null;
     /**
      * Overrides a polygon.
@@ -1430,8 +1434,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForPolygon?(
-        item: PolygonOverlay,
-        object: GeoJSONTypes.Polygon,
+        overlay: PolygonOverlay,
+        geoJSON: GeoJSONTypes.Polygon,
     ): PolygonOverlay | null;
     /**
      * Overrides a feature.
@@ -1442,7 +1446,7 @@ export declare interface GeoJSONDelegate {
      */
     itemForFeature?(
         item: Item | null,
-        object: GeoJSONTypes.Feature,
+        geoJSON: GeoJSONTypes.Feature,
     ): Item | null;
     /**
      * Overrides a feature collection.
@@ -1452,8 +1456,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     itemForFeatureCollection?<D extends GeoJSONTypes.FeatureCollection>(
-        item: ItemCollection<D>,
-        object: D,
+        itemCollection: ItemCollection<D>,
+        geoJSON: D,
     ): ItemCollection<D> | Item[] | null;
     itemForGeometryCollection?<D extends GeoJSONTypes.GeometryCollection>(
         item: ItemCollection<D>,
@@ -1468,7 +1472,7 @@ export declare interface GeoJSONDelegate {
      */
     styleForOverlay?(
         overlay: PolylineOverlay | PolygonOverlay,
-        object: GeoJSONTypes.LineString | GeoJSONTypes.Polygon,
+        geoJSON: GeoJSONTypes.LineString | GeoJSONTypes.Polygon,
     ): Style;
     /**
      * Completes the GeoJSON import.
@@ -1478,8 +1482,8 @@ export declare interface GeoJSONDelegate {
      * @public
      */
     geoJSONDidComplete?<D extends GeoJSONTypes.GeoJSON>(
-        items: ItemCollection<D>,
-        object: D,
+        result: ItemCollection<D>,
+        geoJSON: D,
     ): void;
     /**
      * Indicates when the GeoJSON import fails.
@@ -1490,14 +1494,14 @@ export declare interface GeoJSONDelegate {
      */
     geoJSONDidError?(
         error: GeoJSONImportError | Error,
-        object?: GeoJSONTypes.GeoJSON,
+        geoJSON?: GeoJSONTypes.GeoJSON,
     ): void;
 }
 
 /**
  * @public
  */
-export declare type GeoJSONImporterCallback = (
+declare type GeoJSONImporterCallback = (
     ...args:
         | [GeoJSONImportError, GeoJSONTypes.GeoJSON | undefined]
         | [null, ItemCollection]
@@ -1506,7 +1510,7 @@ export declare type GeoJSONImporterCallback = (
 /**
  * @public
  */
-export declare class GeoJSONImportError extends Error {
+declare class GeoJSONImportError extends Error {
     constructor(message: string);
 }
 
@@ -1524,8 +1528,8 @@ export declare class ImageAnnotation extends Annotation {
      * @public
      */
     constructor(
-        coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options: ImageAnnotationOptions,
+        location: Coordinate | Place | SearchAutocompleteResult,
+        options: ImageAnnotationConstructorOptions,
     );
     /**
      * An object containing URLs for the image assets in multiple resolutions.
@@ -1541,7 +1545,7 @@ export declare class ImageAnnotation extends Annotation {
  * {@link https://developer.apple.com/documentation/mapkitjs/imageannotationconstructoroptions Read more.}
  * @public
  */
-export declare interface ImageAnnotationOptions extends AnnotationConstructorOptions {
+export declare interface ImageAnnotationConstructorOptions extends AnnotationConstructorOptions {
     /**
      * An object containing URLs for the image assets in multiple resolutions.
      * @public
@@ -1566,36 +1570,21 @@ export declare interface ImageDelegate {
 /**
  * @public
  */
-export declare type ImageHashObject = {
+declare type ImageHashObject = {
     [ratio: string]: string | undefined;
 } & {};
 
 /**
  * @public
  */
-export declare function importGeoJSON(
-    dataOrURI: string | GeoJSONTypes.GeoJSON,
-    callbackOrDelegate?: GeoJSONDelegate | GeoJSONImporterCallback,
-):
-    | ItemCollection<
-        GeoJSONTypes.GeoJSON<
-            GeoJSONTypes.Geometry,
-            GeoJSONTypes.GeoJsonProperties
-        >
-    >
-    | undefined;
-
-/**
- * @public
- */
-export declare type Item = Annotation | Overlay | ItemCollection;
+declare type Item = Annotation | Overlay | ItemCollection;
 
 /**
  * A tree structure containing annotations, overlays, and nested item collection objects.
  * {@link https://developer.apple.com/documentation/mapkitjs/itemcollection Read more.}
  * @public
  */
-export declare class ItemCollection<D = any> {
+declare class ItemCollection<D = any> {
     /**
      * The raw GeoJSON data.
      * {@link https://developer.apple.com/documentation/mapkitjs/itemcollection/data Read more.}
@@ -1627,7 +1616,7 @@ export declare class LineGradient {
     /**
      * Creates a style that renders a gradient along the length of a line.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.linegradient/mapkit.linegradient Read more.}
-     * @param options A JavaScript object with unit distance values as keys with matched CSS colors.
+     * @param colorStops A JavaScript object with unit distance values as keys with matched CSS colors.
      * @public
      */
     constructor(colorStops?: { [key: number]: string });
@@ -1654,7 +1643,7 @@ export declare class LineGradient {
  * @enum
  * @public
  */
-export declare const LoadPriorities: Readonly<{
+declare const LoadPriorities: Readonly<{
     readonly LandCover: "LandCover";
     readonly PointsOfInterest: "PointsOfInterest";
     readonly None: null;
@@ -1663,7 +1652,7 @@ export declare const LoadPriorities: Readonly<{
 /**
  * @public
  */
-export declare type LoadPriorities = Enum.Values<typeof LoadPriorities>;
+declare type LoadPriorities = Enum.Values<typeof LoadPriorities>;
 
 /**
  * Provide an interactive look around view on the page.
@@ -1683,7 +1672,7 @@ export declare class LookAround extends AbstractLookAround {
      */
     constructor(
         parent?: HTMLElement,
-        location?: Coordinate | SearchPlaceResult | LookAroundScene,
+        location?: Coordinate | Place | LookAroundScene,
         options?: LookAroundOptions,
     );
 
@@ -1716,7 +1705,7 @@ export declare class LookAround extends AbstractLookAround {
  * @enum
  * @public
  */
-export declare const LookAroundBadgePosition: Readonly<{
+declare const LookAroundBadgePosition: Readonly<{
     readonly TopLeading: "topLeading";
     readonly TopTrailing: "topTrailing";
     readonly BottomTrailing: "bottomTrailing";
@@ -1725,7 +1714,7 @@ export declare const LookAroundBadgePosition: Readonly<{
 /**
  * @public
  */
-export declare type LookAroundBadgePosition = Enum.Values<
+declare type LookAroundBadgePosition = Enum.Values<
     typeof LookAroundBadgePosition
 >;
 
@@ -1767,7 +1756,7 @@ export declare class LookAroundPreview extends AbstractLookAround {
      */
     constructor(
         parent?: HTMLElement,
-        location?: Coordinate | SearchPlaceResult | LookAroundScene,
+        location?: Coordinate | Place | LookAroundScene,
         options?: LookAroundPreviewOptions,
     );
 
@@ -1802,7 +1791,7 @@ export declare interface LookAroundPreviewOptions extends CommonLookAroundOption
  * @enum
  * @public
  */
-export declare const LookAroundReadyState: Readonly<{
+declare const LookAroundReadyState: Readonly<{
     readonly Loading: "loading";
     readonly Complete: "complete";
     readonly Error: "error";
@@ -1812,9 +1801,7 @@ export declare const LookAroundReadyState: Readonly<{
 /**
  * @public
  */
-export declare type LookAroundReadyState = Enum.Values<
-    typeof LookAroundReadyState
->;
+declare type LookAroundReadyState = Enum.Values<typeof LookAroundReadyState>;
 
 /**
  * Represent a look around scene. This class was previously named `LookAroundEntryPoint`.
@@ -1837,7 +1824,7 @@ export declare class LookAroundScene {
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map Read more.}
  * @public
  */
-export declare class Map extends MapKitEventTarget {
+declare class Map extends MapKitEventTarget {
     /**
      * Creates a map you embed on a webpage and initializes it with the constructor options you choose.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/mapkit.map Read more.}
@@ -1995,10 +1982,10 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's visible map rectangle to the specified map rectangle.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setvisiblemaprectanimated Read more.}
      * @param mapRect The map's new visible area, in map units.
-     * @param animate A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
      * @public
      */
-    setVisibleMapRectAnimated(visibleMapRect: MapRect, animated?: boolean): Map;
+    setVisibleMapRectAnimated(mapRect: MapRect, animated?: boolean): Map;
     /**
      * The area the map is displaying.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/region Read more.}
@@ -2010,7 +1997,7 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's region to the provided region, with optional animation.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setregionanimated Read more.}
      * @param region A new {@link Map.region} for the map to display.
-     * @param animate A Boolean value that determines whether MapKit JS animates the region change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the region change. The default value is `true`.
      * @public
      */
     setRegionAnimated(region: CoordinateRegion, animated?: boolean): Map;
@@ -2046,7 +2033,7 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's rotation setting to the number of specified degrees.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setrotationanimated Read more.}
      * @param degrees The map's rotation, in degrees.
-     * @param animate A Boolean value that determines whether the rotation change animates. The default value is `true`.
+     * @param animated A Boolean value that determines whether the rotation change animates. The default value is `true`.
      * @public
      */
     setRotationAnimated(degrees: number, animated?: boolean): Map | undefined;
@@ -2061,10 +2048,10 @@ export declare class Map extends MapKitEventTarget {
      * Centers the map to the provided coordinate, with optional animation.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setcenteranimated Read more.}
      * @param coordinate The map's new {@link Map.center}.
-     * @param animate A Boolean value that determines whether MapKit JS animates the center change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the center change. The default value is `true`.
      * @public
      */
-    setCenterAnimated(center: Coordinate, animated?: boolean): Map;
+    setCenterAnimated(coordinate: Coordinate, animated?: boolean): Map;
     /**
      * The minimum and maximum distances of the camera from the map center.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/camerazoomrange Read more.}
@@ -2076,11 +2063,11 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's camera zoom range with an animated transition.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setcamerazoomrangeanimated Read more.}
      * @param cameraZoomRange A {@link CameraZoomRange} instance, which is an object containing the {@link CameraZoomRange.minCameraDistance} and {@link CameraZoomRange.maxCameraDistance} properties.
-     * @param animate A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
      * @public
      */
     setCameraZoomRangeAnimated(
-        zoomRange: CameraZoomRange,
+        cameraZoomRange: CameraZoomRange,
         animated?: boolean,
     ): Map;
     /**
@@ -2094,7 +2081,7 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's camera distance with an animated transition.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setcameradistanceanimated Read more.}
      * @param distance The altitude of the camera from the center of the map. It's value needs to be greater than or equal to `0`.
-     * @param animate A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
      * @public
      */
     setCameraDistanceAnimated(distance: number, animated?: boolean): Map;
@@ -2110,11 +2097,11 @@ export declare class Map extends MapKitEventTarget {
      * Changes the map's camera boundary with an animated transition.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/setcameraboundaryanimated Read more.}
      * @param mapRect This can be an instance of {@link CoordinateRegion} or {@link MapRect}.
-     * @param animate A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
+     * @param animated A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
      * @public
      */
     setCameraBoundaryAnimated(
-        cameraBoundary: null | CoordinateRegion | MapRect,
+        mapRect: null | CoordinateRegion | MapRect,
         animated?: boolean,
     ): Map;
     /**
@@ -2302,7 +2289,6 @@ export declare class Map extends MapKitEventTarget {
     /**
      * A delegate method for modifying an annotation that represents a group of annotations that the framework combines into a cluster.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/annotationforcluster Read more.}
-     * @param clusterAnnotation An annotation that represents a group of annotations that MapKit JS combines into a cluster.
      * @public
      */
     get annotationForCluster():
@@ -2347,6 +2333,7 @@ export declare class Map extends MapKitEventTarget {
             | undefined,
     );
 }
+export { Map as Map };
 
 /**
  * An object that contains options for creating a map's features.
@@ -2532,10 +2519,6 @@ export declare interface MapConstructorOptions {
  * @public
  */
 export declare class MapFeatureAnnotation extends PlaceAnnotation {
-    constructor(
-        coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
-        options?: MarkerAnnotationConstructorOptions,
-    );
     /**
      * A value that describes the type of place the feature represents.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeatureannotation/featuretype Read more.}
@@ -2548,9 +2531,7 @@ export declare class MapFeatureAnnotation extends PlaceAnnotation {
      * @param callback Required. The framework invokes appropriate methods on {@link FetchDelegate}, or the callback function with two arguments, `error` and `data,` on success or failure:
      * @public
      */
-    fetchPlace(
-        callback: (error: Error | null, result?: SearchPlaceResult) => void,
-    ): number;
+    fetchPlace(callback: (error: Error | null, result?: Place) => void): number;
     /**
      * The point-of-interest category of the feature.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeatureannotation/pointofinterestcategory Read more.}
@@ -2571,7 +2552,7 @@ export declare class MapFeatureAnnotation extends PlaceAnnotation {
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeatureannotationglyphimage Read more.}
  * @public
  */
-export declare class MapFeatureAnnotationGlyphImage {
+declare class MapFeatureAnnotationGlyphImage {
     /**
      * Returns the image URL of the map feature.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeatureannotationglyphimage/getimageurl Read more.}
@@ -2586,6 +2567,7 @@ export declare class MapFeatureAnnotationGlyphImage {
 /**
  * Values that describe the feature type of a point of interest.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeaturetype Read more.}
+ * @enum
  * @public
  * @enum
  */
@@ -2663,7 +2645,17 @@ export declare class MapKit extends MapKitEventTarget {
     /**
      * @category GeoJSON
      */
-    get importGeoJSON(): typeof importGeoJSON;
+    importGeoJSON(
+        data: string | GeoJSONTypes.GeoJSON,
+        callback?: GeoJSONDelegate | GeoJSONImporterCallback,
+    ):
+        | ItemCollection<
+            GeoJSONTypes.GeoJSON<
+                GeoJSONTypes.Geometry,
+                GeoJSONTypes.GeoJsonProperties
+            >
+        >
+        | undefined;
     /**
      * @category Enumerations
      */
@@ -2755,7 +2747,7 @@ export declare class MapKit extends MapKitEventTarget {
     /**
      * @category Map
      */
-    get maps(): InstanceType<typeof Map>[];
+    get maps(): Map[];
     /**
      * @category Annotations
      */
@@ -2784,7 +2776,7 @@ export declare class MapKit extends MapKitEventTarget {
     /**
      * @category Places
      */
-    get Place(): typeof SearchPlaceResult;
+    get Place(): typeof Place;
     /**
      * @category Places
      */
@@ -2800,15 +2792,11 @@ export declare class MapKit extends MapKitEventTarget {
     /**
      * @category Data Types
      */
-    get filterIncludingAllCategories(): InstanceType<
-        typeof PointOfInterestFilter
-    >;
+    get filterIncludingAllCategories(): PointOfInterestFilter;
     /**
      * @category Data Types
      */
-    get filterExcludingAllCategories(): InstanceType<
-        typeof PointOfInterestFilter
-    >;
+    get filterExcludingAllCategories(): PointOfInterestFilter;
     /**
      * @category Enumerations
      */
@@ -2826,6 +2814,10 @@ export declare class MapKit extends MapKitEventTarget {
      */
     get PlaceSelectionAccessory(): typeof PlaceSelectionAccessory;
     /**
+     * @category Places
+     */
+    get placeDetails(): PlaceDetail[];
+    /**
      * @category Look Around
      */
     get LookAround(): typeof LookAround;
@@ -2840,7 +2832,7 @@ export declare class MapKit extends MapKitEventTarget {
     /**
      * @category Look Around
      */
-    get lookAroundViews(): InstanceType<typeof AbstractLookAround>[];
+    get lookAroundViews(): AbstractLookAround[];
 }
 
 /**
@@ -2866,7 +2858,7 @@ export declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
 /**
  * @public
  */
-export declare class MapKitEventTarget {
+declare class MapKitEventTarget {
     addEventListener(
         eventType: string,
         listener: MapKitEventListener,
@@ -3131,13 +3123,13 @@ export declare class MapSize {
 /**
  * @public
  */
-export declare type MapType = Enum.Values<typeof MapTypes>;
+declare type MapType = Enum.Values<typeof MapTypes>;
 
 /**
  * @enum
  * @public
  */
-export declare const MapTypes: Readonly<{
+declare const MapTypes: Readonly<{
     readonly Satellite: "satellite";
     readonly Hybrid: "hybrid";
     readonly MutedStandard: "mutedStandard";
@@ -3158,7 +3150,7 @@ export declare class MarkerAnnotation extends Annotation {
      * @public
      */
     constructor(
-        coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
+        location: Coordinate | Place | SearchAutocompleteResult,
         options?: MarkerAnnotationConstructorOptions,
     );
     get size(): Size;
@@ -3373,14 +3365,13 @@ export declare class Padding {
     /**
      * Creates a padding object and initializes its inset margin properties.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.padding/mapkit.padding Read more.}
-     * @param top An object literal with the keys defined in {@link PaddingConstructorOptions}, or a list of four numbers that represent inset margin values. The numbers represent the top, right, bottom, and left insets, respectively.
      * @public
      */
     constructor();
     /**
      * Creates a padding object and initializes its inset margin properties.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.padding/mapkit.padding Read more.}
-     * @param top An object literal with the keys defined in {@link PaddingConstructorOptions}, or a list of four numbers that represent inset margin values. The numbers represent the top, right, bottom, and left insets, respectively.
+     * @param paddings An object literal with the keys defined in {@link PaddingConstructorOptions}, or a list of four numbers that represent inset margin values. The numbers represent the top, right, bottom, and left insets, respectively.
      * @public
      */
     constructor(paddings: PaddingConstructorOptions);
@@ -3461,6 +3452,113 @@ export declare interface PaddingConstructorOptions {
 }
 
 /**
+ * A place object that returns from a geocoder lookup, a reverse lookup, or a fetch request for points of interest.
+ * {@link https://developer.apple.com/documentation/mapkitjs/place Read more.}
+ * @public
+ */
+export declare class Place {
+    #private;
+    /**
+     * The Place ID referencing a feature.
+     * @public
+     */
+    id?: string;
+    /**
+     * A list of alternate Place IDs referencing a feature.
+     * @public
+     */
+    alternateIds?: string[];
+
+    /**
+     * The category of the place.
+     * @public
+     */
+    pointOfInterestCategory?: string;
+    /**
+     * The name of the place.
+     * @public
+     */
+    name?: string;
+
+    /**
+     * The geographic region associated with the place.
+     * @public
+     */
+    region?: CoordinateRegion;
+    /**
+     * The latitude and longitude for the place.
+     * @public
+     */
+    coordinate?: Coordinate;
+    /**
+     * The address of the place, formatted using its conventions of its country or region.
+     * @public
+     */
+    formattedAddress?: string;
+    /**
+     * The country or region associated with the place.
+     * @public
+     */
+    countryCode?: string;
+
+    /**
+     * The country or region of the place.
+     * @public
+     */
+    country?: string;
+    /**
+     * The state or province of the place.
+     * @public
+     */
+    administrativeArea?: string;
+    /**
+     * The short code for the state or area.
+     * @public
+     */
+    administrativeAreaCode?: string;
+    /**
+     * The city of the place.
+     * @public
+     */
+    locality?: string;
+    /**
+     * The postal code of the place.
+     * @public
+     */
+    postCode?: string;
+    /**
+     * The name of the area within the locality.
+     * @public
+     */
+    subLocality?: string;
+    /**
+     * The street name at the place.
+     * @public
+     */
+    thoroughfare?: string;
+    /**
+     * The number on the street at the place.
+     * @public
+     */
+    subThoroughfare?: string;
+    /**
+     * A combination of thoroughfare and subthoroughfare.
+     * @public
+     */
+    fullThoroughfare?: string;
+    /**
+     * Common names of the area in which the place resides.
+     * @public
+     */
+    areasOfInterest?: string[];
+    /**
+     * Common names for the local area or neighborhood of the place.
+     * @public
+     */
+    dependentLocalities?: string[];
+}
+
+/**
  * An annotation for a place.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placeannotation Read more.}
  * @public
@@ -3472,7 +3570,7 @@ export declare class PlaceAnnotation extends MarkerAnnotation {
      * @public
      */
     constructor(
-        coordinate: Coordinate | SearchPlaceResult | SearchAutocompleteResult,
+        coordinate: Coordinate | Place | SearchAutocompleteResult,
         options?: MarkerAnnotationConstructorOptions,
     );
     get element(): HTMLElement;
@@ -3503,7 +3601,7 @@ export declare class PlaceDetail {
      */
     constructor(
         parent: HTMLElement,
-        place?: SearchPlaceResult | null,
+        place?: Place | null,
         options?: PlaceDetailOptions,
     );
     /**
@@ -3517,8 +3615,8 @@ export declare class PlaceDetail {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placedetail/place Read more.}
      * @public
      */
-    get place(): SearchPlaceResult | null;
-    set place(value: SearchPlaceResult | null);
+    get place(): Place | null;
+    set place(value: Place | null);
     /**
      * The color scheme when displaying a place detail.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placedetail/colorscheme Read more.}
@@ -3561,7 +3659,7 @@ export declare class PlaceLookup extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/mapkit.placelookup Read more.}
      * @public
      */
-    constructor(options?: ServiceOptions);
+    constructor(options?: ServiceConstructorOptions);
     /**
      * Obtains a place using its identifier.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/getplace Read more.}
@@ -3569,8 +3667,8 @@ export declare class PlaceLookup extends Service {
      */
     getPlace(
         id: string,
-        callback: (error: Error | null, result?: SearchPlaceResult) => void,
-        options?: ServiceOptions,
+        callback: (error: Error | null, result?: Place) => void,
+        options?: ServiceConstructorOptions,
     ): number;
 }
 
@@ -3614,7 +3712,7 @@ export declare interface PlaceSelectionAccessoryOptions {
  * @enum
  * @public
  */
-export declare const PlaceSelectionAccessoryStyle: Readonly<{
+declare const PlaceSelectionAccessoryStyle: Readonly<{
     readonly Automatic: "automatic";
     readonly Callout: "callout";
     readonly FullCallout: "fullCallout";
@@ -3625,13 +3723,14 @@ export declare const PlaceSelectionAccessoryStyle: Readonly<{
 /**
  * @public
  */
-export declare type PlaceSelectionAccessoryStyle = Enum.Values<
+declare type PlaceSelectionAccessoryStyle = Enum.Values<
     typeof PlaceSelectionAccessoryStyle
 >;
 
 /**
  * Point-of-interest categories.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointofinterestcategory Read more.}
+ * @enum
  * @public
  * @enum
  */
@@ -3926,8 +4025,6 @@ export declare type PointOfInterestCategory = Enum.Values<
  * @public
  */
 export declare class PointOfInterestFilter {
-    constructor(options?: PointOfInterestFilterOptions);
-
     /**
      * Returns a Boolean value that indicates whether the filter includes the provided point-of-interest category.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointofinterestfilter/includescategory Read more.}
@@ -3989,7 +4086,7 @@ export declare class PointsOfInterestSearch extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/mapkit.pointsofinterestsearch Read more.}
      * @public
      */
-    constructor(options?: PointsOfInterestSearchOptions);
+    constructor(options?: PointsOfInterestSearchConstructorOptions);
     /**
      * The center point of the request represented as latitude and longitude.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/center Read more.}
@@ -4037,35 +4134,9 @@ export declare class PointsOfInterestSearch extends Service {
 }
 
 /**
- * An object or callback function that MapKit JS calls when fetching points of interest.
- * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate Read more.}
  * @public
  */
-export declare type PointsOfInterestSearchDelegate =
-    | {
-        /**
-         * Tells the delegate that the search failed due to an error.
-         * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror Read more.}
-         * @param error The error from a failed fetch for points of interest.
-         * @public
-         */
-        searchDidError: (error: Error) => void;
-        /**
-         * Tells the delegate that the search completed.
-         * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete Read more.}
-         * @param data The points of interest fetch results.
-         * @public
-         */
-        searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
-    }
-    | ((error: Error | null, result?: PointsOfInterestSearchResponse) => void);
-
-/**
- * Options that you may provide when you create a points of interest search.
- * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchoptions Read more.}
- * @public
- */
-export declare interface PointsOfInterestSearchOptions extends ServiceOptions {
+export declare interface PointsOfInterestSearchConstructorOptions extends ServiceConstructorOptions {
     /**
      * The center point of the request represented as latitude and longitude.
      * @public
@@ -4089,6 +4160,63 @@ export declare interface PointsOfInterestSearchOptions extends ServiceOptions {
 }
 
 /**
+ * An object or callback function that MapKit JS calls when fetching points of interest.
+ * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate Read more.}
+ * @public
+ */
+declare type PointsOfInterestSearchDelegate =
+    | {
+        /**
+         * Tells the delegate that the search failed due to an error.
+         * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror Read more.}
+         * @param error The error from a failed fetch for points of interest.
+         * @public
+         */
+        searchDidError: (error: Error) => void;
+        /**
+         * Tells the delegate that the search completed.
+         * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete Read more.}
+         * @param result The points of interest fetch results.
+         * @public
+         */
+        searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
+    }
+    | ((error: Error | null, result?: PointsOfInterestSearchResponse) => void);
+
+/**
+ * Options that you may provide when you create a points of interest search.
+ * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchoptions Read more.}
+ * @public
+ */
+export declare interface PointsOfInterestSearchOptions {
+    /**
+     * The center point of the request represented as latitude and longitude.
+     * @public
+     */
+    center?: Coordinate;
+    /**
+     * The distance provided in meters, or the longest distance derived from the center point to the region's bounding box.
+     * @public
+     */
+    radius?: number;
+    /**
+     * The region that bounds the area in which to fetch points of interest.
+     * @public
+     */
+    region?: CoordinateRegion;
+    /**
+     * A filter that lists points of interest categories to include or exclude.
+     * @public
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
+    /**
+     * The language ID to use when fetching points of interest.
+     * @public
+     */
+    language?: string;
+}
+
+/**
  * The result of a request used to fetch points of interest.
  * {@link https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchresponse Read more.}
  * @public
@@ -4098,7 +4226,7 @@ export declare interface PointsOfInterestSearchResponse {
      * The list of points of interest that match the request options.
      * @public
      */
-    places: SearchPlaceResult[];
+    places: Place[];
 }
 
 /**
@@ -4154,7 +4282,7 @@ export declare class PolylineOverlay extends Overlay {
  * @enum
  * @public
  */
-export declare const RegionPriority: Readonly<{
+declare const RegionPriority: Readonly<{
     readonly Default: "default";
     readonly Required: "required";
 }>;
@@ -4162,14 +4290,14 @@ export declare const RegionPriority: Readonly<{
 /**
  * @public
  */
-export declare type RegionPriority = Enum.Values<typeof RegionPriority>;
+declare type RegionPriority = Enum.Values<typeof RegionPriority>;
 
 /**
  * Information about a route, including step-by-step instructions, distance, and estimated travel time.
  * {@link https://developer.apple.com/documentation/mapkitjs/route Read more.}
  * @public
  */
-export declare class Route {
+declare class Route {
     /**
      * The name assigned to the route.
      * @public
@@ -4200,7 +4328,7 @@ export declare class Route {
      * An array of steps that compose the overall route.
      * @public
      */
-    steps: Step[];
+    steps: RouteStep[];
 
     /**
      * An array of coordinate objects representing the path of the route.
@@ -4212,7 +4340,36 @@ export declare class Route {
      * An instance of a polyline overlay that represents the path of a route.
      * @public
      */
-    get polyline(): void;
+    get polyline(): PolylineOverlay;
+}
+
+/**
+ * A single step of the route between the requested start and end points.
+ * {@link https://developer.apple.com/documentation/mapkitjs/routestep Read more.}
+ * @public
+ */
+declare class RouteStep {
+    /**
+     * The written instructions for following the path that the step represents.
+     * @public
+     */
+    instructions: string;
+
+    /**
+     * The step distance, in meters.
+     * @public
+     */
+    distance: number;
+    /**
+     * The transport type of the step.
+     * @public
+     */
+    transportType?: string;
+    /**
+     * An array of coordinate objects representing the path of the route segment.
+     * @public
+     */
+    path?: Coordinate[];
 }
 
 /**
@@ -4281,7 +4438,177 @@ export declare class Search extends Service {
  * {@link https://developer.apple.com/documentation/mapkitjs/searchautocompleteoptions Read more.}
  * @public
  */
-export declare interface SearchAutocompleteOptions {
+export declare interface SearchAutocompleteOptions extends SearchOptions {
+    /**
+     * A Boolean value that indicates whether the search results include queries.
+     * @public
+     */
+    includeQueries?: boolean;
+}
+
+/**
+ * An object containing the response from an autocomplete request.
+ * {@link https://developer.apple.com/documentation/mapkitjs/searchautocompleteresponse Read more.}
+ * @public
+ */
+export declare interface SearchAutocompleteResponse {
+    /**
+     * The query string used to perform the autocomplete request.
+     * @public
+     */
+    query: string;
+    /**
+     * The results from an autocomplete request.
+     * @public
+     */
+    results: SearchAutocompleteResult[];
+}
+
+/**
+ * The result of an autocomplete query, including display lines and a coordinate.
+ * {@link https://developer.apple.com/documentation/mapkitjs/searchautocompleteresult Read more.}
+ * @public
+ */
+export declare class SearchAutocompleteResult {
+    /**
+     * Lines of text to display to the user in an autocomplete menu.
+     * @public
+     */
+    displayLines: string[];
+    id?: string;
+    alternateIds?: string[];
+
+    /**
+     * The coordinate of the result when it corresponds to a single place.
+     * @public
+     */
+    coordinate?: Coordinate;
+
+    name?: string | undefined;
+
+    administrativeArea?: string;
+    administrativeAreaCode?: string;
+    locality?: string;
+    postCode?: string;
+    subLocality?: string;
+    thoroughfare?: string;
+    subThoroughfare?: string;
+    fullThoroughfare?: string;
+    areasOfInterest?: string[];
+    dependentLocalities?: string[];
+}
+
+/**
+ * Options you provide when you create a search object.
+ * {@link https://developer.apple.com/documentation/mapkitjs/searchconstructoroptions Read more.}
+ * @public
+ */
+export declare interface SearchConstructorOptions extends ServiceConstructorOptions {
+    /**
+     * A language ID that determines the language for the search result text.
+     * @public
+     */
+    language?: string;
+    /**
+     * A map coordinate that provides a hint for the geographic area to search.
+     * @public
+     */
+    coordinate?: Coordinate;
+    /**
+     * A map region that provides a hint for the geographic area to search.
+     * @public
+     */
+    region?: CoordinateRegion;
+    /**
+     * A Boolean value that indicates whether the search results include addresses.
+     * @public
+     */
+    includeAddresses?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results include points of interest.
+     * @public
+     */
+    includePointsOfInterest?: boolean;
+    /**
+     * A Boolean value that indicates whether the autocomplete search results include physical features, such as mountain ranges, rivers, and ocean basins.
+     * @public
+     */
+    includePhysicalFeatures?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results include queries.
+     * @public
+     */
+    includeQueries?: boolean;
+    /**
+     * A filter used to include or exclude point of interest categories in search results.
+     * @public
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
+    /**
+     * A filter that lists which address options to include or exclude in search results.
+     * @public
+     */
+    addressFilter?: AddressFilter;
+    /**
+     * A string that constrains search results to within the provided countries.
+     * @public
+     */
+    limitToCountries?: string;
+    /**
+     * A filter that controls whether results occur outside, or strictly within, the region.
+     * @public
+     */
+    regionPriority?: RegionPriority;
+}
+
+/**
+ * An object or callback function the framework calls when performing a search or an autocomplete request.
+ * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate Read more.}
+ * @public
+ */
+declare type SearchDelegate<
+    T extends SearchResponse | SearchAutocompleteResponse =
+        | SearchResponse
+        | SearchAutocompleteResponse,
+> =
+    | {
+        /**
+         * Tells the delegate when the search fails due to an error.
+         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror Read more.}
+         * @param error The error from a failed search.
+         * @public
+         */
+        searchDidError: (error: Error) => void;
+        /**
+         * Tells the delegate when the search completes.
+         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete Read more.}
+         * @param result The search results.
+         * @public
+         */
+        searchDidComplete: (result: SearchResponse) => void;
+        /**
+         * Tells the delegate when the autocomplete request fails due to an error.
+         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror Read more.}
+         * @param error The error from a failed autocomplete request.
+         * @public
+         */
+        autocompleteDidError: (error: Error) => void;
+        /**
+         * Tells the delegate when the autocomplete request completes.
+         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete Read more.}
+         * @param result The results from the search autocomplete request.
+         * @public
+         */
+        autocompleteDidComplete: (result: SearchAutocompleteResponse) => void;
+    }
+    | ((error: Error | null, result?: T) => void);
+
+/**
+ * An object that contains options to adjust a search.
+ * {@link https://developer.apple.com/documentation/mapkitjs/searchoptions Read more.}
+ * @public
+ */
+export declare interface SearchOptions {
     /**
      * A language ID that determines the language for the search result text.
      * @public
@@ -4332,231 +4659,6 @@ export declare interface SearchAutocompleteOptions {
      * @public
      */
     regionPriority?: RegionPriority;
-    /**
-     * A Boolean value that indicates whether the search results include queries.
-     * @public
-     */
-    includeQueries?: boolean;
-}
-
-/**
- * An object containing the response from an autocomplete request.
- * {@link https://developer.apple.com/documentation/mapkitjs/searchautocompleteresponse Read more.}
- * @public
- */
-export declare interface SearchAutocompleteResponse {
-    /**
-     * The query string used to perform the autocomplete request.
-     * @public
-     */
-    query: string;
-    /**
-     * The results from an autocomplete request.
-     * @public
-     */
-    results: SearchAutocompleteResult[];
-}
-
-/**
- * The result of an autocomplete query, including display lines and a coordinate.
- * {@link https://developer.apple.com/documentation/mapkitjs/searchautocompleteresult Read more.}
- * @public
- */
-export declare class SearchAutocompleteResult {
-    /**
-     * Lines of text to display to the user in an autocomplete menu.
-     * @public
-     */
-    displayLines: string[];
-    id?: string;
-    alternateIds?: string[];
-    muid?: string;
-    /**
-     * The coordinate of the result when it corresponds to a single place.
-     * @public
-     */
-    coordinate?: Coordinate;
-
-    name?: string | undefined;
-
-    administrativeArea?: string;
-    administrativeAreaCode?: string;
-    locality?: string;
-    postCode?: string;
-    subLocality?: string;
-    thoroughfare?: string;
-    subThoroughfare?: string;
-    fullThoroughfare?: string;
-    areasOfInterest?: string[];
-    dependentLocalities?: string[];
-}
-
-/**
- * Options you provide when you create a search object.
- * {@link https://developer.apple.com/documentation/mapkitjs/searchconstructoroptions Read more.}
- * @public
- */
-export declare type SearchConstructorOptions =
-    & SearchAutocompleteOptions
-    & ServiceOptions;
-
-/**
- * An object or callback function the framework calls when performing a search or an autocomplete request.
- * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate Read more.}
- * @public
- */
-export declare type SearchDelegate<
-    T extends SearchResponse | SearchAutocompleteResponse =
-        | SearchResponse
-        | SearchAutocompleteResponse,
-> =
-    | {
-        /**
-         * Tells the delegate when the search fails due to an error.
-         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror Read more.}
-         * @param error The error from a failed search.
-         * @public
-         */
-        searchDidError: (error: Error) => void;
-        /**
-         * Tells the delegate when the search completes.
-         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete Read more.}
-         * @param data The search results.
-         * @public
-         */
-        searchDidComplete: (result: SearchResponse) => void;
-        /**
-         * Tells the delegate when the autocomplete request fails due to an error.
-         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror Read more.}
-         * @param error The error from a failed autocomplete request.
-         * @public
-         */
-        autocompleteDidError: (error: Error) => void;
-        /**
-         * Tells the delegate when the autocomplete request completes.
-         * {@link https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete Read more.}
-         * @param data The results from the search autocomplete request.
-         * @public
-         */
-        autocompleteDidComplete: (result: SearchAutocompleteResponse) => void;
-    }
-    | ((error: Error | null, result?: T) => void);
-
-/**
- * An object that contains options to adjust a search.
- * {@link https://developer.apple.com/documentation/mapkitjs/searchoptions Read more.}
- * @public
- */
-export declare type SearchOptions = Omit<
-    SearchAutocompleteOptions,
-    "includeQueries"
->;
-
-/**
- * A place object that returns from a geocoder lookup, a reverse lookup, or a fetch request for points of interest.
- * {@link https://developer.apple.com/documentation/mapkitjs/place Read more.}
- * @public
- */
-export declare class SearchPlaceResult {
-    #private;
-    /**
-     * The Place ID referencing a feature.
-     * @public
-     */
-    id?: string;
-    /**
-     * A list of alternate Place IDs referencing a feature.
-     * @public
-     */
-    alternateIds?: string[];
-
-    /**
-     * The category of the place.
-     * @public
-     */
-    pointOfInterestCategory?: string;
-    /**
-     * The name of the place.
-     * @public
-     */
-    name?: string;
-
-    /**
-     * The geographic region associated with the place.
-     * @public
-     */
-    region?: CoordinateRegion;
-    /**
-     * The latitude and longitude for the place.
-     * @public
-     */
-    coordinate?: Coordinate;
-    /**
-     * The address of the place, formatted using its conventions of its country or region.
-     * @public
-     */
-    formattedAddress?: string;
-    /**
-     * The country or region associated with the place.
-     * @public
-     */
-    countryCode?: string;
-
-    /**
-     * The country or region of the place.
-     * @public
-     */
-    country?: string;
-    /**
-     * The state or province of the place.
-     * @public
-     */
-    administrativeArea?: string;
-    /**
-     * The short code for the state or area.
-     * @public
-     */
-    administrativeAreaCode?: string;
-    /**
-     * The city of the place.
-     * @public
-     */
-    locality?: string;
-    /**
-     * The postal code of the place.
-     * @public
-     */
-    postCode?: string;
-    /**
-     * The name of the area within the locality.
-     * @public
-     */
-    subLocality?: string;
-    /**
-     * The street name at the place.
-     * @public
-     */
-    thoroughfare?: string;
-    /**
-     * The number on the street at the place.
-     * @public
-     */
-    subThoroughfare?: string;
-    /**
-     * A combination of thoroughfare and subthoroughfare.
-     * @public
-     */
-    fullThoroughfare?: string;
-    /**
-     * Common names of the area in which the place resides.
-     * @public
-     */
-    areasOfInterest?: string[];
-    /**
-     * Common names for the local area or neighborhood of the place.
-     * @public
-     */
-    dependentLocalities?: string[];
 }
 
 /**
@@ -4579,24 +4681,29 @@ export declare interface SearchResponse {
      * A list of places that match the search query.
      * @public
      */
-    places: SearchPlaceResult[];
+    places: Place[];
 }
 
 /**
  * @public
  */
-export declare class Service {
+declare abstract class Service {
     get getsUserLocation(): boolean;
     set getsUserLocation(value: boolean);
     get language(): string | null;
     set language(value: string | null);
+    /**
+     * Cancels a request using its request ID.
+     * @param id - Pass the integer ID. Passing an invalid ID or the ID of a completed request has no effect.
+     * @returns `true` if the server cancels the pending search request.
+     */
     cancel(id: number): boolean;
 }
 
 /**
  * @public
  */
-export declare interface ServiceOptions {
+export declare interface ServiceConstructorOptions {
     language?: string;
     getsUserLocation?: boolean;
 }
@@ -4607,35 +4714,6 @@ export declare interface ServiceOptions {
 export declare interface Size {
     width: number;
     height: number;
-}
-
-/**
- * A single step of the route between the requested start and end points.
- * {@link https://developer.apple.com/documentation/mapkitjs/routestep Read more.}
- * @public
- */
-export declare class Step {
-    /**
-     * The written instructions for following the path that the step represents.
-     * @public
-     */
-    instructions: string;
-    pathIndex: number;
-    /**
-     * The step distance, in meters.
-     * @public
-     */
-    distance: number;
-    /**
-     * The transport type of the step.
-     * @public
-     */
-    transportType?: string;
-    /**
-     * An array of coordinate objects representing the path of the route segment.
-     * @public
-     */
-    path?: Coordinate[];
 }
 
 /**
@@ -4650,7 +4728,7 @@ export declare class Style {
      * @param options A {@link StyleConstructorOptions} object of style properties.
      * @public
      */
-    constructor(properties?: StyleConstructorOptions);
+    constructor(options?: StyleConstructorOptions);
     /**
      * The stroke color of a line.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.style/strokecolor Read more.}
@@ -4912,7 +4990,7 @@ export declare interface TileOverlayConstructorOptions {
 /**
  * @public
  */
-export declare type TileOverlayUrlTemplate =
+declare type TileOverlayUrlTemplate =
     | string
     | ((x: number, y: number, z: number, scale: number, data: any) => string);
 
@@ -4920,7 +4998,7 @@ export declare type TileOverlayUrlTemplate =
  * @enum
  * @public
  */
-export declare const TransportType: Readonly<{
+declare const TransportType: Readonly<{
     readonly Automobile: "AUTOMOBILE";
     readonly Walking: "WALKING";
     readonly Cycling: "CYCLING";
@@ -4929,7 +5007,7 @@ export declare const TransportType: Readonly<{
 /**
  * @public
  */
-export declare type TransportType = Enum.Values<typeof TransportType>;
+declare type TransportType = Enum.Values<typeof TransportType>;
 
 /**
  * @public
