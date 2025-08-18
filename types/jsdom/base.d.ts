@@ -196,8 +196,8 @@ declare module "jsdom" {
 
         /* ECMAScript Globals */
         globalThis: DOMWindow;
-        readonly ["Infinity"]: number;
-        readonly ["NaN"]: number;
+        readonly Infinity: number;
+        readonly NaN: number;
         readonly undefined: undefined;
 
         eval(script: string): unknown;
