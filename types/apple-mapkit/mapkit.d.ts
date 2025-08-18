@@ -127,7 +127,7 @@ export declare const AddressCategory: Readonly<{
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addresscategory Read more.}
  * @public
  */
-export declare type AddressCategory = Enum.Values<typeof AddressCategory>;
+export declare type AddressCategory = (typeof AddressCategory)[keyof typeof AddressCategory];
 
 /**
  * An object that filters which address options to include or exclude in search results.
@@ -140,13 +140,13 @@ export declare class AddressFilter {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/includescategory Read more.}
      * @public
      */
-    includesCategory(category: AddressCategory): boolean | undefined;
+    includesCategory(category: AddressCategory): boolean;
     /**
      * A Boolean value that indicates whether to exclude a category from a search.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/excludescategory Read more.}
      * @public
      */
-    excludesCategory(category: AddressCategory): boolean | undefined;
+    excludesCategory(category: AddressCategory): boolean;
     /**
      * A value that excludes all address categories.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.addressfilter/excludingallcategories Read more.}
@@ -730,7 +730,7 @@ export declare class CircleOverlay extends Overlay {
     constructor(
         coordinate: Coordinate,
         radius: number,
-        options: OverlayOptions,
+        options?: OverlayOptions,
     );
     /**
      * The coordinate of the circle overlay's center.
@@ -768,7 +768,7 @@ declare const CollisionMode: Readonly<{
 /**
  * @public
  */
-declare type CollisionMode = Enum.Values<typeof CollisionMode>;
+declare type CollisionMode = (typeof CollisionMode)[keyof typeof CollisionMode];
 
 /**
  * @enum
@@ -783,7 +783,7 @@ declare const ColorScheme: Readonly<{
 /**
  * @public
  */
-declare type ColorScheme = Enum.Values<typeof ColorScheme>;
+declare type ColorScheme = (typeof ColorScheme)[keyof typeof ColorScheme];
 
 /**
  * Options shared between {@link LookAround} and {@link LookAroundPreview} constructors.
@@ -1122,7 +1122,7 @@ declare const DisplayPriority: Readonly<{
  * @enum
  * @public
  */
-declare type DisplayPriority = Enum.Values<typeof DisplayPriority>;
+declare type DisplayPriority = (typeof DisplayPriority)[keyof typeof DisplayPriority];
 
 /**
  * @enum
@@ -1137,21 +1137,7 @@ declare const Distances: Readonly<{
 /**
  * @public
  */
-declare type Distances = Enum.Values<typeof Distances>;
-
-/**
- * @public
- */
-declare function Enum<const T extends Record<string, unknown>>(
-    values: T,
-): Readonly<T>;
-
-/**
- * @public
- */
-declare namespace Enum {
-    type Values<T extends Record<string, unknown>> = T[keyof T];
-}
+declare type Distances = (typeof Distances)[keyof typeof Distances];
 
 /**
  * The options you may provide for requesting estimated arrival times.
@@ -1271,7 +1257,7 @@ export declare const FeatureVisibility: Readonly<{
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.featurevisibility Read more.}
  * @public
  */
-export declare type FeatureVisibility = Enum.Values<typeof FeatureVisibility>;
+export declare type FeatureVisibility = (typeof FeatureVisibility)[keyof typeof FeatureVisibility];
 
 /**
  * A geocoder that converts human-readable addresses to geographic coordinates, and vice versa.
@@ -1652,7 +1638,7 @@ declare const LoadPriorities: Readonly<{
 /**
  * @public
  */
-declare type LoadPriorities = Enum.Values<typeof LoadPriorities>;
+declare type LoadPriorities = (typeof LoadPriorities)[keyof typeof LoadPriorities];
 
 /**
  * Provide an interactive look around view on the page.
@@ -1714,9 +1700,7 @@ declare const LookAroundBadgePosition: Readonly<{
 /**
  * @public
  */
-declare type LookAroundBadgePosition = Enum.Values<
-    typeof LookAroundBadgePosition
->;
+declare type LookAroundBadgePosition = (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
 
 /**
  * Options for {@link LookAround} constructor.
@@ -1801,7 +1785,7 @@ declare const LookAroundReadyState: Readonly<{
 /**
  * @public
  */
-declare type LookAroundReadyState = Enum.Values<typeof LookAroundReadyState>;
+declare type LookAroundReadyState = (typeof LookAroundReadyState)[keyof typeof LookAroundReadyState];
 
 /**
  * Represent a look around scene. This class was previously named `LookAroundEntryPoint`.
@@ -1832,7 +1816,10 @@ declare class Map extends MapKitEventTarget {
      * @param options Options that {@link MapConstructorOptions} defines for initializing the properties of your map.
      * @public
      */
-    constructor(parent?: HTMLElement | null, options?: MapConstructorOptions);
+    constructor(
+        parent?: string | HTMLElement | null,
+        options?: MapConstructorOptions,
+    );
     static MapTypes: typeof MapTypes;
     static ColorSchemes: typeof ColorScheme;
     static Distances: typeof Distances;
@@ -2597,7 +2584,7 @@ export declare const MapFeatureType: Readonly<{
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.mapfeaturetype Read more.}
  * @public
  */
-export declare type MapFeatureType = Enum.Values<typeof MapFeatureType>;
+export declare type MapFeatureType = (typeof MapFeatureType)[keyof typeof MapFeatureType];
 
 /**
  * @public
@@ -2849,7 +2836,7 @@ export declare interface MapKitEvent {
 /**
  * @public
  */
-declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
+export declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
     | ((event: T) => void)
     | {
         handleEvent<T>(event: T): void;
@@ -3123,7 +3110,7 @@ export declare class MapSize {
 /**
  * @public
  */
-declare type MapType = Enum.Values<typeof MapTypes>;
+declare type MapType = (typeof MapTypes)[keyof typeof MapTypes];
 
 /**
  * @enum
@@ -3254,7 +3241,7 @@ export declare interface MarkerAnnotationConstructorOptions extends AnnotationCo
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.overlay Read more.}
  * @public
  */
-declare abstract class Overlay extends MapKitEventTarget {
+export declare abstract class Overlay extends MapKitEventTarget {
     /**
      * Style properties to apply to the overlay.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.overlay/style Read more.}
@@ -3659,7 +3646,7 @@ export declare class PlaceLookup extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/mapkit.placelookup Read more.}
      * @public
      */
-    constructor(options: ServiceConstructorOptions);
+    constructor(options?: ServiceConstructorOptions);
     /**
      * Obtains a place using its identifier.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.placelookup/getplace Read more.}
@@ -3668,7 +3655,7 @@ export declare class PlaceLookup extends Service {
     getPlace(
         id: string,
         callback: (error: Error | null, result?: Place) => void,
-        options: ServiceConstructorOptions,
+        options?: ServiceConstructorOptions,
     ): number;
 }
 
@@ -3723,9 +3710,8 @@ declare const PlaceSelectionAccessoryStyle: Readonly<{
 /**
  * @public
  */
-declare type PlaceSelectionAccessoryStyle = Enum.Values<
-    typeof PlaceSelectionAccessoryStyle
->;
+declare type PlaceSelectionAccessoryStyle =
+    (typeof PlaceSelectionAccessoryStyle)[keyof typeof PlaceSelectionAccessoryStyle];
 
 /**
  * Point-of-interest categories.
@@ -4015,9 +4001,7 @@ export declare const PointOfInterestCategory: Readonly<{
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointofinterestcategory Read more.}
  * @public
  */
-export declare type PointOfInterestCategory = Enum.Values<
-    typeof PointOfInterestCategory
->;
+export declare type PointOfInterestCategory = (typeof PointOfInterestCategory)[keyof typeof PointOfInterestCategory];
 
 /**
  * A filter for determining the points of interest to include or exclude on a map or in a local search.
@@ -4086,7 +4070,7 @@ export declare class PointsOfInterestSearch extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/mapkit.pointsofinterestsearch Read more.}
      * @public
      */
-    constructor(options: PointsOfInterestSearchConstructorOptions);
+    constructor(options?: PointsOfInterestSearchConstructorOptions);
     /**
      * The center point of the request represented as latitude and longitude.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.pointsofinterestsearch/center Read more.}
@@ -4242,7 +4226,10 @@ export declare class PolygonOverlay extends Overlay {
      * @param options An optional object literal of options for initializing the polygon.
      * @public
      */
-    constructor(points: Coordinate[][] | Coordinate[], options: OverlayOptions);
+    constructor(
+        points: Coordinate[][] | Coordinate[],
+        options?: OverlayOptions,
+    );
     /**
      * One or more arrays of coordinates that define the polygon overlay shape.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.polygonoverlay/points Read more.}
@@ -4287,7 +4274,7 @@ declare const RegionPriority: Readonly<{
 /**
  * @public
  */
-declare type RegionPriority = Enum.Values<typeof RegionPriority>;
+declare type RegionPriority = (typeof RegionPriority)[keyof typeof RegionPriority];
 
 /**
  * Information about a route, including step-by-step instructions, distance, and estimated travel time.
@@ -4380,7 +4367,7 @@ export declare class Search extends Service {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.search/mapkit.search Read more.}
      * @public
      */
-    constructor(options: SearchConstructorOptions);
+    constructor(options?: SearchConstructorOptions);
     get coordinate(): Coordinate | null;
     set coordinate(value: Coordinate | null);
     get region(): CoordinateRegion | null;
@@ -4412,7 +4399,7 @@ export declare class Search extends Service {
     search(
         query: string | SearchAutocompleteResult,
         callback: SearchDelegate<SearchResponse>,
-        options: SearchOptions,
+        options?: SearchOptions,
     ): number;
     /**
      * Retrieves a list of autocomplete results for the specified search query.
@@ -4425,7 +4412,7 @@ export declare class Search extends Service {
     autocomplete(
         query: string,
         callback: SearchDelegate<SearchAutocompleteResponse>,
-        options: SearchAutocompleteOptions,
+        options?: SearchAutocompleteOptions,
     ): number;
     static RegionPriority: typeof RegionPriority;
 }
@@ -5004,12 +4991,12 @@ declare const TransportType: Readonly<{
 /**
  * @public
  */
-declare type TransportType = Enum.Values<typeof TransportType>;
+declare type TransportType = (typeof TransportType)[keyof typeof TransportType];
 
 /**
  * @public
  */
-declare class UserLocationAnnotation extends Annotation {
+export declare class UserLocationAnnotation extends Annotation {
     set coordinate(coordinate: Coordinate);
     get coordinate(): Coordinate;
     get draggable(): boolean;

@@ -781,7 +781,7 @@ const annotationSize: Size = { width: 32, height: 32 };
 
 // ===== Utility Methods =====
 
-const requestId: number = search.search("query", () => {});
+const requestId: number = search.search("query", () => { });
 if (requestId) {
     search.cancel(requestId);
 }
