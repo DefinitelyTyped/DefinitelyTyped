@@ -37,6 +37,7 @@
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
+        "@types/node": "^24.3.0",
         "danger": "^11.2.3",
         "dprint": "^0.49.0",
         "eslint-plugin-jsdoc": "^44.2.7",
@@ -47,5 +48,8 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "net-snmp": "^3.23.0"
+    }
 }
