@@ -42,6 +42,8 @@ declare namespace umami {
             ): Promise<string>;
         };
 
+        identify(uniqueId: string): Promise<string>;
+        identify(uniqueId: string, data: EventData): Promise<string>;
         identify(data: EventData): Promise<string>;
     }
 }
