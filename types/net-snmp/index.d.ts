@@ -9,9 +9,12 @@ export class Session {
 
     cancelRequests(error: any): void;
 
-    close(): any;
+    close(): this;
 
-    get(oids: any, responseCb: any): any;
+    get(
+        oids: string | string[],
+        responseCb: (error: ResponseInvalidError | null, varbinds?: Varbind[]) => void
+    ): Session;
 
     getBulk(...args: any[]): any;
 
@@ -55,25 +58,45 @@ export class Session {
 
     walk(...args: any[]): any;
 
-    static create(target: any, community: any, options: any): any;
+    static create(target: string, community: string, options: SessionOptions): Session;
 
     static createV3(target: string, user: User, options?: SessionOptionsV3): Session;
 
+    on(event: "close", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "message", listener: (buffer: Buffer) => void): this;
+    on(event: string, listener: (...args: any[]) => void): this;
+}
+export interface SessionOptions {
+    version?: 0 | 1; // Version1 | Version2c
+    transport?: "udp4" | "udp6";
+    port?: number;
+    trapPort?: number;
+    retries?: number;
+    timeout?: number;
+    backoff?: number;
+    sourceAddress?: string;
+    sourcePort?: number;
+    idBitsSize?: number;
+    context?: string;
+    backwardsGetNexts?: boolean;
+    reportOidMismatchErrors?: boolean;
+    debug?: boolean;
+    dgramModule?: any;
 }
 
-// Supporting types
 export interface User {
     name: string;
-    level: typeof SecurityLevel;
-    authProtocol?: typeof AuthProtocols;
+    level: SecurityLevel;
+    authProtocol?: AuthProtocols;
     authKey?: string;
-    privProtocol?: typeof PrivProtocols;
+    privProtocol?: PrivProtocols;
     privKey?: string;
 }
 
 export interface SessionOptionsV3 {
-    version?: 3;  
-    transport?: 'udp4' | 'udp6';
+    version?: 3;
+    transport?: "udp4" | "udp6";
     port?: number;
     trapPort?: number;
     retries?: number;
@@ -87,7 +110,7 @@ export interface SessionOptionsV3 {
     reportOidMismatchErrors?: boolean;
     engineID?: string | Buffer;
     debug?: boolean;
-    dgramModule?: any; // Could be more specific if needed
+    dgramModule?: any;
 }
 
 export const AccessControlModelType: {
@@ -145,22 +168,15 @@ export const AgentXPduType: {
     Unregister: number;
 };
 
-export const AuthProtocols: {
-    "1": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    "7": string;
-    md5: number;
-    none: number;
-    sha: number;
-    sha224: number;
-    sha256: number;
-    sha384: number;
-    sha512: number;
-};
+export declare const enum AuthProtocols {
+    none = 1,
+    md5,
+    sha,
+    sha224,
+    sha256,
+    sha384,
+    sha512,
+}
 
 export const ErrorStatus: {
     "0": string;
@@ -222,46 +238,30 @@ export const MibProviderType: {
     Scalar: number;
     Table: number;
 };
-
-export const ObjectType: {
-    "1": string;
-    "128": string;
-    "129": string;
-    "130": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    "64": string;
-    "65": string;
-    "66": string;
-    "67": string;
-    "68": string;
-    "70": string;
-    BitString: number;
-    Boolean: number;
-    Counter: number;
-    Counter32: number;
-    Counter64: number;
-    EndOfMibView: number;
-    Gauge: number;
-    Gauge32: number;
-    INTEGER: number;
-    Integer: number;
-    Integer32: number;
-    IpAddress: number;
-    NoSuchInstance: number;
-    NoSuchObject: number;
-    Null: number;
-    "OBJECT IDENTIFIER": number;
-    "OCTET STRING": number;
-    OID: number;
-    OctetString: number;
-    Opaque: number;
-    TimeTicks: number;
-    Unsigned32: number;
-};
+export declare const enum ObjectType {
+    Boolean = 1,
+    Integer,
+    INTEGER = Integer,
+    Integer32 = Integer,
+    BitString,
+    OctetString,
+    "OCTET STRING" = OctetString,
+    Null,
+    OID,
+    "OBJECT IDENTIFIER" = OID,
+    IpAddress = 64,
+    Counter = 65,
+    Counter32 = Counter,
+    Gauge = 66,
+    Gauge32 = Gauge,
+    Unsigned32 = Gauge32,
+    TimeTicks = 67,
+    Opaque = 68,
+    Counter64 = 70,
+    NoSuchObject = 128,
+    NoSuchInstance = 129,
+    EndOfMibView = 130,
+}
 
 export const OidFormat: {
     module: string;
@@ -290,45 +290,28 @@ export const PduType: {
     TrapV2: number;
 };
 
-export const PrivProtocols: {
-    "1": string;
-    "2": string;
-    "4": string;
-    "6": string;
-    "8": string;
-    aes: number;
-    aes256b: number;
-    aes256r: number;
-    des: number;
-    none: number;
-};
+export declare const enum PrivProtocols {
+    none = 1,
+    des,
+    aes = 4,
+    aes256b = 6,
+    aes256r = 8,
+}
 
-export const ResponseInvalidCode: {
-    "1": string;
-    "10": string;
-    "11": string;
-    "12": string;
-    "13": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    "8": string;
-    "9": string;
-    EAuthFailure: number;
-    ECommunityNoMatch: number;
-    ECouldNotDecrypt: number;
-    EIp4AddressSize: number;
-    EOutOfOrder: number;
-    EReqResOidNoMatch: number;
-    EResponseNotHandled: number;
-    EUnexpectedReport: number;
-    EUnexpectedResponse: number;
-    EUnknownObjectType: number;
-    EUnknownPduType: number;
-    EVersionNoMatch: number;
-};
+export declare const enum ResponseInvalidCode {
+    EIp4AddressSize = 1,
+    EUnknownObjectType,
+    EUnknownPduType,
+    ECouldNotDecrypt,
+    EAuthFailure,
+    EReqResOidNoMatch,
+    EOutOfOrder = 8,
+    EVersionNoMatch,
+    ECommunityNoMatch,
+    EUnexpectedReport,
+    EResponseNotHandled,
+    EUnexpectedResponse,
+}
 
 export const RowStatus: {
     "1": string;
@@ -345,14 +328,11 @@ export const RowStatus: {
     notReady: number;
 };
 
-export const SecurityLevel: {
-    "1": string;
-    "2": string;
-    "3": string;
-    authNoPriv: number;
-    authPriv: number;
-    noAuthNoPriv: number;
-};
+export declare const enum SecurityLevel {
+    noAuthNoPriv = 1,
+    authNoPriv,
+    authPriv,
+}
 
 export const TrapType: {
     "0": string;
@@ -389,8 +369,17 @@ export function RequestInvalidError(message: any): void;
 
 export function RequestTimedOutError(message: any): void;
 
-export function ResponseInvalidError(message: any, code: any, info: any): void;
+export interface ResponseInvalidError extends Error {
+    name: "ResponseInvalidError";
+    message: string;
+    code: ResponseInvalidCode;
+    info?: any;
+}
 
+export const ResponseInvalidError: {
+    new (message: string, code: ResponseInvalidCode, info?: any): ResponseInvalidError;
+    prototype: ResponseInvalidError;
+};
 export function createAgent(options: any, callback: any, mib: any): any;
 
 export function createMib(options: any): any;
@@ -399,7 +388,12 @@ export function createModuleStore(options: any): any;
 
 export function createReceiver(options: any, callback: any): any;
 
-export function createSession(target: any, community: any, options: any): any;
+declare function createSession(target?: string, community?: string, options?: SessionOptions): Session;
+declare namespace createSession {
+    const prototype: {};
+}
+
+export { createSession };
 
 export function createSubagent(options: any): any;
 
@@ -414,6 +408,11 @@ export function isVarbindError(varbind: any): any;
 
 export function varbindError(varbind: any): any;
 
+export interface Varbind {
+    oid: string;
+    type?: ObjectType;
+    value?: any;
+}
 export namespace Authentication {
     const HMAC_BUFFER_SIZE: number;
 
@@ -450,8 +449,7 @@ export namespace Authentication {
         };
     };
 
-    const authToKeyCache: {
-    };
+    const authToKeyCache: {};
 
     function calculateDigest(messageBuffer: any, authProtocol: any, authPassword: any, engineID: any): any;
 
@@ -459,12 +457,23 @@ export namespace Authentication {
 
     function getParametersLength(authProtocol: any): any;
 
-    function isAuthentic(messageBuffer: any, authProtocol: any, authPassword: any, engineID: any, digestInMessage: any): any;
+    function isAuthentic(
+        messageBuffer: any,
+        authProtocol: any,
+        authPassword: any,
+        engineID: any,
+        digestInMessage: any
+    ): any;
 
     function passwordToKey(authProtocol: any, authPasswordString: any, engineID: any): any;
 
-    function writeParameters(messageBuffer: any, authProtocol: any, authPassword: any, engineID: any, digestInMessage: any): void;
-
+    function writeParameters(
+        messageBuffer: any,
+        authProtocol: any,
+        authPassword: any,
+        engineID: any,
+        digestInMessage: any
+    ): void;
 }
 
 export namespace Encryption {
@@ -507,11 +516,32 @@ export namespace Encryption {
 
     function debugEncrypt(encryptionKey: any, iv: any, plainPdu: any, encryptedPdu: any): void;
 
-    function decryptPdu(privProtocol: any, encryptedPdu: any, privParameters: any, privPassword: any, authProtocol: any, engine: any): any;
+    function decryptPdu(
+        privProtocol: any,
+        encryptedPdu: any,
+        privParameters: any,
+        privPassword: any,
+        authProtocol: any,
+        engine: any
+    ): any;
 
-    function decryptPduAes(encryptedPdu: any, privProtocol: any, privParameters: any, privPassword: any, authProtocol: any, engine: any): any;
+    function decryptPduAes(
+        encryptedPdu: any,
+        privProtocol: any,
+        privParameters: any,
+        privPassword: any,
+        authProtocol: any,
+        engine: any
+    ): any;
 
-    function decryptPduDes(encryptedPdu: any, privProtocol: any, privParameters: any, privPassword: any, authProtocol: any, engine: any): any;
+    function decryptPduDes(
+        encryptedPdu: any,
+        privProtocol: any,
+        privParameters: any,
+        privPassword: any,
+        authProtocol: any,
+        engine: any
+    ): any;
 
     function encryptPdu(privProtocol: any, scopedPdu: any, privPassword: any, authProtocol: any, engine: any): any;
 
@@ -526,7 +556,6 @@ export namespace Encryption {
     function generateLocalizedKeyBlumenthal(algorithm: any, authProtocol: any, privPassword: any, engineID: any): any;
 
     function generateLocalizedKeyReeder(algorithm: any, authProtocol: any, privPassword: any, engineID: any): any;
-
 }
 
 export namespace ObjectParser {
@@ -535,7 +564,6 @@ export namespace ObjectParser {
     function readUint32(buffer: any): any;
 
     function readVarbindValue(buffer: any, type: any): any;
-
 }
 
 export namespace ObjectTypeUtil {
@@ -548,6 +576,4 @@ export namespace ObjectTypeUtil {
     function getEnumerationNumberFromName(enumeration: any, name: any): any;
 
     function isValid(type: any, value: any, constraints: any): any;
-
 }
-

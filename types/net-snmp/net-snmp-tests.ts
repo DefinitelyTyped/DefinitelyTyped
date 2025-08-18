@@ -1,7 +1,7 @@
-import { createV3Session, SecurityLevel, AuthProtocols, PrivProtocols, ObjectType } from 'net-snmp';
+import { createV3Session, SecurityLevel, AuthProtocols, PrivProtocols, ObjectType, createSession, Varbind } from 'net-snmp';
 
 // Basic successful cases
-const session1 = createV3Session('127.0.0.1', {
+const V3Session1 = createV3Session('127.0.0.1', {
     name: 'testuser',
     level: SecurityLevel.authPriv,
     authProtocol: AuthProtocols.sha,
@@ -10,13 +10,13 @@ const session1 = createV3Session('127.0.0.1', {
     privKey: 'privkey123'
 });
 
-const session2 = createV3Session('localhost', {
+const V3Session2 = createV3Session('localhost', {
     name: 'testuser2',
     level: SecurityLevel.noAuthNoPriv
 });
 
 // With options
-const session3 = createV3Session('192.168.1.1', {
+const V3Session3 = createV3Session('192.168.1.1', {
     name: 'testuser3',
     level: SecurityLevel.authNoPriv,
     authProtocol: AuthProtocols.md5,
@@ -31,30 +31,59 @@ const session3 = createV3Session('192.168.1.1', {
 // @ts-expect-error - missing required user properties
 const sessionError1 = createV3Session('127.0.0.1', {});
 
-// @ts-expect-error - invalid version in options
 const sessionError2 = createV3Session('127.0.0.1', {
     name: 'testuser',
     level: SecurityLevel.authPriv
+    // @ts-expect-error - invalid version in options
 }, { version: 2 });
 
-// @ts-expect-error - invalid transport
 const sessionError3 = createV3Session('127.0.0.1', {
     name: 'testuser',
     level: SecurityLevel.authPriv
+    // @ts-expect-error - invalid transport
 }, { transport: 'tcp' });
 
-// @ts-expect-error - invalid auth protocol
 const sessionError4 = createV3Session('127.0.0.1', {
     name: 'testuser',
     level: SecurityLevel.authPriv,
+    // @ts-expect-error - invalid auth protocol
     authProtocol: 'invalid-protocol'
 });
 
 // Test that returned session has expected methods
-session1.get('1.3.6.1.2.1.1.1.0', (error: any, varbinds: any) => {});
-session2.close();
-session3.set([{
+V3Session1.get('1.3.6.1.2.1.1.1.0', (error: any, varbinds?: Varbind[]) => {});
+V3Session2.close();
+V3Session3.set([{
     oid: '1.3.6.1.2.1.1.5.0',
     type: ObjectType.OctetString,
     value: 'test'
-}], (error: any, varbinds: any) => {});
+}], (error: any, varbinds?: Varbind[]) => {});
+
+// Minimal valid call - all optional parameters omitted
+const session1 = createSession();
+
+// Only target provided
+const session2 = createSession("127.0.0.1");
+
+// Target and community provided
+const session3 = createSession("127.0.0.1", "public");
+
+// All parameters provided
+const session4 = createSession("localhost", "private", {
+    version: 1, // Version2c
+    timeout: 2000
+});
+
+// Invalid cases
+// @ts-expect-error - invalid version (must be 0 or 1)
+createSession(undefined, undefined, { version: 3 });
+
+// @ts-expect-error - invalid transport type
+createSession(undefined, undefined, { transport: "tcp" });
+
+// @ts-expect-error - community must be string if provided
+createSession("127.0.0.1", 12345);
+
+// Verify returned Session type has expected methods
+session1.get("1.3.6.1.2.1.1.1.0", (error: any, varbinds?: Varbind[]) => {});
+session4.close();

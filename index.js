@@ -2031,8 +2031,8 @@ var Session = function (target, authenticator, options) {
 			: true;
 
 	this.reportOidMismatchErrors = (typeof options.reportOidMismatchErrors !== 'undefined')
-            ? options.reportOidMismatchErrors
-            : false;
+			? options.reportOidMismatchErrors
+			: false;
 
 	DEBUG |= options.debug;
 
@@ -2994,7 +2994,6 @@ Session.create = function (target, community, options) {
 		return new Session (target, community, options);
 	}
 };
-
 
 Session.createV3 = function (target, user, options) {
 	// Ensure that options may be optional
@@ -4097,6 +4096,759 @@ MibNode.oidIsDescended = function (oid, ancestor) {
 	return isAncestor;
 };
 
+var Mib = function (options) {
+	var providersByOid;
+	this.root = new MibNode ([], null);
+	this.providerNodes = {};
+	this.options = options;
+
+	// this.providers will be modified throughout this code.
+	// Keep this.providersByOid in sync with it
+	providersByOid = this.providersByOid = {};
+	this.providers = new Proxy({}, {
+		set: function (target, key, value) {
+			target[key] = value;
+			providersByOid[value.oid] = value;
+		},
+
+		deleteProperty: function (target, key) {
+			delete providersByOid[target[key].oid];
+			delete target[key];
+		}
+	});
+};
+
+Mib.prototype.addNodesForOid = function (oidString) {
+	var address = Mib.convertOidToAddress (oidString);
+	return this.addNodesForAddress (address);
+};
+
+Mib.prototype.addNodesForAddress = function (address) {
+	var node;
+	var i;
+
+	node = this.root;
+
+	for (i = 0; i < address.length; i++) {
+		if ( ! node.children.hasOwnProperty (address[i]) ) {
+			node.children[address[i]] = new MibNode (address.slice(0, i + 1), node);
+		}
+		node = node.children[address[i]];
+	}
+
+	return node;
+};
+
+Mib.prototype.lookup = function (oid) {
+	var address;
+
+	address = Mib.convertOidToAddress (oid);
+	return this.lookupAddress(address);
+};
+
+Mib.prototype.lookupAddress = function (address) {
+	var i;
+	var node;
+
+	node = this.root;
+	for (i = 0; i < address.length; i++) {
+		if ( ! node.children.hasOwnProperty (address[i])) {
+			return null;
+		}
+		node = node.children[address[i]];
+	}
+
+	return node;
+};
+
+Mib.prototype.getTreeNode = function (oid) {
+	var address = Mib.convertOidToAddress (oid);
+	var node;
+
+	node = this.lookupAddress (address);
+	// OID already on tree
+	if ( node ) {
+		return node;
+	}
+
+	while ( address.length > 0 ) {
+		var last = address.pop ();
+		var parent = this.lookupAddress (address);
+		if ( parent ) {
+			node = parent.findChildImmediatelyBefore (last);
+			if ( !node )
+				return parent;
+			while ( true ) {
+				// Find the last descendant
+				var childrenAddresses = Object.keys (node.children).sort ( (a, b) => a - b);
+				if ( childrenAddresses.length == 0 )
+					return node;
+				node = node.children[childrenAddresses[childrenAddresses.length - 1]];
+			}
+		}
+	}
+	return this.root;
+
+};
+
+Mib.prototype.getProviderNodeForInstance = function (instanceNode) {
+	if ( instanceNode.provider ) {
+		// throw new ReferenceError ("Instance node has provider which should never happen");
+		return null;
+	}
+	return instanceNode.getAncestorProvider ();
+};
+
+Mib.prototype.addProviderToNode = function (provider) {
+	const node = this.addNodesForOid (provider.oid);
+	node.provider = provider;
+	this.providerNodes[provider.name] = node;
+	return node;
+};
+
+Mib.prototype.getColumnForColumnNumberFromTableProvider = function (provider, columnNumber) {
+	const column = provider.tableColumns.find (column => column.number == columnNumber );
+	return column;
+};
+
+Mib.prototype.getColumnForIndexEntryFromTableProvider = function (provider, indexEntry) {
+	let column = null;
+	if ( indexEntry.columnName ) {
+		column = provider.tableColumns.filter (column => column.name == indexEntry.columnName )[0];
+	} else if ( indexEntry.columnNumber !== undefined && indexEntry.columnNumber !== null  ) {
+		column = provider.tableColumns.filter (column => column.number == indexEntry.columnNumber )[0];
+	}
+	return column;
+};
+
+Mib.prototype.populateIndexEntryFromColumn = function (localProvider, indexEntry, i) {
+	var column = null;
+	var tableProviders;
+	if ( ! indexEntry.columnName && ! indexEntry.columnNumber ) {
+		throw new Error ("Index entry " + i + ": does not have either a columnName or columnNumber");
+	}
+	if ( indexEntry.foreign ) {
+		// Explicit foreign table is first to search
+		column = this.getColumnForIndexEntryFromTableProvider (this.providers[indexEntry.foreign], indexEntry);
+	} else {
+		// If foreign table isn't given, search the local table next
+		column = this.getColumnForIndexEntryFromTableProvider (localProvider, indexEntry);
+		if ( ! column ) {
+			// as a last resort, try to find the column in a foreign table
+			tableProviders = Object.values(this.providers).
+					filter ( prov => prov.type == MibProviderType.Table );
+			for ( var provider of tableProviders ) {
+				column = this.getColumnForIndexEntryFromTableProvider (provider, indexEntry);
+				if ( column ) {
+					indexEntry.foreign = provider.name;
+					break;
+				}
+			}
+		}
+	}
+	if ( ! column ) {
+		throw new Error ("Could not find column for index entry with column " + indexEntry.columnName);
+	}
+	if ( indexEntry.columnName && indexEntry.columnName != column.name ) {
+		throw new Error ("Index entry " + i + ": Calculated column name " + column.name +
+				"does not match supplied column name " + indexEntry.columnName);
+	}
+	if ( indexEntry.columnNumber && indexEntry.columnNumber != column.number ) {
+		throw new Error ("Index entry " + i + ": Calculated column number " + column.number +
+				" does not match supplied column number " + indexEntry.columnNumber);
+	}
+	if ( ! indexEntry.columnName ) {
+		indexEntry.columnName = column.name;
+	}
+	if ( ! indexEntry.columnNumber ) {
+		indexEntry.columnNumber = column.number;
+	}
+	indexEntry.type = column.type;
+
+};
+
+Mib.prototype.registerProvider = function (provider) {
+	this.providers[provider.name] = provider;
+	if ( provider.type == MibProviderType.Scalar ) {
+		if ( this.options?.addScalarDefaultsOnRegistration && provider.defVal ) {
+			let scalarValue;
+			// If the scalar has an enumeration, set the value to the enumeration number derived from the defVal name
+			if ( provider.constraints?.enumeration ) {
+				scalarValue = ObjectTypeUtil.getEnumerationNumberFromName (provider.constraints.enumeration, provider.defVal);
+			} else {
+				// Remove quotes from strings and resolve numeric strings to integers
+				scalarValue = JSON.parse(provider.defVal);
+			}
+			this.setScalarValue (provider.name, scalarValue);
+		}
+	} else if ( provider.type == MibProviderType.Table ) {
+		if ( provider.tableAugments ) {
+			if ( provider.tableAugments == provider.name ) {
+				throw new Error ("Table " + provider.name + " cannot augment itself");
+			}
+			var augmentProvider = this.providers[provider.tableAugments];
+			if ( ! augmentProvider ) {
+				throw new Error ("Cannot find base table " + provider.tableAugments + " to augment");
+			}
+			provider.tableIndex = JSON.parse(JSON.stringify(augmentProvider.tableIndex));
+			provider.tableIndex.map (index => index.foreign = augmentProvider.name);
+		} else {
+			if ( ! provider.tableIndex ) {
+				provider.tableIndex = [1]; // default to first column index
+			}
+			for ( var i = 0 ; i < provider.tableIndex.length ; i++ ) {
+				var indexEntry = provider.tableIndex[i];
+				if ( typeof indexEntry == 'number' ) {
+					provider.tableIndex[i] = {
+						columnNumber: indexEntry
+					};
+				} else if ( typeof indexEntry == 'string' ) {
+					provider.tableIndex[i] = {
+						columnName: indexEntry
+					};
+				}
+				indexEntry = provider.tableIndex[i];
+				this.populateIndexEntryFromColumn (provider, indexEntry, i);
+			}
+		}
+	}
+};
+
+Mib.prototype.setScalarDefaultValue = function (name, value) {
+	let provider = this.getProvider(name);
+	provider.defVal = value;
+};
+
+Mib.prototype.setTableRowDefaultValues = function (name, values) {
+	let provider = this.getProvider(name);
+	let tc = provider.tableColumns;
+
+	// We must be given an array of exactly the right number of columns
+	if (values.length != tc.length) {
+		throw new Error(`Incorrect values length: got ${values.length}; expected ${tc.length}`);
+	}
+
+	// Add defVal to each table column.
+	tc.forEach((entry, i) => {
+		if (typeof values[i] != "undefined") {
+			entry.defVal = values[i];
+		}
+	});
+};
+
+Mib.prototype.setScalarRanges = function (name, ranges ) {
+	let provider = this.getProvider(name);
+	provider.constraints = { ranges };
+};
+
+Mib.prototype.setTableColumnRanges = function(name, column, ranges ) {
+	let provider = this.getProvider(name);
+	let tc = provider.tableColumns;
+	tc[column].constraints = { ranges };
+};
+
+Mib.prototype.setScalarSizes = function (name, sizes ) {
+	let provider = this.getProvider(name);
+	provider.constraints = { sizes };
+};
+
+Mib.prototype.setTableColumnSizes = function(name, column, sizes ) {
+	let provider = this.getProvider(name);
+	let tc = provider.tableColumns;
+	tc[column].constraints = { sizes };
+};
+
+Mib.prototype.registerProviders = function (providers) {
+	for ( var provider of providers ) {
+		this.registerProvider (provider);
+	}
+};
+
+Mib.prototype.unregisterProvider = function (name) {
+	var providerNode = this.providerNodes[name];
+	if ( providerNode ) {
+		var providerNodeParent = providerNode.parent;
+		providerNode.delete();
+		providerNodeParent.pruneUpwards();
+		delete this.providerNodes[name];
+	}
+	delete this.providers[name];
+};
+
+Mib.prototype.getProvider = function (name) {
+	return this.providers[name];
+};
+
+Mib.prototype.getProviders = function () {
+	return this.providers;
+};
+
+Mib.prototype.dumpProviders = function () {
+	var extraInfo;
+	for ( var provider of Object.values(this.providers) ) {
+		extraInfo = provider.type == MibProviderType.Scalar ? ObjectType[provider.scalarType] : "Columns = " + provider.tableColumns.length;
+		console.log(MibProviderType[provider.type] + ": " + provider.name + " (" + provider.oid + "): " + extraInfo);
+	}
+};
+
+Mib.prototype.getScalarValue = function (scalarName) {
+	var providerNode = this.providerNodes[scalarName];
+	if ( ! providerNode || ! providerNode.provider || providerNode.provider.type != MibProviderType.Scalar ) {
+		throw new ReferenceError ("Failed to get node for registered MIB provider " + scalarName);
+	}
+	var instanceAddress = providerNode.address.concat ([0]);
+	if ( ! this.lookup (instanceAddress) ) {
+		throw new Error ("Failed created instance node for registered MIB provider " + scalarName);
+	}
+	var instanceNode = this.lookup (instanceAddress);
+	return instanceNode.value;
+};
+
+Mib.prototype.setScalarValue = function (scalarName, newValue) {
+	var providerNode;
+	var instanceNode;
+	var provider;
+
+	if ( ! this.providers[scalarName] ) {
+		throw new ReferenceError ("Provider " + scalarName + " not registered with this MIB");
+	}
+
+	providerNode = this.providerNodes[scalarName];
+	if ( ! providerNode ) {
+		providerNode = this.addProviderToNode (this.providers[scalarName]);
+	}
+	provider = providerNode.provider;
+	if ( ! providerNode || ! provider || provider.type != MibProviderType.Scalar ) {
+		throw new ReferenceError ("Could not find MIB node for registered provider " + scalarName);
+	}
+	var instanceAddress = providerNode.address.concat ([0]);
+	instanceNode = this.lookup (instanceAddress);
+	if ( ! instanceNode ) {
+		this.addNodesForAddress (instanceAddress);
+		instanceNode = this.lookup (instanceAddress);
+		instanceNode.valueType = provider.scalarType;
+	}
+	const isValidValue = ObjectTypeUtil.isValid(instanceNode.valueType, newValue, provider.constraints);
+	if ( ! isValidValue ) {
+		throw new TypeError(`Invalid value for ${scalarName} of type ${instanceNode.valueType}: ${newValue}`);
+	}
+	instanceNode.value = newValue;
+};
+
+Mib.prototype.getProviderNodeForTable = function (table) {
+	var providerNode;
+	var provider;
+
+	providerNode = this.providerNodes[table];
+	if ( ! providerNode ) {
+		throw new ReferenceError ("No MIB provider registered for " + table);
+	}
+	provider = providerNode.provider;
+	if ( ! providerNode ) {
+		throw new ReferenceError ("No MIB provider definition for registered provider " + table);
+	}
+	if ( provider.type != MibProviderType.Table ) {
+		throw new TypeError ("Registered MIB provider " + table +
+			" is not of the correct type (is type " + MibProviderType[provider.type] + ")");
+	}
+	return providerNode;
+};
+
+Mib.prototype.getOidAddressFromValue = function (value, indexPart) {
+	var oidComponents;
+	switch ( indexPart.type ) {
+		case ObjectType.OID:
+			oidComponents = value.split (".");
+			break;
+		case ObjectType.OctetString:
+			if ( value instanceof Buffer ) {
+				// Buffer
+				oidComponents = Array.prototype.slice.call (value);
+			} else {
+				// string
+				oidComponents = [...value].map (c => c.charCodeAt());
+			}
+			break;
+		case ObjectType.IpAddress:
+			return value.split (".");
+		default:
+			return [value];
+	}
+	if ( ! indexPart.implied && ! indexPart.length ) {
+		oidComponents.unshift (oidComponents.length);
+	}
+	return oidComponents;
+};
+
+/* What is this empty function here for?
+Mib.prototype.getValueFromOidAddress = function (oid, indexPart) {
+
+};
+*/
+
+Mib.prototype.getTableRowInstanceFromRow = function (provider, row) {
+	var rowIndex = [];
+	var foreignColumnParts;
+	var localColumnParts;
+	var localColumnPosition;
+	var oidArrayForValue;
+
+	// foreign columns are first in row
+	foreignColumnParts = provider.tableIndex.filter ( indexPart => indexPart.foreign );
+	for ( var i = 0; i < foreignColumnParts.length ; i++ ) {
+		//rowIndex.push (row[i]);
+		oidArrayForValue = this.getOidAddressFromValue (row[i], foreignColumnParts[i]);
+		rowIndex = rowIndex.concat (oidArrayForValue);
+	}
+	// then local columns
+	localColumnParts = provider.tableIndex.filter ( indexPart => ! indexPart.foreign );
+	for ( var localColumnPart of localColumnParts ) {
+		localColumnPosition = provider.tableColumns.findIndex (column => column.number == localColumnPart.columnNumber);
+		oidArrayForValue = this.getOidAddressFromValue (row[foreignColumnParts.length + localColumnPosition], localColumnPart);
+		rowIndex = rowIndex.concat (oidArrayForValue);
+	}
+	return rowIndex;
+};
+
+Mib.getRowIndexFromOid = function (oid, index) {
+	var addressRemaining = oid.split (".");
+	var length = 0;
+	var values = [];
+	var value;
+	for ( var indexPart of index ) {
+		switch ( indexPart.type ) {
+			case ObjectType.OID:
+				if ( indexPart.implied ) {
+					length = addressRemaining.length;
+				} else {
+					length = addressRemaining.shift ();
+				}
+				value = addressRemaining.splice (0, length);
+				values.push (value.join ("."));
+				break;
+			case ObjectType.IpAddress:
+				length = 4;
+				value = addressRemaining.splice (0, length);
+				values.push (value.join ("."));
+				break;
+			case ObjectType.OctetString:
+				if ( indexPart.implied ) {
+					length = addressRemaining.length;
+				} else {
+					length = addressRemaining.shift ();
+				}
+				value = addressRemaining.splice (0, length);
+				value = value.map (c => String.fromCharCode(c)).join ("");
+				values.push (value);
+				break;
+			default:
+				values.push (parseInt (addressRemaining.shift ()) );
+		}
+	}
+	return values;
+};
+
+Mib.prototype.getTableRowInstanceFromRowIndex = function (provider, rowIndex) {
+	var rowIndexOid = [];
+	var indexPart;
+	var keyPart;
+	for ( var i = 0; i < provider.tableIndex.length ; i++ ) {
+		indexPart = provider.tableIndex[i];
+		keyPart = rowIndex[i];
+		rowIndexOid = rowIndexOid.concat (this.getOidAddressFromValue (keyPart, indexPart));
+	}
+	return rowIndexOid;
+};
+
+Mib.prototype.validateTableRow = function (table, row) {
+	const provider = this.providers[table];
+	const tableIndex = provider.tableIndex;
+	const foreignIndexOffset = tableIndex.filter ( indexPart => indexPart.foreign ).length;
+	for ( let i = 0; i < provider.tableColumns.length ; i++ ) {
+		const providerColumn = provider.tableColumns[i];
+		const isColumnIndex = tableIndex.some ( indexPart => indexPart.columnNumber == providerColumn.number );
+		if ( ! isColumnIndex || ! (providerColumn.maxAccess === MaxAccess['not-accessible'] || providerColumn.maxAccess === MaxAccess['accessible-for-notify']) ) {
+			const rowValueIndex = foreignIndexOffset + i;
+			const isValidValue = ObjectTypeUtil.isValid(providerColumn.type, row[rowValueIndex], providerColumn.constraints);
+			if ( ! isValidValue ) {
+				throw new TypeError(`Invalid value for ${table} column ${providerColumn.name} (index ${rowValueIndex}): ${row[rowValueIndex]} (in row [${row}])`);
+			}
+		}
+	}
+};
+
+Mib.prototype.addTableRow = function (table, row) {
+	var providerNode;
+	var provider;
+	var instance = [];
+	var instanceAddress;
+	var instanceNode;
+	var rowValueOffset;
+
+	if ( ! this.providers[table] ) {
+		throw new ReferenceError ("Provider " + table + " not registered with this MIB");
+	}
+	this.validateTableRow (table, row);
+	if ( ! this.providerNodes[table] ) {
+		this.addProviderToNode (this.providers[table]);
+	}
+	providerNode = this.getProviderNodeForTable (table);
+	provider = providerNode.provider;
+	rowValueOffset = provider.tableIndex.filter ( indexPart => indexPart.foreign ).length;
+	instance = this.getTableRowInstanceFromRow (provider, row);
+	for ( var i = 0; i < provider.tableColumns.length ; i++ ) {
+		var column = provider.tableColumns[i];
+		var isColumnIndex = provider.tableIndex.some ( indexPart => indexPart.columnNumber == column.number );
+		// prevent not-accessible and accessible-for-notify index entries from being added as columns in the row
+		if ( ! isColumnIndex || ! (column.maxAccess === MaxAccess['not-accessible'] || column.maxAccess === MaxAccess['accessible-for-notify']) ) {
+			instanceAddress = providerNode.address.concat (column.number).concat (instance);
+			this.addNodesForAddress (instanceAddress);
+			instanceNode = this.lookup (instanceAddress);
+			instanceNode.valueType = column.type;
+			instanceNode.value = row[rowValueOffset + i];
+		}
+	}
+};
+
+Mib.prototype.getTableColumnDefinitions = function (table) {
+	const provider = this.providers[table];
+	return provider.tableColumns;
+};
+
+Mib.prototype.getTableColumnCells = function (table, columnNumber, includeInstances) {
+	var provider = this.providers[table];
+	var providerIndex = provider.tableIndex;
+	var providerNode = this.getProviderNodeForTable (table);
+	var columnNode = providerNode.children[columnNumber];
+	if ( ! columnNode ) {
+		return null;
+	}
+	var instanceNodes = columnNode.getInstanceNodesForColumn ();
+	var instanceOid;
+	var indexValues = [];
+	var columnValues = [];
+
+	for ( var instanceNode of instanceNodes ) {
+		instanceOid = Mib.getSubOidFromBaseOid (instanceNode.oid, columnNode.oid);
+		indexValues.push (Mib.getRowIndexFromOid (instanceOid, providerIndex));
+		columnValues.push (instanceNode.value);
+	}
+	if ( includeInstances ) {
+		return [ indexValues, columnValues ];
+	} else {
+		return columnValues;
+	}
+};
+
+Mib.prototype.getTableRowCells = function (table, rowIndex) {
+	var provider;
+	var providerNode;
+	var columnNode;
+	var instanceAddress;
+	var instanceNode;
+	var row = [];
+	var rowFound = false;
+
+	provider = this.providers[table];
+	providerNode = this.getProviderNodeForTable (table);
+	instanceAddress = this.getTableRowInstanceFromRowIndex (provider, rowIndex);
+	for ( var columnNumber of Object.keys (providerNode.children) ) {
+		columnNode = providerNode.children[columnNumber];
+		if ( columnNode ) {
+			instanceNode = columnNode.getInstanceNodeForTableRowIndex (instanceAddress);
+			if ( instanceNode ) {
+				row.push (instanceNode.value);
+				rowFound = true;
+			} else {
+				row.push (null);
+			}
+		} else {
+			row.push (null);
+		}
+	}
+	if ( rowFound ) {
+		return row;
+	} else {
+		return null;
+	}
+};
+
+Mib.prototype.getTableCells = function (table, byRows, includeInstances) {
+	var providerNode;
+	var column;
+	var data = [];
+
+	providerNode = this.getProviderNodeForTable (table);
+	for ( var columnNumber of Object.keys (providerNode.children) ) {
+		column = this.getTableColumnCells (table, columnNumber, includeInstances);
+		if ( includeInstances ) {
+			data.push (...column);
+			includeInstances = false;
+		} else {
+			data.push (column);
+		}
+	}
+
+	if ( byRows ) {
+		return Object.keys (data[0]).map (function (c) {
+			return data.map (function (r) { return r[c]; });
+		});
+	} else {
+		return data;
+	}
+
+};
+
+Mib.prototype.getTableSingleCell = function (table, columnNumber, rowIndex) {
+	var provider;
+	var providerNode;
+	var instanceAddress;
+	var columnNode;
+	var instanceNode;
+
+	provider = this.providers[table];
+	providerNode = this.getProviderNodeForTable (table);
+	instanceAddress = this.getTableRowInstanceFromRowIndex (provider, rowIndex);
+	columnNode = providerNode.children[columnNumber];
+	instanceNode = columnNode.getInstanceNodeForTableRowIndex (instanceAddress);
+	return instanceNode.value;
+};
+
+Mib.prototype.setTableSingleCell = function (table, columnNumber, rowIndex, value) {
+	const provider = this.providers[table];
+	const providerNode = this.getProviderNodeForTable (table);
+	const instanceAddress = this.getTableRowInstanceFromRowIndex (provider, rowIndex);
+	const columnNode = providerNode.children[columnNumber];
+	const instanceNode = columnNode.getInstanceNodeForTableRowIndex (instanceAddress);
+	const providerColumn = this.getColumnForColumnNumberFromTableProvider (provider, columnNumber);
+	const isValidValue = ObjectTypeUtil.isValid(instanceNode.valueType, value, providerColumn?.constraints);
+	if ( ! isValidValue ) {
+		throw new TypeError(`Invalid value for ${table} column ${columnNumber} of type ${instanceNode.valueType}: ${value}`);
+	}
+	instanceNode.value = value;
+};
+
+Mib.prototype.deleteTableRow = function (table, rowIndex) {
+	var provider;
+	var providerNode;
+	var instanceAddress;
+	var columnNode;
+	var instanceNode;
+	var instanceParentNode;
+
+	provider = this.providers[table];
+	providerNode = this.getProviderNodeForTable (table);
+	instanceAddress = this.getTableRowInstanceFromRowIndex (provider, rowIndex);
+	for ( var columnNumber of Object.keys (providerNode.children) ) {
+		columnNode = providerNode.children[columnNumber];
+		instanceNode = columnNode.getInstanceNodeForTableRowIndex (instanceAddress);
+		if ( instanceNode ) {
+			instanceParentNode = instanceNode.parent;
+			instanceNode.delete();
+			instanceParentNode.pruneUpwards();
+		} else {
+			throw new ReferenceError ("Cannot find row for index " + rowIndex + " at registered provider " + table);
+		}
+	}
+	if ( Object.keys (this.providerNodes[table].children).length === 0 ) {
+		delete this.providerNodes[table];
+	}
+	return true;
+};
+
+Mib.prototype.getAncestorProviderFromOid = function (oid) {
+	const address = Mib.convertOidToAddress (oid);
+	for ( let i = address.length - 1 ; i >= 0 ; i-- ) {
+		const oidToCheck = address.slice(0, i).join('.');
+		const provider = this.providersByOid[oidToCheck];
+		if ( provider ) {
+			return provider;
+		}
+	}
+	return null;
+};
+
+Mib.prototype.dump = function (options) {
+	if ( ! options ) {
+		options = {};
+	}
+	var completedOptions = {
+		leavesOnly: options.leavesOnly === undefined ? true : options.leavesOnly,
+		showProviders: options.showProviders === undefined ? true : options.showProviders,
+		showValues: options.showValues === undefined ? true : options.showValues,
+		showTypes: options.showTypes === undefined ? true : options.showTypes
+	};
+	this.root.dump (completedOptions);
+};
+
+Mib.convertOidToAddress = function (oid) {
+	var address;
+	var oidArray;
+	var i;
+
+	if (typeof (oid) === 'object' && Array.isArray(oid)) {
+		address = oid;
+	} else if (typeof (oid) === 'string') {
+		address = oid.split('.');
+	} else {
+		throw new TypeError('oid (string or array) is required');
+	}
+
+	if (address.length < 1)
+		throw new RangeError('object identifier is too short');
+
+	oidArray = [];
+	for (i = 0; i < address.length; i++) {
+		var n;
+
+		if (address[i] === '')
+			continue;
+
+		if (address[i] === true || address[i] === false) {
+			throw new TypeError('object identifier component ' +
+				address[i] + ' is malformed');
+		}
+
+		n = Number(address[i]);
+
+		if (isNaN(n)) {
+			throw new TypeError('object identifier component ' +
+				address[i] + ' is malformed');
+		}
+		if (n % 1 !== 0) {
+			throw new TypeError('object identifier component ' +
+				address[i] + ' is not an integer');
+		}
+		if (i === 0 && n > 2) {
+			throw new RangeError('object identifier does not ' +
+				'begin with 0, 1, or 2');
+		}
+		if (i === 1 && n > 39) {
+			throw new RangeError('object identifier second ' +
+				'component ' + n + ' exceeds encoding limit of 39');
+		}
+		if (n < 0) {
+			throw new RangeError('object identifier component ' +
+				address[i] + ' is negative');
+		}
+		if (n > MAX_SIGNED_INT32) {
+			throw new RangeError('object identifier component ' +
+				address[i] + ' is too large');
+		}
+		oidArray.push(n);
+	}
+
+	return oidArray;
+
+};
+
+Mib.getSubOidFromBaseOid = function (oid, base) {
+	return oid.substring (base.length + 1);
+};
+
+Mib.create = function (options) {
+	return new Mib (options);
+};
 
 var MibRequest = function (requestDefinition) {
 	this.operation = requestDefinition.operation;
@@ -4920,7 +5672,924 @@ var Forwarder = function (listener, callback) {
 	this.callback = callback;
 };
 
+Forwarder.prototype.addProxy = function (proxy) {
+	var options = {
+		version: Version3,
+		port: proxy.port,
+		transport: proxy.transport
+	};
+	proxy.session = Session.createV3 (proxy.target, proxy.user, options);
+	proxy.session.proxy = proxy;
+	proxy.session.proxy.listener = this.listener;
+	this.proxies[proxy.context] = proxy;
+	proxy.session.sendV3Discovery (null, null, this.callback);
+};
 
+Forwarder.prototype.deleteProxy = function (proxyName) {
+	var proxy = this.proxies[proxyName];
+
+	if ( proxy && proxy.session ) {
+		proxy.session.close ();
+	}
+	delete this.proxies[proxyName];
+};
+
+Forwarder.prototype.getProxy = function (proxyName) {
+	return this.proxies[proxyName];
+};
+
+Forwarder.prototype.getProxies = function () {
+	return this.proxies;
+};
+
+Forwarder.prototype.dumpProxies = function () {
+	var dump = {};
+	for ( var proxy of Object.values (this.proxies) ) {
+		dump[proxy.context] = {
+			context: proxy.context,
+			target: proxy.target,
+			user: proxy.user,
+			port: proxy.port
+		};
+	}
+	console.log (JSON.stringify (dump, null, 2));
+};
+
+var AgentXPdu = function () {
+};
+
+AgentXPdu.prototype.toBuffer = function () {
+	var buffer = new smartbuffer.SmartBuffer();
+	this.writeHeader (buffer);
+	switch ( this.pduType ) {
+		case AgentXPduType.Open:
+			buffer.writeUInt32BE (this.timeout);
+			AgentXPdu.writeOid (buffer, this.oid);
+			AgentXPdu.writeOctetString (buffer, this.descr);
+			break;
+		case AgentXPduType.Close:
+			buffer.writeUInt8 (5);  // reasonShutdown == 5
+			buffer.writeUInt8 (0);  // 3 x reserved bytes
+			buffer.writeUInt8 (0);
+			buffer.writeUInt8 (0);
+			break;
+		case AgentXPduType.Register:
+			buffer.writeUInt8 (this.timeout);
+			buffer.writeUInt8 (this.priority);
+			buffer.writeUInt8 (this.rangeSubid);
+			buffer.writeUInt8 (0);
+			AgentXPdu.writeOid (buffer, this.oid);
+			break;
+		case AgentXPduType.Unregister:
+			buffer.writeUInt8 (0);  // reserved
+			buffer.writeUInt8 (this.priority);
+			buffer.writeUInt8 (this.rangeSubid);
+			buffer.writeUInt8 (0);  // reserved
+			AgentXPdu.writeOid (buffer, this.oid);
+			break;
+		case AgentXPduType.AddAgentCaps:
+			AgentXPdu.writeOid (buffer, this.oid);
+			AgentXPdu.writeOctetString (buffer, this.descr);
+			break;
+		case AgentXPduType.RemoveAgentCaps:
+			AgentXPdu.writeOid (buffer, this.oid);
+			break;
+		case AgentXPduType.Notify:
+			AgentXPdu.writeVarbinds (buffer, this.varbinds);
+			break;
+		case AgentXPduType.Ping:
+			break;
+		case AgentXPduType.Response:
+			buffer.writeUInt32BE (this.sysUpTime);
+			buffer.writeUInt16BE (this.error);
+			buffer.writeUInt16BE (this.index);
+			AgentXPdu.writeVarbinds (buffer, this.varbinds);
+			break;
+		default:
+			// unknown PDU type - should never happen as we control these
+	}
+	buffer.writeUInt32BE (buffer.length - 20, 16);
+	return buffer.toBuffer ();
+};
+
+AgentXPdu.prototype.writeHeader = function (buffer) {
+	this.flags = this.flags | 0x10;  // set NETWORK_BYTE_ORDER
+
+	buffer.writeUInt8 (1);  // h.version = 1
+	buffer.writeUInt8 (this.pduType);
+	buffer.writeUInt8 (this.flags);
+	buffer.writeUInt8 (0);  // reserved byte
+	buffer.writeUInt32BE (this.sessionID);
+	buffer.writeUInt32BE (this.transactionID);
+	buffer.writeUInt32BE (this.packetID);
+	buffer.writeUInt32BE (0);
+	return buffer;
+};
+
+AgentXPdu.prototype.readHeader = function (buffer) {
+	this.version = buffer.readUInt8 ();
+	this.pduType = buffer.readUInt8 ();
+	this.flags = buffer.readUInt8 ();
+	buffer.readUInt8 ();   // reserved byte
+	this.sessionID = buffer.readUInt32BE ();
+	this.transactionID = buffer.readUInt32BE ();
+	this.packetID = buffer.readUInt32BE ();
+	this.payloadLength = buffer.readUInt32BE ();
+};
+
+AgentXPdu.prototype.getResponsePduForRequest = function () {
+	const responsePdu = AgentXPdu.createFromVariables({
+		pduType: AgentXPduType.Response,
+		sessionID: this.sessionID,
+		transactionID: this.transactionID,
+		packetID: this.packetID,
+		sysUpTime: 0,
+		error: 0,
+		index: 0
+	});
+	return responsePdu;
+};
+
+AgentXPdu.createFromVariables = function (vars) {
+	var pdu = new AgentXPdu ();
+	pdu.flags = vars.flags ? vars.flags | 0x10 : 0x10;  // set NETWORK_BYTE_ORDER to big endian
+	pdu.pduType = vars.pduType || AgentXPduType.Open;
+	pdu.sessionID = vars.sessionID || 0;
+	pdu.transactionID = vars.transactionID || 0;
+	pdu.packetID = vars.packetID || ++AgentXPdu.packetID;
+	switch ( pdu.pduType ) {
+		case AgentXPduType.Open:
+			pdu.timeout = vars.timeout || 0;
+			pdu.oid = vars.oid || null;
+			pdu.descr = vars.descr || null;
+			break;
+		case AgentXPduType.Close:
+			break;
+		case AgentXPduType.Register:
+			pdu.timeout = vars.timeout || 0;
+			pdu.oid = vars.oid || null;
+			pdu.priority = vars.priority || 127;
+			pdu.rangeSubid = vars.rangeSubid || 0;
+			break;
+		case AgentXPduType.Unregister:
+			pdu.oid = vars.oid || null;
+			pdu.priority = vars.priority || 127;
+			pdu.rangeSubid = vars.rangeSubid || 0;
+			break;
+		case AgentXPduType.AddAgentCaps:
+			pdu.oid = vars.oid;
+			pdu.descr = vars.descr;
+			break;
+		case AgentXPduType.RemoveAgentCaps:
+			pdu.oid = vars.oid;
+			break;
+		case AgentXPduType.Notify:
+			pdu.varbinds = vars.varbinds;
+			break;
+		case AgentXPduType.Ping:
+			break;
+		case AgentXPduType.Response:
+			pdu.sysUpTime = vars.sysUpTime || 0;
+			pdu.error = vars.error || 0;
+			pdu.index = vars.index || 0;
+			pdu.varbinds = vars.varbinds || null;
+			break;
+		default:
+			// unsupported PDU type - should never happen as we control these
+			throw new RequestInvalidError ("Unknown PDU type '" + pdu.pduType
+					+ "' in created PDU");
+
+	}
+
+	return pdu;
+};
+
+AgentXPdu.createFromBuffer = function (socketBuffer) {
+	var pdu = new AgentXPdu ();
+
+	var buffer = smartbuffer.SmartBuffer.fromBuffer (socketBuffer);
+	pdu.readHeader (buffer);
+
+	switch ( pdu.pduType ) {
+		case AgentXPduType.Response:
+			pdu.sysUpTime = buffer.readUInt32BE ();
+			pdu.error = buffer.readUInt16BE ();
+			pdu.index = buffer.readUInt16BE ();
+			break;
+		case AgentXPduType.Get:
+		case AgentXPduType.GetNext:
+			pdu.searchRangeList = AgentXPdu.readSearchRangeList (buffer, pdu.payloadLength);
+			break;
+		case AgentXPduType.GetBulk:
+			pdu.nonRepeaters = buffer.readUInt16BE ();
+			pdu.maxRepetitions = buffer.readUInt16BE ();
+			pdu.searchRangeList = AgentXPdu.readSearchRangeList (buffer, pdu.payloadLength - 4);
+			break;
+		case AgentXPduType.TestSet:
+			pdu.varbinds = AgentXPdu.readVarbinds (buffer, pdu.payloadLength);
+			break;
+		case AgentXPduType.CommitSet:
+		case AgentXPduType.UndoSet:
+		case AgentXPduType.CleanupSet:
+			break;
+		default:
+			// Unknown PDU type - shouldn't happen as master agents shouldn't send administrative PDUs
+			throw new RequestInvalidError ("Unknown PDU type '" + pdu.pduType
+					+ "' in request");
+	}
+	return pdu;
+};
+
+AgentXPdu.writeOid = function (buffer, oid, include = 0) {
+	var prefix;
+	if ( oid ) {
+		var address = oid.split ('.').map ( Number );
+		if ( address.length >= 5 && address.slice (0, 4).join('.') == '1.3.6.1' ) {
+			prefix = address[4];
+			address = address.slice(5);
+		} else {
+			prefix = 0;
+		}
+		buffer.writeUInt8 (address.length);
+		buffer.writeUInt8 (prefix);
+		buffer.writeUInt8 (include);
+		buffer.writeUInt8 (0);  // reserved
+		for ( let addressPart of address ) {
+			buffer.writeUInt32BE (addressPart);
+		}
+	} else {
+		buffer.writeUInt32BE (0);  // row of zeros for null OID
+	}
+};
+
+AgentXPdu.writeOctetString = function (buffer, octetString) {
+	buffer.writeUInt32BE (octetString.length);
+	buffer.writeString (octetString);
+	var paddingOctets = ( 4 - octetString.length % 4 ) % 4;
+	for ( let i = 0; i < paddingOctets ; i++ ) {
+		buffer.writeUInt8 (0);
+	}
+};
+
+AgentXPdu.writeVarBind = function (buffer, varbind) {
+	buffer.writeUInt16BE (varbind.type);
+	buffer.writeUInt16BE (0); // reserved
+	AgentXPdu.writeOid (buffer, varbind.oid);
+
+	if (varbind.type && varbind.oid) {
+
+		switch (varbind.type) {
+			case ObjectType.Integer: // also Integer32 (signed 32-bit)
+				buffer.writeInt32BE (varbind.value);
+				break;
+			case ObjectType.Counter: // also Counter32
+			case ObjectType.Gauge: // also Gauge32 & Unsigned32
+			case ObjectType.TimeTicks:
+				buffer.writeUInt32BE (varbind.value);
+				break;
+			case ObjectType.OctetString:
+			case ObjectType.Opaque:
+				AgentXPdu.writeOctetString (buffer, varbind.value);
+				break;
+			case ObjectType.OID:
+				AgentXPdu.writeOid (buffer, varbind.value);
+				break;
+			case ObjectType.IpAddress:
+				var bytes = varbind.value.split (".");
+				if (bytes.length != 4)
+					throw new RequestInvalidError ("Invalid IP address '"
+							+ varbind.value + "'");
+				buffer.writeOctetString (buffer, Buffer.from (bytes));
+				break;
+			case ObjectType.Counter64:
+				buffer.writeUint64 (varbind.value);
+				break;
+			case ObjectType.Null:
+			case ObjectType.EndOfMibView:
+			case ObjectType.NoSuchObject:
+			case ObjectType.NoSuchInstance:
+				break;
+			default:
+				// Unknown data type - should never happen as the above covers all types in RFC 2741 Section 5.4
+				throw new RequestInvalidError ("Unknown type '" + varbind.type
+						+ "' in request");
+		}
+	}
+};
+
+AgentXPdu.writeVarbinds = function (buffer, varbinds) {
+	if ( varbinds ) {
+		for ( var i = 0; i < varbinds.length ; i++ ) {
+			var varbind = varbinds[i];
+			AgentXPdu.writeVarBind(buffer, varbind);
+		}
+	}
+};
+
+AgentXPdu.readOid = function (buffer) {
+	var subidLength = buffer.readUInt8 ();
+	var prefix = buffer.readUInt8 ();
+	var include = buffer.readUInt8 ();
+	buffer.readUInt8 ();  // reserved
+
+	// Null OID check
+	if ( subidLength == 0 && prefix == 0 && include == 0) {
+		return null;
+	}
+	var address = [];
+	if ( prefix == 0 ) {
+		address = [];
+	} else {
+		address = [1, 3, 6, 1, prefix];
+	}
+	for ( let i = 0; i < subidLength; i++ ) {
+		address.push (buffer.readUInt32BE ());
+	}
+	var oid = address.join ('.');
+	return oid;
+};
+
+AgentXPdu.readSearchRange = function (buffer) {
+	return {
+		start: AgentXPdu.readOid (buffer),
+		end: AgentXPdu.readOid (buffer)
+	};
+};
+
+AgentXPdu.readSearchRangeList = function (buffer, payloadLength) {
+	var bytesLeft = payloadLength;
+	var bufferPosition = (buffer.readOffset + 1);
+	var searchRangeList = [];
+	while (bytesLeft > 0) {
+		searchRangeList.push (AgentXPdu.readSearchRange (buffer));
+		bytesLeft -= (buffer.readOffset + 1) - bufferPosition;
+		bufferPosition = buffer.readOffset + 1;
+	}
+	return searchRangeList;
+};
+
+AgentXPdu.readOctetString = function (buffer) {
+	var octetStringLength = buffer.readUInt32BE ();
+	var paddingOctets = ( 4 - octetStringLength % 4 ) % 4;
+	var octetString = buffer.readString (octetStringLength);
+	buffer.readString (paddingOctets);
+	return octetString;
+};
+
+AgentXPdu.readVarbind = function (buffer) {
+	var vtype = buffer.readUInt16BE ();
+	buffer.readUInt16BE ();  // reserved
+	var oid = AgentXPdu.readOid (buffer);
+	var value;
+
+	switch (vtype) {
+		case ObjectType.Integer:
+		case ObjectType.Counter:
+		case ObjectType.Gauge:
+		case ObjectType.TimeTicks:
+			value = buffer.readUInt32BE ();
+			break;
+		case ObjectType.OctetString:
+		case ObjectType.IpAddress:
+		case ObjectType.Opaque:
+			value = AgentXPdu.readOctetString (buffer);
+			break;
+		case ObjectType.OID:
+			value = AgentXPdu.readOid (buffer);
+			break;
+		case ObjectType.Counter64:
+			value = readUint64 (buffer);
+			break;
+		case ObjectType.Null:
+		case ObjectType.NoSuchObject:
+		case ObjectType.NoSuchInstance:
+		case ObjectType.EndOfMibView:
+			value = null;
+			break;
+		default:
+			// Unknown data type - should never happen as the above covers all types in RFC 2741 Section 5.4
+			throw new RequestInvalidError ("Unknown type '" + vtype
+				+ "' in varbind");
+	}
+
+	return {
+		type: vtype,
+		oid: oid,
+		value: value
+	};
+};
+
+AgentXPdu.readVarbinds = function (buffer, payloadLength) {
+	var bytesLeft = payloadLength;
+	var bufferPosition = (buffer.readOffset + 1);
+	var varbindList = [];
+	while (bytesLeft > 0) {
+		varbindList.push (AgentXPdu.readVarbind (buffer));
+		bytesLeft -= (buffer.readOffset + 1) - bufferPosition;
+		bufferPosition = buffer.readOffset + 1;
+	}
+	return varbindList;
+};
+
+AgentXPdu.packetID = 1;
+
+var Subagent = function (options) {
+	DEBUG = options.debug;
+	this.mib = options?.mib ?? new Mib (options?.mibOptions);
+	this.master = options.master || 'localhost';
+	this.masterPort = options.masterPort || 705;
+	this.timeout = options.timeout || 0;
+	this.descr = options.description || "Node net-snmp AgentX sub-agent";
+	this.sessionID = 0;
+	this.transactionID = 0;
+	this.packetID = _generateId();
+	this.requestPdus = {};
+	this.setTransactions = {};
+};
+
+util.inherits (Subagent, events.EventEmitter);
+
+Subagent.prototype.onClose = function () {
+	this.emit ("close");
+};
+
+Subagent.prototype.onError = function (error) {
+	this.emit ("error", error);
+};
+
+Subagent.prototype.getMib = function () {
+	return this.mib;
+};
+
+Subagent.prototype.connectSocket = function () {
+	var me = this;
+	this.socket = new net.Socket ();
+	this.socket.connect (this.masterPort, this.master, function () {
+		debug ("Connected to '" + me.master + "' on port " + me.masterPort);
+	});
+
+	this.socket.on ("data", me.onMsg.bind (me));
+	this.socket.on ("error", me.onError.bind (me));
+	this.socket.on ("close", me.onClose.bind (me));
+};
+
+Subagent.prototype.open = function (callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Open,
+		timeout: this.timeout,
+		oid: this.oid,
+		descr: this.descr
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.close = function (callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Close,
+		sessionID: this.sessionID
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.registerProvider = function (provider, callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Register,
+		sessionID: this.sessionID,
+		rangeSubid: 0,
+		timeout: 5,
+		priority: 127,
+		oid: provider.oid
+	});
+	this.mib.registerProvider (provider);
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.unregisterProvider = function (name, callback) {
+	var provider = this.getProvider (name);
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Unregister,
+		sessionID: this.sessionID,
+		rangeSubid: 0,
+		priority: 127,
+		oid: provider.oid
+	});
+	this.mib.unregisterProvider (name);
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.registerProviders = function (providers, callback) {
+	for (var provider of providers) {
+		this.registerProvider (provider, callback);
+	}
+};
+
+Subagent.prototype.getProvider = function (name) {
+	return this.mib.getProvider (name);
+};
+
+Subagent.prototype.getProviders = function () {
+	return this.mib.getProviders ();
+};
+
+Subagent.prototype.addAgentCaps = function (oid, descr, callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.AddAgentCaps,
+		sessionID: this.sessionID,
+		oid: oid,
+		descr: descr
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.removeAgentCaps = function (oid, callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.RemoveAgentCaps,
+		sessionID: this.sessionID,
+		oid: oid
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.notify = function (typeOrOid, varbinds, callback) {
+	varbinds = varbinds || [];
+
+	if (typeof typeOrOid != "string") {
+		typeOrOid = "1.3.6.1.6.3.1.1.5." + (typeOrOid + 1);
+	}
+
+	var pduVarbinds = [
+		{
+			oid: "1.3.6.1.2.1.1.3.0",
+			type: ObjectType.TimeTicks,
+			value: Math.floor (process.uptime () * 100)
+		},
+		{
+			oid: "1.3.6.1.6.3.1.1.4.1.0",
+			type: ObjectType.OID,
+			value: typeOrOid
+		}
+	];
+
+	pduVarbinds = pduVarbinds.concat (varbinds);
+
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Notify,
+		sessionID: this.sessionID,
+		varbinds: pduVarbinds
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.ping = function (callback) {
+	var pdu = AgentXPdu.createFromVariables ({
+		pduType: AgentXPduType.Ping,
+		sessionID: this.sessionID
+	});
+	this.sendPdu (pdu, callback);
+};
+
+Subagent.prototype.sendPdu = function (pdu, callback) {
+	debug ("Sending AgentX " + AgentXPduType[pdu.pduType] + " PDU");
+	debug (pdu);
+	var buffer = pdu.toBuffer ();
+	this.socket.write (buffer);
+	if ( pdu.pduType != AgentXPduType.Response && ! this.requestPdus[pdu.packetID] ) {
+		pdu.callback = callback;
+		this.requestPdus[pdu.packetID] = pdu;
+	}
+
+	// Possible timeout / retry mechanism?
+	// var me = this;
+	// pdu.timer = setTimeout (function () {
+	// 	if (pdu.retries-- > 0) {
+	// 		this.sendPdu (pdu);
+	// 	} else {
+	// 		delete me.requestPdus[pdu.packetID];
+	// 		me.callback (new RequestTimedOutError (
+	// 				"Request timed out"));
+	// 	}
+	// }, this.timeout);
+
+};
+
+Subagent.prototype.onMsg = function (buffer, rinfo) {
+	var pdu = AgentXPdu.createFromBuffer (buffer);
+
+	debug ("Received AgentX " + AgentXPduType[pdu.pduType] + " PDU");
+	debug (pdu);
+
+	switch (pdu.pduType) {
+		case AgentXPduType.Response:
+			this.response (pdu);
+			break;
+		case AgentXPduType.Get:
+			this.getRequest (pdu);
+			break;
+		case AgentXPduType.GetNext:
+			this.getNextRequest (pdu);
+			break;
+		case AgentXPduType.GetBulk:
+			this.getBulkRequest (pdu);
+			break;
+		case AgentXPduType.TestSet:
+			this.testSet (pdu);
+			break;
+		case AgentXPduType.CommitSet:
+			this.commitSet (pdu);
+			break;
+		case AgentXPduType.UndoSet:
+			this.undoSet (pdu);
+			break;
+		case AgentXPduType.CleanupSet:
+			this.cleanupSet (pdu);
+			break;
+		default:
+			// Unknown PDU type - shouldn't happen as master agents shouldn't send administrative PDUs
+			throw new RequestInvalidError ("Unknown PDU type '" + pdu.pduType
+					+ "' in request");
+	}
+};
+
+Subagent.prototype.response = function (pdu) {
+	var requestPdu = this.requestPdus[pdu.packetID];
+	if (requestPdu) {
+		delete this.requestPdus[pdu.packetID];
+		// clearTimeout (pdu.timer);
+		// delete pdu.timer;
+		switch (requestPdu.pduType) {
+			case AgentXPduType.Open:
+				this.sessionID = pdu.sessionID;
+				break;
+			case AgentXPduType.Close:
+				this.socket.end();
+				break;
+			case AgentXPduType.Register:
+			case AgentXPduType.Unregister:
+			case AgentXPduType.AddAgentCaps:
+			case AgentXPduType.RemoveAgentCaps:
+			case AgentXPduType.Notify:
+			case AgentXPduType.Ping:
+				break;
+			default:
+				// Response PDU for request type not handled
+				throw new ResponseInvalidError ("Response PDU for type '" + requestPdu.pduType + "' not handled",
+						ResponseInvalidCode.EResponseNotHandled);
+		}
+		if (requestPdu.callback) {
+			requestPdu.callback(null, pdu);
+		}
+	} else {
+		// unexpected Response PDU - has no matching request
+		throw new ResponseInvalidError ("Unexpected Response PDU with packetID " + pdu.packetID,
+				ResponseInvalidCode.EUnexpectedResponse);
+	}
+};
+
+Subagent.prototype.request = function (pdu, requestVarbinds) {
+	const me = this;
+	const varbindsLength = requestVarbinds.length;
+	const responseVarbinds = [];
+	const responsePdu = pdu.getResponsePduForRequest ();
+	let varbindsCompleted = 0;
+
+	for ( let i = 0; i < varbindsLength; i++ ) {
+		const requestVarbind = requestVarbinds[i];
+		var instanceNode = this.mib.lookup (requestVarbind.oid);
+		var providerNode;
+		var mibRequest;
+		var handler;
+		var responseVarbindType;
+
+		if ( ! instanceNode ) {
+			mibRequest = new MibRequest ({
+				operation: pdu.pduType,
+				oid: requestVarbind.oid
+			});
+			handler = function getNsoHandler (mibRequestForNso) {
+				mibRequestForNso.done ({
+					errorStatus: ErrorStatus.NoError,
+					errorIndex: 0,
+					type: ObjectType.NoSuchObject,
+					value: null
+				});
+			};
+		} else {
+			providerNode = this.mib.getProviderNodeForInstance (instanceNode);
+			if ( ! providerNode ) {
+				mibRequest = new MibRequest ({
+					operation: pdu.pduType,
+					oid: requestVarbind.oid
+				});
+				handler = function getNsiHandler (mibRequestForNsi) {
+					mibRequestForNsi.done ({
+						errorStatus: ErrorStatus.NoError,
+						errorIndex: 0,
+						type: ObjectType.NoSuchInstance,
+						value: null
+					});
+				};
+			} else {
+				mibRequest = new MibRequest ({
+					operation: pdu.pduType,
+					providerNode: providerNode,
+					instanceNode: instanceNode,
+					oid: requestVarbind.oid
+				});
+				if ( pdu.pduType == AgentXPduType.TestSet ) {
+					mibRequest.setType = requestVarbind.type;
+					mibRequest.setValue = requestVarbind.value;
+				}
+				handler = providerNode.provider.handler;
+			}
+		}
+
+		(function (savedIndex) {
+			mibRequest.done = function (error) {
+				let responseVarbind;
+				if ( error ) {
+					responseVarbind = {
+						oid: mibRequest.oid,
+						type: error.type || ObjectType.Null,
+						value: error.value || null
+					};
+					if ( (typeof responsePdu.errorStatus == "undefined" || responsePdu.errorStatus == ErrorStatus.NoError) && error.errorStatus != ErrorStatus.NoError ) {
+						responsePdu.error = error.errorStatus;
+						responsePdu.index = savedIndex + 1;
+					}
+					if ( error.errorStatus != ErrorStatus.NoError ) {
+						responseVarbind.errorStatus = error.errorStatus;
+					}
+				} else {
+					if ( pdu.pduType == AgentXPduType.TestSet ) {
+						// more tests?
+					} else if ( pdu.pduType == AgentXPduType.CommitSet ) {
+						me.setTransactions[pdu.transactionID].originalValue = mibRequest.instanceNode.value;
+						mibRequest.instanceNode.value = requestVarbind.value;
+					} else if ( pdu.pduType == AgentXPduType.UndoSet ) {
+						mibRequest.instanceNode.value = me.setTransactions[pdu.transactionID].originalValue;
+					}
+					if ( ( pdu.pduType == AgentXPduType.GetNext || pdu.pduType == AgentXPduType.GetBulk ) &&
+							requestVarbind.type == ObjectType.EndOfMibView ) {
+						responseVarbindType = ObjectType.EndOfMibView;
+					} else {
+						responseVarbindType = mibRequest.instanceNode.valueType;
+					}
+					responseVarbind = {
+						oid: mibRequest.oid,
+						type: responseVarbindType,
+						value: mibRequest.instanceNode.value
+					};
+				}
+				responseVarbinds[savedIndex] = responseVarbind;
+				if ( ++varbindsCompleted == varbindsLength) {
+					if ( pdu.pduType == AgentXPduType.TestSet || pdu.pduType == AgentXPduType.CommitSet
+							|| pdu.pduType == AgentXPduType.UndoSet) {
+						me.sendResponse.call (me, responsePdu);
+					} else {
+						me.sendResponse.call (me, responsePdu, responseVarbinds);
+					}
+				}
+			};
+		})(i);
+		if ( handler ) {
+			handler (mibRequest);
+		} else {
+			mibRequest.done ();
+		}
+	}
+};
+
+Subagent.prototype.addGetNextVarbind = function (targetVarbinds, startOid) {
+	var startNode;
+	var getNextNode;
+
+	try {
+		startNode = this.mib.lookup (startOid);
+	// eslint-disable-next-line no-unused-vars
+	} catch ( error ) {
+		startOid = '1.3.6.1';
+		startNode = this.mib.lookup (startOid);
+	}
+
+	if ( ! startNode ) {
+		// Off-tree start specified
+		startNode = this.mib.getTreeNode (startOid);
+	}
+	getNextNode = startNode.getNextInstanceNode();
+	if ( ! getNextNode ) {
+		// End of MIB
+		targetVarbinds.push ({
+			oid: startOid,
+			type: ObjectType.EndOfMibView,
+			value: null
+		});
+	} else {
+		// Normal response
+		targetVarbinds.push ({
+			oid: getNextNode.oid,
+			type: getNextNode.valueType,
+			value: getNextNode.value
+		});
+	}
+
+	return getNextNode;
+};
+
+Subagent.prototype.getRequest = function (pdu) {
+	var requestVarbinds = [];
+
+	for ( var i = 0; i < pdu.searchRangeList.length; i++ ) {
+		requestVarbinds.push ({
+			oid: pdu.searchRangeList[i].start,
+			value: null,
+			type: null
+		});
+	}
+	this.request (pdu, requestVarbinds);
+};
+
+Subagent.prototype.getNextRequest = function (pdu) {
+	var getNextVarbinds = [];
+
+	for (var i = 0 ; i < pdu.searchRangeList.length ; i++ ) {
+		this.addGetNextVarbind (getNextVarbinds, pdu.searchRangeList[i].start);
+	}
+
+	this.request (pdu, getNextVarbinds);
+};
+
+Subagent.prototype.getBulkRequest = function (pdu) {
+	var getBulkVarbinds = [];
+	var startOid = [];
+	var getNextNode;
+	var endOfMib = false;
+
+	for (var n = 0 ; n < pdu.nonRepeaters ; n++ ) {
+		this.addGetNextVarbind (getBulkVarbinds, pdu.searchRangeList[n].start);
+	}
+
+	for (var v = pdu.nonRepeaters ; v < pdu.searchRangeList.length ; v++ ) {
+		startOid.push (pdu.searchRangeList[v].oid);
+	}
+
+	while ( getBulkVarbinds.length < pdu.maxRepetitions && ! endOfMib ) {
+		for (var w = pdu.nonRepeaters ; w < pdu.searchRangeList.length ; w++ ) {
+			if (getBulkVarbinds.length < pdu.maxRepetitions ) {
+				getNextNode = this.addGetNextVarbind (getBulkVarbinds, startOid[w - pdu.nonRepeaters]);
+				if ( getNextNode ) {
+					startOid[w - pdu.nonRepeaters] = getNextNode.oid;
+					if ( getNextNode.type == ObjectType.EndOfMibView ) {
+						endOfMib = true;
+					}
+				}
+			}
+		}
+	}
+
+	this.request (pdu, getBulkVarbinds);
+};
+
+Subagent.prototype.sendResponse = function (responsePdu, varbinds) {
+	if ( varbinds ) {
+		responsePdu.varbinds = varbinds;
+	}
+	this.sendPdu (responsePdu, null);
+};
+
+Subagent.prototype.testSet = function (setPdu) {
+	this.setTransactions[setPdu.transactionID] = setPdu;
+	this.request (setPdu, setPdu.varbinds);
+};
+
+Subagent.prototype.commitSet = function (setPdu) {
+	if ( this.setTransactions[setPdu.transactionID] ) {
+		this.request (setPdu, this.setTransactions[setPdu.transactionID].varbinds);
+	} else {
+		throw new RequestInvalidError ("Unexpected CommitSet PDU with transactionID " + setPdu.transactionID);
+	}
+};
+
+Subagent.prototype.undoSet = function (setPdu) {
+	if ( this.setTransactions[setPdu.transactionID] ) {
+		this.request (setPdu, this.setTransactions[setPdu.transactionID].varbinds);
+	} else {
+		throw new RequestInvalidError ("Unexpected UndoSet PDU with transactionID " + setPdu.transactionID);
+	}
+};
+
+Subagent.prototype.cleanupSet = function (setPdu) {
+	if ( this.setTransactions[setPdu.transactionID] ) {
+		delete this.setTransactions[setPdu.transactionID];
+	} else {
+		throw new RequestInvalidError ("Unexpected CleanupSet PDU with transactionID " + setPdu.transactionID);
+	}
+};
+
+Subagent.create = function (options) {
+	var subagent = new Subagent (options);
+	subagent.connectSocket ();
+	return subagent;
+};
 
 
 /*****************************************************************************
