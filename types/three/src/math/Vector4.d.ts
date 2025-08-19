@@ -119,6 +119,8 @@ export class Vector4 {
 
     applyMatrix4(m: Matrix4): this;
 
+    divide(v: Vector4Like): this;
+
     /**
      * Divides this vector by scalar s.
      * Set vector to ( 0, 0, 0 ) if s == 0.

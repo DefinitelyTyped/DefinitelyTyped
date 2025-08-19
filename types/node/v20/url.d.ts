@@ -437,6 +437,15 @@ declare module "url" {
          * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
          */
         static canParse(input: string, base?: string): boolean;
+        /**
+         * Parses a string as a URL. If `base` is provided, it will be used as the base URL for the purpose of resolving non-absolute `input` URLs.
+         * Returns `null` if `input` is not a valid.
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         * @since v20.18.0
+         */
+        static parse(input: string, base?: string): URL | null;
         constructor(input: string | { toString: () => string }, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -740,6 +749,9 @@ declare module "url" {
          */
         toJSON(): string;
     }
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.iterator](): URLSearchParamsIterator<T>;
+    }
     /**
      * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
@@ -810,7 +822,7 @@ declare module "url" {
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): URLSearchParamsIterator<[string, string]>;
         /**
          * Iterates over each name-value pair in the query and invokes the given function.
          *
@@ -864,7 +876,7 @@ declare module "url" {
          * //   foo
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): URLSearchParamsIterator<string>;
         /**
          * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
@@ -914,8 +926,8 @@ declare module "url" {
         /**
          * Returns an ES6 `Iterator` over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): URLSearchParamsIterator<string>;
+        [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
     }
     import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {

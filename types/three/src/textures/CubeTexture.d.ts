@@ -1,5 +1,4 @@
 import {
-    ColorSpace,
     CubeTextureMapping,
     MagnificationTextureFilter,
     MinificationTextureFilter,
@@ -52,7 +51,7 @@ export class CubeTexture extends Texture {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**

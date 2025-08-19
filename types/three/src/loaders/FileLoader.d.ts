@@ -11,9 +11,9 @@ export class FileLoader extends Loader<string | ArrayBuffer> {
         onError?: (err: unknown) => void,
     ): void;
 
-    mimeType: undefined | MimeType;
-    responseType: undefined | string;
+    mimeType: string;
+    responseType: string;
 
-    setMimeType(mimeType: MimeType): FileLoader;
-    setResponseType(responseType: string): FileLoader;
+    setResponseType(value: string): this;
+    setMimeType(value: string): this;
 }

@@ -248,8 +248,8 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
             hash: "SHA-256",
         },
         cryptoKey,
-        signature,
-        data2,
+        signature.buffer,
+        data2.buffer,
     );
 
     /**
@@ -314,7 +314,7 @@ KlSNHLY0ZX554kjI8DknO3x8J5z+H31OX7spkrI6xdqj9Q0Ouoy6UmjJ3w==
      *
      * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
      */
-    await crypto.subtle.verify("HMAC", hmac_imported_key, sig, data).then((isVerified) => {
+    await crypto.subtle.verify("HMAC", hmac_imported_key, sig, data.buffer).then((isVerified) => {
         request.respondWith(200, {}, "Verified: " + isVerified);
     }).catch(e => {
         request.respondWith(501, {}, "failure: " + e);

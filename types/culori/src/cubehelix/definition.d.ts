@@ -1,12 +1,12 @@
-import { averageAngle } from "../average";
-import { differenceHueSaturation } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertCubehelixToRgb from "./convertCubehelixToRgb";
-import convertRgbToCubehelix from "./convertRgbToCubehelix";
+import { averageAngle } from "../average.js";
+import { differenceHueSaturation } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertCubehelixToRgb from "./convertCubehelixToRgb.js";
+import convertRgbToCubehelix from "./convertRgbToCubehelix.js";
 
-declare const definition: {
+declare const modeCubehelix: {
     mode: "cubehelix";
     channels: ["h", "s", "l", "alpha"];
     parse: ["--cubehelix"];
@@ -48,4 +48,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeCubehelix;

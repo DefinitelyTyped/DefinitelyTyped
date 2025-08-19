@@ -6,6 +6,10 @@ board.on("connect", () => {});
 
 board
     .on("ready", () => {
+        board.i2cConfig();
+        board.sysexResponse(0x39, (data) => {});
+        board.sysexCommand([0x39]);
+
         board.pinMode(13, five.Pin.OUTPUT);
         board.pinMode(13, 0);
         const pin = new five.Pin(13);

@@ -68,7 +68,7 @@ export class Job extends EventEmitter {
     reschedule(spec: Spec): boolean;
 
     /** The Date on which this Job will be run next. */
-    nextInvocation(): Date;
+    nextInvocation(): null | Date;
 
     /** A list of all pending Invocations. */
     pendingInvocations: Invocation[];

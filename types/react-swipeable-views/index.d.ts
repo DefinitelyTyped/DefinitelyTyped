@@ -24,7 +24,7 @@ export interface SpringConfig {
     delay: string;
 }
 
-export interface SwipeableViewsProps extends Omit<React.HTMLProps<HTMLDivElement>, "action"> {
+export interface SwipeableViewsProps extends Omit<React.HTMLProps<HTMLDivElement>, "action" | "ref"> {
     animateHeight?: boolean | undefined;
     animateTransitions?: boolean | undefined;
     axis?: AxisType | undefined;

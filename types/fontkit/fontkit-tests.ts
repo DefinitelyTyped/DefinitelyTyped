@@ -19,6 +19,19 @@ openV2.then(font => {
     if (!isCollection(font)) {
         const { xAvgCharWidth, fsSelection } = font["OS/2"];
         const isNegative = fsSelection.negative;
+        fsSelection.bold; // $ExpectType boolean
+    }
+});
+
+// -----------------------
+// API: Font.variationAxes
+// -----------------------
+openV2.then(font => {
+    if (!isCollection(font)) {
+        font.variationAxes.wght?.name; // $ExpectType string | undefined
+        font.variationAxes.wght?.min; // $ExpectType number | undefined
+        font.variationAxes.wght?.default; // $ExpectType number | undefined
+        font.variationAxes.wght?.max; // $ExpectType number | undefined
     }
 });
 

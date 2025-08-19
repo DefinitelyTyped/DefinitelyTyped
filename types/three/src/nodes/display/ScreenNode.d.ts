@@ -38,11 +38,6 @@ export const viewportUV: ShaderNodeObject<Node>;
 // Deprecated
 
 /**
- * @deprecated "viewportTopLeft" is deprecated. Use "viewportUV" instead.
+ * @deprecated "viewportResolution" is deprecated. Use "screenSize" instead.
  */
-export const viewportTopLeft: ShaderNodeObject<ScreenNode>;
-
-/**
- * @deprecated "viewportBottomLeft" is deprecated. Use "viewportUV.flipY()" instead.
- */
-export const viewportBottomLeft: ShaderNodeObject<ScreenNode>;
+export const viewportResolution: ShaderNodeObject<ScreenNode>;

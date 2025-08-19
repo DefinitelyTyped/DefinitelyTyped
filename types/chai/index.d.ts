@@ -1,3 +1,5 @@
+import deepEqual = require("deep-eql");
+
 declare global {
     namespace Chai {
         type Message = string | (() => string);
@@ -70,6 +72,8 @@ declare global {
             hasProperty(obj: object | undefined | null, name: ObjectProperty): boolean;
             getPathInfo(obj: object, path: string): PathInfo;
             getPathValue(obj: object, path: string): object | undefined;
+
+            eql: typeof deepEqual;
         }
 
         type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
@@ -191,6 +195,7 @@ declare global {
             eq: Equal;
             eql: Equal;
             eqls: Equal;
+            containSubset: ContainSubset;
             property: Property;
             ownProperty: Property;
             haveOwnProperty: Property;
@@ -323,6 +328,10 @@ declare global {
 
         interface Equal {
             (value: any, message?: string): Assertion;
+        }
+
+        interface ContainSubset {
+            (expected: any): Assertion;
         }
 
         interface Property {
@@ -518,6 +527,33 @@ declare global {
              * @param message   Message to display on error.
              */
             deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
+
+            /**
+             * Partially matches actual and expected.
+             *
+             * @param actual   Actual value.
+             * @param expected   Potential subset of the value.
+             * @param message   Message to display on error.
+             */
+            containSubset(val: any, exp: any, msg?: string): void;
+
+            /**
+             * Partially matches actual and expected.
+             *
+             * @param actual   Actual value.
+             * @param expected   Potential subset of the value.
+             * @param message   Message to display on error.
+             */
+            containsSubset(val: any, exp: any, msg?: string): void;
+
+            /**
+             * No partial match between actual and expected exists.
+             *
+             * @param actual   Actual value.
+             * @param expected   Potential subset of the value.
+             * @param message   Message to display on error.
+             */
+            doesNotContainSubset(val: any, exp: any, msg?: string): void;
 
             /**
              * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
@@ -2088,6 +2124,8 @@ declare global {
              * Default: ['then', 'catch', 'inspect', 'toJSON']
              */
             proxyExcludedKeys: string[];
+
+            deepEqual: <L, R>(expected: L, actual: R) => void;
         }
 
         export class AssertionError {
@@ -2109,9 +2147,3 @@ export function should(): Chai.Should;
 export function Should(): Chai.Should;
 export const assert: Chai.AssertStatic;
 export const expect: Chai.ExpectStatic;
-
-declare global {
-    interface Object {
-        should: Chai.Assertion;
-    }
-}

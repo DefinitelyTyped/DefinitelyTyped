@@ -18,9 +18,9 @@ import { Blob } from "node:buffer";
 import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
-import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
-import { pipeline as pipelinePromise } from "node:stream/promises";
-import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
+import * as consumers from "node:stream/consumers";
+import { finished as finishedPromise, pipeline as pipelinePromise } from "node:stream/promises";
+import { ReadableStream, ReadableStreamBYOBReader, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every, setTimeout as wait } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
 
@@ -221,7 +221,19 @@ function streamPipelineFinished() {
 async function asyncStreamPipelineFinished() {
     const fin = promisify(finished);
     await fin(process.stdin);
+    await fin(process.stdin, { error: false });
     await fin(process.stdin, { readable: false });
+    await fin(process.stdin, { writable: false });
+    await fin(process.stdin, { signal: new AbortSignal() });
+    // @ts-expect-error -- callback version does not allow `options.cleanup`
+    await fin(process.stdin, { cleanup: false });
+
+    await finishedPromise(process.stdin);
+    await finishedPromise(process.stdin, { error: false });
+    await finishedPromise(process.stdin, { readable: false });
+    await finishedPromise(process.stdin, { writable: false });
+    await finishedPromise(process.stdin, { signal: new AbortSignal() });
+    await finishedPromise(process.stdin, { cleanup: false });
 
     const pipe = promisify(pipeline);
     await pipe(process.stdin, process.stdout);
@@ -489,25 +501,18 @@ async function streamPipelineAsyncPromiseOptions() {
 }
 
 async function testConsumers() {
-    const r = createReadStream("file.txt");
+    let consumable!: ReadableStream | Readable | AsyncGenerator<any>;
 
-    // $ExpectType string
-    await text(r);
-    // $ExpectType unknown
-    await json(r);
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    await buffer(r);
     // $ExpectType ArrayBuffer
-    await arrayBuffer(r);
+    await consumers.arrayBuffer(consumable);
     // $ExpectType Blob
-    await blob(r);
-
-    const iterable: AsyncGenerator<Buffer> = async function*() {}();
-    await buffer(iterable);
-
-    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() };
-    // @ts-expect-error
-    await buffer(iterator);
+    await consumers.blob(consumable);
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    await consumers.buffer(consumable);
+    // $ExpectType unknown
+    await consumers.json(consumable);
+    // $ExpectType string
+    await consumers.text(consumable);
 }
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
@@ -517,7 +522,7 @@ function stream_readable_pipe_test() {
     const z = createGzip({ finishFlush: constants.Z_FINISH });
     const w = createWriteStream("file.txt.gz");
 
-    assert(typeof z.bytesRead === "number");
+    assert(typeof z.bytesWritten === "number");
     assert(typeof r.bytesRead === "number");
     assert(typeof r.path === "string");
     assert(rs.path instanceof Buffer);
@@ -572,8 +577,29 @@ addAbortSignal(new AbortSignal(), new Readable());
 
 {
     const readable = new Readable();
+
     // $ExpectType ReadableStream<any>
     Readable.toWeb(readable);
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {});
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, { strategy: {} });
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {
+        strategy: {
+            highWaterMark: 3,
+
+            size(chunk) {
+                // $ExpectType any
+                chunk;
+
+                return -1;
+            },
+        },
+    });
 }
 
 {
@@ -729,6 +755,10 @@ async function testTransformStream() {
         transform(chunk, controller) {
             controller.enqueue(chunk.toUpperCase());
         },
+        cancel(reason) {
+            // $ExpectType any
+            reason;
+        },
     });
 
     const transformedStream = stream.pipeThrough(transform);
@@ -777,5 +807,24 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 {
-    new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
+    let byobReader = new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
+    byobReader = new ReadableStreamBYOBReader(new Blob([]).stream());
+
+    // $ExpectType Promise<void>
+    byobReader.cancel();
+    // $ExpectType Promise<void>
+    byobReader.cancel("reason");
+
+    // $ExpectType Promise<void>
+    byobReader.closed;
+
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array());
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array(), {});
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array(), { min: 1 });
+
+    // $ExpectType void
+    byobReader.releaseLock();
 }

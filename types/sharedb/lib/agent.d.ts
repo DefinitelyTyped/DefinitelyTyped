@@ -35,6 +35,10 @@ declare class Agent<TCustom = any> {
     clientId: string;
     src: string;
     connectTime: number;
+    protocol: {
+        major: number;
+        minor: number;
+    };
 
     /**
      * Sends a JSON-compatible message to the client for this agent.

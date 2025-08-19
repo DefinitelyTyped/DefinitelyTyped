@@ -1176,6 +1176,11 @@ declare namespace AP {
              */
             | "contentedit"
             /**
+             * The create page for pages, blogs and custom content. Takes a `contentId` to identify the content.
+             * Undocumented but can be returned by `location.target`.
+             */
+            | "contentcreate"
+            /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
             | "spaceview"

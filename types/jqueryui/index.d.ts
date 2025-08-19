@@ -1030,6 +1030,30 @@ declare namespace JQueryUI {
         within?: any;
     }
 
+    /**
+     * Options for the {@link JQuery.transfer | transfer} method.
+     */
+    interface TransferOptions {
+        /**
+         * The target of the transfer effect.
+         */
+        to: string | Element | ArrayLike<Element>;
+        /**
+         * A class to add to the transfer element, in addition to `ui-effects-transfer`.
+         */
+        className?: string | null;
+        /**
+         * A string or number determining how long the animation will run. The strings "fast" and "slow" can be supplied to indicate durations of 200 and 600 milliseconds, respectively. The number type indicates the duration in milliseconds.
+         * @default 400
+         */
+        duration?: string | number;
+        /**
+         * A string indicating which easing function to use for the transition.
+         * @default "swing"
+         */
+        easing?: string;
+    }
+
     // UI //////////////////////////////////////////////////
 
     interface MouseOptions {
@@ -1983,6 +2007,22 @@ interface JQuery {
     toggle(effect: string, options?: any, duration?: string, complete?: Function): this;
 
     position(options: JQueryUI.JQueryPositionOptions): JQuery;
+
+    /**
+     * Transfers the outline of an element to another element.
+     *
+     * Very useful when trying to visualize interaction between two elements.
+     *
+     * The transfer element itself has the class ui-effects-transfer, and needs to be styled by you, for example by
+     * adding a background or border.
+     *
+     * See https://api.jqueryui.com/transfer/
+     *
+     * @param options Options for the transfer operation.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @returns This JQuery instance for chaining method calls.
+     */
+    transfer(options: JQueryUI.TransferOptions, complete?: () => void): this;
 
     enableSelection(): JQuery;
     disableSelection(): JQuery;

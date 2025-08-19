@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/umami-browser",
-    "version": "2.3.9999",
+    "version": "2.13.9999",
     "nonNpm": true,
     "nonNpmDescription": "umami-browser",
     "projects": [

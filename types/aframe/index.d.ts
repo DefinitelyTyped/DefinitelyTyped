@@ -32,7 +32,8 @@ export interface ANode extends HTMLElement {
     // attachedCallback
     // attributeChangedCallback
     closestScene(): Scene;
-    closest(selector: string): ANode;
+    closest(selector: `a-${string}`): Entity | null;
+    closest(selector: string): Element | null;
     // detachedCallback
     hasLoaded: boolean;
     load(cb?: () => void, childFilter?: (el: Element) => boolean): void;
@@ -111,7 +112,7 @@ export interface DefaultComponents {
     scale: Component<Coordinate>;
 }
 
-export interface Entity<C = ObjectMap<Component>> extends ANode {
+export interface Entity<C = ObjectMap<any>> extends ANode {
     components: C & DefaultComponents;
     hasLoaded: boolean;
     isPlaying: boolean;
@@ -475,19 +476,11 @@ declare global {
     /**
      * Custom elements augment document methods to return custom HTML
      */
-    interface Document {
-        createElement(tagName: string): Entity;
-        querySelector(selectors: "a-scene"): Scene;
-        querySelector(selectors: string): Entity<any>;
-        querySelectorAll(selectors: string): NodeListOf<Entity<any> | Element>;
+    interface AFrameElements {
+        "a-scene": Scene;
+        [key: `a-${string}`]: Entity;
     }
 
-    interface HTMLCollection extends HTMLCollectionBase {
-        /**
-         * Retrieves a select object or an object from an options collection.
-         */
-        namedItem(name: string): Element | Entity | null;
-        item(index: number): Element | Entity;
-        [index: number]: Element | Entity;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface HTMLElementTagNameMap extends AFrameElements {}
 }

@@ -3735,9 +3735,9 @@ declare var module: {
 };
 
 declare namespace Notification {
-    interface Actions {
-        title: string;
-        url: string;
+    interface Action {
+        readonly title: string;
+        readonly url: string;
     }
 }
 
@@ -3775,12 +3775,13 @@ declare class Notification {
     /**
      * _Preferred height of the notification._
      *
-     * By default Scriptable attempts to determine an appropriate height for your notification. If you want to override the default behavior, you can specify a preferred content height.
+     * When this value is null (default), Scriptable attempts to determine an appropriate height for your notification.
+     * If you want to override the default behavior, you can specify a preferred content height.
      * The preferred content height is only used when running a script inside the notification, i.e. when `scriptName` is not null. iOS may limit the height of the notification in which
-     * case the preferred content height is not guaranteed to be respected.
+     * case the preferred content height is not guaranteed to be respected. The default value is null.
      * @see https://docs.scriptable.app/notification/#preferredcontentheight
      */
-    preferredContentHeight: number;
+    preferredContentHeight: number | null;
 
     /**
      * _Number to display in the app icon's badge._
@@ -3789,7 +3790,7 @@ declare class Notification {
      * badge unchanged. The default value is null.
      * @see https://docs.scriptable.app/notification/#badge
      */
-    badge: number;
+    badge: number | null;
 
     /**
      * _Identifier for grouping the notification._
@@ -3805,12 +3806,12 @@ declare class Notification {
      * Store any custom information for the notification. This can be accessed from the `Notification.opened` property when a script is run from a notification.
      * @see https://docs.scriptable.app/notification/#userinfo
      */
-    userInfo: { [key: string]: any };
+    userInfo: Readonly<Record<string, unknown>>;
 
     /**
      * _Sound of the notification._
      *
-     * Set to null if you do not want any sound. Set to one of the following values if you want a sound.
+     * Set to null if you do not want any sound. Set to one of the following string values if you want a sound.
      *
      * *   default
      * *   accept
@@ -3822,7 +3823,7 @@ declare class Notification {
      * *   piano\_success
      * *   popup
      *
-     * By default the notification is delivered with no sound.
+     * By default, the value is null, so the notification is delivered with no sound.
      * @see https://docs.scriptable.app/notification/#sound
      */
     sound:
@@ -3834,7 +3835,8 @@ declare class Notification {
         | "failure"
         | "piano_error"
         | "piano_success"
-        | "popup";
+        | "popup"
+        | null;
 
     /**
      * _URL to open when notification is tapped._
@@ -3843,7 +3845,7 @@ declare class Notification {
      * URL.
      * @see https://docs.scriptable.app/notification/#openurl
      */
-    openURL: string;
+    openURL: string | null;
 
     /**
      * _Delivery date of the notification._
@@ -3855,18 +3857,18 @@ declare class Notification {
      * and `setWeeklyTrigger` functions.
      * @see https://docs.scriptable.app/notification/#deliverydate
      */
-    deliveryDate: Date;
+    readonly deliveryDate: Date | null;
 
     /**
      * _Next trigger date of the notification._
      *
-     * The next trigger date is the point in time where the next notification will be delivered.
+     * If the notification has a schedule next delivery date, the next trigger date is the point in time where the next notification will be delivered. Otherwise it will be null.
      *
      * The property cannot be set. In order to specify a future delivery date for a notification, see the `setTriggerDate` function. For recurring notifications, see the `setDailyTrigger`
      * and `setWeeklyTrigger` functions.
      * @see https://docs.scriptable.app/notification/#nexttriggerdate
      */
-    nextTriggerDate: Date;
+    readonly nextTriggerDate: Date | null;
 
     /**
      * _Name of script to run in rich notification._
@@ -3875,7 +3877,7 @@ declare class Notification {
      * script to run it inside the notification.
      * @see https://docs.scriptable.app/notification/#scriptname
      */
-    scriptName: string;
+    scriptName: string | null;
 
     /**
      * _Actions added to the notification._
@@ -3890,7 +3892,7 @@ declare class Notification {
      * To add a notification, use `Notification.addAction`.
      * @see https://docs.scriptable.app/notification/#actions
      */
-    actions: Notification.Actions;
+    readonly actions: readonly Notification.Action[];
 
     /**
      * _Schedules and manages notifications._

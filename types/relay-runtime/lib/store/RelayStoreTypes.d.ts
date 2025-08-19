@@ -62,7 +62,7 @@ export interface SelectorData {
 }
 
 export interface SingularReaderSelector {
-    readonly kind: string;
+    readonly kind: "SingularReaderSelector";
     readonly dataID: DataID;
     readonly isWithinUnmatchedTypeRefinement: boolean;
     readonly node: ReaderFragment;
@@ -73,7 +73,7 @@ export interface SingularReaderSelector {
 export type ReaderSelector = SingularReaderSelector | PluralReaderSelector;
 
 export interface PluralReaderSelector {
-    readonly kind: string;
+    readonly kind: "PluralReaderSelector";
     readonly selectors: readonly SingularReaderSelector[];
 }
 
@@ -434,11 +434,6 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
 
 export type LogEvent =
     | Readonly<{
-        name: "read.missing_required_field";
-        owner: string;
-        fieldPath: string;
-    }>
-    | Readonly<{
         name: "suspense.fragment";
         data: unknown;
         fragment: ReaderFragment;
@@ -462,8 +457,11 @@ export type LogEvent =
          */
         resourceID: number;
         operation: OperationDescriptor;
+        // value from ProfilerContext
         profilerContext: unknown;
-        fetchPolicy: FetchPolicy;
+        // FetchPolicy from Relay Hooks
+        fetchPolicy: string;
+        // RenderPolicy from Relay Hooks
         renderPolicy: RenderPolicy;
         queryAvailability: OperationAvailability;
         shouldFetch: boolean;
@@ -473,6 +471,25 @@ export type LogEvent =
         resourceID: number;
         // value from ProfilerContext
         profilerContext: unknown;
+    }>
+    | Readonly<{
+        // Indicates FragmentResource is going to return a result that is missing data.
+        name: "fragmentresource.missing_data";
+        data: unknown;
+        fragment: ReaderFragment;
+        isRelayHooks: boolean;
+        // Are we reading this result from the fragment resource cache?
+        cached: boolean;
+    }>
+    | Readonly<{
+        /**
+         * Indicates getPendingOperationForFragment identified a pending operation.
+         * Useful for measuring how frequently RelayOperationTracker identifies a related operation on which to suspend.
+         */
+        name: "pendingoperation.found";
+        fragment: ReaderFragment;
+        fragmentOwner: RequestDescriptor;
+        pendingOperations: ReadonlyArray<RequestDescriptor>;
     }>
     | Readonly<{
         name: "network.info";
@@ -512,19 +529,19 @@ export type LogEvent =
         cacheConfig: CacheConfig;
     }>
     | Readonly<{
-        name: "execute.next";
+        name: "execute.next.start";
         executeId: number;
         response: GraphQLResponse;
-        duration: number;
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "execute.next.end";
+        executeId: number;
+        response: GraphQLResponse;
+        operation: OperationDescriptor;
     }>
     | Readonly<{
         name: "execute.async.module";
-        executeId: number;
-        operationName: string;
-        duration: number;
-    }>
-    | Readonly<{
-        name: "execute.flight.payload_deserialize";
         executeId: number;
         operationName: string;
         duration: number;
@@ -539,6 +556,22 @@ export type LogEvent =
         executeId: number;
     }>
     | Readonly<{
+        name: "execute.normalize.start";
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "execute.normalize.end";
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "store.datachecker.start";
+        selector: NormalizationSelector;
+    }>
+    | Readonly<{
+        name: "store.datachecker.end";
+        selector: NormalizationSelector;
+    }>
+    | Readonly<{
         name: "store.publish";
         source: RecordSource;
         optimistic: boolean;
@@ -547,10 +580,24 @@ export type LogEvent =
         name: "store.snapshot";
     }>
     | Readonly<{
+        name: "store.lookup.start";
+        selector: SingularReaderSelector;
+    }>
+    | Readonly<{
+        name: "store.lookup.end";
+        selector: SingularReaderSelector;
+    }>
+    | Readonly<{
         name: "store.restore";
     }>
     | Readonly<{
-        name: "store.gc";
+        name: "store.gc.start";
+    }>
+    | Readonly<{
+        name: "store.gc.interrupted";
+    }>
+    | Readonly<{
+        name: "store.gc.end";
         references: DataIDSet;
     }>
     | Readonly<{
@@ -562,6 +609,8 @@ export type LogEvent =
         sourceOperation?: OperationDescriptor | undefined;
         updatedRecordIDs: DataIDSet;
         invalidatedRecordIDs: DataIDSet;
+        subscriptionsSize: number;
+        updatedOwners: Array<RequestDescriptor>;
     }>
     | Readonly<{
         name: "store.notify.subscription";
@@ -573,6 +622,16 @@ export type LogEvent =
         name: "entrypoint.root.consume";
         profilerContext: unknown;
         rootModuleID: string;
+    }>
+    | Readonly<{
+        name: "liveresolver.batch.start";
+    }>
+    | Readonly<{
+        name: "liveresolver.batch.end";
+    }>
+    | Readonly<{
+        name: "useFragment.subscription.missedUpdates";
+        hasDataChanges: boolean;
     }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
@@ -932,33 +991,155 @@ export type MissingFieldHandler =
         ) => Array<DataID | null | undefined> | null | undefined;
     };
 
-export type RelayFieldLoggerEvent =
-    | Readonly<{
-        kind: "missing_field.log";
-        owner: string;
-        fieldPath: string;
-    }>
-    | Readonly<{
-        kind: "missing_field.throw";
-        owner: string;
-        fieldPath: string;
-    }>
-    | Readonly<{
-        kind: "relay_resolver.error";
-        owner: string;
-        fieldPath: string;
-        error: Error;
-    }>
-    | Readonly<{
-        kind: "relay_field_payload.error";
-        owner: string;
-        fieldPath: string;
-        error: Error;
+type TRelayFieldErrorForDisplay = Readonly<{
+    path?: ReadonlyArray<string | number>;
+    severity?: "CRITICAL" | "ERROR" | "WARNING";
+}>;
+
+export type TRelayFieldError =
+    & TRelayFieldErrorForDisplay
+    & Readonly<{
+        message: string;
     }>;
 
 /**
- * A handler for events related to `@required` fields. Currently reports missing
- * fields with either `action: LOG` or `action: THROW`.
+ * Data which Relay expected to be in the store (because it was requested by
+ * the parent query/mutation/subscription) was missing. This can happen due
+ * to graph relationship changes observed by other queries/mutations, or
+ * imperative updates that don't provide all needed data.
+ *
+ * https://relay.dev/docs/next/debugging/why-null/#graph-relationship-change
+ *
+ * In this case Relay will render with the referenced field as `undefined`.
+ *
+ * __NOTE__: This may break with the type contract of Relay's generated types.
+ *
+ * To turn this into a hard error for a given fragment/query, you can use
+ * `@throwOnFieldError`.
+ *
+ * https://relay.dev/docs/next/guides/throw-on-field-error-directive/
+ */
+type MissingExpectedDataLogEvent = Readonly<{
+    kind: "missing_expected_data.log";
+    owner: string;
+    fieldPath: string;
+}>;
+
+/**
+ * Data which Relay expected to be in the store (because it was requested by
+ * the parent query/mutation/subscription) was missing. This can happen due
+ * to graph relationship changes observed by other queries/mutations, or
+ * imperative updates that don't provide all needed data.
+ *
+ * https://relay.dev/docs/next/debugging/why-null/#graph-relationship-change
+ *
+ * This event is as `.throw` because the missing data was encountered in a
+ * query/fragment/mutation with `@throwOnFieldError` `@throwOnFieldError`.
+ *
+ * https://relay.dev/docs/next/guides/throw-on-field-error-directive/
+ *
+ * Relay will throw immediately after logging this event. If you wish to
+ * customize the error being thrown, you may throw your own error.
+ *
+ * *NOTE*: Only throw on this event if `handled` is false. Errors that have been
+ * handled by a `@catch` directive or by making a resolver null will have
+ * `handled: true` and should not trigger a throw.
+ */
+type MissingExpectedDataThrowEvent = Readonly<{
+    kind: "missing_expected_data.throw";
+    owner: string;
+    fieldPath: string;
+    handled: boolean;
+}>;
+
+/**
+ * A field was marked as @required(action: LOG) but was null or missing in the
+ * store.
+ */
+type MissingRequiredFieldLogEvent = Readonly<{
+    kind: "missing_required_field.log";
+    owner: string;
+    fieldPath: string;
+}>;
+
+/**
+ * A field was marked as @required(action: THROW) but was null or missing in the
+ * store.
+ *
+ * Relay will throw immediately after logging this event. If you wish to
+ * customize the error being thrown, you may throw your own error.
+ *
+ * *NOTE*: Only throw on this event if `handled` is false. Errors that have been
+ * handled by a `@catch` directive or by making a resolver null will have
+ * `handled: true` and should not trigger a throw.
+ */
+type MissingRequiredFieldThrowEvent = Readonly<{
+    kind: "missing_required_field.throw";
+    owner: string;
+    fieldPath: string;
+    handled: boolean;
+}>;
+
+/**
+ * A Relay Resolver that is currently being read threw a JavaScript error when
+ * it was last evaluated. By default, the value has been coerced to null and
+ * passed to the product code.
+ *
+ * If `@throwOnFieldError` was used on the parent query/fragment/mutation, you
+ * will also receive a TODO
+ *
+ * *NOTE*: Only throw on this event if `handled` is false. Errors that have been
+ * handled by a `@catch` directive or by making a resolver null will have
+ * `handled: true` and should not trigger a throw.
+ */
+type RelayResolverErrorEvent = Readonly<{
+    kind: "relay_resolver.error";
+    owner: string;
+    fieldPath: string;
+    error: Error;
+    shouldThrow: boolean;
+    handled: boolean;
+}>;
+
+/**
+ * A field being read by Relay was marked as being in an error state by the
+ * GraphQL response.
+ *
+ * https://spec.graphql.org/October2021/#sec-Errors.Field-errors
+ *
+ * If the field's parent query/fragment/mutation was annotated with
+ * `@throwOnFieldError` and no `@catch` directive was used to catch the error,
+ * Relay will throw an error immediately after logging this event.
+ *
+ * https://relay.dev/docs/next/guides/catch-directive/
+ * https://relay.dev/docs/next/guides/throw-on-field-error-directive/
+ *
+ * *NOTE*: Only throw on this event if `handled` is false. Errors that have been
+ * handled by a `@catch` directive or by making a resolver null will have
+ * `handled: true` and should not trigger a throw.
+ */
+type RelayFieldPayloadErrorEvent = Readonly<{
+    kind: "relay_field_payload.error";
+    owner: string;
+    fieldPath: string;
+    error: TRelayFieldError;
+    shouldThrow: boolean;
+    handled: boolean;
+}>;
+
+/**
+ * Union of all RelayFieldLoggerEvent types
+ */
+export type RelayFieldLoggerEvent =
+    | MissingExpectedDataLogEvent
+    | MissingExpectedDataThrowEvent
+    | MissingRequiredFieldLogEvent
+    | MissingRequiredFieldThrowEvent
+    | RelayResolverErrorEvent
+    | RelayFieldPayloadErrorEvent;
+
+/**
+ * A handler for events related to field errors.
  */
 export type RelayFieldLogger = (event: RelayFieldLoggerEvent) => void;
 
@@ -1113,3 +1294,13 @@ export interface LiveState<T> {
 }
 
 export function suspenseSentinel(): never;
+
+/**
+ * A placeholder type for the context that will be provided to resolvers.
+ * The actual type used will be determined by the `resolverContextType` type specified in your Relay project config.
+ *
+ * When set on the Relay Store, this context will be passed as the third argument to all resolvers (live and non-live).
+ *
+ * @see {@link https://relay.dev/docs/next/guides/relay-resolvers/context/#type-checking} for documentation on configuring resolverContextType
+ */
+export type ResolverContext = unknown;

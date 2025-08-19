@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
@@ -304,12 +304,12 @@ declare module "events" {
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
             options?: StaticEventEmitterIteratorOptions,
-        ): AsyncIterableIterator<any[]>;
+        ): NodeJS.AsyncIterator<any[]>;
         static on(
             emitter: EventTarget,
             eventName: string,
             options?: StaticEventEmitterIteratorOptions,
-        ): AsyncIterableIterator<any[]>;
+        ): NodeJS.AsyncIterator<any[]>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
@@ -431,7 +431,6 @@ declare module "events" {
          * }
          * ```
          * @since v20.5.0
-         * @experimental
          * @return Disposable that removes the `abort` listener.
          */
         static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
@@ -768,7 +767,7 @@ declare module "events" {
                 setMaxListeners(n: number): this;
                 /**
                  * Returns the current max listener value for the `EventEmitter` which is either
-                 * set by `emitter.setMaxListeners(n)` or defaults to {@link defaultMaxListeners}.
+                 * set by `emitter.setMaxListeners(n)` or defaults to {@link EventEmitter.defaultMaxListeners}.
                  * @since v1.0.0
                  */
                 getMaxListeners(): number;

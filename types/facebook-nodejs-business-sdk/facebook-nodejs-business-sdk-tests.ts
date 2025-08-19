@@ -19,6 +19,8 @@ import {
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
+import BusinessDataApiUserData from "facebook-nodejs-business-sdk/src/objects/serverside/user-data";
+import AttributionData from "facebook-nodejs-business-sdk/src/objects/serverside/attribution-data";
 
 async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, string>>> {
     const ads = [];
@@ -151,4 +153,12 @@ export function testDeleteFunctionInAbstractCrudObjects(){
     const deletePixelFunction = new AdsPixel().delete;
     const deleteAdCreativeFunction = new AdCreative().delete;
     const deleteAdFunction = new Ad().delete;
+}
+
+export function testBusinessDataApiUserDataConstructor() {
+    const businessDataApiUserData = new BusinessDataApiUserData();
+}
+
+export function testAttributionDataConstructor() {
+    const attributionData = new AttributionData();
 }

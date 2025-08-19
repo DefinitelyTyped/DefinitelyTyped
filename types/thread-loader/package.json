@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/thread-loader",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/thread-loader"
+    ],
+    "devDependencies": {
+        "@types/thread-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jimmy Leung",
+            "githubUsername": "hkleungai"
+        }
+    ]
+}

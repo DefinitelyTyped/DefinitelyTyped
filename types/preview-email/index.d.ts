@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import type { SimpleParserOptions } from "mailparser";
 import type { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
 
@@ -29,7 +27,7 @@ declare namespace previewEmail {
          */
         open?: OpenOptions | boolean | undefined;
         /**
-         *  file path to a pug template file (defaults to preview-email's `template.pug` by default)
+         * file path to a pug template file (defaults to preview-email's `template.pug` by default)
          * - this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet
          */
         template?: string | undefined;
@@ -56,6 +54,11 @@ declare namespace previewEmail {
          * @default false
          */
         returnHtml?: boolean | undefined;
+        /**
+         * whether or not to render a "Download Original" button to download via base64 inline onclick JavaScript.
+         * @default true
+         */
+        hasDownloadOriginalButton?: boolean | undefined;
     }
 
     interface OpenOptions {

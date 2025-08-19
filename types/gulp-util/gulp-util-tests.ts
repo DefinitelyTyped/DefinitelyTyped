@@ -20,7 +20,7 @@ interface ShouldStatic {
     not: this;
 }
 interface Should {
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     be: { instanceof(cls: Function): void; type(name: string): void; false: undefined; true: undefined };
     equal(obj: any): void;
     eql(obj: any): void;

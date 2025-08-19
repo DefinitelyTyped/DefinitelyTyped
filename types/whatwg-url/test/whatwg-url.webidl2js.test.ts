@@ -1,4 +1,3 @@
-/* tslint:disable:ban-types */
 import * as whatwgUrl from "whatwg-url";
 import { URL, URLSearchParams } from "whatwg-url/webidl2js-wrapper";
 
@@ -6,8 +5,8 @@ declare const unknown: unknown;
 declare const globalObject: {
     URL: typeof whatwgUrl.URL;
     URLSearchParams: typeof whatwgUrl.URLSearchParams;
-    String: String;
-    Number: Number;
+    String: String; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    Number: Number; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
     TypeError: TypeError;
 };
 

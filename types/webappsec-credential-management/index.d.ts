@@ -116,7 +116,7 @@ interface CredentialData {
     readonly id: string;
 }
 
-type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential;
+type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential | OTPCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -271,6 +271,24 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
+ * @see {@link https://wicg.github.io/web-otp}
+ */
+interface OTPCredentialData extends SiteBoundCredentialData {
+    code?: string;
+}
+
+declare class OTPCredential extends SiteBoundCredential {
+    constructor(data: OTPCredentialData);
+
+    readonly type: `otp`;
+
+    /**
+     * The credential’s One Time Password Code
+     */
+    readonly code: string | null;
+}
+
+/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -285,6 +303,12 @@ interface CredentialRequestOptions {
      * for the providers and protocol types listed. Defaults to {@code null}.
      */
     federated?: FederatedCredentialRequestOptions | undefined;
+
+    /**
+     * If set, the user agent will request {@link OTPCredential} objects
+     * Defaults to {@code null}.
+     */
+    otp?: OTPCredentialRequestOptions | undefined;
 
     /**
      * If {@code true}, the user agent will only attempt to provide a Credential
@@ -358,6 +382,11 @@ interface FederatedCredentialRequestOptions {
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredentialrequestoptions-protocols}
      */
     protocols?: string[] | undefined;
+}
+
+interface OTPCredentialRequestOptions {
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    transport: ["sms"];
 }
 
 // Type definitions for webauthn

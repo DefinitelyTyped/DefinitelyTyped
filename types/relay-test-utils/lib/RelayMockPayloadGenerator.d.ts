@@ -40,6 +40,12 @@ export function generate(
 
 export function generateWithDefer(
     operation: OperationDescriptor,
+    mockResolvers: MockResolvers | null,
+    options: { mockClientData?: boolean; generateDeferredPayload: true } | null,
+): readonly GraphQLSingularResponse[];
+
+export function generateWithDefer(
+    operation: OperationDescriptor,
     mockResolvers?: MockResolvers | null,
-    options?: { mockClientData?: boolean; generateDeferredPayload?: boolean } | null,
-): GraphQLResponse;
+    options?: { mockClientData?: boolean; generateDeferredPayload?: false } | null,
+): GraphQLSingularResponse;

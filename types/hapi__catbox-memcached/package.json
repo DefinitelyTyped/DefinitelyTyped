@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
-        "@types/hapi__catbox": "*",
+        "@types/hapi__catbox": "<12",
         "@types/node": "*",
         "joi": "^17.7.0"
     },

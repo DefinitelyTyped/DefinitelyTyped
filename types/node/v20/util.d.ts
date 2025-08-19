@@ -1186,7 +1186,7 @@ declare module "util" {
      * @param content The raw contents of a `.env` file.
      * @since v20.12.0
      */
-    export function parseEnv(content: string): object;
+    export function parseEnv(content: string): NodeJS.Dict<string>;
     // https://nodejs.org/docs/latest/api/util.html#foreground-colors
     type ForegroundColors =
         | "black"
@@ -1241,6 +1241,18 @@ declare module "util" {
         | "reset"
         | "strikethrough"
         | "underline";
+    export interface StyleTextOptions {
+        /**
+         * When true, `stream` is checked to see if it can handle colors.
+         * @default true
+         */
+        validateStream?: boolean | undefined;
+        /**
+         * A stream that will be validated if it can be colored.
+         * @default process.stdout
+         */
+        stream?: NodeJS.WritableStream | undefined;
+    }
     /**
      * Stability: 1.1 - Active development
      *
@@ -1281,6 +1293,7 @@ declare module "util" {
             | Modifiers
             | Array<ForegroundColors | BackgroundColors | Modifiers>,
         text: string,
+        options?: StyleTextOptions,
     ): string;
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
@@ -1517,15 +1530,23 @@ declare module "util" {
         string | boolean
     >;
 
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
+        & { -readonly [LongOption in keyof O]?: V[LongOption] }
+        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
+    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
-                    T["options"][LongOption]["multiple"],
-                    undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
-                    undefined | ExtractOptionValue<T, T["options"][LongOption]>
-                >;
-            }
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                        T["options"][LongOption]["multiple"],
+                        Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                        ExtractOptionValue<T, T["options"][LongOption]>
+                    >;
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
@@ -1717,7 +1738,7 @@ declare module "util" {
          * Each item of the iterator is a JavaScript `Array`. The first item of the array
          * is the `name`, the second item of the array is the `value`.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): NodeJS.Iterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -1743,7 +1764,7 @@ declare module "util" {
          * //   bar
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): NodeJS.Iterator<string>;
         /**
          * Sets the value in the `MIMEParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
@@ -1762,11 +1783,11 @@ declare module "util" {
         /**
          * Returns an iterator over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
+        values(): NodeJS.Iterator<string>;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+        [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
 }
 declare module "util/types" {
@@ -1844,6 +1865,18 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
+    /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
     /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *

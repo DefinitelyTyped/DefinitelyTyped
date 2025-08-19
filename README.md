@@ -19,8 +19,7 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 
 - Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
 - All packages are type-checking/linting cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
-- All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
-- [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
+- All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher): [![Publish Status](https://github.com/microsoft/DefinitelyTyped-tools/actions/workflows/publish-packages.yml/badge.svg?event=schedule)](https://github.com/microsoft/DefinitelyTyped-tools/actions/workflows/publish-packages.yml)
 - Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 If anything here seems wrong or any of the above are failing, please let us know in [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript).
@@ -135,11 +134,15 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it,
-install [node](https://nodejs.org/) and run `pnpm install`. Note that `pnpm install` will install the _entire_
-repository, including packages you may not be editing. If you'd like to install only a subset,
-you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
-its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
+1. [Fork](https://guides.github.com/activities/forking/) this repository.
+1. Clone it.
+   - The Definitely Typed repo is large; you may want to consider using a ["blobless clone"](https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone/#user-content-blobless-clones) to save time and space by passing `--filter=blob:none` when running `git clone`.
+1. Install [node](https://nodejs.org/).
+1. Run `pnpm install`.
+   - `pnpm install` will install the _entire_
+     repository, including packages you may not be editing. If you'd like to install only a subset,
+     you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
+     its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
 
 > [!NOTE]
 > If you are using Windows, you may find that `git clean` does not remove the `node_modules` directory or hangs when doing so. If you need to remove `node_modules`, you can run `pnpm clean-node-modules` to reset the repo.
@@ -147,24 +150,6 @@ its dependencies. If you need to run tests for packages that _depend_ on `@types
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life cycle of a pull request to DT:
 
 <img src="https://raw.githubusercontent.com/microsoft/DefinitelyTyped-tools/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
-
-#### Partial clone
-
-<details>
-<summary>You can clone the entire repository <a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>as per usual</a>, but it's large and includes a massive directory of type packages.</summary>
-
-You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
-
-For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) and [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) features. This will reduce clone time and improve git performance.
-
-> :warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
-
-1. `git clone --sparse --filter=blob:none <forkedUrl>`
-   - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
-   - `--filter=blob:none` will including all commit history but exclude files, fetching them only as needed.
-2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
-
-</details>
 
 #### Edit an existing package
 
@@ -202,7 +187,7 @@ If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenc
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js).
 
 #### Removing a package
 
@@ -461,6 +446,26 @@ If the implementation package uses ESM and specifies `"type": "module"`, then yo
 
 This also applies if the implementation package has `exports` in its package.json.
 
+##### Peer dependencies
+
+Definitely Typed allows `peerDependencies` in `package.json`.
+Peer dependencies can help prevent situations where a package manager unexpectedly installs too-new versions or more than one version of the same package.
+However, peer dependencies have downsides; package managers differ in their handling of peer dependencies (e.g., `yarn` does not auto-install them, `npm` requires `--legacy-peer-deps` for mismatches).
+As such, PRs introducing new peer dependencies require maintainer approval and should be limited to specific circumstances.
+
+**In general, types packages should only have a peer dependency if the upstream package has a peer dependency on the same package (or its types).**
+For example, a DT package for a React component can specify a peer dependency on `@types/react@*`, as the consumer will have needed to install `@types/react` to use JSX in the first place.
+If the consumer installs `@types/react@16` in their project, but a newer version of `@types/react` is available on npm, the peer dependency may help the package manager choose `@types/react@16` instead of that newer version.
+Similarly, `chai-as-promised` has a peer dependency on `chai`, so `@types/chai-as-promised` should have a peer dependency on `@types/chai`.
+
+There are some cases where the upstream package does not have a peer dependency on the types package, but a peer dependency is still appropriate.
+These are typically cases where the upstream package extends another package and assumes it exists, so _should_ have declared a peer dependency as it extends another package, but did not.
+For example, `chai-match-pattern` extends `chai`, but does not declare a peer dependency on `chai`, but needs it to function. `@types/chai-match-pattern` should have a peer dependency on `@types/chai`.
+
+If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it _should not_ use a peer dependency.
+For example, `express` has `qs` in its `"dependencies"`. When users install `express`, they don't need to manually install `qs`. Likewise, `@types/express` has `@types/qs` in its `"dependencies"`.
+It would be incorrect to declare `@types/qs` as a peer dependency of `@types/express`, since that would require some downstream consumers to manually install `@types/qs`.
+
 #### `.npmignore`
 
 This file defines which files are to be included in each `@types` package. It must take a specific form. For packages with only one version in the repo:
@@ -558,7 +563,7 @@ Roughly:
 
 > PRs which only change the types of a module and have corresponding tests changes will be merged much faster
 
-PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [Pull Request Status Board](https://github.com/orgs/DefinitelyTyped/projects/1) to see progress as maintainers work through the open PRs.
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
@@ -585,7 +590,7 @@ Then they are wrong and we've not noticed yet. You can help by submitting a pull
 Yes, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
 
-Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files. If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks before running the `setup-hooks` script.
+Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files.
 
 Pull requests do not require correct formatting to be merged.
 Any unformatted code will be automatically reformatted after being merged.

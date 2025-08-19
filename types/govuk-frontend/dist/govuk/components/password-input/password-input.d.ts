@@ -1,9 +1,12 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Password input component
  */
-export class PasswordInput extends GOVUKFrontendComponent {
+export class PasswordInput extends ConfigurableComponent<
+    PasswordInputConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +16,16 @@ export class PasswordInput extends GOVUKFrontendComponent {
      * Password input default config
      *
      * @see {@link PasswordInputConfig}
+     * @constant
+     * @default
      */
     static defaults: PasswordInputConfig;
 
     /**
      * Password input config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<PasswordInputConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -30,10 +36,10 @@ export class PasswordInput extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for password input
+     * @param {Element | null} $root - HTML element to use for password input
      * @param {PasswordInputConfig} [config] - Password input config
      */
-    constructor($module: Element | null, config?: PasswordInputConfig);
+    constructor($root: Element | null, config?: PasswordInputConfig);
 }
 
 /**

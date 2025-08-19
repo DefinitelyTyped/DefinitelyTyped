@@ -398,6 +398,111 @@ declare namespace PDFKit.Mixins {
         image(src: ImageSrc, options?: ImageOption): this;
     }
 
+    interface CellStyle {
+        /** The border for the cell (default 1pt) */
+        border?: boolean | number | Array<boolean | number> | {
+            top?: number;
+            right?: number;
+            bottom?: number;
+            left?: number;
+        } | undefined;
+        /** The border colors for the cell (default black) */
+        borderColor?: string | Array<string> | {
+            top?: ColorValue;
+            right?: ColorValue;
+            bottom?: ColorValue;
+            left?: ColorValue;
+        };
+        /** Set the background color of the cell */
+        backgroundColor?: ColorValue;
+    }
+
+    interface TableOptions {
+        /** The position of the table (default {x: doc.x, y: doc.y}) */
+        position?: { x?: number; y?: number };
+        /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
+        maxWidth?: number;
+        /** Column definitions of the table. (default auto) */
+        columnStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        /** Row definitions of the table. (default *) */
+        rowStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        /** Defaults to apply to every cell */
+        defaultStyle?:
+            & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
+            & { width?: number };
+        /** Whether to show the debug lines for all the cells (default false) */
+        debug?: boolean;
+    }
+
+    interface TableOptionsWithData extends TableOptions {
+        /** The data to render (not required, you can call .row()). This can be an iterable (async or sync) */
+        data: Array<Array<string | CellOptions>>;
+    }
+
+    interface ExpandedAlign {
+        x?: "left" | "center" | "right" | "justify";
+        y?: "top" | "center" | "bottom";
+    }
+
+    interface CellOptions extends CellStyle {
+        /** The value, will be cast to a string (null and undefined are not rendered but the cell is still outlined) */
+        text?: string | undefined | null;
+        /** How many rows this cell covers, follows the same logic as HTML rowspan */
+        rowSpan?: number;
+        /** How many columns this cell covers, follows the same logic as HTML colspan */
+        colSpan?: number;
+        /** The padding for the cell (default 0.25em) */
+        padding?: string;
+        /** Font options for the cell */
+        font?: any;
+        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
+        align?: "center" | ExpandedAlign;
+        /** The text stroke (default 0) */
+        textStroke?: number | boolean;
+        /** Sets the text stroke color of the cells text (default black) */
+        textStrokeColor?: ColorValue;
+        /** Sets the text color of the cells text (default black) */
+        textColor?: ColorValue;
+        /** Sets the cell type (for accessibility) (default TD) */
+        type?: string;
+        /** Sets any text options you wish to provide (such as rotation) */
+        textOptions?: TextOptions;
+        /** Whether to show the debug lines for the cell (default false) */
+        debug?: boolean;
+    }
+
+    interface ColumnOptions extends CellOptions {
+        /** The width of the column (default *) */
+        width?: string | number;
+        /** The minimum width of the column (default 0) */
+        minWidth?: string | number;
+        /** The maximum width of the column (default Infinity) */
+        maxWidth?: string | number;
+    }
+
+    interface RowOptions extends CellOptions {
+        /** The height of the row (default auto) */
+        height?: string | number;
+        /** The minimum height of the row (default 0) */
+        minHeight?: string | number;
+        /** The maximum height of the row (default Infinity) */
+        maxHeight?: string | number;
+    }
+
+    interface PDFTableObject {
+        /** Add a row of data (null and undefined are not rendered) */
+        row(data: Array<string | undefined | null | RowOptions>): this;
+        /** Indicates to the table that it is finished, allowing the table to flush its cell buffer (which should be empty unless there is rowSpans) */
+        end(): PDFDocument;
+    }
+
+    interface PDFTable {
+        /** Draw a table in PDFKit document. */
+        table(options?: TableOptions): PDFTableObject;
+        /** Draw a table in PDFKit document. */
+        table(options: TableOptionsWithData): PDFDocument;
+    }
+
     interface TextOptions {
         /** Set to false to disable line wrapping all together */
         lineBreak?: boolean | undefined;
@@ -413,6 +518,8 @@ declare namespace PDFKit.Mixins {
         columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number | undefined;
+        /** Whether to indent all lines of a paragraph */
+        indentAllLines?: boolean | undefined;
         /** The amount of space between each paragraph of text */
         paragraphGap?: number | undefined;
         /** The amount of space between each line of text */
@@ -470,6 +577,13 @@ declare namespace PDFKit.Mixins {
         structTypes?: [string | null, string | null, string | null] | undefined;
     }
 
+    interface TextBounds {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
+
     interface PDFText {
         lineGap(lineGap: number): this;
         moveDown(line?: number): this;
@@ -478,6 +592,8 @@ declare namespace PDFKit.Mixins {
         text(text: string, options?: TextOptions): this;
         widthOfString(text: string, options?: TextOptions): number;
         heightOfString(text: string, options?: TextOptions): number;
+        boundsOfString(text: string, x?: number, y?: number, options?: TextOptions): TextBounds;
+        boundsOfString(text: string, options?: TextOptions): TextBounds;
         list(list: Array<string | any>, x?: number, y?: number, options?: TextOptions): this;
         list(list: Array<string | any>, options?: TextOptions): this;
     }
@@ -606,6 +722,15 @@ declare namespace PDFKit.Mixins {
         initSubset(options: { subset: PDFSubsets }): void;
         endSubset(): void;
     }
+
+    interface PDFOutline {
+        /**
+         * The root outline
+         */
+        outline: PDFKit.PDFOutline;
+        initOutline(): void;
+        endOutline(): void;
+    }
 }
 
 declare namespace PDFKit {
@@ -649,14 +774,14 @@ declare module "pdfkit/js/data" {
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string | undefined;
-        Creator?: string | undefined;
-        CreationDate?: Date | undefined;
-        Title?: string | undefined;
-        Author?: string | undefined;
-        Subject?: string | undefined;
-        Keywords?: string | undefined;
-        ModDate?: Date | undefined;
+        Producer?: string;
+        Creator?: string;
+        CreationDate?: Date;
+        Title?: string;
+        Author?: string;
+        Subject?: string;
+        Keywords?: string;
+        ModDate?: Date;
     }
 
     interface DocumentPermissions {
@@ -698,6 +823,7 @@ declare namespace PDFKit {
             Mixins.PDFAnnotation,
             Mixins.PDFColor,
             Mixins.PDFImage,
+            Mixins.PDFTable,
             Mixins.PDFText,
             Mixins.PDFVector,
             Mixins.PDFFont,
@@ -705,7 +831,8 @@ declare namespace PDFKit {
             Mixins.PDFMarking,
             Mixins.PDFAttachment,
             Mixins.PDFMetadata,
-            Mixins.PDFSubset
+            Mixins.PDFSubset,
+            Mixins.PDFOutline
     {
         /**
          * PDF Version
@@ -734,19 +861,35 @@ declare namespace PDFKit {
         new(options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
+        continueOnNewPage(options?: PDFDocumentOptions): PDFDocument;
         bufferedPageRange(): { start: number; count: number };
         switchToPage(n?: number): PDFPage;
         flushPages(): void;
+
+        // See https://opensource.adobe.com/dc-acrobat-sdk-docs/library/pdfmark/pdfmark_Actions.html#view-destinations.
+        // If `fitType` is missing, this method wll be invoked with (name, 'XYZ', null, null, null).
+        addNamedDestination(name: string): void;
+        addNamedDestination(name: string, fitType: "Fit"): void;
+        addNamedDestination(name: string, fitType: "FitB"): void;
+        addNamedDestination(name: string, fitType: "FitBH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitBV", left: number): void;
+        addNamedDestination(name: string, fitType: "FitH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitR", x1: number, y1: number, x2: number, y2: number): void;
+        addNamedDestination(name: string, fitType: "FitV", left: number): void;
+        addNamedDestination(
+            name: string,
+            fitType: "XYZ",
+            left: number | null,
+            top: number | null,
+            zoom: number | null,
+        ): void;
+        addNamedDestination(name: string, fitType: string, ...args: number[]): void;
+
+        addNamedEmbeddedFile(name: string, ref: PDFKitReference): void;
+        addNamedJavaScript(name: string, js: string): void;
+
         ref(data: {}): PDFKitReference;
         addContent(data: any): PDFDocument;
-        /**
-         * Deprecated
-         */
-        write(fileName: string, fn: any): void;
-        /**
-         * Deprecated. Throws exception
-         */
-        output(fn: any): void;
         end(): void;
         toString(): string;
     }
@@ -876,6 +1019,18 @@ declare namespace PDFKit {
     }
 }
 
+declare namespace PDFKit {
+    /**
+     * PDFKit data
+     */
+    interface PDFOutline {
+        document: PDFDocument;
+        children: PDFOutline[];
+        addItem(title: string, options?: { expanded?: boolean }): PDFOutline;
+        endOutline(): void;
+    }
+}
+
 declare module "pdfkit/js/structure_element" {
     var PDFStructureElement: PDFKit.PDFStructureElement;
     export = PDFStructureElement;
@@ -901,6 +1056,11 @@ declare module "pdfkit/js/mixins/images" {
     export = PDFKitImage;
 }
 
+declare module "pdfkit/js/mixins/table" {
+    var PDFKitTable: PDFKit.Mixins.PDFTable;
+    export = PDFKitTable;
+}
+
 declare module "pdfkit/js/mixins/text" {
     var PDFKitText: PDFKit.Mixins.PDFText;
     export = PDFKitText;
@@ -914,4 +1074,9 @@ declare module "pdfkit/js/mixins/vector" {
 declare module "pdfkit/js/mixins/markings" {
     var PDFKitMarking: PDFKit.Mixins.PDFMarking;
     export = PDFKitMarking;
+}
+
+declare module "pdfkit/js/mixins/outline" {
+    var PDFKitOutline: PDFKit.Mixins.PDFOutline;
+    export = PDFKitOutline;
 }

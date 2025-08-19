@@ -13,6 +13,17 @@ export type TypedArray =
     | Float32Array
     | Float64Array;
 
+export type TypedArrayConstructor =
+    | Int8ArrayConstructor
+    | Uint8ArrayConstructor
+    | Uint8ClampedArrayConstructor
+    | Int16ArrayConstructor
+    | Uint16ArrayConstructor
+    | Int32ArrayConstructor
+    | Uint32ArrayConstructor
+    | Float32ArrayConstructor
+    | Float64ArrayConstructor;
+
 export interface BufferAttributeJSON {
     itemSize: number;
     type: string;
@@ -56,6 +67,11 @@ export class BufferAttribute {
      * @throws `TypeError` When the {@link array} is not a `TypedArray`;
      */
     constructor(array: TypedArray, itemSize: number, normalized?: boolean);
+
+    /**
+     * Unique number for this attribute instance.
+     */
+    readonly id: number;
 
     /**
      * Optional name for this attribute instance.

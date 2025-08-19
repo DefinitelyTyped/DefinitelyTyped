@@ -7,11 +7,11 @@ declare class GridField {
     private beforeValue;
     private clientValue;
     private clientCanModify;
+    private clientRequired;
     private fieldIndexCache;
     private _readOnlyChangedByGrid;
     private dispatchEvent;
     private handleDispatchFocusEvent;
-    private handleDispatchBlurEvent;
     private handleOpenKey;
     private handleActions;
     private handleFieldActionsFunctions;
@@ -32,11 +32,6 @@ declare class GridField {
     dsOriginalTree: any;
     dsTreeIndexSuffix: string;
     dsTreeStructure: DataSet;
-    private getNextFieldAtView;
-    private getPriorFieldAtView;
-    private getNextEditableFieldAtView;
-    private getPriorEditableFieldAtView;
-    private visibleAtView;
     private _checkInformedFields;
     private validateClassFieldChange_;
     validateInput: (value: string | number | boolean | Date) => any;
@@ -70,7 +65,6 @@ declare class GridField {
     getComboValue(value: any): number | Record<any, any>;
     private getComboDisplay;
     private refreshClientValue;
-    private getWriteInformation;
     private removeClassEvents;
     private getComboOptionDisplay;
     private _configWidth;
@@ -81,6 +75,6 @@ declare class GridField {
 declare namespace GridField {
     export { DetailGrid, LookupMultipleInsertEvent };
 }
-type DetailGrid = import("./DetailGrid");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 type LookupMultipleInsertEvent = import("../classdef/LookupMultipleInsertEvent");
+type DetailGrid = import("./DetailGrid");

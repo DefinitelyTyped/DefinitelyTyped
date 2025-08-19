@@ -2,8 +2,8 @@ export = GlobalActionSet;
 declare function GlobalActionSet(): void;
 declare class GlobalActionSet {
     private items_;
-    onShow: LegacyEvent;
-    add(action: any): void;
+    onShow: Adapter;
+    add(action: GlobalAction): void;
     get(name: string): GlobalAction;
     delete(name: string): boolean;
     clear(): void;
@@ -11,5 +11,5 @@ declare class GlobalActionSet {
     isEmpty(): boolean;
     clone(): GlobalActionSet;
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
 import GlobalAction = require("./GlobalAction.js");

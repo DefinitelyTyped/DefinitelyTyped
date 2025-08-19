@@ -11,7 +11,7 @@ declare const qs: {
 
     stringify: <T>(
         obj: {
-            /* eslint-disable-next-line @typescript-eslint/ban-types */
+            /* eslint-disable-next-line @typescript-eslint/no-unsafe-function-type */
             [key: string]: T extends Function ? never
                 : T extends string | number | boolean | object | null | undefined ? T
                 : never;

@@ -1,7 +1,7 @@
 /**
  * The `node:assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/assert.js)
  */
 declare module "assert" {
     /**
@@ -45,7 +45,7 @@ declare module "assert" {
                 /** The `operator` property on the error instance. */
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
-                // eslint-disable-next-line @typescript-eslint/ban-types
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                 stackStartFn?: Function | undefined;
             });
         }
@@ -79,7 +79,9 @@ declare module "assert" {
              * @return A function that wraps `fn`.
              */
             calls(exact?: number): () => void;
-            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            calls(fn: undefined, exact?: number): () => void;
+            calls<Func extends (...args: any[]) => any>(fn: Func, exact?: number): Func;
+            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func | (() => void);
             /**
              * Example:
              *
@@ -226,7 +228,7 @@ declare module "assert" {
             expected: unknown,
             message?: string | Error,
             operator?: string,
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             stackStartFn?: Function,
         ): never;
         /**
@@ -796,7 +798,7 @@ declare module "assert" {
          * check that the promise is rejected.
          *
          * If `asyncFn` is a function and it throws an error synchronously, `assert.rejects()` will return a rejected `Promise` with that error. If the
-         * function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value)
+         * function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v24.x/api/errors.html#err_invalid_return_value)
          * error. In both cases the error handler is skipped.
          *
          * Besides the async nature to await the completion behaves identically to {@link throws}.
@@ -866,7 +868,7 @@ declare module "assert" {
          *
          * If `asyncFn` is a function and it throws an error synchronously, `assert.doesNotReject()` will return a rejected `Promise` with that error. If
          * the function does not return a promise, `assert.doesNotReject()` will return a
-         * rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value) error. In both cases
+         * rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v24.x/api/errors.html#err_invalid_return_value) error. In both cases
          * the error handler is skipped.
          *
          * Using `assert.doesNotReject()` is actually not useful because there is little
@@ -929,7 +931,7 @@ declare module "assert" {
          * If the values do not match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function match(value: string, regExp: RegExp, message?: string | Error): void;
@@ -952,10 +954,22 @@ declare module "assert" {
          * If the values do match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
+        /**
+         * Tests for partial deep equality between the `actual` and `expected` parameters.
+         * "Deep" equality means that the enumerable "own" properties of child objects
+         * are recursively evaluated also by the following rules. "Partial" equality means
+         * that only properties that exist on the `expected` parameter are going to be
+         * compared.
+         *
+         * This method always passes the same test cases as `assert.deepStrictEqual()`,
+         * behaving as a super set of it.
+         * @since v22.13.0
+         */
+        function partialDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
         /**
          * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
          * {@link deepEqual} will behave like {@link deepStrictEqual}.
@@ -1015,6 +1029,7 @@ declare module "assert" {
                 | "deepStrictEqual"
                 | "ifError"
                 | "strict"
+                | "AssertionError"
             >
             & {
                 (value: unknown, message?: string | Error): asserts value;
@@ -1030,6 +1045,7 @@ declare module "assert" {
                 deepStrictEqual: typeof deepStrictEqual;
                 ifError: typeof ifError;
                 strict: typeof strict;
+                AssertionError: typeof AssertionError;
             };
     }
     export = assert;

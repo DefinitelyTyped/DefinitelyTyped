@@ -107,7 +107,7 @@ const customMode: CustomMode = {
         this.setSelected("1");
         this.setSelected(["1", "2"]);
 
-        // $ExpectType DrawFeature
+        // $ExpectType DrawFeature | undefined
         this.getFeature("1");
 
         // $ExpectType number
@@ -238,7 +238,7 @@ drawFeature.updateCoordinate("", 0, 0);
 // $ExpectType void
 drawFeature.setProperty("", 0);
 
-// $ExpectType GeoJSON
+// $ExpectType GeoJSON || GeoJSON<Geometry, GeoJsonProperties>
 drawFeature.toGeoJSON();
 
 if (drawFeature.type === "Point") {

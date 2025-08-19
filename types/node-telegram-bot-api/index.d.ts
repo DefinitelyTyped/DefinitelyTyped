@@ -92,6 +92,115 @@ declare namespace TelegramBot {
 
     type ParseMode = "Markdown" | "MarkdownV2" | "HTML";
 
+    interface LinkPreviewOptions {
+        is_disabled?: boolean;
+        url?: string;
+        prefer_small_media?: boolean;
+        prefer_large_media?: boolean;
+        show_above_text?: boolean;
+    }
+
+    type ReactionType = ReactionTypeEmoji | ReactionTypeCustomEmoji;
+
+    interface AbstractReactionType {
+        type: string;
+    }
+
+    type TelegramEmoji =
+        | "👍"
+        | "👎"
+        | "❤"
+        | "🔥"
+        | "🥰"
+        | "👏"
+        | "😁"
+        | "🤔"
+        | "🤯"
+        | "😱"
+        | "🤬"
+        | "😢"
+        | "🎉"
+        | "🤩"
+        | "🤮"
+        | "💩"
+        | "🙏"
+        | "👌"
+        | "🕊"
+        | "🤡"
+        | "🥱"
+        | "🥴"
+        | "😍"
+        | "🐳"
+        | "❤‍🔥"
+        | "🌚"
+        | "🌭"
+        | "💯"
+        | "🤣"
+        | "⚡"
+        | "🍌"
+        | "🏆"
+        | "💔"
+        | "🤨"
+        | "😐"
+        | "🍓"
+        | "🍾"
+        | "💋"
+        | "🖕"
+        | "😈"
+        | "😴"
+        | "😭"
+        | "🤓"
+        | "👻"
+        | "👨‍💻"
+        | "👀"
+        | "🎃"
+        | "🙈"
+        | "😇"
+        | "😨"
+        | "🤝"
+        | "✍"
+        | "🤗"
+        | "🫡"
+        | "🎅"
+        | "🎄"
+        | "☃"
+        | "💅"
+        | "🤪"
+        | "🗿"
+        | "🆒"
+        | "💘"
+        | "🙉"
+        | "🦄"
+        | "😘"
+        | "💊"
+        | "🙊"
+        | "😎"
+        | "👾"
+        | "🤷‍♂"
+        | "🤷"
+        | "🤷‍♀"
+        | "😡";
+
+    interface ReactionTypeEmoji extends AbstractReactionType {
+        type: "emoji";
+        emoji: TelegramEmoji;
+    }
+
+    interface ReactionTypeCustomEmoji extends AbstractReactionType {
+        type: "custom_emoji";
+        custom_emoji_id: string;
+    }
+
+    interface ReplyParameters {
+        message_id: number;
+        chat_id?: ChatId;
+        allow_sending_without_reply?: boolean;
+        quote?: string;
+        quote_parse_mode?: ParseMode;
+        quote_entities?: MessageEntity[];
+        quote_position?: number;
+    }
+
     /// METHODS OPTIONS ///
     interface PollingOptions {
         interval?: string | number | undefined;
@@ -150,7 +259,9 @@ declare namespace TelegramBot {
         reply_to_message_id?: number | undefined;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply | undefined;
         protect_content?: boolean | undefined;
+        reply_parameters?: ReplyParameters;
         allow_sending_without_reply?: boolean | undefined;
+        link_preview_options?: LinkPreviewOptions;
     }
 
     interface SendMessageOptions extends SendBasicOptions {
@@ -301,6 +412,21 @@ declare namespace TelegramBot {
         need_phone_number?: boolean | undefined;
         need_email?: boolean | undefined;
         need_shipping_address?: boolean | undefined;
+        is_flexible?: boolean | undefined;
+    }
+
+    interface CreateInvoiceLinkOptions {
+        provider_data?: string | undefined;
+        photo_url?: string | undefined;
+        photo_size?: number | undefined;
+        photo_width?: number | undefined;
+        photo_height?: number | undefined;
+        need_name?: boolean | undefined;
+        need_phone_number?: boolean | undefined;
+        need_email?: boolean | undefined;
+        need_shipping_address?: boolean | undefined;
+        send_phone_number_to_provider?: boolean | undefined;
+        send_email_to_provider?: boolean | undefined;
         is_flexible?: boolean | undefined;
     }
 
@@ -896,22 +1022,21 @@ declare namespace TelegramBot {
         is_video: boolean;
         width: number;
         height: number;
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
         premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
         custom_emoji_id?: string | undefined;
+        needs_repainting?: boolean | undefined;
     }
 
     interface StickerSet {
         name: string;
         title: string;
         sticker_type: StickerType;
-        is_animated: boolean;
-        is_video: boolean;
         stickers: Sticker[];
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
     }
 
     interface CreateStickerSetOptions {
@@ -1714,6 +1839,15 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         options?: TelegramBot.SendChatActionOptions,
     ): Promise<boolean>;
 
+    setMessageReaction(
+        chatId: TelegramBot.ChatId,
+        messageId: number,
+        form: {
+            reaction?: TelegramBot.ReactionType[];
+            is_big?: boolean;
+        },
+    ): Promise<boolean>;
+
     banChatMember(
         chatId: TelegramBot.ChatId,
         userId: number,
@@ -1975,6 +2109,16 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         prices: readonly TelegramBot.LabeledPrice[],
         options?: TelegramBot.SendInvoiceOptions,
     ): Promise<TelegramBot.Message>;
+
+    createInvoiceLink(
+        title: string,
+        description: string,
+        payload: string,
+        providerToken: string,
+        currency: string,
+        prices: readonly TelegramBot.LabeledPrice[],
+        options?: TelegramBot.CreateInvoiceLinkOptions,
+    ): Promise<string>;
 
     answerShippingQuery(
         shippingQueryId: string,

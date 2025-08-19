@@ -90,18 +90,19 @@ import { URL } from "node:url";
     http2Session.ref();
     http2Session.unref();
 
+    const clientHttp2Session = http2Session as ClientHttp2Session;
     const headers: OutgoingHttpHeaders = {};
     const options: ClientSessionRequestOptions = {
         endStream: true,
         exclusive: true,
         parent: 0,
-        weight: 0,
         waitForTrailers: true,
         signal: new AbortController().signal,
     };
-    (http2Session as ClientHttp2Session).request();
-    (http2Session as ClientHttp2Session).request(headers);
-    (http2Session as ClientHttp2Session).request(headers, options);
+    clientHttp2Session.request();
+    clientHttp2Session.request(headers);
+    clientHttp2Session.request(headers, options);
+    clientHttp2Session.request([":method", "GET", ":path", "/foobar"]);
 
     const stream: Http2Stream = {} as any;
     http2Session.setLocalWindowSize(2 ** 20);
@@ -152,13 +153,6 @@ import { URL } from "node:url";
     const destroyed: boolean = http2Stream.destroyed;
     const id: number | undefined = http2Stream.id;
     const pending: boolean = http2Stream.pending;
-
-    http2Stream.priority({
-        exclusive: true,
-        parent: 0,
-        weight: 0,
-        silent: true,
-    });
 
     const sesh: Http2Session | undefined = http2Stream.session;
 
@@ -259,16 +253,21 @@ import { URL } from "node:url";
     let settings: Settings = {};
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        unknownProtocolTimeout: 123,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
-    // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-    const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
-    secureServerOptions.ca = "";
+    const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
         // Http2ServerRequest
 
@@ -376,17 +375,28 @@ import { URL } from "node:url";
 
     const clientSessionOptions: ClientSessionOptions = {
         maxDeflateDynamicTableSize: 0,
-        maxReservedRemoteStreams: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        protocol: "https:",
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        maxReservedRemoteStreams: 0,
+        createConnection: (authority, option) => {
+            // $ExpectType URL
+            authority;
+            // $ExpectType SessionOptions
+            option;
+            return new Duplex();
+        },
+        protocol: "https:",
+        strictFieldWhitespaceValidation: false,
     };
-    // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-    const secureClientSessionOptions: SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
-    secureClientSessionOptions.ca = "";
+    const secureClientSessionOptions: SecureClientSessionOptions = { ...clientSessionOptions, ca: "..." };
     const onConnectHandler = (session: Http2Session, socket: Socket) => {};
 
     const serverHttp2Session: ServerHttp2Session = {} as any;
@@ -476,12 +486,19 @@ import { URL } from "node:url";
 
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        unknownProtocolTimeout: 123,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
+        strictFieldWhitespaceValidation: false,
     };
 
     const http2Stream: Http2Stream = {} as any;

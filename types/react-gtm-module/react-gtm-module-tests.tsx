@@ -1,4 +1,4 @@
-import TagManager from "react-gtm-module";
+import TagManager, { DataLayerArgs, TagManagerArgs } from "react-gtm-module";
 
 TagManager.initialize({
     gtmId: "GTM-000000",

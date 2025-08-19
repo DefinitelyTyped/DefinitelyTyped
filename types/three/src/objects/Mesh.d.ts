@@ -77,6 +77,14 @@ export class Mesh<
     morphTargetDictionary?: { [key: string]: number } | undefined;
 
     /**
+     * The number of instances of this mesh.
+     * Can only be used with {@link WebGPURenderer}.
+     *
+     * @default 1
+     */
+    count: number;
+
+    /**
      * Updates the morphTargets to have no influence on the object
      * @remarks Resets the {@link morphTargetInfluences} and {@link morphTargetDictionary} properties.
      */

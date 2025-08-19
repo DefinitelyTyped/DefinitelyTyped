@@ -6,7 +6,7 @@
         "https://github.com/greim/hoxy#readme"
     ],
     "dependencies": {
-        "@types/cheerio": "*"
+        "@types/cheerio": "<1"
     },
     "devDependencies": {
         "@types/hoxy": "workspace:."

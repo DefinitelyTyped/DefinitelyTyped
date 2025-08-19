@@ -1,4 +1,4 @@
-import { Camera, Color, ColorSpace, Object3D, Scene } from "three";
+import { Camera, Color, Object3D, Scene } from "three";
 
 export class SVGObject extends Object3D {
     constructor(node: SVGElement);
@@ -12,7 +12,7 @@ export class SVGRenderer {
     sortObjects: boolean;
     sortElements: boolean;
     overdraw: number;
-    outputColorSpace: ColorSpace;
+    outputColorSpace: string;
     info: { render: { vertices: number; faces: number } };
 
     getSize(): { width: number; height: number };

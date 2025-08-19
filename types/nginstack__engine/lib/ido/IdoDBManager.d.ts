@@ -1,9 +1,14 @@
 export = IdoDBManager;
 declare function IdoDBManager(): void;
 declare class IdoDBManager {
-    createDatabase(name: string): void;
-    createTempDatabase(alias: string): IdoDB;
-    databaseExists(name: string, searchInTempDBs: boolean): boolean;
+    createDatabase(name: string): IdoDB;
+    createTempDatabase(
+        dbName?: string,
+        options?: {
+            autoDrop?: boolean;
+        }
+    ): IdoDB;
+    databaseExists(name: string): boolean;
     loadDatabase(name: string): IdoDB;
     deleteDatabase(name: string): void;
     renameDatabase(oldName: string, newName: string): void;

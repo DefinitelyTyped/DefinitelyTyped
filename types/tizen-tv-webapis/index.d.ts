@@ -13,6 +13,7 @@ export interface Webapis {
     avplay: AVPlayManager;
     billing: BillingManager;
     network: NetworkManager;
+    preview: PreviewManager;
     productinfo: ProductInfoManager;
     sso: SsoManager;
     systeminfo: SystemInfoManager;
@@ -35,6 +36,8 @@ export const avinfo: AvInfoManager;
 export const billing: BillingManager;
 
 export const network: NetworkManager;
+
+export const preview: PreviewManager;
 
 export const productinfo: ProductInfoManager;
 
@@ -4025,6 +4028,47 @@ export interface ProductInfoConfigChangeCallback {
      * @version 1.0
      */
     (key: ProductInfoConfigKey): void;
+}
+
+/**
+ * This module defines the Preview functionalities provided by the Tizen Samsung Product API.
+ *
+ * @privilegeName http://samsung.com/tv/metadata/use.preview
+ *
+ * @since 2.3
+ */
+export interface PreviewManager {
+    /**
+     * Sets the preview data. Each application can have 1 preview. The preview consists of at least 1 section, which contains at least 1 tile.
+     *
+     * @privilegeName http://samsung.com/tv/metadata/use.preview
+     *
+     * @param previewData_JSON Preview properties
+     *
+     * @param successCallback Callback method to invoke when the call is successful
+     *
+     * @param errorCallback Callback method to invoke if the request fails
+     *
+     * @throws WebAPIException with error type InvalidValuesError, if any input parameter contains an invalid value.
+     *
+     * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
+     *
+     * @throws WebAPIException with error type UnknownError, for any other error.
+     */
+    setPreviewData: (
+        previewData_JSON: string,
+        successCallback?: SuccessCallback,
+        errorCallback?: ErrorCallback,
+    ) => void;
+
+    /**
+     * Retrieves the Preview API version.
+     *
+     * @returns Plugin version
+     *
+     * @throws WebAPIException with error type UnknownError, for any error.
+     */
+    getVersion: () => string;
 }
 
 /**

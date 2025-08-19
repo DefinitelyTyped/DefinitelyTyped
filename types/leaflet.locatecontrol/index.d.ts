@@ -63,3 +63,9 @@ declare module "leaflet" {
         function locate(options?: Control.LocateOptions): Control.Locate;
     }
 }
+
+export type LocateOptions = L.Control.LocateOptions;
+
+// Usage with bundler or esm
+// https://github.com/domoritz/leaflet-locatecontrol/blob/b20d77e4184fdfc59ff0037f8d95471a49af6f81/README.md#with-npm
+export class LocateControl extends L.Control.Locate {}

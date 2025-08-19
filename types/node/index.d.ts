@@ -22,22 +22,24 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 5.7+.
+// NOTE: These definitions support Node.js and TypeScript 5.8+.
 
-// Reference required types from the default lib:
+// Reference required TypeScript libraries:
 /// <reference lib="es2020" />
-/// <reference lib="esnext.asynciterable" />
-/// <reference lib="esnext.intl" />
-/// <reference lib="esnext.bigint" />
+/// <reference lib="esnext.disposable" />
+/// <reference lib="esnext.float16" />
 
-// Definitions specific to TypeScript 4.9 through 5.7+
+// Iterator definitions required for compatibility with TypeScript <5.6:
+/// <reference path="compatibility/iterators.d.ts" />
+
+// Definitions for Node.js modules specific to TypeScript 5.7+:
 /// <reference path="globals.typedarray.d.ts" />
 /// <reference path="buffer.buffer.d.ts" />
 
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
+// Definitions for Node.js modules that are not specific to any version of TypeScript:
+/// <reference path="globals.d.ts" />
 /// <reference path="assert.d.ts" />
 /// <reference path="assert/strict.d.ts" />
-/// <reference path="globals.d.ts" />
 /// <reference path="async_hooks.d.ts" />
 /// <reference path="buffer.d.ts" />
 /// <reference path="child_process.d.ts" />
@@ -90,5 +92,3 @@
 /// <reference path="wasi.d.ts" />
 /// <reference path="worker_threads.d.ts" />
 /// <reference path="zlib.d.ts" />
-
-/// <reference path="globals.global.d.ts" />

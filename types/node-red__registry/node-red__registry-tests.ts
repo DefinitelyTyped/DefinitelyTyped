@@ -94,6 +94,14 @@ function registryTests() {
                     topic: "topic",
                 });
 
+                // send messages with additional parameters
+
+                send({
+                    payload: "payload",
+                    foo: "bar",
+                    test: { property: "example" },
+                });
+
                 // send messages to a subset of the outputs
 
                 send([

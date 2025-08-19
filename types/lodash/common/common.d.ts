@@ -117,11 +117,11 @@ declare module "../index" {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp | undefined;
+        escape?: RegExp | null | undefined;
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp | undefined;
+        evaluate?: RegExp | null | undefined;
         /**
         * An object to import into the template as local variables.
         */
@@ -129,7 +129,7 @@ declare module "../index" {
         /**
         * The "interpolate" delimiter.
         */
-        interpolate?: RegExp | undefined;
+        interpolate?: RegExp | null | undefined;
         /**
         * Used to reference the data object in the template text.
         */
@@ -213,6 +213,7 @@ declare module "../index" {
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
+    type TupleIterator<T extends readonly unknown[], TResult> = (value: T[number], index: StringToNumber<keyof T>, collection: T) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
     type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShorthand<T>;
@@ -245,6 +246,10 @@ declare module "../index" {
     type PropertyPath = Many<PropertyName>;
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
+    interface MutableList<T> { // Needed since ArrayLike is readonly
+        length: number;
+        [k: number]: T;
+    }
     interface Dictionary<T> {
         [index: string]: T;
     }
@@ -258,6 +263,7 @@ declare module "../index" {
     type PartialShallow<T> = {
         [P in keyof T]?: T[P] extends object ? object : T[P]
     };
+    type StringToNumber<T> = T extends `${infer N extends number}` ? N : never;
     // For backwards compatibility
     type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
     type LoDashImplicitNillableArrayWrapper<T> = LoDashImplicitWrapper<T[] | null | undefined>;

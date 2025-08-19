@@ -882,16 +882,18 @@ function testTypedStub() {
     }
     let stub: sinon.SinonStub<[number, string], boolean> = sinon.stub();
     let stub2 = sinon.stub<[number, string], boolean>();
+    let stub3: sinon.SinonStubbedFunction<Foo["bar"]>;
     const foo = new Foo();
     stub = sinon.stub(foo, "bar");
     stub2 = sinon.stub(foo, "bar");
+    stub3 = sinon.stub(foo, "bar");
     const result: boolean = stub(42, "qux");
     const fooStub: sinon.SinonStubbedInstance<Foo> = {
         bar: sinon.stub(),
     };
 
-    const stub3 = sinon.stub<readonly [number, string], boolean>();
-    stub3.firstCall.args; // $ExpectType readonly [number, string]
+    const stub4 = sinon.stub<readonly [number, string], boolean>();
+    stub4.firstCall.args; // $ExpectType readonly [number, string]
 }
 
 function testMock() {

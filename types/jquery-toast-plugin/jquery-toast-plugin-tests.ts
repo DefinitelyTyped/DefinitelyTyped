@@ -1,3 +1,7 @@
+$.toast("test");
+$.toast(["test1", "test2"]);
+$.toast({ text: ["test1", "test2"] });
+
 $.toast({ text: "test" });
 
 $.toast({ text: "test", heading: "Test Heading" });

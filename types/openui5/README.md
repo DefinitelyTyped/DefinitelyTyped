@@ -1,23 +1,23 @@
 # OpenUI5 Definitions - Important Usage Notes
 
 The type definitions for OpenUI5 - please make sure to read the important notes below!<br>
-The central entry point for everything about using TypeScript with UI5 is at [https://sap.github.io/ui5-typescript](https://sap.github.io/ui5-typescript).
+The central entry point for everything about using TypeScript with UI5 is at [https://ui5.github.io/typescript](https://ui5.github.io/typescript).
 
 
 ## Release Notes
 
-For information on changes in the type definitions, in particular ones which require adaptation, please refer to the [Release Notes](https://sap.github.io/ui5-typescript/releasenotes.html).
+For information on changes in the type definitions, in particular ones which require adaptation, please refer to the [Release Notes](https://ui5.github.io/typescript/releasenotes.html).
 
 
 ## Only Use With an Additional Build Step
 
-These definition files are <b>meant to be used together with an additional build step</b> that transforms the imports of ES modules into classic UI5 module loading (`sap.ui.define(...)`). See the [small TypeScript sample project](https://github.com/SAP-samples/ui5-typescript-helloworld) and the [step-by-step setup explanation](https://github.com/SAP-samples/ui5-typescript-helloworld/blob/main/step-by-step.md) in that project as well as [this larger project](https://github.com/SAP-samples/ui5-cap-event-app/blob/typescript/docs/typescript.md) for details.<br>
-These definition files do not provide type information for globals (like `sap.m.Button`) because the use of these globals are discouraged.
+These definition files are <b>meant to be used in application code together with an additional build step</b> that transforms the imports of ES modules into classic UI5 module loading (`sap.ui.define(...)`). See the [small TypeScript sample project](https://github.com/SAP-samples/ui5-typescript-helloworld) and the [step-by-step setup explanation](https://github.com/SAP-samples/ui5-typescript-helloworld/blob/main/step-by-step.md) in that project as well as [this larger project](https://github.com/SAP-samples/ui5-cap-event-app/blob/typescript/docs/typescript.md) for details.<br>
+These definition files do not provide type information for globals (like `sap.m.Button`) because the use of these globals is discouraged and deprecated.
 
 
 ## Definitions are Generated
 
-These definition files are <b>generated</b> out of the OpenUI5 JSDoc. In case of issues, either the generator or the JSDoc in the [original OpenUI5 repository](https://github.com/SAP/openui5) need to be fixed, not the definition files in this repository. So please do not create pull requests for definition files here (unless they are just meant for demonstration purposes). Instead, while the latest version of the generator is not yet available at GitHub, you can [contribute fixes to OpenUI5](https://github.com/SAP/openui5/blob/master/CONTRIBUTING.md#contribute-code).
+These definition files are <b>generated</b> from the OpenUI5 JSDoc. In case of issues, either the generator or the JSDoc in the [original OpenUI5 repository](https://github.com/SAP/openui5) need to be fixed, not the definition files in this repository. So please do not create pull requests for definition files here (unless they are for demonstration purposes). Instead, either [contribute fixes to OpenUI5 JSDoc](https://github.com/SAP/openui5/blob/master/CONTRIBUTING.md#contribute-code) or [to the dts-generator](https://github.com/UI5/typescript/tree/main/packages/dts-generator), which creates the type definitions from the JSDoc - depending on where the issue is caused.
 
 When spotting weaknesses in the definition files, consider that it's not trivial to express a huge JavaScript API which has grown over 10+ years in optimal TypeScript which is produced by a generator. Hence, not all proposals can be implemented. That said, improvement suggestions are of course welcome!
 
@@ -39,10 +39,10 @@ They are created the same way, from the same sources, <b>but there is a differen
 > The patch version of the type declaration package is unrelated to the library patch version
 
 The reasoning behind this is that with semantic versioning, the API will remain the same for all patch releases of the same major/minor version. As an example: there is no API change between OpenUI5 1.90.0 and OpenUI5 1.90.8. Therefore there is no need to publish new type definitions for OpenUI5 1.90.8 (and 1.90.7, 1.90.6 and so on).<br>
-The only exception when we might still create new patch releases at DefinitelyTyped is when there are significant improvements or fixes in the documentation or in the definition generator. Release 1.115.1 is the first time this has happened since the first new and improved release 1.90.0. 
+The only exception when we might still create new patch releases at DefinitelyTyped is when there are significant improvements or fixes in the documentation or in the definition generator. Release 1.115.1 is the first time this has happened since the first new and improved release 1.90.0 and at least until 1.138.0 there has not been any other instance of such an extra release. 
 
 Long story short:
-* For ease of consumption and most probably matching definitions, use the latest major/minor-matching version of `@types/openui5`. Also see the section below about the referenced jQuery and QUnit types. 
+* For ease of consumption and most probably matching definitions, you can use the latest major/minor-matching version of `@types/openui5`. Also see the section below about the referenced jQuery and QUnit types. 
 * Only in case of problems (also see potential jQuery-related problems in the section below), for perfectly matching definitions, use the version of [`@openui5/types`](https://www.npmjs.com/package/@openui5/types) which is identical to the used OpenUI5 version.
 
 
@@ -83,4 +83,4 @@ Our goal is to reduce the number of disabled tslint rules, but due to years of U
 
 ## Copyright
 
-Copyright (c) 2023 SAP SE or an SAP affiliate company and OpenUI5 contributors.
+Copyright (c) 2025 SAP SE or an SAP affiliate company and OpenUI5 contributors.

@@ -38,6 +38,7 @@ declare class IColumn {
 declare namespace IColumn {
     export { ColumnConfig };
 }
+import IClauseSelect = require("./IClauseSelect.js");
 interface ColumnConfig {
     alias: string;
     cast: string;
@@ -51,4 +52,3 @@ interface ColumnConfig {
     useCoalesce: boolean;
     weight: string;
 }
-import IClauseSelect = require("./IClauseSelect.js");

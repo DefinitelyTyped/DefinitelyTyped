@@ -12,10 +12,6 @@ const ExtendedBox = styled(Box)`
     color: red;
 `;
 
-ExtendedBox.defaultProps = {
-    p: 3,
-};
-
 const RefForwardingBox = React.forwardRef<HTMLDivElement, BoxProps>((props, ref) => (
     <ExtendedBox
         ref={ref}

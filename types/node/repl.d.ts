@@ -6,7 +6,7 @@
  * ```js
  * import repl from 'node:repl';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/repl.js)
  */
 declare module "repl" {
     import { AsyncCompleter, Completer, Interface } from "node:readline";
@@ -37,12 +37,10 @@ declare module "repl" {
         terminal?: boolean | undefined;
         /**
          * The function to be used when evaluating each given line of input.
-         * Default: an async wrapper for the JavaScript `eval()` function. An `eval` function can
+         * **Default:** an async wrapper for the JavaScript `eval()` function. An `eval` function can
          * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
-         * additional lines.
-         *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_default_evaluation
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_custom_evaluation_functions
+         * additional lines. See the [custom evaluation functions](https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#custom-evaluation-functions)
+         * section for more details.
          */
         eval?: REPLEval | undefined;
         /**
@@ -74,13 +72,13 @@ declare module "repl" {
          * The function to invoke to format the output of each command before writing to `output`.
          * @default a wrapper for `util.inspect`
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_customizing_repl_output
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_customizing_repl_output
          */
         writer?: REPLWriter | undefined;
         /**
          * An optional function used for custom Tab auto completion.
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/readline.html#readline_use_of_the_completer_function
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/readline.html#readline_use_of_the_completer_function
          */
         completer?: Completer | AsyncCompleter | undefined;
         /**
@@ -125,6 +123,12 @@ declare module "repl" {
          */
         action: REPLCommandAction;
     }
+    interface REPLServerSetupHistoryOptions {
+        filePath?: string | undefined;
+        size?: number | undefined;
+        removeHistoryDuplicates?: boolean | undefined;
+        onHistoryFileLoaded?: ((err: Error | null, repl: REPLServer) => void) | undefined;
+    }
     /**
      * Instances of `repl.REPLServer` are created using the {@link start} method
      * or directly using the JavaScript `new` keyword.
@@ -168,33 +172,33 @@ declare module "repl" {
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_commands_and_special_keys
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_commands_and_special_keys
          */
         readonly editorMode: boolean;
         /**
          * A value indicating whether the `_` variable has been assigned.
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreAssigned: boolean;
         /**
          * The last evaluation result from the REPL (assigned to the `_` variable inside of the REPL).
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly last: any;
         /**
          * A value indicating whether the `_error` variable has been assigned.
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreErrAssigned: boolean;
         /**
          * The last error raised inside the REPL (assigned to the `_error` variable inside of the REPL).
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly lastError: any;
         /**
@@ -246,7 +250,7 @@ declare module "repl" {
          *
          * `REPLServer` cannot be subclassed due to implementation specifics in NodeJS.
          *
-         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_class_replserver
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_class_replserver
          */
         private constructor();
         /**
@@ -291,7 +295,7 @@ declare module "repl" {
          * The `replServer.displayPrompt()` method readies the REPL instance for input
          * from the user, printing the configured `prompt` to a new line in the `output` and resuming the `input` to accept new input.
          *
-         * When multi-line input is being entered, an ellipsis is printed rather than the
+         * When multi-line input is being entered, a pipe `'|'` is printed rather than the
          * 'prompt'.
          *
          * When `preserveCursor` is `true`, the cursor placement will not be reset to `0`.
@@ -318,7 +322,11 @@ declare module "repl" {
          * @param historyPath the path to the history file
          * @param callback called when history writes are ready or upon error
          */
-        setupHistory(path: string, callback: (err: Error | null, repl: this) => void): void;
+        setupHistory(historyPath: string, callback: (err: Error | null, repl: this) => void): void;
+        setupHistory(
+            historyConfig?: REPLServerSetupHistoryOptions,
+            callback?: (err: Error | null, repl: this) => void,
+        ): void;
         /**
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`
@@ -418,7 +426,7 @@ declare module "repl" {
     /**
      * Indicates a recoverable error that a `REPLServer` can use to support multi-line input.
      *
-     * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_recoverable_errors
+     * @see https://nodejs.org/dist/latest-v24.x/docs/api/repl.html#repl_recoverable_errors
      */
     class Recoverable extends SyntaxError {
         err: Error;

@@ -1,8 +1,18 @@
 import { connect } from "net";
 import * as pg from "pg";
-import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import {
+    Client,
+    Connection,
+    CustomTypesConfig,
+    DatabaseError,
+    defaults,
+    Pool,
+    QueryArrayConfig,
+    TypeOverrides as TypeOverridesNamed,
+    types,
+} from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -208,6 +218,15 @@ customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
+const customTypeOverridesFromNamed = new TypeOverridesNamed();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+client.connection.once("rowDescription", () => {
+    console.log("client connection rowDescription event");
+});
+// @ts-expect-error – connection is readonly
+client.connection = new Connection();
+
 // pg.Pool
 // https://node-postgres.com/apis/pool
 
@@ -233,6 +252,7 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     keepAlive: false,
+    lock_timeout: 5000,
     log: (...args) => {
         console.log.apply(console, args);
     },
@@ -242,6 +262,7 @@ console.log(pool.totalCount);
 console.log(pool.idleCount);
 console.log(pool.waitingCount);
 console.log(pool.expiredCount);
+console.log(pool.options.lock_timeout);
 pool.connect((err, client, done) => {
     if (err) {
         console.error("error fetching client from pool", err);

@@ -35,7 +35,7 @@ expectType<
     | undefined
 >(ES2015.Type<any>(any));
 
-ES2015.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
+ES2015.ToPrimitive(any); // $ExpectType primitive
 ES2015.ToInt16(any); // $ExpectType number
 ES2015.ToInt8(any); // $ExpectType number
 ES2015.ToUint8(any); // $ExpectType number
@@ -184,7 +184,7 @@ declare const Baz: {
     readonly prototype?: unknown | undefined;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 declare const Biz: { readonly prototype?: null | undefined } & Omit<Function, "prototype">;
 
 ES2015.GetPrototypeFromConstructor(Foo, "%Object.prototype%"); // $ExpectType Foo

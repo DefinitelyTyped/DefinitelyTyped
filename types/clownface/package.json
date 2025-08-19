@@ -7,7 +7,7 @@
     ],
     "type": "module",
     "dependencies": {
-        "@rdfjs/types": ">=1.0.0",
+        "@rdfjs/types": ">=1",
         "@types/rdfjs__environment": "*"
     },
     "devDependencies": {

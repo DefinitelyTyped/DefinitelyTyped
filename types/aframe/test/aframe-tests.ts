@@ -97,7 +97,7 @@ const Component = registerComponent("test-component", {
 
 // Scene
 const scene = document.querySelector("a-scene");
-scene.hasLoaded;
+scene?.hasLoaded;
 
 // System
 
@@ -126,3 +126,18 @@ AFRAME.registerGeometry("a-test-geometry", {
         temp;
     },
 });
+
+// DOM types unaffected
+
+const div = document.createElement("div");
+
+const height: number = div.clientHeight;
+
+const button = document.querySelector<HTMLButtonElement>("button");
+button?.click();
+
+const div2 = document.createElement("div");
+const height2: number = div2.clientHeight;
+
+const button2 = document.querySelector("button");
+button2?.click();
