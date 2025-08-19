@@ -9,7 +9,7 @@
         "@types/cookiejar": "^2.1.5",
         "@types/methods": "^1.1.4",
         "@types/node": "*",
-        "form-data": "^4.0.0"
+        "form-data": "^4.0.4"
     },
     "devDependencies": {
         "@types/superagent": "workspace:."
