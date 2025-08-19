@@ -1,4 +1,4 @@
-import { createV3Session, SecurityLevel, AuthProtocols, PrivProtocols, ObjectType, createSession, Varbind } from 'net-snmp';
+import { createV3Session, SecurityLevel, AuthProtocols, PrivProtocols, ObjectType, createSession, Varbind, ResponseInvalidError } from 'net-snmp';
 
 // Basic successful cases
 const V3Session1 = createV3Session('127.0.0.1', {
@@ -51,7 +51,11 @@ const sessionError4 = createV3Session('127.0.0.1', {
 });
 
 // Test that returned session has expected methods
-V3Session1.get('1.3.6.1.2.1.1.1.0', (error: any, varbinds?: Varbind[]) => {});
+V3Session1.get('1.3.6.1.2.1.1.1.0', (error: ResponseInvalidError | null, varbinds?: Varbind[]) => {});
+V3Session1.getBulk(['1.3.6.1.2.1.1.1.0'], 0, 10, (error: ResponseInvalidError | null, varbinds?: (Varbind | Varbind[])[]) => {});
+// @ts-expect-error - invalid order
+V3Session1.getBulk(['1.3.6.1.2.1.1.1.0'], (error: ResponseInvalidError | null, varbinds?: (Varbind | Varbind[])[], ) => {}, 10);
+V3Session1.getNext(['1.3.6.1.2.1.1.1.0'], (error: ResponseInvalidError | null, varbinds?: Varbind[]) => {});
 V3Session2.close();
 V3Session3.set([{
     oid: '1.3.6.1.2.1.1.5.0',

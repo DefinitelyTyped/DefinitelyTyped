@@ -11,17 +11,26 @@ export class Session {
 
     close(): this;
 
-    get(
-        oids: string | string[],
-        responseCb: (error: ResponseInvalidError | null, varbinds?: Varbind[]) => void
-    ): Session;
+    get(oids: string | string[], responseCb: GetCallback): Session;
 
-    getBulk(...args: any[]): any;
+    getBulk(oids: string[], nonRepeaters: number, maxRepetitions: number, responseCb: GetBulkCallback): this;
+    getBulk(oids: string[], nonRepeaters: number, responseCb: GetBulkCallback): this;
+    getBulk(oids: string[], responseCb: GetBulkCallback): this;
 
-    getNext(oids: any, responseCb: any): any;
+    getNext(oids: string[], responseCb: GetCallback): this;
 
-    inform(...args: any[]): any;
+    simpleGet(
+        pduClass: any,
+        feedCb: (req: any, message: any) => void,
+        varbinds: Varbind[],
+        responseCb: (error: Error | null, result?: any) => void,
+        options?: SimpleGetOptions
+    ): void;
 
+    inform(typeOrOid: string | number, varbinds: Varbind[], options: InformOptions, responseCb: InformCallback): this;
+    inform(typeOrOid: string | number, varbinds: Varbind[], responseCb: InformCallback): this;
+    inform(typeOrOid: string | number, options: InformOptions, responseCb: InformCallback): this;
+    inform(typeOrOid: string | number, responseCb: InformCallback): this;
     onClose(): void;
 
     onError(error: any): void;
@@ -41,8 +50,6 @@ export class Session {
     sendV3Req(pdu: any, feedCb: any, responseCb: any, options: any, port: any, allowReport: any): void;
 
     set(varbinds: any, responseCb: any): any;
-
-    simpleGet(pduClass: any, feedCb: any, varbinds: any, responseCb: any, options: any): void;
 
     subtree(...args: any[]): any;
 
@@ -84,7 +91,25 @@ export interface SessionOptions {
     debug?: boolean;
     dgramModule?: any;
 }
+export interface InformOptions extends RequestOptions {
+    upTime?: number;
+}
+export type InformCallback = (error: RequestInvalidError | ResponseInvalidError | null, varbinds?: Varbind[]) => void;
+export type GetCallback = (error: ResponseInvalidError | null, varbinds?: Varbind[]) => void;
 
+export type GetBulkCallback = (error: ResponseInvalidError | null, varbinds?: (Varbind | Varbind[])[]) => void;
+
+export interface RequestOptions {
+    port?: number;
+    context?: string;
+    timeout?: number;
+    retries?: number;
+    backoff?: number;
+}
+export interface SimpleGetOptions extends RequestOptions {
+    nonRepeaters?: number;
+    maxRepetitions?: number;
+}
 export interface User {
     name: string;
     level: SecurityLevel;
@@ -113,62 +138,39 @@ export interface SessionOptionsV3 {
     dgramModule?: any;
 }
 
-export const AccessControlModelType: {
-    "0": string;
-    "1": string;
-    None: number;
-    Simple: number;
-};
+export const enum AccessControlModelType {
+    None,
+    Simple,
+}
 
-export const AccessLevel: {
-    "0": string;
-    "1": string;
-    "2": string;
-    None: number;
-    ReadOnly: number;
-    ReadWrite: number;
-};
+export const enum AccessLevel {
+    None,
+    ReadOnly,
+    ReadWrite,
+}
 
-export const AgentXPduType: {
-    "1": string;
-    "10": string;
-    "11": string;
-    "12": string;
-    "13": string;
-    "14": string;
-    "15": string;
-    "16": string;
-    "17": string;
-    "18": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    "7": string;
-    "8": string;
-    "9": string;
-    AddAgentCaps: number;
-    CleanupSet: number;
-    Close: number;
-    CommitSet: number;
-    Get: number;
-    GetBulk: number;
-    GetNext: number;
-    IndexAllocate: number;
-    IndexDeallocate: number;
-    Notify: number;
-    Open: number;
-    Ping: number;
-    Register: number;
-    RemoveAgentCaps: number;
-    Response: number;
-    TestSet: number;
-    UndoSet: number;
-    Unregister: number;
-};
+export const enum AgentXPduType {
+    Open = 1,
+    Close,
+    Register,
+    Unregister,
+    Get,
+    GetNext,
+    GetBulk,
+    TestSet,
+    CommitSet,
+    UndoSet,
+    CleanupSet,
+    Notify,
+    Ping,
+    IndexAllocate,
+    IndexDeallocate,
+    AddAgentCaps,
+    RemoveAgentCaps,
+    Response,
+}
 
-export declare const enum AuthProtocols {
+export const enum AuthProtocols {
     none = 1,
     md5,
     sha,
@@ -178,67 +180,41 @@ export declare const enum AuthProtocols {
     sha512,
 }
 
-export const ErrorStatus: {
-    "0": string;
-    "1": string;
-    "10": string;
-    "11": string;
-    "12": string;
-    "13": string;
-    "14": string;
-    "15": string;
-    "16": string;
-    "17": string;
-    "18": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    "7": string;
-    "8": string;
-    "9": string;
-    AuthorizationError: number;
-    BadValue: number;
-    CommitFailed: number;
-    GeneralError: number;
-    InconsistentName: number;
-    InconsistentValue: number;
-    NoAccess: number;
-    NoCreation: number;
-    NoError: number;
-    NoSuchName: number;
-    NotWritable: number;
-    ReadOnly: number;
-    ResourceUnavailable: number;
-    TooBig: number;
-    UndoFailed: number;
-    WrongEncoding: number;
-    WrongLength: number;
-    WrongType: number;
-    WrongValue: number;
-};
+export const enum ErrorStatus {
+    NoError,
+    TooBig,
+    NoSuchName,
+    BadValue,
+    ReadOnly,
+    GeneralError,
+    NoAccess,
+    WrongType,
+    WrongLength,
+    WrongEncoding,
+    WrongValue,
+    NoCreation,
+    InconsistentValue,
+    ResourceUnavailable,
+    CommitFailed,
+    UndoFailed,
+    AuthorizationError,
+    NotWritable,
+    InconsistentName,
+}
 
-export const MaxAccess: {
-    "0": string;
-    "1": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "accessible-for-notify": number;
-    "not-accessible": number;
-    "read-create": number;
-    "read-only": number;
-    "read-write": number;
-};
+export const enum MaxAccess {
+    "not-accessible",
+    "accessible-for-notify",
+    "read-only",
+    "read-write",
+    "read-create",
+}
 
-export const MibProviderType: {
-    "1": string;
-    "2": string;
-    Scalar: number;
-    Table: number;
-};
-export declare const enum ObjectType {
+export const enum MibProviderType {
+    Scalar,
+    Table,
+}
+export const enum ObjectType {
     Boolean = 1,
     Integer,
     INTEGER = Integer,
@@ -269,28 +245,19 @@ export const OidFormat: {
     path: string;
 };
 
-export const PduType: {
-    "160": string;
-    "161": string;
-    "162": string;
-    "163": string;
-    "164": string;
-    "165": string;
-    "166": string;
-    "167": string;
-    "168": string;
-    GetBulkRequest: number;
-    GetNextRequest: number;
-    GetRequest: number;
-    GetResponse: number;
-    InformRequest: number;
-    Report: number;
-    SetRequest: number;
-    Trap: number;
-    TrapV2: number;
-};
+export const enum PduType {
+    GetRequest = 160,
+    GetNextRequest,
+    GetResponse,
+    SetRequest,
+    Trap,
+    GetBulkRequest,
+    InformRequest,
+    TrapV2,
+    Report,
+}
 
-export declare const enum PrivProtocols {
+export const enum PrivProtocols {
     none = 1,
     des,
     aes = 4,
@@ -298,7 +265,7 @@ export declare const enum PrivProtocols {
     aes256r = 8,
 }
 
-export declare const enum ResponseInvalidCode {
+export const enum ResponseInvalidCode {
     EIp4AddressSize = 1,
     EUnknownObjectType,
     EUnknownPduType,
@@ -313,80 +280,85 @@ export declare const enum ResponseInvalidCode {
     EUnexpectedResponse,
 }
 
-export const RowStatus: {
-    "1": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    active: number;
-    createAndGo: number;
-    createAndWait: number;
-    destroy: number;
-    notInService: number;
-    notReady: number;
-};
+export const enum RowStatus {
+    active = 1,
+    notInService,
+    notReady,
+    createAndGo,
+    createAndWait,
+    destroy,
+}
 
-export declare const enum SecurityLevel {
+export const enum SecurityLevel {
     noAuthNoPriv = 1,
     authNoPriv,
     authPriv,
 }
 
-export const TrapType: {
-    "0": string;
-    "1": string;
-    "2": string;
-    "3": string;
-    "4": string;
-    "5": string;
-    "6": string;
-    AuthenticationFailure: number;
-    ColdStart: number;
-    EgpNeighborLoss: number;
-    EnterpriseSpecific: number;
-    LinkDown: number;
-    LinkUp: number;
-    WarmStart: number;
-};
+export const enum TrapType {
+    ColdStart,
+    WarmStart,
+    LinkDown,
+    LinkUp,
+    AuthenticationFailure,
+    EgpNeighborLoss,
+    EnterpriseSpecific,
+}
+export const Version1: 0;
+
+export const Version2c: 1;
+
+export const Version3: 3;
 
 export const Version: {
-    "1": number;
-    "2c": number;
-    "3": number;
+    "1": typeof Version1;
+    "2c": typeof Version2c;
+    "3": typeof Version3;
 };
 
-export const Version1: number;
+export interface RequestFailedError extends Error {
+    name: "RequestFailedError";
+    message: string;
+    status: ErrorStatus;
+}
 
-export const Version2c: number;
+export const RequestFailedError: {
+    new (message: string, status: ErrorStatus): RequestFailedError;
+    prototype: RequestFailedError;
+};
 
-export const Version3: number;
-
-export function RequestFailedError(message: any, status: any): void;
-
-export function RequestInvalidError(message: any): void;
-
-export function RequestTimedOutError(message: any): void;
+export interface RequestTimedOutError extends Error {
+    name: "RequestTimedOutError";
+}
 
 export interface ResponseInvalidError extends Error {
     name: "ResponseInvalidError";
-    message: string;
     code: ResponseInvalidCode;
     info?: any;
+}
+
+export interface RequestInvalidError extends Error {
+    name: "RequestInvalidError";
 }
 
 export const ResponseInvalidError: {
     new (message: string, code: ResponseInvalidCode, info?: any): ResponseInvalidError;
     prototype: ResponseInvalidError;
 };
-export function createAgent(options: any, callback: any, mib: any): any;
+export function createAgent(options: any, callback: Function, mib?: any): any;
 
-export function createMib(options: any): any;
+export function createMib(options?: MibOptions): any;
+export interface MibOptions {
+    addScalarDefaultsOnRegistration?: boolean;
+}
 
-export function createModuleStore(options: any): any;
+export function createModuleStore(options?: ModuleStoreOptions): any;
 
-export function createReceiver(options: any, callback: any): any;
+export interface ModuleStoreOptions {
+    baseModules?: string[];
+}
+
+export function createReceiver(options: any, callback: Function): any;
 
 declare function createSession(target?: string, community?: string, options?: SessionOptions): Session;
 declare namespace createSession {
@@ -404,9 +376,9 @@ declare namespace createV3Session {
 }
 
 export { createV3Session };
-export function isVarbindError(varbind: any): any;
+export function isVarbindError(varbind: Varbind): boolean;
 
-export function varbindError(varbind: any): any;
+export function varbindError(varbind: Varbind): string;
 
 export interface Varbind {
     oid: string;
@@ -417,163 +389,210 @@ export namespace Authentication {
     const HMAC_BUFFER_SIZE: number;
 
     const algorithms: {
-        "2": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.none]: undefined; // none has no algorithm
+        readonly [AuthProtocols.md5]: {
+            KEY_LENGTH: 16;
+            AUTHENTICATION_CODE_LENGTH: 12;
+            CRYPTO_ALGORITHM: "md5";
         };
-        "3": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.sha]: {
+            KEY_LENGTH: 20;
+            AUTHENTICATION_CODE_LENGTH: 12;
+            CRYPTO_ALGORITHM: "sha1";
         };
-        "4": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.sha224]: {
+            KEY_LENGTH: 28;
+            AUTHENTICATION_CODE_LENGTH: 16;
+            CRYPTO_ALGORITHM: "sha224";
         };
-        "5": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.sha256]: {
+            KEY_LENGTH: 32;
+            AUTHENTICATION_CODE_LENGTH: 24;
+            CRYPTO_ALGORITHM: "sha256";
         };
-        "6": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.sha384]: {
+            KEY_LENGTH: 48;
+            AUTHENTICATION_CODE_LENGTH: 32;
+            CRYPTO_ALGORITHM: "sha384";
         };
-        "7": {
-            AUTHENTICATION_CODE_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
+        readonly [AuthProtocols.sha512]: {
+            KEY_LENGTH: 64;
+            AUTHENTICATION_CODE_LENGTH: 48;
+            CRYPTO_ALGORITHM: "sha512";
         };
     };
 
-    const authToKeyCache: {};
+    const authToKeyCache: {
+        [key: string]: Buffer;
+    };
 
-    function calculateDigest(messageBuffer: any, authProtocol: any, authPassword: any, engineID: any): any;
+    function calculateDigest(
+        messageBuffer: Buffer,
+        authProtocol: Exclude<AuthProtocol, AuthProtocols.none>,
+        authPassword: string,
+        engineID: Buffer
+    ): Buffer;
 
-    function computeCacheKey(authProtocol: any, authPasswordString: any, engineID: any): any;
+    function computeCacheKey(authProtocol: AuthProtocol, authPasswordString: string, engineID: Buffer): string;
 
-    function getParametersLength(authProtocol: any): any;
+    function getParametersLength(authProtocol: Exclude<AuthProtocol, AuthProtocols.none>): number;
 
     function isAuthentic(
-        messageBuffer: any,
-        authProtocol: any,
-        authPassword: any,
-        engineID: any,
-        digestInMessage: any
-    ): any;
+        messageBuffer: Buffer,
+        authProtocol: AuthProtocol,
+        authPassword: string,
+        engineID: Buffer,
+        digestInMessage: Buffer
+    ): boolean;
 
-    function passwordToKey(authProtocol: any, authPasswordString: any, engineID: any): any;
+    function passwordToKey(
+        authProtocol: Exclude<AuthProtocol, AuthProtocols.none>,
+        authPasswordString: string,
+        engineID: Buffer
+    ): Buffer;
 
     function writeParameters(
-        messageBuffer: any,
-        authProtocol: any,
-        authPassword: any,
-        engineID: any,
-        digestInMessage: any
+        messageBuffer: Buffer,
+        authProtocol: Exclude<AuthProtocol, AuthProtocols.none>,
+        authPassword: string,
+        engineID: Buffer,
+        digestInMessage: Buffer
     ): void;
 }
 
+export type AuthProtocol = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
 export namespace Encryption {
     const algorithms: {
-        "2": {
-            BLOCK_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
-            decryptPdu: any;
-            encryptPdu: any;
-            localizationAlgorithm: any;
+        readonly [PrivProtocols.des]: {
+            BLOCK_LENGTH: 8;
+            CRYPTO_ALGORITHM: "des-cbc";
+            KEY_LENGTH: 8;
+            decryptPdu: typeof Encryption.decryptPduDes;
+            encryptPdu: typeof Encryption.encryptPduDes;
+            localizationAlgorithm: typeof Encryption.generateLocalizedKey;
         };
-        "4": {
-            BLOCK_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
-            decryptPdu: any;
-            encryptPdu: any;
-            localizationAlgorithm: any;
+        readonly [PrivProtocols.aes]: {
+            BLOCK_LENGTH: 16;
+            CRYPTO_ALGORITHM: "aes-128-cfb";
+            KEY_LENGTH: 16;
+            decryptPdu: typeof Encryption.decryptPduAes;
+            encryptPdu: typeof Encryption.encryptPduAes;
+            localizationAlgorithm: typeof Encryption.generateLocalizedKey;
         };
-        "6": {
-            BLOCK_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
-            decryptPdu: any;
-            encryptPdu: any;
-            localizationAlgorithm: any;
+        readonly [PrivProtocols.aes256b]: {
+            BLOCK_LENGTH: 16;
+            CRYPTO_ALGORITHM: "aes-256-cfb";
+            KEY_LENGTH: 32;
+            decryptPdu: typeof Encryption.decryptPduAes;
+            encryptPdu: typeof Encryption.encryptPduAes;
+            localizationAlgorithm: typeof Encryption.generateLocalizedKeyBlumenthal;
         };
-        "8": {
-            BLOCK_LENGTH: number;
-            CRYPTO_ALGORITHM: string;
-            KEY_LENGTH: number;
-            decryptPdu: any;
-            encryptPdu: any;
-            localizationAlgorithm: any;
+        readonly [PrivProtocols.aes256r]: {
+            BLOCK_LENGTH: 16;
+            CRYPTO_ALGORITHM: "aes-256-cfb";
+            KEY_LENGTH: 32;
+            decryptPdu: typeof Encryption.decryptPduAes;
+            encryptPdu: typeof Encryption.encryptPduAes;
+            localizationAlgorithm: typeof Encryption.generateLocalizedKeyReeder;
         };
     };
 
-    function debugDecrypt(decryptionKey: any, iv: any, encryptedPdu: any, plainPdu: any): void;
+    function decryptPduDes(
+        encryptedPdu: Buffer,
+        privProtocol: PrivProtocol,
+        privParameters: Buffer,
+        privPassword: string,
+        authProtocol: AuthProtocol,
+        engine: Algorithm
+    ): Buffer;
 
-    function debugEncrypt(encryptionKey: any, iv: any, plainPdu: any, encryptedPdu: any): void;
-
-    function decryptPdu(
-        privProtocol: any,
-        encryptedPdu: any,
-        privParameters: any,
-        privPassword: any,
-        authProtocol: any,
-        engine: any
-    ): any;
+    function encryptPduDes(
+        scopedPdu: Buffer,
+        privProtocol: PrivProtocol,
+        privPassword: string,
+        authProtocol: AuthProtocol,
+        engine: Algorithm
+    ): { encryptedPdu: Buffer; msgPrivacyParameters: Buffer };
 
     function decryptPduAes(
-        encryptedPdu: any,
-        privProtocol: any,
-        privParameters: any,
-        privPassword: any,
-        authProtocol: any,
-        engine: any
-    ): any;
+        encryptedPdu: Buffer,
+        privProtocol: PrivProtocol,
+        privParameters: Buffer,
+        privPassword: string,
+        authProtocol: AuthProtocol,
+        engine: Algorithm
+    ): Buffer;
 
-    function decryptPduDes(
-        encryptedPdu: any,
-        privProtocol: any,
-        privParameters: any,
-        privPassword: any,
-        authProtocol: any,
-        engine: any
-    ): any;
+    function encryptPduAes(
+        scopedPdu: Buffer,
+        privProtocol: PrivProtocol,
+        privPassword: string,
+        authProtocol: AuthProtocol,
+        engine: Algorithm
+    ): { encryptedPdu: Buffer; msgPrivacyParameters: Buffer };
 
-    function encryptPdu(privProtocol: any, scopedPdu: any, privPassword: any, authProtocol: any, engine: any): any;
+    function generateLocalizedKey(
+        algorithm: Algorithm,
+        authProtocol: AuthProtocol,
+        privPassword: string,
+        engineID: Buffer
+    ): Buffer;
 
-    function encryptPduAes(scopedPdu: any, privProtocol: any, privPassword: any, authProtocol: any, engine: any): any;
+    function generateLocalizedKeyBlumenthal(
+        algorithm: Algorithm,
+        authProtocol: AuthProtocol,
+        privPassword: string,
+        engineID: Buffer
+    ): Buffer;
 
-    function encryptPduDes(scopedPdu: any, privProtocol: any, privPassword: any, authProtocol: any, engine: any): any;
+    function generateLocalizedKeyReeder(
+        algorithm: Algorithm,
+        authProtocol: AuthProtocol,
+        privPassword: string,
+        engineID: Buffer
+    ): Buffer;
+}
+declare interface Algorithm {
+    readonly BLOCK_LENGTH: number;
+    readonly CRYPTO_ALGORITHM: string;
+    readonly KEY_LENGTH: number;
+    readonly decryptPdu: typeof Encryption.decryptPduAes;
+    readonly encryptPdu: typeof Encryption.encryptPduAes;
+    readonly localizationAlgorithm: typeof Encryption.generateLocalizedKey;
+}
 
-    function generateIvAes(aes: any, engineBoots: any, engineTime: any, salt: any): any;
-
-    function generateLocalizedKey(algorithm: any, authProtocol: any, privPassword: any, engineID: any): any;
-
-    function generateLocalizedKeyBlumenthal(algorithm: any, authProtocol: any, privPassword: any, engineID: any): any;
-
-    function generateLocalizedKeyReeder(algorithm: any, authProtocol: any, privPassword: any, engineID: any): any;
+export type PrivProtocol = 1 | 2 | 4 | 6 | 8;
+//module asn1-ber doesn't have type support so we to create completing type for the buffer used in Object Parser
+declare class BerReader {
+    readInt(): number;
+    readString(type?: number, explicit?: boolean): string | Buffer;
+    readBoolean(): boolean;
+    readBitString(): string;
+    readOID(): string;
+    readByte(): number;
+    readSequence(): number;
+    peek(): number | null;
+    readBuffer(type: number, explicit?: boolean): Buffer;
+    readLength(): number;
 }
 
 export namespace ObjectParser {
-    function readInt32(buffer: any): any;
+    function readInt32(buffer: BerReader): number;
 
-    function readUint32(buffer: any): any;
+    function readUint32(buffer: BerReader): number;
 
-    function readVarbindValue(buffer: any, type: any): any;
+    function readUint64(buffer: BerReader): bigint | string;
 }
 
 export namespace ObjectTypeUtil {
     function castSetValue(type: any, value: any, constraints: any): any;
 
-    function doesIntegerMeetConstraints(value: any, constraints: any): any;
+    function doesIntegerMeetConstraints(value: any, constraints: any): boolean;
 
-    function doesStringMeetConstraints(value: any, constraints: any): any;
+    function doesStringMeetConstraints(value: any, constraints: any): boolean;
 
     function getEnumerationNumberFromName(enumeration: any, name: any): any;
 
-    function isValid(type: any, value: any, constraints: any): any;
+    function isValid(type: ObjectType, value: any, constraints: any): boolean;
 }
