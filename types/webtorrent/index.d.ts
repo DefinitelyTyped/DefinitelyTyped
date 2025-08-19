@@ -126,7 +126,7 @@ declare namespace WebTorrent {
             torrentId: Torrent | string | Buffer,
             opts?: TorrentDestroyOptions,
             callback?: (err: Error | string) => void,
-        ): void;
+        ): Promise<void>;
 
         destroy(callback?: (err: Error | string) => void): void;
         createServer(
