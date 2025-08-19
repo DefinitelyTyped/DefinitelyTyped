@@ -133,7 +133,7 @@ declare namespace WebTorrent {
         readonly torrents: Torrent[];
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        get(torrentId: Torrent | string | Buffer): Torrent | void;
+        get(torrentId: Torrent | string | Buffer): Promise<Torrent | void>;
 
         readonly downloadSpeed: number;
 
