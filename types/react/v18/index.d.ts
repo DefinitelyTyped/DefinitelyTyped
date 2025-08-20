@@ -3751,19 +3751,19 @@ declare namespace React {
         direction?: number | string | undefined;
         display?: number | string | undefined;
         divisor?: number | string | undefined;
-        dominantBaseline?: 
+        dominantBaseline?:
             | "auto"
-            | "baseline"
-            | "before-edge"
-            | "text-before-edge"
-            | "middle"
-            | "central"
-            | "after-edge"
-            | "text-after-edge"
+            | "use-script"
+            | "no-change"
+            | "reset-size"
             | "ideographic"
             | "alphabetic"
             | "hanging"
             | "mathematical"
+            | "central"
+            | "middle"
+            | "text-after-edge"
+            | "text-before-edge"
             | "inherit"
             | undefined;
         dur?: number | string | undefined;
