@@ -174,14 +174,6 @@ export declare class AddressFilter {
 }
 
 /**
- * @public
- */
-export declare interface AddressFilterOptions {
-    includes?: AddressCategory[];
-    excludes?: AddressCategory[];
-}
-
-/**
  * The base annotation object for creating custom annotations.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.annotation Read more.}
  * @public
@@ -1128,7 +1120,7 @@ declare type DisplayPriority = (typeof DisplayPriority)[keyof typeof DisplayPrio
  * @enum
  * @public
  */
-declare const Distances: Readonly<{
+declare const Distance: Readonly<{
     readonly Adaptive: "adaptive";
     readonly Metric: "metric";
     readonly Imperial: "imperial";
@@ -1137,7 +1129,7 @@ declare const Distances: Readonly<{
 /**
  * @public
  */
-declare type Distances = (typeof Distances)[keyof typeof Distances];
+declare type Distance = (typeof Distance)[keyof typeof Distance];
 
 /**
  * The options you may provide for requesting estimated arrival times.
@@ -1496,9 +1488,7 @@ declare type GeoJSONImporterCallback = (
 /**
  * @public
  */
-declare class GeoJSONImportError extends Error {
-    constructor(message: string);
-}
+declare class GeoJSONImportError extends Error {}
 
 /**
  * A customized annotation with image resources that you provide.
@@ -1629,7 +1619,7 @@ export declare class LineGradient {
  * @enum
  * @public
  */
-declare const LoadPriorities: Readonly<{
+declare const LoadPriority: Readonly<{
     readonly LandCover: "LandCover";
     readonly PointsOfInterest: "PointsOfInterest";
     readonly None: null;
@@ -1638,7 +1628,7 @@ declare const LoadPriorities: Readonly<{
 /**
  * @public
  */
-declare type LoadPriorities = (typeof LoadPriorities)[keyof typeof LoadPriorities];
+declare type LoadPriority = (typeof LoadPriority)[keyof typeof LoadPriority];
 
 /**
  * Provide an interactive look around view on the page.
@@ -1820,10 +1810,10 @@ declare class Map extends MapKitEventTarget {
         parent?: string | HTMLElement | null,
         options?: MapConstructorOptions,
     );
-    static MapTypes: typeof MapTypes;
+    static MapTypes: typeof MapType;
     static ColorSchemes: typeof ColorScheme;
-    static Distances: typeof Distances;
-    static LoadPriorities: typeof LoadPriorities;
+    static Distances: typeof Distance;
+    static LoadPriorities: typeof LoadPriority;
     /**
      * The map's inset margins.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/padding Read more.}
@@ -1878,16 +1868,16 @@ declare class Map extends MapKitEventTarget {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/distances Read more.}
      * @public
      */
-    get distances(): Distances;
-    set distances(distances: Distances);
+    get distances(): Distance;
+    set distances(distances: Distance);
 
     /**
      * A value MapKit JS uses for prioritizing the visibility of specific map features before the underlaying map tiles.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/loadpriority Read more.}
      * @public
      */
-    get loadPriority(): LoadPriorities;
-    set loadPriority(value: LoadPriorities);
+    get loadPriority(): LoadPriority;
+    set loadPriority(value: LoadPriority);
     /**
      * An array of all of the map's tile overlays.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/tileoverlays Read more.}
@@ -2333,7 +2323,7 @@ export declare interface MapConstructorOptions {
      * {@link https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/loadpriority Read more.}
      * @public
      */
-    loadPriority?: LoadPriorities;
+    loadPriority?: LoadPriority;
 
     /**
      * The type of data that the map view displays.
@@ -2467,7 +2457,7 @@ export declare interface MapConstructorOptions {
      * @public
      */
     selectedAnnotation?: Annotation;
-    distances?: Distances;
+    distances?: Distance;
     /**
      * The CSS color that MapKit JS uses for the user interface controls on the map.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/tintcolor Read more.}
@@ -3108,20 +3098,20 @@ export declare class MapSize {
 }
 
 /**
- * @public
- */
-declare type MapType = (typeof MapTypes)[keyof typeof MapTypes];
-
-/**
  * @enum
  * @public
  */
-declare const MapTypes: Readonly<{
+declare const MapType: Readonly<{
     readonly Satellite: "satellite";
     readonly Hybrid: "hybrid";
     readonly MutedStandard: "mutedStandard";
     readonly Standard: "standard";
 }>;
+
+/**
+ * @public
+ */
+declare type MapType = (typeof MapType)[keyof typeof MapType];
 
 /**
  * An annotation that displays a balloon-shaped marker at the designated location.
@@ -4049,14 +4039,6 @@ export declare class PointOfInterestFilter {
     static excluding(
         categories: PointOfInterestCategory[],
     ): PointOfInterestFilter;
-}
-
-/**
- * @public
- */
-export declare interface PointOfInterestFilterOptions {
-    includes?: PointOfInterestCategory[];
-    excludes?: PointOfInterestCategory[];
 }
 
 /**
