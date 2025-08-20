@@ -7471,6 +7471,10 @@
             "libraryName": "tap",
             "asOfVersion": "18.0.0"
         },
+        "tapable": {
+            "libraryName": "tapable",
+            "asOfVersion": "2.2.8"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
