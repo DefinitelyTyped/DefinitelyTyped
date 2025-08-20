@@ -146,7 +146,7 @@ declare namespace Layui {
         jquery: JQueryStatic;
         /**
          * layui 内部使用的工具函数
-         * 
+         *
          * 请谨慎使用，不保证兼容性
          * @internal
          */
