@@ -1807,7 +1807,7 @@ async function testAction() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/alarms/
+// https://developer.chrome.com/docs/extensions/reference/api/alarms
 async function testAlarms() {
     const alarmCreateInfo: chrome.alarms.AlarmCreateInfo = {
         delayInMinutes: 1,
@@ -1823,10 +1823,10 @@ async function testAlarms() {
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
     chrome.alarms.getAll(); // $ExpectType Promise<Alarm[]>
-    chrome.alarms.getAll((alarms) => { // $ExpectType void
-        alarms[0].name; // $ExpectType string
-        alarms[0].periodInMinutes; // $ExpectType number | undefined
-        alarms[0].scheduledTime; // $ExpectType number
+    chrome.alarms.getAll(([alarm]) => { // $ExpectType void
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
     });
     // @ts-expect-error
     chrome.alarms.getAll(() => {}).then(() => {});
@@ -1853,19 +1853,17 @@ async function testAlarms() {
     chrome.alarms.get("name"); // $ExpectType Promise<Alarm | undefined>
     chrome.alarms.get((alarm) => { // $ExpectType void
         alarm; // $ExpectType Alarm | undefined
-        if (alarm) {
-            alarm.name; // $ExpectType string
-            alarm.periodInMinutes; // $ExpectType number | undefined
-            alarm.scheduledTime; // $ExpectType number
-        }
+        if (!alarm) return;
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
     });
     chrome.alarms.get("name", (alarm) => { // $ExpectType void
         alarm; // $ExpectType Alarm | undefined
-        if (alarm) {
-            alarm.name; // $ExpectType string
-            alarm.periodInMinutes; // $ExpectType number | undefined
-            alarm.scheduledTime; // $ExpectType number
-        }
+        if (!alarm) return;
+        alarm.name; // $ExpectType string
+        alarm.periodInMinutes; // $ExpectType number | undefined
+        alarm.scheduledTime; // $ExpectType number
     });
     // @ts-expect-error
     chrome.alarms.get("name", () => {}).then(() => {});
