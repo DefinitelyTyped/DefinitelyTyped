@@ -62,6 +62,7 @@ declare namespace Layui {
     /**
      * 评分
      * @see https://layui.dev/docs/2/rate/
+     * @since 2.11.0 后继承自 Component 组件
      */
     interface Rate extends ComponentInterface<RateOptions, RateClass, RateReturn> {
         /**
@@ -69,16 +70,18 @@ declare namespace Layui {
          * @param option 基础选项
          */
         render(option: RateOptions): RateReturn;
+        /**
+         * 组件常量集
+         * @since 2.11.0
+         */
         CONST: {
-            MOD_NAME: "rate";
-            MOD_ID: "lay-rate-id";
-            ELEM: "layui-rate";
-            ICON_RATE: "layui-icon-rate";
-            ICON_RATE_SOLID: "layui-icon-rate-solid";
-            ICON_RATE_HALF: "layui-icon-rate-half";
-            ICON_SOLID_HALF: "layui-icon-rate-solid layui-icon-rate-half";
-            ICON_SOLID_RATE: "layui-icon-rate-solid layui-icon-rate";
-            ICON_HALF_RATE: "layui-icon-rate layui-icon-rate-half";
+            ELEM: string;
+            ICON_RATE: string;
+            ICON_RATE_SOLID: string;
+            ICON_RATE_HALF: string;
+            ICON_SOLID_HALF: string;
+            ICON_SOLID_RATE: string;
+            ICON_HALF_RATE: string;
         } & ComponentInterface<RateOptions, RateClass, RateReturn>["CONST"];
     }
 }

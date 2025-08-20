@@ -227,7 +227,8 @@ declare namespace Layui {
 
     /**
      * 标签页
-     * @see https://layui.dev/docs/2/tabs/
+     * 该组件继承自 Component 组件
+     * @see https://layui.dev/docs/2/tabs
      * @since 2.10.0
      */
     interface Tabs extends ComponentInterface<TabsOptions, TabsClass, TabsReturn> {
@@ -301,14 +302,12 @@ declare namespace Layui {
         on<K extends keyof TabsEventMap>(event: `${K}(${tabsId})`, callback: TabsEventMap[K]): this;
         on<K extends keyof TabsEventMap>(event: K, callback: TabsEventMap[K]): this;
         CONST: {
-            MOD_NAME: "tabs";
-            MOD_ID: "lay-tabs-id";
-            ELEM: "layui-tabs";
-            HEADER: "layui-tabs-header";
-            CLOSE: "layui-tabs-close";
-            BODY: "layui-tabs-body";
-            ITEM: "layui-tabs-item";
-            CARD: "layui-tabs-card";
+            ELEM: string;
+            HEADER: string;
+            CLOSE: string;
+            BODY: string;
+            ITEM: string;
+            CARD: string;
         } & ComponentInterface<TabsOptions, TabsClass, TabsReturn>["CONST"];
     }
 }

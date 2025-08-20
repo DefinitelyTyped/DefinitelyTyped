@@ -212,7 +212,7 @@ interface Layui extends Layui.GlobalModules {
     /**
      * 扩展任意外部模块
      * @param options
-     * @since 2.11.0+
+     * @since 2.11.0
      */
     extend(options: { [index: string]: { src: string; api: string } }): Layui;
     /**
