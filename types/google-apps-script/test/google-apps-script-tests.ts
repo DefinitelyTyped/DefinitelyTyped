@@ -62,8 +62,8 @@ function testOAuthScopes() {
 
     // https://developers.google.com/apps-script/reference/script/script-app#requirescopesauthmode,-oauthscopes
     ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, [
-        'https://www.googleapis.com/auth/documents',
-        'https://www.googleapis.com/auth/presentations',
+        "https://www.googleapis.com/auth/documents",
+        "https://www.googleapis.com/auth/presentations",
     ]);
 }
 
