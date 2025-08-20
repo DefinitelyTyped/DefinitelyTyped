@@ -16,6 +16,8 @@ export interface SvgCanvasOptions {
 
 /** Canvas-like drawing context that generates SVG */
 export class Context /*implements CanvasRenderingContext2D*/ {
+    /** Creates the mock canvas context 500x500 px */
+    constructor();
     /** Creates the mock canvas context */
     constructor(width: number, height: number);
     /** Creates the mock canvas context */

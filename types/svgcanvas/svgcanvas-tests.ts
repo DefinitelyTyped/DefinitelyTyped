@@ -4,8 +4,9 @@ const dom = new Element({});
 const ctx = new Context(500, 500);
 
 function createContext() {
-    const ctx1 = new Context(500, 500);
-    const ctx2 = new Context({ width: 500, height: 500 });
+    const ctx1 = new Context();
+    const ctx2 = new Context(500, 500);
+    const ctx3 = new Context({ width: 500, height: 500 });
 }
 
 function wrapCanvas() {
