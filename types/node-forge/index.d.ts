@@ -268,19 +268,18 @@ declare module "node-forge" {
             encoding: "binary";
         }
 
-        interface KeyPair {
-            publicKey: PublicKey;
-            privateKey: PrivateKey;
-        }
+        type KeyPair  = {
+            publicKey: pki.rsa.PublicKey;
+            privateKey: pki.rsa.PrivateKey;
+        } | {
+            publicKey: pki.ed25519.Key;
+            privateKey: pki.ed25519.Key;
+        };
 
         interface oids {
             [key: string]: string;
         }
         var oids: oids;
-
-        interface MDSigner {
-            sign(md: md.MessageDigest): Bytes;
-        }
 
         namespace rsa {
             type EncryptionScheme = "RSAES-PKCS1-V1_5" | "RSA-OAEP" | "RAW" | "NONE" | null;
@@ -437,8 +436,8 @@ declare module "node-forge" {
                 hash: any;
             };
             extensions: any[];
-            privateKey: PrivateKey;
-            publicKey: PublicKey;
+            privateKey: pki.rsa.PrivateKey;
+            publicKey: pki.rsa.PublicKey;
             md: md.MessageDigest;
             signatureParameters: any;
             tbsCertificate: asn1.Asn1;
@@ -476,10 +475,10 @@ declare module "node-forge" {
             /**
              * Signs this certificate using the given private key.
              *
-             * @param signer the signer used to sign this csr
+             * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            sign(signer: MDSigner, md?: md.MessageDigest): void;
+            sign(key: rsa.PrivateKey, md?: md.MessageDigest): void;
             /**
              * Attempts verify the signature on the passed certificate using this
              * certificate's public key.
@@ -542,7 +541,7 @@ declare module "node-forge" {
                 attributes: CertificateField[];
                 hash: any;
             };
-            publicKey: PublicKey | null;
+            publicKey: pki.rsa.PublicKey | null;
             attributes: CertificateField[];
             /**
              * Gets an issuer or subject attribute from its name, type, or short name.
@@ -571,10 +570,10 @@ declare module "node-forge" {
             /**
              * Signs this csr using the given private key.
              *
-             * @param signer the signer used to sign this csr
+             * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            sign(signer: MDSigner, md?: md.MessageDigest): void;
+            sign(key: rsa.PrivateKey, md?: md.MessageDigest): void;
             /**
              * Attempts verify the signature on this csr using this
              * csr's public key.
@@ -690,13 +689,13 @@ declare module "node-forge" {
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
 
-        function privateKeyToPem(key: PrivateKey, maxline?: number): PEM;
+        function privateKeyToPem(key: pki.rsa.PrivateKey, maxline?: number): PEM;
 
         function privateKeyInfoToPem(key: asn1.Asn1, maxline?: number): PEM;
 
-        function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
+        function publicKeyToPem(key: pki.rsa.PublicKey, maxline?: number): PEM;
 
-        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
+        function publicKeyToRSAPublicKeyPem(key: pki.rsa.PublicKey, maxline?: number): PEM;
 
         function publicKeyFromPem(pem: PEM): rsa.PublicKey;
 
@@ -712,17 +711,17 @@ declare module "node-forge" {
 
         function decryptRsaPrivateKey(pem: PEM, password: string): rsa.PrivateKey;
 
-        function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
+        function encryptRsaPrivateKey(privateKey: rsa.PrivateKey, password: string, options?: EncryptionOptions): PEM;
 
         function privateKeyFromAsn1(privateKey: asn1.Asn1): rsa.PrivateKey;
 
-        function privateKeyToAsn1(privateKey: PrivateKey): asn1.Asn1;
+        function privateKeyToAsn1(privateKey: rsa.PrivateKey): asn1.Asn1;
 
         function publicKeyFromAsn1(publicKey: asn1.Asn1): rsa.PublicKey;
 
-        function publicKeyToAsn1(publicKey: PublicKey): asn1.Asn1;
+        function publicKeyToAsn1(publicKey: pki.rsa.PublicKey): asn1.Asn1;
 
-        function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
+        function publicKeyToRSAPublicKey(publicKey: pki.rsa.PublicKey): any;
 
         const setRsaPublicKey: typeof pki.rsa.setPublicKey;
 
@@ -731,11 +730,11 @@ declare module "node-forge" {
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
 
         function getPublicKeyFingerprint(
-            publicKey: PublicKey,
+            publicKey: rsa.PublicKey,
             options?: ByteBufferFingerprintOptions,
         ): util.ByteStringBuffer;
-        function getPublicKeyFingerprint(publicKey: PublicKey, options: HexFingerprintOptions): Hex;
-        function getPublicKeyFingerprint(publicKey: PublicKey, options: BinaryFingerprintOptions): Bytes;
+        function getPublicKeyFingerprint(publicKey: rsa.PublicKey, options: HexFingerprintOptions): Hex;
+        function getPublicKeyFingerprint(publicKey: rsa.PublicKey, options: BinaryFingerprintOptions): Bytes;
     }
 
     namespace random {
@@ -768,23 +767,23 @@ declare module "node-forge" {
         /**
          * @description Encodes a private RSA key as an OpenSSH file
          */
-        function privateKeyToOpenSSH(privateKey: pki.PrivateKey, passphrase?: string): string;
+        function privateKeyToOpenSSH(privateKey: pki.rsa.PrivateKey, passphrase?: string): string;
 
         /**
          * @description Encodes (and optionally encrypts) a private RSA key as a Putty PPK file
          */
-        function privateKeyToPutty(privateKey: pki.PrivateKey, passphrase?: string, comment?: string): string;
+        function privateKeyToPutty(privateKey: pki.rsa.PrivateKey, passphrase?: string, comment?: string): string;
 
         /**
          * @description Encodes a public RSA key as an OpenSSH file
          */
-        function publicKeyToOpenSSH(publicKey: pki.PublicKey, comment?: string): string | pki.PEM;
+        function publicKeyToOpenSSH(publicKey: pki.rsa.PublicKey, comment?: string): string | pki.PEM;
 
         /**
          * @description Gets the SSH fingerprint for the given public key
          */
         function getPublicKeyFingerprint(
-            publicKey: pki.PublicKey,
+            publicKey: pki.rsa.PublicKey,
             options?: FingerprintOptions,
         ): util.ByteStringBuffer | Hex | string;
     }
@@ -970,7 +969,7 @@ declare module "node-forge" {
         interface Bag {
             type: string;
             attributes: any;
-            key?: pki.PrivateKey | undefined;
+            key?: pki.rsa.PrivateKey | undefined;
             cert?: pki.Certificate | undefined;
             asn1: asn1.Asn1;
         }
@@ -994,7 +993,7 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
 
         function toPkcs12Asn1(
-            key: pki.PrivateKey | null,
+            key: pki.rsa.PrivateKey | null,
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {
