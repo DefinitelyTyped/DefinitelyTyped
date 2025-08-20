@@ -7991,6 +7991,10 @@
             "libraryName": "webmidi",
             "asOfVersion": "3.0.1"
         },
+        "webpack": {
+            "libraryName": "webpack",
+            "asOfVersion": "5.28.6"
+        },
         "webpack-chain": {
             "libraryName": "webpack-chain",
             "asOfVersion": "5.2.0"
