@@ -23,6 +23,7 @@ declare abstract class TimestampQueryPool {
      *
      * @abstract
      * @param {Object} renderContext - The render context to allocate queries for.
+     * @returns {?number}
      */
     abstract allocateQueriesForContext(renderContext: RenderContext): number | null;
     /**

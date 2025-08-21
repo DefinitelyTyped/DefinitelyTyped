@@ -29,6 +29,7 @@ declare module "fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadPosition,
         ReadStream,
         ReadVResult,
         RmDirOptions,
@@ -39,7 +40,7 @@ declare module "fs/promises" {
         StatsFs,
         TimeLike,
         WatchEventType,
-        WatchOptions,
+        WatchOptions as _WatchOptions,
         WriteStream,
         WriteVResult,
     } from "node:fs";
@@ -69,7 +70,7 @@ declare module "fs/promises" {
          * @default `buffer.byteLength`
          */
         length?: number | null;
-        position?: number | null;
+        position?: ReadPosition | null;
     }
     interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
@@ -88,11 +89,7 @@ declare module "fs/promises" {
         flush?: boolean | undefined;
     }
     interface ReadableWebStreamOptions {
-        /**
-         * Whether to open a normal or a `'bytes'` stream.
-         * @since v20.0.0
-         */
-        type?: "bytes" | undefined;
+        autoClose?: boolean | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -236,7 +233,7 @@ declare module "fs/promises" {
             buffer: T,
             offset?: number | null,
             length?: number | null,
-            position?: number | null,
+            position?: ReadPosition | null,
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(
             buffer: T,
@@ -244,7 +241,8 @@ declare module "fs/promises" {
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
-         * Returns a `ReadableStream` that may be used to read the files data.
+         * Returns a byte-oriented `ReadableStream` that may be used to read the file's
+         * contents.
          *
          * An error will be thrown if this method is called more than once or is called
          * after the `FileHandle` is closed or closing.
@@ -265,7 +263,6 @@ declare module "fs/promises" {
          * While the `ReadableStream` will read the file to completion, it will not
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
-         * @experimental
          */
         readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
@@ -283,36 +280,26 @@ declare module "fs/promises" {
          * data will be a string.
          */
         readFile(
-            options?: {
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } | null,
+            options?:
+                | ({ encoding?: null | undefined } & Abortable)
+                | null,
         ): Promise<Buffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options:
-                | {
-                    encoding: BufferEncoding;
-                    flag?: OpenMode | undefined;
-                }
+                | ({ encoding: BufferEncoding } & Abortable)
                 | BufferEncoding,
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options?:
-                | (ObjectEncodingOptions & {
-                    flag?: OpenMode | undefined;
-                })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<string | Buffer>;
@@ -490,8 +477,9 @@ declare module "fs/promises" {
          */
         close(): Promise<void>;
         /**
-         * An alias for {@link FileHandle.close()}.
-         * @since v20.4.0
+         * Calls `filehandle.close()` and returns a promise that fulfills when the
+         * filehandle is closed.
+         * @since v20.4.0, v18.8.0
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
@@ -734,6 +722,19 @@ declare module "fs/promises" {
             recursive?: boolean | undefined;
         },
     ): Promise<Dirent[]>;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Promise<Dirent<Buffer>[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
      * fulfilled with the`linkString` upon success.
@@ -1181,6 +1182,16 @@ declare module "fs/promises" {
      * @return Fulfills with an {fs.Dir}.
      */
     function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
+    interface WatchOptions extends _WatchOptions {
+        maxQueue?: number | undefined;
+        overflow?: "ignore" | "throw" | undefined;
+    }
+    interface WatchOptionsWithBufferEncoding extends WatchOptions {
+        encoding: "buffer";
+    }
+    interface WatchOptionsWithStringEncoding extends WatchOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     /**
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
@@ -1213,33 +1224,16 @@ declare module "fs/promises" {
      */
     function watch(
         filename: PathLike,
-        options:
-            | (WatchOptions & {
-                encoding: "buffer";
-            })
-            | "buffer",
-    ): AsyncIterable<FileChangeInfo<Buffer>>;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
-    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo<string>>;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
+        options?: WatchOptionsWithStringEncoding | BufferEncoding,
+    ): NodeJS.AsyncIterator<FileChangeInfo<string>>;
     function watch(
         filename: PathLike,
-        options: WatchOptions | string,
-    ): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
+        options: WatchOptionsWithBufferEncoding | "buffer",
+    ): NodeJS.AsyncIterator<FileChangeInfo<Buffer>>;
+    function watch(
+        filename: PathLike,
+        options: WatchOptions | BufferEncoding | "buffer",
+    ): NodeJS.AsyncIterator<FileChangeInfo<string | Buffer>>;
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -1254,20 +1248,28 @@ declare module "fs/promises" {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { glob } from 'node:fs/promises';
+     *
+     * for await (const entry of glob('*.js'))
+     *   console.log(entry);
+     * ```
+     * @since v22.0.0
+     * @returns An AsyncIterator that yields the paths of files
+     * that match the pattern.
      */
-    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
+    function glob(pattern: string | readonly string[]): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithFileTypes,
     ): NodeJS.AsyncIterator<Dirent>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithoutFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithoutFileTypes,
     ): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptions,
+        pattern: string | readonly string[],
+        options: GlobOptions,
     ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {

@@ -39,11 +39,39 @@ const postTest = (payload: object): string => {
     return UrlFetchApp.fetch(url, params).getContentText();
 };
 
+// Test CalendarApp.EventType
+const testCalendarAppEventType = (): void => {
+    const event = CalendarApp.getEventById("testevent");
+    const type = event.getEventType();
+    const birthdayType = CalendarApp.EventType.BIRTHDAY;
+    birthdayType !== type;
+
+    type !== CalendarApp.EventType.FOCUS_TIME;
+
+    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE;
+    // @ts-expect-error
+    type == GoogleAppsScript.Calendar.EventType.STANDARD;
+};
+
+// ScriptApp
+// https://developers.google.com/apps-script/reference/script/script-app
+
+function testOAuthScopes() {
+    // https://developers.google.com/apps-script/reference/script/script-app#requireallscopesauthmode
+    ScriptApp.requireAllScopes(ScriptApp.AuthMode.FULL);
+
+    // https://developers.google.com/apps-script/reference/script/script-app#requirescopesauthmode,-oauthscopes
+    ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, [
+        "https://www.googleapis.com/auth/documents",
+        "https://www.googleapis.com/auth/presentations",
+    ]);
+}
+
 // Advanced Services
 Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
 
 // Calendar (Advanced service)
-const createEvent = (): void => {
+const createEvent = (): GoogleAppsScript.Calendar.Schema.Event => {
     const calendarId = "primary";
     const start = new Date();
     const end = new Date();
@@ -66,6 +94,8 @@ const createEvent = (): void => {
     };
     event = Calendar.Events.insert(event, calendarId);
     Logger.log("Event ID: " + event.id);
+
+    return event;
 };
 
 // Calendar Working Locations (Advanced Service)

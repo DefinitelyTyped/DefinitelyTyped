@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.138.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1076,7 +1076,11 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
       /**
        * Type of the value
        */
-      oType: Type
+      oType: Type,
+      /**
+       * If `true`, the connected control could be left empty (without conditions)
+       */
+      bEmptyAllowed: boolean
     ): string | ValueHelpItem | Promise<string | ValueHelpItem>;
     /**
      * Determines the description for a given key.
@@ -1140,7 +1144,11 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
       /**
        * Type of the value
        */
-      oType: Type
+      oType: Type,
+      /**
+       * If `true`, the connected control could be left empty (without conditions)
+       */
+      bEmptyAllowed: boolean
     ): string | ValueHelpItem | Promise<string | ValueHelpItem>;
     /**
      * Determines the description for a given key.
@@ -1204,7 +1212,11 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
       /**
        * Type of the value
        */
-      oType: Type
+      oType: Type,
+      /**
+       * If `true`, the connected control could be left empty (without conditions)
+       */
+      bEmptyAllowed: boolean
     ): string | ValueHelpItem | Promise<string | ValueHelpItem>;
     /**
      * Determines the description for a given key.
@@ -1264,7 +1276,11 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
       /**
        * Type of the value
        */
-      oType: Type
+      oType: Type,
+      /**
+       * If `true`, the connected control could be left empty (without conditions)
+       */
+      bEmptyAllowed: boolean
     ): string | ValueHelpItem | Promise<string | ValueHelpItem>;
     /**
      * Determines the key, description, and payload of a user input.
@@ -1842,6 +1858,7 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
 
   import {
     default as Table,
+    ComplexPropertyInfo,
     PropertyInfo as PropertyInfo1,
   } from "sap/ui/mdc/Table";
 
@@ -1903,7 +1920,7 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
        * Instance of the table
        */
       oTable: Table
-    ): Promise<PropertyInfo[]>;
+    ): Promise<Array<PropertyInfo | ComplexPropertyInfo>>;
     /**
      * Returns the keys of properties that should always be included in the result of the collection requested
      * from the back end. This information is applied when updating the table's binding.
@@ -1993,31 +2010,7 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
   };
 
   /**
-   * An object literal describing a data property in the context of a {@link sap.ui.mdc.Table} with {@link module:sap/ui/mdc/odata/v4/TableDelegate sap/ui/mdc/odata/v4/TableDelegate}.
-   *
-   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.Table#getPropertyInfo propertyInfo }
-   * property, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `path`
-   * 	 - `dataType`
-   * 	 - `formatOptions`
-   * 	 - `constraints`
-   * 	 - `maxConditions`
-   * 	 - `caseSensitive`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos`
-   * 	 - `groupable`
-   * 	 - `isKey`
-   * 	 - `unit`
-   * 	 - `text`
-   * 	 - `aggregatable`
-   * 	 - `extension.technicallyGroupable`
-   * 	 - `extension.technicallyAggregatable`
-   *
-   * If the property is complex, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos` (all referenced properties must be specified)
+   * An object literal describing a data property in the context of an {@link sap.ui.mdc.Table} with {@link module:sap/ui/mdc/odata/v4/TableDelegate sap/ui/mdc/odata/v4/TableDelegate}.
    */
   export type PropertyInfo = PropertyInfo1 & {
     /**
@@ -2099,7 +2092,11 @@ declare module "sap/ui/mdc/odata/v4/TypeMap" {
 declare module "sap/ui/mdc/TableDelegate" {
   import AggregationBaseDelegate from "sap/ui/mdc/AggregationBaseDelegate";
 
-  import { default as Table, PropertyInfo } from "sap/ui/mdc/Table";
+  import {
+    default as Table,
+    PropertyInfo,
+    ComplexPropertyInfo,
+  } from "sap/ui/mdc/Table";
 
   import Column from "sap/ui/mdc/table/Column";
 
@@ -2208,13 +2205,13 @@ declare module "sap/ui/mdc/TableDelegate" {
      *
      * By default, this method returns a `Promise` that resolves with an empty array.
      *
-     * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
-     * Any changes of the returned values might result in undesired effects.
-     *
-     * **Note**: Existing properties (set via `sap.ui.mdc.Table#setPropertyInfo`) must not be removed and their
-     * attributes must not be changed during the {@link module:sap/ui/mdc/TableDelegate.fetchProperties fetchProperties }
-     * callback. Otherwise validation errors might occur whenever personalization-related control features (such
-     * as the opening of any personalization dialog) are activated.
+     * **Note:**
+     * 	 - The result of this function must be kept stable throughout the lifecycle of your application. Any
+     *     changes of the returned values might result in undesired effects.
+     * 	 - Existing properties (set via `sap.ui.mdc.Table#setPropertyInfo`) must not be removed and their attributes
+     *     must not be changed during the {@link module:sap/ui/mdc/TableDelegate.fetchProperties fetchProperties }
+     *     callback. Otherwise validation errors might occur whenever personalization-related control features (such
+     *     as the opening of any personalization dialog) are activated.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -2225,7 +2222,7 @@ declare module "sap/ui/mdc/TableDelegate" {
        * Instance of the table
        */
       oTable: Table
-    ): Promise<PropertyInfo[]>;
+    ): Promise<Array<PropertyInfo | ComplexPropertyInfo>>;
     /**
      * Formats the title text of a group header row of the table.
      *
@@ -2674,6 +2671,135 @@ declare module "sap/ui/mdc/util/TypeMap" {
   export default TypeMap;
 }
 
+declare module "sap/ui/mdc/valuehelp/RequestShowContainerDefault" {
+  import ValueHelp from "sap/ui/mdc/ValueHelp";
+
+  import Container from "sap/ui/mdc/valuehelp/base/Container";
+
+  /**
+   * This object contains default behavior for opening `ValueHelp` {@link sap.ui.mdc.valuehelp.base.Container containers }
+   * in the context of interaction on connected controls. Please also see {@link module:sap/ui/mdc/ValueHelpDelegate.requestShowContainer requestShowContainer}
+   *
+   * @since 1.137
+   */
+  interface RequestShowContainerDefault {
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.Filter RequestShowContainerReason.Filter}.
+     *
+     * On desktop, prevent showing FilterableListContent without given filterValue. On desktop, check ListContent
+     * for available data. Show all other content without further checks.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    Filter(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.Focus RequestShowContainerReason.Focus}.
+     *
+     * By default, a container is not shown in response to focus events, as it cannot be determined whether
+     * the event was triggered by user interaction or programmatically.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    Focus(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.Navigate RequestShowContainerReason.Navigate}.
+     *
+     * Preloads delegate content. By default, a container is not shown in response to navigation.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    Navigate(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.Tap RequestShowContainerReason.Tap}.
+     *
+     * On phones, return true for multi-select usage or if the container is not used as a valuehelp. At last,
+     * check if the content is a non-boolean, unfiltered fixed list.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    Tap(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.Typing RequestShowContainerReason.Typing}.
+     *
+     * Preloads delegate content. On phones, return false for single-select usage or if the container is used
+     * as a valuehelp. At last, check content's search support.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    Typing(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+    /**
+     * Default behavior for {@link sap.ui.mdc.enums.RequestShowContainerReason.ValueHelpRequest RequestShowContainerReason.ValueHelpRequest}.
+     *
+     * By default, a dialog-like container should be shown on `ValueHelpRequest` events.
+     *
+     *
+     * @returns `true`, if the value help should trigger opening
+     */
+    ValueHelpRequest(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container
+    ): Promise<boolean>;
+  }
+  const RequestShowContainerDefault: RequestShowContainerDefault;
+  export default RequestShowContainerDefault;
+}
+
 declare module "sap/ui/mdc/ValueHelpDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
 
@@ -2702,7 +2828,11 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
 
   import ValueHelpPropagationReason from "sap/ui/mdc/enums/ValueHelpPropagationReason";
 
+  import Control from "sap/ui/core/Control";
+
   import Container from "sap/ui/mdc/valuehelp/base/Container";
+
+  import RequestShowContainerReason from "sap/ui/mdc/enums/RequestShowContainerReason";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -3073,9 +3203,61 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
       oConfig: object
     ): void;
     /**
+     * Provides a hook to run time-critical tasks once a control connects to a value help.
+     *
+     * This method allows for working around any delays that might occur during user interaction treatment of
+     * the connecting `control`. For example, `setTimeout` or `debouncing` are used in {@link sap.ui.mdc.field.FieldBase FieldBase }
+     * to prevent triggering value help requests too early/often.
+     *
+     * @since 1.136
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    onControlConnect(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Control to which the `ValueHelp` element is connected
+       */
+      oControl: Control,
+      /**
+       * Connect configuration object
+       */
+      oConfig?: /* was: sap.ui.mdc.valuehelp.base.ConnectConfig */ any
+    ): void;
+    /**
+     * Determines if a value help container is to be opened on user interaction, navigation, or configuration
+     * changes. **Note:** This method can be called repeatedly with various {@link {sap.ui.mdc.enums.RequestShowContainerReason reasons }
+     * depending on the given {@link sap.ui.mdc.valuehelp.base.Container container}.
+     *
+     * @since 1.136
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns `true`, if the value help is to be triggered
+     */
+    requestShowContainer(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Container instance
+       */
+      oContainer: Container,
+      /**
+       * Reason for the request
+       */
+      sRequestShowContainerReason:
+        | RequestShowContainerReason
+        | keyof typeof RequestShowContainerReason
+    ): Promise<boolean>;
+    /**
      * Requests additional content for the value help.
      *
-     * This function is called when the value help is opened or a key or description is requested.
+     * This method is called during the opening phase of a `ValueHelp`, if a new content is displayed for a
+     * `CollectiveSearch` dialog or if one of the following methods is called: {@link sap.ui.mdc.ValueHelp#getItemForValue getItemForValue},
+     * {@link sap.ui.mdc.ValueHelp#requestShowTypeahead requestShowTypeahead}, {@link sap.ui.mdc.ValueHelp#requestShowValueHelp requestShowValueHelp}
      *
      * So depending on the value help {@link sap.ui.mdc.valuehelp.base.Content Content} used, all content controls
      * and data need to be assigned. Once they are assigned and the data is set, the returned `Promise` needs
@@ -3107,6 +3289,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * Currently this is only supported for the type-ahead container.
      *
      * @since 1.121.0
+     * @deprecated As of version 1.137. replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.requestShowContainer}.
      *
      * @returns If `true`, the value help is opened when user clicks into the connected field control
      */
@@ -3128,6 +3311,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * Currently this is only supported for the type-ahead container.
      *
      * @since 1.121.0
+     * @deprecated As of version 1.137. replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.requestShowContainer}.
      *
      * @returns If `true`, the value help is opened when user focuses on the connected field control
      */
@@ -3149,6 +3333,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * is returned.
      *
      * @since 1.110.0
+     * @deprecated As of version 1.137. replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.requestShowContainer}.
      *
      * @returns Boolean or `Promise` that resolves into a `boolean` indicating the desired behavior
      */
@@ -3313,7 +3498,7 @@ declare module "sap/ui/mdc/library" {
     /**
      * Describes the filter conditions
      */
-    filter?: State.XCondition;
+    filter?: Record<string, State.XCondition[]>;
     /**
      * Describes the filter fields
      */
@@ -3468,7 +3653,12 @@ declare module "sap/ui/mdc/library" {
         /**
          * Closes the container
          */
-        close(): void;
+        close(
+          /**
+           * If set, closing must not restore the focus on the field
+           */
+          bDoNotRestoreFocus: boolean
+        ): void;
         /**
          * Opens the container
          *
@@ -3541,7 +3731,12 @@ declare module "sap/ui/mdc/library" {
         /**
          * Closes the container
          */
-        close(): void;
+        close(
+          /**
+           * If set, closing must not restore the focus on the field
+           */
+          bDoNotRestoreFocus: boolean
+        ): void;
         /**
          * Determines the item (key and description) for a given value.
          *
@@ -3619,24 +3814,27 @@ declare module "sap/ui/mdc/library" {
         /**
          * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
          *
+         * @deprecated As of version 1.137. with no replacement.
          *
          * @returns If `true`, the value help should open when user clicks into the connected field control
          */
-        shouldOpenOnClick(): Promise<boolean>;
+        shouldOpenOnClick?(): Promise<boolean>;
         /**
          * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
          *
+         * @deprecated As of version 1.137. with no replacement.
          *
          * @returns If `true`, the value help should open when user focuses the connected field control
          */
-        shouldOpenOnFocus(): Promise<boolean>;
+        shouldOpenOnFocus?(): Promise<boolean>;
         /**
          * Defines if the typeahead containers values can be navigated without visibly opening the help
          *
+         * @deprecated As of version 1.137. with no replacement.
          *
          * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
          */
-        shouldOpenOnNavigate(): boolean;
+        shouldOpenOnNavigate?(): boolean;
       }
 
       /**
@@ -3725,17 +3923,19 @@ declare module "sap/ui/mdc/library" {
          * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
          * control
          *
+         * @deprecated As of version 1.137. with no replacement.
          *
          * @returns If `true`, the value help should open when user clicks into the connected field control
          */
-        shouldOpenOnClick(): boolean;
+        shouldOpenOnClick?(): boolean;
         /**
          * Defines if the typeahead containers values can be navigated without visibly opening the help
          *
+         * @deprecated As of version 1.137. with no replacement.
          *
          * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
          */
-        shouldOpenOnNavigate(): boolean;
+        shouldOpenOnNavigate?(): boolean;
       }
     }
   }
@@ -3747,6 +3947,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
   import { IOverflowToolbarContent } from "sap/m/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import ActionToolbarActionAlignment from "sap/ui/mdc/enums/ActionToolbarActionAlignment";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -3839,7 +4041,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
     /**
      * Gets current value of property {@link #getLayoutInformation layoutInformation}.
      *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      *
      * Default value is `...see text or source`.
      *
@@ -3873,7 +4076,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
     /**
      * Sets a new value for property {@link #getLayoutInformation layoutInformation}.
      *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3889,12 +4093,27 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
       oLayoutInformation?: object
     ): this;
   }
+
+  export type ActionToolbarActionLayoutInformation = {
+    /**
+     * The name of the aggregation where the action is displayed. Currently only `end` is supported.
+     */
+    aggregationName: string;
+    /**
+     * The alignment of the action defining if it's displayed before or after the aggregation.
+     */
+    alignment:
+      | ActionToolbarActionAlignment
+      | keyof typeof ActionToolbarActionAlignment;
+  };
+
   /**
    * Describes the settings that can be provided to the ActionToolbarAction constructor.
    */
   export interface $ActionToolbarActionSettings extends $ControlSettings {
     /**
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      */
     layoutInformation?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -6221,6 +6440,9 @@ declare module "sap/ui/mdc/condition/FilterOperatorUtil" {
   interface FilterOperatorUtil {
     /**
      * Adds an operator to the list of known operators.
+     *
+     * **Note:** For application-specific operators, use an application-specific name to prevent conflicts with
+     * different applications.
      */
     addOperator(
       /**
@@ -6243,6 +6465,9 @@ declare module "sap/ui/mdc/condition/FilterOperatorUtil" {
     ): void;
     /**
      * Adds an array of operators to the list of known operators.
+     *
+     * **Note:** For application-specific operators, use an application-specific name to prevent conflicts with
+     * different applications.
      */
     addOperators(
       /**
@@ -6408,6 +6633,8 @@ declare module "sap/ui/mdc/condition/Operator" {
         /**
          * Alias names based on {@link sap.ui.mdc.enums.BaseType BaseType}, used to map to {@link sap.m.DynamicDateOption DynamicDateOption }
          * if {@link sap.m.DynamicDateRange DynamicDateRange} is used to visualize the filter
+         *  For example, if an operator must use the `DATE` option if used for a date type and the `DATETIME` option
+         * if used for a date/time type, the `alias` needs to be configured as `{Date: "DATE", DateTime: "DATETIME"}`.
          */
         alias?: object;
         /**
@@ -7337,6 +7564,12 @@ declare module "sap/ui/mdc/enums/ContentMode" {
      * Edit mode for operator dependent controls This is used for single value and only one operator.
      */
     EditOperator = "EditOperator",
+    /**
+     * Edit mode for single value field that is rendered as `Select` control
+     *
+     * @since 1.138
+     */
+    EditSelect = "EditSelect",
   }
   export default ContentMode;
 }
@@ -8235,6 +8468,46 @@ declare module "sap/ui/mdc/enums/ReasonMode" {
   export default ReasonMode;
 }
 
+declare module "sap/ui/mdc/enums/RequestShowContainerReason" {
+  /**
+   * Enumeration of the possible triggers for {@link sap.ui.mdc.ValueHelp ValueHelp}
+   *
+   * @since 1.136
+   */
+  enum RequestShowContainerReason {
+    /**
+     * Content may have been filtered during it's {@link sap.ui.mdc.valuehelp.base.FilterableListContent#onBeforeShow onBeforeShow }
+     * phase or a `filterValue` change occured while the `ValueHelp` was already open.
+     */
+    Filter = "Filter",
+    /**
+     * A connected control receives focus.
+     */
+    Focus = "Focus",
+    /**
+     * {@link sap.ui.mdc.ValueHelp#navigate ValueHelp arrow-navigation} was triggered.
+     */
+    Navigate = "Navigate",
+    /**
+     * A connected control was focused using the Tab key.
+     */
+    Tab = "Tab",
+    /**
+     * A connected control was activated through a click or tap action.
+     */
+    Tap = "Tap",
+    /**
+     * Text was entered or modified in a connected control.
+     */
+    Typing = "Typing",
+    /**
+     * A connected control fired a {@link sap.m.Input.valueHelpRequest valueHelpRequest}.
+     */
+    ValueHelpRequest = "ValueHelpRequest",
+  }
+  export default RequestShowContainerReason;
+}
+
 declare module "sap/ui/mdc/enums/TableGrowingMode" {
   /**
    * Growing mode of the table.
@@ -9093,6 +9366,10 @@ declare module "sap/ui/mdc/field/ConditionsType" {
          * If set, the input and output might contain multiple lines
          */
         multipleLines?: boolean;
+        /**
+         * If `true`, the connected control could be left empty (without conditions)
+         */
+        emptyAllowed?: boolean;
       },
       /**
        * Value constraints
@@ -9334,6 +9611,10 @@ declare module "sap/ui/mdc/field/ConditionType" {
          * If set, the input and output might contain multiple lines
          */
         multipleLines?: boolean;
+        /**
+         * If `true`, the connected control could be left empty (without conditions)
+         */
+        emptyAllowed?: boolean;
       },
       /**
        * Value constraints
@@ -9576,6 +9857,10 @@ declare module "sap/ui/mdc/field/DynamicDateRangeConditionsType" {
          * If set, the input and output might contain multiple lines
          */
         multipleLines?: boolean;
+        /**
+         * If `true`, the connected control could be left empty (without conditions)
+         */
+        emptyAllowed?: boolean;
       },
       /**
        * Value constraints
@@ -10163,6 +10448,25 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getBaseType(): BaseType;
     /**
+     * Creates parameter for a `ParseError`, `ValidationError` or `ValidationSuccess` event based on the corresponding
+     * event fired on the inner control.
+     *
+     * The basic implementation just adds the element and error information. The `property` and `type` information
+     * must be added by the inheriting control. If no binding for the corresponding property exists `null` must
+     * be returned, as the event must only be fired if there is a binding.
+     *
+     * @since 1.138.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns parameters for the new event
+     */
+    getBindingEventParameter(
+      /**
+       * original event fired on inner control
+       */
+      oEvent: Event
+    ): object;
+    /**
      * Gets current value of property {@link #getConditions conditions}.
      *
      * Sets the conditions that represent the values of the field.
@@ -10556,6 +10860,20 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getValueState(): ValueState;
     /**
+     * Gets the ValueState for content controls
+     *
+     * @since 1.138.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns value state information for content control
+     */
+    getValueStateForContent(
+      /**
+       * Id of the content control or Id of the field itself
+       */
+      sContentId: string
+    ): object;
+    /**
      * Gets current value of property {@link #getValueStateText valueStateText}.
      *
      * Defines the text that appears in the value state message pop-up. If this has not been specified, a default
@@ -10610,6 +10928,15 @@ declare module "sap/ui/mdc/field/FieldBase" {
      * @returns `true` if there is a pending user input
      */
     hasPendingUserInput(): boolean;
+    /**
+     * Return `true` if at least one content control has a own value state
+     *
+     * @since 1.138.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns `true` if at least one content control has a own value state
+     */
+    hasValueStateForContent(): boolean;
     /**
      * Initializes internal data-types and dependent objects.
      *
@@ -10708,6 +11035,13 @@ declare module "sap/ui/mdc/field/FieldBase" {
        */
       bRemoveUIMessage: boolean
     ): void;
+    /**
+     * Resets the ValueState for content controls
+     *
+     * @since 1.138.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    resetValueStateForAllContent(): void;
     /**
      * Sets a new value for property {@link #getConditions conditions}.
      *
@@ -11130,6 +11464,26 @@ declare module "sap/ui/mdc/field/FieldBase" {
        */
       sValueState?: ValueState | keyof typeof ValueState
     ): this;
+    /**
+     * Sets the ValueState for content controls
+     *
+     * @since 1.138.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    setValueStateForContent(
+      /**
+       * Id of the content control
+       */
+      sContentId: string,
+      /**
+       * value state
+       */
+      sValueState: ValueState | keyof typeof ValueState,
+      /**
+       * value state text
+       */
+      sValueStateText: string
+    ): void;
     /**
      * Sets a new value for property {@link #getValueStateText valueStateText}.
      *
@@ -15218,7 +15572,10 @@ declare module "sap/ui/mdc/Table" {
 
   import VariantManagement from "sap/ui/fl/variants/VariantManagement";
 
-  import { PropertyInfo as PropertyInfo1 } from "sap/ui/mdc/util/PropertyHelper";
+  import {
+    ComplexPropertyInfo as ComplexPropertyInfo1,
+    PropertyInfo as PropertyInfo1,
+  } from "sap/ui/mdc/util/PropertyHelper";
 
   import {
     PropertyBindingInfo,
@@ -15230,7 +15587,7 @@ declare module "sap/ui/mdc/Table" {
   /**
    * A metadata-driven table to simplify the usage of existing tables, such as the `ResponsiveTable` and `GridTable`
    * controls. The metadata needs to be provided via the {@link module:sap/ui/mdc/TableDelegate TableDelegate }
-   * implementation as {@link sap.ui.mdc.table.PropertyInfo}.
+   * implementation as {@link sap.ui.mdc.table.PropertyInfo} and {@link sap.ui.mdc.table.ComplexPropertyInfo}.
    *
    * **Note:** Read and write access to internal elements is not permitted. Such elements are, for example,
    * the inner table including its children. This is independent of how access was gained. Internal elements
@@ -15888,9 +16245,8 @@ declare module "sap/ui/mdc/Table" {
      * `false`.
      *
      * **Note:** The {@link sap.m.plugins.CopyProvider#extractData extractData} property of the `CopyProvider`
-     * must not be managed by the application.
-     *  The `CopyProvider` requires a secure context to access the clipboard API. If the context is not secure,
-     * the plugin will not be added, and the Copy button will not be generated.
+     * must not be managed by the application. The `CopyProvider` requires a secure context to access the clipboard
+     * API. If the context is not secure, the plugin will not be added, and the Copy button will not be generated.
      *
      * @since 1.114
      */
@@ -15907,11 +16263,14 @@ declare module "sap/ui/mdc/Table" {
      * Gets current value of property {@link #getDelegate delegate}.
      *
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
+     *
+     * The object has the following properties:
      * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/TableDelegate TableDelegate}.
      *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
+     *
+     *
+     * Sample delegate object:
      * ```javascript
      * {
      * 	name: "sap/ui/mdc/TableDelegate",
@@ -15920,8 +16279,7 @@ declare module "sap/ui/mdc/Table" {
      *
      *
      * **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     * that). Do not bind or modify the module. This property can only be configured during control initialization.
      *
      * Default value is `...see text or source`.
      *
@@ -16048,7 +16406,6 @@ declare module "sap/ui/mdc/Table" {
      * Determines whether the toolbar is visible.
      *
      * **Note:** Hiding the toolbar limits the functionality of the table in the following ways:
-     *
      * 	 - The `showRowCount` property **must** be set to `false`.
      * 	 - The export **must** be disabled by setting the `enableExport` property to `false`.
      * 	 - For {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, show and hide details won't be
@@ -16103,11 +16460,11 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Gets current value of property {@link #getP13nMode p13nMode}.
      *
-     * Personalization options for the table.
+     * Personalization options for the table. The order of the provided options does not influence their order
+     * on the UI.
      *
      * **Note:** Whether a personalization option is supported depends on the used delegate. Please refer to
-     * the documentation of the individual delegates. The order of the provided options does not influence their
-     * order on the UI.
+     * the documentation of the individual delegates.
      *
      * Default value is `[]`.
      *
@@ -16195,8 +16552,7 @@ declare module "sap/ui/mdc/Table" {
      * is lower than the number of visible rows, the number of visible rows is used as the `threshold`. If the
      * value is 0, thresholding is disabled.
      *
-     * **Note:** This property only takes effect if it is set to a positive integer value. Otherwise the table
-     * uses a type-dependent default value.
+     * If the value is -1, a type-dependent default value is used.
      *
      * Default value is `-1`.
      *
@@ -16398,11 +16754,14 @@ declare module "sap/ui/mdc/Table" {
      * Sets a new value for property {@link #getDelegate delegate}.
      *
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
+     *
+     * The object has the following properties:
      * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/TableDelegate TableDelegate}.
      *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
+     *
+     *
+     * Sample delegate object:
      * ```javascript
      * {
      * 	name: "sap/ui/mdc/TableDelegate",
@@ -16411,8 +16770,7 @@ declare module "sap/ui/mdc/Table" {
      *
      *
      * **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     * that). Do not bind or modify the module. This property can only be configured during control initialization.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -16611,7 +16969,6 @@ declare module "sap/ui/mdc/Table" {
      * Determines whether the toolbar is visible.
      *
      * **Note:** Hiding the toolbar limits the functionality of the table in the following ways:
-     *
      * 	 - The `showRowCount` property **must** be set to `false`.
      * 	 - The export **must** be disabled by setting the `enableExport` property to `false`.
      * 	 - For {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, show and hide details won't be
@@ -16682,11 +17039,11 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Sets a new value for property {@link #getP13nMode p13nMode}.
      *
-     * Personalization options for the table.
+     * Personalization options for the table. The order of the provided options does not influence their order
+     * on the UI.
      *
      * **Note:** Whether a personalization option is supported depends on the used delegate. Please refer to
-     * the documentation of the individual delegates. The order of the provided options does not influence their
-     * order on the UI.
+     * the documentation of the individual delegates.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -16804,8 +17161,7 @@ declare module "sap/ui/mdc/Table" {
      * is lower than the number of visible rows, the number of visible rows is used as the `threshold`. If the
      * value is 0, thresholding is disabled.
      *
-     * **Note:** This property only takes effect if it is set to a positive integer value. Otherwise the table
-     * uses a type-dependent default value.
+     * If the value is -1, a type-dependent default value is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -16883,28 +17239,79 @@ declare module "sap/ui/mdc/Table" {
     ): this;
   }
   /**
-   * An object literal describing a data property in the context of an {@link sap.ui.mdc.Table}.
+   * An object literal that describes attributes of a complex data property in the context of an {@link sap.ui.mdc.Table}.
+   * A complex property references other properties in the `propertyInfos` attribute.
    *
-   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.Table#getPropertyInfo propertyInfo }
-   * property, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `path`
-   * 	 - `dataType`
-   * 	 - `formatOptions`
-   * 	 - `constraints`
-   * 	 - `maxConditions`
-   * 	 - `caseSensitive`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos`
-   * 	 - `groupable`
-   * 	 - `isKey`
-   * 	 - `unit`
-   * 	 - `text`
+   * If a `sap.ui.mdc.table.Column` points to a complex property via its `propertyKey` property, the table
+   * considers all the referenced properties as visible in the column. All referenced properties are taken
+   * into account for certain features, for example, for the column width calculation.
    *
-   * If the property is complex, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos` (all referenced properties must be specified)
+   * Some attributes of the referenced properties can be overridden. If, for example, `exportSettings` are
+   * specified for the complex property, the export settings of the referenced properties are ignored. This
+   * can be used to provide a different formatting template, for example.
+   */
+  export type ComplexPropertyInfo = ComplexPropertyInfo1 & {
+    /**
+     * The export settings. Set to `null` to prevent this property from being exported.
+     */
+    exportSettings?: /* was: sap.ui.export.Column */ any | null;
+    /**
+     * The clipboard settings. Set to `null` to prevent this property from being copied to clipboard.
+     */
+    clipboardSettings?: {
+      /**
+       * Defines the formatting template that supports indexed placeholders for referenced properties within curly
+       * brackets, for example, "{0} ({1})".
+       */
+      template?: string;
+    } | null;
+    /**
+     * This object contains all relevant attributes for visual adjustments.
+     */
+    visualSettings?: {
+      /**
+       * Settings for column width calculation. Set to `null` to disable the automatic column width calculation
+       * for this property.
+       */
+      widthCalculation?: {
+        /**
+         * The minimum content width in rem
+         */
+        minWidth?: int;
+        /**
+         * The maximum content width in rem
+         */
+        maxWidth?: int;
+        /**
+         * The default column content width when type check fails
+         */
+        defaultWidth?: int;
+        /**
+         * The additional content width in rem
+         */
+        gap?: float;
+        /**
+         * Whether the label is taken into account
+         */
+        includeLabel?: boolean;
+        /**
+         * Whether the label is truncated
+         */
+        truncateLabel?: boolean;
+        /**
+         * Whether the referenced properties are arranged vertically
+         */
+        verticalArrangement?: boolean;
+        /**
+         * A list of invisible referenced property keys
+         */
+        excludeProperties?: string[];
+      } | null;
+    };
+  };
+
+  /**
+   * An object literal that describes attributes of a data property in the context of an {@link sap.ui.mdc.Table}.
    */
   export type PropertyInfo = PropertyInfo1 & {
     /**
@@ -16934,26 +17341,25 @@ declare module "sap/ui/mdc/Table" {
      */
     text?: string;
     /**
-     * Object that contains information about the export settings, see {@link sap.ui.export.Spreadsheet}.
+     * The export settings. Set to `null` to prevent this property from being exported.
      */
-    exportSettings?: object;
+    exportSettings?: /* was: sap.ui.export.Column */ any | null;
     /**
-     * Object that contains information about the clipboard settings. Setting this value to `null` disables
-     * the copy function.
+     * The clipboard settings. Set to `null` prevent this property from being copied to clipboard.
      */
     clipboardSettings?: {
       /**
-       * Defines the formatting template that supports indexed placeholders of `propertyInfos` within curly brackets,
-       * for example, "{0} ({1})".
+       * Defines the formatting template that supports indexed placeholders, for example, "{0}".
        */
       template?: string;
-    };
+    } | null;
     /**
      * This object contains all relevant properties for visual adjustments.
      */
     visualSettings?: {
       /**
-       * This object contains all properties and their default values for the column width calculation
+       * Settings for column width calculation. Set to `null` to disable the automatic column width calculation
+       * for this property.
        */
       widthCalculation?: {
         /**
@@ -16973,11 +17379,11 @@ declare module "sap/ui/mdc/Table" {
          */
         gap?: float;
         /**
-         * Whether the label should be taken into account
+         * Whether the label is taken into account
          */
         includeLabel?: boolean;
         /**
-         * Whether the label should be trucated or not
+         * Whether the label is truncated
          */
         truncateLabel?: boolean;
         /**
@@ -16988,13 +17394,8 @@ declare module "sap/ui/mdc/Table" {
          * A list of invisible referenced property keys
          */
         excludeProperties?: string[];
-      };
+      } | null;
     };
-    /**
-     * The availability of this property makes the `PropertyInfo` a complex `PropertyInfo`. Provides a list
-     * of related properties (by key). These related properties must not themselves be complex.
-     */
-    propertyInfos?: string[];
   };
 
   /**
@@ -17014,11 +17415,11 @@ declare module "sap/ui/mdc/Table" {
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Personalization options for the table.
+     * Personalization options for the table. The order of the provided options does not influence their order
+     * on the UI.
      *
      * **Note:** Whether a personalization option is supported depends on the used delegate. Please refer to
-     * the documentation of the individual delegates. The order of the provided options does not influence their
-     * order on the UI.
+     * the documentation of the individual delegates.
      *
      * @since 1.62
      */
@@ -17029,11 +17430,14 @@ declare module "sap/ui/mdc/Table" {
 
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
+     *
+     * The object has the following properties:
      * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/TableDelegate TableDelegate}.
      *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
+     *
+     *
+     * Sample delegate object:
      * ```javascript
      * {
      * 	name: "sap/ui/mdc/TableDelegate",
@@ -17042,8 +17446,7 @@ declare module "sap/ui/mdc/Table" {
      *
      *
      * **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     * that). Do not bind or modify the module. This property can only be configured during control initialization.
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -17118,8 +17521,7 @@ declare module "sap/ui/mdc/Table" {
      * is lower than the number of visible rows, the number of visible rows is used as the `threshold`. If the
      * value is 0, thresholding is disabled.
      *
-     * **Note:** This property only takes effect if it is set to a positive integer value. Otherwise the table
-     * uses a type-dependent default value.
+     * If the value is -1, a type-dependent default value is used.
      *
      * @since 1.63
      */
@@ -17128,8 +17530,8 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Defines the sort conditions.
      *
-     * **Note:** This property must not be bound.
-     *  This property is used exclusively for handling SAPUI5 flexibility changes. Do not use it otherwise.
+     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
+     * Do not use it otherwise.
      *
      * @since 1.73
      */
@@ -17138,8 +17540,8 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Defines the filter conditions.
      *
-     * **Note:** This property must not be bound.
-     *  This property is used exclusively for handling SAPUI5 flexibility changes. Do not use it otherwise.
+     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
+     * Do not use it otherwise.
      *
      * @since 1.80.0
      */
@@ -17148,8 +17550,8 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Defines the group conditions.
      *
-     * **Note:** This property must not be bound.
-     *  This property is used exclusively for handling SAPUI5 flexibility changes. Do not use it otherwise.
+     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
+     * Do not use it otherwise.
      *
      * @since 1.87
      */
@@ -17158,8 +17560,8 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Defines the aggregate conditions.
      *
-     * **Note:** This property must not be bound.
-     *  This property is exclusively used for handling SAPUI5 flexibility changes. Do not use it otherwise.
+     * **Note:** This property must not be bound. It is exclusively used for handling SAPUI5 flexibility changes.
+     * Do not use it otherwise.
      *
      * @since 1.87
      */
@@ -17240,24 +17642,23 @@ declare module "sap/ui/mdc/Table" {
      * Specifies the table metadata.
      *
      * Whenever the `TableDelegate` needs to wait for, for example, server-side information to provide the `PropertyInfo`
-     * objects, specifying an array of {@link sap.ui.mdc.table.PropertyInfo PropertyInfo} objects here enables
-     * the table to speed up the initial setup.
+     * objects, specifying an array of {@link sap.ui.mdc.table.PropertyInfo PropertyInfo} and {@link sap.ui.mdc.table.ComplexPropertyInfo ComplexPropertyInfo }
+     * objects in this property enables the table to speed up the initial setup.
      *
      * Instead of requesting the `PropertyInfo` objects from the `TableDelegate` and waiting for them, the table
      * will use the `PropertyInfo` objects specified here for rendering-specific tasks, e.g. automatic column
      * width calculation, and to trigger the initial data request.
      *
-     * To enable the table for these tasks, certain attributes of a `PropertyInfo` must be specified. You can
-     * find the list of required attributes in the documentation of the `PropertyInfo`, for example, in {@link sap.ui.mdc.table.PropertyInfo}.
+     * **Note:**
+     * 	 - This property is processed only once during the instantiation of the table. Any subsequent changes
+     *     have no effect.
+     * 	 - This property must not be bound.
+     * 	 - This property is used exclusively for SAPUI5 flexibility / Fiori Elements. Do not use it otherwise.
      *
-     * This property is processed only once during the instantiation of the table. Any subsequent changes have
-     * no effect.
-     *
-     * **Note**: This property must not be bound. **Note**: This property is used exclusively for SAPUI5 flexibility
-     * / Fiori Elements. Do not use it otherwise. **Note**: Existing properties (set via `sap.ui.mdc.Table#setPropertyInfo`)
-     * must not be removed and their attributes must not be changed during the {@link module:sap/ui/mdc/TableDelegate.fetchProperties fetchProperties }
-     * callback. Otherwise validation errors might occur whenever personalization-related control features (such
-     * as the opening of any personalization dialog) are activated.
+     * 	 - Existing properties (set via `sap.ui.mdc.Table#setPropertyInfo`) must not be removed and their attributes
+     *     must not be changed during the {@link module:sap/ui/mdc/TableDelegate.fetchProperties fetchProperties }
+     *     callback. Otherwise validation errors might occur whenever personalization-related control features (such
+     *     as the opening of any personalization dialog) are activated.
      *
      * @since 1.111
      */
@@ -17267,7 +17668,6 @@ declare module "sap/ui/mdc/Table" {
      * Determines whether the toolbar is visible.
      *
      * **Note:** Hiding the toolbar limits the functionality of the table in the following ways:
-     *
      * 	 - The `showRowCount` property **must** be set to `false`.
      * 	 - The export **must** be disabled by setting the `enableExport` property to `false`.
      * 	 - For {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, show and hide details won't be
@@ -17358,9 +17758,8 @@ declare module "sap/ui/mdc/Table" {
      * `false`.
      *
      * **Note:** The {@link sap.m.plugins.CopyProvider#extractData extractData} property of the `CopyProvider`
-     * must not be managed by the application.
-     *  The `CopyProvider` requires a secure context to access the clipboard API. If the context is not secure,
-     * the plugin will not be added, and the Copy button will not be generated.
+     * must not be managed by the application. The `CopyProvider` requires a secure context to access the clipboard
+     * API. If the context is not secure, the plugin will not be added, and the Copy button will not be generated.
      *
      * @since 1.114
      */
@@ -17732,10 +18131,11 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Gets current value of property {@link #getRequired required}.
      *
-     * Indicates whether the content of the column is required. **Note:** The table only takes care of announcing
-     * the state of the column header as defined by the `required` property. The application needs to take care
-     * of the screen reader announcement of the state of the table cells, for example, by setting the `required`
-     * property to `true` for `sap.m.Input`.
+     * Indicates whether the content of the column is required.
+     *
+     * **Note:** The table only takes care of announcing the state of the column header as defined by the `required`
+     * property. The application needs to take care of the screen reader announcement of the state of the table
+     * cells, for example, by setting the `required` property to `true` for `sap.m.Input`.
      *
      * Default value is `false`.
      *
@@ -17917,10 +18317,11 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Sets a new value for property {@link #getRequired required}.
      *
-     * Indicates whether the content of the column is required. **Note:** The table only takes care of announcing
-     * the state of the column header as defined by the `required` property. The application needs to take care
-     * of the screen reader announcement of the state of the table cells, for example, by setting the `required`
-     * property to `true` for `sap.m.Input`.
+     * Indicates whether the content of the column is required.
+     *
+     * **Note:** The table only takes care of announcing the state of the column header as defined by the `required`
+     * property. The application needs to take care of the screen reader announcement of the state of the table
+     * cells, for example, by setting the `required` property to `true` for `sap.m.Input`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -18063,10 +18464,11 @@ declare module "sap/ui/mdc/table/Column" {
     propertyKey?: string | PropertyBindingInfo;
 
     /**
-     * Indicates whether the content of the column is required. **Note:** The table only takes care of announcing
-     * the state of the column header as defined by the `required` property. The application needs to take care
-     * of the screen reader announcement of the state of the table cells, for example, by setting the `required`
-     * property to `true` for `sap.m.Input`.
+     * Indicates whether the content of the column is required.
+     *
+     * **Note:** The table only takes care of announcing the state of the column header as defined by the `required`
+     * property. The application needs to take care of the screen reader announcement of the state of the table
+     * cells, for example, by setting the `required` property to `true` for `sap.m.Input`.
      */
     required?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -19091,6 +19493,18 @@ declare module "sap/ui/mdc/table/GridTableType" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getEnableColumnFreeze enableColumnFreeze}.
+     *
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.136
+     *
+     * @returns Value of property `enableColumnFreeze`
+     */
+    getEnableColumnFreeze(): boolean;
+    /**
      * Gets current value of property {@link #getFixedColumnCount fixedColumnCount}.
      *
      * Defines the number of fixed columns.
@@ -19104,11 +19518,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
     /**
      * Gets current value of property {@link #getRowCount rowCount}.
      *
-     * Row count of the inner table.
-     *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
-     * is used.
-     *
+     * Row count of the inner table. This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto`
+     * is used. This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or
+     * `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
      *
      * Default value is `10`.
      *
@@ -19179,6 +19591,25 @@ declare module "sap/ui/mdc/table/GridTableType" {
      */
     getShowHeaderSelector(): boolean;
     /**
+     * Sets a new value for property {@link #getEnableColumnFreeze enableColumnFreeze}.
+     *
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.136
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableColumnFreeze(
+      /**
+       * New value for property `enableColumnFreeze`
+       */
+      bEnableColumnFreeze?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getFixedColumnCount fixedColumnCount}.
      *
      * Defines the number of fixed columns.
@@ -19199,11 +19630,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
     /**
      * Sets a new value for property {@link #getRowCount rowCount}.
      *
-     * Row count of the inner table.
-     *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
-     * is used.
-     *
+     * Row count of the inner table. This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto`
+     * is used. This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or
+     * `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -19322,10 +19751,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
       | `{${string}}`;
 
     /**
-     * Row count of the inner table.
-     *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
-     * is used.
+     * Row count of the inner table. This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto`
+     * is used. This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or
+     * `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
      */
     rowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -19348,6 +19776,13 @@ declare module "sap/ui/mdc/table/GridTableType" {
      * Determines whether the header selector is shown.
      */
     showHeaderSelector?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * @since 1.136
+     */
+    enableColumnFreeze?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of fixed columns.
@@ -20326,9 +20761,8 @@ declare module "sap/ui/mdc/table/RowSettings" {
      *
      * The actions that appear at the end of a row.
      *
-     * **Note:** This aggregation cannot be bound with a factory.
-     *  If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, only the `Navigation`
-     * row action type is supported.
+     * **Note:** This aggregation cannot be bound with a factory. If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable},
+     * only the `Navigation` row action type is supported.
      */
     getRowActions(): RowActionItem[];
     /**
@@ -20484,9 +20918,8 @@ declare module "sap/ui/mdc/table/RowSettings" {
     /**
      * The actions that appear at the end of a row.
      *
-     * **Note:** This aggregation cannot be bound with a factory.
-     *  If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, only the `Navigation`
-     * row action type is supported.
+     * **Note:** This aggregation cannot be bound with a factory. If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable},
+     * only the `Navigation` row action type is supported.
      */
     rowActions?:
       | RowActionItem[]
@@ -20673,31 +21106,36 @@ declare module "sap/ui/mdc/table/TreeTableType" {
 
 declare module "sap/ui/mdc/util/PropertyHelper" {
   /**
-   * An object literal describing a data property.
+   * An object literal that describes attributes of a complex data property. A complex property references
+   * other properties in the `propertyInfos` attribute.
    */
-  export type PropertyInfo = {
+  export type ComplexPropertyInfo = PropertyInfoBase & {
     /**
-     * Unique, stable key for the property. It must only contain characters allowed for IDs, see {@link sap.ui.core.ID}.
-     * Does not have to be an existing attribute in the data model or the technical name of an attribute in
-     * the data model.
+     * A list of related properties (by key). These related properties must not themselves be complex.
      */
-    key: string;
+    propertyInfos: string[];
+  };
+
+  /**
+   * An object literal that describes attributes of a data property.
+   */
+  export type PropertyInfo = PropertyInfoBase & {
     /**
-     * The technical path for a data source property.
+     * The name of the data type
+     */
+    dataType: string;
+    /**
+     * Defines the formatting options for the data type
+     */
+    formatOptions?: object;
+    /**
+     * Defines the constraints for the data type
+     */
+    constraints?: object;
+    /**
+     * The technical path for a data source property
      */
     path?: string;
-    /**
-     * Translatable text that labels the property.
-     */
-    label: string;
-    /**
-     * Translatable text that can optionally be offered as tooltip (For example in a personalization dialog).
-     */
-    tooltip?: string;
-    /**
-     * Whether the property is or can be visible to a user.
-     */
-    visible?: boolean;
     /**
      * Defines the maximum number of filter conditions for the property. Possible values that can be used:
      *
@@ -20707,29 +21145,39 @@ declare module "sap/ui/mdc/util/PropertyHelper" {
      */
     maxConditions?: int;
     /**
-     * The name of the data type
+     * Whether filtering by this property is case-sensitive
      */
-    dataType: string;
+    caseSensitive?: boolean;
+  };
+
+  export type PropertyInfoBase = {
     /**
-     * Defines the format options for the data type
+     * Unique, stable key for the property. It must only contain characters allowed for IDs, see {@link sap.ui.core.ID}.
+     * Does not have to be an existing attribute in the data model or the technical name of an attribute in
+     * the data model.
      */
-    formatOptions?: object;
+    key: string;
     /**
-     * Defines the constraints for the data type
+     * Translatable text that labels the property
      */
-    constraints?: object;
+    label: string;
     /**
-     * Key of the group the property is inside. Used to visually group properties in personalization dialogs.
+     * Translatable text that can optionally be offered as tooltip, for example, in a personalization dialog
+     */
+    tooltip?: string;
+    /**
+     * Whether the property is or can be visible to a user
+     */
+    visible?: boolean;
+    /**
+     * Key of the group in which the property is located. Used to visually group properties in personalization
+     * dialogs.
      */
     group?: string;
     /**
      * Translatable text of the group.
      */
     groupLabel?: string;
-    /**
-     * Whether filtering by this property is case-sensitive.
-     */
-    caseSensitive?: boolean;
   };
 }
 
@@ -20741,10 +21189,6 @@ declare module "sap/ui/mdc/ValueHelp" {
   import { valuehelp } from "sap/ui/mdc/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import Context from "sap/ui/model/Context";
-
-  import Control from "sap/ui/core/Control";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -21209,67 +21653,7 @@ declare module "sap/ui/mdc/ValueHelp" {
   /**
    * Configuration object type to determine a `ValueHelpItem` for a given value.
    */
-  export type ItemForValueConfiguration = {
-    /**
-     * Value as entered by user
-     */
-    value: any;
-    /**
-     * Value parsed by type of key to match the data type of the key
-     */
-    parsedValue?: any;
-    /**
-     * Value parsed by type of description to match the data type of the description
-     */
-    parsedDescription?: any;
-    /**
-     * Contextual information provided by the `payload` or `inParameters`/`outParameters` of the condition.
-     * This is only filled if the description needs to be determined for an existing condition.
-     */
-    context?: {
-      /**
-       * In parameters of the current condition (`inParameters` are not used any longer, but it might be filled
-       * in older conditions stored in variants.)
-       */
-      inParameter?: object;
-      /**
-       * Out parameters of the current condition (`outParameters` are not used any longer, but it might be filled
-       * in older conditions stored in variants.)
-       */
-      outParameter?: object;
-      /**
-       * Payload of the current condition
-       */
-      payload?: object;
-    };
-    /**
-     * `BindingContext` of the checked field. Inside a table, the `ValueHelp` element might be connected to
-     * a different row.
-     */
-    bindingContext?: Context;
-    /**
-     * If set, the value help checks only if there is an item with the given key. This is set to `false` if
-     * the value cannot be a valid key because of type validation.
-     */
-    checkKey: boolean;
-    /**
-     * If set, the value help checks only if there is an item with the given description. This is set to `false`
-     * if only the key is used in the field.
-     */
-    checkDescription: boolean;
-    /**
-     * If set, the check is done case-sensitively
-     */
-    caseSensitive?: boolean;
-    /**
-     * If set, only exact matches and no suggestions are requested
-     */
-    exactMatch?: boolean;
-    /**
-     * Instance of the calling control
-     */
-    control: Control;
-  };
+  export type ItemForValueConfiguration = (emptyAllowed?: boolean) => object;
 
   /**
    * Configuration object type for normalized definition of a `ValueHelpItem`.
@@ -21683,13 +22067,23 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     /**
      * Closes the container
      */
-    close(): void;
+    close(
+      /**
+       * If set, closing must not restore the focus on the field
+       */
+      bDoNotRestoreFocus: boolean
+    ): void;
     /**
      * Closes the container control or element.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    closeContainer(): void;
+    closeContainer(
+      /**
+       * If set, closing must not restore the focus on the field
+       */
+      bDoNotRestoreFocus: boolean
+    ): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
      *
@@ -22093,27 +22487,6 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * @since 1.127.0
      */
     setVisualFocus(): void;
-    /**
-     * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
-     *
-     *
-     * @returns If `true`, the value help should open when user clicks into the connected field control
-     */
-    shouldOpenOnClick(): Promise<boolean>;
-    /**
-     * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
-     *
-     *
-     * @returns If `true`, the value help should open when user focuses the connected field control
-     */
-    shouldOpenOnFocus(): Promise<boolean>;
-    /**
-     * Defines if the typeahead containers values can be navigated without visibly opening the help
-     *
-     *
-     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
-     */
-    shouldOpenOnNavigate(): boolean;
     /**
      * Unbinds the content from the container.
      *
@@ -22812,21 +23185,6 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @since 1.127.0
      */
     setVisualFocus(): void;
-    /**
-     * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
-     * control
-     *
-     *
-     * @returns If `true`, the value help should open when user clicks into the connected field control
-     */
-    shouldOpenOnClick(): boolean;
-    /**
-     * Defines if the typeahead containers values can be navigated without visibly opening the help
-     *
-     *
-     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
-     */
-    shouldOpenOnNavigate(): boolean;
   }
   /**
    * Describes the settings that can be provided to the Content constructor.
@@ -23952,6 +24310,20 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      */
     destroyItems(): this;
     /**
+     * Gets current value of property {@link #getEmptyText emptyText}.
+     *
+     * If set, an item to clear the selection is added.
+     *
+     * This item is only available if the connected field can be cleared.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.138
+     *
+     * @returns Value of property `emptyText`
+     */
+    getEmptyText(): string;
+    /**
      * Gets current value of property {@link #getFilterList filterList}.
      *
      * If set, the items of the list are filtered based on `filterValue`.
@@ -23960,7 +24332,7 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      *
      * Default value is `true`.
      *
@@ -23991,6 +24363,19 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * **Note:** Icons are currently not supported.
      */
     getItems(): FixedListItem[];
+    /**
+     * Gets current value of property {@link #getRestrictedToFixedValues restrictedToFixedValues}.
+     *
+     * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
+     * must be avoided.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.138
+     *
+     * @returns Value of property `restrictedToFixedValues`
+     */
+    getRestrictedToFixedValues(): boolean;
     /**
      * Checks for the provided `sap.ui.mdc.valuehelp.content.FixedListItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
@@ -24044,6 +24429,27 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
       vItem: int | string | FixedListItem
     ): FixedListItem | null;
     /**
+     * Sets a new value for property {@link #getEmptyText emptyText}.
+     *
+     * If set, an item to clear the selection is added.
+     *
+     * This item is only available if the connected field can be cleared.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.138
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEmptyText(
+      /**
+       * New value for property `emptyText`
+       */
+      sEmptyText?: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getFilterList filterList}.
      *
      * If set, the items of the list are filtered based on `filterValue`.
@@ -24052,7 +24458,7 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24085,6 +24491,26 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
        */
       bGroupable?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getRestrictedToFixedValues restrictedToFixedValues}.
+     *
+     * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
+     * must be avoided.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.138
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRestrictedToFixedValues(
+      /**
+       * New value for property `restrictedToFixedValues`
+       */
+      bRestrictedToFixedValues?: boolean
+    ): this;
   }
   /**
    * Describes the settings that can be provided to the FixedList constructor.
@@ -24102,9 +24528,26 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      */
     filterList?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set, an item to clear the selection is added.
+     *
+     * This item is only available if the connected field can be cleared.
+     *
+     * @since 1.138
+     */
+    emptyText?: string | PropertyBindingInfo;
+
+    /**
+     * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
+     * must be avoided.
+     *
+     * @since 1.138
+     */
+    restrictedToFixedValues?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Items of the value help.
@@ -25421,6 +25864,8 @@ declare namespace sap {
 
     "sap/ui/mdc/enums/ReasonMode": undefined;
 
+    "sap/ui/mdc/enums/RequestShowContainerReason": undefined;
+
     "sap/ui/mdc/enums/TableGrowingMode": undefined;
 
     "sap/ui/mdc/enums/TableMultiSelectMode": undefined;
@@ -25476,6 +25921,8 @@ declare namespace sap {
     "sap/ui/mdc/field/FieldInput": undefined;
 
     "sap/ui/mdc/field/FieldMultiInput": undefined;
+
+    "sap/ui/mdc/field/FieldSelect": undefined;
 
     "sap/ui/mdc/field/ListFieldHelpItem": undefined;
 
@@ -25620,6 +26067,8 @@ declare namespace sap {
     "sap/ui/mdc/valuehelp/FilterBar": undefined;
 
     "sap/ui/mdc/valuehelp/Popover": undefined;
+
+    "sap/ui/mdc/valuehelp/RequestShowContainerDefault": undefined;
 
     "sap/ui/mdc/ValueHelpDelegate": undefined;
   }

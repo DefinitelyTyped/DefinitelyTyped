@@ -9,7 +9,7 @@
  * ```
  *
  * Compression and decompression are built around the Node.js
- * [Streams API](https://nodejs.org/docs/latest-v22.x/api/stream.html).
+ * [Streams API](https://nodejs.org/docs/latest-v24.x/api/stream.html).
  *
  * Compressing or decompressing a stream (such as a file) can be accomplished by
  * piping the source stream through a `zlib` `Transform` stream into a destination
@@ -89,7 +89,7 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/zlib.js)
  */
 declare module "zlib" {
     import * as stream from "node:stream";
@@ -143,14 +143,45 @@ declare module "zlib" {
             }
             | undefined;
         /**
-         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v22.x/api/zlib.html#convenience-methods).
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
+        info?: boolean | undefined;
+    }
+    interface ZstdOptions {
+        /**
+         * @default constants.ZSTD_e_continue
+         */
+        flush?: number | undefined;
+        /**
+         * @default constants.ZSTD_e_end
+         */
+        finishFlush?: number | undefined;
+        /**
+         * @default 16 * 1024
+         */
+        chunkSize?: number | undefined;
+        /**
+         * Key-value object containing indexed
+         * [Zstd parameters](https://nodejs.org/docs/latest-v24.x/api/zlib.html#zstd-constants).
+         */
+        params?: { [key: number]: number | boolean } | undefined;
+        /**
+         * Limits output size when using
+         * [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
+         * @default buffer.kMaxLength
+         */
+        maxOutputLength?: number | undefined;
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
+        info?: boolean | undefined;
     }
     interface Zlib {
-        /** @deprecated Use bytesWritten instead. */
-        readonly bytesRead: number;
         readonly bytesWritten: number;
         shell?: boolean | string | undefined;
         close(callback?: () => void): void;
@@ -172,6 +203,16 @@ declare module "zlib" {
     interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
     interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
     interface Unzip extends stream.Transform, Zlib {}
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
+    interface ZstdCompress extends stream.Transform, Zlib {}
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
+    interface ZstdDecompress extends stream.Transform, Zlib {}
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
      * If `value` is specified, it is used as the starting value of the checksum, otherwise, 0 is used as the starting value.
@@ -233,6 +274,16 @@ declare module "zlib" {
      * @since v0.5.8
      */
     function createUnzip(options?: ZlibOptions): Unzip;
+    /**
+     * Creates and returns a new `ZstdCompress` object.
+     * @since v22.15.0
+     */
+    function createZstdCompress(options?: ZstdOptions): ZstdCompress;
+    /**
+     * Creates and returns a new `ZstdDecompress` object.
+     * @since v22.15.0
+     */
+    function createZstdDecompress(options?: ZstdOptions): ZstdDecompress;
     type InputType = string | ArrayBuffer | NodeJS.ArrayBufferView;
     type CompressCallback = (error: Error | null, result: Buffer) => void;
     /**
@@ -352,6 +403,36 @@ declare module "zlib" {
      * @since v0.11.12
      */
     function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
+    function zstdCompress(buf: InputType, callback: CompressCallback): void;
+    function zstdCompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
+    namespace zstdCompress {
+        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<Buffer>;
+    }
+    /**
+     * Compress a chunk of data with `ZstdCompress`.
+     * @since v22.15.0
+     * @experimental
+     */
+    function zstdCompressSync(buf: InputType, options?: ZstdOptions): Buffer;
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
+    function zstdDecompress(buf: InputType, callback: CompressCallback): void;
+    function zstdDecompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
+    namespace zstdDecompress {
+        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<Buffer>;
+    }
+    /**
+     * Decompress a chunk of data with `ZstdDecompress`.
+     * @since v22.15.0
+     * @experimental
+     */
+    function zstdDecompressSync(buf: InputType, options?: ZstdOptions): Buffer;
     namespace constants {
         const BROTLI_DECODE: number;
         const BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: number;
@@ -423,50 +504,106 @@ declare module "zlib" {
         const INFLATE: number;
         const INFLATERAW: number;
         const UNZIP: number;
-        // Allowed flush values.
-        const Z_NO_FLUSH: number;
-        const Z_PARTIAL_FLUSH: number;
-        const Z_SYNC_FLUSH: number;
-        const Z_FULL_FLUSH: number;
-        const Z_FINISH: number;
-        const Z_BLOCK: number;
-        const Z_TREES: number;
-        // Return codes for the compression/decompression functions.
-        // Negative values are errors, positive values are used for special but normal events.
-        const Z_OK: number;
-        const Z_STREAM_END: number;
-        const Z_NEED_DICT: number;
-        const Z_ERRNO: number;
-        const Z_STREAM_ERROR: number;
-        const Z_DATA_ERROR: number;
-        const Z_MEM_ERROR: number;
-        const Z_BUF_ERROR: number;
-        const Z_VERSION_ERROR: number;
-        // Compression levels.
-        const Z_NO_COMPRESSION: number;
-        const Z_BEST_SPEED: number;
+        const ZLIB_VERNUM: number;
+        const ZSTD_CLEVEL_DEFAULT: number;
+        const ZSTD_COMPRESS: number;
+        const ZSTD_DECOMPRESS: number;
+        const ZSTD_btlazy2: number;
+        const ZSTD_btopt: number;
+        const ZSTD_btultra: number;
+        const ZSTD_btultra2: number;
+        const ZSTD_c_chainLog: number;
+        const ZSTD_c_checksumFlag: number;
+        const ZSTD_c_compressionLevel: number;
+        const ZSTD_c_contentSizeFlag: number;
+        const ZSTD_c_dictIDFlag: number;
+        const ZSTD_c_enableLongDistanceMatching: number;
+        const ZSTD_c_hashLog: number;
+        const ZSTD_c_jobSize: number;
+        const ZSTD_c_ldmBucketSizeLog: number;
+        const ZSTD_c_ldmHashLog: number;
+        const ZSTD_c_ldmHashRateLog: number;
+        const ZSTD_c_ldmMinMatch: number;
+        const ZSTD_c_minMatch: number;
+        const ZSTD_c_nbWorkers: number;
+        const ZSTD_c_overlapLog: number;
+        const ZSTD_c_searchLog: number;
+        const ZSTD_c_strategy: number;
+        const ZSTD_c_targetLength: number;
+        const ZSTD_c_windowLog: number;
+        const ZSTD_d_windowLogMax: number;
+        const ZSTD_dfast: number;
+        const ZSTD_e_continue: number;
+        const ZSTD_e_end: number;
+        const ZSTD_e_flush: number;
+        const ZSTD_error_GENERIC: number;
+        const ZSTD_error_checksum_wrong: number;
+        const ZSTD_error_corruption_detected: number;
+        const ZSTD_error_dictionaryCreation_failed: number;
+        const ZSTD_error_dictionary_corrupted: number;
+        const ZSTD_error_dictionary_wrong: number;
+        const ZSTD_error_dstBuffer_null: number;
+        const ZSTD_error_dstSize_tooSmall: number;
+        const ZSTD_error_frameParameter_unsupported: number;
+        const ZSTD_error_frameParameter_windowTooLarge: number;
+        const ZSTD_error_init_missing: number;
+        const ZSTD_error_literals_headerWrong: number;
+        const ZSTD_error_maxSymbolValue_tooLarge: number;
+        const ZSTD_error_maxSymbolValue_tooSmall: number;
+        const ZSTD_error_memory_allocation: number;
+        const ZSTD_error_noForwardProgress_destFull: number;
+        const ZSTD_error_noForwardProgress_inputEmpty: number;
+        const ZSTD_error_no_error: number;
+        const ZSTD_error_parameter_combination_unsupported: number;
+        const ZSTD_error_parameter_outOfBound: number;
+        const ZSTD_error_parameter_unsupported: number;
+        const ZSTD_error_prefix_unknown: number;
+        const ZSTD_error_srcSize_wrong: number;
+        const ZSTD_error_stabilityCondition_notRespected: number;
+        const ZSTD_error_stage_wrong: number;
+        const ZSTD_error_tableLog_tooLarge: number;
+        const ZSTD_error_version_unsupported: number;
+        const ZSTD_error_workSpace_tooSmall: number;
+        const ZSTD_fast: number;
+        const ZSTD_greedy: number;
+        const ZSTD_lazy: number;
+        const ZSTD_lazy2: number;
         const Z_BEST_COMPRESSION: number;
+        const Z_BEST_SPEED: number;
+        const Z_BLOCK: number;
+        const Z_BUF_ERROR: number;
+        const Z_DATA_ERROR: number;
+        const Z_DEFAULT_CHUNK: number;
         const Z_DEFAULT_COMPRESSION: number;
-        // Compression strategy.
-        const Z_FILTERED: number;
-        const Z_HUFFMAN_ONLY: number;
-        const Z_RLE: number;
-        const Z_FIXED: number;
+        const Z_DEFAULT_LEVEL: number;
+        const Z_DEFAULT_MEMLEVEL: number;
         const Z_DEFAULT_STRATEGY: number;
         const Z_DEFAULT_WINDOWBITS: number;
-
-        const Z_MIN_WINDOWBITS: number;
-        const Z_MAX_WINDOWBITS: number;
-        const Z_MIN_CHUNK: number;
+        const Z_ERRNO: number;
+        const Z_FILTERED: number;
+        const Z_FINISH: number;
+        const Z_FIXED: number;
+        const Z_FULL_FLUSH: number;
+        const Z_HUFFMAN_ONLY: number;
         const Z_MAX_CHUNK: number;
-        const Z_DEFAULT_CHUNK: number;
-        const Z_MIN_MEMLEVEL: number;
-        const Z_MAX_MEMLEVEL: number;
-        const Z_DEFAULT_MEMLEVEL: number;
-        const Z_MIN_LEVEL: number;
         const Z_MAX_LEVEL: number;
-        const Z_DEFAULT_LEVEL: number;
-        const ZLIB_VERNUM: number;
+        const Z_MAX_MEMLEVEL: number;
+        const Z_MAX_WINDOWBITS: number;
+        const Z_MEM_ERROR: number;
+        const Z_MIN_CHUNK: number;
+        const Z_MIN_LEVEL: number;
+        const Z_MIN_MEMLEVEL: number;
+        const Z_MIN_WINDOWBITS: number;
+        const Z_NEED_DICT: number;
+        const Z_NO_COMPRESSION: number;
+        const Z_NO_FLUSH: number;
+        const Z_OK: number;
+        const Z_PARTIAL_FLUSH: number;
+        const Z_RLE: number;
+        const Z_STREAM_END: number;
+        const Z_STREAM_ERROR: number;
+        const Z_SYNC_FLUSH: number;
+        const Z_VERSION_ERROR: number;
     }
     // Allowed flush values.
     /** @deprecated Use `constants.Z_NO_FLUSH` */
@@ -481,8 +618,6 @@ declare module "zlib" {
     const Z_FINISH: number;
     /** @deprecated Use `constants.Z_BLOCK` */
     const Z_BLOCK: number;
-    /** @deprecated Use `constants.Z_TREES` */
-    const Z_TREES: number;
     // Return codes for the compression/decompression functions.
     // Negative values are errors, positive values are used for special but normal events.
     /** @deprecated Use `constants.Z_OK` */

@@ -1,10 +1,18 @@
 {
     "private": true,
     "name": "@types/luxon",
-    "version": "3.6.9999",
+    "version": "3.7.9999",
     "projects": [
         "https://github.com/moment/luxon#readme"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "minimumTypeScriptVersion": "4.3",
     "devDependencies": {
         "@types/luxon": "workspace:."
     },

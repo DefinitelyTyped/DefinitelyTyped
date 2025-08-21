@@ -37,6 +37,9 @@ import nextUIUpdate from "sap/ui/test/utils/nextUIUpdate";
 import Link from "sap/m/Link";
 import BaseObject from "sap/ui/base/Object";
 import ObjectMarker from "sap/m/ObjectMarker";
+import Theming from "sap/ui/core/Theming";
+import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
+import List from "sap/m/List";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -259,3 +262,14 @@ new ObjectMarker().setReactiveAreaMode("Inline");
 
 // 1.134
 const gap: CSSGapShortHand = "1px 2px 3px 4px";
+
+// 1.135
+const theming = Theming.setFavicon("favicon.ico");
+
+// 1.136
+const caia = new ColumnAIAction();
+
+// 1.138
+new List().attachItemActionPress((oEvent) => {
+    oEvent.getParameters().listItem;
+});

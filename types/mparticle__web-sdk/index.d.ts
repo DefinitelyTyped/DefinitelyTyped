@@ -3,6 +3,54 @@ import { Batch } from "@mparticle/event-models";
 // Placeholder for Dictionary-like Types
 export type Dictionary<V = any> = Record<string, V>;
 
+// Rokt Manager Types
+export type RoktAttributeValueArray = Array<string | number | boolean | Dictionary>;
+export type RoktAttributeValueType = string | number | boolean | undefined | null;
+export type RoktAttributeValue = RoktAttributeValueType | RoktAttributeValueArray;
+export type RoktPartnerAttributes = Record<string, RoktAttributeValue>;
+
+export interface RoktPartnerExtensionData<T> {
+    [extensionName: string]: T;
+}
+
+export interface RoktSelectPlacementsOptions {
+    attributes: RoktPartnerAttributes;
+    identifier?: string;
+}
+
+export interface RoktPlacementEvent<T = void> {
+    body: T;
+    event: string;
+    placement: RoktPlacement;
+}
+
+export interface RoktSubscriber<T> {
+    subscribe(handler: T): RoktUnsubscriber;
+}
+
+export interface RoktUnsubscriber {
+    unsubscribe(): void;
+}
+
+export interface RoktPlacement {
+    id: string;
+    element: HTMLIFrameElement;
+    close(): Promise<void>;
+    on(event: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    onClose(): Promise<void>;
+}
+
+export interface RoktSelection {
+    close: () => void;
+    getPlacements: () => Promise<Array<RoktPlacement>>;
+    on(eventName: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    setAttributes(attributes: RoktPartnerAttributes): Promise<void>;
+}
+
 export as namespace mParticle;
 export {};
 export interface MPConfiguration {
@@ -309,6 +357,19 @@ interface GetSession {
     (): string;
 }
 
+// Rokt Manager Method Interfaces
+interface SelectPlacements {
+    (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
+}
+
+interface HashAttributes {
+    (attributes: RoktPartnerAttributes): Promise<Record<string, string>>;
+}
+
+interface SetExtensionData {
+    (extensionData: RoktPartnerExtensionData<unknown>): void;
+}
+
 export const endSession: EndSession;
 export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
@@ -491,6 +552,12 @@ export namespace eCommerce {
     const Cart: Cart;
 }
 
+export namespace Rokt {
+    const selectPlacements: SelectPlacements;
+    const hashAttributes: HashAttributes;
+    const setExtensionData: SetExtensionData;
+}
+
 export interface IdentifyRequest {
     userIdentities: UserIdentities;
 }
@@ -596,6 +663,8 @@ export interface Promotion {
 export interface IdentityApiData {
     userIdentities: UserIdentities;
 }
+
+export type IdentityApiMethods = "identify" | "login" | "logout" | "modify";
 
 export interface Callback {
     (): void;
@@ -743,6 +812,11 @@ declare class mParticleInstance {
         logRefund: LogRefund;
         setCurrencyCode: SetCurrencyCode;
         Cart: Cart;
+    };
+    Rokt: {
+        selectPlacements: SelectPlacements;
+        hashAttributes: HashAttributes;
+        setExtensionData: SetExtensionData;
     };
     PromotionType: {
         Unknown: PromotionType.Unknown;

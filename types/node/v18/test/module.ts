@@ -146,6 +146,14 @@ Module.Module === Module;
             };
         }
 
+        if (format === null) {
+            return {
+                format,
+                shortCircuit: true,
+                source: "...",
+            };
+        }
+
         return nextLoad(url);
     };
 
@@ -161,4 +169,14 @@ Module.Module === Module;
             // [...]
         `;
     };
+}
+
+// import.meta
+{
+    let importmeta!: ImportMeta; // because we cannot access the true `import.meta` with module:commonjs
+    importmeta.url; // $ExpectType string
+    importmeta.resolve("local"); // $ExpectType string
+    importmeta.resolve("local", "/parent"); // $ExpectType string
+    importmeta.resolve("local", undefined); // $ExpectType string
+    importmeta.resolve("local", new URL("https://parent.module")); // $ExpectType string
 }

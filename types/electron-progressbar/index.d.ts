@@ -22,15 +22,18 @@ declare class ProgressBar {
 }
 
 interface ProgressBarOptions {
+    debug?: boolean | undefined;
     abortOnError?: boolean | undefined;
     indeterminate?: boolean | undefined;
     initialValue?: number | undefined;
     maxValue?: number | undefined;
     closeOnComplete?: boolean | undefined;
+    lang?: string | undefined;
     title?: string | undefined;
     text?: string | undefined;
     detail?: string | undefined;
     style?: StyleOptions | undefined;
+    customHTML?: string | undefined;
     browserWindow?: BrowserWindowConstructorOptions | undefined;
 }
 

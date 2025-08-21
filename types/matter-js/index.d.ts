@@ -107,7 +107,7 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} width
          * @param {number} height
-         * @param {number} slope
+         * @param {number} slope Must be a number < 1.
          * @param {any} [options]
          * @returns {Body} A new trapezoid body
          */
@@ -421,6 +421,16 @@ declare namespace Matter {
          * are both true.
          */
         collisionFilter?: ICollisionFilter | undefined;
+        /**
+         * Temporarily may hold parameters to be passed to `Vertices.chamfer` where supported by external functions.
+         *
+         * See `Vertices.chamfer` for possible parameters this object may hold.
+         *
+         * Currently only functions inside `Matter.Bodies` provide a utility using this property as a vertices pre-processing option.
+         *
+         * Alternatively consider using `Vertices.chamfer` directly on vertices before passing them to a body creation function.
+         */
+        chamfer?: IChamfer | null | undefined;
     }
 
     export interface IBodyRenderOptions {
@@ -1627,6 +1637,14 @@ declare namespace Matter {
         static pointBWorld(constraint: Constraint): Vector;
 
         /**
+         * Returns the current length of the constraint. This is the distance between both of the constraint's end points. See constraint.length for the target rest length.
+         * @method currentLength
+         * @param {constraint} constraint
+         * @returns {number} the current length
+         */
+        static currentLength(constraint: Constraint): number;
+
+        /**
          * The first possible `Body` that this constraint is attached to.
          *
          * @default null
@@ -1853,7 +1871,7 @@ declare namespace Matter {
          * Therefore the value is always `1` (no correction) when `delta` constant (or when no correction is desired, which is the default).
          * See the paper on <a href="http://lonesock.net/article/verlet.html">Time Corrected Verlet</a> for more information.
          *
-         * Triggers `beforeUpdate` and `afterUpdate` events.
+         * Triggers `beforeUpdate`, `beforeSolve` and `afterUpdate` events.
          * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
          * @method update
          * @param {engine} engine
@@ -2354,11 +2372,20 @@ declare namespace Matter {
         background?: string | undefined;
 
         /**
-         * Sets wireframe background if `render.options.wireframes` is enabled
+         * A CSS color string to use for background when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
          *
          * default undefined
          */
         wireframeBackground?: string | undefined;
+
+        /**
+         * A CSS color string to use for stroke when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
+         *
+         * default '#bbb'
+         */
+        wireframeStrokeStyle?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
@@ -2408,6 +2435,7 @@ declare namespace Matter {
          * From left to right, the values shown are:
          * - average render frequency (e.g. 60 fps)
          * - exact engine delta time used for last update (e.g. 16.66ms)
+         * - average updates per frame (e.g. 1)
          * - average engine execution duration (e.g. 5.00ms)
          * - average render execution duration (e.g. 0.40ms)
          * - average effective play speed (e.g. '1.00x' is 'real-time')
@@ -2511,7 +2539,7 @@ declare namespace Matter {
     }
 
     /**
-     * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+     * The `Matter.Render` module is a lightweight, optional utility which provides a simple canvas based renderer for visualising instances of `Matter.Engine`.
      * It is intended for development and debugging purposes, but may also be suitable for simple games.
      * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
      */
@@ -2545,6 +2573,23 @@ declare namespace Matter {
          * @param {number} pixelRatio
          */
         static setPixelRatio(render: Render, pixelRatio: number): void;
+        /**
+         * Sets the render `width` and `height`.
+         *
+         * Updates the canvas accounting for `render.options.pixelRatio`.
+         *
+         * Updates the bottom right render bound `render.bounds.max` relative to the provided `width` and `height`.
+         * The top left render bound `render.bounds.min` isn't changed.
+         *
+         * Follow this call with `Render.lookAt` if you need to change the render bounds.
+         *
+         * See also `Render.setPixelRatio`.
+         * @method setSize
+         * @param {render} render
+         * @param {number} width The width (in CSS pixels)
+         * @param {number} height The height (in CSS pixels)
+         */
+        static setSize(render: Render, width: number, height: number): void;
         /**
          * Renders the given `engine`'s `Matter.World` object.
          * This is the entry point for all rendering and should be called every time the scene changes.
@@ -3670,6 +3715,7 @@ declare namespace Matter {
          * @event afterUpdate
          * @param {} event An event object
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3708,12 +3754,25 @@ declare namespace Matter {
         static on<C extends IEngineCallback>(obj: Engine, name: "beforeUpdate", callback: C): C;
 
         /**
+         * Fired after bodies updated based on their velocity and forces, but before any collision detection, constraints and resolving etc.
+         *
+         * @event beforeSolve
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on<C extends IEngineCallback>(obj: Engine, name: "beforeSolve", callback: C): C;
+
+        /**
          * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
          *
          * @event collisionActive
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3726,6 +3785,7 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3738,6 +3798,7 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */

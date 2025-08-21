@@ -7,6 +7,7 @@ import {
     ColumnDefinition,
     ColumnDefinitionSorterParams,
     DataTreeModule,
+    FilterModule,
     GroupComponent,
     InputParams,
     JSONRecord,
@@ -399,6 +400,10 @@ colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
 };
 
+colDef.headerFilterFuncParams = {
+    myParam: "my param",
+};
+
 // Calculation
 colDef.bottomCalc = (values, data, calcParams) => {
     return {};
@@ -692,7 +697,7 @@ table.blockRedraw();
 table.restoreRedraw();
 
 table.getRows("visible");
-table.deleteRow([15, 7, 9]);
+table.deleteRow([15, 7, 9]).then(() => {});
 
 table.addColumn({} as ColumnDefinition).then(() => {});
 
@@ -921,6 +926,12 @@ table = new Tabulator("#example-table", {
         age: { headerFilter: true },
         myProp: { title: "my title" },
     },
+});
+
+new Tabulator("#example-table", {
+    autoColumnsDefinitions: [
+        { field: "migration_up", formatter: "textarea" },
+    ],
 });
 
 let colDefs: ColumnDefinition[] = [];
@@ -1311,6 +1322,44 @@ table = new Tabulator("#testPagination", {
         return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
     },
 });
+
+// Testing paginationSize to number and to "All"
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: true,
+});
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+
+// Testing setPageSize/getPageSize to number and to "All"
+table = new Tabulator("#testSetPagenSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+table.setPageSize(10);
+table.setPageSize(true);
+// $ExpectType number | true
+table.getPageSize();
 
 // Testing data loader element
 table = new Tabulator("#testDataLoader", {
@@ -1794,3 +1843,12 @@ table = new Tabulator("#test-selectableRowsCheck", {
         { title: "Name", field: "name", headerMenu: headerMenuFunc },
     ],
 });
+
+// Testing FilterModule
+// getFilters can take a boolean or no arguments (it defaults to false)
+table.setFilter("name", "<=", 3);
+table.getFilters();
+table.getFilters(true);
+table.getFilters(false);
+// $ExpectType HeaderFilterFunc
+FilterModule.filters[0];

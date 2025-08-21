@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.138.0
 
 declare module "sap/uxap/library" {
   /**
@@ -7488,6 +7488,15 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      */
     getCustomAnchorBarButton(): Button;
     /**
+     * Returns the effectively applied title level. Could be different than "titleLevel" property, according
+     * to internal UX rules.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns the effective title level
+     */
+    getEffectiveTitleLevel(): string;
+    /**
      * Gets current value of property {@link #getImportance importance}.
      *
      * Determines whether the section will be hidden on low resolutions.
@@ -7499,16 +7508,6 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * @returns Value of property `importance`
      */
     getImportance(): Importance;
-    /**
-     * Returns the control name text.
-     *
-     * To be overwritten by the specific control method.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns control name text
-     */
-    getSectionText(): string;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -7649,7 +7648,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    setTitleVisible(bVisible: boolean): void;
+    setTitleVisible(): void;
     /**
      * Sets a new value for property {@link #getVisible visible}.
      *
@@ -7668,15 +7667,6 @@ declare module "sap/uxap/ObjectPageSectionBase" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Performs the update of the invisible text label. This method is called for example when the section title
-     * is changed.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns this for chaining
-     */
-    updateInvisibleTextLabelValue(): this;
   }
   /**
    * Describes the settings that can be provided to the ObjectPageSectionBase constructor.

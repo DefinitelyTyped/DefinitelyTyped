@@ -372,19 +372,6 @@ export const RGBFormat: 1022;
 export const RGBAFormat: 1023;
 
 /**
- * {@link LuminanceFormat} reads each element as a single luminance component.
- * This is then converted to a floating point, clamped to the range `[0,1]`, and then assembled into an RGBA element by
- * placing the luminance value in the red, green and blue channels, and attaching `1.0` to the alpha channel.
- */
-export const LuminanceFormat: 1024;
-
-/**
- * {@link LuminanceAlphaFormat} reads each element as a luminance/alpha double.
- * The same process occurs as for the {@link LuminanceFormat}, except that the alpha channel may have values other than `1.0`.
- */
-export const LuminanceAlphaFormat: 1025;
-
-/**
  * {@link DepthFormat} reads each element as a single depth value, converts it to floating point, and clamps to the range `[0,1]`.
  * @remarks This is the default for {@link THREE.DepthTexture}.
  */
@@ -440,8 +427,6 @@ export type PixelFormat =
     | typeof AlphaFormat
     | typeof RGBFormat
     | typeof RGBAFormat
-    | typeof LuminanceFormat
-    | typeof LuminanceAlphaFormat
     | typeof DepthFormat
     | typeof DepthStencilFormat
     | typeof RedFormat
@@ -789,13 +774,39 @@ export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
 
 export const WebGLCoordinateSystem: 2000;
 export const WebGPUCoordinateSystem: 2001;
-export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoordinateSystem;
+export type CoordinateSystem =
+    | typeof WebGLCoordinateSystem
+    | typeof WebGPUCoordinateSystem;
 
 export const TimestampQuery: {
     COMPUTE: "compute";
     RENDER: "render";
 };
-export type TimestampQuery = "compute" | "render";
+export type TimestampQuery = typeof TimestampQuery.COMPUTE | typeof TimestampQuery.RENDER;
+
+export const InterpolationSamplingType: {
+    PERSPECTIVE: "perspective";
+    LINEAR: "linear";
+    FLAT: "flat";
+};
+export type InterpolationSamplingType =
+    | typeof InterpolationSamplingType.PERSPECTIVE
+    | typeof InterpolationSamplingType.LINEAR
+    | typeof InterpolationSamplingType.FLAT;
+
+export const InterpolationSamplingMode: {
+    NORMAL: "normal";
+    CENTROID: "centroid";
+    SAMPLE: "sample";
+    FIRST: "first";
+    EITHER: "either";
+};
+export type InterpolationSamplingMode =
+    | typeof InterpolationSamplingMode.NORMAL
+    | typeof InterpolationSamplingMode.CENTROID
+    | typeof InterpolationSamplingMode.SAMPLE
+    | typeof InterpolationSamplingMode.FIRST
+    | typeof InterpolationSamplingMode.EITHER;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

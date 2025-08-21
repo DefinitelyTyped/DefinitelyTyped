@@ -19,7 +19,7 @@ export interface RawAttributes {
 }
 
 export interface Attributes {
-    resoltion?: unknown;
+    resolution?: unknown;
 
     [other: string]: unknown;
 }
@@ -43,7 +43,7 @@ export interface Segment {
     key?: {
         method: string;
         uri: string;
-        iv: string;
+        iv?: Uint32Array;
     };
     map?: {
         uri: string;
@@ -124,7 +124,7 @@ export interface Manifest {
 
 export class Parser extends Stream {
     constructor(options?: {
-        url?: string;
+        uri?: string;
         mainDefinitions?: Record<string, string>;
     });
     lineStream: LineStream;

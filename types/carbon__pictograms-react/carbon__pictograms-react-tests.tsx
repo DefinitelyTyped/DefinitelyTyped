@@ -4,6 +4,7 @@ import {
     AdvancedFraudProtection,
     AdvocateMask,
     Agile,
+    AgileCoaching,
     Ai,
     AiExplainability,
     Airplane,
@@ -15,8 +16,10 @@ import {
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
+    CodeConversion,
     ContentDesign,
     Dashboard,
+    Design,
     DoctorPatient,
     Download_01,
     Export_01,
@@ -28,6 +31,7 @@ import {
     MachineLearningModel,
     MagicWand,
     MovingDolly,
+    NoLiquids,
     RedHatApplications,
     ShanghaiSkyline,
     SolarField,
@@ -81,3 +85,7 @@ import * as React from "react";
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
 <Agile />; // $ExpectType Element
+<AgileCoaching />; // $ExpectType Element
+<CodeConversion />; // $ExpectType Element
+<NoLiquids />; // $ExpectType Element
+<Design />; // $ExpectType Element

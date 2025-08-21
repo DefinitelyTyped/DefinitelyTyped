@@ -6,7 +6,7 @@
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/timers.js)
  */
 declare module "timers" {
     import { Abortable } from "node:events";
@@ -60,7 +60,6 @@ declare module "timers" {
                 /**
                  * Cancels the immediate. This is similar to calling `clearImmediate()`.
                  * @since v20.5.0, v18.18.0
-                 * @experimental
                  */
                 [Symbol.dispose](): void;
                 _onImmediate(...args: any[]): void;
@@ -141,7 +140,6 @@ declare module "timers" {
                 /**
                  * Cancels the timeout.
                  * @since v20.5.0, v18.18.0
-                 * @experimental
                  */
                 [Symbol.dispose](): void;
                 _onTimeout(...args: any[]): void;

@@ -6,7 +6,7 @@
         "https://bun.sh"
     ],
     "dependencies": {
-        "bun-types": "1.2.10"
+        "bun-types": "1.2.20"
     },
     "devDependencies": {
         "@types/bun": "workspace:."
@@ -15,14 +15,6 @@
         {
             "name": "Jarred Sumner",
             "githubUsername": "Jarred-Sumner"
-        },
-        {
-            "name": "Ashcon Partovi",
-            "githubUsername": "electroid"
-        },
-        {
-            "name": "Chloe Caruso",
-            "githubUsername": "paperclover"
         },
         {
             "name": "Robobun",

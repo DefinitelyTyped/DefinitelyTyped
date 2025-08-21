@@ -80,6 +80,7 @@ declare namespace GoogleAppsScript {
         interface CalendarApp {
             Color: typeof Color;
             EventColor: typeof EventColor;
+            EventType: typeof EventType;
             GuestStatus: typeof GuestStatus;
             Month: typeof Base.Month;
             Visibility: typeof Visibility;
@@ -180,6 +181,7 @@ declare namespace GoogleAppsScript {
             getEmailReminders(): Integer[];
             getEndTime(): Base.Date;
             getEventSeries(): CalendarEventSeries;
+            getEventType(): EventType;
             getGuestByEmail(email: string): EventGuest;
             getGuestList(): EventGuest[];
             getGuestList(includeOwner: boolean): EventGuest[];
@@ -235,6 +237,7 @@ declare namespace GoogleAppsScript {
             getDateCreated(): Base.Date;
             getDescription(): string;
             getEmailReminders(): Integer[];
+            getEventType(): EventType;
             getGuestByEmail(email: string): EventGuest;
             getGuestList(): EventGuest[];
             getGuestList(includeOwner: boolean): EventGuest[];
@@ -268,6 +271,17 @@ declare namespace GoogleAppsScript {
             setTag(key: string, value: string): CalendarEventSeries;
             setTitle(title: string): CalendarEventSeries;
             setVisibility(visibility: Visibility): CalendarEventSeries;
+        }
+        /**
+         * An enum representing the types of events that can be created.
+         */
+        enum EventType {
+            DEFAULT,
+            BIRTHDAY,
+            FOCUS_TIME,
+            FROM_GMAIL,
+            OUT_OF_OFFICE,
+            WORKING_LOCATION,
         }
         /**
          * An enum representing the named colors available in the Calendar service.

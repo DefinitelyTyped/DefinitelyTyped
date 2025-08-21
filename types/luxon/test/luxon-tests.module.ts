@@ -37,7 +37,7 @@ DateTime.fromFormatParser("22/11/1948", parser);
 // @ts-expect-error
 new DateTime();
 
-const dt = DateTime.local(2017, 5, 15, 8, 30);
+const dt = DateTime.local(2017, 5, 15, 8, 30); // $ExpectType DateTime<true> | DateTime<false>
 
 const now = DateTime.now(); // $ExpectType DateTime<true>
 
@@ -115,12 +115,32 @@ getters.weeksInLocalWeekYear; // $ExpectType PossibleWeeksInYear
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string | null
 dt.toISO(); // $ExpectType string | null
-dt.toISO({ includeOffset: true, format: "extended" }); // $ExpectType string | null
-dt.toISO({ extendedZone: true, format: "extended" }); // $ExpectType string | null
+dt.toISO({}); // $ExpectType string | null
+// $ExpectType string | null
+dt.toISO({
+    includePrefix: true,
+    suppressMilliseconds: true,
+    suppressSeconds: true,
+    format: "basic",
+    includeOffset: true,
+    extendedZone: true,
+    precision: "hours",
+});
 dt.toISODate(); // $ExpectType string | null
-dt.toISODate({ format: "basic" }); // $ExpectType string | null
+dt.toISODate({}); // $ExpectType string | null
+dt.toISODate({ format: "basic", precision: "months" }); // $ExpectType string | null
 dt.toISOTime(); // $ExpectType string | null
-dt.toISOTime({ format: "basic" }); // $ExpectType string | null
+dt.toISOTime({}); // $ExpectType string | null
+// $ExpectType string | null
+dt.toISOTime({
+    includePrefix: true,
+    suppressMilliseconds: true,
+    suppressSeconds: true,
+    format: "basic",
+    includeOffset: true,
+    extendedZone: true,
+    precision: "hours",
+});
 dt.toISOWeekDate(); // $ExpectType string | null
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string | null
@@ -134,7 +154,22 @@ dt.toLocaleString(DateTime.DATE_MED, {}); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
+dt.toRelative({}); // $ExpectType string | null
+// $ExpectType string | null
+dt.toRelative({
+    base: DateTime.local(),
+    locale: "fr",
+    numberingSystem: "bali",
+    style: "long",
+    unit: Math.random() < 0.5 ? "days" : ["days"],
+    round: true,
+    rounding: "expand",
+    padding: 10,
+});
 dt.toRelativeCalendar(); // $ExpectType string | null
+dt.toRelativeCalendar({}); // $ExpectType string | null
+// $ExpectType string | null
+dt.toRelativeCalendar({ base: DateTime.local(), locale: "fr", unit: "days", numberingSystem: "bali" });
 dt.toRFC2822(); // $ExpectType string | null
 dt.toSeconds(); // $ExpectType number
 dt.toSQL(); // $ExpectType string | null
@@ -154,16 +189,51 @@ dt.toUnixInteger(); // $ExpectType number
 // Known valid DateTime narrows out invalid returns
 now.toHTTP(); // $ExpectType string
 now.toISO(); // $ExpectType string
-now.toISO({ includeOffset: true, format: "extended" }); // $ExpectType string
-now.toISO({ extendedZone: true, format: "extended" }); // $ExpectType string
+now.toISO({}); // $ExpectType string
+// $ExpectType string
+now.toISO({
+    includePrefix: true,
+    suppressMilliseconds: true,
+    suppressSeconds: true,
+    format: "basic",
+    includeOffset: true,
+    extendedZone: true,
+    precision: "hours",
+});
 now.toISODate(); // $ExpectType string
-now.toISODate({ format: "basic" }); // $ExpectType string
+now.toISODate({}); // $ExpectType string
+now.toISODate({ format: "basic", precision: "months" }); // $ExpectType string
 now.toISOTime(); // $ExpectType string
-now.toISOTime({ format: "basic" }); // $ExpectType string
+now.toISOTime({}); // $ExpectType string
+// $ExpectType string
+now.toISOTime({
+    includePrefix: true,
+    suppressMilliseconds: true,
+    suppressSeconds: true,
+    format: "basic",
+    includeOffset: true,
+    extendedZone: true,
+    precision: "hours",
+});
 now.toISOWeekDate(); // $ExpectType string
 now.toJSON(); // $ExpectType string
 now.toRelative(); // $ExpectType string
+now.toRelative({}); // $ExpectType string
+// $ExpectType string
+now.toRelative({
+    base: DateTime.local(),
+    locale: "fr",
+    numberingSystem: "bali",
+    style: "long",
+    unit: Math.random() < 0.5 ? "days" : ["days"],
+    round: true,
+    rounding: "expand",
+    padding: 10,
+});
 now.toRelativeCalendar(); // $ExpectType string
+now.toRelativeCalendar({}); // $ExpectType string
+// $ExpectType string
+now.toRelativeCalendar({ base: DateTime.local(), locale: "fr", unit: "days", numberingSystem: "bali" });
 now.toRFC2822(); // $ExpectType string
 now.toSQL(); // $ExpectType string
 now.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string
@@ -172,36 +242,6 @@ now.toSQLTime(); // $ExpectType string
 now.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 now.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 now.toObject(); // $ExpectType Record<_ToObjectUnit, number>
-
-// $ExpectType string | null
-dt.toRelative({
-    base: DateTime.local(),
-    locale: "fr",
-    style: "long",
-    unit: "days",
-    round: true,
-    padding: 10,
-    numberingSystem: "bali",
-});
-
-// $ExpectType string | null
-dt.toRelative({
-    base: DateTime.local(),
-    locale: "fr",
-    style: "long",
-    unit: ["days"],
-    round: true,
-    padding: 10,
-    numberingSystem: "bali",
-});
-
-// $ExpectType string | null
-dt.toRelativeCalendar({
-    base: DateTime.local(),
-    locale: "fr",
-    unit: "days",
-    numberingSystem: "bali",
-});
 
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
@@ -283,6 +323,32 @@ dur.rescale(); // $ExpectType Duration<true>
 dur.shiftToAll(); // $ExpectType Duration<true>
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === "hours" ? x * 2 : x)); // $ExpectType Duration<true>
+// $ExpectType string
+dur.toHuman();
+// $ExpectType string
+dur.toHuman({});
+// $ExpectType string
+dur.toHuman({
+    compactDisplay: "long",
+    notation: "engineering",
+    signDisplay: "always",
+    unit: "",
+    unitDisplay: "long",
+    currencySign: "accounting",
+    listStyle: "narrow",
+    showZeros: true,
+});
+// $ExpectType Duration<true>
+dur.removeZeros();
+// $ExpectType string
+dur.toFormat("");
+// $ExpectType string
+dur.toFormat("", {});
+// $ExpectType string
+dur.toFormat("", {
+    floor: true,
+    signMode: "negativeLargestOnly",
+});
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration<true> | Duration<false>
@@ -476,7 +542,7 @@ DateTime.fromMillis();
 DateTime.fromMillis(1542674993410); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromSeconds();
-DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true>
+DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromFormat();
 DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<true> | DateTime<false>

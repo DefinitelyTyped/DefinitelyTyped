@@ -112,6 +112,13 @@ declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmin
 /**
  * Create an expectation for a spec.
  * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param actual Actual computed value to test expectations against.
+ */
+declare function expect(actual: string): jasmine.Matchers<string>;
+
+/**
+ * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual
  */
 declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
@@ -466,6 +473,7 @@ declare namespace jasmine {
     }
 
     interface Clock {
+        autoTick(): void;
         install(): Clock;
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */

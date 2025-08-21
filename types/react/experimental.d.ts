@@ -51,10 +51,13 @@ declare module "." {
         unstable_expectedLoadTime?: number | undefined;
     }
 
-    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together";
-    export type SuspenseListTailMode = "collapsed" | "hidden";
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together" | "independent";
+    export type SuspenseListTailMode = "collapsed" | "hidden" | "visible";
 
     export interface SuspenseListCommonProps {
+    }
+
+    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
         /**
          * Note that SuspenseList require more than one child;
          * it is a runtime warning to provide only a single child.
@@ -62,33 +65,32 @@ declare module "." {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
-    }
-
-    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: "forwards" | "backwards";
+        revealOrder: "forwards" | "backwards" | "unstable_legacy-backwards";
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
          * - By default, `SuspenseList` will show all fallbacks in the list.
          * - `collapsed` shows only the next fallback in the list.
-         * - `hidden` doesn’t show any unloaded items.
+         * - `hidden` doesn't show any unloaded items.
+         * - `visible` shows all fallbacks in the list.
          */
-        tail?: SuspenseListTailMode | undefined;
+        tail: SuspenseListTailMode;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: ReactNode;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
+        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
-        tail?: never | undefined;
+        tail?: never;
     }
 
     export type SuspenseListProps = DirectionalSuspenseListProps | NonDirectionalSuspenseListProps;
@@ -224,6 +226,11 @@ declare module "." {
             | "hidden"
             | "visible"
             | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
         children: ReactNode;
     }
 

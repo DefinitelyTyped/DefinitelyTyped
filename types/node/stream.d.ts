@@ -2,10 +2,10 @@
  * A stream is an abstract interface for working with streaming data in Node.js.
  * The `node:stream` module provides an API for implementing the stream interface.
  *
- * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v22.x/api/http.html#class-httpincomingmessage)
- * and [`process.stdout`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdout) are both stream instances.
+ * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v24.x/api/http.html#class-httpincomingmessage)
+ * and [`process.stdout`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstdout) are both stream instances.
  *
- * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v22.x/api/events.html#class-eventemitter).
+ * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v24.x/api/events.html#class-eventemitter).
  *
  * To access the `node:stream` module:
  *
@@ -15,7 +15,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -76,7 +76,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Readable` from a web `ReadableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 readableStream: streamWeb.ReadableStream,
@@ -85,7 +84,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `ReadableStream` from a `Readable`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(
                 streamReadable: Readable,
@@ -101,7 +99,6 @@ declare module "stream" {
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
-             * @experimental
              */
             readonly readableAborted: boolean;
             /**
@@ -113,7 +110,6 @@ declare module "stream" {
             /**
              * Returns whether `'data'` has been emitted.
              * @since v16.7.0, v14.18.0
-             * @experimental
              */
             readonly readableDidRead: boolean;
             /**
@@ -122,13 +118,13 @@ declare module "stream" {
              */
             readonly readableEncoding: BufferEncoding | null;
             /**
-             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v22.x/api/stream.html#event-end) event is emitted.
+             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v24.x/api/stream.html#event-end) event is emitted.
              * @since v12.9.0
              */
             readonly readableEnded: boolean;
             /**
              * This property reflects the current state of a `Readable` stream as described
-             * in the [Three states](https://nodejs.org/docs/latest-v22.x/api/stream.html#three-states) section.
+             * in the [Three states](https://nodejs.org/docs/latest-v24.x/api/stream.html#three-states) section.
              * @since v9.4.0
              */
             readonly readableFlowing: boolean | null;
@@ -620,6 +616,17 @@ declare module "stream" {
              */
             destroy(error?: Error): this;
             /**
+             * @returns `AsyncIterator` to fully consume the stream.
+             * @since v10.0.0
+             */
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
+            /**
+             * Calls `readable.destroy()` with an `AbortError` and returns
+             * a promise that fulfills when the stream is finished.
+             * @since v20.4.0
+             */
+            [Symbol.asyncDispose](): Promise<void>;
+            /**
              * Event emitter
              * The defined events on documents including:
              * 1. close
@@ -686,12 +693,6 @@ declare module "stream" {
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
-            /**
-             * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
-             * @since v20.4.0
-             */
-            [Symbol.asyncDispose](): Promise<void>;
         }
         interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
@@ -719,7 +720,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Writable` from a web `WritableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 writableStream: streamWeb.WritableStream,
@@ -728,7 +728,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `WritableStream` from a `Writable`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(streamWritable: Writable): streamWeb.WritableStream;
             /**
@@ -737,6 +736,11 @@ declare module "stream" {
              * @since v11.4.0
              */
             readonly writable: boolean;
+            /**
+             * Returns whether the stream was destroyed or errored before emitting `'finish'`.
+             * @since v18.0.0, v16.17.0
+             */
+            readonly writableAborted: boolean;
             /**
              * Is `true` after `writable.end()` has been called. This property
              * does not indicate whether the data has been flushed, for this use `writable.writableFinished` instead.
@@ -959,6 +963,12 @@ declare module "stream" {
              */
             destroy(error?: Error): this;
             /**
+             * Calls `writable.destroy()` with an `AbortError` and returns
+             * a promise that fulfills when the stream is finished.
+             * @since v22.4.0, v20.16.0
+             */
+            [Symbol.asyncDispose](): Promise<void>;
+            /**
              * Event emitter
              * The defined events on documents including:
              * 1. close
@@ -1084,7 +1094,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(streamDuplex: Duplex): {
                 readable: streamWeb.ReadableStream;
@@ -1093,7 +1102,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 duplexStream: {
@@ -1374,7 +1382,7 @@ declare module "stream" {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamfinishedstream-options).
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v24.x/api/stream.html#streamfinishedstream-options).
          *
          * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1462,7 +1470,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streampipelinesource-transforms-destination-options).
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v24.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *
@@ -1644,13 +1652,11 @@ declare module "stream" {
         /**
          * Returns whether the stream has encountered an error.
          * @since v17.3.0, v16.14.0
-         * @experimental
          */
         function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
         /**
          * Returns whether the stream is readable.
          * @since v17.4.0, v16.14.0
-         * @experimental
          */
         function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
     }

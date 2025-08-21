@@ -1377,6 +1377,19 @@ export interface ElementHandle extends JSHandle {
 
     /**
      * Select one or more options of a `<select>` element which match the values.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * handle.selectOption('blue');
+     *
+     * // single selection matching the label
+     * handle.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * handle.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param values Values of options to select.
      * @param options Element handle options.
      * @returns List of selected options.
@@ -1567,6 +1580,19 @@ export interface Frame {
     /**
      * Select the given options and return the array of option values of the first element
      * found that matches the selector.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * frame.selectOption('blue');
+     *
+     * // single selection matching the label
+     * frame.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * frame.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param selector The selector to use.
      * @param values The values to select.
      * @returns The array of option values of the first element found.
@@ -1841,7 +1867,83 @@ export interface Frame {
      * @param options The options to use.
      * @returns A promise that resolves to the response of the navigation when it happens.
      */
-    waitForNavigation(options?: ContentLoadOptions): Promise<Response | null>;
+    waitForNavigation(options?: {
+        /**
+         * Maximum operation time in milliseconds. Defaults to `30` seconds. The
+         * default value can be changed via the
+         * browserContext.setDefaultNavigationTimeout(timeout),
+         * browserContext.setDefaultTimeout(timeout),
+         * page.setDefaultNavigationTimeout(timeout) or
+         * page.setDefaultTimeout(timeout) methods.
+         *
+         * Setting the value to `0` will disable the timeout.
+         */
+        timeout?: number;
+
+        /**
+         * An exact string or regex pattern to match while waiting for the
+         * navigation. Note that if the parameter is a string, the method will
+         * wait for navigation to URL that is exactly equal to the string.
+         */
+        url?: string | RegExp;
+
+        /**
+         * When to consider operation succeeded, defaults to `load`. Events can be
+         * either:
+         * - `'domcontentloaded'` - consider operation to be finished when the
+         * `DOMContentLoaded` event is fired.
+         * - `'load'` - consider operation to be finished when the `load` event is
+         * fired.
+         * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+         * when there are no network connections for at least `500` ms. Don't use
+         * this method for testing especially with chatty websites where the event
+         * may never fire, rely on web assertions to assess readiness instead.
+         */
+        waitUntil?: "load" | "domcontentloaded" | "networkidle";
+    }): Promise<Response | null>;
+
+    /**
+     * Waits for the page to navigate to the specified URL.
+     *
+     * @example
+     * ```js
+     * await page.locator('a[href="/login"]').click();
+     * await page.waitForURL(/.*\/login$/);
+     * ```
+     *
+     * @param url An exact match or regular expression to match the URL.
+     * @param options Options to use.
+     */
+    waitForURL(
+        url: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * When to consider operation succeeded, defaults to `load`. Events can be
+             * either:
+             * - `'domcontentloaded'` - consider operation to be finished when the
+             * `DOMContentLoaded` event is fired.
+             * - `'load'` - consider operation to be finished when the `load` event is
+             * fired.
+             * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+             * when there are no network connections for at least `500` ms. Don't use
+             * this method for testing especially with chatty websites where the event
+             * may never fire, rely on web assertions to assess readiness instead.
+             */
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
+        },
+    ): Promise<void>;
 
     /**
      * Wait for the given selector to match the waiting criteria.
@@ -1966,6 +2068,21 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
+     * Returns an array of locators matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Select all options
+     * for (const option of await page.locator('option').all())
+     *   await option.click();
+     * ```
+     *
+     * @returns Array of locators
+     */
+    all(): Promise<Locator[]>;
+
+    /**
      * Clears text boxes and input fields of any existing values.
      *
      * **Usage**
@@ -1985,6 +2102,19 @@ export interface Locator {
      * @returns Promise which resolves when the element is successfully clicked.
      */
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
+
+    /**
+     * Returns the number of elements matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const count = await page.locator('input').count();
+     * ```
+     *
+     * @returns Promise which resolves with the number of elements matching the selector.
+     */
+    count(): Promise<number>;
 
     /**
      * Mouse double click on the chosen element.
@@ -2052,6 +2182,19 @@ export interface Locator {
     fill(value: string, options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Returns locator to the first matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const firstRow = await page.locator('tr').first();
+     * ```
+     *
+     * @returns Locator.
+     */
+    first(): Locator;
+
+    /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
@@ -2094,8 +2237,48 @@ export interface Locator {
     inputValue(options?: TimeoutOptions): Promise<string>;
 
     /**
+     * Returns locator to the last matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const lastRow = await page.locator('tr').last();
+     * ```
+     *
+     * @returns Locator.
+     */
+    last(): Locator;
+
+    /**
+     * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const secondRow = await page.locator('tr').nth(1);
+     * ```
+     *
+     * @param index
+     * @returns Locator
+     */
+    nth(index: number): Locator;
+
+    /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
      * otherwise only the first option matching one of the passed options is selected.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * locator.selectOption('blue');
+     *
+     * // single selection matching the label
+     * locator.selectOption({ label: 'Blue' });
+     *
+     * // multiple selection
+     * locator.selectOption(['red', 'green', 'blue']);
+     * ```
+     *
      * @param values Values of options to select.
      * @param options Options to use.
      * @returns List of selected options.
@@ -2648,6 +2831,336 @@ export interface Page {
     ): Promise<string | null>;
 
     /**
+     * Returns {@link Locator} to the element with the corresponding role.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByRole('button', { name: 'Pizza, Please!' });
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param role The role of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding role.
+     */
+    getByRole(
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "meter"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
+        options?: {
+            /**
+             * Whether the accessible `options.name` should be checked exactly for equality.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+
+            /**
+             * Whether to include elements that are normally excluded from the accessibility tree.
+             *
+             * @defaultValue false
+             */
+            includeHidden?: boolean;
+
+            /**
+             * A number attribute that is traditionally used for headings h1-h6.
+             */
+            level?: number;
+
+            /**
+             * An accessible name for the element, such as a text in a button or a label for an input.
+             */
+            name?: string | RegExp;
+
+            /**
+             * A boolean attribute that can be used to indicate if a checkbox is checked or not.
+             */
+            checked?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is disabled or not.
+             */
+            disabled?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is expanded or not.
+             */
+            expanded?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is pressed or not.
+             */
+            pressed?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is selected or not.
+             */
+            selected?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding alt text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByAltText('pizza');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param altText The alt text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding alt text.
+     */
+    getByAltText(
+        altText: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding label text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByLabel('Password');
+     *
+     * await locator.fill('my-password');
+     * ```
+     *
+     * @param label The label text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding label text.
+     */
+    getByLabel(
+        label: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Allows locating elements by their text content. Returns {@link Locator}.
+     *
+     * Consider the following DOM structure:
+     *
+     * ```html
+     * <div>Hello <span>world</span></div>
+     * <div>Hello</div>
+     * ```
+     *
+     * You can locate by text substring, exact string, or a regular expression:
+     *
+     * @example
+     * ```js
+     * // Matches <span>
+     * page.getByText('world');
+     *
+     * // Matches first <div>
+     * page.getByText('Hello world');
+     *
+     * // Matches second <div>
+     * page.getByText('Hello', { exact: true });
+     *
+     * // Matches both <div>s
+     * page.getByText(/Hello/);
+     *
+     * // Matches second <div>
+     * page.getByText(/^hello$/i);
+     * ```
+     *
+     * Matching by text always normalizes whitespace, even with exact match. For
+     * example, it turns multiple spaces into one, turns line breaks into spaces
+     * and ignores leading and trailing whitespace.
+     *
+     * Input elements of the type `button` and `submit` are matched by their
+     * `value` instead of the text content. For example, locating by text
+     * `"Log in"` matches `<input type=button value="Log in">`.
+     *
+     * @param text Text to locate the element by.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding text content.
+     */
+    getByText(
+        text: string | RegExp,
+        options?: {
+            /**
+             * Whether to find an exact match: case-sensitive and whole-string.
+             * Default to false. Ignored when locating by a regular expression.
+             * Note that exact match still trims whitespace.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding test ID.
+     * Note that this method only supports the `data-testid` attribute.
+     *
+     * @example
+     * HTML:
+     * ```html
+     * <button data-testid="submit-button">Submit</button>
+     * ```
+     *
+     * JavaScript:
+     * ```js
+     * const locator = page.getByTestId('submit-button');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param testId The test ID of the element.
+     * @returns The locator to the element with the corresponding test ID.
+     */
+    getByTestId(testId: string | RegExp): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding placeholder text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByPlaceholder('name@example.com');
+     *
+     * await locator.fill('my.name@example.com');
+     * ```
+     *
+     * @param placeholder The placeholder text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding placeholder text.
+     */
+    getByPlaceholder(
+        placeholder: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding title text.
+     *
+     * @example
+     * ```js
+     * const locator = page.getByTitle('Information box');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param title The title text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding title text.
+     */
+    getByTitle(
+        title: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
      * Navigates to the specified url and returns the main resource response.
      *
      * navigating to `about:blank` or navigation to the same URL with a different
@@ -3166,6 +3679,16 @@ export interface Page {
     }): Promise<Response | null>;
 
     /**
+     * Adds a route to the page to modify network requests made by that page.
+     *
+     * Once routing is enabled, every request matching the url pattern will stall unless it's continued, fulfilled or aborted.
+     */
+    route(
+        url: string | RegExp,
+        handler: (route: Route) => any,
+    ): Promise<void>;
+
+    /**
      * Returns the buffer with the captured screenshot from the browser.
      *
      * @param options
@@ -3219,6 +3742,18 @@ export interface Page {
      *
      * This select one or more options which match the values from a <select>
      * element.
+     *
+     * @example
+     * ```js
+     * // Single selection matching the value or label
+     * page.selectOption('#colors-options', 'blue');
+     *
+     * // single selection matching the label
+     * page.selectOption('#colors-options', { label: 'Blue' });
+     *
+     * // multiple selection
+     * page.selectOption('#colors-options', ['red', 'green', 'blue']);
+     * ```
      *
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
@@ -3735,6 +4270,13 @@ export interface Page {
         timeout?: number;
 
         /**
+         * An exact string or regex pattern to match while waiting for the
+         * navigation. Note that if the parameter is a string, the method will
+         * wait for navigation to URL that is exactly equal to the string.
+         */
+        url?: string | RegExp;
+
+        /**
          * When to consider operation succeeded, defaults to `load`. Events can be
          * either:
          * - `'domcontentloaded'` - consider operation to be finished when the
@@ -3748,6 +4290,49 @@ export interface Page {
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<Response | null>;
+
+    /**
+     * Waits for the page to navigate to the specified URL.
+     *
+     * @example
+     * ```js
+     * await page.locator('a[href="/login"]').click();
+     * await page.waitForURL(/.*\/login$/);
+     * ```
+     *
+     * @param url An exact match or regular expression to match the URL.
+     * @param options Options to use.
+     */
+    waitForURL(
+        url: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * When to consider operation succeeded, defaults to `load`. Events can be
+             * either:
+             * - `'domcontentloaded'` - consider operation to be finished when the
+             * `DOMContentLoaded` event is fired.
+             * - `'load'` - consider operation to be finished when the `load` event is
+             * fired.
+             * - `'networkidle'` - **DISCOURAGED** consider operation to be finished
+             * when there are no network connections for at least `500` ms. Don't use
+             * this method for testing especially with chatty websites where the event
+             * may never fire, rely on web assertions to assess readiness instead.
+             */
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
+        },
+    ): Promise<void>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based
@@ -4034,6 +4619,112 @@ export interface Response {
      * @returns the URL of the response
      */
     url(): string;
+}
+
+/**
+ * Route represents a network request intercepted by page.route() function and allows to modify its behavior.
+ *
+ * Once routing is enabled, every request intercepted by a route will stall unless it's continued, fulfilled or aborted.
+ * When several routes match the given pattern, they run in the order opposite to their registration.
+ * That way the last registered route can always override all the previous ones.
+ */
+export interface Route {
+    /**
+     * Aborts the request with the given error code.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Abort all images requests
+     * await page.route(/(\.png$)|(\.jpg$)/, async (route) => {
+     *   await route.abort();
+     * });
+     * ```
+     *
+     * @param errorCode The error code to abort the request with, can be one of the following:
+     * 'aborted', 'accessdenied', 'addressunreachable', 'blockedbyclient', 'blockedbyresponse', 'connectionaborted','connectionclosed',
+     * 'connectionfailed', 'connectionrefused', 'connectionreset', 'internetdisconnected', 'namenotresolved', 'timedout', 'failed'.
+     */
+    abort(errorCode: string): Promise<void>;
+
+    /**
+     * Continues the request with optional overrides.
+     *
+     * **Usage**
+     *
+     * ```js
+     * await page.route('**\/*', async (route, request) => {
+     *   // Override headers
+     *   const headers = {
+     *     ...request.headers(),
+     *     foo: 'foo-value', // set "foo" header
+     *     bar: undefined, // remove "bar" header
+     *   };
+     *   await route.continue({ headers });
+     * });
+     * ```
+     *
+     * @param options Optional overrides for the request.
+     */
+    continue(options?: {
+        /**
+         * Optional HTTP headers to override.
+         */
+        headers?: { [key: string]: string };
+        /**
+         * Optional method to override the request method (e.g., 'GET', 'POST').
+         */
+        method?: string;
+        /**
+         * Optional post data to override the request body.
+         */
+        postData?: string | ArrayBuffer;
+        /**
+         * Optional URL to override the request URL.
+         */
+        url?: string;
+    }): Promise<void>;
+
+    /**
+     * Fulfills the request with the given response.
+     *
+     * **Usage**
+     * ```js
+     * // Respond with a custom JSON response
+     * await page.route('**\/*', async (route) => {
+     *   await route.fulfill({
+     *     status: 200,
+     *     contentType: 'application/json',
+     *     body: JSON.stringify({ message: 'Hello, world!' }),
+     *   });
+     * });
+     * ```
+     *
+     * @param options The response options to fulfill the request with.
+     */
+    fulfill(options: {
+        /**
+         * Optional body of the response, can be a string or an ArrayBuffer.
+         */
+        body?: string | ArrayBuffer;
+        /**
+         * Optional content type of the response.
+         */
+        contentType?: string;
+        /**
+         * Optional HTTP headers to return.
+         */
+        headers?: { [key: string]: string };
+        /**
+         * Optional HTTP status code to return. Defaults to `200`.
+         */
+        status?: number;
+    }): Promise<void>;
+
+    /**
+     * Returns the matching request that this route is handling.
+     */
+    request(): Request;
 }
 
 /**

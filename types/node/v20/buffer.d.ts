@@ -69,7 +69,7 @@ declare module "buffer" {
      * @param input The input to validate.
      */
     export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
-    export const INSPECT_MAX_BYTES: number;
+    export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
     export const constants: {
@@ -122,7 +122,7 @@ declare module "buffer" {
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer };
+    export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
     /**
      * @experimental
      */
@@ -1703,6 +1703,8 @@ declare module "buffer" {
              * @return A reference to `buf`.
              */
             fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, offset: number, encoding: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, encoding: BufferEncoding): this;
             /**
              * If `value` is:
              *
@@ -1772,6 +1774,7 @@ declare module "buffer" {
              * @return The index of the first occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+            indexOf(value: string | number | Uint8Array, encoding: BufferEncoding): number;
             /**
              * Identical to `buf.indexOf()`, except the last occurrence of `value` is found
              * rather than the first occurrence.
@@ -1840,6 +1843,7 @@ declare module "buffer" {
              * @return The index of the last occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+            lastIndexOf(value: string | number | Uint8Array, encoding: BufferEncoding): number;
             /**
              * Equivalent to `buf.indexOf() !== -1`.
              *
@@ -1870,6 +1874,7 @@ declare module "buffer" {
              * @return `true` if `value` was found in `buf`, `false` otherwise.
              */
             includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
+            includes(value: string | number | Buffer, encoding: BufferEncoding): boolean;
         }
         var Buffer: BufferConstructor;
         /**

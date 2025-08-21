@@ -6,7 +6,7 @@ import Backend from "./Backend.js";
 import DataMap from "./DataMap.js";
 import Info from "./Info.js";
 import Renderer from "./Renderer.js";
-type SizeVector3Unitialized = Vector3 & {
+type SizeVector3Uninitialized = Vector3 & {
     width?: number;
     height?: number;
     depth?: number;
@@ -99,7 +99,7 @@ declare class Textures extends DataMap<{
      * @param {Vector3} target - The target vector.
      * @return {Vector3} The target vector.
      */
-    getSize(texture: Texture, target?: SizeVector3Unitialized): SizeVector3;
+    getSize(texture: Texture, target?: SizeVector3Uninitialized): SizeVector3;
     /**
      * Computes the number of mipmap levels for the given texture.
      *
@@ -116,13 +116,6 @@ declare class Textures extends DataMap<{
      * @return {boolean} Whether mipmaps are required or not.
      */
     needsMipmaps(texture: Texture): boolean;
-    /**
-     * Returns `true` if the given texture is an environment map.
-     *
-     * @param {Texture} texture - The texture.
-     * @return {boolean} Whether the given texture is an environment map or not.
-     */
-    isEnvironmentTexture(texture: Texture): boolean;
     /**
      * Frees internal resource when the given texture isn't
      * required anymore.

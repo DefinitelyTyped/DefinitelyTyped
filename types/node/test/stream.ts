@@ -522,7 +522,7 @@ function stream_readable_pipe_test() {
     const z = createGzip({ finishFlush: constants.Z_FINISH });
     const w = createWriteStream("file.txt.gz");
 
-    assert(typeof z.bytesRead === "number");
+    assert(typeof z.bytesWritten === "number");
     assert(typeof r.bytesRead === "number");
     assert(typeof r.path === "string");
     assert(rs.path instanceof Buffer);
@@ -755,6 +755,10 @@ async function testTransformStream() {
         transform(chunk, controller) {
             controller.enqueue(chunk.toUpperCase());
         },
+        cancel(reason) {
+            // $ExpectType any
+            reason;
+        },
     });
 
     const transformedStream = stream.pipeThrough(transform);
@@ -811,7 +815,7 @@ async function testTransferringStreamWithPostMessage() {
     // $ExpectType Promise<void>
     byobReader.cancel("reason");
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     byobReader.closed;
 
     // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>

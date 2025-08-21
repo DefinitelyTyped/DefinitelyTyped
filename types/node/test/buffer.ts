@@ -1,3 +1,5 @@
+import bufferModule = require("node:buffer");
+
 // Specifically test buffer module regression.
 import {
     Blob as NodeBlob,
@@ -41,6 +43,18 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
     const value2: number = constants.MAX_STRING_LENGTH;
     const value3: number = kMaxLength;
     const value4: number = kStringMaxLength;
+}
+
+// Module variables
+{
+    // $ExpectType number
+    bufferModule.INSPECT_MAX_BYTES;
+    bufferModule.INSPECT_MAX_BYTES = 0;
+
+    // @ts-expect-error - This variable is in `exports`, but not in `exports.Buffer`.
+    Buffer.INSPECT_MAX_BYTES;
+    // @ts-expect-error - This variable is in `exports`, but not in `exports.Buffer`.
+    Buffer.INSPECT_MAX_BYTES = 2;
 }
 
 // Module methods
@@ -149,6 +163,17 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
         Buffer.from({} as { [Symbol.toPrimitive](): number });
     }
 
+    // ArrayLike or string
+    {
+        let arrayOrString!: number[] | string;
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(arrayOrString);
+
+        let typedArrayOrString!: Uint8Array | string;
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(typedArrayOrString);
+    }
+
     // @ts-expect-error
     Buffer.from({});
     // @ts-expect-error
@@ -172,7 +197,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
     const buf: Buffer = Buffer.allocUnsafeSlow(10);
 }
 
-// Class Method byteLenght
+// Class Method byteLength
 {
     let len: number;
     len = Buffer.byteLength("foo");
@@ -218,13 +243,11 @@ result = b.write("asd", "hex");
 result = b.write("asd", 123, "hex");
 result = b.write("asd", 123, 123, "hex");
 
-// fill returns the input buffer.
-b.fill("a").fill("b");
-
 {
     const buffer = new Buffer("123");
     let index: number;
     index = buffer.indexOf("23");
+    index = buffer.indexOf("23", "hex");
     index = buffer.indexOf("23", 1);
     index = buffer.indexOf("23", 1, "utf8");
     index = buffer.indexOf(23);
@@ -235,6 +258,7 @@ b.fill("a").fill("b");
     const buffer = new Buffer("123");
     let index: number;
     index = buffer.lastIndexOf("23");
+    index = buffer.lastIndexOf("23", "hex");
     index = buffer.lastIndexOf("23", 1);
     index = buffer.lastIndexOf("23", 1, "utf8");
     index = buffer.lastIndexOf(23);
@@ -256,6 +280,7 @@ b.fill("a").fill("b");
     const buffer = new Buffer("123");
     let includes: boolean;
     includes = buffer.includes("23");
+    includes = buffer.includes("23", "hex");
     includes = buffer.includes("23", 1);
     includes = buffer.includes("23", 1, "utf8");
     includes = buffer.includes(23);
@@ -341,6 +366,24 @@ b.fill("a").fill("b");
     b = a.readBigUint64LE(123);
     b = a.readBigUInt64BE(123);
     b = a.readBigUint64BE(123);
+}
+
+{
+    const buf = Buffer.allocUnsafe(5);
+    let result: Buffer;
+    result = buf.fill("a");
+    result = buf.fill("aazz", "hex");
+    result = buf.fill("aazz", 1, "hex");
+    result = buf.fill("aazz", 1, 2, "hex");
+
+    result = buf.fill(1234);
+    result = buf.fill(1234, 1);
+    result = buf.fill(1234, 1, 2);
+
+    const target = Buffer.allocUnsafe(0);
+    result = buf.fill(target);
+    result = buf.fill(target, 1);
+    result = buf.fill(target, 1, 2);
 }
 
 (async () => {

@@ -7,7 +7,6 @@ entity.key; // $ExpectType number
 entity.classKey; // $ExpectType number
 entity.autoPersist; // $ExpectType boolean
 entity.postPending; // $ExpectType boolean
-entity.state; // $ExpectType EntityState
 
 entity.set("name", "value"); // $ExpectType void
 entity.get("*"); // $ExpectType any
@@ -23,6 +22,6 @@ entity.toJSONString(); // $ExpectType string
 entity.toJSONSchema(); // $ExpectType any
 
 function getVersion(): string {
-    return "71.0.124";
+    return "72.0.1";
 }
 getVersion(); // $ExpectType string

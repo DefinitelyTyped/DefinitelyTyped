@@ -129,12 +129,17 @@ declare const container: Element;
     }
 }
 
+const SomeContext = React.createContext<Context>({ someValue: "default" });
 class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
     // deprecated. Kept for backwards compatibility.
     static propTypes = {};
 
-    contextType: React.Context<Context>;
-    context: Context = {};
+    static contextType = SomeContext;
+    context: Context;
+
+    constructor(props: Props, context: Context) {
+        super(props, context);
+    }
 
     state = {
         inputValue: this.context.someValue,
@@ -832,11 +837,9 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext: { foo: number }) => null;
 
-    // @ts-expect-error -- legacy context was removed
     Wrapper = class Exact extends React.Component<ExactProps> {
-        constructor(props: ExactProps, legacyContext: { foo: number }) {
-            // @ts-expect-error -- legacy context was removed
-            super(props, legacyContext);
+        constructor(props: ExactProps, definitelyNotLegacyContext: { foo: number }) {
+            super(props, definitelyNotLegacyContext);
         }
     };
 
