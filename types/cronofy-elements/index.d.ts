@@ -1,5 +1,5 @@
 // UI Elements
-interface AvailabilityViewerElement {
+export interface AvailabilityViewerElement {
     context: {
         tzid: string;
     };
@@ -11,11 +11,11 @@ interface AvailabilityViewerElement {
     update: (options: AvailabilityViewerOptions) => void;
 }
 
-declare function AvailabilityViewer(
+export function AvailabilityViewer(
     options: AvailabilityViewerOptions,
 ): AvailabilityViewerElement;
 
-interface AvailabilityViewerOptions {
+export interface AvailabilityViewerOptions {
     element_token: string;
     target_id: string;
     callback: AvailabilityViewerCallback;
@@ -29,7 +29,7 @@ interface AvailabilityViewerOptions {
     tzid?: Timezone;
 }
 
-interface AvailabilityViewerConfig {
+export interface AvailabilityViewerConfig {
     start_time?: string;
     end_time?: string;
     interval?: Interval;
@@ -43,16 +43,16 @@ interface AvailabilityViewerConfig {
     week_start_day?: WeekDay;
 }
 
-type AvailabilityViewerCallback = (
+export type AvailabilityViewerCallback = (
     action: AvailabilityViewerAction,
 ) => void;
 
-interface AvailabilityViewerAction {
+export interface AvailabilityViewerAction {
     notification: AvailabilityViewerNotification;
     slots?: Slot[];
 }
 
-type AvailabilityViewerNotification =
+export type AvailabilityViewerNotification =
     | SlotSelected
     | SlotAdded
     | NoSlotsFound
@@ -60,19 +60,19 @@ type AvailabilityViewerNotification =
     | VisibleSlots
     | QueryPeriodsEdited
     | DisplayedDatesChanged;
+    
+export function Agenda(options: AgendaElementOptions): AgendaElement;
 
-declare function Agenda(options: AgendaElementOptions): AgendaElement;
-
-interface AgendaElement {
+export interface AgendaElement {
     refresh: () => void;
     update: (options: AgendaElementOptions) => void;
 }
 
-interface AgendaColors {
+export interface AgendaColors {
     calendars?: string[];
 }
 
-interface AgendaElementOptions {
+export interface AgendaElementOptions {
     element_token: string;
     target_id: string;
     data_center?: DataCenter;
@@ -80,7 +80,7 @@ interface AgendaElementOptions {
     config?: AgendaConfig;
 }
 
-interface AgendaConfig {
+export interface AgendaConfig {
     mode?: AgendaMode;
     logs?: Logs;
     locale?: Locale;
@@ -88,16 +88,16 @@ interface AgendaConfig {
     demo?: boolean;
 }
 
-declare function DateTimePicker(
+export function DateTimePicker(
     options: DateTimePickerOptions,
 ): DateTimePickerElement;
 
-interface DateTimePickerElement {
+export interface DateTimePickerElement {
     refresh: () => void;
     update: (options: DateTimePickerOptions) => void;
 }
 
-interface DateTimePickerOptions {
+export interface DateTimePickerOptions {
     element_token: string;
     target_id: string;
     availability_query: AvailabilityQuery;
@@ -112,7 +112,7 @@ interface DateTimePickerOptions {
     sequence_title?: SequencedAvailability;
 }
 
-interface DateTimePickerConfig {
+export interface DateTimePickerConfig {
     slot_button_mode?: SlotButtonMode;
     mode?: DateTimePickerMode;
     logs?: Logs;
@@ -123,35 +123,35 @@ interface DateTimePickerConfig {
     display_slot_navigation?: boolean;
 }
 
-interface DateTimePickerColors {
+export interface DateTimePickerColors {
     button?: string;
     buttonActive?: string;
     buttonConfirm?: string;
     buttonHover?: string;
 }
 
-type DateTimePickerCallback = (action: DateTimePickerAction) => void;
+export type DateTimePickerCallback = (action: DateTimePickerAction) => void;
 
-interface DateTimePickerAction {
+export interface DateTimePickerAction {
     notification: DateTimePickerNotification;
     slots?: Slot[];
 }
 
-type DateTimePickerNotification =
+export type DateTimePickerNotification =
     | SlotSelected
     | DateSelected
     | NoSlotsFound;
 
-interface AvailabilityRulesElement {
+export interface AvailabilityRulesElement {
     refresh: () => void;
     update: (options: AvailabilityRulesOptions) => void;
 }
 
-declare function AvailabilityRules(
+export function AvailabilityRules(
     options: AvailabilityRulesOptions,
 ): AvailabilityRulesElement;
 
-interface AvailabilityRulesOptions {
+export interface AvailabilityRulesOptions {
     element_token: string;
     target_id: string;
     callback?: AvailabilityRulesCallback;
@@ -165,7 +165,7 @@ interface AvailabilityRulesOptions {
     tzid?: Timezone;
 }
 
-interface AvailabilityRulesConfig {
+export interface AvailabilityRulesConfig {
     start_time?: string;
     end_time?: string;
     duration?: Duration;
@@ -177,7 +177,7 @@ interface AvailabilityRulesConfig {
     tz_list?: Timezone[];
 }
 
-interface AvailabilityRulesColors {
+export interface AvailabilityRulesColors {
     hairline?: string;
     primary?: string;
     available?: string;
@@ -188,30 +188,30 @@ interface AvailabilityRulesColors {
     unavailableActive?: string;
 }
 
-type AvailabilityRulesCallback = (
+export type AvailabilityRulesCallback = (
     action: AvailabilityRulesAction,
 ) => void;
 
-interface AvailabilityRulesAction {
+export interface AvailabilityRulesAction {
     notification: AvailabilityRulesNotification;
     availability_rule?: AvailabilityRule;
 }
 
-type AvailabilityRulesNotification =
+export type AvailabilityRulesNotification =
     | AvailabilityRuleSaved
     | AvailabilityRuleEdited
     | AvailabilityRuleNotFound;
 
-declare function CalendarSync(
+export function CalendarSync(
     options: CalendarSyncOptions,
 ): CalendarSyncElement;
 
-interface CalendarSyncElement {
+export interface CalendarSyncElement {
     refresh: () => void;
     update: (options: CalendarSyncOptions) => void;
 }
 
-interface CalendarSyncOptions {
+export interface CalendarSyncOptions {
     element_token: string;
     target_id: string;
     authorization: Authorization;
@@ -226,33 +226,33 @@ interface CalendarSyncOptions {
     single_profile?: boolean;
 }
 
-interface CalendarSyncConfig {
+export interface CalendarSyncConfig {
     logs?: Logs;
     revoke_mode?: RevokeMode;
 }
 
-interface CalendarSyncColors {
+export interface CalendarSyncColors {
     hairline?: string;
     primary?: string;
 }
 
-type CalendarSyncCallback = (action: CalendarSyncAction) => void;
+export type CalendarSyncCallback = (action: CalendarSyncAction) => void;
 
-interface CalendarSyncAction {
+export interface CalendarSyncAction {
     notification: CalendarSyncNotification;
     userinfo?: Userinfo;
 }
 
-type CalendarSyncNotification = ProfileRevoked | ProfileRevokedPressed;
+export type CalendarSyncNotification = ProfileRevoked | ProfileRevokedPressed;
 
-declare function SlotPicker(options: SlotPickerOptions): SlotPickerElement;
+export function SlotPicker(options: SlotPickerOptions): SlotPickerElement;
 
-interface SlotPickerElement {
+export interface SlotPickerElement {
     refresh: () => void;
     update: (options: SlotPickerOptions) => void;
 }
 
-interface SlotPickerOptions {
+export interface SlotPickerOptions {
     element_token: string;
     target_id: string;
     availability_query: AvailabilityQuery;
@@ -267,49 +267,49 @@ interface SlotPickerOptions {
     styles?: ElementStyle;
 }
 
-interface SlotPickerConfig {
+export interface SlotPickerConfig {
     logs?: Logs;
     mode?: SlotPickerMode;
 }
 
-type SlotPickerCallback = (action: SlotPickerAction) => void;
+export type SlotPickerCallback = (action: SlotPickerAction) => void;
 
-interface SlotPickerAction {
+export interface SlotPickerAction {
     notification: SlotPickerNotification;
 }
 
-type SlotPickerNotification = SlotSelected | NoSlotsFound;
+export type SlotPickerNotification = SlotSelected | NoSlotsFound;
 
-interface SlotSelected {
+export interface SlotSelected {
     type: "slot_selected";
     slot: Slot;
     tzid?: string;
 }
 
-interface SlotAdded {
+export interface SlotAdded {
     type: "slot_added";
     slot: Slot;
 }
 
-interface NoSlotsFound {
+export interface NoSlotsFound {
     type: "no_slots_found";
     query?: AvailabilityQuery;
 }
 
-interface NoVisibleSlots {
+export interface NoVisibleSlots {
     type: "no_visible_slots";
 }
 
-interface VisibleSlots {
+export interface VisibleSlots {
     type: "visible_slots";
 }
 
-interface QueryPeriodsEdited {
+export interface QueryPeriodsEdited {
     type: "query_periods_edited";
     query_periods: QueryPeriod[];
 }
 
-interface DisplayedDatesChanged {
+export interface DisplayedDatesChanged {
     type: "displayed_dates_changed";
     firstDay: string;
     lastDay: string;
@@ -317,37 +317,37 @@ interface DisplayedDatesChanged {
     hasPrev: boolean;
 }
 
-interface DateSelected {
+export interface DateSelected {
     type: "date_selected";
     date: string;
     tzid: string;
 }
 
-interface AvailabilityRuleSaved {
+export interface AvailabilityRuleSaved {
     type: "availability_rule_saved";
 }
 
-interface AvailabilityRuleEdited {
+export interface AvailabilityRuleEdited {
     type: "availability_rule_edited";
 }
 
-interface AvailabilityRuleNotFound {
+export interface AvailabilityRuleNotFound {
     type: "availability_rule_not_found";
     message: string;
 }
 
-interface ProfileRevoked {
+export interface ProfileRevoked {
     type: "profile_revoked";
     profile: Profile;
 }
 
-interface ProfileRevokedPressed {
+export interface ProfileRevokedPressed {
     type: "profile_revoke_pressed";
     profile: Profile;
 }
 
 // UI Elements customization
-type Translations = {
+export type Translations = {
     [L in Locale]?: {
         [C in UIElementContext]?: {
             [key: string]: string;
@@ -355,13 +355,13 @@ type Translations = {
     };
 };
 
-interface ElementStyle<T = unknown> {
+export interface ElementStyle<T = unknown> {
     prefix?: string;
     colors?: T;
     padding?: string;
 }
 
-interface AvailabilityViewerColors {
+export interface AvailabilityViewerColors {
     hairline?: string;
     primary?: string;
     available?: string;
@@ -373,7 +373,7 @@ interface AvailabilityViewerColors {
 }
 
 // Cronofy API
-interface AvailabilityQuery {
+export interface AvailabilityQuery {
     participants: ParticipantsGroup[];
     required_duration: Duration;
     query_periods?: QueryPeriod[];
@@ -388,7 +388,7 @@ interface AvailabilityQuery {
     available_periods?: QueryPeriod[];
 }
 
-interface SequencedAvailability {
+export interface SequencedAvailability {
     sequence_id: string;
     sequence_title: string;
     ordinal: number;
@@ -397,24 +397,24 @@ interface SequencedAvailability {
     buffer?: ExtendedBuffer;
 }
 
-interface AvailabilityRule {
+export interface AvailabilityRule {
     availability_rule_id: string;
     tzid: Timezone;
     weekly_periods: WeeklyPeriod[];
     calendar_ids?: string[];
 }
 
-interface Duration {
+export interface Duration {
     minutes?: number;
     hours?: number;
 }
 
-interface Buffer {
+export interface Buffer {
     before?: Duration;
     after?: Duration;
 }
 
-interface ExtendedBuffer {
+export interface ExtendedBuffer {
     before?: {
         minimum?: Duration;
         maximum?: Duration;
@@ -425,19 +425,19 @@ interface ExtendedBuffer {
     };
 }
 
-interface ParticipantsGroup {
+export interface ParticipantsGroup {
     required: "all" | number;
     members: Participant[];
 }
 
-interface Slot {
+export interface Slot {
     start: string;
     end: string;
     participants: Participant[];
     available?: boolean;
 }
 
-interface Participant {
+export interface Participant {
     sub: string;
     managed_availability?: boolean;
     available_periods?: QueryPeriod;
@@ -449,40 +449,40 @@ interface Participant {
     availability_rule_ids?: string[];
 }
 
-interface AvailabilityContraint {
+export interface AvailabilityContraint {
     period: "day" | "week";
     limit: number;
     tags?: Tags;
     tzid?: string;
 }
 
-interface QuerySlot {
+export interface QuerySlot {
     start: string;
 }
 
-interface QueryPeriod {
+export interface QueryPeriod {
     start: string;
     end: string;
 }
 
-interface WeeklyPeriod {
+export interface WeeklyPeriod {
     day: WeekDay;
     start_time: string;
     end_time: string;
 }
 
-interface Authorization {
+export interface Authorization {
     redirect_uri: string;
     client_id: string;
     scope: string;
 }
 
-interface Userinfo {
+export interface Userinfo {
     sub: string;
     email?: string;
     name?: string;
     zoneinfo?: Timezone;
-    "cronofy.type": string;
+    "cronofy.export type": string;
     "cronofy.data": {
         authorization: {
             scope: string;
@@ -492,7 +492,7 @@ interface Userinfo {
     };
 }
 
-interface Profile {
+export interface Profile {
     provider_name: ProviderName;
     provider_service: ProviderService;
     profile_id: string;
@@ -502,18 +502,18 @@ interface Profile {
     profile_relink_url?: string;
 }
 
-interface Tags {
+export interface Tags {
     [context: string]: { value: string }[];
 }
 
-interface Event {
+export interface Event {
     event_id?: string;
     event_uid?: string;
 }
 
 // Values
-type Timezone = string; // e.g. 'Europe/London' TODO - use a library for this
-type WeekDay =
+export type Timezone = string; // e.g. 'Europe/London' TODO - use a library for this
+export type WeekDay =
     | "sunday"
     | "monday"
     | "tuesday"
@@ -521,17 +521,17 @@ type WeekDay =
     | "thursday"
     | "friday"
     | "saturday";
-type DataCenter = "au" | "ca" | "de" | "sg" | "uk" | "us";
-type Interval = 15 | 30 | 60;
-type AvailabilityViewerMode =
+export type DataCenter = "au" | "ca" | "de" | "sg" | "uk" | "us";
+export type Interval = 15 | 30 | 60;
+export type AvailabilityViewerMode =
     | "confirm"
     | "no_confirm"
     | "multi_select"
     | "free_select";
-type AvailabilityViewerSlotSelection = "available" | "unrestricted";
-type SlotPickerMode = "confirm" | "no_confirm";
-type Logs = "info" | "warn" | "error" | "none";
-type Locale =
+export type AvailabilityViewerSlotSelection = "available" | "unrestricted";
+export type SlotPickerMode = "confirm" | "no_confirm";
+export type Logs = "info" | "warn" | "error" | "none";
+export type Locale =
     | "ar"
     | "cs"
     | "cy"
@@ -550,32 +550,32 @@ type Locale =
     | "sv"
     | "tr"
     | "zh-CN";
-type UIElementContext =
+export type UIElementContext =
     | "agenda"
     | "availability_rules"
     | "availability_viewer"
     | "calendar_sync"
     | "slot_picker";
-type AvailabilityQueryResponseFormat =
+export type AvailabilityQueryResponseFormat =
     | "slots"
     | "periods"
     | "overlapping_slots";
-type AgendaMode =
+export type AgendaMode =
     | "default"
     | "only_managed"
     | "free_busy"
     | "free_busy_managed";
-type SlotButtonMode = "summary" | "detailed";
-type DateTimePickerMode = "confirm" | "no_confirm";
-type DateTimePickerMonthViewMode = "overflow" | "minimal_overflow" | "single";
-type RevokeMode = "trigger_and_callback" | "callback_only";
-type ProviderName =
+export type SlotButtonMode = "summary" | "detailed";
+export type DateTimePickerMode = "confirm" | "no_confirm";
+export type DateTimePickerMonthViewMode = "overflow" | "minimal_overflow" | "single";
+export type RevokeMode = "trigger_and_callback" | "callback_only";
+export type ProviderName =
     | "apple"
     | "cronofy"
     | "exchange"
     | "google"
     | "live_connect";
-type ProviderService =
+export type ProviderService =
     | "cronofy"
     | "exchange"
     | "google"
@@ -583,47 +583,3 @@ type ProviderService =
     | "icloud"
     | "office365"
     | "outlook_com";
-
-export {
-    Agenda,
-    AgendaColors,
-    AgendaConfig,
-    AgendaElement,
-    AgendaElementOptions,
-    AvailabilityQuery,
-    AvailabilityRule,
-    AvailabilityRules,
-    AvailabilityRulesAction,
-    AvailabilityRulesCallback,
-    AvailabilityRulesConfig,
-    AvailabilityRulesElement,
-    AvailabilityRulesOptions,
-    AvailabilityViewer,
-    AvailabilityViewerAction,
-    AvailabilityViewerCallback,
-    AvailabilityViewerConfig,
-    AvailabilityViewerElement,
-    AvailabilityViewerOptions,
-    CalendarSync,
-    CalendarSyncAction,
-    CalendarSyncCallback,
-    CalendarSyncConfig,
-    CalendarSyncElement,
-    CalendarSyncOptions,
-    DateTimePicker,
-    DateTimePickerAction,
-    DateTimePickerCallback,
-    DateTimePickerColors,
-    DateTimePickerConfig,
-    DateTimePickerElement,
-    DateTimePickerNotification,
-    DateTimePickerOptions,
-    SequencedAvailability,
-    Slot,
-    SlotPicker,
-    SlotPickerAction,
-    SlotPickerCallback,
-    SlotPickerConfig,
-    SlotPickerElement,
-    SlotPickerOptions,
-};
