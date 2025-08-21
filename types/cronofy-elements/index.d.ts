@@ -60,7 +60,7 @@ export type AvailabilityViewerNotification =
     | VisibleSlots
     | QueryPeriodsEdited
     | DisplayedDatesChanged;
-    
+
 export function Agenda(options: AgendaElementOptions): AgendaElement;
 
 export interface AgendaElement {
