@@ -171,11 +171,11 @@ declare namespace Layui {
          * - `collapse` 渲染折叠面板
          * @param filter 元素的 `lay-filter=""` 的值，用于局部更新，
          * @since 自 2.9.16+ {@link filter} 支持 jQuery 对象
-         * @see https://layui.dev/docs/2/nav/- 导航栏
-         * @see https://layui.dev/docs/2/tab/- 选项卡
-         * @see https://layui.dev/docs/2/panel/- 折叠面板
-         * @see https://layui.dev/docs/2/progress/- 进度条
-         * @see https://layui.dev/docs/2/nav/#separator- 面包屑
+         * @see https://layui.dev/docs/2/nav/ - 导航栏
+         * @see https://layui.dev/docs/2/tab/ - 选项卡
+         * @see https://layui.dev/docs/2/panel/ - 折叠面板
+         * @see https://layui.dev/docs/2/progress/ - 进度条
+         * @see https://layui.dev/docs/2/nav/#separator - 面包屑
          */
         render(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string | JQuery): void;
     }
