@@ -816,6 +816,38 @@ export declare interface CommonLookAroundOptions {
 }
 
 /**
+ * @enum
+ * @public
+ */
+declare const ConfigurationChangeStatus: Readonly<{
+    readonly Initialized: "Initialized";
+    readonly Refreshed: "Refreshed";
+}>;
+
+/**
+ * @public
+ */
+declare type ConfigurationChangeStatus = (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
+
+/**
+ * @public
+ */
+declare const ConfigurationErrorStatus: Readonly<{
+    readonly BadRequest: "Bad Request";
+    readonly Unauthorized: "Unauthorized";
+    readonly TooManyRequests: "Too Many Requests";
+    readonly MalformedResponse: "Malformed Response";
+    readonly Timeout: "Timeout";
+    readonly NetworkError: "Network Error";
+    readonly Unknown: "Unknown";
+}>;
+
+/**
+ * @public
+ */
+declare type ConfigurationErrorStatus = (typeof ConfigurationErrorStatus)[keyof typeof ConfigurationErrorStatus];
+
+/**
  * An object representing the latitude and longitude for a point on the Earth's surface.
  * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.coordinate Read more.}
  * @public
@@ -1693,6 +1725,42 @@ declare const LookAroundBadgePosition: Readonly<{
 declare type LookAroundBadgePosition = (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
 
 /**
+ * @public
+ */
+export declare type LookAroundErrorEvent = CustomEvent<{
+    type: LookAroundErrorType;
+    message: string;
+}>;
+
+/**
+ * @enum
+ * @public
+ */
+export declare const LookAroundErrorType: Readonly<{
+    /**
+     * Imagery was not available for the look location.
+     */
+    readonly AvailabilityError: "availability-error";
+    /**
+     * The browser was not able to meet look around requirements (e.g. WebAssembly or WebGL 2 support).
+     */
+    readonly BrowserError: "browser-error";
+    /**
+     * There was an error communicating with the service (e.g. the manifest download failed).
+     */
+    readonly ServiceError: "service-error";
+    /**
+     * There was some other type of internal error.
+     */
+    readonly UnknownError: "unknown-error";
+}>;
+
+/**
+ * @public
+ */
+export declare type LookAroundErrorType = (typeof LookAroundErrorType)[keyof typeof LookAroundErrorType];
+
+/**
  * Options for {@link LookAround} constructor.
  *
  * @public
@@ -2211,10 +2279,7 @@ declare class Map extends MapKitEventTarget {
      * @public
      */
     annotationsInMapRect(mapRect: MapRect): Annotation[];
-    /**
-     * @deprecated Map now resizes itself automatically.
-     */
-    updateSize(): Map;
+
     /**
      * Converts a coordinate on the map to a point in the page's coordinate system.
      * {@link https://developer.apple.com/documentation/mapkitjs/mapkit.map/convertcoordinatetopointonpage Read more.}
@@ -2311,6 +2376,21 @@ declare class Map extends MapKitEventTarget {
     );
 }
 export { Map as Map };
+
+/**
+ * @public
+ */
+export declare class MapAnnotationDragEvent extends MapKitEvent {
+    readonly annotation: Annotation;
+    readonly coordinate?: Coordinate | undefined;
+}
+
+/**
+ * @public
+ */
+export declare class MapAnnotationSelectionEvent extends MapKitEvent {
+    readonly annotation: Annotation;
+}
 
 /**
  * An object that contains options for creating a map's features.
@@ -2488,6 +2568,14 @@ export declare interface MapConstructorOptions {
     annotationForMapFeature?: (
         mapFeatureAnnotation: MapFeatureAnnotation,
     ) => Annotation | undefined;
+}
+
+/**
+ * @public
+ */
+export declare class MapEvent extends MapKitEvent {
+    readonly pointOnPage?: DOMPoint | undefined;
+    readonly domEvents?: Event[] | undefined;
 }
 
 /**
@@ -2815,10 +2903,26 @@ export declare class MapKit extends MapKitEventTarget {
 /**
  * @public
  */
-export declare interface MapKitEvent {
-    get target(): MapKitEventTarget | null;
-    get type(): string;
-    get defaultPrevented(): boolean;
+export declare class MapKitConfigurationChangeEvent extends MapKitEvent {
+    readonly status: ConfigurationChangeStatus;
+}
+
+/**
+ * @public
+ */
+export declare class MapKitConfigurationErrorEvent extends MapKitEvent {
+    readonly status: ConfigurationErrorStatus;
+    readonly message?: string | undefined;
+}
+
+/**
+ * @public
+ */
+export declare class MapKitEvent {
+    target: MapKitEventTarget | null;
+    type: string;
+    defaultPrevented: boolean;
+
     stopPropagation(): void;
     preventDefault(): void;
 }
@@ -2836,11 +2940,25 @@ export declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
  * @public
  */
 declare class MapKitEventTarget {
+    /**
+     * Adds a callback to be called on the dispatch of a specific event type.
+     * @param eventType the type of the event to listen for
+     * @param listener add this
+     * @param thisObject the `this` object to call `listener` with
+     * @return `true` if the listener was added, `false` otherwise
+     */
     addEventListener(
         eventType: string,
         listener: MapKitEventListener,
         thisObject?: object | null,
     ): boolean;
+    /**
+     * Stops a callback from being called when a specific event type dispatches.
+     * @param eventType the event type to remove the listener from
+     * @param listener remove this
+     * @param thisObject the `this` object `listener` is called with
+     * @return `true` if it was removed, `false` if it was not
+     */
     removeEventListener(
         eventType?: string,
         listener?: MapKitEventListener,
@@ -2849,7 +2967,7 @@ declare class MapKitEventTarget {
     /**
      * Dispatches an event object, calling any listeners for that type.
      * @param event the event object to dispatch
-     * @return true if dispatch completed, false if it was prevented
+     * @return `true` if dispatch completed, `false` if it was prevented
      */
     dispatchEvent(event: MapKitEvent): boolean;
 }
@@ -2880,6 +2998,13 @@ export declare interface MapKitInitializationOptions {
      * @public
      */
     libraries?: string[];
+}
+
+/**
+ * @public
+ */
+export declare class MapOverlaySelectionEvent extends MapKitEvent {
+    readonly overlay: Overlay;
 }
 
 /**
@@ -3112,6 +3237,23 @@ declare const MapType: Readonly<{
  * @public
  */
 declare type MapType = (typeof MapType)[keyof typeof MapType];
+
+/**
+ * @public
+ */
+export declare class MapUserLocationChangeEvent extends MapKitEvent {
+    readonly coordinate: Coordinate;
+    readonly timestamp: Date;
+    readonly floorLevel?: number | undefined;
+}
+
+/**
+ * @public
+ */
+export declare class MapUserLocationErrorEvent extends MapKitEvent {
+    readonly code: number;
+    readonly message: string;
+}
 
 /**
  * An annotation that displays a balloon-shaped marker at the designated location.
@@ -4951,6 +5093,14 @@ export declare interface TileOverlayConstructorOptions {
     data: {
         [key: string]: any;
     };
+}
+
+/**
+ * @public
+ */
+export declare class TileOverlayErrorEvent extends MapKitEvent {
+    readonly tileOverlay: TileOverlay;
+    readonly tileUrl: string;
 }
 
 /**
