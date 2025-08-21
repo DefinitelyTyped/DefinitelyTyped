@@ -723,7 +723,7 @@ export function count<TObject>(
  * ```
  */
 export function cross<T extends unknown[]>(
-  ...iterables: { [K in keyof T]: Iterable<T[K]> }
+    ...iterables: { [K in keyof T]: Iterable<T[K]> }
 ): T[];
 
 /**
@@ -750,7 +750,7 @@ export function cross<T extends unknown[]>(
  * ```
  */
 export function cross<T extends unknown[], U>(
-  ...args: [...iterables: { [K in keyof T]: Iterable<T[K]> }, reducer: (...values: T) => U]
+    ...args: [...iterables: { [K in keyof T]: Iterable<T[K]> }, reducer: (...values: T) => U]
 ): U[];
 
 /**
