@@ -1,11 +1,14 @@
-import { type AccordionConfig } from "./components/accordion/accordion.js";
-import { type ButtonConfig } from "./components/button/button.js";
-import { type CharacterCountConfig } from "./components/character-count/character-count.js";
-import { type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
-import { type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
-import { type FileUploadConfig } from "./components/file-upload/file-upload.js";
-import { type NotificationBannerConfig } from "./components/notification-banner/notification-banner.js";
-import { type PasswordInputConfig } from "./components/password-input/password-input.js";
+import { Accordion, type AccordionConfig } from "./components/accordion/accordion.js";
+import { Button, type ButtonConfig } from "./components/button/button.js";
+import { CharacterCount, type CharacterCountConfig } from "./components/character-count/character-count.js";
+import { ErrorSummary, type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
+import { ExitThisPage, type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
+import { FileUpload, type FileUploadConfig } from "./components/file-upload/file-upload.js";
+import {
+    NotificationBanner,
+    type NotificationBannerConfig,
+} from "./components/notification-banner/notification-banner.js";
+import { PasswordInput, type PasswordInputConfig } from "./components/password-input/password-input.js";
 
 export interface CompatibleClass {
     new(...args: any[]): any;
@@ -24,7 +27,19 @@ export interface Config {
     /**
      * - Initialisation error callback
      */
-    onError?: OnErrorCallback<CompatibleClass> | undefined;
+    onError?:
+        | OnErrorCallback<
+            | typeof Accordion
+            | typeof Button
+            | typeof CharacterCount
+            | typeof ErrorSummary
+            | typeof ExitThisPage
+            | typeof FileUpload
+            | typeof NotificationBanner
+            | typeof PasswordInput
+            | undefined
+        >
+        | undefined;
 
     /**
      * - Accordion config
@@ -74,11 +89,14 @@ export type ConfigKey = keyof Omit<Config, "scope" | "onError">;
 
 export type ComponentConfig<ComponentClass extends CompatibleClass> = ConstructorParameters<ComponentClass>[1];
 
-export interface ErrorContext<ComponentClass extends CompatibleClass> {
+export interface ErrorContext<
+    ComponentClass extends CompatibleClass | undefined = undefined,
+> {
     /**
      * - Element used for component module initialisation
      */
-    element?: Element | undefined;
+    element?: ComponentClass extends CompatibleClass ? Element
+        : undefined;
 
     /**
      * - Class of component
@@ -88,10 +106,13 @@ export interface ErrorContext<ComponentClass extends CompatibleClass> {
     /**
      * - Config supplied to components
      */
-    config?: Config | ComponentConfig<ComponentClass> | undefined;
+    config?: ComponentClass extends CompatibleClass ? ComponentConfig<ComponentClass>
+        : Config;
 }
 
-export type OnErrorCallback<ComponentClass extends CompatibleClass> = (
+export type OnErrorCallback<
+    ComponentClass extends CompatibleClass | undefined = undefined,
+> = (
     error: unknown,
     context: ErrorContext<ComponentClass>,
 ) => any;
