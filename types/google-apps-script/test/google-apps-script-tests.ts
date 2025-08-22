@@ -406,11 +406,11 @@ CardService.newOpenLink().setOnClose(CardService.OnClose.NOTHING); // $ExpectTyp
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD); // $ExpectType OpenLink
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $ExpectType OpenLink
 
-CardService.SelectionInput.CHECK_BOX;
-CardService.SelectionInput.RADIO_BUTTON;
-CardService.SelectionInput.DROPDOWN;
-CardService.SelectionInput.SWITCH;
-CardService.SelectionInput.MULTI_SELECT;
+CardService.SelectionInputType.CHECK_BOX;
+CardService.SelectionInputType.RADIO_BUTTON;
+CardService.SelectionInputType.DROPDOWN;
+CardService.SelectionInputType.SWITCH;
+CardService.SelectionInputType.MULTI_SELECT;
 
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
