@@ -131,9 +131,13 @@ createAll(Accordion, Accordion.defaults, console.error);
 createAll(Accordion, Accordion.defaults, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
-        context.config;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof Button;
+        context.config?.i18n;
+        context.config?.rememberExpanded;
     },
 });
 
@@ -147,9 +151,12 @@ createAll(Button, Button.defaults, console.error);
 createAll(Button, Button.defaults, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
-        context.config;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof Button;
+        context.config?.preventDoubleClick;
     },
 });
 
@@ -163,9 +170,15 @@ createAll(CharacterCount, CharacterCount.defaults, console.error);
 createAll(CharacterCount, CharacterCount.defaults, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
-        context.config;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof CharacterCount;
+        context.config?.i18n;
+        context.config?.maxlength;
+        context.config?.maxwords;
+        context.config?.threshold;
     },
 });
 
@@ -179,9 +192,11 @@ createAll(Checkboxes, undefined, console.error);
 createAll(Checkboxes, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
-        context.config;
+        context.component?.moduleName;
+        context.component instanceof Checkboxes;
+        context.config === undefined;
     },
 });
 
@@ -195,9 +210,11 @@ createAll(Header, undefined, console.error);
 createAll(Header, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
-        context.config;
+        context.component?.moduleName;
+        context.component instanceof Header;
+        context.config === undefined;
     },
 });
 
@@ -211,9 +228,13 @@ createAll(ErrorSummary, ErrorSummary.defaults, console.error);
 createAll(ErrorSummary, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof ErrorSummary;
         context.config;
+        context.config?.disableAutoFocus;
     },
 });
 
@@ -227,9 +248,13 @@ createAll(ExitThisPage, ExitThisPage.defaults, console.error);
 createAll(ExitThisPage, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof ExitThisPage;
         context.config;
+        context.config?.i18n;
     },
 });
 
@@ -243,9 +268,13 @@ createAll(FileUpload, FileUpload.defaults, console.error);
 createAll(FileUpload, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof FileUpload;
         context.config;
+        context.config?.i18n;
     },
 });
 
@@ -259,9 +288,13 @@ createAll(NotificationBanner, NotificationBanner.defaults, console.error);
 createAll(NotificationBanner, undefined, {
     scope: document.body,
     onError(error, context) {
+        error instanceof Error;
         context.element;
-        context.component;
+        context.component?.defaults;
+        context.component?.moduleName;
+        context.component instanceof NotificationBanner;
         context.config;
+        context.config?.disableAutoFocus;
     },
 });
 
@@ -281,6 +314,7 @@ createAll(PasswordInput, undefined, {
         context.component?.moduleName;
         context.component instanceof PasswordInput;
         context.config;
+        context.config?.i18n;
     },
 });
 
@@ -298,7 +332,7 @@ createAll(Radios, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof Radios;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -316,7 +350,7 @@ createAll(ServiceNavigation, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof ServiceNavigation;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -334,7 +368,7 @@ createAll(SkipLink, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof SkipLink;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -352,7 +386,7 @@ createAll(Tabs, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof Tabs;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -370,7 +404,7 @@ createAll(MyComponent1, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof MyComponent1;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -388,7 +422,7 @@ createAll(MyComponent2, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof MyComponent2;
-        context.config;
+        context.config === undefined;
     },
 });
 
@@ -408,6 +442,12 @@ createAll(MyComponent3, { anOption: "overridden" }, {
         context.component?.moduleName;
         context.component instanceof MyComponent3;
         context.config;
+        context.config?.anOption;
+        context.config?.aNumberOption;
+        context.config?.aBooleanOption;
+        context.config?.anOptionWithNesting;
+        context.config?.anOptionWithNesting?.aNestedOption;
+        context.config?.anOptionWithNesting?.anotherLevel;
     },
 });
 
@@ -427,6 +467,12 @@ createAll(MyComponent3, MyComponent3.defaults, {
         context.component?.moduleName;
         context.component instanceof MyComponent3;
         context.config;
+        context.config?.anOption;
+        context.config?.aNumberOption;
+        context.config?.aBooleanOption;
+        context.config?.anOptionWithNesting;
+        context.config?.anOptionWithNesting?.aNestedOption;
+        context.config?.anOptionWithNesting?.anotherLevel;
     },
 });
 
