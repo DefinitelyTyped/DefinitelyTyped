@@ -1,20 +1,5 @@
 export {}; // Make this a module
 
-// #region Fetch and friends
-// Conditional type aliases, used at the end of this file.
-// Will either be empty if lib-dom is included, or the undici version otherwise.
-type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
-type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
-type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
-type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
-type _MessageEvent = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").MessageEvent;
-type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
-    : import("undici-types").RequestInit;
-type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
-    : import("undici-types").ResponseInit;
-type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
-// #endregion Fetch and friends
-
 // #region DOMException
 type _DOMException = typeof globalThis extends { onmessage: any } ? {} : NodeDOMException;
 interface NodeDOMException extends Error {
@@ -282,54 +267,4 @@ declare global {
             timeout(milliseconds: number): AbortSignal;
         };
     // #endregion AbortController
-
-    // #region fetch
-    interface RequestInit extends _RequestInit {}
-
-    function fetch(
-        input: string | URL | globalThis.Request,
-        init?: RequestInit,
-    ): Promise<Response>;
-
-    interface Request extends _Request {}
-    var Request: typeof globalThis extends {
-        onmessage: any;
-        Request: infer T;
-    } ? T
-        : typeof import("undici-types").Request;
-
-    interface ResponseInit extends _ResponseInit {}
-
-    interface Response extends _Response {}
-    var Response: typeof globalThis extends {
-        onmessage: any;
-        Response: infer T;
-    } ? T
-        : typeof import("undici-types").Response;
-
-    interface FormData extends _FormData {}
-    var FormData: typeof globalThis extends {
-        onmessage: any;
-        FormData: infer T;
-    } ? T
-        : typeof import("undici-types").FormData;
-
-    interface Headers extends _Headers {}
-    var Headers: typeof globalThis extends {
-        onmessage: any;
-        Headers: infer T;
-    } ? T
-        : typeof import("undici-types").Headers;
-
-    interface MessageEvent extends _MessageEvent {}
-    var MessageEvent: typeof globalThis extends {
-        onmessage: any;
-        MessageEvent: infer T;
-    } ? T
-        : typeof import("undici-types").MessageEvent;
-
-    interface EventSource extends _EventSource {}
-    var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
-        : typeof import("undici-types").EventSource;
-    // #endregion fetch
 }

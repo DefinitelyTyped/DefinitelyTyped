@@ -36,6 +36,7 @@
 
 // Definitions for Node.js modules that are not specific to any version of TypeScript:
 /// <reference path="../globals.d.ts" />
+/// <reference path="../web-globals/fetch.d.ts" />
 /// <reference path="../assert.d.ts" />
 /// <reference path="../assert/strict.d.ts" />
 /// <reference path="../async_hooks.d.ts" />
