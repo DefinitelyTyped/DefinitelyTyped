@@ -3912,7 +3912,7 @@ declare namespace React {
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
-        textAnchor?: "start" | "middle" | "end" | undefined;
+        textAnchor?: "start" | "middle" | "end" | "inherit" | undefined;
         textDecoration?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;
