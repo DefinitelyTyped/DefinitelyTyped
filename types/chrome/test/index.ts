@@ -3427,18 +3427,6 @@ function testStorageForPromise() {
     );
 }
 
-function testExtensionSendRequest() {
-    chrome.extension.sendRequest("dummy-id", "Hello World!");
-    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num + 1));
-}
-
 // https://developer.chrome.com/docs/extensions/reference/api/contextMenus
 function testContextMenus() {
     chrome.contextMenus.ContextType.ACTION === "action";
@@ -4314,21 +4302,75 @@ async function testDownloadsForPromise() {
     await chrome.downloads.setUiOptions({ enabled: true });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/extension
+// https://developer.chrome.com/docs/extensions/reference/api/extension
 function testExtension() {
-    chrome.extension.getBackgroundPage();
-    chrome.extension.getURL("/");
-    chrome.extension.setUpdateUrlData("");
-    chrome.extension.getViews({});
-    chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {});
-    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => {});
-    chrome.extension.getExtensionTabs(1);
-}
+    chrome.extension.ViewType.POPUP === "popup";
+    chrome.extension.ViewType.TAB === "tab";
 
-// https://developer.chrome.com/docs/extensions/reference/extension
-async function testExtensionForPromise() {
-    await chrome.extension.isAllowedFileSchemeAccess();
-    await chrome.extension.isAllowedIncognitoAccess();
+    chrome.extension.inIncognitoContext; // ExpectType boolean
+
+    chrome.extension.lastError; // ExpectType chrome.runtime.LastError
+
+    chrome.extension.getBackgroundPage(); // ExpectType Window | null
+
+    const fetchProperties: chrome.extension.FetchProperties = {
+        tabId: 1,
+        type: "tab",
+        windowId: 1,
+    };
+
+    chrome.extension.getViews(fetchProperties); // ExpectType Window[]
+
+    chrome.extension.isAllowedFileSchemeAccess(); // ExpectType Promise<boolean>
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // ExpectType void
+        isAllowedAccess; // ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.extension.isAllowedFileSchemeAccess(() => {}).then(() => {});
+
+    chrome.extension.isAllowedIncognitoAccess(); // ExpectType Promise<boolean>
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // ExpectType void
+        isAllowedAccess; // ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.extension.isAllowedIncognitoAccess(() => {}).then(() => {});
+
+    chrome.extension.setUpdateUrlData("data"); // ExpectType void
+
+    chrome.extension.getExtensionTabs(); // ExpectType Window[]
+    chrome.extension.getExtensionTabs(1); // ExpectType Window[]
+
+    chrome.extension.getURL("/path"); // ExpectType string
+
+    const extensionId = "dummy-id";
+    const request = {};
+
+    chrome.extension.sendRequest(request); // ExpectType void
+    chrome.extension.sendRequest(request, (response) => { // ExpectType void
+        response; // ExpectType any
+    });
+    chrome.extension.sendRequest(extensionId, request); // ExpectType void
+    chrome.extension.sendRequest(extensionId, request, (response) => { // ExpectType void
+        response; // ExpectType any
+    });
+    chrome.extension.sendRequest<number, boolean>(1, (response) => {
+        response; // ExpectType boolean
+    });
+    chrome.extension.sendRequest<number, boolean>(extensionId, 1, (response) => {
+        response; // ExpectType boolean
+    });
+
+    checkChromeEvent(chrome.extension.onRequest, (request, sender, sendResponse) => {
+        request; // ExpectType any
+        sender; // ExpectType chrome.extension.MessageSender
+        sendResponse({}); // ExpectType void
+    });
+
+    checkChromeEvent(chrome.extension.onRequestExternal, (request, sender, sendResponse) => {
+        request; // ExpectType any
+        sender; // ExpectType chrome.extension.MessageSender
+        sendResponse({}); // ExpectType void
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/fontSettings
