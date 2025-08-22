@@ -1408,7 +1408,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      */
     headerFilterFunc?:
         | FilterType
-        | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
+        | HeaderFilterFunc
         | undefined;
 
     /** additional parameters object passed to the headerFilterFunc function. */
@@ -3069,7 +3069,7 @@ declare class Tabulator {
     addFilter: FilterFunction;
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
-    getFilters: (includeHeaderFilters: boolean) => Filter[];
+    getFilters: (includeHeaderFilters?: boolean) => Filter[];
 
     /** You can programmatically set the header filter value of a column by calling the setHeaderFilterValue function, This function takes any of the standard column component look up options as its first parameter, with the value for the header filter as the second option. */
     setHeaderFilterValue: (column: ColumnLookup, value: string) => void;
@@ -3424,6 +3424,11 @@ declare class Module {
      */
     initialize(): void;
 }
+
+export interface HeaderFilterFunc {
+    (headerValue: any, rowValue: any, rowData: any, filterParams: any): boolean;
+}
+
 declare class AccessorModule extends Module {}
 declare class AjaxModule extends Module {}
 declare class ClipboardModule extends Module {}
@@ -3432,7 +3437,14 @@ declare class DataTreeModule extends Module {}
 declare class DownloadModule extends Module {}
 declare class EditModule extends Module {}
 declare class ExportModule extends Module {}
-declare class FilterModule extends Module {}
+declare class FilterModule extends Module {
+    /**
+     * Default filter functions (i.e. '=', '<', 'regex', etc.)
+     */
+    static filters: {
+        [key: string]: HeaderFilterFunc;
+    };
+}
 declare class FormatModule extends Module {}
 declare class FrozenColumnsModule extends Module {}
 declare class FrozenRowsModule extends Module {}

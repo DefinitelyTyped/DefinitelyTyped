@@ -1759,6 +1759,7 @@ declare module 'inspector' {
             url: string;
             method: string;
             headers: Headers;
+            hasPostData: boolean;
         }
         /**
          * HTTP response data.
@@ -1776,11 +1777,39 @@ declare module 'inspector' {
          */
         interface Headers {
         }
+        interface GetRequestPostDataParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
+        interface GetResponseBodyParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
         interface StreamResourceContentParameterType {
             /**
              * Identifier of the request to stream.
              */
             requestId: RequestId;
+        }
+        interface GetRequestPostDataReturnType {
+            /**
+             * Request body string, omitting files from multipart requests
+             */
+            postData: string;
+        }
+        interface GetResponseBodyReturnType {
+            /**
+             * Response body.
+             */
+            body: string;
+            /**
+             * True, if content was sent as base64.
+             */
+            base64Encoded: boolean;
         }
         interface StreamResourceContentReturnType {
             /**
@@ -2285,6 +2314,16 @@ declare module 'inspector' {
          * Enables network tracking, network events will now be delivered to the client.
          */
         post(method: 'Network.enable', callback?: (err: Error | null) => void): void;
+        /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType, callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        post(method: 'Network.getRequestPostData', callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType, callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        post(method: 'Network.getResponseBody', callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.
@@ -3062,9 +3101,18 @@ declare module 'inspector' {
          *
          * Broadcasts the `Network.dataReceived` event to connected frontends, or buffers the data if
          * `Network.streamResourceContent` command was not invoked for the given request yet.
+         *
+         * Also enables `Network.getResponseBody` command to retrieve the response data.
          * @since v24.2.0
          */
         function dataReceived(params: DataReceivedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Enables `Network.getRequestPostData` command to retrieve the request data.
+         * @since v24.3.0
+         */
+        function dataSent(params: unknown): void;
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
@@ -3450,6 +3498,14 @@ declare module 'inspector/promises' {
          * Enables network tracking, network events will now be delivered to the client.
          */
         post(method: 'Network.enable'): Promise<void>;
+        /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType): Promise<Network.GetRequestPostDataReturnType>;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType): Promise<Network.GetResponseBodyReturnType>;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.

@@ -638,6 +638,7 @@ function testRuntime() {
     chrome.runtime.PlatformArch.MIPS64 === "mips64";
     chrome.runtime.PlatformArch.X86_32 === "x86-32";
     chrome.runtime.PlatformArch.X86_64 === "x86-64";
+    chrome.runtime.PlatformArch.RISCV64 === "riscv64";
 
     chrome.runtime.PlatformNaclArch.ARM === "arm";
     chrome.runtime.PlatformNaclArch.MIPS === "mips";
@@ -709,8 +710,8 @@ function testRuntime() {
 
     chrome.runtime.getPlatformInfo(); // $ExpectType Promise<PlatformInfo>
     chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
-        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
-        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64"
+        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64" | "riscv64"
+        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64" | undefined
         platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
     });
     // @ts-expect-error
@@ -1971,6 +1972,17 @@ async function testBrowserActionForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
 async function testCookie() {
+    chrome.cookies.OnChangedCause.EVICTED === "evicted";
+    chrome.cookies.OnChangedCause.EXPIRED === "expired";
+    chrome.cookies.OnChangedCause.EXPIRED_OVERWRITE === "expired_overwrite";
+    chrome.cookies.OnChangedCause.EXPLICIT === "explicit";
+    chrome.cookies.OnChangedCause.OVERWRITE === "overwrite";
+
+    chrome.cookies.SameSiteStatus.LAX === "lax";
+    chrome.cookies.SameSiteStatus.NO_RESTRICTION === "no_restriction";
+    chrome.cookies.SameSiteStatus.STRICT === "strict";
+    chrome.cookies.SameSiteStatus.UNSPECIFIED === "unspecified";
+
     const cookieDetails: chrome.cookies.CookieDetails = {
         url: "https://example.com",
         name: "example",
@@ -1978,6 +1990,7 @@ async function testCookie() {
             topLevelSite: "https://example.com",
             hasCrossSiteAncestor: false,
         },
+        storeId: "storeId1",
     };
 
     chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
@@ -1987,12 +2000,26 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.getAll(cookieDetails); // $ExpectType Promise<Cookie[]>
-    chrome.cookies.getAll(cookieDetails, (cookies) => {
+    const cookiesAllDetails: chrome.cookies.GetAllDetails = {
+        domain: "example.com",
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        secure: true,
+        session: true,
+        storeId: "storeId1",
+        url: "https://example.com",
+    };
+
+    chrome.cookies.getAll(cookiesAllDetails); // $ExpectType Promise<Cookie[]>
+    chrome.cookies.getAll(cookiesAllDetails, (cookies) => {
         cookies; // $ExpectType Cookie[]
     });
     // @ts-expect-error
-    chrome.cookies.getAll(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.getAll(cookiesAllDetails, () => {}).then(() => {});
 
     chrome.cookies.getAllCookieStores(); // $ExpectType Promise<CookieStore[]>
     chrome.cookies.getAllCookieStores((cookieStores) => {
@@ -2019,15 +2046,33 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.remove(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.set(cookieDetails); // $ExpectType Promise<Cookie | null>
-    chrome.cookies.set(cookieDetails, (cookie) => {
+    const cookieDetailsSet: chrome.cookies.SetDetails = {
+        domain: "example.com",
+        expirationDate: 1717334400,
+        httpOnly: true,
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        sameSite: "strict",
+        secure: true,
+        url: "https://example.com",
+        value: "value1",
+    };
+
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet, (cookie) => {
         cookie; // $ExpectType Cookie | null
     });
     // @ts-expect-error
-    chrome.cookies.set(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
 
     checkChromeEvent(chrome.cookies.onChanged, (changeInfo) => {
-        changeInfo; // $ExpectType CookieChangeInfo
+        changeInfo.cause; // $ExpectType "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite"
+        changeInfo.cookie; // $ExpectType Cookie
+        changeInfo.removed; // $ExpectType boolean
     });
 }
 
@@ -3630,6 +3675,14 @@ function testEnterpriseHardwarePlatform() {
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
     // @ts-expect-error
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/login
+function testEnterpriseLogin() {
+    chrome.enterprise.login.exitCurrentManagedGuestSession(); // $ExpectType Promise<void>
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/browsingData
@@ -6459,4 +6512,39 @@ function testReadingList() {
 // https://developer.chrome.com/docs/extensions/reference/api/dom
 function testDom() {
     chrome.dom.openOrClosedShadowRoot(document.body); // $ExpectType ShadowRoot | null
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/desktopCapture
+function testDesktopCapture() {
+    chrome.desktopCapture.DesktopCaptureSourceType.AUDIO === "audio";
+    chrome.desktopCapture.DesktopCaptureSourceType.SCREEN === "screen";
+    chrome.desktopCapture.DesktopCaptureSourceType.TAB === "tab";
+    chrome.desktopCapture.DesktopCaptureSourceType.WINDOW === "window";
+
+    chrome.desktopCapture.cancelChooseDesktopMedia(0); // $ExpectType void
+
+    const sources: `${chrome.desktopCapture.DesktopCaptureSourceType}`[] = [
+        "screen",
+        chrome.desktopCapture.DesktopCaptureSourceType.WINDOW,
+    ];
+
+    const tab: chrome.tabs.Tab = {
+        index: 0,
+        pinned: false,
+        highlighted: false,
+        windowId: 0,
+        active: false,
+        frozen: false,
+        incognito: false,
+        selected: false,
+        discarded: false,
+        autoDiscardable: false,
+        groupId: 0,
+    };
+
+    chrome.desktopCapture.chooseDesktopMedia(sources, () => {}); // $ExpectType number
+    chrome.desktopCapture.chooseDesktopMedia(sources, tab, (streamId, options) => {
+        streamId; // $ExpectType string
+        options; // $ExpectType StreamOptions
+    });
 }

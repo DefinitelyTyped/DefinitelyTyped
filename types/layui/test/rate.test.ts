@@ -1,7 +1,7 @@
 function rateTest() {
     layui.use("rate", () => {
         const rate = layui.rate;
-        rate.set();
+        rate.set({});
         rate.config;
         rate.on;
         rate.index;
