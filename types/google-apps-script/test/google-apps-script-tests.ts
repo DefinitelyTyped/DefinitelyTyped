@@ -406,11 +406,19 @@ CardService.newOpenLink().setOnClose(CardService.OnClose.NOTHING); // $ExpectTyp
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD); // $ExpectType OpenLink
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $ExpectType OpenLink
 
-CardService.SelectionInputType.CHECK_BOX;
-CardService.SelectionInputType.RADIO_BUTTON;
-CardService.SelectionInputType.DROPDOWN;
-CardService.SelectionInputType.SWITCH;
-CardService.SelectionInputType.MULTI_SELECT;
+// Class CardService.SelectionInput
+// https://developers.google.com/apps-script/reference/card-service/selection-input
+CardService.newSelectionInput(); // $ExpectType SelectionInput
+
+// Enum SelectionInputType
+// https://developers.google.com/apps-script/reference/card-service/selection-input-type
+CardService.newSelectionInput().setType(CardService.SelectionInputType.CHECK_BOX); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.RADIO_BUTTON); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.DROPDOWN); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.SWITCH); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.MULTI_SELECT); // $ExpectType SelectionInput
+
+
 
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
