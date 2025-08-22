@@ -171,31 +171,4 @@ declare global {
     }
 
     // Global DOM types
-
-    // #region AbortController
-    interface AbortController {
-        readonly signal: AbortSignal;
-        abort(reason?: any): void;
-    }
-    var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T } ? T
-        : {
-            prototype: AbortController;
-            new(): AbortController;
-        };
-
-    interface AbortSignal extends EventTarget {
-        readonly aborted: boolean;
-        onabort: ((this: AbortSignal, ev: Event) => any) | null;
-        readonly reason: any;
-        throwIfAborted(): void;
-    }
-    var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T } ? T
-        : {
-            prototype: AbortSignal;
-            new(): AbortSignal;
-            abort(reason?: any): AbortSignal;
-            any(signals: AbortSignal[]): AbortSignal;
-            timeout(milliseconds: number): AbortSignal;
-        };
-    // #endregion AbortController
 }
