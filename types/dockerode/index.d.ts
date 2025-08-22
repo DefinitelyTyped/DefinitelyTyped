@@ -1150,8 +1150,12 @@ declare namespace Dockerode {
         tag?: string;
     }
 
-    interface AuthConfigKey { key: string }
-    interface AuthConfigBase64 { base64: string }
+    interface AuthConfigKey {
+        key: string;
+    }
+    interface AuthConfigBase64 {
+        base64: string;
+    }
     interface AuthConfigObject {
         username?: string;
         password?: string;
