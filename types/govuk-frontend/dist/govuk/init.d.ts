@@ -17,6 +17,16 @@ export interface CompatibleClass {
  */
 export interface Config {
     /**
+     * - Scope of the document to search within
+     */
+    scope?: Document | Element | null | undefined;
+
+    /**
+     * - Initialisation error callback
+     */
+    onError?: OnErrorCallback<CompatibleClass> | undefined;
+
+    /**
      * - Accordion config
      */
     accordion?: AccordionConfig | undefined;
@@ -60,7 +70,7 @@ export interface Config {
 /**
  * Component config keys, e.g. `accordion` and `characterCount`
  */
-export type ConfigKey = keyof Config;
+export type ConfigKey = keyof Omit<Config, "scope" | "onError">;
 
 export type ComponentConfig<ComponentClass extends CompatibleClass> = ConstructorParameters<ComponentClass>[1];
 
@@ -76,9 +86,9 @@ export interface ErrorContext<ComponentClass extends CompatibleClass> {
     component?: ComponentClass | undefined;
 
     /**
-     * - Config supplied to component
+     * - Config supplied to components
      */
-    config: ComponentConfig<ComponentClass>;
+    config?: Config | ComponentConfig<ComponentClass> | undefined;
 }
 
 export type OnErrorCallback<ComponentClass extends CompatibleClass> = (
@@ -90,7 +100,7 @@ export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
     /**
      * - scope of the document to search within
      */
-    scope?: Document | Element | undefined;
+    scope?: Document | Element | null | undefined;
 
     /**
      * - callback function if error throw by component on init
@@ -104,13 +114,10 @@ export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
  * Use the `data-module` attributes to find, instantiate and init all of the
  * components provided as part of GOV.UK Frontend.
  *
- * @param {Config & { scope?: Element, onError?: OnErrorCallback<CompatibleClass> }} [config] - Config for all components (with optional scope)
+ * @param {Config | Element | Document | null} [scopeOrConfig] - Scope of the document to search within or config for all components (with optional scope)
  */
 export function initAll(
-    config?: Config & {
-        scope?: Element;
-        onError?: OnErrorCallback<CompatibleClass>;
-    },
+    scopeOrConfig?: Config | Element | Document | null,
 ): void;
 
 /**
@@ -125,15 +132,16 @@ export function initAll(
  * @template {CompatibleClass} ComponentClass
  * @param {ComponentClass} Component - class of the component to create
  * @param {ComponentConfig<ComponentClass>} [config] - Config supplied to component
- * @param {OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass> } [createAllOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
+ * @param {OnErrorCallback<ComponentClass> | Element | Document | null | CreateAllOptions<ComponentClass>} [scopeOrOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
  * @returns {Array<InstanceType<ComponentClass>>} - array of instantiated components
  */
 export function createAll<ComponentClass extends CompatibleClass>(
     Component: ComponentClass,
     config?: ComponentConfig<ComponentClass>,
-    createAllOptions?:
+    scopeOrOptions?:
         | OnErrorCallback<ComponentClass>
         | Element
         | Document
+        | null
         | CreateAllOptions<ComponentClass>,
 ): Array<InstanceType<ComponentClass>>;
