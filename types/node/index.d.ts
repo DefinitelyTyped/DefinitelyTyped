@@ -38,6 +38,7 @@
 
 // Definitions for Node.js modules that are not specific to any version of TypeScript:
 /// <reference path="globals.d.ts" />
+/// <reference path="web-globals/domexception.d.ts" />
 /// <reference path="web-globals/fetch.d.ts" />
 /// <reference path="web-globals/navigator.d.ts" />
 /// <reference path="web-globals/storage.d.ts" />
