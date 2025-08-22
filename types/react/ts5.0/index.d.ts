@@ -3363,6 +3363,7 @@ declare namespace React {
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
