@@ -42,6 +42,7 @@
 /// <reference path="../globals.d.ts" />
 /// <reference path="../web-globals/fetch.d.ts" />
 /// <reference path="../web-globals/navigator.d.ts" />
+/// <reference path="../web-globals/storage.d.ts" />
 /// <reference path="../assert.d.ts" />
 /// <reference path="../assert/strict.d.ts" />
 /// <reference path="../async_hooks.d.ts" />

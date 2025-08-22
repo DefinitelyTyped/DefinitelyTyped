@@ -1,16 +1,5 @@
 export {}; // Make this a module
 
-// Conditional type definitions for webstorage interface, which conflicts with lib.dom otherwise.
-type _Storage = typeof globalThis extends { onabort: any } ? {} : {
-    readonly length: number;
-    clear(): void;
-    getItem(key: string): string | null;
-    key(index: number): string | null;
-    removeItem(key: string): void;
-    setItem(key: string, value: string): void;
-    [key: string]: any;
-};
-
 // #region DOMException
 type _DOMException = typeof globalThis extends { onmessage: any } ? {} : NodeDOMException;
 interface NodeDOMException extends Error {
@@ -278,17 +267,4 @@ declare global {
             timeout(milliseconds: number): AbortSignal;
         };
     // #endregion AbortController
-
-    // #region Storage
-    interface Storage extends _Storage {}
-    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
-    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
-        : {
-            prototype: Storage;
-            new(): Storage;
-        };
-
-    var localStorage: Storage;
-    var sessionStorage: Storage;
-    // #endregion Storage
 }
