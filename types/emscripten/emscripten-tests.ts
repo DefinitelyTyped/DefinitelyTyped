@@ -64,11 +64,17 @@ function FSTest(): void {
     FS.init(null, null, null);
 
     FS.mkdir("/working");
+    FS.mkdirTree("/nested/directory/structure");
+    FS.mkdirTree("/another/path", parseInt("0755", 8));
     FS.mount(NODEFS, { root: "." }, "/working");
 
     function myAppStartup(): void {
         FS.mkdir("/data");
         FS.mount(IDBFS, {}, "/data");
+
+        // Test isMountpoint - checks if a node is a mount point
+        const testNode = FS.lookupPath("/data", {}).node;
+        const isMount: boolean = FS.isMountpoint(testNode);
 
         FS.syncfs(true, (err) => {
             // handle callback
@@ -112,7 +118,14 @@ function FSTest(): void {
     const data = new Uint8Array(32);
     const wstream = FS.open("dummy1", "w+");
     FS.write(wstream, data, 0, data.length, 0);
-    FS.close(wstream);
+    
+    // Test getStream - gets stream by file descriptor
+    const streamFromFD = FS.getStream(wstream.fd!);
+    // $ExpectType FSStream
+    streamFromFD;
+    
+    // Test closeStream - closes stream by file descriptor
+    FS.closeStream(wstream.fd!);
 
     FS.createDataFile("/", "dummy2", data, true, true, true);
 

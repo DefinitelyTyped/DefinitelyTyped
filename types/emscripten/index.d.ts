@@ -277,8 +277,13 @@ declare namespace FS {
     function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
+    function isMountpoint(node: FSNode): boolean;
+
+    function closeStream(fd: number): void;
+    function getStream(fd: number): FSStream;
 
     function mkdir(path: string, mode?: number): FSNode;
+    function mkdirTree(path: string, mode?: number): void;
     function mkdev(path: string, mode?: number, dev?: number): FSNode;
     function symlink(oldpath: string, newpath: string): FSNode;
     function rename(old_path: string, new_path: string): void;
