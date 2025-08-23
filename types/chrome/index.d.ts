@@ -2450,45 +2450,70 @@ declare namespace chrome {
      * Permissions: "declarativeContent"
      */
     export namespace declarativeContent {
-        export class PageStateMatcherProperties {
-            /** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
+        interface PageStateMatcherProperties {
+            /** Matches if the conditions of the `UrlFilter` are fulfilled for the top-level URL of the page. */
             pageUrl?: events.UrlFilter | undefined;
-            /** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
+            /** Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note: Listing hundreds of CSS selectors or listing CSS selectors that match hundreds of times per page can slow down web sites. */
             css?: string[] | undefined;
             /**
-             * Optional.
-             * @since Chrome 45
              * Matches if the bookmarked state of the page is equal to the specified value. Requires the bookmarks permission.
+             * @since Chrome 45
              */
             isBookmarked?: boolean | undefined;
         }
 
-        /** Matches the state of a web page by various criteria. */
+        /** Matches the state of a web page based on various criteria. */
         export class PageStateMatcher {
-            constructor(options: PageStateMatcherProperties);
+            constructor(arg: PageStateMatcherProperties);
+        }
+
+        export interface RequestContentScriptProperties {
+            /** Whether the content script runs in all frames of the matching page, or in only the top frame. Default is `false`. */
+            allFrames?: boolean | undefined;
+
+            /** Names of CSS files to be injected as a part of the content script. */
+            css?: string[] | undefined;
+
+            /** Names of JavaScript files to be injected as a part of the content script. */
+            js?: string[] | undefined;
+
+            /** Whether to insert the content script on `about:blank` and `about:srcdoc`. Default is `false`. */
+            matchAboutBlank?: boolean | undefined;
+        }
+
+        /** Declarative event action that injects a content script. */
+        export class RequestContentScript {
+            constructor(arg: RequestContentScriptProperties);
         }
 
         /**
-         * Declarative event action that enables the extension's action while the corresponding conditions are met.
-         * Manifest v3.
+         * A declarative event action that sets the extension's toolbar {@link action} to an enabled state while the corresponding conditions are met. This action can be used without host permissions. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
+         *
+         * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+         * @since MV3
          */
         export class ShowAction {}
 
         /**
-         * Declarative event action that shows the extension's page action while the corresponding conditions are met.
-         * Manifest v2.
+         * A declarative event action that sets the extension's {@link pageAction} to an enabled state while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page action. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
+         *
+         * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+         *
+         * MV2 only
          */
         export class ShowPageAction {}
 
-        /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+        /**
+         * Declarative event action that sets the n-dip square icon for the extension's {@link pageAction} or {@link browserAction} while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page or browser action.
+         *
+         * Exactly one of `imageData` or `path` must be specified. Both are dictionaries mapping a number of pixels to an image representation. The image representation in `imageData` is an `ImageData` object; for example, from a `canvas` element, while the image representation in `path` is the path to an image file relative to the extension's manifest. If `scale` screen pixels fit into a device-independent pixel, the `scale * n` icon is used. If that scale is missing, another image is resized to the required size.
+         */
         export class SetIcon {
             constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } | undefined });
         }
 
-        /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
-        export interface PageChangedEvent extends chrome.events.Event<() => void> {}
-
-        export var onPageChanged: PageChangedEvent;
+        /** Provides the Declarative Event API consisting of {@link events.Event.addRules addRules}, {@link events.Event.removeRules removeRules}, and {@link events.Event.getRules getRules}. */
+        export const onPageChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -4331,7 +4356,8 @@ declare namespace chrome {
              * Unregisters currently registered rules.
              * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
              */
-            removeRules(ruleIdentifiers?: string[] | undefined, callback?: () => void): void;
+            removeRules(ruleIdentifiers: string[] | undefined, callback?: () => void): void;
+            removeRules(callback?: () => void): void;
 
             /**
              * Registers rules to handle events.
