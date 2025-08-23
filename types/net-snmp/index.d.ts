@@ -283,7 +283,7 @@ export type DoneCallback = (error: Error | null) => void;
 export enum AccessControlModelType {
     None,
     Simple,
-} 
+}
 
 export enum AccessLevel {
     None,
@@ -404,9 +404,8 @@ export enum PrivProtocols {
     des = 2,
     aes = 4,
     aes256b = 6,
-    aes256r = 8
+    aes256r = 8,
 }
-
 
 export enum ResponseInvalidCode {
     EIp4AddressSize = 1,
@@ -614,9 +613,8 @@ export namespace Authentication {
     ): void;
 }
 
-
 export namespace Encryption {
-   const algorithms: {
+    const algorithms: {
         readonly [PrivProtocols.des]: {
             BLOCK_LENGTH: 8;
             CRYPTO_ALGORITHM: "des-cbc";
