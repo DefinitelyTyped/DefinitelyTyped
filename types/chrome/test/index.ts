@@ -4570,6 +4570,16 @@ async function testOffscreenDocument() {
     await chrome.offscreen.closeDocument();
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/fileBrowserHandler
+function testFileBrowserHandler() {
+    checkChromeEvent(chrome.fileBrowserHandler.onExecute, (id, details) => {
+        id; // $ExpectType string
+        details; // $ExpectType FileHandlerExecuteEventDetails
+        details.entries; // $ExpectType any[]
+        details.tab_id; // $ExpectType number | undefined
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/fileSystemProvider
 function testFileSystemProvider() {
     chrome.fileSystemProvider.ChangeType.CHANGED === "CHANGED";
