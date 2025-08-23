@@ -314,7 +314,6 @@ declare namespace FS {
         position?: number,
         canOwn?: boolean,
     ): number;
-    function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(
         stream: FSStream,
         buffer: ArrayBufferView,
