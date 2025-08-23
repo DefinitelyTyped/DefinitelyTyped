@@ -4331,42 +4331,314 @@ async function testExtensionForPromise() {
     await chrome.extension.isAllowedIncognitoAccess();
 }
 
-// https://developer.chrome.com/docs/extensions/reference/fontSettings
+// https://developer.chrome.com/docs/extensions/reference/api/fontSettings
 function testFontSettings() {
-    chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 }, () => {});
+    chrome.fontSettings.GenericFamily.CURSIVE === "cursive";
+    chrome.fontSettings.GenericFamily.FANTASY === "fantasy";
+    chrome.fontSettings.GenericFamily.FIXED === "fixed";
+    chrome.fontSettings.GenericFamily.MATH === "math";
+    chrome.fontSettings.GenericFamily.SANSSERIF === "sansserif";
+    chrome.fontSettings.GenericFamily.SERIF === "serif";
+    chrome.fontSettings.GenericFamily.STANDARD === "standard";
+
+    chrome.fontSettings.LevelOfControl.CONTROLLABLE_BY_THIS_EXTENSION === "controllable_by_this_extension";
+    chrome.fontSettings.LevelOfControl.CONTROLLED_BY_OTHER_EXTENSIONS === "controlled_by_other_extensions";
+    chrome.fontSettings.LevelOfControl.CONTROLLED_BY_THIS_EXTENSION === "controlled_by_this_extension";
+    chrome.fontSettings.LevelOfControl.NOT_CONTROLLABLE === "not_controllable";
+
+    chrome.fontSettings.ScriptCode.AFAK === "Afak";
+    chrome.fontSettings.ScriptCode.ARAB === "Arab";
+    chrome.fontSettings.ScriptCode.ARMI === "Armi";
+    chrome.fontSettings.ScriptCode.ARMN === "Armn";
+    chrome.fontSettings.ScriptCode.AVST === "Avst";
+    chrome.fontSettings.ScriptCode.BALI === "Bali";
+    chrome.fontSettings.ScriptCode.BAMU === "Bamu";
+    chrome.fontSettings.ScriptCode.BASS === "Bass";
+    chrome.fontSettings.ScriptCode.BATK === "Batk";
+    chrome.fontSettings.ScriptCode.BENG === "Beng";
+    chrome.fontSettings.ScriptCode.BLIS === "Blis";
+    chrome.fontSettings.ScriptCode.BOPO === "Bopo";
+    chrome.fontSettings.ScriptCode.BRAH === "Brah";
+    chrome.fontSettings.ScriptCode.BRAI === "Brai";
+    chrome.fontSettings.ScriptCode.BUGI === "Bugi";
+    chrome.fontSettings.ScriptCode.BUHD === "Buhd";
+    chrome.fontSettings.ScriptCode.CAKM === "Cakm";
+    chrome.fontSettings.ScriptCode.CANS === "Cans";
+    chrome.fontSettings.ScriptCode.CARI === "Cari";
+    chrome.fontSettings.ScriptCode.CHAM === "Cham";
+    chrome.fontSettings.ScriptCode.CHER === "Cher";
+    chrome.fontSettings.ScriptCode.CIRT === "Cirt";
+    chrome.fontSettings.ScriptCode.COPT === "Copt";
+    chrome.fontSettings.ScriptCode.CPRT === "Cprt";
+    chrome.fontSettings.ScriptCode.CYRL === "Cyrl";
+    chrome.fontSettings.ScriptCode.CYRS === "Cyrs";
+    chrome.fontSettings.ScriptCode.DEVA === "Deva";
+    chrome.fontSettings.ScriptCode.DSRT === "Dsrt";
+    chrome.fontSettings.ScriptCode.DUPL === "Dupl";
+    chrome.fontSettings.ScriptCode.EGYD === "Egyd";
+    chrome.fontSettings.ScriptCode.EGYH === "Egyh";
+    chrome.fontSettings.ScriptCode.EGYP === "Egyp";
+    chrome.fontSettings.ScriptCode.ELBA === "Elba";
+    chrome.fontSettings.ScriptCode.ETHI === "Ethi";
+    chrome.fontSettings.ScriptCode.GEOK === "Geok";
+    chrome.fontSettings.ScriptCode.GEOR === "Geor";
+    chrome.fontSettings.ScriptCode.GLAG === "Glag";
+    chrome.fontSettings.ScriptCode.GOTH === "Goth";
+    chrome.fontSettings.ScriptCode.GRAN === "Gran";
+    chrome.fontSettings.ScriptCode.GREK === "Grek";
+    chrome.fontSettings.ScriptCode.GUJR === "Gujr";
+    chrome.fontSettings.ScriptCode.GURU === "Guru";
+    chrome.fontSettings.ScriptCode.HANG === "Hang";
+    chrome.fontSettings.ScriptCode.HANI === "Hani";
+    chrome.fontSettings.ScriptCode.HANO === "Hano";
+    chrome.fontSettings.ScriptCode.HANS === "Hans";
+    chrome.fontSettings.ScriptCode.HANT === "Hant";
+    chrome.fontSettings.ScriptCode.HEBR === "Hebr";
+    chrome.fontSettings.ScriptCode.HLUW === "Hluw";
+    chrome.fontSettings.ScriptCode.HMNG === "Hmng";
+    chrome.fontSettings.ScriptCode.HUNG === "Hung";
+    chrome.fontSettings.ScriptCode.INDS === "Inds";
+    chrome.fontSettings.ScriptCode.ITAL === "Ital";
+    chrome.fontSettings.ScriptCode.JAVA === "Java";
+    chrome.fontSettings.ScriptCode.JPAN === "Jpan";
+    chrome.fontSettings.ScriptCode.JURC === "Jurc";
+    chrome.fontSettings.ScriptCode.KALI === "Kali";
+    chrome.fontSettings.ScriptCode.KHAR === "Khar";
+    chrome.fontSettings.ScriptCode.KHMR === "Khmr";
+    chrome.fontSettings.ScriptCode.KHOJ === "Khoj";
+    chrome.fontSettings.ScriptCode.KNDA === "Knda";
+    chrome.fontSettings.ScriptCode.KPEL === "Kpel";
+    chrome.fontSettings.ScriptCode.KTHI === "Kthi";
+    chrome.fontSettings.ScriptCode.LANA === "Lana";
+    chrome.fontSettings.ScriptCode.LAOO === "Laoo";
+    chrome.fontSettings.ScriptCode.LATF === "Latf";
+    chrome.fontSettings.ScriptCode.LATG === "Latg";
+    chrome.fontSettings.ScriptCode.LATN === "Latn";
+    chrome.fontSettings.ScriptCode.LEPC === "Lepc";
+    chrome.fontSettings.ScriptCode.LIMB === "Limb";
+    chrome.fontSettings.ScriptCode.LINA === "Lina";
+    chrome.fontSettings.ScriptCode.LINB === "Linb";
+    chrome.fontSettings.ScriptCode.LISU === "Lisu";
+    chrome.fontSettings.ScriptCode.LOMA === "Loma";
+    chrome.fontSettings.ScriptCode.LYCI === "Lyci";
+    chrome.fontSettings.ScriptCode.LYDI === "Lydi";
+    chrome.fontSettings.ScriptCode.MAND === "Mand";
+    chrome.fontSettings.ScriptCode.MANI === "Mani";
+    chrome.fontSettings.ScriptCode.MAYA === "Maya";
+    chrome.fontSettings.ScriptCode.MEND === "Mend";
+    chrome.fontSettings.ScriptCode.MERC === "Merc";
+    chrome.fontSettings.ScriptCode.MERO === "Mero";
+    chrome.fontSettings.ScriptCode.MLYM === "Mlym";
+    chrome.fontSettings.ScriptCode.MONG === "Mong";
+    chrome.fontSettings.ScriptCode.MOON === "Moon";
+    chrome.fontSettings.ScriptCode.MROO === "Mroo";
+    chrome.fontSettings.ScriptCode.MTEI === "Mtei";
+    chrome.fontSettings.ScriptCode.MYMR === "Mymr";
+    chrome.fontSettings.ScriptCode.NARB === "Narb";
+    chrome.fontSettings.ScriptCode.NBAT === "Nbat";
+    chrome.fontSettings.ScriptCode.NKGB === "Nkgb";
+    chrome.fontSettings.ScriptCode.NKOO === "Nkoo";
+    chrome.fontSettings.ScriptCode.NSHU === "Nshu";
+    chrome.fontSettings.ScriptCode.OGAM === "Ogam";
+    chrome.fontSettings.ScriptCode.OLCK === "Olck";
+    chrome.fontSettings.ScriptCode.ORKH === "Orkh";
+    chrome.fontSettings.ScriptCode.ORYA === "Orya";
+    chrome.fontSettings.ScriptCode.OSMA === "Osma";
+    chrome.fontSettings.ScriptCode.PALM === "Palm";
+    chrome.fontSettings.ScriptCode.PERM === "Perm";
+    chrome.fontSettings.ScriptCode.PHAG === "Phag";
+    chrome.fontSettings.ScriptCode.PHLI === "Phli";
+    chrome.fontSettings.ScriptCode.PHLP === "Phlp";
+    chrome.fontSettings.ScriptCode.PHLV === "Phlv";
+    chrome.fontSettings.ScriptCode.PHNX === "Phnx";
+    chrome.fontSettings.ScriptCode.PLRD === "Plrd";
+    chrome.fontSettings.ScriptCode.PRTI === "Prti";
+    chrome.fontSettings.ScriptCode.RJNG === "Rjng";
+    chrome.fontSettings.ScriptCode.RORO === "Roro";
+    chrome.fontSettings.ScriptCode.RUNR === "Runr";
+    chrome.fontSettings.ScriptCode.SAMR === "Samr";
+    chrome.fontSettings.ScriptCode.SARA === "Sara";
+    chrome.fontSettings.ScriptCode.SARB === "Sarb";
+    chrome.fontSettings.ScriptCode.SAUR === "Saur";
+    chrome.fontSettings.ScriptCode.SGNW === "Sgnw";
+    chrome.fontSettings.ScriptCode.SHAW === "Shaw";
+    chrome.fontSettings.ScriptCode.SHRD === "Shrd";
+    chrome.fontSettings.ScriptCode.SIND === "Sind";
+    chrome.fontSettings.ScriptCode.SINH === "Sinh";
+    chrome.fontSettings.ScriptCode.SORA === "Sora";
+    chrome.fontSettings.ScriptCode.SUND === "Sund";
+    chrome.fontSettings.ScriptCode.SYLO === "Sylo";
+    chrome.fontSettings.ScriptCode.SYRC === "Syrc";
+    chrome.fontSettings.ScriptCode.SYRE === "Syre";
+    chrome.fontSettings.ScriptCode.SYRJ === "Syrj";
+    chrome.fontSettings.ScriptCode.SYRN === "Syrn";
+    chrome.fontSettings.ScriptCode.TAGB === "Tagb";
+    chrome.fontSettings.ScriptCode.TAKR === "Takr";
+    chrome.fontSettings.ScriptCode.TALE === "Tale";
+    chrome.fontSettings.ScriptCode.TALU === "Talu";
+    chrome.fontSettings.ScriptCode.TAML === "Taml";
+    chrome.fontSettings.ScriptCode.TANG === "Tang";
+    chrome.fontSettings.ScriptCode.TAVT === "Tavt";
+    chrome.fontSettings.ScriptCode.TELU === "Telu";
+    chrome.fontSettings.ScriptCode.TENG === "Teng";
+    chrome.fontSettings.ScriptCode.TFNG === "Tfng";
+    chrome.fontSettings.ScriptCode.TGLG === "Tglg";
+    chrome.fontSettings.ScriptCode.THAA === "Thaa";
+    chrome.fontSettings.ScriptCode.THAI === "Thai";
+    chrome.fontSettings.ScriptCode.TIBT === "Tibt";
+    chrome.fontSettings.ScriptCode.TIRH === "Tirh";
+    chrome.fontSettings.ScriptCode.UGAR === "Ugar";
+    chrome.fontSettings.ScriptCode.VAII === "Vaii";
+    chrome.fontSettings.ScriptCode.VISP === "Visp";
+    chrome.fontSettings.ScriptCode.WARA === "Wara";
+    chrome.fontSettings.ScriptCode.WOLE === "Wole";
+    chrome.fontSettings.ScriptCode.XPEO === "Xpeo";
+    chrome.fontSettings.ScriptCode.XSUX === "Xsux";
+    chrome.fontSettings.ScriptCode.YIII === "Yiii";
+    chrome.fontSettings.ScriptCode.ZMTH === "Zmth";
+    chrome.fontSettings.ScriptCode.ZSYM === "Zsym";
+    chrome.fontSettings.ScriptCode.ZYYY === "Zyyy";
+
+    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => {}).then(() => {});
+
+    chrome.fontSettings.clearDefaultFontSize(); // Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFontSize({}); // Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize({}, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.clearDefaultFontSize({}, () => {}).then(() => {});
+
+    const clearFontDetails: chrome.fontSettings.ClearFontDetails = {
+        genericFamily: "standard",
+        script: "Afak",
+    };
+
+    chrome.fontSettings.clearFont(clearFontDetails); // Expected Promise<void>
+    chrome.fontSettings.clearFont(clearFontDetails, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.clearFont(clearFontDetails, () => {}).then(() => {});
+
+    chrome.fontSettings.clearMinimumFontSize(); // Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize(() => void 0); // Expected void
+    chrome.fontSettings.clearMinimumFontSize({}); // Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize({}, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.clearMinimumFontSize(() => {}).then(() => {});
+
+    chrome.fontSettings.getDefaultFixedFontSize(); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize((details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    chrome.fontSettings.getDefaultFixedFontSize({}); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    // @ts-expect-error
+    chrome.fontSettings.getDefaultFixedFontSize(() => {}).then(() => {});
+
+    chrome.fontSettings.getDefaultFontSize(); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize((details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    chrome.fontSettings.getDefaultFontSize({}); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize({}, (details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    // @ts-expect-error
+    chrome.fontSettings.getDefaultFontSize({}, () => {}).then(() => {});
+
+    const getFontDetails: chrome.fontSettings.GetFontDetails = {
+        genericFamily: "standard",
+        script: "Afak",
+    };
+
+    chrome.fontSettings.getFont(getFontDetails); // Expected Promise<GetFontResult>
+    chrome.fontSettings.getFont(getFontDetails, (details) => { // Expected void
+        details.fontId; // Expected string
+        details.levelOfControl; // Expected LevelOfControl
+    });
     // @ts-expect-error
     chrome.fontSettings.getFont({}, (details) => {});
-    // @ts-expect-error
-    chrome.fontSettings.getFont({ genericFamily: "" }, (details) => {});
-    chrome.fontSettings.getFont({ genericFamily: "cursive" }, (details) => {});
-    chrome.fontSettings.getDefaultFontSize({}, (options) => {});
-    chrome.fontSettings.getMinimumFontSize({}, (options) => {});
-    chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 }, () => {});
-    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => {});
-    chrome.fontSettings.clearDefaultFontSize({}, () => {});
-    chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 }, () => {});
-    chrome.fontSettings.clearFont({ genericFamily: "cursive" }, () => {});
-    chrome.fontSettings.setFont({ genericFamily: "cursive", fontId: "" }, () => {});
-    chrome.fontSettings.clearMinimumFontSize({}, () => {});
-    chrome.fontSettings.getFontList((results) => {});
-    chrome.fontSettings.clearDefaultFixedFontSize({}, () => {});
-}
 
-// https://developer.chrome.com/docs/extensions/reference/fontSettings
-async function testFontSettingsForPromise() {
-    await chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 });
-    await chrome.fontSettings.getFont({ genericFamily: "cursive" });
-    await chrome.fontSettings.getDefaultFontSize({});
-    await chrome.fontSettings.getMinimumFontSize({});
-    await chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 });
-    await chrome.fontSettings.getDefaultFixedFontSize({});
-    await chrome.fontSettings.clearDefaultFontSize({});
-    await chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 });
-    await chrome.fontSettings.clearFont({ genericFamily: "cursive" });
-    await chrome.fontSettings.setFont({ genericFamily: "cursive", fontId: "" });
-    await chrome.fontSettings.clearMinimumFontSize({});
-    await chrome.fontSettings.getFontList();
-    await chrome.fontSettings.clearDefaultFixedFontSize({});
+    chrome.fontSettings.getFontList(); // Expected Promise<FontName[]>
+    chrome.fontSettings.getFontList(([result]) => { // Expected void
+        result.fontId; // Expected string
+        result.displayName; // Expected string
+    });
+
+    chrome.fontSettings.getMinimumFontSize(); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize((details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    chrome.fontSettings.getMinimumFontSize({}); // Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize({}, (details) => { // Expected void
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+    // @ts-expect-error
+    chrome.fontSettings.getMinimumFontSize({}, () => {}).then(() => {});
+
+    const setFontSizeDetails: chrome.fontSettings.FontSizeDetails = {
+        pixelSize: 12,
+    };
+
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails); // Expected Promise<void>
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.setDefaultFixedFontSize(() => {}).then(() => {});
+
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails); // Expected Promise<void>
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.setDefaultFontSize(() => {}).then(() => {});
+
+    const setFontDetails: chrome.fontSettings.SetFontDetails = {
+        genericFamily: "standard",
+        script: "Afak",
+        fontId: "fontId",
+    };
+
+    chrome.fontSettings.setFont(setFontDetails); // Expected Promise<void>
+    chrome.fontSettings.setFont(setFontDetails, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.setFont(() => {}).then(() => {});
+
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails); // Expected Promise<void>
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => void 0); // Expected void
+    // @ts-expect-error
+    chrome.fontSettings.setMinimumFontSize(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.fontSettings.onDefaultFixedFontSizeChanged, (details) => {
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+
+    checkChromeEvent(chrome.fontSettings.onDefaultFontSizeChanged, (details) => {
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
+
+    checkChromeEvent(chrome.fontSettings.onFontChanged, (details) => {
+        details.fontId; // Expected string
+        details.genericFamily; // Expected GenericFamily
+        details.levelOfControl; // Expected LevelOfControl
+        details.script; // Expected ScriptCode | undefined
+    });
+
+    checkChromeEvent(chrome.fontSettings.onMinimumFontSizeChanged, (details) => {
+        details.pixelSize; // Expected number
+        details.levelOfControl; // Expected LevelOfControl
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/gcm
