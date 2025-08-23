@@ -48,8 +48,5 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module",
-    "dependencies": {
-        "net-snmp": "^3.23.0"
-    }
+    "type": "module"
 }
