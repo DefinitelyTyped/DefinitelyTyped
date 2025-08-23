@@ -2942,6 +2942,7 @@ Session.prototype.sendV3Req = function (pdu, feedCb, responseCb, options, port, 
 	this.send (req);
 };
 
+
 Session.prototype.sendV3Discovery = function (originalPdu, feedCb, responseCb, options) {
 	var discoveryPdu = createDiscoveryPdu(this.context);
 	var discoveryMessage = Message.createDiscoveryV3 (discoveryPdu);
