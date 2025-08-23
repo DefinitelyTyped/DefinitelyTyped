@@ -1022,6 +1022,15 @@ async function test() {
     page.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
+    page.waitForResponse();
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com");
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);

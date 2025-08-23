@@ -4335,6 +4335,37 @@ export interface Page {
     ): Promise<void>;
 
     /**
+     * Waits for the page to match against the URL for a Response object
+     *
+     * @example
+     * ```js
+     * const responsePromise = page.waitForResponse('https://example.com/resource');
+     * await page.goto('https://example.com/resource');
+     * const response = await responsePromise;
+     * ```
+     *
+     *
+     * @param response Request URL string or regex to match against Response object. 
+     * @param options Options to use.
+     */
+    waitForResponse(
+        response: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+        },
+    ): Promise<Response | null>;
+
+    /**
      * **NOTE** Use web assertions that assert visibility or a locator-based
      * locator.waitFor([options]) instead.
      *
