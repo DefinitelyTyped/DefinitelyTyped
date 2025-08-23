@@ -91,6 +91,12 @@ function FSTest(): void {
     FS.registerDevice(id, {});
     FS.mkdev("/dummy", id);
 
+    // Test createDevice - creates a device with input/output functions
+    const inputDevice = FS.createDevice("/", "stdin", () => 65, undefined); // Returns 'A' (65)
+    const outputDevice = FS.createDevice("/", "stdout", undefined, (c: number) => console.log(String.fromCharCode(c)));
+    const bothDevice = FS.createDevice("/", "console", () => 66, (c: number) => console.log(c)); // Returns 'B' (66)
+    const simpleDevice = FS.createDevice("/", "null");
+
     FS.writeFile("file", "foobar");
     FS.symlink("file", "link");
 
