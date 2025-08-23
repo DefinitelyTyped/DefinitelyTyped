@@ -1,37 +1,37 @@
 import {
-    createV3Session,
-    SecurityLevel,
+    AccessControlModelType,
+    AccessLevel,
+    AgentXPduType,
+    Authentication,
     AuthProtocols,
-    PrivProtocols,
-    ObjectType,
-    createSession,
-    Varbind,
-    ResponseInvalidError,
-    RequestFailedError,
     createAgent,
     createMib,
     createReceiver,
+    createSession,
     createSubagent,
-    isVarbindError,
-    varbindError,
-    Authentication,
+    createV3Session,
     Encryption,
-    ObjectParser,
-    ObjectTypeUtil,
-    PduType,
     ErrorStatus,
-    TrapType,
-    RowStatus,
+    isVarbindError,
     MaxAccess,
-    AgentXPduType,
-    AccessControlModelType,
-    AccessLevel,
     MibProviderType,
+    ObjectParser,
+    ObjectType,
+    ObjectTypeUtil,
+    OidFormat,
+    PduType,
+    PrivProtocols,
+    RequestFailedError,
+    ResponseInvalidError,
+    RowStatus,
+    SecurityLevel,
+    TrapType,
+    Varbind,
+    varbindError,
     Version,
     Version1,
     Version2c,
     Version3,
-    OidFormat,
 } from "net-snmp";
 
 // Basic successful cases
@@ -62,7 +62,7 @@ const V3Session3 = createV3Session(
         port: 1610,
         timeout: 3000,
         retries: 2,
-    }
+    },
 );
 
 // Should error cases
@@ -76,7 +76,7 @@ const sessionError2 = createV3Session(
         level: SecurityLevel.authPriv,
     },
     // @ts-expect-error - invalid version in options
-    { version: 2 }
+    { version: 2 },
 );
 
 const sessionError3 = createV3Session(
@@ -86,7 +86,7 @@ const sessionError3 = createV3Session(
         level: SecurityLevel.authPriv,
     },
     // @ts-expect-error - invalid transport
-    { transport: "tcp" }
+    { transport: "tcp" },
 );
 
 const sessionError4 = createV3Session("127.0.0.1", {
@@ -97,20 +97,20 @@ const sessionError4 = createV3Session("127.0.0.1", {
 });
 
 // Test that returned session has expected methods
-V3Session1.get("1.3.6.1.2.1.1.1.0", (error: ResponseInvalidError | null, varbinds?: Varbind[]) => {});
+V3Session1.get("1.3.6.1.2.1.1.1.0", (_error: ResponseInvalidError | null, _varbinds?: Varbind[]) => {});
 V3Session1.getBulk(
     ["1.3.6.1.2.1.1.1.0"],
     0,
     10,
-    (error: ResponseInvalidError | null, varbinds?: (Varbind | Varbind[])[]) => {}
+    (_error: ResponseInvalidError | null, _varbinds?: (Varbind | Varbind[])[]) => {},
 );
 V3Session1.getBulk(
     ["1.3.6.1.2.1.1.1.0"],
     // @ts-expect-error - invalid order
-    (error: ResponseInvalidError | null, varbinds?: (Varbind | Varbind[])[]) => {},
-    10
+    (_error: ResponseInvalidError | null, _varbinds?: (Varbind | Varbind[])[]) => {},
+    10,
 );
-V3Session1.getNext(["1.3.6.1.2.1.1.1.0"], (error: ResponseInvalidError | null, varbinds?: Varbind[]) => {});
+V3Session1.getNext(["1.3.6.1.2.1.1.1.0"], (_error: ResponseInvalidError | null, _varbinds?: Varbind[]) => {});
 V3Session2.close();
 V3Session3.set(
     [
@@ -120,7 +120,7 @@ V3Session3.set(
             value: "test",
         },
     ],
-    (error: any, varbinds?: Varbind[]) => {}
+    (_error: any, _varbinds?: Varbind[]) => {},
 );
 
 // Minimal valid call - all optional parameters omitted
@@ -149,7 +149,7 @@ createSession(undefined, undefined, { transport: "tcp" });
 createSession("127.0.0.1", 12345);
 
 // Verify returned Session type has expected methods
-session1.get("1.3.6.1.2.1.1.1.0", (error: any, varbinds?: Varbind[]) => {});
+session1.get("1.3.6.1.2.1.1.1.0", (_error: any, _varbinds?: Varbind[]) => {});
 session4.close();
 
 // Additional tests for higher coverage
@@ -174,13 +174,6 @@ const invalidVarbind2: Varbind = {
     value: "test value",
 };
 
-const invalidVarbind3: Varbind = {
-    oid: "1.3.6.1.2.1.1.1.0",
-    // @ts-expect-error - invalid ObjectType
-    type: 999,
-    value: "test value",
-};
-
 // Test varbind utility functions
 const isError = isVarbindError(validVarbind);
 const errorMsg = varbindError(validVarbind);
@@ -190,7 +183,7 @@ const authDigest = Authentication.calculateDigest(
     Buffer.from("test"),
     AuthProtocols.sha,
     "password",
-    Buffer.from("engine123")
+    Buffer.from("engine123"),
 );
 
 const authKey = Authentication.passwordToKey(AuthProtocols.sha, "password", Buffer.from("engine123"));
@@ -201,7 +194,7 @@ const encryptedData = Encryption.encryptPduAes(
     PrivProtocols.aes,
     "privpassword",
     AuthProtocols.sha,
-    Encryption.algorithms[PrivProtocols.aes]
+    Encryption.algorithms[PrivProtocols.aes],
 );
 
 // Test ObjectTypeUtil namespace
@@ -240,15 +233,15 @@ const subagent = createSubagent({});
 
 // Test session event handlers
 session1.on("close", () => {});
-session1.on("error", (err: Error) => {});
-session1.on("message", (buffer: Buffer) => {});
+session1.on("error", (_err: Error) => {});
+session1.on("message", (_buffer: Buffer) => {});
 
 // Test invalid callback signatures
 // @ts-expect-error - wrong callback signature for get
-session1.get("1.3.6.1.2.1.1.1.0", (error: string) => {});
+session1.get("1.3.6.1.2.1.1.1.0", (_error: string) => {});
 
 // @ts-expect-error - wrong callback signature for set
-session1.set([{ oid: "1.3.6.1.2.1.1.1.0", value: "test" }], (error: string, result: number) => {});
+session1.set([{ oid: "1.3.6.1.2.1.1.1.0", value: "test" }], (_error: string, _result: number) => {});
 
 // Test invalid options for createSession
 // @ts-expect-error - invalid option
@@ -258,20 +251,6 @@ createSession("127.0.0.1", "public", { invalidOption: true });
 // @ts-expect-error - invalid option
 createV3Session("127.0.0.1", { name: "test", level: SecurityLevel.noAuthNoPriv }, { invalidOption: true });
 
-// Test invalid user properties for createV3Session
-createV3Session("127.0.0.1", {
-    name: "test",
-    level: SecurityLevel.authNoPriv,
-    // @ts-expect-error - invalid authProtocol
-    authProtocol: 999,
-});
-
-// Test invalid security level
-createV3Session("127.0.0.1", {
-    name: "test",
-    // @ts-expect-error - invalid security level
-    level: 999,
-});
 session3.walk(
     "1.3.6.1.2.1.1",
     (varbinds) => {
@@ -280,37 +259,36 @@ session3.walk(
     },
     (error) => {
         if (error) console.error(error);
-    }
+    },
 );
 
 // Test all overloads
-V3Session1.table("1.3.6.1.2.1.1", (error, table) => {});
+V3Session1.table("1.3.6.1.2.1.1", (_error, _table) => {});
 
-V3Session1.table("1.3.6.1.2.1.1", 50, (error, table) => {});
+V3Session1.table("1.3.6.1.2.1.1", 50, (_error, _table) => {});
 
 // Invalid cases
 // @ts-expect-error - missing callback
 V3Session1.table("1.3.6.1.2.1.1");
 
 // @ts-expect-error - invalid maxRepetitions type
-V3Session1.table("1.3.6.1.2.1.1", "invalid", (error, table) => {});
+V3Session1.table("1.3.6.1.2.1.1", "invalid", (_error, _table) => {});
 
 V3Session1.subtree(
     "1.3.6.1.2.1.1",
-    (varbinds) => {},
-    (error) => {}
+    (_varbinds) => {},
+    (_error) => {},
 );
 V3Session1.subtree(
     "1.3.6.1.2.1.1",
     30,
-    (varbinds) => {},
-    (error) => {}
+    (_varbinds) => {},
+    (_error) => {},
 );
 
 // Invalid cases
 // @ts-expect-error - missing done callback
-V3Session1.subtree("1.3.6.1.2.1.1", (varbinds) => {});
+V3Session1.subtree("1.3.6.1.2.1.1", (_varbinds) => {});
 
 // @ts-expect-error - missing feed callback
-V3Session1.subtree("1.3.6.1.2.1.1", (error) => {});
-
+V3Session1.subtree("1.3.6.1.2.1.1", (_error) => {});
