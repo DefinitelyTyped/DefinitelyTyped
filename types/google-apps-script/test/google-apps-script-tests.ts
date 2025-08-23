@@ -53,6 +53,20 @@ const testCalendarAppEventType = (): void => {
     type == GoogleAppsScript.Calendar.EventType.STANDARD;
 };
 
+// ScriptApp
+// https://developers.google.com/apps-script/reference/script/script-app
+
+function testOAuthScopes() {
+    // https://developers.google.com/apps-script/reference/script/script-app#requireallscopesauthmode
+    ScriptApp.requireAllScopes(ScriptApp.AuthMode.FULL);
+
+    // https://developers.google.com/apps-script/reference/script/script-app#requirescopesauthmode,-oauthscopes
+    ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, [
+        "https://www.googleapis.com/auth/documents",
+        "https://www.googleapis.com/auth/presentations",
+    ]);
+}
+
 // Advanced Services
 Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
 

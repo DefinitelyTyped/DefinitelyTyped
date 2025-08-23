@@ -783,6 +783,7 @@
 /types/castv2/                                          @thibauts @joeyparrish @juliandomingo @theodab
 /types/catbox/                                          @jasonswearingen @AJamesPhillips @saboya
 /types/catbox/v7/                                       @jasonswearingen @AJamesPhillips
+/types/catchpoint-playwright/                           @jabranr
 /types/caverphone/                                      @hu0529
 /types/cavy/                                            @tyler-hoffman @AbigailMcP
 /types/cbor-js/                                         @Longqin88888
@@ -2139,7 +2140,7 @@
 /types/fitbit-weather/                                  @JeremyJeanson
 /types/fitfont/                                         @JeremyJeanson
 /types/fitvids/                                         @peterblazejewicz
-/types/fixed-data-table/                                @pepaar @stephenjelfs
+/types/fixed-data-table/                                @pepaar
 /types/flagged-respawn/                                 @BendingBender
 /types/flashpoint-launcher/                             @colin969
 /types/flat/                                            @chrootsu @thewizarodofoz
@@ -2756,6 +2757,7 @@
 /types/gaugejs/                                         @BTOdell
 /types/gaussian/                                        @scttcper
 /types/gaussian-elimination/                            @codecosm
+/types/gaze/                                            @k-yle
 /types/gbk.js/                                          @mkchung
 /types/gc-profiler/                                     @BendingBender
 /types/gc-stats/                                        @vfernandestoptal
@@ -3543,7 +3545,7 @@
 /types/jalaali-js/                                      @alitaheri
 /types/japanese-characters/                             @peterblazejewicz
 /types/japanese-holidays/                               @syamatoo @peterblazejewicz
-/types/jasmine/                                         @borisyankov @theodorejb @davidparsson @lukas-zech-software @Engineer2B @cyungmann @Roaders @devoto13 @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
+/types/jasmine/                                         @borisyankov @theodorejb @lukas-zech-software @Engineer2B @cyungmann @Roaders @devoto13 @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
 /types/jasmine/v1/                                      @borisyankov
 /types/jasmine/v2/                                      @borisyankov @theodorejb @davidparsson @gmoothart @lukas-zech-software @Engineer2B @cyungmann @devoto13 @fdim
 /types/jasmine/v3/                                      @borisyankov @theodorejb @davidparsson @lukas-zech-software @Engineer2B @cyungmann @Roaders @devoto13 @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
@@ -5254,7 +5256,7 @@
 /types/nodegit/                                         @dolanmiu @tniessen @pvigier @IGI-111 @DaGaMs @julien-c @jmurzy @nikwen
 /types/nodejs-license-file/                             @trodi
 /types/nodemailer/                                      @rogierschouten @dex4er @bioball
-/types/nodemailer/v3/                                   @rogierschouten
+/types/nodemailer/v6/                                   @rogierschouten @dex4er @bioball
 /types/nodemailer-direct-transport/                     @rogierschouten
 /types/nodemailer-express-handlebars/                   @th3rius
 /types/nodemailer-html-to-text/                         @fagundes
@@ -6202,7 +6204,6 @@
 /types/react-data-grid/                                 @SupernaviX @KieranPeat @martinnov92 @baso53
 /types/react-data-grid/v1/                              @SupernaviX
 /types/react-data-grid/v2/                              @SupernaviX @KieranPeat @martinnov92 @Ragzzy-R
-/types/react-datagrid/                                  @stephenjelfs
 /types/react-date-range/                                @Junbong @Curzy @DemetriouJohn
 /types/react-date-range/v0/                             @Junbong
 /types/react-dates/                                     @ArturAmpilogov @NathanNZ @cgriebel @jsonunger
@@ -6291,7 +6292,6 @@
 /types/react-image-gallery/                             @adamwpc @WToa
 /types/react-image-magnifiers/                          @rafw87
 /types/react-image-magnify/                             @sumitparakh
-/types/react-imageloader/                               @stephenjelfs
 /types/react-imgix/                                     @sherwinski @luqven @frederickfogerty @atlawrie
 /types/react-imgpro/                                    @echoulen
 /types/react-immutable-proptypes/                       @Joris-van-der-Wel
@@ -6414,6 +6414,7 @@
 /types/react-native-huawei-protected-apps/              @christianchown
 /types/react-native-i18n/                               @VincentLanglet
 /types/react-native-image-gallery/                      @zhirzh
+/types/react-native-immersive/                          @CheFu-code
 /types/react-native-indicators/                         @ifiokjr
 /types/react-native-joi/                                @CharlesStrong-GeoH
 /types/react-native-keep-awake/                         @huhuanming
@@ -6567,7 +6568,7 @@
 /types/react-scroll-sync/                               @cornedor
 /types/react-scroll-to-bottom/                          @zS1L3NT
 /types/react-scrollable-anchor/                         @AntoineDoubovetzky
-/types/react-scrollbar/                                 @stephenjelfs @HugoCapocci
+/types/react-scrollbar/                                 @HugoCapocci
 /types/react-scrollspy/                                 @ZhangYiJiang
 /types/react-select-country-list/                       @kieran6roberts
 /types/react-shadow-dom-retarget-events/                @remcohaszing
@@ -8218,6 +8219,7 @@
 /types/vosk/                                            @ifeanyiecheruo
 /types/voucher-code-generator/                          @JWebCoder
 /types/voximplant-websdk/                               @aylarov
+/types/vpk/                                             @v0eak
 /types/vscode/                                          @microsoft
 /types/vscode-notebook-renderer/                        @connor4312 @mjbvz
 /types/vscode-webview/                                  @mjbvz
