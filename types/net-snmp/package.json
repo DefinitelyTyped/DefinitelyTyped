@@ -6,7 +6,8 @@
         "https://github.com/markabrahams/node-net-snmp#readme"
     ],
     "devDependencies": {
-        "@types/net-snmp": "workspace:."
+        "@types/net-snmp": "workspace:.",
+        "@types/node": "^24.3.0"
     },
     "owners": [
         {
