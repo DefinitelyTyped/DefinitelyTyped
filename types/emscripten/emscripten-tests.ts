@@ -118,12 +118,12 @@ function FSTest(): void {
     const data = new Uint8Array(32);
     const wstream = FS.open("dummy1", "w+");
     FS.write(wstream, data, 0, data.length, 0);
-    
+
     // Test getStream - gets stream by file descriptor
     const streamFromFD = FS.getStream(wstream.fd!);
     // $ExpectType FSStream
     streamFromFD;
-    
+
     // Test closeStream - closes stream by file descriptor
     FS.closeStream(wstream.fd!);
 
