@@ -5828,58 +5828,56 @@ declare namespace chrome {
      * Manifest: "default_locale"
      */
     export namespace i18n {
-        /** Holds detected ISO language code and its percentage in the input string */
         export interface DetectedLanguage {
-            /** An ISO language code such as 'en' or 'fr'.
-             * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
-             * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
             language: string;
-
             /** The percentage of the detected language */
             percentage: number;
         }
 
-        /** Holds detected language reliability and array of DetectedLanguage */
+        /** Holds detected language reliability and array of {@link DetectedLanguage} */
         export interface LanguageDetectionResult {
             /** CLD detected language reliability */
             isReliable: boolean;
-
             /** Array of detectedLanguage */
             languages: DetectedLanguage[];
         }
 
+        /** @since Chrome 79 */
+        export interface GetMessageOptions {
+            /** Escape `<` in translation to `&lt;`. This applies only to the message itself, not to the placeholders. Developers might want to use this if the translation is used in an HTML context. Closure Templates used with Closure Compiler generate this automatically. */
+            escapeLt?: boolean | undefined;
+        }
+
         /**
-         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
-         * @return The `getAcceptLanguages` method provides its result via callback or returned as a `Promise` (MV3 only).
-         * @since MV3
+         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use {@link i18n.getUILanguage}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
         export function getAcceptLanguages(): Promise<string[]>;
-        /**
-         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
-         * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN
-         */
         export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+
         /**
-         * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the getMessage() call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns undefined.
-         * @param messageName The name of the message, as specified in the messages.json file.
-         * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
+         * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the `getMessage()` call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns `undefined`.
+         * @param messageName The name of the message, as specified in the `messages.json` file.
+         * @param substitutions Up to 9 substitution strings, if the message requires any.
          */
-        export function getMessage(messageName: string, substitutions?: string | string[]): string;
-        /**
-         * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
-         * @since Chrome 35
-         */
+        export function getMessage(messageName: string, substitutions?: string | Array<string | number>): string;
+        export function getMessage(
+            messageName: string,
+            substitutions: string | Array<string | number> | undefined,
+            options?: GetMessageOptions,
+        ): string;
+
+        /** Gets the browser UI language of the browser. This is different from {@link i18n.getAcceptLanguages} which returns the preferred user languages. */
         export function getUILanguage(): string;
 
         /** Detects the language of the provided text using CLD.
          * @param text User input string to be translated.
-         * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only).
-         * @since MV3
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
+         * @since Chrome 47
          */
         export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
-        /** Detects the language of the provided text using CLD.
-         * @param text User input string to be translated.
-         */
         export function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
     }
 
