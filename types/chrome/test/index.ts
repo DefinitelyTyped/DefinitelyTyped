@@ -4014,18 +4014,39 @@ async function testCommands() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/i18n
+// https://developer.chrome.com/docs/extensions/reference/api/i18n
 function testI18n() {
-    chrome.i18n.getAcceptLanguages((languages) => {});
-    chrome.i18n.getMessage("dummy-id", "Hello World!");
-    chrome.i18n.getUILanguage();
-    chrome.i18n.detectLanguage("dummy-id", (result) => {});
-}
+    const text = "text";
+    chrome.i18n.detectLanguage(text); // ExpectType Promise<DetectLanguageResult>
+    chrome.i18n.detectLanguage(text, (result) => { // $ExpectType void
+        result.isReliable; // $ExpectType boolean
+        result.languages[0].language; // $ExpectType string
+        result.languages[0].percentage; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.i18n.detectLanguage(text, () => {}).then(() => {});
 
-// https://developer.chrome.com/docs/extensions/reference/i18n
-async function testI18nForPromise() {
-    await chrome.i18n.getAcceptLanguages();
-    await chrome.i18n.detectLanguage("dummy-id");
+    chrome.i18n.getAcceptLanguages(); // $ExpectType Promise<string[]>
+    chrome.i18n.getAcceptLanguages(([language]) => {
+        language; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.i18n.getAcceptLanguages(() => {}).then(() => {});
+
+    const messageName = "messageName";
+    const substitutions = ["hello", 10];
+
+    const options: chrome.i18n.GetMessageOptions = {
+        escapeLt: true,
+    };
+
+    chrome.i18n.getMessage(messageName); // $ExpectType string
+    chrome.i18n.getMessage(messageName, substitutions); // $ExpectType string
+    chrome.i18n.getMessage(messageName, substitutions, options); // $ExpectType string
+    // @ts-expect-error
+    chrome.i18n.getMessage(messageName, 10);
+
+    chrome.i18n.getUILanguage(); // $ExpectType string
 }
 
 async function testPageCapture() {
