@@ -308,7 +308,7 @@ declare namespace FS {
     function truncate(path: string, len: number): void;
     function ftruncate(fd: number, len: number): void;
     function utime(path: string, atime: number, mtime: number): void;
-    function open(path: string, flags: string, mode?: number, fd_start?: number, fd_end?: number): FSStream;
+    function open(path: string, flags: string | number, mode?: number): FSStream;
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): number;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;

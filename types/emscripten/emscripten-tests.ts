@@ -125,6 +125,11 @@ function FSTest(): void {
     const wstream = FS.open("dummy1", "w+");
     FS.write(wstream, data, 0, data.length, 0);
 
+    // Test FS.open with numeric flags
+    const numericWriteStream = FS.open("numeric-write-stream-test", 1);
+    FS.write(numericWriteStream, data, 0, data.length, 0);
+    FS.close(numericWriteStream);
+
     // Test getStream - gets stream by file descriptor
     const streamFromFD = FS.getStream(wstream.fd!);
     // $ExpectType FSStream
