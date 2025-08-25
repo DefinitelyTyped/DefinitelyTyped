@@ -5,15 +5,13 @@
     "projects": [
         "https://github.com/mridgway/hoist-non-react-statics#readme"
     ],
-    "dependencies": {
-        "hoist-non-react-statics": "^3.3.0"
-    },
     "devDependencies": {
         "@types/hoist-non-react-statics": "workspace:.",
         "@types/prop-types": "*"
     },
     "peerDependencies": {
-        "@types/react": "*"
+        "@types/react": "*",
+        "hoist-non-react-statics": "^3.3.0"
     },
     "owners": [
         {
