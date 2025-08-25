@@ -10,7 +10,7 @@ declare namespace Emscripten {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
-    type JSType = "number" | "string" | "array" | "boolean";
+    type JSType = "number" | "string" | "array" | "boolean" | "bigint";
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
     type CIntType = "i8" | "i16" | "i32" | "i64";
@@ -377,6 +377,7 @@ type StringToType<R extends any> = R extends Emscripten.JSType ? {
         string: string;
         array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
         boolean: boolean;
+        bigint: bigint;
         null: null;
     }[R]
     : never;
@@ -419,8 +420,17 @@ declare function ccall<I extends Array<Emscripten.JSType | null> | [], R extends
     opts?: Emscripten.CCallOpts,
 ): ReturnToType<R>;
 
-declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
-declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
+declare function setValue<T extends Emscripten.CType>(
+    ptr: number,
+    value: T extends "i64" | "i64*" ? bigint : number,
+    type: T,
+    noSafe?: boolean,
+): void;
+declare function getValue<T extends Emscripten.CType>(
+    ptr: number,
+    type: T,
+    noSafe?: boolean,
+): T extends "i64" | "i64*" ? bigint : number;
 
 declare function allocate(
     slab: number[] | ArrayBufferView | number,

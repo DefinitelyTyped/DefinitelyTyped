@@ -51,6 +51,13 @@ function ModuleTest(): void {
     Module.cwrap("my_function", null, ["number"]);
     Module.cwrap("my_function", "string", ["number", "boolean", "array"], { async: true });
     Module._free(buf);
+
+    // big int test case
+    const bigint_buf = Module._malloc(8); // size of i64 = 8
+    Module.setValue(bigint_buf, 1000000000000000000n, "i64");
+    const bigintX = Module.getValue(bigint_buf, "i64") + 100n;
+    Module._free(bigint_buf);
+
     Module.destroy({});
 }
 
