@@ -1,14 +1,21 @@
-
-
-// Type definitions for notifme-sdk
-// Project: https://github.com/notifme/notifme-sdk
-// Definitions by: <Your Name> <https://github.com/your-github>
-// TypeScript Version: 4.5
-
-export type MultiProviderStrategy = 'fallback' | 'roundrobin' | 'no-fallback' | string;
+// NOTE: package metadata (name/version/owners) should be placed in package.json per DT guidelines.
+// This file should only contain the type declarations.
+export type MultiProviderStrategy = "fallback" | "roundrobin" | "no-fallback" | string;
 
 export interface SmsProviderConfig {
-    type: 'logger' | 'twilio' | 'nexmo' | 'plivo' | 'ovh' | 'callr' | 'clickatell' | 'infobip' | 'seven' | '46elks' | 'custom' | string;
+    type:
+        | "logger"
+        | "twilio"
+        | "nexmo"
+        | "plivo"
+        | "ovh"
+        | "callr"
+        | "clickatell"
+        | "infobip"
+        | "seven"
+        | "46elks"
+        | "custom"
+        | string;
     // Provider-specific options
     accountSid?: string;
     authToken?: string;
@@ -18,7 +25,7 @@ export interface SmsProviderConfig {
 }
 
 export interface EmailProviderConfig {
-    type: 'logger' | 'smtp' | 'mailgun' | 'mandrill' | 'sendgrid' | 'ses' | 'sparkpost' | 'custom' | string;
+    type: "logger" | "smtp" | "mailgun" | "mandrill" | "sendgrid" | "ses" | "sparkpost" | "custom" | string;
     // Provider-specific options
     apiKey?: string;
     domain?: string;
@@ -26,23 +33,23 @@ export interface EmailProviderConfig {
 }
 
 export interface PushProviderConfig {
-    type: 'logger' | 'apn' | 'fcm' | 'wns' | 'adm' | 'custom' | string;
+    type: "logger" | "apn" | "fcm" | "wns" | "adm" | "custom" | string;
     [key: string]: any;
 }
 
 export interface WebpushProviderConfig {
-    type: 'logger' | 'gcm' | 'custom' | string;
+    type: "logger" | "gcm" | "custom" | string;
     [key: string]: any;
 }
 
 export interface SlackProviderConfig {
-    type: 'logger' | 'slack' | 'custom' | string;
+    type: "logger" | "slack" | "custom" | string;
     webhookUrl?: string;
     [key: string]: any;
 }
 
 export interface VoiceProviderConfig {
-    type: 'logger' | 'twilio' | 'custom' | string;
+    type: "logger" | "twilio" | "custom" | string;
     [key: string]: any;
 }
 
@@ -118,7 +125,7 @@ export interface NotificationRequest {
 }
 
 export interface NotificationStatusType {
-    status: 'success' | 'error';
+    status: "success" | "error";
     channels?: {
         [channel: string]: {
             id: string;
