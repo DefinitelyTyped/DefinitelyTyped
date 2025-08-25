@@ -185,6 +185,7 @@ google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID" });
 // all options
 google.accounts.id.initialize({
     client_id: "YOUR_GOOGLE_CLIENT_ID",
+    color_scheme: "default",
     callback: response => {
         // $ExpectType string
         response.credential;
