@@ -19,8 +19,9 @@ declare namespace GorillaEngine.UI {
             direction?: string;
         };
         /**
-         * TODO:: I seriously have no idea how to use these
+         * Reference to a LottieAnimation instance
+         * that this control is linked to.         
          */
-        animation: LottieAnimation; // Assuming LottieAnimation is a defined interface elsewhere
+        animation: LottieAnimation; 
     }
 }

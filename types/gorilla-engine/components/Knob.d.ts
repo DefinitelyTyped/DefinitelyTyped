@@ -2,9 +2,7 @@ declare namespace GorillaEngine.UI {
 
     interface KnobProps extends Common, Bounds, Clickable, Background, Skinnable, MIDILearn, Highlight {
         /**
-         * TODO:: THe Text does literally nothing
-         * * @remarks
-         * {@include ./testComp.md}
+         * The text displayed for component
          */
         text: string;
         /**

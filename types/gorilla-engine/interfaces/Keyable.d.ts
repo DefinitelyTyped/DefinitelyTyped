@@ -5,7 +5,7 @@ declare namespace GorillaEngine.UI {
      */
     interface Keyable {
         /**
-         * TODO:: THIS has to be a callback function rather than a string for a view model
+         *  String that represents an action in a view model.
          */
         keyPressAction: string;
         consumeEvent: boolean;
