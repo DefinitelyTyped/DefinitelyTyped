@@ -1,4 +1,7 @@
 declare namespace GorillaEngine.UI {
+    /**
+     * TODO:: Is this control even exposed to the user? Or is it part of AmpEnv
+     */
     interface CurveProps extends Common, Bounds, Background, Font, Clickable {
         value: any;
         paramPath: string;

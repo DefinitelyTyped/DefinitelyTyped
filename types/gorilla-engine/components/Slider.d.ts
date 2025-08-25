@@ -1,7 +1,17 @@
 declare namespace GorillaEngine.UI {
     interface SliderProps extends KnobProps {
+        /**
+         * The direction of the slider.
+         */
         direction: "horizontal" | "vertical";
+        /**
+         * The path to the image used for the thumb of the slider.
+         */
         thumbImage: string;
+
+        /**
+         * TODO:: no idea what this does
+         */
         sliderBounds: {
             x: number;
             y: number;

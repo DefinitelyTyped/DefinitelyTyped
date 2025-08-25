@@ -1,5 +1,7 @@
 declare namespace GorillaEngine.UI {
     interface WaveformDragZone {
+
+        
         x: number;
         y: number;
         x2: number;
