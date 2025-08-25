@@ -222,6 +222,16 @@ function assertNever(value: never) {
         },
     });
 
+    const depthSensingSession2 = await navigator.xr!.requestSession("immersive-ar", {
+        requiredFeatures: ["depth-sensing"],
+        depthSensing: {
+            usagePreference: ["cpu-optimized", "gpu-optimized"],
+            dataFormatPreference: ["luminance-alpha", "float32"],
+            depthTypeRequest: ["raw", "smooth"],
+            matchDepthView: false,
+        },
+    });
+
     function requestAnimationFrameCallback(t: number, frame: XRFrame) {
         session.requestAnimationFrame(requestAnimationFrameCallback);
 
@@ -234,11 +244,36 @@ function assertNever(value: never) {
                 }
             }
         }
+
+        if (session.depthActive) {
+            console.log("Depth type:", session.depthType);
+            if (session.pauseDepthSensing) {
+                session.pauseDepthSensing();
+            }
+            if (session.resumeDepthSensing) {
+                session.resumeDepthSensing();
+            }
+        }
     }
 
     function useCpuDepthInformation(view: XRView, depthInformation: XRCPUDepthInformation) {
         const depthInMeters = depthInformation.getDepthInMeters(0.25, 0.75);
         console.log("Depth at normalized view coordinates (0.25, 0.75) is:", depthInMeters);
+
+        const projectionMatrix: Float32Array | undefined = depthInformation.projectionMatrix;
+        if (projectionMatrix) {
+            console.log("Depth projection matrix:", projectionMatrix);
+        }
+
+        const transformPosition: DOMPointReadOnly | undefined = depthInformation.transform?.position;
+        if (transformPosition) {
+            console.log("Depth transform position:", transformPosition);
+        }
+
+        const transformDirection: DOMPointReadOnly | undefined = depthInformation.transform?.orientation;
+        if (transformDirection) {
+            console.log("Depth transform direction:", transformDirection);
+        }
     }
 
     const glBinding = new XRWebGLBinding(session, ctx);
