@@ -10,12 +10,12 @@ export const version: string;
 // TODO: `this` throws an error, but it is the same return value as in the original Leaflet code
 export class Class {
     static extend(props: any): { new(...args: any[]): any } & typeof Class;
-    static include(props: any): this;
-    static setDefaultOptions(options: any): this;
-    static mergeOptions(options: any): this;
+    static include(props: any): & typeof Class;
+    static setDefaultOptions(options: any): & typeof Class;
+    static mergeOptions(options: any): & typeof Class;
 
-    static addInitHook(initHookFn: () => void): this;
-    static addInitHook(methodName: string, ...args: any[]): this;
+    static addInitHook(initHookFn: () => void): & typeof Class;
+    static addInitHook(methodName: string, ...args: any[]): & typeof Class;
 
     initialize(...args: any[]): void;
     callInitHooks(): void;
@@ -149,7 +149,7 @@ export interface Projection {
 }
 
 export namespace Projection {
-    interface LonLat extends Projection {}
+    type LonLat = Projection;
 
     interface Mercator extends Projection {
         R: 6378137;
@@ -1266,7 +1266,7 @@ export class Layer extends Evented {
     closePopup(): this;
     togglePopup(): this;
     isPopupOpen(): boolean;
-    setPopupContent(content: Content | Popup): this;
+    setPopupContent(content: Content | ((layer: Layer) => Content)): this;
     getPopup(): Popup | undefined;
 
     // Tooltip methods
@@ -1276,7 +1276,7 @@ export class Layer extends Evented {
     closeTooltip(): this;
     toggleTooltip(): this;
     isTooltipOpen(): boolean;
-    setTooltipContent(content: Content | Tooltip): this;
+    setTooltipContent(content: Content | ((layer: Layer) => Content)): this;
     getTooltip(): Tooltip | undefined;
 
     // Extension methods
