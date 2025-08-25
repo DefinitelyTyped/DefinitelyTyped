@@ -45,7 +45,7 @@ declare namespace GoogleAppsScript {
         interface Cdata extends Content {
             append(text: string): Text;
             detach(): Content;
-            getParentElement(): Element;
+            getParentElement(): Element | null;
             getText(): string;
             getValue(): string;
             setText(text: string): Text;
@@ -55,7 +55,7 @@ declare namespace GoogleAppsScript {
          */
         interface Comment extends Content {
             detach(): Content;
-            getParentElement(): Element;
+            getParentElement(): Element | null;
             getText(): string;
             getValue(): string;
             setText(text: string): Comment;
@@ -81,15 +81,15 @@ declare namespace GoogleAppsScript {
          * TextA representation of an XML Text node.
          */
         interface Content {
-            asCdata(): Cdata;
-            asComment(): Comment;
-            asDocType(): DocType;
-            asElement(): Element;
-            asEntityRef(): EntityRef;
-            asProcessingInstruction(): ProcessingInstruction;
-            asText(): Text;
+            asCdata(): Cdata | null;
+            asComment(): Comment | null;
+            asDocType(): DocType | null;
+            asElement(): Element | null;
+            asEntityRef(): EntityRef | null;
+            asProcessingInstruction(): ProcessingInstruction | null;
+            asText(): Text | null;
             detach(): Content;
-            getParentElement(): Element;
+            getParentElement(): Element | null;
             getType(): ContentType;
             getValue(): string;
         }
@@ -111,10 +111,10 @@ declare namespace GoogleAppsScript {
         interface DocType extends Content {
             detach(): Content;
             getElementName(): string;
-            getInternalSubset(): string;
-            getParentElement(): Element;
-            getPublicId(): string;
-            getSystemId(): string;
+            getInternalSubset(): string | null;
+            getParentElement(): Element | null;
+            getPublicId(): string | null;
+            getSystemId(): string | null;
             getValue(): string;
             setElementName(name: string): DocType;
             setInternalSubset(data: string): DocType;
@@ -128,17 +128,17 @@ declare namespace GoogleAppsScript {
             addContent(content: Content): Document;
             addContent(index: Integer, content: Content): Document;
             cloneContent(): Content[];
-            detachRootElement(): Element;
+            detachRootElement(): Element | null;
             getAllContent(): Content[];
-            getContent(index: Integer): Content;
+            getContent(index: Integer): Content | null;
             getContentSize(): Integer;
             getDescendants(): Content[];
-            getDocType(): DocType;
-            getRootElement(): Element;
+            getDocType(): DocType | null;
+            getRootElement(): Element | null;
             hasRootElement(): boolean;
             removeContent(): Content[];
             removeContent(content: Content): boolean;
-            removeContent(index: Integer): Content;
+            removeContent(index: Integer): Content | null;
             setDocType(docType: DocType): Document;
             setRootElement(element: Element): Document;
         }
@@ -169,24 +169,24 @@ declare namespace GoogleAppsScript {
             cloneContent(): Content[];
             detach(): Content;
             getAllContent(): Content[];
-            getAttribute(name: string): Attribute;
-            getAttribute(name: string, namespace: Namespace): Attribute;
+            getAttribute(name: string): Attribute | null;
+            getAttribute(name: string, namespace: Namespace): Attribute | null;
             getAttributes(): Attribute[];
-            getChild(name: string): Element;
-            getChild(name: string, namespace: Namespace): Element;
-            getChildText(name: string): string;
-            getChildText(name: string, namespace: Namespace): string;
+            getChild(name: string): Element | null;
+            getChild(name: string, namespace: Namespace): Element | null;
+            getChildText(name: string): string | null;
+            getChildText(name: string, namespace: Namespace): string | null;
             getChildren(): Element[];
             getChildren(name: string): Element[];
             getChildren(name: string, namespace: Namespace): Element[];
-            getContent(index: Integer): Content;
+            getContent(index: Integer): Content | null;
             getContentSize(): Integer;
             getDescendants(): Content[];
-            getDocument(): Document;
+            getDocument(): Document | null;
             getName(): string;
             getNamespace(): Namespace;
-            getNamespace(prefix: string): Namespace;
-            getParentElement(): Element;
+            getNamespace(prefix: string): Namespace | null;
+            getParentElement(): Element | null;
             getQualifiedName(): string;
             getText(): string;
             getValue(): string;
@@ -197,7 +197,7 @@ declare namespace GoogleAppsScript {
             removeAttribute(attributeName: string, namespace: Namespace): boolean;
             removeContent(): Content[];
             removeContent(content: Content): boolean;
-            removeContent(index: Integer): Content;
+            removeContent(index: Integer): Content | null;
             setAttribute(attribute: Attribute): Element;
             setAttribute(name: string, value: string): Element;
             setAttribute(name: string, value: string, namespace: Namespace): Element;
@@ -211,9 +211,9 @@ declare namespace GoogleAppsScript {
         interface EntityRef extends Content {
             detach(): Content;
             getName(): string;
-            getParentElement(): Element;
-            getPublicId(): string;
-            getSystemId(): string;
+            getParentElement(): Element | null;
+            getPublicId(): string | null;
+            getSystemId(): string | null;
             getValue(): string;
             setName(name: string): EntityRef;
             setPublicId(id: string): EntityRef;
@@ -237,7 +237,7 @@ declare namespace GoogleAppsScript {
             format(document: Document): string;
             format(element: Element): string;
             setEncoding(encoding: string): Format;
-            setIndent(indent: string): Format;
+            setIndent(indent: string | null): Format;
             setLineSeparator(separator: string): Format;
             setOmitDeclaration(omitDeclaration: boolean): Format;
             setOmitEncoding(omitEncoding: boolean): Format;
@@ -255,7 +255,7 @@ declare namespace GoogleAppsScript {
         interface ProcessingInstruction extends Content {
             detach(): Content;
             getData(): string;
-            getParentElement(): Element;
+            getParentElement(): Element | null;
             getTarget(): string;
             getValue(): string;
         }
@@ -265,7 +265,7 @@ declare namespace GoogleAppsScript {
         interface Text extends Content {
             append(text: string): Text;
             detach(): Content;
-            getParentElement(): Element;
+            getParentElement(): Element | null;
             getText(): string;
             getValue(): string;
             setText(text: string): Text;
