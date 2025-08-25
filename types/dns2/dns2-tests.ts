@@ -160,3 +160,49 @@ udpServerByType.on("request", (request, send, rinfo) => {
 });
 
 udpServer.listen(5555, "127.0.0.1");
+
+// Some DNS Client exmaple codes are taken from the package readme for 2.1.6
+// https://github.com/lsongdev/node-dns/blob/e4fa035aca0b8eb730bde3431fbf0c60a31a09c9/README.md
+let resolve;
+
+const { TCPClient, UDPClient, GoogleClient, DOHClient } = DNS;
+
+// Although the readme claims this option is optional, but the actual implementations say otherwise:
+// https://github.com/lsongdev/node-dns/blob/e4fa035aca0b8eb730bde3431fbf0c60a31a09c9/client/tcp.js#L30
+resolve = TCPClient({ dns: "8.8.8.8" });
+
+TCPClient({ dns: "8.8.8.8", protocol: "tcp:" });
+TCPClient({ dns: "8.8.8.8", protocol: "tls:" });
+TCPClient({ dns: "8.8.8.8", protocol: "tcp:", port: 53 });
+TCPClient({ dns: "8.8.8.8", port: 153 });
+
+(async () => {
+    try {
+        const response = await resolve("lsong.org");
+        console.log(response.answers);
+    } catch (error) {
+        // some DNS servers (i.e cloudflare 1.1.1.1, 1.0.0.1)
+        // may send an empty response when using TCP
+        console.log(error);
+    }
+})();
+
+resolve = UDPClient({ dns: "8.8.8.8" });
+
+(async () => {
+    try {
+        const response = await resolve("lsong.org");
+        console.log(response.answers);
+    } catch (error) {
+        // some DNS servers (i.e cloudflare 1.1.1.1, 1.0.0.1)
+        // may send an empty response when using TCP
+        console.log(error);
+    }
+})();
+
+GoogleClient();
+
+DOHClient({ dns: "1.1.1.1" });
+DOHClient({ dns: "https://1.1.1.1" });
+DOHClient({ dns: "://1.1.1.1" });
+DOHClient({ dns: "https://1.1.1.1/dns-query" });
