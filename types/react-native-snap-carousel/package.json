@@ -6,7 +6,9 @@
         "https://github.com/archriss/react-native-snap-carousel"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "*"
+    },
+    "peerDependencies": {
         "react-native": "*"
     },
     "devDependencies": {
