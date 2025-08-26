@@ -26,16 +26,16 @@ declare namespace umami {
             }) => { website: string; [key: string]: any },
         ): Promise<string> | undefined;
 
-      /** Pass in your own ID to identify a user. */
-      identify(identity_id: string): Promise<void>;
+        /** Pass in your own ID to identify a user. */
+        identify(identity_id: string): Promise<void>;
 
-      /** Save data about the current session. */
-      identify(
-        indentity_id: string,
-        data: Record<string, any>,
-      ): Promise<void>;
+        /** Save data about the current session. */
+        identify(
+            indentity_id: string,
+            data: Record<string, any>,
+        ): Promise<void>;
 
-      /** To save data without a unique ID, pass in only a JSON object. */
-      identify(data: Record<string, any>): Promise<void>;
+        /** To save data without a unique ID, pass in only a JSON object. */
+        identify(data: Record<string, any>): Promise<void>;
     }
 }
