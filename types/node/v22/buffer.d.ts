@@ -139,7 +139,7 @@ declare module "buffer" {
         type?: string | undefined;
     }
     /**
-     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
+     * A `Blob` encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0, v14.18.0
      */

@@ -2151,7 +2151,7 @@ declare namespace googletag {
              * @see [Collapse empty ad slots](https://developers.google.com/publisher-tag/samples/collapse-empty-ad-slots)
              * @see [Minimize layout shift](https://developers.google.com/publisher-tag/guides/minimize-layout-shift)
              */
-            collapseDiv?: "DISABLED" | "BEFORE_FETCH" | "ON_NO_FILL" | null;
+            collapseDiv?: CollapseDivBehavior | null;
 
             /**
              * Setting to enable or disable Single Request Architecture (SRA).
@@ -2262,6 +2262,14 @@ declare namespace googletag {
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
         }
+
+        /**
+         * Supported values for controlling the collapsing behavior of ad slots.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.collapseDiv | PageSettingsConfig.collapseDiv}
+         * @see {@link googletag.config.SlotSettingsConfig.collapseDiv | SlotSettingsConfig.collapseDiv}
+         */
+        type CollapseDivBehavior = "DISABLED" | "BEFORE_FETCH" | "ON_NO_FILL";
 
         /**
          * Settings to control publisher privacy treatments.
@@ -2565,7 +2573,7 @@ declare namespace googletag {
              * @see [Collapse empty ad slots](https://developers.google.com/publisher-tag/samples/collapse-empty-ad-slots)
              * @see [Minimize layout shift](https://developers.google.com/publisher-tag/guides/minimize-layout-shift)
              */
-            collapseDiv?: "DISABLED" | "BEFORE_FETCH" | "ON_NO_FILL" | null;
+            collapseDiv?: CollapseDivBehavior | null;
 
             /**
              * Setting to configure ad category exclusions.
@@ -3344,9 +3352,40 @@ declare namespace googletag {
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
-
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface RewardedSlotClosedEvent extends Event {}
+
+        /**
+         * This event is fired when a rewarded video ad has finished playing.
+         * @example
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.REWARDED);
+         *
+         *   // Slot returns null if the page or device does not support rewarded ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
+         *
+         *     // This listener is called when the video in a rewarded ad slot has
+         *     // finished playing.
+         *     googletag.pubads().addEventListener('rewardedSlotVideoCompleted',
+         *         (event) => {
+         *           const slot = event.slot;
+         *           console.log('Video in rewarded ad slot', slot.getSlotElementId(),
+         *                       'has finished playing.');
+         *
+         *           if (slot === targetSlot) {
+         *             // Slot specific logic.
+         *           }
+         *         }
+         *     );
+         *   }
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
+         */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface RewardedSlotVideoCompletedEvent extends Event {}
 
         /**
          * This event is fired when a
@@ -3517,6 +3556,11 @@ declare namespace googletag {
              * Alias for {@link events.RewardedSlotClosedEvent}.
              */
             rewardedSlotClosed: RewardedSlotClosedEvent;
+
+            /**
+             * Alias for {@link events.RewardedSlotVideoCompletedEvent}.
+             */
+            rewardedSlotVideoCompleted: RewardedSlotVideoCompletedEvent;
 
             /**
              * Alias for {@link events.RewardedSlotReadyEvent}.

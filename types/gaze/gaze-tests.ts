@@ -1,5 +1,13 @@
 import gaze = require("gaze");
 
+gaze("**/*.js", (err, watcher) => {
+    watcher.watched();
+    watcher.relative("./", false);
+    watcher.on("all", () => {
+        //
+    });
+});
+
 gaze("**/*.js", null, (err, watcher) => {
     watcher.watched();
     watcher.relative("./", false);

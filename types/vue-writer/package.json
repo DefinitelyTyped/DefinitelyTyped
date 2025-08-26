@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/vue-writer": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Abubaker Yahia",
-            "githubUsername": "BekYahia"
-        }
-    ]
+    "owners": []
 }

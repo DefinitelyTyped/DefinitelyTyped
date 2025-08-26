@@ -810,6 +810,26 @@ test("mocks a module", (t) => {
     mock.restore();
 });
 
+test("mocks a property", (t) => {
+    const object = { foo: "bar" };
+    const mockedObject = t.mock.property(object, "foo");
+    // $ExpectType string
+    mockedObject.foo;
+
+    mockedObject.mock.mockImplementation("baz");
+    mockedObject.mock.mockImplementationOnce("bash", 5);
+
+    // $ExpectType number
+    mockedObject.mock.accessCount();
+
+    const access = mockedObject.mock.accesses[0];
+    // $ExpectType string
+    access.value;
+
+    mockedObject.mock.resetAccesses();
+    mockedObject.mock.restore();
+});
+
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
