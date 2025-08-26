@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/leaflet",
     "version": "2.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Leaflet 2.0.0-alpha",
     "projects": [
         "https://github.com/Leaflet/Leaflet"
     ],
