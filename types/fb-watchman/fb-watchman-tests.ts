@@ -213,6 +213,6 @@ client.on("subscription", (resp) => {
 });
 
 // All commands should accept a callback, including "unofficial" ones
-client.command(['watch-del', '/'], () => {});
+client.command(["watch-del", "/"], () => {});
 // .. and it's optional
-client.command(['watch-del-all']);
+client.command(["watch-del-all"]);
