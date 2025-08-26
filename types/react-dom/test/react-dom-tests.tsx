@@ -222,7 +222,7 @@ function pipeableStreamDocumentedExample() {
             didError = true;
             console.error(err);
         },
-        formState: [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState
+        formState: [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState,
     });
 
     setTimeout(() => {
@@ -269,7 +269,7 @@ function pipeableStreamDocumentedStringExample() {
             didError = true;
             console.error(err);
         },
-        formState: [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState
+        formState: [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState,
     });
 
     setTimeout(() => {
