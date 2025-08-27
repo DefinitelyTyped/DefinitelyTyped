@@ -13,7 +13,7 @@ interface IStrategyOptions {
 }
 interface IVerifyOptions {
     message?: string | undefined;
-    scope: string | string[];
+    scope?: string | string[];
 }
 
 interface VerifyFunction {
