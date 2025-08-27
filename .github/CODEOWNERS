@@ -1171,6 +1171,7 @@
 /types/critters-webpack-plugin/                         @JuanJoseGonGi @peterblazejewicz
 /types/crocks/                                          @jakubbarczyk
 /types/cronitor/                                        @alexpresthus
+/types/cronofy-elements/                                @agarciabz
 /types/croppie/                                         @connor4312 @dklmuc @sarunint @knuthelgesen
 /types/cross-domain-utils/                              @ANovokmet
 /types/cross-spawn/                                     @Alorel @ExE-Boss
@@ -2974,7 +2975,7 @@
 /types/gtag.js/                                         @rokt33r @KsAkira10
 /types/gtmetrix/                                        @peterblazejewicz
 /types/guacamole-client/                                @KonstantinSimeonov @vakrilov @PetarMetodiev
-/types/guacamole-common-js/                             @KonstantinSimeonov @vakrilov @PetarMetodiev @Talent30 @linn-gith
+/types/guacamole-common-js/                             @KonstantinSimeonov @vakrilov @PetarMetodiev @linn-gith
 /types/guid/                                            @maroy1986
 /types/gulp/                                            @GiedriusGrabauskas @pulsovi
 /types/gulp-angular-protractor/                         @akwiatek
@@ -4853,6 +4854,7 @@
 /types/microsoftteams/                                  @WrathOfZombies @ydogandjiev @orty
 /types/microtime/                                       @vincekovacs
 /types/midi/                                            @mattsoulanille
+/types/midtrans-client/                                 @MystiaFin
 /types/migrate-mongo/                                   @amitbeck
 /types/millisecond/                                     @xeoneux
 /types/mime-db/                                         @AJamesPhillips @LinusU @peterblazejewicz @bjohansebas
@@ -5078,7 +5080,6 @@
 /types/netease-captcha/                                 @norubidium
 /types/netgear/                                         @k-yle
 /types/netlify-auth-providers/                          @drazisil
-/types/netlify-identity-widget/                         @nkprince007
 /types/netmask/                                         @mhfrantz @JanST123 @yoursunny
 /types/network-interfaces/                              @anderswestberg
 /types/neverbounce/                                     @georgenov
@@ -5324,6 +5325,7 @@
 /types/nuclear-js/                                      @patlillis
 /types/nuclear-js-react-addons-chefsplate/              @patlillis
 /types/num2fraction/                                    @sergey12313
+/types/number-abbreviate/                               @altie122
 /types/number-is-nan/                                   @mhegazy @peterblazejewicz
 /types/number-to-words/                                 @frederickfogerty
 /types/numeral/                                         @vbortone @klujanrosas @KarlosQ @peterblazejewicz
@@ -7929,6 +7931,7 @@
 /types/try-catch/                                       @coderaiser
 /types/try-to-catch/                                    @coderaiser
 /types/tryer/                                           @bengry
+/types/tryghost__admin-api/                             @josejj10
 /types/tryghost__content-api/                           @knguyen0125 @antonve @maveric1977
 /types/ts-nameof/                                       @dsherret
 /types/tspromise/                                       @soywiz
@@ -8108,7 +8111,7 @@
 /types/uswds__uswds/                                    @lunchbreakdev @aduth
 /types/utf-8-validate/                                  @OpportunityLiu
 /types/utf8/                                            @peterblazejewicz
-/types/utif/                                            @smajl @nkprince007 @massic80
+/types/utif/                                            @smajl @massic80
 /types/util-deprecate/                                  @BendingBender
 /types/util.promisify/                                  @adamvoss @dex4er @ExE-Boss @ljharb
 /types/utils-merge/                                     @chrootsu
@@ -8245,7 +8248,6 @@
 /types/vue-tel-input/                                   @suryadana
 /types/vue-template-es2015-compiler/                    @iam-medvedev
 /types/vue-the-mask/                                    @domschmidt
-/types/vue-writer/                                      @BekYahia
 /types/vue2-datepicker/                                 @ChristianStornowski
 /types/vue2-editor/                                     @suryadana
 /types/vue2-hammer/                                     @ptandler
