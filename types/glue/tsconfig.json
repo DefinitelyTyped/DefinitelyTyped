@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es2017",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "glue-tests.ts"
+    ]
+}

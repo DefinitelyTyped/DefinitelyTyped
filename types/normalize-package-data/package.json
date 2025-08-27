@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/normalize-package-data",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/npm/normalize-package-data#readme"
+    ],
+    "devDependencies": {
+        "@types/normalize-package-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Dickey",
+            "githubUsername": "jdxcode"
+        }
+    ]
+}

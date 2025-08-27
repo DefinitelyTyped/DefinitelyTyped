@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-qq",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/qdsang/passport-qq#readme"
+    ],
+    "dependencies": {
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-qq": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bangbang93",
+            "githubUsername": "bangbang93"
+        }
+    ]
+}

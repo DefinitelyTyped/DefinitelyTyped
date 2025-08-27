@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/yog2-kernel",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/fex-team/yog2-kernel"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/lodash": "*",
+        "@types/node-ral": "*",
+        "@types/yog-bigpipe": "*",
+        "@types/yog-log": "*"
+    },
+    "devDependencies": {
+        "@types/yog2-kernel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ssddi456",
+            "githubUsername": "ssddi456"
+        },
+        {
+            "name": "devinux",
+            "githubUsername": "devinux"
+        }
+    ]
+}

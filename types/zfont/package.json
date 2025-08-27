@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/zfont",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jaames/zfont"
+    ],
+    "dependencies": {
+        "@types/zdog": "*"
+    },
+    "devDependencies": {
+        "@types/zfont": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Demensky",
+            "githubUsername": "demensky"
+        }
+    ]
+}

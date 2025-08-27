@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "koa-dec-router-tests.ts"
+    ]
+}

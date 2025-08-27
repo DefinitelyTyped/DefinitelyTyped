@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/aws-synthetics-puppeteer",
+    "version": "10.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "aws-synthetics-puppeteer",
+    "projects": [
+        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "puppeteer-core": "24.2.0",
+        "aws-xray-sdk-core": "3.10.3"
+    },
+    "devDependencies": {
+        "@types/aws-synthetics-puppeteer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Egglestone",
+            "githubUsername": "Tantalon"
+        }
+    ]
+}

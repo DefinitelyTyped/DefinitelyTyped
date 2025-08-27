@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/async-exit-hook",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Tapppi/async-exit-hook"
+    ],
+    "devDependencies": {
+        "@types/async-exit-hook": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Speedy",
+            "githubUsername": "SpeedyCraftah"
+        }
+    ]
+}

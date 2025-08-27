@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/edit-json-file",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/edit-json-file#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/set-value": "*"
+    },
+    "devDependencies": {
+        "@types/edit-json-file": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Twixes",
+            "githubUsername": "Twixes"
+        }
+    ]
+}

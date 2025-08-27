@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/nes",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/hapijs/nes"
+    ],
+    "dependencies": {
+        "@types/hapi": "*"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "*",
+        "@types/hapi-auth-basic": "*",
+        "@types/nes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivo Stratev",
+            "githubUsername": "NoHomey"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        }
+    ]
+}

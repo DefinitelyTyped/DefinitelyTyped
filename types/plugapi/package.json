@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/plugapi",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/plugcubed/plugapi"
+    ],
+    "devDependencies": {
+        "@types/plugapi": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/global-paths",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/global-paths"
+    ],
+    "devDependencies": {
+        "@types/global-paths": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

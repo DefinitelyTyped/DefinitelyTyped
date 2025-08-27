@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bakong-khqr",
+    "version": "1.0.9999",
+    "projects": [
+        "git@gitlab.nbc.gov.kh:khqr/sdk-javascript.git"
+    ],
+    "devDependencies": {
+        "@types/bakong-khqr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ann",
+            "githubUsername": "AnnLov"
+        },
+        {
+            "name": "Devit Huotkeo",
+            "githubUsername": "davidhuotkeo"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-pointable",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/MilllerTime/react-pointable"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-pointable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Fochler",
+            "githubUsername": "istefo"
+        },
+        {
+            "name": "Dibyo Majumdar",
+            "githubUsername": "mdibyo"
+        }
+    ]
+}

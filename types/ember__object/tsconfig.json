@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "strict": true,
+        "experimentalDecorators": true,
+        "types": [],
+        "noEmit": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/access-modifier.ts",
+        "test/core.ts",
+        "test/compat.ts",
+        "test/computed.ts",
+        "test/create.ts",
+        "test/create-negative.ts",
+        "test/event.ts",
+        "test/extend.ts",
+        "test/internals.ts",
+        "test/object.ts",
+        "test/observable.ts",
+        "test/octane.ts",
+        "test/proxy.ts",
+        "test/reopen.ts",
+        "test/get-set.ts"
+    ]
+}

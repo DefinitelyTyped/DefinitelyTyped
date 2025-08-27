@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/devexpress-web",
+    "version": "202.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "devexpress-web",
+    "projects": [
+        "https://devexpress.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/devexpress-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DevExpress Inc.",
+            "githubUsername": "DevExpress"
+        }
+    ]
+}

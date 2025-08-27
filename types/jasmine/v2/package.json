@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "name": "@types/jasmine",
+    "version": "2.8.9999",
+    "projects": [
+        "https://jasmine.github.io/"
+    ],
+    "devDependencies": {
+        "@types/jasmine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Theodore Brown",
+            "githubUsername": "theodorejb"
+        },
+        {
+            "name": "David Pärsson",
+            "githubUsername": "davidparsson"
+        },
+        {
+            "name": "Gabe Moothart",
+            "githubUsername": "gmoothart"
+        },
+        {
+            "name": "Lukas Zech",
+            "githubUsername": "lukas-zech-software"
+        },
+        {
+            "name": "Boris Breuer",
+            "githubUsername": "Engineer2B"
+        },
+        {
+            "name": "Chris Yungmann",
+            "githubUsername": "cyungmann"
+        },
+        {
+            "name": "Yaroslav Admin",
+            "githubUsername": "devoto13"
+        },
+        {
+            "name": "Domas Trijonis",
+            "githubUsername": "fdim"
+        }
+    ]
+}

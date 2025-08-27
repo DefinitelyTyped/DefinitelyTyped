@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/client-sessions",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/mozilla/node-client-sessions"
+    ],
+    "dependencies": {
+        "@types/cookies": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/client-sessions": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Aditya",
+            "githubUsername": "netroy"
+        },
+        {
+            "name": "Ankit Malik",
+            "githubUsername": "DiabolusGX"
+        }
+    ]
+}

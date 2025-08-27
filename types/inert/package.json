@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/inert",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/hapijs/inert/"
+    ],
+    "dependencies": {
+        "@types/hapi": "*"
+    },
+    "devDependencies": {
+        "@types/inert": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Steve Ognibene",
+            "githubUsername": "nycdotnet"
+        },
+        {
+            "name": "Alexander James Phillips",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
+}

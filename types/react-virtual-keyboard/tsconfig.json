@@ -1,0 +1,21 @@
+{
+    "files": [
+        "index.d.ts",
+        "react-virtual-keyboard-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "types": [],
+        "noEmit": true,
+        "jsx": "react",
+        "forceConsistentCasingInFileNames": true
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/hl7",
+    "version": "2.5.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "hl7",
+    "projects": [
+        "https://github.com/MinaroShikuchi/hl7"
+    ],
+    "devDependencies": {
+        "@types/hl7": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Minaro",
+            "githubUsername": "MinaroShikuchi"
+        }
+    ]
+}

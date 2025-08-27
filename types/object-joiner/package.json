@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-joiner",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/sarukuku/object-joiner#readme"
+    ],
+    "devDependencies": {
+        "@types/object-joiner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim",
+            "githubUsername": "me"
+        }
+    ]
+}

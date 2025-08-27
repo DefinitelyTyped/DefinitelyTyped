@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jrf-pip",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jirufik/jrf-pip#readme"
+    ],
+    "devDependencies": {
+        "@types/jrf-pip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rufus",
+            "githubUsername": "jirufik"
+        }
+    ]
+}

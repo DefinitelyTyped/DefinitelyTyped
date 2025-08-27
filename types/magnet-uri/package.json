@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/magnet-uri",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/webtorrent/magnet-uri"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/magnet-uri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

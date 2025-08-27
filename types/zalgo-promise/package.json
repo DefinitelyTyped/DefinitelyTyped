@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zalgo-promise",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/krakenjs/zalgo-promise#readme"
+    ],
+    "devDependencies": {
+        "@types/zalgo-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Shuy",
+            "githubUsername": "daniel-shuy"
+        }
+    ]
+}

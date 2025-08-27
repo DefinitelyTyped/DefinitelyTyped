@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/leaflet.markercluster.layersupport",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ghybs/Leaflet.MarkerCluster.LayerSupport"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*",
+        "@types/leaflet.markercluster": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.markercluster.layersupport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AsamK",
+            "githubUsername": "AsamK"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/ember-changeset-validations",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/poteto/ember-changeset-validations"
+    ],
+    "dependencies": {
+        "@types/ember__array": "*"
+    },
+    "devDependencies": {
+        "@types/ember-changeset-validations": "workspace:."
+    },
+    "owners": []
+}

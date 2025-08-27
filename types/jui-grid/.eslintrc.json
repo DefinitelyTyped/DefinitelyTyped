@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
+    }
+}

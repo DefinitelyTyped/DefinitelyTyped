@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/piwik-tracker",
+    "version": "0.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/piwik-tracker"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/piwik-tracker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guilherme Bernal",
+            "githubUsername": "lbguilherme"
+        }
+    ]
+}

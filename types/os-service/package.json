@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/os-service",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/nospaceships/node-os-service"
+    ],
+    "devDependencies": {
+        "@types/os-service": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Magginichi",
+            "githubUsername": "magginichi"
+        }
+    ]
+}

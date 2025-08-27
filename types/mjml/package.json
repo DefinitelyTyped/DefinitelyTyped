@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/mjml",
+    "version": "4.7.9999",
+    "projects": [
+        "https://github.com/mjmlio/mjml",
+        "https://mjml.io"
+    ],
+    "dependencies": {
+        "@types/mjml-core": "*"
+    },
+    "devDependencies": {
+        "@types/mjml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "aahoughton        ",
+            "githubUsername": "aahoughton"
+        },
+        {
+            "name": "marpstar          ",
+            "githubUsername": "marpstar"
+        },
+        {
+            "name": "IanEdington       ",
+            "githubUsername": "IanEdington"
+        }
+    ]
+}

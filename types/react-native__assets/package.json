@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native__assets",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/facebook/react-native#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native__assets": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zihan Chen",
+            "githubUsername": "ZihanChen-MSFT"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clear",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/bahamas10/node-clear#readme"
+    ],
+    "devDependencies": {
+        "@types/clear": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Connor Fitzgerald",
+            "githubUsername": "connorjayfitzgerald"
+        }
+    ]
+}

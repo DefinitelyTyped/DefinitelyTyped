@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/meteor-publish-composite",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-publish-composite",
+    "projects": [
+        "https://github.com/englue/meteor-publish-composite"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-publish-composite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Van Gorkom",
+            "githubUsername": "vangorra"
+        },
+        {
+            "name": "Matthew Zartman",
+            "githubUsername": "mrz5018"
+        }
+    ]
+}

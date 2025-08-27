@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/liftoff",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/js-cli/js-liftoff#readme"
+    ],
+    "dependencies": {
+        "@types/fined": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/liftoff": "workspace:.",
+        "@types/v8flags": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Corbin Crutchley",
+            "githubUsername": "crutchcorn"
+        }
+    ]
+}

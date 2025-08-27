@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/app-root-dir",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/philidem/node-app-root-dir"
+    ],
+    "devDependencies": {
+        "@types/app-root-dir": "workspace:."
+    },
+    "owners": []
+}

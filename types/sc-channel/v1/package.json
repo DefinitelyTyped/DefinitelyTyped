@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sc-channel",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/SocketCluster/sc-channel"
+    ],
+    "dependencies": {
+        "@types/component-emitter": "*"
+    },
+    "devDependencies": {
+        "@types/sc-channel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

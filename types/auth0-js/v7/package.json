@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/auth0-js",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/auth0/auth0.js"
+    ],
+    "devDependencies": {
+        "@types/auth0-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert McLaws",
+            "githubUsername": "advancedrei"
+        }
+    ]
+}

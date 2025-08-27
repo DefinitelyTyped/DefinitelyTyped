@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/xmpp__client",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/client"
+    ],
+    "dependencies": {
+        "@types/koa-compose": "*",
+        "@types/xmpp__client-core": "*",
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__iq": "*",
+        "@types/xmpp__middleware": "*",
+        "@types/xmpp__reconnect": "*",
+        "@types/xmpp__resource-binding": "*",
+        "@types/xmpp__sasl": "*",
+        "@types/xmpp__stream-features": "*",
+        "@types/xmpp__stream-management": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__client": "workspace:.",
+        "@types/xmpp__xml": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

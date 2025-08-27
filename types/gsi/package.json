@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/gsi",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Sign In With Google JavaScript API",
+    "projects": [
+        "https://developers.google.com/identity/gsi/web/reference/js-reference"
+    ],
+    "devDependencies": {
+        "@types/gsi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aron Høyer",
+            "githubUsername": "aronhoyer"
+        }
+    ]
+}

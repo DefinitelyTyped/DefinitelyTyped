@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gbk.js",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/cnwhy/GBK.js"
+    ],
+    "devDependencies": {
+        "@types/gbk.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mkchung",
+            "githubUsername": "mkchung"
+        }
+    ]
+}

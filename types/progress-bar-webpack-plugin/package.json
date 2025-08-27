@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/progress-bar-webpack-plugin",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/clessg/progress-bar-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/progress": "*",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/progress-bar-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

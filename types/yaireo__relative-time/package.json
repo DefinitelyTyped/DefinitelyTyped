@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/yaireo__relative-time",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/yairEO/relative-time"
+    ],
+    "devDependencies": {
+        "@types/yaireo__relative-time": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

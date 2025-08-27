@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.viewmodel",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.viewmodel",
+    "projects": [
+        "http://coderenaissance.github.com/knockout.viewmodel/"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.viewmodel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oisin Grehan",
+            "githubUsername": "oising"
+        }
+    ]
+}

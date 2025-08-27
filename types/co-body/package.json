@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/co-body",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/cojs/co-body"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/qs": "*"
+    },
+    "devDependencies": {
+        "@types/co-body": "workspace:.",
+        "@types/koa": "*"
+    },
+    "owners": [
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/bindings",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/TooTallNate/node-bindings"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bindings": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

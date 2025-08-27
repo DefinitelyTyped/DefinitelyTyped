@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-useragent",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/skratchdot/random-useragent"
+    ],
+    "devDependencies": {
+        "@types/random-useragent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffry Angtoni",
+            "githubUsername": "jeffryang24"
+        }
+    ]
+}

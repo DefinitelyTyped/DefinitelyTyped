@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-html-email",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/chromakode/react-html-email#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-html-email": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Saiichi Hashimoto",
+            "githubUsername": "saiichihashimoto"
+        }
+    ]
+}

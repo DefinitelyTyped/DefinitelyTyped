@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/reload",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/alallier/reload#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/reload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Victor Nascimento Bakke",
+            "githubUsername": "Gipphe"
+        }
+    ]
+}

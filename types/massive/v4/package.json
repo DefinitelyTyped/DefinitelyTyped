@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/massive",
+    "version": "4.6.9999",
+    "projects": [
+        "https://github.com/dmfay/massive-js.git"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/massive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pascal Birchler",
+            "githubUsername": "swissspidy"
+        },
+        {
+            "name": "Clarence Ho",
+            "githubUsername": "clarenceh"
+        },
+        {
+            "name": "Felix Faust",
+            "githubUsername": "AmazingTurtle"
+        }
+    ]
+}

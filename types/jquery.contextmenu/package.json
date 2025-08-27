@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.contextmenu",
+    "version": "1.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.contextmenu",
+    "projects": [
+        "http://medialize.github.com/jQuery-contextMenu/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.contextmenu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Natan Vivo",
+            "githubUsername": "nvivo"
+        }
+    ]
+}

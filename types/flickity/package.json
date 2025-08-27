@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/flickity",
+    "version": "2.2.9999",
+    "projects": [
+        "https://flickity.metafizzy.co"
+    ],
+    "devDependencies": {
+        "@types/flickity": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Chris McGrath",
+            "githubUsername": "clmcgrath"
+        },
+        {
+            "name": "Michael Wagner",
+            "githubUsername": "wagich"
+        },
+        {
+            "name": "Anthony Heber",
+            "githubUsername": "aheber"
+        },
+        {
+            "name": "Paul Crane",
+            "githubUsername": "PabloDiablo"
+        },
+        {
+            "name": "Rui Lopes",
+            "githubUsername": "Dashiing"
+        },
+        {
+            "name": "Robert Dennis",
+            "githubUsername": "rdennis"
+        }
+    ]
+}

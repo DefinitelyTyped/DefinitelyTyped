@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/jstorage",
+    "version": "0.3.9999",
+    "projects": [
+        "http://www.jstorage.info/"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/jstorage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Danil Flores",
+            "githubUsername": "dflor003"
+        }
+    ]
+}

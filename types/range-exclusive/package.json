@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/range-exclusive",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/range-exclusive"
+    ],
+    "devDependencies": {
+        "@types/range-exclusive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

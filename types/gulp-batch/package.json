@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/gulp-batch",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/floatdrop/gulp-batch"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-batch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alvaro Menezes",
+            "githubUsername": "alvarollmenezes"
+        },
+        {
+            "name": "Vinicius Salomao",
+            "githubUsername": "vizeke"
+        }
+    ]
+}

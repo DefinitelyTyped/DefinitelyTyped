@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/ember-mocha",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/emberjs/ember-mocha#readme"
+    ],
+    "dependencies": {
+        "@types/ember": "^3",
+        "@types/ember-test-helpers": "*",
+        "@types/mocha": "*"
+    },
+    "devDependencies": {
+        "@types/chai": "*",
+        "@types/ember-mocha": "workspace:.",
+        "@types/htmlbars-inline-precompile": "*"
+    },
+    "owners": [
+        {
+            "name": "Simon Ihmig",
+            "githubUsername": "simonihmig"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

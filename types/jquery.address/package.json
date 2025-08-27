@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/jquery.address",
+    "version": "1.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.address",
+    "projects": [
+        "https://github.com/asual/jquery-address"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.address": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Duparc",
+            "githubUsername": "martinduparc"
+        },
+        {
+            "name": "Tim Klingeleers",
+            "githubUsername": "mardaneus86"
+        }
+    ]
+}

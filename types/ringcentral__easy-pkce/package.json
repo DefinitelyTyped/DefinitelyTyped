@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/ringcentral__easy-pkce",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ringcentral/easy-pkce#readme"
+    ],
+    "devDependencies": {
+        "@types/ringcentral__easy-pkce": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/angularlocalstorage",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "angularlocalstorage",
+    "projects": [
+        "https://github.com/agrublev/angularLocalStorage"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angularlocalstorage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Horiuchi_H",
+            "githubUsername": "horiuchi"
+        }
+    ]
+}

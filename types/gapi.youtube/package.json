@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.youtube",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.youtube",
+    "projects": [
+        "https://developers.google.com/youtube/v3/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.youtube": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank M",
+            "githubUsername": "sgtfrankieboy"
+        }
+    ]
+}

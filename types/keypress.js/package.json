@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/keypress.js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/dmauro/Keypress/"
+    ],
+    "devDependencies": {
+        "@types/keypress.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roger Chen",
+            "githubUsername": "rcchen"
+        }
+    ]
+}

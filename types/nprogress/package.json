@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/nprogress",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/rstacruz/nprogress"
+    ],
+    "devDependencies": {
+        "@types/nprogress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Judah Gabriel Himango",
+            "githubUsername": "JudahGabriel"
+        },
+        {
+            "name": "Ovyerus",
+            "githubUsername": "Ovyerus"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bser",
+    "version": "2.0.9999",
+    "projects": [
+        "https://facebook.github.io/watchman/docs/bser.html"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/node-int64": "*"
+    },
+    "devDependencies": {
+        "@types/bser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/browser-or-node",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/flexdinesh/browser-or-node"
+    ],
+    "devDependencies": {
+        "@types/browser-or-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jussi Kinnula",
+            "githubUsername": "jussikinnula"
+        }
+    ]
+}

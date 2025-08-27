@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mastercard-client-encryption",
+    "version": "1.10.9999",
+    "projects": [
+        "https://github.com/Mastercard/client-encryption-nodejs#readme"
+    ],
+    "devDependencies": {
+        "@types/mastercard-client-encryption": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zyb Jared Valdez",
+            "githubUsername": "eLoyyyyy"
+        }
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/node-forge": "*"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/concat-map",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/substack/node-concat-map"
+    ],
+    "devDependencies": {
+        "@types/concat-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        }
+    ]
+}

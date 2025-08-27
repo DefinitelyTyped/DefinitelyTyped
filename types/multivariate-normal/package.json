@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/multivariate-normal",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/tulip/multivariate-normal-js#readme"
+    ],
+    "devDependencies": {
+        "@types/multivariate-normal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Weissmann",
+            "githubUsername": "benweissmann"
+        }
+    ]
+}

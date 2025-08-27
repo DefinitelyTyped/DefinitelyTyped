@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dock-spawn",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dock-spawn",
+    "projects": [
+        "https://github.com/coderespawn/dock-spawn"
+    ],
+    "devDependencies": {
+        "@types/dock-spawn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Drew Noakes",
+            "url": "https://drewnoakes.com"
+        }
+    ]
+}

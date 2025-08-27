@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pg-database-url",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mediasuitenz/pg-database-url"
+    ],
+    "devDependencies": {
+        "@types/pg-database-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Todd Dukart",
+            "githubUsername": "tdukart"
+        }
+    ]
+}

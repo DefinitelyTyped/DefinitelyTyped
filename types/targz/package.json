@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/targz",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/miskun/targz#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tar-fs": "*"
+    },
+    "devDependencies": {
+        "@types/targz": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Curtis",
+            "githubUsername": "alexandercurtis"
+        }
+    ]
+}

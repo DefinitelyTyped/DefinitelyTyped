@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/url-match-patterns",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/nickclaw/url-match-patterns"
+    ],
+    "devDependencies": {
+        "@types/url-match-patterns": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lionel Rowe",
+            "githubUsername": "lionel-rowe"
+        }
+    ]
+}

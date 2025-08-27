@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/imap",
+    "version": "0.8.9999",
+    "projects": [
+        "https://www.npmjs.com/package/imap"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/imap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Snider",
+            "githubUsername": "psnider"
+        }
+    ]
+}

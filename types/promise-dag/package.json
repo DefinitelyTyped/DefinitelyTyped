@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-dag",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/vvvvalvalval/promise-dag#readme"
+    ],
+    "devDependencies": {
+        "@types/promise-dag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sjoerd Diepen",
+            "githubUsername": "OSjoerdWie"
+        }
+    ]
+}

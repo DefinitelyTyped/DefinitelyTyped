@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-value",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/get-value"
+    ],
+    "devDependencies": {
+        "@types/get-value": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        }
+    ]
+}

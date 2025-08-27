@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/signalr-no-jquery",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/DVLP/signalr-no-jquery/"
+    ],
+    "devDependencies": {
+        "@types/signalr-no-jquery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Gjoshevski",
+            "githubUsername": "gjoshevski"
+        }
+    ]
+}

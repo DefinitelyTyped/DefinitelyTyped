@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/jdataview",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jDataView/jDataView"
+    ],
+    "devDependencies": {
+        "@types/jdataview": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Ingvar Stepanyan",
+            "githubUsername": "RReverser"
+        }
+    ]
+}

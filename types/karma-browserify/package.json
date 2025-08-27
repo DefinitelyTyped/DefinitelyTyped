@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/karma-browserify",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/nikku/karma-browserify#readme"
+    ],
+    "dependencies": {
+        "@types/browserify": "*",
+        "@types/karma": "*",
+        "@types/watchify": "*"
+    },
+    "devDependencies": {
+        "@types/karma-browserify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

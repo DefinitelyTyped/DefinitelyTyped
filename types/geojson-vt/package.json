@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/geojson-vt",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/mapbox/geojson-vt"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/geojson-vt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cody Duong",
+            "githubUsername": "codyduong"
+        }
+    ]
+}

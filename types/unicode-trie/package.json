@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/unicode-trie",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/foliojs/unicode-trie"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/unicode-trie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "esheppard",
+            "githubUsername": "esheppard"
+        }
+    ]
+}

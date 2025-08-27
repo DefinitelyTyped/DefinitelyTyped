@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/honeybadger",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/honeybadger-io/honeybadger-node"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/honeybadger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ryan Skrzypek",
+            "githubUsername": "rskrz"
+        },
+        {
+            "name": "Levi Bostian",
+            "githubUsername": "levibostian"
+        }
+    ]
+}

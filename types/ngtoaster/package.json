@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ngtoaster",
+    "version": "2.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "angularjs-toaster",
+    "projects": [
+        "https://github.com/jirikavi/AngularJS-Toaster"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ngtoaster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Tesser",
+            "githubUsername": "btesser"
+        }
+    ]
+}

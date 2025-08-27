@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gettext-parser",
+    "version": "8.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/smhg/gettext-parser"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/readable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/gettext-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lorent Lempereur",
+            "githubUsername": "looorent"
+        }
+    ]
+}

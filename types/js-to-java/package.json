@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/js-to-java",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/node-modules/js-to-java"
+    ],
+    "devDependencies": {
+        "@types/js-to-java": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "skyitachi",
+            "githubUsername": "skyitachi"
+        },
+        {
+            "name": "zhaoleipeng",
+            "githubUsername": "zhaoleipeng"
+        }
+    ]
+}

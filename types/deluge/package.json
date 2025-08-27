@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/deluge",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/ginman86/deluge"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/deluge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felix Plymouth",
+            "githubUsername": "Diasiare"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-alert",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/schiehll/react-alert"
+    ],
+    "dependencies": {
+        "@types/react": "^15"
+    },
+    "devDependencies": {
+        "@types/react-alert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Syrell",
+            "githubUsername": "ssyrell"
+        },
+        {
+            "name": "Yue Yang",
+            "githubUsername": "g1eny0ung"
+        }
+    ]
+}

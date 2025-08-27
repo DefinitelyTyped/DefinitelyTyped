@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/nanoid-dictionary",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/CyberAP/nanoid-dictionary#readme"
+    ],
+    "devDependencies": {
+        "@types/nanoid-dictionary": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shengjie Pan",
+            "githubUsername": "kenelm007"
+        },
+        {
+            "name": "Kristóf Poduszló",
+            "githubUsername": "kripod"
+        }
+    ]
+}

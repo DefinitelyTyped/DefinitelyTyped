@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-refs",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/bpmn-io/object-refs"
+    ],
+    "devDependencies": {
+        "@types/object-refs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Steinbruecker",
+            "githubUsername": "3fd"
+        }
+    ]
+}

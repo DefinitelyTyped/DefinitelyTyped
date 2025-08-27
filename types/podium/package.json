@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/podium",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hapijs/podium"
+    ],
+    "devDependencies": {
+        "@types/podium": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        }
+    ]
+}

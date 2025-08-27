@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dbus",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Shouqun/node-dbus#readme"
+    ],
+    "devDependencies": {
+        "@types/dbus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luca Lindhorst",
+            "githubUsername": "lal12"
+        }
+    ]
+}

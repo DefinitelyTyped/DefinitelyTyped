@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/naming-convention": "off"
+    }
+}

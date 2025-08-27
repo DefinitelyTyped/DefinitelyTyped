@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/verovio",
+    "version": "5.1.9999",
+    "exports": {
+        ".": "./index.d.ts",
+        "./esm": {
+            "import": "./esm/index.d.mts",
+            "require": "./esm/index.d.cts"
+        },
+        "./wasm": "./wasm/index.d.mts",
+        "./wasm-hum": "./wasm-hum/index.d.mts"
+    },
+    "projects": [
+        "http://www.verovio.org"
+    ],
+    "devDependencies": {
+        "@types/verovio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Bloomfield",
+            "githubUsername": "bbloomf"
+        }
+    ]
+}

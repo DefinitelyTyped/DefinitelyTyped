@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-measure",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/souporserious/react-measure"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-measure": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        },
+        {
+            "name": "Marc Fallows",
+            "githubUsername": "marcfallows"
+        }
+    ]
+}

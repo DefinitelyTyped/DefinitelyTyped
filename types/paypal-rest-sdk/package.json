@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/paypal-rest-sdk",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/paypal/PayPal-node-SDK"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/paypal-rest-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Throener",
+            "githubUsername": "trainerbill"
+        },
+        {
+            "name": "Barron Wei",
+            "githubUsername": "barronwei"
+        }
+    ]
+}

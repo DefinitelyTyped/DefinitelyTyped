@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pym.js",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/nprapps/pym.js/"
+    ],
+    "devDependencies": {
+        "@types/pym.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Lin",
+            "githubUsername": "igowerf"
+        }
+    ]
+}

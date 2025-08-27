@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-stack-grid",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/tsuyoshiwada/react-stack-grid#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-stack-grid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Naveen DA",
+            "githubUsername": "NaveenDA"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-remember-me",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-remember-me"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-remember-me": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gristow",
+            "githubUsername": "gristow"
+        }
+    ]
+}

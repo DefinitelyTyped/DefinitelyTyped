@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/c3",
+    "version": "0.7.9999",
+    "projects": [
+        "http://c3js.org/",
+        "https://github.com/c3js/c3"
+    ],
+    "dependencies": {
+        "@types/d3": "^4"
+    },
+    "devDependencies": {
+        "@types/c3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marc Climent",
+            "githubUsername": "mcliment"
+        },
+        {
+            "name": "Gerin Jacob",
+            "githubUsername": "gerinjacob"
+        },
+        {
+            "name": "Bernd Hacker",
+            "githubUsername": "denyo"
+        },
+        {
+            "name": "Dzmitry Shyndzin",
+            "githubUsername": "dmitryshindin"
+        },
+        {
+            "name": "Tim Niemueller",
+            "githubUsername": "timn"
+        },
+        {
+            "name": "Ian Sanders",
+            "githubUsername": "iansan5653"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/file-loader",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/file-loader"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/file-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "g-rath"
+        }
+    ]
+}

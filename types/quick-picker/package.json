@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/quick-picker",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Valiums/react-native-quickpicker#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/quick-picker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tamas Illes",
+            "githubUsername": "illestomas"
+        }
+    ]
+}

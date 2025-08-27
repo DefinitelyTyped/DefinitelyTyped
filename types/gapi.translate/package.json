@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.translate",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.translate",
+    "projects": [
+        "https://developers.google.com/translate/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.translate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank M",
+            "githubUsername": "sgtfrankieboy"
+        }
+    ]
+}

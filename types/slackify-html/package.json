@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slackify-html",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mrq-cz/slackify-html"
+    ],
+    "devDependencies": {
+        "@types/slackify-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Scott Rippee",
+            "githubUsername": "hypexr"
+        }
+    ]
+}

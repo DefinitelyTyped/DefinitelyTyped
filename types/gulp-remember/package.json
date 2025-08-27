@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-remember",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ahaurw01/gulp-remember"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-remember": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Corbière",
+            "githubUsername": "tomc974"
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "name": "@types/knockout",
+    "version": "3.4.9999",
+    "projects": [
+        "http://knockoutjs.com"
+    ],
+    "devDependencies": {
+        "@types/knockout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        },
+        {
+            "name": "Clément Bourgeois",
+            "githubUsername": "moonpyk"
+        },
+        {
+            "name": "Matt Brooks",
+            "githubUsername": "EnableSoftware"
+        },
+        {
+            "name": "Benjamin Eckardt",
+            "githubUsername": "BenjaminEckardt"
+        },
+        {
+            "name": "Mathias Lorenzen",
+            "githubUsername": "ffMathy"
+        },
+        {
+            "name": "Leonardo Lombardi",
+            "githubUsername": "ltlombardi"
+        },
+        {
+            "name": "Retsam",
+            "githubUsername": "Retsam"
+        },
+        {
+            "name": "Rey Pena",
+            "githubUsername": "ReyPena"
+        }
+    ]
+}

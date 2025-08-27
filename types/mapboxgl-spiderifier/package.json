@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/mapboxgl-spiderifier",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bewithjonam/mapboxgl-spiderifier"
+    ],
+    "dependencies": {
+        "@types/mapbox-gl": "*"
+    },
+    "devDependencies": {
+        "@types/mapboxgl-spiderifier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "manoj kumar",
+            "githubUsername": "bewithjonam"
+        },
+        {
+            "name": "Lance Gliser",
+            "githubUsername": "lancegliser"
+        }
+    ]
+}

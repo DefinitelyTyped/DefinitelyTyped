@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/node-red",
+    "version": "0.20.9999",
+    "projects": [
+        "http://nodered.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-red": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders E. Andersen",
+            "githubUsername": "andersea"
+        },
+        {
+            "name": "Thomas B. Mørch",
+            "githubUsername": "tbowmo"
+        },
+        {
+            "name": "Bernardo Belchior",
+            "githubUsername": "bernardobelchior"
+        }
+    ]
+}

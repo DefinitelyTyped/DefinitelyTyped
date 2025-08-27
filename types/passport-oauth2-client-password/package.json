@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-oauth2-client-password",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-oauth2-client-password"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-oauth2-client-password": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Zubok",
+            "githubUsername": "akaNightmare"
+        }
+    ]
+}

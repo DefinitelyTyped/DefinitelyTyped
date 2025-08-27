@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cie-rgb-color-converter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Shnoo/js-CIE-1931-rgb-color-converter#readme"
+    ],
+    "devDependencies": {
+        "@types/cie-rgb-color-converter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nebmit",
+            "githubUsername": "nebmit"
+        }
+    ]
+}

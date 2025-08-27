@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/escodegen",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/estools/escodegen"
+    ],
+    "devDependencies": {
+        "@types/escodegen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon de Lang",
+            "githubUsername": "simondel"
+        }
+    ]
+}

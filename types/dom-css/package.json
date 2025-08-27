@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dom-css",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/mattdesl/dom-css"
+    ],
+    "devDependencies": {
+        "@types/dom-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/kurento-client",
+    "version": "6.14.9999",
+    "projects": [
+        "https://github.com/Kurento/kurento-client-js",
+        "https://www.kurento.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/kurento-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Hill",
+            "githubUsername": "jahilldev"
+        },
+        {
+            "name": "Michel Albers",
+            "githubUsername": "michelalbers"
+        },
+        {
+            "name": "Joe Flateau",
+            "githubUsername": "joeflateau"
+        },
+        {
+            "name": "Yuichiro Tsuchiya",
+            "githubUsername": "whitphx"
+        }
+    ]
+}

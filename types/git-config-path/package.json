@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/git-config-path",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/git-config-path"
+    ],
+    "devDependencies": {
+        "@types/git-config-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Nicholas Nelson",
+            "githubUsername": "nelsonni"
+        }
+    ]
+}

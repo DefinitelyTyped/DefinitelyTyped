@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-task-listing",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/OverZealous/gulp-task-listing"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-task-listing": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

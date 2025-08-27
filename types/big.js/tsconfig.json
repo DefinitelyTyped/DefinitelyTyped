@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/big.js-module-tests.ts",
+        "test/big.js-import-default-tests.ts",
+        "test/big.js-import-compatibility-tests.ts",
+        "test/big.js-global-module-tests.ts"
+    ]
+}

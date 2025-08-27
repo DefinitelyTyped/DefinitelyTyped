@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-merge",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/matthewkastor/object-merge"
+    ],
+    "devDependencies": {
+        "@types/object-merge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OpenByteDev",
+            "githubUsername": "OpenByteDev"
+        }
+    ]
+}

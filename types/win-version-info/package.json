@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/win-version-info",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/vweevers/win-version-info"
+    ],
+    "devDependencies": {
+        "@types/win-version-info": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zlatko Andonovski",
+            "githubUsername": "Goldsmith42"
+        }
+    ]
+}

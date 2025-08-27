@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-levenshtein",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/gustf/js-levenshtein"
+    ],
+    "devDependencies": {
+        "@types/js-levenshtein": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pyry Rouvila",
+            "githubUsername": "naftis"
+        }
+    ]
+}

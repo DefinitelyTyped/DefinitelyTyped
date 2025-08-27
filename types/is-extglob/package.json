@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-extglob",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-extglob"
+    ],
+    "devDependencies": {
+        "@types/is-extglob": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

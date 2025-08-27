@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/lzma",
+    "version": "2.3.9999",
+    "projects": [
+        "http://nmrugg.github.com/LZMA-JS/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/lzma": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zlatko_andonovski",
+            "githubUsername": "Goldsmith42"
+        }
+    ]
+}

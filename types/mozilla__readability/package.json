@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mozilla__readability",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/mozilla/readability"
+    ],
+    "devDependencies": {
+        "@types/mozilla__readability": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Charles Vandevoorde",
+            "githubUsername": "charlesvdv"
+        },
+        {
+            "name": "Alex Wendland",
+            "githubUsername": "awendland"
+        }
+    ]
+}

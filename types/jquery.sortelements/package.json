@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.sortelements",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.sortelements",
+    "projects": [
+        "http://james.padolsey.com/javascript/sorting-elements-with-jquery/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.sortelements": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Bureck",
+            "githubUsername": "tbureck"
+        }
+    ]
+}

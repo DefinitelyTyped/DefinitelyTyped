@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/regexp.prototype.flags",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/es-shims/RegExp.prototype.flags"
+    ],
+    "devDependencies": {
+        "@types/regexp.prototype.flags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

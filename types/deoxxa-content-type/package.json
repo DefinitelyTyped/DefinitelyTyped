@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "@types/deoxxa-content-type",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "deoxxa-content-type",
+    "projects": [
+        "https://github.com/deoxxa/content-type"
+    ],
+    "devDependencies": {
+        "@types/deoxxa-content-type": "workspace:."
+    },
+    "owners": []
+}

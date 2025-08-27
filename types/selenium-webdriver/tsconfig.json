@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/bidi/filterBy.ts",
+        "test/bidi/logEntries.ts",
+        "test/bidi/logInspector.ts",
+        "test/ie.ts",
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/chromium.ts",
+        "test/edge.ts",
+        "test/firefox.ts",
+        "test/remote.ts",
+        "test/logging.ts",
+        "test/select.ts",
+        "test/session.ts",
+        "test/virtual_authenticator.ts",
+        "test/util.ts",
+        "test/error.ts",
+        "test/bidi/urlPattern.ts",
+        "test/bidi/addInterceptParameters.ts",
+        "test/bidi/scriptTypes.ts",
+        "test/bidi/remoteValue.ts"
+    ]
+}

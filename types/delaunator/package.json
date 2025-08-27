@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/delaunator",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/mapbox/delaunator#readme"
+    ],
+    "devDependencies": {
+        "@types/delaunator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        },
+        {
+            "name": "Bradley Odell",
+            "githubUsername": "BTOdell"
+        },
+        {
+            "name": "Tobias Kraus",
+            "githubUsername": "tobiaskraus"
+        }
+    ]
+}

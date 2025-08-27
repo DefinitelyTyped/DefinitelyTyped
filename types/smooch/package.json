@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/smooch",
+    "version": "5.3.9999",
+    "projects": [
+        "https://github.com/zendesk/sunshine-conversations-web"
+    ],
+    "devDependencies": {
+        "@types/smooch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Sorensen",
+            "githubUsername": "jpsorensen"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sasl-digest-md5",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaredhanson/js-sasl-digest-md5"
+    ],
+    "dependencies": {
+        "@types/saslmechanisms": "*"
+    },
+    "devDependencies": {
+        "@types/sasl-digest-md5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

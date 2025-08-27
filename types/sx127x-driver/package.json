@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sx127x-driver",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/xtrinch/sx127x-node-driver#readme"
+    ],
+    "devDependencies": {
+        "@types/sx127x-driver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mariusbackes",
+            "githubUsername": "mariusbackes"
+        }
+    ]
+}

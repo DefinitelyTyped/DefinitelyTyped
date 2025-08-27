@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-installed-path",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/tunnckoCore/get-installed-path"
+    ],
+    "devDependencies": {
+        "@types/get-installed-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

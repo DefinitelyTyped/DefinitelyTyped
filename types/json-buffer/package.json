@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-buffer",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/dominictarr/json-buffer"
+    ],
+    "devDependencies": {
+        "@types/json-buffer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Hawxby",
+            "githubUsername": "phawxby"
+        }
+    ]
+}

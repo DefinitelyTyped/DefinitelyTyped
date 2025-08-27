@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-source-map",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/epoberezkin/json-source-map#readme"
+    ],
+    "devDependencies": {
+        "@types/json-source-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ole Rehmsen",
+            "githubUsername": "rehmsen"
+        }
+    ]
+}

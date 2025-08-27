@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/multi-typeof",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gillstrom/multi-typeof#readme"
+    ],
+    "devDependencies": {
+        "@types/multi-typeof": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

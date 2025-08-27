@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/smshelper",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaygel179/smshelper.js#readme"
+    ],
+    "devDependencies": {
+        "@types/smshelper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "André Matthies",
+            "githubUsername": "matthiez"
+        }
+    ]
+}

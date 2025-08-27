@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-fn-retry",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/felippemauricio/promise-fn-retry"
+    ],
+    "devDependencies": {
+        "@types/promise-fn-retry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonathan Chang",
+            "githubUsername": "Jono-Chang"
+        }
+    ]
+}

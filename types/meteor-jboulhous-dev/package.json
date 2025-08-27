@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/meteor-jboulhous-dev",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-jboulhous-dev",
+    "projects": [
+        "https://github.com/jboulhous/dev"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-jboulhous-dev": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robbie Van Gorkom",
+            "githubUsername": "vangorra"
+        }
+    ]
+}

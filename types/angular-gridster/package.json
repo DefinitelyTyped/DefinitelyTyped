@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/angular-gridster",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/ManifestWebDesign/angular-gridster",
+        "http://manifestwebdesign.github.io/angular-gridster"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-gridster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joao Monteiro",
+            "githubUsername": "jpmnteiro"
+        }
+    ]
+}

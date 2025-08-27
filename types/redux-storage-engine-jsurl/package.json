@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/redux-storage-engine-jsurl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/axe312ger/redux-storage-engine-jsurl"
+    ],
+    "dependencies": {
+        "@types/redux-storage": "*"
+    },
+    "devDependencies": {
+        "@types/redux-storage-engine-jsurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

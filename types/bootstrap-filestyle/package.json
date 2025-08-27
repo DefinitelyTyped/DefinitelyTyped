@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-filestyle",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/markusslima/bootstrap-filestyle"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-filestyle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mustafa Salaheldin",
+            "githubUsername": "mustafasalahuldin"
+        }
+    ]
+}

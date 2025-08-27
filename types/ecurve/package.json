@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ecurve",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/cryptocoinjs/ecurve#readme"
+    ],
+    "dependencies": {
+        "@types/bigi": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/coinstring": "*",
+        "@types/ecurve": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

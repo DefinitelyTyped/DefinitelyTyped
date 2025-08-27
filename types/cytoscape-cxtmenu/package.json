@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-cxtmenu",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/cytoscape/cytoscape.js-cxtmenu"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-cxtmenu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felix Barczewicz",
+            "githubUsername": "DieserFelix"
+        }
+    ]
+}

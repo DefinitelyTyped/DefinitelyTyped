@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/angular-ui-bootstrap",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/angular-ui/bootstrap"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-ui-bootstrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Brian Surowiec",
+            "githubUsername": "xt0rted"
+        },
+        {
+            "name": "Ryan Southgate",
+            "githubUsername": "ry8806"
+        },
+        {
+            "name": "Alfie Johnson",
+            "githubUsername": "alfiej"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

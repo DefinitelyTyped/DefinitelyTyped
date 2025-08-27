@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-ouralabs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/Justin-Credible/cordova-plugin-ouralabs"
+    ],
+    "devDependencies": {
+        "@types/cordova-plugin-ouralabs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Unterreiner",
+            "githubUsername": "Justin-Credible"
+        }
+    ]
+}

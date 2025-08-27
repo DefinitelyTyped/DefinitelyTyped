@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/keysym",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/substack/node-keysym"
+    ],
+    "devDependencies": {
+        "@types/keysym": "workspace:."
+    },
+    "owners": []
+}

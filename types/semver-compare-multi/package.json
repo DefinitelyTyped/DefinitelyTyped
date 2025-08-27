@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/semver-compare-multi",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zenithpolar/semver-compare"
+    ],
+    "devDependencies": {
+        "@types/semver-compare-multi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ravenclaw900",
+            "githubUsername": "ravenclaw900"
+        }
+    ]
+}

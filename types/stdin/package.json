@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stdin",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/stdin"
+    ],
+    "devDependencies": {
+        "@types/stdin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "g-rath"
+        }
+    ]
+}

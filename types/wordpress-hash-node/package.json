@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress-hash-node",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AlexAlbala/wordpress-hash-node"
+    ],
+    "devDependencies": {
+        "@types/wordpress-hash-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Glenn Reyes",
+            "githubUsername": "glennreyes"
+        }
+    ]
+}

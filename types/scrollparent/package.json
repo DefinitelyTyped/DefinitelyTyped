@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/scrollparent",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/olahol/scrollparent.js#readme"
+    ],
+    "devDependencies": {
+        "@types/scrollparent": "workspace:."
+    },
+    "owners": []
+}

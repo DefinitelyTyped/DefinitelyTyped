@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/github-from-package",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/substack/github-from-package"
+    ],
+    "devDependencies": {
+        "@types/github-from-package": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e6nlaq",
+            "githubUsername": "e6nlaq"
+        }
+    ]
+}

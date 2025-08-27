@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/duo_web_sdk",
+    "version": "2.7.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "duo_web_sdk-browser",
+    "projects": [
+        "https://github.com/duosecurity/duo_web_sdk"
+    ],
+    "devDependencies": {
+        "@types/duo_web_sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Low Heok Hong",
+            "githubUsername": "lhhong"
+        }
+    ]
+}

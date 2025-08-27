@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tiny-async-pool",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rxaviers/async-pool#readme"
+    ],
+    "devDependencies": {
+        "@types/tiny-async-pool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karl-Philipp Wulfert",
+            "githubUsername": "krlwlfrt"
+        }
+    ]
+}

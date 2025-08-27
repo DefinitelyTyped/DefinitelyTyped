@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/styled-system__props",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/styled-system/styled-system"
+    ],
+    "devDependencies": {
+        "@types/styled-system__props": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kadoshms",
+            "githubUsername": "kadoshms"
+        }
+    ]
+}

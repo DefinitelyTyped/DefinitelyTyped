@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/sap__logging",
+    "version": "6.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@sap/logging"
+    ],
+    "dependencies": {
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/node": "*",
+        "@types/sap__logging": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Merbin J Anselm",
+            "githubUsername": "anselm94"
+        }
+    ]
+}

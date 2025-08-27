@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/math-trunc",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kevva/math-trunc#readme"
+    ],
+    "devDependencies": {
+        "@types/math-trunc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

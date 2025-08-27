@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/layzr.js",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/callmecavs/layzr.js"
+    ],
+    "devDependencies": {
+        "@types/layzr.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rostislav Shermenyov",
+            "githubUsername": "shermendev"
+        }
+    ]
+}

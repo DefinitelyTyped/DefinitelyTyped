@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/sql.js",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/sql-js/sql.js"
+    ],
+    "dependencies": {
+        "@types/emscripten": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sql.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        },
+        {
+            "name": "Yehyoung Kang",
+            "githubUsername": "pastelmind"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/slate-html-serializer",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/slate"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/slate": "*"
+    },
+    "devDependencies": {
+        "@types/slate-html-serializer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brandon Shelton",
+            "githubUsername": "YangusKhan"
+        }
+    ]
+}

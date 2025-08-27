@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/behavior3",
+    "version": "0.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "behavior3",
+    "projects": [
+        "https://github.com/behavior3/behavior3js"
+    ],
+    "devDependencies": {
+        "@types/behavior3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "carry.wu",
+            "githubUsername": "carrrywu"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/cipher-base",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/crypto-browserify/cipher-base"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cipher-base": "workspace:."
+    },
+    "owners": []
+}

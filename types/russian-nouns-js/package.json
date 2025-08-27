@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/russian-nouns-js",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/georgy7/RussianNounsJS"
+    ],
+    "devDependencies": {
+        "@types/russian-nouns-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "RusAnonym",
+            "githubUsername": "RusAnonym"
+        },
+        {
+            "name": "georgy7",
+            "githubUsername": "georgy7"
+        }
+    ]
+}

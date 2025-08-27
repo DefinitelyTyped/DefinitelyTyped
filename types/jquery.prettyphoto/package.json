@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.prettyphoto",
+    "version": "3.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.prettyphoto",
+    "projects": [
+        "https://github.com/scaron/prettyphoto"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.prettyphoto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pgaske",
+            "githubUsername": "pgaske"
+        }
+    ]
+}

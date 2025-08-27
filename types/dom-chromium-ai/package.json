@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/dom-chromium-ai",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-chromium-ai",
+    "projects": [
+        "https://github.com/webmachinelearning/prompt-api",
+        "https://github.com/webmachinelearning/writing-assistance-apis/",
+        "https://github.com/webmachinelearning/translation-api/"
+    ],
+    "minimumTypeScriptVersion": "5.5",
+    "devDependencies": {
+        "@types/dom-chromium-ai": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Liebel",
+            "githubUsername": "christianliebel"
+        },
+        {
+            "name": "Thomas Steiner",
+            "githubUsername": "tomayac"
+        }
+    ]
+}

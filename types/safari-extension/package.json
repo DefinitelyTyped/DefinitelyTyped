@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/safari-extension",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "safari-extension",
+    "projects": [
+        "https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009977-CH1-SW1"
+    ],
+    "devDependencies": {
+        "@types/safari-extension": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luuk",
+            "githubUsername": "luukd"
+        }
+    ]
+}

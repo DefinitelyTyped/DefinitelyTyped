@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/phantomjs",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/ariya/phantomjs/wiki/API-Reference"
+    ],
+    "devDependencies": {
+        "@types/phantomjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Keesey",
+            "githubUsername": "keesey"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/http-string-parser",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/apiaryio/http-string-parser"
+    ],
+    "devDependencies": {
+        "@types/http-string-parser": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/kefir",
+    "version": "3.8.9999",
+    "projects": [
+        "http://rpominov.github.io/kefir/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/kefir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        },
+        {
+            "name": "Piotr Hitori Bosak",
+            "githubUsername": "HitoriSensei"
+        }
+    ]
+}

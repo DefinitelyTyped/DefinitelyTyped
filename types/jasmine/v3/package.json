@@ -1,0 +1,73 @@
+{
+    "private": true,
+    "name": "@types/jasmine",
+    "version": "3.10.9999",
+    "projects": [
+        "http://jasmine.github.io"
+    ],
+    "devDependencies": {
+        "@types/jasmine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Theodore Brown",
+            "githubUsername": "theodorejb"
+        },
+        {
+            "name": "David Pärsson",
+            "githubUsername": "davidparsson"
+        },
+        {
+            "name": "Lukas Zech",
+            "githubUsername": "lukas-zech-software"
+        },
+        {
+            "name": "Boris Breuer",
+            "githubUsername": "Engineer2B"
+        },
+        {
+            "name": "Chris Yungmann",
+            "githubUsername": "cyungmann"
+        },
+        {
+            "name": "Giles Roadnight",
+            "githubUsername": "Roaders"
+        },
+        {
+            "name": "Yaroslav Admin",
+            "githubUsername": "devoto13"
+        },
+        {
+            "name": "Domas Trijonis",
+            "githubUsername": "fdim"
+        },
+        {
+            "name": "Moshe Kolodny",
+            "githubUsername": "kolodny"
+        },
+        {
+            "name": "Stephen Farrar",
+            "githubUsername": "stephenfarrar"
+        },
+        {
+            "name": "Dominik Ehrenberg",
+            "githubUsername": "djungowski"
+        },
+        {
+            "name": "Chives",
+            "githubUsername": "chivesrs"
+        },
+        {
+            "name": "kirjs",
+            "githubUsername": "kirjs"
+        },
+        {
+            "name": "Dmitry Semigradsky",
+            "githubUsername": "Semigradsky"
+        }
+    ]
+}

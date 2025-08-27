@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/elastic.js",
+    "version": "1.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/elastic.js"
+    ],
+    "devDependencies": {
+        "@types/elastic.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oleksii Trekhleb",
+            "url": "https://ua.linkedin.com/in/trekhleb"
+        }
+    ]
+}

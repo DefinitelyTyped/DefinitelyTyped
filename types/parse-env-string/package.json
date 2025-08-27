@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-env-string",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/watson/parse-env-string#readme"
+    ],
+    "devDependencies": {
+        "@types/parse-env-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gatsbyjs__reach-router",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/gatsbyjs/reach-router#readme"
+    ],
+    "dependencies": {
+        "@types/reach__router": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/gatsbyjs__reach-router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Jones",
+            "githubUsername": "domdomegg"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/node-os-utils",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/SunilWang/node-os-utils"
+    ],
+    "devDependencies": {
+        "@types/node-os-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nasreddine Bac Ali",
+            "githubUsername": "bacali95"
+        },
+        {
+            "name": "Sasial",
+            "githubUsername": "sasial-dev"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/gl-vec4",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/stackgl/gl-vec4"
+    ],
+    "devDependencies": {
+        "@types/gl-vec4": "workspace:."
+    },
+    "owners": []
+}

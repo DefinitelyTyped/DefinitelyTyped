@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "passport-google-oauth20-tests.ts"
+    ]
+}

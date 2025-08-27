@@ -1,0 +1,32 @@
+{
+    "files": [
+        "index.d.ts",
+        "test/ari-client-tests.bridge.ts",
+        "test/ari-client-tests.bridgeAsyncAwait.ts",
+        "test/ari-client-tests.deviceState.ts",
+        "test/ari-client-tests.deviceStateAsyncAwait.ts",
+        "test/ari-client-tests.example.ts",
+        "test/ari-client-tests.exampleAsyncAwait.ts",
+        "test/ari-client-tests.mwi.ts",
+        "test/ari-client-tests.mwiAsyncAwait.ts",
+        "test/ari-client-tests.originate.ts",
+        "test/ari-client-tests.originateAsyncAwait.ts",
+        "test/ari-client-tests.playback.ts",
+        "test/ari-client-tests.playbackAsyncAwait.ts",
+        "test/ari-client-tests.externalMedia.ts"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

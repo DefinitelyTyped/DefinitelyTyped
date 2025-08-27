@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/dmx",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/node-dmx/dmx#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/dmx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

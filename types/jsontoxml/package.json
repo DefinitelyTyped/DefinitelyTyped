@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/jsontoxml",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/soldair/node-jsontoxml",
+        "https://github.com/ken-franken/node-jsontoxml"
+    ],
+    "devDependencies": {
+        "@types/jsontoxml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "benstevens48",
+            "githubUsername": "benstevens48"
+        }
+    ]
+}

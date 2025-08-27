@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/concurrency-limiter",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/juju/concurrency-limiter"
+    ],
+    "devDependencies": {
+        "@types/concurrency-limiter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eosellmay Li",
+            "githubUsername": "E0SelmY4V"
+        }
+    ]
+}

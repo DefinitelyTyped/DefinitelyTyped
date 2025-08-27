@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/zeroclipboard",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/jonrohan/ZeroClipboard"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/zeroclipboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric J. Smith",
+            "githubUsername": "ejsmith"
+        },
+        {
+            "name": "Blake Niemyjski",
+            "githubUsername": "niemyjski"
+        },
+        {
+            "name": "György Balássy",
+            "githubUsername": "balassy"
+        },
+        {
+            "name": "Leon Yu",
+            "githubUsername": "leonyu"
+        }
+    ]
+}

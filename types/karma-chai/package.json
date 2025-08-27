@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/karma-chai",
+    "version": "0.1.9999",
+    "projects": [
+        "http://xdissent.github.io/karma-chai"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/karma-chai": "workspace:."
+    },
+    "owners": []
+}

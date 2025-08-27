@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html-parser",
+    "version": "0.11.9999",
+    "projects": [
+        "https://www.npmjs.com/package/html-parser"
+    ],
+    "devDependencies": {
+        "@types/html-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vladimir Grenaderov https://github.com/VladimirGrenaderov,\n//                 Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

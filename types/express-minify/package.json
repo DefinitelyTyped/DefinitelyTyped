@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/express-minify",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/SummerWish/express-minify"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express-minify": "workspace:.",
+        "@types/uglify-js": "^2.6.0"
+    },
+    "owners": [
+        {
+            "name": "Borislav Zhivkov",
+            "githubUsername": "borislavjivkov"
+        }
+    ]
+}

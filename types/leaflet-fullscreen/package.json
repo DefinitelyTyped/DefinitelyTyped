@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/leaflet-fullscreen",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Leaflet/Leaflet.fullscreen"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-fullscreen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        },
+        {
+            "name": "Brian Jubelirer",
+            "githubUsername": "bjubes"
+        }
+    ]
+}

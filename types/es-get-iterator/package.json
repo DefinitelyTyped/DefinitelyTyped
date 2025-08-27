@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/es-get-iterator",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/ljharb/es-get-iterator#readme"
+    ],
+    "devDependencies": {
+        "@types/es-get-iterator": "workspace:."
+    },
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./package": "./package.json",
+        "./package.json": "./package.json"
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

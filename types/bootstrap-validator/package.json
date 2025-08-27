@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-validator",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/1000hz/bootstrap-validator"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-validator": "workspace:."
+    },
+    "owners": []
+}

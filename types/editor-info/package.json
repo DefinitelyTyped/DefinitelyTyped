@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/editor-info",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/fisker/editor-info#readme"
+    ],
+    "devDependencies": {
+        "@types/editor-info": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Wilkinson",
+            "githubUsername": "matwilko"
+        }
+    ]
+}

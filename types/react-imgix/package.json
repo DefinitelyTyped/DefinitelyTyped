@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/react-imgix",
+    "version": "9.5.9999",
+    "projects": [
+        "https://github.com/imgix/react-imgix"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-imgix": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sherwin Heydarbeygi",
+            "githubUsername": "sherwinski"
+        },
+        {
+            "name": "Luis Ball",
+            "githubUsername": "luqven"
+        },
+        {
+            "name": "Frederick Fogerty",
+            "githubUsername": "frederickfogerty"
+        },
+        {
+            "name": "Alice Lawrie",
+            "githubUsername": "atlawrie"
+        }
+    ]
+}

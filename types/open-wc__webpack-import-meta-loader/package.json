@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/open-wc__webpack-import-meta-loader",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/open-wc/open-wc/tree/master/packages/webpack-import-meta-loader"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/open-wc__webpack-import-meta-loader": "workspace:.",
+        "@types/webpack": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.flagstrap",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.flagstrap",
+    "projects": [
+        "https://github.com/blazeworx/flagstrap"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.flagstrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felipe de Sena Garcia",
+            "githubUsername": "felipedgarcia"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+name: Check Markdown links
+on:
+  pull_request:
+    paths:
+      - '**.md'
+permissions:
+  contents: read
+
+jobs:
+  lint-md:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: ./.github/actions/setup-for-scripts
+      - run: pnpm remark --frail . .github

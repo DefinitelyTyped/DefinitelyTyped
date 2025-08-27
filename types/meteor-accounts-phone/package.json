@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/meteor-accounts-phone",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-accounts-phone",
+    "projects": [
+        "https://github.com/okland/accounts-phone"
+    ],
+    "devDependencies": {
+        "@types/meteor-accounts-phone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eytan Manor",
+            "githubUsername": "DAB0mB"
+        }
+    ]
+}

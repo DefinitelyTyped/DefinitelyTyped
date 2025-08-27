@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-custom-scrollbars",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/malte-wessel/react-custom-scrollbars"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-custom-scrollbars": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.fileupload",
+    "version": "9.22.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.fileupload",
+    "projects": [
+        "https://github.com/blueimp/jQuery-File-Upload"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.fileupload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rob Alarcon",
+            "githubUsername": "rob-alarcon"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/strong-log-transformer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/strongloop/strong-log-transformer"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/strong-log-transformer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleh Zasypkin",
+            "githubUsername": "azasypkin"
+        }
+    ]
+}

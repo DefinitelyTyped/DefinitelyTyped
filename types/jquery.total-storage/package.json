@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.total-storage",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.total-storage",
+    "projects": [
+        "https://github.com/Upstatement/jquery-total-storage"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.total-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeremy Brooks",
+            "githubUsername": "JeremyCBrooks"
+        }
+    ]
+}

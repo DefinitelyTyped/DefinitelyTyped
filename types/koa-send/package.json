@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/koa-send",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/koajs/send"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-send": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Safranek",
+            "githubUsername": "pe8ter"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

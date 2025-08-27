@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/main-bower-files",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ck86/main-bower-files"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/main-bower-files": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

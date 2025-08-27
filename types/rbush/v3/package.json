@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rbush",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mourner/rbush"
+    ],
+    "devDependencies": {
+        "@types/rbush": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Vanderkam",
+            "githubUsername": "danvk"
+        },
+        {
+            "name": "Chris Lewis",
+            "githubUsername": "cmslewis"
+        }
+    ]
+}

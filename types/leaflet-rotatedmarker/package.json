@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-rotatedmarker",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/bbecquet/Leaflet.RotatedMarker"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-rotatedmarker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Prib",
+            "githubUsername": "robert-prib-polestar"
+        }
+    ]
+}

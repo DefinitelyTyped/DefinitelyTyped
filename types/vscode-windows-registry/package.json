@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vscode-windows-registry",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Microsoft/vscode-windows-registry#readme"
+    ],
+    "devDependencies": {
+        "@types/vscode-windows-registry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Pasero",
+            "githubUsername": "bpasero"
+        }
+    ]
+}

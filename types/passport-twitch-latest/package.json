@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-twitch-latest",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sascha-beloborodov/passport-twitch"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-twitch-latest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Charlie Laabs",
+            "githubUsername": "claabs"
+        }
+    ]
+}

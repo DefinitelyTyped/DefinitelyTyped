@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/dush",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/tunnckocore/dush#readme"
+    ],
+    "devDependencies": {
+        "@types/dush": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/electron-installer-dmg",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/electron-userland/electron-installer-dmg"
+    ],
+    "dependencies": {
+        "@types/appdmg": "*"
+    },
+    "devDependencies": {
+        "@types/electron-installer-dmg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

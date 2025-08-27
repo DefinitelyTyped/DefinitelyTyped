@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/ix.js",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ix.js",
+    "projects": [
+        "https://github.com/Reactive-Extensions/IxJS"
+    ],
+    "devDependencies": {
+        "@types/ix.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

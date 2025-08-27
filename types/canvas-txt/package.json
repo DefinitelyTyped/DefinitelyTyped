@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/canvas-txt",
+    "version": "3.0.9999",
+    "projects": [
+        "https://canvas-txt.geongeorge.com"
+    ],
+    "devDependencies": {
+        "@types/canvas-txt": "workspace:."
+    },
+    "owners": []
+}

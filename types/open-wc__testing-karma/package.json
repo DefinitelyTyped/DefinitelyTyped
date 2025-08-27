@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/open-wc__testing-karma",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/open-wc/open-wc/tree/master/packages/testing-karma"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/lodash": "*",
+        "@types/open-wc__testing-karma": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

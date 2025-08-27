@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vkbeautify",
+    "version": "0.99.9999",
+    "projects": [
+        "https://github.com/aabluedragon/vkbeautify"
+    ],
+    "devDependencies": {
+        "@types/vkbeautify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Schraepen",
+            "githubUsername": "sch3lp"
+        }
+    ]
+}

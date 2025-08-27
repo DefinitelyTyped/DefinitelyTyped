@@ -1,0 +1,1 @@
+export function __ICON__(props: SVGIconProps): ReactElement;

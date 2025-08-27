@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/shelljs-exec-proxy",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/nfischer/shelljs-exec-proxy#readme"
+    ],
+    "dependencies": {
+        "@types/shelljs": "*"
+    },
+    "devDependencies": {
+        "@types/shelljs-exec-proxy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita Volodin",
+            "githubUsername": "qlonik"
+        }
+    ]
+}

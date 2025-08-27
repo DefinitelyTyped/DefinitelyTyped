@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/react-onsenui",
+    "version": "2.9.9999",
+    "projects": [
+        "https://onsen.io/v2/docs/guide/react/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-onsenui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ozytis",
+            "url": "https://ozytis.fr"
+        },
+        {
+            "name": "Salim",
+            "githubUsername": "salim7"
+        },
+        {
+            "name": "Jemmyw",
+            "githubUsername": "jemmyw"
+        },
+        {
+            "name": "Yuji Tabata",
+            "githubUsername": "uztbt"
+        },
+        {
+            "name": "LBLZR_",
+            "githubUsername": "LaBlazer"
+        }
+    ]
+}

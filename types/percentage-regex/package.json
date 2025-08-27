@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/percentage-regex",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/arthurvr/percentage-regex"
+    ],
+    "devDependencies": {
+        "@types/percentage-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hu0529",
+            "githubUsername": "hu0529"
+        }
+    ]
+}

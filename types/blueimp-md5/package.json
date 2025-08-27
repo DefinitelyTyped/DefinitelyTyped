@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/blueimp-md5",
+    "version": "2.18.9999",
+    "projects": [
+        "https://github.com/blueimp/JavaScript-MD5"
+    ],
+    "devDependencies": {
+        "@types/blueimp-md5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ray Martone",
+            "githubUsername": "rmartone"
+        },
+        {
+            "name": "Mikael Kohlmyr",
+            "githubUsername": "mkohlmyr"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

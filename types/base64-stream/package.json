@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/base64-stream",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mazira/base64-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/base64-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean O'Brien",
+            "githubUsername": "s73obrien"
+        },
+        {
+            "name": "Erik Weatherwax",
+            "githubUsername": "erikjwaxx"
+        }
+    ]
+}

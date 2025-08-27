@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/libmime",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/nodemailer/libmime"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/libmime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

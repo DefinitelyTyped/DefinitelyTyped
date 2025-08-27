@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.window",
+    "version": "5.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.window",
+    "projects": [
+        "http://fstoke.me/jquery/window/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.window": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ryan Graham",
+            "githubUsername": "ryan-codingintrigue"
+        }
+    ]
+}
