@@ -1,15 +1,15 @@
-import clone from "./clone";
-import createElement from "./createElement";
-import Element, { Node } from "./Element";
-import equal, { attrsEqual, childrenEqual, nameEqual } from "./equal";
-import { escapeXML, escapeXMLText, unescapeXML, unescapeXMLText } from "./escape";
-import { isElement, isNode, isText } from "./is";
-import JSONify, { ElementJson } from "./JSONify";
-import parse from "./parse";
-import Parser, { ParserOptions } from "./Parser";
-import stringify from "./stringify";
-import tag from "./tag";
-import tagString from "./tagString";
+import clone from "./clone.js";
+import createElement from "./createElement.js";
+import Element, { Node } from "./Element.js";
+import equal, { attrsEqual, childrenEqual, nameEqual } from "./equal.js";
+import { escapeXML, escapeXMLText, unescapeXML, unescapeXMLText } from "./escape.js";
+import { isElement, isNode, isText } from "./is.js";
+import JSONify, { ElementJson } from "./JSONify.js";
+import parse from "./parse.js";
+import Parser, { ParserOptions } from "./Parser.js";
+import stringify from "./stringify.js";
+import tag from "./tag.js";
+import tagString from "./tagString.js";
 
 export {
     attrsEqual,

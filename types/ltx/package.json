@@ -8,10 +8,12 @@
     "exports": {
         ".": {
             "types": {
-                "import": "./index.d.mts",
-                "default": "./index.d.ts"
+                "import": "./src/ltx.d.ts",
+                "require": "./lib/ltx.d.ts"
             }
-        }
+        },
+        "./src/*": "./src/*",
+        "./lib/*": "./lib/*"
     },
     "dependencies": {
         "@types/events": "*"
