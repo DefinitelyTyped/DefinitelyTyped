@@ -55,7 +55,7 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 };
 
 const testImported = async (instance: ElementHandle | Page) => {
-    const expectPuppeteer = await import("expect-puppeteer");
+    const expectPuppeteer = (await import("expect-puppeteer")).default;
 
     await expectPuppeteer(instance).toClick("selector");
     await expect(instance).toClick("selector", { polling: "mutation", text: "text" });

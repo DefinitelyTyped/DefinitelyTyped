@@ -1,7 +1,3 @@
-import Element, { Node } from "./Element";
+import createElement = require("../lib/createElement.js");
 
-export default function createElement(
-    name: string,
-    attrs?: string | { [attrName: string]: any },
-    ...children: Node[]
-): Element;
+export default createElement;

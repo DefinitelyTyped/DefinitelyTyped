@@ -1,4 +1,4 @@
-import * as fs from "fs-extra/esm.mjs";
+import * as fs from "fs-extra/esm";
 
 // test type exports
 type Types =

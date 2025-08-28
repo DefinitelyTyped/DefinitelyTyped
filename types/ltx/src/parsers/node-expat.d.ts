@@ -1,3 +1,3 @@
-import Parser from "../Parser";
+import SaxExpat = require("../../lib/parsers/node-expat.js");
 
-export default class SaxExpat extends Parser {}
+export default SaxExpat;
