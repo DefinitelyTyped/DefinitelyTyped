@@ -5109,6 +5109,10 @@
             "libraryName": "park-miller",
             "asOfVersion": "1.1.0"
         },
+        "parse": {
+            "libraryName": "parse",
+            "asOfVersion": "6.1.0"
+        },
         "parse-columns": {
             "libraryName": "parse-columns",
             "asOfVersion": "2.0.0"
