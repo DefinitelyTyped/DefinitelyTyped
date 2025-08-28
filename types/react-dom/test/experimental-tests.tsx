@@ -111,7 +111,7 @@ function fragmentRefTest() {
 
             instance.experimental_scrollIntoView(
                 // @ts-expect-error -- options are not supported yet
-                {}
+                {},
             );
             return () => {};
         }}
