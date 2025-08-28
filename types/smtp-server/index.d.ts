@@ -162,6 +162,10 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      */
     size?: number | undefined;
     /**
+     * Hide the SIZE limit from clients but still track `stream.sizeExceeded`
+     */
+    hideSize?: boolean | undefined;
+    /**
      * optional array of allowed authentication methods, defaults to ['PLAIN', 'LOGIN'].
      * Only the methods listed in this array are allowed,
      * so if you set it to ['XOAUTH2'] then PLAIN and LOGIN are not available.
@@ -200,6 +204,11 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * optional boolean, if set to true then does not show SMTPUTF8 in features list
      */
     hideSMTPUTF8?: boolean | undefined;
+    /**
+     * Enable or disable the ENHANCEDSTATUSCODES capability in EHLO response.
+     * Enhanced status codes are disabled by default.
+     */
+    hideENHANCEDSTATUSCODES?: boolean | undefined;
     /**
      * optional boolean, if set to true allows authentication even if connection is not secured first
      */
@@ -267,6 +276,14 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * The callback to handle the client connection. ([see details](https://nodemailer.com/extras/smtp-server#validating-client-connection-onconnect--onclose))
      */
     onConnect?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /**
+     * [see details](https://nodemailer.com/extras/smtp-server#validating-tls-information-onsecure)
+     */
+    onSecure?(
+        socket: net.Socket | tls.TLSSocket,
+        session: SMTPServerSession,
+        callback: (err?: Error | null) => void,
+    ): void;
     /**
      * the callback to validate MAIL FROM commands ([see details](https://nodemailer.com/extras/smtp-server#validating-sender-onmailfrom))
      */

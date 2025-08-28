@@ -1,3 +1,5 @@
+import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
+
 import * as nodemailer from "nodemailer";
 
 import addressparser = require("nodemailer/lib/addressparser");
@@ -436,6 +438,20 @@ Content-Disposition: attachment
 Attached text file`,
             },
         ],
+    };
+}
+
+// xMailer
+
+function message_xmailer_false_test() {
+    const message: Mail.Options = {
+        xMailer: false,
+    };
+}
+
+function message_xmailer_string_test() {
+    const message: Mail.Options = {
+        xMailer: "foobar",
     };
 }
 
@@ -1083,12 +1099,14 @@ function ses_test() {
     // create Nodemailer SES transporter
     let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo, SESTransport.Options>;
     transporter = nodemailer.createTransport({
-        SES: new aws.SES({
-            apiVersion: "2010-12-01",
-        }),
+        SES: {
+            sesClient: new SESv2Client(),
+            SendEmailCommand,
+        },
+        component: "ses-transport",
     });
 
-    let transporterDefault: SMTPTransport.Options;
+    let transporterDefault: SESTransport.Options;
     transporterDefault = transporter._defaults;
 
     const options: SESTransport.MailOptions = {
@@ -1098,7 +1116,7 @@ function ses_test() {
         text: "I hope this message gets sent!",
         ses: {
             // optional extra arguments for SendRawEmail
-            Tags: [
+            EmailTags: [
                 {
                     Name: "tag name",
                     Value: "tag value",

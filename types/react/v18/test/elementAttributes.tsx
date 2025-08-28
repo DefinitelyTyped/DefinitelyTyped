@@ -46,6 +46,12 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
         <circle transformOrigin="0 0" />
+        <text
+            // @ts-expect-error -- The correct value is "middle".
+            textAnchor="center"
+            // @ts-expect-error -- The correct value is "middle".
+            dominantBaseline="center"
+        />
     </svg>,
     <details open={true} onToggle={() => {}} name="foo" />,
     <input value={["one", "two"] as readonly string[]} />,
