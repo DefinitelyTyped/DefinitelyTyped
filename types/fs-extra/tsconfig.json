@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -13,8 +13,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "esm.d.mts",
         "index.d.ts",
         "test/fs-extra-tests.ts",
-        "test/fs-extra-tests-module.ts"
+        "test/fs-extra-tests-module.mts"
     ]
 }

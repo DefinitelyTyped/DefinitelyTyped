@@ -10,9 +10,7 @@
             "types": "./index.d.ts"
         },
         "./esm": {
-            "types": {
-                "import": "./esm.d.mts"
-            }
+            "types": "./esm.d.mts"
         }
     },
     "dependencies": {
