@@ -246,10 +246,10 @@ export enum AvInfoDigitalCompMode {
  * EXT_AUDIO_TV : SubAmp Mode 1: External Audio out follows the TV Speakers.
  * EXT_AUDIO_SWITCH : SubAmp Mode 2: Audio output is controlled by an external switch connected to TV.
  * EXT_HEALTHCARE : SubAmp Mode 3: Special mode to better support the Healthcare interface.
- * 
+ *
  * @since 6.0
  */
-export type AvInfoSubAmpMode = "NO_EXT_AUDIO" | "EXT_AUDIO_TV" | "EXT_AUDIO_SWITCH" | "EXT_HEALTHCARE"
+export type AvInfoSubAmpMode = "NO_EXT_AUDIO" | "EXT_AUDIO_TV" | "EXT_AUDIO_SWITCH" | "EXT_HEALTHCARE";
 
 /**
  * Energy Savings Type Enum
@@ -257,7 +257,7 @@ export type AvInfoSubAmpMode = "NO_EXT_AUDIO" | "EXT_AUDIO_TV" | "EXT_AUDIO_SWIT
  * LOW : Energy Saving is LOW
  * MEDIUM : Energy Saving is MEDIUM
  * HIGH : Energy Saving is HIGH
- * 
+ *
  * @since 6.5
  */
 export type EnergySavingType = "OFF" | "LOW" | "MEDIUM" | "HIGH";
@@ -266,11 +266,10 @@ export type EnergySavingType = "OFF" | "LOW" | "MEDIUM" | "HIGH";
  * Eco Sensor Type Enum
  * OFF : Eco Sensor is OFF
  * ON : Eco sensor is ON
- * 
+ *
  * @since 6.5
  */
 export type EcoSensorType = "OFF" | "ON";
-
 
 /**
  * This module defines the TV audio and video settings functionalities provided by the Tizen Samsung TV Product API.
@@ -353,19 +352,18 @@ export interface AvInfoManager {
 
     /**
      * This method sets the sub amp mode
-     * 
+     *
      * @param mode the sub amp mode that want to set up
-     * 
+     *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * 
+     *
      * @throws WebAPIException with error type InvalidValuesError, If any of the input parameter contains an invalid value. (since plugin version 3.0)
-     * 
+     *
      * @throws WebAPIException with error type NotSupportedError, if this API is called in any product other than Hotel TV.
-     * 
+     *
      * @since 6.0
-     *  
      */
-    setSubAmpMode: (mode : AvInfoSubAmpMode) => void;
+    setSubAmpMode: (mode: AvInfoSubAmpMode) => void;
 
     /**
      * This method is to get energy saving values. Valid only for "Samsung" product.
@@ -373,9 +371,9 @@ export interface AvInfoManager {
      * @returns return value of energy saving (OFF, LOW, MEDIUM, HIGH)
      *
      * @throws WebAPIException with error type NotSupportedError, if this API is called for non Samsung Products or called in an emulator and AV
-     * 
+     *
      * @throws WebAPIException with error type UnknownError, if the information is not passed to AvInfo successfully due to some unexpected internal error
-     * 
+     *
      * @since 6.5
      */
     getEnergySaving: () => EnergySavingType;
@@ -384,41 +382,41 @@ export interface AvInfoManager {
      * This method is to set the energy saving values. Valid only for "Samsung" product.
      *
      * @param value Energy Saving value to set (OFF, LOW, MEDIUM, HIGH)
-     * 
+     *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * 
+     *
      * @throws WebAPIException with error type InvalidValuesError, If any of the input parameter contains an invalid value. (since plugin version 3.0)
-     * 
+     *
      * @throws WebAPIException error type NotSupportedError, if this API is called for non Samsung Products or called in an emulator and AV
-     * 
+     *
      * @since 6.5
      */
     setEnergySaving: (value: EnergySavingType) => void;
-    
+
     /**
      * This method is to get eco sensor values. Valid only for "Samsung" product.
      *
      * @returns EcoSensorType : return value of eco sensor (OFF, ON)
-     * 
+     *
      * @throws WebAPIException with error type NotSupportedError, if this API is called for non Samsung Products or called in an emulator and AV
-     * 
+     *
      * @throws WebAPIException with error type UnknownError, if the information is not passed to AvInfo successfully due to some unexpected internal error.
-     * 
+     *
      * @since 6.5
      */
     getEcoSensor: () => EcoSensorType;
 
     /**
      * This method is to set the eco sensor values. Valid only for "Samsung" product.
-     * 
+     *
      * @param value : eco sensor value to set (OFF, ON)
-     * 
+     *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
-     * 
+     *
      * @throws WebAPIException with error type InvalidValuesError, If any of the input parameter contains an invalid value. (since plugin version 3.0)
-     * 
+     *
      * @throws WebAPIException with error type NotSupportedError, if this API is called for non Samsung Products or called in an emulator and AV
-     * 
+     *
      * @since 6.5
      */
     setEcoSensor: (value: EcoSensorType) => void;
@@ -4356,17 +4354,17 @@ export interface ProductInfoManager {
 
     /**
      * Retrieves the brand information, Valid only for licensing product.
-     * 
+     *
      * @returns Brand information
-     * 
+     *
      * @privilegeLevel Public
      *
      * @privilegeName http://developer.samsung.com/privilege/productinfo
-     * 
+     *
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * 
+     *
      * @throws WebAPIException with error type NotSupportedError, if this API is called for "Samsung" products.
-     * 
+     *
      * @since 7.0
      */
     getLicensedBrand: () => string;
@@ -4738,7 +4736,7 @@ export interface ProductInfoManager {
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * 
+     *
      * @since 6.0
      */
     getLicensedVendor: () => string;
@@ -4753,10 +4751,10 @@ export interface ProductInfoManager {
      * @privilegeName http://developer.samsung.com/privilege/productinfo
      *
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     * 
+     *
      * @since 8.0
      */
-    isOledPanelSupported : () => boolean;
+    isOledPanelSupported: () => boolean;
 }
 /**
  * Defines constants for login status.
