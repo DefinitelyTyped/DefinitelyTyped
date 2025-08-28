@@ -25,7 +25,7 @@ export interface RoktPlacementEvent<T = void> {
 }
 
 export interface RoktSubscriber<T> {
-    subscribe(handler: T): RoktUnsubscriber;
+    subscribe(handler: (value: T) => void): RoktUnsubscriber;
 }
 
 export interface RoktUnsubscriber {
