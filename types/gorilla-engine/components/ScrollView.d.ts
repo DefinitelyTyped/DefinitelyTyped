@@ -14,7 +14,7 @@ declare namespace GorillaEngine.UI {
          * @default false
          */
         hideHorizontalScrollbar: boolean;
-        /**TODO:: No idea if this is correct 
+        /** TODO:: No idea if this is correct
          * If true, the scroll view will ignore keypress events.
          * @default false
          */

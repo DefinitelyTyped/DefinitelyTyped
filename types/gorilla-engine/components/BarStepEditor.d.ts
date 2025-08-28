@@ -11,14 +11,14 @@ declare namespace GorillaEngine.UI {
          */
         paramPath: string;
         /**
-         * Index of the first 
+         * Index of the first
          */
         startIndex: number;
         endIndex: number;
         /**
          * The dimension of the step
          */
-       step: Partial<{
+        step: Partial<{
             /**
              * The horizontal offset of the step relative to its default position
              */
@@ -45,7 +45,7 @@ declare namespace GorillaEngine.UI {
              * The color of the step when it is active.
              */
             activeColor: string;
-            
+
             markDefault: boolean;
             incrementHeight: number;
             backgroundColor: string;
@@ -66,4 +66,3 @@ declare namespace GorillaEngine.UI {
     // tslint:disable-next-line:no-empty-interface
     interface BarStepEditor extends BarStepEditorProps {}
 }
-

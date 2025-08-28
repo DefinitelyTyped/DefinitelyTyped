@@ -1,6 +1,5 @@
 declare namespace GorillaEngine.UI {
     interface LevelMeterProps extends Common, Bounds, Background, Skinnable {
-
         /**
          * If `true`, the level meter will display and hold the highest peak level reached
          * for a defined duration.
@@ -15,7 +14,7 @@ declare namespace GorillaEngine.UI {
          */
         fillArea: boolean;
         /**
-         * If `true`, the level meter will be vertically inverted. 
+         * If `true`, the level meter will be vertically inverted.
          */
         inverted: boolean;
         /**
@@ -26,7 +25,7 @@ declare namespace GorillaEngine.UI {
          * If `true`, the level meter won't fill the area below the current level peak.
          */
         positionIndicator: boolean;
-         /**
+        /**
          * Defines a **threshold** on the logarithmic scale. Below this value,
          * a specific logarithmic mapping is applied to `normalizedValue` for detailed display.
          * At or above this threshold, the display behavior may change (e.g., clamp to full).

@@ -1,14 +1,14 @@
 declare namespace GorillaEngine.UI {
     interface TextBoxProps extends Font, Clickable, Bounds, Background, Margin, Keyable {
         /**
-         * The initial text value of the text box. 
+         * The initial text value of the text box.
          */
         text: string;
         /**
          * The placeholder text of the text box.
          */
         placeholder: string;
-        /**TODO:: check if it works
+        /** TODO:: check if it works
          * An additional suffix displayed in the textbox without alterting the text value.
          */
         unit: string;
@@ -41,12 +41,12 @@ declare namespace GorillaEngine.UI {
          */
         multiLine: boolean;
 
-        /**TODO:: what is even the point of this?
+        /** TODO:: what is even the point of this?
          * If true, the text box will not allow user input and will be read-only.
          */
         readOnly: boolean;
         /**
-         * The type of data that accepted by the text box. 
+         * The type of data that accepted by the text box.
          */
         acceptedDataType: "integer" | "int" | "float" | "string";
 

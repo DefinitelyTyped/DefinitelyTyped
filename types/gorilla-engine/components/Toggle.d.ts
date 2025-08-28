@@ -68,7 +68,7 @@ declare namespace GorillaEngine.UI {
          * The radio index of the toggle
          */
         radioIndex: number;
-        /** 
+        /**
          * The radio value of the toggle. If it maches radioIndex, the toggle will be on.
          */
         radioValue: number;

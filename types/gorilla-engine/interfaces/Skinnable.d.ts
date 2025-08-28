@@ -20,8 +20,8 @@ declare namespace GorillaEngine.UI {
         };
         /**
          * Reference to a LottieAnimation instance
-         * that this control is linked to.         
+         * that this control is linked to.
          */
-        animation: LottieAnimation; 
+        animation: LottieAnimation;
     }
 }

@@ -56,7 +56,6 @@ declare namespace GorillaEngine.UI {
     }
 
     interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font, Highlight {
-
         /**
          * The value of the combobox, which corresponds to the index of the initially selected item in the `items` array.
          */

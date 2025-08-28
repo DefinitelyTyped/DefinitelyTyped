@@ -1,5 +1,4 @@
 declare namespace GorillaEngine.UI {
-
     interface KnobProps extends Common, Bounds, Clickable, Background, Skinnable, MIDILearn, Highlight {
         /**
          * The text displayed for component
@@ -22,7 +21,6 @@ declare namespace GorillaEngine.UI {
          */
         stepSize: number;
 
-
         inverted: boolean;
         /**
          * If `true`, the knob's value can be adjusted using the mouse scroll wheel.
@@ -32,8 +30,7 @@ declare namespace GorillaEngine.UI {
          * The path to a single image used for the knob's appearance.
          */
         image: string;
-        /**TODO:: this is rather a slider prop than a knob prop
-         * 
+        /** TODO:: this is rather a slider prop than a knob prop
          */
         snapsToMousePosition: boolean;
         /**

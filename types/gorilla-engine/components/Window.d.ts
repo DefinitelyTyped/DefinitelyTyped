@@ -3,8 +3,8 @@ declare namespace GorillaEngine.UI {
         /**
          * The width of the plugin window. */
         width: number;
-        /** 
-         *The height of the plugin window. */
+        /**
+         * The height of the plugin window. */
         height: number;
         /**
          * The initial scaling of the window's dimensions. */

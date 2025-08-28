@@ -15,7 +15,7 @@ declare namespace GorillaEngine.UI {
          * will not respond to user input (e.g., clicks, keyboard events) but may still be visible.
          */
         enabled: boolean;
-        /** 
+        /**
          * Indicates whether the component requests keyboard focus when it becomes active or is
          * programmatically highlighted. This is important for keyboard navigation and input.
          */

@@ -12,7 +12,7 @@ declare namespace GorillaEngine.UI {
          */
         paramPath: string;
         /**
-         * Index of the first 
+         * Index of the first
          */
         startIndex: number;
         endIndex: number;
@@ -46,7 +46,7 @@ declare namespace GorillaEngine.UI {
              * The color of the step when it is active.
              */
             activeColor: string;
-            
+
             markDefault: boolean;
             incrementHeight: number;
             backgroundColor: string;

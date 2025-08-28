@@ -5,7 +5,7 @@ declare namespace GorillaEngine.UI {
     interface MIDILearn {
         /**
          * Determines if MIDI learn is enabled or not
-         *  */ 
+         */
         midiLearn: {
             enabled: boolean;
         };

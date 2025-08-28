@@ -5,18 +5,18 @@ declare namespace GorillaEngine.UI {
          * This property takes precedence over `backgroundColor` if both are provided.
          */
         backgroundImage: string;
-    
+
         /**
          * Defines the solid color to be used for the background.
          * This color will be visible if `backgroundImage` is not set or if the image has transparent areas.
          */
         backgroundColor: string;
-    
+
         /**
          * Sets the radius for the corners of the component, creating rounded edges.
          */
         cornerRadius: number;
-    
+
         /**
          * Defines the properties of the border surrounding the component.
          */

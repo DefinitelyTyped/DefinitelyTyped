@@ -1,7 +1,7 @@
 declare namespace GorillaEngine.UI {
     /**
      * Highlight interface for Gorilla Engine UI.
-     * This draws an automation highlight on knobs, Combobox, Toggle and listbox controls. Currently only works for AAX plugins. 
+     * This draws an automation highlight on knobs, Combobox, Toggle and listbox controls. Currently only works for AAX plugins.
      * Note you will have to turn on this feature by setting AAXEnableParameterHighlighting in the .ugep file
      */
     interface Highlight {
@@ -12,7 +12,6 @@ declare namespace GorillaEngine.UI {
             drawFilledCircle: boolean;
             /**
              * This determines the width of the line used to draw the highlight
-
              */
             lineWidth: number;
             /**
