@@ -13,7 +13,7 @@ export interface CommonEmailAddress {
    * The purpose for the email, as specified by the customer.
    */
   purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -78,7 +78,7 @@ export interface CommonOrganisation {
    * Short name used for communication, if different to the business name.
    */
   shortName?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -91,9 +91,9 @@ export type CommonOrganisationDetailV2 = CommonOrganisation & {
      * Enumeration of values indicating the purpose of the physical address.
      */
     purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-    [k: string]: unknown;
+    
   })[];
-  [k: string]: unknown;
+  
 };
 
 export interface CommonOrganisation {
@@ -157,7 +157,7 @@ export interface CommonOrganisation {
    * Short name used for communication, if different to the business name.
    */
   shortName?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -166,7 +166,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -260,7 +260,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -298,7 +298,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -394,7 +394,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -433,7 +433,7 @@ export interface CommonPerson {
    * Used for a trailing suffix to the name (e.g., Jr.)
    */
   suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -454,9 +454,9 @@ export type CommonPersonDetailV2 = CommonPerson & {
      * Enumeration of values indicating the purpose of the physical address.
      */
     purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-    [k: string]: unknown;
+    
   })[];
-  [k: string]: unknown;
+  
 };
 
 export interface CommonPerson {
@@ -494,7 +494,7 @@ export interface CommonPerson {
    * Used for a trailing suffix to the name (e.g., Jr.)
    */
   suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhoneNumber {
   /**
@@ -525,7 +525,7 @@ export interface CommonPhoneNumber {
    * The purpose of the number as specified by the customer.
    */
   purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 export interface CommonEmailAddress {
   /**
@@ -540,7 +540,7 @@ export interface CommonEmailAddress {
    * The purpose for the email, as specified by the customer.
    */
   purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -549,7 +549,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -643,7 +643,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -681,7 +681,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -714,7 +714,7 @@ export interface CommonPhoneNumber {
    * The purpose of the number as specified by the customer.
    */
   purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -725,7 +725,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -819,7 +819,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -857,7 +857,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -866,7 +866,7 @@ export type CommonPhysicalAddressWithPurpose = CommonPhysicalAddress & {
    * Enumeration of values indicating the purpose of the physical address.
    */
   purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-  [k: string]: unknown;
+  
 };
 
 export interface CommonPhysicalAddress {
@@ -876,7 +876,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -970,7 +970,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -1008,7 +1008,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1048,7 +1048,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1069,7 +1069,7 @@ export interface DiscoveryOutage {
    * Date and time that the outage is scheduled to begin.
    */
   outageTime: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1090,13 +1090,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1105,12 +1105,12 @@ export interface Links {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface Meta {
-  [k: string]: unknown;
+    [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1122,7 +1122,7 @@ export interface MetaError {
    * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
    */
   urn?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
@@ -1134,11 +1134,11 @@ export interface ResponseCommonCustomer {
     customerUType: "organisation" | "person";
     organisation?: CommonOrganisation;
     person?: CommonPerson;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface CommonOrganisation {
   /**
@@ -1201,7 +1201,7 @@ export interface CommonOrganisation {
    * Short name used for communication, if different to the business name.
    */
   shortName?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPerson {
   /**
@@ -1238,18 +1238,16 @@ export interface CommonPerson {
    * Used for a trailing suffix to the name (e.g., Jr.)
    */
   suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseCommonCustomerDetailV2 {
@@ -1267,9 +1265,9 @@ export interface ResponseCommonCustomerDetailV2 {
          * Enumeration of values indicating the purpose of the physical address.
          */
         purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-        [k: string]: unknown;
+        
       })[];
-      [k: string]: unknown;
+      
     };
     person?: CommonPerson & {
       /**
@@ -1288,15 +1286,15 @@ export interface ResponseCommonCustomerDetailV2 {
          * Enumeration of values indicating the purpose of the physical address.
          */
         purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-        [k: string]: unknown;
+        
       })[];
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface CommonOrganisation {
   /**
@@ -1359,7 +1357,7 @@ export interface CommonOrganisation {
    * Short name used for communication, if different to the business name.
    */
   shortName?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -1368,7 +1366,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -1462,7 +1460,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -1500,7 +1498,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface CommonPerson {
   /**
@@ -1537,7 +1535,7 @@ export interface CommonPerson {
    * Used for a trailing suffix to the name (e.g., Jr.)
    */
   suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhoneNumber {
   /**
@@ -1568,7 +1566,7 @@ export interface CommonPhoneNumber {
    * The purpose of the number as specified by the customer.
    */
   purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 export interface CommonEmailAddress {
   /**
@@ -1583,18 +1581,16 @@ export interface CommonEmailAddress {
    * The purpose for the email, as specified by the customer.
    */
   purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseCommonDiscoveryStatus {
@@ -1619,22 +1615,20 @@ export interface ResponseCommonDiscoveryStatus {
      * The date and time that this status was last updated by the Data Holder.
      */
     updateTime: string;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseDiscoveryOutagesList {
@@ -1643,11 +1637,11 @@ export interface ResponseDiscoveryOutagesList {
      * List of scheduled outages. Property is mandatory but may contain an empty list if no outages are scheduled.
      */
     outages: DiscoveryOutage[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface DiscoveryOutage {
   /**
@@ -1666,18 +1660,16 @@ export interface DiscoveryOutage {
    * Date and time that the outage is scheduled to begin.
    */
   outageTime: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseErrorListV2 {
@@ -1685,7 +1677,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -1704,11 +1696,11 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }

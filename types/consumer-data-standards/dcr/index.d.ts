@@ -21,7 +21,7 @@ export type ClientRegistration = {
    * Contains the Data Holder issuer value as described in the OIDC Discovery Document.
    */
   aud: string;
-  [k: string]: unknown;
+  
 } & RegistrationProperties;
 
 export interface RegistrationProperties {
@@ -157,7 +157,7 @@ export interface RegistrationProperties {
    * URL string that points to a human-readable terms of service document for the Software Product.
    */
   tos_uri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the dcr api. */
 
@@ -186,7 +186,7 @@ export interface RegistrationError {
    * Additional text description of the error for debugging.
    */
   error_description?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the dcr api. */
 
@@ -323,5 +323,5 @@ export interface RegistrationProperties {
    * URL string that points to a human-readable terms of service document for the Software Product.
    */
   tos_uri?: string | null;
-  [k: string]: unknown;
+  
 }

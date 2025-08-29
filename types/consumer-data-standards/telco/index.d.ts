@@ -17,13 +17,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -32,7 +32,7 @@ export interface Links {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -57,12 +57,12 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
 export interface Meta {
-  [k: string]: unknown;
+  [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -75,7 +75,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -85,13 +85,10 @@ export interface RequestAccountIdListV1 {
      * Array of _accountId_ values to obtain data for.
      */
     accountIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -101,13 +98,10 @@ export interface RequestServiceIdListV1 {
      * Array of _serviceId_ values to obtain data for.
      */
     serviceIds: string[];
-    [k: string]: unknown;
+    
   };
   meta: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -116,7 +110,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -135,13 +129,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -174,7 +168,7 @@ export interface TelcoAccountBase {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -192,15 +186,15 @@ export interface TelcoAccountDetailResponse {
          * Charges for metering included in the plan.
          */
         charges: TelcoProductDetailMeteringCharges[];
-        [k: string]: unknown;
+        
       };
-      [k: string]: unknown;
+      
     })[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountBase {
   /**
@@ -231,7 +225,7 @@ export interface TelcoAccountBase {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanBase {
   /**
@@ -254,7 +248,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -269,7 +263,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailMeteringCharges {
   /**
@@ -292,17 +286,14 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -319,11 +310,11 @@ export type TelcoAccountDetailResponseData = TelcoAccountBase & {
        * Charges for metering included in the plan.
        */
       charges: TelcoProductDetailMeteringCharges[];
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   })[];
-  [k: string]: unknown;
+  
 };
 
 export interface TelcoAccountBase {
@@ -355,7 +346,7 @@ export interface TelcoAccountBase {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanBase {
   /**
@@ -378,7 +369,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -393,7 +384,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailMeteringCharges {
   /**
@@ -416,7 +407,7 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -436,13 +427,13 @@ export interface TelcoAccountListResponse {
        * The array of plans containing services and associated plan details.
        */
       plans: TelcoAccountPlanBase[];
-      [k: string]: unknown;
+      
     })[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountBase {
   /**
@@ -473,7 +464,7 @@ export interface TelcoAccountBase {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanBase {
   /**
@@ -496,7 +487,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -511,7 +502,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -534,7 +525,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -545,7 +536,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -570,7 +561,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -585,7 +576,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -598,9 +589,9 @@ export type TelcoAccountPlanDetail = TelcoAccountPlanBase & {
      * Charges for metering included in the plan.
      */
     charges: TelcoProductDetailMeteringCharges[];
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 
 export interface TelcoAccountPlanBase {
@@ -624,7 +615,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -639,7 +630,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailMeteringCharges {
   /**
@@ -662,7 +653,7 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -679,7 +670,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -688,7 +679,7 @@ export type TelcoAccountResponseData = TelcoAccountBase & {
    * The array of plans containing services and associated plan details.
    */
   plans: TelcoAccountPlanBase[];
-  [k: string]: unknown;
+  
 };
 
 export interface TelcoAccountBase {
@@ -720,7 +711,7 @@ export interface TelcoAccountBase {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanBase {
   /**
@@ -743,7 +734,7 @@ export interface TelcoAccountPlanBase {
    * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountPlanOverview {
   /**
@@ -758,7 +749,7 @@ export interface TelcoAccountPlanOverview {
    * The start date of the applicability of this plan.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -772,9 +763,9 @@ export interface TelcoAccountUsage {
    */
   services: {
     service: TelcoServiceUsage;
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceUsage {
   /**
@@ -798,7 +789,7 @@ export interface TelcoServiceUsage {
    */
   startDate: string;
   usage?: TelcoUsage;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -807,7 +798,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -833,7 +824,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -847,7 +838,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -855,7 +846,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -877,7 +868,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -899,7 +890,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -908,7 +899,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -926,7 +917,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -944,7 +935,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -962,7 +953,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -990,7 +981,7 @@ export interface TelcoAdditionalInformation {
    * A link to terms and conditions for the plan.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1000,11 +991,11 @@ export interface TelcoBalanceListResponse {
      * Array of account balances.
      */
     balances: TelcoBalanceResponseData[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBalanceResponseData {
   /**
@@ -1019,9 +1010,9 @@ export interface TelcoBalanceResponseData {
      * List of services that are part of the account.
      */
     services?: TelcoServiceBalance[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceBalance {
   balance: TelcoServiceBalances;
@@ -1045,7 +1036,7 @@ export interface TelcoServiceBalance {
    * Date when the balance period started.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * A summary of Service balances.
@@ -1054,7 +1045,7 @@ export interface TelcoServiceBalances {
   data?: TelcoServiceBalanceData;
   messaging?: TelcoServiceBalanceMessaging;
   voice?: TelcoServiceBalanceVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data balances.
@@ -1081,7 +1072,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -1099,7 +1090,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services are included in the product plan.
@@ -1111,7 +1102,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -1137,7 +1128,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -1163,7 +1154,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice balances. Required if voice calls are included in product plan.
@@ -1176,7 +1167,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -1198,7 +1189,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -1220,7 +1211,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -1242,7 +1233,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -1265,7 +1256,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -1276,7 +1267,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1289,11 +1280,11 @@ export interface TelcoBalanceResponse {
      * List of services that are part of the account.
      */
     services: TelcoServiceBalance[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceBalance {
   balance: TelcoServiceBalances;
@@ -1317,7 +1308,7 @@ export interface TelcoServiceBalance {
    * Date when the balance period started.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * A summary of Service balances.
@@ -1326,7 +1317,7 @@ export interface TelcoServiceBalances {
   data?: TelcoServiceBalanceData;
   messaging?: TelcoServiceBalanceMessaging;
   voice?: TelcoServiceBalanceVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data balances.
@@ -1353,7 +1344,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -1371,7 +1362,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services are included in the product plan.
@@ -1383,7 +1374,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -1409,7 +1400,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -1435,7 +1426,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice balances. Required if voice calls are included in product plan.
@@ -1448,7 +1439,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -1470,7 +1461,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -1492,7 +1483,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -1514,17 +1505,14 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1541,9 +1529,9 @@ export interface TelcoBalanceResponseData {
      * List of services that are part of the account.
      */
     services?: TelcoServiceBalance[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceBalance {
   balance: TelcoServiceBalances;
@@ -1567,7 +1555,7 @@ export interface TelcoServiceBalance {
    * Date when the balance period started.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * A summary of Service balances.
@@ -1576,7 +1564,7 @@ export interface TelcoServiceBalances {
   data?: TelcoServiceBalanceData;
   messaging?: TelcoServiceBalanceMessaging;
   voice?: TelcoServiceBalanceVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data balances.
@@ -1603,7 +1591,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -1621,7 +1609,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services are included in the product plan.
@@ -1633,7 +1621,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -1659,7 +1647,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -1685,7 +1673,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice balances. Required if voice calls are included in product plan.
@@ -1698,7 +1686,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -1720,7 +1708,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -1742,7 +1730,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -1764,7 +1752,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1797,7 +1785,7 @@ export interface TelcoBillingAccountTransaction {
    * Date and time when the usage period starts.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransactionAdjustments {
   /**
@@ -1808,7 +1796,7 @@ export interface TelcoBillingAccountTransactionAdjustments {
    * A free text description of the adjustment.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1821,7 +1809,7 @@ export interface TelcoBillingAccountTransactionAdjustments {
    * A free text description of the adjustment.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1842,7 +1830,7 @@ export interface TelcoBillingOnceOffTransaction {
    * Unique identifier for the service. A _serviceId_ is an [ID Permanence](#id-permanence) representation of a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g., [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf)
    */
   serviceId?: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1879,7 +1867,7 @@ export interface TelcoBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("SERVICE" | "NETWORK" | "EQUIPMENT" | "METERING" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransactionAdjustments {
   /**
@@ -1890,7 +1878,7 @@ export interface TelcoBillingAccountTransactionAdjustments {
    * A free text description of the adjustment.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1903,7 +1891,7 @@ export interface TelcoBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "VOUCHER" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -1928,7 +1916,7 @@ export interface TelcoBillingTransaction {
    * Indicator of the type of transaction object present in this record.
    */
   transactionUType: "account" | "onceOff" | "otherCharges" | "payment";
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransaction {
   /**
@@ -1959,7 +1947,7 @@ export interface TelcoBillingAccountTransaction {
    * Date and time when the usage period starts.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransactionAdjustments {
   /**
@@ -1970,7 +1958,7 @@ export interface TelcoBillingAccountTransactionAdjustments {
    * A free text description of the adjustment.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingOnceOffTransaction {
   /**
@@ -1989,7 +1977,7 @@ export interface TelcoBillingOnceOffTransaction {
    * Unique identifier for the service. A _serviceId_ is an [ID Permanence](#id-permanence) representation of a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g., [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf)
    */
   serviceId?: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingOtherTransaction {
   /**
@@ -2024,7 +2012,7 @@ export interface TelcoBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("SERVICE" | "NETWORK" | "EQUIPMENT" | "METERING" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingPaymentTransaction {
   /**
@@ -2035,7 +2023,7 @@ export interface TelcoBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "VOUCHER" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2080,7 +2068,7 @@ export interface TelcoConcession {
    * The concession type.
    */
   type: "CONCESSION" | "REBATE" | "GRANT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2090,11 +2078,11 @@ export interface TelcoConcessionsResponse {
      * Array may be empty if no concessions exist.
      */
     concessions: TelcoConcession[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoConcession {
   /**
@@ -2137,7 +2125,7 @@ export interface TelcoConcession {
    * The concession type.
    */
   type: "CONCESSION" | "REBATE" | "GRANT";
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -2160,7 +2148,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -2171,7 +2159,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2195,7 +2183,7 @@ export interface TelcoContract {
    * Name of the contract.
    */
   name: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2240,7 +2228,7 @@ export interface TelcoInvoice {
    * An array of _serviceId_ values to which this invoice applies. May be empty if the invoice contains no usage related charges.
    */
   services: string[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object contain charges and credits related to usage.
@@ -2263,7 +2251,7 @@ export interface TelcoInvoiceAccountCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).
@@ -2293,7 +2281,7 @@ export interface TelcoInvoiceAccountChargesOtherCharges {
         | "OTHER"
       )
     | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -2302,7 +2290,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -2328,7 +2316,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -2342,7 +2330,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -2350,7 +2338,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -2372,7 +2360,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -2394,7 +2382,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -2403,7 +2391,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -2421,7 +2409,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -2439,7 +2427,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -2457,7 +2445,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * A discount for on time payment.
@@ -2475,7 +2463,7 @@ export interface TelcoInvoicePayOnTimeDiscount {
    * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
    */
   gstAmount?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice.
@@ -2489,7 +2477,7 @@ export interface TelcoInvoicePeriod {
    * The start date of the period covered by this invoice.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2514,7 +2502,7 @@ export interface TelcoInvoiceAccountCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).
@@ -2544,7 +2532,7 @@ export interface TelcoInvoiceAccountChargesOtherCharges {
         | "OTHER"
       )
     | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2576,7 +2564,7 @@ export interface TelcoInvoiceAccountChargesOtherCharges {
         | "OTHER"
       )
     | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2586,11 +2574,11 @@ export interface TelcoInvoiceListResponse {
      * Array of invoices sorted by issue date in descending order.
      */
     invoices: TelcoInvoice[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoInvoice {
   accountCharges?: TelcoInvoiceAccountCharges;
@@ -2633,7 +2621,7 @@ export interface TelcoInvoice {
    * An array of _serviceId_ values to which this invoice applies. May be empty if the invoice contains no usage related charges.
    */
   services: string[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object contain charges and credits related to usage.
@@ -2656,7 +2644,7 @@ export interface TelcoInvoiceAccountCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).
@@ -2686,7 +2674,7 @@ export interface TelcoInvoiceAccountChargesOtherCharges {
         | "OTHER"
       )
     | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -2695,7 +2683,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -2721,7 +2709,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -2735,7 +2723,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -2743,7 +2731,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -2765,7 +2753,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -2787,7 +2775,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -2796,7 +2784,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -2814,7 +2802,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -2832,7 +2820,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -2850,7 +2838,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * A discount for on time payment.
@@ -2868,7 +2856,7 @@ export interface TelcoInvoicePayOnTimeDiscount {
    * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
    */
   gstAmount?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice.
@@ -2882,7 +2870,7 @@ export interface TelcoInvoicePeriod {
    * The start date of the period covered by this invoice.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -2905,7 +2893,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -2916,7 +2904,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2936,7 +2924,7 @@ export interface TelcoInvoicePayOnTimeDiscount {
    * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
    */
   gstAmount?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2952,7 +2940,7 @@ export interface TelcoInvoicePeriod {
    * The start date of the period covered by this invoice.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -2962,11 +2950,11 @@ export interface TelcoInvoiceResponse {
      * Array of invoices sorted by issue date in descending order.
      */
     invoices: TelcoInvoice[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoInvoice {
   accountCharges?: TelcoInvoiceAccountCharges;
@@ -3009,7 +2997,7 @@ export interface TelcoInvoice {
    * An array of _serviceId_ values to which this invoice applies. May be empty if the invoice contains no usage related charges.
    */
   services: string[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object contain charges and credits related to usage.
@@ -3032,7 +3020,7 @@ export interface TelcoInvoiceAccountCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).
@@ -3062,7 +3050,7 @@ export interface TelcoInvoiceAccountChargesOtherCharges {
         | "OTHER"
       )
     | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -3071,7 +3059,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -3097,7 +3085,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -3111,7 +3099,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -3119,7 +3107,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -3141,7 +3129,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -3163,7 +3151,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -3172,7 +3160,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -3190,7 +3178,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -3208,7 +3196,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -3226,7 +3214,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * A discount for on time payment.
@@ -3244,7 +3232,7 @@ export interface TelcoInvoicePayOnTimeDiscount {
    * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
    */
   gstAmount?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice.
@@ -3258,17 +3246,14 @@ export interface TelcoInvoicePeriod {
    * The start date of the period covered by this invoice.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3285,7 +3270,7 @@ export interface TelcoPaymentSchedule {
    * The type of object present in this response.
    */
   paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular credit card payment schedule. Mandatory if _paymentScheduleUType_ is set to `cardDebit`.
@@ -3303,7 +3288,7 @@ export interface TelcoPaymentScheduleCardDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
@@ -3333,7 +3318,7 @@ export interface TelcoPaymentScheduleDigitalWallet {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
@@ -3359,7 +3344,7 @@ export interface TelcoPaymentScheduleDirectDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
@@ -3369,7 +3354,7 @@ export interface TelcoPaymentScheduleManualPayment {
    * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   billFrequency: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3389,7 +3374,7 @@ export interface TelcoPaymentScheduleCardDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3421,7 +3406,7 @@ export interface TelcoPaymentScheduleDigitalWallet {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3449,7 +3434,7 @@ export interface TelcoPaymentScheduleDirectDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3461,7 +3446,7 @@ export interface TelcoPaymentScheduleManualPayment {
    * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   billFrequency: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3471,11 +3456,11 @@ export interface TelcoPaymentScheduleResponse {
      * Array may be empty if no payment schedules exist.
      */
     paymentSchedules: TelcoPaymentSchedule[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoPaymentSchedule {
   /**
@@ -3490,7 +3475,7 @@ export interface TelcoPaymentSchedule {
    * The type of object present in this response.
    */
   paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular credit card payment schedule. Mandatory if _paymentScheduleUType_ is set to `cardDebit`.
@@ -3508,7 +3493,7 @@ export interface TelcoPaymentScheduleCardDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
@@ -3538,7 +3523,7 @@ export interface TelcoPaymentScheduleDigitalWallet {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
@@ -3564,7 +3549,7 @@ export interface TelcoPaymentScheduleDirectDebit {
    * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   paymentFrequency: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
@@ -3574,7 +3559,7 @@ export interface TelcoPaymentScheduleManualPayment {
    * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   billFrequency: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -3597,7 +3582,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -3608,7 +3593,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3685,7 +3670,7 @@ export interface TelcoProduct {
    * The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -3711,7 +3696,7 @@ export interface TelcoAdditionalInformation {
    * A link to terms and conditions for the plan.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.
@@ -3733,7 +3718,7 @@ export interface TelcoContract {
    * Name of the contract.
    */
   name: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductPricing {
   /**
@@ -3752,7 +3737,7 @@ export interface TelcoProductPricing {
    * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -3777,7 +3762,7 @@ export type TelcoProductDetail = TelcoProduct & {
    * Incentives associated to the product.
    */
   incentives?: TelcoProductDetailIncentives[];
-  [k: string]: unknown;
+  
 };
 
 export interface TelcoProduct {
@@ -3847,7 +3832,7 @@ export interface TelcoProduct {
    * The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -3873,7 +3858,7 @@ export interface TelcoAdditionalInformation {
    * A link to terms and conditions for the plan.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.
@@ -3895,7 +3880,7 @@ export interface TelcoContract {
    * Name of the contract.
    */
   name: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductPricing {
   /**
@@ -3914,7 +3899,7 @@ export interface TelcoProductPricing {
    * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailMeteringCharges {
   /**
@@ -3937,7 +3922,7 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailBundles {
   /**
@@ -3956,7 +3941,7 @@ export interface TelcoProductDetailBundles {
    * Optional list of features of the bundle.
    */
   features?: TelcoProductDetailFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailFeature {
   /**
@@ -3984,7 +3969,7 @@ export interface TelcoProductDetailFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailPlan {
   /**
@@ -4003,7 +3988,7 @@ export interface TelcoProductDetailPlan {
    * The URI of the product plan.
    */
   planUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailPlanFeature {
   /**
@@ -4014,7 +3999,7 @@ export interface TelcoProductDetailPlanFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailDiscounts {
   /**
@@ -4033,7 +4018,7 @@ export interface TelcoProductDetailDiscounts {
    * Optional list of features of the discount.
    */
   features?: TelcoProductDetailDiscountFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailDiscountFeature {
   /**
@@ -4044,7 +4029,7 @@ export interface TelcoProductDetailDiscountFeature {
    * The display name of the discount feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailIncentives {
   /**
@@ -4063,7 +4048,7 @@ export interface TelcoProductDetailIncentives {
    * The URI of the incentive.
    */
   incentiveUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailIncentiveFeature {
   /**
@@ -4074,7 +4059,7 @@ export interface TelcoProductDetailIncentiveFeature {
    * The display name of the incentive feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4095,7 +4080,7 @@ export interface TelcoProductDetailBundles {
    * Optional list of features of the bundle.
    */
   features?: TelcoProductDetailFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailFeature {
   /**
@@ -4123,7 +4108,7 @@ export interface TelcoProductDetailFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4136,7 +4121,7 @@ export interface TelcoProductDetailDiscountFeature {
    * The display name of the discount feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4157,7 +4142,7 @@ export interface TelcoProductDetailDiscounts {
    * Optional list of features of the discount.
    */
   features?: TelcoProductDetailDiscountFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailDiscountFeature {
   /**
@@ -4168,7 +4153,7 @@ export interface TelcoProductDetailDiscountFeature {
    * The display name of the discount feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4198,7 +4183,7 @@ export interface TelcoProductDetailFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4211,7 +4196,7 @@ export interface TelcoProductDetailIncentiveFeature {
    * The display name of the incentive feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4232,7 +4217,7 @@ export interface TelcoProductDetailIncentives {
    * The URI of the incentive.
    */
   incentiveUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailIncentiveFeature {
   /**
@@ -4243,7 +4228,7 @@ export interface TelcoProductDetailIncentiveFeature {
    * The display name of the incentive feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4268,7 +4253,7 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4289,7 +4274,7 @@ export interface TelcoProductDetailPlan {
    * The URI of the product plan.
    */
   planUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailPlanFeature {
   /**
@@ -4300,7 +4285,7 @@ export interface TelcoProductDetailPlanFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4313,7 +4298,7 @@ export interface TelcoProductDetailPlanFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4329,11 +4314,11 @@ export interface TelcoProductListResponse {
      * Array of Products.
      */
     plans: TelcoProduct[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProduct {
   additionalInformation?: TelcoAdditionalInformation;
@@ -4402,7 +4387,7 @@ export interface TelcoProduct {
    * The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -4428,7 +4413,7 @@ export interface TelcoAdditionalInformation {
    * A link to terms and conditions for the plan.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.
@@ -4450,7 +4435,7 @@ export interface TelcoContract {
    * Name of the contract.
    */
   name: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductPricing {
   /**
@@ -4469,7 +4454,7 @@ export interface TelcoProductPricing {
    * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -4492,7 +4477,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -4503,7 +4488,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4524,7 +4509,7 @@ export interface TelcoProductPricing {
    * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4550,11 +4535,11 @@ export interface TelcoProductResponse {
      * Incentives associated to the product.
      */
     incentives?: TelcoProductDetailIncentives[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProduct {
   additionalInformation?: TelcoAdditionalInformation;
@@ -4623,7 +4608,7 @@ export interface TelcoProduct {
    * The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
    */
   type: "MOBILE" | "BROADBAND";
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -4649,7 +4634,7 @@ export interface TelcoAdditionalInformation {
    * A link to terms and conditions for the plan.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.
@@ -4671,7 +4656,7 @@ export interface TelcoContract {
    * Name of the contract.
    */
   name: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductPricing {
   /**
@@ -4690,7 +4675,7 @@ export interface TelcoProductPricing {
    * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailMeteringCharges {
   /**
@@ -4713,7 +4698,7 @@ export interface TelcoProductDetailMeteringCharges {
    * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   period?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailBundles {
   /**
@@ -4732,7 +4717,7 @@ export interface TelcoProductDetailBundles {
    * Optional list of features of the bundle.
    */
   features?: TelcoProductDetailFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailFeature {
   /**
@@ -4760,7 +4745,7 @@ export interface TelcoProductDetailFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailPlan {
   /**
@@ -4779,7 +4764,7 @@ export interface TelcoProductDetailPlan {
    * The URI of the product plan.
    */
   planUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailPlanFeature {
   /**
@@ -4790,7 +4775,7 @@ export interface TelcoProductDetailPlanFeature {
    * The display name of the feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailDiscounts {
   /**
@@ -4809,7 +4794,7 @@ export interface TelcoProductDetailDiscounts {
    * Optional list of features of the discount.
    */
   features?: TelcoProductDetailDiscountFeature[] | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailDiscountFeature {
   /**
@@ -4820,7 +4805,7 @@ export interface TelcoProductDetailDiscountFeature {
    * The display name of the discount feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailIncentives {
   /**
@@ -4839,7 +4824,7 @@ export interface TelcoProductDetailIncentives {
    * The URI of the incentive.
    */
   incentiveUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoProductDetailIncentiveFeature {
   /**
@@ -4850,17 +4835,14 @@ export interface TelcoProductDetailIncentiveFeature {
    * The display name of the incentive feature.
    */
   displayName: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -4886,7 +4868,7 @@ export interface TelcoServiceBalance {
    * Date when the balance period started.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * A summary of Service balances.
@@ -4895,7 +4877,7 @@ export interface TelcoServiceBalances {
   data?: TelcoServiceBalanceData;
   messaging?: TelcoServiceBalanceMessaging;
   voice?: TelcoServiceBalanceVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data balances.
@@ -4922,7 +4904,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -4940,7 +4922,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services are included in the product plan.
@@ -4952,7 +4934,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -4978,7 +4960,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -5004,7 +4986,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice balances. Required if voice calls are included in product plan.
@@ -5017,7 +4999,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -5039,7 +5021,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -5061,7 +5043,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -5083,7 +5065,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5112,7 +5094,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -5130,7 +5112,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5150,7 +5132,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5164,7 +5146,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -5190,7 +5172,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -5216,7 +5198,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5244,7 +5226,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5272,7 +5254,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5283,7 +5265,7 @@ export interface TelcoServiceBalances {
   data?: TelcoServiceBalanceData;
   messaging?: TelcoServiceBalanceMessaging;
   voice?: TelcoServiceBalanceVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data balances.
@@ -5310,7 +5292,7 @@ export interface TelcoServiceBalanceData {
    * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   upload?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
@@ -5328,7 +5310,7 @@ export interface TelcoServiceBalanceDataRoaming {
    * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services are included in the product plan.
@@ -5340,7 +5322,7 @@ export interface TelcoServiceBalanceMessaging {
    */
   planType?: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   sms?: TelcoServiceBalanceMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS Balance. Required if the service plan supports MMS messaging.
@@ -5366,7 +5348,7 @@ export interface TelcoServiceBalanceMessagingMms {
    * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS Balance. Required if the service plan supports SMS messaging.
@@ -5392,7 +5374,7 @@ export interface TelcoServiceBalanceMessagingSms {
    * Number of roaming SMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice balances. Required if voice calls are included in product plan.
@@ -5405,7 +5387,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -5427,7 +5409,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -5449,7 +5431,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -5471,7 +5453,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5486,7 +5468,7 @@ export interface TelcoServiceBalanceVoice {
    */
   planType: "METERED" | "UNMETERED" | "LIMITED" | "UNSUPPORTED";
   roaming?: TelcoServiceBalanceVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls.
@@ -5508,7 +5490,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -5530,7 +5512,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls.
@@ -5552,7 +5534,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5576,7 +5558,7 @@ export interface TelcoServiceBalanceVoiceInternational {
    * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5600,7 +5582,7 @@ export interface TelcoServiceBalanceVoiceNational {
    * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5624,7 +5606,7 @@ export interface TelcoServiceBalanceVoiceRoaming {
    * Number of roaming voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
    */
   number?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5656,7 +5638,7 @@ export interface TelcoServiceUsage {
    */
   startDate: string;
   usage?: TelcoUsage;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -5665,7 +5647,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -5691,7 +5673,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -5705,7 +5687,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -5713,7 +5695,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -5735,7 +5717,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -5757,7 +5739,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -5766,7 +5748,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -5784,7 +5766,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -5802,7 +5784,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -5820,7 +5802,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -5828,7 +5810,7 @@ export interface TelcoServiceUsageResponse {
   data: TelcoServiceUsage;
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceUsage {
   /**
@@ -5852,7 +5834,7 @@ export interface TelcoServiceUsage {
    */
   startDate: string;
   usage?: TelcoUsage;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -5861,7 +5843,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -5887,7 +5869,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -5901,7 +5883,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -5909,7 +5891,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -5931,7 +5913,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -5953,7 +5935,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -5962,7 +5944,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -5980,7 +5962,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -5998,7 +5980,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -6016,17 +5998,14 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6036,11 +6015,11 @@ export interface TelcoTransactionListResponse {
      * Array of transactions sorted by date and time in descending order.
      */
     transactions: TelcoBillingTransaction[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingTransaction {
   account?: TelcoBillingAccountTransaction;
@@ -6063,7 +6042,7 @@ export interface TelcoBillingTransaction {
    * Indicator of the type of transaction object present in this record.
    */
   transactionUType: "account" | "onceOff" | "otherCharges" | "payment";
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransaction {
   /**
@@ -6094,7 +6073,7 @@ export interface TelcoBillingAccountTransaction {
    * Date and time when the usage period starts.
    */
   startDate: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingAccountTransactionAdjustments {
   /**
@@ -6105,7 +6084,7 @@ export interface TelcoBillingAccountTransactionAdjustments {
    * A free text description of the adjustment.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingOnceOffTransaction {
   /**
@@ -6124,7 +6103,7 @@ export interface TelcoBillingOnceOffTransaction {
    * Unique identifier for the service. A _serviceId_ is an [ID Permanence](#id-permanence) representation of a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g., [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf)
    */
   serviceId?: string;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingOtherTransaction {
   /**
@@ -6159,7 +6138,7 @@ export interface TelcoBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("SERVICE" | "NETWORK" | "EQUIPMENT" | "METERING" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface TelcoBillingPaymentTransaction {
   /**
@@ -6170,7 +6149,7 @@ export interface TelcoBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "VOUCHER" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -6193,7 +6172,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -6204,7 +6183,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6215,7 +6194,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -6241,7 +6220,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -6255,7 +6234,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -6263,7 +6242,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -6285,7 +6264,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -6307,7 +6286,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -6316,7 +6295,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -6334,7 +6313,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -6352,7 +6331,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -6370,7 +6349,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6398,7 +6377,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -6412,7 +6391,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6428,7 +6407,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6438,11 +6417,11 @@ export interface TelcoUsageListResponse {
      * Array of usage on accounts.
      */
     accounts: TelcoAccountUsage[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountUsage {
   /**
@@ -6454,9 +6433,9 @@ export interface TelcoAccountUsage {
    */
   services: {
     service: TelcoServiceUsage;
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceUsage {
   /**
@@ -6480,7 +6459,7 @@ export interface TelcoServiceUsage {
    */
   startDate: string;
   usage?: TelcoUsage;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -6489,7 +6468,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -6515,7 +6494,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -6529,7 +6508,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -6537,7 +6516,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -6559,7 +6538,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -6581,7 +6560,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -6590,7 +6569,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -6608,7 +6587,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -6626,7 +6605,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -6644,17 +6623,14 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6664,7 +6640,7 @@ export interface Meta {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -6686,7 +6662,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -6708,7 +6684,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6732,7 +6708,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6756,7 +6732,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6764,7 +6740,7 @@ export interface TelcoUsageResponse {
   data: TelcoAccountUsage;
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface TelcoAccountUsage {
   /**
@@ -6776,9 +6752,9 @@ export interface TelcoAccountUsage {
    */
   services: {
     service: TelcoServiceUsage;
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 }
 export interface TelcoServiceUsage {
   /**
@@ -6802,7 +6778,7 @@ export interface TelcoServiceUsage {
    */
   startDate: string;
   usage?: TelcoUsage;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing usage summary.
@@ -6811,7 +6787,7 @@ export interface TelcoUsage {
   data?: TelcoUsageData;
   messaging?: TelcoUsageMessaging;
   voice?: TelcoUsageVoice;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of data usage.
@@ -6837,7 +6813,7 @@ export interface TelcoUsageData {
    * Amount of data uploaded in megabytes (MB).
    */
   upload: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming Data Usage.
@@ -6851,7 +6827,7 @@ export interface TelcoUsageDataRoaming {
    * Amount of data used while roaming in megabytes (MB).
    */
   download?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of messaging. Required if messaging services is included in the product plan.
@@ -6859,7 +6835,7 @@ export interface TelcoUsageDataRoaming {
 export interface TelcoUsageMessaging {
   mms: TelcoUsageMessagingMms;
   sms: TelcoUsageMessagingSms;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of MMS usage.
@@ -6881,7 +6857,7 @@ export interface TelcoUsageMessagingMms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of SMS usage.
@@ -6903,7 +6879,7 @@ export interface TelcoUsageMessagingSms {
    * Number of roaming SMS messages sent. Including premium SMS services.
    */
   roaming?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Summary of voice calls. Required if voice calls are included in product plan.
@@ -6912,7 +6888,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -6930,7 +6906,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -6948,7 +6924,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -6966,17 +6942,14 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -6987,7 +6960,7 @@ export interface TelcoUsageVoice {
   international: TelcoUsageVoiceInternational;
   national: TelcoUsageVoiceNational;
   roaming: TelcoUsageVoiceRoaming;
-  [k: string]: unknown;
+  
 }
 /**
  * International voice calls. Required if international calling is supported.
@@ -7005,7 +6978,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * National voice calls.
@@ -7023,7 +6996,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /**
  * Roaming voice calls, Required if roaming is supported.
@@ -7041,7 +7014,7 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -7061,7 +7034,7 @@ export interface TelcoUsageVoiceInternational {
    * Number of international voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -7081,7 +7054,7 @@ export interface TelcoUsageVoiceNational {
    * Number of national voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
@@ -7101,5 +7074,5 @@ export interface TelcoUsageVoiceRoaming {
    * Number of roaming voice calls.
    */
   number: number;
-  [k: string]: unknown;
+  
 }

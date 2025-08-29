@@ -41,7 +41,7 @@ export interface DataHolderBrandSummaryV2 {
    * Base URI for the Data Holder's Consumer Data Standard public endpoints.
    */
   publicBaseUri: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -52,7 +52,7 @@ export interface DataHoldersStatusList {
   data: DataHolderStatus[];
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface DataHolderStatus {
   /**
@@ -63,17 +63,17 @@ export interface DataHolderStatus {
    * Data Holder status in the CDR Register.
    */
   status: "ACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface Meta {
-  [k: string]: unknown;
+    [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -86,7 +86,7 @@ export interface DataHolderStatus {
    * Data Holder status in the CDR Register.
    */
   status: "ACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -111,7 +111,7 @@ export interface DataRecipientBrandMetaData {
    * Data Recipient Brand status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /**
  * Data Recipient Brand Software Products.
@@ -137,7 +137,7 @@ export interface SoftwareProductMetaData {
    * Software Product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -148,7 +148,7 @@ export interface DataRecipientsStatusList {
   data: DataRecipientStatus[];
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface DataRecipientStatus {
   /**
@@ -159,18 +159,16 @@ export interface DataRecipientStatus {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface DataRecipientStatus {
@@ -182,7 +180,7 @@ export interface DataRecipientStatus {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -203,13 +201,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -250,7 +248,7 @@ export interface JWK {
    * The _n_ RSA public modulus parameter.
    */
   n: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -303,7 +301,7 @@ export interface LegalEntityDetail {
    */
   registrationNumber?: string | null;
   status: "ACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -312,7 +310,7 @@ export interface Links {
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -337,13 +335,10 @@ export interface LinksPaginated {
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
-export interface Meta {
-  [k: string]: unknown;
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface MetaPaginated {
@@ -355,7 +350,7 @@ export interface MetaPaginated {
    * The total number of records in the full set.
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -371,7 +366,7 @@ export interface RegisterDataHolderAuth {
    * The type of authentication and authorisation mechanism in use.
    */
   registerUType: "SIGNED-JWT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -403,7 +398,7 @@ export interface RegisterDataHolderBrandServiceEndpoint {
    * Publicly available website or web resource URI.
    */
   websiteUri: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -432,7 +427,7 @@ export interface RegisterDataHolderBrandV2 {
    */
   logoUri: string;
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the mechanism used and associated endpoints for Data Holder to Data Recipient authentication.
@@ -446,7 +441,7 @@ export interface RegisterDataHolderAuth {
    * The type of authentication and authorisation mechanism in use.
    */
   registerUType: "SIGNED-JWT";
-  [k: string]: unknown;
+  
 }
 /**
  * Endpoints related to Data Holder Brand services.
@@ -476,7 +471,7 @@ export interface RegisterDataHolderBrandServiceEndpoint {
    * Publicly available website or web resource URI.
    */
   websiteUri: string;
-  [k: string]: unknown;
+  
 }
 /**
  * The data that is common to all organisations, regardless of the type (e.g., company, trust, partnership, government).
@@ -527,7 +522,7 @@ export interface LegalEntityDetail {
    */
   registrationNumber?: string | null;
   status: "ACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -561,7 +556,7 @@ export interface RegisterDataRecipient {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  [k: string]: unknown;
+  
 }
 /**
  * Metadata related to Data Recipient Brand.
@@ -584,7 +579,7 @@ export interface DataRecipientBrandMetaData {
    * Data Recipient Brand status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /**
  * Data Recipient Brand Software Products.
@@ -610,7 +605,7 @@ export interface SoftwareProductMetaData {
    * Software Product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -621,7 +616,7 @@ export interface ResponseDataHoldersBrandSummaryList {
   data: DataHolderBrandSummaryV2[];
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface DataHolderBrandSummaryV2 {
   /**
@@ -664,18 +659,16 @@ export interface DataHolderBrandSummaryV2 {
    * Base URI for the Data Holder's Consumer Data Standard public endpoints.
    */
   publicBaseUri: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface ResponseErrorListV2 {
@@ -683,7 +676,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -702,13 +695,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -720,7 +713,7 @@ export interface ResponseJWKS {
    * The value of the _keys_ parameter is an array of JWK values.
    */
   keys: JWK[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object representing a JSON Web Key.
@@ -750,7 +743,7 @@ export interface JWK {
    * The _n_ RSA public modulus parameter.
    */
   n: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -810,7 +803,7 @@ export interface ResponseOpenIDProviderConfigMetadata {
    * JSON array containing a list of the JWS signing algorithms (_alg_ values) supported by the token endpoint for the signature on the JWT **[[JWT]](#nref-JWT)** used to authenticate the client at the token endpoint for the `private_key_jwt` authentication method.
    */
   token_endpoint_auth_signing_alg_values_supported: string[];
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -824,7 +817,7 @@ export interface ResponseRegisterDataHolderBrandListV2 {
   data: RegisterDataHolderBrandV2[];
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface RegisterDataHolderBrandV2 {
   authDetails: RegisterDataHolderAuth[];
@@ -851,7 +844,7 @@ export interface RegisterDataHolderBrandV2 {
    */
   logoUri: string;
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the mechanism used and associated endpoints for Data Holder to Data Recipient authentication.
@@ -865,7 +858,7 @@ export interface RegisterDataHolderAuth {
    * The type of authentication and authorisation mechanism in use.
    */
   registerUType: "SIGNED-JWT";
-  [k: string]: unknown;
+  
 }
 /**
  * Endpoints related to Data Holder Brand services.
@@ -895,7 +888,7 @@ export interface RegisterDataHolderBrandServiceEndpoint {
    * Publicly available website or web resource URI.
    */
   websiteUri: string;
-  [k: string]: unknown;
+  
 }
 /**
  * The data that is common to all organisations, regardless of the type (e.g., company, trust, partnership, government).
@@ -946,7 +939,7 @@ export interface LegalEntityDetail {
    */
   registrationNumber?: string | null;
   status: "ACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -969,7 +962,7 @@ export interface LinksPaginated {
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -980,7 +973,7 @@ export interface MetaPaginated {
    * The total number of records in the full set.
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -994,7 +987,7 @@ export interface ResponseRegisterDataRecipientList {
   data: RegisterDataRecipient[];
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface RegisterDataRecipient {
   /**
@@ -1026,7 +1019,7 @@ export interface RegisterDataRecipient {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  [k: string]: unknown;
+  
 }
 /**
  * Metadata related to Data Recipient Brand.
@@ -1049,7 +1042,7 @@ export interface DataRecipientBrandMetaData {
    * Data Recipient Brand status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /**
  * Data Recipient Brand Software Products.
@@ -1075,17 +1068,14 @@ export interface SoftwareProductMetaData {
    * Software Product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1113,7 +1103,7 @@ export interface SoftwareProductMetaData {
    * Software Product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1124,7 +1114,7 @@ export interface SoftwareProductsStatusList {
   data: SoftwareProductStatus[];
   links: Links;
   meta: Meta;
-  [k: string]: unknown;
+  
 }
 export interface SoftwareProductStatus {
   /**
@@ -1135,17 +1125,14 @@ export interface SoftwareProductStatus {
    * Software product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1158,5 +1145,5 @@ export interface SoftwareProductStatus {
    * Software product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  [k: string]: unknown;
+  
 }
