@@ -9932,31 +9932,6 @@ export interface Links {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
-
 export interface Meta {
   [k: string]: unknown;  
 }
@@ -9983,6 +9958,8 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
+
+  [k: string]: unknown;  
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -9995,17 +9972,6 @@ export type MetaPaginatedTransaction = MetaPaginated & {
   
 };
 
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 /**
@@ -12534,19 +12500,11 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
+
+  [k: string]: unknown;    
   
 }
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingAccountListV3 {
@@ -12619,40 +12577,6 @@ export interface BankingAccountV3 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -12768,40 +12692,6 @@ export interface BankingBalancePurse {
   currency?: string | null;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingDirectDebitAuthorisationList {
@@ -12853,40 +12743,6 @@ export interface BankingAuthorisedEntity {
    * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.
    */
   financialInstitution?: string | null;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -12975,40 +12831,6 @@ export interface BankingInstalmentPlanSchedule {
    * Whether the associated _amountDue_ has been paid or is otherwise considered as not outstanding. `false` is assumed if absent.
    */
   isPaid?: boolean | null;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -13239,40 +13061,6 @@ export interface BankingPayeeV2 {
    * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul>
    */
   type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -16059,40 +15847,6 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
   description?: string | null;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingProductListV3 {
@@ -16245,40 +15999,6 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -16434,40 +16154,6 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -16809,40 +16495,6 @@ export interface BankingScheduledPaymentRecurrenceOnceOff {
    * The scheduled date for the once off payment.
    */
   paymentDate: string;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -17366,40 +17018,6 @@ export interface BankingTransaction {
   valueDateTime?: string | null;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingTransactionListV2 {
@@ -17502,40 +17120,6 @@ export interface BankingTransactionV2 {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */

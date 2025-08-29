@@ -3527,40 +3527,7 @@ export interface EnergyAccountBaseV2 {
   openStatus?: ("CLOSED" | "OPEN") | null;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export type EnergyAccountV2 = EnergyAccountBaseV2 & {
@@ -3667,17 +3634,8 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
+
+  [k: string]: unknown;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -4186,40 +4144,6 @@ export interface EnergyBillingUsageTransactionV2 {
   usage: number;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyBillingListResponseV3 {
@@ -4535,40 +4459,6 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5847,40 +5737,6 @@ export interface EnergyDerRecord {
   servicePointId: string;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyDerRecord {
@@ -6546,40 +6402,6 @@ export interface EnergyInvoiceGasUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -10914,40 +10736,6 @@ export interface EnergyPlan {
   type: "STANDING" | "MARKET" | "REGULATED";
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
@@ -14250,40 +14038,6 @@ export interface EnergyServicePoint {
   validFromDate: string;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyServicePointListResponseV2 {
@@ -14351,40 +14105,6 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -14552,40 +14272,6 @@ export interface EnergyUsageRead {
   unitOfMeasure?: string | null;
   
 }
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
-  
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyUsageRead {
@@ -14709,31 +14395,6 @@ export interface ErrorV2 {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface Links {
-  /**
-   * Fully qualified link that generated the current response document.
-   */
-  self: string;
-  
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
   /**
    * Fully qualified link that generated the current response document.
    */
