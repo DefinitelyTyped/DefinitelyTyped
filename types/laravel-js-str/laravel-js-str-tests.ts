@@ -52,7 +52,7 @@ Str.of("Str Of").toString(); // $ExpectType string
 Str.of("Str Of").after("Str"); // $ExpectType Stringable
 Str.of("Str Of").afterLast("Of"); // $ExpectType Stringable
 Str.of("Str Of").append("Test"); // $ExpectType Stringable
-Str.of("Str Of").ascii('en'); // $ExpectType Stringable
+Str.of("Str Of").ascii("en"); // $ExpectType Stringable
 Str.of("Str Of").before("Of"); // $ExpectType Stringable
 Str.of("Str Of").beforeLast("Str"); // $ExpectType Stringable
 Str.of("Str Of").between("Str", "Of"); // $ExpectType Stringable
@@ -60,7 +60,7 @@ Str.of("Str Of").camel(); // $ExpectType Stringable
 Str.of("Str Of").contains("Of"); // $ExpectType boolean
 Str.of("Str Of").containsAll(["Str", "Of"]); // $ExpectType boolean
 Str.of("Str Of").endsWith("Of"); // $ExpectType boolean
-Str.of("Str Of").finish('You See'); // $ExpectType Stringable
+Str.of("Str Of").finish("You See"); // $ExpectType Stringable
 Str.of("Str Of").exactly("Str Of"); // $ExpectType boolean
 Str.of("Str Of").explode(" "); // $ExpectType string[]
 Str.of("Str Of").isUuid(); // $ExpectType boolean
@@ -79,7 +79,7 @@ Str.of("Str Of").remove("Of"); // $ExpectType Stringable
 Str.of("Str Of").remove(new RegExp("Of")); // $ExpectType Stringable
 Str.of("Str Of").reverse(); // $ExpectType Stringable
 Str.of("Str Of").singular(); // $ExpectType Stringable
-Str.of("Str Of").slug(',', 'en'); // $ExpectType Stringable
+Str.of("Str Of").slug(",", "en"); // $ExpectType Stringable
 Str.of("Str Of").snake(); // $ExpectType Stringable
 Str.of("Str Of").squish(); // $ExpectType Stringable
 Str.of("Str Of").start("Hello "); // $ExpectType Stringable
