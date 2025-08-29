@@ -16,7 +16,7 @@ export interface AuthorisationMetricsV2 {
      * Number of consents flows that were not successfully authorised for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Customer abandonment count per stage of the consent flow. Note that the aggregated abandonment count for all stages for a period should equal the count in _abandonedConsentFlowCount_ for the same period (i.e. each abandoned consent should assigned to one, and only one, stage).
@@ -34,7 +34,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer successfully authenticated with a valid OTP or equivalent but abandoned the process before selecting accounts.
@@ -48,7 +48,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer identified themselves (i.e. they successfully identify the customer profile to use for the authorisation) but failed to provide a valid OTP or equivalent.
@@ -62,7 +62,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer has passed the account selection step but abandoned the process before approving or rejecting the consent being requested.
@@ -76,7 +76,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations that commenced with the data holder but the customer did not successfully identify their profile or user ID.
@@ -90,7 +90,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer actively rejected the authorisation rather than abandoning the process.
@@ -104,9 +104,9 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   /**
    * The number of active ongoing authorisations.
@@ -120,7 +120,7 @@ export interface AuthorisationMetricsV2 {
      * Active ongoing authorisation count for non-individual customers.
      */
     nonIndividual: number;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of amended ongoing authorisations.
@@ -138,7 +138,7 @@ export interface AuthorisationMetricsV2 {
        * Amended authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of amended authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -153,10 +153,10 @@ export interface AuthorisationMetricsV2 {
            * Amended authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of expired ongoing authorisations.
@@ -174,7 +174,7 @@ export interface AuthorisationMetricsV2 {
        * Expired authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of expired authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -189,10 +189,10 @@ export interface AuthorisationMetricsV2 {
            * Expired authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of new authorisations.
@@ -214,7 +214,7 @@ export interface AuthorisationMetricsV2 {
          * New authorisation count for non-individual customers.
          */
         nonIndividual: number;
-        [k: string]: unknown;
+        
       };
       /**
        * New authorisation count for ongoing authorisations.
@@ -228,9 +228,9 @@ export interface AuthorisationMetricsV2 {
          * New authorisation count for non-individual customers.
          */
         nonIndividual: number;
-        [k: string]: unknown;
+        
       };
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of new authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -249,7 +249,7 @@ export interface AuthorisationMetricsV2 {
              * New authorisation count for non-individual customers.
              */
             nonIndividual: number;
-            [k: string]: unknown;
+            
           };
           /**
            * New authorisation count for ongoing authorisations.
@@ -263,12 +263,12 @@ export interface AuthorisationMetricsV2 {
              * New authorisation count for non-individual customers.
              */
             nonIndividual: number;
-            [k: string]: unknown;
+            
           };
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of revoked authorisations.
@@ -286,7 +286,7 @@ export interface AuthorisationMetricsV2 {
        * Revoked authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of revoked authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -301,12 +301,12 @@ export interface AuthorisationMetricsV2 {
            * Revoked authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -326,7 +326,7 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Availability metrics for the authenticated aspects of the CDR regime.
@@ -340,7 +340,7 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Availability metrics for the unauthenticated aspects of the CDR regime.
@@ -354,9 +354,9 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -376,7 +376,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the large payload tier.
@@ -390,7 +390,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the large payload tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -408,7 +408,7 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Average response time as measured for the secondary data holder.
@@ -422,9 +422,9 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Average response time for the low priority tier.
@@ -438,7 +438,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the secondary tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -456,7 +456,7 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Average response time as measured for the secondary data holder.
@@ -470,9 +470,9 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Average response time for the unattended tier.
@@ -486,7 +486,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the unauthenticated tier.
@@ -500,9 +500,9 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -522,7 +522,7 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average transactions per second, over time, for authenticated endpoints.
@@ -536,7 +536,7 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average transactions per second, over time, for unauthenticated endpoints.
@@ -550,9 +550,9 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -572,7 +572,7 @@ export interface ErrorMetricsV2 {
      * Error counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Number of calls resulting in error for authenticated endpoints.
@@ -581,32 +581,35 @@ export interface ErrorMetricsV2 {
     /**
      * Error counts, by HTTP error code, for current day.
      */
-    currentDay?: {
-      /**
-       * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-       */
-      "500"?: number | null;
-      /**
-       * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 401, 403, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-       */
-      [k: string]: number;
-    } | null;
-    /**
-     * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
-     */
-    previousDays?:
-      | {
-          /**
-           * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-           */
-          "500"?: number;
-          /**
-           * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 401, 403, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-           */
-          [k: string]: number;
-        }[]
-      | null;
-    [k: string]: unknown;
+        /**
+         * Error counts, by HTTP error code, for current day
+         */
+        currentDay?: {
+            /**
+             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support for the JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+             */
+            "500"?: number | null;
+            /**
+             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+             */
+            [k: string]: unknown;
+        } | null;
+        /**
+         * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
+         */
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
+    
   };
   /**
    * Number of calls resulting in error for unauthenticated endpoints.
@@ -615,34 +618,34 @@ export interface ErrorMetricsV2 {
     /**
      * Error counts, by HTTP error code, for current day.
      */
-    currentDay?: {
-      /**
-       * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-       */
-      "500"?: number | null;
-      /**
-       * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-       */
-      [k: string]: number;
-    } | null;
-    /**
-     * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
-     */
-    previousDays?:
-      | {
-          /**
-           * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-           */
-          "500"?: number;
-          /**
-           * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-           */
-          [k: string]: number;
-        }[]
-      | null;
-    [k: string]: unknown;
+        currentDay?: {
+            /**
+             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support for the JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+             */
+            "500"?: number | null;
+            /**
+             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+             */
+            [k: string]: unknown;
+        } | null;
+        /**
+         * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
+         */
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -663,13 +666,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -689,7 +692,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the large payload tier.
@@ -703,7 +706,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the large Shared Responsibility Data Requests tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -717,7 +720,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * API call counts for the low priority tier.
@@ -731,7 +734,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the Shared Responsibility Data Requests tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -745,7 +748,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * API call counts for the unattended tier.
@@ -759,7 +762,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the unauthenticated tier.
@@ -773,9 +776,9 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -784,12 +787,7 @@ export interface Links {
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -809,7 +807,7 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Peak transactions per second, over time, for authenticated endpoints.
@@ -823,7 +821,7 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Peak transactions per second, over time, for unauthenticated endpoints.
@@ -837,9 +835,9 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -870,7 +868,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of high priority calls within the performance thresholds.
@@ -884,7 +882,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of large payload calls within the performance thresholds.
@@ -898,7 +896,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of large Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -916,7 +914,7 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder.
@@ -930,9 +928,9 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of low priority calls within the performance thresholds.
@@ -946,7 +944,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -964,7 +962,7 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Percentage of Shared Responsibility calls within the performance thresholds for the secondary data holder.
@@ -978,9 +976,9 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of unattended calls within the performance thresholds.
@@ -994,7 +992,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of unauthenticated calls within the performance thresholds.
@@ -1008,18 +1006,11 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
-/**
- * Array of contiguous hourly metrics for the specified day. Each element represents a 1 hour period starting from 12am-1am. Timezone for determining 12am must be consistent but is at the discretion of the Data Holder.
- */
-export type PerformancePreviousDays = string[];
-/* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
 /**
  * Number of calls rejected due to traffic thresholds, over time.
  */
@@ -1036,7 +1027,7 @@ export interface RejectionMetricsV3 {
      * Number of calls rejected for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Rejection counts for all unauthenticated endpoints.
@@ -1050,9 +1041,9 @@ export interface RejectionMetricsV3 {
      * Number of calls rejected for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -1062,13 +1053,13 @@ export interface RequestMetaDataUpdateV1 {
      * The action to take for the meta data. At the moment the only option is `REFRESH` which requires the data holder to call the ACCC to refresh meta data as soon as practicable.
      */
     action: "REFRESH";
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface Meta {
-  [k: string]: unknown;
+  [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -1077,7 +1068,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -1096,20 +1087,15 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
-/**
- * Array of contiguous hourly metrics for the specified day. Each element represents a 1 hour period starting from 12am-1am. Timezone for determining 12am must be consistent but is at the discretion of the Data Holder.
- */
-export type PerformancePreviousDays = string[];
 
 export interface ResponseMetricsListV5 {
   data: {
@@ -1136,11 +1122,11 @@ export interface ResponseMetricsListV5 {
     requestTime: string;
     secondaryHolder?: SecondaryHolderMetricsV2;
     sessionCount: SessionCountMetricsV2;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 /**
  * Authorisation counts for the data holder.
@@ -1158,7 +1144,7 @@ export interface AuthorisationMetricsV2 {
      * Number of consents flows that were not successfully authorised for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Customer abandonment count per stage of the consent flow. Note that the aggregated abandonment count for all stages for a period should equal the count in _abandonedConsentFlowCount_ for the same period (i.e. each abandoned consent should assigned to one, and only one, stage).
@@ -1176,7 +1162,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer successfully authenticated with a valid OTP or equivalent but abandoned the process before selecting accounts.
@@ -1190,7 +1176,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer identified themselves (i.e. they successfully identify the customer profile to use for the authorisation) but failed to provide a valid OTP or equivalent.
@@ -1204,7 +1190,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer has passed the account selection step but abandoned the process before approving or rejecting the consent being requested.
@@ -1218,7 +1204,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations that commenced with the data holder but the customer did not successfully identify their profile or user ID.
@@ -1232,7 +1218,7 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * The number of authorisations where the customer actively rejected the authorisation rather than abandoning the process.
@@ -1246,9 +1232,9 @@ export interface AuthorisationMetricsV2 {
        * Number of abandoned consent flows for this stage for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   /**
    * The number of active ongoing authorisations.
@@ -1262,7 +1248,7 @@ export interface AuthorisationMetricsV2 {
      * Active ongoing authorisation count for non-individual customers.
      */
     nonIndividual: number;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of amended ongoing authorisations.
@@ -1280,7 +1266,7 @@ export interface AuthorisationMetricsV2 {
        * Amended authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of amended authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -1295,10 +1281,10 @@ export interface AuthorisationMetricsV2 {
            * Amended authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of expired ongoing authorisations.
@@ -1316,7 +1302,7 @@ export interface AuthorisationMetricsV2 {
        * Expired authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of expired authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -1331,10 +1317,10 @@ export interface AuthorisationMetricsV2 {
            * Expired authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of new authorisations.
@@ -1356,7 +1342,7 @@ export interface AuthorisationMetricsV2 {
          * New authorisation count for non-individual customers.
          */
         nonIndividual: number;
-        [k: string]: unknown;
+        
       };
       /**
        * New authorisation count for ongoing authorisations.
@@ -1370,9 +1356,9 @@ export interface AuthorisationMetricsV2 {
          * New authorisation count for non-individual customers.
          */
         nonIndividual: number;
-        [k: string]: unknown;
+        
       };
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of new authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -1391,7 +1377,7 @@ export interface AuthorisationMetricsV2 {
              * New authorisation count for non-individual customers.
              */
             nonIndividual: number;
-            [k: string]: unknown;
+            
           };
           /**
            * New authorisation count for ongoing authorisations.
@@ -1405,12 +1391,12 @@ export interface AuthorisationMetricsV2 {
              * New authorisation count for non-individual customers.
              */
             nonIndividual: number;
-            [k: string]: unknown;
+            
           };
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
   /**
    * The number of revoked authorisations.
@@ -1428,7 +1414,7 @@ export interface AuthorisationMetricsV2 {
        * Revoked authorisation count for non-individual customers.
        */
       nonIndividual: number;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Number of revoked authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
@@ -1443,12 +1429,12 @@ export interface AuthorisationMetricsV2 {
            * Revoked authorisation count for non-individual customers.
            */
           nonIndividual: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Availability metrics.
@@ -1466,7 +1452,7 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Availability metrics for the authenticated aspects of the CDR regime.
@@ -1480,7 +1466,7 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Availability metrics for the unauthenticated aspects of the CDR regime.
@@ -1494,9 +1480,9 @@ export interface AvailabilityMetricsV2 {
      * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousMonths?: string[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Average response time in seconds, at millisecond resolution, within each performance tier.
@@ -1514,7 +1500,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the large payload tier.
@@ -1528,7 +1514,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the large payload tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -1546,7 +1532,7 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Average response time as measured for the secondary data holder.
@@ -1560,9 +1546,9 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Average response time for the low priority tier.
@@ -1576,7 +1562,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the secondary tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -1594,7 +1580,7 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Average response time as measured for the secondary data holder.
@@ -1608,9 +1594,9 @@ export interface AverageResponseMetricsV2 {
        * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
        */
       previousDays?: number[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Average response time for the unattended tier.
@@ -1624,7 +1610,7 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average response time for the unauthenticated tier.
@@ -1638,9 +1624,9 @@ export interface AverageResponseMetricsV2 {
      * Average response time for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Average transactions per second, over time.
@@ -1658,7 +1644,7 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average transactions per second, over time, for authenticated endpoints.
@@ -1672,7 +1658,7 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Average transactions per second, over time, for unauthenticated endpoints.
@@ -1686,9 +1672,9 @@ export interface AverageTPSMetricsV2 {
      * Average TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Number of calls resulting in error, over time.
@@ -1706,7 +1692,7 @@ export interface ErrorMetricsV2 {
      * Error counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Number of calls resulting in error for authenticated endpoints.
@@ -1715,32 +1701,32 @@ export interface ErrorMetricsV2 {
     /**
      * Error counts, by HTTP error code, for current day.
      */
-    currentDay?: {
-      /**
-       * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-       */
-      "500"?: number | null;
-      /**
-       * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 401, 403, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-       */
-      [k: string]: number;
-    } | null;
-    /**
-     * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
-     */
-    previousDays?:
-      | {
-          /**
-           * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-           */
-          "500"?: number;
-          /**
-           * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 401, 403, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-           */
-          [k: string]: number;
-        }[]
-      | null;
-    [k: string]: unknown;
+        currentDay?: {
+            /**
+             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support for the JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+             */
+            "500"?: number | null;
+            /**
+             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+             */
+            [k: string]: unknown;
+        } | null;
+        /**
+         * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
+         */
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
+    
   };
   /**
    * Number of calls resulting in error for unauthenticated endpoints.
@@ -1749,34 +1735,33 @@ export interface ErrorMetricsV2 {
     /**
      * Error counts, by HTTP error code, for current day.
      */
-    currentDay?: {
-      /**
-       * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-       */
-      "500"?: number | null;
-      /**
-       * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-       */
-      [k: string]: number;
-    } | null;
-    /**
-     * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
-     */
-    previousDays?:
-      | {
-          /**
-           * Reflecting the description provided in the adjacent _additionalProperties_ field, this is an example demonstrating the structure for reporting the number of calls resulting in HTTP error code `500`. Each error code recorded by the Data Holder in the 4xx and 5xx range **MUST** be provided in this format against the respective property name.
-           */
-          "500"?: number;
-          /**
-           * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
-           */
-          [k: string]: number;
-        }[]
-      | null;
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
+        currentDay?: {
+            /**
+             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support for the JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+             */
+            "500"?: number | null;
+            /**
+             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+             */
+            [k: string]: unknown;
+        } | null;
+        /**
+         * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
+         */
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
+    
+  };  
 }
 /**
  * Number of API calls in each performance tier, over time.
@@ -1794,7 +1779,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the large payload tier.
@@ -1808,7 +1793,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the large Shared Responsibility Data Requests tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -1822,7 +1807,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * API call counts for the low priority tier.
@@ -1836,7 +1821,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the Shared Responsibility Data Requests tier. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -1850,7 +1835,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * API call counts for the unattended tier.
@@ -1864,7 +1849,7 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * API call counts for the unauthenticated tier.
@@ -1878,9 +1863,9 @@ export interface InvocationMetricsV3 {
      * API call counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Peak transactions per second, over time.
@@ -1898,7 +1883,7 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Peak transactions per second, over time, for authenticated endpoints.
@@ -1912,7 +1897,7 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Peak transactions per second, over time, for unauthenticated endpoints.
@@ -1926,9 +1911,9 @@ export interface PeakTPSMetricsV2 {
      * Peak TPS for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. Values must be a positive or zero.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Percentage of calls within the performance thresholds in each performance tier, over time.
@@ -1946,7 +1931,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of high priority calls within the performance thresholds.
@@ -1960,7 +1945,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of large payload calls within the performance thresholds.
@@ -1974,7 +1959,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of large Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -1992,7 +1977,7 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder.
@@ -2006,9 +1991,9 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of low priority calls within the performance thresholds.
@@ -2022,7 +2007,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -2040,7 +2025,7 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
     /**
      * Percentage of Shared Responsibility calls within the performance thresholds for the secondary data holder.
@@ -2054,9 +2039,9 @@ export interface PerformanceMetricsV3 {
        * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
        */
       previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Percentage of unattended calls within the performance thresholds.
@@ -2070,7 +2055,7 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Percentage of unauthenticated calls within the performance thresholds.
@@ -2084,9 +2069,9 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. `0.0` means 0%. `1.0` means 100%. Values must be a positive or zero.
      */
     previousDays?: PerformancePreviousDays[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Number of calls rejected due to traffic thresholds, over time.
@@ -2104,7 +2089,7 @@ export interface RejectionMetricsV3 {
      * Number of calls rejected for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Rejection counts for all unauthenticated endpoints.
@@ -2118,9 +2103,9 @@ export interface RejectionMetricsV3 {
      * Number of calls rejected for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Errors and rejections received by the primary data holder from the secondary data holder. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster.
@@ -2138,7 +2123,7 @@ export interface SecondaryHolderMetricsV2 {
      * Number of errors for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Number of calls rejected due to traffic thresholds, over time.
@@ -2152,9 +2137,9 @@ export interface SecondaryHolderMetricsV2 {
      * Number of rejections for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Session counts, over time. Note that a session is defined as the provisioning of an Access Token.
@@ -2168,17 +2153,14 @@ export interface SessionCountMetricsV2 {
    * Session count for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
    */
   previousDays?: number[] | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link to this API call.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -2198,7 +2180,7 @@ export interface SecondaryHolderMetricsV2 {
      * Number of errors for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
   /**
    * Number of calls rejected due to traffic thresholds, over time.
@@ -2212,9 +2194,9 @@ export interface SecondaryHolderMetricsV2 {
      * Number of rejections for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
      */
     previousDays?: number[] | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
@@ -2230,5 +2212,5 @@ export interface SessionCountMetricsV2 {
    * Session count for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available.
    */
   previousDays?: number[] | null;
-  [k: string]: unknown;
+  
 }
