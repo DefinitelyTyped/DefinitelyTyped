@@ -92,7 +92,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -103,7 +103,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -197,7 +197,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -235,7 +235,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -275,7 +275,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -300,7 +300,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -352,9 +352,9 @@ export type EnergyPlanControlledLoad = {
        * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   /**
    * Optional start date of the application of the controlled load rate
@@ -392,7 +392,7 @@ export type EnergyPlanControlledLoad = {
        * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
     /**
      * Array of times of use.
@@ -418,15 +418,15 @@ export type EnergyPlanControlledLoad = {
        * The beginning of the time period per day for which the controlled load rate applies. Required if endTime provided
        */
       startTime?: string;
-      [k: string]: unknown;
+      
     }[];
     /**
      * The type of usage that the rate applies to
      */
     type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 }[];
 /**
  * Array of feed in tariffs for solar power
@@ -472,9 +472,9 @@ export type EnergyPlanSolarFeedInTariffV2 = {
        * Volume that this rate applies to. Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   /**
    * The start date of the application of the feed in tariff
@@ -504,7 +504,7 @@ export type EnergyPlanSolarFeedInTariffV2 = {
        * Volume that this rate applies to. Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
     /**
      * Array of time periods for which this tariff is applicable
@@ -522,15 +522,15 @@ export type EnergyPlanSolarFeedInTariffV2 = {
        * The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight)
        */
       startTime?: string;
-      [k: string]: unknown;
+      
     }[];
     /**
      * The type of the charging time period. If absent applies to all periods
      */
     type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }[];
 /**
  * Array of tariff periods
@@ -588,7 +588,7 @@ export type EnergyPlanTariffPeriod = {
      * Start of the period
      */
     startTime: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The name of the tariff period
@@ -638,9 +638,9 @@ export type EnergyPlanTariffPeriod = {
        * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   /**
    * The start date of the tariff period in a calendar year.  Formatted in mm-dd format
@@ -674,7 +674,7 @@ export type EnergyPlanTariffPeriod = {
        * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
     /**
      * Array of times of use
@@ -692,13 +692,13 @@ export type EnergyPlanTariffPeriod = {
        * Start of the period
        */
       startTime: string;
-      [k: string]: unknown;
+      
     }[];
     /**
      * The type of usage that the rate applies to
      */
     type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-    [k: string]: unknown;
+    
   }[];
   /**
    * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
@@ -708,7 +708,7 @@ export type EnergyPlanTariffPeriod = {
    * Type of charge. Assumed to be other if absent
    */
   type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-  [k: string]: unknown;
+  
 }[];
 
 export interface EnergyAccountDetailResponseV3 {
@@ -741,7 +741,7 @@ export interface EnergyAccountDetailResponseV3 {
          * The end date of the applicability of this plan
          */
         endDate?: string;
-        [k: string]: unknown;
+        
       };
       /**
        * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
@@ -779,11 +779,11 @@ export interface EnergyAccountDetailResponseV3 {
            * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
            */
           period?: string;
-          [k: string]: unknown;
+          
         }[];
         gasContract?: EnergyPlanContractV2;
         electricityContract?: EnergyPlanContractV21;
-        [k: string]: unknown;
+        
       };
       /**
        * An array of additional contacts that are authorised to act on this account
@@ -809,15 +809,15 @@ export interface EnergyAccountDetailResponseV3 {
          * Used for a trailing suffix to the name (e.g. Jr)
          */
         suffix?: string;
-        [k: string]: unknown;
+        
       }[];
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyAccountBaseV2 {
   /**
@@ -840,7 +840,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 /**
  * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
@@ -864,7 +864,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -899,7 +899,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -926,7 +926,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -940,7 +940,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -950,7 +950,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -964,13 +964,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -1006,7 +1006,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -1058,7 +1058,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -1089,7 +1089,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -1101,7 +1101,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -1120,7 +1120,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
@@ -1144,7 +1144,7 @@ export interface EnergyPlanContractV21 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -1179,17 +1179,17 @@ export interface EnergyPlanContractV21 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface Meta {
-  [k: string]: unknown;
+    [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -1223,7 +1223,7 @@ export interface EnergyAccountDetailResponseV4 {
          * The end date of the applicability of this plan.
          */
         endDate?: string;
-        [k: string]: unknown;
+        
       };
       /**
        * Detail on the plan applicable to this account. Mandatory if _openStatus_ is `OPEN`.
@@ -1261,7 +1261,7 @@ export interface EnergyAccountDetailResponseV4 {
            * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
            */
           period?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `GAS` or `DUAL`.
@@ -1271,7 +1271,7 @@ export interface EnergyAccountDetailResponseV4 {
          * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `ELECTRICITY` or `DUAL`.
          */
         electricityContract?: EnergyPlanContractV3;
-        [k: string]: unknown;
+        
       };
       /**
        * An array of additional contacts that are authorised to act on this account.
@@ -1297,15 +1297,15 @@ export interface EnergyAccountDetailResponseV4 {
          * Used for a trailing suffix to the name (e.g., Jr.)
          */
         suffix?: string;
-        [k: string]: unknown;
+        
       }[];
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyAccountBaseV2 {
   /**
@@ -1328,7 +1328,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV3 {
   /**
@@ -1367,7 +1367,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -1408,7 +1408,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -1459,9 +1459,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -1504,7 +1504,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -1530,16 +1530,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -1566,7 +1566,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -1580,7 +1580,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -1590,7 +1590,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -1604,13 +1604,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -1646,7 +1646,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -1698,7 +1698,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -1729,7 +1729,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -1741,7 +1741,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -1760,7 +1760,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -1807,9 +1807,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -1848,7 +1848,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -1866,16 +1866,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -1895,7 +1895,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -1955,7 +1955,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -2006,9 +2006,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -2047,7 +2047,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -2065,13 +2065,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -2082,17 +2082,14 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -2125,7 +2122,7 @@ export type EnergyAccountDetailV3 = EnergyAccountBaseV2 & {
        * The end date of the applicability of this plan
        */
       endDate?: string;
-      [k: string]: unknown;
+      
     };
     /**
      * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
@@ -2163,11 +2160,11 @@ export type EnergyAccountDetailV3 = EnergyAccountBaseV2 & {
          * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
          */
         period?: string;
-        [k: string]: unknown;
+        
       }[];
       gasContract?: EnergyPlanContractV2;
       electricityContract?: EnergyPlanContractV21;
-      [k: string]: unknown;
+      
     };
     /**
      * An array of additional contacts that are authorised to act on this account
@@ -2193,11 +2190,11 @@ export type EnergyAccountDetailV3 = EnergyAccountBaseV2 & {
        * Used for a trailing suffix to the name (e.g. Jr)
        */
       suffix?: string;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 };
 /**
  * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
@@ -2223,7 +2220,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 /**
  * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
@@ -2247,7 +2244,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -2282,7 +2279,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -2309,7 +2306,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -2323,7 +2320,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -2333,7 +2330,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -2347,13 +2344,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -2389,7 +2386,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -2441,7 +2438,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -2472,7 +2469,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -2484,7 +2481,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -2503,7 +2500,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
@@ -2527,7 +2524,7 @@ export interface EnergyPlanContractV21 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -2562,7 +2559,7 @@ export interface EnergyPlanContractV21 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -2595,7 +2592,7 @@ export type EnergyAccountDetailV4 = EnergyAccountBaseV2 & {
        * The end date of the applicability of this plan.
        */
       endDate?: string;
-      [k: string]: unknown;
+      
     };
     /**
      * Detail on the plan applicable to this account. Mandatory if _openStatus_ is `OPEN`.
@@ -2633,7 +2630,7 @@ export type EnergyAccountDetailV4 = EnergyAccountBaseV2 & {
          * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
          */
         period?: string;
-        [k: string]: unknown;
+        
       }[];
       /**
        * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `GAS` or `DUAL`.
@@ -2643,7 +2640,7 @@ export type EnergyAccountDetailV4 = EnergyAccountBaseV2 & {
        * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `ELECTRICITY` or `DUAL`.
        */
       electricityContract?: EnergyPlanContractV3;
-      [k: string]: unknown;
+      
     };
     /**
      * An array of additional contacts that are authorised to act on this account.
@@ -2669,11 +2666,11 @@ export type EnergyAccountDetailV4 = EnergyAccountBaseV2 & {
        * Used for a trailing suffix to the name (e.g., Jr.)
        */
       suffix?: string;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 };
 
 export interface EnergyAccountBaseV2 {
@@ -2697,7 +2694,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV3 {
   /**
@@ -2736,7 +2733,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -2777,7 +2774,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -2828,9 +2825,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -2873,7 +2870,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -2899,16 +2896,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -2935,7 +2932,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -2949,7 +2946,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -2959,7 +2956,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -2973,13 +2970,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -3015,7 +3012,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -3067,7 +3064,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -3098,7 +3095,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -3110,7 +3107,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -3129,7 +3126,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -3176,9 +3173,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -3217,7 +3214,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -3235,16 +3232,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -3264,7 +3261,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3324,7 +3321,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3375,9 +3372,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -3416,7 +3413,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -3434,13 +3431,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3451,7 +3448,7 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3495,17 +3492,17 @@ export interface EnergyAccountListResponseV2 {
            * The end date of the applicability of this plan.
            */
           endDate?: string;
-          [k: string]: unknown;
+          
         };
-        [k: string]: unknown;
+        
       }[];
-      [k: string]: unknown;
+      
     })[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyAccountBaseV2 {
   /**
@@ -3528,7 +3525,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -3551,7 +3548,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -3562,7 +3559,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3595,11 +3592,11 @@ export type EnergyAccountV2 = EnergyAccountBaseV2 & {
        * The end date of the applicability of this plan.
        */
       endDate?: string;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 };
 
 export interface EnergyAccountBaseV2 {
@@ -3623,7 +3620,7 @@ export interface EnergyAccountBaseV2 {
    * Open or closed status for the account. If not present then `OPEN` is assumed.
    */
   openStatus?: ("CLOSED" | "OPEN") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3641,13 +3638,13 @@ export interface EnergyBalanceListResponse {
        * The current balance of the account. A positive value indicates that amount is owing to be paid. A negative value indicates that the account is in credit.
        */
       balance: string;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -3670,7 +3667,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -3681,7 +3678,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3691,21 +3688,18 @@ export interface EnergyBalanceResponse {
      * The current balance of the account. A positive value indicates that amount is owing to be paid. A negative value indicates that the account is in credit.
      */
     balance: string;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3723,7 +3717,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * A free text description of the adjustment
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3743,7 +3737,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * The value of the calculation factor
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3789,7 +3783,7 @@ export interface EnergyBillingDemandTransactionV2 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3807,7 +3801,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3827,7 +3821,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3877,7 +3871,7 @@ export interface EnergyBillingDemandTransactionV3 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -3887,11 +3881,11 @@ export interface EnergyBillingListResponseV2 {
      * Array of transactions sorted by date and time in descending order
      */
     transactions: EnergyBillingTransactionV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingTransactionV2 {
   /**
@@ -3915,7 +3909,7 @@ export interface EnergyBillingTransactionV2 {
    */
   transactionUType: "usage" | "demand" | "onceOff" | "otherCharges" | "payment";
   usage?: EnergyBillingUsageTransactionV2;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a demand charge or generation credit.  Mandatory if transactionUType is equal to demand
@@ -3934,7 +3928,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * A free text description of the adjustment
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3954,7 +3948,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * The value of the calculation factor
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4000,7 +3994,7 @@ export interface EnergyBillingDemandTransactionV2 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a once off charge or credit.  Mandatory if transactionUType is equal to onceOff
@@ -4022,7 +4016,7 @@ export interface EnergyBillingOnceOffTransaction {
    * Unique identifier for the service point.
    */
   servicePointId?: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents charge other than usage and once off.  Mandatory if transactionUType is equal to otherCharge
@@ -4041,7 +4035,7 @@ export interface EnergyBillingOtherTransaction {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4061,7 +4055,7 @@ export interface EnergyBillingOtherTransaction {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4088,7 +4082,7 @@ export interface EnergyBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a payment to the account.  Mandatory if transactionUType is equal to payment
@@ -4102,7 +4096,7 @@ export interface EnergyBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a usage charge or generation credit.  Mandatory if transactionUType is equal to usage
@@ -4121,7 +4115,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4141,7 +4135,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4190,7 +4184,7 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -4213,7 +4207,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -4224,7 +4218,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4234,11 +4228,11 @@ export interface EnergyBillingListResponseV3 {
      * Array of transactions sorted by date and time in descending order.
      */
     transactions: EnergyBillingTransactionV3[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingTransactionV3 {
   /**
@@ -4277,7 +4271,7 @@ export interface EnergyBillingTransactionV3 {
    * Represents a usage charge or generation credit. Mandatory if _transactionUType_ is equal to `usage`.
    */
   usage?: EnergyBillingUsageTransactionV2;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingDemandTransactionV3 {
   /**
@@ -4293,7 +4287,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4313,7 +4307,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4363,7 +4357,7 @@ export interface EnergyBillingDemandTransactionV3 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingOnceOffTransaction {
   /**
@@ -4382,7 +4376,7 @@ export interface EnergyBillingOnceOffTransaction {
    * Unique identifier for the service point.
    */
   servicePointId?: string;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingOtherTransaction {
   /**
@@ -4398,7 +4392,7 @@ export interface EnergyBillingOtherTransaction {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4418,7 +4412,7 @@ export interface EnergyBillingOtherTransaction {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4445,7 +4439,7 @@ export interface EnergyBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingPaymentTransaction {
   /**
@@ -4456,7 +4450,7 @@ export interface EnergyBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingUsageTransactionV2 {
   /**
@@ -4472,7 +4466,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4492,7 +4486,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4541,7 +4535,7 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -4564,7 +4558,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -4575,7 +4569,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4596,7 +4590,7 @@ export interface EnergyBillingOnceOffTransaction {
    * Unique identifier for the service point.
    */
   servicePointId?: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4614,7 +4608,7 @@ export interface EnergyBillingOtherTransaction {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4634,7 +4628,7 @@ export interface EnergyBillingOtherTransaction {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4661,7 +4655,7 @@ export interface EnergyBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4674,7 +4668,7 @@ export interface EnergyBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4700,7 +4694,7 @@ export interface EnergyBillingTransactionV2 {
    */
   transactionUType: "usage" | "demand" | "onceOff" | "otherCharges" | "payment";
   usage?: EnergyBillingUsageTransactionV2;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a demand charge or generation credit.  Mandatory if transactionUType is equal to demand
@@ -4719,7 +4713,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * A free text description of the adjustment
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4739,7 +4733,7 @@ export interface EnergyBillingDemandTransactionV2 {
          * The value of the calculation factor
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4785,7 +4779,7 @@ export interface EnergyBillingDemandTransactionV2 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a once off charge or credit.  Mandatory if transactionUType is equal to onceOff
@@ -4807,7 +4801,7 @@ export interface EnergyBillingOnceOffTransaction {
    * Unique identifier for the service point.
    */
   servicePointId?: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents charge other than usage and once off.  Mandatory if transactionUType is equal to otherCharge
@@ -4826,7 +4820,7 @@ export interface EnergyBillingOtherTransaction {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4846,7 +4840,7 @@ export interface EnergyBillingOtherTransaction {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4873,7 +4867,7 @@ export interface EnergyBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a payment to the account.  Mandatory if transactionUType is equal to payment
@@ -4887,7 +4881,7 @@ export interface EnergyBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /**
  * Represents a usage charge or generation credit.  Mandatory if transactionUType is equal to usage
@@ -4906,7 +4900,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4926,7 +4920,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4975,7 +4969,7 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5016,7 +5010,7 @@ export interface EnergyBillingTransactionV3 {
    * Represents a usage charge or generation credit. Mandatory if _transactionUType_ is equal to `usage`.
    */
   usage?: EnergyBillingUsageTransactionV2;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingDemandTransactionV3 {
   /**
@@ -5032,7 +5026,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5052,7 +5046,7 @@ export interface EnergyBillingDemandTransactionV3 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5102,7 +5096,7 @@ export interface EnergyBillingDemandTransactionV3 {
     | "AGGREGATE"
     | "ALL_DAY"
     | "EXCESS";
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingOnceOffTransaction {
   /**
@@ -5121,7 +5115,7 @@ export interface EnergyBillingOnceOffTransaction {
    * Unique identifier for the service point.
    */
   servicePointId?: string;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingOtherTransaction {
   /**
@@ -5137,7 +5131,7 @@ export interface EnergyBillingOtherTransaction {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5157,7 +5151,7 @@ export interface EnergyBillingOtherTransaction {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5184,7 +5178,7 @@ export interface EnergyBillingOtherTransaction {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingPaymentTransaction {
   /**
@@ -5195,7 +5189,7 @@ export interface EnergyBillingPaymentTransaction {
    * The method of payment.
    */
   method: "DIRECT_DEBIT" | "CARD" | "TRANSFER" | "BPAY" | "CASH" | "CHEQUE" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyBillingUsageTransactionV2 {
   /**
@@ -5211,7 +5205,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5231,7 +5225,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5280,7 +5274,7 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5298,7 +5292,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * A free text description of the adjustment.
          */
         description: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5318,7 +5312,7 @@ export interface EnergyBillingUsageTransactionV2 {
          * The value of the calculation factor.
          */
         value: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -5367,7 +5361,7 @@ export interface EnergyBillingUsageTransactionV2 {
    * The usage for the period in measure unit. A negative value indicates power generated.
    */
   usage: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5412,7 +5406,7 @@ export interface EnergyConcession {
    * Indicator of the method of concession calculation.
    */
   type: "FIXED_AMOUNT" | "FIXED_PERCENTAGE" | "VARIABLE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5422,11 +5416,11 @@ export interface EnergyConcessionsResponse {
      * Array may be empty if no concessions exist.
      */
     concessions: EnergyConcession[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyConcession {
   /**
@@ -5469,17 +5463,14 @@ export interface EnergyConcession {
    * Indicator of the method of concession calculation.
    */
   type: "FIXED_AMOUNT" | "FIXED_PERCENTAGE" | "VARIABLE";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5490,7 +5481,7 @@ export interface EnergyDerDetailResponse {
   data: EnergyDerRecord;
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyDerRecord {
   acConnections: {
@@ -5543,7 +5534,7 @@ export interface EnergyDerRecord {
        * Used to indicate the primary technology used in the DER device.
        */
       type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-      [k: string]: unknown;
+      
     }[];
     /**
      * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.
@@ -5569,7 +5560,7 @@ export interface EnergyDerRecord {
      * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.
      */
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-    [k: string]: unknown;
+    
   }[];
   /**
    * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of `0` indicates no DER record exists for the given _servicePointId_.
@@ -5655,24 +5646,22 @@ export interface EnergyDerRecord {
      * Trip angle in degrees.
      */
     voltageVectorShift?: number | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Unique identifier for the service point.
    */
   servicePointId: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyDerListResponse {
@@ -5681,11 +5670,11 @@ export interface EnergyDerListResponse {
      * Array of meter reads.
      */
     derRecords: EnergyDerRecord[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyDerRecord {
   acConnections: {
@@ -5738,7 +5727,7 @@ export interface EnergyDerRecord {
        * Used to indicate the primary technology used in the DER device.
        */
       type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-      [k: string]: unknown;
+      
     }[];
     /**
      * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.
@@ -5764,7 +5753,7 @@ export interface EnergyDerRecord {
      * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.
      */
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-    [k: string]: unknown;
+    
   }[];
   /**
    * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of `0` indicates no DER record exists for the given _servicePointId_.
@@ -5850,13 +5839,13 @@ export interface EnergyDerRecord {
      * Trip angle in degrees.
      */
     voltageVectorShift?: number | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Unique identifier for the service point.
    */
   servicePointId: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -5879,7 +5868,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -5890,7 +5879,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5945,7 +5934,7 @@ export interface EnergyDerRecord {
        * Used to indicate the primary technology used in the DER device.
        */
       type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-      [k: string]: unknown;
+      
     }[];
     /**
      * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.
@@ -5971,7 +5960,7 @@ export interface EnergyDerRecord {
      * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.
      */
     status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-    [k: string]: unknown;
+    
   }[];
   /**
    * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of `0` indicates no DER record exists for the given _servicePointId_.
@@ -6057,13 +6046,13 @@ export interface EnergyDerRecord {
      * Trip angle in degrees.
      */
     voltageVectorShift?: number | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Unique identifier for the service point.
    */
   servicePointId: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6121,7 +6110,7 @@ export interface EnergyInvoice {
      * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
      */
     gstAmount?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Indicator of the payment status for the invoice.
@@ -6139,13 +6128,13 @@ export interface EnergyInvoice {
      * The start date of the period covered by this invoice.
      */
     startDate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges.
    */
   servicePoints: string[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object contains account level charges and credits related to electricity usage.
@@ -6163,7 +6152,7 @@ export interface EnergyInvoiceAccountCharges {
    * The total GST for all account level charges. If absent then zero is assumed.
    */
   totalGst?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyInvoiceElectricityUsageCharges {
   /**
@@ -6183,7 +6172,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6206,7 +6195,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 export interface EnergyInvoiceGasUsageCharges {
   /**
@@ -6226,7 +6215,7 @@ export interface EnergyInvoiceGasUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6249,7 +6238,7 @@ export interface EnergyInvoiceGasUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6269,7 +6258,7 @@ export interface EnergyInvoiceAccountCharges {
    * The total GST for all account level charges. If absent then zero is assumed.
    */
   totalGst?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6291,7 +6280,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6314,7 +6303,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6336,7 +6325,7 @@ export interface EnergyInvoiceGasUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6359,7 +6348,7 @@ export interface EnergyInvoiceGasUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6369,11 +6358,11 @@ export interface EnergyInvoiceListResponse {
      * Array of invoices sorted by issue date in descending order.
      */
     invoices: EnergyInvoice[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyInvoice {
   accountCharges?: EnergyInvoiceAccountCharges;
@@ -6429,7 +6418,7 @@ export interface EnergyInvoice {
      * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
      */
     gstAmount?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Indicator of the payment status for the invoice.
@@ -6447,13 +6436,13 @@ export interface EnergyInvoice {
      * The start date of the period covered by this invoice.
      */
     startDate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges.
    */
   servicePoints: string[];
-  [k: string]: unknown;
+  
 }
 /**
  * Object contains account level charges and credits related to electricity usage.
@@ -6471,7 +6460,7 @@ export interface EnergyInvoiceAccountCharges {
    * The total GST for all account level charges. If absent then zero is assumed.
    */
   totalGst?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyInvoiceElectricityUsageCharges {
   /**
@@ -6491,7 +6480,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6514,7 +6503,7 @@ export interface EnergyInvoiceElectricityUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 export interface EnergyInvoiceGasUsageCharges {
   /**
@@ -6534,7 +6523,7 @@ export interface EnergyInvoiceGasUsageCharges {
          * Type of charge. Assumed to be `OTHER` if absent.
          */
         type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -6557,7 +6546,7 @@ export interface EnergyInvoiceGasUsageCharges {
    * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
    */
   totalUsageCharges: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -6580,7 +6569,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -6591,7 +6580,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6616,7 +6605,7 @@ export interface EnergyPaymentSchedule {
      * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     paymentFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
@@ -6646,7 +6635,7 @@ export interface EnergyPaymentSchedule {
      * The type of the digital wallet identifier.
      */
     type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
@@ -6672,7 +6661,7 @@ export interface EnergyPaymentSchedule {
      * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     paymentFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
@@ -6682,13 +6671,13 @@ export interface EnergyPaymentSchedule {
      * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     billFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of object present in this response.
    */
   paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6698,11 +6687,11 @@ export interface EnergyPaymentScheduleResponse {
      * Array may be empty if no payment schedules exist.
      */
     paymentSchedules: EnergyPaymentSchedule[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPaymentSchedule {
   /**
@@ -6725,7 +6714,7 @@ export interface EnergyPaymentSchedule {
      * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     paymentFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
@@ -6755,7 +6744,7 @@ export interface EnergyPaymentSchedule {
      * The type of the digital wallet identifier.
      */
     type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
@@ -6781,7 +6770,7 @@ export interface EnergyPaymentSchedule {
      * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     paymentFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
@@ -6791,24 +6780,22 @@ export interface EnergyPaymentSchedule {
      * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     billFrequency: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of object present in this response.
    */
   paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyPlan {
@@ -6836,7 +6823,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -6890,7 +6877,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -6904,7 +6891,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -6933,7 +6920,7 @@ export type EnergyPlanContractFullV2 = EnergyPlanContractV2 & {
    * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
    */
   billFrequency: string[];
-  [k: string]: unknown;
+  
 };
 /**
  * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
@@ -6957,7 +6944,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -6992,7 +6979,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -7019,7 +7006,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -7033,7 +7020,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -7043,7 +7030,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -7057,13 +7044,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -7099,7 +7086,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -7151,7 +7138,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -7182,7 +7169,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -7194,7 +7181,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -7213,7 +7200,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -7242,7 +7229,7 @@ export type EnergyPlanContractFullV3 = EnergyPlanContractV3 & {
    * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
    */
   billFrequency: string[];
-  [k: string]: unknown;
+  
 };
 
 export interface EnergyPlanContractV3 {
@@ -7282,7 +7269,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -7323,7 +7310,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -7374,9 +7361,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -7419,7 +7406,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -7445,16 +7432,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -7481,7 +7468,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -7495,7 +7482,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -7505,7 +7492,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -7519,13 +7506,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -7561,7 +7548,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -7613,7 +7600,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -7644,7 +7631,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -7656,7 +7643,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -7675,7 +7662,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -7722,9 +7709,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -7763,7 +7750,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -7781,16 +7768,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -7810,7 +7797,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -7870,7 +7857,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -7921,9 +7908,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -7962,7 +7949,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -7980,13 +7967,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -7997,7 +7984,7 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -8024,7 +8011,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -8059,7 +8046,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -8086,7 +8073,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -8100,7 +8087,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -8110,7 +8097,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -8124,13 +8111,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -8166,7 +8153,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -8218,7 +8205,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -8249,7 +8236,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -8261,7 +8248,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -8280,7 +8267,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -8321,7 +8308,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -8362,7 +8349,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -8413,9 +8400,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -8458,7 +8445,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -8484,16 +8471,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -8520,7 +8507,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -8534,7 +8521,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -8544,7 +8531,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -8558,13 +8545,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -8600,7 +8587,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -8652,7 +8639,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -8683,7 +8670,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -8695,7 +8682,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -8714,7 +8701,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -8761,9 +8748,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -8802,7 +8789,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -8820,16 +8807,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -8849,7 +8836,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -8909,7 +8896,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -8960,9 +8947,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -9001,7 +8988,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -9019,13 +9006,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -9036,7 +9023,7 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -9091,9 +9078,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -9136,7 +9123,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -9162,16 +9149,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -9200,7 +9187,7 @@ export type EnergyPlanDetailV2 = EnergyPlan & {
      * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      */
     period?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
@@ -9230,7 +9217,7 @@ export type EnergyPlanDetailV2 = EnergyPlan & {
      * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      */
     billFrequency: string[];
-    [k: string]: unknown;
+    
   };
   /**
    * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
@@ -9260,9 +9247,9 @@ export type EnergyPlanDetailV2 = EnergyPlan & {
      * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      */
     billFrequency: string[];
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 /**
  * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
@@ -9293,7 +9280,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -9347,7 +9334,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -9361,7 +9348,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV2 {
   /**
@@ -9382,7 +9369,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -9417,7 +9404,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -9444,7 +9431,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -9458,7 +9445,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -9468,7 +9455,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -9482,13 +9469,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -9524,7 +9511,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -9576,7 +9563,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -9607,7 +9594,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -9619,7 +9606,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -9638,7 +9625,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -9667,7 +9654,7 @@ export type EnergyPlanDetailV3 = EnergyPlan & {
      * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     period?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `GAS` or `DUAL`.
@@ -9697,7 +9684,7 @@ export type EnergyPlanDetailV3 = EnergyPlan & {
      * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     billFrequency: string[];
-    [k: string]: unknown;
+    
   };
   /**
    * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `ELECTRICITY` or `DUAL`.
@@ -9727,9 +9714,9 @@ export type EnergyPlanDetailV3 = EnergyPlan & {
      * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     billFrequency: string[];
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 
 export interface EnergyPlan {
@@ -9757,7 +9744,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -9811,7 +9798,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -9825,7 +9812,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV3 {
   /**
@@ -9864,7 +9851,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -9905,7 +9892,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -9956,9 +9943,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -10001,7 +9988,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -10027,16 +10014,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -10063,7 +10050,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -10077,7 +10064,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -10087,7 +10074,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -10101,13 +10088,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -10143,7 +10130,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -10195,7 +10182,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -10226,7 +10213,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -10238,7 +10225,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -10257,7 +10244,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -10304,9 +10291,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -10345,7 +10332,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -10363,16 +10350,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -10392,7 +10379,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -10452,7 +10439,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -10503,9 +10490,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -10544,7 +10531,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -10562,13 +10549,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -10579,7 +10566,7 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10608,7 +10595,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -10622,7 +10609,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -10632,7 +10619,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -10646,13 +10633,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10690,7 +10677,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10744,7 +10731,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10777,7 +10764,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -10789,7 +10776,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10816,7 +10803,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10826,11 +10813,11 @@ export interface EnergyPlanListResponse {
      * Array of plans.
      */
     plans: EnergyPlan[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlan {
   /**
@@ -10857,7 +10844,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -10911,7 +10898,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -10925,7 +10912,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -10948,7 +10935,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -10959,7 +10946,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -10993,7 +10980,7 @@ export interface EnergyPlanResponseV2 {
        * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
        */
       period?: string;
-      [k: string]: unknown;
+      
     }[];
     /**
      * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
@@ -11023,7 +11010,7 @@ export interface EnergyPlanResponseV2 {
        * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
        */
       billFrequency: string[];
-      [k: string]: unknown;
+      
     };
     /**
      * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to ELECTRICITY or DUAL
@@ -11053,13 +11040,13 @@ export interface EnergyPlanResponseV2 {
        * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
        */
       billFrequency: string[];
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlan {
   /**
@@ -11086,7 +11073,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -11140,7 +11127,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -11154,7 +11141,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV2 {
   /**
@@ -11175,7 +11162,7 @@ export interface EnergyPlanContractV2 {
      * Percentage of green power intrinsically included in the plan
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable
@@ -11210,7 +11197,7 @@ export interface EnergyPlanContractV2 {
    * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -11237,7 +11224,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -11251,7 +11238,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -11261,7 +11248,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -11275,13 +11262,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -11317,7 +11304,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -11369,7 +11356,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -11400,7 +11387,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -11412,7 +11399,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -11431,17 +11418,14 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -11471,7 +11455,7 @@ export interface EnergyPlanResponseV3 {
        * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
        */
       period?: string;
-      [k: string]: unknown;
+      
     }[];
     /**
      * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `GAS` or `DUAL`.
@@ -11501,7 +11485,7 @@ export interface EnergyPlanResponseV3 {
        * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
        */
       billFrequency: string[];
-      [k: string]: unknown;
+      
     };
     /**
      * The details of the terms for the supply of electricity under this plan. Is mandatory if _fuelType_ is set to `ELECTRICITY` or `DUAL`.
@@ -11531,13 +11515,13 @@ export interface EnergyPlanResponseV3 {
        * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
        */
       billFrequency: string[];
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlan {
   /**
@@ -11564,7 +11548,7 @@ export interface EnergyPlan {
      * A link to terms and conditions for the plan.
      */
     termsUri?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A link to an application web page where this plan can be applied for.
@@ -11618,7 +11602,7 @@ export interface EnergyPlan {
      * Array of valid Australian postcodes that are included from the plan. If absent defaults to all non-excluded postcodes. Each element is a single four digit postcode (e.g., `3000`) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g., `3000-3999`).
      */
     includedPostcodes?: string[] | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
@@ -11632,7 +11616,7 @@ export interface EnergyPlan {
    * The type of the plan.
    */
   type: "STANDING" | "MARKET" | "REGULATED";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanContractV3 {
   /**
@@ -11671,7 +11655,7 @@ export interface EnergyPlanContractV3 {
      * Percentage of green power intrinsically included in the plan.
      */
     greenPercentage: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Flag indicating whether prices are fixed or variable.
@@ -11712,7 +11696,7 @@ export interface EnergyPlanContractV3 {
    * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
    */
   variation?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanControlledLoadV2 {
   /**
@@ -11763,9 +11747,9 @@ export interface EnergyPlanControlledLoadV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Optional start date of the application of the controlled load rate.
@@ -11808,7 +11792,7 @@ export interface EnergyPlanControlledLoadV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -11834,16 +11818,16 @@ export interface EnergyPlanControlledLoadV2 {
            * The beginning of the time window per day for which the controlled load rate applies. Required if _endTime_ provided. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanDiscounts {
   /**
@@ -11870,7 +11854,7 @@ export interface EnergyPlanDiscounts {
      * The amount of the discount.
      */
     amount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The method of calculation of the discount.
@@ -11884,7 +11868,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the bill amount.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOfUse`.
@@ -11894,7 +11878,7 @@ export interface EnergyPlanDiscounts {
      * The rate of the discount applied to the _usageamount_.
      */
     rate: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Required if _methodUType_ is `percentOverThreshold`.
@@ -11908,13 +11892,13 @@ export interface EnergyPlanDiscounts {
      * The usage amount threshold above which the discount applies.
      */
     usageAmount: string;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The type of the discount.
    */
   type: "CONDITIONAL" | "GUARANTEED" | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanEligibility {
   /**
@@ -11950,7 +11934,7 @@ export interface EnergyPlanEligibility {
     | "GROUP_BUY_MEMBER"
     | "CONTINGENT_PLAN"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanFees {
   /**
@@ -12002,7 +11986,7 @@ export interface EnergyPlanFees {
     | "CONTRIBUTION"
     | "PAPER_BILL"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanGreenPowerCharges {
   /**
@@ -12033,7 +12017,7 @@ export interface EnergyPlanGreenPowerCharges {
      * The rate of the charge if the type implies the application of a rate.
      */
     rate?: string;
-    [k: string]: unknown;
+    
   }[];
   /**
    * The type of charge.
@@ -12045,7 +12029,7 @@ export interface EnergyPlanGreenPowerCharges {
     | "FIXED_PER_UNIT"
     | "PERCENT_OF_USE"
     | "PERCENT_OF_BILL";
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanIncentives {
   /**
@@ -12064,7 +12048,7 @@ export interface EnergyPlanIncentives {
    * A display message outlining an eligibility criteria that may apply.
    */
   eligibility?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanSolarFeedInTariffV3 {
   /**
@@ -12111,9 +12095,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -12152,7 +12136,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -12170,16 +12154,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 export interface EnergyPlanTariffPeriodV2 {
   /**
@@ -12199,7 +12183,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12259,7 +12243,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12310,9 +12294,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -12351,7 +12335,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -12369,13 +12353,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12386,17 +12370,14 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -12447,9 +12428,9 @@ export interface EnergyPlanSolarFeedInTariffV3 {
        * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the application of the feed in tariff.
@@ -12488,7 +12469,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this tariff is applicable.
@@ -12506,16 +12487,16 @@ export interface EnergyPlanSolarFeedInTariffV3 {
            * The beginning of the time window per day for which the tariff applies. If absent assumes start of day (i.e. midnight). Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of the charging time period. If absent applies to all periods.
          */
         type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
-        [k: string]: unknown;
+        
       }[]
     | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -12537,7 +12518,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Volume the charge applies to.
          */
         volume?: number;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12597,7 +12578,7 @@ export interface EnergyPlanTariffPeriodV2 {
          * Start of the period. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12648,9 +12629,9 @@ export interface EnergyPlanTariffPeriodV2 {
        * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
        */
       volume?: number;
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   } | null;
   /**
    * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
@@ -12689,7 +12670,7 @@ export interface EnergyPlanTariffPeriodV2 {
            * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
            */
           volume?: number;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Array of time windows for which this time of use rate applies.
@@ -12707,13 +12688,13 @@ export interface EnergyPlanTariffPeriodV2 {
            * The beginning of the time window per day for which the rate applies. Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
            */
           startTime: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * The type of usage that the rate applies to.
          */
         type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12724,7 +12705,7 @@ export interface EnergyPlanTariffPeriodV2 {
    * Type of charge. Assumed to be `OTHER` if absent.
    */
   type?: ("ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -12738,7 +12719,7 @@ export interface EnergyServicePoint {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -12780,7 +12761,7 @@ export interface EnergyServicePoint {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -12794,7 +12775,7 @@ export interface EnergyServicePointDetail {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   distributionLossFactor: {
     /**
@@ -12809,7 +12790,7 @@ export interface EnergyServicePointDetail {
      * The value associated with the loss factor code.
      */
     lossValue: string;
-    [k: string]: unknown;
+    
   };
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -12893,7 +12874,7 @@ export interface EnergyServicePointDetail {
            * The unit of measure for data held in this register.
            */
           unitOfMeasure?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Technical characteristics of the meter.
@@ -12937,9 +12918,9 @@ export interface EnergyServicePointDetail {
            * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>`CURRENT`: Applies when a meter is current and not disconnected</li><li>`DISCONNECTED`: Applies when a meter is present but has been remotely disconnected.</li></ul>
            */
           status: "CURRENT" | "DISCONNECTED";
-          [k: string]: unknown;
+          
         };
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -12955,7 +12936,7 @@ export interface EnergyServicePointDetail {
      * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>`FRMP`: Financially Responsible Market Participant</li><li>`LNSP`: Local Network Service Provider or Embedded Network Manager for child connection points</li><li>`DRSP`: wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included.</li></ul>
      */
     role: "FRMP" | "LNSP" | "DRSP";
-    [k: string]: unknown;
+    
   }[];
   /**
    * The classification of the service point as defined in MSATS procedures.
@@ -12981,7 +12962,7 @@ export interface EnergyServicePointDetail {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Location of the servicepoint.
@@ -12993,7 +12974,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -13087,7 +13068,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -13125,7 +13106,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -13133,7 +13114,7 @@ export interface EnergyServicePointDetailResponse {
   data: EnergyServicePointDetail;
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyServicePointDetail {
   consumerProfile?: {
@@ -13145,7 +13126,7 @@ export interface EnergyServicePointDetail {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   distributionLossFactor: {
     /**
@@ -13160,7 +13141,7 @@ export interface EnergyServicePointDetail {
      * The value associated with the loss factor code.
      */
     lossValue: string;
-    [k: string]: unknown;
+    
   };
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -13244,7 +13225,7 @@ export interface EnergyServicePointDetail {
            * The unit of measure for data held in this register.
            */
           unitOfMeasure?: string;
-          [k: string]: unknown;
+          
         }[];
         /**
          * Technical characteristics of the meter.
@@ -13288,9 +13269,9 @@ export interface EnergyServicePointDetail {
            * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>`CURRENT`: Applies when a meter is current and not disconnected</li><li>`DISCONNECTED`: Applies when a meter is present but has been remotely disconnected.</li></ul>
            */
           status: "CURRENT" | "DISCONNECTED";
-          [k: string]: unknown;
+          
         };
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -13306,7 +13287,7 @@ export interface EnergyServicePointDetail {
      * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>`FRMP`: Financially Responsible Market Participant</li><li>`LNSP`: Local Network Service Provider or Embedded Network Manager for child connection points</li><li>`DRSP`: wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included.</li></ul>
      */
     role: "FRMP" | "LNSP" | "DRSP";
-    [k: string]: unknown;
+    
   }[];
   /**
    * The classification of the service point as defined in MSATS procedures.
@@ -13332,7 +13313,7 @@ export interface EnergyServicePointDetail {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Location of the servicepoint.
@@ -13344,7 +13325,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -13438,7 +13419,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -13476,17 +13457,14 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -13505,7 +13483,7 @@ export interface EnergyServicePointDetailResponseV2 {
        * The value associated with the loss factor code.
        */
       lossValue: string;
-      [k: string]: unknown;
+      
     };
     relatedParticipants: {
       /**
@@ -13516,7 +13494,7 @@ export interface EnergyServicePointDetailResponseV2 {
        * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>`FRMP`: Financially Responsible Market Participant</li><li>`LNSP`: Local Network Service Provider or Embedded Network Manager for child connection points</li><li>`DRSP`: wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included.</li></ul>
        */
       role: "FRMP" | "LNSP" | "DRSP";
-      [k: string]: unknown;
+      
     }[];
     /**
      * Location of the servicepoint.
@@ -13572,7 +13550,7 @@ export interface EnergyServicePointDetailResponseV2 {
          * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required.
          */
         nextScheduledReadDate?: string;
-        [k: string]: unknown;
+        
       };
       /**
        * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point.
@@ -13634,15 +13612,15 @@ export interface EnergyServicePointDetailResponseV2 {
          * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>
          */
         consumptionType?: "ACTUAL" | "CUMULATIVE";
-        [k: string]: unknown;
+        
       }[];
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface EnergyServicePointV2 {
   consumerProfile?: {
@@ -13654,7 +13632,7 @@ export interface EnergyServicePointV2 {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -13700,7 +13678,7 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -13709,7 +13687,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -13803,7 +13781,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -13841,17 +13819,14 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -13869,7 +13844,7 @@ export type EnergyServicePointDetailV2 = EnergyServicePointV2 & {
      * The value associated with the loss factor code.
      */
     lossValue: string;
-    [k: string]: unknown;
+    
   };
   relatedParticipants: {
     /**
@@ -13880,7 +13855,7 @@ export type EnergyServicePointDetailV2 = EnergyServicePointV2 & {
      * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>`FRMP`: Financially Responsible Market Participant</li><li>`LNSP`: Local Network Service Provider or Embedded Network Manager for child connection points</li><li>`DRSP`: wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included.</li></ul>
      */
     role: "FRMP" | "LNSP" | "DRSP";
-    [k: string]: unknown;
+    
   }[];
   /**
    * Location of the servicepoint.
@@ -13936,7 +13911,7 @@ export type EnergyServicePointDetailV2 = EnergyServicePointV2 & {
        * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required.
        */
       nextScheduledReadDate?: string;
-      [k: string]: unknown;
+      
     };
     /**
      * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point.
@@ -13998,11 +13973,11 @@ export type EnergyServicePointDetailV2 = EnergyServicePointV2 & {
        * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>
        */
       consumptionType?: "ACTUAL" | "CUMULATIVE";
-      [k: string]: unknown;
+      
     }[];
-    [k: string]: unknown;
+    
   }[];
-  [k: string]: unknown;
+  
 };
 
 export interface EnergyServicePointV2 {
@@ -14015,7 +13990,7 @@ export interface EnergyServicePointV2 {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -14061,7 +14036,7 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -14070,7 +14045,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
@@ -14164,7 +14139,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Required if _addressUType_ is set to `simple`.
@@ -14202,7 +14177,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14215,11 +14190,11 @@ export type EnergyServicePointId = string;
 export interface EnergyServicePointListResponse {
   data: {
     servicePoints: EnergyServicePoint[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyServicePoint {
   consumerProfile?: {
@@ -14231,7 +14206,7 @@ export interface EnergyServicePoint {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -14273,7 +14248,7 @@ export interface EnergyServicePoint {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -14296,7 +14271,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -14307,18 +14282,18 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyServicePointListResponseV2 {
   data: {
     servicePoints: EnergyServicePointV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyServicePointV2 {
   consumerProfile?: {
@@ -14330,7 +14305,7 @@ export interface EnergyServicePointV2 {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -14376,7 +14351,7 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -14399,7 +14374,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -14410,7 +14385,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14424,7 +14399,7 @@ export interface EnergyServicePointV2 {
      * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>`LOW`: Consumption is less than the 'lower consumption threshold' as defined in the National Energy Retail Regulations</li><li>`MEDIUM`: Consumption is equal to or greater than the 'lower consumption threshold', but less than the 'upper consumption threshold', as defined in the National Energy Retail Regulations</li><li>`HIGH`: Consumption is equal to or greater than the 'upper consumption threshold' as defined in the National Energy Retail Regulations.</li></ul>
      */
     threshold?: "LOW" | "MEDIUM" | "HIGH";
-    [k: string]: unknown;
+    
   } | null;
   /**
    * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
@@ -14470,7 +14445,7 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14480,11 +14455,11 @@ export interface EnergyUsageListResponse {
      * Array of meter reads sorted by NMI in ascending order followed by _readStartDate_ in descending order.
      */
     reads: EnergyUsageRead[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface EnergyUsageRead {
   /**
@@ -14499,7 +14474,7 @@ export interface EnergyUsageRead {
      * Meter read value. If positive then it means consumption, if negative it means export.
      */
     value: number;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Indicates whether the energy recorded by this register is created under a Controlled Load regime.
@@ -14538,10 +14513,10 @@ export interface EnergyUsageRead {
            * Start interval for read quality flag. First read begins at `1`.
            */
           startInterval: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Meter id/serial number as it appears in customer's bill. ID permanence rules do not apply.
@@ -14575,7 +14550,7 @@ export interface EnergyUsageRead {
    * Unit of measure of the meter reads. Refer to Appendix B of <a href='https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values.
    */
   unitOfMeasure?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -14598,7 +14573,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -14609,7 +14584,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14626,7 +14601,7 @@ export interface EnergyUsageRead {
      * Meter read value. If positive then it means consumption, if negative it means export.
      */
     value: number;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Indicates whether the energy recorded by this register is created under a Controlled Load regime.
@@ -14665,10 +14640,10 @@ export interface EnergyUsageRead {
            * Start interval for read quality flag. First read begins at `1`.
            */
           startInterval: number;
-          [k: string]: unknown;
+          
         }[]
       | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * Meter id/serial number as it appears in customer's bill. ID permanence rules do not apply.
@@ -14702,7 +14677,7 @@ export interface EnergyUsageRead {
    * Unit of measure of the meter reads. Refer to Appendix B of <a href='https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values.
    */
   unitOfMeasure?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14723,13 +14698,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14738,7 +14713,7 @@ export interface Links {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14763,16 +14738,13 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export type MeasureUnitEnum = "KWH" | "KVA" | "KVAR" | "KVARH" | "KW" | "DAYS" | "METER" | "MONTH";
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
-export interface Meta {
-  [k: string]: unknown;
-}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface MetaPaginated {
@@ -14784,18 +14756,10 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
+
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-
-export type PrimaryErrorV1 = {
-  /**
-   * Indicates the error was propagated from a designated secondary data holder.
-   */
-  isSecondaryDataHolderError?: boolean;
-  [k: string]: unknown;
-} & ErrorV2;
-
 export interface ErrorV2 {
   /**
    * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the _meta_ object. Otherwise, the value is the error code URN.
@@ -14813,13 +14777,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14828,7 +14792,7 @@ export type PrimaryErrorV1 = {
    * Indicates the error was propagated from a designated secondary data holder.
    */
   isSecondaryDataHolderError?: boolean;
-  [k: string]: unknown;
+  
 } & ErrorV2;
 
 export interface PrimaryResponseErrorListV1 {
@@ -14836,7 +14800,7 @@ export interface PrimaryResponseErrorListV1 {
    * List of errors.
    */
   errors: PrimaryErrorV1[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -14855,13 +14819,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14871,13 +14835,10 @@ export interface RequestAccountIdList {
      * Array of specific _accountId_ values to obtain data for.
      */
     accountIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14887,13 +14848,10 @@ export interface RequestAccountIdListV1 {
      * Array of _accountId_ values to obtain data for.
      */
     accountIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14903,13 +14861,10 @@ export interface RequestServicePointIdList {
      * Array of specific _servicePointId_ values to obtain data for.
      */
     servicePointIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14919,13 +14874,10 @@ export interface RequestServicePointIdListV1 {
      * Array of _servicePointId_ values to obtain data for.
      */
     servicePointIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -14934,7 +14886,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -14953,11 +14905,11 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }

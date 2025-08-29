@@ -44,7 +44,7 @@ export type BankingAccountDetailV3 = BankingAccountV2 & {
      * `true` if the feature is already activated and `false` if the feature is available for activation. Defaults to `true` if absent.<br>Note: this is an additional field appended to the feature object defined in the Product Reference payload.
      */
     isActivated?: boolean;
-    [k: string]: unknown;
+    
   })[];
   /**
    * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -54,7 +54,7 @@ export type BankingAccountDetailV3 = BankingAccountV2 & {
    * The addresses for the account to be used for correspondence.
    */
   addresses?: CommonPhysicalAddress[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingAccountV2 {
@@ -110,7 +110,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -133,7 +133,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -152,7 +152,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV2 {
   /**
@@ -215,7 +215,7 @@ export interface BankingLoanAccountV2 {
    * Options in place for repayments. If absent defaults to `PRINCIPAL_AND_INTEREST`.
    */
   repaymentType?: ("INTEREST_ONLY" | "PRINCIPAL_AND_INTEREST") | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -250,7 +250,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -285,7 +285,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -299,7 +299,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -361,7 +361,7 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -409,7 +409,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -470,7 +470,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -517,7 +517,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -549,7 +549,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -558,7 +558,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -652,7 +652,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -690,7 +690,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -747,7 +747,7 @@ export type BankingAccountDetailV4 = BankingAccountV2 & {
      * <ul><li>`ACTIVATED` if the feature has been activated by the customer or is a standard feature of the product</li><li>`NOT_ACTIVATED` if the feature is not activated but is available for activation</li><li>`UNKNOWN` or absent if the activation state is unknown.</ul>**Note:** This is an additional field appended to the feature structure defined in the Product Reference payload.
      */
     isActivated?: "ACTIVATED" | "NOT_ACTIVATED" | "UNKNOWN";
-    [k: string]: unknown;
+    
   })[];
   /**
    * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -757,7 +757,7 @@ export type BankingAccountDetailV4 = BankingAccountV2 & {
    * The addresses for the account to be used for correspondence.
    */
   addresses?: CommonPhysicalAddress[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingAccountV2 {
@@ -813,7 +813,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -836,7 +836,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -855,7 +855,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV3 {
   /**
@@ -918,7 +918,7 @@ export interface BankingLoanAccountV3 {
    * Option in place for repayments.
    */
   repaymentType: "INTEREST_ONLY" | "OTHER" | "PRINCIPAL_AND_INTEREST" | "UNCONSTRAINED";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -961,7 +961,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -995,7 +995,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -1033,7 +1033,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -1104,7 +1104,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV3 {
   /**
@@ -1153,7 +1153,7 @@ export interface BankingProductFeatureV3 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -1225,7 +1225,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -1267,7 +1267,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -1299,14 +1299,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -1318,7 +1318,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -1332,14 +1332,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -1355,7 +1355,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -1369,7 +1369,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -1378,7 +1378,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -1472,7 +1472,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -1510,7 +1510,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -1568,7 +1568,7 @@ export type BankingAccountDetailV5 = BankingAccountV3 & {
      * <ul><li>`ACTIVATED` if the feature has been activated by the customer or is a standard feature of the product</li><li>`NOT_ACTIVATED` if the feature is not activated but is available for activation</li><li>`UNKNOWN` or absent if the activation state is unknown.</ul>**Note:** This is an additional field appended to the feature structure defined in the Product Reference payload.
      */
     isActivated?: "ACTIVATED" | "NOT_ACTIVATED" | "UNKNOWN";
-    [k: string]: unknown;
+    
   })[];
   /**
    * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -1578,7 +1578,7 @@ export type BankingAccountDetailV5 = BankingAccountV3 & {
    * The addresses for the account to be used for correspondence.
    */
   addresses?: CommonPhysicalAddress[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingAccountV3 {
@@ -1639,7 +1639,7 @@ export interface BankingAccountV3 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Details of instalment features on the account.
@@ -1669,7 +1669,7 @@ export interface BankingProductInstalments {
    * Minimum number of instalment payments a plan can be created with.
    */
   minimumSplit: number;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -1692,7 +1692,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -1711,7 +1711,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV3 {
   /**
@@ -1774,7 +1774,7 @@ export interface BankingLoanAccountV3 {
    * Option in place for repayments.
    */
   repaymentType: "INTEREST_ONLY" | "OTHER" | "PRINCIPAL_AND_INTEREST" | "UNCONSTRAINED";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -1817,7 +1817,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -1851,7 +1851,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -1889,7 +1889,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -1960,7 +1960,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV4 {
   /**
@@ -2010,7 +2010,7 @@ export interface BankingProductFeatureV4 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -2082,7 +2082,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -2124,7 +2124,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -2156,14 +2156,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -2175,7 +2175,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -2189,14 +2189,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -2212,7 +2212,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -2226,7 +2226,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -2235,7 +2235,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -2329,7 +2329,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -2367,7 +2367,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2430,7 +2430,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2492,7 +2492,7 @@ export interface BankingAccountV3 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2517,7 +2517,7 @@ export interface BankingAuthorisedEntity {
    * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.
    */
   financialInstitution?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2550,7 +2550,7 @@ export interface BankingBalance {
    * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards.
    */
   purses?: BankingBalancePurse[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingBalancePurse {
   /**
@@ -2561,7 +2561,7 @@ export interface BankingBalancePurse {
    * The currency for the purse.
    */
   currency?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2574,7 +2574,7 @@ export interface BankingBalancePurse {
    * The currency for the purse.
    */
   currency?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2591,7 +2591,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2612,7 +2612,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2633,7 +2633,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2651,7 +2651,7 @@ export interface BankingDirectDebit {
    * The date and time of the last debit executed under this authorisation.
    */
   lastDebitDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingAuthorisedEntity {
   /**
@@ -2674,7 +2674,7 @@ export interface BankingAuthorisedEntity {
    * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.
    */
   financialInstitution?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2686,7 +2686,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -2701,14 +2701,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -2723,7 +2723,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2740,7 +2740,7 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2749,7 +2749,7 @@ export interface BankingDomesticPayeeCard {
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2766,7 +2766,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2775,7 +2775,7 @@ export interface BankingFeeAmount {
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2784,7 +2784,7 @@ export interface BankingFeeDiscountAmount {
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2800,7 +2800,7 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2814,7 +2814,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -2828,7 +2828,7 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2844,7 +2844,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2862,7 +2862,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -2876,7 +2876,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2937,7 +2937,7 @@ export interface BankingInstalmentPlan {
    * Array of scheduled repayment amounts and dates.
    */
   schedule: BankingInstalmentPlanSchedule[];
-  [k: string]: unknown;
+  
 }
 export interface BankingInstalmentPlanSchedule {
   /**
@@ -2952,7 +2952,7 @@ export interface BankingInstalmentPlanSchedule {
    * Whether the associated _amountDue_ has been paid or is otherwise considered as not outstanding. `false` is assumed if absent.
    */
   isPaid?: boolean | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2975,7 +2975,7 @@ export interface BankingInstalmentPlanSchedule {
    * Whether the associated _amountDue_ has been paid or is otherwise considered as not outstanding. `false` is assumed if absent.
    */
   isPaid?: boolean | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -2994,7 +2994,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -3024,7 +3024,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -3039,9 +3039,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3106,7 +3106,7 @@ export interface BankingLoanAccountV2 {
    * Options in place for repayments. If absent defaults to `PRINCIPAL_AND_INTEREST`.
    */
   repaymentType?: ("INTEREST_ONLY" | "PRINCIPAL_AND_INTEREST") | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3171,7 +3171,7 @@ export interface BankingLoanAccountV3 {
    * Option in place for repayments.
    */
   repaymentType: "INTEREST_ONLY" | "OTHER" | "PRINCIPAL_AND_INTEREST" | "UNCONSTRAINED";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3184,7 +3184,7 @@ export type BankingPayeeDetailV2 = BankingPayeeV2 & {
   domestic?: BankingDomesticPayee;
   digitalWallet?: BankingDigitalWalletPayee;
   international?: BankingInternationalPayee;
-  [k: string]: unknown;
+  
 };
 
 export interface BankingPayeeV2 {
@@ -3208,7 +3208,7 @@ export interface BankingPayeeV2 {
    * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul>
    */
   type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -3223,7 +3223,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -3233,7 +3233,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -3248,14 +3248,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -3270,7 +3270,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -3289,7 +3289,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -3306,7 +3306,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -3336,7 +3336,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -3351,9 +3351,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3384,7 +3384,7 @@ export interface BankingPayeeV2 {
    * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul>
    */
   type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3432,7 +3432,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -3443,7 +3443,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3456,7 +3456,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3481,7 +3481,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3502,7 +3502,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3560,7 +3560,7 @@ export interface BankingProductConstraint {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MIN_BALANCE" | "MIN_LIMIT" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3581,7 +3581,7 @@ export interface BankingProductConstraintV2 {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MAX_LVR" | "MIN_BALANCE" | "MIN_LIMIT" | "MIN_LVR" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3610,7 +3610,7 @@ export interface BankingProductConstraintV3 {
     | "MIN_LVR"
     | "OPENING_BALANCE"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3647,7 +3647,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -3682,7 +3682,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -3696,7 +3696,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3741,7 +3741,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -3775,7 +3775,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -3813,7 +3813,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -3846,7 +3846,7 @@ export type BankingProductDetailV4 = BankingProductV4 & {
    * Interest rates charged against lending balances.
    */
   lendingRates?: BankingProductLendingRateV2[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingProductV4 {
@@ -3876,7 +3876,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -3923,7 +3923,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -3969,7 +3969,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -3980,7 +3980,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -4003,7 +4003,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -4051,7 +4051,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraint {
   /**
@@ -4070,7 +4070,7 @@ export interface BankingProductConstraint {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MIN_BALANCE" | "MIN_LIMIT" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibility {
   /**
@@ -4101,7 +4101,7 @@ export interface BankingProductEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -4162,7 +4162,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -4209,7 +4209,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -4241,7 +4241,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -4276,7 +4276,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -4311,7 +4311,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -4325,7 +4325,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -4387,7 +4387,7 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -4420,7 +4420,7 @@ export type BankingProductDetailV5 = BankingProductV4 & {
    * Interest rates charged against lending balances.
    */
   lendingRates?: BankingProductLendingRateV2[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingProductV4 {
@@ -4450,7 +4450,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -4497,7 +4497,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -4543,7 +4543,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -4554,7 +4554,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -4577,7 +4577,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -4625,7 +4625,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV2 {
   /**
@@ -4644,7 +4644,7 @@ export interface BankingProductConstraintV2 {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MAX_LVR" | "MIN_BALANCE" | "MIN_LIMIT" | "MIN_LVR" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibility {
   /**
@@ -4675,7 +4675,7 @@ export interface BankingProductEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -4736,7 +4736,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -4783,7 +4783,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -4815,7 +4815,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -4850,7 +4850,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -4885,7 +4885,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -4899,7 +4899,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -4961,7 +4961,7 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -4994,7 +4994,7 @@ export type BankingProductDetailV6 = BankingProductV5 & {
    * Interest rates charged against lending balances.
    */
   lendingRates?: BankingProductLendingRateV3[];
-  [k: string]: unknown;
+  
 };
 
 export interface BankingProductV5 {
@@ -5059,7 +5059,7 @@ export interface BankingProductV5 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -5105,7 +5105,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -5116,7 +5116,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -5135,7 +5135,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -5158,7 +5158,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV3 {
   /**
@@ -5207,7 +5207,7 @@ export interface BankingProductFeatureV3 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV3 {
   /**
@@ -5234,7 +5234,7 @@ export interface BankingProductConstraintV3 {
     | "MIN_LVR"
     | "OPENING_BALANCE"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibilityV2 {
   /**
@@ -5265,7 +5265,7 @@ export interface BankingProductEligibilityV2 {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -5337,7 +5337,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -5379,7 +5379,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -5411,14 +5411,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -5430,7 +5430,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -5444,14 +5444,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -5467,7 +5467,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -5481,7 +5481,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -5524,7 +5524,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -5558,7 +5558,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -5596,7 +5596,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -5667,7 +5667,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -5701,7 +5701,7 @@ export type BankingProductDetailV7 = BankingProductV6 & {
    */
   lendingRates?: BankingProductLendingRateV3[];
   instalments?: BankingProductInstalments;
-  [k: string]: unknown;
+  
 };
 
 export interface BankingProductV6 {
@@ -5767,7 +5767,7 @@ export interface BankingProductV6 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -5813,7 +5813,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -5824,7 +5824,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -5843,7 +5843,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -5866,7 +5866,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV4 {
   /**
@@ -5916,7 +5916,7 @@ export interface BankingProductFeatureV4 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV3 {
   /**
@@ -5943,7 +5943,7 @@ export interface BankingProductConstraintV3 {
     | "MIN_LVR"
     | "OPENING_BALANCE"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibilityV2 {
   /**
@@ -5974,7 +5974,7 @@ export interface BankingProductEligibilityV2 {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -6046,7 +6046,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -6088,7 +6088,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -6120,14 +6120,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -6139,7 +6139,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -6153,14 +6153,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -6176,7 +6176,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -6190,7 +6190,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -6233,7 +6233,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -6267,7 +6267,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -6305,7 +6305,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -6376,7 +6376,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Details of instalment features on the account.
@@ -6406,7 +6406,7 @@ export interface BankingProductInstalments {
    * Minimum number of instalment payments a plan can be created with.
    */
   minimumSplit: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6455,7 +6455,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -6487,7 +6487,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6521,7 +6521,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6565,7 +6565,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -6597,14 +6597,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -6616,7 +6616,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -6630,7 +6630,7 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6663,7 +6663,7 @@ export interface BankingProductEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6696,7 +6696,7 @@ export interface BankingProductEligibilityV2 {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6746,7 +6746,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6797,7 +6797,7 @@ export interface BankingProductFeatureV3 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6849,7 +6849,7 @@ export interface BankingProductFeatureV4 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -6912,7 +6912,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -6959,7 +6959,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -6991,7 +6991,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7065,7 +7065,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -7107,7 +7107,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -7139,14 +7139,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -7158,7 +7158,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -7172,14 +7172,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -7195,7 +7195,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -7209,7 +7209,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7247,7 +7247,7 @@ export interface BankingProductInstalments {
    * Minimum number of instalment payments a plan can be created with.
    */
   minimumSplit: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7311,7 +7311,7 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -7346,7 +7346,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -7360,7 +7360,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7433,7 +7433,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -7467,7 +7467,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -7505,7 +7505,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7521,7 +7521,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7557,7 +7557,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7594,7 +7594,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -7608,7 +7608,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7648,7 +7648,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -7682,7 +7682,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7713,7 +7713,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -7760,7 +7760,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -7806,7 +7806,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -7817,7 +7817,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -7883,7 +7883,7 @@ export interface BankingProductV5 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -7929,7 +7929,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -7940,7 +7940,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -7959,7 +7959,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8026,7 +8026,7 @@ export interface BankingProductV6 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -8072,7 +8072,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -8083,7 +8083,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -8102,7 +8102,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8114,7 +8114,7 @@ export interface BankingScheduledPaymentFrom {
    * Unique identifier for the account.
    */
   accountId: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8133,7 +8133,7 @@ export interface BankingScheduledPaymentInterval {
    * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with _nextPaymentDate_.
    */
   interval: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8153,7 +8153,7 @@ export interface BankingScheduledPaymentRecurrence {
    * The type of recurrence used to define the schedule.
    */
   recurrenceUType: "eventBased" | "intervalSchedule" | "lastWeekDay" | "onceOff";
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if the _recurrenceUType_ value is `eventBased`.
@@ -8163,7 +8163,7 @@ export interface BankingScheduledPaymentRecurrenceEventBased {
    * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if the _recurrenceUType_ value is `intervalSchedule`.
@@ -8185,7 +8185,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingScheduledPaymentInterval {
   /**
@@ -8196,7 +8196,7 @@ export interface BankingScheduledPaymentInterval {
    * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with _nextPaymentDate_.
    */
   interval: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if the _recurrenceUType_ value is `lastWeekDay`.
@@ -8222,7 +8222,7 @@ export interface BankingScheduledPaymentRecurrenceLastWeekday {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the payment is a once off payment on a specific future date. Mandatory if the _recurrenceUType_ value is `onceOff`.
@@ -8232,7 +8232,7 @@ export interface BankingScheduledPaymentRecurrenceOnceOff {
    * The scheduled date for the once off payment.
    */
   paymentDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8244,7 +8244,7 @@ export interface BankingScheduledPaymentRecurrenceEventBased {
    * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8268,7 +8268,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingScheduledPaymentInterval {
   /**
@@ -8279,7 +8279,7 @@ export interface BankingScheduledPaymentInterval {
    * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with _nextPaymentDate_.
    */
   interval: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8307,7 +8307,7 @@ export interface BankingScheduledPaymentRecurrenceLastWeekday {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8319,7 +8319,7 @@ export interface BankingScheduledPaymentRecurrenceOnceOff {
    * The scheduled date for the once off payment.
    */
   paymentDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8340,7 +8340,7 @@ export interface BankingScheduledPaymentSetV2 {
    */
   isAmountCalculated?: boolean | null;
   to: BankingScheduledPaymentToV2;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing details of the destination of the payment. Used to specify a variety of payment destination types.
@@ -8370,7 +8370,7 @@ export interface BankingScheduledPaymentToV2 {
    * The type of object provided that specifies the destination of the funds for the payment.
    */
   toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -8385,7 +8385,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -8404,7 +8404,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -8414,7 +8414,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -8429,14 +8429,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -8451,7 +8451,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -8468,7 +8468,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -8498,7 +8498,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -8513,9 +8513,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8547,7 +8547,7 @@ export interface BankingScheduledPaymentToV2 {
    * The type of object provided that specifies the destination of the funds for the payment.
    */
   toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -8562,7 +8562,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -8581,7 +8581,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -8591,7 +8591,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -8606,14 +8606,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -8628,7 +8628,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -8645,7 +8645,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -8675,7 +8675,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -8690,9 +8690,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -8720,7 +8720,7 @@ export interface BankingScheduledPaymentV2 {
    * Indicates whether the schedule is currently active. The value `SKIP` is equivalent to `ACTIVE` except that the customer has requested the next normal occurrence to be skipped.
    */
   status: "ACTIVE" | "INACTIVE" | "SKIP";
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing details of the source of the payment. Currently only specifies an _accountId_ but provided as an object to facilitate future extensibility and consistency with the _to_ object.
@@ -8730,7 +8730,7 @@ export interface BankingScheduledPaymentFrom {
    * Unique identifier for the account.
    */
   accountId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * The set of payment amounts and destination accounts for this payment accommodating multi-part payments. A single entry indicates a simple payment with one destination account. Must have at least one entry.
@@ -8749,7 +8749,7 @@ export interface BankingScheduledPaymentSetV2 {
    */
   isAmountCalculated?: boolean | null;
   to: BankingScheduledPaymentToV2;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing details of the destination of the payment. Used to specify a variety of payment destination types.
@@ -8779,7 +8779,7 @@ export interface BankingScheduledPaymentToV2 {
    * The type of object provided that specifies the destination of the funds for the payment.
    */
   toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -8794,7 +8794,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -8813,7 +8813,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -8823,7 +8823,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -8838,14 +8838,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -8860,7 +8860,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -8877,7 +8877,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -8907,7 +8907,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -8922,9 +8922,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing the detail of the schedule for the payment.
@@ -8942,7 +8942,7 @@ export interface BankingScheduledPaymentRecurrence {
    * The type of recurrence used to define the schedule.
    */
   recurrenceUType: "eventBased" | "intervalSchedule" | "lastWeekDay" | "onceOff";
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if the _recurrenceUType_ value is `eventBased`.
@@ -8952,7 +8952,7 @@ export interface BankingScheduledPaymentRecurrenceEventBased {
    * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if the _recurrenceUType_ value is `intervalSchedule`.
@@ -8974,7 +8974,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingScheduledPaymentInterval {
   /**
@@ -8985,7 +8985,7 @@ export interface BankingScheduledPaymentInterval {
    * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with _nextPaymentDate_.
    */
   interval: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if the _recurrenceUType_ value is `lastWeekDay`.
@@ -9011,7 +9011,7 @@ export interface BankingScheduledPaymentRecurrenceLastWeekday {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the payment is a once off payment on a specific future date. Mandatory if the _recurrenceUType_ value is `onceOff`.
@@ -9021,7 +9021,7 @@ export interface BankingScheduledPaymentRecurrenceOnceOff {
    * The scheduled date for the once off payment.
    */
   paymentDate: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9046,7 +9046,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9131,7 +9131,7 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9162,15 +9162,15 @@ export type BankingTransactionDetail = BankingTransaction & {
        * Purpose of the payment. Format is defined by NPP standards for the x2p1.01 overlay service.
        */
       purposeCode?: string;
-      [k: string]: unknown;
+      
     };
     /**
      * Identifier of the applicable overlay service. Valid values are: `X2P1.01`.
      */
     service: "X2P1.01";
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 
 export interface BankingTransaction {
@@ -9254,7 +9254,7 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9296,11 +9296,11 @@ export type BankingTransactionDetailV2 = BankingTransaction & {
        * Two-digit NPP service overlay version with leading zero.
        */
       serviceVersion: string;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 
 export interface BankingTransaction {
@@ -9384,7 +9384,7 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9426,11 +9426,11 @@ export type BankingTransactionDetailV3 = BankingTransactionV2 & {
        * Two-digit NPP service overlay version with leading zero.
        */
       serviceVersion: string;
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 };
 
 export interface BankingTransactionV2 {
@@ -9518,7 +9518,7 @@ export interface BankingTransactionV2 {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9613,7 +9613,7 @@ export interface BankingTransactionV2 {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9709,7 +9709,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9720,7 +9720,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -9814,7 +9814,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -9852,7 +9852,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9892,7 +9892,7 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9913,13 +9913,13 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9928,7 +9928,7 @@ export interface Links {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9953,12 +9953,12 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface Meta {
-  [k: string]: unknown;
+  [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9970,7 +9970,7 @@ export interface MetaError {
    * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
    */
   urn?: string | null;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9983,7 +9983,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -9992,7 +9992,7 @@ export type MetaPaginatedTransaction = MetaPaginated & {
    * `true` if _text_ query parameter is not supported.
    */
   isQueryParamUnsupported?: boolean;
-  [k: string]: unknown;
+  
 };
 
 export interface MetaPaginated {
@@ -10004,7 +10004,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -10020,13 +10020,10 @@ export interface RequestAccountIdListV1 {
      * Array of _accountId_ values to obtain data for.
      */
     accountIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -10036,14 +10033,12 @@ export interface RequestAccountIds {
      * Array of _accountId_ values.
      */
     accountIds: string[];
-    [k: string]: unknown;
+    
   };
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingAccountByIdV3 {
@@ -10091,7 +10086,7 @@ export interface ResponseBankingAccountByIdV3 {
        * `true` if the feature is already activated and `false` if the feature is available for activation. Defaults to `true` if absent.<br>Note: this is an additional field appended to the feature object defined in the Product Reference payload.
        */
       isActivated?: boolean;
-      [k: string]: unknown;
+      
     })[];
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -10101,11 +10096,11 @@ export interface ResponseBankingAccountByIdV3 {
      * The addresses for the account to be used for correspondence.
      */
     addresses?: CommonPhysicalAddress[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingAccountV2 {
   /**
@@ -10160,7 +10155,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -10183,7 +10178,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -10202,7 +10197,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV2 {
   /**
@@ -10265,7 +10260,7 @@ export interface BankingLoanAccountV2 {
    * Options in place for repayments. If absent defaults to `PRINCIPAL_AND_INTEREST`.
    */
   repaymentType?: ("INTEREST_ONLY" | "PRINCIPAL_AND_INTEREST") | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -10300,7 +10295,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -10335,7 +10330,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -10349,7 +10344,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -10411,7 +10406,7 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -10459,7 +10454,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -10520,7 +10515,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -10567,7 +10562,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -10599,7 +10594,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -10608,7 +10603,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -10702,7 +10697,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -10740,18 +10735,16 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingAccountByIdV4 {
@@ -10808,7 +10801,7 @@ export interface ResponseBankingAccountByIdV4 {
        * <ul><li>`ACTIVATED` if the feature has been activated by the customer or is a standard feature of the product</li><li>`NOT_ACTIVATED` if the feature is not activated but is available for activation</li><li>`UNKNOWN` or absent if the activation state is unknown.</ul>**Note:** This is an additional field appended to the feature structure defined in the Product Reference payload.
        */
       isActivated?: "ACTIVATED" | "NOT_ACTIVATED" | "UNKNOWN";
-      [k: string]: unknown;
+      
     })[];
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -10818,11 +10811,11 @@ export interface ResponseBankingAccountByIdV4 {
      * The addresses for the account to be used for correspondence.
      */
     addresses?: CommonPhysicalAddress[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingAccountV2 {
   /**
@@ -10877,7 +10870,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -10900,7 +10893,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -10919,7 +10912,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV3 {
   /**
@@ -10982,7 +10975,7 @@ export interface BankingLoanAccountV3 {
    * Option in place for repayments.
    */
   repaymentType: "INTEREST_ONLY" | "OTHER" | "PRINCIPAL_AND_INTEREST" | "UNCONSTRAINED";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -11025,7 +11018,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -11059,7 +11052,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -11097,7 +11090,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -11168,7 +11161,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV3 {
   /**
@@ -11217,7 +11210,7 @@ export interface BankingProductFeatureV3 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -11289,7 +11282,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -11331,7 +11324,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -11363,14 +11356,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -11382,7 +11375,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -11396,14 +11389,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -11419,7 +11412,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -11433,7 +11426,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -11442,7 +11435,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -11536,7 +11529,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -11574,17 +11567,14 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -11643,7 +11633,7 @@ export interface ResponseBankingAccountByIdV5 {
        * <ul><li>`ACTIVATED` if the feature has been activated by the customer or is a standard feature of the product</li><li>`NOT_ACTIVATED` if the feature is not activated but is available for activation</li><li>`UNKNOWN` or absent if the activation state is unknown.</ul>**Note:** This is an additional field appended to the feature structure defined in the Product Reference payload.
        */
       isActivated?: "ACTIVATED" | "NOT_ACTIVATED" | "UNKNOWN";
-      [k: string]: unknown;
+      
     })[];
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
@@ -11653,11 +11643,11 @@ export interface ResponseBankingAccountByIdV5 {
      * The addresses for the account to be used for correspondence.
      */
     addresses?: CommonPhysicalAddress[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingAccountV3 {
   /**
@@ -11717,7 +11707,7 @@ export interface BankingAccountV3 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Details of instalment features on the account.
@@ -11747,7 +11737,7 @@ export interface BankingProductInstalments {
    * Minimum number of instalment payments a plan can be created with.
    */
   minimumSplit: number;
-  [k: string]: unknown;
+  
 }
 export interface BankingTermDepositAccount {
   /**
@@ -11770,7 +11760,7 @@ export interface BankingTermDepositAccount {
    * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
    */
   maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
-  [k: string]: unknown;
+  
 }
 export interface BankingCreditCardAccount {
   /**
@@ -11789,7 +11779,7 @@ export interface BankingCreditCardAccount {
    * Date that the next payment for the card is due.
    */
   paymentDueDate: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingLoanAccountV3 {
   /**
@@ -11852,7 +11842,7 @@ export interface BankingLoanAccountV3 {
    * Option in place for repayments.
    */
   repaymentType: "INTEREST_ONLY" | "OTHER" | "PRINCIPAL_AND_INTEREST" | "UNCONSTRAINED";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -11895,7 +11885,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -11929,7 +11919,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -11967,7 +11957,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -12038,7 +12028,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV4 {
   /**
@@ -12088,7 +12078,7 @@ export interface BankingProductFeatureV4 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -12160,7 +12150,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -12202,7 +12192,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -12234,14 +12224,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -12253,7 +12243,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -12267,14 +12257,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -12290,7 +12280,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -12304,7 +12294,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface CommonPhysicalAddress {
   /**
@@ -12313,7 +12303,7 @@ export interface CommonPhysicalAddress {
   addressUType: "paf" | "simple";
   paf?: CommonPAFAddress;
   simple?: CommonSimpleAddress;
-  [k: string]: unknown;
+  
 }
 /**
  * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Mandatory if the _addressUType_ value is `paf`.
@@ -12407,7 +12397,7 @@ export interface CommonPAFAddress {
    * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
    */
   thoroughfareNumber2Suffix?: string | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Mandatory if the _addressUType_ value is `simple`.
@@ -12445,17 +12435,14 @@ export interface CommonSimpleAddress {
    * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
    */
   state: string;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12465,11 +12452,11 @@ export interface ResponseBankingAccountListV2 {
      * The list of accounts returned. If the filter results in an empty set then this array may have no records.
      */
     accounts: BankingAccountV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingAccountV2 {
   /**
@@ -12524,7 +12511,7 @@ export interface BankingAccountV2 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -12547,7 +12534,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -12558,7 +12545,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12568,11 +12555,11 @@ export interface ResponseBankingAccountListV3 {
      * The list of accounts returned. If the filter results in an empty set then this array may have no records.
      */
     accounts: BankingAccountV3[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingAccountV3 {
   /**
@@ -12632,7 +12619,7 @@ export interface BankingAccountV3 {
    * The unique identifier of the account as defined by the data holder (akin to model number for the account).
    */
   productName: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -12655,7 +12642,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -12666,7 +12653,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12674,7 +12661,7 @@ export interface ResponseBankingAccountsBalanceById {
   data: BankingBalance;
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingBalance {
   /**
@@ -12705,7 +12692,7 @@ export interface BankingBalance {
    * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards.
    */
   purses?: BankingBalancePurse[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingBalancePurse {
   /**
@@ -12716,17 +12703,14 @@ export interface BankingBalancePurse {
    * The currency for the purse.
    */
   currency?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12736,11 +12720,11 @@ export interface ResponseBankingAccountsBalanceList {
      * The list of balances returned.
      */
     balances: BankingBalance[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingBalance {
   /**
@@ -12771,7 +12755,7 @@ export interface BankingBalance {
    * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards.
    */
   purses?: BankingBalancePurse[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingBalancePurse {
   /**
@@ -12782,7 +12766,7 @@ export interface BankingBalancePurse {
    * The currency for the purse.
    */
   currency?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -12805,7 +12789,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -12816,7 +12800,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12826,11 +12810,11 @@ export interface ResponseBankingDirectDebitAuthorisationList {
      * The list of authorisations returned.
      */
     directDebitAuthorisations: BankingDirectDebit[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingDirectDebit {
   /**
@@ -12846,7 +12830,7 @@ export interface BankingDirectDebit {
    * The date and time of the last debit executed under this authorisation.
    */
   lastDebitDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingAuthorisedEntity {
   /**
@@ -12869,7 +12853,7 @@ export interface BankingAuthorisedEntity {
    * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.
    */
   financialInstitution?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -12892,7 +12876,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -12903,7 +12887,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -12913,11 +12897,11 @@ export interface ResponseBankingInstalmentPlanList {
      * Array of instalment plans. An instalment plan describes the terms of repayment for a specified loan amount such as a Buy Now, Pay Later (BNPL) purchase or a specific card transaction.
      */
     plans: BankingInstalmentPlan[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingInstalmentPlan {
   /**
@@ -12976,7 +12960,7 @@ export interface BankingInstalmentPlan {
    * Array of scheduled repayment amounts and dates.
    */
   schedule: BankingInstalmentPlanSchedule[];
-  [k: string]: unknown;
+  
 }
 export interface BankingInstalmentPlanSchedule {
   /**
@@ -12991,7 +12975,7 @@ export interface BankingInstalmentPlanSchedule {
    * Whether the associated _amountDue_ has been paid or is otherwise considered as not outstanding. `false` is assumed if absent.
    */
   isPaid?: boolean | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -13014,7 +12998,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -13025,7 +13009,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -13039,11 +13023,11 @@ export interface ResponseBankingPayeeByIdV2 {
     domestic?: BankingDomesticPayee;
     digitalWallet?: BankingDigitalWalletPayee;
     international?: BankingInternationalPayee;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingPayeeV2 {
   /**
@@ -13066,7 +13050,7 @@ export interface BankingPayeeV2 {
    * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul>
    */
   type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -13081,7 +13065,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -13091,7 +13075,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -13106,14 +13090,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -13128,7 +13112,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -13147,7 +13131,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -13164,7 +13148,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -13194,7 +13178,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -13209,19 +13193,16 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -13231,11 +13212,11 @@ export interface ResponseBankingPayeeListV2 {
      * The list of payees returned.
      */
     payees: BankingPayeeV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingPayeeV2 {
   /**
@@ -13258,7 +13239,7 @@ export interface BankingPayeeV2 {
    * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul>
    */
   type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -13281,7 +13262,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -13292,7 +13273,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -13326,11 +13307,11 @@ export interface ResponseBankingProductByIdV4 {
      * Interest rates charged against lending balances.
      */
     lendingRates?: BankingProductLendingRateV2[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV4 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -13359,7 +13340,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -13406,7 +13387,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -13452,7 +13433,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -13463,7 +13444,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -13486,7 +13467,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -13534,7 +13515,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraint {
   /**
@@ -13553,7 +13534,7 @@ export interface BankingProductConstraint {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MIN_BALANCE" | "MIN_LIMIT" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibility {
   /**
@@ -13584,7 +13565,7 @@ export interface BankingProductEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -13645,7 +13626,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -13692,7 +13673,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -13724,7 +13705,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -13759,7 +13740,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -13794,7 +13775,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -13808,7 +13789,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -13870,17 +13851,14 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -13914,11 +13892,11 @@ export interface ResponseBankingProductByIdV5 {
      * Interest rates charged against lending balances.
      */
     lendingRates?: BankingProductLendingRateV2[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV4 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -13947,7 +13925,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -13994,7 +13972,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -14040,7 +14018,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -14051,7 +14029,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -14074,7 +14052,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV2 {
   /**
@@ -14122,7 +14100,7 @@ export interface BankingProductFeatureV2 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV2 {
   /**
@@ -14141,7 +14119,7 @@ export interface BankingProductConstraintV2 {
    * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
    */
   constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MAX_LVR" | "MIN_BALANCE" | "MIN_LIMIT" | "MIN_LVR" | "OPENING_BALANCE";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibility {
   /**
@@ -14172,7 +14150,7 @@ export interface BankingProductEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFee {
   /**
@@ -14233,7 +14211,7 @@ export interface BankingProductFee {
    * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscount {
   /**
@@ -14280,7 +14258,7 @@ export interface BankingProductDiscount {
    * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
    */
   transactionRate?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -14312,7 +14290,7 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRate {
   /**
@@ -14347,7 +14325,7 @@ export interface BankingProductDepositRate {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -14382,7 +14360,7 @@ export interface BankingProductRateTierV3 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a tiered rate.
@@ -14396,7 +14374,7 @@ export interface BankingProductRateCondition {
    * Link to a web page with more information on this condition.
    */
   additionalInfoUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV2 {
   /**
@@ -14458,17 +14436,14 @@ export interface BankingProductLendingRateV2 {
    * Rate tiers applicable for this rate.
    */
   tiers?: BankingProductRateTierV3[] | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -14502,11 +14477,11 @@ export interface ResponseBankingProductByIdV6 {
      * Interest rates charged against lending balances.
      */
     lendingRates?: BankingProductLendingRateV3[];
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV5 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -14570,7 +14545,7 @@ export interface BankingProductV5 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -14616,7 +14591,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -14627,7 +14602,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -14646,7 +14621,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -14669,7 +14644,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV3 {
   /**
@@ -14718,7 +14693,7 @@ export interface BankingProductFeatureV3 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV3 {
   /**
@@ -14745,7 +14720,7 @@ export interface BankingProductConstraintV3 {
     | "MIN_LVR"
     | "OPENING_BALANCE"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibilityV2 {
   /**
@@ -14776,7 +14751,7 @@ export interface BankingProductEligibilityV2 {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -14848,7 +14823,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -14890,7 +14865,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -14922,14 +14897,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -14941,7 +14916,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -14955,14 +14930,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -14978,7 +14953,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -14992,7 +14967,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -15035,7 +15010,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -15069,7 +15044,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -15107,7 +15082,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -15178,17 +15153,14 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -15223,11 +15195,11 @@ export interface ResponseBankingProductByIdV7 {
      */
     lendingRates?: BankingProductLendingRateV3[];
     instalments?: BankingProductInstalments;
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV6 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -15292,7 +15264,7 @@ export interface BankingProductV6 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -15338,7 +15310,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -15349,7 +15321,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -15368,7 +15340,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductBundle {
   /**
@@ -15391,7 +15363,7 @@ export interface BankingProductBundle {
    * Array of _productID_ values for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
    */
   productIds?: string[] | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeatureV4 {
   /**
@@ -15441,7 +15413,7 @@ export interface BankingProductFeatureV4 {
     | "REDRAW"
     | "RELATIONSHIP_MANAGEMENT"
     | "UNLIMITED_TXNS";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductConstraintV3 {
   /**
@@ -15468,7 +15440,7 @@ export interface BankingProductConstraintV3 {
     | "MIN_LVR"
     | "OPENING_BALANCE"
     | "OTHER";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductEligibilityV2 {
   /**
@@ -15499,7 +15471,7 @@ export interface BankingProductEligibilityV2 {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductFeeV2 {
   /**
@@ -15571,7 +15543,7 @@ export interface BankingProductFeeV2 {
    * Mandatory if the _feeMethodUType_ value is `variable`. Where the amount or rate may not be known until the fee is incurred.
    */
   variable?: BankingFeeRange;
-  [k: string]: unknown;
+  
 }
 /**
  * Note that the currency of the fee discount is expected to be the same as the currency of the fee itself.
@@ -15613,7 +15585,7 @@ export interface BankingProductDiscountV2 {
    * Mandatory if the _discountMethodUType_ value is `rateBased`. Where the discount is based on a type of rate. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
    */
   rateBased?: BankingFeeDiscountRate;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDiscountEligibility {
   /**
@@ -15645,14 +15617,14 @@ export interface BankingProductDiscountEligibility {
     | "RESIDENCY_STATUS"
     | "STAFF"
     | "STUDENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountAmount {
   /**
    * The specific amount discounted from the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeDiscountRate {
   amountRange?: BankingFeeDiscountRange;
@@ -15664,7 +15636,7 @@ export interface BankingFeeDiscountRate {
    * Type of fee rate discount calculation.<ul><li>`BALANCE` A fee rate discount based on a balance</li><li>`FEE` A fee rate discount based on the fee to which the discount is attached</li><li>`INTEREST_ACCRUED` A fee rate discount based on interest accrued</li><li>`TRANSACTION` A fee rate discount based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "FEE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee discount amount where a specific fixed amount is not known until the fee is incurred.
@@ -15678,14 +15650,14 @@ export interface BankingFeeDiscountRange {
    * The minimum fee discount that will be applied per occurrence.
    */
   discountMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeAmount {
   /**
    * The specific amount charged for the fee each time it is incurred.
    */
   amount: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingFeeRate {
   /**
@@ -15701,7 +15673,7 @@ export interface BankingFeeRate {
    * Type of fee rate calculation.<ul><li>`BALANCE` A fee rate based on a balance</li><li>`INTEREST_ACCRUED` A fee rate based on interest accrued</li><li>`TRANSACTION` A fee rate based on a transaction.</li></ul>
    */
   rateType: "BALANCE" | "INTEREST_ACCRUED" | "TRANSACTION";
-  [k: string]: unknown;
+  
 }
 /**
  * A minimum or maximum fee amount where a specific fixed amount is not known until the fee is incurred.
@@ -15715,7 +15687,7 @@ export interface BankingFeeRange {
    * The minimum fee that will be charged per occurrence.
    */
   feeMinimum?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductDepositRateV2 {
   /**
@@ -15758,7 +15730,7 @@ export interface BankingProductDepositRateV2 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Defines a condition for the applicability of a rate.
@@ -15792,7 +15764,7 @@ export interface BankingProductRateConditionV2 {
     | "MIN_PURCHASES"
     | "MAX_WITHDRAWALS"
     | "MAX_WITHDRAWAL_AMOUNT";
-  [k: string]: unknown;
+  
 }
 /**
  * Defines the criteria and conditions for which a rate applies.
@@ -15830,7 +15802,7 @@ export interface BankingProductRateTierV4 {
    * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values, e.g.,<ul><li>`DOLLAR` for a dollar amount (with values in AmountString format)<li>`PERCENT` for Loan-to-Value Ratio or LVR (with values in RateString format)<li>`MONTH` or `DAY` for a period representing a discrete number of months or days for a fixed-term deposit or loan (with values as a string containing a positive integer).</ul>
    */
   unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
-  [k: string]: unknown;
+  
 }
 export interface BankingProductLendingRateV3 {
   /**
@@ -15901,7 +15873,7 @@ export interface BankingProductLendingRateV3 {
    * Qualifying criteria or conditions relevant to the associated rate.
    */
   tiers?: BankingProductRateTierV4[] | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Details of instalment features on the account.
@@ -15931,17 +15903,14 @@ export interface BankingProductInstalments {
    * Minimum number of instalment payments a plan can be created with.
    */
   minimumSplit: number;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -15951,11 +15920,11 @@ export interface ResponseBankingProductListV2 {
      * The list of products returned. If the filter results in an empty set then this array may have no records.
      */
     products: BankingProductV4[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV4 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -15984,7 +15953,7 @@ export interface BankingProductV4 {
          * Display label for the specific image.
          */
         title?: string;
-        [k: string]: unknown;
+        
       }[]
     | null;
   /**
@@ -16031,7 +16000,7 @@ export interface BankingProductV4 {
    * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -16077,7 +16046,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -16088,7 +16057,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -16111,7 +16080,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -16122,7 +16091,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -16132,11 +16101,11 @@ export interface ResponseBankingProductListV3 {
      * The list of products returned. If the filter results in an empty set then this array may have no records.
      */
     products: BankingProductV5[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV5 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -16200,7 +16169,7 @@ export interface BankingProductV5 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -16246,7 +16215,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -16257,7 +16226,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -16276,7 +16245,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -16299,7 +16268,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -16310,7 +16279,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -16320,11 +16289,11 @@ export interface ResponseBankingProductListV4 {
      * The list of products returned. If the filter results in an empty set then this array may have no records.
      */
     products: BankingProductV6[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductV6 {
   additionalInformation?: BankingProductAdditionalInformationV2;
@@ -16389,7 +16358,7 @@ export interface BankingProductV6 {
    * A data holder-specific unique identifier for a Banking product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
    */
   productId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Object that contains links to additional information on specific topics.
@@ -16435,7 +16404,7 @@ export interface BankingProductAdditionalInformationV2 {
    * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
    */
   termsUri?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductAdditionalInformationV2AdditionalInformationUris {
   /**
@@ -16446,7 +16415,7 @@ export interface BankingProductAdditionalInformationV2AdditionalInformationUris 
    * Display text providing more information about the document URI.
    */
   description?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingProductCardArt {
   /**
@@ -16465,7 +16434,7 @@ export interface BankingProductCardArt {
    * Display label for the specific image.
    */
   title?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -16488,7 +16457,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -16499,7 +16468,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -16509,11 +16478,11 @@ export interface ResponseBankingScheduledPaymentsListV2 {
      * The list of scheduled payments to return.
      */
     scheduledPayments: BankingScheduledPaymentV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated;
-  [k: string]: unknown;
+  
 }
 export interface BankingScheduledPaymentV2 {
   from: BankingScheduledPaymentFrom;
@@ -16539,7 +16508,7 @@ export interface BankingScheduledPaymentV2 {
    * Indicates whether the schedule is currently active. The value `SKIP` is equivalent to `ACTIVE` except that the customer has requested the next normal occurrence to be skipped.
    */
   status: "ACTIVE" | "INACTIVE" | "SKIP";
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing details of the source of the payment. Currently only specifies an _accountId_ but provided as an object to facilitate future extensibility and consistency with the _to_ object.
@@ -16549,7 +16518,7 @@ export interface BankingScheduledPaymentFrom {
    * Unique identifier for the account.
    */
   accountId: string;
-  [k: string]: unknown;
+  
 }
 /**
  * The set of payment amounts and destination accounts for this payment accommodating multi-part payments. A single entry indicates a simple payment with one destination account. Must have at least one entry.
@@ -16568,7 +16537,7 @@ export interface BankingScheduledPaymentSetV2 {
    */
   isAmountCalculated?: boolean | null;
   to: BankingScheduledPaymentToV2;
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing details of the destination of the payment. Used to specify a variety of payment destination types.
@@ -16598,7 +16567,7 @@ export interface BankingScheduledPaymentToV2 {
    * The type of object provided that specifies the destination of the funds for the payment.
    */
   toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
-  [k: string]: unknown;
+  
 }
 export interface BankingBillerPayee {
   /**
@@ -16613,7 +16582,7 @@ export interface BankingBillerPayee {
    * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
    */
   crn?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingDigitalWalletPayee {
   /**
@@ -16632,7 +16601,7 @@ export interface BankingDigitalWalletPayee {
    * The type of the digital wallet identifier.
    */
   type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayee {
   account?: BankingDomesticPayeeAccount;
@@ -16642,7 +16611,7 @@ export interface BankingDomesticPayee {
    * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
    */
   payeeAccountUType: "account" | "card" | "payId";
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeAccount {
   /**
@@ -16657,14 +16626,14 @@ export interface BankingDomesticPayeeAccount {
    * BSB of the account to pay to.
    */
   bsb: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeeCard {
   /**
    * Name of the account to pay to.
    */
   cardNumber: string;
-  [k: string]: unknown;
+  
 }
 export interface BankingDomesticPayeePayId {
   /**
@@ -16679,7 +16648,7 @@ export interface BankingDomesticPayeePayId {
    * The type of the PayID.
    */
   type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
-  [k: string]: unknown;
+  
 }
 export interface BankingInternationalPayee {
   bankDetails: {
@@ -16696,7 +16665,7 @@ export interface BankingInternationalPayee {
        * Name of the recipient Bank.
        */
       name: string;
-      [k: string]: unknown;
+      
     } | null;
     /**
      * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
@@ -16726,7 +16695,7 @@ export interface BankingInternationalPayee {
      * Sort code used for account identification in some jurisdictions.
      */
     sortCode?: string | null;
-    [k: string]: unknown;
+    
   };
   beneficiaryDetails: {
     /**
@@ -16741,9 +16710,9 @@ export interface BankingInternationalPayee {
      * Name of the beneficiary.
      */
     name?: string | null;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 /**
  * Object containing the detail of the schedule for the payment.
@@ -16761,7 +16730,7 @@ export interface BankingScheduledPaymentRecurrence {
    * The type of recurrence used to define the schedule.
    */
   recurrenceUType: "eventBased" | "intervalSchedule" | "lastWeekDay" | "onceOff";
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if the _recurrenceUType_ value is `eventBased`.
@@ -16771,7 +16740,7 @@ export interface BankingScheduledPaymentRecurrenceEventBased {
    * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.
    */
   description: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if the _recurrenceUType_ value is `intervalSchedule`.
@@ -16793,7 +16762,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 export interface BankingScheduledPaymentInterval {
   /**
@@ -16804,7 +16773,7 @@ export interface BankingScheduledPaymentInterval {
    * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with _nextPaymentDate_.
    */
   interval: string;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if the _recurrenceUType_ value is `lastWeekDay`.
@@ -16830,7 +16799,7 @@ export interface BankingScheduledPaymentRecurrenceLastWeekday {
    * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.
    */
   paymentsRemaining?: number | null;
-  [k: string]: unknown;
+  
 }
 /**
  * Indicates that the payment is a once off payment on a specific future date. Mandatory if the _recurrenceUType_ value is `onceOff`.
@@ -16840,7 +16809,7 @@ export interface BankingScheduledPaymentRecurrenceOnceOff {
    * The scheduled date for the once off payment.
    */
   paymentDate: string;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -16863,7 +16832,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -16874,7 +16843,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -16906,19 +16875,19 @@ export interface ResponseBankingTransactionById {
          * Purpose of the payment. Format is defined by NPP standards for the x2p1.01 overlay service.
          */
         purposeCode?: string;
-        [k: string]: unknown;
+        
       };
       /**
        * Identifier of the applicable overlay service. Valid values are: `X2P1.01`.
        */
       service: "X2P1.01";
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingTransaction {
   /**
@@ -17001,17 +16970,14 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -17054,15 +17020,15 @@ export interface ResponseBankingTransactionByIdV2 {
          * Two-digit NPP service overlay version with leading zero.
          */
         serviceVersion: string;
-        [k: string]: unknown;
+        
       };
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingTransaction {
   /**
@@ -17145,18 +17111,16 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
-export interface Meta {
-  [k: string]: unknown;
-}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingTransactionByIdV3 {
@@ -17198,15 +17162,15 @@ export interface ResponseBankingTransactionByIdV3 {
          * Two-digit NPP service overlay version with leading zero.
          */
         serviceVersion: string;
-        [k: string]: unknown;
+        
       };
-      [k: string]: unknown;
+      
     };
-    [k: string]: unknown;
+    
   };
   links: Links;
   meta?: Meta;
-  [k: string]: unknown;
+  
 }
 export interface BankingTransactionV2 {
   /**
@@ -17293,24 +17257,21 @@ export interface BankingTransactionV2 {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface Links {
   /**
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
-}
-export interface Meta {
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingTransactionList {
   data: {
     transactions: BankingTransaction[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated & {
@@ -17318,9 +17279,9 @@ export interface ResponseBankingTransactionList {
      * `true` if _text_ query parameter is not supported.
      */
     isQueryParamUnsupported?: boolean;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 export interface BankingTransaction {
   /**
@@ -17403,7 +17364,7 @@ export interface BankingTransaction {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -17426,7 +17387,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -17437,14 +17398,14 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingTransactionListV2 {
   data: {
     transactions: BankingTransactionV2[];
-    [k: string]: unknown;
+    
   };
   links: LinksPaginated;
   meta: MetaPaginated & {
@@ -17452,9 +17413,9 @@ export interface ResponseBankingTransactionListV2 {
      * `true` if _text_ query parameter is not supported.
      */
     isQueryParamUnsupported?: boolean;
-    [k: string]: unknown;
+    
   };
-  [k: string]: unknown;
+  
 }
 export interface BankingTransactionV2 {
   /**
@@ -17541,7 +17502,7 @@ export interface BankingTransactionV2 {
    * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
    */
   valueDateTime?: string | null;
-  [k: string]: unknown;
+  
 }
 export interface LinksPaginated {
   /**
@@ -17564,7 +17525,7 @@ export interface LinksPaginated {
    * Fully qualified link that generated the current response document.
    */
   self: string;
-  [k: string]: unknown;
+  
 }
 export interface MetaPaginated {
   /**
@@ -17575,7 +17536,7 @@ export interface MetaPaginated {
    * The total number of records in the full set. See [pagination](#pagination).
    */
   totalRecords: number;
-  [k: string]: unknown;
+  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
@@ -17584,7 +17545,7 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  [k: string]: unknown;
+  
 }
 export interface ErrorV2 {
   /**
@@ -17603,11 +17564,11 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    [k: string]: unknown;
+    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  [k: string]: unknown;
+  
 }
