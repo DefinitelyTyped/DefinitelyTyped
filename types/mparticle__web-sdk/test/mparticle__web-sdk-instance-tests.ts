@@ -726,47 +726,47 @@ user5.getCart().clear();
 
 mParticle.Rokt.selectPlacements({
     attributes: {
-        'foo': 'bar',
-        'fizz': 'buzz',
+        "foo": "bar",
+        "fizz": "buzz",
     },
 }).then(selection => {
     // Test event subscription patterns
-    selection.on('PLACEMENT_INTERACTIVE').subscribe(() => {
-        console.log('Placement interaction');
+    selection.on("PLACEMENT_INTERACTIVE").subscribe(() => {
+        console.log("Placement interaction");
     });
 
-    selection.on('PLACEMENT_COMPLETED').subscribe(event => {
-        console.log('Placement completed', event);
-        console.log('Event details:', event.body, event.event, event.placement);
+    selection.on("PLACEMENT_COMPLETED").subscribe(event => {
+        console.log("Placement completed", event);
+        console.log("Event details:", event.body, event.event, event.placement);
     });
 
     // Test unsubscription
-    const unsubscriber = selection.on('PLACEMENT_READY').subscribe(event => {
-        console.log('Placement ready:', event.placement.id);
+    const unsubscriber = selection.on("PLACEMENT_READY").subscribe(event => {
+        console.log("Placement ready:", event.placement.id);
     });
     unsubscriber.unsubscribe();
 
     // Test selection methods
     selection.ready().then(() => {
-        console.log('Selection is ready');
+        console.log("Selection is ready");
     });
 
-    selection.send('custom_event', { data: 'test' });
+    selection.send("custom_event", { data: "test" });
 
     selection.setAttributes({
-        'dynamic_attr': 'updated_value',
-        'user_segment': 'premium'
+        "dynamic_attr": "updated_value",
+        "user_segment": "premium",
     });
 
     // Test getting individual placements
     selection.getPlacements().then(placements => {
         placements.forEach(placement => {
-            console.log('Placement ID:', placement.id);
-            console.log('Placement element:', placement.element);
+            console.log("Placement ID:", placement.id);
+            console.log("Placement element:", placement.element);
 
             // Test placement-specific events
-            placement.on('PLACEMENT_RENDERED').subscribe(event => {
-                console.log('Placement rendered:', event);
+            placement.on("PLACEMENT_RENDERED").subscribe(event => {
+                console.log("Placement rendered:", event);
             });
 
             // Test placement methods
@@ -774,7 +774,7 @@ mParticle.Rokt.selectPlacements({
                 console.log(`Placement ${placement.id} is ready`);
             });
 
-            placement.send('placement_event', { custom: 'data' });
+            placement.send("placement_event", { custom: "data" });
 
             // Test placement close events
             placement.onClose().then(() => {
@@ -794,25 +794,25 @@ mParticle.Rokt.selectPlacements({
 
 // Test other Rokt methods
 mParticle.Rokt.hashAttributes({
-    email: 'user@example.com',
-    userId: '12345',
-    segment: 'premium'
+    email: "user@example.com",
+    userId: "12345",
+    segment: "premium",
 }).then(hashedAttrs => {
-    console.log('Hashed attributes:', hashedAttrs);
+    console.log("Hashed attributes:", hashedAttrs);
 });
 
 mParticle.Rokt.setExtensionData({
-    'analytics': { sessionId: 'abc123' },
-    'personalization': { variant: 'A' }
+    "analytics": { sessionId: "abc123" },
+    "personalization": { variant: "A" },
 });
 
 // Test with identifier
 mParticle.Rokt.selectPlacements({
     attributes: {
-        'placement_type': 'checkout',
-        'cart_value': 150.00
+        "placement_type": "checkout",
+        "cart_value": 150.00,
     },
-    identifier: 'checkout-flow-2024',
+    identifier: "checkout-flow-2024",
 }).then(selection => {
-    console.log('Selection with identifier created', selection);
+    console.log("Selection with identifier created", selection);
 });
