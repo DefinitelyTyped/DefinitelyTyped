@@ -481,6 +481,18 @@ declare module "worker_threads" {
          * @since v22.16.0
          */
         getHeapStatistics(): Promise<HeapInfo>;
+        /**
+         * Calls `worker.terminate()` when the dispose scope is exited.
+         *
+         * ```js
+         * async function example() {
+         *   await using worker = new Worker('for (;;) {}', { eval: true });
+         *   // Worker is automatically terminate when the scope is exited.
+         * }
+         * ```
+         * @since v22.18.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
