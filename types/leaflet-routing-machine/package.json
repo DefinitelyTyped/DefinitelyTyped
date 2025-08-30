@@ -6,7 +6,7 @@
         "https://github.com/perliedman/leaflet-routing-machine#readme"
     ],
     "dependencies": {
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/leaflet-routing-machine": "workspace:."

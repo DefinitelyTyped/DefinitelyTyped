@@ -6,7 +6,7 @@
         "https://github.com/makinacorpus/Leaflet.TextPath"
     ],
     "dependencies": {
-        "@types/leaflet": "*",
+        "@types/leaflet": "^1.9",
         "@types/react": "*"
     },
     "devDependencies": {

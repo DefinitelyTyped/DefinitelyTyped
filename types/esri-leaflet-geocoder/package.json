@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/esri-leaflet": "*",
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/esri-leaflet-geocoder": "workspace:."

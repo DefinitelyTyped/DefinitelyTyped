@@ -6,7 +6,7 @@
         "https://gitlab.com/IvanSanchez/Leaflet.GridLayer.GoogleMutant#README"
     ],
     "dependencies": {
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/leaflet.gridlayer.googlemutant": "workspace:."
