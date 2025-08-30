@@ -1,1 +1,1 @@
-export * from "./lib/ltx";
+export * from "./lib/ltx.js";
