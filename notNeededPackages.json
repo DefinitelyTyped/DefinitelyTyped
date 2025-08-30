@@ -1441,6 +1441,10 @@
             "libraryName": "cypress-recurse",
             "asOfVersion": "1.9.0"
         },
+        "cytoscape-popper": {
+            "libraryName": "cytoscape-popper",
+            "asOfVersion": "4.0.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
