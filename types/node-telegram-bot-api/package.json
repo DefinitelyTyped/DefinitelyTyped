@@ -12,12 +12,6 @@
     "devDependencies": {
         "@types/node-telegram-bot-api": "workspace:."
     },
-    "contributors": [
-        {
-            "name": "Egor Rezvyi",
-            "githubUsername": "Zoomish"
-        }
-    ],
     "owners": [
         {
             "name": "Alex Muench",
