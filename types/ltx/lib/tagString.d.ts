@@ -1,3 +1,2 @@
-import tagString from "../src/tagString";
-
+declare function tagString(literals: string[], ...substitutions: string[]): string;
 export = tagString;

@@ -1,18 +1,29 @@
-import parse = require("./parse");
-import Parser = require("./Parser");
-import { ParserOptions } from "../src/Parser";
-import { escapeXML, escapeXMLText, unescapeXML, unescapeXMLText } from "./escape";
-import Element = require("./Element");
-import { Node } from "../src/Element";
-import equal, { attrsEqual, childrenEqual, nameEqual } from "./equal";
-import createElement = require("./createElement");
-import tag = require("./tag");
-import tagString = require("./tagString");
-import { isElement, isNode, isText } from "./is";
-import clone = require("./clone");
-import stringify = require("./stringify");
-import JSONify = require("./JSONify");
-import { ElementJson } from "../src/JSONify";
+import clone = require("./clone.js");
+import createElement = require("./createElement.js");
+import Element = require("./Element.js");
+import equal = require("./equal.js");
+import escape = require("./escape.js");
+import is = require("./is.js");
+import JSONify = require("./JSONify.js");
+import parse = require("./parse.js");
+import Parser = require("./Parser.js");
+import stringify = require("./stringify.js");
+import tag = require("./tag.js");
+import tagString = require("./tagString.js");
+
+import attrsEqual = equal.attrsEqual;
+import childrenEqual = equal.childrenEqual;
+import nameEqual = equal.nameEqual;
+import escapeXML = escape.escapeXML;
+import unescapeXML = escape.unescapeXML;
+import escapeXMLText = escape.escapeXMLText;
+import unescapeXMLText = escape.unescapeXMLText;
+import isNode = is.isNode;
+import isElement = is.isElement;
+import isText = is.isText;
+import ParserOptions = Parser.ParserOptions;
+import ElementJson = JSONify.ElementJson;
+import Node = Element.Node;
 
 export {
     attrsEqual,

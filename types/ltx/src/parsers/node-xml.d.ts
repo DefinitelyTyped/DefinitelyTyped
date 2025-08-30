@@ -1,3 +1,3 @@
-import Parser from "../Parser";
+import SaxNodeXML = require("../../lib/parsers/node-xml.js");
 
-export default class SaxNodeXML extends Parser {}
+export default SaxNodeXML;
