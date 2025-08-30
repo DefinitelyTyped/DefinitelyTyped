@@ -648,25 +648,56 @@ export function count<TObject>(
 ): number;
 
 /**
- * Returns the Cartesian product of the two arrays a and b.
- * For each element i in the specified array a and each element j in the specified array b, in order,
- * it creates a two-element array for each pair.
+ * Computes the Cartesian product of any number of iterables.
  *
- * @param a First input array.
- * @param b Second input array.
+ * When called **without** a reducer, the result is an array of tuples,
+ * where each tuple contains one element from each input iterable.
+ *
+ * @typeParam T - A tuple type describing the element type of each iterable argument.
+ *                For example, passing `[number[], string[]]` infers `T` as `[number, string]`.
+ *
+ * @param iterables - Two or more iterables to combine into a Cartesian product.
+ * @returns An array of tuples containing one value from each iterable.
+ *
+ * @example
+ * ```ts
+ * const nums = [1, 2];
+ * const chars = ['a', 'b'];
+ * const out = cross(nums, chars);
+ * //    ^? type: [number, string][]
+ * // Example value: [[1,'a'], [1,'b'], [2,'a'], [2,'b']]
+ * ```
  */
-export function cross<S, T>(a: Iterable<S>, b: Iterable<T>): Array<[S, T]>;
+export function cross<T extends unknown[]>(
+    ...iterables: { [K in keyof T]: Iterable<T[K]> }
+): T[];
 
 /**
- * Returns the Cartesian product of the two arrays a and b.
- * For each element i in the specified array a and each element j in the specified array b, in order,
- * invokes the specified reducer function passing the element i and element j.
+ * Computes the Cartesian product of any number of iterables and then applies
+ * a reducer to each tuple, returning the reduced values.
  *
- * @param a First input array.
- * @param b Second input array.
- * @param reducer A reducer function taking as input an element from "a" and "b" and returning a reduced value.
+ * The final argument **must** be the reducer function; all prior arguments are iterables.
+ *
+ * @typeParam T - A tuple type describing the element type of each iterable argument.
+ * @typeParam U - The result type produced by the reducer.
+ *
+ * @param args - The iterables to combine, followed by a reducer function.
+ * @param args.reducer - A function invoked with one element from each iterable
+ *                       (spread as individual parameters) that returns a reduced value.
+ * @returns An array of reduced values returned by the reducer.
+ *
+ * @example
+ * ```ts
+ * const nums = [1, 2];
+ * const chars = ['a', 'b'];
+ * const out = cross(nums, chars, (n, c) => `${n}${c}`);
+ * //    ^? type: string[]
+ * // Example value: ['1a', '1b', '2a', '2b']
+ * ```
  */
-export function cross<S, T, U>(a: Iterable<S>, b: Iterable<T>, reducer: (a: S, b: T) => U): U[];
+export function cross<T extends unknown[], U>(
+    ...args: [...iterables: { [K in keyof T]: Iterable<T[K]> }, reducer: (...values: T) => U]
+): U[];
 
 /**
  * Merges the specified arrays into a single array.
