@@ -1938,7 +1938,29 @@ export interface Font {
      */
     family: string;
     /**
-     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color. See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * Sets the kind of decoration line(s) with text.
+     * @default "none"
+     */
+    lineposition:
+        | "none"
+        | "under"
+        | "over"
+        | "through"
+        | "under+over"
+        | "over+under"
+        | "over+through"
+        | "through+over"
+        | "through+under"
+        | "under+through"
+        | "under+over+through"
+        | "under+through+over"
+        | "over+under+through"
+        | "over+through+under"
+        | "through+under+over"
+        | "through+over+under";
+    /**
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color.
+     * See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
      * @default "none"
      */
     shadow: string;
@@ -1948,11 +1970,33 @@ export interface Font {
      */
     size: number;
     /**
+     * Sets whether a font should be styled with a normal or italic face from its family.
+     * @default "normal"
+     */
+    style: "normal" | "italic";
+    /**
+     * Sets capitalization of text.
+     * It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized.
+     * @default "normal"
+     */
+    textcase: "normal" | "word caps" | "upper" | "lower";
+    /**
+     * Sets the variant of the font.
+     * @default "normal"
+     */
+    variant:
+        | "normal"
+        | "small-caps"
+        | "all-small-caps"
+        | "all-petite-caps"
+        | "petite-caps"
+        | "unicase";
+    /**
      * Sets the weight (or boldness) of the font.
      * number between or equal to 1 and 1000
      * @default normal
      */
-    weight: number;
+    weight: number | "normal" | "bold";
 }
 
 export interface Edits {
@@ -2880,7 +2924,7 @@ export interface Slider {
     /**
      * Sets the font of the slider step labels.
      */
-    font: Font;
+    font: Partial<Font>;
     /**
      * Sets the background color of the slider grip
      * while dragging.
