@@ -1,11 +1,14 @@
-import { type AccordionConfig } from "./components/accordion/accordion.js";
-import { type ButtonConfig } from "./components/button/button.js";
-import { type CharacterCountConfig } from "./components/character-count/character-count.js";
-import { type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
-import { type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
-import { type FileUploadConfig } from "./components/file-upload/file-upload.js";
-import { type NotificationBannerConfig } from "./components/notification-banner/notification-banner.js";
-import { type PasswordInputConfig } from "./components/password-input/password-input.js";
+import { Accordion, type AccordionConfig } from "./components/accordion/accordion.js";
+import { Button, type ButtonConfig } from "./components/button/button.js";
+import { CharacterCount, type CharacterCountConfig } from "./components/character-count/character-count.js";
+import { ErrorSummary, type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
+import { ExitThisPage, type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
+import { FileUpload, type FileUploadConfig } from "./components/file-upload/file-upload.js";
+import {
+    NotificationBanner,
+    type NotificationBannerConfig,
+} from "./components/notification-banner/notification-banner.js";
+import { PasswordInput, type PasswordInputConfig } from "./components/password-input/password-input.js";
 
 export interface CompatibleClass {
     new(...args: any[]): any;
@@ -16,6 +19,28 @@ export interface CompatibleClass {
  * Config for all components via `initAll()`
  */
 export interface Config {
+    /**
+     * - Scope of the document to search within
+     */
+    scope?: Document | Element | null | undefined;
+
+    /**
+     * - Initialisation error callback
+     */
+    onError?:
+        | OnErrorCallback<
+            | typeof Accordion
+            | typeof Button
+            | typeof CharacterCount
+            | typeof ErrorSummary
+            | typeof ExitThisPage
+            | typeof FileUpload
+            | typeof NotificationBanner
+            | typeof PasswordInput
+            | undefined
+        >
+        | undefined;
+
     /**
      * - Accordion config
      */
@@ -60,15 +85,18 @@ export interface Config {
 /**
  * Component config keys, e.g. `accordion` and `characterCount`
  */
-export type ConfigKey = keyof Config;
+export type ConfigKey = keyof Omit<Config, "scope" | "onError">;
 
 export type ComponentConfig<ComponentClass extends CompatibleClass> = ConstructorParameters<ComponentClass>[1];
 
-export interface ErrorContext<ComponentClass extends CompatibleClass> {
+export interface ErrorContext<
+    ComponentClass extends CompatibleClass | undefined = undefined,
+> {
     /**
      * - Element used for component module initialisation
      */
-    element?: Element | undefined;
+    element?: ComponentClass extends CompatibleClass ? Element
+        : undefined;
 
     /**
      * - Class of component
@@ -76,12 +104,15 @@ export interface ErrorContext<ComponentClass extends CompatibleClass> {
     component?: ComponentClass | undefined;
 
     /**
-     * - Config supplied to component
+     * - Config supplied to components
      */
-    config: ComponentConfig<ComponentClass>;
+    config?: ComponentClass extends CompatibleClass ? ComponentConfig<ComponentClass>
+        : Config;
 }
 
-export type OnErrorCallback<ComponentClass extends CompatibleClass> = (
+export type OnErrorCallback<
+    ComponentClass extends CompatibleClass | undefined = undefined,
+> = (
     error: unknown,
     context: ErrorContext<ComponentClass>,
 ) => any;
@@ -90,7 +121,7 @@ export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
     /**
      * - scope of the document to search within
      */
-    scope?: Document | Element | undefined;
+    scope?: Document | Element | null | undefined;
 
     /**
      * - callback function if error throw by component on init
@@ -104,13 +135,10 @@ export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
  * Use the `data-module` attributes to find, instantiate and init all of the
  * components provided as part of GOV.UK Frontend.
  *
- * @param {Config & { scope?: Element, onError?: OnErrorCallback<CompatibleClass> }} [config] - Config for all components (with optional scope)
+ * @param {Config | Element | Document | null} [scopeOrConfig] - Scope of the document to search within or config for all components (with optional scope)
  */
 export function initAll(
-    config?: Config & {
-        scope?: Element;
-        onError?: OnErrorCallback<CompatibleClass>;
-    },
+    scopeOrConfig?: Config | Element | Document | null,
 ): void;
 
 /**
@@ -125,15 +153,16 @@ export function initAll(
  * @template {CompatibleClass} ComponentClass
  * @param {ComponentClass} Component - class of the component to create
  * @param {ComponentConfig<ComponentClass>} [config] - Config supplied to component
- * @param {OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass> } [createAllOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
+ * @param {OnErrorCallback<ComponentClass> | Element | Document | null | CreateAllOptions<ComponentClass>} [scopeOrOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
  * @returns {Array<InstanceType<ComponentClass>>} - array of instantiated components
  */
 export function createAll<ComponentClass extends CompatibleClass>(
     Component: ComponentClass,
     config?: ComponentConfig<ComponentClass>,
-    createAllOptions?:
+    scopeOrOptions?:
         | OnErrorCallback<ComponentClass>
         | Element
         | Document
+        | null
         | CreateAllOptions<ComponentClass>,
 ): Array<InstanceType<ComponentClass>>;
