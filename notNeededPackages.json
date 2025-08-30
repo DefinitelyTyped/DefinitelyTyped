@@ -3805,6 +3805,10 @@
             "libraryName": "levenshtein-edit-distance",
             "asOfVersion": "3.0.0"
         },
+        "libarchive.js": {
+            "libraryName": "libarchive.js",
+            "asOfVersion": "2.0.1"
+        },
         "libra-core": {
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
