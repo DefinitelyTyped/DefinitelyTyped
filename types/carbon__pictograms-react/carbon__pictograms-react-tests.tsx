@@ -15,6 +15,7 @@ import {
     BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
+    ClientSupport,
     CloudPakForApplications,
     CodeConversion,
     ContentDesign,
@@ -89,3 +90,4 @@ import * as React from "react";
 <CodeConversion />; // $ExpectType Element
 <NoLiquids />; // $ExpectType Element
 <Design />; // $ExpectType Element
+<ClientSupport />; // $ExpectType Element
