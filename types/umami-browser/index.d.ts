@@ -33,15 +33,17 @@ declare namespace umami {
 
     interface umami {
         track: {
-            (): Promise<string>;
-            (eventName: string): Promise<string>;
-            (eventName: string, eventData: EventData): Promise<string>;
-            (props: CustomPayload): Promise<string>;
+            (): Promise<void>;
+            (eventName: string): Promise<void>;
+            (eventName: string, eventData: EventData): Promise<void>;
+            (props: CustomPayload): Promise<void>;
             (
                 callback: (props: PageViewProperties) => CustomPayload,
-            ): Promise<string>;
+            ): Promise<void>;
         };
 
-        identify(data: EventData): Promise<string>;
+        identify(uniqueId: string): Promise<void>;
+        identify(uniqueId: string, data: EventData): Promise<void>;
+        identify(data: EventData): Promise<void>;
     }
 }
