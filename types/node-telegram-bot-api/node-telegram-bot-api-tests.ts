@@ -42,7 +42,7 @@ MyTelegramBot.sendMessage(1234, "test-InlineKeyboardButton-CopyTextButton", {
                 {
                     text: `Copy Text`,
                     copy_text: {
-                        text: 'copy text',
+                        text: "copy text",
                     },
                 },
             ],
