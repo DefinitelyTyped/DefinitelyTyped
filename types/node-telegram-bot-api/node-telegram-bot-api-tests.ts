@@ -37,7 +37,7 @@ MyTelegramBot.sendMessage(1234, "test-ForceReply-no-placeholder", {
 });
 MyTelegramBot.sendMessage(1234, "test-InlineKeyboardButton-CopyTextButton", {
     reply_markup: {
-        keyboard: [
+        inline_keyboard: [
             [
                 {
                     text: `Copy Text`,
