@@ -13,7 +13,7 @@ export class Message extends events.EventEmitter {
     body: Buffer;
     hasResponded: boolean;
     attempts: number;
-    timestamp: number;
+    timestamp: bigint;
 
     constructor(rawMessage: Buffer, requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
 
