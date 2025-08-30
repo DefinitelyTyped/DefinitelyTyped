@@ -217,6 +217,11 @@ declare namespace validator {
          * @default false
          */
         urlSafe?: boolean | undefined;
+
+        /**
+         * @default !urlSafe
+         */
+        padding?: boolean | undefined;
     }
 
     /**
