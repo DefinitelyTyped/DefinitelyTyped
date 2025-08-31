@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "es2020",
         "module": "commonjs",
         "lib": [
-            "esnext",
+            "es2020",
             "dom"
         ],
         "noImplicitAny": true,
