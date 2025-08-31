@@ -3319,6 +3319,21 @@ async function testDeclarativeNetRequest() {
     // @ts-expect-error
     chrome.declarativeNetRequest.getAvailableStaticRuleCount(() => {}).then(() => {});
 
+    const getDisabledRuleIdsOptions: chrome.declarativeNetRequest.GetDisabledRuleIdsOptions = {
+        rulesetId: "rulesetId",
+    };
+
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions); // $ExpectType Promise<number[]>
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions, ([disabledRuleId]) => { // $ExpectType void
+        disabledRuleId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions, () => {}).then(() => {});
+
+    const getRulesFilters: chrome.declarativeNetRequest.GetRulesFilter = {
+        ruleIds: [1, 2, 3],
+    };
+
     chrome.declarativeNetRequest.getDynamicRules(); // $ExpectType Promise<Rule[]>
     chrome.declarativeNetRequest.getDynamicRules(([rule]) => { // $ExpectType void
         rule.action; // $ExpectType RuleAction
@@ -3328,12 +3343,16 @@ async function testDeclarativeNetRequest() {
         rule.condition.excludedResponseHeaders; // $ExpectType HeaderInfo[] | undefined
         rule.condition.responseHeaders; // $ExpectType HeaderInfo[] | undefined
     });
+    chrome.declarativeNetRequest.getDynamicRules(getRulesFilters); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getDynamicRules(getRulesFilters, ([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
     // @ts-expect-error
     chrome.declarativeNetRequest.getDynamicRules(() => {}).then(() => {});
 
     chrome.declarativeNetRequest.getEnabledRulesets(); // $ExpectType Promise<string[]>
-    chrome.declarativeNetRequest.getEnabledRulesets((rulesetIds) => { // $ExpectType void
-        rulesetIds; // $ExpectType string[]
+    chrome.declarativeNetRequest.getEnabledRulesets(([rulesetId]) => { // $ExpectType void
+        rulesetId; // $ExpectType string
     });
     // @ts-expect-error
     chrome.declarativeNetRequest.getEnabledRulesets(() => {}).then(() => {});
@@ -3346,16 +3365,20 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.getMatchedRules(); // $ExpectType Promise<RulesMatchedDetails>
     chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter); // $ExpectType Promise<RulesMatchedDetails>
     chrome.declarativeNetRequest.getMatchedRules((details) => { // $ExpectType void
-        details; // $ExpectType RulesMatchedDetails
+        details.rulesMatchedInfo; // $ExpectType MatchedRuleInfo[]
     });
     chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter, (details) => { // $ExpectType void
-        details; // $ExpectType RulesMatchedDetails
+        details.rulesMatchedInfo; // $ExpectType MatchedRuleInfo[]
     });
     // @ts-expect-error
     chrome.declarativeNetRequest.getMatchedRules(() => {}).then(() => {});
 
     chrome.declarativeNetRequest.getSessionRules(); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getSessionRules(getRulesFilters); // $ExpectType Promise<Rule[]>
     chrome.declarativeNetRequest.getSessionRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+    chrome.declarativeNetRequest.getSessionRules(getRulesFilters, (rules) => { // $ExpectType void
         rules; // $ExpectType Rule[]
     });
     // @ts-expect-error
@@ -3369,10 +3392,11 @@ async function testDeclarativeNetRequest() {
 
     chrome.declarativeNetRequest.isRegexSupported(regexOptions); // $ExpectType Promise<IsRegexSupportedResult>
     chrome.declarativeNetRequest.isRegexSupported(regexOptions, (result) => { // $ExpectType void
-        result; // $ExpectType IsRegexSupportedResult
+        result.isSupported; // $ExpectType boolean
+        result.reason; // $ExpectType "memoryLimitExceeded" | "syntaxError" | undefined
     });
     // @ts-expect-error
-    chrome.declarativeNetRequest.isRegexSupported(() => {}).then(() => {});
+    chrome.declarativeNetRequest.isRegexSupported(regexOptions, () => {}).then(() => {});
 
     const extensionActionOptions: chrome.declarativeNetRequest.ExtensionActionOptions = {
         displayActionCountAsBadgeText: true,
@@ -3451,7 +3475,8 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.updateStaticRules(updateStaticRulesOptions, () => {}).then(() => {});
 
     checkChromeEvent(chrome.declarativeNetRequest.onRuleMatchedDebug, (info) => {
-        info; // $ExpectType MatchedRuleInfoDebug
+        info.request; // $ExpectType RequestDetails
+        info.rule; // $ExpectType MatchedRule
     });
 }
 
