@@ -5510,8 +5510,6 @@
 /types/parity-pmr/                                      @leovujanic
 /types/parity-poe/                                      @leovujanic
 /types/parquetjs/                                       @jon-fearer
-/types/parse/                                           @ullisenmedia @dpoetzsch @jaeggerr @flavionegrao @wesleygrimes @owsas @agoldis @AlexandreHetu @dplewis @yomybaby @pocketcolin @rdhelms @jlnquere @tybi @jeffgukang @buitanloc @JeromeDeLeon @kentrh @swittk
-/types/parse/v1/                                        @dpoetzsch @jaeggerr @flavionegrao @wesleygrimes @owsas
 /types/parse-author/                                    @remcohaszing
 /types/parse-cache-control/                             @peterblazejewicz
 /types/parse-color/                                     @ajcrites
@@ -7094,7 +7092,7 @@
 /types/scryptsy/                                        @micksatana
 /types/scss-parser/                                     @wesselvanderlinden
 /types/sd-notify/                                       @Cheprer @roryrjb
-/types/sdp-transform/                                   @loc @muenchow
+/types/sdp-transform/                                   @loc @muenchow @ibc
 /types/seamless/                                        @danmana
 /types/seamless-immutable/                              @alex3165 @xsburg @geirsagberg @RMHonor @pheromonez
 /types/search-index/                                    @TravisYeah @thehenrytsai
