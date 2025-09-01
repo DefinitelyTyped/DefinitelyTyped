@@ -121,7 +121,7 @@ const ndOne: OneLine.OneLine = {
 
     setBettingCookie: function(betting: boolean) {
         // Mock implementation for setBettingCookie
-        console.log(`Setting betting cookie to: ${betting}`);
+        this.setBettingCookie(betting);
     }
 };
 
