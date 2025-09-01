@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "commangular",
     "projects": [
-        "http://commangular.org"
+        "https://github.com/yukatan/commangular"
     ],
     "dependencies": {
         "@types/angular": "*"
