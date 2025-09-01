@@ -105,6 +105,14 @@ function fragmentRefTest() {
                 // @ts-expect-error -- Not the same options as addEventListener
                 passive: true,
             });
+            instance.experimental_scrollIntoView(false);
+            instance.experimental_scrollIntoView(true);
+            instance.experimental_scrollIntoView(undefined);
+
+            instance.experimental_scrollIntoView(
+                // @ts-expect-error -- options are not supported yet
+                {},
+            );
             return () => {};
         }}
     >

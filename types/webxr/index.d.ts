@@ -1200,9 +1200,13 @@ type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
 
 type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
 
+type XRDepthType = "raw" | "smooth";
+
 interface XRDepthStateInit {
     usagePreference: XRDepthUsage[];
     dataFormatPreference: XRDepthDataFormat[];
+    depthTypeRequest?: XRDepthType[] | undefined;
+    matchDepthView?: boolean | undefined;
 }
 
 interface XRSessionInit {
@@ -1212,6 +1216,11 @@ interface XRSessionInit {
 interface XRSession {
     readonly depthUsage?: XRDepthUsage | undefined;
     readonly depthDataFormat?: XRDepthDataFormat | undefined;
+    readonly depthType?: XRDepthType | undefined;
+    readonly depthActive?: boolean | undefined;
+
+    readonly pauseDepthSensing?: (() => void) | undefined;
+    readonly resumeDepthSensing?: (() => void) | undefined;
 }
 
 interface XRDepthInformation {
@@ -1220,6 +1229,9 @@ interface XRDepthInformation {
 
     readonly normDepthBufferFromNormView: XRRigidTransform;
     readonly rawValueToMeters: number;
+
+    readonly transform?: XRRigidTransform | undefined;
+    readonly projectionMatrix?: Float32Array | undefined;
 }
 
 interface XRCPUDepthInformation extends XRDepthInformation {
