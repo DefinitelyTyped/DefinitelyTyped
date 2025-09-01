@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/primer__octicons": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Oliver Rose",
+            "githubUsername": "oliverrose"
+        }
+    ]
 }
