@@ -1,4 +1,5 @@
 import * as OneLine from "pxr-oneline";
+import { setBettingCookie } from ".";
 
 interface BidderParams {
     placementId: string;
@@ -119,6 +120,10 @@ const ndOne: OneLine.OneLine = {
     requestSpecificAdUnits: function(adUnitIds: string[]) {
         this.adUnitRequest(adUnitIds, false);
     },
+
+    setBettingCookie: function(betting: boolean) {
+        this.setBettingCookie(betting);
+    }
 };
 
 // Test cases
@@ -129,3 +134,4 @@ ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlaceme
 ndOne.requestVideoPlayerAds(() => {
     console.log("Video player ads bidding complete");
 });
+ndOne.setBettingCookie(true);
