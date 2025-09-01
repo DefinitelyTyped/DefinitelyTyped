@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/vue2-datepicker": "workspace:."
     },
-    "owners": [
-        {
-            "name": "ChristianStornowski",
-            "githubUsername": "ChristianStornowski"
-        }
-    ]
+    "owners": []
 }

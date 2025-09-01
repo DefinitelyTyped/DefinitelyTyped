@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/primer__octicons": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Oscar Lee-Vermeren",
-            "githubUsername": "xiBread"
-        }
-    ]
+    "owners": []
 }
