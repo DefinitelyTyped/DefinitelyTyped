@@ -1,4 +1,4 @@
-import fsMate = require("./fsmate");
+import fsMate = require("fsmate");
 
 // Simple test file
 const testFile = "demo.txt";
