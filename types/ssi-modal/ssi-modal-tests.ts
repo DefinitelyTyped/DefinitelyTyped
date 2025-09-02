@@ -4,7 +4,7 @@ ssi_modal.show({ title: "hello, world", content: document.createElement("div") }
 ssi_modal.show({ title: "hello, world", content: $("<div>") });
 
 // basic chaining
-const myModal: SsiModal = ssi_modal.createObject({
+const myModal: SsiModal = ssi_modal.show({
     title: "Constructor Modal",
     content: "content",
     className: "my-modal",
@@ -17,11 +17,10 @@ const myModal: SsiModal = ssi_modal.createObject({
         { label: "Cancel", className: "btn btn-cancel", side: "left" },
     ],
 })
-    .init()
     .changePreviewState()
     .setOptions("backdrop", false)
     .setOptions({ className: "another-class", sizeClass: "large" })
-    .show();
+    .close();
 
 // setContent
 myModal.setContent("string content");
@@ -106,15 +105,14 @@ ssi_modal.dialog({ title: "Dialog", content: "dialog content" }, (e, m) => {
 ssi_modal.confirm({ title: "Confirm", content: "confirm content" }, (e, m) => {
     m.close();
 });
-// notify 所有类型
+// notify
 ssi_modal.notify("success", { title: "t", content: "c" }, result => {});
 ssi_modal.notify("error", { title: "t", content: "c" });
 ssi_modal.notify("warning", { title: "t", content: "c" });
 ssi_modal.notify("info", { title: "t", content: "c" });
 ssi_modal.notify("dialog", { title: "t", content: "c" });
 ssi_modal.notify("confirm", { title: "t", content: "c" });
-// @ts-expect-error invalid notify type
-ssi_modal.notify("invalid", { title: "t", content: "c" });
+ssi_modal.notify("anthing-you-like", { title: "t", content: "c" });
 
 // checkElement
 const maybeModal = ssi_modal.checkElement($("<div>"));
@@ -161,9 +159,6 @@ ssi_modal.show({
 
 // @ts-expect-error invalid callback returns
 ssi_modal.show({ beforeShow: () => "not allowed" });
-
-// super chained call
-const chained: typeof myModal = myModal.init().changePreviewState().show();
 
 // pluginName & options
 myModal.setPluginName("newName").setOptions({ className: "abc" }).show();

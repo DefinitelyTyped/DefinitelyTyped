@@ -119,7 +119,7 @@ declare namespace SsiModal {
          * ssi_modal.show({ content:'Hello World' })
          * ```
          */
-        show(options: Partial<SsiModalOptions>, element?: AnyJQueryElement): SsiModal["show"];
+        show(options: Partial<SsiModalOptions>, element?: AnyJQueryElement): ReturnType<SsiModal["show"]>;
         /**
          * Creates a ssi modal object but does not init or show it.
          * @param options The options of the modal
@@ -172,8 +172,12 @@ declare namespace SsiModal {
             method: (event: MouseEvent, modal: SsiModal) => void,
         ): SsiModal;
         // notify
+        /**
+         * Display a popup notification similar to a toast box
+         * @param type One of predefined types, or any custom className
+         */
         notify(
-            type: "success" | "error" | "warning" | "info" | "dialog" | "confirm",
+            type: "success" | "error" | "warning" | "info" | "dialog" | "confirm" | string,
             options:
                 & Partial<SsiModalOptions>
                 & Partial<{
