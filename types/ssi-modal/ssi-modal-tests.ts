@@ -3,8 +3,8 @@ ssi_modal.show({ title: "hello, world", content: "this is a test" });
 ssi_modal.show({ title: "hello, world", content: document.createElement("div") });
 ssi_modal.show({ title: "hello, world", content: $("<div>") });
 
-// chaining functions
-const myModal = new ssi_modal({
+// basic chaining
+const myModal: SsiModal = ssi_modal.createObject({
     title: "Constructor Modal",
     content: "content",
     className: "my-modal",
@@ -16,8 +16,7 @@ const myModal = new ssi_modal({
         { label: "OK", className: "btn btn-ok", side: "right" },
         { label: "Cancel", className: "btn btn-cancel", side: "left" },
     ],
-});
-myModal
+})
     .init()
     .changePreviewState()
     .setOptions({ className: "another-class", sizeClass: "large" })
