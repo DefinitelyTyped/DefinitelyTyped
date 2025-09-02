@@ -2,7 +2,7 @@
 
 import { Readable } from "stream";
 
-declare namespace fsMate {
+declare module "fsmate" {
   function tmpName(prefix: string): string;
   function tempNam(prefix: string, suffix: string): string;
 
@@ -42,8 +42,14 @@ declare namespace fsMate {
   function move(oldPath: string, newPath: string, overwrite?: boolean): Promise<void>;
   function moveSync(oldPath: string, newPath: string, overwrite?: boolean): boolean;
 
-  function scandir(dir: string, options?: { withDeepScan?: boolean; withFileTypes?: boolean; withFullPath?: boolean }): Promise<any[]>;
-  function scandirSync(dir: string, options?: { withDeepScan?: boolean; withFileTypes?: boolean; withFullPath?: boolean }): any[];
+  function scandir(
+    dir: string,
+    options?: { withDeepScan?: boolean; withFileTypes?: boolean; withFullPath?: boolean }
+  ): Promise<unknown[]>;
+  function scandirSync(
+    dir: string,
+    options?: { withDeepScan?: boolean; withFileTypes?: boolean; withFullPath?: boolean }
+  ): unknown[];
 
   function remove(files: string | string[], recursive?: boolean): Promise<void>;
   function removeSync(files: string | string[], recursive?: boolean): void;
@@ -63,26 +69,26 @@ declare namespace fsMate {
   function empty(paths: string | string[]): Promise<void>;
   function emptySync(paths: string | string[]): void;
 
-  function createInputStream(data: any): Readable;
-  function stringify(data: any): string;
+  function createInputStream(data: unknown): Readable;
+  function stringify(data: unknown): string;
 
-  function readFile(filePath: string, options?: object | boolean, parsed?: boolean): Promise<string | any>;
-  function readFileSync(filePath: string, parsed?: boolean): string | any;
+  function readFile(filePath: string, options?: object | boolean, parsed?: boolean): Promise<string | object>;
+  function readFileSync(filePath: string, parsed?: boolean): string | object;
 
   function readLine(filePath: string, start?: number | boolean, end?: number | boolean): Promise<string[]>;
   function readLineSync(filePath: string, start?: number | boolean, end?: number | boolean): string[];
 
-  function writeFile(filePath: string, data: any, options?: object): Promise<void>;
-  function writeFileSync(filePath: string, data: any): void;
+  function writeFile(filePath: string, data: unknown, options?: object): Promise<void>;
+  function writeFileSync(filePath: string, data: unknown): void;
 
-  function appendFile(filePath: string, data: any, options?: object): Promise<void>;
-  function appendFileSync(filePath: string, data: any): void;
+  function appendFile(filePath: string, data: unknown, options?: object): Promise<void>;
+  function appendFileSync(filePath: string, data: unknown): void;
 
-  function prependFile(filePath: string, data: any, options?: object): Promise<void>;
-  function prependFileSync(filePath: string, data: any): void;
+  function prependFile(filePath: string, data: unknown, options?: object): Promise<void>;
+  function prependFileSync(filePath: string, data: unknown): void;
 
-  function dumpFile(filePath: string, content: any): Promise<void>;
-  function dumpFileSync(filePath: string, content: any): void;
+  function dumpFile(filePath: string, content: unknown): Promise<void>;
+  function dumpFileSync(filePath: string, content: unknown): void;
 
   function multiStream(streams: Iterable<Readable>): Readable;
 
@@ -106,6 +112,6 @@ declare namespace fsMate {
 
   function fread(filePath: string, length: number): Promise<string>;
   function freadSync(filePath: string, length: number): string;
-}
 
-export = fsMate;
+  export = fsMate;
+      }
