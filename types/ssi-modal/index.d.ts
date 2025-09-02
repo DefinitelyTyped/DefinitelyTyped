@@ -216,7 +216,7 @@ export interface SsiModalButton {
 export type SsiModalSizeClass =
   | 'dialog'
   | 'small'
-  | 'smaillToMedium'
+  | 'smallToMedium'
   | 'medium'
   | 'mediumToLarge'
   | 'large'
