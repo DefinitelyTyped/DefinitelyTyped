@@ -66,8 +66,8 @@ myModal.setTitle($('<strong/>'));
 const newHeight: number = myModal.setModalHeight(10, 'height');
 myModal.setModalHeight(5, 'min-height');
 myModal.setModalHeight(5, 'max-height');
-// @ts-expect-error 非法的第二参数
-myModal.setModalHeight(5, 'auto');
+// @ts-expect-error invalid second parameter
+myModal.setModalHeight(5, 'invalid');
 
 // get modal elements
 const $backdrop = myModal.get$backdrop();
