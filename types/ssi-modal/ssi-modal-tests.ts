@@ -1,4 +1,4 @@
-import ssi_modal from "ssi-modal";
+import * as ssi_modal from "ssi-modal";
 
 // basic usage
 ssi_modal.show({ title: 'hello, world', content: 'this is a test' });
