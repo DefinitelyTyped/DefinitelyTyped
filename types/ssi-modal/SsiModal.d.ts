@@ -281,6 +281,9 @@ declare namespace SsiModal {
                 event: T,
                 callback: (event: SsiModalEventMap[T]) => void,
             ) => SsiModalModalElement);
+        data: JQuery["data"] & {
+            (key: "ssi-modal"): SsiModal;
+        };
     };
     interface SsiModalEventMap {
         "beforeShow.ssi-modal": JQuery.Event;

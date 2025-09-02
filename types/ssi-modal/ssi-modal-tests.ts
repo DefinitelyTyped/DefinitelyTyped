@@ -167,3 +167,9 @@ const chained: typeof myModal = myModal.init().changePreviewState().show();
 
 // pluginName & options
 myModal.setPluginName("newName").setOptions({ className: "abc" }).show();
+
+// ssi-modal jQuery data
+typeof myModal.get$modal().data("ssi-modal") === "object";
+
+// modal's jQuery data is the same as the it's instance
+myModal.get$modal().data("ssi-modal") === myModal;
