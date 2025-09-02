@@ -1,35 +1,20 @@
-import fsMate from "fsmate";
+import fsMate = require("fsmate");
 
-// Simple test file
-const testFile = "demo.txt";
+async function run() {
+  const file = "demo.txt";
 
-async function runTests() {
-  // Create file
-  await fsMate.mkfile(testFile, true);
+  await fsMate.mkfile(file, true);
+  await fsMate.writeFile(file, "hello world");
 
-  // Write data
-  await fsMate.writeFile(testFile, "Hello Afsara!");
-  console.log("File written.");
+  const content = await fsMate.readFile(file);
+  console.log("content", content);
 
-  // Read data
-  const content = await fsMate.readFile(testFile);
-  console.log("Read content:", content);
+  await fsMate.appendFile(file, "\nextra");
+  const lines = await fsMate.readLine(file, 0, true);
+  console.log("lines", lines);
 
-  // Append
-  await fsMate.appendFile(testFile, "\nThis is appended.");
-  console.log("Appended.");
+  const size = await fsMate.filesize(file);
+  console.log("size", size);
 
-  // Read lines
-  const lines = await fsMate.readLine(testFile, 0, true);
-  console.log("Lines:", lines);
-
-  // File size
-  const size = await fsMate.filesize(testFile);
-  console.log("File size:", size);
-
-  // Remove
-  await fsMate.remove(testFile);
-  console.log("File removed.");
+  await fsMate.remove(file);
 }
-
-runTests().catch(console.error);
