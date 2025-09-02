@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ssi-modal",
+    "version": "0.1.0",
+    "projects": [
+        "https://github.com/ssbeefeater/ssi-modal#readme"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/ssi-modal": "workspace:.",
+        "ssi-modal": "*"
+    },
+    "owners": [
+        {
+            "name": "Dragon Fish",
+            "githubUsername": "dragon-fish"
+        }
+    ]
+}
