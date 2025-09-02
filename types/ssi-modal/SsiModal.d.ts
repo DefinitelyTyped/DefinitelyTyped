@@ -18,114 +18,144 @@ declare namespace SsiModal {
         readonly numberId: string;
         options: SsiModalOptions;
         readonly pluginName: string;
-        close: () => void;
         /**
          * Initialize the modal and backdrop and expose them to the DOM
          */
-        init: () => this;
+        init(): this;
         /**
          * Changes the previe state (fullScreen) of the modal.
          */
-        changePreviewState: () => this;
+        changePreviewState(): this;
         /**
          * Generates a button according to the options.
          * @returns The button element.
          */
-        generateButton: (buttonOptions: Partial<SsiModalButton>) => JQuery<HTMLElement>;
+        generateButton(buttonOptions: Partial<SsiModalButtonOptions>): JQuery<HTMLElement>;
         /**
          * Returns the backdrop element of the modal.
          * Or outer element if the modal is stack.
          */
-        get$backdrop: () => JQuery<HTMLElement>;
+        get$backdrop(): JQuery<HTMLElement>;
         /**
          * Returns the buttons element of the modal.
          * @param type - 'left' or 'right'. If not specified, returns all buttons' container.
          */
-        get$buttons: (type?: "buttons" | "leftButtons" | "rightButtons") => JQuery<HTMLElement>;
+        get$buttons(type?: "buttons" | "leftButtons" | "rightButtons"): JQuery<HTMLElement>;
         /**
          * Returns the content element of the modal.
          */
-        get$content: () => JQuery<HTMLElement>;
+        get$content(): JQuery<HTMLElement>;
         /**
          * Returns the title icons of the modal.
          */
-        get$icons: () => JQuery<HTMLElement>;
+        get$icons(): JQuery<HTMLElement>;
         /**
          * Returns the modal element of the modal.
          * @description returns the outer element of the modal (ie if we use stack modals will return the window object else will return the modalOuter)
          */
-        get$modal: () => SsiModalModalElement;
+        get$modal(): SsiModalModalElement;
         /**
          * Returns the title element of the modal.
          */
-        get$title: () => JQuery<HTMLElement>;
+        get$title(): JQuery<HTMLElement>;
         /**
          * Returns the window element of the modal.
          */
-        get$window: () => JQuery<HTMLElement>;
+        get$window(): JQuery<HTMLElement>;
         /**
          * Returns the wrapper element of the modal.
          */
-        get$wrapper: () => JQuery<HTMLElement>;
+        get$wrapper(): JQuery<HTMLElement>;
         /**
          * Initialize the buttons element if it is necessary, and add the buttons to the element.
          * @returns Buttons container element.
          */
-        setButtons: (
-            buttons: Partial<SsiModalButton>[],
+        setButtons(
+            buttons: Partial<SsiModalButtonOptions>[],
             area?: AnyJQueryElement,
             $modalWindow?: JQuery<any>,
-        ) => JQuery<HTMLElement>;
+        ): JQuery<HTMLElement>;
         /**
          * Initialize the content element if it is necessary and registers the content.
          * @param content The content of the element.
          * @param method The jquery method that will use to register the content to the modal.
          * @returns The content element of the modal.
          */
-        setContent: (
+        setContent(
             content: string | HTMLElement | JQuery<any>,
             method?: "html" | "append" | "prepend",
-        ) => JQuery<any>;
-        setIcons: (icons: any) => void;
-        setModalHeight: (offset: number, option?: "height" | "min-height" | "max-height") => number;
-        setOptions: (options: Partial<SsiModalOptions>) => this;
-        setPluginName: (name: string) => this;
-        setTitle: (title: string | HTMLElement | JQuery<any>) => void;
-        show: () => this;
+        ): JQuery<any>;
+        setIcons(icons: { className: string; method: () => void }[]): JQuery<HTMLElement>;
+        setModalHeight(offset: number, option?: "height" | "min-height" | "max-height"): number;
+        setOptions<T extends keyof SsiModalOptions>(option: T, value: SsiModalOptions[T]): this;
+        setOptions(options: Partial<SsiModalOptions>): this;
+        setPluginName(name: string): this;
+        setTitle(title: string | HTMLElement | JQuery<any>): JQuery<HTMLElement>;
+        show(): this;
+        close(): this;
+
+        protected backdropInit(): JQuery<HTMLElement>;
+        protected modalInit(): SsiModalModalElement;
+        protected showBackdrop(): void;
+        protected destroyBackdrop(): this;
+        protected destroyModal(): this;
+        protected destroyTitle(): this;
+        protected destroyContent(): this;
+        protected destroyButtons(): this;
+        protected destroyIcons(): this;
     }
 
+    // default module export
     interface ssi_modal {
-        // Static methods
-        proto: SsiModal;
         /**
          * Checks if the element is a ssi modal object.
          */
         checkElement(element: AnyJQueryElement): SsiModal | false;
         /**
          * Creates a ssi modal object and shows it immediately.
+         * @param options The options of the modal
+         * @param element The id or class name of the element that trigger the modal.
          * @example ```js
-         * ssi_modal.show({content:'Hello World'})
+         * ssi_modal.show({ content:'Hello World' })
          * ```
          */
-        show(options: Partial<SsiModalOptions>): SsiModal;
+        show(options: Partial<SsiModalOptions>, element?: AnyJQueryElement): SsiModal["show"];
         /**
-         * Creates a ssi modal object but does not show it.
+         * Creates a ssi modal object but does not init or show it.
+         * @param options The options of the modal
+         * @param element The id or class name of the element that trigger the modal.
          * @example ```js
-         * ssi_modal.createObject({content:'Hello World'}).init().show()
+         * ssi_modal.createObject({ content:'Hello World' }).init().show()
          * ```
          */
-        createObject(options: Partial<SsiModalOptions>): SsiModal;
+        createObject(options: Partial<SsiModalOptions>, element?: AnyJQueryElement): SsiModal;
         /**
          * Closes the very top modal. If you pass a target parameter will close the modal you specified.
          */
-        close(modalId?: string): SsiModal;
-        closeAll(): SsiModal;
+        close(modalId?: string | JQuery): ReturnType<SsiModal["close"]>;
+        /**
+         * Close all opened modal with the right order and all callbacks will execute normally
+         * @param group `"normalModal"` or plugin names
+         * @param except Except modals with this selector
+         */
+        closeAll(group?: string | string[], except?: string | string[]): SsiModal;
         /**
          * Remove all the modals from the dom immediately. No callbacks will execute.
          */
         removeAll(): void;
+        /**
+         * You can extend the prototype of the SsiModal by adding new methods on ssi.proto
+         * @example ```ts
+         * ssi_modal.proto.clearContent = function () { this.get$content().text('') }
+         * ssi_modal.show({ content: 'hello, world' }).clearContent()
+         * //                                          ↑ here
+         * ```
+         */
+        proto: SsiModal;
+    }
 
-        // == Plugins ==
+    // == Plugins ==
+    interface ssi_modal {
         // dialog
         dialog(
             options: Partial<SsiModalOptions>,
@@ -136,8 +166,8 @@ declare namespace SsiModal {
             options:
                 & Partial<SsiModalOptions>
                 & Partial<{
-                    okBtn: Pick<SsiModalButton, "label" | "className">;
-                    cancelBtn: Pick<SsiModalButton, "label" | "className">;
+                    okBtn: Pick<SsiModalButtonOptions, "label" | "className">;
+                    cancelBtn: Pick<SsiModalButtonOptions, "label" | "className">;
                 }>,
             method: (event: MouseEvent, modal: SsiModal) => void,
         ): SsiModal;
@@ -148,8 +178,8 @@ declare namespace SsiModal {
                 & Partial<SsiModalOptions>
                 & Partial<{
                     icon: string;
-                    okBtn: Pick<SsiModalButton, "label" | "className">;
-                    cancelBtn: Pick<SsiModalButton, "label" | "className">;
+                    okBtn: Pick<SsiModalButtonOptions, "label" | "className">;
+                    cancelBtn: Pick<SsiModalButtonOptions, "label" | "className">;
                     overrideOther: boolean;
                 }>,
             callback?: (result: boolean) => void,
@@ -162,13 +192,21 @@ declare namespace SsiModal {
         backdrop: boolean | ("shared" | "byKindShared");
         backdropAnimation: SsiModalAnimation;
         backdropClassName: string;
+        /**
+         * Trigger before the modal is closed.
+         * If `false` is returned, the modal will not be closed.
+         */
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeClose: (modal: SsiModal) => boolean | void;
+        /**
+         * Trigger before the modal is shown.
+         * If `false` is returned, the modal will not be shown.
+         */
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeShow: (modal: SsiModal) => boolean | void;
         bodyElement: boolean;
         bodyScroll: boolean;
-        buttons: Partial<SsiModalButton>[];
+        buttons: Partial<SsiModalButtonOptions>[];
         center: boolean;
         className: string;
         closeAfter: {
@@ -177,7 +215,7 @@ declare namespace SsiModal {
             resetOnHover: boolean;
         };
         closeIcon: boolean;
-        content: string | HTMLElement | JQuery<any>;
+        content: AnyJQueryElement;
         fitScreen: boolean;
         fixedHeight: boolean | number;
         iconButtons: boolean;
@@ -185,9 +223,21 @@ declare namespace SsiModal {
         keepContent: boolean;
         modalAnimation: SsiModalAnimation;
         navigation: boolean;
+        /**
+         * Trigger after closed via close icon
+         */
         onClickClose: boolean;
+        /**
+         * Trigger after the modal is closed.
+         */
         onClose: (modal: SsiModal) => void;
+        /**
+         * Trigger after the modal is shown.
+         */
         onShow: (modal: SsiModal) => void;
+        /**
+         * Should the modal be closed when clicking backdrop of it?
+         */
         outSideClose: boolean;
         position:
             | "right top"
@@ -202,7 +252,7 @@ declare namespace SsiModal {
         title: AnyJQueryElement;
     }
 
-    interface SsiModalButton {
+    interface SsiModalButtonOptions {
         label: AnyJQueryElement;
         type: "button" | "link";
         className: string;
@@ -255,7 +305,7 @@ declare namespace SsiModal {
 declare const ssi_modal: SsiModal.ssi_modal;
 type SsiModal = SsiModal.SsiModal;
 type SsiModalOptions = SsiModal.SsiModalOptions;
-type SsiModalButton = SsiModal.SsiModalButton;
+type SsiModalButtonOptions = SsiModal.SsiModalButtonOptions;
 type SsiModalSizeClass = SsiModal.SsiModalSizeClass;
 type SsiModalModalElement = SsiModal.SsiModalModalElement;
 type SsiModalEventMap = SsiModal.SsiModalEventMap;

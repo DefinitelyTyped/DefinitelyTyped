@@ -19,6 +19,7 @@ const myModal: SsiModal = ssi_modal.createObject({
 })
     .init()
     .changePreviewState()
+    .setOptions("backdrop", false)
     .setOptions({ className: "another-class", sizeClass: "large" })
     .show();
 
