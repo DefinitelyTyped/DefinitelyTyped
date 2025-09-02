@@ -9,8 +9,7 @@
         "@types/jquery": "*"
     },
     "devDependencies": {
-        "@types/ssi-modal": "workspace:.",
-        "ssi-modal": "*"
+        "@types/ssi-modal": "workspace:."
     },
     "owners": [
         {
