@@ -27,7 +27,7 @@ export default class ServerEvent {
     _original_event_data: OriginalEventData;
     _attribution_data: AttributionData;
     /**
-     * @param {String} event_name A Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name A Facebook pixel Standard Event or Custom Event name.
      * @param {Number} event_time A Unix timestamp in seconds indicating when the actual event occurred.
      * @param {String} event_source_url The browser URL where the event happened.
      * @param {String} event_id This ID can be any string chosen by the advertiser.
@@ -51,12 +51,12 @@ export default class ServerEvent {
     get event_name(): StandardEvents;
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name a Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name a Facebook pixel Standard Event or Custom Event name.
      */
     set event_name(event_name: StandardEvents);
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name Facebook pixel Standard Event or Custom Event name.
      */
     setEventName(event_name: StandardEvents): ServerEvent;
     /**
