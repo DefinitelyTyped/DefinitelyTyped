@@ -1325,22 +1325,12 @@ function testTtsEngine() {
 }
 
 function testDevtools() {
-    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-        request; // $ExpectType Request
-        console.log("request: ", request);
-    });
-
     chrome.devtools.performance.onProfilingStarted.addListener(() => {
         console.log("Profiling started");
     });
 
     chrome.devtools.performance.onProfilingStopped.addListener(() => {
         console.log("Profiling stopped");
-    });
-
-    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-        harLog; // $ExpectType HARLog
-        console.log("harLog: ", harLog);
     });
 
     chrome.devtools.inspectedWindow.eval("1+1", undefined, result => {
@@ -1371,6 +1361,21 @@ function testDevtools() {
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/network
+function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR((harLog) => {
+        harLog; // $ExpectType Log
+    });
+
+    checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
+        url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
+        request; // $ExpectType Request
     });
 }
 
