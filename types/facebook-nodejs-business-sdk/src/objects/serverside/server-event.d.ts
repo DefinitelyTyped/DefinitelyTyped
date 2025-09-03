@@ -31,7 +31,7 @@ export default class ServerEvent {
      * @param {Number} event_time A Unix timestamp in seconds indicating when the actual event occurred.
      * @param {String} event_source_url The browser URL where the event happened.
      * @param {String} event_id This ID can be any string chosen by the advertiser.
-     * @param {String} action_source A string that indicates where the event took place.
+     * @param {ActionSource} action_source Indicates where the event took place. Must be one of `email`, `website`, `app`, `phone_call`, `chat`, `physical_store`, `system_generated`, `business_messaging`, `other`.
      * @param {Boolean} opt_out A flag that indicates we should not use this event for ads delivery optimization.
      * @param {UserData} user_data A map that contains user data. See UserData Class for options.
      * @param {CustomData} custom_data A map that contains user data. See CustomData Class for options.
@@ -111,12 +111,12 @@ export default class ServerEvent {
     get action_source(): ActionSource;
     /**
      * Sets the action_source for the current event.
-     * @param {String} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
+     * @param {ActionSource} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
      */
     set action_source(action_source: ActionSource);
     /**
      * Sets the action_source for the current event.
-     * @param {String} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
+     * @param {ActionSource} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
      */
     setActionSource(action_source: ActionSource): ServerEvent;
     /**
