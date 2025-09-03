@@ -8051,6 +8051,10 @@
             "libraryName": "wikidata-sdk",
             "asOfVersion": "6.1.0"
         },
+        "windows-1251": {
+            "libraryName": "windows-1251",
+            "asOfVersion": "3.0.4"
+        },
         "windows-foreground-love": {
             "libraryName": "windows-foreground-love",
             "asOfVersion": "0.3.1"
