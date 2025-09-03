@@ -2148,7 +2148,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
 
     setChatAdministratorCustomTitle(chatId: TelegramBot.ChatId, userId: number, customTitle: string): Promise<boolean>;
 
-    getMyCommands(scope?: TelegramBot.BotCommandScope, language_code?: string): Promise<TelegramBot.BotCommand[]>;
+    getMyCommands(form?: {scope?: TelegramBot.BotCommandScope, language_code?: string}): Promise<TelegramBot.BotCommand[]>;
 
     setMyCommands(
         commands: TelegramBot.BotCommand[],
