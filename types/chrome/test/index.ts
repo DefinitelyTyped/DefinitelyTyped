@@ -1343,18 +1343,6 @@ function testDevtools() {
         console.log("harLog: ", harLog);
     });
 
-    chrome.devtools.inspectedWindow.eval("1+1", undefined, result => {
-        console.log(result);
-    });
-
-    chrome.devtools.inspectedWindow.reload();
-    chrome.devtools.inspectedWindow.reload({});
-    chrome.devtools.inspectedWindow.reload({
-        userAgent: "Best Browser",
-        ignoreCache: true,
-        injectedScript: "console.log(\"Hello World!\")",
-    });
-
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
     checkChromeEvent(view.onHidden, () => void 0);
     checkChromeEvent(view.onShown, () => void 0);
@@ -1371,6 +1359,58 @@ function testDevtools() {
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/inspectedWindow
+function testDevtoolsInspectedWindow() {
+    const expression = "expression";
+
+    const evalOptions: chrome.devtools.inspectedWindow.EvalOptions = {
+        frameURL: "https://example.com",
+        scriptExecutionContext: "script",
+        useContentScriptContext: true,
+    };
+
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
+        result; // ExpectType object
+
+        exceptionInfo.code; // ExpectType string
+        exceptionInfo.description; // ExpectType string
+        exceptionInfo.details; // ExpectType unknown[]
+        exceptionInfo.isError; // ExpectType boolean
+        exceptionInfo.isException; // ExpectType boolean
+        exceptionInfo.value; // ExpectType string
+    });
+    chrome.devtools.inspectedWindow.eval(expression, (result) => { // $ExpectType void
+        result; // ExpectType object
+    });
+    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
+        result.title; // ExpectType string
+    });
+
+    chrome.devtools.inspectedWindow.getResources((resources) => { // $ExpectType void
+        resources; // ExpectType Resource[]
+    });
+
+    const reloadOptions: chrome.devtools.inspectedWindow.ReloadOptions = {
+        ignoreCache: true,
+        injectedScript: "script",
+        userAgent: "userAgent",
+    };
+
+    chrome.devtools.inspectedWindow.reload(); // $ExpectType void
+    chrome.devtools.inspectedWindow.reload(reloadOptions); // $ExpectType void
+
+    checkChromeEvent(chrome.devtools.inspectedWindow.onResourceAdded, (resource) => {
+        resource; // ExpectType Resource
+    });
+
+    checkChromeEvent(chrome.devtools.inspectedWindow.onResourceContentCommitted, (resource, content) => {
+        resource; // ExpectType Resource
+        content; // ExpectType string
     });
 }
 
