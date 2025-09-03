@@ -13,7 +13,8 @@ vtexjs.checkout.getOrderForm();
 // @ts-expect-error
 vtexjs.Checkout.getOrderForm();
 
-
+// $ExpectType Promise<OrderForm>
+globalThis.vtexjs.checkout.getOrderForm();
 
 globalThis.vtexjs.checkout.getOrderForm().then((orderForm) => {
     // $ExpectType OrderFormMarketingData | undefined
