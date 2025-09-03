@@ -1,14 +1,11 @@
 import { ShaderNodeObject } from "three/tsl";
 import { Node } from "three/webgpu";
 
-interface HashBlurOptions {
+export interface BoxBlurOptions {
     size?: Node | undefined;
+    separation?: Node | undefined;
     mask?: Node | null | undefined;
     premultipliedAlpha?: boolean | undefined;
 }
 
-export const hashBlur: (
-    textureNode: Node,
-    bluramount?: Node | number,
-    options?: HashBlurOptions,
-) => ShaderNodeObject<Node>;
+export const boxBlur: (textureNode: Node, options?: BoxBlurOptions) => ShaderNodeObject<Node>;

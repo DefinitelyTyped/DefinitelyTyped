@@ -14,6 +14,9 @@ declare class ContextNode extends Node {
 export default ContextNode;
 
 export const context: (node: Node, context?: NodeBuilderContext) => ShaderNodeObject<ContextNode>;
+
+export const uniformFlow: (node: Node) => ShaderNodeObject<ContextNode>;
+
 export const setName: (node: Node, label: string) => ShaderNodeObject<ContextNode>;
 
 /**
@@ -25,6 +28,7 @@ declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         context: typeof context;
         label: typeof label;
+        uniformFlow: typeof uniformFlow;
         setName: typeof setName;
     }
 }

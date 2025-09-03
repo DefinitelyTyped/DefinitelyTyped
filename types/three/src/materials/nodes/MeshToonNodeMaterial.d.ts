@@ -34,6 +34,7 @@ declare class MeshToonNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshToonNodeMaterial: boolean;
+    setValues(values?: MeshToonNodeMaterialParameters): void;
     /**
      * Setups the lighting model.
      *
