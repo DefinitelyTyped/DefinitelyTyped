@@ -1,4 +1,4 @@
-import * as OneLine from "pxr-oneline"
+import * as OneLine from "pxr-oneline";
 interface BidderParams {
     placementId: string;
 }
@@ -126,7 +126,7 @@ const ndOne: OneLine.OneLine = {
     setBettingCookie: function(betting: boolean) {
         // Mock implementation for setBettingCookie
         this.setBettingCookie(betting);
-    }
+    },
 };
 
 // Test cases
