@@ -217,26 +217,6 @@ declare module "." {
         ref?: Ref<FragmentInstance> | undefined;
     }
 
-    // @enableActivity
-    export interface ActivityProps {
-        /**
-         * @default "visible"
-         */
-        mode?:
-            | "hidden"
-            | "visible"
-            | undefined;
-        /**
-         * A name for this Activity boundary for instrumentation purposes.
-         * The name will help identify this boundary in React DevTools.
-         */
-        name?: string | undefined;
-        children: ReactNode;
-    }
-
-    /** */
-    export const unstable_Activity: ExoticComponent<ActivityProps>;
-
     // @enableSrcObject
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
         srcObject: Blob;
