@@ -1,8 +1,6 @@
 import {
     Camera,
     Color,
-    ColorRepresentation,
-    Material,
     Mesh,
     MeshBasicMaterial,
     MeshNormalMaterial,
@@ -12,7 +10,7 @@ import {
     WebGLRenderTarget,
 } from "three";
 import { ReflectorForSSRPass } from "../objects/ReflectorForSSRPass.js";
-import { FullScreenQuad, Pass } from "../postprocessing/Pass.js";
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export interface SSRPassParams {
     renderer: WebGLRenderer;
@@ -26,7 +24,7 @@ export interface SSRPassParams {
     groundReflector: ReflectorForSSRPass | null;
 }
 
-export class SSRPass extends Pass {
+declare class SSRPass extends Pass {
     width: number;
     height: number;
     clear: boolean;
@@ -94,29 +92,8 @@ export class SSRPass extends Pass {
 
     constructor(params: SSRPassParams);
 
-    dispose: () => void;
-
-    renderPass: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
-
-    renderOverride: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
-
-    renderMetalness: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
+    get resolutionScale(): number;
+    set resolutionScale(value: number);
 }
+
+export { SSRPass };
