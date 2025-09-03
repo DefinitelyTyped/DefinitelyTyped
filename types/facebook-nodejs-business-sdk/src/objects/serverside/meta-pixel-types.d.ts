@@ -24,3 +24,21 @@ export type StandardEvents =
   | "Subscribe"
   | "ViewContent"
   | (string & {});
+
+
+/**
+ * Represents the origin of a conversion event.
+ * Must be one of the listed values.
+ * 
+ * Reference: https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#
+ */
+export type ActionSource =
+  | "email"
+  | "website"
+  | "app"
+  | "phone_call"
+  | "chat"
+  | "physical_store"
+  | "system_generated"
+  | "business_messaging"
+  | "other";
