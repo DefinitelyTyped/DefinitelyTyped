@@ -89,7 +89,7 @@ export interface Checker<VT> {
      * @param val - Value to check.
      * @returns Whether check passed.
      */
-    (val: VT): boolean;
+    (val: VT): boolean | Promise<boolean>;
 }
 
 /**
