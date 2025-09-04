@@ -108,6 +108,16 @@ function FSTest(): void {
     FS.symlink("file", "link");
 
     FS.writeFile("/foobar.txt", "Hello, world");
+    
+    // Test writeFile with extended options
+    FS.writeFile("/test-with-mode.txt", "content", { mode: parseInt("0644", 8) });
+    FS.writeFile("/test-with-flags.txt", "content", { flags: "w+" });
+    FS.writeFile("/test-with-canown.txt", "content", { canOwn: true });
+    FS.writeFile("/test-with-all-opts.txt", "content", { 
+        flags: "w", 
+        mode: parseInt("0755", 8), 
+        canOwn: false 
+    });
     FS.unlink("/foobar.txt");
 
     FS.writeFile("file", "foobar");
