@@ -830,7 +830,6 @@ declare class Events {
      * Removes an event parent, so it will stop receiving propagated events
      */
     removeEventParent(obj: Evented): this;
-
 }
 
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
@@ -1236,7 +1235,7 @@ export class Draggable extends Evented {
 export interface LayerOptions {
     pane?: string | undefined;
     attribution?: string | undefined;
-    // TODO: should it be in InteractiveLayerOptions because it will be only used if interactive is true? 
+    // TODO: should it be in InteractiveLayerOptions because it will be only used if interactive is true?
     // But GridLayerOptions and other options extend from LayerOptions but bubblingPointerEvents is not used by Leaflet core in the tile layers but maybe by plugins.
     bubblingPointerEvents?: boolean | undefined;
 }
@@ -1371,7 +1370,7 @@ export class TileLayer extends GridLayer {
     setUrl(url: string, noRedraw?: boolean): this;
     getTileUrl(coords: Coords): string;
 
- //?
+    // ?
     protected createTile(coords: Coords, done?: DoneCallback): HTMLElement;
 
     protected _tileOnLoad(done: DoneCallback, tile: HTMLElement): void;
@@ -1559,9 +1558,11 @@ export interface PolylineOptions extends PathOptions {
     noClip?: boolean | undefined;
 }
 
-export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any, U = LatLng[] | LatLng[][]>
-    extends Path
-{
+export class Polyline<
+    T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString,
+    P = any,
+    U = LatLng[] | LatLng[][],
+> extends Path {
     constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
     toGeoJSON(precision?: number | false): geojson.Feature<T, P>;
     getLatLngs(): U;
@@ -1579,7 +1580,9 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
 }
 
 export type PolygonOptions = PolylineOptions;
-export class Polygon<P = any> extends Polyline<geojson.Polygon | geojson.MultiPolygon, P, LatLng[] | LatLng[][] | LatLng[][][]> {
+export class Polygon<P = any>
+    extends Polyline<geojson.Polygon | geojson.MultiPolygon, P, LatLng[] | LatLng[][] | LatLng[][][]>
+{
     constructor(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolygonOptions);
     setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
 
@@ -1636,11 +1639,11 @@ export class BlanketOverlay extends Layer {
     constructor(options?: BlanketOverlayOptions);
 
     _initContainer(): undefined;
-	_destroyContainer(): undefined;
-	_resizeContainer(): Point;
-	_onZoomEnd(): undefined;
-	_onViewReset(): undefined;
-	_onSettled(): undefined;
+    _destroyContainer(): undefined;
+    _resizeContainer(): Point;
+    _onZoomEnd(): undefined;
+    _onViewReset(): undefined;
+    _onSettled(): undefined;
 
     options: BlanketOverlayOptions;
 }
@@ -1669,7 +1672,7 @@ export namespace SVG {
     function pointsToPath(rings: Point[], closed: boolean): string;
 }
 
-export interface CanvasOptions extends RendererOptions {    
+export interface CanvasOptions extends RendererOptions {
     tolerance?: number | undefined;
 }
 
@@ -1758,7 +1761,13 @@ export class LayerGroup<P = any> extends Layer {
         | undefined;
 }
 
-export type VectorLayerOptions = PathOptions | PolylineOptions | PolygonOptions | RectangleOptions | CircleMarkerOptions | CircleOptions;
+export type VectorLayerOptions =
+    | PathOptions
+    | PolylineOptions
+    | PolygonOptions
+    | RectangleOptions
+    | CircleMarkerOptions
+    | CircleOptions;
 
 /**
  * Extended LayerGroup that also has pointer events (propagated from
@@ -1906,7 +1915,12 @@ export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.Geometr
      * appended to the end of the array to close the feature, only used when levelsDeep is 0.
      * False by default.
      */
-    static latLngsToCoords(latlngs: LatLngExpression[], levelsDeep?: number, closed?: boolean, precision?: number): any[]; // Using any[] to avoid artificially limiting valid calls
+    static latLngsToCoords(
+        latlngs: LatLngExpression[],
+        levelsDeep?: number,
+        closed?: boolean,
+        precision?: number,
+    ): any[]; // Using any[] to avoid artificially limiting valid calls
 
     /**
      * Normalize GeoJSON geometries/features into GeoJSON features.
@@ -1935,7 +1949,6 @@ export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.Geometr
 
     options: GeoJSONOptions<P, G>;
 }
-
 
 export type ControlPosition = "topleft" | "topright" | "bottomleft" | "bottomright";
 
@@ -2084,7 +2097,6 @@ export interface PopupOptions extends DivOverlayOptions {
     trackResize?: boolean | undefined;
 }
 
-
 export class Popup extends DivOverlay {
     constructor(latlng: LatLngExpression, options?: PopupOptions);
     constructor(options?: PopupOptions, source?: Layer);
@@ -2111,7 +2123,6 @@ export class Tooltip extends DivOverlay {
 
     options: TooltipOptions;
 }
-
 
 export class Handler extends Class {
     constructor(map: Map);

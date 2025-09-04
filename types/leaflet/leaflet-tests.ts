@@ -624,7 +624,11 @@ let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
-const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingPointerEvents: false, markersInheritOptions: true };
+const geojsonOptions: L.GeoJSONOptions = {
+    interactive: true,
+    bubblingPointerEvents: false,
+    markersInheritOptions: true,
+};
 const geojson = new L.GeoJSON(null, geojsonOptions);
 
 geojson.toGeoJSON();
@@ -649,8 +653,8 @@ class MyMarker extends L.Marker {
     animate() {
         const speed = 1000;
 
-        this.getElement()?.style.setProperty('transition', `all ${speed}ms linear`);
-        if (this._shadow) this._shadow.style.setProperty('transition', `all ${speed}ms linear`);
+        this.getElement()?.style.setProperty("transition", `all ${speed}ms linear`);
+        if (this._shadow) this._shadow.style.setProperty("transition", `all ${speed}ms linear`);
     }
 }
 
@@ -712,11 +716,15 @@ new L.Marker([1, 2], {
     icon: new L.DivIcon({
         className: "my-icon-class",
     }),
-}).setIcon(new L.Icon({
-    iconUrl: "my-icon.png",
-})).setIcon(new L.DivIcon({
-    className: "my-div-icon",
-}));
+}).setIcon(
+    new L.Icon({
+        iconUrl: "my-icon.png",
+    }),
+).setIcon(
+    new L.DivIcon({
+        className: "my-div-icon",
+    }),
+);
 
 let polygon: L.Polygon;
 
