@@ -344,7 +344,21 @@ declare namespace PDFKit.Mixins {
 
     type BoundingBox = [number, number, number, number];
 
-    type SizeUnits = 'em' | 'in' | 'px' | 'cm' | 'mm' | 'pc' | 'ex' | 'ch' | 'rem' | 'vw' | 'vmin' | 'vmax' | '%' | 'pt';
+    type SizeUnits =
+        | "em"
+        | "in"
+        | "px"
+        | "cm"
+        | "mm"
+        | "pc"
+        | "ex"
+        | "ch"
+        | "rem"
+        | "vw"
+        | "vmin"
+        | "vmax"
+        | "%"
+        | "pt";
 
     type Size = number | `${number}` | `${number}${SizeUnits}`;
 
@@ -450,7 +464,11 @@ declare namespace PDFKit.Mixins {
         /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
         maxWidth?: number;
         /** Column definitions of the table. (default auto) */
-        columnStyles?: number | Array<number | string> | ColumnStyle | ((row: number) => number | ColumnStyle | undefined);
+        columnStyles?:
+            | number
+            | Array<number | string>
+            | ColumnStyle
+            | ((row: number) => number | ColumnStyle | undefined);
         /** Row definitions of the table. (default *) */
         rowStyles?: number | Array<number | string> | RowStyle | ((row: number) => number | RowStyle | undefined);
         /** Defaults to apply to every cell */
@@ -479,9 +497,9 @@ declare namespace PDFKit.Mixins {
         /** How many columns this cell covers, follows the same logic as HTML colspan */
         colSpan?: number;
         /** Font options for the cell */
-        font?: { src?: PDFFontSource; family?: string; size?: number; };
+        font?: { src?: PDFFontSource; family?: string; size?: number };
         /** Sets the cell type (for accessibility) (default TD) */
-        type?: 'TD' | 'TH';
+        type?: "TD" | "TH";
     }
 
     interface ColumnStyle extends CellStyle {
@@ -502,9 +520,9 @@ declare namespace PDFKit.Mixins {
         maxHeight?: string | number;
     }
 
-    interface RowStyle extends CellStyle, RowBase { }
+    interface RowStyle extends CellStyle, RowBase {}
 
-    interface RowOptions extends CellOptions, RowBase { }
+    interface RowOptions extends CellOptions, RowBase {}
 
     interface PDFTableObject {
         /** Add a row of data (null and undefined are not rendered) */
