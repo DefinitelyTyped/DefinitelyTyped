@@ -1,5 +1,49 @@
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
+export interface DataHolderBrandSummary {
+  /**
+   * Australian Business Number for the organisation.
+   */
+  abn?: string | null;
+  /**
+   * Australian Company Number for the organisation.
+   */
+  acn?: string | null;
+  /**
+   * Australian Registered Body Number. ARBNs are issued to registrable Australian bodies and foreign companies.
+   */
+  arbn?: string | null;
+  /**
+   * The name of Data Holder Brand.
+   */
+  brandName: string;
+  /**
+   * Unique id of the Data Holder Brand issued by the CDR Register.
+   */
+  dataHolderBrandId?: string | null;
+  /**
+   * The industries the Data Holder Brand belongs to.
+   */
+  industries: ("banking" | "energy" | "telco")[];
+  /**
+   * Interim id of the Data Holder Brand issued by the CDR Register. This is to be used to uniquely identify the record when dataHolderBrandId is not populated and is not to be reused.
+   */
+  interimId?: string | null;
+  /**
+   * The date/time that the Data Holder Brand data was last updated in the Register.
+   */
+  lastUpdated: string;
+  /**
+   * Brand logo URI.
+   */
+  logoUri: string;
+  /**
+   * Base URI for the Data Holder's Consumer Data Standard public endpoints.
+   */
+  publicBaseUri: string;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the register api. */
+
 export interface DataHolderBrandSummaryV2 {
   /**
    * Australian Business Number for the organisation.
@@ -41,7 +85,6 @@ export interface DataHolderBrandSummaryV2 {
    * Base URI for the Data Holder's Consumer Data Standard public endpoints.
    */
   publicBaseUri: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -52,28 +95,6 @@ export interface DataHoldersStatusList {
   data: DataHolderStatus[];
   links: Links;
   meta: Meta;
-  
-}
-export interface DataHolderStatus {
-  /**
-   * Unique id of the Data Holder Legal Entity issued by the CDR Register.
-   */
-  legalEntityId: string;
-  /**
-   * Data Holder status in the CDR Register.
-   */
-  status: "ACTIVE" | "REMOVED";
-  
-}
-export interface Links {
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
-}
-export interface Meta {
-    [k: string]: unknown;  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -86,7 +107,6 @@ export interface DataHolderStatus {
    * Data Holder status in the CDR Register.
    */
   status: "ACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -111,33 +131,6 @@ export interface DataRecipientBrandMetaData {
    * Data Recipient Brand status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-/**
- * Data Recipient Brand Software Products.
- */
-export interface SoftwareProductMetaData {
-  /**
-   * Software product logo URI.
-   */
-  logoUri: string;
-  /**
-   * Description of the software product.
-   */
-  softwareProductDescription: string;
-  /**
-   * Unique id of the Data Recipient software product issued by the CDR Register.
-   */
-  softwareProductId: string;
-  /**
-   * Name of the software product.
-   */
-  softwareProductName: string;
-  /**
-   * Software Product status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -148,27 +141,7 @@ export interface DataRecipientsStatusList {
   data: DataRecipientStatus[];
   links: Links;
   meta: Meta;
-  
 }
-export interface DataRecipientStatus {
-  /**
-   * Unique id of the Data Recipient Legal Entity issued by the CDR Register.
-   */
-  legalEntityId: string;
-  /**
-   * Data Recipient status in the CDR Register.
-   */
-  status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  
-}
-export interface Links {
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
-}
-
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface DataRecipientStatus {
@@ -180,7 +153,6 @@ export interface DataRecipientStatus {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -201,13 +173,11 @@ export interface ErrorV2 {
      * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
      */
     urn?: string | null;
-    
   } | null;
   /**
    * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -248,7 +218,6 @@ export interface JWK {
    * The _n_ RSA public modulus parameter.
    */
   n: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -301,7 +270,6 @@ export interface LegalEntityDetail {
    */
   registrationNumber?: string | null;
   status: "ACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -310,7 +278,6 @@ export interface Links {
    * Fully qualified link to this API call.
    */
   self: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -335,10 +302,21 @@ export interface LinksPaginated {
    * Fully qualified link to this API call.
    */
   self: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
+export interface Meta {}
+/* These are the schema definitions stipulated by the Data Standards Body for the register api. */
+
+/**
+ * Additional data for customised error codes.
+ */
+export interface MetaError {
+  /**
+   * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
+   */
+  urn?: string | null;
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface MetaPaginated {
@@ -350,7 +328,6 @@ export interface MetaPaginated {
    * The total number of records in the full set.
    */
   totalRecords: number;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -366,7 +343,34 @@ export interface RegisterDataHolderAuth {
    * The type of authentication and authorisation mechanism in use.
    */
   registerUType: "SIGNED-JWT";
-  
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the register api. */
+
+export interface RegisterDataHolderBrand {
+  authDetails: RegisterDataHolderAuth[];
+  /**
+   * The name of Data Holder Brand.
+   */
+  brandName: string;
+  /**
+   * Unique id of the Data Holder Brand issued by the CDR Register.
+   */
+  dataHolderBrandId: string;
+  endpointDetail: RegisterDataHolderBrandServiceEndpoint;
+  /**
+   * The industries the Data Holder Brand belongs to.
+   */
+  industries: ("banking" | "energy" | "telco")[];
+  /**
+   * The date/time that the Data Holder Brand data was last updated in the Register.
+   */
+  lastUpdated: string;
+  legalEntity: LegalEntityDetail;
+  /**
+   * Brand logo URI.
+   */
+  logoUri: string;
+  status: "ACTIVE" | "INACTIVE" | "REMOVED";
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -398,7 +402,6 @@ export interface RegisterDataHolderBrandServiceEndpoint {
    * Publicly available website or web resource URI.
    */
   websiteUri: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -427,102 +430,6 @@ export interface RegisterDataHolderBrandV2 {
    */
   logoUri: string;
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-/**
- * Defines the mechanism used and associated endpoints for Data Holder to Data Recipient authentication.
- */
-export interface RegisterDataHolderAuth {
-  /**
-   * JWKS endpoint used for authentication by the Data Holder with the Data Recipient.
-   */
-  jwksEndpoint: string;
-  /**
-   * The type of authentication and authorisation mechanism in use.
-   */
-  registerUType: "SIGNED-JWT";
-  
-}
-/**
- * Endpoints related to Data Holder Brand services.
- */
-export interface RegisterDataHolderBrandServiceEndpoint {
-  /**
-   * Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional).
-   */
-  extensionBaseUri?: string | null;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard information security endpoints.
-   */
-  infosecBaseUri: string;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard public endpoints.
-   */
-  publicBaseUri: string;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard resource endpoints.
-   */
-  resourceBaseUri: string;
-  /**
-   * The major version of the high level standards. This is not the version of the endpoint or the payload being requested but the version of the overall standards being applied. This version number will be "`v`" followed by the major version of the standards as a positive integer (e.g., `v1`, `v12` or `v76`).
-   */
-  version: string;
-  /**
-   * Publicly available website or web resource URI.
-   */
-  websiteUri: string;
-  
-}
-/**
- * The data that is common to all organisations, regardless of the type (e.g., company, trust, partnership, government).
- */
-export interface LegalEntityDetail {
-  /**
-   * Australian Business Number for the organisation.
-   */
-  abn?: string | null;
-  /**
-   * Australian Company Number for the organisation.
-   */
-  acn?: string | null;
-  /**
-   * ANZSIC division of the organisation. **[[ANZSIC-2006]](#iref-ANZSIC-2006)**.
-   */
-  anzsicDivision?: string | null;
-  /**
-   * Australian Registered Body Number. ARBNs are issued to registrable Australian bodies and foreign companies.
-   */
-  arbn?: string | null;
-  /**
-   * Unique id of the organisation issued by the CDR Register.
-   */
-  legalEntityId: string;
-  /**
-   * Unique legal name of the organisation.
-   */
-  legalEntityName: string;
-  /**
-   * Legal Entity logo URI.
-   */
-  logoUri: string;
-  /**
-   * Legal organisation type.
-   */
-  organisationType?: ("SOLE_TRADER" | "COMPANY" | "PARTNERSHIP" | "TRUST" | "GOVERNMENT_ENTITY" | "OTHER") | null;
-  /**
-   * Country of registration (if the company is registered outside Australia).
-   */
-  registeredCountry?: string | null;
-  /**
-   * Date of registration (if the company is registered outside Australia).
-   */
-  registrationDate?: string | null;
-  /**
-   * Unique registration number (if the company is registered outside Australia).
-   */
-  registrationNumber?: string | null;
-  status: "ACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -556,56 +463,6 @@ export interface RegisterDataRecipient {
    * Data Recipient status in the CDR Register.
    */
   status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  
-}
-/**
- * Metadata related to Data Recipient Brand.
- */
-export interface DataRecipientBrandMetaData {
-  /**
-   * Data Recipient Brand name.
-   */
-  brandName: string;
-  /**
-   * Unique id of the Data Recipient brand issued by the CDR Register.
-   */
-  dataRecipientBrandId: string;
-  /**
-   * Data Recipient Brand logo URI.
-   */
-  logoUri: string;
-  softwareProducts?: SoftwareProductMetaData[] | null;
-  /**
-   * Data Recipient Brand status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-/**
- * Data Recipient Brand Software Products.
- */
-export interface SoftwareProductMetaData {
-  /**
-   * Software product logo URI.
-   */
-  logoUri: string;
-  /**
-   * Description of the software product.
-   */
-  softwareProductDescription: string;
-  /**
-   * Unique id of the Data Recipient software product issued by the CDR Register.
-   */
-  softwareProductId: string;
-  /**
-   * Name of the software product.
-   */
-  softwareProductName: string;
-  /**
-   * Software Product status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -616,59 +473,7 @@ export interface ResponseDataHoldersBrandSummaryList {
   data: DataHolderBrandSummaryV2[];
   links: Links;
   meta: Meta;
-  
 }
-export interface DataHolderBrandSummaryV2 {
-  /**
-   * Australian Business Number for the organisation.
-   */
-  abn?: string | null;
-  /**
-   * Australian Company Number for the organisation.
-   */
-  acn?: string | null;
-  /**
-   * Australian Registered Body Number. ARBNs are issued to registrable Australian bodies and foreign companies.
-   */
-  arbn?: string | null;
-  /**
-   * The name of Data Holder Brand.
-   */
-  brandName: string;
-  /**
-   * Unique id of the Data Holder Brand issued by the CDR Register.
-   */
-  dataHolderBrandId?: string | null;
-  /**
-   * The industries the Data Holder Brand belongs to.
-   */
-  industries: ("banking" | "energy" | "non-bank-lending" | "telco")[];
-  /**
-   * Interim id of the Data Holder Brand issued by the CDR Register. This is to be used to uniquely identify the record when _dataHolderBrandId_ is not populated and is not to be reused.
-   */
-  interimId?: string | null;
-  /**
-   * The date/time that the Data Holder Brand data was last updated in the Register.
-   */
-  lastUpdated: string;
-  /**
-   * Brand logo URI.
-   */
-  logoUri: string;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard public endpoints.
-   */
-  publicBaseUri: string;
-  
-}
-export interface Links {
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
-}
-
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface ResponseErrorListV2 {
@@ -676,9 +481,10 @@ export interface ResponseErrorListV2 {
    * List of errors.
    */
   errors: ErrorV2[];
-  
 }
-export interface ErrorV2 {
+/* These are the schema definitions stipulated by the Data Standards Body for the register api. */
+
+export interface ResponseErrorListV2Errors {
   /**
    * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the _meta_ object. Otherwise, the value is the error code URN.
    */
@@ -687,21 +493,11 @@ export interface ErrorV2 {
    * A human-readable explanation specific to this occurrence of the problem.
    */
   detail: string;
+  meta?: MetaError;
   /**
-   * Additional data for customised error codes.
-   */
-  meta?: {
-    /**
-     * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
-     */
-    urn?: string | null;
-    
-  } | null;
-  /**
-   * A short, human-readable summary of the problem that **MUST NOT** change from occurrence to occurrence of the problem represented by the error code.
+   * A short, human-readable summary of the problem that MUST NOT change from occurrence to occurrence of the problem represented by the error code.
    */
   title: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -713,37 +509,6 @@ export interface ResponseJWKS {
    * The value of the _keys_ parameter is an array of JWK values.
    */
   keys: JWK[];
-  
-}
-/**
- * Object representing a JSON Web Key.
- */
-export interface JWK {
-  /**
-   * The _alg_ (algorithm) parameter identifies the algorithm intended for use with the key.
-   */
-  alg: string;
-  /**
-   * The _e_ RSA public exponent parameter.
-   */
-  e: string;
-  /**
-   * The _key_ops_ (key operations) parameter identifies the operation(s) for which the key is intended to be used.
-   */
-  key_ops: string[];
-  /**
-   * The _kid_ (key ID) parameter is partially used to match a specific key. Note the _kid_ parameter is not guaranteed to be unique and additional parameters should be used to progressively identify a key within a set.
-   */
-  kid: string;
-  /**
-   * The _kty_ (key type) parameter identifies the cryptographic algorithm family used with the key.
-   */
-  kty: string;
-  /**
-   * The _n_ RSA public modulus parameter.
-   */
-  n: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -803,7 +568,19 @@ export interface ResponseOpenIDProviderConfigMetadata {
    * JSON array containing a list of the JWS signing algorithms (_alg_ values) supported by the token endpoint for the signature on the JWT **[[JWT]](#nref-JWT)** used to authenticate the client at the token endpoint for the `private_key_jwt` authentication method.
    */
   token_endpoint_auth_signing_alg_values_supported: string[];
-  
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the register api. */
+
+/**
+ * Response containing a list of CDR Register Data Holder Brand objects.
+ */
+export interface ResponseRegisterDataHolderBrandList {
+  /**
+   * Response data for the query.
+   */
+  data: RegisterDataHolderBrand[];
+  links: LinksPaginated;
+  meta: MetaPaginated;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -817,163 +594,6 @@ export interface ResponseRegisterDataHolderBrandListV2 {
   data: RegisterDataHolderBrandV2[];
   links: LinksPaginated;
   meta: MetaPaginated;
-  
-}
-export interface RegisterDataHolderBrandV2 {
-  authDetails: RegisterDataHolderAuth[];
-  /**
-   * The name of Data Holder Brand.
-   */
-  brandName: string;
-  /**
-   * Unique id of the Data Holder Brand issued by the CDR Register.
-   */
-  dataHolderBrandId: string;
-  endpointDetail: RegisterDataHolderBrandServiceEndpoint;
-  /**
-   * The industries the Data Holder Brand belongs to.
-   */
-  industries: ("banking" | "energy" | "non-bank-lending" | "telco")[];
-  /**
-   * The date/time that the Data Holder Brand data was last updated in the Register.
-   */
-  lastUpdated: string;
-  legalEntity: LegalEntityDetail;
-  /**
-   * Brand logo URI.
-   */
-  logoUri: string;
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-/**
- * Defines the mechanism used and associated endpoints for Data Holder to Data Recipient authentication.
- */
-export interface RegisterDataHolderAuth {
-  /**
-   * JWKS endpoint used for authentication by the Data Holder with the Data Recipient.
-   */
-  jwksEndpoint: string;
-  /**
-   * The type of authentication and authorisation mechanism in use.
-   */
-  registerUType: "SIGNED-JWT";
-  
-}
-/**
- * Endpoints related to Data Holder Brand services.
- */
-export interface RegisterDataHolderBrandServiceEndpoint {
-  /**
-   * Base URI for the Data Holder extension endpoints to the Consumer Data Standard (optional).
-   */
-  extensionBaseUri?: string | null;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard information security endpoints.
-   */
-  infosecBaseUri: string;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard public endpoints.
-   */
-  publicBaseUri: string;
-  /**
-   * Base URI for the Data Holder's Consumer Data Standard resource endpoints.
-   */
-  resourceBaseUri: string;
-  /**
-   * The major version of the high level standards. This is not the version of the endpoint or the payload being requested but the version of the overall standards being applied. This version number will be "`v`" followed by the major version of the standards as a positive integer (e.g., `v1`, `v12` or `v76`).
-   */
-  version: string;
-  /**
-   * Publicly available website or web resource URI.
-   */
-  websiteUri: string;
-  
-}
-/**
- * The data that is common to all organisations, regardless of the type (e.g., company, trust, partnership, government).
- */
-export interface LegalEntityDetail {
-  /**
-   * Australian Business Number for the organisation.
-   */
-  abn?: string | null;
-  /**
-   * Australian Company Number for the organisation.
-   */
-  acn?: string | null;
-  /**
-   * ANZSIC division of the organisation. **[[ANZSIC-2006]](#iref-ANZSIC-2006)**.
-   */
-  anzsicDivision?: string | null;
-  /**
-   * Australian Registered Body Number. ARBNs are issued to registrable Australian bodies and foreign companies.
-   */
-  arbn?: string | null;
-  /**
-   * Unique id of the organisation issued by the CDR Register.
-   */
-  legalEntityId: string;
-  /**
-   * Unique legal name of the organisation.
-   */
-  legalEntityName: string;
-  /**
-   * Legal Entity logo URI.
-   */
-  logoUri: string;
-  /**
-   * Legal organisation type.
-   */
-  organisationType?: ("SOLE_TRADER" | "COMPANY" | "PARTNERSHIP" | "TRUST" | "GOVERNMENT_ENTITY" | "OTHER") | null;
-  /**
-   * Country of registration (if the company is registered outside Australia).
-   */
-  registeredCountry?: string | null;
-  /**
-   * Date of registration (if the company is registered outside Australia).
-   */
-  registrationDate?: string | null;
-  /**
-   * Unique registration number (if the company is registered outside Australia).
-   */
-  registrationNumber?: string | null;
-  status: "ACTIVE" | "REMOVED";
-  
-}
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page.
-   */
-  first?: string | null;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page.
-   */
-  last?: string | null;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page.
-   */
-  next?: string | null;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page.
-   */
-  prev?: string | null;
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
-}
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set.
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set.
-   */
-  totalRecords: number;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -987,95 +607,6 @@ export interface ResponseRegisterDataRecipientList {
   data: RegisterDataRecipient[];
   links: Links;
   meta: Meta;
-  
-}
-export interface RegisterDataRecipient {
-  /**
-   * Accreditation level of the Data Recipient in the CDR Register.
-   */
-  accreditationLevel: "UNRESTRICTED" | "SPONSORED";
-  /**
-   * CDR Register issued human readable unique number given to Data Recipients upon accreditation.
-   */
-  accreditationNumber: string;
-  dataRecipientBrands?: DataRecipientBrandMetaData[] | null;
-  /**
-   * The date/time that the Legal Entity was last updated in the CDR Register.
-   */
-  lastUpdated: string;
-  /**
-   * Unique id of the Data Recipient Legal Entity issued by the CDR Register.
-   */
-  legalEntityId: string;
-  /**
-   * Legal name of the Data Recipient.
-   */
-  legalEntityName: string;
-  /**
-   * Legal Entity logo URI.
-   */
-  logoUri: string;
-  /**
-   * Data Recipient status in the CDR Register.
-   */
-  status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
-  
-}
-/**
- * Metadata related to Data Recipient Brand.
- */
-export interface DataRecipientBrandMetaData {
-  /**
-   * Data Recipient Brand name.
-   */
-  brandName: string;
-  /**
-   * Unique id of the Data Recipient brand issued by the CDR Register.
-   */
-  dataRecipientBrandId: string;
-  /**
-   * Data Recipient Brand logo URI.
-   */
-  logoUri: string;
-  softwareProducts?: SoftwareProductMetaData[] | null;
-  /**
-   * Data Recipient Brand status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-/**
- * Data Recipient Brand Software Products.
- */
-export interface SoftwareProductMetaData {
-  /**
-   * Software product logo URI.
-   */
-  logoUri: string;
-  /**
-   * Description of the software product.
-   */
-  softwareProductDescription: string;
-  /**
-   * Unique id of the Data Recipient software product issued by the CDR Register.
-   */
-  softwareProductId: string;
-  /**
-   * Name of the software product.
-   */
-  softwareProductName: string;
-  /**
-   * Software Product status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-export interface Links {
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1103,7 +634,6 @@ export interface SoftwareProductMetaData {
    * Software Product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1114,25 +644,6 @@ export interface SoftwareProductsStatusList {
   data: SoftwareProductStatus[];
   links: Links;
   meta: Meta;
-  
-}
-export interface SoftwareProductStatus {
-  /**
-   * Unique id of the software product issued by the CDR Register.
-   */
-  softwareProductId: string;
-  /**
-   * Software product status in the CDR Register.
-   */
-  status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
-}
-export interface Links {
-  /**
-   * Fully qualified link to this API call.
-   */
-  self: string;
-  
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
@@ -1145,5 +656,4 @@ export interface SoftwareProductStatus {
    * Software product status in the CDR Register.
    */
   status: "ACTIVE" | "INACTIVE" | "REMOVED";
-  
 }
