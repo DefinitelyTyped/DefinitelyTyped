@@ -1,5 +1,4 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
-import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 import AdAccountBusinessConstraints from "./ad-account-business-constraints";
 import AdPlacePageSet from "./ad-place-page-set";
@@ -204,7 +203,6 @@ export default class AdAccount extends AbstractCrudObject {
         generic: "GENERIC";
         home_listing: "HOME_LISTING";
         hotel: "HOTEL";
-        job: "JOB";
         local_service_business: "LOCAL_SERVICE_BUSINESS";
         media_title: "MEDIA_TITLE";
         offline_product: "OFFLINE_PRODUCT";
@@ -284,6 +282,8 @@ export default class AdAccount extends AbstractCrudObject {
     createAssignedUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
     createAsyncBatchRequest(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getAsyncRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAsyncAdCreatives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAsyncAdCreative(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAsyncRequestSet>;
     getAsyncAdRequestSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAsyncAdRequestSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAsyncRequestSet>;
     getAudienceFunnel(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -298,7 +298,6 @@ export default class AdAccount extends AbstractCrudObject {
     getConnectedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getConnectedInstagramAccountsWithIabp(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getConversionGoals(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCpaGuidance(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCustomAudiences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCustomAudience(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     getCustomAudiencesTos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -314,7 +313,6 @@ export default class AdAccount extends AbstractCrudObject {
     getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
     getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getIosFourteenCampaignLimits(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createManagedPartnerAd(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getMatchedSearchApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMaxBid(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMcmeConversions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -333,7 +331,6 @@ export default class AdAccount extends AbstractCrudObject {
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
     getSubscribedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSubscribedApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccountSubscribedApps>;
-    getSuggestedProductTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingBrowse(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSearch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -343,7 +340,6 @@ export default class AdAccount extends AbstractCrudObject {
     createTracking(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
     getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteUsersOfAnyAudience(params?: Record<string, any>): Promise<any>;
-    getValueAdjustmentRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getValueRuleSet(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createValueRuleSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsValueAdjustmentRuleCollection>;
     getVideoAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
