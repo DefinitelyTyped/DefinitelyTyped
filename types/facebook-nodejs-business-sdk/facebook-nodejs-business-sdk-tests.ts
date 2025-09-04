@@ -165,8 +165,6 @@ export function testAttributionDataConstructor() {
 }
 
 export function testAdCampaignStatsFields() {
-    const adCampaignStats = new AdCampaignStats('');
-
     AdCampaignStats.Fields.account_id;
     AdCampaignStats.Fields.actions;
     AdCampaignStats.Fields.adgroup_id;
