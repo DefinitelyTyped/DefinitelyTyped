@@ -336,7 +336,11 @@ declare namespace FS {
     function readFile(path: string, opts: { encoding: "binary"; flags?: string | undefined }): Uint8Array;
     function readFile(path: string, opts: { encoding: "utf8"; flags?: string | undefined }): string;
     function readFile(path: string, opts?: { flags?: string | undefined }): Uint8Array;
-    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string | undefined, mode?: number | undefined, canOwn?: boolean | undefined }): void;
+    function writeFile(
+        path: string,
+        data: string | ArrayBufferView,
+        opts?: { flags?: string | undefined; mode?: number | undefined; canOwn?: boolean | undefined },
+    ): void;
 
     //
     // module-level FS code
