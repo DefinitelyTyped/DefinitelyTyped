@@ -6,6 +6,7 @@ import {
     TextureDataType,
     Wrapping,
 } from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
 import { Texture } from "./Texture.js";
 
 /**
@@ -51,7 +52,7 @@ export class DataTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        data?: ArrayBufferView | null,
+        data?: TypedArray | null,
         width?: number,
         height?: number,
         format?: PixelFormat,
@@ -111,7 +112,7 @@ export class DataTexture extends Texture {
 }
 
 export interface TextureImageData {
-    data: ArrayBufferView;
+    data: TypedArray;
     height: number;
     width: number;
 }

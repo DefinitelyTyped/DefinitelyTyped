@@ -39,19 +39,129 @@ const postTest = (payload: object): string => {
     return UrlFetchApp.fetch(url, params).getContentText();
 };
 
-// Test CalendarApp.EventType
-const testCalendarAppEventType = (): void => {
-    const event = CalendarApp.getEventById("testevent");
-    const type = event.getEventType();
-    const birthdayType = CalendarApp.EventType.BIRTHDAY;
-    birthdayType !== type;
+// CalendarApp
+// https://developers.google.com/apps-script/reference/calendar/calendar-app
 
-    type !== CalendarApp.EventType.FOCUS_TIME;
+// CalendarApp.Color
+// https://developers.google.com/apps-script/reference/calendar/color
 
-    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE;
-    // @ts-expect-error
-    type == GoogleAppsScript.Calendar.EventType.STANDARD;
-};
+function testCalendarAppColor() {
+    CalendarApp.Color.BLUE;
+    CalendarApp.Color.BROWN;
+    CalendarApp.Color.CHARCOAL;
+    CalendarApp.Color.CHESTNUT;
+    CalendarApp.Color.GRAY;
+    CalendarApp.Color.GREEN;
+    CalendarApp.Color.INDIGO;
+    CalendarApp.Color.LIME;
+    CalendarApp.Color.MUSTARD;
+    CalendarApp.Color.OLIVE;
+    CalendarApp.Color.ORANGE;
+    CalendarApp.Color.PINK;
+    CalendarApp.Color.PLUM;
+    CalendarApp.Color.PURPLE;
+    CalendarApp.Color.RED;
+    CalendarApp.Color.RED_ORANGE;
+    CalendarApp.Color.SEA_BLUE;
+    CalendarApp.Color.SLATE;
+    CalendarApp.Color.TEAL;
+    CalendarApp.Color.TURQOISE;
+    CalendarApp.Color.YELLOW;
+}
+
+// CalendarApp.EventTransparency
+// https://developers.google.com/apps-script/reference/calendar/event-transparency
+
+function testCalendarAppEventTransparency() {
+    CalendarApp.EventTransparency.OPAQUE;
+    CalendarApp.EventTransparency.TRANSPARENT;
+}
+
+// CalendarApp.EventType
+// https://developers.google.com/apps-script/reference/calendar/event-type
+
+function testCalendarAppEventType() {
+    CalendarApp.EventType.DEFAULT;
+    CalendarApp.EventType.BIRTHDAY;
+    CalendarApp.EventType.FOCUS_TIME;
+    CalendarApp.EventType.FROM_GMAIL;
+    CalendarApp.EventType.OUT_OF_OFFICE;
+    CalendarApp.EventType.WORKING_LOCATION;
+}
+
+// CalendarEvent
+// https://developers.google.com/apps-script/reference/calendar/calendar-event
+
+function testCalendarEvent() {
+    const event = CalendarApp.getEventById("abc123456");
+
+    event.addEmailReminder(15); // $ExpectType CalendarEvent
+    event.addGuest("user@example.com"); // $ExpectType CalendarEvent
+    event.addPopupReminder(10); // $ExpectType CalendarEvent
+    event.addSmsReminder(5); // $ExpectType CalendarEvent
+    event.anyoneCanAddSelf(); // $ExpectType boolean
+    event.deleteEvent(); // $ExpectType void
+    event.deleteTag("sometag"); // $ExpectType CalendarEvent
+    event.getAllDayEndDate(); // $ExpectType Date
+    event.getAllDayStartDate(); // $ExpectType Date
+    event.getAllTagKeys(); // $ExpectType string[]
+    event.getColor(); // $ExpectType string
+    event.getCreators(); // $ExpectType string[]
+    event.getDateCreated(); // $ExpectType Date
+    event.getDescription(); // $ExpectType string
+    event.getEmailReminders(); // $ExpectType number[]
+    event.getEndTime(); // $ExpectType Date
+    event.getEventSeries(); // $ExpectType CalendarEventSeries
+    event.getEventType(); // $ExpectType EventType
+    event.getGuestByEmail("user@example.com"); // $ExpectType EventGuest
+    event.getGuestList(); // $ExpectType EventGuest[]
+    event.getGuestList(true); // $ExpectType EventGuest[]
+    event.getId(); // $ExpectType string
+    event.getLastUpdated(); // $ExpectType Date
+    event.getLocation(); // $ExpectType string
+    event.getMyStatus(); // $ExpectType GuestStatus
+    event.getOriginalCalendarId(); // $ExpectType string
+    event.getPopupReminders(); // $ExpectType number[]
+    event.getSmsReminders(); // $ExpectType number[]
+    event.getStartTime(); // $ExpectType Date
+    event.getTag("somekey"); // $ExpectType string
+    event.getTitle(); // $ExpectType string
+    event.getTransparency(); // $ExpectType EventTransparency
+    event.getVisibility(); // $ExpectType Visibility
+    event.guestsCanInviteOthers(); // $ExpectType boolean
+    event.guestsCanModify(); // $ExpectType boolean
+    event.guestsCanSeeGuests(); // $ExpectType boolean
+    event.isAllDayEvent(); // $ExpectType boolean
+    event.isOwnedByMe(); // $ExpectType boolean
+    event.isRecurringEvent(); // $ExpectType boolean
+    event.removeAllReminders(); // $ExpectType CalendarEvent
+    event.removeGuest("user@example.com"); // $ExpectType CalendarEvent
+    event.resetRemindersToDefault(); // $ExpectType CalendarEvent
+    event.setAllDayDate(new Date("Feb 17, 2023")); // $ExpectType CalendarEvent
+    // $ExpectType CalendarEvent
+    event.setAllDayDates(
+        new Date("Feb 18, 2023"),
+        new Date("Feb 25, 2023"),
+    );
+    event.setAnyoneCanAddSelf(true); // $ExpectType CalendarEvent
+    event.setColor("3"); // $ExpectType CalendarEvent
+    event.setColor(CalendarApp.EventColor.GREEN); // $ExpectType CalendarEvent
+    event.setDescription("some description"); // $ExpectType CalendarEvent
+    event.setGuestsCanInviteOthers(true); // $ExpectType CalendarEvent
+    event.setGuestsCanModify(true); // $ExpectType CalendarEvent
+    event.setGuestsCanSeeGuests(true); // $ExpectType CalendarEvent
+    event.setLocation("some location"); // $ExpectType CalendarEvent
+    event.setMyStatus(CalendarApp.GuestStatus.MAYBE); // $ExpectType CalendarEvent
+    event.setTag("somekey", "somevalue"); // $ExpectType CalendarEvent
+    // $ExpectType CalendarEvent
+    event.setTime(
+        new Date("Feb 20, 2023 11:00:00"),
+        new Date("Feb 20, 2023 12:00:00"),
+    );
+    event.setTitle("some location"); // $ExpectType CalendarEvent
+    event.setTransparency(CalendarApp.EventTransparency.TRANSPARENT); // $ExpectType CalendarEvent
+    event.setVisibility(CalendarApp.Visibility.PRIVATE); // $ExpectType CalendarEvent
+}
 
 // ScriptApp
 // https://developers.google.com/apps-script/reference/script/script-app
@@ -523,6 +633,18 @@ CardService.newOpenLink(); // $ExpectType OpenLink
 CardService.newOpenLink().setOnClose(CardService.OnClose.NOTHING); // $ExpectType OpenLink
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD); // $ExpectType OpenLink
 CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $ExpectType OpenLink
+
+// Class CardService.SelectionInput
+// https://developers.google.com/apps-script/reference/card-service/selection-input
+CardService.newSelectionInput(); // $ExpectType SelectionInput
+
+// Enum SelectionInputType
+// https://developers.google.com/apps-script/reference/card-service/selection-input-type
+CardService.SelectionInputType.CHECK_BOX;
+CardService.SelectionInputType.RADIO_BUTTON;
+CardService.SelectionInputType.DROPDOWN;
+CardService.SelectionInputType.SWITCH;
+CardService.SelectionInputType.MULTI_SELECT;
 
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));

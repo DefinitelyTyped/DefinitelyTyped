@@ -60,6 +60,7 @@ declare class SpriteNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isSpriteNodeMaterial: boolean;
+    setValues(values?: SpriteNodeMaterialParameters): void;
     /**
      * Setups the position node in view space. This method implements
      * the sprite specific vertex shader.

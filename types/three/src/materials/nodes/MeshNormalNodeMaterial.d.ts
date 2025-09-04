@@ -29,6 +29,7 @@ declare class MeshNormalNodeMaterial extends NodeMaterial {
      * @type {boolean}
      */
     readonly isMeshNormalNodeMaterial: boolean;
+    setValues(values?: MeshNormalNodeMaterialParameters): void;
     /**
      * Overwrites the default implementation by computing the diffuse color
      * based on the normal data.
