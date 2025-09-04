@@ -556,7 +556,7 @@ export interface ErrorMetricsV2 {
           /**
            * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 401, 403, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
            */
-          [k: string]: number;
+          [k: string]: unknown;
         }[]
       | null;
   };
@@ -589,7 +589,7 @@ export interface ErrorMetricsV2 {
           /**
            * This is a placeholder field to be substituted with each respective HTTP error code in the 4xx and 5xx range recorded by the Data Holder. It is represented by _property1_ and _property2_ in the _Non-normative Examples_ section. Note that the property name **MUST** be the three-digit HTTP error code as per the adjacent _500_ example. All possible property names have not been defined as the range is expected to vary across participants. Examples would include, but are not limited to: _400, 404, 405, 406, 415, 422, 429, 500, 503, 504_.
            */
-          [k: string]: number;
+          [k: string]: unknown;
         }[]
       | null;
   };
