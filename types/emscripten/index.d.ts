@@ -156,7 +156,6 @@ declare namespace FS {
         close(stream: FSStream): void;
         read(stream: FSStream, buffer: Uint8Array, offset: number, length: number, position: number): number;
         write(stream: FSStream, buffer: Uint8Array, offset: number, length: number, position: number): number;
-        llseek(stream: FSStream, offset: number, whence: number): number;
     }
 
     class FSNode {
