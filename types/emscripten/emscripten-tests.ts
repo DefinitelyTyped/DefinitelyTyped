@@ -71,11 +71,17 @@ function FSTest(): void {
     FS.init(null, null, null);
 
     FS.mkdir("/working");
+    FS.mkdirTree("/nested/directory/structure");
+    FS.mkdirTree("/another/path", parseInt("0755", 8));
     FS.mount(NODEFS, { root: "." }, "/working");
 
     function myAppStartup(): void {
         FS.mkdir("/data");
         FS.mount(IDBFS, {}, "/data");
+
+        // Test isMountpoint - checks if a node is a mount point
+        const testNode = FS.lookupPath("/data", {}).node;
+        const isMount: boolean = FS.isMountpoint(testNode);
 
         FS.syncfs(true, (err) => {
             // handle callback
@@ -91,6 +97,12 @@ function FSTest(): void {
     const id = FS.makedev(64, 0);
     FS.registerDevice(id, {});
     FS.mkdev("/dummy", id);
+
+    // Test createDevice - creates a device with input/output functions
+    const inputDevice = FS.createDevice("/", "stdin", () => 65, undefined); // Returns 'A' (65)
+    const outputDevice = FS.createDevice("/", "stdout", undefined, (c: number) => console.log(String.fromCharCode(c)));
+    const bothDevice = FS.createDevice("/", "console", () => 66, (c: number) => console.log(c)); // Returns 'B' (66)
+    const simpleDevice = FS.createDevice("/", "null");
 
     FS.writeFile("file", "foobar");
     FS.symlink("file", "link");
@@ -119,7 +131,19 @@ function FSTest(): void {
     const data = new Uint8Array(32);
     const wstream = FS.open("dummy1", "w+");
     FS.write(wstream, data, 0, data.length, 0);
-    FS.close(wstream);
+
+    // Test FS.open with numeric flags
+    const numericWriteStream = FS.open("numeric-write-stream-test", 1);
+    FS.write(numericWriteStream, data, 0, data.length, 0);
+    FS.close(numericWriteStream);
+
+    // Test getStream - gets stream by file descriptor
+    const streamFromFD = FS.getStream(wstream.fd!);
+    // $ExpectType FSStream
+    streamFromFD;
+
+    // Test closeStream - closes stream by file descriptor
+    FS.closeStream(wstream.fd!);
 
     FS.createDataFile("/", "dummy2", data, true, true, true);
 

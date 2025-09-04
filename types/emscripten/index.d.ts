@@ -268,6 +268,12 @@ declare namespace FS {
     function makedev(ma: number, mi: number): number;
     function registerDevice(dev: number, ops: Partial<StreamOps>): void;
     function getDevice(dev: number): { stream_ops: StreamOps };
+    function createDevice(
+        parent: string | FSNode,
+        name: string,
+        input?: () => number | null | undefined,
+        output?: (c: number) => any,
+    ): FSNode;
 
     //
     // core
@@ -277,8 +283,13 @@ declare namespace FS {
     function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
+    function isMountpoint(node: FSNode): boolean;
+
+    function closeStream(fd: number): void;
+    function getStream(fd: number): FSStream;
 
     function mkdir(path: string, mode?: number): FSNode;
+    function mkdirTree(path: string, mode?: number): void;
     function mkdev(path: string, mode?: number, dev?: number): FSNode;
     function symlink(oldpath: string, newpath: string): FSNode;
     function rename(old_path: string, new_path: string): void;
@@ -297,7 +308,7 @@ declare namespace FS {
     function truncate(path: string, len: number): void;
     function ftruncate(fd: number, len: number): void;
     function utime(path: string, atime: number, mtime: number): void;
-    function open(path: string, flags: string, mode?: number, fd_start?: number, fd_end?: number): FSStream;
+    function open(path: string, flags: string | number, mode?: number): FSStream;
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): number;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
@@ -309,7 +320,6 @@ declare namespace FS {
         position?: number,
         canOwn?: boolean,
     ): number;
-    function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(
         stream: FSStream,
         buffer: ArrayBufferView,
