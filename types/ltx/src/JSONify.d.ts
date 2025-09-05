@@ -1,9 +1,5 @@
-import Element, { Node } from "./Element";
+import JSONify = require("../lib/JSONify.js");
 
-export default function JSONify<TNode extends Node>(el: TNode): TNode extends Element ? ElementJson : TNode;
-
-export interface ElementJson {
-    name: string;
-    attrs: { [attrName: string]: any };
-    children: Array<ElementJson | Node>;
-}
+import ElementJson = JSONify.ElementJson;
+export { ElementJson };
+export default JSONify;

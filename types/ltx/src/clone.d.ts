@@ -1,3 +1,3 @@
-import { Node } from "./Element";
+import clone = require("../lib/clone.js");
 
-export default function clone<T extends Node>(el: T): T;
+export default clone;

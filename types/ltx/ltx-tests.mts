@@ -1,23 +1,23 @@
 /// <reference types="node" />
 
 import * as ltx from "ltx";
-import * as ltx2 from "ltx/src/ltx";
-import parsers from "ltx/src/parsers";
-import parsers2 = require("ltx/lib/parsers");
-import SaxLibxmljs from "ltx/src/parsers/libxmljs";
-import SaxLtx from "ltx/src/parsers/ltx";
-import SaxExpat from "ltx/src/parsers/node-expat";
-import SaxNodeXML from "ltx/src/parsers/node-xml";
-import SaxSaxjs from "ltx/src/parsers/sax-js";
-import SaxSaxesjs from "ltx/src/parsers/saxes";
-import SaxLibxmljs2 = require("ltx/lib/parsers/libxmljs");
-import SaxLtx2 = require("ltx/lib/parsers/ltx");
-import SaxExpat2 = require("ltx/lib/parsers/node-expat");
-import SaxNodeXML2 = require("ltx/lib/parsers/node-xml");
-import SaxSaxjs2 = require("ltx/lib/parsers/sax-js");
-import SaxSaxesjs2 = require("ltx/lib/parsers/saxes");
-import DOMElement from "ltx/src/DOMElement";
-import DOMElement2 = require("ltx/lib/DOMElement");
+import * as ltx2 from "ltx/src/ltx.js";
+import parsers from "ltx/src/parsers.js";
+import parsers2 = require("ltx/lib/parsers.js");
+import SaxLibxmljs from "ltx/src/parsers/libxmljs.js";
+import SaxLtx from "ltx/src/parsers/ltx.js";
+import SaxExpat from "ltx/src/parsers/node-expat.js";
+import SaxNodeXML from "ltx/src/parsers/node-xml.js";
+import SaxSaxjs from "ltx/src/parsers/sax-js.js";
+import SaxSaxesjs from "ltx/src/parsers/saxes.js";
+import SaxLibxmljs2 = require("ltx/lib/parsers/libxmljs.js");
+import SaxLtx2 = require("ltx/lib/parsers/ltx.js");
+import SaxExpat2 = require("ltx/lib/parsers/node-expat.js");
+import SaxNodeXML2 = require("ltx/lib/parsers/node-xml.js");
+import SaxSaxjs2 = require("ltx/lib/parsers/sax-js.js");
+import SaxSaxesjs2 = require("ltx/lib/parsers/saxes.js");
+import DOMElement from "ltx/src/DOMElement.js";
+import DOMElement2 = require("ltx/lib/DOMElement.js");
 
 // test type exports
 type Element = ltx.Element;
@@ -38,6 +38,10 @@ ltx.nameEqual(el, el); // $ExpectType boolean
 ltx.attrsEqual(el, el); // $ExpectType boolean
 ltx.childrenEqual(el, el); // $ExpectType boolean
 ltx.equal(el, el); // $ExpectType boolean
+ltx2.nameEqual(el, el); // $ExpectType boolean
+ltx2.attrsEqual(el, el); // $ExpectType boolean
+ltx2.childrenEqual(el, el); // $ExpectType boolean
+ltx2.equal(el, el); // $ExpectType boolean
 
 ltx.createElement("el"); // $ExpectType Element
 ltx.createElement("el", "xml"); // $ExpectType Element

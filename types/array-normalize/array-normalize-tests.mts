@@ -1,5 +1,5 @@
 import normalize = require("array-normalize");
-import normalizeMod from "array-normalize/index.mjs";
+import normalizeMod from "array-normalize";
 
 normalize([0, 50, 100]); // $ExpectType number[]
 normalize({ 0: 0, 1: 50, 2: 100, length: 3 }); // $ExpectType number[]

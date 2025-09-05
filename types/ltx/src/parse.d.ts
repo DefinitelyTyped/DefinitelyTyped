@@ -1,4 +1,3 @@
-import Element from "./Element";
-import Parser, { ParserOptions } from "./Parser";
+import parse = require("../lib/parse.js");
 
-export default function parse(data: string, options?: ParserOptions | typeof Parser): Element;
+export default parse;
