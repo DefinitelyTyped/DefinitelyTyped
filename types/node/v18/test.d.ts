@@ -736,7 +736,7 @@ declare module "node:test" {
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        function before(fn?: HookFn, options?: HookOptions): void;
+        function before(fn?: SuiteContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook running after running a suite.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -744,7 +744,7 @@ declare module "node:test" {
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        function after(fn?: HookFn, options?: HookOptions): void;
+        function after(fn?: SuiteContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook running before each subtest of the current suite.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -752,7 +752,7 @@ declare module "node:test" {
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        function beforeEach(fn?: HookFn, options?: HookOptions): void;
+        function beforeEach(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook running after each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -760,12 +760,17 @@ declare module "node:test" {
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        function afterEach(fn?: HookFn, options?: HookOptions): void;
+        function afterEach(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * The hook function. The first argument is the context in which the hook is called.
          * If the hook uses callbacks, the callback function is passed as the second argument.
          */
         type HookFn = (c: TestContext | SuiteContext, done: (result?: any) => void) => any;
+        /**
+         * The hook function. The first argument is the context in which the hook is called.
+         * If the hook uses callbacks, the callback function is passed as the second argument.
+         */
+        type SuiteContextHookFn = (c: SuiteContext, done: (result?: any) => void) => any;
         /**
          * The hook function. The first argument is a `TestContext` object.
          * If the hook uses callbacks, the callback function is passed as the second argument.
