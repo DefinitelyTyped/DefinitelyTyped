@@ -1589,7 +1589,7 @@ declare module "http" {
         createConnection(
             options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *
