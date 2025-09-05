@@ -66,6 +66,31 @@ passport.use(
     }),
 );
 
+// Allow *not* passing `scope`, because is merely conventional.
+passport.use(
+    new httpBearer.Strategy(
+        (token: string, done: (error: unknown, user: unknown, options?: httpBearer.IVerifyOptions) => void) => {
+            done(null, {}, {/* no values is technically fine! */});
+            done(null, {}, { message: "so is just having a message" });
+        },
+    ),
+);
+
+// Allow arbitrary additional data on the `info` object
+interface ExtraOptions extends httpBearer.IVerifyOptions {
+    arbitraryData: string;
+}
+
+type ExtendedDoneFn = (error: unknown, user: unknown, options?: ExtraOptions) => void;
+
+passport.use(
+    new httpBearer.Strategy((token: string, done: ExtendedDoneFn) => {
+        done(null, {}, {
+            arbitraryData: "can go here",
+        });
+    }),
+);
+
 let app = express();
 app.post("/login", passport.authenticate("bearer", { failureRedirect: "/login" }), function(req, res) {
     res.redirect("/");
