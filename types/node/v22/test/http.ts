@@ -730,3 +730,9 @@ import * as url from "node:url";
 
     http.setMaxIdleHTTPParsers(1337);
 }
+
+{
+    new http.WebSocket("ws://example.com", ["protocol"]);
+    new http.CloseEvent("close");
+    new http.MessageEvent("message", { data: "data" });
+}
