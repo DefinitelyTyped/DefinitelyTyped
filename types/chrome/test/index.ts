@@ -1071,24 +1071,79 @@ function testDebugger() {
     });
 }
 
-// https://developer.chrome.com/extensions/declarativeContent
+// https://developer.chrome.com/docs/extensions/reference/api/declarativeContent
 function testDeclarativeContent() {
-    const activeIcon: ImageData = new ImageData(32, 32);
+    const pageStateMatcherProperties: chrome.declarativeContent.PageStateMatcherProperties = {
+        css: [""],
+        isBookmarked: true,
+        pageUrl: {
+            cidrBlocks: [""],
+            hostContains: "",
+            hostEquals: "",
+            hostPrefix: "",
+            hostSuffix: "",
+            originAndPathMatches: "",
+            pathContains: "",
+            pathEquals: "",
+            pathPrefix: "",
+            pathSuffix: "",
+            ports: [1],
+            queryContains: "",
+            queryEquals: "",
+            queryPrefix: "",
+            querySuffix: "",
+            schemes: ["https"],
+            urlContains: "",
+            urlEquals: "",
+            urlMatches: "",
+            urlPrefix: "",
+            urlSuffix: "",
+        },
+    };
+
+    const condition = new chrome.declarativeContent.PageStateMatcher(pageStateMatcherProperties); // ExpectType PageStateMatcher
+
+    const requestContentScriptProperties: chrome.declarativeContent.RequestContentScriptProperties = {
+        allFrames: true,
+        css: [""],
+        js: [""],
+        matchAboutBlank: true,
+    };
+
+    new chrome.declarativeContent.RequestContentScript(requestContentScriptProperties); // ExpectType RequestContentScript
+
+    const imageData = new ImageData(32, 32);
+
+    new chrome.declarativeContent.SetIcon({ imageData }); // ExpectType SetIcon
+
+    const action = new chrome.declarativeContent.ShowAction(); // ExpectType ShowAction
+
+    new chrome.declarativeContent.ShowPageAction(); // ExpectType ShowPageAction
 
     const rule: chrome.events.Rule = {
-        conditions: [
-            new chrome.declarativeContent.PageStateMatcher({
-                pageUrl: {
-                    hostContains: "test.com",
-                },
-            }),
-        ],
-        actions: [
-            new chrome.declarativeContent.SetIcon({
-                imageData: activeIcon,
-            }),
-        ],
+        conditions: [condition],
+        actions: [action],
     };
+
+    chrome.declarativeContent.onPageChanged.addRules([rule]); // $ExpectType void
+    chrome.declarativeContent.onPageChanged.addRules([rule], ([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
+
+    chrome.declarativeContent.onPageChanged.getRules(([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
+
+    chrome.declarativeContent.onPageChanged.getRules(([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
+    chrome.declarativeContent.onPageChanged.getRules(["identifier"], ([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
+
+    chrome.declarativeContent.onPageChanged.removeRules(); // $ExpectType void
+    chrome.declarativeContent.onPageChanged.removeRules(() => void 0); // $ExpectType void
+    chrome.declarativeContent.onPageChanged.removeRules(["identifier"], () => void 0); // $ExpectType void
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
