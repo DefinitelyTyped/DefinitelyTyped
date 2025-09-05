@@ -20,6 +20,8 @@ export default class AdPreview extends AbstractCrudObject {
         facebook_profile_reels_mobile: "FACEBOOK_PROFILE_REELS_MOBILE";
         facebook_reels_banner: "FACEBOOK_REELS_BANNER";
         facebook_reels_banner_desktop: "FACEBOOK_REELS_BANNER_DESKTOP";
+        facebook_reels_banner_fullscreen_ios: "FACEBOOK_REELS_BANNER_FULLSCREEN_IOS";
+        facebook_reels_banner_fullscreen_mobile: "FACEBOOK_REELS_BANNER_FULLSCREEN_MOBILE";
         facebook_reels_mobile: "FACEBOOK_REELS_MOBILE";
         facebook_reels_postloop: "FACEBOOK_REELS_POSTLOOP";
         facebook_reels_sticker: "FACEBOOK_REELS_STICKER";
@@ -34,7 +36,9 @@ export default class AdPreview extends AbstractCrudObject {
         instagram_profile_feed: "INSTAGRAM_PROFILE_FEED";
         instagram_profile_reels: "INSTAGRAM_PROFILE_REELS";
         instagram_reels: "INSTAGRAM_REELS";
+        instagram_reels_instream: "INSTAGRAM_REELS_INSTREAM";
         instagram_reels_overlay: "INSTAGRAM_REELS_OVERLAY";
+        instagram_reels_web: "INSTAGRAM_REELS_WEB";
         instagram_search_chain: "INSTAGRAM_SEARCH_CHAIN";
         instagram_search_grid: "INSTAGRAM_SEARCH_GRID";
         instagram_standard: "INSTAGRAM_STANDARD";
@@ -45,6 +49,7 @@ export default class AdPreview extends AbstractCrudObject {
         instant_article_recirculation_ad: "INSTANT_ARTICLE_RECIRCULATION_AD";
         instant_article_standard: "INSTANT_ARTICLE_STANDARD";
         instream_banner_desktop: "INSTREAM_BANNER_DESKTOP";
+        instream_banner_fullscreen_ios: "INSTREAM_BANNER_FULLSCREEN_IOS";
         instream_banner_fullscreen_mobile: "INSTREAM_BANNER_FULLSCREEN_MOBILE";
         instream_banner_immersive_mobile: "INSTREAM_BANNER_IMMERSIVE_MOBILE";
         instream_banner_mobile: "INSTREAM_BANNER_MOBILE";
@@ -78,6 +83,8 @@ export default class AdPreview extends AbstractCrudObject {
         product_metadata_automation: "product_metadata_automation";
         profile_card: "profile_card";
         standard_enhancements_catalog: "standard_enhancements_catalog";
+        text_overlay_translation: "text_overlay_translation";
+        video_to_image: "video_to_image";
     }>;
     static get RenderType(): Readonly<{
         fallback: "FALLBACK";

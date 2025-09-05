@@ -30,6 +30,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         reasons_to_shop: "reasons_to_shop";
         shops_bundle: "shops_bundle";
         titles: "titles";
+        translations: "translations";
         upcoming_events: "upcoming_events";
         videos: "videos";
     }>;
@@ -115,6 +116,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         video_call: "VIDEO_CALL";
         view_cart: "VIEW_CART";
         view_channel: "VIEW_CHANNEL";
+        view_in_cart: "VIEW_IN_CART";
         view_product: "VIEW_PRODUCT";
         visit_pages_feed: "VISIT_PAGES_FEED";
         watch_live_video: "WATCH_LIVE_VIDEO";

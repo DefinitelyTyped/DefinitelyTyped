@@ -19,6 +19,7 @@ export default class AdActivity extends AbstractCrudObject {
         translated_event_type: "translated_event_type";
     }>;
     static get EventType(): Readonly<{
+        accept_custom_audience_appeal: "accept_custom_audience_appeal";
         account_spending_limit_reached: "account_spending_limit_reached";
         ad_account_add_user_to_role: "ad_account_add_user_to_role";
         ad_account_billing_charge: "ad_account_billing_charge";
@@ -39,15 +40,19 @@ export default class AdActivity extends AbstractCrudObject {
         adaccount_update_audience_segment: "adaccount_update_audience_segment";
         add_funding_source: "add_funding_source";
         add_images: "add_images";
+        apply_restrictions_custom_audience: "apply_restrictions_custom_audience";
         billing_event: "billing_event";
         campaign_ended: "campaign_ended";
         campaign_spending_limit_reached: "campaign_spending_limit_reached";
         conversion_event_updated: "conversion_event_updated";
         create_ad: "create_ad";
         create_ad_set: "create_ad_set";
+        create_adaccount_agency_fee: "create_adaccount_agency_fee";
         create_audience: "create_audience";
         create_campaign_group: "create_campaign_group";
+        create_campaign_group_agency_fee: "create_campaign_group_agency_fee";
         create_campaign_legacy: "create_campaign_legacy";
+        create_custom_audience_appeal: "create_custom_audience_appeal";
         delete_audience: "delete_audience";
         delete_images: "delete_images";
         di_ad_set_learning_stage_exit: "di_ad_set_learning_stage_exit";
@@ -59,6 +64,7 @@ export default class AdActivity extends AbstractCrudObject {
         lifetime_budget_spent: "lifetime_budget_spent";
         merge_campaigns: "merge_campaigns";
         receive_audience: "receive_audience";
+        reject_custom_audience_appeal: "reject_custom_audience_appeal";
         remove_funding_source: "remove_funding_source";
         remove_shared_audience: "remove_shared_audience";
         share_audience: "share_audience";
@@ -85,6 +91,7 @@ export default class AdActivity extends AbstractCrudObject {
         update_ad_set_spend_cap: "update_ad_set_spend_cap";
         update_ad_set_target_spec: "update_ad_set_target_spec";
         update_ad_targets_spec: "update_ad_targets_spec";
+        update_adaccount_agency_fee: "update_adaccount_agency_fee";
         update_adgroup_stop_delivery: "update_adgroup_stop_delivery";
         update_audience: "update_audience";
         update_campaign_ad_scheduling: "update_campaign_ad_scheduling";
@@ -95,6 +102,7 @@ export default class AdActivity extends AbstractCrudObject {
         update_campaign_delivery_destination: "update_campaign_delivery_destination";
         update_campaign_delivery_type: "update_campaign_delivery_type";
         update_campaign_group_ad_scheduling: "update_campaign_group_ad_scheduling";
+        update_campaign_group_agency_fee: "update_campaign_group_agency_fee";
         update_campaign_group_budget_scheduling_state: "update_campaign_group_budget_scheduling_state";
         update_campaign_group_delivery_type: "update_campaign_group_delivery_type";
         update_campaign_group_high_demand_periods: "update_campaign_group_high_demand_periods";

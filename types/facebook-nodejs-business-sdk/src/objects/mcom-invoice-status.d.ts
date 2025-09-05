@@ -15,7 +15,10 @@ export default class McomInvoiceStatus extends AbstractCrudObject {
         payout_amount: "payout_amount";
         slip_verification_error: "slip_verification_error";
         slip_verification_status: "slip_verification_status";
+        sof_transfer_id: "sof_transfer_id";
+        sof_transfer_timestamp: "sof_transfer_timestamp";
         transaction_fee: "transaction_fee";
         transfer_slip: "transfer_slip";
+        transfer_slip_qr_code: "transfer_slip_qr_code";
     }>;
 }

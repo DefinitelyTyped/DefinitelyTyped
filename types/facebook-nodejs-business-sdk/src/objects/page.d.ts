@@ -9,7 +9,7 @@ import PageUserMessageThreadLabel from "./page-user-message-thread-label";
 import Dataset from "./dataset";
 import ImageCopyright from "./image-copyright";
 import AdVideo from "./ad-video";
-import InstagramUser from "./instagram-user";
+import IGUser from "./ig-user";
 import LeadgenForm from "./leadgen-form";
 import LiveVideo from "./live-video";
 import MediaFingerprint from "./media-fingerprint";
@@ -246,6 +246,7 @@ export default class Page extends AbstractCrudObject {
         explicit: "EXPLICIT";
         explicit_imagine: "EXPLICIT_IMAGINE";
         explicit_imagine_me: "EXPLICIT_IMAGINE_ME";
+        explicit_restyle: "EXPLICIT_RESTYLE";
         invisible_watermark: "INVISIBLE_WATERMARK";
         iptc: "IPTC";
         iptc_metadata_edited: "IPTC_METADATA_EDITED";
@@ -280,6 +281,7 @@ export default class Page extends AbstractCrudObject {
         profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
         profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
         profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_global_structure_management: "PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT";
         profile_plus_manage: "PROFILE_PLUS_MANAGE";
         profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
         profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
@@ -308,6 +310,7 @@ export default class Page extends AbstractCrudObject {
         profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
         profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
         profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_global_structure_management: "PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT";
         profile_plus_manage: "PROFILE_PLUS_MANAGE";
         profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
         profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
@@ -594,7 +597,7 @@ export default class Page extends AbstractCrudObject {
     getNotificationMessageTokens(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createNotificationMessagesDevSupport(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getPageBackedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPageBackedInstagramAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<InstagramUser>;
+    createPageBackedInstagramAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<IGUser>;
     createPageWhatsAppNumberVerification(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createPassThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getPersonas(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

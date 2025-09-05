@@ -12,6 +12,7 @@ export default class Robot extends AbstractCrudObject {
         init_pos: "init_pos";
         last_pos: "last_pos";
         meetup_link_hash: "meetup_link_hash";
+        robot_notes: "robot_notes";
         suite: "suite";
         target_map_image_uri: "target_map_image_uri";
         target_os_image_uri: "target_os_image_uri";

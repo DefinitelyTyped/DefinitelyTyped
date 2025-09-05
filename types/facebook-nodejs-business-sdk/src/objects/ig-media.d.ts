@@ -10,6 +10,7 @@ import ShadowIGMediaProductTags from "./shadow-ig-media-product-tags";
  */
 export default class IGMedia extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        alt_text: "alt_text";
         boost_eligibility_info: "boost_eligibility_info";
         caption: "caption";
         comments_count: "comments_count";
@@ -29,6 +30,7 @@ export default class IGMedia extends AbstractCrudObject {
         thumbnail_url: "thumbnail_url";
         timestamp: "timestamp";
         username: "username";
+        view_count: "view_count";
     }>;
     getBoostAdsList(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getBrandedContentPartnerPromote(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

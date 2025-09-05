@@ -45,6 +45,9 @@ export default class AdsHistogramStats extends AbstractCrudObject {
         action_video_sound: "action_video_sound";
         action_video_type: "action_video_type";
         dda: "dda";
+        incrementality: "incrementality";
+        incrementality_all_conversions: "incrementality_all_conversions";
+        incrementality_first_conversion: "incrementality_first_conversion";
         inline: "inline";
         interactive_component_sticker_id: "interactive_component_sticker_id";
         interactive_component_sticker_response: "interactive_component_sticker_response";

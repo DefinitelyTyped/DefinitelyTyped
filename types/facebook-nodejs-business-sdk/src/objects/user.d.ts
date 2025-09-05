@@ -18,6 +18,7 @@ export default class User extends AbstractCrudObject {
         age_range: "age_range";
         avatar_2d_profile_picture: "avatar_2d_profile_picture";
         birthday: "birthday";
+        client_business_id: "client_business_id";
         community: "community";
         cover: "cover";
         currency: "currency";
@@ -31,7 +32,6 @@ export default class User extends AbstractCrudObject {
         id: "id";
         id_for_avatars: "id_for_avatars";
         inspirational_people: "inspirational_people";
-        instagram_user_self_asset: "instagram_user_self_asset";
         install_type: "install_type";
         installed: "installed";
         is_guest_user: "is_guest_user";
@@ -99,6 +99,7 @@ export default class User extends AbstractCrudObject {
     getAssignedBusinessAssetGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAvatars(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getBusinessUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteBusinesses(params?: Record<string, any>): Promise<any>;
