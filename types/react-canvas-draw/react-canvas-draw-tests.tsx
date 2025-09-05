@@ -41,9 +41,14 @@ function RefTest() {
     if (ref.current) {
         ref.current.clear();
         ref.current.undo();
+        ref.current.eraseAll();
+        ref.current.resetView();
         ref.current.loadSaveData("data");
         ref.current.loadSaveData("data", true);
         const saveData: string = ref.current.getSaveData();
+        const url = ref.current.getDataURL();
+        const urlWithFileType = ref.current.getDataURL("image/png");
+        const urlWithBackground = ref.current.getDataURL("image/png", "#ffffff");
     }
 
     return <CanvasDraw ref={ref} />;
