@@ -3,7 +3,7 @@ import AttributionData from "./attribution-data";
 import CustomData from "./custom-data";
 import OriginalEventData from "./original-event-data";
 import UserData from "./user-data";
-import type {StandardEvents} from './standard-events'
+import type {StandardEvents, ActionSource} from './meta-pixel-types'
 /**
  * ServerEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event}
@@ -13,7 +13,7 @@ export default class ServerEvent {
     _event_time: number;
     _event_source_url: string;
     _event_id: string;
-    _action_source: string;
+    _action_source: ActionSource;
     _opt_out: boolean;
     _user_data: UserData;
     _custom_data: CustomData;
@@ -27,11 +27,11 @@ export default class ServerEvent {
     _original_event_data: OriginalEventData;
     _attribution_data: AttributionData;
     /**
-     * @param {String} event_name A Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name A Facebook pixel Standard Event or Custom Event name.
      * @param {Number} event_time A Unix timestamp in seconds indicating when the actual event occurred.
      * @param {String} event_source_url The browser URL where the event happened.
      * @param {String} event_id This ID can be any string chosen by the advertiser.
-     * @param {String} action_source A string that indicates where the event took place.
+     * @param {ActionSource} action_source Indicates where the event took place. Must be one of `email`, `website`, `app`, `phone_call`, `chat`, `physical_store`, `system_generated`, `business_messaging`, `other`.
      * @param {Boolean} opt_out A flag that indicates we should not use this event for ads delivery optimization.
      * @param {UserData} user_data A map that contains user data. See UserData Class for options.
      * @param {CustomData} custom_data A map that contains user data. See CustomData Class for options.
@@ -44,19 +44,19 @@ export default class ServerEvent {
      * @param {OriginalEventData} original_event_data Contains original event info used for attribution passback event or generalized value optimization(GVO).
      * @param {AttributionData} attribution_data Used for attribution passback event to optimize the performance.
      */
-    constructor(event_name?: StandardEvents, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string, original_event_data?: OriginalEventData, attribution_data?: AttributionData);
+    constructor(event_name?: StandardEvents, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: ActionSource, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string, original_event_data?: OriginalEventData, attribution_data?: AttributionData);
     /**
      * Gets the Event Name for the current Event.
      */
     get event_name(): StandardEvents;
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name a Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name a Facebook pixel Standard Event or Custom Event name.
      */
     set event_name(event_name: StandardEvents);
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name Facebook pixel Standard Event or Custom Event name.
      */
     setEventName(event_name: StandardEvents): ServerEvent;
     /**
@@ -108,17 +108,17 @@ export default class ServerEvent {
     /**
      * Gets the action_source for the current event. The Action Source represents where the action took place.
      */
-    get action_source(): string;
+    get action_source(): ActionSource;
     /**
      * Sets the action_source for the current event.
-     * @param {String} action_source represents where the action took place. One of {'physical_store','app','chat','email','other','phone_call','system_generated','website'}
+     * @param {ActionSource} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
      */
-    set action_source(action_source: string);
+    set action_source(action_source: ActionSource);
     /**
      * Sets the action_source for the current event.
-     * @param {String} action_source represents where the action took place. One of {'physical_store','app','chat','email','other','phone_call','system_generated','website'}
+     * @param {ActionSource} action_source represents where the action took place. One of {`physical_store`,`app`,`chat`,`email`,`other`,`phone_call`,`system_generated`,`website`}
      */
-    setActionSource(action_source: string): ServerEvent;
+    setActionSource(action_source: ActionSource): ServerEvent;
     /**
      * Gets the opt_out feature for the current event.opt_out is a boolean flag that indicates we should not use this event for ads delivery optimization. If set to true, we only use the event for attribution.
      */
