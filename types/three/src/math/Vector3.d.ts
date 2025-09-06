@@ -103,7 +103,7 @@ export class Vector3 {
     /**
      * Subtracts v from this vector.
      */
-    sub(a: Vector3Like): this;
+    sub(v: Vector3Like): this;
 
     subScalar(s: number): this;
 
@@ -208,7 +208,7 @@ export class Vector3 {
     /**
      * Sets this vector to cross product of itself and v.
      */
-    cross(a: Vector3Like): this;
+    cross(v: Vector3Like): this;
 
     /**
      * Sets this vector to cross product of a and b.
