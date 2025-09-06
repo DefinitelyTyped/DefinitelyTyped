@@ -182,7 +182,7 @@ const runner1 = Matter.Runner.create({
     frameDeltaSmoothing: true,
     frameDeltaSnapping: true,
     maxFrameTime: 1000 / 30,
-    maxUpdates: null
+    maxUpdates: null,
 });
 const runner2 = Matter.Runner.create({});
 const runner3 = Matter.Runner.create();
