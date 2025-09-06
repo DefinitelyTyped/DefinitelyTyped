@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/emscripten",
-    "version": "1.40.9999",
+    "version": "1.41.9999",
     "projects": [
         "https://emscripten.org"
     ],
@@ -26,6 +26,10 @@
         {
             "name": "Louis DeScioli",
             "githubUsername": "lourd"
+        },
+        {
+            "name": "Pt. Prashant Tripathi",
+            "githubUsername": "ptprashanttripathi"
         }
     ]
 }

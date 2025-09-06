@@ -146,6 +146,8 @@ declare namespace GoogleAppsScript {
             invalidateAuth(): void;
             newStateToken(): StateTokenBuilder;
             newTrigger(functionName: string): TriggerBuilder;
+            requireAllScopes(authMode: AuthMode): void;
+            requireScopes(authMode: AuthMode, oAuthScopes: string[]): void;
             /** @deprecated DO NOT USE */ getProjectKey(): string;
             /** @deprecated DO NOT USE */ getScriptTriggers(): Trigger[];
         }

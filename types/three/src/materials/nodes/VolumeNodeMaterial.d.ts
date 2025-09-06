@@ -49,6 +49,7 @@ declare class VolumeNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isVolumeNodeMaterial: boolean;
+    setValues(values?: VolumeNodeMaterialParameters): void;
     setupLightingModel(): VolumetricLightingModel;
 }
 
