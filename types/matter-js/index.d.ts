@@ -2704,15 +2704,6 @@ declare namespace Matter {
 
     export interface IRunnerOptions {
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
-         *
-         * @default false
-         */
-        isFixed?: boolean | undefined;
-
-        /**
          * A `Number` that specifies the time step between updates in milliseconds.
          * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
@@ -2726,6 +2717,41 @@ declare namespace Matter {
          * @default true
          */
         enabled?: boolean | undefined;
+
+        /**
+         * A flag that enables smoothing of framerate variations.
+         * @default true
+         */
+        frameDeltaSmoothing?: boolean | undefined;
+
+        /**
+         * A flag that enables snapping of framerate to the nearest integer unit.
+         * @default true
+         */
+        frameDeltaSnapping?: boolean | undefined;
+
+        /**
+         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
+         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
+         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
+         *
+         * @default false
+         */
+        isFixed?: boolean | undefined;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame.
+         * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
+         * @default 1000 / 30
+         */
+        maxFrameTime?: number | undefined;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick.
+         * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
+         * @default null
+         */
+        maxUpdates?: number | null | undefined;
     }
 
     /**
@@ -2784,6 +2810,13 @@ declare namespace Matter {
         static start(runner: Runner, engine: Engine): void;
 
         /**
+         * The fixed timestep size used for Engine.update calls in milliseconds, known as delta.
+         *
+         * @default 1000 / 60
+         */
+        delta: number;
+
+        /**
          * A flag that specifies whether the runner is running or not.
          *
          * @default true
@@ -2791,22 +2824,36 @@ declare namespace Matter {
         enabled: boolean;
 
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
-         *
-         * @default false
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using 1000 / runner.frameDelta.
          */
-        isFixed: boolean;
+        frameDelta: number;
 
         /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
-         *
-         * @default 1000 / 60
+         * A flag that enables smoothing of framerate variations.
+         * @default true
          */
-        delta: number;
+        frameDeltaSmoothing: boolean;
+
+        /**
+         * A flag that enables snapping of framerate to the nearest integer unit.
+         * @default true
+         */
+        frameDeltaSnapping: boolean;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
+         * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
+         * @default 1000 / 30
+         */
+        maxFrameTime: number;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick.
+         * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
+         * @default null
+         */
+        maxUpdates: number | null;
     }
 
     /**
