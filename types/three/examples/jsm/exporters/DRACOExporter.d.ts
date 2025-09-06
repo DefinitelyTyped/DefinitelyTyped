@@ -13,5 +13,5 @@ export interface DRACOExporterOptions {
 export class DRACOExporter {
     constructor();
 
-    parse(object: Mesh | Points, options?: DRACOExporterOptions): Int8Array;
+    parse(object: Mesh | Points, options?: DRACOExporterOptions): Int8Array<ArrayBuffer>;
 }

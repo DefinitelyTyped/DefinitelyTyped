@@ -216,6 +216,7 @@ export class MeshToonMaterial extends Material {
      * @default true
      */
     readonly isMeshToonMaterial: boolean;
+    setValues(values?: MeshToonMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

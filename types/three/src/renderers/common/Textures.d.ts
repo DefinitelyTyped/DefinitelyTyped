@@ -110,7 +110,7 @@ declare class Textures extends DataMap<{
      */
     getMipLevels(texture: Texture, width: number, height: number): number;
     /**
-     * Returns `true` if the given texture requires mipmaps.
+     * Returns `true` if the given texture makes use of mipmapping.
      *
      * @param {Texture} texture - The texture.
      * @return {boolean} Whether mipmaps are required or not.
