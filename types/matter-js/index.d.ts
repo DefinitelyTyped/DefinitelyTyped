@@ -2725,12 +2725,14 @@ declare namespace Matter {
 
         /**
          * A flag that enables smoothing of framerate variations.
+         * 
          * @default true
          */
         frameDeltaSmoothing?: boolean | undefined;
 
         /**
          * A flag that enables snapping of framerate to the nearest integer unit.
+         * 
          * @default true
          */
         frameDeltaSnapping?: boolean | undefined;
@@ -2738,6 +2740,7 @@ declare namespace Matter {
         /**
          * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
          * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
+         * 
          * @default 1000 / 30
          */
         maxFrameTime?: number | undefined;
@@ -2745,7 +2748,8 @@ declare namespace Matter {
         /**
          * An optional limit for maximum engine update count allowed per frame tick.
          * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
-         * @default null
+         *
+         *  @default null
          */
         maxUpdates?: number | null;
     }
@@ -2827,12 +2831,14 @@ declare namespace Matter {
 
         /**
          * A flag that enables smoothing of framerate variations.
+         * 
          * @default true
          */
         frameDeltaSmoothing: boolean;
 
         /**
          * A flag that enables snapping of framerate to the nearest integer unit.
+         * 
          * @default true
          */
         frameDeltaSnapping: boolean;
@@ -2840,13 +2846,15 @@ declare namespace Matter {
         /**
          * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
          * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
-         * @default 1000 / 30
+         *
+         *  @default 1000 / 30
          */
         maxFrameTime: number;
 
         /**
          * An optional limit for maximum engine update count allowed per frame tick.
          * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
+         * 
          * @default null
          */
         maxUpdates: number | null;
