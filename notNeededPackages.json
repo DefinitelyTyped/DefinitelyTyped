@@ -1441,6 +1441,10 @@
             "libraryName": "cypress-recurse",
             "asOfVersion": "1.9.0"
         },
+        "cytoscape-popper": {
+            "libraryName": "cytoscape-popper",
+            "asOfVersion": "4.0.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
@@ -3801,6 +3805,10 @@
             "libraryName": "levenshtein-edit-distance",
             "asOfVersion": "3.0.0"
         },
+        "libarchive.js": {
+            "libraryName": "libarchive.js",
+            "asOfVersion": "2.0.1"
+        },
         "libra-core": {
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
@@ -5747,6 +5755,10 @@
             "libraryName": "rc-steps",
             "asOfVersion": "4.0.0"
         },
+        "rc-switch": {
+            "libraryName": "rc-switch",
+            "asOfVersion": "2.0.0"
+        },
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
@@ -6414,6 +6426,10 @@
         "react-time-picker": {
             "libraryName": "react-time-picker",
             "asOfVersion": "6.0.0"
+        },
+        "react-timeago": {
+            "libraryName": "react-timeago",
+            "asOfVersion": "8.0.0"
         },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
@@ -8046,6 +8062,10 @@
         "wikidata-sdk": {
             "libraryName": "wikidata-sdk",
             "asOfVersion": "6.1.0"
+        },
+        "windows-1251": {
+            "libraryName": "windows-1251",
+            "asOfVersion": "3.0.4"
         },
         "windows-foreground-love": {
             "libraryName": "windows-foreground-love",

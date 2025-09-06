@@ -3,7 +3,7 @@ import semver = require("../index");
 
 declare namespace inc {
     /** Base number to be used for the prerelease identifier */
-    type IdentifierBase = "0" | "1";
+    type IdentifierBase = "0" | "1" | false;
 }
 
 /**
@@ -14,12 +14,13 @@ declare function inc(
     release: semver.ReleaseType,
     optionsOrLoose?: boolean | semver.Options,
     identifier?: string,
+    identifierBase?: inc.IdentifierBase,
 ): string | null;
 declare function inc(
     version: string | SemVer,
     release: semver.ReleaseType,
-    identifier?: string,
-    identifierBase?: inc.IdentifierBase | false,
+    identifier: string,
+    identifierBase?: inc.IdentifierBase,
 ): string | null;
 
 export = inc;
