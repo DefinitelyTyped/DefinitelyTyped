@@ -114,3 +114,26 @@ function testNullVsUndefined(device: USBDevice) {
         }
     }
 }
+
+function testStatusIsNotUndefined(
+    r1: USBInTransferResult,
+    r2: USBOutTransferResult,
+    r3: USBIsochronousInTransferPacket,
+    r4: USBIsochronousOutTransferPacket,
+) {
+    if (r1.status !== "ok") {
+        r1.status.length;
+    }
+
+    if (r2.status !== "ok") {
+        r2.status.length;
+    }
+
+    if (r3.status !== "ok") {
+        r3.status.length;
+    }
+
+    if (r4.status !== "ok") {
+        r4.status.length;
+    }
+}
