@@ -2704,9 +2704,7 @@ declare namespace Matter {
 
     export interface IRunnerOptions {
         /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
+         * The fixed timestep size used for Engine.update calls in milliseconds, known as delta.
          *
          * @default 1000 / 60
          */
@@ -2714,9 +2712,16 @@ declare namespace Matter {
 
         /**
          * A flag that specifies whether the runner is running or not.
+         *
          * @default true
          */
         enabled?: boolean | undefined;
+
+        /**
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using 1000 / runner.frameDelta.
+         */
+        frameDelta?: number | undefined;
 
         /**
          * A flag that enables smoothing of framerate variations.
@@ -2731,16 +2736,7 @@ declare namespace Matter {
         frameDeltaSnapping?: boolean | undefined;
 
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
-         *
-         * @default false
-         */
-        isFixed?: boolean | undefined;
-
-        /**
-         * A performance budget that limits execution time allowed for this runner per browser frame.
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
          * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
          * @default 1000 / 30
          */
@@ -2751,7 +2747,7 @@ declare namespace Matter {
          * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
          * @default null
          */
-        maxUpdates?: number | null | undefined;
+        maxUpdates?: number | null;
     }
 
     /**
