@@ -1,4 +1,4 @@
-import { NCALayerClient } from 'ncalayer-js-client';
+import { NCALayerClient } from "ncalayer-js-client";
 
 const client = new NCALayerClient();
 
@@ -27,52 +27,52 @@ NCALayerClient.fileStorageType;
 // $ExpectType string
 NCALayerClient.arrayBufferToB64(new ArrayBuffer(8));
 // $ExpectType Promise<string | ReadonlyArray<string>>
-NCALayerClient.normalizeDataToSign('aGVsbG8=');
+NCALayerClient.normalizeDataToSign("aGVsbG8=");
 
 // Basics sign helpers
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSign(
   null,
-  'cms',
-  'aGVsbG8=',
+  "cms",
+  "aGVsbG8=",
   NCALayerClient.basicsCMSParams,
   NCALayerClient.basicsSignerAny,
-  'ru'
+  "ru",
 );
 
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignCMS(
   null,
-  'aGVsbG8=',
+  "aGVsbG8=",
   NCALayerClient.basicsCMSParams,
-  NCALayerClient.basicsSignerAny
+  NCALayerClient.basicsSignerAny,
 );
 
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignXML(
   null,
-  '<doc/>',
+  "<doc/>",
   NCALayerClient.basicsXMLParams,
-  NCALayerClient.basicsSignerAny
+  NCALayerClient.basicsSignerAny,
 );
 
 // Invalid basics format
 client.basicsSign(
-    null,
-    // @ts-expect-error
-    'pdf',
-    'a',
-    NCALayerClient.basicsCMSParams,
-    NCALayerClient.basicsSignerAny,
-    'ru',
+  null,
+  // @ts-expect-error
+  "pdf",
+  "a",
+  NCALayerClient.basicsCMSParams,
+  NCALayerClient.basicsSignerAny,
+  "ru",
 );
 
 // Logo setting accepts various inputs
 // $ExpectType Promise<void>
-client.setLogoForBasicsSign('aGVsbG8=');
+client.setLogoForBasicsSign("aGVsbG8=");
 client.setLogoForBasicsSign(
-    // @ts-expect-error
-    123,
+  // @ts-expect-error
+  123,
 );
 
 // KMD HTTP API helpers
@@ -81,32 +81,32 @@ client.kmdMultisignAvailable();
 // $ExpectType Promise<void>
 client.startKmdMultisign(2, true, true);
 // $ExpectType Promise<string>
-client.kmdMultisignNext('aGVsbG8=');
+client.kmdMultisignNext("aGVsbG8=");
 
 // Token and key info
 // $ExpectType Promise<ReadonlyArray<string>>
 client.getActiveTokens();
 // $ExpectType Promise<Record<string, unknown>>
-client.getKeyInfo('PKCS12');
+client.getKeyInfo("PKCS12");
 
 // CMS creation APIs
 // $ExpectType Promise<string>
-client.createCAdESFromBase64('PKCS12', 'aGVsbG8=');
+client.createCAdESFromBase64("PKCS12", "aGVsbG8=");
 // $ExpectType Promise<string>
-client.createCAdESFromBase64Hash('PKCS12', 'aGVsbG8=');
+client.createCAdESFromBase64Hash("PKCS12", "aGVsbG8=");
 client.createCAdESFromBase64(
-    'PKCS12',
-    // @ts-expect-error
-    42,
+  "PKCS12",
+  // @ts-expect-error
+  42,
 );
 
 // XML signing APIs
 // $ExpectType Promise<string>
-client.signXml('PKCS12', '<root/>');
+client.signXml("PKCS12", "<root/>");
 // $ExpectType Promise<ReadonlyArray<string>>
-client.signXmls('PKCS12', ['<a/>', '<b/>']);
+client.signXmls("PKCS12", ["<a/>", "<b/>"]);
 
 // Locale
 // $ExpectType Promise<void>
-client.changeLocale('kk');
+client.changeLocale("kk");
 

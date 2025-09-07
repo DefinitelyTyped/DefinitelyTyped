@@ -48,7 +48,7 @@ export class NCALayerClient {
   KmdHTTPAPIOperationProcessed: number;
 
   // Branding
-  basicsLogo: Base64String | '';
+  basicsLogo: Base64String | "";
 
   // Testing hooks
   onRequestReady: ((json: string) => void) | null;
@@ -102,7 +102,7 @@ export class NCALayerClient {
   /** Generic Basics sign method. Overloads ensure data matches format. */
   basicsSign(
     allowedStorages: ReadonlyArray<string> | null,
-    format: 'cms',
+    format: "cms",
     data: Signable | SignableMany,
     signingParams: BasicsCMSParams,
     signerParams: BasicsSignerParams,
@@ -111,7 +111,7 @@ export class NCALayerClient {
   ): Promise<string | ReadonlyArray<string>>;
   basicsSign(
     allowedStorages: ReadonlyArray<string> | null,
-    format: 'xml',
+    format: "xml",
     data: string | ReadonlyArray<string>,
     signingParams: BasicsXMLParams,
     signerParams: BasicsSignerParams,
@@ -156,7 +156,7 @@ export class NCALayerClient {
   createCAdESFromBase64(
     storageType: StorageType,
     data: Signable | SignableMany,
-    keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
+    keyType?: "SIGNATURE" | "AUTHENTICATION" | string,
     attach?: boolean,
   ): Promise<Base64String>;
 
@@ -164,14 +164,14 @@ export class NCALayerClient {
   createCAdESFromBase64Hash(
     storageType: StorageType,
     hash: Signable | SignableMany,
-    keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
+    keyType?: "SIGNATURE" | "AUTHENTICATION" | string,
   ): Promise<Base64String>;
 
   /** Creates deprecated CMS with integrated TSP. */
   createCMSSignatureFromBase64(
     storageType: StorageType,
     data: Signable | SignableMany,
-    keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
+    keyType?: "SIGNATURE" | "AUTHENTICATION" | string,
     attach?: boolean,
   ): Promise<Base64String>;
 
@@ -179,7 +179,7 @@ export class NCALayerClient {
   signXml(
     storageType: StorageType,
     xml: string,
-    keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
+    keyType?: "SIGNATURE" | "AUTHENTICATION" | string,
     tbsElementXPath?: string,
     signatureParentElementXPath?: string,
   ): Promise<string>;
@@ -188,7 +188,7 @@ export class NCALayerClient {
   signXmls(
     storageType: StorageType,
     xmls: ReadonlyArray<string>,
-    keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
+    keyType?: "SIGNATURE" | "AUTHENTICATION" | string,
     tbsElementXPath?: string,
     signatureParentElementXPath?: string,
   ): Promise<ReadonlyArray<string>>;
