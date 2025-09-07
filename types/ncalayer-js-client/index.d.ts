@@ -24,8 +24,8 @@ export interface BasicsXMLParams {
 }
 
 export interface BasicsSignerParams {
-  extKeyUsageOids: string[];
-  chain?: unknown[];
+  extKeyUsageOids: ReadonlyArray<string>;
+  chain?: ReadonlyArray<unknown>;
   [key: string]: unknown;
 }
 
@@ -61,16 +61,16 @@ export class NCALayerClient {
   readonly multisignAvailable: boolean;
 
   // Storage type presets
-  static readonly basicsStorageKAZTOKEN: string[];
-  static readonly basicsStorageIDCard: string[];
-  static readonly basicsStorageEToken72k: string[];
-  static readonly basicsStorageEToken5110: string[];
-  static readonly basicsStorageJaCarta: string[];
-  static readonly basicsStorageAKey: string[];
-  static readonly basicsStoragePKCS12: string[];
-  static readonly basicsStorageJKS: string[];
+  static readonly basicsStorageKAZTOKEN: ReadonlyArray<string>;
+  static readonly basicsStorageIDCard: ReadonlyArray<string>;
+  static readonly basicsStorageEToken72k: ReadonlyArray<string>;
+  static readonly basicsStorageEToken5110: ReadonlyArray<string>;
+  static readonly basicsStorageJaCarta: ReadonlyArray<string>;
+  static readonly basicsStorageAKey: ReadonlyArray<string>;
+  static readonly basicsStoragePKCS12: ReadonlyArray<string>;
+  static readonly basicsStorageJKS: ReadonlyArray<string>;
   static readonly basicsStorageAll: null;
-  static readonly basicsStorageHardware: string[];
+  static readonly basicsStorageHardware: ReadonlyArray<string>;
 
   // Signing params presets
   static readonly basicsCMSParams: BasicsCMSParams;
@@ -101,41 +101,41 @@ export class NCALayerClient {
 
   /** Generic Basics sign method. Overloads ensure data matches format. */
   basicsSign(
-    allowedStorages: string[] | null,
+    allowedStorages: ReadonlyArray<string> | null,
     format: 'cms',
     data: Signable | SignableMany,
     signingParams: BasicsCMSParams,
     signerParams: BasicsSignerParams,
     locale: string,
     forceSingleSignature?: boolean,
-  ): Promise<string | string[]>;
+  ): Promise<string | ReadonlyArray<string>>;
   basicsSign(
-    allowedStorages: string[] | null,
+    allowedStorages: ReadonlyArray<string> | null,
     format: 'xml',
     data: string | ReadonlyArray<string>,
     signingParams: BasicsXMLParams,
     signerParams: BasicsSignerParams,
     locale: string,
     forceSingleSignature?: boolean,
-  ): Promise<string | string[]>;
+  ): Promise<string | ReadonlyArray<string>>;
 
   /** Helper for CMS signing, supports single or multiple documents. */
   basicsSignCMS(
-    allowedStorages: string[] | null,
+    allowedStorages: ReadonlyArray<string> | null,
     data: Signable | SignableMany,
     signingParams: BasicsCMSParams,
     signerParams: BasicsSignerParams,
     locale?: string,
-  ): Promise<string | string[]>;
+  ): Promise<string | ReadonlyArray<string>>;
 
   /** Helper for XML signing, supports single or multiple XML strings. */
   basicsSignXML(
-    allowedStorages: string[] | null,
+    allowedStorages: ReadonlyArray<string> | null,
     data: string | ReadonlyArray<string>,
     signingParams: BasicsXMLParams,
     signerParams: BasicsSignerParams,
     locale?: string,
-  ): Promise<string | string[]>;
+  ): Promise<string | ReadonlyArray<string>>;
 
   /** Checks KMD HTTP API multisign availability. */
   kmdMultisignAvailable(): Promise<boolean>;
@@ -147,7 +147,7 @@ export class NCALayerClient {
   kmdMultisignNext(data: Signable): Promise<string>;
 
   /** Returns active token storage types. */
-  getActiveTokens(): Promise<string[]>;
+  getActiveTokens(): Promise<ReadonlyArray<string>>;
 
   /** Returns info about one key pair (record) from given storage. */
   getKeyInfo(storageType: StorageType): Promise<Record<string, unknown>>;
@@ -191,7 +191,7 @@ export class NCALayerClient {
     keyType?: 'SIGNATURE' | 'AUTHENTICATION' | string,
     tbsElementXPath?: string,
     signatureParentElementXPath?: string,
-  ): Promise<string[]>;
+  ): Promise<ReadonlyArray<string>>;
 
   /** Changes NCALayer UI locale. */
   changeLocale(localeId: string): Promise<void>;
@@ -201,6 +201,8 @@ export class NCALayerClient {
 
   /** Utilities exposed by original class. */
   static arrayBufferToB64(arrayBuffer: ArrayBuffer): string;
-  static normalizeDataToSign(data: Signable | SignableMany): Promise<Base64String | Base64String[]>;
+  static normalizeDataToSign(data: Signable | SignableMany): Promise<Base64String | ReadonlyArray<Base64String>>;
 }
+
+export {};
 

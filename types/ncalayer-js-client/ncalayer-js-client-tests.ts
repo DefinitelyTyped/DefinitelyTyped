@@ -13,7 +13,7 @@ client.multisignAvailable;
 client.url;
 
 // Static presets and utilities
-// $ExpectType string[]
+// $ExpectType ReadonlyArray<string>
 NCALayerClient.basicsStorageKAZTOKEN;
 // $ExpectType null
 NCALayerClient.basicsStorageAll;
@@ -26,11 +26,11 @@ NCALayerClient.fileStorageType;
 
 // $ExpectType string
 NCALayerClient.arrayBufferToB64(new ArrayBuffer(8));
-// $ExpectType Promise<string | string[]>
+// $ExpectType Promise<string | ReadonlyArray<string>>
 NCALayerClient.normalizeDataToSign('aGVsbG8=');
 
 // Basics sign helpers
-// $ExpectType Promise<string | string[]>
+// $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSign(
   null,
   'cms',
@@ -40,7 +40,7 @@ client.basicsSign(
   'ru'
 );
 
-// $ExpectType Promise<string | string[]>
+// $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignCMS(
   null,
   'aGVsbG8=',
@@ -48,7 +48,7 @@ client.basicsSignCMS(
   NCALayerClient.basicsSignerAny
 );
 
-// $ExpectType Promise<string | string[]>
+// $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignXML(
   null,
   '<doc/>',
@@ -84,7 +84,7 @@ client.startKmdMultisign(2, true, true);
 client.kmdMultisignNext('aGVsbG8=');
 
 // Token and key info
-// $ExpectType Promise<string[]>
+// $ExpectType Promise<ReadonlyArray<string>>
 client.getActiveTokens();
 // $ExpectType Promise<Record<string, unknown>>
 client.getKeyInfo('PKCS12');
@@ -103,7 +103,7 @@ client.createCAdESFromBase64(
 // XML signing APIs
 // $ExpectType Promise<string>
 client.signXml('PKCS12', '<root/>');
-// $ExpectType Promise<string[]>
+// $ExpectType Promise<ReadonlyArray<string>>
 client.signXmls('PKCS12', ['<a/>', '<b/>']);
 
 // Locale
