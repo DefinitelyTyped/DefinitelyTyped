@@ -2670,15 +2670,12 @@ declare namespace chrome {
         export interface Resource {
             /** The URL of the resource. */
             url: string;
-            /**
-             * Gets the content of the resource.
-             * @param callback A function that receives resource content when the request completes.
-             */
+            /** Gets the content of the resource. */
             getContent(
                 callback: (
-                    /** Content of the resource (potentially encoded) */
+                    /** Content of the resource (potentially encoded). */
                     content: string,
-                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                    /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                     encoding: string,
                 ) => void,
             ): void;
@@ -2686,33 +2683,24 @@ declare namespace chrome {
              * Sets the content of the resource.
              * @param content New content of the resource. Only resources with the text type are currently supported.
              * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource.
-             * @param callback A function called upon request completion.
              */
             setContent(
                 content: string,
                 commit: boolean,
                 callback?: (
-                    /**
-                     * Set to undefined if the resource content was set successfully; describes error otherwise.
-                     */
+                    /** Set to undefined if the resource content was set successfully; describes error otherwise. */
                     error?: object,
                 ) => void,
             ): void;
         }
 
         export interface ReloadOptions {
-            /** Optional. If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.  */
+            /** If specified, the string will override the value of the `User-Agent` HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the `navigator.userAgent` property that's returned to any scripts that are running within the inspected page. */
             userAgent?: string | undefined;
-            /** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
+            /** When true, the loader will bypass the cache for all inspected page resources loaded before the `load` event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window. */
             ignoreCache?: boolean | undefined;
-            /** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
+            /** If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R. */
             injectedScript?: string | undefined;
-            /**
-             * Optional.
-             * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
-             * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon.
-             */
-            preprocessorScript?: string | undefined;
         }
 
         export interface EvaluationExceptionInfo {
@@ -2730,59 +2718,48 @@ declare namespace chrome {
             value: string;
         }
 
-        export interface ResourceAddedEvent extends chrome.events.Event<(resource: Resource) => void> {}
-
-        export interface ResourceContentCommittedEvent
-            extends chrome.events.Event<(resource: Resource, content: string) => void>
-        {}
-
-        /** The ID of the tab being inspected. This ID may be used with chrome.tabs.* API. */
-        export var tabId: number;
+        /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
+        export const tabId: number;
 
         /** Reloads the inspected page. */
         export function reload(reloadOptions?: ReloadOptions): void;
+
         /**
-         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
-         * @param expression An expression to evaluate.
-         * @param callback A function called when evaluation completes.
-         * Parameter result: The result of evaluation.
-         * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
-         */
-        export function eval<T>(
-            expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
-        ): void;
-        /**
-         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
+         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the `result` parameter of the callback is `undefined`. In the case of a DevTools-side error, the `isException` parameter is non-null and has `isError` set to true and `code` set to an error code. In the case of a JavaScript error, `isException` is set to true and `value` is set to the string value of thrown object.
+         *
          * @param expression An expression to evaluate.
          * @param options The options parameter can contain one or more options.
          * @param callback A function called when evaluation completes.
-         * Parameter result: The result of evaluation.
-         * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
          */
-        export function eval<T>(
+        export function eval<T = { [key: string]: unknown }>(
             expression: string,
-            options?: EvalOptions,
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
         ): void;
-        /**
-         * Retrieves the list of resources from the inspected page.
-         * @param callback A function that receives the list of resources when the request completes.
-         */
+        export function eval<T = { [key: string]: unknown }>(
+            expression: string,
+            options: EvalOptions | undefined,
+            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+        ): void;
+
+        /** Retrieves the list of resources from the inspected page. */
         export function getResources(callback: (resources: Resource[]) => void): void;
 
         /** Fired when a new resource is added to the inspected page. */
-        export var onResourceAdded: ResourceAddedEvent;
+        export const onResourceAdded: events.Event<(resource: Resource) => void>;
+
         /** Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools). */
-        export var onResourceContentCommitted: ResourceContentCommittedEvent;
+        export const onResourceContentCommitted: events.Event<(resource: Resource, content: string) => void>;
 
         export interface EvalOptions {
             /** If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page. */
             frameURL?: string | undefined;
-            /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the isError field set to true and the code field set to E_NOTFOUND. */
+            /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the `isError` field set to true and the `code` field set to `E_NOTFOUND`. */
             useContentScriptContext?: boolean | undefined;
-            /** Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext. */
-            contextSecurityOrigin?: string | undefined;
+            /**
+             * Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, scriptExecutionContext overrides the 'true' setting on useContentScriptContext.
+             * @since Chrome 107
+             */
+            scriptExecutionContext?: string | undefined;
         }
     }
 
@@ -4198,44 +4175,47 @@ declare namespace chrome {
      */
     export namespace enterprise.deviceAttributes {
         /**
-         * @description Fetches the value of the device identifier of the directory API, that is generated by the server and identifies the cloud record of the device for querying in the cloud directory API.
-         * @param callback Called with the device identifier of the directory API when received.
+         * Fetches the value of the device identifier of the directory API, that is generated by the server and identifies the cloud record of the device for querying in the cloud directory API. If the current user is not affiliated, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
+        export function getDirectoryDeviceId(): Promise<string>;
         export function getDirectoryDeviceId(callback: (deviceId: string) => void): void;
+
         /**
+         * Fetches the device's serial number. Please note the purpose of this API is to administrate the device (e.g. generating Certificate Sign Requests for device-wide certificates). This API may not be used for tracking devices without the consent of the device's administrator. If the current user is not affiliated, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the device's serial number.
-         * Please note the purpose of this API is to administrate the device
-         * (e.g. generating Certificate Sign Requests for device-wide certificates).
-         * This API may not be used for tracking devices without the consent of the device's administrator.
-         * If the current user is not affiliated, returns an empty string.
-         * @param callback Called with the serial number of the device.
          */
+        export function getDeviceSerialNumber(): Promise<string>;
         export function getDeviceSerialNumber(callback: (serialNumber: string) => void): void;
+
         /**
+         * Fetches the administrator-annotated Asset Id. If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the administrator-annotated Asset Id.
-         * If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
-         * @param callback Called with the Asset ID of the device.
          */
+        export function getDeviceAssetId(): Promise<string>;
         export function getDeviceAssetId(callback: (assetId: string) => void): void;
+
         /**
+         * Fetches the administrator-annotated Location. If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the administrator-annotated Location.
-         * If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
-         * @param callback Called with the Annotated Location of the device.
          */
+        export function getDeviceAnnotatedLocation(): Promise<string>;
         export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+
         /**
+         * Fetches the device's hostname as set by DeviceHostnameTemplate policy. If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 82
-         * @description
-         * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
-         * If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
-         * @param callback Called with the hostname of the device.
          */
+        export function getDeviceHostname(): Promise<string>;
         export function getDeviceHostname(callback: (hostname: string) => void): void;
     }
 
@@ -6141,38 +6121,43 @@ declare namespace chrome {
      * Permissions: "idle"
      */
     export namespace idle {
-        export type IdleState = "active" | "idle" | "locked";
-        export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> {}
+        /** @since Chrome 44 */
+        export enum IdleState {
+            ACTIVE = "active",
+            IDLE = "idle",
+            LOCKED = "locked",
+        }
 
         /**
          * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
          * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
-         * @since Chrome 116
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
-        export function queryState(detectionIntervalInSeconds: number): Promise<IdleState>;
-        /**
-         * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
-         * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
-         * @since Chrome 25
-         */
-        export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
+        export function queryState(detectionIntervalInSeconds: number): Promise<`${IdleState}`>;
+        export function queryState(
+            detectionIntervalInSeconds: number,
+            callback: (newState: `${IdleState}`) => void,
+        ): void;
 
         /**
          * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
-         * @since Chrome 25
          * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
          */
         export function setDetectionInterval(intervalInSeconds: number): void;
 
         /**
-         * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
-         * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
+         * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         * @since Chrome 73
+         * @platform ChromeOS only
          */
         export function getAutoLockDelay(): Promise<number>;
         export function getAutoLockDelay(callback: (delay: number) => void): void;
 
         /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
-        export var onStateChanged: IdleStateChangedEvent;
+        export const onStateChanged: events.Event<(newState: `${IdleState}`) => void>;
     }
 
     ////////////////////

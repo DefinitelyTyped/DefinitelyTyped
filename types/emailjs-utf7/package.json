@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/emailjs-utf7",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/emailjs/emailjs-utf7"
+    ],
+    "devDependencies": {
+        "@types/emailjs-utf7": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Moiseev",
+            "githubUsername": "cyberbobs"
+        }
+    ]
+}

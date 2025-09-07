@@ -22,6 +22,6 @@ export class EXRExporter {
         renderer: WebGLRenderer | WebGPURenderer,
         renderTarget: WebGLRenderTarget,
         options?: EXRExporterParseOptions,
-    ): Promise<Uint8Array>;
-    parse(dataTexture: DataTexture, options?: EXRExporterParseOptions): Promise<Uint8Array>;
+    ): Promise<Uint8Array<ArrayBuffer>>;
+    parse(dataTexture: DataTexture, options?: EXRExporterParseOptions): Promise<Uint8Array<ArrayBuffer>>;
 }

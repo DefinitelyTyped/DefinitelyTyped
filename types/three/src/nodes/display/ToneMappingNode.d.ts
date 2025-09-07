@@ -16,7 +16,7 @@ export default ToneMappingNode;
 
 export const toneMapping: (
     mapping: ToneMapping,
-    exposure: Node,
+    exposure: Node | number,
     color?: Node,
 ) => ShaderNodeObject<ToneMappingNode>;
 export const toneMappingExposure: ShaderNodeObject<RendererReferenceNode>;
@@ -26,7 +26,7 @@ declare module "../tsl/TSLCore.js" {
         toneMapping: (
             color: Node,
             mapping?: ToneMapping,
-            exposure?: Node,
+            exposure?: Node | number,
         ) => ShaderNodeObject<ToneMappingNode>;
     }
 }
