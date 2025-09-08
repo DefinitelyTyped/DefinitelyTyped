@@ -114,3 +114,7 @@ function testNullVsUndefined(device: USBDevice) {
         }
     }
 }
+
+function testWorkerNavigator(workerNavigator: WorkerNavigator) {
+    workerNavigator.usb.getDevices();
+}

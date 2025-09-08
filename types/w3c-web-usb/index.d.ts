@@ -170,3 +170,7 @@ declare class USBDevice {
 interface Navigator {
     readonly usb: USB;
 }
+
+interface WorkerNavigator {
+    readonly usb: USB;
+}
