@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.139.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -6898,8 +6898,8 @@ declare module "sap/f/DynamicPageTitle" {
      * Gets content of aggregation {@link #getActions actions}.
      *
      * The `DynamicPageTitle` actions.
-     * **Note:** The `actions` aggregation accepts any UI5 control, but it`s recommended to use controls, suitable
-     * for {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
+     * **Note:** The `actions` aggregation accepts any UI5 control. However, it is best to use buttons or controls
+     * that work well inside toolbars, such as those typically used with {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
      *
      * **Note:** If the `snappedTitleOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
@@ -7614,8 +7614,8 @@ declare module "sap/f/DynamicPageTitle" {
 
     /**
      * The `DynamicPageTitle` actions.
-     * **Note:** The `actions` aggregation accepts any UI5 control, but it`s recommended to use controls, suitable
-     * for {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
+     * **Note:** The `actions` aggregation accepts any UI5 control. However, it is best to use buttons or controls
+     * that work well inside toolbars, such as those typically used with {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
      *
      * **Note:** If the `snappedTitleOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)

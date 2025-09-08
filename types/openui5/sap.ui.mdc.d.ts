@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.139.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -6694,9 +6694,17 @@ declare module "sap/ui/mdc/condition/Operator" {
          *  This text is only needed if there any language dependent text should be shown on the token, like "Next
          * 5 days". (In this case `#tokenText#` is used in `tokenFormat`, `tokenTest`, or `tokenParse`.) For operators
          * just showing the value and a operator symbol, no token text is needed.
-         *  If the token text is not given, the `longText` is used.
+         *  If the token text is not given, the `longText` is used. If `tokenTextForTypes` is provided for a special
+         * type, this one will be used for the corresponding type.
          */
         tokenText?: string;
+        /**
+         * Object holding String representation of the operator as a token text for single basic types.
+         *  This text is shown in a single-value field as text or a multi-value field as token.
+         *  This is needed if the text depends on the used data type. For example the "equal" operator should be
+         * named "Not Specified (empty)" if a date or time type is used.
+         */
+        tokenTextForTypes?: object;
         /**
          * Object holding String representation of the operator as a long text for single basic types.
          *  This text is shown in the operator dropdown of the value help.
@@ -6781,6 +6789,7 @@ declare module "sap/ui/mdc/condition/Operator" {
            * to 3, 4....
            *  group: {id : 10, text: "new group at the end"} - adds a new group with id 10 and text "new group as
            * the end" to the end of all groups
+           *  **Note:** The ids 900-999 are reserved for internal mdc usage, please use ids outside this range
            */
           id: string;
           /**
@@ -6788,6 +6797,11 @@ declare module "sap/ui/mdc/condition/Operator" {
            */
           text?: string;
         };
+        /**
+         * Additional group settings for the operator depending on the type. For every type a group object can be
+         * defined.
+         */
+        groupsForTypes?: object;
         /**
          * Function to determine the text copied into clipboard
          */
