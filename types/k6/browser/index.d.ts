@@ -2250,6 +2250,22 @@ export interface Locator {
     last(): Locator;
 
     /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const rows = page.locator('table tr');
+     * const cell = rows.locator('.selected');
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @returns The new locator.
+     */
+    locator(selector: string): Locator;
+
+    /**
      * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
      *
      * **Usage**

@@ -1295,6 +1295,11 @@ async function test() {
     locator.last();
 
     // $ExpectType Locator
+    locator.locator("div");
+    // @ts-expect-error
+    locator.locator();
+
+    // $ExpectType Locator
     locator.nth(0);
     // @ts-expect-error
     locator.nth();
