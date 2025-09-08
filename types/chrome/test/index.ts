@@ -1347,7 +1347,44 @@ function testDevtools() {
     };
     chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
+}
 
+function testDevtoolsPanels() {
+    const title = "title";
+    const iconPath = "iconPath";
+    const pagePath = "pagePath";
+
+    chrome.devtools.panels.elements; // $ExpectType ElementsPanel
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.sources; // $ExpectType SourcesPanel
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.themeName; // $ExpectType "default" | "dark"
+
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // $ExpectType ExtensionPanel
+    });
+
+    const url = "url";
+    const lineNumber = 10;
+    const columnNumber = 10;
+
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+
+    chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
