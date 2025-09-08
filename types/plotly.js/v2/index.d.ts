@@ -2003,6 +2003,26 @@ export interface Font {
      * @default normal
      */
     weight: number;
+    /**
+     * Sets whether a font should be styled with a normal or italic face from its family.
+     * @default "normal"
+     */
+    style: "normal" | "italic";
+    /**
+     * Sets capitalization of text. Can be used to make text appear in all-uppercase, all-lowercase, or with each word capitalized.
+     * @default "normal"
+     */
+    textcase: "normal" | "word caps" | "upper" | "lower";
+    /**
+     * Sets the variant of the font.
+     * @default "normal"
+     */
+    variant: "normal" | "small-caps" | "all-small-caps" | "all-petite-caps" | "petite-caps" | "unicase";
+    /**
+     * Sets the kind of decoration line(s) with text, such as an "under", "over" or "through" as well as combinations e.g. "under+over".
+     * @default "none"
+     */
+    lineposition: "under" | "over" | "through" | "under+over" | "under+over+through" | "none";
 }
 
 export interface Edits {
