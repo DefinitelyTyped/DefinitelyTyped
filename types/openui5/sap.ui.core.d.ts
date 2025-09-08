@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.138.0
+// For Library Version: 1.139.0
 
 declare module "sap/base/assert" {
   /**
@@ -11051,7 +11051,11 @@ declare module "sap/ui/base/DataType" {
       /**
        * Qualified name of the type to retrieve
        */
-      sTypeName: string
+      sTypeName: string,
+      /**
+       * Metadata of the property
+       */
+      oProperty?: /* was: sap.ui.base.ManagedObject.MetaOptions.Property */ any
     ): DataType | undefined;
     /**
      * Registers an enum under the given name. With version 2.0, registering an enum becomes mandatory when
@@ -29717,7 +29721,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines whether grouping is enabled (grouping separators are shown)
+         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
+         * the `groupingSize` format option is set to a non-positive value.
          */
         groupingEnabled?: boolean;
         /**
@@ -29726,7 +29731,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
+         * non-positive value, grouping will be disabled entirely.
          */
         groupingSize?: int;
         /**
@@ -29896,7 +29902,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines whether grouping is enabled (grouping separators are shown)
+         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
+         * the `groupingSize` format option is set to a non-positive value.
          */
         groupingEnabled?: boolean;
         /**
@@ -29905,7 +29912,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
+         * non-positive value, grouping will be disabled entirely.
          */
         groupingSize?: int;
         /**
@@ -30059,7 +30067,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines whether grouping is enabled (grouping separators are shown)
+         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
+         * the `groupingSize` format option is set to a non-positive value.
          */
         groupingEnabled?: boolean;
         /**
@@ -30068,7 +30077,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
+         * non-positive value, grouping will be disabled entirely.
          */
         groupingSize?: int;
         /**
@@ -30217,7 +30227,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines whether grouping is enabled (grouping separators are shown)
+         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
+         * the `groupingSize` format option is set to a non-positive value.
          */
         groupingEnabled?: boolean;
         /**
@@ -30226,7 +30237,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
+         * non-positive value, grouping will be disabled entirely.
          */
         groupingSize?: int;
         /**
@@ -30387,7 +30399,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines whether grouping is enabled (grouping separators are shown)
+         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
+         * the `groupingSize` format option is set to a non-positive value.
          */
         groupingEnabled?: boolean;
         /**
@@ -30396,7 +30409,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
+         * non-positive value, grouping will be disabled entirely.
          */
         groupingSize?: int;
         /**
@@ -59003,9 +59017,11 @@ declare module "sap/ui/model/Filter" {
      * sensitive or not. Client models filter case insensitive compared to the OData models which filter case
      * sensitive by default. See particular model documentation for details.
      *
-     * The filter operators {@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All "All" }
+     * The filter operators {@link sap.ui.model.FilterOperator.Any "Any"}, {@link sap.ui.model.FilterOperator.All "All"},
+     * {@link sap.ui.model.FilterOperator.NotAny "NotAny"}, and {@link sap.ui.model.FilterOperator.NotAll "NotAll" }
      * are only supported in V4 OData models. When creating a filter instance with these filter operators, the
-     * argument `variable` only accepts a string identifier and `condition` needs to be another filter instance.
+     * `variable` argument only accepts a string identifier, and the `condition` argument must be another filter
+     * instance.
      */
     constructor(
       /**
@@ -59046,12 +59062,14 @@ declare module "sap/ui/model/Filter" {
              */
             value2?: any;
             /**
-             * The variable name used in lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All "All"})
+             * The variable name used in the lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"}, {@link sap.ui.model.FilterOperator.All "All"},
+             * {@link sap.ui.model.FilterOperator.NotAny "NotAny"}, and {@link sap.ui.model.FilterOperator.NotAll "NotAll"})
              */
             variable?: string;
             /**
-             * A filter instance which will be used as the condition for lambda operators ({@link sap.ui.model.FilterOperator.Any "Any" }
-             * and {@link sap.ui.model.FilterOperator.All "All"})
+             * A filter instance which will be used as the condition for lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"},
+             * {@link sap.ui.model.FilterOperator.All "All"}, {@link sap.ui.model.FilterOperator.NotAny "NotAny"}, and
+             * {@link sap.ui.model.FilterOperator.NotAll "NotAll"})
              */
             condition?: Filter;
             /**
@@ -59261,10 +59279,8 @@ declare module "sap/ui/model/FilterOperator" {
   enum FilterOperator {
     /**
      * Used to filter a list based on filter criteria that are defined in a nested filter for dependent subitems.
-     * `All` returns a list of those items for which **all** dependent subitems match the filter criteria of
-     * the nested filter. For example, a list of customers can be filtered by filter criteria that are applied
-     * to the list of orders the customer placed in the past. The filter returns a list of those customers that
-     * **always** ordered a specific product.
+     * `All` returns a list of all items for which it is **true** that all dependent subitems match the filter
+     * criteria of the nested filter. This means that **every** dependent subitem matches the filter criteria.
      *
      * This filter operator is only supported in OData V4 models.
      *
@@ -59273,10 +59289,8 @@ declare module "sap/ui/model/FilterOperator" {
     All = "All",
     /**
      * Used to filter a list based on filter criteria that are defined in a nested filter for dependent subitems.
-     * `Any` returns a list of those items for which **at least one** dependent subitem matches the filter criteria
-     * of the nested filter. For example, a list of customers can be filtered by filter criteria that are applied
-     * to the list of orders the customer placed in the past. The filter returns a list of those customers that
-     * **at least once** ordered a specific product.
+     * `Any` returns a list of all items for which **at least one** dependent subitem matches the filter criteria
+     * of the nested filter.
      *
      * This filter operator is only supported in OData V4 models.
      *
@@ -59344,6 +59358,28 @@ declare module "sap/ui/model/FilterOperator" {
      * FilterOperator not equals
      */
     NE = "NE",
+    /**
+     * Used to filter a list based on filter criteria that are defined in a nested filter for dependent subitems.
+     * `NotAll` returns a list of all items for which it is **false** that all dependent subitems match the
+     * filter criteria of the nested filter. This means that **at least one** dependent subitem does not match
+     * the filter criteria.
+     *
+     * This filter operator is only supported in OData V4 models.
+     *
+     * @since 1.139.0
+     */
+    NotAll = "NotAll",
+    /**
+     * Used to filter a list based on filter criteria that are defined in a nested filter for dependent subitems.
+     * `NotAny` returns a list of all items for which **none** of the dependent subitems match the filter criteria
+     * of the nested filter. If no filter condition is given, `NotAny` returns all items that do not have any
+     * dependent subitems (i.e., for which the collection is empty).
+     *
+     * This filter operator is only supported in OData V4 models.
+     *
+     * @since 1.139.0
+     */
+    NotAny = "NotAny",
     /**
      * FilterOperator not contains
      *
@@ -59689,6 +59725,8 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
 
   import Context from "sap/ui/model/Context";
 
+  import Metadata from "sap/ui/base/Metadata";
+
   /**
    * Property binding implementation for JSON format.
    *
@@ -59722,6 +59760,40 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
        */
       mParameters?: object
     );
+
+    /**
+     * Creates a new subclass of class sap.ui.model.json.JSONPropertyBinding with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.ClientPropertyBinding.extend}.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, JSONPropertyBinding>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.model.json.JSONPropertyBinding.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
   }
 }
 
@@ -69345,6 +69417,10 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
          * A valid cache key
          */
         cacheKey?: string;
+        /**
+         * If set to `true`, the user credentials are included in a cross-origin request
+         */
+        withCredentials?: boolean;
       }
     );
     /**
@@ -71630,8 +71706,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Returns the value for the given path relative to this context. The function allows access to the complete
      * data the context points to (if `sPath` is "") or any part thereof. The data is a JSON structure as described
-     * in "OData
-     * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}.
+     * in  "OData JSON Format Version 4.0".
+     * Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}.
      *
      * Returns `undefined` if the data is not (yet) available; no request is initiated. Use {@link #requestObject }
      * for asynchronous access.
@@ -71919,7 +71995,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Returns a promise on the value for the given path relative to this context. The function allows access
      * to the complete data the context points to (if `sPath` is "") or any part thereof. The data is a JSON
-     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link #setProperty}.
+     * structure as described in  "OData
+     * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link #setProperty}.
      *
      * The header context of a list binding only delivers `$count` and `@$ui5.context.isSelected` (wrapped in
      * an object if `sPath` is "").
@@ -72694,7 +72771,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     /**
      * Returns a promise on the value for the given path relative to this binding. The function allows access
      * to the complete data the binding points to (if `sPath` is "") or any part thereof. The data is a JSON
-     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
+     * structure as described in  "OData
+     * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
      *
      * If you want {@link #requestObject} to read fresh data, call `oBinding.refresh()` first.
      * See:
@@ -73864,7 +73942,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     resume(): void;
     /**
-     * Sets a new data aggregation object and derives the system query option `$apply` implicitly from it.
+     * Sets a new data aggregation object and derives the system query option `$apply` implicitly from it. If
+     * the aggregation is unchanged, nothing happens.
      * See:
      * 	#getAggregation
      *
@@ -73908,7 +73987,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand }
          * (since 1.117.0), supported only if a `hierarchyQualifier` is given. Root nodes are on the first level.
          * By default, only root nodes are available; they are not yet expanded. Since 1.120.0, `expandTo >= Number.MAX_SAFE_INTEGER`
-         * can be used to expand all levels (`1E16` is recommended inside XML views for simplicity).
+         * can be used to expand all levels (`1E16` is recommended inside XML views for simplicity). Since 1.139.0,
+         * {@link #getAggregation} returns `expandTo : Number.MAX_SAFE_INTEGER` instead of values greater than this.
+         * These differences do not count as changes.
          */
         expandTo?: number;
         /**
