@@ -7491,6 +7491,10 @@
             "libraryName": "tap",
             "asOfVersion": "18.0.0"
         },
+        "tapable": {
+            "libraryName": "tapable",
+            "asOfVersion": "2.2.8"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
@@ -8006,6 +8010,10 @@
         "webmidi": {
             "libraryName": "webmidi",
             "asOfVersion": "3.0.1"
+        },
+        "webpack": {
+            "libraryName": "webpack",
+            "asOfVersion": "5.28.6"
         },
         "webpack-chain": {
             "libraryName": "webpack-chain",
