@@ -702,7 +702,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isFunction<T>(value: T, message?: string): void;
+            isFunction(value: unknown, message?: string): value is Function;
 
             /**
              * Asserts that value is not a function.
@@ -711,7 +711,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotFunction<T>(value: T, message?: string): void;
+            isNotFunction(value: unknown, message?: string): value is Exclude<unknown, Function>;
 
             /**
              * Asserts that value is an object of type 'Object'
