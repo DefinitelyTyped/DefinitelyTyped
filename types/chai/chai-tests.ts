@@ -1188,8 +1188,10 @@ suite("assert", () => {
     });
 
     test("isObject", () => {
+        const x: unknown = {};
+        assert.isObject(x);
         // $ExpectType object
-        assert.isObject({});
+        const y = x;
         assert.isObject(new Foo());
         assert.isObject(true);
         assert.isObject(Foo);
@@ -1328,10 +1330,11 @@ suite("assert", () => {
     });
 
     test("isFunction", () => {
-        const func = () => {
+        const func: unknown = () => {
         };
-        // $ExpectType Function
         assert.isFunction(func);
+        // $ExpectType Function
+        const y = func;
         assert.isFunction({});
     });
 
@@ -1342,8 +1345,10 @@ suite("assert", () => {
     });
 
     test("isArray", () => {
+        const x: unknown = [];
+        assert.isArray(x);
         // $ExpectType unknown[]
-        assert.isArray([]);
+        const y = x;
         assert.isArray(new Array<any>());
         assert.isArray({});
     });
@@ -1355,7 +1360,10 @@ suite("assert", () => {
     });
 
     test("isString", () => {
+        const x: unknown = "Foo";
+        assert.isString(x);
         // $ExpectType string
+        const y = x;
         assert.isString("Foo");
         // tslint:disable-next-line:no-construct
         assert.isString(new String("foo"));
@@ -2163,14 +2171,12 @@ suite("narrowing", () => {
 
     test("isTrue", () => {
         const x = foobar<true | number>();
-        // $ExpectType true
         assert.isTrue(x);
         const y: true = x;
     });
 
     test("isFalse", () => {
         const x = foobar<false | number>();
-        // $ExpectType false
         assert.isFalse(x);
         const y: false = x;
     });
