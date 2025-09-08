@@ -1,4 +1,4 @@
-// For Library Version: 1.139.0
+// For Library Version: 1.140.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -3115,7 +3115,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsBoolean" {
    * Validates if the provided value is a boolean or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsBoolean {
     /**
@@ -3140,7 +3140,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsDate" {
    * Validates if the provided value can be parsed to a valid date.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsDate {
     /**
@@ -3165,7 +3165,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsInteger" {
    * Validates if the provided value is an integer or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsInteger {
     /**
@@ -3190,7 +3190,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsNumber" {
    * Validates if the provided value is a number or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsNumber {
     /**
@@ -3215,7 +3215,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsSelectedKey
    * Validates if the provided value is one of the given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsSelectedKey {
     /**
@@ -3249,7 +3249,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsStringList"
    * Validates if none of the provided values is an invalid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsStringList {
     /**
@@ -3274,7 +3274,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueKey" 
    * Validates if the provided key is unique in a list of given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueKey {
     /**
@@ -3312,7 +3312,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueList"
    * Validates if the provided list contains no duplicates.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueList {
     /**
@@ -3337,7 +3337,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsValidBindin
    * Validates if the provided value is a valid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsValidBinding {
     /**
@@ -3371,7 +3371,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/MaxLength" {
    * Validates if the provided value doesn't exceed the maximum length.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface MaxLength {
     /**
@@ -3396,7 +3396,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" 
    * Validates if the provided value doesn't contain a binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface NotABinding {
     /**
@@ -4849,7 +4849,7 @@ declare namespace sap {
                * Validates if the provided value belongs to the icon pool.
                *
                * @since 1.81
-               * @experimental 1.81
+               * @experimental As of version 1.81.
                */
               namespace IsInIconPool {
                 /**

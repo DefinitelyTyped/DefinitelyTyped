@@ -41,6 +41,7 @@ import Theming from "sap/ui/core/Theming";
 import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
 import List from "sap/m/List";
 import FeedInput from "sap/m/FeedInput";
+import Engine from "sap/m/p13n/Engine";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -277,3 +278,6 @@ new List().attachItemActionPress((oEvent) => {
 
 // 1.139.0
 new FeedInput().addAction(link);
+
+// 1.140.0
+const p13nEngine = new Engine();
