@@ -12,8 +12,6 @@ import { Vector2 } from "../math/Vector2.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Vector4 } from "../math/Vector4.js";
 import { Scene } from "../scenes/Scene.js";
-import { Data3DTexture } from "../textures/Data3DTexture.js";
-import { DataArrayTexture } from "../textures/DataArrayTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
 import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
@@ -25,13 +23,6 @@ import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
 import { WebGLState } from "./webgl/WebGLState.js";
 import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
 import { WebXRManager } from "./webxr/WebXRManager.js";
-
-export interface Renderer {
-    domElement: HTMLCanvasElement;
-
-    render(scene: Object3D, camera: Camera): void;
-    setSize(width: number, height: number, updateStyle?: boolean): void;
-}
 
 export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
@@ -115,7 +106,7 @@ export interface WebGLDebug {
  *
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
  */
-export class WebGLRenderer implements Renderer {
+export class WebGLRenderer {
     /**
      * parameters is an optional object with properties defining the renderer's behavior.
      * The constructor also accepts no parameters at all.
@@ -198,11 +189,16 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
+    /**
+     * The normalized resolution scale for the transmission render target, measured in percentage of viewport
+     * dimensions. Lowering this value can result in significant improvements to {@link MeshPhysicalMaterial}
+     * transmission performance. Default is `1`.
+     */
+    transmissionResolutionScale: number;
+
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
-
-    pixelRatio: number;
 
     capabilities: WebGLCapabilities;
     properties: WebGLProperties;
@@ -278,12 +274,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: (a: any, b: any) => number): void;
+    setOpaqueSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: (a: any, b: any) => number): void;
+    setTransparentSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
@@ -408,6 +404,7 @@ export class WebGLRenderer implements Renderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): void;
 
     readRenderTargetPixelsAsync(
@@ -418,6 +415,7 @@ export class WebGLRenderer implements Renderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): Promise<TypedArray>;
 
     /**
@@ -444,6 +442,7 @@ export class WebGLRenderer implements Renderer {
      * @param dstTexture Specifies the destination texture.
      * @param srcRegion Specifies the bounds
      * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @param srcLevel Specifies the source mipmap level of the texture.
      * @param dstLevel Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture(
@@ -451,30 +450,8 @@ export class WebGLRenderer implements Renderer {
         dstTexture: Texture,
         srcRegion?: Box2 | Box3 | null,
         dstPosition?: Vector2 | Vector3 | null,
+        srcLevel?: number,
         dstLevel?: number,
-    ): void;
-
-    /**
-     * @deprecated Use "copyTextureToTexture" instead.
-     *
-     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
-     * position. The `depthTexture` and `texture` property of 3D render targets are supported as well.
-     *
-     * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
-     * intitialized e.g. via {@link .initRenderTarget}().
-     *
-     * @param srcTexture Specifies the source texture.
-     * @param dstTexture Specifies the destination texture.
-     * @param srcRegion Specifies the bounds
-     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
-     * @param level Specifies the destination mipmap level of the texture.
-     */
-    copyTextureToTexture3D(
-        srcTexture: Texture,
-        dstTexture: Data3DTexture | DataArrayTexture,
-        srcRegion?: Box3 | null,
-        dstPosition?: Vector3 | null,
-        level?: number,
     ): void;
 
     /**

@@ -446,6 +446,7 @@ interface XRSession extends EventTarget {
     readonly supportedFrameRates?: Float32Array | undefined;
     readonly enabledFeatures?: string[] | undefined;
     readonly isSystemKeyboardSupported: boolean;
+    readonly interactionMode?: XRInteractionMode | undefined;
 
     /**
      * Removes a callback from the animation frame painting callback from
@@ -953,7 +954,7 @@ interface XRProjectionLayer extends XRCompositionLayer {
     readonly textureWidth: number;
     readonly textureHeight: number;
     readonly textureArrayLength: number;
-    readonly ignoreDepthValues: number;
+    readonly ignoreDepthValues: boolean;
     fixedFoveation: number;
 }
 
@@ -1199,9 +1200,13 @@ type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
 
 type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
 
+type XRDepthType = "raw" | "smooth";
+
 interface XRDepthStateInit {
     usagePreference: XRDepthUsage[];
     dataFormatPreference: XRDepthDataFormat[];
+    depthTypeRequest?: XRDepthType[] | undefined;
+    matchDepthView?: boolean | undefined;
 }
 
 interface XRSessionInit {
@@ -1211,6 +1216,11 @@ interface XRSessionInit {
 interface XRSession {
     readonly depthUsage?: XRDepthUsage | undefined;
     readonly depthDataFormat?: XRDepthDataFormat | undefined;
+    readonly depthType?: XRDepthType | undefined;
+    readonly depthActive?: boolean | undefined;
+
+    readonly pauseDepthSensing?: (() => void) | undefined;
+    readonly resumeDepthSensing?: (() => void) | undefined;
 }
 
 interface XRDepthInformation {
@@ -1219,6 +1229,9 @@ interface XRDepthInformation {
 
     readonly normDepthBufferFromNormView: XRRigidTransform;
     readonly rawValueToMeters: number;
+
+    readonly transform?: XRRigidTransform | undefined;
+    readonly projectionMatrix?: Float32Array | undefined;
 }
 
 interface XRCPUDepthInformation extends XRDepthInformation {
@@ -1242,6 +1255,7 @@ interface XRWebGLBinding {
     getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
 }
 
+type XRInteractionMode = "screen-space" | "world-space";
 /**
  * END: WebXR Depth Sensing Module
  * https://www.w3.org/TR/webxr-depth-sensing-1/

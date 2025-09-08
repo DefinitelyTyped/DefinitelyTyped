@@ -16,6 +16,8 @@
     },
     "files": [
         "index.d.ts",
+        "index.d.mts",
+        "swagger-ui-react.d.ts",
         "swagger-ui-react-tests.tsx"
     ]
 }

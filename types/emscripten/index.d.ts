@@ -10,7 +10,7 @@ declare namespace Emscripten {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
-    type JSType = "number" | "string" | "array" | "boolean";
+    type JSType = "number" | "string" | "array" | "boolean" | "bigint";
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
     type CIntType = "i8" | "i16" | "i32" | "i64";
@@ -23,6 +23,18 @@ declare namespace Emscripten {
     }
 }
 
+// Infers the type only in TypeScript environments where GPU types are available
+type MaybeGPUDevice = Navigator extends {
+    gpu: {
+        requestAdapter(...args: any[]): Promise<
+            null | {
+                requestDevice(...args: any[]): Promise<null | infer T>;
+            }
+        >;
+    };
+} ? T
+    : never;
+
 interface EmscriptenModule {
     print(str: string): void;
     printErr(str: string): void;
@@ -34,6 +46,7 @@ interface EmscriptenModule {
     onAbort: { (what: any): void };
     onRuntimeInitialized: { (): void };
     preinitializedWebGLContext: WebGLRenderingContext;
+    preinitializedWebGPUDevice: MaybeGPUDevice;
     noInitialRun: boolean;
     noExitRuntime: boolean;
     logReadFiles: boolean;
@@ -255,6 +268,12 @@ declare namespace FS {
     function makedev(ma: number, mi: number): number;
     function registerDevice(dev: number, ops: Partial<StreamOps>): void;
     function getDevice(dev: number): { stream_ops: StreamOps };
+    function createDevice(
+        parent: string | FSNode,
+        name: string,
+        input?: () => number | null | undefined,
+        output?: (c: number) => any,
+    ): FSNode;
 
     //
     // core
@@ -264,8 +283,13 @@ declare namespace FS {
     function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
+    function isMountpoint(node: FSNode): boolean;
+
+    function closeStream(fd: number): void;
+    function getStream(fd: number): FSStream;
 
     function mkdir(path: string, mode?: number): FSNode;
+    function mkdirTree(path: string, mode?: number): void;
     function mkdev(path: string, mode?: number, dev?: number): FSNode;
     function symlink(oldpath: string, newpath: string): FSNode;
     function rename(old_path: string, new_path: string): void;
@@ -284,7 +308,7 @@ declare namespace FS {
     function truncate(path: string, len: number): void;
     function ftruncate(fd: number, len: number): void;
     function utime(path: string, atime: number, mtime: number): void;
-    function open(path: string, flags: string, mode?: number, fd_start?: number, fd_end?: number): FSStream;
+    function open(path: string, flags: string | number, mode?: number): FSStream;
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): number;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
@@ -296,7 +320,6 @@ declare namespace FS {
         position?: number,
         canOwn?: boolean,
     ): number;
-    function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(
         stream: FSStream,
         buffer: ArrayBufferView,
@@ -364,6 +387,7 @@ type StringToType<R extends any> = R extends Emscripten.JSType ? {
         string: string;
         array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
         boolean: boolean;
+        bigint: bigint;
         null: null;
     }[R]
     : never;
@@ -406,8 +430,17 @@ declare function ccall<I extends Array<Emscripten.JSType | null> | [], R extends
     opts?: Emscripten.CCallOpts,
 ): ReturnToType<R>;
 
-declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
-declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
+declare function setValue<T extends Emscripten.CType>(
+    ptr: number,
+    value: T extends "i64" | "i64*" ? bigint : number,
+    type: T,
+    noSafe?: boolean,
+): void;
+declare function getValue<T extends Emscripten.CType>(
+    ptr: number,
+    type: T,
+    noSafe?: boolean,
+): T extends "i64" | "i64*" ? bigint : number;
 
 declare function allocate(
     slab: number[] | ArrayBufferView | number,
@@ -420,6 +453,7 @@ declare function stackAlloc(size: number): number;
 declare function stackSave(): number;
 declare function stackRestore(ptr: number): void;
 
+declare function AsciiToString(ptr: number): string;
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;

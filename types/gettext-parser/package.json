@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/gettext-parser",
-    "version": "4.0.9999",
+    "version": "8.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/smhg/gettext-parser"
     ],

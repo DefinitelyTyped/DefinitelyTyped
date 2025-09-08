@@ -28,7 +28,6 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
  * @remarks
  * Use {@link InstancedMesh} if you have to render a large number of objects with the same geometry and material(s) but with different world transformations
- * @remarks
  * The usage of {@link InstancedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering performance in your application.
  * @see Example: {@link https://threejs.org/examples/#webgl_instancing_dynamic | WebGL / instancing / dynamic}
  * @see Example: {@link https://threejs.org/examples/#webgl_instancing_performance | WebGL / instancing / performance}
@@ -76,8 +75,8 @@ export class InstancedMesh<
      * @remarks
      * The `count` value passed into the {@link InstancedMesh | constructor} represents the **maximum** number of instances of this mesh.
      * You can change the number of instances at runtime to an integer value in the range `[0, count]`.
-     * @remarks If you need more instances than the original `count` value, you have to create a new InstancedMesh.
-     * @remarks Expects a `Integer`
+     * If you need more instances than the original `count` value, you have to create a new InstancedMesh.
+     * Expects a `Integer`
      */
     count: number;
 
@@ -145,9 +144,10 @@ export class InstancedMesh<
     getMorphAt(index: number, mesh: Mesh): void;
 
     /**
-     * Sets the given local transformation matrix to the defined instance.
-     * @remarks
-     * Make sure you set {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` after updating all the matrices.
+     * Sets the given local transformation matrix to the defined instance. Make sure you set
+     * {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` after updating all
+     * the matrices.
+     * Negatively scaled matrices are not supported.
      * @param index The index of an instance. Values have to be in the range `[0, count]`. Expects a `Integer`
      * @param matrix A 4x4 matrix representing the local transformation of a single instance.
      */

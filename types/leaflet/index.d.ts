@@ -177,7 +177,7 @@ export function latLng(
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
-    constructor(latlngs: LatLngBoundsLiteral);
+    constructor(latlngs: LatLngExpression[]);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
     pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;
@@ -1779,11 +1779,6 @@ export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
     id?: string | undefined;
-    accessToken?: string | undefined;
-    minZoom?: number | undefined;
-    maxZoom?: number | undefined;
-    maxNativeZoom?: number | undefined;
-    minNativeZoom?: number | undefined;
     subdomains?: string | string[] | undefined;
     errorTileUrl?: string | undefined;
     zoomOffset?: number | undefined;
@@ -1898,7 +1893,7 @@ export class ImageOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the img element that represents the ImageOverlay on the map */
     getElement(): HTMLImageElement | undefined;
@@ -1938,7 +1933,7 @@ export class SVGOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the img element that represents the SVGOverlay on the map */
     getElement(): SVGElement | undefined;
@@ -1994,7 +1989,7 @@ export class VideoOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the video element that represents the VideoOverlay on the map */
     getElement(): HTMLVideoElement | undefined;
@@ -2656,6 +2651,8 @@ export class Popup extends DivOverlay {
     options: PopupOptions;
 }
 
+export function popup(latlng: LatLngExpression, options?: PopupOptions): Popup;
+
 export function popup(options?: PopupOptions, source?: Layer): Popup;
 
 export type Direction = "right" | "left" | "top" | "bottom" | "center" | "auto";
@@ -2676,6 +2673,8 @@ export class Tooltip extends DivOverlay {
 
     options: TooltipOptions;
 }
+
+export function tooltip(latlng: LatLngExpression, options?: TooltipOptions): Tooltip;
 
 export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
@@ -2905,7 +2904,7 @@ export class Map extends Evented {
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
     panBy(offset: PointExpression, options?: PanOptions): this;
-    setMaxBounds(bounds: LatLngBoundsExpression): this;
+    setMaxBounds(bounds?: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
     panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
@@ -2928,7 +2927,7 @@ export class Map extends Evented {
     getPane(pane: string | HTMLElement): HTMLElement | undefined;
     getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
     getContainer(): HTMLElement;
-    whenReady(fn: () => void, context?: any): this;
+    whenReady(fn: (event: { target: Map }) => void, context?: any): this;
 
     // Methods for getting map state
     getCenter(): LatLng;

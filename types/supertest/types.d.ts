@@ -7,7 +7,7 @@ import { Server } from "net";
 export type App =
     | Server
     | RequestListener<typeof IncomingMessage, typeof ServerResponse>
-    | ((request: Http2ServerRequest, response: Http2ServerResponse) => void)
+    | ((request: Http2ServerRequest, response: Http2ServerResponse) => void | Promise<void>)
     | string;
 
 export interface AgentOptions extends SAgentOptions {

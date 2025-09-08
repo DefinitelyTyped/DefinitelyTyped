@@ -10,6 +10,12 @@ import { Context } from "node:vm";
 
     server.setupHistory("hurr/durr", (err, repl) => {
     });
+    server.setupHistory({
+        filePath: "/tmp/repl_history",
+        onHistoryFileLoaded(err, repl) {
+            repl; // $ExpectType REPLServer
+        },
+    });
 
     server = server.addListener("exit", () => {});
     server = server.addListener("reset", () => {});

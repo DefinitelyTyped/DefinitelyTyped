@@ -1,7 +1,8 @@
-import { Node, NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Node } from "three/webgpu";
 
 export const motionBlur: (
-    inputNode: NodeRepresentation,
-    velocity: NodeRepresentation,
-    numSamples?: NodeRepresentation,
+    inputNode: Node,
+    velocity: Node,
+    numSamples?: Node,
 ) => ShaderNodeObject<Node>;

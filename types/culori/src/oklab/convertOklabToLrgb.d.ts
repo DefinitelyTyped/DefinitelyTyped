@@ -1,5 +1,5 @@
-import { Lrgb } from "../lrgb/types";
-import { Oklab } from "./types";
+import { Lrgb } from "../lrgb/types.js";
+import { Oklab } from "./types.js";
 
 declare function convertOklabToLrgb(color: Omit<Oklab, "mode">): Lrgb;
 

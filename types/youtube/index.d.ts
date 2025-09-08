@@ -398,6 +398,21 @@ declare namespace YT {
         | VideoQualityHighRes;
 
     /**
+     * Basic metadata about the currently loaded video.
+     * Returned by the `getVideoData()` method of the YouTube Player instance.
+     */
+    export interface VideoData {
+        /** Unique ID of the video. */
+        video_id: string;
+
+        /** Name of the video's author or channel. May be an empty string. */
+        author: string;
+
+        /** Title of the video. */
+        title: string;
+    }
+
+    /**
      * Default video quality chosen by YouTube.
      */
     export type VideoQualityDefault = "default";
@@ -584,10 +599,16 @@ declare namespace YT {
         onError?: PlayerEventHandler<OnErrorEvent> | undefined;
 
         /**
-         * Event fired to indicate thath the player has loaded, or unloaded, a module
+         * Event fired to indicate that the player has loaded, or unloaded, a module
          * with exposed API methods. This currently only occurs for closed captioning.
          */
         onApiChange?: PlayerEventHandler<PlayerEvent> | undefined;
+
+        /**
+         * Event fired any time the browser blocks autoplay or scripted video
+         * playback features, collectively referred to as "autoplay"
+         */
+        onAutoplayBlocked?: PlayerEventHandler<PlayerEvent> | undefined;
     }
 
     /**
@@ -1004,5 +1025,13 @@ declare namespace YT {
          * Removes the <iframe> containing the player.
          */
         destroy(): void;
+
+        /**
+         * @returns Basic information about the currently loaded video,
+         * including video ID, title, and author.
+         * Note: This method is not officially documented in the IFrame Player API,
+         * but is available on the player instance.
+         */
+        getVideoData(): VideoData;
     }
 }

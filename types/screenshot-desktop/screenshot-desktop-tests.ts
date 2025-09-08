@@ -1,35 +1,36 @@
 import screenshot = require("screenshot-desktop");
 
-screenshot().then((img) => {
-    // img: Buffer filled with jpg goodness
-    // ...
-}).catch((err) => {
-    // ...
-});
+// Buffer filled with jpg goodness
+// $ExpectType Promise<NonSharedBuffer> || Promise<Buffer>
+screenshot();
 
-screenshot({ format: "png" }).then((img) => {
-    // img: Buffer filled with png goodness
-    // ...
-}).catch((err) => {
-    // ...
-});
+// Buffer filled with png goodness
+// $ExpectType Promise<NonSharedBuffer> || Promise<Buffer>
+screenshot({ format: "png" });
 
-screenshot.listDisplays().then((displays) => {
-    // displays: [{ id, name }, { id, name }]
-    screenshot({ screen: displays[displays.length - 1].id })
-        .then((img) => {
-            // img: Buffer of screenshot of the last display
-        });
-});
+// Buffer when filename is empty
+// $ExpectType Promise<NonSharedBuffer> || Promise<Buffer>
+screenshot({ filename: "" });
 
-screenshot.all().then((imgs) => {
-    // imgs: an array of Buffers, one for each screen
-});
-
-screenshot({ filename: "shot.jpg" }).then((imgPath) => {
-    // imgPath: absolute path to screenshot
-    // created in current working directory named shot.png
-});
+// absolute path to screenshot
+// created in current working directory named shot.jpg
+// $ExpectType Promise<string>
+screenshot({ filename: "shot.jpg" });
 
 // absolute paths work too. so do pngs
-screenshot({ filename: "/Users/brian/Desktop/demo.png" });
+// $ExpectType Promise<string>
+screenshot({ filename: "/Users/$USER/Desktop/demo.png" });
+
+// an array of available displays
+// $ExpectType Promise<Display[]>
+screenshot.listDisplays();
+
+screenshot.listDisplays().then((displays) => {
+    // Buffer of screenshot of the last display
+    // $ExpectType Promise<NonSharedBuffer> || Promise<Buffer>
+    screenshot({ screen: displays[displays.length - 1].id });
+});
+
+// an array of Buffers or strings, one for each screen
+// $ExpectType Promise<NonSharedBuffer[]> || Promise<Buffer[]>
+screenshot.all();

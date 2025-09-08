@@ -1,5 +1,8 @@
 import { Camera } from "../../cameras/Camera.js";
+import { Layers } from "../../core/Layers.js";
 import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
+import { Vector4 } from "../../math/Vector4.js";
+import Renderer from "../../renderers/common/Renderer.js";
 import { Scene } from "../../scenes/Scene.js";
 import { Texture } from "../../textures/Texture.js";
 import TextureNode from "../accessors/TextureNode.js";
@@ -34,6 +37,14 @@ declare class PassNode extends TempNode {
 
     constructor(scope: PassNodeScope, scene: Scene, camera: Camera, options?: RenderTargetOptions);
 
+    setResolution(resolution: number): this;
+
+    getResolution(): number;
+
+    setLayers(layers: Layers): this;
+
+    getLayers(): Layers;
+
     setMRT(mrt: MRTNode | null): this;
 
     getMRT(): MRTNode | null;
@@ -44,7 +55,7 @@ declare class PassNode extends TempNode {
 
     toggleTexture(name: string): void;
 
-    getTextureNode(name?: string): ShaderNodeObject<Node>;
+    getTextureNode(name?: string): ShaderNodeObject<TextureNode>;
 
     getPreviousTextureNode(name?: string): ShaderNodeObject<Node>;
 
@@ -52,7 +63,15 @@ declare class PassNode extends TempNode {
 
     getLinearDepthNode(name?: string): ShaderNodeObject<Node>;
 
+    compileAsync(renderer: Renderer): Promise<void>;
+
     setSize(width: number, height: number): void;
+
+    setScissor(x: number, y: number, width: number, height: number): void;
+    setScissor(x: Vector4): void;
+
+    setViewport(x: number, y: number, width: number, height: number): void;
+    setViewport(x: Vector4): void;
 
     setPixelRatio(pixelRatio: number): void;
 
@@ -68,4 +87,4 @@ export default PassNode;
 
 export const pass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;
 export const passTexture: (pass: PassNode, texture: Texture) => ShaderNodeObject<PassTextureNode>;
-export const depthPass: (scene: Scene, camera: Camera) => ShaderNodeObject<PassNode>;
+export const depthPass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;

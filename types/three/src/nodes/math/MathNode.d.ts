@@ -1,6 +1,7 @@
+import { Vector3 } from "../../math/Vector3.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import OperatorNode from "./OperatorNode.js";
 
 export type MathNodeMethod1 =
@@ -33,14 +34,13 @@ export type MathNodeMethod1 =
     | typeof MathNode.RECIPROCAL
     | typeof MathNode.TRUNC
     | typeof MathNode.FWIDTH
-    | typeof MathNode.BITCAST
-    | typeof MathNode.TRANSPOSE;
+    | typeof MathNode.TRANSPOSE
+    | typeof MathNode.DETERMINANT
+    | typeof MathNode.INVERSE;
 
 export type MathNodeMethod2 =
-    | typeof MathNode.ATAN2
     | typeof MathNode.MIN
     | typeof MathNode.MAX
-    | typeof MathNode.MOD
     | typeof MathNode.STEP
     | typeof MathNode.REFLECT
     | typeof MathNode.DISTANCE
@@ -94,15 +94,14 @@ export default class MathNode extends TempNode {
     static RECIPROCAL: "reciprocal";
     static TRUNC: "trunc";
     static FWIDTH: "fwidth";
-    static BITCAST: "bitcast";
     static TRANSPOSE: "transpose";
+    static DETERMINANT: "determinant";
+    static INVERSE: "inverse";
 
     // 2 inputs
 
-    static ATAN2: "atan2";
     static MIN: "min";
     static MAX: "max";
-    static MOD: "mod";
     static STEP: "step";
     static REFLECT: "reflect";
     static DISTANCE: "distance";
@@ -124,6 +123,8 @@ export default class MathNode extends TempNode {
     bNode: Node | null;
     cNode: Node | null;
 
+    readonly isMathNode: true;
+
     constructor(method: MathNodeMethod1, aNode: Node);
     constructor(method: MathNodeMethod2, aNode: Node, bNode: Node);
     constructor(method: MathNodeMethod3, aNode: Node, bNode: Node, cNode: Node);
@@ -134,10 +135,16 @@ export const INFINITY: ShaderNodeObject<Node>;
 export const PI: ShaderNodeObject<Node>;
 export const PI2: ShaderNodeObject<Node>;
 
-type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
+type MathNodeParameter = Node | number;
+
+type Unary = (a: MathNodeParameter) => ShaderNodeObject<MathNode>;
 
 export const all: Unary;
 export const any: Unary;
+
+/**
+ * @deprecated "equals" is deprecated. Use "equal" inside a vector instead, like: "bvec*( equal( ... ) )"
+ */
 export const equals: Unary;
 
 export const radians: Unary;
@@ -150,14 +157,14 @@ export const sqrt: Unary;
 export const inverseSqrt: Unary;
 export const floor: Unary;
 export const ceil: Unary;
-export const normalize: Unary;
+export const normalize: (a: Node | Vector3) => ShaderNodeObject<MathNode>;
 export const fract: Unary;
 export const sin: Unary;
 export const cos: Unary;
 export const tan: Unary;
 export const asin: Unary;
 export const acos: Unary;
-export const atan: Unary;
+export const atan: (a: MathNodeParameter, b?: MathNodeParameter) => ShaderNodeObject<MathNode>;
 export const abs: Unary;
 export const sign: Unary;
 export const length: Unary;
@@ -169,46 +176,66 @@ export const round: Unary;
 export const reciprocal: Unary;
 export const trunc: Unary;
 export const fwidth: Unary;
-export const bitcast: Unary;
 export const transpose: Unary;
+export const determinant: (x: Node) => ShaderNodeObject<MathNode>;
+export const inverse: (x: Node) => ShaderNodeObject<MathNode>;
 
-type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
+type Binary = (a: MathNodeParameter, b: MathNodeParameter) => ShaderNodeObject<MathNode>;
 
-export const atan2: Binary;
-export const min: Binary;
-export const max: Binary;
-export const mod: Binary;
+export const min: (
+    x: MathNodeParameter,
+    y: MathNodeParameter,
+    ...values: MathNodeParameter[]
+) => ShaderNodeObject<MathNode>;
+export const max: (
+    x: MathNodeParameter,
+    y: MathNodeParameter,
+    ...values: MathNodeParameter[]
+) => ShaderNodeObject<MathNode>;
 export const step: Binary;
 export const reflect: Binary;
 export const distance: Binary;
 export const difference: Binary;
 export const dot: Binary;
-export const cross: Binary;
+export const cross: (x: Node, y: Node) => ShaderNodeObject<MathNode>;
 export const pow: Binary;
-export const pow2: Binary;
-export const pow3: Binary;
-export const pow4: Binary;
+export const pow2: Unary;
+export const pow3: Unary;
+export const pow4: Unary;
 export const transformDirection: Binary;
-
-type Ternary = (a: NodeRepresentation, b: NodeRepresentation, c: NodeRepresentation) => ShaderNodeObject<MathNode>;
-
 export const cbrt: Unary;
 export const lengthSq: Unary;
+
+type Ternary = (a: MathNodeParameter, b: MathNodeParameter, c: MathNodeParameter) => ShaderNodeObject<MathNode>;
+
 export const mix: Ternary;
 export const clamp: (
-    a: NodeRepresentation,
-    b?: NodeRepresentation,
-    c?: NodeRepresentation,
+    a: MathNodeParameter,
+    b?: MathNodeParameter,
+    c?: MathNodeParameter,
 ) => ShaderNodeObject<MathNode>;
 export const saturate: Unary;
 export const refract: Ternary;
 export const smoothstep: Ternary;
 export const faceForward: Ternary;
 
-export const rand: (uv: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
+export const rand: (uv: MathNodeParameter) => ShaderNodeObject<OperatorNode>;
 
 export const mixElement: Ternary;
 export const smoothstepElement: Ternary;
+export const stepElement: Binary;
+
+/**
+ * @deprecated
+ */
+export const atan2: Binary;
+
+// GLSL alias function
+
+export const faceforward: typeof faceForward;
+export const inversesqrt: typeof inverseSqrt;
+
+// Method chaining
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
@@ -248,8 +275,7 @@ declare module "../tsl/TSLCore.js" {
         atan2: typeof atan2;
         min: typeof min;
         max: typeof max;
-        mod: typeof mod;
-        step: typeof step;
+        step: typeof stepElement;
         reflect: typeof reflect;
         distance: typeof distance;
         dot: typeof dot;
@@ -268,6 +294,8 @@ declare module "../tsl/TSLCore.js" {
         saturate: typeof saturate;
         cbrt: typeof cbrt;
         transpose: typeof transpose;
+        determinant: typeof determinant;
+        inverse: typeof inverse;
         rand: typeof rand;
     }
 }

@@ -3,15 +3,6 @@
 declare interface Window {
     whale: typeof whale;
 }
-declare namespace chrome.downloads {
-    export interface StateType {
-        readonly COMPLETE: string;
-        readonly IN_PROGRESS: string;
-        readonly INTERRUPTED: string;
-    }
-    export const State: StateType;
-}
-
 declare namespace whale {
     /**
      * 지정한 주기 혹은 시간에 코드가 실행되도록 예약합니다

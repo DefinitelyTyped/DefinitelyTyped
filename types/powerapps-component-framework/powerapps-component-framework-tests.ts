@@ -671,6 +671,7 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
     },
     typographyTokens: ComponentFramework.typographyStyles,
     isDarkTheme: false,
+    mountNodeSelector: "#__fluentPortalMountNode",
 };
 
 const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
@@ -685,4 +686,39 @@ const entityFormOptionsTest: ComponentFramework.NavigationApi.EntityFormOptions 
         name: "",
         entityType: "",
     },
+};
+
+const mcsResponseTest: ComponentFramework.MCSResponse = {
+    type: "message",
+    id: "19e7c095-4b6d-47b5-bc15-1c0ba3d5718d",
+    timestamp: "2025-04-21T20:52:17.9125027+00:00",
+    replyToId: "d0289e39-6192-4197-9fe2-9be66cb5127b",
+    textFormat: "markdown",
+    value: `Hello, here's  **today's weather**`,
+    attachmentLayout: "list",
+    attachments: [
+        {
+            contentType: "application/vnd.microsoft.card.adaptive",
+            content: {
+                type: "AdaptiveCard",
+                $schema: "https://adaptivecards.io/schemas/adaptive-card.json",
+                version: "1.6",
+                body: [
+                    {
+                        type: "TextBlock",
+                        text: "Redmond, WA",
+                        size: "Large",
+                        isSubtle: true,
+                        wrap: true,
+                        style: "heading",
+                    },
+                ],
+            },
+        },
+    ],
+};
+
+const copilotTest: ComponentFramework.Copilot = {
+    executeEvent: (eventName: string, parameters: Record<string, unknown>) => Promise.resolve([mcsResponseTest]),
+    executePrompt: (promptText: string) => Promise.resolve([mcsResponseTest]),
 };

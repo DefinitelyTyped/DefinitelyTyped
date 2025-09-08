@@ -1,9 +1,14 @@
 import PushNotifications = require("node-pushnotifications");
 import { supportedContentEncodings } from "web-push";
 
-const settings = {
+const settings: PushNotifications.Settings = {
     gcm: {
         id: "null",
+    },
+    fcm: {
+        appName: "null",
+        serviceAccountKey: require("path/to/serviceAccountKey.json"),
+        credential: null,
     },
     apn: {
         token: {
@@ -57,6 +62,7 @@ function assertResultTypes(result: PushNotifications.Result) {
 
     result.method === "apn";
     result.method === "gcm";
+    result.method === "fcm";
     result.method === "adm";
     result.method === "wns";
     result.method === "webPush";

@@ -26,7 +26,7 @@ export default class UserData {
      * @param {String} external_id Any unique ID from the business.
      * @param {String} address An physical address.
      */
-    constructor(email: string, phone: string, first_name: string, last_name: string, date_of_birth: string, city: string, state: string, zip: string, country: string, external_id: string, address: string);
+    constructor(email?: string, phone?: string, first_name?: string, last_name?: string, date_of_birth?: string, city?: string, state?: string, zip?: string, country?: string, external_id?: string, address?: string);
     /**
      * Gets the email address for the user data field.
      * An email address, in lowercase.

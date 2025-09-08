@@ -69,8 +69,6 @@ function utilTests(someNode: Node) {
     const msgClone = util.cloneMessage(msg);
     // $ExpectType string
     const msgKey = msgClone.key;
-    // @ts-expect-error
-    const msgWrongKey = msgClone.wrongKey;
 
     // $ExpectType boolean
     util.compareObjects({}, {});

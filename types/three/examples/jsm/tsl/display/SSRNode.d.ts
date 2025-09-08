@@ -1,25 +1,29 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
-import { Camera } from "three/webgpu";
+import { ShaderNodeObject } from "three/tsl";
+import { Camera, Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class SSRNode extends TempNode {
     colorNode: ShaderNodeObject<Node>;
     depthNode: ShaderNodeObject<Node>;
     normalNode: ShaderNodeObject<Node>;
     metalnessNode: ShaderNodeObject<Node>;
-    camera: Camera;
+    roughnessNode: ShaderNodeObject<Node> | null;
+    camera: Camera | null;
 
     resolutionScale: number;
 
     maxDistance: UniformNode<number>;
     thickness: UniformNode<number>;
     opacity: UniformNode<number>;
+    quality: UniformNode<number>;
+    blurQuality: UniformNode<number>;
 
     constructor(
         colorNode: ShaderNodeObject<Node>,
         depthNode: ShaderNodeObject<Node>,
         normalNode: ShaderNodeObject<Node>,
         metalnessNode: ShaderNodeObject<Node>,
-        camera: Camera,
+        roughnessNode?: ShaderNodeObject<Node> | null,
+        camera?: Camera | null,
     );
 
     getTextureNode(): ShaderNodeObject<TextureNode>;
@@ -30,9 +34,10 @@ declare class SSRNode extends TempNode {
 export default SSRNode;
 
 export const ssr: (
-    colorNode: NodeRepresentation,
-    depthNode: NodeRepresentation,
-    normalNode: NodeRepresentation,
-    metalnessNode: NodeRepresentation,
-    camera: Camera,
+    colorNode: Node,
+    depthNode: Node,
+    normalNode: Node,
+    metalnessNode: Node,
+    roughnessNode?: Node | null,
+    camera?: Camera | null,
 ) => ShaderNodeObject<SSRNode>;

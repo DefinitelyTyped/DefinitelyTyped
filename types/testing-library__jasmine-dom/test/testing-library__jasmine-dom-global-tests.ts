@@ -1,3 +1,7 @@
+import JasmineDOM from "@testing-library/jasmine-dom";
+
+jasmine.addMatchers(JasmineDOM);
+
 const element: HTMLElement = document.body;
 
 expect(element).toBeInTheDocument();

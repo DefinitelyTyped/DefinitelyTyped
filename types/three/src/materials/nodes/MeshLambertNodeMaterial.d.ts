@@ -1,49 +1,57 @@
-import { Combine, NormalMapTypes } from "../../constants.js";
-import { Color } from "../../math/Color.js";
-import { Euler } from "../../math/Euler.js";
-import { Vector2 } from "../../math/Vector2.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshLambertMaterialParameters } from "../MeshLambertMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
+import PhongLightingModel from "../../nodes/functions/PhongLightingModel.js";
+import BasicEnvironmentNode from "../../nodes/lighting/BasicEnvironmentNode.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshLambertMaterialParameters, MeshLambertMaterialProperties } from "../MeshLambertMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshLambertNodeMaterialParameters extends NodeMaterialParameters, MeshLambertMaterialParameters {}
-
-declare class MeshLambertNodeMaterial extends NodeMaterial {
-    readonly isMeshLambertNodeMaterial: true;
-
-    // Properties from MeshLambertMaterial
-    readonly isMeshLambertMaterial: true;
-    color: Color;
-    bumpMap: Texture | null;
-    bumpScale: number;
-    displacementMap: Texture | null;
-    displacementScale: number;
-    displacementBias: number;
-    emissive: Color;
-    emissiveIntensity: number;
-    emissiveMap: Texture | null;
-    flatShading: boolean;
-    map: Texture | null;
-    lightMap: Texture | null;
-    lightMapIntensity: number;
-    normalMap: Texture | null;
-    normalMapType: NormalMapTypes;
-    normalScale: Vector2;
-    aoMap: Texture | null;
-    aoMapIntensity: number;
-    specularMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
-    envMapRotation: Euler;
-    combine: Combine;
-    reflectivity: number;
-    refractionRatio: number;
-    wireframe: boolean;
-    wireframeLinewidth: number;
-    wireframeLinecap: string;
-    wireframeLinejoin: string;
-
-    constructor(parameters?: MeshLambertNodeMaterialParameters);
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshLambertNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshLambertNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshLambertNodeMaterialNodeProperties>>,
+        MeshLambertMaterialParameters
+{}
+
+/**
+ * Node material version of {@link MeshLambertMaterial}.
+ */
+declare class MeshLambertNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh lambert node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
+    constructor(parameters?: MeshLambertNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isMeshLambertNodeMaterial: boolean;
+    setValues(values?: MeshLambertNodeMaterialParameters): void;
+    /**
+     * Overwritten since this type of material uses {@link BasicEnvironmentNode}
+     * to implement the default environment mapping.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {?BasicEnvironmentNode<vec3>} The environment node.
+     */
+    setupEnvironment(builder: NodeBuilder): BasicEnvironmentNode | null;
+    /**
+     * Setups the lighting model.
+     *
+     * @return {PhongLightingModel} The lighting model.
+     */
+    setupLightingModel(): PhongLightingModel;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshLambertNodeMaterial extends MeshLambertNodeMaterialNodeProperties, MeshLambertMaterialProperties {}
 
 export default MeshLambertNodeMaterial;

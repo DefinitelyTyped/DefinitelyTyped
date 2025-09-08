@@ -51,12 +51,16 @@ pManager.addEventListener(
 );
 
 const ttManager = new cast.framework.TextTracksManager();
+ttManager.setActiveByIds(null);
+ttManager.setActiveByIds([2, 3]);
+
 const qManager = new cast.framework.QueueManager();
 const qBase = new cast.framework.QueueBase();
 const items = qBase.fetchItems(1, 3, 4);
 const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
 const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
 const breakManager: BreakManager = {
+    addBreak: () => true,
     getBreakById: () => adBreak,
     getBreakClipCurrentTimeSec: () => null,
     getBreakClipDurationSec: () => null,
@@ -64,6 +68,7 @@ const breakManager: BreakManager = {
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
     getPlayWatchedBreak: () => true,
+    removeBreakById: () => true,
     setBreakClipLoadInterceptor: () => {},
     setBreakSeekInterceptor: () => {},
     setPlayWatchedBreak: () => {},
@@ -265,6 +270,13 @@ playerManager.setMessageInterceptor(
     },
 );
 
+playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
+    if (event.severity !== undefined) {
+        // $ExpectType ErrorSeverity
+        const severity = event.severity;
+    }
+});
+
 const queueItem = new cast.framework.messages.QueueItem();
 queueItem.activeTrackIds = [1, 2];
 queueItem.autoplay = false;
@@ -316,6 +328,10 @@ declare module "./cast.framework.messages" {
     interface BreakClipCustomData {
         advertiser?: string;
     }
+
+    interface RequestDataCustomData {
+        isRecovering?: boolean;
+    }
 }
 
 const sessionState = new cast.framework.messages.SessionState();
@@ -328,3 +344,4 @@ mediaStatus.customData = { description: "Lorem ipsum" };
 queueItem.customData = { priority: 1 };
 queueItem.media.customData = { environment: "production" };
 breakClip.customData = { advertiser: "Umbrella Corporation" };
+lrd.customData = { isRecovering: true };

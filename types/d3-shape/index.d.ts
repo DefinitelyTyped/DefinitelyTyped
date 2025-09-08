@@ -2394,6 +2394,11 @@ export const symbolWye: SymbolType;
  */
 export const symbolX: SymbolType;
 
+/**
+ * The X-shape symbol type; intended for stroking.
+ */
+export const symbolTimes: SymbolType;
+
 // -----------------------------------------------------------------------------------
 // pointRadial
 // -----------------------------------------------------------------------------------

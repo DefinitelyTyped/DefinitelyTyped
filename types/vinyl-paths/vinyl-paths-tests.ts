@@ -1,5 +1,5 @@
-import gulp = require("gulp");
-import paths = require("vinyl-paths");
+import gulp from "gulp";
+import paths from "vinyl-paths";
 
 const del: (pattern: string | string[]) => any = (pattern) => {};
 

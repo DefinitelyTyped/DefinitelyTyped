@@ -10,3 +10,4 @@ export default FrontFacingNode;
 
 export const frontFacing: ShaderNodeObject<FrontFacingNode>;
 export const faceDirection: ShaderNodeObject<Node>;
+export const directionToFaceDirection: (direction: Node) => ShaderNodeObject<Node>;

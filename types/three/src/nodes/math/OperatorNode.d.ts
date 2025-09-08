@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type OperatorNodeOp =
     | "%"
@@ -10,6 +10,7 @@ export type OperatorNodeOp =
     | ">>"
     | "<<"
     | "=="
+    | "!="
     | "&&"
     | "||"
     | "^^"
@@ -27,35 +28,63 @@ export default class OperatorNode extends TempNode {
     bNode: Node;
     op: OperatorNodeOp;
 
+    readonly isOperatorNode: true;
+
     constructor(op: OperatorNodeOp, ...params: [Node, Node, ...Node[]]);
 }
 
-type Operator = (
-    a: NodeRepresentation,
-    b: NodeRepresentation,
-    ...others: NodeRepresentation[]
-) => ShaderNodeObject<OperatorNode>;
+type OperatorNodeParameter = Node | number;
 
-export const add: Operator;
-export const sub: Operator;
-export const mul: Operator;
-export const div: Operator;
-export const modInt: Operator;
-export const equal: Operator;
-export const lessThan: Operator;
-export const greaterThan: Operator;
-export const lessThanEqual: Operator;
-export const greaterThanEqual: Operator;
-export const and: Operator;
-export const or: Operator;
-export const not: (a: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
-export const xor: Operator;
-export const bitAnd: Operator;
-export const bitNot: (a: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
-export const bitOr: Operator;
-export const bitXor: Operator;
-export const shiftLeft: Operator;
-export const shiftRight: Operator;
+export const add: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const sub: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const mul: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const div: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const mod: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const equal: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const notEqual: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const lessThan: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const greaterThan: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const lessThanEqual: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const greaterThanEqual: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const and: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const or: (
+    a: OperatorNodeParameter,
+    b: OperatorNodeParameter,
+    ...params: OperatorNodeParameter[]
+) => ShaderNodeObject<OperatorNode>;
+export const not: (value: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const xor: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const bitAnd: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const bitNot: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const bitOr: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const bitXor: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const shiftLeft: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+export const shiftRight: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
+
+export const incrementBefore: (a: OperatorNodeParameter) => ShaderNodeObject<Node>;
+export const decrementBefore: (a: OperatorNodeParameter) => ShaderNodeObject<Node>;
+export const increment: (a: OperatorNodeParameter) => ShaderNodeObject<Node>;
+export const decrement: (a: OperatorNodeParameter) => ShaderNodeObject<Node>;
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
@@ -63,8 +92,9 @@ declare module "../tsl/TSLCore.js" {
         sub: typeof sub;
         mul: typeof mul;
         div: typeof div;
-        modInt: typeof modInt;
+        mod: typeof mod;
         equal: typeof equal;
+        notEqual: typeof notEqual;
         lessThan: typeof lessThan;
         greaterThan: typeof greaterThan;
         lessThanEqual: typeof lessThanEqual;
@@ -79,19 +109,23 @@ declare module "../tsl/TSLCore.js" {
         bitXor: typeof bitXor;
         shiftLeft: typeof shiftLeft;
         shiftRight: typeof shiftRight;
+        incrementBefore: typeof incrementBefore;
+        decrementBefore: typeof decrement;
+        increment: typeof increment;
+        decrement: typeof decrement;
     }
 }
 
 /**
- * @deprecated .remainder() has been renamed to .modInt().
+ * @deprecated "modInt()" is deprecated. Use "mod( int( ... ) )" instead.
  */
-export const remainder: Operator;
+export const modInt: (a: OperatorNodeParameter, b: OperatorNodeParameter) => ShaderNodeObject<OperatorNode>;
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         /**
-         * @deprecated .remainder() has been renamed to .modInt().
+         * @deprecated "modInt()" is deprecated. Use "mod( int( ... ) )" instead.
          */
-        remainder: typeof remainder;
+        modInt: typeof modInt;
     }
 }

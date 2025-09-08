@@ -1,4 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class BloomNode extends TempNode {
     inputNode: Node;
@@ -16,7 +17,7 @@ declare class BloomNode extends TempNode {
 }
 
 export const bloom: (
-    node: NodeRepresentation,
+    node: Node,
     strength?: number,
     radius?: number,
     threshold?: number,

@@ -1,0 +1,14 @@
+{
+    "files": ["index.d.ts"],
+    "compilerOptions": {
+        "types": [],
+        "noEmit": true,
+        "module": "node16",
+        "lib": ["dom", "es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

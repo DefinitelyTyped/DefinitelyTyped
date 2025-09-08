@@ -1,28 +1,43 @@
-import { NormalMapTypes } from "../../constants.js";
-import { Vector2 } from "../../math/Vector2.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshNormalMaterialParameters } from "../MeshNormalMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshNormalMaterialParameters, MeshNormalMaterialProperties } from "../MeshNormalMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshNormalNodeMaterialParameters extends NodeMaterialParameters, MeshNormalMaterialParameters {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshNormalNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
 
-export default class MeshNormalNodeMaterial extends NodeMaterial {
-    readonly isMeshNormalNodeMaterial: true;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshNormalNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshNormalNodeMaterialNodeProperties>>,
+        MeshNormalMaterialParameters
+{}
 
-    // Properties from MeshNormalMaterial
-    readonly isMeshNormalMaterial: true;
-    bumpMap: Texture | null;
-    bumpScale: number;
-    normalMap: Texture | null;
-    normalMapType: NormalMapTypes;
-    normalScale: Vector2;
-    displacementMap: Texture | null;
-    displacementScale: number;
-    displacementBias: number;
-    wireframe: boolean;
-    wireframeLinewidth: number;
-    flatShading: boolean;
-
+/**
+ * Node material version of {@link MeshNormalMaterial}.
+ */
+declare class MeshNormalNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh normal node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
     constructor(parameters?: MeshNormalNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     */
+    readonly isMeshNormalNodeMaterial: boolean;
+    setValues(values?: MeshNormalNodeMaterialParameters): void;
+    /**
+     * Overwrites the default implementation by computing the diffuse color
+     * based on the normal data.
+     */
+    setupDiffuseColor(): void;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshNormalNodeMaterial extends MeshNormalNodeMaterialNodeProperties, MeshNormalMaterialProperties {}
+
+export default MeshNormalNodeMaterial;

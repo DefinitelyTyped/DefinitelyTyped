@@ -13,10 +13,14 @@ const fakeVirusUrl = "https://secure.eicar.org/eicar.com.txt";
             bypassTest: true,
             host: "localhost",
             port: 3310,
+            tls: false,
         },
     });
     // $ExpectType string
     const version = await clamscan.getVersion();
+
+    const socket = await clamscan.ping();
+    socket.end();
 
     const response = await new Promise<http.IncomingMessage>((resolve, reject) => {
         https.get(fakeVirusUrl, (res) => {

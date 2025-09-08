@@ -29,6 +29,7 @@ let privateKeyFromAsn1 = forge.pki.privateKeyFromAsn1(privateKeyAsn1);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
+// explicitly cast as PrivateKey to ensure expected typings are accepted
 cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 let certPem = forge.pki.certificateToPem(cert);
@@ -73,6 +74,9 @@ csr.getAttribute({ name: "challengePassword" });
 csr.getAttribute({ name: "extensionRequest" }).extensions;
 forge.pki.certificationRequestFromPem(forge.pki.certificationRequestToPem(csr));
 forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
+forge.pki.distinguishedNameToAsn1(cert.issuer);
+forge.pki.distinguishedNameToAsn1(cert.subject);
+forge.pki.distinguishedNameToAsn1({ attributes: cert.issuer.attributes });
 
 // From https://github.com/digitalbazaar/forge#rsakem
 {
@@ -213,7 +217,7 @@ if (forge.util.fillString("1", 5) !== "11111") throw Error("forge.util.fillStrin
 }
 
 {
-    let src: Uint8Array;
+    let src = new Uint8Array(2); // indirectly resolve type to ensure assignability to forge.util.ArrayBufferView in TS 5.9+
     let encode: string;
     let decode: Uint8Array;
 

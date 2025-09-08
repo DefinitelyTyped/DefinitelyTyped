@@ -346,6 +346,14 @@ declare namespace CircuitBreaker {
         abortController?: AbortController | undefined;
 
         /**
+         *  Automatically recreates the instance of AbortController whenever the circuit transitions to
+         * 'halfOpen' or 'closed' state. This ensures that new requests are not
+         * impacted by previous signals that were triggered when the circuit was 'open'.
+         * @default false
+         */
+        autoRenewAbortController?: boolean | undefined;
+
+        /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.
          * Passing false will result in snapshots not being emitted
          * @default true

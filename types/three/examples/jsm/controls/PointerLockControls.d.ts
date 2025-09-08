@@ -50,11 +50,6 @@ declare class PointerLockControls extends Controls<PointerLockControlsEventMap> 
     constructor(camera: Camera, domElement?: HTMLElement | null);
 
     /**
-     * @deprecated getObject() has been deprecated. Use controls.object instead.
-     */
-    getObject(): Camera;
-
-    /**
      * Returns the look direction of the camera.
      * @param v The target vector.
      */
@@ -74,8 +69,11 @@ declare class PointerLockControls extends Controls<PointerLockControlsEventMap> 
 
     /**
      * Activates the pointer lock.
+     *
+     * @param {boolean} [unadjustedMovement=false] - Disables OS-level adjustment for mouse acceleration, and accesses raw mouse input instead.
+     * Setting it to true will disable mouse acceleration.
      */
-    lock(): void;
+    lock(unadjustedMovement?: boolean): void;
 
     /**
      * Exits the pointer lock.

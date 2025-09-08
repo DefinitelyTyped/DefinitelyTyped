@@ -80,6 +80,8 @@ declare namespace GoogleAppsScript {
         interface CalendarApp {
             Color: typeof Color;
             EventColor: typeof EventColor;
+            EventTransparency: typeof EventTransparency;
+            EventType: typeof EventType;
             GuestStatus: typeof GuestStatus;
             Month: typeof Base.Month;
             Visibility: typeof Visibility;
@@ -180,6 +182,7 @@ declare namespace GoogleAppsScript {
             getEmailReminders(): Integer[];
             getEndTime(): Base.Date;
             getEventSeries(): CalendarEventSeries;
+            getEventType(): EventType;
             getGuestByEmail(email: string): EventGuest;
             getGuestList(): EventGuest[];
             getGuestList(includeOwner: boolean): EventGuest[];
@@ -193,6 +196,7 @@ declare namespace GoogleAppsScript {
             getStartTime(): Base.Date;
             getTag(key: string): string;
             getTitle(): string;
+            getTransparency(): EventTransparency;
             getVisibility(): Visibility;
             guestsCanInviteOthers(): boolean;
             guestsCanModify(): boolean;
@@ -206,7 +210,7 @@ declare namespace GoogleAppsScript {
             setAllDayDate(date: Base.Date): CalendarEvent;
             setAllDayDates(startDate: Base.Date, endDate: Base.Date): CalendarEvent;
             setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEvent;
-            setColor(color: string): CalendarEvent;
+            setColor(color: string | EventColor): CalendarEvent;
             setDescription(description: string): CalendarEvent;
             setGuestsCanInviteOthers(guestsCanInviteOthers: boolean): CalendarEvent;
             setGuestsCanModify(guestsCanModify: boolean): CalendarEvent;
@@ -216,6 +220,7 @@ declare namespace GoogleAppsScript {
             setTag(key: string, value: string): CalendarEvent;
             setTime(startTime: Base.Date, endTime: Base.Date): CalendarEvent;
             setTitle(title: string): CalendarEvent;
+            setTransparency(transparency: EventTransparency): CalendarEvent;
             setVisibility(visibility: Visibility): CalendarEvent;
         }
         /**
@@ -235,6 +240,7 @@ declare namespace GoogleAppsScript {
             getDateCreated(): Base.Date;
             getDescription(): string;
             getEmailReminders(): Integer[];
+            getEventType(): EventType;
             getGuestByEmail(email: string): EventGuest;
             getGuestList(): EventGuest[];
             getGuestList(includeOwner: boolean): EventGuest[];
@@ -268,6 +274,17 @@ declare namespace GoogleAppsScript {
             setTag(key: string, value: string): CalendarEventSeries;
             setTitle(title: string): CalendarEventSeries;
             setVisibility(visibility: Visibility): CalendarEventSeries;
+        }
+        /**
+         * An enum representing the types of events that can be created.
+         */
+        enum EventType {
+            DEFAULT,
+            BIRTHDAY,
+            FOCUS_TIME,
+            FROM_GMAIL,
+            OUT_OF_OFFICE,
+            WORKING_LOCATION,
         }
         /**
          * An enum representing the named colors available in the Calendar service.
@@ -320,6 +337,13 @@ declare namespace GoogleAppsScript {
             getGuestStatus(): GuestStatus;
             getName(): string;
             /** @deprecated DO NOT USE */ getStatus(): string;
+        }
+        /**
+         * An enum representing the transparency of an event.
+         */
+        enum EventTransparency {
+            OPAQUE,
+            TRANSPARENT,
         }
         /**
          * Represents the recurrence settings for an event series.

@@ -13,6 +13,8 @@ export let APP_X_EMBEDDED_JAVASCRIPT: number;
 export let APP_X_FIND: number;
 export let APP_X_JAVASCRIPT: number;
 export let IMAGE_PNG: number;
+export let IMAGE_SVG: number;
+export let TEXT_CSS: number;
 export let TEXT_HTML: number;
 export let TEXT_JAVASCRIPT: number;
 export let TEXT_PLAIN: number;

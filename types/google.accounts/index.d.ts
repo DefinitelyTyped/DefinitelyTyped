@@ -554,6 +554,11 @@ declare namespace google.accounts {
             client_id: string;
 
             /**
+             * The color scheme applied to the One Tap prompt.
+             */
+            color_scheme?: "default" | "light" | "dark";
+
+            /**
              * Enables automatic selection.
              */
             auto_select?: boolean;
@@ -655,6 +660,12 @@ declare namespace google.accounts {
              * sign-in flow between your website and Google. Defaults to false.
              */
             use_fedcm_for_prompt?: boolean;
+
+            /**
+             * Allow user sign-in button and mediate the
+             * sign-in flow between your website and Google. Defaults to false.
+             */
+            use_fedcm_for_button?: boolean;
         }
 
         interface PromptMomentNotification {
@@ -799,6 +810,55 @@ declare namespace google.accounts {
              * token, so you can identify which button user clicked to sign in.
              */
             state?: string;
+        }
+
+        interface IntermediateConfig {
+            /**
+             * The URI of your One Tap intermediate iframe.
+             */
+            src: string;
+
+            /**
+             * A JavaScript callback method to be triggered when the One Tap UX is one.
+             */
+            done?: () => void;
+        }
+
+        /**
+         * Load the intermediate iframe based on the configuration object.
+         */
+        function initializeIntermediate({ src, done }: IntermediateConfig): void;
+
+        namespace intermediate {
+            /**
+             * Performs the parent origin verification
+             * @param origins The origins that are allowed to embed the intermediate iframe.
+             * @param verifiedCallback The JavaScript callback method triggered when the current parent origin is allowed to embed the intermediate iframe.
+             * @param verificationFailedCallback The JavaScript callback method triggered when the current parent origin is not allowed to embed the intermediate iframe.
+             */
+            function verifyParentOrigin(
+                origins?: string | string[] | (() => string | string[]),
+                verifiedCallback?: () => void,
+                verificationFailedCallback?: () => void,
+            ): void;
+            /**
+             * Notifies the parent frame to close the intermediate iframe when the One Tap UX flow is skipped.
+             */
+            function notifyParentClose(): void;
+            /**
+             * Notifies the parent frame to close the intermediate iframe and refresh the login status.
+             */
+            function notifyParentDone(): void;
+            /**
+             * notifies the parent frame to resize the intermediate iframe.
+             * @param height The new height in pixel. The value must be a non-negative number.
+             */
+            function notifyParentResize(height: number): void;
+            /**
+             * Notifies the parent frame whether to cancel the intermediate iframe when the user clicks outside the intermediate iframe.
+             * @param cancel This required boolean value indicates whether to cancel the intermediate iframe when the user clicks outside the intermediate iframe.
+             */
+            function notifyParentTapOutsideMode(cancel: boolean): void;
         }
     }
 }

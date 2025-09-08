@@ -48,3 +48,76 @@ function test_parse_simulcast_stream_list() {
         }
     }
 }
+
+function test_crypto_attribute() {
+    const session: SessionDescription = parse("");
+    session.media[0].crypto = [
+        {
+            id: 1,
+            suite: "AES_CM_128_HMAC_SHA1_80",
+            config: "inline:WVNfX19zZW1jdGwgKCkgewkyMjA7fQp9CnVubGVz|2^31|1:1",
+            sessionConfig: "UNENCRYPTED_SRTP",
+        },
+    ];
+    const sdp: string = write(session);
+    const parsed = parse(sdp);
+    const crypto = parsed.media[0].crypto![0];
+    crypto.id; // $ExpectType number
+    crypto.suite; // $ExpectType string
+    crypto.config; // $ExpectType string
+    crypto.sessionConfig; // $ExpectType string | undefined
+}
+
+function test_rtcp_fb_attribute() {
+    const session: SessionDescription = parse("");
+    session.media[0].rtcpFb = [
+        {
+            payload: 98,
+            type: "nack",
+            subtype: "pli",
+        },
+    ];
+    session.media[1].rtcpFb = [
+        {
+            payload: "*",
+            type: "transport-cc",
+        },
+    ];
+    const sdp: string = write(session);
+    const parsed = parse(sdp);
+    const rtcpFb0 = parsed.media[0].rtcpFb![0];
+    rtcpFb0.payload; // $ExpectType number | string
+    rtcpFb0.type; // $ExpectType string
+    rtcpFb0.subtype; // $ExpectType string | undefined
+    const rtcpFb1 = parsed.media[0].rtcpFb![1];
+    rtcpFb1.payload; // $ExpectType number | string
+    rtcpFb1.type; // $ExpectType string
+    rtcpFb1.subtype; // $ExpectType string | undefined
+}
+
+function test_datachannel_media_description() {
+    const session: SessionDescription = parse("");
+    session.media[0] = {
+        connection: {
+            version: 4,
+            ip: "0.0.0.0",
+        },
+        type: "application",
+        protocol: "UDP/DTLS/SCTP",
+        port: 9,
+        rtp: [],
+        fmtp: [],
+    };
+
+    const sdp: string = write(session);
+    const parsed = parse(sdp);
+    const connection = parsed.media[0].connection!;
+    connection.version; // $ExpectType number
+    connection.ip; // $ExpectType string
+    const type = parsed.media[0].type;
+    type; // $ExpectType string
+    const protocol = parsed.media[0].protocol;
+    protocol; // $ExpectType string
+    const port = parsed.media[0].port;
+    port; // $ExpectType number
+}

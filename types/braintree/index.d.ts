@@ -1857,14 +1857,16 @@ declare namespace braintree {
             | undefined;
         shippingAddressId?: string | undefined;
         shippingAmount?: string | undefined;
+        shippingTaxAmount?: string | undefined;
         shipsFromPostalCode?: string | undefined;
         taxAmount?: string | undefined;
         taxExempt?: boolean | undefined;
         threeDSecurePassThru?:
             | {
                 cavv?: string | undefined;
+                dsTransactionId?: string | undefined;
                 eciFlag: string;
-                threeDSecureVision?: string | undefined;
+                threeDSecureVersion?: string | undefined;
                 xid?: string | undefined;
             }
             | undefined;

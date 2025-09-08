@@ -33,7 +33,7 @@ export default class UserData {
      * @param {String} fi The first Name Initial
      * @param {String} address An physical address.
      */
-    constructor(email: string, phone: string, first_name: string, last_name: string, date_of_birth: string, city: string, state: string, zip: string, country: string, external_id: string, gender: string, client_ip_address: string, client_user_agent: string, fbp: string, fbc: string, subscription_id: string, fb_login_id: string, lead_id: string, dobd: string, dobm: string, doby: string, f5first: string, f5last: string, fi: string, address: string);
+    constructor(email?: string, phone?: string, first_name?: string, last_name?: string, date_of_birth?: string, city?: string, state?: string, zip?: string, country?: string, external_id?: string, gender?: string, client_ip_address?: string, client_user_agent?: string, fbp?: string, fbc?: string, subscription_id?: string, fb_login_id?: string, lead_id?: string, dobd?: string, dobm?: string, doby?: string, f5first?: string, f5last?: string, fi?: string, address?: string);
     /**
      * Gets the email address for the user data field.
      * An email address, in lowercase.

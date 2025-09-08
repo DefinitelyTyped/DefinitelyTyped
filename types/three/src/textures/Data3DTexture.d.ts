@@ -1,6 +1,7 @@
 import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
+import { TextureImageData } from "./DataTexture.js";
 import { Texture } from "./Texture.js";
-import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates a three-dimensional texture from raw data, with parameters to divide it into width, height, and depth
@@ -40,7 +41,7 @@ export class Data3DTexture extends Texture {
      * @param height Height of the texture. Default `1`.
      * @param depth Depth of the texture. Default `1`.
      */
-    constructor(data?: BufferSource | null, width?: number, height?: number, depth?: number);
+    constructor(data?: TypedArray | null, width?: number, height?: number, depth?: number);
 
     /**
      * Read-only flag to check if a given object is of type {@link Data3DTexture}.
@@ -93,4 +94,6 @@ export class Data3DTexture extends Texture {
     unpackAlignment: number;
 }
 
-export {};
+export interface Texture3DImageData extends TextureImageData {
+    depth: number;
+}

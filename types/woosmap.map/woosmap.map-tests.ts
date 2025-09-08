@@ -20,6 +20,7 @@ const mapOptions = expectType({
             ],
         },
     ],
+    enableMarkerAccessibleNavigation: true,
 }) as woosmap.map.MapOptions;
 const map = new woosmap.map.Map(document.getElementById("mapContainer") as HTMLElement, mapOptions);
 
@@ -558,6 +559,23 @@ const localitiesGeocodeRequest = expectType({
 const promiseLocalitiesGeocode = localitiesService.geocode(localitiesGeocodeRequest);
 promiseLocalitiesGeocode.then((result) => {
     // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+const localitiesSearchRequest = expectType({
+    input: "royal al",
+    types: ["point_of_interest", "address"],
+    language: "EN",
+    components: { country: ["GB", "FR"] },
+    radius: 5000000,
+    location: { lat: 51.5007, lng: -0.1246 },
+    categories: ["tourism", "hospitality"],
+    excluded_categories: "hospitality.hostel",
+    excluded_types: ["admin_level", "village"],
+}) as woosmap.map.localities.LocalitiesSearchRequest;
+
+const promiseLocalitiesSearch = localitiesService.search(localitiesSearchRequest);
+promiseLocalitiesSearch.then((result) => {
+    // $ExpectType LocalitiesSearchResponse
     result;
 });
 

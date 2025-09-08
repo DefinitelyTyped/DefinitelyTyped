@@ -21,7 +21,10 @@ declare namespace OO.ui {
                 mixin.FlaggedElement.ConfigOptions,
                 mixin.AccessKeyedElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions
-        {}
+        {
+            /** Whether this option should be selected initially. */
+            selected?: boolean;
+        }
 
         interface Static
             extends

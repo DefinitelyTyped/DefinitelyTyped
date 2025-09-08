@@ -337,6 +337,7 @@ export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
 export const UnsignedInt5999Type: 35902;
+export const UnsignedInt101111Type: 35899;
 
 export type AttributeGPUType = typeof FloatType | typeof IntType;
 
@@ -358,7 +359,8 @@ export type TextureDataType =
     | typeof UnsignedShort4444Type
     | typeof UnsignedShort5551Type
     | typeof UnsignedInt248Type
-    | typeof UnsignedInt5999Type;
+    | typeof UnsignedInt5999Type
+    | typeof UnsignedInt101111Type;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pixel formats
@@ -370,19 +372,6 @@ export const RGBFormat: 1022;
 
 /** {@link RGBAFormat} is the default and reads the red, green, blue and alpha components. */
 export const RGBAFormat: 1023;
-
-/**
- * {@link LuminanceFormat} reads each element as a single luminance component.
- * This is then converted to a floating point, clamped to the range `[0,1]`, and then assembled into an RGBA element by
- * placing the luminance value in the red, green and blue channels, and attaching `1.0` to the alpha channel.
- */
-export const LuminanceFormat: 1024;
-
-/**
- * {@link LuminanceAlphaFormat} reads each element as a luminance/alpha double.
- * The same process occurs as for the {@link LuminanceFormat}, except that the alpha channel may have values other than `1.0`.
- */
-export const LuminanceAlphaFormat: 1025;
 
 /**
  * {@link DepthFormat} reads each element as a single depth value, converts it to floating point, and clamps to the range `[0,1]`.
@@ -420,7 +409,7 @@ export const RGFormat: 1030;
 export const RGIntegerFormat: 1031;
 
 /**
- * {@link RGBIntegerFormat} discrads the alpha components and reads the red, green, and blue components.
+ * {@link RGBIntegerFormat} discards the alpha components and reads the red, green, and blue components.
  */
 export const RGBIntegerFormat: 1032;
 
@@ -440,8 +429,6 @@ export type PixelFormat =
     | typeof AlphaFormat
     | typeof RGBFormat
     | typeof RGBAFormat
-    | typeof LuminanceFormat
-    | typeof LuminanceAlphaFormat
     | typeof DepthFormat
     | typeof DepthStencilFormat
     | typeof RedFormat
@@ -478,7 +465,7 @@ export const RGBA_S3TC_DXT1_Format: 33777;
  */
 export const RGBA_S3TC_DXT3_Format: 33778;
 /**
- * A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs to the DXT3 compression in how the alpha compression is done.
+ * A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs from the DXT3 compression in how the alpha compression is done.
  * @remarks Require support for the _WEBGL_compressed_texture_s3tc_ WebGL extension.
  */
 export const RGBA_S3TC_DXT5_Format: 33779;
@@ -789,7 +776,39 @@ export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
 
 export const WebGLCoordinateSystem: 2000;
 export const WebGPUCoordinateSystem: 2001;
-export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoordinateSystem;
+export type CoordinateSystem =
+    | typeof WebGLCoordinateSystem
+    | typeof WebGPUCoordinateSystem;
+
+export const TimestampQuery: {
+    COMPUTE: "compute";
+    RENDER: "render";
+};
+export type TimestampQuery = typeof TimestampQuery.COMPUTE | typeof TimestampQuery.RENDER;
+
+export const InterpolationSamplingType: {
+    PERSPECTIVE: "perspective";
+    LINEAR: "linear";
+    FLAT: "flat";
+};
+export type InterpolationSamplingType =
+    | typeof InterpolationSamplingType.PERSPECTIVE
+    | typeof InterpolationSamplingType.LINEAR
+    | typeof InterpolationSamplingType.FLAT;
+
+export const InterpolationSamplingMode: {
+    NORMAL: "normal";
+    CENTROID: "centroid";
+    SAMPLE: "sample";
+    FIRST: "first";
+    EITHER: "either";
+};
+export type InterpolationSamplingMode =
+    | typeof InterpolationSamplingMode.NORMAL
+    | typeof InterpolationSamplingMode.CENTROID
+    | typeof InterpolationSamplingMode.SAMPLE
+    | typeof InterpolationSamplingMode.FIRST
+    | typeof InterpolationSamplingMode.EITHER;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

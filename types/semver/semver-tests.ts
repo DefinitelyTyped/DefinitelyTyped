@@ -90,12 +90,12 @@ semverValid(semverCoerce("42.6.7.9.3-alpha")); // $ExpectType string | null
 
 // v6 tests
 
-let bool: boolean;
+declare let bool: boolean;
 let num: number;
 // $ExpectType string
 let str = String(Math.random());
 // $ExpectType string | null
-let strn: string | null = Math.random() < 0.5 ? null : str;
+let strn: string | null = bool ? null : str;
 let diff: semver.ReleaseType | null;
 const op: semver.Operator = "";
 // declare const arr: any[];
@@ -113,15 +113,47 @@ const version = "";
 const versions: string[] = [];
 const loose = true;
 // $ExpectType SemVer | null
-let sem: semver.SemVer | null = Math.random() < 0.5 ? new semver.SemVer(str, {}) : null;
+let sem: semver.SemVer | null = bool ? new semver.SemVer(str, {}) : null;
 
 // $ExpectType string | SemVer | null | undefined
-const anyVersion = Math.random() < 0.5 ? undefined : Math.random() < 0.5 ? strn : sem;
+const anyVersion = bool ? undefined : bool ? strn : sem;
 
 sem = new semver.SemVer(str, { includePrerelease: false });
 sem = new semver.SemVer(str, { loose: true });
 
-sem = semver.parse(str);
+sem = sem.inc("prerelease", "beta");
+sem = sem.inc("prerelease", "beta", "0");
+sem = sem.inc("prerelease", "beta", "1");
+sem = sem.inc("prerelease", "beta", false);
+
+// $ExpectType SemVer | null
+semver.parse(
+    bool ? str : bool ? sem : bool ? null : undefined,
+);
+// $ExpectType SemVer | null
+semver.parse(
+    bool ? str : bool ? sem : bool ? null : undefined,
+    bool ? { loose: false } : false,
+);
+// $ExpectType SemVer | null
+semver.parse(
+    bool ? str : bool ? sem : bool ? null : undefined,
+    bool ? { loose: false } : false,
+    false,
+);
+// $ExpectType SemVer
+semver.parse(
+    bool ? str : bool ? sem : bool ? null : undefined,
+    bool ? { loose: false } : false,
+    true,
+);
+// $ExpectType SemVer | null
+semver.parse(
+    bool ? str : bool ? sem : bool ? null : undefined,
+    bool ? { loose: false } : false,
+    bool,
+);
+
 strn = semver.valid(str);
 strn = semver.clean(str);
 
@@ -129,46 +161,63 @@ strn = semver.valid(str, loose);
 strn = semver.valid(str, { loose: false });
 // @ts-expect-error
 strn = semver.valid(str, { includePrerelease: false });
+
 strn = semver.clean(str, loose);
 strn = semver.clean(str, { loose: false });
 // @ts-expect-error
 strn = semver.clean(str, { includePrerelease: false });
+
 strn = semver.inc(str, "major", loose);
 strn = semver.inc(str, "major", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "major", { includePrerelease: false });
+
 strn = semver.inc(str, "premajor", loose);
 strn = semver.inc(str, "premajor", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "premajor", { includePrerelease: false });
+
 strn = semver.inc(str, "minor", loose);
 strn = semver.inc(str, "minor", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "minor", { includePrerelease: false });
+
 strn = semver.inc(str, "preminor", loose);
 strn = semver.inc(str, "preminor", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "preminor", { includePrerelease: false });
+
 strn = semver.inc(str, "patch", loose);
 strn = semver.inc(str, "patch", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "patch", { includePrerelease: false });
+
 strn = semver.inc(str, "prepatch", loose);
 strn = semver.inc(str, "prepatch", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "prepatch", { includePrerelease: false });
+
 strn = semver.inc(str, "prerelease", loose);
 strn = semver.inc(str, "prerelease", { loose: false });
 // @ts-expect-error
 strn = semver.inc(str, "prerelease", { includePrerelease: false });
+
 strn = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.inc(str, "prerelease", loose, "alpha", "0");
+strn = semver.inc(str, "prerelease", loose, "alpha", "1");
+strn = semver.inc(str, "prerelease", loose, "alpha", false);
 strn = semver.inc(str, "prerelease", { loose: false }, "alpha");
+strn = semver.inc(str, "prerelease", { loose: false }, "alpha", "0");
+strn = semver.inc(str, "prerelease", { loose: false }, "alpha", "1");
+strn = semver.inc(str, "prerelease", { loose: false }, "alpha", false);
 // @ts-expect-error
 strn = semver.inc(str, "prerelease", { includePrerelease: false }, "alpha");
 strn = semver.inc(str, "prerelease", "beta");
-strn = semver.inc("1.2.3", "prerelease", "alpha", "0");
-strn = semver.inc("1.2.3", "prerelease", "alpha", "1");
-strn = semver.inc("1.2.3", "prerelease", "beta", false);
+strn = semver.inc(str, "prerelease", "beta", "0");
+strn = semver.inc(str, "prerelease", "beta", "1");
+strn = semver.inc(str, "prerelease", "beta", false);
+
+let res: string | null = semver.inc("1.2.3", "release"); // $ExpectType string | null
 num = semver.major(str, loose);
 num = semver.major(str, { loose: false });
 // @ts-expect-error

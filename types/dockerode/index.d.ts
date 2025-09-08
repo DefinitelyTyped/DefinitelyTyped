@@ -120,8 +120,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: ImageInspectOptions, callback: Callback<ImageInspectInfo>): void;
         inspect(callback: Callback<ImageInspectInfo>): void;
-        inspect(): Promise<ImageInspectInfo>;
+        inspect(options?: ImageInspectOptions): Promise<ImageInspectInfo>;
 
         history(callback: Callback<any>): void;
         history(): Promise<any>;
@@ -335,6 +336,25 @@ declare namespace Dockerode {
 
     type Duration = number;
 
+    interface ImageDescriptor {
+        mediaType: string;
+        digest: string;
+        size: number;
+        urls?: string[] | undefined;
+        annotations?: { [key: string]: string } | undefined;
+        data?: string | undefined;
+        platform?:
+            | {
+                architecture: string;
+                os: string;
+                "os.version"?: string | undefined;
+                "os.features"?: string[] | undefined;
+                variant?: string | undefined;
+            }
+            | undefined;
+        artifactType?: string | undefined;
+    }
+
     interface ImageInfo {
         Id: string;
         ParentId: string;
@@ -346,6 +366,39 @@ declare namespace Dockerode {
         SharedSize: number;
         Labels: { [label: string]: string };
         Containers: number;
+        Descriptor?: ImageDescriptor | undefined;
+        Manifests?:
+            | {
+                ID: string;
+                Descriptor: ImageDescriptor;
+                Available: boolean;
+                Size: {
+                    Total: number;
+                    Content: number;
+                };
+                Kind: "image" | "attestation" | "unknown";
+                ImageData?:
+                    | {
+                        Platform: {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        };
+                        Containers: string[];
+                        Size: {
+                            Unpacked: number;
+                        };
+                    }
+                    | undefined;
+                AttestationData?:
+                    | {
+                        For: string;
+                    }
+                    | undefined;
+            }[]
+            | undefined;
     }
 
     interface ContainerInfo {
@@ -422,11 +475,15 @@ declare namespace Dockerode {
         Name: string;
         CheckDuplicate?: boolean | undefined;
         Driver?: string | undefined;
+        Scope?: string | undefined;
+        EnableIPv4?: boolean | undefined;
+        EnableIPv6?: boolean | undefined;
+        IPAM?: IPAM | undefined;
         Internal?: boolean | undefined;
         Attachable?: boolean | undefined;
         Ingress?: boolean | undefined;
-        IPAM?: IPAM | undefined;
-        EnableIPv6?: boolean | undefined;
+        ConfigOnly?: boolean | undefined;
+        ConfigFrom?: { Network: string } | undefined;
         Options?: { [option: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
 
@@ -446,13 +503,18 @@ declare namespace Dockerode {
         IPv6Address: string;
     }
 
-    /* tslint:disable:interface-name */
     interface IPAM {
-        Driver: string;
-        Config?: Array<{ [key: string]: string }> | undefined;
+        Driver?: string;
         Options?: { [key: string]: string } | undefined;
+        Config?:
+            | Array<{
+                Subnet?: string | undefined;
+                IPRange?: string | undefined;
+                Gateway?: string | undefined;
+                AuxiliaryAddresses?: Partial<{ [host: string]: string }> | undefined;
+            }>
+            | undefined;
     }
-    /* tslint:enable:interface-name */
 
     interface VolumeCreateOptions {
         Name?: string | undefined;
@@ -473,6 +535,7 @@ declare namespace Dockerode {
 
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
+        force?: boolean | undefined;
     }
 
     interface VolumeCreateResponse {
@@ -566,9 +629,11 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
+            Type: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
             Name?: string | undefined;
             Source: string;
             Destination: string;
+            Driver?: string | undefined;
             Mode: string;
             RW: boolean;
             Propagation: string;
@@ -592,6 +657,7 @@ declare namespace Dockerode {
             Entrypoint?: string | string[] | undefined;
             OnBuild?: any;
             Labels: { [label: string]: string };
+            Healthcheck?: HealthConfig | undefined;
         };
         NetworkSettings: {
             Bridge: string;
@@ -924,9 +990,12 @@ declare namespace Dockerode {
             Entrypoint?: string | string[] | undefined;
             OnBuild: any[];
             Labels: { [label: string]: string };
+            Healthcheck?: HealthConfig | undefined;
         };
         Architecture: string;
+        Variant?: string | undefined;
         Os: string;
+        OsVersion?: string | undefined;
         Size: number;
         VirtualSize: number;
         GraphDriver: {
@@ -942,6 +1011,76 @@ declare namespace Dockerode {
             Layers?: string[] | undefined;
             BaseLayer?: string | undefined;
         };
+        Descriptor?:
+            | {
+                mediaType: string;
+                digest: string;
+                size: number;
+                urls?: string[] | undefined;
+                annotations?: { [key: string]: string } | undefined;
+                data?: string | undefined;
+                platform?:
+                    | {
+                        architecture: string;
+                        os: string;
+                        "os.version"?: string | undefined;
+                        "os.features"?: string[] | undefined;
+                        variant?: string | undefined;
+                    }
+                    | undefined;
+                artifactType?: string | undefined;
+            }
+            | undefined;
+        Manifests?:
+            | {
+                ID: string;
+                Descriptor: {
+                    mediaType: string;
+                    digest: string;
+                    size: number;
+                    urls?: string[] | undefined;
+                    annotations?: { [key: string]: string } | undefined;
+                    data?: string | undefined;
+                    platform?:
+                        | {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        }
+                        | undefined;
+                    artifactType?: string | undefined;
+                };
+                Available: boolean;
+                Size: {
+                    Total: number;
+                    Content: number;
+                };
+                Kind: "image" | "attestation" | "unknown";
+                ImageData?:
+                    | {
+                        Platform: {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        };
+                        Containers: string[];
+                        Size: {
+                            Total: number;
+                            Content: number;
+                        };
+                    }
+                    | undefined;
+                AttestationData?:
+                    | {
+                        For: string;
+                    }
+                    | undefined;
+            }[]
+            | undefined;
     }
 
     interface ImageBuildOptions {
@@ -955,7 +1094,7 @@ declare namespace Dockerode {
         remote?: string | undefined;
         q?: boolean | undefined;
         cachefrom?: string | undefined;
-        pull?: string | undefined;
+        pull?: boolean | undefined;
         rm?: boolean | undefined;
         forcerm?: boolean | undefined;
         memory?: number | undefined;
@@ -985,6 +1124,10 @@ declare namespace Dockerode {
     interface ImageDistributionOptions {
         authconfig?: AuthConfig | undefined;
         abortSignal?: AbortSignal;
+    }
+
+    interface ImageInspectOptions {
+        manifests?: boolean | undefined;
     }
 
     interface ImagePushOptions {
@@ -1107,6 +1250,7 @@ declare namespace Dockerode {
         User?: string | undefined;
         WorkingDir?: string | undefined;
         abortSignal?: AbortSignal;
+        ConsoleSize?: [number, number];
     }
 
     interface ExecInspectInfo {
@@ -1143,7 +1287,7 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    type MountType = "bind" | "volume" | "tmpfs";
+    type MountType = "bind" | "volume" | "tmpfs" | "image";
 
     type MountConsistency = "default" | "consistent" | "cached" | "delegated";
 
@@ -1168,12 +1312,18 @@ declare namespace Dockerode {
                     Name: string;
                     Options: { [option: string]: string };
                 };
+                Subpath?: string;
             }
             | undefined;
         TmpfsOptions?:
             | {
                 SizeBytes: number;
                 Mode: number;
+            }
+            | undefined;
+        ImageOptions?:
+            | {
+                Subpath?: string;
             }
             | undefined;
     }
@@ -1379,6 +1529,7 @@ declare namespace Dockerode {
         Interval?: number | undefined;
         Timeout?: number | undefined;
         StartPeriod?: number | undefined;
+        StartInterval?: number | undefined;
         Retries?: number | undefined;
     }
 
@@ -1843,6 +1994,7 @@ declare namespace Dockerode {
         all?: boolean | undefined;
         filters?: string | { [key: string]: string[] } | undefined;
         digests?: boolean | undefined;
+        manifests?: boolean | undefined;
         abortSignal?: AbortSignal;
     }
 

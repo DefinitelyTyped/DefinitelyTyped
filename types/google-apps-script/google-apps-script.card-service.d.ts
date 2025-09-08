@@ -650,6 +650,8 @@ declare namespace GoogleAppsScript {
             CHECK_BOX,
             RADIO_BUTTON,
             DROPDOWN,
+            SWITCH,
+            MULTI_SELECT,
         }
         /**
          * Autocomplete suggestions to supplement a TextInput widget.

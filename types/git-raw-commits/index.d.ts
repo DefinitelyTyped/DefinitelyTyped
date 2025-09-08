@@ -3,79 +3,84 @@
 import * as Stream from "stream";
 
 /**
- * Returns a readable stream. Stream is split to break on each commit.
+ * Please check the available options at http://git-scm.com/docs/git-log.
  *
- * @param gitOpts
- * @param execOpts Options to pass to `git` `childProcess`.
+ * @remarks
+ * Single dash arguments are not supported because of https://github.com/sindresorhus/dargs/blob/master/index.js#L5.
+ *
+ * @remarks
+ * For `<revision range>` we can also use `<from>..<to>` pattern, and this
+ * module has the following extra options for shortcut of this pattern:
+ *
+ * * `from`
+ * * `to`
+ *
+ * This module also have the following additions:
+ *
+ * * `format`
+ * * `debug`
+ * * `path`
  */
-declare function gitRawCommits(
-    gitOptions: gitRawCommits.GitOptions,
-    execOptions?: gitRawCommits.ExecOptions,
-): Stream.Readable;
-
-declare namespace gitRawCommits {
+export interface GitOptions {
     /**
-     * Options to pass to `git` `childProcess`.
+     * Options to pass to `git` `childProcess`. Current working directory to run git.
+     *
+     * @default
+     * process.cwd()
      */
-    interface ExecOptions {
-        /**
-         * Current working directory to execute git in.
-         */
-        cwd?: string | undefined;
-    }
+    cwd?: string;
 
     /**
-     * Please check the available options at http://git-scm.com/docs/git-log.
+     * A function to get debug information.
      *
-     * @remarks
-     * Single dash arguments are not supported because of https://github.com/sindresorhus/dargs/blob/master/index.js#L5.
-     *
-     * @remarks
-     * For `<revision range>` we can also use `<from>..<to>` pattern, and this
-     * module has the following extra options for shortcut of this pattern:
-     *
-     * * `from`
-     * * `to`
-     *
-     * This module also have the following additions:
-     *
-     * * `format`
-     * * `debug`
-     * * `path`
+     * @default
+     * false
      */
-    interface GitOptions {
-        /**
-         * @default
-         * ''
-         */
-        from?: string | undefined;
+    debug?: boolean | ((message: any) => void);
 
-        /**
-         * @default
-         * 'HEAD'
-         */
-        to?: string | undefined;
+    /**
+     * Ignore commits that match provided string or RegExp.
+     */
+    ignore?: string | RegExp;
 
-        /**
-         * Please check http://git-scm.com/docs/git-log for format options.
-         *
-         * @default
-         * '%B'
-         */
-        format?: string | undefined;
+    /**
+     * Only commits that are modifying this path.
+     */
+    path?: string | string[];
 
-        /**
-         * A function to get debug information.
-         */
-        debug?: ((message: any) => void) | undefined;
+    /**
+     * Starting commit reference or hash.
+     *
+     * @default
+     * ''
+     */
+    from?: string;
 
-        /**
-         * Filter commits to the path provided.
-         */
-        path?: string | undefined;
+    /**
+     * Ending commit reference or hash.
+     *
+     * @default
+     * 'HEAD'
+     */
+    to?: string;
 
-        [options: string]: any;
-    }
+    /**
+     * Format of the commit.
+     *
+     * @default
+     * '%B'
+     */
+    format?: string;
+
+    [options: string]: any;
 }
 
-export = gitRawCommits;
+/**
+ * Get raw commits from git-log.
+ */
+export function getRawCommits(options?: GitOptions): AsyncGenerator<string, void, unknown>;
+
+/**
+ * Get raw commits stream from git-log.
+ */
+export function getRawCommitsStream(options?: GitOptions): Stream.Readable;

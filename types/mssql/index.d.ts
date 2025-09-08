@@ -121,6 +121,8 @@ export declare var TYPES: {
     Variant: ISqlTypeFactoryWithNoParams;
 };
 
+export declare function getTypeByValue(value: unknown): ISqlType;
+
 export declare var MAX: number;
 export declare var fix: boolean;
 export declare var Promise: any;
@@ -278,6 +280,7 @@ type IRow = Array<string | number | boolean | Date | Buffer | undefined | null>;
 
 declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
+    public clear(): void;
 }
 
 export declare class Table {

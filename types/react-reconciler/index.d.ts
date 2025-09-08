@@ -9,12 +9,13 @@ declare function ReactReconciler<
     TextInstance,
     SuspenseInstance,
     HydratableInstance,
+    FormInstance,
     PublicInstance,
     HostContext,
-    UpdatePayload,
     ChildSet,
     TimeoutHandle,
     NoTimeout,
+    TransitionStatus,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -25,14 +26,15 @@ declare function ReactReconciler<
         TextInstance,
         SuspenseInstance,
         HydratableInstance,
+        FormInstance,
         PublicInstance,
         HostContext,
-        UpdatePayload,
         ChildSet,
         TimeoutHandle,
-        NoTimeout
+        NoTimeout,
+        TransitionStatus
     >,
-): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
+): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
 declare namespace ReactReconciler {
     interface HostConfig<
@@ -43,12 +45,13 @@ declare namespace ReactReconciler {
         TextInstance,
         SuspenseInstance,
         HydratableInstance,
+        FormInstance,
         PublicInstance,
         HostContext,
-        UpdatePayload,
         ChildSet,
         TimeoutHandle,
         NoTimeout,
+        TransitionStatus,
     > {
         // -------------------
         //        Modes
@@ -149,22 +152,6 @@ declare namespace ReactReconciler {
         ): boolean;
 
         /**
-         * React calls this method so that you can compare the previous and the next props, and decide whether you need to update the underlying instance or not. If you don't need to update it, return `null`. If you need to update it, you can return an arbitrary object representing the changes that need to happen. Then in `commitUpdate` you would need to apply those changes to the instance.
-         *
-         * This method happens **in the render phase**. It should only *calculate* the update — but not apply it! For example, the DOM renderer returns an array that looks like `[prop1, value1, prop2, value2, ...]` for all props that have actually changed. And only in `commitUpdate` it applies those changes. You should calculate as much as you can in `prepareUpdate` so that `commitUpdate` can be very fast and straightforward.
-         *
-         * See the meaning of `rootContainer` and `hostContext` in the `createInstance` documentation.
-         */
-        prepareUpdate(
-            instance: Instance,
-            type: Type,
-            oldProps: Props,
-            newProps: Props,
-            rootContainer: Container,
-            hostContext: HostContext,
-        ): UpdatePayload | null;
-
-        /**
          * Some target platforms support setting an instance's text content without manually creating a text node. For example, in the DOM, you can set `node.textContent` instead of creating a text node and appending it.
          *
          * If you return `true` from this method, React will assume that this node's children are text, and will not create nodes for them. It will instead rely on you to have filled that text during `createInstance`. This is a performance optimization. For example, the DOM renderer returns `true` only if `type` is a known text-only parent (like `'textarea'`) or if `props.children` has a `'string'` type. If you return `true`, you will need to implement `resetTextContent` too.
@@ -237,7 +224,7 @@ declare namespace ReactReconciler {
         noTimeout: NoTimeout;
 
         /**
-         * Set this to `true` to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
+         * Set this to true to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
          */
         supportsMicrotasks?: boolean;
 
@@ -255,39 +242,6 @@ declare namespace ReactReconciler {
          * Whether the renderer shouldn't trigger missing `act()` warnings
          */
         warnsIfNotActing?: boolean;
-
-        /**
-         * To implement this method, you'll need some constants available on the special `react-reconciler/constants` entry point:
-         *
-         * ```
-         * import {
-         *   DiscreteEventPriority,
-         *   ContinuousEventPriority,
-         *   DefaultEventPriority,
-         * } from 'react-reconciler/constants';
-         *
-         * const HostConfig = {
-         *   // ...
-         *   getCurrentEventPriority() {
-         *     return DefaultEventPriority;
-         *   },
-         *   // ...
-         * }
-         *
-         * const MyRenderer = Reconciler(HostConfig);
-         * ```
-         *
-         * The constant you return depends on which event, if any, is being handled right now. (In the browser, you can check this using `window.event && window.event.type`).
-         *
-         * - **Discrete events**: If the active event is directly caused by the user (such as mouse and keyboard events) and each event in a sequence is intentional (e.g. click), return DiscreteEventPriority. This tells React that they should interrupt any background work and cannot be batched across time.
-         *
-         * - **Continuous events**: If the active event is directly caused by the user but the user can't distinguish between individual events in a sequence (e.g. mouseover), return ContinuousEventPriority. This tells React they should interrupt any background work but can be batched across time.
-         *
-         * - **Other events / No active event**: In all other cases, return DefaultEventPriority. This tells React that this event is considered background work, and interactive events will be prioritized over it.
-         *
-         * You can consult the `getCurrentEventPriority()` implementation in `ReactDOMHostConfig.js` for a reference implementation.
-         */
-        getCurrentEventPriority(): Lane;
 
         getInstanceFromNode(node: any): Fiber | null | undefined;
 
@@ -379,13 +333,12 @@ declare namespace ReactReconciler {
         commitMount?(instance: Instance, type: Type, props: Props, internalInstanceHandle: OpaqueHandle): void;
 
         /**
-         * This method should mutate the `instance` according to the set of changes in `updatePayload`. Here, `updatePayload` is the object that you've returned from `prepareUpdate` and has an arbitrary structure that makes sense for your renderer. For example, the DOM renderer returns an update payload like `[prop1, value1, prop2, value2, ...]` from `prepareUpdate`, and that structure gets passed into `commitUpdate`. Ideally, all the diffing and calculation should happen inside `prepareUpdate` so that `commitUpdate` can be fast and straightforward.
+         * This method should mutate the instance to match nextProps.
          *
-         * The `internalHandle` data structure is meant to be opaque. If you bend the rules and rely on its internal fields, be aware that it may change significantly between versions. You're taking on additional maintenance risk by reading from it, and giving up all guarantees if you write something to it.
+         * The internalHandle data structure is meant to be opaque. If you bend the rules and rely on its internal fields, be aware that it may change significantly between versions. You're taking on additional maintenance risk by reading from it, and giving up all guarantees if you write something to it.
          */
         commitUpdate?(
             instance: Instance,
-            updatePayload: UpdatePayload,
             type: Type,
             prevProps: Props,
             nextProps: Props,
@@ -420,11 +373,10 @@ declare namespace ReactReconciler {
         // -------------------
         // Persistence Methods
         //    (optional)
-        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
         cloneInstance?(
             instance: Instance,
-            updatePayload: UpdatePayload,
             type: Type,
             oldProps: Props,
             newProps: Props,
@@ -449,7 +401,7 @@ declare namespace ReactReconciler {
         //    (optional)
         // You can optionally implement hydration to "attach" to the existing tree during the initial render instead of creating it from scratch. For example, the DOM renderer uses this to attach to an HTML markup.
         //
-        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
         supportsHydration: boolean;
 
@@ -540,6 +492,63 @@ declare namespace ReactReconciler {
         didNotFindHydratableSuspenseInstance?(parentType: Type, parentProps: Props, parentInstance: Instance): void;
 
         errorHydratingContainer?(parentContainer: Container): void;
+
+        // Undocumented
+        // https://github.com/facebook/react/pull/26722
+        NotPendingTransition: TransitionStatus | null;
+        HostTransitionContext: ReactContext<TransitionStatus>;
+
+        // https://github.com/facebook/react/pull/28751
+        setCurrentUpdatePriority(newPriority: EventPriority): void;
+        getCurrentUpdatePriority(): EventPriority;
+        resolveUpdatePriority(): EventPriority;
+
+        // https://github.com/facebook/react/pull/28804
+        resetFormInstance(form: FormInstance): void;
+
+        // https://github.com/facebook/react/pull/25105
+        requestPostPaintCallback(callback: (time: number) => void): void;
+
+        // https://github.com/facebook/react/pull/26025
+        shouldAttemptEagerTransition(): boolean;
+
+        // https://github.com/facebook/react/pull/31528
+        trackSchedulerEvent(): void;
+
+        // https://github.com/facebook/react/pull/31008
+        resolveEventType(): null | string;
+        resolveEventTimeStamp(): number;
+
+        /**
+         * This method is called during render to determine if the Host Component type and props require some kind of loading process to complete before committing an update.
+         */
+        maySuspendCommit(type: Type, props: Props): boolean;
+
+        /**
+         * This method may be called during render if the Host Component type and props might suspend a commit. It can be used to initiate any work that might shorten the duration of a suspended commit.
+         */
+        preloadInstance(type: Type, props: Props): boolean;
+
+        /**
+         * This method is called just before the commit phase. Use it to set up any necessary state while any Host Components that might suspend this commit are evaluated to determine if the commit must be suspended.
+         */
+        startSuspendingCommit(): void;
+
+        /**
+         * This method is called after `startSuspendingCommit` for each Host Component that indicated it might suspend a commit.
+         */
+        suspendInstance(type: Type, props: Props): void;
+
+        /**
+         * This method is called after all `suspendInstance` calls are complete.
+         *
+         * Return `null` if the commit can happen immediately.
+         *
+         * Return `(initiateCommit: Function) => Function` if the commit must be suspended. The argument to this callback will initiate the commit when called. The return value is a cancellation function that the Reconciler can use to abort the commit.
+         */
+        waitForCommitToBeReady():
+            | ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown)
+            | null;
     }
 
     interface Thenable<T> {
@@ -608,6 +617,8 @@ declare namespace ReactReconciler {
 
     type TypeOfMode = number;
 
+    type EventPriority = number;
+
     interface ReactProvider<T> {
         $$typeof: symbol | number;
         type: ReactProviderType<T>;
@@ -639,7 +650,6 @@ declare namespace ReactReconciler {
         $$typeof: symbol | number;
         Consumer: ReactContext<T>;
         Provider: ReactProviderType<T>;
-        _calculateChangedBits: ((a: T, b: T) => number) | null;
         _currentValue: T;
         _currentValue2: T;
         _threadCount: number;
@@ -916,7 +926,7 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
-    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance> {
+    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
         createContainer(
             containerInfo: Container,
             tag: RootTag,

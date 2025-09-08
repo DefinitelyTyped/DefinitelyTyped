@@ -16,6 +16,16 @@ export default class ThirdPartyPartnerViewabilityRequest extends AbstractCrudObj
         status: "status";
         total_file_count: "total_file_count";
     }>;
+    static get Metric(): Readonly<{
+        display_event: "DISPLAY_EVENT";
+        impression: "IMPRESSION";
+        video_event: "VIDEO_EVENT";
+    }>;
+    static get Platform(): Readonly<{
+        audience_network: "AUDIENCE_NETWORK";
+        facebook: "FACEBOOK";
+        instagram: "INSTAGRAM";
+    }>;
     static get Status(): Readonly<{
         created: "CREATED";
         failure: "FAILURE";

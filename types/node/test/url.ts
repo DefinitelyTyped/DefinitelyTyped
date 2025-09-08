@@ -192,6 +192,12 @@ import * as url from "node:url";
     path = url.fileURLToPath(new url.URL("file://test"));
     path = url.fileURLToPath(new url.URL("file://test"), { windows: false });
     path = url.fileURLToPath(new url.URL("file://test"), { windows: true });
+
+    let buffer: Buffer;
+    buffer = url.fileURLToPathBuffer("file://test");
+    buffer = url.fileURLToPathBuffer("file://test", { windows: true });
+    buffer = url.fileURLToPathBuffer(new url.URL("file://test"));
+    buffer = url.fileURLToPathBuffer(new url.URL("file://test"), { windows: true });
 }
 
 {
@@ -211,6 +217,8 @@ import * as url from "node:url";
     const dataUrl2: url.URL = new URL("file://test");
     const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
     const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
+    const urlPattern1: URLPattern = new url.URLPattern();
+    const urlPattern2: url.URLPattern = new URLPattern();
 }
 
 {
@@ -219,4 +227,26 @@ import * as url from "node:url";
 
     const parsedUrl = url.URL.parse("/foo", "https://example.org/");
     parsedUrl; // $ExpectType URL | null
+}
+
+{
+    const urlPattern = new url.URLPattern("https://nodejs.org/docs/latest/api/*.html", { ignoreCase: false });
+    urlPattern.exec("https://nodejs.org/docs/latest/api/dns.html");
+    urlPattern.test("https://nodejs.org/docs/latest/api/dns.html");
+}
+
+{
+    const init: url.URLPatternInit = {
+        pathname: "../docs/latest/api/*.html",
+    };
+
+    const urlPattern = new url.URLPattern(init);
+    urlPattern.exec(init, "https://nodejs.org/about");
+    urlPattern.test(init, "https://nodejs.org/about");
+}
+
+{
+    const urlPattern = new url.URLPattern({});
+    urlPattern.exec();
+    urlPattern.test();
 }
