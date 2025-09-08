@@ -1,6 +1,5 @@
-import {ApolloLink} from "@apollo/client/link";
-import {BaseHttpLink, selectURI} from "@apollo/client/link/http";
-
+import { ApolloLink } from "@apollo/client/link";
+import { BaseHttpLink, selectURI } from "@apollo/client/link/http";
 
 interface UploadHttpLinkOptions {
     /**
@@ -88,7 +87,4 @@ type FormDataFileAppender<ExtractableFile = any> = (
     file: ExtractableFile,
 ) => any;
 
-export {
-    ExtractableFileMatcher,
-    FormDataFileAppender
-}
+export { ExtractableFileMatcher, FormDataFileAppender };
