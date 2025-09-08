@@ -2772,41 +2772,32 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.network {
-        /** Represents a HAR entry for a specific finished request. */
-        export interface HAREntry extends HARFormatEntry {}
-        /** Represents a HAR log that contains all known network requests. */
-        export interface HARLog extends HARFormatLog {}
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-        export interface Request extends chrome.devtools.network.HAREntry {
-            /**
-             * Returns content of the response body.
-             * @param callback A function that receives the response body when the request completes.
-             */
+        export interface Request extends HARFormatEntry {
+            /** Returns content of the response body. */
             getContent(
                 callback: (
-                    /** Content of the response body (potentially encoded) */
+                    /** Content of the response body (potentially encoded). */
                     content: string,
-                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported */
+                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                     encoding: string,
                 ) => void,
             ): void;
         }
 
-        export interface RequestFinishedEvent extends chrome.events.Event<(request: Request) => void> {}
-
-        export interface NavigatedEvent extends chrome.events.Event<(url: string) => void> {}
-
-        /**
-         * Returns HAR log that contains all known network requests.
-         * @param callback A function that receives the HAR log when the request completes.
-         * Parameter harLog: A HAR log. See HAR specification for details.
-         */
-        export function getHAR(callback: (harLog: HARLog) => void): void;
+        /** Returns HAR log that contains all known network requests. */
+        export function getHAR(
+            callback: (
+                /** A HAR log. See HAR specification for details. */
+                harLog: HARFormatLog,
+            ) => void,
+        ): void;
 
         /** Fired when a network request is finished and all request data are available. */
-        export var onRequestFinished: RequestFinishedEvent;
+        export const onRequestFinished: events.Event<(request: Request) => void>;
+
         /** Fired when the inspected window navigates to a new page. */
-        export var onNavigated: NavigatedEvent;
+        export const onNavigated: events.Event<(url: string) => void>;
     }
 
     ////////////////////
