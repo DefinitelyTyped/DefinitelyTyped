@@ -137,3 +137,7 @@ function testStatusIsNotUndefined(
         r4.status.length;
     }
 }
+
+function testWorkerNavigator(workerNavigator: WorkerNavigator) {
+    workerNavigator.usb.getDevices();
+}
