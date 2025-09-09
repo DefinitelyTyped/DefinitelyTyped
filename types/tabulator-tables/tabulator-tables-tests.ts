@@ -1852,3 +1852,8 @@ table.getFilters(true);
 table.getFilters(false);
 // $ExpectType HeaderFilterFunc
 FilterModule.filters[0];
+
+// Testing SortModule
+// setSort can take a string or an array of Sorters
+table.setSort("title", "asc");
+table.setSort([{ column: "title", dir: "asc" }]);
