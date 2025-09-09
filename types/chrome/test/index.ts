@@ -1324,25 +1324,8 @@ function testTtsEngine() {
     });
 }
 
-function testDevtools() {
-    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-        request; // $ExpectType Request
-        console.log("request: ", request);
-    });
-
-    chrome.devtools.performance.onProfilingStarted.addListener(() => {
-        console.log("Profiling started");
-    });
-
-    chrome.devtools.performance.onProfilingStopped.addListener(() => {
-        console.log("Profiling stopped");
-    });
-
-    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-        harLog; // $ExpectType HARLog
-        console.log("harLog: ", harLog);
-    });
-
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/recorder
+function testDevtoolsRecorder() {
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
     checkChromeEvent(view.onHidden, () => void 0);
     checkChromeEvent(view.onShown, () => void 0);
@@ -1355,7 +1338,45 @@ function testDevtools() {
     };
     chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
+}
 
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/panels
+function testDevtoolsPanels() {
+    const title = "title";
+    const iconPath = "iconPath";
+    const pagePath = "pagePath";
+
+    chrome.devtools.panels.elements; // $ExpectType ElementsPanel
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.sources; // $ExpectType SourcesPanel
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.themeName; // $ExpectType "default" | "dark"
+
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // $ExpectType ExtensionPanel
+    });
+
+    const url = "url";
+    const lineNumber = 10;
+    const columnNumber = 10;
+
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+
+    chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
@@ -1411,6 +1432,27 @@ function testDevtoolsInspectedWindow() {
     checkChromeEvent(chrome.devtools.inspectedWindow.onResourceContentCommitted, (resource, content) => {
         resource; // ExpectType Resource
         content; // ExpectType string
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/performance
+function testDevtoolsPerformance() {
+    checkChromeEvent(chrome.devtools.performance.onProfilingStarted, () => void 0);
+    checkChromeEvent(chrome.devtools.performance.onProfilingStopped, () => void 0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/network
+function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR((harLog) => {
+        harLog; // $ExpectType Log
+    });
+
+    checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
+        url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
+        request; // $ExpectType Request
     });
 }
 
