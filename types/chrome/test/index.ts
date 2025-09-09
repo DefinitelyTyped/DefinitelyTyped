@@ -638,6 +638,7 @@ function testRuntime() {
     chrome.runtime.PlatformArch.MIPS64 === "mips64";
     chrome.runtime.PlatformArch.X86_32 === "x86-32";
     chrome.runtime.PlatformArch.X86_64 === "x86-64";
+    chrome.runtime.PlatformArch.RISCV64 === "riscv64";
 
     chrome.runtime.PlatformNaclArch.ARM === "arm";
     chrome.runtime.PlatformNaclArch.MIPS === "mips";
@@ -709,8 +710,8 @@ function testRuntime() {
 
     chrome.runtime.getPlatformInfo(); // $ExpectType Promise<PlatformInfo>
     chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
-        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
-        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64"
+        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64" | "riscv64"
+        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64" | undefined
         platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
     });
     // @ts-expect-error
@@ -1323,37 +1324,8 @@ function testTtsEngine() {
     });
 }
 
-function testDevtools() {
-    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-        request; // $ExpectType Request
-        console.log("request: ", request);
-    });
-
-    chrome.devtools.performance.onProfilingStarted.addListener(() => {
-        console.log("Profiling started");
-    });
-
-    chrome.devtools.performance.onProfilingStopped.addListener(() => {
-        console.log("Profiling stopped");
-    });
-
-    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-        harLog; // $ExpectType HARLog
-        console.log("harLog: ", harLog);
-    });
-
-    chrome.devtools.inspectedWindow.eval("1+1", undefined, result => {
-        console.log(result);
-    });
-
-    chrome.devtools.inspectedWindow.reload();
-    chrome.devtools.inspectedWindow.reload({});
-    chrome.devtools.inspectedWindow.reload({
-        userAgent: "Best Browser",
-        ignoreCache: true,
-        injectedScript: "console.log(\"Hello World!\")",
-    });
-
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/recorder
+function testDevtoolsRecorder() {
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
     checkChromeEvent(view.onHidden, () => void 0);
     checkChromeEvent(view.onShown, () => void 0);
@@ -1366,10 +1338,121 @@ function testDevtools() {
     };
     chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
+}
 
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/panels
+function testDevtoolsPanels() {
+    const title = "title";
+    const iconPath = "iconPath";
+    const pagePath = "pagePath";
+
+    chrome.devtools.panels.elements; // $ExpectType ElementsPanel
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.sources; // $ExpectType SourcesPanel
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
+        result; // $ExpectType ExtensionSidebarPane
+    });
+    checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
+
+    chrome.devtools.panels.themeName; // $ExpectType "default" | "dark"
+
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // $ExpectType ExtensionPanel
+    });
+
+    const url = "url";
+    const lineNumber = 10;
+    const columnNumber = 10;
+
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+
+    chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/inspectedWindow
+function testDevtoolsInspectedWindow() {
+    const expression = "expression";
+
+    const evalOptions: chrome.devtools.inspectedWindow.EvalOptions = {
+        frameURL: "https://example.com",
+        scriptExecutionContext: "script",
+        useContentScriptContext: true,
+    };
+
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
+        result; // ExpectType object
+
+        exceptionInfo.code; // ExpectType string
+        exceptionInfo.description; // ExpectType string
+        exceptionInfo.details; // ExpectType unknown[]
+        exceptionInfo.isError; // ExpectType boolean
+        exceptionInfo.isException; // ExpectType boolean
+        exceptionInfo.value; // ExpectType string
+    });
+    chrome.devtools.inspectedWindow.eval(expression, (result) => { // $ExpectType void
+        result; // ExpectType object
+    });
+    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
+        result.title; // ExpectType string
+    });
+
+    chrome.devtools.inspectedWindow.getResources((resources) => { // $ExpectType void
+        resources; // ExpectType Resource[]
+    });
+
+    const reloadOptions: chrome.devtools.inspectedWindow.ReloadOptions = {
+        ignoreCache: true,
+        injectedScript: "script",
+        userAgent: "userAgent",
+    };
+
+    chrome.devtools.inspectedWindow.reload(); // $ExpectType void
+    chrome.devtools.inspectedWindow.reload(reloadOptions); // $ExpectType void
+
+    checkChromeEvent(chrome.devtools.inspectedWindow.onResourceAdded, (resource) => {
+        resource; // ExpectType Resource
+    });
+
+    checkChromeEvent(chrome.devtools.inspectedWindow.onResourceContentCommitted, (resource, content) => {
+        resource; // ExpectType Resource
+        content; // ExpectType string
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/performance
+function testDevtoolsPerformance() {
+    checkChromeEvent(chrome.devtools.performance.onProfilingStarted, () => void 0);
+    checkChromeEvent(chrome.devtools.performance.onProfilingStopped, () => void 0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/devtools/network
+function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR((harLog) => {
+        harLog; // $ExpectType Log
+    });
+
+    checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
+        url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
+        request; // $ExpectType Request
     });
 }
 
@@ -1971,6 +2054,17 @@ async function testBrowserActionForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
 async function testCookie() {
+    chrome.cookies.OnChangedCause.EVICTED === "evicted";
+    chrome.cookies.OnChangedCause.EXPIRED === "expired";
+    chrome.cookies.OnChangedCause.EXPIRED_OVERWRITE === "expired_overwrite";
+    chrome.cookies.OnChangedCause.EXPLICIT === "explicit";
+    chrome.cookies.OnChangedCause.OVERWRITE === "overwrite";
+
+    chrome.cookies.SameSiteStatus.LAX === "lax";
+    chrome.cookies.SameSiteStatus.NO_RESTRICTION === "no_restriction";
+    chrome.cookies.SameSiteStatus.STRICT === "strict";
+    chrome.cookies.SameSiteStatus.UNSPECIFIED === "unspecified";
+
     const cookieDetails: chrome.cookies.CookieDetails = {
         url: "https://example.com",
         name: "example",
@@ -1978,6 +2072,7 @@ async function testCookie() {
             topLevelSite: "https://example.com",
             hasCrossSiteAncestor: false,
         },
+        storeId: "storeId1",
     };
 
     chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
@@ -1987,12 +2082,26 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.getAll(cookieDetails); // $ExpectType Promise<Cookie[]>
-    chrome.cookies.getAll(cookieDetails, (cookies) => {
+    const cookiesAllDetails: chrome.cookies.GetAllDetails = {
+        domain: "example.com",
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        secure: true,
+        session: true,
+        storeId: "storeId1",
+        url: "https://example.com",
+    };
+
+    chrome.cookies.getAll(cookiesAllDetails); // $ExpectType Promise<Cookie[]>
+    chrome.cookies.getAll(cookiesAllDetails, (cookies) => {
         cookies; // $ExpectType Cookie[]
     });
     // @ts-expect-error
-    chrome.cookies.getAll(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.getAll(cookiesAllDetails, () => {}).then(() => {});
 
     chrome.cookies.getAllCookieStores(); // $ExpectType Promise<CookieStore[]>
     chrome.cookies.getAllCookieStores((cookieStores) => {
@@ -2019,15 +2128,33 @@ async function testCookie() {
     // @ts-expect-error
     chrome.cookies.remove(cookieDetails, () => {}).then(() => {});
 
-    chrome.cookies.set(cookieDetails); // $ExpectType Promise<Cookie | null>
-    chrome.cookies.set(cookieDetails, (cookie) => {
+    const cookieDetailsSet: chrome.cookies.SetDetails = {
+        domain: "example.com",
+        expirationDate: 1717334400,
+        httpOnly: true,
+        name: "example",
+        partitionKey: {
+            topLevelSite: "https://example.com",
+            hasCrossSiteAncestor: false,
+        },
+        path: "/",
+        sameSite: "strict",
+        secure: true,
+        url: "https://example.com",
+        value: "value1",
+    };
+
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet, (cookie) => {
         cookie; // $ExpectType Cookie | null
     });
     // @ts-expect-error
-    chrome.cookies.set(cookieDetails, () => {}).then(() => {});
+    chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
 
     checkChromeEvent(chrome.cookies.onChanged, (changeInfo) => {
-        changeInfo; // $ExpectType CookieChangeInfo
+        changeInfo.cause; // $ExpectType "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite"
+        changeInfo.cookie; // $ExpectType Cookie
+        changeInfo.removed; // $ExpectType boolean
     });
 }
 
@@ -3615,13 +3742,42 @@ function testDocumentScan() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/deviceAttributes
 function testEnterpriseDeviceAttributes() {
-    chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
-    chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
-    chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
-    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
-    chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(annotatedLocation => { // $ExpectType void
+        annotatedLocation; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceAssetId(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => { // $ExpectType void
+        assetId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceAssetId(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceHostname(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => { // $ExpectType void
+        hostName; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceHostname(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => { // $ExpectType void
+        serialNumber; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDeviceSerialNumber(() => {}).then(() => {});
+
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId(); // $ExpectType Promise<string>
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => { // $ExpectType void
+        deviceId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.deviceAttributes.getDirectoryDeviceId(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
@@ -3630,6 +3786,14 @@ function testEnterpriseHardwarePlatform() {
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
     // @ts-expect-error
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/login
+function testEnterpriseLogin() {
+    chrome.enterprise.login.exitCurrentManagedGuestSession(); // $ExpectType Promise<void>
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.login.exitCurrentManagedGuestSession(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/browsingData
@@ -4352,6 +4516,34 @@ function testIdentity() {
     chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0).then(() => void 0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/idle
+function testIdle() {
+    chrome.idle.IdleState.ACTIVE === "active";
+    chrome.idle.IdleState.IDLE === "idle";
+    chrome.idle.IdleState.LOCKED === "locked";
+
+    chrome.idle.getAutoLockDelay(); // $ExpectType Promise<number>
+    chrome.idle.getAutoLockDelay(delay => { // $ExpectType void
+        delay; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.idle.getAutoLockDelay(() => {}).then(() => {});
+
+    const intervalInSeconds = 2;
+    chrome.idle.queryState(intervalInSeconds); // $ExpectType Promise<"active" | "idle" | "locked">
+    chrome.idle.queryState(intervalInSeconds, (newState) => { // $ExpectType void
+        newState; // $ExpectType "active" | "idle" | "locked"
+    });
+    // @ts-expect-error
+    chrome.idle.queryState(intervalInSeconds, () => {}).then(() => {});
+
+    chrome.idle.setDetectionInterval(intervalInSeconds); // $ExpectType void
+
+    checkChromeEvent(chrome.idle.onStateChanged, (newState) => {
+        newState; // $ExpectType "active" | "idle" | "locked"
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/
@@ -6459,4 +6651,39 @@ function testReadingList() {
 // https://developer.chrome.com/docs/extensions/reference/api/dom
 function testDom() {
     chrome.dom.openOrClosedShadowRoot(document.body); // $ExpectType ShadowRoot | null
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/desktopCapture
+function testDesktopCapture() {
+    chrome.desktopCapture.DesktopCaptureSourceType.AUDIO === "audio";
+    chrome.desktopCapture.DesktopCaptureSourceType.SCREEN === "screen";
+    chrome.desktopCapture.DesktopCaptureSourceType.TAB === "tab";
+    chrome.desktopCapture.DesktopCaptureSourceType.WINDOW === "window";
+
+    chrome.desktopCapture.cancelChooseDesktopMedia(0); // $ExpectType void
+
+    const sources: `${chrome.desktopCapture.DesktopCaptureSourceType}`[] = [
+        "screen",
+        chrome.desktopCapture.DesktopCaptureSourceType.WINDOW,
+    ];
+
+    const tab: chrome.tabs.Tab = {
+        index: 0,
+        pinned: false,
+        highlighted: false,
+        windowId: 0,
+        active: false,
+        frozen: false,
+        incognito: false,
+        selected: false,
+        discarded: false,
+        autoDiscardable: false,
+        groupId: 0,
+    };
+
+    chrome.desktopCapture.chooseDesktopMedia(sources, () => {}); // $ExpectType number
+    chrome.desktopCapture.chooseDesktopMedia(sources, tab, (streamId, options) => {
+        streamId; // $ExpectType string
+        options; // $ExpectType StreamOptions
+    });
 }

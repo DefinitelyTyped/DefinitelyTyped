@@ -428,7 +428,7 @@ const config: Partial<Config> = {
         bgcolor: "#ffffff",
         bordercolor: "#444444",
         borderwidth: 1,
-        font: { size: 15 },
+        font: { size: 15, style: "italic" },
         groupclick: "togglegroup",
         grouptitlefont: { size: 15 },
         itemclick: "toggleothers",
@@ -511,7 +511,7 @@ const config: Partial<Config> = {
             colorbar: {
                 title: {
                     text: "Test",
-                    font: { size: 20, color: "#666" },
+                    font: { size: 20, color: "#666", textcase: "lower" },
                     side: "top",
                 },
                 orientation: "v",
@@ -585,7 +585,7 @@ const config: Partial<Config> = {
                     visible: true,
                     prefix: "Date:",
                     xanchor: "right",
-                    font: { size: 20, color: "#666" },
+                    font: { size: 20, color: "#666", lineposition: "through" },
                 },
                 steps: [
                     {

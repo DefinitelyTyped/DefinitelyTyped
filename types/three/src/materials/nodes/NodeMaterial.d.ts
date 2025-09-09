@@ -291,6 +291,7 @@ declare class NodeMaterial extends Material {
      * @default true
      */
     readonly isNodeMaterial: boolean;
+    setValues(values?: NodeMaterialParameters): void;
     /**
      * Builds this material with the given node builder.
      *

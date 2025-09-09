@@ -72,6 +72,7 @@ declare module "react" {
             listener: EventListener,
             optionsOrUseCapture?: Parameters<Element["removeEventListener"]>[2],
         ): void;
+        experimental_scrollIntoView(alignToTop?: boolean): void;
     }
 }
 

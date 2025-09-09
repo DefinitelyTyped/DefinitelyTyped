@@ -329,14 +329,15 @@ declare module "fs" {
          */
         readSync(): Dirent | null;
         /**
-         * Calls `dir.close()` and returns a promise that fulfills when the
-         * dir is closed.
+         * Calls `dir.close()` if the directory handle is open, and returns a promise that
+         * fulfills when disposal is complete.
          * @since v22.17.0
          * @experimental
          */
         [Symbol.asyncDispose](): Promise<void>;
         /**
-         * Calls `dir.closeSync()` and returns `undefined`.
+         * Calls `dir.closeSync()` if the directory handle is open, and returns
+         * `undefined`.
          * @since v22.17.0
          * @experimental
          */
@@ -3340,6 +3341,12 @@ declare module "fs" {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
+    export interface WatchOptionsWithBufferEncoding extends WatchOptions {
+        encoding: "buffer";
+    }
+    export interface WatchOptionsWithStringEncoding extends WatchOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     export type WatchEventType = "rename" | "change";
     export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
     export type StatsListener = (curr: Stats, prev: Stats) => void;
@@ -3366,44 +3373,20 @@ declare module "fs" {
      */
     export function watch(
         filename: PathLike,
-        options:
-            | (WatchOptions & {
-                encoding: "buffer";
-            })
-            | "buffer",
-        listener?: WatchListener<Buffer>,
-    ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
-    export function watch(
-        filename: PathLike,
-        options?: WatchOptions | BufferEncoding | null,
+        options?: WatchOptionsWithStringEncoding | BufferEncoding | null,
         listener?: WatchListener<string>,
     ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
     export function watch(
         filename: PathLike,
-        options: WatchOptions | string,
-        listener?: WatchListener<string | Buffer>,
+        options: WatchOptionsWithBufferEncoding | "buffer",
+        listener: WatchListener<Buffer>,
     ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     */
-    export function watch(filename: PathLike, listener?: WatchListener<string>): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: WatchOptions | BufferEncoding | "buffer" | null,
+        listener: WatchListener<string | Buffer>,
+    ): FSWatcher;
+    export function watch(filename: PathLike, listener: WatchListener<string>): FSWatcher;
     /**
      * Test whether or not the given path exists by checking with the file system.
      * Then call the `callback` argument with either true or false:

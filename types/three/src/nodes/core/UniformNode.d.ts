@@ -67,11 +67,11 @@ export default UniformNode;
  *
  * @tsl
  * @function
- * @param {any} arg1 - The value of this node. Usually a JS primitive or three.js object (vector, matrix, color, texture).
- * @param {string} [arg2] - The node type. If no explicit type is defined, the node tries to derive the type from its value.
+ * @param {any|string} value - The value of this uniform or your type. Usually a JS primitive or three.js object (vector, matrix, color, texture).
+ * @param {string} [type] - The node type. If no explicit type is defined, the node tries to derive the type from its value.
  * @returns {UniformNode}
  */
 export declare const uniform: <TValue>(
-    arg1: InputNode<TValue> | TValue,
-    arg2?: Node | string,
+    value: InputNode<TValue> | TValue,
+    type?: Node | string,
 ) => import("../tsl/TSLCore.js").ShaderNodeObject<UniformNode<TValue>>;

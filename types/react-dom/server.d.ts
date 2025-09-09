@@ -22,7 +22,7 @@ declare global {
 }
 
 import { ReactNode } from "react";
-import { ErrorInfo } from "./client";
+import { ErrorInfo, ReactFormState } from "./client";
 
 export type BootstrapScriptDescriptor = {
     src: string;
@@ -42,6 +42,7 @@ export interface RenderToPipeableStreamOptions {
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    formState?: ReactFormState | null;
 }
 
 export interface PipeableStream {
@@ -93,6 +94,7 @@ export interface RenderToReadableStreamOptions {
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    formState?: ReactFormState | null;
 }
 
 export interface ReactDOMServerReadableStream extends ReadableStream {
