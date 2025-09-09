@@ -2772,41 +2772,32 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.network {
-        /** Represents a HAR entry for a specific finished request. */
-        export interface HAREntry extends HARFormatEntry {}
-        /** Represents a HAR log that contains all known network requests. */
-        export interface HARLog extends HARFormatLog {}
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-        export interface Request extends chrome.devtools.network.HAREntry {
-            /**
-             * Returns content of the response body.
-             * @param callback A function that receives the response body when the request completes.
-             */
+        export interface Request extends HARFormatEntry {
+            /** Returns content of the response body. */
             getContent(
                 callback: (
-                    /** Content of the response body (potentially encoded) */
+                    /** Content of the response body (potentially encoded). */
                     content: string,
-                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported */
+                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                     encoding: string,
                 ) => void,
             ): void;
         }
 
-        export interface RequestFinishedEvent extends chrome.events.Event<(request: Request) => void> {}
-
-        export interface NavigatedEvent extends chrome.events.Event<(url: string) => void> {}
-
-        /**
-         * Returns HAR log that contains all known network requests.
-         * @param callback A function that receives the HAR log when the request completes.
-         * Parameter harLog: A HAR log. See HAR specification for details.
-         */
-        export function getHAR(callback: (harLog: HARLog) => void): void;
+        /** Returns HAR log that contains all known network requests. */
+        export function getHAR(
+            callback: (
+                /** A HAR log. See HAR specification for details. */
+                harLog: HARFormatLog,
+            ) => void,
+        ): void;
 
         /** Fired when a network request is finished and all request data are available. */
-        export var onRequestFinished: RequestFinishedEvent;
+        export const onRequestFinished: events.Event<(request: Request) => void>;
+
         /** Fired when the inspected window navigates to a new page. */
-        export var onNavigated: NavigatedEvent;
+        export const onNavigated: events.Event<(url: string) => void>;
     }
 
     ////////////////////
@@ -2817,14 +2808,10 @@ declare namespace chrome {
      * @since Chrome 129
      */
     export namespace devtools.performance {
-        export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
-
-        export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
-
-        /** Fired when the Performance panel begins recording performance data. */
-        export var onProfilingStarted: ProfilingStartedEvent;
-        /** Fired when the Performance panel stops recording performance data. */
-        export var onProfilingStopped: ProfilingStoppedEvent;
+        /** Fired when the Performance panel starts recording. */
+        export const onProfilingStarted: events.Event<() => void>;
+        /** Fired when the Performance panel stops recording. */
+        export const onProfilingStopped: events.Event<() => void>;
     }
 
     ////////////////////
@@ -2836,12 +2823,6 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.panels {
-        export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
-
-        export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
-
-        export interface PanelSearchEvent extends chrome.events.Event<(action: string, queryString?: string) => void> {}
-
         /** Represents a panel created by an extension. */
         export interface ExtensionPanel {
             /**
@@ -2852,14 +2833,12 @@ declare namespace chrome {
              */
             createStatusBarButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
             /** Fired when the user switches to the panel. */
-            onShown: PanelShownEvent;
+            onShown: events.Event<(window: Window) => void>;
             /** Fired when the user switches away from the panel. */
-            onHidden: PanelHiddenEvent;
+            onHidden: events.Event<() => void>;
             /** Fired upon a search action (start of a new search, search result navigation, or search being canceled). */
-            onSearch: PanelSearchEvent;
+            onSearch: events.Event<(action: string, queryString?: string) => void>;
         }
-
-        export interface ButtonClickedEvent extends chrome.events.Event<() => void> {}
 
         /** A button created by the extension. */
         export interface Button {
@@ -2871,38 +2850,14 @@ declare namespace chrome {
              */
             update(iconPath?: string | null, tooltipText?: string | null, disabled?: boolean | null): void;
             /** Fired when the button is clicked. */
-            onClicked: ButtonClickedEvent;
+            onClicked: events.Event<() => void>;
         }
-
-        export interface SelectionChangedEvent extends chrome.events.Event<() => void> {}
 
         /** Represents the Elements panel. */
         export interface ElementsPanel {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
-             * @param callback A callback invoked when the sidebar is created.
-             */
-            createSidebarPane(
-                title: string,
-                callback?: (
-                    /** An ExtensionSidebarPane object for created sidebar pane */
-                    result: ExtensionSidebarPane,
-                ) => void,
-            ): void;
-            /** Fired when an object is selected in the panel. */
-            onSelectionChanged: SelectionChangedEvent;
-        }
-
-        /**
-         * @since Chrome 41
-         * Represents the Sources panel.
-         */
-        export interface SourcesPanel {
-            /**
-             * Creates a pane within panel's sidebar.
-             * @param title Text that is displayed in sidebar caption.
-             * @param callback A callback invoked when the sidebar is created.
              */
             createSidebarPane(
                 title: string,
@@ -2912,115 +2867,113 @@ declare namespace chrome {
                 ) => void,
             ): void;
             /** Fired when an object is selected in the panel. */
-            onSelectionChanged: SelectionChangedEvent;
+            onSelectionChanged: events.Event<() => void>;
         }
 
-        export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: Window) => void> {}
-
-        export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
+        /** Represents the Sources panel. */
+        export interface SourcesPanel {
+            /**
+             * Creates a pane within panel's sidebar.
+             * @param title Text that is displayed in sidebar caption.
+             */
+            createSidebarPane(
+                title: string,
+                callback?: (
+                    /** An ExtensionSidebarPane object for created sidebar pane. */
+                    result: ExtensionSidebarPane,
+                ) => void,
+            ): void;
+            /** Fired when an object is selected in the panel. */
+            onSelectionChanged: events.Event<() => void>;
+        }
 
         /** A sidebar created by the extension. */
         export interface ExtensionSidebarPane {
             /**
              * Sets the height of the sidebar.
-             * @param height A CSS-like size specification, such as '100px' or '12ex'.
+             * @param height A CSS-like size specification, such as `100px` or `12ex`.
              */
             setHeight(height: string): void;
             /**
              * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
              * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
              * @param rootTitle An optional title for the root of the expression tree.
-             * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results.
-             */
-            setExpression(expression: string, rootTitle?: string, callback?: () => void): void;
-            /**
-             * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
-             * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
-             * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results.
              */
             setExpression(expression: string, callback?: () => void): void;
+            setExpression(expression: string, rootTitle: string | undefined, callback?: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param rootTitle An optional title for the root of the expression tree.
-             * @param callback A callback invoked after the sidebar is updated with the object.
-             */
-            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string, callback?: () => void): void;
-            /**
-             * Sets a JSON-compliant object to be displayed in the sidebar pane.
-             * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
-             * @param callback A callback invoked after the sidebar is updated with the object.
              */
             setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
+            setObject(
+                jsonObject: { [key: string]: unknown },
+                rootTitle: string | undefined,
+                callback?: () => void,
+            ): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
              * @param path Relative path of an extension page to display within the sidebar.
              */
             setPage(path: string): void;
             /** Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it. */
-            onShown: ExtensionSidebarPaneShownEvent;
+            onShown: events.Event<(window: Window) => void>;
             /** Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane. */
-            onHidden: ExtensionSidebarPaneHiddenEvent;
+            onHidden: events.Event<() => void>;
         }
 
         /** Elements panel. */
-        export var elements: ElementsPanel;
-        /**
-         * @since Chrome 38
-         * Sources panel.
-         */
-        export var sources: SourcesPanel;
+        export const elements: ElementsPanel;
+
+        /** Sources panel. */
+        export const sources: SourcesPanel;
 
         /**
          * Creates an extension panel.
          * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
          * @param iconPath Path of the panel's icon relative to the extension directory.
          * @param pagePath Path of the panel's HTML page relative to the extension directory.
-         * @param callback A function that is called when the panel is created.
-         * Parameter panel: An ExtensionPanel object representing the created panel.
          */
         export function create(
             title: string,
             iconPath: string,
             pagePath: string,
-            callback?: (panel: ExtensionPanel) => void,
+            callback?: (
+                /** An ExtensionPanel object representing the created panel. */
+                panel: ExtensionPanel,
+            ) => void,
         ): void;
-        /**
-         * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
-         * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
-         * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked.
-         * Parameter lineNumber: Specifies the line number within the resource that was clicked.
-         */
+
+        /** Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter. */
         export function setOpenResourceHandler(
-            callback?: (resource: chrome.devtools.inspectedWindow.Resource, lineNumber: number) => void,
+            callback?: (
+                /** A {@link devtools.inspectedWindow.Resource} object for the resource that was clicked. */
+                resource: chrome.devtools.inspectedWindow.Resource,
+                /** Specifies the line number within the resource that was clicked. */
+                lineNumber: number,
+            ) => void,
         ): void;
+
         /**
-         * @since Chrome 38
-         * Requests DevTools to open a URL in a Developer Tools panel.
-         * @param url The URL of the resource to open.
-         * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
-         * @param callback A function that is called when the resource has been successfully loaded.
-         */
-        export function openResource(url: string, lineNumber: number, callback?: () => void): void;
-        /**
-         * @since Chrome 96
          * Requests DevTools to open a URL in a Developer Tools panel.
          * @param url The URL of the resource to open.
          * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
          * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
-         * @param callback A function that is called when the resource has been successfully loaded.
          */
+        export function openResource(url: string, lineNumber: number, callback?: () => void): void;
         export function openResource(
             url: string,
             lineNumber: number,
-            columnNumber: number,
-            callback?: (response: unknown) => unknown,
+            columnNumber: number | undefined,
+            callback?: () => void,
         ): void;
+
         /**
-         * @since Chrome 59
          * The name of the color theme set in user's DevTools settings.
+         * @since Chrome 59
          */
-        export var themeName: "default" | "dark";
+        export const themeName: "default" | "dark";
     }
 
     ////////////////////
