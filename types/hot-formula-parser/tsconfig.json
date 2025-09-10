@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "hot-formula-parser-tests.ts"
+        "hot-formula-parser-tests.mts"
     ]
 }
