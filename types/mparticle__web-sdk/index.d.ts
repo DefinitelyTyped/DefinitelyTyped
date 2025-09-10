@@ -362,6 +362,11 @@ interface SelectPlacements {
     (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
 }
 
+interface Use { 
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    <T = unknown> (name: string): Promise<T>; 
+}
+
 interface HashAttributes {
     (attributes: RoktPartnerAttributes): Promise<Record<string, string>>;
 }
@@ -556,6 +561,7 @@ export namespace Rokt {
     const selectPlacements: SelectPlacements;
     const hashAttributes: HashAttributes;
     const setExtensionData: SetExtensionData;
+    const use: Use;
 }
 
 export interface IdentifyRequest {
@@ -817,6 +823,7 @@ declare class mParticleInstance {
         selectPlacements: SelectPlacements;
         hashAttributes: HashAttributes;
         setExtensionData: SetExtensionData;
+        use: Use;
     };
     PromotionType: {
         Unknown: PromotionType.Unknown;
