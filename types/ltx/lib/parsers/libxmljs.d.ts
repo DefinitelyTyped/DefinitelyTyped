@@ -1,4 +1,3 @@
-import Parser = require("../Parser.js");
+import SaxLibxmljs from "../../src/parsers/libxmljs";
 
-declare class SaxLibxmljs extends Parser {}
 export = SaxLibxmljs;

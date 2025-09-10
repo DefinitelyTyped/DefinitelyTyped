@@ -1,4 +1,3 @@
-import Element = require("./Element.js");
+import stringify from "../src/stringify";
 
-declare function stringify(el: Element, indent?: number, level?: number): string;
 export = stringify;

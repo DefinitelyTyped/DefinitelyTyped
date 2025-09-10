@@ -1,8 +1,3 @@
-import Element = require("./Element.js");
+import createElement from "../src/createElement";
 
-declare function createElement(
-    name: string,
-    attrs?: string | { [attrName: string]: any },
-    ...children: Element.Node[]
-): Element;
 export = createElement;

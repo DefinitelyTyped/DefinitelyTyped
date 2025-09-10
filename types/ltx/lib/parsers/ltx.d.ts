@@ -1,4 +1,3 @@
-import Parser = require("../Parser.js");
+import SaxLtx from "../../src/parsers/ltx";
 
-declare class SaxLtx extends Parser {}
 export = SaxLtx;

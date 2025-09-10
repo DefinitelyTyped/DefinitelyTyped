@@ -1,3 +1,1 @@
-import tagString = require("../lib/tagString.js");
-
-export default tagString;
+export default function tagString(literals: string[], ...substitutions: string[]): string;

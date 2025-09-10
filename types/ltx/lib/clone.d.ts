@@ -1,4 +1,3 @@
-import { Node } from "./Element.js";
+import clone from "../src/clone";
 
-declare function clone<T extends Node>(el: T): T;
 export = clone;

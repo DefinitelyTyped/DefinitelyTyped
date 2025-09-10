@@ -1,6 +1,3 @@
-import Element = require("./Element.js");
-import tagString = require("./tagString.js");
+import tag from "../src/tag";
 
-declare function tag(...args: Parameters<typeof tagString>): Element;
 export = tag;
-

@@ -1,3 +1,3 @@
-import stringify = require("../lib/stringify.js");
+import Element from "./Element";
 
-export default stringify;
+export default function stringify(el: Element, indent?: number, level?: number): string;

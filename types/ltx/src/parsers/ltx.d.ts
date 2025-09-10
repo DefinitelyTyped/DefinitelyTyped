@@ -1,3 +1,3 @@
-import SaxLtx = require("../../lib/parsers/ltx.js");
+import Parser from "../Parser";
 
-export default SaxLtx;
+export default class SaxLtx extends Parser {}

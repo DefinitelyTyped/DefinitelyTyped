@@ -1,3 +1,3 @@
-import SaxSaxjs = require("../../lib/parsers/sax-js.js");
+import Parser from "../Parser";
 
-export default SaxSaxjs;
+export default class SaxSaxjs extends Parser {}

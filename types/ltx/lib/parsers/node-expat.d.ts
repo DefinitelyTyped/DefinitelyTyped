@@ -1,4 +1,3 @@
-import Parser = require("../Parser.js");
+import SaxExpat from "../../src/parsers/node-expat";
 
-declare class SaxExpat extends Parser {}
 export = SaxExpat;

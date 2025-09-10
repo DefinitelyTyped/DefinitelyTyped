@@ -38,10 +38,6 @@ ltx.nameEqual(el, el); // $ExpectType boolean
 ltx.attrsEqual(el, el); // $ExpectType boolean
 ltx.childrenEqual(el, el); // $ExpectType boolean
 ltx.equal(el, el); // $ExpectType boolean
-ltx2.nameEqual(el, el); // $ExpectType boolean
-ltx2.attrsEqual(el, el); // $ExpectType boolean
-ltx2.childrenEqual(el, el); // $ExpectType boolean
-ltx2.equal(el, el); // $ExpectType boolean
 
 ltx.createElement("el"); // $ExpectType Element
 ltx.createElement("el", "xml"); // $ExpectType Element

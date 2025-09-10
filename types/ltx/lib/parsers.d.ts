@@ -1,5 +1,3 @@
-import Parser = require("./Parser.js");
-
-declare const parsers: Array<typeof Parser>;
+import parsers from "../src/parsers";
 
 export = parsers;

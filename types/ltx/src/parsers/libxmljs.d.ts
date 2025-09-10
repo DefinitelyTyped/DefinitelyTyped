@@ -1,3 +1,3 @@
-import SaxLibxmljs = require("../../lib/parsers/libxmljs.js");
+import Parser from "../Parser";
 
-export default SaxLibxmljs;
+export default class SaxLibxmljs extends Parser {}

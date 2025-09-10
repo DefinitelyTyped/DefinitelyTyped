@@ -1,4 +1,6 @@
-import equal = require("../lib/equal.js");
+import Element from "./Element";
 
-export default equal.default;
-export * from "../lib/equal.js";
+export function nameEqual(a: Element, b: Element): boolean;
+export function attrsEqual(a: Element, b: Element): boolean;
+export function childrenEqual(a: Element, b: Element): boolean;
+export default function equal(a: Element, b: Element): boolean;
