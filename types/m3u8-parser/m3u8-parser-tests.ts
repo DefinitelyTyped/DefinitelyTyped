@@ -337,3 +337,143 @@ const parsed2: Manifest = {
         "SUBTITLES": {},
     },
 };
+
+// Case: https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/hls/xgplayer-demo.m3u8
+
+const parsed3: Manifest = {
+    "allowCache": true,
+    "discontinuityStarts": [],
+    "dateRanges": [],
+    "iFramePlaylists": [],
+    "segments": [
+        {
+            "duration": 6,
+            "uri": "segment-0.ts",
+            "timeline": 0,
+        },
+        {
+            "duration": 6,
+            "uri": "segment-1.ts",
+            "timeline": 0,
+        },
+        {
+            "duration": 6,
+            "uri": "segment-2.ts",
+            "timeline": 0,
+        },
+        {
+            "duration": 6.16,
+            "uri": "segment-3.ts",
+            "timeline": 0,
+        },
+    ],
+    "version": 3,
+    "playlistType": "VOD",
+    "independentSegments": true,
+    "targetDuration": 6,
+    "mediaSequence": 0,
+    "discontinuitySequence": 0,
+    "endList": true,
+};
+
+// Case: https://rdmedia.bbc.co.uk/testcard/vod/manifests/avc-full.m3u8
+
+const parsed4: Manifest = {
+    "allowCache": true,
+    "discontinuityStarts": [],
+    "dateRanges": [],
+    "iFramePlaylists": [],
+    "segments": [],
+    "version": 7,
+    "independentSegments": true,
+    "mediaGroups": {
+        "AUDIO": {
+            "audio-128kbps": {
+                "Francais": {
+                    "default": false,
+                    "autoselect": true,
+                    "language": "fr",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/audio/fr-128kbps/audio.m3u8",
+                },
+                "English-AD": {
+                    "default": false,
+                    "autoselect": true,
+                    "language": "en",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/audio/en-bm-128kbps/audio.m3u8",
+                    "characteristics": "public.accessibility.describes-video",
+                },
+            },
+            "audio-48kbps": {
+                "Deutsch": {
+                    "default": false,
+                    "autoselect": true,
+                    "language": "de",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/audio/de-48kbps/audio.m3u8",
+                },
+            },
+            "audio-96kbps": {
+                "Francais-AD": {
+                    "default": false,
+                    "autoselect": true,
+                    "language": "fr",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/audio/fr-bm-96kbps/audio.m3u8",
+                    "characteristics": "public.accessibility.describes-video",
+                },
+            },
+        },
+        "VIDEO": {},
+        "CLOSED-CAPTIONS": {},
+        "SUBTITLES": {
+            "888": {
+                "English": {
+                    "default": true,
+                    "autoselect": true,
+                    "language": "en",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/subtitles/en-subs/subtitles.m3u8",
+                    "characteristics": "public.accessibility.describes-music-and-sound",
+                },
+                "Deutsch": {
+                    "default": false,
+                    "autoselect": true,
+                    "language": "de",
+                    "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/subtitles/de-subs/subtitles.m3u8",
+                    "characteristics": "public.accessibility.describes-music-and-sound",
+                },
+            },
+        },
+    },
+    "playlists": [
+        {
+            "attributes": {
+                "RESOLUTION": {
+                    "width": 1920,
+                    "height": 1080,
+                },
+                "FRAME-RATE": 50,
+                "SUBTITLES": "888",
+                "AUDIO": "audio-320kbps",
+                "CODECS": "avc3.64002a,mp4a.40.2,stpp.ttml.im1t",
+                "AVERAGE-BANDWIDTH": "10855552",
+                "BANDWIDTH": 11941107,
+            },
+            "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/avc3-events/1920x1080p50/video.m3u8",
+            "timeline": 0,
+        },
+        {
+            "attributes": {
+                "RESOLUTION": {
+                    "width": 1280,
+                    "height": 720,
+                },
+                "FRAME-RATE": 50,
+                "SUBTITLES": "888",
+                "AUDIO": "audio-320kbps",
+                "CODECS": "avc3.640020,mp4a.40.2,stpp.ttml.im1t",
+                "AVERAGE-BANDWIDTH": "5517928",
+                "BANDWIDTH": 6069720,
+            },
+            "uri": "https://vod-dash-ww-rd-live.akamaized.net/testcard/2/avc3-events/1280x720p50/video.m3u8",
+            "timeline": 0,
+        },
+    ],
+};

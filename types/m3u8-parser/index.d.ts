@@ -34,10 +34,10 @@ export interface ByteRange {
 }
 
 export interface Segment {
-    dateTimeString: string;
-    dateTimeObject: Date;
-    programDateTime: number;
-    title: string;
+    dateTimeString?: string;
+    dateTimeObject?: Date;
+    programDateTime?: number;
+    title?: string;
     duration: number;
     uri: string;
 
@@ -98,6 +98,7 @@ export interface Manifest {
     };
     mediaSequence?: number;
     discontinuitySequence?: number;
+    independentSegments?: boolean;
     playlistType?: "VOD" | "EVENT";
     mediaGroups?: {
         [groupName: string]: {
