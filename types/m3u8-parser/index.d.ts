@@ -8,12 +8,16 @@ export abstract class Stream {
 }
 
 export interface RawAttributes {
-    RESOLUTION?: unknown;
+    RESOLUTION?: { width: number; height: number };
     BANDWIDTH?: number;
     "FRAME-RATE"?: number;
     "PROGRAM-ID"?: number;
     PRECISE?: number;
     "TIME-OFFSET"?: unknown;
+    URI?: string;
+    CODECS?: string;
+    AUDIO?: string;
+    SUBTITLES?: string;
 
     [other: string]: unknown;
 }
@@ -98,13 +102,15 @@ export interface Manifest {
     mediaGroups?: {
         [groupName: string]: {
             [groupId: string]: {
-                default: boolean;
-                autoselect: boolean;
-                language: string;
-                uri: string;
-                instreamId: string;
-                characteristics: string;
-                forced: boolean;
+                [itemName: string]: {
+                    default: boolean;
+                    autoselect: boolean;
+                    language: string;
+                    uri?: string;
+                    instreamId?: string;
+                    characteristics?: string;
+                    forced?: boolean;
+                };
             };
         };
     };
@@ -119,7 +125,14 @@ export interface Manifest {
     totalDuration?: number;
     endList?: boolean;
     custom?: unknown;
-    playlists?: (Manifest & { attributes: Attributes })[];
+    playlists?: PlaylistItem[];
+}
+
+export interface PlaylistItem {
+    attributes: RawAttributes;
+    uri: string;
+    timeline: number;
+    contentProtection?: Manifest["contentProtection"];
 }
 
 export class Parser extends Stream {
