@@ -32,47 +32,47 @@ NCALayerClient.normalizeDataToSign("aGVsbG8=");
 // Basics sign helpers
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSign(
-  null,
-  "cms",
-  "aGVsbG8=",
-  NCALayerClient.basicsCMSParams,
-  NCALayerClient.basicsSignerAny,
-  "ru",
+    null,
+    "cms",
+    "aGVsbG8=",
+    NCALayerClient.basicsCMSParams,
+    NCALayerClient.basicsSignerAny,
+    "ru",
 );
 
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignCMS(
-  null,
-  "aGVsbG8=",
-  NCALayerClient.basicsCMSParams,
-  NCALayerClient.basicsSignerAny,
+    null,
+    "aGVsbG8=",
+    NCALayerClient.basicsCMSParams,
+    NCALayerClient.basicsSignerAny,
 );
 
 // $ExpectType Promise<string | ReadonlyArray<string>>
 client.basicsSignXML(
-  null,
-  "<doc/>",
-  NCALayerClient.basicsXMLParams,
-  NCALayerClient.basicsSignerAny,
+    null,
+    "<doc/>",
+    NCALayerClient.basicsXMLParams,
+    NCALayerClient.basicsSignerAny,
 );
 
 // Invalid basics format
 client.basicsSign(
-  null,
-  // @ts-expect-error
-  "pdf",
-  "a",
-  NCALayerClient.basicsCMSParams,
-  NCALayerClient.basicsSignerAny,
-  "ru",
+    null,
+    // @ts-expect-error
+    "pdf",
+    "a",
+    NCALayerClient.basicsCMSParams,
+    NCALayerClient.basicsSignerAny,
+    "ru",
 );
 
 // Logo setting accepts various inputs
 // $ExpectType Promise<void>
 client.setLogoForBasicsSign("aGVsbG8=");
 client.setLogoForBasicsSign(
-  // @ts-expect-error
-  123,
+    // @ts-expect-error
+    123,
 );
 
 // KMD HTTP API helpers
@@ -95,9 +95,9 @@ client.createCAdESFromBase64("PKCS12", "aGVsbG8=");
 // $ExpectType Promise<string>
 client.createCAdESFromBase64Hash("PKCS12", "aGVsbG8=");
 client.createCAdESFromBase64(
-  "PKCS12",
-  // @ts-expect-error
-  42,
+    "PKCS12",
+    // @ts-expect-error
+    42,
 );
 
 // XML signing APIs
@@ -109,4 +109,3 @@ client.signXmls("PKCS12", ["<a/>", "<b/>"]);
 // Locale
 // $ExpectType Promise<void>
 client.changeLocale("kk");
-
