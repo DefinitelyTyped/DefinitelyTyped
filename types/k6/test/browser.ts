@@ -2416,6 +2416,16 @@ async function test() {
     frame.waitForTimeout(10000);
 
     //
+    // FrameLocator
+    //
+    const frameLocator = page.locator(selector).contentFrame();
+
+    // $ExpectType Locator
+    frameLocator.locator("div");
+    // @ts-expect-error
+    frameLocator.locator();
+
+    //
     // Touchscreen.tap
     //
 
