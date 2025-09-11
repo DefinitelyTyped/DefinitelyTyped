@@ -1185,6 +1185,9 @@ async function test() {
     // $ExpectType Promise<void>
     locator.click({ trial: true });
 
+    // $ExpectType FrameLocator
+    locator.contentFrame();
+
     // $ExpectType Promise<void>
     locator.dblclick();
     // $ExpectType Promise<void>

@@ -2128,6 +2128,13 @@ export interface Locator {
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
+     * Returns a `FrameLocator` that can be used to locate elements within an
+     * `iframe`.
+     * @returns A `FrameLocator`.
+     */
+    contentFrame(): FrameLocator;
+
+    /**
      * Returns the number of elements matching the selector.
      *
      * **Usage**
