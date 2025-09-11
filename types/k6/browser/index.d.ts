@@ -1964,6 +1964,30 @@ export interface Frame {
 }
 
 /**
+ * FrameLocator makes it easier to locate elements within an `iframe` on the
+ * page. `FrameLocator` are created by calling `page.locator(selector).contentFrame()`.
+ * It works in the same way as `Locator` instances.
+ */
+export interface FrameLocator {
+    /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const frame = page.frameLocator('iframe');
+     * const rows = frame.locator('table tr');
+     * const cell = rows.locator('.selected');
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @returns The new locator.
+     */
+    locator(selector: string): Locator;
+}
+
+/**
  * JSHandle represents an in-page JavaScript object.
  */
 export interface JSHandle<T = any> {
