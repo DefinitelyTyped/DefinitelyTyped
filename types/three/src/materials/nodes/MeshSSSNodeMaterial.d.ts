@@ -92,6 +92,7 @@ export interface MeshSSSNodeMaterialParameters
  */
 declare class MeshSSSNodeMaterial extends MeshPhysicalNodeMaterial {
     constructor(parameters?: MeshSSSNodeMaterialParameters);
+    setValues(values?: MeshSSSNodeMaterialParameters): void;
     /**
      * Whether the lighting model should use SSS or not.
      *

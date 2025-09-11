@@ -8,12 +8,16 @@ export abstract class Stream {
 }
 
 export interface RawAttributes {
-    RESOLUTION?: unknown;
+    RESOLUTION?: { width: number; height: number };
     BANDWIDTH?: number;
     "FRAME-RATE"?: number;
     "PROGRAM-ID"?: number;
     PRECISE?: number;
     "TIME-OFFSET"?: unknown;
+    URI?: string;
+    CODECS?: string;
+    AUDIO?: string;
+    SUBTITLES?: string;
 
     [other: string]: unknown;
 }
@@ -30,10 +34,10 @@ export interface ByteRange {
 }
 
 export interface Segment {
-    dateTimeString: string;
-    dateTimeObject: Date;
-    programDateTime: number;
-    title: string;
+    dateTimeString?: string;
+    dateTimeObject?: Date;
+    programDateTime?: number;
+    title?: string;
     duration: number;
     uri: string;
 
@@ -94,17 +98,20 @@ export interface Manifest {
     };
     mediaSequence?: number;
     discontinuitySequence?: number;
+    independentSegments?: boolean;
     playlistType?: "VOD" | "EVENT";
     mediaGroups?: {
         [groupName: string]: {
             [groupId: string]: {
-                default: boolean;
-                autoselect: boolean;
-                language: string;
-                uri: string;
-                instreamId: string;
-                characteristics: string;
-                forced: boolean;
+                [itemName: string]: {
+                    default: boolean;
+                    autoselect: boolean;
+                    language: string;
+                    uri?: string;
+                    instreamId?: string;
+                    characteristics?: string;
+                    forced?: boolean;
+                };
             };
         };
     };
@@ -119,7 +126,14 @@ export interface Manifest {
     totalDuration?: number;
     endList?: boolean;
     custom?: unknown;
-    playlists?: (Manifest & { attributes: Attributes })[];
+    playlists?: PlaylistItem[];
+}
+
+export interface PlaylistItem {
+    attributes: RawAttributes;
+    uri: string;
+    timeline: number;
+    contentProtection?: Manifest["contentProtection"];
 }
 
 export class Parser extends Stream {

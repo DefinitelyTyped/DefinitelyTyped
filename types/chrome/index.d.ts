@@ -2670,15 +2670,12 @@ declare namespace chrome {
         export interface Resource {
             /** The URL of the resource. */
             url: string;
-            /**
-             * Gets the content of the resource.
-             * @param callback A function that receives resource content when the request completes.
-             */
+            /** Gets the content of the resource. */
             getContent(
                 callback: (
-                    /** Content of the resource (potentially encoded) */
+                    /** Content of the resource (potentially encoded). */
                     content: string,
-                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                    /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                     encoding: string,
                 ) => void,
             ): void;
@@ -2686,33 +2683,24 @@ declare namespace chrome {
              * Sets the content of the resource.
              * @param content New content of the resource. Only resources with the text type are currently supported.
              * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource.
-             * @param callback A function called upon request completion.
              */
             setContent(
                 content: string,
                 commit: boolean,
                 callback?: (
-                    /**
-                     * Set to undefined if the resource content was set successfully; describes error otherwise.
-                     */
+                    /** Set to undefined if the resource content was set successfully; describes error otherwise. */
                     error?: object,
                 ) => void,
             ): void;
         }
 
         export interface ReloadOptions {
-            /** Optional. If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.  */
+            /** If specified, the string will override the value of the `User-Agent` HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the `navigator.userAgent` property that's returned to any scripts that are running within the inspected page. */
             userAgent?: string | undefined;
-            /** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
+            /** When true, the loader will bypass the cache for all inspected page resources loaded before the `load` event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window. */
             ignoreCache?: boolean | undefined;
-            /** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
+            /** If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R. */
             injectedScript?: string | undefined;
-            /**
-             * Optional.
-             * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
-             * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon.
-             */
-            preprocessorScript?: string | undefined;
         }
 
         export interface EvaluationExceptionInfo {
@@ -2730,59 +2718,48 @@ declare namespace chrome {
             value: string;
         }
 
-        export interface ResourceAddedEvent extends chrome.events.Event<(resource: Resource) => void> {}
-
-        export interface ResourceContentCommittedEvent
-            extends chrome.events.Event<(resource: Resource, content: string) => void>
-        {}
-
-        /** The ID of the tab being inspected. This ID may be used with chrome.tabs.* API. */
-        export var tabId: number;
+        /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
+        export const tabId: number;
 
         /** Reloads the inspected page. */
         export function reload(reloadOptions?: ReloadOptions): void;
+
         /**
-         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
-         * @param expression An expression to evaluate.
-         * @param callback A function called when evaluation completes.
-         * Parameter result: The result of evaluation.
-         * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
-         */
-        export function eval<T>(
-            expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
-        ): void;
-        /**
-         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
+         * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the `result` parameter of the callback is `undefined`. In the case of a DevTools-side error, the `isException` parameter is non-null and has `isError` set to true and `code` set to an error code. In the case of a JavaScript error, `isException` is set to true and `value` is set to the string value of thrown object.
+         *
          * @param expression An expression to evaluate.
          * @param options The options parameter can contain one or more options.
          * @param callback A function called when evaluation completes.
-         * Parameter result: The result of evaluation.
-         * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
          */
-        export function eval<T>(
+        export function eval<T = { [key: string]: unknown }>(
             expression: string,
-            options?: EvalOptions,
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
         ): void;
-        /**
-         * Retrieves the list of resources from the inspected page.
-         * @param callback A function that receives the list of resources when the request completes.
-         */
+        export function eval<T = { [key: string]: unknown }>(
+            expression: string,
+            options: EvalOptions | undefined,
+            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+        ): void;
+
+        /** Retrieves the list of resources from the inspected page. */
         export function getResources(callback: (resources: Resource[]) => void): void;
 
         /** Fired when a new resource is added to the inspected page. */
-        export var onResourceAdded: ResourceAddedEvent;
+        export const onResourceAdded: events.Event<(resource: Resource) => void>;
+
         /** Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools). */
-        export var onResourceContentCommitted: ResourceContentCommittedEvent;
+        export const onResourceContentCommitted: events.Event<(resource: Resource, content: string) => void>;
 
         export interface EvalOptions {
             /** If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page. */
             frameURL?: string | undefined;
-            /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the isError field set to true and the code field set to E_NOTFOUND. */
+            /** Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the `isError` field set to true and the `code` field set to `E_NOTFOUND`. */
             useContentScriptContext?: boolean | undefined;
-            /** Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext. */
-            contextSecurityOrigin?: string | undefined;
+            /**
+             * Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, scriptExecutionContext overrides the 'true' setting on useContentScriptContext.
+             * @since Chrome 107
+             */
+            scriptExecutionContext?: string | undefined;
         }
     }
 
@@ -2795,41 +2772,32 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.network {
-        /** Represents a HAR entry for a specific finished request. */
-        export interface HAREntry extends HARFormatEntry {}
-        /** Represents a HAR log that contains all known network requests. */
-        export interface HARLog extends HARFormatLog {}
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-        export interface Request extends chrome.devtools.network.HAREntry {
-            /**
-             * Returns content of the response body.
-             * @param callback A function that receives the response body when the request completes.
-             */
+        export interface Request extends HARFormatEntry {
+            /** Returns content of the response body. */
             getContent(
                 callback: (
-                    /** Content of the response body (potentially encoded) */
+                    /** Content of the response body (potentially encoded). */
                     content: string,
-                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported */
+                    /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                     encoding: string,
                 ) => void,
             ): void;
         }
 
-        export interface RequestFinishedEvent extends chrome.events.Event<(request: Request) => void> {}
-
-        export interface NavigatedEvent extends chrome.events.Event<(url: string) => void> {}
-
-        /**
-         * Returns HAR log that contains all known network requests.
-         * @param callback A function that receives the HAR log when the request completes.
-         * Parameter harLog: A HAR log. See HAR specification for details.
-         */
-        export function getHAR(callback: (harLog: HARLog) => void): void;
+        /** Returns HAR log that contains all known network requests. */
+        export function getHAR(
+            callback: (
+                /** A HAR log. See HAR specification for details. */
+                harLog: HARFormatLog,
+            ) => void,
+        ): void;
 
         /** Fired when a network request is finished and all request data are available. */
-        export var onRequestFinished: RequestFinishedEvent;
+        export const onRequestFinished: events.Event<(request: Request) => void>;
+
         /** Fired when the inspected window navigates to a new page. */
-        export var onNavigated: NavigatedEvent;
+        export const onNavigated: events.Event<(url: string) => void>;
     }
 
     ////////////////////
@@ -2840,14 +2808,10 @@ declare namespace chrome {
      * @since Chrome 129
      */
     export namespace devtools.performance {
-        export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
-
-        export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
-
-        /** Fired when the Performance panel begins recording performance data. */
-        export var onProfilingStarted: ProfilingStartedEvent;
-        /** Fired when the Performance panel stops recording performance data. */
-        export var onProfilingStopped: ProfilingStoppedEvent;
+        /** Fired when the Performance panel starts recording. */
+        export const onProfilingStarted: events.Event<() => void>;
+        /** Fired when the Performance panel stops recording. */
+        export const onProfilingStopped: events.Event<() => void>;
     }
 
     ////////////////////
@@ -2859,12 +2823,6 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.panels {
-        export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
-
-        export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
-
-        export interface PanelSearchEvent extends chrome.events.Event<(action: string, queryString?: string) => void> {}
-
         /** Represents a panel created by an extension. */
         export interface ExtensionPanel {
             /**
@@ -2875,14 +2833,12 @@ declare namespace chrome {
              */
             createStatusBarButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
             /** Fired when the user switches to the panel. */
-            onShown: PanelShownEvent;
+            onShown: events.Event<(window: Window) => void>;
             /** Fired when the user switches away from the panel. */
-            onHidden: PanelHiddenEvent;
+            onHidden: events.Event<() => void>;
             /** Fired upon a search action (start of a new search, search result navigation, or search being canceled). */
-            onSearch: PanelSearchEvent;
+            onSearch: events.Event<(action: string, queryString?: string) => void>;
         }
-
-        export interface ButtonClickedEvent extends chrome.events.Event<() => void> {}
 
         /** A button created by the extension. */
         export interface Button {
@@ -2894,38 +2850,14 @@ declare namespace chrome {
              */
             update(iconPath?: string | null, tooltipText?: string | null, disabled?: boolean | null): void;
             /** Fired when the button is clicked. */
-            onClicked: ButtonClickedEvent;
+            onClicked: events.Event<() => void>;
         }
-
-        export interface SelectionChangedEvent extends chrome.events.Event<() => void> {}
 
         /** Represents the Elements panel. */
         export interface ElementsPanel {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
-             * @param callback A callback invoked when the sidebar is created.
-             */
-            createSidebarPane(
-                title: string,
-                callback?: (
-                    /** An ExtensionSidebarPane object for created sidebar pane */
-                    result: ExtensionSidebarPane,
-                ) => void,
-            ): void;
-            /** Fired when an object is selected in the panel. */
-            onSelectionChanged: SelectionChangedEvent;
-        }
-
-        /**
-         * @since Chrome 41
-         * Represents the Sources panel.
-         */
-        export interface SourcesPanel {
-            /**
-             * Creates a pane within panel's sidebar.
-             * @param title Text that is displayed in sidebar caption.
-             * @param callback A callback invoked when the sidebar is created.
              */
             createSidebarPane(
                 title: string,
@@ -2935,115 +2867,113 @@ declare namespace chrome {
                 ) => void,
             ): void;
             /** Fired when an object is selected in the panel. */
-            onSelectionChanged: SelectionChangedEvent;
+            onSelectionChanged: events.Event<() => void>;
         }
 
-        export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: Window) => void> {}
-
-        export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
+        /** Represents the Sources panel. */
+        export interface SourcesPanel {
+            /**
+             * Creates a pane within panel's sidebar.
+             * @param title Text that is displayed in sidebar caption.
+             */
+            createSidebarPane(
+                title: string,
+                callback?: (
+                    /** An ExtensionSidebarPane object for created sidebar pane. */
+                    result: ExtensionSidebarPane,
+                ) => void,
+            ): void;
+            /** Fired when an object is selected in the panel. */
+            onSelectionChanged: events.Event<() => void>;
+        }
 
         /** A sidebar created by the extension. */
         export interface ExtensionSidebarPane {
             /**
              * Sets the height of the sidebar.
-             * @param height A CSS-like size specification, such as '100px' or '12ex'.
+             * @param height A CSS-like size specification, such as `100px` or `12ex`.
              */
             setHeight(height: string): void;
             /**
              * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
              * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
              * @param rootTitle An optional title for the root of the expression tree.
-             * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results.
-             */
-            setExpression(expression: string, rootTitle?: string, callback?: () => void): void;
-            /**
-             * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
-             * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
-             * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results.
              */
             setExpression(expression: string, callback?: () => void): void;
+            setExpression(expression: string, rootTitle: string | undefined, callback?: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param rootTitle An optional title for the root of the expression tree.
-             * @param callback A callback invoked after the sidebar is updated with the object.
-             */
-            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string, callback?: () => void): void;
-            /**
-             * Sets a JSON-compliant object to be displayed in the sidebar pane.
-             * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
-             * @param callback A callback invoked after the sidebar is updated with the object.
              */
             setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
+            setObject(
+                jsonObject: { [key: string]: unknown },
+                rootTitle: string | undefined,
+                callback?: () => void,
+            ): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
              * @param path Relative path of an extension page to display within the sidebar.
              */
             setPage(path: string): void;
             /** Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it. */
-            onShown: ExtensionSidebarPaneShownEvent;
+            onShown: events.Event<(window: Window) => void>;
             /** Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane. */
-            onHidden: ExtensionSidebarPaneHiddenEvent;
+            onHidden: events.Event<() => void>;
         }
 
         /** Elements panel. */
-        export var elements: ElementsPanel;
-        /**
-         * @since Chrome 38
-         * Sources panel.
-         */
-        export var sources: SourcesPanel;
+        export const elements: ElementsPanel;
+
+        /** Sources panel. */
+        export const sources: SourcesPanel;
 
         /**
          * Creates an extension panel.
          * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
          * @param iconPath Path of the panel's icon relative to the extension directory.
          * @param pagePath Path of the panel's HTML page relative to the extension directory.
-         * @param callback A function that is called when the panel is created.
-         * Parameter panel: An ExtensionPanel object representing the created panel.
          */
         export function create(
             title: string,
             iconPath: string,
             pagePath: string,
-            callback?: (panel: ExtensionPanel) => void,
+            callback?: (
+                /** An ExtensionPanel object representing the created panel. */
+                panel: ExtensionPanel,
+            ) => void,
         ): void;
-        /**
-         * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
-         * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
-         * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked.
-         * Parameter lineNumber: Specifies the line number within the resource that was clicked.
-         */
+
+        /** Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter. */
         export function setOpenResourceHandler(
-            callback?: (resource: chrome.devtools.inspectedWindow.Resource, lineNumber: number) => void,
+            callback?: (
+                /** A {@link devtools.inspectedWindow.Resource} object for the resource that was clicked. */
+                resource: chrome.devtools.inspectedWindow.Resource,
+                /** Specifies the line number within the resource that was clicked. */
+                lineNumber: number,
+            ) => void,
         ): void;
+
         /**
-         * @since Chrome 38
-         * Requests DevTools to open a URL in a Developer Tools panel.
-         * @param url The URL of the resource to open.
-         * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
-         * @param callback A function that is called when the resource has been successfully loaded.
-         */
-        export function openResource(url: string, lineNumber: number, callback?: () => void): void;
-        /**
-         * @since Chrome 96
          * Requests DevTools to open a URL in a Developer Tools panel.
          * @param url The URL of the resource to open.
          * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
          * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
-         * @param callback A function that is called when the resource has been successfully loaded.
          */
+        export function openResource(url: string, lineNumber: number, callback?: () => void): void;
         export function openResource(
             url: string,
             lineNumber: number,
-            columnNumber: number,
-            callback?: (response: unknown) => unknown,
+            columnNumber: number | undefined,
+            callback?: () => void,
         ): void;
+
         /**
-         * @since Chrome 59
          * The name of the color theme set in user's DevTools settings.
+         * @since Chrome 59
          */
-        export var themeName: "default" | "dark";
+        export const themeName: "default" | "dark";
     }
 
     ////////////////////
@@ -4198,44 +4128,47 @@ declare namespace chrome {
      */
     export namespace enterprise.deviceAttributes {
         /**
-         * @description Fetches the value of the device identifier of the directory API, that is generated by the server and identifies the cloud record of the device for querying in the cloud directory API.
-         * @param callback Called with the device identifier of the directory API when received.
+         * Fetches the value of the device identifier of the directory API, that is generated by the server and identifies the cloud record of the device for querying in the cloud directory API. If the current user is not affiliated, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
+        export function getDirectoryDeviceId(): Promise<string>;
         export function getDirectoryDeviceId(callback: (deviceId: string) => void): void;
+
         /**
+         * Fetches the device's serial number. Please note the purpose of this API is to administrate the device (e.g. generating Certificate Sign Requests for device-wide certificates). This API may not be used for tracking devices without the consent of the device's administrator. If the current user is not affiliated, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the device's serial number.
-         * Please note the purpose of this API is to administrate the device
-         * (e.g. generating Certificate Sign Requests for device-wide certificates).
-         * This API may not be used for tracking devices without the consent of the device's administrator.
-         * If the current user is not affiliated, returns an empty string.
-         * @param callback Called with the serial number of the device.
          */
+        export function getDeviceSerialNumber(): Promise<string>;
         export function getDeviceSerialNumber(callback: (serialNumber: string) => void): void;
+
         /**
+         * Fetches the administrator-annotated Asset Id. If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the administrator-annotated Asset Id.
-         * If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
-         * @param callback Called with the Asset ID of the device.
          */
+        export function getDeviceAssetId(): Promise<string>;
         export function getDeviceAssetId(callback: (assetId: string) => void): void;
+
         /**
+         * Fetches the administrator-annotated Location. If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 66
-         * @description
-         * Fetches the administrator-annotated Location.
-         * If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
-         * @param callback Called with the Annotated Location of the device.
          */
+        export function getDeviceAnnotatedLocation(): Promise<string>;
         export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+
         /**
+         * Fetches the device's hostname as set by DeviceHostnameTemplate policy. If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 82
-         * @description
-         * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
-         * If the current user is not affiliated or no hostname has been set by the enterprise policy, returns an empty string.
-         * @param callback Called with the hostname of the device.
          */
+        export function getDeviceHostname(): Promise<string>;
         export function getDeviceHostname(callback: (hostname: string) => void): void;
     }
 
@@ -6141,38 +6074,43 @@ declare namespace chrome {
      * Permissions: "idle"
      */
     export namespace idle {
-        export type IdleState = "active" | "idle" | "locked";
-        export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> {}
+        /** @since Chrome 44 */
+        export enum IdleState {
+            ACTIVE = "active",
+            IDLE = "idle",
+            LOCKED = "locked",
+        }
 
         /**
          * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
          * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
-         * @since Chrome 116
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
-        export function queryState(detectionIntervalInSeconds: number): Promise<IdleState>;
-        /**
-         * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
-         * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
-         * @since Chrome 25
-         */
-        export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
+        export function queryState(detectionIntervalInSeconds: number): Promise<`${IdleState}`>;
+        export function queryState(
+            detectionIntervalInSeconds: number,
+            callback: (newState: `${IdleState}`) => void,
+        ): void;
 
         /**
          * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
-         * @since Chrome 25
          * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
          */
         export function setDetectionInterval(intervalInSeconds: number): void;
 
         /**
-         * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
-         * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
+         * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         * @since Chrome 73
+         * @platform ChromeOS only
          */
         export function getAutoLockDelay(): Promise<number>;
         export function getAutoLockDelay(callback: (delay: number) => void): void;
 
         /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
-        export var onStateChanged: IdleStateChangedEvent;
+        export const onStateChanged: events.Event<(newState: `${IdleState}`) => void>;
     }
 
     ////////////////////

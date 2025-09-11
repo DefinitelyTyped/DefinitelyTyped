@@ -42,6 +42,8 @@ export interface JWK {
     q?: string | undefined;
     qi?: string | undefined;
     use?: string | undefined;
+    pub?: string | undefined;
+    priv?: string | undefined;
     x?: string | undefined;
     y?: string | undefined;
 }
@@ -1044,6 +1046,13 @@ export interface Configuration {
             revocation?:
                 | {
                     enabled?: boolean | undefined;
+                    allowedPolicy?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                            token: AccessToken | ClientCredentials | RefreshToken,
+                        ) => CanBePromise<boolean>)
+                        | undefined;
                 }
                 | undefined;
 
@@ -1287,6 +1296,13 @@ export interface Configuration {
                 /* experimental features are mostly explicit any */
                 [key: string]: any;
             } | undefined;
+
+            attestClientAuth?: {
+                enabled?: boolean | undefined;
+                ack?: string | undefined;
+                /* experimental features are mostly explicit any */
+                [key: string]: any;
+            };
         }
         | undefined;
 
@@ -1445,6 +1461,9 @@ export type AsymmetricSigningAlgorithm =
     | "RS256"
     | "RS384"
     | "RS512"
+    | "ML-DSA-44"
+    | "ML-DSA-65"
+    | "ML-DSA-87"
     | "EdDSA";
 export type SymmetricSigningAlgorithm = "HS256" | "HS384" | "HS512";
 export type SigningAlgorithm = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm;
@@ -2371,6 +2390,7 @@ export class ExternalSigningKey {
     get kid(): string | undefined;
     get kty(): string;
     get n(): string | undefined;
+    get pub(): string | undefined;
     get use(): "sig";
     get x(): string | undefined;
     get x5c(): string[] | undefined;
