@@ -86,8 +86,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     navigator.hardwareConcurrency; // $ExpectType number
     navigator.language; // $ExpectType string
     navigator.languages; // $ExpectType readonly string[]
+    navigator.locks; // $ExpectType LockManager
     navigator.platform; // $ExpectType string
-    navigator.userAgent; // $ExpectType string;
+    navigator.userAgent; // $ExpectType string
 }
 
 {

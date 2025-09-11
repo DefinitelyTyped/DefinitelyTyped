@@ -198,6 +198,11 @@ import { createContext } from "node:vm";
         worker.postMessageToThread(10, { x: 100 }, 1000);
         worker.postMessageToThread(10, { x: 100 });
 
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
+        workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+        workerThreads.postMessageToThread(10, { x: 100 });
+
         // close event
         setTimeout(() => {
             port1.close();
@@ -241,10 +246,35 @@ import { createContext } from "node:vm";
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }
 
+// LockManager
 {
-    const { port1 } = new workerThreads.MessageChannel();
-    workerThreads.postMessageToThread(10, { port: port1 }, [port1], 1000);
-    workerThreads.postMessageToThread(10, { port: port1 }, [port1]);
-    workerThreads.postMessageToThread(10, { x: 100 }, 1000);
-    workerThreads.postMessageToThread(10, { x: 100 });
+    workerThreads.locks.query().then((snapshot) => {
+        snapshot.held; // $ExpectType LockInfo[]
+        snapshot.pending; // $ExpectType LockInfo[]
+    });
+
+    // $ExpectType Promise<void>
+    workerThreads.locks.request(
+        "lock",
+        {
+            ifAvailable: true,
+            mode: "exclusive",
+            signal: new AbortController().signal,
+            steal: false,
+        },
+        (lock) => {
+            lock; // $ExpectType Lock | null
+            lock!.mode; // $ExpectType LockMode
+            lock!.name; // $ExpectType string
+        },
+    );
+
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", async () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, async () => 123);
 }

@@ -598,6 +598,35 @@ declare module "worker_threads" {
          */
         postMessage(message: unknown): void;
     }
+    interface Lock {
+        readonly mode: LockMode;
+        readonly name: string;
+    }
+    interface LockGrantedCallback<T> {
+        (lock: Lock | null): T;
+    }
+    interface LockInfo {
+        clientId: string;
+        mode: LockMode;
+        name: string;
+    }
+    interface LockManager {
+        query(): Promise<LockManagerSnapshot>;
+        request<T>(name: string, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+        request<T>(name: string, options: LockOptions, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+    }
+    interface LockManagerSnapshot {
+        held: LockInfo[];
+        pending: LockInfo[];
+    }
+    type LockMode = "exclusive" | "shared";
+    interface LockOptions {
+        ifAvailable?: boolean;
+        mode?: LockMode;
+        signal?: AbortSignal;
+        steal?: boolean;
+    }
+    var locks: LockManager;
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
      * a `port.postMessage()` call, it is ignored.
