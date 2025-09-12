@@ -35,4 +35,26 @@ declare module "." {
 
     export interface CacheSignal {}
     export function cacheSignal(): null | CacheSignal;
+
+    // @enableActivity
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    /**
+     * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
+     */
+    export const Activity: ExoticComponent<ActivityProps>;
 }
