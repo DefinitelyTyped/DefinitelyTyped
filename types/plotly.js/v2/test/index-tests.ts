@@ -1237,7 +1237,18 @@ function rand() {
 
     const layout: Partial<Layout> = {
         dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        mapbox: {
+            accesstoken: "accesstoken",
+            domain: { x: [0], y: [0], row: 0, column: 0 },
+            style: "open-street-map",
+            center: { lat: 0, lon: -0 },
+            zoom: 3,
+            bearing: 30,
+            bounds: { east: 0, west: 0, south: 0, north: 0 },
+            pitch: 0,
+            layers: [],
+            uirevision: "uirevision",
+        },
         margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 
