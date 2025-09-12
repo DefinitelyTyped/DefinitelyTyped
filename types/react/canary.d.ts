@@ -31,6 +31,24 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    export const Activity: ExoticComponent<ActivityProps>;
+
     export function unstable_useCacheRefresh(): () => void;
 
     export interface CacheSignal {}
