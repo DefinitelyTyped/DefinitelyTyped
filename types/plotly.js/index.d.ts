@@ -1938,7 +1938,8 @@ export interface Font {
      */
     family: string;
     /**
-     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color. See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color.
+     * See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
      * @default "none"
      */
     shadow: string;
@@ -1950,9 +1951,9 @@ export interface Font {
     /**
      * Sets the weight (or boldness) of the font.
      * number between or equal to 1 and 1000
-     * @default normal
+     * @default "normal"
      */
-    weight: number;
+    weight: number | "normal" | "bold";
     /**
      * Sets whether a font should be styled with a normal or italic face from its family.
      * @default "normal"
@@ -1972,7 +1973,23 @@ export interface Font {
      * Sets the kind of decoration line(s) with text, such as an "under", "over" or "through" as well as combinations e.g. "under+over".
      * @default "none"
      */
-    lineposition: "under" | "over" | "through" | "under+over" | "under+over+through" | "none";
+    lineposition:
+        | "none"
+        | "under"
+        | "over"
+        | "through"
+        | "under+over"
+        | "over+under"
+        | "over+through"
+        | "through+over"
+        | "through+under"
+        | "under+through"
+        | "under+over+through"
+        | "under+through+over"
+        | "over+under+through"
+        | "over+through+under"
+        | "through+under+over"
+        | "through+over+under";
 }
 
 export interface Edits {
@@ -2900,7 +2917,7 @@ export interface Slider {
     /**
      * Sets the font of the slider step labels.
      */
-    font: Font;
+    font: Partial<Font>;
     /**
      * Sets the background color of the slider grip
      * while dragging.

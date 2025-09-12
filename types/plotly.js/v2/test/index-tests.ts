@@ -1,7 +1,19 @@
 import * as Plotly from "plotly.js";
-import { Config, Datum, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
+import { Config, Datum, Font, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
 
 const graphDiv = "#test";
+
+const font: Font = {
+    color: "#fff",
+    family: "Arial, sans-serif",
+    lineposition: "under",
+    shadow: "auto",
+    size: 15,
+    style: "italic",
+    textcase: "word caps",
+    variant: "all-petite-caps",
+    weight: "bold",
+};
 
 const config: Partial<Config> = {
     staticPlot: false,
@@ -428,15 +440,15 @@ const config: Partial<Config> = {
         bgcolor: "#ffffff",
         bordercolor: "#444444",
         borderwidth: 1,
-        font: { size: 15, style: "italic" },
+        font,
         groupclick: "togglegroup",
-        grouptitlefont: { size: 15 },
+        grouptitlefont: font,
         itemclick: "toggleothers",
         itemdoubleclick: "toggle",
         itemsizing: "constant",
         itemwidth: 50,
         orientation: "h",
-        title: { font: { size: 15 }, side: "top right", text: "Legend Title" },
+        title: { font, side: "top right", text: "Legend Title" },
         tracegroupgap: 15,
         traceorder: "reversed+grouped",
         valign: "bottom",
@@ -511,7 +523,7 @@ const config: Partial<Config> = {
             colorbar: {
                 title: {
                     text: "Test",
-                    font: { size: 20, color: "#666", textcase: "lower" },
+                    font,
                     side: "top",
                 },
                 orientation: "v",
@@ -547,7 +559,7 @@ const config: Partial<Config> = {
                 ticklabelstep: 1,
                 showticklabels: true,
                 labelalias: "labelalias",
-                tickfont: { size: 10, color: "#666" },
+                tickfont: font,
                 tickangle: "auto",
                 tickformat: "",
                 tickformatstops: [],
@@ -585,7 +597,7 @@ const config: Partial<Config> = {
                     visible: true,
                     prefix: "Date:",
                     xanchor: "right",
-                    font: { size: 20, color: "#666", lineposition: "through" },
+                    font,
                 },
                 steps: [
                     {
@@ -731,9 +743,7 @@ const config: Partial<Config> = {
     const update = {
         title: {
             text: "some new title",
-            font: {
-                size: 1.2,
-            },
+            font,
             x: 0.9,
             pad: {
                 t: 20,
@@ -1151,10 +1161,7 @@ function rand() {
             type: "contour",
             contours: {
                 coloring: "lines",
-                labelfont: {
-                    color: "black",
-                    family: "monospace",
-                },
+                labelfont: font,
                 showlabels: true,
             },
             autocontour: true,
