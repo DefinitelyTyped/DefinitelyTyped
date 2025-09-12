@@ -596,9 +596,9 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
 {
     const localizer: DateLocalizer = momentLocalizer(moment);
 
-    const date: React.FC<AgendaDateProps> = ({day,label}) => <>date</>;
+    const date: React.FC<AgendaDateProps> = ({ day, label }) => <>date</>;
 
-    const time: React.FC<AgendaTimeProps> = ({day,label,event}) => <>time</>;
+    const time: React.FC<AgendaTimeProps> = ({ day, label, event }) => <>time</>;
 
     const event: React.FC<EventProps> = ({
         event,
@@ -615,7 +615,7 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
     };
 
     const Basic = ({ localizer }: CalendarProps) => (
-        <Calendar events={[]} localizer={localizer} components={{ agenda: { date,time,event } }} />
+        <Calendar events={[]} localizer={localizer} components={{ agenda: { date, time, event } }} />
     );
 
     <Basic localizer={localizer} />;
