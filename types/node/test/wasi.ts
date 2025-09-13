@@ -11,6 +11,7 @@ import { WASI } from "node:wasi";
         },
     });
     const importObject = wasi.getImportObject();
+    wasi.finalizeBindings(importObject);
     (async () => {
         // TODO: Global WebAssembly types are not currently declared.; uncomment below when added.
 

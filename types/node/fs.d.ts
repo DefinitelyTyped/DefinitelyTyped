@@ -1966,6 +1966,39 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function mkdtempSync(prefix: string, options?: EncodingOption): string | Buffer;
+    export interface DisposableTempDir extends AsyncDisposable {
+        /**
+         * The path of the created directory.
+         */
+        path: string;
+        /**
+         * A function which removes the created directory.
+         */
+        remove(): Promise<void>;
+        /**
+         * The same as `remove`.
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+    }
+    /**
+     * Returns a disposable object whose `path` property holds the created directory
+     * path. When the object is disposed, the directory and its contents will be
+     * removed if it still exists. If the directory cannot be deleted, disposal will
+     * throw an error. The object has a `remove()` method which will perform the same
+     * task.
+     *
+     * <!-- TODO: link MDN docs for disposables once https://github.com/mdn/content/pull/38027 lands -->
+     *
+     * For detailed information, see the documentation of `fs.mkdtemp()`.
+     *
+     * There is no callback-based version of this API because it is designed for use
+     * with the `using` syntax.
+     *
+     * The optional `options` argument can be a string specifying an encoding, or an
+     * object with an `encoding` property specifying the character encoding to use.
+     * @since v24.4.0
+     */
+    export function mkdtempDisposableSync(prefix: string, options?: EncodingOption): DisposableTempDir;
     /**
      * Reads the contents of a directory. The callback gets two arguments `(err, files)` where `files` is an array of the names of the files in the directory excluding `'.'` and `'..'`.
      *

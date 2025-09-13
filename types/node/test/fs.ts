@@ -221,14 +221,36 @@ async function testPromisify() {
 
 {
     fs.mkdtemp("/tmp/foo-", (err, folder) => {
-        console.log(folder);
-        // Prints: /tmp/foo-itXde2
+        // $ExpectType string
+        folder;
+    });
+
+    // $ExpectType string
+    fs.mkdtempSync("/tmp/foo-");
+
+    fs.promises.mkdtemp("/tmp/foo-").then((result) => {
+        // $ExpectType string
+        result;
     });
 }
 
 {
-    let tempDir: string;
-    tempDir = fs.mkdtempSync("/tmp/foo-");
+    const disposable = fs.mkdtempDisposableSync("/tmp/foo-");
+    // $ExpectType string
+    disposable.path;
+    // $ExpectType Promise<void>
+    disposable.remove();
+    // $ExpectType Promise<void>
+    disposable[Symbol.asyncDispose]();
+
+    fs.promises.mkdtempDisposable("/tmp/foo-").then((result) => {
+        // $ExpectType string
+        result.path;
+        // $ExpectType Promise<void>
+        result.remove();
+        // $ExpectType Promise<void>
+        result[Symbol.asyncDispose]();
+    });
 }
 
 {

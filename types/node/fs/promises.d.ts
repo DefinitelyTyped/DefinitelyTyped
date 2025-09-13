@@ -20,6 +20,8 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
+        DisposableTempDir,
+        EncodingOption,
         GlobOptions,
         GlobOptionsWithFileTypes,
         GlobOptionsWithoutFileTypes,
@@ -961,6 +963,26 @@ declare module "fs/promises" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
+    /**
+     * The resulting Promise holds an async-disposable object whose `path` property
+     * holds the created directory path. When the object is disposed, the directory
+     * and its contents will be removed asynchronously if it still exists. If the
+     * directory cannot be deleted, disposal will throw an error. The object has an
+     * async `remove()` method which will perform the same task.
+     *
+     * Both this function and the disposal function on the resulting object are
+     * async, so it should be used with `await` + `await using` as in
+     * `await using dir = await fsPromises.mkdtempDisposable('prefix')`.
+     *
+     * <!-- TODO: link MDN docs for disposables once https://github.com/mdn/content/pull/38027 lands -->
+     *
+     * For detailed information, see the documentation of `fsPromises.mkdtemp()`.
+     *
+     * The optional `options` argument can be a string specifying an encoding, or an
+     * object with an `encoding` property specifying the character encoding to use.
+     * @since v24.4.0
+     */
+    function mkdtempDisposable(prefix: PathLike, options?: EncodingOption): Promise<DisposableTempDir>;
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists. `data` can be a string, a buffer, an
      * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface), or an

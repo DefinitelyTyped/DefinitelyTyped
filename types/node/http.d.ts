@@ -2028,7 +2028,7 @@ declare module "http" {
      */
     const maxHeaderSize: number;
     /**
-     * A browser-compatible implementation of [WebSocket](https://nodejs.org/docs/latest/api/http.html#websocket).
+     * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
     const WebSocket: typeof import("undici-types").WebSocket;

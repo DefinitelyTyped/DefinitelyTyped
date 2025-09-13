@@ -3363,11 +3363,36 @@ declare module "crypto" {
         options: { privateKey: KeyObject; publicKey: KeyObject },
         callback: (err: Error | null, secret: Buffer) => void,
     ): void;
+    interface OneShotDigestOptions {
+        /**
+         * Encoding used to encode the returned digest.
+         * @default 'hex'
+         */
+        outputEncoding?: BinaryToTextEncoding | "buffer" | undefined;
+        /**
+         * For XOF hash functions such as 'shake256', the outputLength option
+         * can be used to specify the desired output length in bytes.
+         */
+        outputLength?: number | undefined;
+    }
+    interface OneShotDigestOptionsWithStringEncoding extends OneShotDigestOptions {
+        outputEncoding?: BinaryToTextEncoding | undefined;
+    }
+    interface OneShotDigestOptionsWithBufferEncoding extends OneShotDigestOptions {
+        outputEncoding: "buffer";
+    }
     /**
-     * A utility for creating one-shot hash digests of data. It can be faster than the object-based `crypto.createHash()` when hashing a smaller amount of data
-     * (<= 5MB) that's readily available. If the data can be big or if it is streamed, it's still recommended to use `crypto.createHash()` instead. The `algorithm`
-     * is dependent on the available algorithms supported by the version of OpenSSL on the platform. Examples are `'sha256'`, `'sha512'`, etc. On recent releases
-     * of OpenSSL, `openssl list -digest-algorithms` will display the available digest algorithms.
+     * A utility for creating one-shot hash digests of data. It can be faster than
+     * the object-based `crypto.createHash()` when hashing a smaller amount of data
+     * (<= 5MB) that's readily available. If the data can be big or if it is streamed,
+     * it's still recommended to use `crypto.createHash()` instead.
+     *
+     * The `algorithm` is dependent on the available algorithms supported by the
+     * version of OpenSSL on the platform. Examples are `'sha256'`, `'sha512'`, etc.
+     * On recent releases of OpenSSL, `openssl list -digest-algorithms` will
+     * display the available digest algorithms.
+     *
+     * If `options` is a string, then it specifies the `outputEncoding`.
      *
      * Example:
      *
@@ -3387,16 +3412,25 @@ declare module "crypto" {
      * console.log(crypto.hash('sha1', Buffer.from(base64, 'base64'), 'buffer'));
      * ```
      * @since v21.7.0, v20.12.0
-     * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different input encoding is desired for a string input, user
-     *             could encode the string into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing the encoded `TypedArray` into this API instead.
-     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v24.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
+     * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different
+     * input encoding is desired for a string input, user could encode the string
+     * into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing
+     * the encoded `TypedArray` into this API instead.
      */
-    function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
-    function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
     function hash(
         algorithm: string,
         data: BinaryLike,
-        outputEncoding?: BinaryToTextEncoding | "buffer",
+        options?: OneShotDigestOptionsWithStringEncoding | BinaryToTextEncoding,
+    ): string;
+    function hash(
+        algorithm: string,
+        data: BinaryLike,
+        options: OneShotDigestOptionsWithBufferEncoding | "buffer",
+    ): Buffer;
+    function hash(
+        algorithm: string,
+        data: BinaryLike,
+        options: OneShotDigestOptions | BinaryToTextEncoding | "buffer",
     ): string | Buffer;
     type CipherMode = "cbc" | "ccm" | "cfb" | "ctr" | "ecb" | "gcm" | "ocb" | "ofb" | "stream" | "wrap" | "xts";
     interface CipherInfoOptions {
