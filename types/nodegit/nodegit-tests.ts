@@ -205,6 +205,8 @@ Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, rebaseOptions).the
 });
 
 Git.Reset.reset(repo, commit, Git.Reset.TYPE.HARD, {}).catch(err => console.log(err));
+Git.Reset.default(repo, commit, []).catch(err => console.log(err));
+Git.Reset.fromAnnotated(repo, commit, Git.Reset.TYPE.HARD, {}).catch(err => console.log(err));
 
 Git.Cherrypick.cherrypick(repo, commit, {}).catch(err => console.log(err));
 

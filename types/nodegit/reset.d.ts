@@ -37,5 +37,5 @@ export class Reset {
         commit: AnnotatedCommit,
         resetType: number,
         checkoutOpts: CheckoutOptions,
-    ): number;
+    ): Promise<number>;
 }
