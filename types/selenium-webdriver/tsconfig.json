@@ -18,6 +18,7 @@
         "test/bidi/filterBy.ts",
         "test/bidi/logEntries.ts",
         "test/bidi/logInspector.ts",
+        "test/bidi/networkTypes.ts",
         "test/ie.ts",
         "test/index.ts",
         "test/chrome.ts",
