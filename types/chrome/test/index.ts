@@ -4806,30 +4806,88 @@ function testGcm() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/history
+// https://developer.chrome.com/docs/extensions/reference/api/history
 function testHistory() {
-    // @ts-expect-error
-    chrome.history.search({}, (results) => {});
-    chrome.history.search({ text: "" }, (results) => {});
-    // @ts-expect-error
-    chrome.history.addUrl({}, () => {});
-    chrome.history.addUrl({ url: "https://example.com" }, () => {});
-    // @ts-expect-error
-    chrome.history.deleteRange({}, () => {});
-    chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000 }, () => {});
-    chrome.history.deleteAll(() => {});
-    chrome.history.deleteUrl({ url: "https://example.com" }, () => {});
-    chrome.history.getVisits({ url: "https://example.com" }, () => {});
-}
+    chrome.history.TransitionType.AUTO_BOOKMARK === "auto_bookmark";
+    chrome.history.TransitionType.AUTO_SUBFRAME === "auto_subframe";
+    chrome.history.TransitionType.AUTO_TOPLEVEL === "auto_toplevel";
+    chrome.history.TransitionType.FORM_SUBMIT === "form_submit";
+    chrome.history.TransitionType.GENERATED === "generated";
+    chrome.history.TransitionType.KEYWORD === "keyword";
+    chrome.history.TransitionType.KEYWORD_GENERATED === "keyword_generated";
+    chrome.history.TransitionType.LINK === "link";
+    chrome.history.TransitionType.MANUAL_SUBFRAME === "manual_subframe";
+    chrome.history.TransitionType.RELOAD === "reload";
+    chrome.history.TransitionType.TYPED === "typed";
 
-// https://developer.chrome.com/docs/extensions/reference/history
-async function testHistoryForPromise() {
-    await chrome.history.search({ text: "" });
-    await chrome.history.addUrl({ url: "https://example.com" });
-    await chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000 });
-    await chrome.history.deleteAll();
-    await chrome.history.deleteUrl({ url: "https://example.com" });
-    await chrome.history.getVisits({ url: "https://example.com" });
+    const urlDetails: chrome.history.UrlDetails = {
+        url: "https://example.com",
+    };
+
+    chrome.history.addUrl(urlDetails); // $ExpectType Promise<void>
+    chrome.history.addUrl(urlDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.history.addUrl(urlDetails, () => {}).then(() => {});
+
+    chrome.history.deleteAll(); // $ExpectType Promise<void>
+    chrome.history.deleteAll(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.history.deleteAll(() => {}).then(() => {});
+
+    const range: chrome.history.Range = {
+        endTime: new Date().getTime(),
+        startTime: new Date().getTime(),
+    };
+
+    chrome.history.deleteRange(range); // $ExpectType Promise<void>
+    chrome.history.deleteRange(range, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.history.deleteRange(range, () => {}).then(() => {});
+
+    chrome.history.deleteUrl(urlDetails); // $ExpectType Promise<void>
+    chrome.history.deleteUrl(urlDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.history.deleteUrl(urlDetails, () => {}).then(() => {});
+
+    chrome.history.getVisits(urlDetails); // $ExpectType Promise<VisitItem[]>
+    chrome.history.getVisits(urlDetails, ([result]) => { // $ExpectType void
+        result.id; // $ExpectType string
+        result.isLocal; // $ExpectType boolean
+        result.referringVisitId; // $ExpectType string
+        result.transition; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "auto_toplevel" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        result.visitId; // $ExpectType string
+        result.visitTime; // $ExpectType number | undefined
+    });
+    // @ts-expect-error
+    chrome.history.getVisits(urlDetails, () => {}).then(() => {});
+
+    const query: chrome.history.HistoryQuery = {
+        endTime: new Date().getTime(),
+        maxResults: 2,
+        startTime: new Date().getTime(),
+        text: "example",
+    };
+
+    chrome.history.search(query); // $ExpectType Promise<HistoryItem[]>
+    chrome.history.search(query, ([result]) => { // $ExpectType void
+        result.id; // $ExpectType string
+        result.lastVisitTime; // $ExpectType number | undefined
+        result.title; // $ExpectType string | undefined
+        result.typedCount; // $ExpectType number | undefined
+        result.url; // $ExpectType string | undefined
+        result.visitCount; // $ExpectType number | undefined
+    });
+    // @ts-expect-error
+    chrome.history.search(query, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.history.onVisited, (result) => {
+        result; // $ExpectType HistoryItem
+    });
+
+    checkChromeEvent(chrome.history.onVisitRemoved, (result) => {
+        result.allHistory; // $ExpectType boolean
+        result.urls; // $ExpectType string[] | undefined
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/identity
