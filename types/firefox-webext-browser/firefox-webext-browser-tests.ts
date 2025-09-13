@@ -124,3 +124,21 @@ console.log(filter.status);
 
 browser.storage.session.get("sessionObject");
 browser.storage.session.set({ "sessionObject": "value" });
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => {},
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    // @ts-expect-error
+    args: [true],
+    func: (_n: number) => {},
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    args: [0, "", false, [], {}],
+    func: (_n: number, _s: string, _b: boolean, _a: [], _o: {}) => {},
+});
