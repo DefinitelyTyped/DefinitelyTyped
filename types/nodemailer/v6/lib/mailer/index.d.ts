@@ -196,7 +196,9 @@ declare class Mail<T = any, DefaultTransportOptions = TransportOptions> extends 
         mailOptions: Mail.Options & Partial<DefaultTransportOptions>,
         callback: (err: Error | null, info: T) => void,
     ): void;
+    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: T) => void): void;
     sendMail(mailOptions: Mail.Options & Partial<DefaultTransportOptions>): Promise<T>;
+    sendMail(mailOptions: Mail.Options): Promise<T>;
 
     getVersionString(): string;
 
