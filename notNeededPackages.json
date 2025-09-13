@@ -4333,6 +4333,10 @@
             "libraryName": "metascraper-video",
             "asOfVersion": "5.42.0"
         },
+        "react-window": {
+            "libraryName": "react-window-infinite-loader",
+            "asOfVersion": "2.0.0"
+        },
         "metascraper-youtube": {
             "libraryName": "metascraper-youtube",
             "asOfVersion": "5.42.0"
