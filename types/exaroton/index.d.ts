@@ -819,7 +819,7 @@ declare class Server extends EventEmitter {
      * @return {Promise<Response>}
      * @throws {RequestError}
      */
-     extendStopTime(time: number): Promise<Response>
+    extendStopTime(time: number): Promise<Response>;
 
     /**
      * Get the content of the server logs
