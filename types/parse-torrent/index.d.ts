@@ -7,9 +7,9 @@ declare const ParseTorrent: ParseTorrent.ParseTorrent;
 
 declare namespace ParseTorrent {
     interface ParseTorrent {
-        (torrent: string): MagnetUri.Instance;
-        (torrent: Buffer): MagnetUri.Instance | ParseTorrentFile.Instance;
-        (torrent: Instance | MagnetUri.Instance | ParseTorrentFile.Instance): Instance;
+        (torrent: string): Promise<MagnetUri.Instance>;
+        (torrent: Buffer): Promise<MagnetUri.Instance | ParseTorrentFile.Instance>;
+        (torrent: Instance | MagnetUri.Instance | ParseTorrentFile.Instance): Promise<Instance>;
 
         toMagnetURI: typeof MagnetUri.encode;
         toTorrentFile: typeof ParseTorrentFile.encode;
