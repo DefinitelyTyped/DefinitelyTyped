@@ -19,7 +19,6 @@ export default class UnifiedThread extends AbstractCrudObject {
         scoped_thread_key: "scoped_thread_key";
         senders: "senders";
         snippet: "snippet";
-        subject: "subject";
         unread_count: "unread_count";
         updated_time: "updated_time";
         wallpaper: "wallpaper";

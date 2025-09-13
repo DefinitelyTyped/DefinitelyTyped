@@ -1,12 +1,11 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
- * AdAccountSuggestedTag
+ * AdCreativeFormatTransformationSpec
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class AdAccountSuggestedTag extends AbstractCrudObject {
+export default class AdCreativeFormatTransformationSpec extends AbstractCrudObject {
     static get Fields(): Readonly<{
-        product_id: "product_id";
-        x: "x";
-        y: "y";
+        data_source: "data_source";
+        format: "format";
     }>;
 }

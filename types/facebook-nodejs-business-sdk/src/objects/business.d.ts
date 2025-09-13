@@ -13,6 +13,7 @@ import CPASBusinessSetupConfig from "./cpas-business-setup-config";
 import BusinessCreativeFolder from "./business-creative-folder";
 import EventSourceGroup from "./event-source-group";
 import BusinessImage from "./business-image";
+import ManagedPartnerBusiness from "./managed-partner-business";
 import OpenBridgeConfiguration from "./open-bridge-configuration";
 import SystemUser from "./system-user";
 import AdVideo from "./ad-video";
@@ -106,6 +107,7 @@ export default class Business extends AbstractCrudObject {
         profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
         profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
         profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_global_structure_management: "PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT";
         profile_plus_manage: "PROFILE_PLUS_MANAGE";
         profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
         profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
@@ -623,6 +625,7 @@ export default class Business extends AbstractCrudObject {
         profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
         profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
         profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_global_structure_management: "PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT";
         profile_plus_manage: "PROFILE_PLUS_MANAGE";
         profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
         profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
@@ -877,6 +880,7 @@ export default class Business extends AbstractCrudObject {
     getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdNetworkAnalytic(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdsDataset(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdsDataSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     getAdsReportingMmmReports(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAdsReportingMmmSchedulers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -896,6 +900,7 @@ export default class Business extends AbstractCrudObject {
     getClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createClientApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
+    getClientInstagramAssets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getClientOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getClientPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createClientPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
@@ -925,9 +930,10 @@ export default class Business extends AbstractCrudObject {
     getInstagramBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteManagedBusinesses(params?: Record<string, any>): Promise<any>;
     createManagedBusiness(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
+    getManagedPartnerAdsFundingSourceDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createManagedPartnerBusinessSetup(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     deleteManagedPartnerBusinesses(params?: Record<string, any>): Promise<any>;
-    createManagedPartnerBusiness(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createManagedPartnerBusiness(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ManagedPartnerBusiness>;
     createOnboardPartnersToMmLite(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getOpenBridgeConfigurations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOpenBridgeConfiguration(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<OpenBridgeConfiguration>;
@@ -939,6 +945,7 @@ export default class Business extends AbstractCrudObject {
     getOwnedBusinesses(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOwnedBusiness(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     getOwnedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOwnedInstagramAssets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOwnedOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOwnedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOwnedPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;

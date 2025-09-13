@@ -49,5 +49,7 @@ export default class LeadGenFormPreviewDetails extends AbstractCrudObject {
         social_proof_section_headers: "social_proof_section_headers";
         submit_button_text: "submit_button_text";
         view_file_text: "view_file_text";
+        whats_app_opt_in_body: "whats_app_opt_in_body";
+        whats_app_opt_in_title: "whats_app_opt_in_title";
     }>;
 }
