@@ -1964,6 +1964,30 @@ export interface Frame {
 }
 
 /**
+ * FrameLocator makes it easier to locate elements within an `iframe` on the
+ * page. `FrameLocator` are created by calling `page.locator(selector).contentFrame()`.
+ * It works in the same way as `Locator` instances.
+ */
+export interface FrameLocator {
+    /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const frame = page.frameLocator('iframe');
+     * const rows = frame.locator('table tr');
+     * const cell = rows.locator('.selected');
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @returns The new locator.
+     */
+    locator(selector: string): Locator;
+}
+
+/**
  * JSHandle represents an in-page JavaScript object.
  */
 export interface JSHandle<T = any> {
@@ -2102,6 +2126,13 @@ export interface Locator {
      * @returns Promise which resolves when the element is successfully clicked.
      */
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
+
+    /**
+     * Returns a `FrameLocator` that can be used to locate elements within an
+     * `iframe`.
+     * @returns A `FrameLocator`.
+     */
+    contentFrame(): FrameLocator;
 
     /**
      * Returns the number of elements matching the selector.
@@ -2248,6 +2279,22 @@ export interface Locator {
      * @returns Locator.
      */
     last(): Locator;
+
+    /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const rows = page.locator('table tr');
+     * const cell = rows.locator('.selected');
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @returns The new locator.
+     */
+    locator(selector: string): Locator;
 
     /**
      * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
@@ -4333,6 +4380,37 @@ export interface Page {
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
     ): Promise<void>;
+
+    /**
+     * Waits for the page to match against the URL for a Response object
+     *
+     * @example
+     * ```js
+     * const responsePromise = page.waitForResponse('https://example.com/resource');
+     * await page.goto('https://example.com/resource');
+     * const response = await responsePromise;
+     * ```
+     *
+     *
+     * @param response Request URL string or regex to match against Response object. 
+     * @param options Options to use.
+     */
+    waitForResponse(
+        response: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+        },
+    ): Promise<Response | null>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based

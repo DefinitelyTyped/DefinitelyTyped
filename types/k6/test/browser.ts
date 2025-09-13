@@ -1022,6 +1022,15 @@ async function test() {
     page.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
+    page.waitForResponse();
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com");
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);
@@ -1176,6 +1185,9 @@ async function test() {
     // $ExpectType Promise<void>
     locator.click({ trial: true });
 
+    // $ExpectType FrameLocator
+    locator.contentFrame();
+
     // $ExpectType Promise<void>
     locator.dblclick();
     // $ExpectType Promise<void>
@@ -1284,6 +1296,11 @@ async function test() {
 
     // $ExpectType Locator
     locator.last();
+
+    // $ExpectType Locator
+    locator.locator("div");
+    // @ts-expect-error
+    locator.locator();
 
     // $ExpectType Locator
     locator.nth(0);
@@ -2397,6 +2414,16 @@ async function test() {
     frame.waitForTimeout();
     // $ExpectType Promise<void>
     frame.waitForTimeout(10000);
+
+    //
+    // FrameLocator
+    //
+    const frameLocator = page.locator(selector).contentFrame();
+
+    // $ExpectType Locator
+    frameLocator.locator("div");
+    // @ts-expect-error
+    frameLocator.locator();
 
     //
     // Touchscreen.tap
