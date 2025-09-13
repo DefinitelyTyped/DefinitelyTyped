@@ -6471,6 +6471,10 @@
             "libraryName": "react-widgets",
             "asOfVersion": "5.0.0"
         },
+        "react-window": {
+            "libraryName": "react-window",
+            "asOfVersion": "2.0.0"
+        },
         "react-youtube": {
             "libraryName": "react-youtube",
             "asOfVersion": "7.10.0"
