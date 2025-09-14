@@ -15,6 +15,9 @@
         }, {
             "name": "Rodin Hatokay",
             "githubUsername": "rodinhatokay"
+        }, {
+            "name": "Lior Fadida",
+            "githubUsername": "liorf-wix"
         }
     ],
     "minimumTypeScriptVersion": "5.1"
