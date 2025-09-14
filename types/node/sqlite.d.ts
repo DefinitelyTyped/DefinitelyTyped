@@ -594,6 +594,13 @@ declare module "node:sqlite" {
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v24.0.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
