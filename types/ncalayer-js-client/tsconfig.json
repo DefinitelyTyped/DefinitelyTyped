@@ -1,11 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
-            "dom",
             "es6"
         ],
-        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -16,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "babel-plugin-glaze-tests.tsx"
+        "ncalayer-js-client-tests.ts"
     ]
 }
