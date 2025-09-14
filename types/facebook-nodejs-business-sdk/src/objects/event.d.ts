@@ -70,6 +70,7 @@ export default class Event extends AbstractCrudObject {
     }>;
     static get OnlineEventFormat(): Readonly<{
         fb_live: "fb_live";
+        horizon_event: "horizon_event";
         horizon_world: "horizon_world";
         messenger_room: "messenger_room";
         none: "none";

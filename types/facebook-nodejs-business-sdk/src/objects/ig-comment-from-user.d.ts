@@ -6,6 +6,7 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 export default class IGCommentFromUser extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
+        self_ig_scoped_id: "self_ig_scoped_id";
         username: "username";
     }>;
 }
