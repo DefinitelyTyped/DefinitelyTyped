@@ -1770,6 +1770,10 @@ declare module "inspector" {
          */
         interface Headers {
         }
+        interface LoadNetworkResourcePageResult {
+            success: boolean;
+            stream?: IO.StreamHandle | undefined;
+        }
         interface GetRequestPostDataParameterType {
             /**
              * Identifier of the network request to get content for.
@@ -1787,6 +1791,12 @@ declare module "inspector" {
              * Identifier of the request to stream.
              */
             requestId: RequestId;
+        }
+        interface LoadNetworkResourceParameterType {
+            /**
+             * URL of the resource to get content for.
+             */
+            url: string;
         }
         interface GetRequestPostDataReturnType {
             /**
@@ -1809,6 +1819,9 @@ declare module "inspector" {
              * Data that has been buffered until streaming is enabled.
              */
             bufferedData: string;
+        }
+        interface LoadNetworkResourceReturnType {
+            resource: LoadNetworkResourcePageResult;
         }
         interface RequestWillBeSentEventDataType {
             /**
@@ -1929,6 +1942,40 @@ declare module "inspector" {
             sessionId: SessionID;
             targetInfo: TargetInfo;
             waitingForDebugger: boolean;
+        }
+    }
+    namespace IO {
+        type StreamHandle = string;
+        interface ReadParameterType {
+            /**
+             * Handle of the stream to read.
+             */
+            handle: StreamHandle;
+            /**
+             * Seek to the specified offset before reading (if not specified, proceed with offset
+             * following the last read). Some types of streams may only support sequential reads.
+             */
+            offset?: number | undefined;
+            /**
+             * Maximum number of bytes to read (left upon the agent discretion if not specified).
+             */
+            size?: number | undefined;
+        }
+        interface CloseParameterType {
+            /**
+             * Handle of the stream to close.
+             */
+            handle: StreamHandle;
+        }
+        interface ReadReturnType {
+            /**
+             * Data that were read.
+             */
+            data: string;
+            /**
+             * Set if the end-of-file condition occurred while reading.
+             */
+            eof: boolean;
         }
     }
 
@@ -2300,6 +2347,11 @@ declare module "inspector" {
         ): void;
         post(method: "Network.streamResourceContent", callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void): void;
         /**
+         * Fetches the resource and returns the content.
+         */
+        post(method: "Network.loadNetworkResource", params?: Network.LoadNetworkResourceParameterType, callback?: (err: Error | null, params: Network.LoadNetworkResourceReturnType) => void): void;
+        post(method: "Network.loadNetworkResource", callback?: (err: Error | null, params: Network.LoadNetworkResourceReturnType) => void): void;
+        /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
         post(method: "NodeRuntime.enable", callback?: (err: Error | null) => void): void;
@@ -2314,6 +2366,13 @@ declare module "inspector" {
         post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", callback?: (err: Error | null) => void): void;
+        /**
+         * Read a chunk of the stream
+         */
+        post(method: "IO.read", params?: IO.ReadParameterType, callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.read", callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.close", params?: IO.CloseParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "IO.close", callback?: (err: Error | null) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
@@ -2982,6 +3041,7 @@ declare module "inspector/promises" {
         Network,
         NodeRuntime,
         Target,
+        IO,
     } from 'inspector';
 }
 
@@ -2999,6 +3059,7 @@ declare module "inspector/promises" {
         Network,
         NodeRuntime,
         Target,
+        IO,
     } from "inspector";
 
     /**
@@ -3314,6 +3375,10 @@ declare module "inspector/promises" {
          */
         post(method: "Network.streamResourceContent", params?: Network.StreamResourceContentParameterType): Promise<Network.StreamResourceContentReturnType>;
         /**
+         * Fetches the resource and returns the content.
+         */
+        post(method: "Network.loadNetworkResource", params?: Network.LoadNetworkResourceParameterType): Promise<Network.LoadNetworkResourceReturnType>;
+        /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
         post(method: "NodeRuntime.enable"): Promise<void>;
@@ -3326,6 +3391,11 @@ declare module "inspector/promises" {
          */
         post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType): Promise<void>;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
+        /**
+         * Read a chunk of the stream
+         */
+        post(method: "IO.read", params?: IO.ReadParameterType): Promise<IO.ReadReturnType>;
+        post(method: "IO.close", params?: IO.CloseParameterType): Promise<void>;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
