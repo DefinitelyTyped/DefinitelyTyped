@@ -160,6 +160,40 @@ declare module "inspector" {
          */
         function loadingFailed(params: LoadingFailedEventDataType): void;
     }
+    namespace NetworkResources {
+        /**
+         * This feature is only available with the `--experimental-inspector-network-resource` flag enabled.
+         *
+         * The inspector.NetworkResources.put method is used to provide a response for a loadNetworkResource
+         * request issued via the Chrome DevTools Protocol (CDP).
+         * This is typically triggered when a source map is specified by URL, and a DevTools frontend—such as
+         * Chrome—requests the resource to retrieve the source map.
+         *
+         * This method allows developers to predefine the resource content to be served in response to such CDP requests.
+         *
+         * ```js
+         * const inspector = require('node:inspector');
+         * // By preemptively calling put to register the resource, a source map can be resolved when
+         * // a loadNetworkResource request is made from the frontend.
+         * async function setNetworkResources() {
+         *   const mapUrl = 'http://localhost:3000/dist/app.js.map';
+         *   const tsUrl = 'http://localhost:3000/src/app.ts';
+         *   const distAppJsMap = await fetch(mapUrl).then((res) => res.text());
+         *   const srcAppTs = await fetch(tsUrl).then((res) => res.text());
+         *   inspector.NetworkResources.put(mapUrl, distAppJsMap);
+         *   inspector.NetworkResources.put(tsUrl, srcAppTs);
+         * };
+         * setNetworkResources().then(() => {
+         *   require('./dist/app');
+         * });
+         * ```
+         *
+         * For more details, see the official CDP documentation: [Network.loadNetworkResource](https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-loadNetworkResource)
+         * @since v24.5.0
+         * @experimental
+         */
+        function put(url: string, data: string): void;
+    }
 }
 
 /**
@@ -178,7 +212,7 @@ declare module "node:inspector" {
  */
 declare module "inspector/promises" {
     import EventEmitter = require("node:events");
-    export { close, console, open, url, waitForDebugger } from "inspector";
+    export { close, console, NetworkResources, open, url, waitForDebugger } from "inspector";
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
      * back-end and receiving message responses and notifications.
