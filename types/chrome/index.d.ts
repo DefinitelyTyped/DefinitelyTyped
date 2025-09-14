@@ -6854,22 +6854,38 @@ declare namespace chrome {
      * @since Chrome 78
      */
     export namespace loginState {
-        export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> {}
+        export enum ProfileType {
+            SIGNIN_PROFILE = "SIGNIN_PROFILE",
+            USER_PROFILE = "USER_PROFILE",
+        }
 
-        /** Possible profile types. */
-        export type ProfileType = "SIGNIN_PROFILE" | "USER_PROFILE";
+        export enum SessionState {
+            UNKNOWN = "UNKNOWN",
+            IN_OOBE_SCREEN = "IN_OOBE_SCREEN",
+            IN_LOGIN_SCREEN = "IN_LOGIN_SCREEN",
+            IN_SESSION = "IN_SESSION",
+            IN_LOCK_SCREEN = "IN_LOCK_SCREEN",
+            IN_RMA_SCREEN = "IN_RMA_SCREEN",
+        }
 
-        /** Possible session states. */
-        export type SessionState = "UNKNOWN" | "IN_OOBE_SCREEN" | "IN_LOGIN_SCREEN" | "IN_SESSION" | "IN_LOCK_SCREEN";
+        /**
+         * Gets the type of the profile the extension is in.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         */
+        export function getProfileType(): Promise<`${ProfileType}`>;
+        export function getProfileType(callback: (result: `${ProfileType}`) => void): void;
 
-        /** Gets the type of the profile the extension is in. */
-        export function getProfileType(callback: (profileType: ProfileType) => void): void;
+        /**
+         * Gets the current session state.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         */
+        export function getSessionState(): Promise<`${SessionState}`>;
+        export function getSessionState(callback: (sessionState: `${SessionState}`) => void): void;
 
-        /** Gets the current session state. */
-        export function getSessionState(callback: (sessionState: SessionState) => void): void;
-
-        /** Dispatched when the session state changes. sessionState is the new session state.*/
-        export const onSessionStateChanged: SessionStateChangedEvent;
+        /** Dispatched when the session state changes. `sessionState` is the new session state.*/
+        export const onSessionStateChanged: events.Event<(sessionState: `${SessionState}`) => void>;
     }
 
     ////////////////////
