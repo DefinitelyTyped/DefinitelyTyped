@@ -354,6 +354,9 @@ import * as url from "node:url";
         maxFreeSockets: 256,
         timeout: 15000,
         scheduling: "lifo",
+        proxyEnv: process.env,
+        defaultPort: 8080,
+        protocol: "http:",
     });
 
     agent = http.globalAgent;
