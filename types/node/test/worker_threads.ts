@@ -144,7 +144,7 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
+    bc.onmessage = (msg: MessageEvent) => {};
     bc.onmessageerror = (msg: unknown) => {};
 
     // Test global alias
