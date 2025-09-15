@@ -552,7 +552,7 @@ declare namespace GoogleAppsScript {
         interface MaterialIcon {
             setFill(fill: boolean): MaterialIcon;
             setGrade(grade: Integer): MaterialIcon;
-            setName(name: String): MaterialIcon;
+            setName(name: string): MaterialIcon;
             setWeight(weight: Integer): MaterialIcon;
         }
 
