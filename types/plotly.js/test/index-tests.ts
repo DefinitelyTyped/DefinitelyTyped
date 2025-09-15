@@ -1241,7 +1241,80 @@ function rand() {
             bearing: 30,
             bounds: { east: 0, west: 0, south: 0, north: 0 },
             pitch: 0,
-            layers: [],
+            layers: [
+                {
+                    // Circle layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-74.0060, 40.7128],
+                        },
+                    },
+                    type: "circle",
+                    circle: { radius: 10 },
+                    color: "rgb(255, 0, 0)",
+                    opacity: 0.8,
+                    minzoom: 8,
+                    maxzoom: 15,
+                },
+                {
+                    // Line layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [-74.0060, 40.7128],
+                                [-73.9857, 40.7484],
+                            ],
+                        },
+                    },
+                    type: "line",
+                    line: {
+                        color: "#00ff00",
+                        width: 2,
+                        dash: "dashdot",
+                    },
+                    opacity: 0.6,
+                },
+                {
+                    // Symbol layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-73.9857, 40.7484],
+                        },
+                    },
+                    type: "symbol",
+                    symbol: {
+                        icon: "monument",
+                        iconsize: 1.5,
+                        text: "Empire State",
+                        placement: "point",
+                        textposition: "top center",
+                        textfont: font,
+                    },
+                },
+                {
+                    // Raster layer
+                    visible: true,
+                    sourcetype: "raster",
+                    source: "mapbox://mapbox.satellite",
+                    type: "raster",
+                    opacity: 0.7,
+                    minzoom: 0,
+                    maxzoom: 22,
+                },
+            ],
             uirevision: "uirevision",
         },
         margin: { r: 0, t: 0, b: 0, l: 0 },

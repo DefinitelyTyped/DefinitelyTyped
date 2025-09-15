@@ -15,6 +15,9 @@ import * as url from "node:url";
         maxFreeSockets: 256,
         maxCachedSessions: 100,
         timeout: 15000,
+        proxyEnv: process.env,
+        defaultPort: 8080,
+        protocol: "https:",
     });
 
     agent = https.globalAgent;

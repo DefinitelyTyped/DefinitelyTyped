@@ -42,6 +42,11 @@ declare namespace woosmap.map {
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
 
         /**
+         * Clean up and release all internal resources associated with this map.This includes DOM elements, event bindings, web workers, and WebGL resources.Use this method when you are done using the map and wish to ensure that it no longer consumes browser resources. Afterwards, you must not call any other methods on the map.
+         */
+        remove(): void;
+
+        /**
          * Sets the viewport to contain the given bounds.
          */
         fitBounds(
