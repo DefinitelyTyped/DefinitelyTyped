@@ -573,7 +573,7 @@ declare module "worker_threads" {
      * ```
      * @since v15.4.0
      */
-    class BroadcastChannel {
+    class BroadcastChannel extends EventTarget {
         readonly name: string;
         /**
          * Invoked with a single \`MessageEvent\` argument when a message is received.
