@@ -621,6 +621,12 @@ CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
 CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
 CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
 
+CardService.newMaterialIcon(); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setFill(true); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setGrade(100); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setName(""); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setWeight(100); // $ExpectType MaterialIcon
+
 // CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
 CardService.DisplayStyle.PEEK;
 CardService.DisplayStyle.REPLACE;
