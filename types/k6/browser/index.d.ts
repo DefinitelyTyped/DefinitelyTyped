@@ -2767,6 +2767,21 @@ export interface Locator {
     all(): Promise<Locator[]>;
 
     /**
+     * Returns the bounding box of the element that this locator points to.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const locator = page.locator('#my-element');
+     * const boundingBox = await locator.boundingBox();
+     * ```
+     *
+     * @param options Options to use.
+     * @returns The bounding box of the element, or null if the element is not visible.
+     */
+    boundingBox(options?: TimeoutOptions): Promise<Rect | null>;
+
+    /**
      * Clears text boxes and input fields of any existing values.
      *
      * **Usage**

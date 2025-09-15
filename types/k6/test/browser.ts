@@ -1157,6 +1157,11 @@ async function test() {
     //
     const locator = page.locator(selector);
 
+    // $ExpectType Promise<Rect | null>
+    locator.boundingBox();
+    // $ExpectType Promise<Rect | null>
+    locator.boundingBox({ timeout: 10000 });
+
     // $ExpectType Promise<void>
     locator.clear();
     // $ExpectType Promise<void>
