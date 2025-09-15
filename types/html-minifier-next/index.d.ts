@@ -1,6 +1,6 @@
-import { minify, type MinifierOptions } from './index.d.cjs';
+import { type MinifierOptions, minify } from "./index.d.cjs";
 
-export { minify, MinifierOptions };
+export { MinifierOptions, minify };
 
 declare const _default: { minify: typeof minify };
 export default _default;
