@@ -63,6 +63,7 @@ declare module "worker_threads" {
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { HeapInfo } from "node:v8";
+    import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;

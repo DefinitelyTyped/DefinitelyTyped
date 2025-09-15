@@ -59,6 +59,7 @@ declare module "worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
+    import { MessageEvent } from "undici-types";
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
