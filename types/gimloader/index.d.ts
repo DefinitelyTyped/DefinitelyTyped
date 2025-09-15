@@ -298,7 +298,8 @@ declare namespace Gimloader {
 
     type PatcherInsteadCallback = (thisVal: any, args: IArguments) => void;
 
-    type PatcherBeforeCallback = (thisVal: any, args: IArguments) => boolean | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    type PatcherBeforeCallback = (thisVal: any, args: IArguments) => boolean | void;
 
     type PatcherAfterCallback = (thisVal: any, args: IArguments, returnVal: any) => any;
 
@@ -371,7 +372,8 @@ declare namespace Gimloader {
     interface ModalButton {
         text: string;
         style?: "primary" | "danger" | "close";
-        onClick?: (event: MouseEvent) => boolean | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        onClick?: (event: MouseEvent) => boolean | void;
     }
 
     interface ModalOptions {
