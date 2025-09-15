@@ -540,9 +540,9 @@ declare namespace GoogleAppsScript {
 
         /**
          * An object that supports all Google Font Icons ({@link https://fonts.google.com/icons}).
-         * 
+         *
          * Available for Google Workspace add-ons and Google Chat apps.
-         * 
+         *
          * const materialIcon = CardService.newMaterialIcon()
          *     .setName('search')
          *     .setFill(true)
