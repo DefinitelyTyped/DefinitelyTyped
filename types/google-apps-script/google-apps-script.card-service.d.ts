@@ -317,6 +317,7 @@ declare namespace GoogleAppsScript {
             newImageCropStyle(): ImageCropStyle;
             newKeyValue(): KeyValue;
             newLinkPreview(): LinkPreview;
+            newMaterialIcon(): MaterialIcon;
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
@@ -415,7 +416,7 @@ declare namespace GoogleAppsScript {
             VIDEO_PLAY,
         }
         /**
-         * A widget that shows an icon image.
+         * A predefined icon, a material design icon, or an icon from a URL with a customizable crop style.
          *
          *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
          */
@@ -424,6 +425,7 @@ declare namespace GoogleAppsScript {
             setIcon(icon: Icon): IconImage;
             setIconUrl(url: string): IconImage;
             setImageCropType(imageCropType: ImageCropType): IconImage;
+            setMaterialIcon(icon: MaterialIcon): IconImage;
         }
         /**
          * A widget that shows a single image.
@@ -454,6 +456,7 @@ declare namespace GoogleAppsScript {
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
             setIcon(icon: Icon): ImageButton;
             setIconUrl(url: string): ImageButton;
+            setMaterialIcon(icon: MaterialIcon): ImageButton;
             setOnClickAction(action: Action): ImageButton;
             setOnClickOpenLinkAction(action: Action): ImageButton;
             setOpenLink(openLink: OpenLink): ImageButton;
@@ -534,6 +537,25 @@ declare namespace GoogleAppsScript {
             SPINNER,
             NONE,
         }
+
+        /**
+         * An object that supports all Google Font Icons ({@link https://fonts.google.com/icons}).
+         * 
+         * Available for Google Workspace add-ons and Google Chat apps.
+         * 
+         * const materialIcon = CardService.newMaterialIcon()
+         *     .setName('search')
+         *     .setFill(true)
+         *     .setWeight(400)
+         *     .setGrade(0);
+         */
+        interface MaterialIcon {
+            setFill(fill: boolean): MaterialIcon;
+            setGrade(grade: Integer): MaterialIcon;
+            setName(name: string): MaterialIcon;
+            setWeight(weight: Integer): MaterialIcon;
+        }
+
         /**
          * A helper object that controls card navigation. See the card navigation guide for more details.
          */
