@@ -5381,8 +5381,7 @@ export interface Page {
      * const response = await responsePromise;
      * ```
      *
-     *
-     * @param response Request URL string or regex to match against Response object. 
+     * @param response Request URL string or regex to match against Response object.
      * @param options Options to use.
      */
     waitForResponse(
