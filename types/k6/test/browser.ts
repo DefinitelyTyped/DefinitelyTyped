@@ -529,6 +529,16 @@ async function test() {
     page.locator();
     // $ExpectType Locator
     page.locator(selector);
+    // $ExpectType Locator
+    page.locator(selector, { hasText: "Submit" });
+    // $ExpectType Locator
+    page.locator(selector, { hasText: /Submit/ });
+    // $ExpectType Locator
+    page.locator(selector, { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    page.locator(selector, { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    page.locator(selector, { hasText: "Submit", hasNotText: "Cancel" });
 
     // $ExpectType Frame
     page.mainFrame();
@@ -1304,8 +1314,31 @@ async function test() {
 
     // $ExpectType Locator
     locator.locator("div");
+    // $ExpectType Locator
+    locator.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    locator.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    locator.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    locator.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
     // @ts-expect-error
     locator.locator();
+
+    // $ExpectType Locator
+    locator.filter({ hasText: "Submit" });
+    // $ExpectType Locator
+    locator.filter({ hasText: /Submit/ });
+    // $ExpectType Locator
+    locator.filter({ hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.filter({ hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    locator.filter({ hasText: "Submit", hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.filter({});
 
     // $ExpectType Locator
     locator.nth(0);
@@ -2324,6 +2357,16 @@ async function test() {
     frame.locator();
     // $ExpectType Locator
     frame.locator("div");
+    // $ExpectType Locator
+    frame.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    frame.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    frame.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    frame.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    frame.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
 
     // @ts-expect-error
     frame.innerHTML();
@@ -2599,10 +2642,20 @@ async function test() {
     //
     // FrameLocator
     //
+    // $ExpectType FrameLocator
     const frameLocator = page.locator(selector).contentFrame();
-
     // $ExpectType Locator
     frameLocator.locator("div");
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
     // @ts-expect-error
     frameLocator.locator();
 
