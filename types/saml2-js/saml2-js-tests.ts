@@ -80,8 +80,8 @@ import * as saml2 from "saml2-js";
 
     // Assert endpoint for when login completes
     app.post("/assert", function(req, res) {
-        const options = {
-            request_body: req.body,
+        const options: saml2.PostAssertOptions = {
+            request_body: req.body as saml2.PostAssertOptions["request_body"],
             notbefore_skew: 5,
         };
         sp.post_assert(idp, options, function(err, saml_response) {

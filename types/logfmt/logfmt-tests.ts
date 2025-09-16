@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as http from "http";
 import * as logfmt from "logfmt";
+import { Stream } from "stream";
 import * as through from "through";
 
 // Examples taken from project README
@@ -42,7 +43,7 @@ http.createServer((req, res) => {
 
 const app = express();
 app.use(logfmt.bodyParserStream());
-app.post("/logs", (req, res) => {
+app.post<{}, any, Stream>("/logs", (req, res) => {
     if (!req.body) {
         return res.send("OK");
     }
@@ -57,7 +58,7 @@ app.post("/logs", (req, res) => {
 const app2 = express();
 app2.use(logfmt.bodyParser());
 // req.body is now an array of objects
-app2.post("/logs", (req, res) => {
+app2.post<{}, any, object[]>("/logs", (req, res) => {
     console.log("BODY: " + JSON.stringify(req.body));
     req.body.forEach((data: object) => {
         console.log(data);
