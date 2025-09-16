@@ -437,11 +437,11 @@ async function topLevel() {
     const proofreaderResult: ProofreadResult = await proofreader.proofread("foo");
     console.log(proofreaderResult);
 
-    for await (
-        const chunk of proofreader.proofreadStreaming("foo")
-    ) {
-        console.log(chunk);
-    }
+    // for await (
+    //     const chunk of proofreader.proofreadStreaming("foo")
+    // ) {
+    //     console.log(chunk);
+    // }
 
     console.log(
         proofreader.expectedInputLanguages,

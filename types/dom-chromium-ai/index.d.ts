@@ -398,7 +398,7 @@ declare abstract class Proofreader implements DestroyableModel {
     static availability(options?: ProofreaderCreateCoreOptions): Promise<Availability>;
 
     proofread(input: string): Promise<ProofreadResult>;
-    proofreadStreaming(input: string): ReadableStream<ProofreadResult>;
+    // proofreadStreaming(input: string): ReadableStream<unknown>;
 
     readonly includeCorrectionTypes: boolean;
     readonly includeCorrectionExplanations: boolean;
