@@ -421,8 +421,8 @@ interface ProofreaderCreateOptions extends ProofreaderCreateCoreOptions {
 }
 
 interface ProofreadResult {
-    correctedInput?: string;
-    corrections?: ProofreadCorrection[];
+    correctedInput: string;
+    corrections: ProofreadCorrection[];
 }
 
 interface ProofreadCorrection {
