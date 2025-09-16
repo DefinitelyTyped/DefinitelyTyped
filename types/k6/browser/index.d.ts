@@ -1719,10 +1719,18 @@ export interface Frame {
 
     /**
      * Сreates and returns a new locator for this frame.
+     *
+     * @example
+     * ```js
+     * const frame = page.frames()[1];
+     * const submitButton = frame.locator('button', { hasText: 'Pizza, Please!' });
+     * ```
+     *
      * @param selector The selector to use.
+     * @param options Options to use for filtering.
      * @returns The new locator.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * Get the `innerHTML` attribute of the first element found that matches the selector.
@@ -2309,12 +2317,16 @@ export interface FrameLocator {
      * const frame = page.frameLocator('iframe');
      * const rows = frame.locator('table tr');
      * const cell = rows.locator('.selected');
+     *
+     * // Use with options to filter by text
+     * const submitButton = frame.locator('button', { hasText: 'Submit' });
      * ```
      *
      * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
      * @returns The new locator.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * Returns {@link Locator} to the element with the corresponding role.
@@ -2740,6 +2752,30 @@ export interface Keyboard {
     up(key: string): Promise<void>;
 }
 
+export interface LocatorOptions {
+    /**
+     * Matches only elements that contain the specified text. String or regular expression.
+     */
+    hasText?: string | RegExp;
+
+    /**
+     * Matches only elements that do not contain the specified text. String or regular expression.
+     */
+    hasNotText?: string | RegExp;
+}
+
+export interface LocatorFilterOptions {
+    /**
+     * Matches only elements that contain the specified text. String or regular expression.
+     */
+    hasText?: string | RegExp;
+
+    /**
+     * Matches only elements that do not contain the specified text. String or regular expression.
+     */
+    hasNotText?: string | RegExp;
+}
+
 /**
  * The Locator API makes it easier to work with dynamically changing elements.
  * Some of the benefits of using it over existing ways to locate an element
@@ -2964,12 +3000,16 @@ export interface Locator {
      * ```js
      * const rows = page.locator('table tr');
      * const cell = rows.locator('.selected');
+     *
+     * // Use with options to filter
+     * const orangeButton = fruitsSection.locator('button', { hasText: 'Add to Cart' });
      * ```
      *
      * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
      * @returns The new locator.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
@@ -3058,6 +3098,29 @@ export interface Locator {
      * @param options Wait options.
      */
     waitFor(options?: { state?: ElementState } & TimeoutOptions): Promise<void>;
+
+    /**
+     * Returns a new Locator that matches only elements with the given options.
+     *
+     * @example
+     * ```js
+     * // Filter list items that contain "Product 2" text
+     * const product2Item = page
+     *   .locator('li')
+     *   .filter({ hasText: 'Product 2' })
+     *   .first();
+     *
+     * // Filter list items that do NOT contain "Product 2" using regex
+     * const product1Item = page
+     *   .locator('li')
+     *   .filter({ hasNotText: /Product 2/ })
+     *   .first();
+     * ```
+     *
+     * @param options Filter options.
+     * @returns A new filtered Locator that can be chained with other methods.
+     */
+    filter(options: LocatorFilterOptions): Locator;
 
     /**
      * Returns {@link Locator} to the element with the corresponding role.
@@ -4539,9 +4602,18 @@ export interface Page {
      * when the action takes place, which means locators can span over navigations
      * where the underlying dom changes.
      *
+     * @example
+     * ```js
+     * const textbox = page.locator('#text1');
+     *
+     * // Create a locator with text filtering options
+     * const submitButton = page.locator('button', { hasText: 'Pizza, Please!' });
+     * ```
+     *
      * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * The page's main frame. Page is made up of frames in a hierarchical. At the
