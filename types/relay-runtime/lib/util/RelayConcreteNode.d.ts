@@ -107,3 +107,5 @@ export const RelayConcreteNode: {
 export interface ProvidedVariablesType {
     readonly [key: string]: { get(): unknown };
 }
+
+export type ProvidedVariableType = { get(): unknown };
