@@ -46,8 +46,12 @@
  */
 declare module "assert/strict" {
     import {
+        Assert,
         AssertionError,
+        AssertionErrorOptions,
+        AssertOptions,
         AssertPredicate,
+        AssertStrict,
         CallTracker,
         CallTrackerCall,
         CallTrackerReportInformation,
@@ -69,8 +73,12 @@ declare module "assert/strict" {
     function strict(value: unknown, message?: string | Error): asserts value;
     namespace strict {
         export {
+            Assert,
             AssertionError,
+            AssertionErrorOptions,
+            AssertOptions,
             AssertPredicate,
+            AssertStrict,
             CallTracker,
             CallTrackerCall,
             CallTrackerReportInformation,
