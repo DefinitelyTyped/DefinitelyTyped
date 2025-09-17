@@ -13,8 +13,8 @@ export interface NormalizationOperation {
     readonly clientAbstractTypes?: {
         readonly [key: string]: readonly string[];
     };
-    readonly use_exec_time_resolvers?: boolean,
-    readonly exec_time_resolvers_enabled_provider?: ProvidedVariableType,
+    readonly use_exec_time_resolvers?: boolean;
+    readonly exec_time_resolvers_enabled_provider?: ProvidedVariableType;
 }
 
 export type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
