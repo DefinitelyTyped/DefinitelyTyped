@@ -248,7 +248,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
-    date: Date;
+    date: stringOrDate;
     view: View;
     views: ViewsProps<TEvent, TResource>;
     label: string;
@@ -270,13 +270,13 @@ export interface EventProps<TEvent extends object = Event> {
 }
 
 export interface AgendaDateProps {
-    day: Date;
+    day: stringOrDate;
     label: string;
 }
 
 export interface AgendaTimeProps {
     event: Event;
-    day: Date;
+    day: stringOrDate;
     label: string;
 }
 

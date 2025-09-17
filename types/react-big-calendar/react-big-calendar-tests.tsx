@@ -550,7 +550,8 @@ function ShowMoreButton(props: ShowMoreProps<CalendarEvent>) {
 
 class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
-        const { date, label, view } = this.props;
+        const { date: dateOrString, label, view } = this.props;
+        const date = new Date(dateOrString);
         return (
             <div>
                 <div>
