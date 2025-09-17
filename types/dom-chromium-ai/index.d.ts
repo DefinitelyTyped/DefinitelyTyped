@@ -389,3 +389,48 @@ interface LanguageDetectionResult {
     detectedLanguage?: string;
     confidence?: number;
 }
+
+// Proofreader API
+// https://github.com/webmachinelearning/proofreader-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+declare abstract class Proofreader implements DestroyableModel {
+    static create(options?: ProofreaderCreateOptions): Promise<Proofreader>;
+    static availability(options?: ProofreaderCreateCoreOptions): Promise<Availability>;
+
+    proofread(input: string): Promise<ProofreadResult>;
+    // proofreadStreaming(input: string): ReadableStream<unknown>;
+
+    readonly includeCorrectionTypes: boolean;
+    readonly includeCorrectionExplanations: boolean;
+    readonly correctionExplanationLanguage?: string;
+    readonly expectedInputLanguages: ReadonlyArray<string>;
+
+    destroy(): void;
+}
+
+interface ProofreaderCreateCoreOptions {
+    includeCorrectionTypes?: boolean;
+    includeCorrectionExplanations?: boolean;
+    correctionExplanationLanguage?: string;
+    expectedInputLanguages?: string[];
+}
+
+interface ProofreaderCreateOptions extends ProofreaderCreateCoreOptions {
+    signal?: AbortSignal;
+    monitor?: CreateMonitorCallback;
+}
+
+interface ProofreadResult {
+    correctedInput: string;
+    corrections: ProofreadCorrection[];
+}
+
+interface ProofreadCorrection {
+    startIndex: number;
+    endIndex: number;
+    correction: string;
+    type?: CorrectionType;
+    explanation?: string;
+}
+
+type CorrectionType = "spelling" | "punctuation" | "capitalization" | "preposition" | "missing-words" | "grammar";
