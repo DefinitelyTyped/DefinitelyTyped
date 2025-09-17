@@ -63,6 +63,7 @@ declare module "worker_threads" {
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { HeapInfo } from "node:v8";
+    import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -574,18 +575,18 @@ declare module "worker_threads" {
      * ```
      * @since v15.4.0
      */
-    class BroadcastChannel {
+    class BroadcastChannel extends EventTarget {
         readonly name: string;
         /**
          * Invoked with a single \`MessageEvent\` argument when a message is received.
          * @since v15.4.0
          */
-        onmessage: (message: unknown) => void;
+        onmessage: (message: MessageEvent) => void;
         /**
          * Invoked with a received message cannot be deserialized.
          * @since v15.4.0
          */
-        onmessageerror: (message: unknown) => void;
+        onmessageerror: (message: MessageEvent) => void;
         constructor(name: string);
         /**
          * Closes the `BroadcastChannel` connection.
