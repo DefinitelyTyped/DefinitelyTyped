@@ -416,8 +416,8 @@ async function topLevel() {
     const proofreader = await Proofreader.create({
         includeCorrectionTypes: true,
         includeCorrectionExplanations: true,
-        correctionExplanationLanguage: "de",
-        expectedInputLanguages: ["de"],
+        correctionExplanationLanguage: "en",
+        expectedInputLanguages: ["en"],
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
