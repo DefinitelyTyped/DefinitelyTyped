@@ -1,67 +1,5 @@
-import type {
-    searchCategoriesConfig,
-    searchPagesConfig,
-    searchPopularConfig,
-    searchPredictiveConfig,
-    searchSearchConfig,
-    searchSuggestionsConfig,
-    recommendationsPopularConfig,
-    recommendationsTrendingConfig,
-    recommendationsNewConfig,
-    recommendationsCurrentlyWatchedConfig,
-    recommendationsRecentlyBoughtConfig,
-    recommendationsKeywordsConfig,
-    recommendationsComplementaryConfig,
-    recommendationsSubstitutingConfig,
-    recommendationsMostSoldWithConfig,
-    recommendationsCategoryPopularConfig,
-    recommendationsCategoryTrendingConfig,
-    recommendationsCategoryNewConfig,
-    recommendationsCategoryPopularSubcategoriesConfig,
-    recommendationsVisitorHistoryConfig,
-    recommendationsVisitorComplementaryConfig,
-    recommendationsVisitorSubstitutingConfig,
-    recommendationsCustomerHistoryConfig,
-    recommendationsCustomerComplementaryConfig,
-    recommendationsCustomerSubstitutingConfig,
-    recommendationsPageSubstitutingConfig,
-    recommendationsPageProductConfig,
-    recommendationsPageCategoryConfig,
-    recommendationsPageRelatedProductsConfig,
-    recommendationsPageRelatedCategoriesConfig
-} from './types/config';
-import type {
-    searchCategoriesResponse,
-    searchPagesResponse,
-    searchPopularResponse,
-    searchPredictiveResponse,
-    searchSearchResponse,
-    searchSuggestionsResponse,
-    recommendationsPopularResponse,
-    recommendationsTrendingResponse,
-    recommendationsNewResponse,
-    recommendationsCurrentlyWatchedResponse,
-    recommendationsRecentlyBoughtResponse,
-    recommendationsKeywordsResponse,
-    recommendationsComplementaryResponse,
-    recommendationsSubstitutingResponse,
-    recommendationsMostSoldWithResponse,
-    recommendationsCategoryPopularResponse,
-    recommendationsCategoryTrendingResponse,
-    recommendationsCategoryNewResponse,
-    recommendationsCategoryPopularSubcategoriesResponse,
-    recommendationsVisitorHistoryResponse,
-    recommendationsVisitorComplementaryResponse,
-    recommendationsVisitorSubstitutingResponse,
-    recommendationsCustomerHistoryResponse,
-    recommendationsCustomerComplementaryResponse,
-    recommendationsCustomerSubstitutingResponse,
-    recommendationsPageSubstitutingResponse,
-    recommendationsPageProductResponse,
-    recommendationsPageCategoryResponse,
-    recommendationsPageRelatedProductsResponse,
-    recommendationsPageRelatedCategoriesResponse
-} from './types/response';
+import * as Config from './types/config';
+import * as Response from './types/response';
 
 interface InitConfig {
     key: string;
@@ -83,45 +21,11 @@ interface InitConfig {
     [key: string]: unknown;
 }
 
-export type SearchEndpoints =
-    | 'search/search'
-    | 'search/predictive'
-    | 'search/suggestions'
-    | 'search/categories'
-    | 'search/pages'
-    | 'search/popular';
+export type SearchEndpoints = Extract<keyof ConfigTypes, `search/${string}`>;
+export type RecommendationsEndpoints = Extract<keyof ConfigTypes, `recommendations/${string}`>;
+export type ClerkEndpoints = keyof ConfigTypes;
 
-export type RecommendationsEndpoints =
-    | 'recommendations/popular'
-    | 'recommendations/trending'
-    | 'recommendations/new'
-    | 'recommendations/currently_watched'
-    | 'recommendations/recently_bought'
-    | 'recommendations/keywords'
-    | 'recommendations/complementary'
-    | 'recommendations/substituting'
-    | 'recommendations/most_sold_with'
-    | 'recommendations/category/popular'
-    | 'recommendations/category/trending'
-    | 'recommendations/category/new'
-    | 'recommendations/category/popular_subcategories'
-    | 'recommendations/visitor/history'
-    | 'recommendations/visitor/complementary'
-    | 'recommendations/visitor/substituting'
-    | 'recommendations/customer/history'
-    | 'recommendations/customer/complementary'
-    | 'recommendations/customer/substituting'
-    | 'recommendations/page/substituting'
-    | 'recommendations/page/product'
-    | 'recommendations/page/category'
-    | 'recommendations/page/related_products'
-    | 'recommendations/page/related_categories';
-
-export type ClerkEndpoints = RecommendationsEndpoints | SearchEndpoints
-
-export type ClerkObject = {
-    [key: string]: unknown;
-};
+export type ClerkObject = Record<string, unknown>;
 
 export type ClerkErrorResponse = {
     status: string;
@@ -137,69 +41,69 @@ type ClerkContent = {
 };
 
 export interface ConfigTypes {
-    'search/search': searchSearchConfig
-    'search/predictive': searchPredictiveConfig
-    'search/suggestions': searchSuggestionsConfig
-    'search/categories': searchCategoriesConfig
-    'search/pages': searchPagesConfig
-    'search/popular': searchPopularConfig
-    'recommendations/popular': recommendationsPopularConfig
-    'recommendations/trending': recommendationsTrendingConfig
-    'recommendations/new': recommendationsNewConfig
-    'recommendations/currently_watched': recommendationsCurrentlyWatchedConfig
-    'recommendations/recently_bought': recommendationsRecentlyBoughtConfig
-    'recommendations/keywords': recommendationsKeywordsConfig
-    'recommendations/complementary': recommendationsComplementaryConfig
-    'recommendations/substituting': recommendationsSubstitutingConfig
-    'recommendations/most_sold_with': recommendationsMostSoldWithConfig
-    'recommendations/category/popular': recommendationsCategoryPopularConfig
-    'recommendations/category/trending': recommendationsCategoryTrendingConfig
-    'recommendations/category/new': recommendationsCategoryNewConfig
-    'recommendations/category/popular_subcategories': recommendationsCategoryPopularSubcategoriesConfig
-    'recommendations/visitor/history': recommendationsVisitorHistoryConfig
-    'recommendations/visitor/complementary': recommendationsVisitorComplementaryConfig
-    'recommendations/visitor/substituting': recommendationsVisitorSubstitutingConfig
-    'recommendations/customer/history': recommendationsCustomerHistoryConfig
-    'recommendations/customer/complementary': recommendationsCustomerComplementaryConfig
-    'recommendations/customer/substituting': recommendationsCustomerSubstitutingConfig
-    'recommendations/page/substituting': recommendationsPageSubstitutingConfig
-    'recommendations/page/product': recommendationsPageProductConfig
-    'recommendations/page/category': recommendationsPageCategoryConfig
-    'recommendations/page/related_products': recommendationsPageRelatedProductsConfig
-    'recommendations/page/related_categories': recommendationsPageRelatedCategoriesConfig
+    'search/search': Config.searchSearchConfig
+    'search/predictive': Config.searchPredictiveConfig
+    'search/suggestions': Config.searchSuggestionsConfig
+    'search/categories': Config.searchCategoriesConfig
+    'search/pages': Config.searchPagesConfig
+    'search/popular': Config.searchPopularConfig
+    'recommendations/popular': Config.recommendationsPopularConfig
+    'recommendations/trending': Config.recommendationsTrendingConfig
+    'recommendations/new': Config.recommendationsNewConfig
+    'recommendations/currently_watched': Config.recommendationsCurrentlyWatchedConfig
+    'recommendations/recently_bought': Config.recommendationsRecentlyBoughtConfig
+    'recommendations/keywords': Config.recommendationsKeywordsConfig
+    'recommendations/complementary': Config.recommendationsComplementaryConfig
+    'recommendations/substituting': Config.recommendationsSubstitutingConfig
+    'recommendations/most_sold_with': Config.recommendationsMostSoldWithConfig
+    'recommendations/category/popular': Config.recommendationsCategoryPopularConfig
+    'recommendations/category/trending': Config.recommendationsCategoryTrendingConfig
+    'recommendations/category/new': Config.recommendationsCategoryNewConfig
+    'recommendations/category/popular_subcategories': Config.recommendationsCategoryPopularSubcategoriesConfig
+    'recommendations/visitor/history': Config.recommendationsVisitorHistoryConfig
+    'recommendations/visitor/complementary': Config.recommendationsVisitorComplementaryConfig
+    'recommendations/visitor/substituting': Config.recommendationsVisitorSubstitutingConfig
+    'recommendations/customer/history': Config.recommendationsCustomerHistoryConfig
+    'recommendations/customer/complementary': Config.recommendationsCustomerComplementaryConfig
+    'recommendations/customer/substituting': Config.recommendationsCustomerSubstitutingConfig
+    'recommendations/page/substituting': Config.recommendationsPageSubstitutingConfig
+    'recommendations/page/product': Config.recommendationsPageProductConfig
+    'recommendations/page/category': Config.recommendationsPageCategoryConfig
+    'recommendations/page/related_products': Config.recommendationsPageRelatedProductsConfig
+    'recommendations/page/related_categories': Config.recommendationsPageRelatedCategoriesConfig
 }
 
 export interface ResponseTypes {
-    'search/search': searchSearchResponse
-    'search/predictive': searchPredictiveResponse
-    'search/suggestions': searchSuggestionsResponse
-    'search/categories': searchCategoriesResponse
-    'search/pages': searchPagesResponse
-    'search/popular': searchPopularResponse
-    'recommendations/popular': recommendationsPopularResponse
-    'recommendations/trending': recommendationsTrendingResponse
-    'recommendations/new': recommendationsNewResponse
-    'recommendations/currently_watched': recommendationsCurrentlyWatchedResponse
-    'recommendations/recently_bought': recommendationsRecentlyBoughtResponse
-    'recommendations/keywords': recommendationsKeywordsResponse
-    'recommendations/complementary': recommendationsComplementaryResponse
-    'recommendations/substituting': recommendationsSubstitutingResponse
-    'recommendations/most_sold_with': recommendationsMostSoldWithResponse
-    'recommendations/category/popular': recommendationsCategoryPopularResponse
-    'recommendations/category/trending': recommendationsCategoryTrendingResponse
-    'recommendations/category/new': recommendationsCategoryNewResponse
-    'recommendations/category/popular_subcategories': recommendationsCategoryPopularSubcategoriesResponse
-    'recommendations/visitor/history': recommendationsVisitorHistoryResponse
-    'recommendations/visitor/complementary': recommendationsVisitorComplementaryResponse
-    'recommendations/visitor/substituting': recommendationsVisitorSubstitutingResponse
-    'recommendations/customer/history': recommendationsCustomerHistoryResponse
-    'recommendations/customer/complementary': recommendationsCustomerComplementaryResponse
-    'recommendations/customer/substituting': recommendationsCustomerSubstitutingResponse
-    'recommendations/page/substituting': recommendationsPageSubstitutingResponse
-    'recommendations/page/product': recommendationsPageProductResponse
-    'recommendations/page/category': recommendationsPageCategoryResponse
-    'recommendations/page/related_products': recommendationsPageRelatedProductsResponse
-    'recommendations/page/related_categories': recommendationsPageRelatedCategoriesResponse
+    'search/search': Response.searchSearchResponse
+    'search/predictive': Response.searchPredictiveResponse
+    'search/suggestions': Response.searchSuggestionsResponse
+    'search/categories': Response.searchCategoriesResponse
+    'search/pages': Response.searchPagesResponse
+    'search/popular': Response.searchPopularResponse
+    'recommendations/popular': Response.recommendationsPopularResponse
+    'recommendations/trending': Response.recommendationsTrendingResponse
+    'recommendations/new': Response.recommendationsNewResponse
+    'recommendations/currently_watched': Response.recommendationsCurrentlyWatchedResponse
+    'recommendations/recently_bought': Response.recommendationsRecentlyBoughtResponse
+    'recommendations/keywords': Response.recommendationsKeywordsResponse
+    'recommendations/complementary': Response.recommendationsComplementaryResponse
+    'recommendations/substituting': Response.recommendationsSubstitutingResponse
+    'recommendations/most_sold_with': Response.recommendationsMostSoldWithResponse
+    'recommendations/category/popular': Response.recommendationsCategoryPopularResponse
+    'recommendations/category/trending': Response.recommendationsCategoryTrendingResponse
+    'recommendations/category/new': Response.recommendationsCategoryNewResponse
+    'recommendations/category/popular_subcategories': Response.recommendationsCategoryPopularSubcategoriesResponse
+    'recommendations/visitor/history': Response.recommendationsVisitorHistoryResponse
+    'recommendations/visitor/complementary': Response.recommendationsVisitorComplementaryResponse
+    'recommendations/visitor/substituting': Response.recommendationsVisitorSubstitutingResponse
+    'recommendations/customer/history': Response.recommendationsCustomerHistoryResponse
+    'recommendations/customer/complementary': Response.recommendationsCustomerComplementaryResponse
+    'recommendations/customer/substituting': Response.recommendationsCustomerSubstitutingResponse
+    'recommendations/page/substituting': Response.recommendationsPageSubstitutingResponse
+    'recommendations/page/product': Response.recommendationsPageProductResponse
+    'recommendations/page/category': Response.recommendationsPageCategoryResponse
+    'recommendations/page/related_products': Response.recommendationsPageRelatedProductsResponse
+    'recommendations/page/related_categories': Response.recommendationsPageRelatedCategoriesResponse
 }
 
 /**
