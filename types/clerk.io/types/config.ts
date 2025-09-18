@@ -1,7 +1,7 @@
 import type { IntRange } from './helpers';
 
 // Base types
-type BaseConfig = {
+interface BaseConfig {
     key: string;
     /**
      * @description Required for tracking. Visitor ID for the given visitor. If auto, an anonymous ID is generated
@@ -32,7 +32,7 @@ type BaseSearchConfig = BaseLimitConfig & {
     labels?: string[];
     /**
      * @description Filters results based on the provided filter string
-     * @docs https://docs.clerk.io/docs/filters
+     * @see https://docs.clerk.io/docs/filters
      */
     filter?: string;
     /**
@@ -40,7 +40,7 @@ type BaseSearchConfig = BaseLimitConfig & {
      */
     exclude?: string[];
     /**
-     * @docs https://docs.clerk.io/docs/product-metadata
+     * @see https://docs.clerk.io/docs/product-metadata
      */
     attributes?: string[];
 };
@@ -48,7 +48,7 @@ type BaseSearchConfig = BaseLimitConfig & {
 type BaseFacetedConfig = BaseSearchConfig & {
     /**
      * @description List of facets to be returned for the products in the result
-     * @docs https://docs.clerk.io/docs/facets
+     * @see https://docs.clerk.io/docs/facets
      */
     facets?: string[];
 };

@@ -1,7 +1,7 @@
 import type { PickAttributes } from './helpers';
 
 // Base types
-type BaseResponse = {
+interface BaseResponse {
     result: (string | number)[];
     status: string;
     debug?: Record<string, unknown>;
@@ -17,7 +17,7 @@ type BaseCountedResponse = BaseProductResponse & {
 };
 
 // Common types
-type Category = {
+interface Category {
     children: number[];
     description: string;
     id: number;
@@ -28,7 +28,7 @@ type Category = {
     url: string;
 };
 
-type Page = {
+interface Page {
     author: string | null;
     blog?: string;
     created_at: number;
