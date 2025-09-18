@@ -661,7 +661,7 @@ declare namespace GoogleAppsScript {
          *          .addItem('radio button one title', 'radio_one_value', true)
          *          .addItem('radio button two title', 'radio_two_value', false)
          *          .addItem('radio button three title', 'radio_three_value', false);
-         * 
+         *
          *  const multiSelect =
          *      CardService.newSelectionInput()
          *          .setType(CardService.SelectionInputType.MULTI_SELECT)
@@ -707,11 +707,17 @@ declare namespace GoogleAppsScript {
          */
         interface SelectionInput {
             addItem(text: any, value: any, selected: boolean): SelectionInput;
-            addMultiSelectItem(text: string, value: string, selected: boolean, startIconUri: string, bottomText: string): SelectionInput;
+            addMultiSelectItem(
+                text: string,
+                value: string,
+                selected: boolean,
+                startIconUri: string,
+                bottomText: string,
+            ): SelectionInput;
             setExternalDataSource(action: Action): SelectionInput;
             setFieldName(fieldName: string): SelectionInput;
             setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
-            setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput
+            setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
