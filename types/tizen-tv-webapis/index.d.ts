@@ -214,7 +214,11 @@ export interface AppCommonManager {
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    setScreenSaver: (state: AppCommonScreenSaverState, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
+    setScreenSaver: (
+        state: AppCommonScreenSaverState,
+        onsuccess?: SuccessCallback,
+        onerror?: ErrorCallback,
+    ) => void;
 
     /**
      * Provides a Universally Unique Identifier (UUID) for the device.
