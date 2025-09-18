@@ -60,7 +60,7 @@ export default class TextureNode extends UniformNode<Texture> {
 }
 
 export const texture: (
-    value?: Texture,
+    value?: Texture | TextureNode,
     uvNode?: Node | null,
     levelNode?: Node | number | null,
     biasNode?: Node | null,
@@ -71,7 +71,7 @@ export const uniformTexture: (
 ) => ShaderNodeObject<TextureNode>;
 
 export const textureLoad: (
-    value?: Texture,
+    value?: Texture | TextureNode,
     uvNode?: Node,
     levelNode?: Node | number,
     biasNode?: Node,
