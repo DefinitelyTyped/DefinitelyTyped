@@ -1,11 +1,11 @@
-import type { PickAttributes } from './helpers';
+import type { PickAttributes } from "./helpers";
 
 // Base types
 interface BaseResponse {
     result: (string | number)[];
     status: string;
     debug?: Record<string, unknown>;
-};
+}
 
 type BaseProductResponse = BaseResponse & {
     product_data?: PickAttributes<string[]>[];
@@ -26,7 +26,7 @@ interface Category {
     parent: number | null;
     subcategories: number[];
     url: string;
-};
+}
 
 interface Page {
     author: string | null;
@@ -41,7 +41,7 @@ interface Page {
     type: string;
     url: string;
     [key: string]: unknown;
-};
+}
 
 // Search responses
 export type searchSearchResponse = BaseCountedResponse;

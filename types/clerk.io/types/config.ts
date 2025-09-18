@@ -1,4 +1,4 @@
-import type { IntRange } from './helpers';
+import type { IntRange } from "./helpers";
 
 // Base types
 interface BaseConfig {
@@ -6,7 +6,7 @@ interface BaseConfig {
     /**
      * @description Required for tracking. Visitor ID for the given visitor. If auto, an anonymous ID is generated
      */
-    visitor?: 'auto' | string;
+    visitor?: "auto" | string;
     /**
      * @description The language used for finding results. If not provided, the language configured on the Store in my.clerk.io will be used.
      */
@@ -19,7 +19,7 @@ interface BaseConfig {
      * @description When `true`, the response will include a JSON dictionary of the various customisations made to the results shown by Synonyms, Customized Search, Merchandising etc
      */
     debug?: boolean;
-};
+}
 
 type BaseLimitConfig = BaseConfig & {
     limit: number;
@@ -62,7 +62,7 @@ export type searchSearchConfig = BaseFacetedConfig & {
     longtail?: boolean;
     offset?: number;
     orderby?: string;
-    order?: 'asc' | 'desc';
+    order?: "asc" | "desc";
 };
 
 export type searchPredictiveConfig = BaseFacetedConfig & {
@@ -94,7 +94,7 @@ export type searchPopularConfig = BaseConfig & {
 export type recommendationsPopularConfig = BaseFacetedConfig & {
     offset?: number;
     orderby?: string;
-    order?: 'asc' | 'desc';
+    order?: "asc" | "desc";
 };
 
 export type recommendationsTrendingConfig = BaseFacetedConfig & {
@@ -128,7 +128,7 @@ export type recommendationsCategoryPopularConfig = BaseFacetedConfig & {
     category: string;
     offset?: number;
     orderby?: string;
-    order?: 'asc' | 'desc';
+    order?: "asc" | "desc";
 };
 
 export type recommendationsCategoryTrendingConfig = BaseFacetedConfig & {
@@ -143,7 +143,7 @@ export type recommendationsCategoryNewConfig = BaseSearchConfig & {
 export type recommendationsCategoryPopularSubcategoriesConfig = BaseSearchConfig & {
     category: string;
     offset?: number;
-    order?: 'asc' | 'desc';
+    order?: "asc" | "desc";
 };
 
 // Visitor endpoints
@@ -179,7 +179,7 @@ export type recommendationsCustomerSubstitutingConfig = BaseSearchConfig & {
 export type recommendationsPageSubstitutingConfig = BaseConfig & {
     page: string;
     limit: number;
-    visitor: 'auto' | string;
+    visitor: "auto" | string;
     labels?: string[];
     type?: string;
     attributes?: string[];
@@ -188,7 +188,7 @@ export type recommendationsPageSubstitutingConfig = BaseConfig & {
 export type recommendationsPageProductConfig = BaseConfig & {
     page: string;
     limit: number;
-    visitor: 'auto' | string;
+    visitor: "auto" | string;
     labels?: string[];
     attributes?: string[];
     type?: string;
@@ -197,7 +197,7 @@ export type recommendationsPageProductConfig = BaseConfig & {
 export type recommendationsPageCategoryConfig = BaseConfig & {
     category: string;
     limit: number;
-    visitor: 'auto' | string;
+    visitor: "auto" | string;
     labels?: string[];
     attributes?: string[];
     type?: string;
