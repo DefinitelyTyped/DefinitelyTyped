@@ -244,12 +244,12 @@ export interface AppCommonManager {
      * const id = tizen.systeminfo.getUuid();
      * console.log(id); // "550e8400-e29b-41d4-a716-446655440000"
      * } catch (e) {
-     *   if (e.message.indexOf('undefined')) { 
+     *   if (e.message.indexOf('undefined')) {
      *      console.error('getUuid() is not supported in this firmware version or device model. Consider a legacy method',e);
      *   }
-     *   else { 
+     *   else {
      *    console.log('SecurityError: Application does not have the privilege to call this method.',e);
-     *   } 
+     *   }
      * }
      * ```
      */
@@ -494,7 +494,12 @@ export interface AVPlayStoreManager {
  * - `PAUSED`- Player is paused
  * @since 2.3
  */
-export type AVPlayPlayerState = "NONE" | "IDLE" | "READY" | "PLAYING" | "PAUSED";
+export type AVPlayPlayerState =
+    | "NONE"
+    | "IDLE"
+    | "READY"
+    | "PLAYING"
+    | "PAUSED";
 
 /**
  * Specifies display modes.
@@ -516,7 +521,9 @@ export type AVPlayDisplayMode =
  * - `PLAYER_BUFFER_FOR_RESUME`- Re-buffering which might be occured after initial buffering during the playback.
  * @since 2.3
  */
-export type AVPlayBufferOption = "PLAYER_BUFFER_FOR_PLAY" | "PLAYER_BUFFER_FOR_RESUME";
+export type AVPlayBufferOption =
+    | "PLAYER_BUFFER_FOR_PLAY"
+    | "PLAYER_BUFFER_FOR_RESUME";
 
 /**
  * Specifies buffer size units.
@@ -524,7 +531,9 @@ export type AVPlayBufferOption = "PLAYER_BUFFER_FOR_PLAY" | "PLAYER_BUFFER_FOR_R
  * - `PLAYER_BUFFER_SIZE_IN_SECOND`- Buffer size in seconds
  * @since 2.3
  */
-export type AVPlayBufferSizeUnit = "PLAYER_BUFFER_SIZE_IN_BYTE" | "PLAYER_BUFFER_SIZE_IN_SECOND";
+export type AVPlayBufferSizeUnit =
+    | "PLAYER_BUFFER_SIZE_IN_BYTE"
+    | "PLAYER_BUFFER_SIZE_IN_SECOND";
 
 /**
  * Specifies parameters for various streaming protocols, such as HTTP, MMS, and adaptive streaming (Smooth Streaming, HLS, and MPEG-DASH).
@@ -577,7 +586,12 @@ export type AVPlayStreamingPropertyType =
  * - `EME_WIDEVINE_CDM`- Widevine Modular (supported since Tizen 5.0)
  * @since 2.3
  */
-export type AVPlayDrmType = "PLAYREADY" | "EME_PLAYREADY" | "VERIMATRIX" | "WIDEVINE_CDM" | "EME_WIDEVINE_CDM";
+export type AVPlayDrmType =
+    | "PLAYREADY"
+    | "EME_PLAYREADY"
+    | "VERIMATRIX"
+    | "WIDEVINE_CDM"
+    | "EME_WIDEVINE_CDM";
 
 /**
  * Specifies various DRM operations.
@@ -859,7 +873,12 @@ export interface AVPlayPlaybackCallback {
      *
      * @since 2.3
      */
-    onsubtitlechange?(duration: string, subtitles: string, type: string, attributes: AVPlaySubtitleAttribute[]): void;
+    onsubtitlechange?(
+        duration: string,
+        subtitles: string,
+        type: string,
+        attributes: AVPlaySubtitleAttribute[],
+    ): void;
 }
 
 /**
@@ -1016,7 +1035,10 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    prepareAsync: (successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
+    prepareAsync: (
+        successCallback?: SuccessCallback,
+        errorCallback?: ErrorCallback,
+    ) => void;
 
     /**
      * Sets the display area for video content playback.
@@ -1048,7 +1070,12 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    setDisplayRect: (x: number, y: number, width: number, height: number) => void;
+    setDisplayRect: (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+    ) => void;
 
     /**
      * Starts stream playback, or resumes stream playback after pause.
@@ -1101,7 +1128,11 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    seekTo: (milliseconds: number, successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
+    seekTo: (
+        milliseconds: number,
+        successCallback?: SuccessCallback,
+        errorCallback?: ErrorCallback,
+    ) => void;
 
     /**
      * Stops the player. Call this function after the video finishes playing.
@@ -1188,7 +1219,11 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    jumpForward: (milliseconds: number, successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
+    jumpForward: (
+        milliseconds: number,
+        successCallback?: SuccessCallback,
+        errorCallback?: ErrorCallback,
+    ) => void;
 
     /**
      * Skips playback backward by a specific amount of time. The player state is unchanged.
@@ -1219,7 +1254,11 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    jumpBackward: (milliseconds: number, successCallback?: SuccessCallback, errorCallback?: ErrorCallback) => void;
+    jumpBackward: (
+        milliseconds: number,
+        successCallback?: SuccessCallback,
+        errorCallback?: ErrorCallback,
+    ) => void;
 
     /**
      * Retrieves the total media duration.
@@ -1313,7 +1352,11 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    setBufferingParam: (option: AVPlayBufferOption, unit: AVPlayBufferSizeUnit, amount: number) => void;
+    setBufferingParam: (
+        option: AVPlayBufferOption,
+        unit: AVPlayBufferSizeUnit,
+        amount: number,
+    ) => void;
 
     /**
      * Sets the current playback rate. Positive parameter values play the media forwards, while negative values cause the media to play in reverse.
@@ -1409,7 +1452,11 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    setDrm: (drmType: AVPlayDrmType, drmOperation: AVPlayDrmOperation, jsonParam: string) => string;
+    setDrm: (
+        drmType: AVPlayDrmType,
+        drmOperation: AVPlayDrmOperation,
+        jsonParam: string,
+    ) => string;
 
     /**
      * Gets the device UID. The input would be the drm type.
@@ -1467,7 +1514,9 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    setSoundAnalysisListener: (soundAnalysisCallback: AVPlaySoundAnalysisCallback) => void;
+    setSoundAnalysisListener: (
+        soundAnalysisCallback: AVPlaySoundAnalysisCallback,
+    ) => void;
 
     /**
      * Unregisters the sound analysis listener.
@@ -1697,7 +1746,10 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    setStreamingProperty: (propertyType: AVPlayStreamingPropertyType, propertyParam: string) => void;
+    setStreamingProperty: (
+        propertyType: AVPlayStreamingPropertyType,
+        propertyParam: string,
+    ) => void;
 
     /**
      * Retrieves a specific property value obtained by the streaming engine (Smooth Streaming, HLS, DASH, or Widevine).
@@ -1843,7 +1895,7 @@ export interface AVPlayManager {
         resumeTime?: number,
         bPrepare?: boolean,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 }
 /**
@@ -2636,7 +2688,7 @@ export interface BillingManager {
         serverType: TVServerType,
         paymentDetails: string,
         onsuccess: BillingBuyDataSuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2691,7 +2743,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingProductsListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2740,7 +2792,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingApplyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2789,7 +2841,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingVerifyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2838,7 +2890,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingGetServiceCountryAvailabilityCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2894,7 +2946,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingGetUserPurchaseListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2943,7 +2995,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingCancelSubscriptionCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2978,7 +3030,7 @@ export interface BillingManager {
     isServiceAvailable: (
         serverType: TVServerType,
         onsuccess: BillingIsServiceAvailableCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -3776,7 +3828,9 @@ export interface NetworkManager {
      *
      * @note Since plugin version 3.0, the NotSupportedError exception has been removed.
      */
-    addNetworkStateChangeListener: (listener: NetworkStateChangedCallback) => number;
+    addNetworkStateChangeListener: (
+        listener: NetworkStateChangedCallback,
+    ) => number;
 
     /**
      * Unregisters an asynchronous event listener.
@@ -4141,7 +4195,7 @@ export interface PreviewManager {
     setPreviewData: (
         previewData_JSON: string,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -4615,7 +4669,7 @@ export interface ProductInfoManager {
         key: ProductInfoConfigKey,
         value: string,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -4643,7 +4697,10 @@ export interface ProductInfoManager {
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    addSystemConfigChangeListener: (key: ProductInfoConfigKey, listener: ProductInfoConfigChangeCallback) => number;
+    addSystemConfigChangeListener: (
+        key: ProductInfoConfigKey,
+        listener: ProductInfoConfigChangeCallback,
+    ) => number;
 
     /**
      * Unregisters a system configuration change listener.
@@ -4905,7 +4962,11 @@ export interface SsoManager {
      *
      * @version 1.0
      */
-    showAccountView: (widgetName: string, onsuccess: SsoCallDataSuccessCallback, onerror?: ErrorCallback) => void;
+    showAccountView: (
+        widgetName: string,
+        onsuccess: SsoCallDataSuccessCallback,
+        onerror?: ErrorCallback,
+    ) => void;
 
     /**
      * Retrieves the plugin version number.
@@ -5014,7 +5075,10 @@ export interface SsoManager {
      *
      * @version 1.0
      */
-    showCreateAccountView: (onsuccess: SsoNumSuccessCallback, onerror?: ErrorCallback) => void;
+    showCreateAccountView: (
+        onsuccess: SsoNumSuccessCallback,
+        onerror?: ErrorCallback,
+    ) => void;
 }
 /**
  * Object of max video resolution
@@ -8338,7 +8402,10 @@ export interface TvInfoManager {
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
      */
-    addCaptionChangeListener: (key: TvInfoMenuKey, listener: TvInfoCaptionChangeCallback) => number;
+    addCaptionChangeListener: (
+        key: TvInfoMenuKey,
+        listener: TvInfoCaptionChangeCallback,
+    ) => number;
 
     /**
      * Unregisters a caption menu change listener callback.
@@ -8731,7 +8798,11 @@ export interface WidgetDataManager {
      *
      * @note If you need to share a file created by the widgetdata api with another c or c# app, you need to use one more privilege(http://tizen.org/privilege/appdir.shareddata)
      */
-    write: (data: string, onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
+    write: (
+        data: string,
+        onsuccess?: SuccessCallback,
+        onerror?: ErrorCallback,
+    ) => void;
 
     /**
      * Removes encrypted data.
