@@ -5002,18 +5002,49 @@ async function testTopSitesForPromise() {
     await chrome.topSites.get();
 }
 
-// https://developer.chrome.com/docs/extensions/reference/offscreen/
-async function testOffscreenDocument() {
-    await chrome.offscreen.createDocument({
+// https://developer.chrome.com/docs/extensions/reference/api/offscreen
+async function testOffscreen() {
+    chrome.offscreen.Reason.AUDIO_PLAYBACK === "AUDIO_PLAYBACK";
+    chrome.offscreen.Reason.BATTERY_STATUS === "BATTERY_STATUS";
+    chrome.offscreen.Reason.BLOBS === "BLOBS";
+    chrome.offscreen.Reason.CLIPBOARD === "CLIPBOARD";
+    chrome.offscreen.Reason.DISPLAY_MEDIA === "DISPLAY_MEDIA";
+    chrome.offscreen.Reason.DOM_PARSER === "DOM_PARSER";
+    chrome.offscreen.Reason.DOM_SCRAPING === "DOM_SCRAPING";
+    chrome.offscreen.Reason.GEOLOCATION === "GEOLOCATION";
+    chrome.offscreen.Reason.IFRAME_SCRIPTING === "IFRAME_SCRIPTING";
+    chrome.offscreen.Reason.LOCAL_STORAGE === "LOCAL_STORAGE";
+    chrome.offscreen.Reason.MATCH_MEDIA === "MATCH_MEDIA";
+    chrome.offscreen.Reason.TESTING === "TESTING";
+    chrome.offscreen.Reason.USER_MEDIA === "USER_MEDIA";
+    chrome.offscreen.Reason.WEB_RTC === "WEB_RTC";
+    chrome.offscreen.Reason.WORKERS === "WORKERS";
+
+    chrome.offscreen.closeDocument(); // $ExpectType Promise<void>
+    chrome.offscreen.closeDocument(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.offscreen.closeDocument(() => {}).then(() => {});
+
+    const createDetails: chrome.offscreen.CreateParameters = {
         reasons: [
             chrome.offscreen.Reason.CLIPBOARD,
-            "AUDIO_PLAYBACK", // Accept both enum values and strings
+            "AUDIO_PLAYBACK",
         ],
         url: "https://example.com",
         justification: "Example",
+    };
+
+    chrome.offscreen.createDocument(createDetails); // $ExpectType Promise<void>
+    chrome.offscreen.createDocument(createDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.offscreen.createDocument(createDetails, () => {}).then(() => {});
+
+    chrome.offscreen.hasDocument(); // $ExpectType Promise<boolean>
+    chrome.offscreen.hasDocument((hasDocument) => { // $ExpectType void
+        hasDocument; // $ExpectType boolean
     });
-    await chrome.offscreen.hasDocument();
-    await chrome.offscreen.closeDocument();
+    // @ts-expect-error
+    chrome.offscreen.hasDocument(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/fileBrowserHandler
