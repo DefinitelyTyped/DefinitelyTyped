@@ -16,6 +16,8 @@
     "files": [
         "index.d.ts",
         "clerk.io-tests.ts",
-        "types/helpers.ts"
+        "types/helpers.ts",
+        "types/config.ts",
+        "types/response.ts"
     ]
 }
