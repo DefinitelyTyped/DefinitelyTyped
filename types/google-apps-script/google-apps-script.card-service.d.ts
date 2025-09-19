@@ -640,27 +640,84 @@ declare namespace GoogleAppsScript {
         /**
          * An input field that allows choosing between a set of predefined options.
          *
-         *     var checkboxGroup = CardService.newSelectionInput()
-         *         .setType(CardService.SelectionInputType.CHECK_BOX)
-         *         .setTitle("A group of checkboxes. Multiple selections are allowed.")
-         *         .setFieldName("checkbox_field")
-         *         .addItem("checkbox one title", "checkbox_one_value", false)
-         *         .addItem("checkbox two title", "checkbox_two_value", true)
-         *         .addItem("checkbox three title", "checkbox_three_value", false)
-         *         .setOnChangeAction(CardService.newAction()
-         *             .setFunctionName("handleCheckboxChange"));
+         *  const checkboxGroup =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.CHECK_BOX)
+         *          .setTitle('A group of checkboxes. Multiple selections are allowed.')
+         *          .setFieldName('checkbox_field')
+         *          .addItem('checkbox one title', 'checkbox_one_value', false)
+         *          .addItem('checkbox two title', 'checkbox_two_value', true)
+         *          .addItem('checkbox three title', 'checkbox_three_value', true)
+         *          .setOnChangeAction(
+         *              CardService.newAction().setFunctionName('handleCheckboxChange'),
+         *          );
          *
-         *     var radioGroup = CardService.newSelectionInput()
-         *         .setType(CardService.SelectionInputType.RADIO_BUTTON)
-         *         .setTitle("A group of radio buttons. Only a single selection is allowed.")
-         *         .setFieldName("checkbox_field")
-         *         .addItem("radio button one title", "radio_one_value", true)
-         *         .addItem("radio button two title", "radio_two_value", true)
-         *         .addItem("radio button three title", "radio_three_value", false);
+         *  const radioGroup =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.RADIO_BUTTON)
+         *          .setTitle(
+         *              'A group of radio buttons. Only a single selection is allowed.')
+         *          .setFieldName('checkbox_field')
+         *          .addItem('radio button one title', 'radio_one_value', true)
+         *          .addItem('radio button two title', 'radio_two_value', false)
+         *          .addItem('radio button three title', 'radio_three_value', false);
+         *
+         *  const multiSelect =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.MULTI_SELECT)
+         *          .setFieldName('multiselect')
+         *          .setTitle('A multi select input example.')
+         *          .addMultiSelectItem(
+         *              'Contact 1',
+         *              'contact-1',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact one description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 2',
+         *              'contact-2',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact two description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 3',
+         *              'contact-3',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact three description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 4',
+         *              'contact-4',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact four description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 5',
+         *              'contact-5',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact five description',
+         *              )
+         *          .setMultiSelectMaxSelectedItems(3)
+         *          .setMultiSelectMinQueryLength(1);
          */
         interface SelectionInput {
             addItem(text: any, value: any, selected: boolean): SelectionInput;
+            addMultiSelectItem(
+                text: string,
+                value: string,
+                selected: boolean,
+                startIconUri: string,
+                bottomText: string,
+            ): SelectionInput;
+            setExternalDataSource(action: Action): SelectionInput;
             setFieldName(fieldName: string): SelectionInput;
+            setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
+            setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
