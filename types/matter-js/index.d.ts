@@ -2731,7 +2731,8 @@ declare namespace Matter {
         frameDeltaSmoothing?: boolean | undefined;
 
         /**
-         * A flag that enables snapping of framerate to the nearest integer unit.
+         * The measured time elapsed between the last two browser frames measured in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
          *
          * @default true
          */
