@@ -2876,7 +2876,16 @@ declare namespace Matter {
 
         /**
          * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
-         * To calculate the effective browser FPS at which this throttle is applied use 1000 / runner.maxFrameTime.
+         * 
+         * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
+         * 
+         * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
+         * 
+         * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
+         * 
+         * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
+         * 
+         * See also `runner.maxUpdates`.
          *
          *  @default 1000 / 30
          */
