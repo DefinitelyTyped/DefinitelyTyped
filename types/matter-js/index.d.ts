@@ -2704,7 +2704,23 @@ declare namespace Matter {
 
     export interface IRunnerOptions {
         /**
-         * The fixed timestep size used for Engine.update calls in milliseconds, known as delta.
+         * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
+         * 
+         * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
+         * 
+         * Smaller `delta` values provide higher quality results at the cost of performance.
+         * 
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected. 
+         * 
+         * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
+         * 
+         * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
+         * 
+         * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
+         * 
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames. 
+         * 
+         * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
          *
          * @default 1000 / 60
          */
