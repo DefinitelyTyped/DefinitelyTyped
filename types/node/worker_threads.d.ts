@@ -718,7 +718,7 @@ declare module "worker_threads" {
      * @since v15.12.0, v14.18.0
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      */
-    function getEnvironmentData(key: Serializable): Serializable;
+    function getEnvironmentData(key: Serializable): Serializable | undefined;
     /**
      * The `worker.setEnvironmentData()` API sets the content of `worker.getEnvironmentData()` in the current thread and all new `Worker` instances spawned from the current context.
      * @since v15.12.0, v14.18.0

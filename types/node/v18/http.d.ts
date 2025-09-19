@@ -233,6 +233,8 @@ declare module "http" {
         timeout?: number | undefined;
         uniqueHeaders?: Array<string | string[]> | undefined;
         joinDuplicateHeaders?: boolean;
+        search?: string | undefined;
+        hash?: string | undefined;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
