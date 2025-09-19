@@ -2747,8 +2747,9 @@ declare namespace Matter {
         frameDeltaSmoothing?: boolean | undefined;
 
         /**
-         * The measured time elapsed between the last two browser frames measured in milliseconds.
-         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
+         * Rounds measured browser frame delta to the nearest 1 Hz.
+         * This option can help smooth frame rate measurements and simplify handling hardware timing differences e.g. 59.94Hz and 60Hz displays.
+         * For best results you should also round your `runner.delta` equivalent to the nearest 1 Hz.
          *
          * @default true
          */
