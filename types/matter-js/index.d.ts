@@ -2719,7 +2719,7 @@ declare namespace Matter {
 
         /**
          * The measured time elapsed between the last two browser frames in milliseconds.
-         * This is useful e.g. to estimate the current browser FPS using 1000 / runner.frameDelta.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
          */
         frameDelta?: number | undefined;
 
