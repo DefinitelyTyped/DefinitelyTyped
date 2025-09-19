@@ -2859,7 +2859,7 @@ declare namespace Matter {
         frameDelta: number;
 
         /**
-         * A flag that enables smoothing of framerate variations.
+         * Enables averaging to smooth frame rate measurements and therefore stabilise play rate.
          *
          * @default true
          */
