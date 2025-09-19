@@ -2756,8 +2756,11 @@ declare namespace Matter {
         maxFrameTime?: number | undefined;
 
         /**
-         * An optional limit for maximum engine update count allowed per frame tick.
-         * If undefined it is automatically chosen based on runner.delta and runner.maxFrameTime.
+         * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
+         * 
+         * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
+         * 
+         * See also `runner.maxFrameTime`.
          *
          *  @default null
          */
