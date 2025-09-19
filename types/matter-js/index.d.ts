@@ -2705,21 +2705,21 @@ declare namespace Matter {
     export interface IRunnerOptions {
         /**
          * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
-         * 
+         *
          * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
-         * 
+         *
          * Smaller `delta` values provide higher quality results at the cost of performance.
-         * 
-         * You should usually avoid changing `delta` during running, otherwise quality may be affected. 
-         * 
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
          * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
-         * 
+         *
          * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
-         * 
+         *
          * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
-         * 
-         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames. 
-         * 
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
          * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
          *
          * @default 1000 / 60
@@ -2757,15 +2757,15 @@ declare namespace Matter {
 
         /**
          * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
-         * 
+         *
          * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
-         * 
+         *
          * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
-         * 
+         *
          * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
-         * 
+         *
          * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
-         * 
+         *
          * See also `runner.maxUpdates`.
          *
          * @default 1000 / 30
@@ -2774,9 +2774,9 @@ declare namespace Matter {
 
         /**
          * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
-         * 
+         *
          * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
-         * 
+         *
          * See also `runner.maxFrameTime`.
          *
          *  @default null
@@ -2841,21 +2841,21 @@ declare namespace Matter {
 
         /**
          * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
-         * 
+         *
          * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
-         * 
+         *
          * Smaller `delta` values provide higher quality results at the cost of performance.
-         * 
-         * You should usually avoid changing `delta` during running, otherwise quality may be affected. 
-         * 
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
          * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
-         * 
+         *
          * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
-         * 
+         *
          * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
-         * 
-         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames. 
-         * 
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
          * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
          *
          * @default 1000 / 60
@@ -2893,15 +2893,15 @@ declare namespace Matter {
 
         /**
          * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
-         * 
+         *
          * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
-         * 
+         *
          * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
-         * 
+         *
          * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
-         * 
+         *
          * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
-         * 
+         *
          * See also `runner.maxUpdates`.
          *
          *  @default 1000 / 30
@@ -2910,9 +2910,9 @@ declare namespace Matter {
 
         /**
          * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
-         * 
+         *
          * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
-         * 
+         *
          * See also `runner.maxFrameTime`.
          *
          * @default null
