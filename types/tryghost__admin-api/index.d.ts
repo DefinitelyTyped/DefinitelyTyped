@@ -556,7 +556,7 @@ interface AddFunction<T, U = undefined> {
 interface EditFunction<T, U = undefined> {
     (data: { id: string } & (U extends undefined ? { [key: string]: string } : U)): Promise<T>;
 }
-interface DeleteFunction<> {
+interface DeleteFunction {
     (data: { id: string } | { email: string }): Promise<void>;
 }
 

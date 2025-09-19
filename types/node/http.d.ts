@@ -1419,6 +1419,14 @@ declare module "http" {
          */
         destroy(error?: Error): this;
     }
+    interface ProxyEnv extends NodeJS.ProcessEnv {
+        HTTP_PROXY?: string | undefined;
+        HTTPS_PROXY?: string | undefined;
+        NO_PROXY?: string | undefined;
+        http_proxy?: string | undefined;
+        https_proxy?: string | undefined;
+        no_proxy?: string | undefined;
+    }
     interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
@@ -1450,6 +1458,22 @@ declare module "http" {
          * @default `lifo`
          */
         scheduling?: "fifo" | "lifo" | undefined;
+        /**
+         * Environment variables for proxy configuration. See
+         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v24.x/api/http.html#built-in-proxy-support) for details.
+         * @since v24.5.0
+         */
+        proxyEnv?: ProxyEnv | undefined;
+        /**
+         * Default port to use when the port is not specified in requests.
+         * @since v24.5.0
+         */
+        defaultPort?: number | undefined;
+        /**
+         * The protocol to use for the agent.
+         * @since v24.5.0
+         */
+        protocol?: string | undefined;
     }
     /**
      * An `Agent` is responsible for managing connection persistence
@@ -1591,7 +1615,7 @@ declare module "http" {
         createConnection(
             options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *
@@ -2028,18 +2052,18 @@ declare module "http" {
      */
     const maxHeaderSize: number;
     /**
-     * A browser-compatible implementation of [WebSocket](https://nodejs.org/docs/latest/api/http.html#websocket).
+     * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
-    const WebSocket: import("undici-types").WebSocket;
+    const WebSocket: typeof import("undici-types").WebSocket;
     /**
      * @since v22.5.0
      */
-    const CloseEvent: import("undici-types").CloseEvent;
+    const CloseEvent: typeof import("undici-types").CloseEvent;
     /**
      * @since v22.5.0
      */
-    const MessageEvent: import("undici-types").MessageEvent;
+    const MessageEvent: typeof import("undici-types").MessageEvent;
 }
 declare module "node:http" {
     export * from "http";

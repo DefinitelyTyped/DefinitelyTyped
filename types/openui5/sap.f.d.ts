@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.140.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -6898,8 +6898,8 @@ declare module "sap/f/DynamicPageTitle" {
      * Gets content of aggregation {@link #getActions actions}.
      *
      * The `DynamicPageTitle` actions.
-     * **Note:** The `actions` aggregation accepts any UI5 control, but it`s recommended to use controls, suitable
-     * for {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
+     * **Note:** The `actions` aggregation accepts any UI5 control. However, it is best to use buttons or controls
+     * that work well inside toolbars, such as those typically used with {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
      *
      * **Note:** If the `snappedTitleOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
@@ -7614,8 +7614,8 @@ declare module "sap/f/DynamicPageTitle" {
 
     /**
      * The `DynamicPageTitle` actions.
-     * **Note:** The `actions` aggregation accepts any UI5 control, but it`s recommended to use controls, suitable
-     * for {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
+     * **Note:** The `actions` aggregation accepts any UI5 control. However, it is best to use buttons or controls
+     * that work well inside toolbars, such as those typically used with {@link sap.m.Toolbar} and {@link sap.m.OverflowToolbar}.
      *
      * **Note:** If the `snappedTitleOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
@@ -14672,9 +14672,9 @@ declare module "sap/f/ProductSwitch" {
 declare module "sap/f/ProductSwitchItem" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
   import { URI } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -14749,6 +14749,18 @@ declare module "sap/f/ProductSwitchItem" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getImageSrc imageSrc}.
+     *
+     * Defines the image to be displayed as graphical element within the `ProductSwitchItem`.
+     *
+     * **Note:** This property takes precedence over the `src` property.
+     *
+     * @since 1.140
+     *
+     * @returns Value of property `imageSrc`
+     */
+    getImageSrc(): URI;
+    /**
      * Gets current value of property {@link #getSrc src}.
      *
      * Defines the icon to be displayed as graphical element within the `ProductSwitchItem`. It can be an icon
@@ -14800,6 +14812,25 @@ declare module "sap/f/ProductSwitchItem" {
      * @returns Value of property `title`
      */
     getTitle(): string;
+    /**
+     * Sets a new value for property {@link #getImageSrc imageSrc}.
+     *
+     * Defines the image to be displayed as graphical element within the `ProductSwitchItem`.
+     *
+     * **Note:** This property takes precedence over the `src` property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.140
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setImageSrc(
+      /**
+       * New value for property `imageSrc`
+       */
+      sImageSrc?: URI
+    ): this;
     /**
      * Sets a new value for property {@link #getSrc src}.
      *
@@ -14899,6 +14930,15 @@ declare module "sap/f/ProductSwitchItem" {
     src?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Defines the image to be displayed as graphical element within the `ProductSwitchItem`.
+     *
+     * **Note:** This property takes precedence over the `src` property.
+     *
+     * @since 1.140
+     */
+    imageSrc?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Determines the title of the `ProductSwitchItem`.
      */
     title?: string | PropertyBindingInfo;
@@ -14936,16 +14976,24 @@ declare module "sap/f/routing/Router" {
   import TargetHandler from "sap/f/routing/TargetHandler";
 
   /**
-   * The `sap.f.routing.Router` class is intended to be used with `{@link sap.f.FlexibleColumnLayout}` as
-   * a root control.
+   * The `sap.f.routing.Router` extends the capabilities of the standard `{@link sap.ui.core.routing.Router}`
+   * to support flexible and responsive layouts based on `{@link sap.f.FlexibleColumnLayout}` as the root
+   * control.
    *
-   * The difference to the `{@link sap.ui.core.routing.Router}` are the `level`, `transition`, and `transitionParameters`
-   * properties that you can specify in every Route or Target created by this router.
+   * This router enables advanced navigation scenarios tailored to flexible column layouts, such as changing
+   * both the layout type (e.g., OneColumn, TwoColumnsMidExpanded) and the currently displayed views within
+   * individual columns.
    *
-   * The difference to the `{@link sap.m.routing.Router}` is the additional `layout` property that can be
-   * specified in every Route, in which case it is applied to the root control. Also, the `sap.f.routing.Router`
-   * supports navigations that involve both change of `{@link sap.f.LayoutType}` and change of the current
-   * page within a single column of the `sap.f.FlexibleColumnLayout`.
+   * Compared to `{@link sap.ui.core.routing.Router}`, it adds support for additional target properties:
+   *
+   * 	 - `level`: Defines the hierarchical level of the target view for proper history and back navigation
+   *     handling
+   * 	 - `transition`: Specifies the type of transition animation between views (e.g., `slide`, `fade`)
+   * 	 - `transitionParameters`: Custom parameters for transitions
+   *
+   * Compared to `{@link sap.m.routing.Router}`, it further introduces a `layout` property on each route,
+   * allowing you to define the desired `{@link sap.f.LayoutType}` to be applied to the `FlexibleColumnLayout`
+   * root control during navigation.
    *
    * See `{@link sap.ui.core.routing.Router}` for the constructor arguments.
    *

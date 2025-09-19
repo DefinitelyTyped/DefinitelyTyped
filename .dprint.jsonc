@@ -18,7 +18,7 @@
         "./types/meteor",
         "./types/microsoft-graph",
         "./types/nginstack__engine",
-        "./types/node/**/inspector.d.ts",
+        "./types/node/**/inspector.generated.d.ts",
         "./types/office-js-preview",
         "./types/office-js",
         "./types/office-runtime",

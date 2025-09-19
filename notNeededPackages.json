@@ -4333,6 +4333,10 @@
             "libraryName": "metascraper-video",
             "asOfVersion": "5.42.0"
         },
+        "react-window": {
+            "libraryName": "react-window-infinite-loader",
+            "asOfVersion": "2.0.0"
+        },
         "metascraper-youtube": {
             "libraryName": "metascraper-youtube",
             "asOfVersion": "5.42.0"
@@ -6471,6 +6475,10 @@
             "libraryName": "react-widgets",
             "asOfVersion": "5.0.0"
         },
+        "react-window": {
+            "libraryName": "react-window",
+            "asOfVersion": "2.0.0"
+        },
         "react-youtube": {
             "libraryName": "react-youtube",
             "asOfVersion": "7.10.0"
@@ -7838,6 +7846,10 @@
         "username": {
             "libraryName": "username",
             "asOfVersion": "5.0.0"
+        },
+        "uuid": {
+            "libraryName": "uuid",
+            "asOfVersion": "11.0.0"
         },
         "uuid-apikey": {
             "libraryName": "uuid-apikey",

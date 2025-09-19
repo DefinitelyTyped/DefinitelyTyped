@@ -63,6 +63,7 @@ declare module "worker_threads" {
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { HeapInfo } from "node:v8";
+    import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -574,18 +575,18 @@ declare module "worker_threads" {
      * ```
      * @since v15.4.0
      */
-    class BroadcastChannel {
+    class BroadcastChannel extends EventTarget {
         readonly name: string;
         /**
          * Invoked with a single \`MessageEvent\` argument when a message is received.
          * @since v15.4.0
          */
-        onmessage: (message: unknown) => void;
+        onmessage: (message: MessageEvent) => void;
         /**
          * Invoked with a received message cannot be deserialized.
          * @since v15.4.0
          */
-        onmessageerror: (message: unknown) => void;
+        onmessageerror: (message: MessageEvent) => void;
         constructor(name: string);
         /**
          * Closes the `BroadcastChannel` connection.
@@ -598,6 +599,35 @@ declare module "worker_threads" {
          */
         postMessage(message: unknown): void;
     }
+    interface Lock {
+        readonly mode: LockMode;
+        readonly name: string;
+    }
+    interface LockGrantedCallback<T> {
+        (lock: Lock | null): T;
+    }
+    interface LockInfo {
+        clientId: string;
+        mode: LockMode;
+        name: string;
+    }
+    interface LockManager {
+        query(): Promise<LockManagerSnapshot>;
+        request<T>(name: string, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+        request<T>(name: string, options: LockOptions, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+    }
+    interface LockManagerSnapshot {
+        held: LockInfo[];
+        pending: LockInfo[];
+    }
+    type LockMode = "exclusive" | "shared";
+    interface LockOptions {
+        ifAvailable?: boolean;
+        mode?: LockMode;
+        signal?: AbortSignal;
+        steal?: boolean;
+    }
+    var locks: LockManager;
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
      * a `port.postMessage()` call, it is ignored.
@@ -739,6 +769,24 @@ declare module "worker_threads" {
      * for the `key` will be deleted.
      */
     function setEnvironmentData(key: Serializable, value?: Serializable): void;
+    /**
+     * Sends a value to another worker, identified by its thread ID.
+     * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+     * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+     * @param value The value to send.
+     * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+     * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+     * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+     * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+     * @since v22.5.0
+     */
+    function postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+    function postMessageToThread(
+        threadId: number,
+        value: any,
+        transferList: readonly Transferable[],
+        timeout?: number,
+    ): Promise<void>;
 
     import {
         BroadcastChannel as _BroadcastChannel,

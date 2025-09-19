@@ -87,3 +87,34 @@ async function handleConnectedDevice(device: USBDevice) {
         }
     }
 }
+
+function testNullVsUndefined(device: USBDevice) {
+    // There are certain properties that are nullable, meaning they return null
+    // rather than undefined. These constructs test that this is the case.
+
+    if (device.manufacturerName !== null) {
+        device.manufacturerName.length;
+    }
+
+    if (device.productName !== null) {
+        device.productName.length;
+    }
+
+    if (device.serialNumber !== null) {
+        device.serialNumber.length;
+    }
+
+    if (device.configuration !== null) {
+        if (device.configuration.configurationName !== null) {
+            device.configuration.configurationName.length;
+        }
+
+        if (device.configuration.interfaces[0].alternate.interfaceName !== null) {
+            device.configuration.interfaces[0].alternate.interfaceName.length;
+        }
+    }
+}
+
+function testWorkerNavigator(workerNavigator: WorkerNavigator) {
+    workerNavigator.usb.getDevices();
+}

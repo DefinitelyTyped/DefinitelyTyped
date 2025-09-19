@@ -621,6 +621,12 @@ CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
 CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
 CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
 
+CardService.newMaterialIcon(); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setFill(true); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setGrade(100); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setName(""); // $ExpectType MaterialIcon
+CardService.newMaterialIcon().setWeight(100); // $ExpectType MaterialIcon
+
 // CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
 CardService.DisplayStyle.PEEK;
 CardService.DisplayStyle.REPLACE;
@@ -637,6 +643,13 @@ CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $Exp
 // Class CardService.SelectionInput
 // https://developers.google.com/apps-script/reference/card-service/selection-input
 CardService.newSelectionInput(); // $ExpectType SelectionInput
+CardService.newSelectionInput().addItem("", "", true); // $ExpectType SelectionInput
+CardService.newSelectionInput().addMultiSelectItem("", "", false, "", ""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setFieldName(""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setMultiSelectMaxSelectedItems(5); // $ExpectType SelectionInput
+CardService.newSelectionInput().setMultiSelectMinQueryLength(1); // $ExpectType SelectionInput
+CardService.newSelectionInput().setTitle(""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.CHECK_BOX); // $ExpectType SelectionInput
 
 // Enum SelectionInputType
 // https://developers.google.com/apps-script/reference/card-service/selection-input-type

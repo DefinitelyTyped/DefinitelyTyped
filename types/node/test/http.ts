@@ -354,6 +354,9 @@ import * as url from "node:url";
         maxFreeSockets: 256,
         timeout: 15000,
         scheduling: "lifo",
+        proxyEnv: process.env,
+        defaultPort: 8080,
+        protocol: "http:",
     });
 
     agent = http.globalAgent;
@@ -729,4 +732,10 @@ import * as url from "node:url";
     http.validateHeaderValue("Location", "/");
 
     http.setMaxIdleHTTPParsers(1337);
+}
+
+{
+    new http.WebSocket("ws://example.com", ["protocol"]);
+    new http.CloseEvent("close");
+    new http.MessageEvent("message", { data: "data" });
 }

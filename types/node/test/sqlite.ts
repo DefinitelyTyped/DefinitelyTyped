@@ -43,6 +43,7 @@ import { TextEncoder } from "node:util";
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
     insert.setAllowUnknownNamedParameters(true);
+    insert.setReturnArrays(false);
     insert.columns(); // $ExpectType StatementColumnMetadata[]
     insert.run(1, 42, 3.14159, "foo", new TextEncoder().encode("a☃b☃c"));
     insert.run(2, null, null, null, null);
@@ -66,6 +67,16 @@ import { TextEncoder } from "node:util";
 {
     new DatabaseSync(Buffer.from(":memory:"));
     new DatabaseSync(new URL("file:///var/lib/sqlite3/db"));
+}
+
+{
+    new DatabaseSync(":memory:", {
+        timeout: 10_000,
+        readBigInts: true,
+        returnArrays: true,
+        allowBareNamedParameters: false,
+        allowUnknownNamedParameters: true,
+    });
 }
 
 {

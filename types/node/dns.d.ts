@@ -830,6 +830,11 @@ declare module "dns" {
          * @default 4
          */
         tries?: number;
+        /**
+         * The max retry timeout, in milliseconds.
+         * @default 0
+         */
+        maxTimeout?: number | undefined;
     }
     /**
      * An independent resolver for DNS requests.
