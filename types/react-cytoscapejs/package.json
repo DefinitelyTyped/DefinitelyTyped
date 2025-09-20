@@ -6,7 +6,7 @@
         "https://github.com/plotly/react-cytoscapejs"
     ],
     "dependencies": {
-        "@types/cytoscape": "*",
+        "@types/cytoscape": "<3.31",
         "@types/react": "*"
     },
     "devDependencies": {
