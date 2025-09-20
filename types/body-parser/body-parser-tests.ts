@@ -33,7 +33,7 @@ app.post("/api/users", jsonParser, (req, res) => {});
 app.use(jsonParser);
 
 const urlencodedParser = urlencoded({ extended: false });
-app.post("/login", urlencodedParser, (req, res) => {
+app.post<{}, any, { username: string }>("/login", urlencodedParser, (req, res) => {
     res.send("welcome, " + req.body.username);
 });
 app.use(urlencodedParser);
