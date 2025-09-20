@@ -13528,39 +13528,40 @@ declare namespace chrome {
         }
 
         export interface RequestDetails {
-            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens.
-             * If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame.
-             * Frame IDs are unique within a tab.
+            /**
+             * The unique identifier for the frame's document, if this request is for a frame.
+             * @since Chrome 106
              */
+            documentId?: string | undefined;
+            /**
+             * The lifecycle of the frame's document, if this request is for a frame.
+             * @since Chrome 106
+             */
+            documentLifecycle?: extensionTypes.DocumentLifecycle | undefined;
+            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
             frameId: number;
-
-            /** The origin where the request was initiated.
-             * This does not change through redirects.
-             * If this is an opaque origin, the string 'null' will be used.
+            /**
+             * The type of the frame, if this request is for a frame.
+             * @since Chrome 106
              */
+            frameType?: extensionTypes.FrameType | undefined;
+            /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used. */
             initiator?: string | undefined;
-
             /** Standard HTTP method. */
             method: string;
-
-            /** ID of frame that wraps the frame which sent the request.
-             * Set to -1 if no parent frame exists.
+            /**
+             * The unique identifier for the frame's parent document, if this request is for a frame and has a parent.
+             * @since Chrome 106
              */
-            partentFrameId: number;
-
-            /** The ID of the request.
-             * Request IDs are unique within a browser session.
-             */
+            parentDocumentId?: string | undefined;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** The ID of the request. Request IDs are unique within a browser session. */
             requestId: string;
-
-            /** The ID of the tab in which the request takes place.
-             * Set to -1 if the request isn't related to a tab.
-             */
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
             tabId: number;
-
             /** The resource type of the request. */
             type: `${ResourceType}`;
-
             /** The URL of the request. */
             url: string;
         }
@@ -13568,38 +13569,27 @@ declare namespace chrome {
         export interface Rule {
             /** The action to take if this rule is matched. */
             action: RuleAction;
-
             /** The condition under which this rule is triggered. */
             condition: RuleCondition;
-
-            /** An id which uniquely identifies a rule.
-             * Mandatory and should be >= 1.
-             */
+            /** An id which uniquely identifies a rule. Mandatory and should be >= 1. */
             id: number;
-
-            /** Rule priority.
-             * Defaults to 1.
-             * When specified, should be >= 1.
-             */
+            /** Rule priority. Defaults to 1. When specified, should be >= 1. */
             priority?: number | undefined;
         }
 
         export interface RuleAction {
-            /** Describes how the redirect should be performed.
-             * Only valid for redirect rules.
-             */
+            /** Describes how the redirect should be performed. Only valid for redirect rules. */
             redirect?: Redirect | undefined;
-
-            /** The request headers to modify for the request.
-             * Only valid if RuleActionType is "modifyHeaders".
+            /**
+             * The request headers to modify for the request. Only valid if RuleActionType is "modifyHeaders".
+             * @since Chrome 86
              */
             requestHeaders?: ModifyHeaderInfo[] | undefined;
-
-            /** The response headers to modify for the request.
-             * Only valid if RuleActionType is "modifyHeaders".
+            /**
+             * The response headers to modify for the request. Only valid if RuleActionType is "modifyHeaders".
+             * @since Chrome 86
              */
             responseHeaders?: ModifyHeaderInfo[] | undefined;
-
             /** The type of action to perform. */
             type: `${RuleActionType}`;
         }
@@ -13612,37 +13602,19 @@ declare namespace chrome {
             domainType?: `${DomainType}` | undefined;
 
             /**
-         * @deprecated since Chrome 101. Use initiatorDomains instead.
-
-         * The rule will only match network requests originating from the list of domains.
-         * If the list is omitted, the rule is applied to requests from all domains.
-         * An empty list is not allowed.
-         *
-         * Notes:
-         * Sub-domains like "a.example.com" are also allowed.
-         * The entries must consist of only ascii characters.
-         * Use punycode encoding for internationalized domains.
-         * This matches against the request initiator and not the request url.
-         */
+             * The rule will only match network requests originating from the list of `domains`.
+             * @deprecated since Chrome 101. Use {@link initiatorDomains} instead
+             */
             domains?: string[] | undefined;
 
             /**
-             * @deprecated since Chrome 101. Use excludedInitiatorDomains instead
-             *
-             * The rule will not match network requests originating from the list of excludedDomains.
-             * If the list is empty or omitted, no domains are excluded.
-             * This takes precedence over domains.
-             *
-             * Notes:
-             * Sub-domains like "a.example.com" are also allowed.
-             * The entries must consist of only ascii characters.
-             * Use punycode encoding for internationalized domains.
-             * This matches against the request initiator and not the request url.
+             * The rule will not match network requests originating from the list of `excludedDomains`.
+             * @deprecated since Chrome 101. Use {@link excludedInitiatorDomains} instead
              */
             excludedDomains?: string[] | undefined;
 
             /**
-             * The rule will only match network requests originating from the list of initiatorDomains.
+             * The rule will only match network requests originating from the list of `initiatorDomains`.
              * If the list is omitted, the rule is applied to requests from all domains.
              * An empty list is not allowed.
              *
@@ -13651,24 +13623,26 @@ declare namespace chrome {
              * The entries must consist of only ascii characters.
              * Use punycode encoding for internationalized domains.
              * This matches against the request initiator and not the request url.
+             * @since Chrome 101
              */
             initiatorDomains?: string[] | undefined;
 
             /**
-             * The rule will not match network requests originating from the list of excludedInitiatorDomains.
+             * The rule will not match network requests originating from the list of `excludedInitiatorDomains`.
              * If the list is empty or omitted, no domains are excluded.
-             * This takes precedence over initiatorDomains.
+             * This takes precedence over `initiatorDomains`.
              *
              * Notes:
              * Sub-domains like "a.example.com" are also allowed.
              * The entries must consist of only ascii characters.
              * Use punycode encoding for internationalized domains.
              * This matches against the request initiator and not the request url.
+             * @since Chrome 101
              */
             excludedInitiatorDomains?: string[] | undefined;
 
             /**
-             * The rule will only match network requests when the domain matches one from the list of requestDomains.
+             * The rule will only match network requests when the domain matches one from the list of `requestDomains`.
              * If the list is omitted, the rule is applied to requests from all domains.
              * An empty list is not allowed.
              *
@@ -13676,71 +13650,72 @@ declare namespace chrome {
              * Sub-domains like "a.example.com" are also allowed.
              * The entries must consist of only ascii characters.
              * Use punycode encoding for internationalized domains.
+             * @since Chrome 101
              */
             requestDomains?: string[] | undefined;
 
             /**
-             * The rule will not match network requests when the domains matches one from the list of excludedRequestDomains.
+             * The rule will not match network requests when the domains matches one from the list of `excludedRequestDomains`.
              * If the list is empty or omitted, no domains are excluded.
-             * This takes precedence over requestDomains.
+             * This takes precedence over `requestDomains`.
              *
              * Notes:
              * Sub-domains like "a.example.com" are also allowed.
              * The entries must consist of only ascii characters.
              * Use punycode encoding for internationalized domains.
+             * @since Chrome 101
              */
             excludedRequestDomains?: string[] | undefined;
 
             /**
              * List of request methods which the rule won't match.
-             * Only one of requestMethods and excludedRequestMethods should be specified.
+             * Only one of `requestMethods` and `excludedRequestMethods` should be specified.
              * If neither of them is specified, all request methods are matched.
+             * @since Chrome 91
              */
             excludedRequestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
              * List of resource types which the rule won't match.
-             * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
-             * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
+             * Only one of `resourceTypes` and `excludedResourceTypes` should be specified.
              * If neither of them is specified, all resource types except "main_frame" are blocked.
              */
             excludedResourceTypes?: `${ResourceType}`[] | undefined;
 
             /**
-             * List of {@link chrome.tabs.Tab.id} which the rule should not match.
-             * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+             * List of {@link tabs.Tab.id} which the rule should not match.
+             * An ID of {@link tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
              * Only supported for session-scoped rules.
+             * @since Chrome 92
              */
             excludedTabIds?: number[] | undefined;
 
-            /**
-             * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
-             * @default false Before Chrome 118 the default was true.
-             */
+            /** Whether the `urlFilter` or `regexFilter` (whichever is specified) is case sensitive. Default is false. */
             isUrlFilterCaseSensitive?: boolean | undefined;
 
             /**
              * Regular expression to match against the network request url.
              * This follows the RE2 syntax.
              *
-             * Note: Only one of urlFilter or regexFilter can be specified.
+             * Note: Only one of `urlFilter` or `regexFilter` can be specified.
              *
-             * Note: The regexFilter must be composed of only ASCII characters.
+             * Note: The `regexFilter` must be composed of only ASCII characters.
              * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
              */
             regexFilter?: string | undefined;
 
             /**
              * List of HTTP request methods which the rule can match. An empty list is not allowed.
-             * Note: Specifying a {@link chrome.declarativeNetRequest.RuleCondition.requestMethods} rule condition will also exclude non-HTTP(s) requests,
-             * whereas specifying {@link chrome.declarativeNetRequest.RuleCondition.excludedRequestMethods} will not.
+             *
+             * Note: Specifying a `requestMethods` rule condition will also exclude non-HTTP(s) requests, whereas specifying `excludedRequestMethods` will not.
              */
             requestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
-             * List of {@link chrome.tabs.Tab.id} which the rule should not match.
-             * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+             * List of {@link tabs.Tab.id} which the rule should not match.
+             * An ID of {@link tabs.TAB_ID_NONE} matches requests which don't originate from a tab.
              * An empty list is not allowed. Only supported for session-scoped rules.
+             * @since Chrome 92
              */
             tabIds?: number[] | undefined;
 
@@ -13757,17 +13732,17 @@ declare namespace chrome {
              * '^' : Separator character: This matches anything except a letter, a digit or one of the following: _ - . %.
              * This can also match the end of the URL.
              *
-             * Therefore urlFilter is composed of the following parts: (optional Left/Domain name anchor) + pattern + (optional Right anchor).
+             * Therefore `urlFilter` is composed of the following parts: (optional Left/Domain name anchor) + pattern + (optional Right anchor).
              *
              * If omitted, all urls are matched. An empty string is not allowed.
              *
              * A pattern beginning with || is not allowed. Use instead.
              *
-             * Note: Only one of urlFilter or regexFilter can be specified.
+             * Note: Only one of `urlFilter` or `regexFilter` can be specified.
              *
-             * Note: The urlFilter must be composed of only ASCII characters.
+             * Note: The `urlFilter` must be composed of only ASCII characters.
              * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
-             * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
+             * For example, when the request url is http://abc.рф?q=ф, the `urlFilter` will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
              */
             urlFilter?: string | undefined;
 
@@ -13775,7 +13750,7 @@ declare namespace chrome {
              * List of resource types which the rule can match.
              * An empty list is not allowed.
              *
-             * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+             * Note: this must be specified for `allowAllRequests` rules and may only include the `sub_frame` and `main_frame` resource types.
              */
             resourceTypes?: `${ResourceType}`[] | undefined;
 
@@ -13795,32 +13770,22 @@ declare namespace chrome {
         export interface MatchedRule {
             /** A matching rule's ID. */
             ruleId: number;
-
-            /** ID of the Ruleset this rule belongs to.
-             * For a rule originating from the set of dynamic rules, this will be equal to DYNAMIC_RULESET_ID.
-             */
+            /** ID of the {@link Ruleset} this rule belongs to. For a rule originating from the set of dynamic rules, this will be equal to {@link DYNAMIC_RULESET_ID}. */
             rulesetId: string;
         }
 
         export interface MatchedRuleInfo {
             rule: MatchedRule;
-
             /** The tabId of the tab from which the request originated if the tab is still active. Else -1. */
             tabId: number;
-
-            /** The time the rule was matched.
-             * Timestamps will correspond to the Javascript convention for times, i.e. number of milliseconds since the epoch.
-             */
+            /** The time the rule was matched. Timestamps will correspond to the Javascript convention for times, i.e. number of milliseconds since the epoch. */
             timeStamp: number;
         }
 
         export interface MatchedRulesFilter {
             /** If specified, only matches rules after the given timestamp. */
             minTimeStamp?: number | undefined;
-
-            /** If specified, only matches rules for the given tab.
-             * Matches rules not associated with any active tab if set to -1.
-             */
+            /** If specified, only matches rules for the given tab. Matches rules not associated with any active tab if set to -1. */
             tabId?: number | undefined;
         }
 
@@ -13842,142 +13807,122 @@ declare namespace chrome {
             values?: string[];
         }
 
+        /** @since Chrome 86 */
         export interface ModifyHeaderInfo {
             /** The name of the header to be modified. */
             header: string;
-
             /** The operation to be performed on a header. */
             operation: `${HeaderOperation}`;
-
-            /** The new value for the header.
-             * Must be specified for append and set operations.
-             */
+            /** The new value for the header. Must be specified for `append` and `set` operations. */
             value?: string | undefined;
         }
 
         export interface QueryKeyValue {
             key: string;
+            /**
+             * If true, the query key is replaced only if it's already present. Otherwise, the key is also added if it's missing. Defaults to false.
+             * @since Chrome 94
+             */
+            replaceOnly?: boolean | undefined;
             value: string;
         }
 
         export interface QueryTransform {
             /** The list of query key-value pairs to be added or replaced. */
             addOrReplaceParams?: QueryKeyValue[] | undefined;
-
             /** The list of query keys to be removed. */
             removeParams?: string[] | undefined;
         }
 
         export interface URLTransform {
-            /** The new fragment for the request.
-             * Should be either empty, in which case the existing fragment is cleared; or should begin with '#'.
-             */
+            /** The new fragment for the request. Should be either empty, in which case the existing fragment is cleared; or should begin with '#'. */
             fragment?: string | undefined;
-
             /** The new host for the request. */
             host?: string | undefined;
-
             /** The new password for the request. */
             password?: string | undefined;
-
-            /** The new path for the request.
-             * If empty, the existing path is cleared.
-             */
+            /** The new path for the request. If empty, the existing path is cleared. */
             path?: string | undefined;
-
-            /** The new port for the request.
-             * If empty, the existing port is cleared.
-             */
+            /** The new port for the request. If empty, the existing port is cleared. */
             port?: string | undefined;
-
-            /** The new query for the request.
-             * Should be either empty, in which case the existing query is cleared; or should begin with '?'.
-             */
+            /** The new query for the request. Should be either empty, in which case the existing query is cleared; or should begin with '?'. */
             query?: string | undefined;
-
             /** Add, remove or replace query key-value pairs. */
             queryTransform?: QueryTransform | undefined;
-
-            /** The new scheme for the request.
-             * Allowed values are "http", "https", "ftp" and "chrome-extension".
-             */
+            /** The new scheme for the request. Allowed values are "http", "https", "ftp" and "chrome-extension". */
             scheme?: string | undefined;
-
             /** The new username for the request. */
             username?: string | undefined;
         }
 
+        /** @since Chrome 87 */
         export interface RegexOptions {
-            /** Whether the regex specified is case sensitive.
-             * Default is true.
-             */
+            /** Whether the `regex` specified is case sensitive. Default is true. */
             isCaseSensitive?: boolean | undefined;
-
             /** The regular expression to check. */
             regex: string;
-
-            /** Whether the regex specified requires capturing.
-             * Capturing is only required for redirect rules which specify a regexSubstitution action.
-             * The default is false.
-             */
+            /** Whether the `regex` specified requires capturing. Capturing is only required for redirect rules which specify a `regexSubstitution` action. The default is false. */
             requireCapturing?: boolean | undefined;
         }
 
+        /** @since Chrome 87 */
         export interface IsRegexSupportedResult {
             isSupported: boolean;
-
-            /** Specifies the reason why the regular expression is not supported.
-             * Only provided if isSupported is false.
-             */
-            reason?: `${UnsupportedRegexReason}` | undefined;
+            /** Specifies the reason why the regular expression is not supported. Only provided if `isSupported` is false. */
+            reason?: `${UnsupportedRegexReason}`;
         }
 
+        /** @since Chrome 89 */
         export interface TabActionCountUpdate {
-            /** The amount to increment the tab's action count by.
-             * Negative values will decrement the count
-             */
+            /** The amount to increment the tab's action count by. Negative values will decrement the count. */
             increment: number;
-
             /** The tab for which to update the action count. */
             tabId: number;
         }
 
+        /** @since Chrome 88 */
         export interface ExtensionActionOptions {
-            /** Whether to automatically display the action count for a page as the extension's badge text.
+            /**
+             * Whether to automatically display the action count for a page as the extension's badge text.
              * This preference is persisted across sessions.
              */
             displayActionCountAsBadgeText?: boolean | undefined;
-
             /** Details of how the tab's action count should be adjusted. */
             tabUpdate?: TabActionCountUpdate | undefined;
         }
 
-        export interface Redirect {
-            /** Path relative to the extension directory.
-             * Should start with '/'.
-             */
-            extensionPath?: string | undefined;
+        /** @since Chrome 111 */
+        export interface GetDisabledRuleIdsOptions {
+            /** The id corresponding to a static {@link Ruleset}. */
+            rulesetId: string;
+        }
 
-            /** Substitution pattern for rules which specify a regexFilter.
-             * The first match of regexFilter within the url will be replaced with this pattern.
-             * Within regexSubstitution, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups.
+        /** @since Chrome 111 */
+        export interface GetRulesFilter {
+            /** If specified, only rules with matching IDs are included. */
+            ruleIds?: number[] | undefined;
+        }
+
+        export interface Redirect {
+            /** Path relative to the extension directory. Should start with '/'. */
+            extensionPath?: string | undefined;
+            /**
+             * Substitution pattern for rules which specify a `regexFilter`.
+             * The first match of `regexFilter` within the url will be replaced with this pattern.
+             * Within `regexSubstitution`, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups.
              * \0 refers to the entire matching text.
              */
             regexSubstitution?: string | undefined;
-
             /** Url transformations to perform. */
             transform?: URLTransform | undefined;
-
-            /** The redirect url.
-             * Redirects to JavaScript urls are not allowed.
-             */
+            /** The redirect url. Redirects to JavaScript urls are not allowed. */
             url?: string | undefined;
         }
 
+        /** @since Chrome 87 */
         export interface UpdateRuleOptions {
             /** Rules to add. */
             addRules?: Rule[] | undefined;
-
             /**
              * IDs of the rules to remove.
              * Any invalid IDs will be ignored.
@@ -13985,41 +13930,35 @@ declare namespace chrome {
             removeRuleIds?: number[] | undefined;
         }
 
+        /** @since Chrome 111 */
         export interface UpdateStaticRulesOptions {
-            /** Set of ids corresponding to rules in the Ruleset to disable. */
+            /** Set of ids corresponding to rules in the {@link Ruleset} to disable. */
             disableRuleIds?: number[];
-
-            /** Set of ids corresponding to rules in the Ruleset to enable. */
+            /** Set of ids corresponding to rules in the {@link Ruleset} to enable. */
             enableRuleIds?: number[];
-
-            /** The id corresponding to a static Ruleset. */
+            /** The id corresponding to a static {@link Ruleset}. */
             rulesetId: string;
         }
 
+        /** @since Chrome 87 */
         export interface UpdateRulesetOptions {
-            /** The set of ids corresponding to a static Ruleset that should be disabled. */
+            /** The set of ids corresponding to a static {@link Ruleset} that should be disabled. */
             disableRulesetIds?: string[] | undefined;
-
-            /** The set of ids corresponding to a static Ruleset that should be enabled. */
+            /** The set of ids corresponding to a static {@link Ruleset} that should be enabled. */
             enableRulesetIds?: string[] | undefined;
         }
 
         export interface MatchedRuleInfoDebug {
             /** Details about the request for which the rule was matched. */
             request: RequestDetails;
-
             rule: MatchedRule;
         }
 
         export interface Ruleset {
             /** Whether the ruleset is enabled by default. */
             enabled: boolean;
-
-            /** A non-empty string uniquely identifying the ruleset.
-             * IDs beginning with '_' are reserved for internal use.
-             */
+            /** A non-empty string uniquely identifying the ruleset. IDs beginning with '_' are reserved for internal use. */
             id: string;
-
             /** The path of the JSON ruleset relative to the extension directory. */
             path: string;
         }
@@ -14054,112 +13993,96 @@ declare namespace chrome {
             url: string;
         }
 
-        /** Returns the number of static rules an extension can enable before the global static rule limit is reached. */
+        /**
+         * Returns the number of static rules an extension can enable before the global static rule limit is reached.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @since Chrome 89
+         */
+        export function getAvailableStaticRuleCount(): Promise<number>;
         export function getAvailableStaticRuleCount(callback: (count: number) => void): void;
 
         /**
-         * Returns the number of static rules an extension can enable before the global static rule limit is reached.
-         * @return The `getAvailableStaticRuleCount` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getAvailableStaticRuleCount(): Promise<number>;
-
-        /** Returns the current set of dynamic rules for the extension.
+         * Returns the list of static rules in the given {@link Ruleset} that are currently disabled.
          *
-         * @param callback Called with the set of dynamic rules.
-         * An error might be raised in case of transient internal errors.
+         * Can return its result via Promise in Manifest V3.
+         * @param options Specifies the ruleset to query.
+         * @since Chrome 111
          */
-        export function getDynamicRules(callback: (rules: Rule[]) => void): void;
+        export function getDisabledRuleIds(options: GetDisabledRuleIdsOptions): Promise<number[]>;
+        export function getDisabledRuleIds(
+            options: GetDisabledRuleIdsOptions,
+            callback: (disabledRuleIds: number[]) => void,
+        ): void;
 
         /**
-         * Returns the current set of dynamic rules for the extension.
-         * @return The `getDynamicRules` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getDynamicRules(): Promise<Rule[]>;
-
-        /** Returns the ids for the current set of enabled static rulesets.
+         * Returns the current set of dynamic rules for the extension. Callers can optionally filter the list of fetched rules by specifying a `filter`.
          *
-         * @param callback Called with a list of ids, where each id corresponds to an enabled static Ruleset. */
-        export function getEnabledRulesets(callback: (rulesetIds: string[]) => void): void;
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @param filter An object to filter the list of fetched rules.
+         */
+        export function getDynamicRules(filter?: GetRulesFilter): Promise<Rule[]>;
+        export function getDynamicRules(callback: (rules: Rule[]) => void): void;
+        export function getDynamicRules(filter: GetRulesFilter | undefined, callback: (rules: Rule[]) => void): void;
 
         /**
          * Returns the ids for the current set of enabled static rulesets.
-         * @return The `getEnabledRulesets` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function getEnabledRulesets(): Promise<string[]>;
+        export function getEnabledRulesets(callback: (rulesetIds: string[]) => void): void;
 
-        /** Returns all rules matched for the extension.
-         * Callers can optionally filter the list of matched rules by specifying a filter.
-         * This method is only available to extensions with the declarativeNetRequestFeedback permission or having the activeTab permission granted for the tabId specified in filter.
-         * Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
+        /**
+         * Returns all rules matched for the extension. Callers can optionally filter the list of matched rules by specifying a `filter`. This method is only available to extensions with the `"declarativeNetRequestFeedback"` permission or having the `"activeTab"` permission granted for the `tabId` specified in `filter`. Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
          *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param filter An object to filter the list of matched rules.
-         * @param callback Called once the list of matched rules has been fetched.
-         * In case of an error, runtime.lastError will be set and no rules will be returned.
-         * This can happen for multiple reasons, such as insufficient permissions, or exceeding the quota.
          */
+        export function getMatchedRules(filter?: MatchedRulesFilter): Promise<RulesMatchedDetails>;
+        export function getMatchedRules(callback: (details: RulesMatchedDetails) => void): void;
         export function getMatchedRules(
             filter: MatchedRulesFilter | undefined,
             callback: (details: RulesMatchedDetails) => void,
         ): void;
 
         /**
-         * Returns all rules matched for the extension.
-         * Callers can optionally filter the list of matched rules by specifying a filter.
-         * This method is only available to extensions with the declarativeNetRequestFeedback permission or having the activeTab permission granted for the tabId specified in filter.
-         * Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
+         * Returns the current set of session scoped rules for the extension. Callers can optionally filter the list of fetched rules by specifying a `filter`.
          *
-         * @param filter An object to filter the list of matched rules.
-         * @return The `getMatchedRules` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @param filter An object to filter the list of fetched rules.
+         * @since Chrome 90
          */
-        export function getMatchedRules(filter: MatchedRulesFilter | undefined): Promise<RulesMatchedDetails>;
-
-        export function getMatchedRules(callback: (details: RulesMatchedDetails) => void): void;
-
-        export function getMatchedRules(): Promise<RulesMatchedDetails>;
-
-        /** Returns the current set of session scoped rules for the extension.
-         *
-         * @param callback Called with the set of session scoped rules.
-         */
+        export function getSessionRules(filter?: GetRulesFilter): Promise<Rule[]>;
         export function getSessionRules(callback: (rules: Rule[]) => void): void;
+        export function getSessionRules(filter: GetRulesFilter | undefined, callback: (rules: Rule[]) => void): void;
 
         /**
-         * Returns the current set of session scoped rules for the extension.
+         * Checks if the given regular expression will be supported as a `regexFilter` rule condition.
          *
-         * @return The `getSessionRules` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getSessionRules(): Promise<Rule[]>;
-
-        /** Checks if the given regular expression will be supported as a regexFilter rule condition.
-         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param regexOptions The regular expression to check.
-         * @param callback Called with details consisting of whether the regular expression is supported and the
-         * reason if not.
+         * @since Chrome 87
          */
+        export function isRegexSupported(regexOptions: RegexOptions): Promise<IsRegexSupportedResult>;
         export function isRegexSupported(
             regexOptions: RegexOptions,
             callback: (result: IsRegexSupportedResult) => void,
         ): void;
 
-        /** Checks if the given regular expression will be supported as a regexFilter rule condition.
+        /**
+         * Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented.
          *
-         * @param regexOptions The regular expression to check.
-         * @return The `isRegexSupported` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @since Chrome 88
          */
-        export function isRegexSupported(regexOptions: RegexOptions): Promise<IsRegexSupportedResult>;
-
-        /** Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented. */
+        export function setExtensionActionOptions(options: ExtensionActionOptions): Promise<void>;
         export function setExtensionActionOptions(options: ExtensionActionOptions, callback: () => void): void;
 
         /**
-         * Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented.
-         * @return The `setExtensionActionOptions` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function setExtensionActionOptions(options: ExtensionActionOptions): Promise<void>;
-
-        /**
          * Checks if any of the extension's declarativeNetRequest rules would match a hypothetical request. Note: Only available for unpacked extensions as this is only intended to be used during extension development.
-         * @param request
+         *
+         * Can return its result via Promise in Manifest V3.
          * @since Chrome 103
          */
         export function testMatchOutcome(request: TestMatchRequestDetails): Promise<TestMatchOutcomeResult>;
@@ -14168,101 +14091,52 @@ declare namespace chrome {
             callback: (result: TestMatchOutcomeResult) => void,
         ): void;
 
-        /** Modifies the current set of dynamic rules for the extension.
-         * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+        /**
+         * Modifies the current set of dynamic rules for the extension. The rules with IDs listed in `options.removeRuleIds` are first removed, and then the rules given in `options.addRules` are added. Notes:
          *
-         * Notes:
-         * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
-         * These rules are persisted across browser sessions and across extension updates.
-         * Static rules specified as part of the extension package can not be removed using this function.
-         * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+         * *   This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+         * *   These rules are persisted across browser sessions and across extension updates.
+         * *   Static rules specified as part of the extension package can not be removed using this function.
+         * *   {@link MAX_NUMBER_OF_DYNAMIC_RULES} is the maximum number of dynamic rules an extension can add. The number of [unsafe rules](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/#safe_rules) must not exceed {@link MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES}.
          *
-         * @param callback Called once the update is complete or has failed.
-         * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
-         * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
-         */
-        export function updateDynamicRules(options: UpdateRuleOptions, callback: () => void): void;
-
-        /** Modifies the current set of dynamic rules for the extension.
-         * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
-         *
-         * Notes:
-         * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
-         * These rules are persisted across browser sessions and across extension updates.
-         * Static rules specified as part of the extension package can not be removed using this function.
-         * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
-         *
-         * @return The `updateDynamicRules` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
-         * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function updateDynamicRules(options: UpdateRuleOptions): Promise<void>;
+        export function updateDynamicRules(options: UpdateRuleOptions, callback: () => void): void;
 
-        /** Updates the set of enabled static rulesets for the extension.
-         * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
+        /**
+         * Updates the set of enabled static rulesets for the extension. The rulesets with IDs listed in `options.disableRulesetIds` are first removed, and then the rulesets listed in `options.enableRulesetIds` are added.
+         * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the `rule_resources` manifest key will determine the set of enabled static rulesets on each extension update.
          *
-         * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the rule_resources manifest key will determine the set of enabled static rulesets on each extension update.
-         *
-         * @param callback Called once the update is complete.
-         * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
-         * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
-         */
-        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: () => void): void;
-
-        /** Updates the set of enabled static rulesets for the extension.
-         * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
-         *
-         * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the rule_resources manifest key will determine the set of enabled static rulesets on each extension update.
-         *
-         * @return The `updateEnabledRulesets` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
-         * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function updateEnabledRulesets(options: UpdateRulesetOptions): Promise<void>;
+        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: () => void): void;
 
-        /** Modifies the current set of session scoped rules for the extension.
-         * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+        /**
+         * Modifies the current set of session scoped rules for the extension. The rules with IDs listed in `options.removeRuleIds` are first removed, and then the rules given in `options.addRules` are added. Notes:
          *
-         * Notes:
-         * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
-         * These rules are not persisted across sessions and are backed in memory.
-         * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+         * *   This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+         * *   These rules are not persisted across sessions and are backed in memory.
+         * *   {@link MAX_NUMBER_OF_SESSION_RULES} is the maximum number of session rules an extension can add.
          *
-         * @param callback Called once the update is complete or has failed.
-         * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
-         * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
-         */
-        export function updateSessionRules(options: UpdateRuleOptions, callback: () => void): void;
-
-        /** Modifies the current set of session scoped rules for the extension.
-         * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
-         *
-         * Notes:
-         * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
-         * These rules are not persisted across sessions and are backed in memory.
-         * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
-         *
-         * @return The `updateSessionRules` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
-         * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @since Chrome 90
          */
         export function updateSessionRules(options: UpdateRuleOptions): Promise<void>;
+        export function updateSessionRules(options: UpdateRuleOptions, callback: () => void): void;
 
-        /** Disables and enables individual static rules in a Ruleset.
-         * Changes to rules belonging to a disabled Ruleset will take effect the next time that it becomes enabled.
+        /**
+         * Disables and enables individual static rules in a {@link Ruleset}. Changes to rules belonging to a disabled {@link Ruleset} will take effect the next time that it becomes enabled.
          *
-         * @return The `updateStaticRules` method either calls a provided callback if its finished or returns as a `Promise` (MV3 only).
+         * Can return its result via Promise in Manifest V3.
          * @since Chrome 111
          */
         export function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
         export function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
 
-        /** The rule that has been matched along with information about the associated request. */
-        export interface RuleMatchedDebugEvent extends chrome.events.Event<(info: MatchedRuleInfoDebug) => void> {}
-
-        /** Fired when a rule is matched with a request.
-         * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
-        export var onRuleMatchedDebug: RuleMatchedDebugEvent;
+        /** Fired when a rule is matched with a request. Only available for unpacked extensions with the `declarativeNetRequestFeedback` permission as this is intended to be used for debugging purposes only. */
+        export const onRuleMatchedDebug: events.Event<(info: MatchedRuleInfoDebug) => void>;
     }
 
     ////////////////////
