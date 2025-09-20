@@ -153,7 +153,7 @@ declare namespace chrome {
     export namespace action {
         export interface BadgeColorDetails {
             /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is `[255, 0, 0, 255]`. Can also be a string with a CSS value, with opaque red being `#FF0000` or `#F00`. */
-            color: string | ColorArray;
+            color: string | extensionTypes.ColorArray;
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
         }
@@ -164,8 +164,6 @@ declare namespace chrome {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
         }
-
-        export type ColorArray = [number, number, number, number];
 
         export interface TitleDetails {
             /** The string the action should display when moused over. */
@@ -241,8 +239,11 @@ declare namespace chrome {
          *
          * Can return its result via Promise.
          */
-        export function getBadgeBackgroundColor(details: TabDetails): Promise<ColorArray>;
-        export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
+        export function getBadgeBackgroundColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
+        export function getBadgeBackgroundColor(
+            details: TabDetails,
+            callback: (result: extensionTypes.ColorArray) => void,
+        ): void;
 
         /**
          * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermissions declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
@@ -258,8 +259,11 @@ declare namespace chrome {
          * Can return its result via Promise.
          * @since Chrome 110
          */
-        export function getBadgeTextColor(details: TabDetails): Promise<ColorArray>;
-        export function getBadgeTextColor(details: TabDetails, callback: (result: ColorArray) => void): void;
+        export function getBadgeTextColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
+        export function getBadgeTextColor(
+            details: TabDetails,
+            callback: (result: extensionTypes.ColorArray) => void,
+        ): void;
 
         /**
          * Gets the html document set as the popup for this action.
@@ -864,7 +868,7 @@ declare namespace chrome {
     export namespace browserAction {
         export interface BadgeBackgroundColorDetails {
             /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
-            color: string | ColorArray;
+            color: string | extensionTypes.ColorArray;
             /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
             tabId?: number | undefined;
         }
@@ -875,8 +879,6 @@ declare namespace chrome {
             /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
             tabId?: number | undefined;
         }
-
-        export type ColorArray = [number, number, number, number];
 
         export interface TitleDetails {
             /** The string the browser action should display when moused over. */
@@ -1005,13 +1007,16 @@ declare namespace chrome {
          * @since Chrome 19
          * Gets the background color of the browser action.
          */
-        export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
+        export function getBadgeBackgroundColor(
+            details: TabDetails,
+            callback: (result: extensionTypes.ColorArray) => void,
+        ): void;
         /**
          * @since Chrome 19
          * Gets the background color of the browser action.
          * @return The `getBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getBadgeBackgroundColor(details: TabDetails): Promise<ColorArray>;
+        export function getBadgeBackgroundColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
         /**
          * @since Chrome 19
          * Gets the html document set as the popup for this browser action.
@@ -2819,6 +2824,11 @@ declare namespace chrome {
             onHidden: events.Event<() => void>;
             /** Fired upon a search action (start of a new search, search result navigation, or search being canceled). */
             onSearch: events.Event<(action: string, queryString?: string) => void>;
+            /**
+             * Shows the panel by activating the corresponding tab.
+             * @since Chrome 140
+             */
+            show(): void;
         }
 
         /** A button created by the extension. */
@@ -4473,6 +4483,9 @@ declare namespace chrome {
     ////////////////////
     /** The `chrome.extensionTypes` API contains type declarations for Chrome extensions. */
     export namespace extensionTypes {
+        /** @since Chrome 139 */
+        export type ColorArray = [number, number, number, number];
+
         /**
          * The origin of injected CSS.
          * @since Chrome 66
@@ -11110,6 +11123,11 @@ declare namespace chrome {
             /** Whether the tabs are pinned. */
             pinned?: boolean | undefined;
             /**
+             * The ID of the Split View that the tabs are in, or `tabs.SPLIT_VIEW_ID_NONE` for tabs that aren't in a Split View.
+             * @since Chrome 140
+             */
+            splitViewId?: number | undefined;
+            /**
              * Whether the tabs are audible.
              * @since Chrome 45
              */
@@ -11172,6 +11190,11 @@ declare namespace chrome {
             mutedInfo?: MutedInfo;
             /** The tab's new pinned state. */
             pinned?: boolean;
+            /**
+             * The tab's new Split View.
+             * @since Chrome 140
+             */
+            splitViewId?: number;
             /** The tab's loading status. */
             status?: `${TabStatus}`;
             /**
@@ -14313,6 +14336,11 @@ declare namespace chrome {
             openPanelOnActionClick?: boolean;
         }
 
+        /** @since Chrome 140 */
+        export interface PanelLayout {
+            side: `${Side}`;
+        }
+
         export interface PanelOptions {
             /** Whether the side panel should be enabled. This is optional. The default value is true. */
             enabled?: boolean;
@@ -14326,10 +14354,26 @@ declare namespace chrome {
             tabId?: number;
         }
 
+        /**
+         * Defines the possible alignment for the side panel in the browser UI.
+         * @since Chrome 140
+         */
+        export enum Side {
+            LEFT = "left",
+            RIGHT = "right",
+        }
+
         export interface SidePanel {
             /** Developer specified path for side panel display. */
             default_path: string;
         }
+
+        /**
+         * Returns the side panel's current layout.
+         * @since Chrome 140
+         */
+        export function getLayout(): Promise<PanelLayout>;
+        export function getLayout(callback: (layout: PanelLayout) => void): void;
 
         /**
          * Returns the active panel configuration.
