@@ -180,10 +180,11 @@ import { createContext } from "node:vm";
         // emit message event
         worker.postMessage({ port: port2 }, [port2]);
         port1.postMessage("From main to parent");
-        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
-        worker.postMessageToThread(10, { port: port2 }, [port2]);
-        worker.postMessageToThread(10, { x: 100 }, 1000);
-        worker.postMessageToThread(10, { x: 100 });
+
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
+        workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+        workerThreads.postMessageToThread(10, { x: 100 });
 
         // close event
         setTimeout(() => {
@@ -226,12 +227,4 @@ import { createContext } from "node:vm";
 
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
-}
-
-{
-    const { port1 } = new workerThreads.MessageChannel();
-    workerThreads.postMessageToThread(10, { port: port1 }, [port1], 1000);
-    workerThreads.postMessageToThread(10, { port: port1 }, [port1]);
-    workerThreads.postMessageToThread(10, { x: 100 }, 1000);
-    workerThreads.postMessageToThread(10, { x: 100 });
 }

@@ -197,10 +197,6 @@ import { createContext } from "node:vm";
         // emit message event
         worker.postMessage({ port: port2 }, [port2]);
         port1.postMessage("From main to parent");
-        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
-        worker.postMessageToThread(10, { port: port2 }, [port2]);
-        worker.postMessageToThread(10, { x: 100 }, 1000);
-        worker.postMessageToThread(10, { x: 100 });
 
         workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
         workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
