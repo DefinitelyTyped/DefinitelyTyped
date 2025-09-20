@@ -1428,7 +1428,7 @@ declare module "util" {
          * is falsy.
          * @since v18.11.0
          */
-        default?: string | boolean | string[] | boolean[] | undefined;
+        default?: string | boolean | readonly string[] | readonly boolean[] | undefined;
     }
     export interface ParseArgsOptionsConfig {
         [longOption: string]: ParseArgsOptionDescriptor;
@@ -1437,7 +1437,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */
