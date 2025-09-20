@@ -1,11 +1,11 @@
 {
     "private": true,
     "name": "@types/html-minifier-next",
-    "version": "1.1.9999",
+    "version": "2.1.9999",
     "type": "module",
     "minimumTypeScriptVersion": "5.3",
     "projects": [
-        "https://j9t.github.io/html-minifier-next"
+        "https://github.com/j9t/html-minifier-next"
     ],
     "owners": [
         {
