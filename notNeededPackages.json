@@ -3137,6 +3137,10 @@
             "libraryName": "ip-regex",
             "asOfVersion": "4.1.0"
         },
+        "ip-subnet-calculator": {
+            "libraryName": "ip-subnet-calculator",
+            "asOfVersion": "2.0.0"
+        },
         "ipify": {
             "libraryName": "ipify",
             "asOfVersion": "3.0.0"
