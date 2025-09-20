@@ -352,6 +352,10 @@
             "libraryName": "azure-mobile-apps",
             "asOfVersion": "3.0.0"
         },
+        "babel-plugin-tester": {
+            "libraryName": "babel-plugin-tester",
+            "asOfVersion": "11.0.0"
+        },
         "babel__parser": {
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
