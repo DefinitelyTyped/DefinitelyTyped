@@ -31,6 +31,12 @@ declare namespace AWSCloudFrontFunction {
         statusDescription?: string;
         headers?: ValueObject;
         cookies?: ResponseCookie;
+        body?: string | ResponseBody;
+    }
+
+    interface ResponseBody {
+        data: string;
+        encoding: "text" | "base64";
     }
 
     interface ValueObject {
