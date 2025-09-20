@@ -3017,6 +3017,10 @@
             "libraryName": "images",
             "asOfVersion": "3.2.0"
         },
+        "imapflow": {
+            "libraryName": "imapflow",
+            "asOfVersion": "1.0.189"
+        },
         "img-diff-js": {
             "libraryName": "img-diff-js",
             "asOfVersion": "0.5.0"
