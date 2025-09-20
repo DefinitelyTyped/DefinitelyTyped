@@ -2824,6 +2824,11 @@ declare namespace chrome {
             onHidden: events.Event<() => void>;
             /** Fired upon a search action (start of a new search, search result navigation, or search being canceled). */
             onSearch: events.Event<(action: string, queryString?: string) => void>;
+            /**
+             * Shows the panel by activating the corresponding tab.
+             * @since Chrome 140
+             */
+            show(): void;
         }
 
         /** A button created by the extension. */
@@ -11118,6 +11123,11 @@ declare namespace chrome {
             /** Whether the tabs are pinned. */
             pinned?: boolean | undefined;
             /**
+             * The ID of the Split View that the tabs are in, or `tabs.SPLIT_VIEW_ID_NONE` for tabs that aren't in a Split View.
+             * @since Chrome 140
+             */
+            splitViewId?: number | undefined;
+            /**
              * Whether the tabs are audible.
              * @since Chrome 45
              */
@@ -11180,6 +11190,11 @@ declare namespace chrome {
             mutedInfo?: MutedInfo;
             /** The tab's new pinned state. */
             pinned?: boolean;
+            /**
+             * The tab's new Split View.
+             * @since Chrome 140
+             */
+            splitViewId?: number;
             /** The tab's loading status. */
             status?: `${TabStatus}`;
             /**
@@ -14321,6 +14336,11 @@ declare namespace chrome {
             openPanelOnActionClick?: boolean;
         }
 
+        /** @since Chrome 140 */
+        export interface PanelLayout {
+            side: `${Side}`;
+        }
+
         export interface PanelOptions {
             /** Whether the side panel should be enabled. This is optional. The default value is true. */
             enabled?: boolean;
@@ -14334,10 +14354,26 @@ declare namespace chrome {
             tabId?: number;
         }
 
+        /**
+         * Defines the possible alignment for the side panel in the browser UI.
+         * @since Chrome 140
+         */
+        export enum Side {
+            LEFT = "left",
+            RIGHT = "right",
+        }
+
         export interface SidePanel {
             /** Developer specified path for side panel display. */
             default_path: string;
         }
+
+        /**
+         * Returns the side panel's current layout.
+         * @since Chrome 140
+         */
+        export function getLayout(): Promise<PanelLayout>;
+        export function getLayout(callback: (layout: PanelLayout) => void): void;
 
         /**
          * Returns the active panel configuration.
