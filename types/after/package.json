@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/after",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/Raynos/after"
+    ],
+    "devDependencies": {
+        "@types/after": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Stenger",
+            "githubUsername": "reteps"
+        }
+    ],
+    "dependencies": {
+        "after": "^0.8.2"
+    }
+}
