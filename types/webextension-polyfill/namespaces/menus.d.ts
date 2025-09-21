@@ -27,10 +27,10 @@ export namespace Menus {
         | "audio"
         | "launcher"
         | "bookmark"
+        | "page_action"
         | "tab"
         | "tools_menu"
         | "browser_action"
-        | "page_action"
         | "action";
 
     /**
