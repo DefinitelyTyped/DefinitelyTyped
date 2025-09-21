@@ -215,6 +215,7 @@ declare namespace OpenSeadragon {
         HOVER: string;
         DOWN: string;
     }
+
     interface NavImages {
         zoomIn: NavImagesValues;
         zoomOut: NavImagesValues;
@@ -226,6 +227,20 @@ declare namespace OpenSeadragon {
         previous: NavImagesValues;
         next: NavImagesValues;
     }
+
+    class DrawerBase {
+        constructor(options: any);
+        isSupported(): boolean;
+        canRotate(): boolean;
+        destroy(): void;
+        drawDebuggingRect(rect: Rect): void;
+        getType(): void;
+        setImageSmoothingEnabled(options: {imageSmoothingEnabled: boolean}): void;
+        viewportCoordToDrawerCoord(point: Point): Point;
+        viewportToDrawerRectangle(rectangle: Rect): Rect;
+    }
+
+    type DrawerImplementation = new (options: any) => DrawerBase;
 
     interface Options {
         id?: string | undefined;
@@ -257,15 +272,25 @@ declare namespace OpenSeadragon {
             | Array<string | TileSource | { type: "openstreetmaps" }>;
         tabIndex?: number | undefined;
         overlays?: any[] | undefined;
+        xmlPath?: string;
         prefixUrl?: string | undefined;
         navImages?: NavImages | undefined;
         debugMode?: boolean | undefined;
         debugGridColor?: string[] | undefined;
+        silenceMultiImageWarnings?: boolean;
         blendTime?: number | undefined;
         alwaysBlend?: boolean | undefined;
         autoHideControls?: boolean | undefined;
         immediateRender?: boolean | undefined;
         defaultZoomLevel?: number | undefined;
+        drawer?: 'webgl' | 'canvas' | 'html'
+            | DrawerImplementation | Array<'webgl' | 'canvas' | 'html' | DrawerImplementation>;
+        drawerOptions?: {
+            webgl?: any;
+            canvas?: any;
+            html?: any;
+            custom?: any;
+        };
         opacity?: number | undefined;
         preload?: boolean | undefined;
         compositeOperation?:
@@ -280,10 +305,28 @@ declare namespace OpenSeadragon {
             | "lighter"
             | "copy"
             | "xor"
+            | "multiply"
+            | "screen"
+            | "overlay"
+            | "darken"
+            | "lighten"
+            | "color-dodge"
+            | "color-burn"
+            | "hard-light"
+            | "soft-light"
+            | "difference"
+            | "exclusion"
+            | "hue"
+            | "saturation"
+            | "color"
+            | "luminosity"
             | undefined;
+        imageSmoothingEnabled?: boolean;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
+        subPixelRoundingForTransparency: any;
         degrees?: number | undefined;
         flipped?: boolean | undefined;
+        overlayPreserveContentDirection?: boolean;
         minZoomLevel?: number | undefined;
         maxZoomLevel?: number | undefined;
         homeFillsViewer?: boolean | undefined;
@@ -299,6 +342,8 @@ declare namespace OpenSeadragon {
         autoResize?: boolean | undefined;
         preserveImageSizeOnResize?: boolean | undefined;
         minScrollDeltaTime?: number | undefined;
+        rotationIncrement?: number;
+        maxTilesPerFrame?: number;
         pixelsPerWheelLine?: number | undefined;
         pixelsPerArrowPress?: number | undefined;
         visibilityRatio?: number | undefined;
@@ -316,8 +361,10 @@ declare namespace OpenSeadragon {
         gestureSettingsUnknown?: GestureSettings | undefined;
         zoomPerClick?: number | undefined;
         zoomPerScroll?: number | undefined;
+        zoomPerDblClickDrag?: number;
         zoomPerSecond?: number | undefined;
         showNavigator?: boolean | undefined;
+        navigatorElement?: Element;
         navigatorId?: string | undefined;
         navigatorPosition?: "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "ABSOLUTE" | undefined;
         navigatorSizeRatio?: number | undefined;
@@ -337,6 +384,8 @@ declare namespace OpenSeadragon {
         controlsFadeLength?: number | undefined;
         maxImageCacheCount?: number | undefined;
         timeout?: number | undefined;
+        tileRetryMax?: number;
+        tileRetryDelay?: number;
         useCanvas?: boolean | undefined;
         minPixelRatio?: number | undefined;
         mouseNavEnabled?: boolean | undefined;
@@ -383,8 +432,7 @@ declare namespace OpenSeadragon {
         ajaxWithCredentials?: boolean | undefined;
         loadTilesWithAjax?: boolean | undefined;
         ajaxHeaders?: object | undefined;
-        imageSmoothingEnabled?: boolean | undefined;
-        rotationIncrement?: number | undefined;
+        splitHashDataForPost?: boolean;
     }
 
     interface TileSourceOptions {
