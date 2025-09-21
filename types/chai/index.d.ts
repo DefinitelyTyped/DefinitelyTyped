@@ -1186,7 +1186,7 @@ declare global {
             propertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): asserts object is T & { [property: string]: V };
 
             /**
-             * Asserts that object has a property named by property with value given by value.
+             * Asserts that object does not have a property named by property with value given by value.
              *
              * T   Type of object.
              * V   Type of value.
