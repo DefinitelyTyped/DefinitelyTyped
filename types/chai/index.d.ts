@@ -796,7 +796,7 @@ declare global {
              * @param value    Actual value
              * @param message   Message to display on error.
              */
-            isFinite<T>(value: T, message?: string): asserts value is Exclude<T, number>;
+            isFinite(value: unknown, message?: string): asserts value is number;
 
             /**
              * Asserts that value is a boolean.
