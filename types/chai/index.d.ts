@@ -702,7 +702,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isFunction(value: unknown, message?: string): value is Function;
+            isFunction(value: unknown, message?: string): asserts value is Function;
 
             /**
              * Asserts that value is not a function.
@@ -711,7 +711,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotFunction(value: unknown, message?: string): value is Exclude<unknown, Function>;
+            isNotFunction(value: unknown, message?: string): asserts value is Exclude<unknown, Function>;
 
             /**
              * Asserts that value is an object of type 'Object'
@@ -796,7 +796,7 @@ declare global {
              * @param value    Actual value
              * @param message   Message to display on error.
              */
-            isFinite<T>(value: T, message?: string): void;
+            isFinite<T>(value: T, message?: string): asserts value is Exclude<T, number>;
 
             /**
              * Asserts that value is a boolean.
@@ -1139,7 +1139,7 @@ declare global {
              * @param property   Potential contained property of object.
              * @param message   Message to display on error.
              */
-            property<T>(object: T, property: string, /* keyof T */ message?: string): asserts object is T & { [property]: unknown };
+            property<T>(object: T, property: string, /* keyof T */ message?: string): asserts object is T & { [property: string]: unknown };
 
             /**
              * Asserts that object does not have a property named by property.
@@ -1149,7 +1149,7 @@ declare global {
              * @param property   Potential contained property of object.
              * @param message   Message to display on error.
              */
-            notProperty<T>(object: T, property: string, /* keyof T */ message?: string): asserts object is Exclude<T, { [property]: unknown }>;
+            notProperty<T>(object: T, property: string, /* keyof T */ message?: string): asserts object is Exclude<T, { [property: string]: unknown }>;
 
             /**
              * Asserts that object has a property named by property, which can be a string
@@ -1183,7 +1183,7 @@ declare global {
              * @param value   Potential expected property value.
              * @param message   Message to display on error.
              */
-            propertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): asserts object is T & { [property]: V };
+            propertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): asserts object is T & { [property: string]: V };
 
             /**
              * Asserts that object has a property named by property with value given by value.
@@ -1195,7 +1195,7 @@ declare global {
              * @param value   Potential expected property value.
              * @param message   Message to display on error.
              */
-            notPropertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): asserts object is Exclude<T, { [property]: V }>;
+            notPropertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): asserts object is Exclude<T, { [property: string]: V }>;
 
             /**
              * Asserts that object has a property named by property, which can be a string
