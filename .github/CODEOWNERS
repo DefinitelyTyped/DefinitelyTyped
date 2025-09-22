@@ -2822,7 +2822,7 @@
 /types/gifencoder/                                      @cprecioso @almeidx
 /types/gifsicle/                                        @almeidx
 /types/gijgo/                                           @atatanasov
-/types/gimloader/                                       @TheLazySquid
+/types/gimloader/                                       @TheLazySquid @RiptideAtlantic
 /types/giphy-api/                                       @screendriver
 /types/giraffe/                                         @jgonggrijp
 /types/git/                                             @vvakame
@@ -3686,7 +3686,7 @@
 /types/jquery.dropotron/                                @cyrilschumacher
 /types/jquery.dynatree/                                 @fdecampredon
 /types/jquery.elang/                                    @sumegizoltan
-/types/jquery.fancytree/                                @alphaleonis @abedio @niikoo @Nitecube @hosni
+/types/jquery.fancytree/                                @alphaleonis @itsmattius @niikoo @Nitecube @hosni
 /types/jquery.fileupload/                               @rob-alarcon
 /types/jquery.filtertable/                              @totpero
 /types/jquery.finger/                                   @maxackley
@@ -4765,7 +4765,7 @@
 /types/mathjax/                                         @rolandzwaga
 /types/mathjax-node/                                    @nvlang
 /types/matomo-tracker-react-native/                     @zecergin
-/types/matter-js/                                       @piranha771 @hasparus @dwhinham @slikts @stevensnoeijen
+/types/matter-js/                                       @piranha771 @hasparus @slikts @stevensnoeijen
 /types/max-api/                                         @geofholbrook @fde31
 /types/maxmsp/                                          @twhiston @FrancescElies
 /types/mcping-js/                                       @Inrixia
@@ -6668,8 +6668,6 @@
 /types/react-weui/                                      @tairan
 /types/react-wheelpicker/                               @tyirenkyi
 /types/react-widgets-moment/                            @dawnmist
-/types/react-window/                                    @martynaskadisa @heyimalex @jgoz
-/types/react-window-infinite-loader/                    @Nibblesh @fnknzzz
 /types/react-window-scroller/                           @ANetuk
 /types/react-window-size/                               @jakejrichards
 /types/react-with-styles/                               @mohsen1 @brieb @lencioni
@@ -8118,10 +8116,6 @@
 /types/util.promisify/                                  @adamvoss @dex4er @ExE-Boss @ljharb
 /types/utils-merge/                                     @chrootsu
 /types/utm/                                             @civilizeddev @JonasTriki
-/types/uuid/                                            @iamolivinius @felipeochoa @cjbarth @LinusU @ctavan
-/types/uuid/v2/                                         @iamolivinius
-/types/uuid/v3/                                         @iamolivinius @felipeochoa @cjbarth @LinusU
-/types/uuid/v7/                                         @iamolivinius @felipeochoa @cjbarth @LinusU @ctavan
 /types/uuid-1345/                                       @mugeso
 /types/uuid-browser/                                    @forivall
 /types/uuid-encoder/                                    @mvhenten
