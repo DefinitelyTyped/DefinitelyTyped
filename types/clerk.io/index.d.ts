@@ -1,13 +1,13 @@
 import * as Config from "./types/config";
-import * as Response from "./types/response";
 import * as Helpers from "./types/helpers";
+import * as Response from "./types/response";
 
 // Re-export all types from submodules for direct access
 export * from "./types/config";
-export * from "./types/response";
 export * from "./types/helpers";
+export * from "./types/response";
 
-export { };
+export {};
 
 export interface InitConfig {
     key: string;
