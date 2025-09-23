@@ -1,3 +1,5 @@
+import { ConfigTypes, ResponseTypes } from 'clerk.io';
+
 if (window.Clerk) {
     // @ts-expect-error
     window.Clerk("click", 1);
@@ -31,4 +33,19 @@ if (window.Clerk) {
         content.element; // $ExpectType HTMLElement
         content.more(5);
     });
+
+    // Test that newly exported ConfigTypes are accessible
+    const searchConfig: ConfigTypes["search/search"] = {
+        key: "test-key",
+        query: "test",
+        limit: 10
+    };
+
+    // Test that newly exported ResponseTypes are accessible
+    const searchResponse: ResponseTypes["search/search"] = {
+        result: ["product1", "product2"],
+        count: 2,
+        facets: null,
+        status: "ok"
+    };
 }
