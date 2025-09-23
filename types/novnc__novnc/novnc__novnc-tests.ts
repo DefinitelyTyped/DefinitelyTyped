@@ -1,5 +1,5 @@
 import * as InputUtil from "@novnc/novnc/lib/input/util";
-import RFB from "@novnc/novnc/lib/rfb";
+import RFB from "@novnc/novnc";
 import * as BrowserUtil from "@novnc/novnc/lib/util/browser";
 
 /* @novnc/novnc/lib/rfb */
