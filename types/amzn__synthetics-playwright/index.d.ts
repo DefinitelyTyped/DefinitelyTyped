@@ -6,25 +6,25 @@ export interface StepConfig {
    * Whether to continue execution if this step fails.
    * Default: false
    */
-  readonly continueOnStepFailure?: boolean;
+  readonly continueOnStepFailure?: boolean | undefined;
   
   /** 
    * Whether to take a screenshot when the step starts.
    * Default: true
    */
-  readonly screenshotOnStepStart?: boolean;
+  readonly screenshotOnStepStart?: boolean | undefined;
   
   /** 
    * Whether to take a screenshot when the step succeeds.
    * Default: true
    */
-  readonly screenshotOnStepSuccess?: boolean;
+  readonly screenshotOnStepSuccess?: boolean | undefined;
   
   /** 
    * Whether to take a screenshot when the step fails.
    * Default: true
    */
-  readonly screenshotOnStepFailure?: boolean;
+  readonly screenshotOnStepFailure?: boolean | undefined;
 }
 
 export interface SyntheticsType {
@@ -132,8 +132,8 @@ export interface SyntheticsType {
   readonly executeStep: <T>(
     stepName: string,
     functionToExecute: () => Promise<T>,
-    stepConfig?: StepConfig,
-    page?: Page,
+    stepConfig?: StepConfig | undefined,
+    page?: Page | undefined,
   ) => Promise<T>;
 }
 
