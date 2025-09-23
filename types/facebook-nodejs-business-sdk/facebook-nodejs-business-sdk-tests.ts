@@ -15,7 +15,8 @@ import {
     Campaign,
     AdsPixel,
     AdCreative,
-    Ad
+    Ad,
+    AdCampaignStats,
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -161,4 +162,15 @@ export function testBusinessDataApiUserDataConstructor() {
 
 export function testAttributionDataConstructor() {
     const attributionData = new AttributionData();
+}
+
+export function testAdCampaignStatsFields() {
+    AdCampaignStats.Fields.account_id;
+    AdCampaignStats.Fields.actions;
+    AdCampaignStats.Fields.adgroup_id;
+    AdCampaignStats.Fields.campaign_id;
+    AdCampaignStats.Fields.campaign_ids;
+    AdCampaignStats.Fields.clicks;
+    AdCampaignStats.Fields.end_time;
+    AdCampaignStats.Fields.id;
 }

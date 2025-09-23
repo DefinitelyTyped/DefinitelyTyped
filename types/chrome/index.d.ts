@@ -377,120 +377,76 @@ declare namespace chrome {
      */
     export namespace alarms {
         export interface AlarmCreateInfo {
-            /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
+            /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
             delayInMinutes?: number | undefined;
-            /** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
+            /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
             periodInMinutes?: number | undefined;
-            /** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
+            /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
             when?: number | undefined;
         }
 
         export interface Alarm {
-            /** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-            periodInMinutes?: number | undefined;
-            /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
+            /** If not null, the alarm is a repeating alarm and will fire again in `periodInMinutes` minutes. */
+            periodInMinutes?: number;
+            /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. `Date.now() + n`). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
             scheduledTime: number;
             /** Name of this alarm. */
             name: string;
         }
 
-        export interface AlarmEvent extends chrome.events.Event<(alarm: Alarm) => void> {}
-
         /**
-         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+         * Creates an alarm. Near the time(s) specified by `alarmInfo`, the {@link onAlarm} event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+         *
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 30 seconds but may delay them an arbitrary amount more. That is, setting `delayInMinutes` or `periodInMinutes` to less than `0.5` will not be honored and will cause a warning. `when` can be set to less than 30 seconds after "now" without warning but won't actually cause the alarm to fire for at least 30 seconds.
+         *
          * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
-         * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
-         * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @param name Optional name to identify this alarm. Defaults to the empty string.
+         * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either `when` or `delayInMinutes` (but not both). If `periodInMinutes` is set, the alarm will repeat every `periodInMinutes` minutes after the initial event. If neither `when` or `delayInMinutes` is set for a repeating alarm, `periodInMinutes` is used as the default for `delayInMinutes`.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 111.
          */
         export function create(alarmInfo: AlarmCreateInfo): Promise<void>;
-        /**
-         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
-         * @param name Optional name to identify this alarm. Defaults to the empty string.
-         * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
-         * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function create(name: string, alarmInfo: AlarmCreateInfo): Promise<void>;
-        /**
-         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
-         * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
-         */
+        export function create(name: string | undefined, alarmInfo: AlarmCreateInfo): Promise<void>;
         export function create(alarmInfo: AlarmCreateInfo, callback: () => void): void;
-        /**
-         * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
-         * @param name Optional name to identify this alarm. Defaults to the empty string.
-         * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
-         */
-        export function create(name: string, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+        export function create(name: string | undefined, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+
         /**
          * Gets an array of all the alarms.
-         */
-        export function getAll(callback: (alarms: Alarm[]) => void): void;
-        /**
-         * Gets an array of all the alarms.
-         * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function getAll(): Promise<Alarm[]>;
+        export function getAll(callback: (alarms: Alarm[]) => void): void;
+
         /**
          * Clears all alarms.
-         * function(boolean wasCleared) {...};
-         * @return The `clearAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function clearAll(): Promise<boolean>;
-        /**
-         * Clears all alarms.
-         */
         export function clearAll(callback: (wasCleared: boolean) => void): void;
+
         /**
          * Clears the alarm with the given name.
-         * @param name The name of the alarm to clear. Defaults to the empty string.
-         * @return The `clear` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function clear(name?: string): Promise<boolean>;
-        /**
-         * Clears the alarm with the given name.
-         * @param name The name of the alarm to clear. Defaults to the empty string.
-         */
         export function clear(callback: (wasCleared: boolean) => void): void;
-        export function clear(name: string, callback: (wasCleared: boolean) => void): void;
-        /**
-         * Clears the alarm without a name.
-         */
-        export function clear(callback: (wasCleared: boolean) => void): void;
-        /**
-         * Clears the alarm without a name.
-         * @return The `clear` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function clear(): Promise<void>;
+        export function clear(name: string | undefined, callback: (wasCleared: boolean) => void): void;
+
         /**
          * Retrieves details about the specified alarm.
+         * @param name The name of the alarm to get. Defaults to the empty string.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
+        export function get(name?: string): Promise<Alarm | undefined>;
         export function get(callback: (alarm?: Alarm) => void): void;
-        /**
-         * Retrieves details about the specified alarm.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(): Promise<Alarm | undefined>;
-        /**
-         * Retrieves details about the specified alarm.
-         * @param name The name of the alarm to get. Defaults to the empty string.
-         */
-        export function get(name: string, callback: (alarm?: Alarm) => void): void;
-        /**
-         * Retrieves details about the specified alarm.
-         * @param name The name of the alarm to get. Defaults to the empty string.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(name: string): Promise<Alarm | undefined>;
+        export function get(name: string | undefined, callback: (alarm?: Alarm) => void): void;
 
         /** Fired when an alarm has elapsed. Useful for event pages. */
-        export var onAlarm: AlarmEvent;
+        export const onAlarm: events.Event<(alarm: Alarm) => void>;
     }
 
     ////////////////////
@@ -2450,45 +2406,70 @@ declare namespace chrome {
      * Permissions: "declarativeContent"
      */
     export namespace declarativeContent {
-        export class PageStateMatcherProperties {
-            /** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
+        interface PageStateMatcherProperties {
+            /** Matches if the conditions of the `UrlFilter` are fulfilled for the top-level URL of the page. */
             pageUrl?: events.UrlFilter | undefined;
-            /** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
+            /** Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note: Listing hundreds of CSS selectors or listing CSS selectors that match hundreds of times per page can slow down web sites. */
             css?: string[] | undefined;
             /**
-             * Optional.
-             * @since Chrome 45
              * Matches if the bookmarked state of the page is equal to the specified value. Requires the bookmarks permission.
+             * @since Chrome 45
              */
             isBookmarked?: boolean | undefined;
         }
 
-        /** Matches the state of a web page by various criteria. */
+        /** Matches the state of a web page based on various criteria. */
         export class PageStateMatcher {
-            constructor(options: PageStateMatcherProperties);
+            constructor(arg: PageStateMatcherProperties);
+        }
+
+        export interface RequestContentScriptProperties {
+            /** Whether the content script runs in all frames of the matching page, or in only the top frame. Default is `false`. */
+            allFrames?: boolean | undefined;
+
+            /** Names of CSS files to be injected as a part of the content script. */
+            css?: string[] | undefined;
+
+            /** Names of JavaScript files to be injected as a part of the content script. */
+            js?: string[] | undefined;
+
+            /** Whether to insert the content script on `about:blank` and `about:srcdoc`. Default is `false`. */
+            matchAboutBlank?: boolean | undefined;
+        }
+
+        /** Declarative event action that injects a content script. */
+        export class RequestContentScript {
+            constructor(arg: RequestContentScriptProperties);
         }
 
         /**
-         * Declarative event action that enables the extension's action while the corresponding conditions are met.
-         * Manifest v3.
+         * A declarative event action that sets the extension's toolbar {@link action} to an enabled state while the corresponding conditions are met. This action can be used without host permissions. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
+         *
+         * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+         * @since MV3
          */
         export class ShowAction {}
 
         /**
-         * Declarative event action that shows the extension's page action while the corresponding conditions are met.
-         * Manifest v2.
+         * A declarative event action that sets the extension's {@link pageAction} to an enabled state while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page action. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
+         *
+         * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+         *
+         * MV2 only
          */
         export class ShowPageAction {}
 
-        /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+        /**
+         * Declarative event action that sets the n-dip square icon for the extension's {@link pageAction} or {@link browserAction} while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page or browser action.
+         *
+         * Exactly one of `imageData` or `path` must be specified. Both are dictionaries mapping a number of pixels to an image representation. The image representation in `imageData` is an `ImageData` object; for example, from a `canvas` element, while the image representation in `path` is the path to an image file relative to the extension's manifest. If `scale` screen pixels fit into a device-independent pixel, the `scale * n` icon is used. If that scale is missing, another image is resized to the required size.
+         */
         export class SetIcon {
             constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } | undefined });
         }
 
-        /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
-        export interface PageChangedEvent extends chrome.events.Event<() => void> {}
-
-        export var onPageChanged: PageChangedEvent;
+        /** Provides the Declarative Event API consisting of {@link events.Event.addRules addRules}, {@link events.Event.removeRules removeRules}, and {@link events.Event.getRules getRules}. */
+        export const onPageChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -4331,7 +4312,8 @@ declare namespace chrome {
              * Unregisters currently registered rules.
              * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
              */
-            removeRules(ruleIdentifiers?: string[] | undefined, callback?: () => void): void;
+            removeRules(ruleIdentifiers: string[] | undefined, callback?: () => void): void;
+            removeRules(callback?: () => void): void;
 
             /**
              * Registers rules to handle events.
@@ -4376,117 +4358,114 @@ declare namespace chrome {
      * The `chrome.extension` API has utilities that can be used by any extension page. It includes support for exchanging messages between an extension and its content scripts or between extensions, as described in detail in Message Passing.
      */
     export namespace extension {
+        /**
+         * The type of extension view.
+         * @since Chrome 44
+         */
+        export enum ViewType {
+            TAB = "tab",
+            POPUP = "popup",
+        }
+
         export interface FetchProperties {
             /**
-             * Optional.
-             * Chrome 54+
              * Find a view according to a tab id. If this field is omitted, returns all views.
+             * @since Chrome 54
              */
             tabId?: number | undefined;
-            /** Optional. The window to restrict the search to. If omitted, returns all views.  */
+            /** The window to restrict the search to. If omitted, returns all views. */
             windowId?: number | undefined;
-            /** Optional. The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'.  */
-            type?: string | undefined;
+            /** The type of view to get. If omitted, returns all views (including background pages and tabs). */
+            type?: `${ViewType}` | undefined;
         }
 
-        export interface LastError {
-            /** Description of the error that has taken place. */
-            message: string;
-        }
-
-        export interface OnRequestEvent extends
-            chrome.events.Event<
-                | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
-                | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
-            >
-        {}
+        /** True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior. */
+        export const inIncognitoContext: boolean;
 
         /**
-         * @since Chrome 7
-         * True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.
+         * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
+         * @deprecated since Chrome 58. Please use {@link runtime.lastError}
          */
-        export var inIncognitoContext: boolean;
-        /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be undefined. */
-        export var lastError: LastError;
+        export const lastError: runtime.LastError | undefined;
 
         /** Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page. */
         export function getBackgroundPage(): Window | null;
+
         /**
          * Converts a relative path within an extension install directory to a fully-qualified URL.
          * @param path A path to a resource within an extension expressed relative to its install directory.
+         * @deprecated since Chrome 58. Please use {@link runtime.getURL}
          */
         export function getURL(path: string): string;
-        /**
-         * Sets the value of the ap CGI parameter used in the extension's update URL. This value is ignored for extensions that are hosted in the Chrome Extension Gallery.
-         * @since Chrome 9
-         */
+
+        /** Sets the value of the ap CGI parameter used in the extension's update URL. This value is ignored for extensions that are hosted in the Chrome Extension Gallery. */
         export function setUpdateUrlData(data: string): void;
+
         /** Returns an array of the JavaScript 'window' objects for each of the pages running inside the current extension. */
         export function getViews(fetchProperties?: FetchProperties): Window[];
+
         /**
-         * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
-         * @since Chrome 12
-         * @return The `isAllowedFileSchemeAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * Retrieves the state of the extension's access to the 'file://' scheme. This corresponds to the user-controlled per-extension 'Allow access to File URLs' setting accessible via the `chrome://extensions` page.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
         export function isAllowedFileSchemeAccess(): Promise<boolean>;
-        /**
-         * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
-         * @since Chrome 12
-         * Parameter isAllowedAccess: True if the extension can access the 'file://' scheme, false otherwise.
-         */
         export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
+
         /**
-         * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
-         * @since Chrome 12
-         * @return The `isAllowedIncognitoAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * Retrieves the state of the extension's access to Incognito-mode. This corresponds to the user-controlled per-extension 'Allowed in Incognito' setting accessible via the `chrome://extensions` page.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
         export function isAllowedIncognitoAccess(): Promise<boolean>;
-        /**
-         * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
-         * @since Chrome 12
-         * Parameter isAllowedAccess: True if the extension has access to Incognito mode, false otherwise.
-         */
         export function isAllowedIncognitoAccess(callback: (isAllowedAccess: boolean) => void): void;
+
         /**
-         * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
+         * Sends a single request to other listeners within the extension. Similar to {@link runtime.connect}, but only sends a single request with an optional response. The {@link extension.onRequest} event is fired in each page of the extension.
+         *
+         * MV2 only
          * @param extensionId The extension ID of the extension you want to connect to. If omitted, default is your own extension.
-         * @param responseCallback If you specify the responseCallback parameter, it should be a function that looks like this:
-         * function(any response) {...};
-         * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+         * @deprecated Please use {@link runtime.sendMessage}
          */
         export function sendRequest<Request = any, Response = any>(
-            extensionId: string,
+            extensionId: string | undefined,
             request: Request,
-            responseCallback?: (response: Response) => void,
+            callback?: (response: Response) => void,
         ): void;
-        /**
-         * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
-         * @param responseCallback If you specify the responseCallback parameter, it should be a function that looks like this:
-         * function(any response) {...};
-         * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
         export function sendRequest<Request = any, Response = any>(
             request: Request,
-            responseCallback?: (response: Response) => void,
+            callback?: (response: Response) => void,
         ): void;
+
         /**
-         * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.
-         * @deprecated Deprecated since Chrome 33. Please use extension.getViews {type: "tab"}.
+         * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If `windowId` is specified, returns only the 'window' objects of tabs attached to the specified window.
+         *
+         * MV2 only
+         * @deprecated Please use {@link extension.getViews} `{type: "tab"}`.
          */
         export function getExtensionTabs(windowId?: number): Window[];
 
         /**
          * Fired when a request is sent from either an extension process or a content script.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.onMessage.
+         *
+         * MV2 only
+         * @deprecated Please use {@link runtime.onMessage}.
          */
-        export var onRequest: OnRequestEvent;
+        export const onRequest: chrome.events.Event<
+            | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+            | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+        >;
+
         /**
          * Fired when a request is sent from another extension.
-         * @deprecated Deprecated since Chrome 33. Please use runtime.onMessageExternal.
+         *
+         * MV2 only
+         * @deprecated Please use {@link runtime.onMessageExternal}.
          */
-        export var onRequestExternal: OnRequestEvent;
+        export const onRequestExternal: chrome.events.Event<
+            | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+            | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+        >;
     }
 
     ////////////////////
@@ -4577,47 +4556,16 @@ declare namespace chrome {
      * @platform ChromeOS only
      */
     export namespace fileBrowserHandler {
-        export interface SelectionParams {
-            /**
-             * Optional.
-             * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
-             * @since Chrome 23
-             */
-            allowedFileExtensions?: string[] | undefined;
-            /** Suggested name for the file. */
-            suggestedName: string;
-        }
-
-        export interface SelectionResult {
-            /** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
-            entry?: object | null | undefined;
-            /** Whether the file has been selected. */
-            success: boolean;
-        }
-
         /** Event details payload for fileBrowserHandler.onExecute event. */
         export interface FileHandlerExecuteEventDetails {
-            /** Optional. The ID of the tab that raised this event. Tab IDs are unique within a browser session.  */
-            tab_id?: number | undefined;
+            /** The ID of the tab that raised this event. Tab IDs are unique within a browser session. */
+            tab_id?: number;
             /** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
             entries: any[];
         }
 
-        export interface FileBrowserHandlerExecuteEvent
-            extends chrome.events.Event<(id: string, details: FileHandlerExecuteEventDetails) => void>
-        {}
-
-        /**
-         * Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture.
-         * @since Chrome 21
-         * @param selectionParams Parameters that will be used while selecting the file.
-         * @param callback Function called upon completion.
-         * Parameter result: Result of the method.
-         */
-        export function selectFile(selectionParams: SelectionParams, callback: (result: SelectionResult) => void): void;
-
         /** Fired when file system action is executed from ChromeOS file browser. */
-        export var onExecute: FileBrowserHandlerExecuteEvent;
+        export const onExecute: events.Event<(id: string, details: FileHandlerExecuteEventDetails) => void>;
     }
 
     ////////////////////
@@ -5400,212 +5348,382 @@ declare namespace chrome {
             fontId: string;
         }
 
-        export interface DefaultFontSizeDetails {
+        /** A CSS generic font family. */
+        export enum GenericFamily {
+            STANDARD = "standard",
+            SANSSERIF = "sansserif",
+            SERIF = "serif",
+            FIXED = "fixed",
+            CURSIVE = "cursive",
+            FANTASY = "fantasy",
+            MATH = "math",
+        }
+
+        export enum LevelOfControl {
+            /** Cannot be controlled by any extension */
+            NOT_CONTROLLABLE = "not_controllable",
+            /** Controlled by extensions with higher precedence */
+            CONTROLLED_BY_OTHER_EXTENSIONS = "controlled_by_other_extensions",
+            /** Can be controlled by this extension */
+            CONTROLLABLE_BY_THIS_EXTENSION = "controllable_by_this_extension",
+            /** Controlled by this extension */
+            CONTROLLED_BY_THIS_EXTENSION = "controlled_by_this_extension",
+        }
+
+        /** An ISO 15924 script code. The default, or global, script is represented by script code "Zyyy". */
+        export enum ScriptCode {
+            AFAK = "Afak",
+            ARAB = "Arab",
+            ARMI = "Armi",
+            ARMN = "Armn",
+            AVST = "Avst",
+            BALI = "Bali",
+            BAMU = "Bamu",
+            BASS = "Bass",
+            BATK = "Batk",
+            BENG = "Beng",
+            BLIS = "Blis",
+            BOPO = "Bopo",
+            BRAH = "Brah",
+            BRAI = "Brai",
+            BUGI = "Bugi",
+            BUHD = "Buhd",
+            CAKM = "Cakm",
+            CANS = "Cans",
+            CARI = "Cari",
+            CHAM = "Cham",
+            CHER = "Cher",
+            CIRT = "Cirt",
+            COPT = "Copt",
+            CPRT = "Cprt",
+            CYRL = "Cyrl",
+            CYRS = "Cyrs",
+            DEVA = "Deva",
+            DSRT = "Dsrt",
+            DUPL = "Dupl",
+            EGYD = "Egyd",
+            EGYH = "Egyh",
+            EGYP = "Egyp",
+            ELBA = "Elba",
+            ETHI = "Ethi",
+            GEOK = "Geok",
+            GEOR = "Geor",
+            GLAG = "Glag",
+            GOTH = "Goth",
+            GRAN = "Gran",
+            GREK = "Grek",
+            GUJR = "Gujr",
+            GURU = "Guru",
+            HANG = "Hang",
+            HANI = "Hani",
+            HANO = "Hano",
+            HANS = "Hans",
+            HANT = "Hant",
+            HEBR = "Hebr",
+            HLUW = "Hluw",
+            HMNG = "Hmng",
+            HUNG = "Hung",
+            INDS = "Inds",
+            ITAL = "Ital",
+            JAVA = "Java",
+            JPAN = "Jpan",
+            JURC = "Jurc",
+            KALI = "Kali",
+            KHAR = "Khar",
+            KHMR = "Khmr",
+            KHOJ = "Khoj",
+            KNDA = "Knda",
+            KPEL = "Kpel",
+            KTHI = "Kthi",
+            LANA = "Lana",
+            LAOO = "Laoo",
+            LATF = "Latf",
+            LATG = "Latg",
+            LATN = "Latn",
+            LEPC = "Lepc",
+            LIMB = "Limb",
+            LINA = "Lina",
+            LINB = "Linb",
+            LISU = "Lisu",
+            LOMA = "Loma",
+            LYCI = "Lyci",
+            LYDI = "Lydi",
+            MAND = "Mand",
+            MANI = "Mani",
+            MAYA = "Maya",
+            MEND = "Mend",
+            MERC = "Merc",
+            MERO = "Mero",
+            MLYM = "Mlym",
+            MONG = "Mong",
+            MOON = "Moon",
+            MROO = "Mroo",
+            MTEI = "Mtei",
+            MYMR = "Mymr",
+            NARB = "Narb",
+            NBAT = "Nbat",
+            NKGB = "Nkgb",
+            NKOO = "Nkoo",
+            NSHU = "Nshu",
+            OGAM = "Ogam",
+            OLCK = "Olck",
+            ORKH = "Orkh",
+            ORYA = "Orya",
+            OSMA = "Osma",
+            PALM = "Palm",
+            PERM = "Perm",
+            PHAG = "Phag",
+            PHLI = "Phli",
+            PHLP = "Phlp",
+            PHLV = "Phlv",
+            PHNX = "Phnx",
+            PLRD = "Plrd",
+            PRTI = "Prti",
+            RJNG = "Rjng",
+            RORO = "Roro",
+            RUNR = "Runr",
+            SAMR = "Samr",
+            SARA = "Sara",
+            SARB = "Sarb",
+            SAUR = "Saur",
+            SGNW = "Sgnw",
+            SHAW = "Shaw",
+            SHRD = "Shrd",
+            SIND = "Sind",
+            SINH = "Sinh",
+            SORA = "Sora",
+            SUND = "Sund",
+            SYLO = "Sylo",
+            SYRC = "Syrc",
+            SYRE = "Syre",
+            SYRJ = "Syrj",
+            SYRN = "Syrn",
+            TAGB = "Tagb",
+            TAKR = "Takr",
+            TALE = "Tale",
+            TALU = "Talu",
+            TAML = "Taml",
+            TANG = "Tang",
+            TAVT = "Tavt",
+            TELU = "Telu",
+            TENG = "Teng",
+            TFNG = "Tfng",
+            TGLG = "Tglg",
+            THAA = "Thaa",
+            THAI = "Thai",
+            TIBT = "Tibt",
+            TIRH = "Tirh",
+            UGAR = "Ugar",
+            VAII = "Vaii",
+            VISP = "Visp",
+            WARA = "Wara",
+            WOLE = "Wole",
+            XPEO = "Xpeo",
+            XSUX = "Xsux",
+            YIII = "Yiii",
+            ZMTH = "Zmth",
+            ZSYM = "Zsym",
+            ZYYY = "Zyyy",
+        }
+
+        export interface ClearFontDetails {
+            /** The generic font family for which the font should be cleared. */
+            genericFamily: `${GenericFamily}`;
+            /** The script for which the font should be cleared. If omitted, the global script font setting is cleared. */
+            script?: `${ScriptCode}` | undefined;
+        }
+
+        export interface GetFontDetails {
+            /** The generic font family for which the font should be retrieved. */
+            genericFamily: `${GenericFamily}`;
+            /** The script for which the font should be retrieved. If omitted, the font setting for the global script (script code "Zyyy") is retrieved. */
+            script?: `${ScriptCode}` | undefined;
+        }
+
+        export interface SetFontDetails {
+            /** The font ID. The empty string means to fallback to the global script font setting. */
+            fontId: string;
+            /** The generic font family for which the font should be set. */
+            genericFamily: `${GenericFamily}`;
+            /** The script code which the font should be set. If omitted, the font setting for the global script (script code "Zyyy") is set. */
+            script?: `${ScriptCode}` | undefined;
+        }
+
+        export interface FontChangedResult {
+            /** The generic font family for which the font setting has changed. */
+            genericFamily: `${GenericFamily}`;
+            /** The level of control this extension has over the setting. */
+            levelOfControl: `${LevelOfControl}`;
+            /** Optional. The script code for which the font setting has changed.  */
+            script?: `${ScriptCode}`;
+            /** The font ID. See the description in {@link getFont}. */
+            fontId: string;
+        }
+
+        export interface FontResult {
+            /** The level of control this extension has over the setting. */
+            levelOfControl: `${LevelOfControl}`;
+            /** The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, `fontId` can differ from the font passed to {@link setFont}, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting. */
+            fontId: string;
+        }
+
+        export interface FontSizeResult {
             /** The font size in pixels. */
             pixelSize: number;
-        }
-
-        export interface FontDetails {
-            /** The generic font family for the font. */
-            genericFamily:
-                | "cursive"
-                | "fantasy"
-                | "fixed"
-                | "sansserif"
-                | "serif"
-                | "standard";
-            /** Optional. The script for the font. If omitted, the global script font setting is affected.  */
-            script?: string | undefined;
-        }
-
-        export interface FullFontDetails {
-            /** The generic font family for which the font setting has changed. */
-            genericFamily: string;
             /** The level of control this extension has over the setting. */
-            levelOfControl: string;
-            /** Optional. The script code for which the font setting has changed.  */
-            script?: string | undefined;
-            /** The font ID. See the description in getFont. */
-            fontId: string;
-        }
-
-        export interface FontDetailsResult {
-            /** The level of control this extension has over the setting. */
-            levelOfControl: string;
-            /** The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, fontId can differ from the font passed to setFont, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting. */
-            fontId: string;
+            levelOfControl: `${LevelOfControl}`;
         }
 
         export interface FontSizeDetails {
             /** The font size in pixels. */
             pixelSize: number;
-            /** The level of control this extension has over the setting. */
-            levelOfControl: string;
         }
-
-        export interface SetFontSizeDetails {
-            /** The font size in pixels. */
-            pixelSize: number;
-        }
-
-        export interface SetFontDetails extends FontDetails {
-            /** The font ID. The empty string means to fallback to the global script font setting. */
-            fontId: string;
-        }
-
-        export interface DefaultFixedFontSizeChangedEvent
-            extends chrome.events.Event<(details: FontSizeDetails) => void>
-        {}
-
-        export interface DefaultFontSizeChangedEvent extends chrome.events.Event<(details: FontSizeDetails) => void> {}
-
-        export interface MinimumFontSizeChangedEvent extends chrome.events.Event<(details: FontSizeDetails) => void> {}
-
-        export interface FontChangedEvent extends chrome.events.Event<(details: FullFontDetails) => void> {}
 
         /**
          * Sets the default font size.
-         * @return The `setDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function setDefaultFontSize(details: DefaultFontSizeDetails): Promise<void>;
-        /**
-         * Sets the default font size.
-         */
-        export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: () => void): void;
-        /**
-         * Gets the font for a given script and generic font family.
-         * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getFont(details: FontDetails): Promise<FontDetailsResult>;
+        export function setDefaultFontSize(details: FontSizeDetails): Promise<void>;
+        export function setDefaultFontSize(details: FontSizeDetails, callback: () => void): void;
+
         /**
          * Gets the font for a given script and generic font family.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function getFont(details: FontDetails, callback: (details: FontDetailsResult) => void): void;
+        export function getFont(details: GetFontDetails): Promise<FontResult>;
+        export function getFont(details: GetFontDetails, callback: (details: FontResult) => void): void;
+
         /**
          * Gets the default font size.
          * @param details This parameter is currently unused.
-         * @return The `getDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function getDefaultFontSize(details?: unknown): Promise<FontSizeDetails>;
-        /**
-         * Gets the default font size.
-         * @param details This parameter is currently unused.
-         */
-        export function getDefaultFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getDefaultFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
-        /**
-         * Gets the minimum font size.
-         * @param details This parameter is currently unused.
-         * @return The `getMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getMinimumFontSize(details?: unknown): Promise<FontSizeDetails>;
+        export function getDefaultFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
+        export function getDefaultFontSize(callback: (options: FontSizeResult) => void): void;
+        export function getDefaultFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: (options: FontSizeResult) => void,
+        ): void;
+
         /**
          * Gets the minimum font size.
          * @param details This parameter is currently unused.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function getMinimumFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getMinimumFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
+        export function getMinimumFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
+        export function getMinimumFontSize(callback: (options: FontSizeResult) => void): void;
+        export function getMinimumFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: (options: FontSizeResult) => void,
+        ): void;
+
         /**
          * Sets the minimum font size.
-         * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function setMinimumFontSize(details: SetFontSizeDetails): Promise<void>;
-        /**
-         * Sets the minimum font size.
-         */
-        export function setMinimumFontSize(details: SetFontSizeDetails, callback: () => void): void;
+        export function setMinimumFontSize(details: FontSizeDetails): Promise<void>;
+        export function setMinimumFontSize(details: FontSizeDetails, callback: () => void): void;
+
         /**
          * Gets the default size for fixed width fonts.
          * @param details This parameter is currently unused.
-         * @return The `getDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function getDefaultFixedFontSize(details?: unknown): Promise<FontSizeDetails>;
-        /**
-         * Gets the default size for fixed width fonts.
-         * @param details This parameter is currently unused.
-         */
-        export function getDefaultFixedFontSize(callback: (details: FontSizeDetails) => void): void;
-        export function getDefaultFixedFontSize(details: unknown, callback: (details: FontSizeDetails) => void): void;
-        /**
-         * Clears the default font size set by this extension, if any.
-         * @param details This parameter is currently unused.
-         * @return The `clearDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function clearDefaultFontSize(details?: unknown): Promise<void>;
+        export function getDefaultFixedFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
+        export function getDefaultFixedFontSize(callback: (details: FontSizeResult) => void): void;
+        export function getDefaultFixedFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: (details: FontSizeResult) => void,
+        ): void;
+
         /**
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
+        export function clearDefaultFontSize(details?: { [key: string]: unknown }): Promise<void>;
         export function clearDefaultFontSize(callback: () => void): void;
-        export function clearDefaultFontSize(details: unknown, callback: () => void): void;
+        export function clearDefaultFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: () => void,
+        ): void;
+
         /**
          * Sets the default size for fixed width fonts.
-         * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function setDefaultFixedFontSize(details: SetFontSizeDetails): Promise<void>;
-        /**
-         * Sets the default size for fixed width fonts.
-         */
-        export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: () => void): void;
-        /**
-         * Clears the font set by this extension, if any.
-         * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function clearFont(details: FontDetails): Promise<void>;
+        export function setDefaultFixedFontSize(details: FontSizeDetails): Promise<void>;
+        export function setDefaultFixedFontSize(details: FontSizeDetails, callback: () => void): void;
+
         /**
          * Clears the font set by this extension, if any.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function clearFont(details: FontDetails, callback: () => void): void;
+        export function clearFont(details: ClearFontDetails): Promise<void>;
+        export function clearFont(details: ClearFontDetails, callback: () => void): void;
+
         /**
          * Sets the font for a given script and generic font family.
-         * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function setFont(details: SetFontDetails): Promise<void>;
-        /**
-         * Sets the font for a given script and generic font family.
-         */
         export function setFont(details: SetFontDetails, callback: () => void): void;
+
         /**
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
-         * @return The `clearMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function clearMinimumFontSize(details?: unknown): Promise<void>;
-        /**
-         * Clears the minimum font size set by this extension, if any.
-         * @param details This parameter is currently unused.
-         */
+        export function clearMinimumFontSize(details?: { [key: string]: unknown }): Promise<void>;
         export function clearMinimumFontSize(callback: () => void): void;
-        export function clearMinimumFontSize(details: unknown, callback: () => void): void;
+        export function clearMinimumFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: () => void,
+        ): void;
+
         /**
          * Gets a list of fonts on the system.
-         * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function getFontList(): Promise<FontName[]>;
-        /**
-         * Gets a list of fonts on the system.
-         */
         export function getFontList(callback: (results: FontName[]) => void): void;
+
         /**
          * Clears the default fixed font size set by this extension, if any.
          * @param details This parameter is currently unused.
-         * @return The `clearDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function clearDefaultFixedFontSize(details: unknown): Promise<void>;
-        /**
-         * Clears the default fixed font size set by this extension, if any.
-         * @param details This parameter is currently unused.
-         */
-        export function clearDefaultFixedFontSize(details: unknown, callback: () => void): void;
+        export function clearDefaultFixedFontSize(details?: { [key: string]: unknown }): Promise<void>;
+        export function clearDefaultFixedFontSize(callback: () => void): void;
+        export function clearDefaultFixedFontSize(
+            details: { [key: string]: unknown } | undefined,
+            callback: () => void,
+        ): void;
 
         /** Fired when the default fixed font size setting changes. */
-        export var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
+        export const onDefaultFixedFontSizeChanged: events.Event<(details: FontSizeResult) => void>;
+
         /** Fired when the default font size setting changes. */
-        export var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
+        export const onDefaultFontSizeChanged: events.Event<(details: FontSizeResult) => void>;
+
         /** Fired when the minimum font size setting changes. */
-        export var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
+        export const onMinimumFontSizeChanged: events.Event<(details: FontSizeResult) => void>;
+
         /** Fired when a font setting changes. */
-        export var onFontChanged: FontChangedEvent;
+        export const onFontChanged: events.Event<(details: FontChangedResult) => void>;
     }
 
     ////////////////////
@@ -5697,46 +5815,81 @@ declare namespace chrome {
         /** An object encapsulating one visit to a URL. */
         export interface VisitItem {
             /** The transition type for this visit from its referrer. */
-            transition: string;
-            /** Optional. When this visit occurred, represented in milliseconds since the epoch. */
-            visitTime?: number | undefined;
+            transition: `${TransitionType}`;
+            /**
+             * True if the visit originated on this device. False if it was synced from a different device
+             * @since Chrome 115
+             */
+            isLocal: boolean;
+            /** When this visit occurred, represented in milliseconds since the epoch. */
+            visitTime?: number;
             /** The unique identifier for this visit. */
             visitId: string;
             /** The visit ID of the referrer. */
             referringVisitId: string;
-            /** The unique identifier for the item. */
+            /** The unique identifier for the corresponding {@link history.HistoryItem}. */
             id: string;
         }
 
         /** An object encapsulating one result of a history query. */
         export interface HistoryItem {
-            /** Optional. The number of times the user has navigated to this page by typing in the address. */
-            typedCount?: number | undefined;
-            /** Optional. The title of the page when it was last loaded. */
-            title?: string | undefined;
-            /** Optional. The URL navigated to by a user. */
-            url?: string | undefined;
-            /** Optional. When this page was last loaded, represented in milliseconds since the epoch. */
-            lastVisitTime?: number | undefined;
-            /** Optional. The number of times the user has navigated to this page. */
-            visitCount?: number | undefined;
+            /** The number of times the user has navigated to this page by typing in the address. */
+            typedCount?: number;
+            /** The title of the page when it was last loaded. */
+            title?: string;
+            /** The URL navigated to by a user. */
+            url?: string;
+            /** When this page was last loaded, represented in milliseconds since the epoch. */
+            lastVisitTime?: number;
+            /** The number of times the user has navigated to this page. */
+            visitCount?: number;
             /** The unique identifier for the item. */
             id: string;
         }
 
+        /**
+         * The transition type for this visit from its referrer.
+         * @since Chrome 44
+         */
+        export enum TransitionType {
+            /** The user arrived at this page by clicking a link on another page. */
+            LINK = "link",
+            /** The user arrived at this page by typing the URL in the address bar. This is also used for other explicit navigation actions. */
+            TYPED = "typed",
+            /** The user arrived at this page through a suggestion in the UI, for example, through a menu item. */
+            AUTO_BOOKMARK = "auto_bookmark",
+            /** The user arrived at this page through subframe navigation that they didn't request, such as through an ad loading in a frame on the previous page. These don't always generate new navigation entries in the back and forward menus. */
+            AUTO_SUBFRAME = "auto_subframe",
+            /** The user arrived at this page by selecting something in a subframe. */
+            MANUAL_SUBFRAME = "manual_subframe",
+            /** The user arrived at this page by typing in the address bar and selecting an entry that didn't look like a URL, such as a Google Search suggestion. For example, a match might have the URL of a Google Search result page, but it might appear to the user as "Search Google for ...". These are different from typed navigations because the user didn't type or see the destination URL. They're also related to keyword navigations. */
+            GENERATED = "generated",
+            /** The page was specified in the command line or is the start page. */
+            AUTO_TOPLEVEL = "auto_toplevel",
+            /** The user arrived at this page by filling out values in a form and submitting the form. Not all form submissions use this transition type. */
+            FORM_SUBMIT = "form_submit",
+            /** The user reloaded the page, either by clicking the reload button or by pressing Enter in the address bar. Session restore and Reopen closed tab also use this transition type. */
+            RELOAD = "reload",
+            /** The URL for this page was generated from a replaceable keyword other than the default search provider. */
+            KEYWORD = "keyword",
+            /** Corresponds to a visit generated for a keyword. */
+            KEYWORD_GENERATED = "keyword_generated",
+        }
+
         export interface HistoryQuery {
-            /** A free-text query to the history service. Leave empty to retrieve all pages. */
+            /** A free-text query to the history service. Leave this empty to retrieve all pages. */
             text: string;
-            /** Optional. The maximum number of results to retrieve. Defaults to 100. */
+            /** The maximum number of results to retrieve. Defaults to 100. */
             maxResults?: number | undefined;
-            /** Optional. Limit results to those visited after this date, represented in milliseconds since the epoch. */
+            /** Limit results to those visited after this date, represented in milliseconds since the epoch. If property is not specified, it will default to 24 hours. */
             startTime?: number | undefined;
-            /** Optional. Limit results to those visited before this date, represented in milliseconds since the epoch. */
+            /** Limit results to those visited before this date, represented in milliseconds since the epoch. */
             endTime?: number | undefined;
         }
 
-        export interface Url {
-            /** The URL for the operation. It must be in the format as returned from a call to history.search. */
+        /** @since Chrome 88 */
+        export interface UrlDetails {
+            /** The URL for the operation. It must be in the format as returned from a call to {@link history.search}. */
             url: string;
         }
 
@@ -5750,73 +5903,62 @@ declare namespace chrome {
         export interface RemovedResult {
             /** True if all history was removed. If true, then urls will be empty. */
             allHistory: boolean;
-            /** Optional. */
-            urls?: string[] | undefined;
+            urls?: string[];
         }
 
-        export interface HistoryVisitedEvent extends chrome.events.Event<(result: HistoryItem) => void> {}
-
-        export interface HistoryVisitRemovedEvent extends chrome.events.Event<(removed: RemovedResult) => void> {}
-
         /**
          * Searches the history for the last visit time of each page matching the query.
-         * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function search(query: HistoryQuery): Promise<HistoryItem[]>;
-        /**
-         * Searches the history for the last visit time of each page matching the query.
-         */
         export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
+
         /**
          * Adds a URL to the history at the current time with a transition type of "link".
-         * @return The `addUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        export function addUrl(details: Url): Promise<void>;
-        /**
-         * Adds a URL to the history at the current time with a transition type of "link".
-         */
-        export function addUrl(details: Url, callback: () => void): void;
+        export function addUrl(details: UrlDetails): Promise<void>;
+        export function addUrl(details: UrlDetails, callback: () => void): void;
+
         /**
          * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
-         * @return The `deleteRange` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function deleteRange(range: Range): Promise<void>;
-        /**
-         * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
-         */
         export function deleteRange(range: Range, callback: () => void): void;
+
         /**
          * Deletes all items from the history.
-         * @return The `deleteAll` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function deleteAll(): Promise<void>;
-        /**
-         * Deletes all items from the history.
-         */
         export function deleteAll(callback: () => void): void;
-        /**
-         * Retrieves information about visits to a URL.
-         * @return The `getVisits` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getVisits(details: Url): Promise<VisitItem[]>;
-        /**
-         * Retrieves information about visits to a URL.
-         */
-        export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
-        /**
-         * Removes all occurrences of the given URL from the history.
-         * @return The `deleteUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function deleteUrl(details: Url): Promise<void>;
-        /**
-         * Removes all occurrences of the given URL from the history.
-         */
-        export function deleteUrl(details: Url, callback: () => void): void;
 
-        /** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */
-        export var onVisited: HistoryVisitedEvent;
-        /** Fired when one or more URLs are removed from the history service. When all visits have been removed the URL is purged from history. */
-        export var onVisitRemoved: HistoryVisitRemovedEvent;
+        /**
+         * Retrieves information about visits to a URL.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         */
+        export function getVisits(details: UrlDetails): Promise<VisitItem[]>;
+        export function getVisits(details: UrlDetails, callback: (results: VisitItem[]) => void): void;
+
+        /**
+         * Removes all occurrences of the given URL from the history.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         */
+        export function deleteUrl(details: UrlDetails): Promise<void>;
+        export function deleteUrl(details: UrlDetails, callback: () => void): void;
+
+        /** Fired when a URL is visited, providing the {@link HistoryItem} data for that URL. This event fires before the page has loaded. */
+        export const onVisited: events.Event<(result: HistoryItem) => void>;
+
+        /** Fired when one or more URLs are removed from history. When all visits have been removed the URL is purged from history. */
+        export const onVisitRemoved: events.Event<(removed: RemovedResult) => void>;
     }
 
     ////////////////////
@@ -5828,58 +5970,56 @@ declare namespace chrome {
      * Manifest: "default_locale"
      */
     export namespace i18n {
-        /** Holds detected ISO language code and its percentage in the input string */
         export interface DetectedLanguage {
-            /** An ISO language code such as 'en' or 'fr'.
-             * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}.
-             * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
             language: string;
-
             /** The percentage of the detected language */
             percentage: number;
         }
 
-        /** Holds detected language reliability and array of DetectedLanguage */
+        /** Holds detected language reliability and array of {@link DetectedLanguage} */
         export interface LanguageDetectionResult {
             /** CLD detected language reliability */
             isReliable: boolean;
-
             /** Array of detectedLanguage */
             languages: DetectedLanguage[];
         }
 
+        /** @since Chrome 79 */
+        export interface GetMessageOptions {
+            /** Escape `<` in translation to `&lt;`. This applies only to the message itself, not to the placeholders. Developers might want to use this if the translation is used in an HTML context. Closure Templates used with Closure Compiler generate this automatically. */
+            escapeLt?: boolean | undefined;
+        }
+
         /**
-         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
-         * @return The `getAcceptLanguages` method provides its result via callback or returned as a `Promise` (MV3 only).
-         * @since MV3
+         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use {@link i18n.getUILanguage}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
         export function getAcceptLanguages(): Promise<string[]>;
-        /**
-         * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
-         * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN
-         */
         export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+
         /**
-         * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the getMessage() call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns undefined.
-         * @param messageName The name of the message, as specified in the messages.json file.
-         * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
+         * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the `getMessage()` call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns `undefined`.
+         * @param messageName The name of the message, as specified in the `messages.json` file.
+         * @param substitutions Up to 9 substitution strings, if the message requires any.
          */
-        export function getMessage(messageName: string, substitutions?: string | string[]): string;
-        /**
-         * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
-         * @since Chrome 35
-         */
+        export function getMessage(messageName: string, substitutions?: string | Array<string | number>): string;
+        export function getMessage(
+            messageName: string,
+            substitutions: string | Array<string | number> | undefined,
+            options?: GetMessageOptions,
+        ): string;
+
+        /** Gets the browser UI language of the browser. This is different from {@link i18n.getAcceptLanguages} which returns the preferred user languages. */
         export function getUILanguage(): string;
 
         /** Detects the language of the provided text using CLD.
          * @param text User input string to be translated.
-         * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only).
-         * @since MV3
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 99.
+         * @since Chrome 47
          */
         export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
-        /** Detects the language of the provided text using CLD.
-         * @param text User input string to be translated.
-         */
         export function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
     }
 

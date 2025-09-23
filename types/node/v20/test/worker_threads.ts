@@ -128,8 +128,12 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
-    bc.onmessageerror = (msg: unknown) => {};
+    bc.onmessage = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
+    bc.onmessageerror = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
 
     // Test global alias
     const bc2 = new BroadcastChannel("test");
@@ -222,4 +226,12 @@ import { createContext } from "node:vm";
 
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
+}
+
+{
+    const { port1 } = new workerThreads.MessageChannel();
+    workerThreads.postMessageToThread(10, { port: port1 }, [port1], 1000);
+    workerThreads.postMessageToThread(10, { port: port1 }, [port1]);
+    workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+    workerThreads.postMessageToThread(10, { x: 100 });
 }

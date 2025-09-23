@@ -97,6 +97,33 @@ declare module "node:sqlite" {
          * @default 0
          */
         timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v24.4.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v24.4.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v24.4.40
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v24.4.40
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -566,6 +593,13 @@ declare module "node:sqlite" {
          * @param enabled Enables or disables support for unknown named parameters.
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
+        /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v24.0.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
         /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than

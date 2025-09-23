@@ -5,6 +5,7 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class DeliveryWindow extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        ac: "ac";
         ad: "ad";
         ae: "ae";
         af: "af";

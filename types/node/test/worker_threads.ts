@@ -144,8 +144,12 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
-    bc.onmessageerror = (msg: unknown) => {};
+    bc.onmessage = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
+    bc.onmessageerror = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
 
     // Test global alias
     const bc2 = new BroadcastChannel("test");
@@ -198,6 +202,11 @@ import { createContext } from "node:vm";
         worker.postMessageToThread(10, { x: 100 }, 1000);
         worker.postMessageToThread(10, { x: 100 });
 
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
+        workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+        workerThreads.postMessageToThread(10, { x: 100 });
+
         // close event
         setTimeout(() => {
             port1.close();
@@ -239,4 +248,37 @@ import { createContext } from "node:vm";
 
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
+}
+
+// LockManager
+{
+    workerThreads.locks.query().then((snapshot) => {
+        snapshot.held; // $ExpectType LockInfo[]
+        snapshot.pending; // $ExpectType LockInfo[]
+    });
+
+    // $ExpectType Promise<void>
+    workerThreads.locks.request(
+        "lock",
+        {
+            ifAvailable: true,
+            mode: "exclusive",
+            signal: new AbortController().signal,
+            steal: false,
+        },
+        (lock) => {
+            lock; // $ExpectType Lock | null
+            lock!.mode; // $ExpectType LockMode
+            lock!.name; // $ExpectType string
+        },
+    );
+
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", async () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, async () => 123);
 }

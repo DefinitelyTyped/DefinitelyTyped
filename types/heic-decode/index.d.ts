@@ -5,7 +5,7 @@ interface HasBuffer {
 interface DecodedImage {
     width: number;
     height: number;
-    data: ArrayBuffer;
+    data: Uint8ClampedArray;
 }
 
 interface Decodable {

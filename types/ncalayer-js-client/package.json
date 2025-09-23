@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ncalayer-js-client",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/sigex-kz/ncalayer-js-client#readme"
+    ],
+    "devDependencies": {
+        "@types/ncalayer-js-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kenny Romanov",
+            "githubUsername": "kennyromanov"
+        }
+    ]
+}
