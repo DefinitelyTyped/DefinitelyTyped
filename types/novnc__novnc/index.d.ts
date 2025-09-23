@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/lib/rfb" {
+declare module "@novnc/novnc" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
