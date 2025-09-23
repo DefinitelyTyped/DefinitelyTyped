@@ -1,7 +1,7 @@
 import type { IntRange } from "./helpers";
 
 // Base types
-interface BaseConfig {
+export interface BaseConfig {
     key: string;
     /**
      * @description Required for tracking. Visitor ID for the given visitor. If auto, an anonymous ID is generated
@@ -21,11 +21,11 @@ interface BaseConfig {
     debug?: boolean;
 }
 
-type BaseLimitConfig = BaseConfig & {
+export type BaseLimitConfig = BaseConfig & {
     limit: number;
 };
 
-type BaseSearchConfig = BaseLimitConfig & {
+export type BaseSearchConfig = BaseLimitConfig & {
     /**
      * @description Required for tracking - A list of one or more text labels, used to track the labels performance in Analytics
      */
@@ -45,7 +45,7 @@ type BaseSearchConfig = BaseLimitConfig & {
     attributes?: string[];
 };
 
-type BaseFacetedConfig = BaseSearchConfig & {
+export type BaseFacetedConfig = BaseSearchConfig & {
     /**
      * @description List of facets to be returned for the products in the result
      * @see https://docs.clerk.io/docs/facets

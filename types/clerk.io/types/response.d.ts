@@ -1,23 +1,23 @@
 import type { PickAttributes } from "./helpers";
 
 // Base types
-interface BaseResponse {
+export interface BaseResponse {
     result: (string | number)[];
     status: string;
     debug?: Record<string, unknown>;
 }
 
-type BaseProductResponse = BaseResponse & {
+export type BaseProductResponse = BaseResponse & {
     product_data?: PickAttributes<string[]>[];
 };
 
-type BaseCountedResponse = BaseProductResponse & {
+export type BaseCountedResponse = BaseProductResponse & {
     count: number;
     facets: unknown | null;
 };
 
 // Common types
-interface Category {
+export interface Category {
     children: number[];
     description: string;
     id: number;
@@ -28,7 +28,7 @@ interface Category {
     url: string;
 }
 
-interface Page {
+export interface Page {
     author: string | null;
     blog?: string;
     created_at: number;
