@@ -1,8 +1,5 @@
-type PlaywrightBrowser = import("@playwright/test").Browser;
-type PlaywrightBrowserType = import("@playwright/test").BrowserType;
-type PlaywrightBrowserContext = import("@playwright/test").BrowserContext;
-type PlaywrightLaunchOptions = import("@playwright/test").LaunchOptions;
-type PlaywrightPage = import("@playwright/test").Page;
+import type { Browser, BrowserType, BrowserContext, LaunchOptions, Page } from "@playwright/test";
+
 
 export interface StepConfig {
   /** 
@@ -44,7 +41,7 @@ export interface SyntheticsType {
    * const browser = await synthetics.launch({ headless: false });
    * ```
    */
-  readonly launch: PlaywrightBrowserType["launch"];
+  readonly launch: BrowserType["launch"];
 
   /**
    * Creates a new page from a browser or browser context with automatic CloudWatch Synthetics instrumentation.
@@ -63,8 +60,8 @@ export interface SyntheticsType {
    * ```
    */
   readonly newPage: (
-    browserOrContext: PlaywrightBrowser | PlaywrightBrowserContext,
-  ) => Promise<PlaywrightPage>;
+    browserOrContext: Browser | BrowserContext,
+  ) => Promise<Page>;
 
   /**
    * Closes the currently opened browser and cleans up resources.
@@ -97,7 +94,7 @@ export interface SyntheticsType {
    * const browser = await synthetics.launch(customOptions);
    * ```
    */
-  readonly getDefaultLaunchOptions: () => Promise<PlaywrightLaunchOptions>;
+  readonly getDefaultLaunchOptions: () => Promise<LaunchOptions>;
 
   /**
    * Executes a step in a Synthetics canary script with automatic monitoring and reporting.
@@ -136,7 +133,7 @@ export interface SyntheticsType {
     stepName: string,
     functionToExecute: () => Promise<T>,
     stepConfig?: StepConfig,
-    page?: PlaywrightPage,
+    page?: Page,
   ) => Promise<T>;
 }
 

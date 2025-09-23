@@ -1,8 +1,8 @@
 import { synthetics } from "@amzn/synthetics-playwright";
-import type { Browser, BrowserContext, Page } from "@playwright/test";
+import type { Browser, BrowserContext, LaunchOptions, Page } from "@playwright/test";
 
 export const handler = async () => {
-    const launchOptions = await synthetics.getDefaultLaunchOptions();
+    const launchOptions: LaunchOptions = await synthetics.getDefaultLaunchOptions();
     const browser: Browser = await synthetics.launch(launchOptions);
     const page: Page = await synthetics.newPage(browser);
     
@@ -12,7 +12,7 @@ export const handler = async () => {
     await synthetics.close();
 };
 
-export const runTestStep = <NextPage,>(
+export const runTestStep = <NextPage>(
     stepName: string,
     runTestsAndReturnNextPage: () => Promise<NextPage>,
 ): Promise<NextPage> => {
