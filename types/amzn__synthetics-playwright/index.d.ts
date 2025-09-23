@@ -4,7 +4,7 @@ type PlaywrightBrowserContext = import("@playwright/test").BrowserContext;
 type PlaywrightLaunchOptions = import("@playwright/test").LaunchOptions;
 type PlaywrightPage = import("@playwright/test").Page;
 
-interface StepConfig {
+export interface StepConfig {
   /** 
    * Whether to continue execution if this step fails.
    * Default: false
@@ -30,7 +30,7 @@ interface StepConfig {
   readonly screenshotOnStepFailure?: boolean;
 }
 
-interface SyntheticsType {
+export interface SyntheticsType {
   /**
    * Launches a Chromium browser using Playwright with CloudWatch Synthetics configurations.
    * Returns a Browser instance that can be used to create pages and browser contexts.
