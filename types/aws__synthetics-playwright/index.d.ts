@@ -1,3 +1,6 @@
+/* eslint-disable @definitelytyped/no-single-declare-module */
+/* eslint-disable @definitelytyped/strict-export-declare-modifiers */
+
 type PlaywrightBrowser = import("@playwright/test").Browser;
 type PlaywrightBrowserType = import("@playwright/test").BrowserType;
 type PlaywrightBrowserContext = import("@playwright/test").BrowserContext;

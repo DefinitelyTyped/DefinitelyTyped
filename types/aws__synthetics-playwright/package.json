@@ -1,9 +1,9 @@
 {
     "private": true,
-    "name": "@types/aws-synthetics-playwright",
+    "name": "@types/aws__synthetics-playwright",
     "version": "10.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "aws-synthetics-playwright",
+    "nonNpmDescription": "aws__synthetics-playwright",
     "projects": [
         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html"
     ],
@@ -14,11 +14,11 @@
         "@playwright/test": "^1.53.0"
     },
     "devDependencies": {
-        "@types/aws-synthetics-playwright": "workspace:."
+        "@types/aws__synthetics-playwright": "workspace:."
     },
     "owners": [
         {
-            "name": "Andor Kovacs",
+            "name": "Andor Kovács",
             "githubUsername": "kovacsandor"
         }
     ]
