@@ -499,32 +499,66 @@ declare module "node:crypto" {
         digest(): NonSharedBuffer;
         digest(encoding: BinaryToTextEncoding): string;
     }
+    type KeyFormat = "pem" | "der" | "jwk";
     type KeyObjectType = "secret" | "public" | "private";
-    interface KeyExportOptions<T extends KeyFormat> {
-        type: "pkcs1" | "spki" | "pkcs8" | "sec1";
-        format: T;
+    type PublicKeyExportType = "pkcs1" | "spki";
+    type PrivateKeyExportType = "pkcs1" | "pkcs8" | "sec1";
+    type KeyExportOptions =
+        | SymmetricKeyExportOptions
+        | PublicKeyExportOptions
+        | PrivateKeyExportOptions
+        | JwkKeyExportOptions;
+    interface SymmetricKeyExportOptions {
+        format?: "buffer" | undefined;
+    }
+    interface PublicKeyExportOptions<T extends PublicKeyExportType = PublicKeyExportType> {
+        type: T;
+        format: Exclude<KeyFormat, "jwk">;
+    }
+    interface PrivateKeyExportOptions<T extends PrivateKeyExportType = PrivateKeyExportType> {
+        type: T;
+        format: Exclude<KeyFormat, "jwk">;
         cipher?: string | undefined;
         passphrase?: string | Buffer | undefined;
     }
     interface JwkKeyExportOptions {
         format: "jwk";
     }
-    interface JsonWebKey {
-        crv?: string;
-        d?: string;
-        dp?: string;
-        dq?: string;
-        e?: string;
-        k?: string;
-        kty?: string;
-        n?: string;
-        p?: string;
-        q?: string;
-        qi?: string;
-        x?: string;
-        y?: string;
-        [key: string]: unknown;
+    interface KeyPairExportOptions<
+        TPublic extends PublicKeyExportType = PublicKeyExportType,
+        TPrivate extends PrivateKeyExportType = PrivateKeyExportType,
+    > {
+        publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
+        privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
     }
+    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat }
+        ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
+        : Default;
+    interface KeyPairExportResult<T extends KeyPairExportOptions> {
+        publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>;
+        privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>;
+    }
+    type KeyPairExportCallback<T extends KeyPairExportOptions> = (
+        err: Error | null,
+        publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>,
+        privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>,
+    ) => void;
+    type MLDSAKeyType = `ml-dsa-${44 | 65 | 87}`;
+    type MLKEMKeyType = `ml-kem-${1024 | 512 | 768}`;
+    type SLHDSAKeyType = `slh-dsa-${"sha2" | "shake"}-${128 | 192 | 256}${"f" | "s"}`;
+    type AsymmetricKeyType =
+        | "dh"
+        | "dsa"
+        | "ec"
+        | "ed25519"
+        | "ed448"
+        | MLDSAKeyType
+        | MLKEMKeyType
+        | "rsa-pss"
+        | "rsa"
+        | SLHDSAKeyType
+        | "x25519"
+        | "x448";
     interface AsymmetricKeyDetails {
         /**
          * Key size in bits (RSA, DSA).
@@ -598,7 +632,7 @@ declare module "node:crypto" {
          * keys.
          * @since v11.6.0
          */
-        asymmetricKeyType?: KeyType;
+        asymmetricKeyType?: AsymmetricKeyType;
         /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
@@ -636,9 +670,7 @@ declare module "node:crypto" {
          * PKCS#1 and SEC1 encryption.
          * @since v11.6.0
          */
-        export(options: KeyExportOptions<"pem">): string | NonSharedBuffer;
-        export(options?: KeyExportOptions<"der">): NonSharedBuffer;
-        export(options?: JwkKeyExportOptions): JsonWebKey;
+        export<T extends KeyExportOptions = {}>(options?: T): KeyExportResult<T, NonSharedBuffer>;
         /**
          * Returns `true` or `false` depending on whether the keys have exactly the same
          * type, value, and parameters. This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
@@ -1203,14 +1235,14 @@ declare module "node:crypto" {
     interface PrivateKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
-        type?: "pkcs1" | "pkcs8" | "sec1" | undefined;
+        type?: PrivateKeyExportType | undefined;
         passphrase?: string | Buffer | undefined;
         encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
-        type?: "pkcs1" | "spki" | undefined;
+        type?: PublicKeyExportType | undefined;
         encoding?: string | undefined;
     }
     /**
@@ -1263,7 +1295,7 @@ declare module "node:crypto" {
         },
     ): KeyObject;
     interface JsonWebKeyInput {
-        key: JsonWebKey;
+        key: webcrypto.JsonWebKey;
         format: "jwk";
     }
     /**
@@ -2467,124 +2499,52 @@ declare module "node:crypto" {
      * @since v6.6.0
      */
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
-    type KeyType =
-        | "dh"
-        | "dsa"
-        | "ec"
-        | "ed25519"
-        | "ed448"
-        | "ml-dsa-44"
-        | "ml-dsa-65"
-        | "ml-dsa-87"
-        | "ml-kem-1024"
-        | "ml-kem-512"
-        | "ml-kem-768"
-        | "rsa-pss"
-        | "rsa"
-        | "slh-dsa-sha2-128f"
-        | "slh-dsa-sha2-128s"
-        | "slh-dsa-sha2-192f"
-        | "slh-dsa-sha2-192s"
-        | "slh-dsa-sha2-256f"
-        | "slh-dsa-sha2-256s"
-        | "slh-dsa-shake-128f"
-        | "slh-dsa-shake-128s"
-        | "slh-dsa-shake-192f"
-        | "slh-dsa-shake-192s"
-        | "slh-dsa-shake-256f"
-        | "slh-dsa-shake-256s"
-        | "x25519"
-        | "x448";
-    type KeyFormat = "pem" | "der" | "jwk";
-    interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
-        format: T;
-        cipher?: string | undefined;
-        passphrase?: string | undefined;
+    interface DHKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
+        /**
+         * The prime parameter
+         */
+        prime?: Buffer | undefined;
+        /**
+         * Prime length in bits
+         */
+        primeLength?: number | undefined;
+        /**
+         * Custom generator
+         * @default 2
+         */
+        generator?: number | undefined;
+        /**
+         * Diffie-Hellman group name
+         * @see {@link getDiffieHellman}
+         */
+        groupName?: string | undefined;
     }
-    interface KeyPairKeyObjectResult {
-        publicKey: KeyObject;
-        privateKey: KeyObject;
+    interface DSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * Size of q in bits
+         */
+        divisorLength: number;
     }
-    interface ED25519KeyPairKeyObjectOptions {}
-    interface ED448KeyPairKeyObjectOptions {}
-    interface X25519KeyPairKeyObjectOptions {}
-    interface X448KeyPairKeyObjectOptions {}
-    interface MLDSAKeyPairKeyObjectOptions {}
-    interface MLKEMKeyPairKeyObjectOptions {}
-    interface SLHDSAKeyPairKeyObjectOptions {}
-    interface ECKeyPairKeyObjectOptions {
+    interface ECKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8" | "sec1"> {
         /**
          * Name of the curve to use
          */
         namedCurve: string;
         /**
-         * Must be `'named'` or `'explicit'`. Default: `'named'`.
+         * Must be `'named'` or `'explicit'`
+         * @default 'named'
          */
         paramEncoding?: "explicit" | "named" | undefined;
     }
-    interface RSAKeyPairKeyObjectOptions {
-        /**
-         * Key size in bits
-         */
-        modulusLength: number;
-        /**
-         * Public exponent
-         * @default 0x10001
-         */
-        publicExponent?: number | undefined;
-    }
-    interface RSAPSSKeyPairKeyObjectOptions {
-        /**
-         * Key size in bits
-         */
-        modulusLength: number;
-        /**
-         * Public exponent
-         * @default 0x10001
-         */
-        publicExponent?: number | undefined;
-        /**
-         * Name of the message digest
-         */
-        hashAlgorithm?: string | undefined;
-        /**
-         * Name of the message digest used by MGF1
-         */
-        mgf1HashAlgorithm?: string | undefined;
-        /**
-         * Minimal salt length in bytes
-         */
-        saltLength?: string | undefined;
-    }
-    interface DSAKeyPairKeyObjectOptions {
-        /**
-         * Key size in bits
-         */
-        modulusLength: number;
-        /**
-         * Size of q in bits
-         */
-        divisorLength: number;
-    }
-    interface RSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Key size in bits
-         */
-        modulusLength: number;
-        /**
-         * Public exponent
-         * @default 0x10001
-         */
-        publicExponent?: number | undefined;
-        publicKeyEncoding: {
-            type: "pkcs1" | "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs1" | "pkcs8";
-        };
-    }
-    interface RSAPSSKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+    interface ED25519KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface ED448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface MLDSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface MLKEMKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface RSAPSSKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
         /**
          * Key size in bits
          */
@@ -2606,107 +2566,21 @@ declare module "node:crypto" {
          * Minimal salt length in bytes
          */
         saltLength?: string | undefined;
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
     }
-    interface DSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+    interface RSAKeyPairOptions extends KeyPairExportOptions<"pkcs1" | "spki", "pkcs1" | "pkcs8"> {
         /**
          * Key size in bits
          */
         modulusLength: number;
         /**
-         * Size of q in bits
+         * Public exponent
+         * @default 0x10001
          */
-        divisorLength: number;
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
+        publicExponent?: number | undefined;
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
-        publicKeyEncoding: {
-            type: "pkcs1" | "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "sec1" | "pkcs8";
-        };
-    }
-    interface ED25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface ED448KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface X25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface X448KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface MLDSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface MLKEMKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface SLHDSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        publicKeyEncoding: {
-            type: "spki";
-            format: PubF;
-        };
-        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: "pkcs8";
-        };
-    }
-    interface KeyPairSyncResult<T1 extends string | Buffer, T2 extends string | Buffer> {
-        publicKey: T1;
-        privateKey: T2;
-    }
+    interface SLHDSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface X25519KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface X448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     /**
      * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
      * Ed25519, Ed448, X25519, X448, DH, and ML-DSA are currently supported.
@@ -2749,262 +2623,54 @@ declare module "node:crypto" {
      * @param type The asymmetric key type to generate. See the
      * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      */
-    function generateKeyPairSync(
-        type: "rsa",
-        options: RSAKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "rsa",
-        options: RSAKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "rsa",
-        options: RSAKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "rsa",
-        options: RSAKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "rsa", options: RSAKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "rsa-pss", options: RSAPSSKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+    function generateKeyPairSync<T extends DHKeyPairOptions>(
+        type: "dh",
+        options: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends DSAKeyPairOptions>(
         type: "dsa",
-        options: DSAKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "dsa",
-        options: DSAKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "dsa",
-        options: DSAKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "dsa",
-        options: DSAKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "dsa", options: DSAKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+        options: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends ECKeyPairOptions>(
         type: "ec",
-        options: ECKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "ec",
-        options: ECKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ec",
-        options: ECKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "ec",
-        options: ECKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "ec", options: ECKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+        options: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends ED25519KeyPairOptions = {}>(
         type: "ed25519",
-        options: ED25519KeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "ed25519", options?: ED25519KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends ED448KeyPairOptions = {}>(
         type: "ed448",
-        options: ED448KeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "ed448",
-        options: ED448KeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ed448",
-        options: ED448KeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "ed448",
-        options: ED448KeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "ed448", options?: ED448KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends MLDSAKeyPairOptions = {}>(
+        type: MLDSAKeyType,
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends MLKEMKeyPairOptions = {}>(
+        type: MLKEMKeyType,
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends RSAPSSKeyPairOptions>(
+        type: "rsa-pss",
+        options: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends RSAKeyPairOptions>(
+        type: "rsa",
+        options: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends SLHDSAKeyPairOptions = {}>(
+        type: SLHDSAKeyType,
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends X25519KeyPairOptions = {}>(
         type: "x25519",
-        options: X25519KeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "x25519",
-        options: X25519KeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "x25519",
-        options: X25519KeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "x25519",
-        options: X25519KeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "x25519", options?: X25519KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends X448KeyPairOptions = {}>(
         type: "x448",
-        options: X448KeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "x448",
-        options: X448KeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "x448",
-        options: X448KeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "x448",
-        options: X448KeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(type: "x448", options?: X448KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options?: MLDSAKeyPairKeyObjectOptions,
-    ): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<NonSharedBuffer, string>;
-    function generateKeyPairSync(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<NonSharedBuffer, NonSharedBuffer>;
-    function generateKeyPairSync(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options?: MLKEMKeyPairKeyObjectOptions,
-    ): KeyPairKeyObjectResult;
-    function generateKeyPairSync(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"pem", "pem">,
-    ): KeyPairSyncResult<string, string>;
-    function generateKeyPairSync(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"pem", "der">,
-    ): KeyPairSyncResult<string, Buffer>;
-    function generateKeyPairSync(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"der", "pem">,
-    ): KeyPairSyncResult<Buffer, string>;
-    function generateKeyPairSync(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"der", "der">,
-    ): KeyPairSyncResult<Buffer, Buffer>;
-    function generateKeyPairSync(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options?: SLHDSAKeyPairKeyObjectOptions,
-    ): KeyPairKeyObjectResult;
+        options?: T,
+    ): KeyPairExportResult<T>;
     /**
      * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
      * Ed25519, Ed448, X25519, X448, and DH are currently supported.
@@ -3045,739 +2711,115 @@ declare module "node:crypto" {
      * @param type The asymmetric key type to generate. See the
      * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      */
-    function generateKeyPair(
-        type: "rsa",
-        options: RSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+    function generateKeyPair<T extends DHKeyPairOptions>(
+        type: "dh",
+        options: T,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "rsa",
-        options: RSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa",
-        options: RSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa",
-        options: RSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa",
-        options: RSAKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "rsa-pss",
-        options: RSAPSSKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends DSAKeyPairOptions>(
         type: "dsa",
-        options: DSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        options: T,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "dsa",
-        options: DSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "dsa",
-        options: DSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "dsa",
-        options: DSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "dsa",
-        options: DSAKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends ECKeyPairOptions>(
         type: "ec",
-        options: ECKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        options: T,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ec",
-        options: ECKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ec",
-        options: ECKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ec",
-        options: ECKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ec",
-        options: ECKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends ED25519KeyPairOptions = {}>(
         type: "ed25519",
-        options: ED25519KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ed25519",
-        options: ED25519KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ed25519",
-        options: ED25519KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends ED448KeyPairOptions = {}>(
         type: "ed448",
-        options: ED448KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ed448",
-        options: ED448KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
+    function generateKeyPair<T extends MLDSAKeyPairOptions = {}>(
+        type: MLDSAKeyType,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ed448",
-        options: ED448KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
+    function generateKeyPair<T extends MLKEMKeyPairOptions = {}>(
+        type: MLKEMKeyType,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ed448",
-        options: ED448KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
+    function generateKeyPair<T extends RSAPSSKeyPairOptions>(
+        type: "rsa-pss",
+        options: T,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "ed448",
-        options: ED448KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+    function generateKeyPair<T extends RSAKeyPairOptions>(
+        type: "rsa",
+        options: T,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends SLHDSAKeyPairOptions = {}>(
+        type: SLHDSAKeyType,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
+    ): void;
+    function generateKeyPair<T extends X25519KeyPairOptions = {}>(
         type: "x25519",
-        options: X25519KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
-    function generateKeyPair(
-        type: "x25519",
-        options: X25519KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x25519",
-        options: X25519KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x25519",
-        options: X25519KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x25519",
-        options: X25519KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
+    function generateKeyPair<T extends X448KeyPairOptions = {}>(
         type: "x448",
-        options: X448KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x448",
-        options: X448KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x448",
-        options: X448KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x448",
-        options: X448KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "x448",
-        options: X448KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-        options: MLDSAKeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: NonSharedBuffer, privateKey: NonSharedBuffer) => void,
-    ): void;
-    function generateKeyPair(
-        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-        options: MLKEMKeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
-    ): void;
-    function generateKeyPair(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
-    ): void;
-    function generateKeyPair(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
-    ): void;
-    function generateKeyPair(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
-    ): void;
-    function generateKeyPair(
-        type:
-            | "slh-dsa-sha2-128f"
-            | "slh-dsa-sha2-128s"
-            | "slh-dsa-sha2-192f"
-            | "slh-dsa-sha2-192s"
-            | "slh-dsa-sha2-256f"
-            | "slh-dsa-sha2-256s"
-            | "slh-dsa-shake-128f"
-            | "slh-dsa-shake-128s"
-            | "slh-dsa-shake-192f"
-            | "slh-dsa-shake-192s"
-            | "slh-dsa-shake-256f"
-            | "slh-dsa-shake-256s",
-        options: SLHDSAKeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
     ): void;
     namespace generateKeyPair {
-        function __promisify__(
-            type: "rsa",
-            options: RSAKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "rsa",
-            options: RSAKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "rsa",
-            options: RSAKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "rsa",
-            options: RSAKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(type: "rsa", options: RSAKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
-            type: "rsa-pss",
-            options: RSAPSSKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "rsa-pss",
-            options: RSAPSSKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "rsa-pss",
-            options: RSAPSSKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "rsa-pss",
-            options: RSAPSSKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "rsa-pss",
-            options: RSAPSSKeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+        function __promisify__<T extends DHKeyPairOptions>(
+            type: "dh",
+            options: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends DSAKeyPairOptions>(
             type: "dsa",
-            options: DSAKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "dsa",
-            options: DSAKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "dsa",
-            options: DSAKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "dsa",
-            options: DSAKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(type: "dsa", options: DSAKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+            options: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends ECKeyPairOptions>(
             type: "ec",
-            options: ECKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ec",
-            options: ECKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ec",
-            options: ECKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ec",
-            options: ECKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(type: "ec", options: ECKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+            options: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends ED25519KeyPairOptions = {}>(
             type: "ed25519",
-            options: ED25519KeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ed25519",
-            options: ED25519KeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ed25519",
-            options: ED25519KeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ed25519",
-            options: ED25519KeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ed25519",
-            options?: ED25519KeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends ED448KeyPairOptions = {}>(
             type: "ed448",
-            options: ED448KeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ed448",
-            options: ED448KeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ed448",
-            options: ED448KeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ed448",
-            options: ED448KeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(type: "ed448", options?: ED448KeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends MLDSAKeyPairOptions = {}>(
+            type: MLDSAKeyType,
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends MLKEMKeyPairOptions = {}>(
+            type: MLKEMKeyType,
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends RSAPSSKeyPairOptions>(
+            type: "rsa-pss",
+            options: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends RSAKeyPairOptions>(
+            type: "rsa",
+            options: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends SLHDSAKeyPairOptions = {}>(
+            type: SLHDSAKeyType,
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends X25519KeyPairOptions = {}>(
             type: "x25519",
-            options: X25519KeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "x25519",
-            options: X25519KeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "x25519",
-            options: X25519KeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "x25519",
-            options: X25519KeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "x25519",
-            options?: X25519KeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends X448KeyPairOptions = {}>(
             type: "x448",
-            options: X448KeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "x448",
-            options: X448KeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "x448",
-            options: X448KeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "x448",
-            options: X448KeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(type: "x448", options?: X448KeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
-            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-            options: MLDSAKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-            options: MLDSAKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-            options: MLDSAKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-            options: MLDSAKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
-            options?: MLDSAKeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
-            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-            options: MLKEMKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-            options: MLKEMKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-            options: MLKEMKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-            options: MLKEMKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: NonSharedBuffer;
-            privateKey: NonSharedBuffer;
-        }>;
-        function __promisify__(
-            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
-            options?: MLKEMKeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
-        function __promisify__(
-            type:
-                | "slh-dsa-sha2-128f"
-                | "slh-dsa-sha2-128s"
-                | "slh-dsa-sha2-192f"
-                | "slh-dsa-sha2-192s"
-                | "slh-dsa-sha2-256f"
-                | "slh-dsa-sha2-256s"
-                | "slh-dsa-shake-128f"
-                | "slh-dsa-shake-128s"
-                | "slh-dsa-shake-192f"
-                | "slh-dsa-shake-192s"
-                | "slh-dsa-shake-256f"
-                | "slh-dsa-shake-256s",
-            options: SLHDSAKeyPairOptions<"pem", "pem">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type:
-                | "slh-dsa-sha2-128f"
-                | "slh-dsa-sha2-128s"
-                | "slh-dsa-sha2-192f"
-                | "slh-dsa-sha2-192s"
-                | "slh-dsa-sha2-256f"
-                | "slh-dsa-sha2-256s"
-                | "slh-dsa-shake-128f"
-                | "slh-dsa-shake-128s"
-                | "slh-dsa-shake-192f"
-                | "slh-dsa-shake-192s"
-                | "slh-dsa-shake-256f"
-                | "slh-dsa-shake-256s",
-            options: SLHDSAKeyPairOptions<"pem", "der">,
-        ): Promise<{
-            publicKey: string;
-            privateKey: Buffer;
-        }>;
-        function __promisify__(
-            type:
-                | "slh-dsa-sha2-128f"
-                | "slh-dsa-sha2-128s"
-                | "slh-dsa-sha2-192f"
-                | "slh-dsa-sha2-192s"
-                | "slh-dsa-sha2-256f"
-                | "slh-dsa-sha2-256s"
-                | "slh-dsa-shake-128f"
-                | "slh-dsa-shake-128s"
-                | "slh-dsa-shake-192f"
-                | "slh-dsa-shake-192s"
-                | "slh-dsa-shake-256f"
-                | "slh-dsa-shake-256s",
-            options: SLHDSAKeyPairOptions<"der", "pem">,
-        ): Promise<{
-            publicKey: Buffer;
-            privateKey: string;
-        }>;
-        function __promisify__(
-            type:
-                | "slh-dsa-sha2-128f"
-                | "slh-dsa-sha2-128s"
-                | "slh-dsa-sha2-192f"
-                | "slh-dsa-sha2-192s"
-                | "slh-dsa-sha2-256f"
-                | "slh-dsa-sha2-256s"
-                | "slh-dsa-shake-128f"
-                | "slh-dsa-shake-128s"
-                | "slh-dsa-shake-192f"
-                | "slh-dsa-shake-192s"
-                | "slh-dsa-shake-256f"
-                | "slh-dsa-shake-256s",
-            options: SLHDSAKeyPairOptions<"der", "der">,
-        ): Promise<{
-            publicKey: Buffer;
-            privateKey: Buffer;
-        }>;
-        function __promisify__(
-            type:
-                | "slh-dsa-sha2-128f"
-                | "slh-dsa-sha2-128s"
-                | "slh-dsa-sha2-192f"
-                | "slh-dsa-sha2-192s"
-                | "slh-dsa-sha2-256f"
-                | "slh-dsa-sha2-256s"
-                | "slh-dsa-shake-128f"
-                | "slh-dsa-shake-128s"
-                | "slh-dsa-shake-192f"
-                | "slh-dsa-shake-192s"
-                | "slh-dsa-shake-256f"
-                | "slh-dsa-shake-256s",
-            options?: SLHDSAKeyPairKeyObjectOptions,
-        ): Promise<KeyPairKeyObjectResult>;
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
     }
     /**
      * Calculates and returns the signature for `data` using the given private key and

@@ -715,13 +715,13 @@ import { promisify } from "node:util";
         namedCurve: "curve",
         publicKeyEncoding: {
             format: "pem",
-            type: "pkcs1",
+            type: "spki",
         },
         privateKeyEncoding: {
             cipher: "some-cipher",
             format: "pem",
             passphrase: "secret",
-            type: "pkcs8",
+            type: "sec1",
         },
     });
 
@@ -732,11 +732,11 @@ import { promisify } from "node:util";
         namedCurve: "curve",
         publicKeyEncoding: {
             format: "pem",
-            type: "pkcs1",
+            type: "spki",
         },
         privateKeyEncoding: {
             format: "pem",
-            type: "pkcs8",
+            type: "sec1",
         },
     });
 
@@ -748,7 +748,19 @@ import { promisify } from "node:util";
         paramEncoding: "explicit",
         publicKeyEncoding: {
             format: "pem",
-            type: "pkcs1",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "sec1",
+        },
+    });
+
+    const dh: { publicKey: string; privateKey: string } = crypto.generateKeyPairSync("dh", {
+        primeLength: 2048,
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
         },
         privateKeyEncoding: {
             format: "pem",
@@ -867,13 +879,13 @@ import { promisify } from "node:util";
             namedCurve: "curve",
             publicKeyEncoding: {
                 format: "pem",
-                type: "pkcs1",
+                type: "spki",
             },
             privateKeyEncoding: {
                 cipher: "some-cipher",
                 format: "pem",
                 passphrase: "secret",
-                type: "pkcs8",
+                type: "sec1",
             },
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
@@ -886,13 +898,13 @@ import { promisify } from "node:util";
             paramEncoding: "explicit",
             publicKeyEncoding: {
                 format: "pem",
-                type: "pkcs1",
+                type: "spki",
             },
             privateKeyEncoding: {
                 cipher: "some-cipher",
                 format: "pem",
                 passphrase: "secret",
-                type: "pkcs8",
+                type: "sec1",
             },
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
@@ -916,6 +928,22 @@ import { promisify } from "node:util";
     crypto.generateKeyPair(
         "x25519",
         {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "dh",
+        {
+            primeLength: 2048,
             publicKeyEncoding: {
                 format: "pem",
                 type: "spki",
@@ -1036,13 +1064,13 @@ import { promisify } from "node:util";
         namedCurve: "curve",
         publicKeyEncoding: {
             format: "pem",
-            type: "pkcs1",
+            type: "spki",
         },
         privateKeyEncoding: {
             cipher: "some-cipher",
             format: "pem",
             passphrase: "secret",
-            type: "pkcs8",
+            type: "sec1",
         },
     });
 
@@ -1064,6 +1092,21 @@ import { promisify } from "node:util";
         publicKey: string;
         privateKey: string;
     }> = generateKeyPairPromisified("x25519", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const dhRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("dh", {
+        primeLength: 2048,
         publicKeyEncoding: {
             format: "pem",
             type: "spki",
@@ -1147,11 +1190,19 @@ import { promisify } from "node:util";
 }
 
 {
-    const keyObject = crypto.createSecretKey(Buffer.from("asdf")); // $ExpectType KeyObject
-    keyObject instanceof crypto.KeyObject;
-    assert.equal(keyObject.symmetricKeySize, 4);
-    assert.equal(keyObject.type, "secret");
+    crypto.createSecretKey(Buffer.from("asdf"));
+    crypto.createSecretKey(new Uint8Array(128));
     crypto.createSecretKey("ascii", "ascii");
+}
+
+{
+    let keyObject!: crypto.KeyObject;
+    keyObject.export(); // $ExpectType Buffer || NonSharedBuffer
+    keyObject.export({}); // $ExpectType Buffer || NonSharedBuffer
+    keyObject.export({ format: "buffer" }); // $ExpectType Buffer || NonSharedBuffer
+    keyObject.export({ format: "der", type: "pkcs8" }); // $ExpectType Buffer || NonSharedBuffer
+    keyObject.export({ format: "jwk" }); // $ExpectType JsonWebKey
+    keyObject.export({ format: "pem", type: "pkcs1" }); // $ExpectType string
 }
 
 {
@@ -1535,10 +1586,6 @@ import { promisify } from "node:util";
         (await pGenerateKeyPair("ed25519", opts)).privateKey; // $ExpectType KeyObject
         (await pGenerateKeyPair("ed448", opts)).privateKey; // $ExpectType KeyObject
     });
-}
-
-{
-    crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
 }
 
 {
