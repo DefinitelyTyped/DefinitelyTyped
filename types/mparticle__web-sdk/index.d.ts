@@ -362,9 +362,8 @@ interface SelectPlacements {
     (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
 }
 
-interface Use { 
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    <T = unknown> (name: string): Promise<T>; 
+interface Use {
+    (name: string): Promise<unknown>;
 }
 
 interface HashAttributes {
