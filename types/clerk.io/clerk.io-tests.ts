@@ -1,4 +1,4 @@
-import { ConfigTypes, ResponseTypes } from 'clerk.io';
+import { ConfigTypes, ResponseTypes } from "clerk.io";
 
 if (window.Clerk) {
     // @ts-expect-error
@@ -38,7 +38,7 @@ if (window.Clerk) {
     const searchConfig: ConfigTypes["search/search"] = {
         key: "test-key",
         query: "test",
-        limit: 10
+        limit: 10,
     };
 
     // Test that newly exported ResponseTypes are accessible
@@ -46,6 +46,6 @@ if (window.Clerk) {
         result: ["product1", "product2"],
         count: 2,
         facets: null,
-        status: "ok"
+        status: "ok",
     };
 }
