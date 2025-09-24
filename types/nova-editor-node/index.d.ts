@@ -1,8 +1,5 @@
 /// https://docs.nova.app/extensions/#javascript-runtime
 
-// This runs in an extension of Apple's JavaScriptCore, manually set libs
-
-/// <reference no-default-lib="true"/>
 /// <reference lib="es2020" />
 /// <reference lib="WebWorker" />
 
