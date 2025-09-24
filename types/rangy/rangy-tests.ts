@@ -1,9 +1,4 @@
 import * as rangy from "rangy";
-import "rangy/lib/rangy-classapplier";
-import "rangy/lib/rangy-highlighter";
-import "rangy/lib/rangy-selectionsaverestore";
-import "rangy/lib/rangy-serializer";
-import "rangy/lib/rangy-textrange";
 
 declare function assertAny(a: any): any;
 declare function assertBoolean(b: boolean): any;
