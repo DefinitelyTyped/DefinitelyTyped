@@ -270,6 +270,7 @@ declare namespace GoogleAppsScript {
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
+            InputType: typeof InputType;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
@@ -336,6 +337,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
+            newValidation(): Validation;
         }
         /**
          * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -839,6 +841,7 @@ declare namespace GoogleAppsScript {
             setSuggestions(suggestions: Suggestions): TextInput;
             setSuggestionsAction(suggestionsAction: Action): TextInput;
             setTitle(title: string): TextInput;
+            setValidation(validation: Validation): TextInput;
             setValue(value: string): TextInput;
         }
         /**
@@ -993,6 +996,29 @@ declare namespace GoogleAppsScript {
         interface UpdateDraftToRecipientsAction {
             addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
         }
+
+        /**
+         * An object that defines the validation rule for the widget that it is attached to.
+         * 
+         * const validation = CardService.newValidation()
+         *     .setCharacterLimit('10')
+         *     .setInputType(CardService.InputType.TEXT);
+         */
+        interface Validation {
+            setCharacterLimit(characterLimit: Integer): Validation;
+            setInputType(inputType: InputType): Validation;
+        }
+
+        /**
+         * An enum that defines the input type of the widget.
+         */
+        enum InputType {
+            TEXT,
+            INTEGER,
+            FLOAT,
+            EMAIL,
+        }
+
         /**
          * The fixed footer shown at the bottom of an add-on Card.
          */
