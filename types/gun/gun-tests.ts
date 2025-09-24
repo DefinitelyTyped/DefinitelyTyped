@@ -1,14 +1,5 @@
 import GunServer = require("gun");
 import Gun = require("gun/gun");
-import "gun/lib/path.js";
-import "gun/lib/not.js";
-import "gun/lib/open.js";
-import "gun/lib/load.js";
-import "gun/lib/then.js";
-import "gun/lib/bye.js";
-import "gun/lib/later.js";
-import "gun/lib/unset.js";
-import "gun/lib/time.js";
 
 GunServer("http://yourdomain.com/gun");
 Gun(["http://server1.com/gun", "http://server2.com/gun"]);
