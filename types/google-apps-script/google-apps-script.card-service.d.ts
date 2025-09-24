@@ -999,7 +999,7 @@ declare namespace GoogleAppsScript {
 
         /**
          * An object that defines the validation rule for the widget that it is attached to.
-         * 
+         *
          * const validation = CardService.newValidation()
          *     .setCharacterLimit('10')
          *     .setInputType(CardService.InputType.TEXT);

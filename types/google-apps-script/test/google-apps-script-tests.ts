@@ -628,8 +628,8 @@ CardService.newMaterialIcon().setName(""); // $ExpectType MaterialIcon
 CardService.newMaterialIcon().setWeight(100); // $ExpectType MaterialIcon
 
 CardService.newValidation(); // $ExpectType Validation
-CardService.newValidation().setCharacterLimit(10) // $ExpectType Validation
-CardService.newValidation().setInputType(CardService.InputType.TEXT) // $ExpectType Validation
+CardService.newValidation().setCharacterLimit(10); // $ExpectType Validation
+CardService.newValidation().setInputType(CardService.InputType.TEXT); // $ExpectType Validation
 
 // CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
 CardService.DisplayStyle.PEEK;
