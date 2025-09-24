@@ -1,4 +1,3 @@
-import "./ts3.6/babel-types-tests";
 import traverse from "babel-traverse";
 import * as t from "babel-types";
 
