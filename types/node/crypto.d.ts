@@ -591,21 +591,8 @@ declare module "crypto" {
          */
         static from(key: webcrypto.CryptoKey): KeyObject;
         /**
-         * For asymmetric keys, this property represents the type of the key. Supported key
-         * types are:
-         *
-         * * `'rsa'` (OID 1.2.840.113549.1.1.1)
-         * * `'rsa-pss'` (OID 1.2.840.113549.1.1.10)
-         * * `'dsa'` (OID 1.2.840.10040.4.1)
-         * * `'ec'` (OID 1.2.840.10045.2.1)
-         * * `'x25519'` (OID 1.3.101.110)
-         * * `'x448'` (OID 1.3.101.111)
-         * * `'ed25519'` (OID 1.3.101.112)
-         * * `'ed448'` (OID 1.3.101.113)
-         * * `'dh'` (OID 1.2.840.113549.1.3.1)
-         * * `'ml-dsa-44'` (OID 2.16.840.1.101.3.4.3.17)
-         * * `'ml-dsa-65'` (OID 2.16.840.1.101.3.4.3.18)
-         * * `'ml-dsa-87'` (OID 2.16.840.1.101.3.4.3.19)
+         * For asymmetric keys, this property represents the type of the key. See the
+         * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
          *
          * This property is `undefined` for unrecognized `KeyObject` types and symmetric
          * keys.
@@ -2460,17 +2447,21 @@ declare module "crypto" {
      */
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     type KeyType =
-        | "rsa"
-        | "rsa-pss"
+        | "dh"
         | "dsa"
         | "ec"
         | "ed25519"
         | "ed448"
-        | "x25519"
-        | "x448"
         | "ml-dsa-44"
         | "ml-dsa-65"
-        | "ml-dsa-87";
+        | "ml-dsa-87"
+        | "ml-kem-1024"
+        | "ml-kem-512"
+        | "ml-kem-768"
+        | "rsa-pss"
+        | "rsa"
+        | "x25519"
+        | "x448";
     type KeyFormat = "pem" | "der" | "jwk";
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
@@ -2486,6 +2477,7 @@ declare module "crypto" {
     interface X25519KeyPairKeyObjectOptions {}
     interface X448KeyPairKeyObjectOptions {}
     interface MLDSAKeyPairKeyObjectOptions {}
+    interface MLKEMKeyPairKeyObjectOptions {}
     interface ECKeyPairKeyObjectOptions {
         /**
          * Name of the curve to use
@@ -2659,6 +2651,15 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
+    interface MLKEMKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        publicKeyEncoding: {
+            type: "spki";
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: "pkcs8";
+        };
+    }
     interface KeyPairSyncResult<T1 extends string | Buffer, T2 extends string | Buffer> {
         publicKey: T1;
         privateKey: T2;
@@ -2702,8 +2703,8 @@ declare module "crypto" {
      * When PEM encoding was selected, the respective key will be a string, otherwise
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`,
-     * `'ed448'`, `'x25519'`, `'x448'`, `'dh'`, `'ml-dsa-44'`, `'ml-dsa-65'`, or `'ml-dsa-87'`.
+     * @param type The asymmetric key type to generate. See the
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPairSync(
         type: "rsa",
@@ -2861,6 +2862,26 @@ declare module "crypto" {
         type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
         options?: MLDSAKeyPairKeyObjectOptions,
     ): KeyPairKeyObjectResult;
+    function generateKeyPairSync(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"pem", "pem">,
+    ): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"pem", "der">,
+    ): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"der", "pem">,
+    ): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"der", "der">,
+    ): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options?: MLKEMKeyPairKeyObjectOptions,
+    ): KeyPairKeyObjectResult;
     /**
      * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
      * Ed25519, Ed448, X25519, X448, and DH are currently supported.
@@ -2898,8 +2919,8 @@ declare module "crypto" {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`,
-     * `'ed448'`, `'x25519'`, `'x448'`, `'dh'`, `'ml-dsa-44'`, `'ml-dsa-65'`, or `'ml-dsa-87'`.
+     * @param type The asymmetric key type to generate. See the
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPair(
         type: "rsa",
@@ -3124,6 +3145,31 @@ declare module "crypto" {
     function generateKeyPair(
         type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
         options: MLDSAKeyPairKeyObjectOptions | undefined,
+        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+    ): void;
+    function generateKeyPair(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"pem", "pem">,
+        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+    ): void;
+    function generateKeyPair(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"pem", "der">,
+        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+    ): void;
+    function generateKeyPair(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"der", "pem">,
+        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+    ): void;
+    function generateKeyPair(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairOptions<"der", "der">,
+        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+    ): void;
+    function generateKeyPair(
+        type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+        options: MLKEMKeyPairKeyObjectOptions | undefined,
         callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     namespace generateKeyPair {
@@ -3400,6 +3446,38 @@ declare module "crypto" {
             type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
             options?: MLDSAKeyPairKeyObjectOptions,
         ): Promise<KeyPairKeyObjectResult>;
+        function __promisify__(
+            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+            options: MLKEMKeyPairOptions<"pem", "pem">,
+        ): Promise<{
+            publicKey: string;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+            options: MLKEMKeyPairOptions<"pem", "der">,
+        ): Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+            options: MLKEMKeyPairOptions<"der", "pem">,
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+            options: MLKEMKeyPairOptions<"der", "der">,
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
+            options?: MLKEMKeyPairKeyObjectOptions,
+        ): Promise<KeyPairKeyObjectResult>;
     }
     /**
      * Calculates and returns the signature for `data` using the given private key and
@@ -3461,9 +3539,37 @@ declare module "crypto" {
         callback: (error: Error | null, result: boolean) => void,
     ): void;
     /**
-     * Computes the Diffie-Hellman secret based on a `privateKey` and a `publicKey`.
-     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'`
-     * (for Diffie-Hellman), `'ec'`, `'x448'`, or `'x25519'` (for ECDH).
+     * Key decapsulation using a KEM algorithm with a private key.
+     *
+     * Supported key types and their KEM algorithms are:
+     *
+     * * `'rsa'` RSA Secret Value Encapsulation
+     * * `'ec'` DHKEM(P-256, HKDF-SHA256), DHKEM(P-384, HKDF-SHA256), DHKEM(P-521, HKDF-SHA256)
+     * * `'x25519'` DHKEM(X25519, HKDF-SHA256)
+     * * `'x448'` DHKEM(X448, HKDF-SHA512)
+     * * `'ml-kem-512'` ML-KEM
+     * * `'ml-kem-768'` ML-KEM
+     * * `'ml-kem-1024'` ML-KEM
+     *
+     * If `key` is not a {@link KeyObject}, this function behaves as if `key` had been
+     * passed to `crypto.createPrivateKey()`.
+     *
+     * If the `callback` function is provided this function uses libuv's threadpool.
+     * @since v24.7.0
+     */
+    function decapsulate(
+        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
+    ): Buffer;
+    function decapsulate(
+        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
+        callback: (err: Error, sharedKey: Buffer) => void,
+    ): void;
+    /**
+     * Computes the Diffie-Hellman shared secret based on a `privateKey` and a `publicKey`.
+     * Both keys must have the same `asymmetricKeyType` and must support either the DH or
+     * ECDH operation.
      *
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
@@ -3472,6 +3578,30 @@ declare module "crypto" {
     function diffieHellman(
         options: { privateKey: KeyObject; publicKey: KeyObject },
         callback: (err: Error | null, secret: Buffer) => void,
+    ): void;
+    /**
+     * Key encapsulation using a KEM algorithm with a public key.
+     *
+     * Supported key types and their KEM algorithms are:
+     *
+     * * `'rsa'` RSA Secret Value Encapsulation
+     * * `'ec'` DHKEM(P-256, HKDF-SHA256), DHKEM(P-384, HKDF-SHA256), DHKEM(P-521, HKDF-SHA256)
+     * * `'x25519'` DHKEM(X25519, HKDF-SHA256)
+     * * `'x448'` DHKEM(X448, HKDF-SHA512)
+     * * `'ml-kem-512'` ML-KEM
+     * * `'ml-kem-768'` ML-KEM
+     * * `'ml-kem-1024'` ML-KEM
+     *
+     * If `key` is not a {@link KeyObject}, this function behaves as if `key` had been
+     * passed to `crypto.createPublicKey()`.
+     *
+     * If the `callback` function is provided this function uses libuv's threadpool.
+     * @since v24.7.0
+     */
+    function encapsulate(key: KeyLike | PublicKeyInput | JsonWebKeyInput): { sharedKey: Buffer; ciphertext: Buffer };
+    function encapsulate(
+        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        callback: (err: Error, result: { sharedKey: Buffer; ciphertext: Buffer }) => void,
     ): void;
     interface OneShotDigestOptions {
         /**

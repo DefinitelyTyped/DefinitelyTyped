@@ -771,6 +771,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const mlkemRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ml-kem-1024", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -910,6 +926,21 @@ import { promisify } from "node:util";
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
     );
+
+    crypto.generateKeyPair(
+        "ml-kem-1024",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
 }
 
 {
@@ -1016,6 +1047,20 @@ import { promisify } from "node:util";
         publicKey: string;
         privateKey: string;
     }> = generateKeyPairPromisified("ml-dsa-44", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const mlkemRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("ml-kem-1024", {
         publicKeyEncoding: {
             format: "pem",
             type: "spki",
@@ -1792,4 +1837,10 @@ import { promisify } from "node:util";
         derivedKey; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
     crypto.argon2Sync("argon2i", parameters); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+}
+
+{
+    const { privateKey } = crypto.generateKeyPairSync("ml-kem-1024");
+    const publicKey = crypto.decapsulate(privateKey, Buffer.from("the quick brown fox jumped over the lazy dog"));
+    const { sharedKey, ciphertext } = crypto.encapsulate(publicKey);
 }
