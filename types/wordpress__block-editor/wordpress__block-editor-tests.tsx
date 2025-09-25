@@ -566,7 +566,6 @@ select("core/block-editor").getAdjacentBlockClientId("foo");
 select("core/block-editor").getAdjacentBlockClientId("foo", -1);
 select("core/block-editor").getAdjacentBlockClientId("foo", 1);
 
-
 // $ExpectType string[]
 select("core/block-editor").getBlockParents("foo");
 select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
