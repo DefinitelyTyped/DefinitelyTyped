@@ -767,6 +767,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const mldsaRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ml-dsa-44", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -907,6 +923,21 @@ import { promisify } from "node:util";
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
     );
+
+    crypto.generateKeyPair(
+        "ml-dsa-44",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
 }
 
 {
@@ -1014,6 +1045,20 @@ import { promisify } from "node:util";
         privateKey: string;
     }> = generateKeyPairPromisified("dh", {
         primeLength: 2048,
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const mldsaRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("ml-dsa-44", {
         publicKeyEncoding: {
             format: "pem",
             type: "spki",

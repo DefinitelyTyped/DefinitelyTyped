@@ -549,6 +549,9 @@ declare module "crypto" {
         | "ec"
         | "ed25519"
         | "ed448"
+        | "ml-dsa-44"
+        | "ml-dsa-65"
+        | "ml-dsa-87"
         | "rsa-pss"
         | "rsa"
         | "x25519"
@@ -631,6 +634,9 @@ declare module "crypto" {
          * * `'ed25519'` (OID 1.3.101.112)
          * * `'ed448'` (OID 1.3.101.113)
          * * `'dh'` (OID 1.2.840.113549.1.3.1)
+         * * `'ml-dsa-44'` (OID 2.16.840.1.101.3.4.3.17)
+         * * `'ml-dsa-65'` (OID 2.16.840.1.101.3.4.3.18)
+         * * `'ml-dsa-87'` (OID 2.16.840.1.101.3.4.3.19)
          *
          * This property is `undefined` for unrecognized `KeyObject` types and symmetric
          * keys.
@@ -2525,6 +2531,7 @@ declare module "crypto" {
     }
     interface ED25519KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     interface ED448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
+    interface MLDSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     interface RSAPSSKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
         /**
          * Key size in bits
@@ -2563,7 +2570,7 @@ declare module "crypto" {
     interface X448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     /**
      * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
-     * Ed25519, Ed448, X25519, X448, and DH are currently supported.
+     * Ed25519, Ed448, X25519, X448, DH, and ML-DSA are currently supported.
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2600,7 +2607,8 @@ declare module "crypto" {
      * When PEM encoding was selected, the respective key will be a string, otherwise
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
+     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`,
+     * `'ed448'`, `'x25519'`, `'x448'`, `'dh'`, `'ml-dsa-44'`, `'ml-dsa-65'`, or `'ml-dsa-87'`.
      */
     function generateKeyPairSync<T extends DHKeyPairOptions>(
         type: "dh",
@@ -2620,6 +2628,10 @@ declare module "crypto" {
     ): KeyPairExportResult<T>;
     function generateKeyPairSync<T extends ED448KeyPairOptions = {}>(
         type: "ed448",
+        options?: T,
+    ): KeyPairExportResult<T>;
+    function generateKeyPairSync<T extends MLDSAKeyPairOptions = {}>(
+        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
         options?: T,
     ): KeyPairExportResult<T>;
     function generateKeyPairSync<T extends RSAPSSKeyPairOptions>(
@@ -2675,7 +2687,8 @@ declare module "crypto" {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
+     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`,
+     * `'ed448'`, `'x25519'`, `'x448'`, `'dh'`, `'ml-dsa-44'`, `'ml-dsa-65'`, or `'ml-dsa-87'`.
      */
     function generateKeyPair<T extends DHKeyPairOptions>(
         type: "dh",
@@ -2699,6 +2712,11 @@ declare module "crypto" {
     ): void;
     function generateKeyPair<T extends ED448KeyPairOptions = {}>(
         type: "ed448",
+        options: T | undefined,
+        callback: KeyPairExportCallback<T>,
+    ): void;
+    function generateKeyPair<T extends MLDSAKeyPairOptions = {}>(
+        type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
     ): void;
@@ -2743,6 +2761,10 @@ declare module "crypto" {
             type: "ed448",
             options?: T,
         ): Promise<KeyPairExportResult<T>>;
+        function __promisify__<T extends MLDSAKeyPairOptions = {}>(
+            type: "ml-dsa-44" | "ml-dsa-65" | "ml-dsa-87",
+            options?: T,
+        ): Promise<KeyPairExportResult<T>>;
         function __promisify__<T extends RSAPSSKeyPairOptions>(
             type: "rsa-pss",
             options: T,
@@ -2763,7 +2785,10 @@ declare module "crypto" {
     /**
      * Calculates and returns the signature for `data` using the given private key and
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
-     * dependent upon the key type (especially Ed25519 and Ed448).
+     * dependent upon the key type.
+     *
+     * `algorithm` is required to be `null` or `undefined` for Ed25519, Ed448, and
+     * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
      * passed to {@link createPrivateKey}. If it is an object, the following
@@ -2784,8 +2809,12 @@ declare module "crypto" {
         callback: (error: Error | null, data: Buffer) => void,
     ): void;
     /**
-     * Verifies the given signature for `data` using the given key and algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is dependent upon the
-     * key type (especially Ed25519 and Ed448).
+     * Verifies the given signature for `data` using the given key and algorithm. If
+     * `algorithm` is `null` or `undefined`, then the algorithm is dependent upon the
+     * key type.
+     *
+     * `algorithm` is required to be `null` or `undefined` for Ed25519, Ed448, and
+     * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
      * passed to {@link createPublicKey}. If it is an object, the following
