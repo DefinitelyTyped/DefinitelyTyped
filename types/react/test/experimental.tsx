@@ -77,35 +77,6 @@ function Page({ children }: { children: NonNullable<React.ReactNode> }) {
     );
 }
 
-function useEvent() {
-    // Implicit any
-    // @ts-expect-error
-    const anyEvent = React.experimental_useEffectEvent(value => {
-        // $ExpectType any
-        return value;
-    });
-    // $ExpectType any
-    anyEvent({});
-    // $ExpectType (value: string) => number
-    const typedEvent = React.experimental_useEffectEvent((value: string) => {
-        return Number(value);
-    });
-    // $ExpectType number
-    typedEvent("1");
-    // Argument of type '{}' is not assignable to parameter of type 'string'.
-    // @ts-expect-error
-    typedEvent({});
-
-    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
-    useContextuallyTypedEvent(
-        React.experimental_useEffectEvent(event => {
-            // $ExpectType Event
-            event;
-            return String(event);
-        }),
-    );
-}
-
 function elementTypeTests() {
     const ReturnPromise = () => Promise.resolve("React");
     const FCPromise: React.FC = ReturnPromise;

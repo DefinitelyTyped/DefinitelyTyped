@@ -55,3 +55,32 @@ function activityTest() {
     />;
     <Activity children="peekaboo" name="/" />;
 }
+
+function useEffectEventTest() {
+    // Implicit any
+    // @ts-expect-error
+    const anyEvent = React.useEffectEvent(value => {
+        // $ExpectType any
+        return value;
+    });
+    // $ExpectType any
+    anyEvent({});
+    // $ExpectType (value: string) => number
+    const typedEvent = React.useEffectEvent((value: string) => {
+        return Number(value);
+    });
+    // $ExpectType number
+    typedEvent("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedEvent({});
+
+    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
+    useContextuallyTypedEvent(
+        React.useEffectEvent(event => {
+            // $ExpectType Event
+            event;
+            return String(event);
+        }),
+    );
+}
