@@ -555,7 +555,7 @@ export type BiometricAuthRequestedCallback = (eventData: {
     biometricToken?: string;
 }) => void;
 export type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
-export type FullscreenChangedCallback = () => void;
+export type FullscreenChangedCallback = (eventData: { isFullscreen: boolean }) => void;
 export type FullscreenFailedCallback = (eventData: {
     error: "UNSUPPORTED" | "ALREADY_FULLSCREEN";
 }) => void;
