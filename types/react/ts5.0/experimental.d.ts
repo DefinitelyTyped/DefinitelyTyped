@@ -108,9 +108,6 @@ declare module "." {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    export function experimental_useEffectEvent<T extends Function>(event: T): T;
-
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
     function experimental_taintUniqueValue(
