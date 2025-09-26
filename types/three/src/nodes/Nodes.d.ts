@@ -53,6 +53,7 @@ export { NodeUtils };
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
 export { default as DebugNode } from "./utils/DebugNode.js";
+export { default as EventNode } from "./utils/EventNode.js";
 export { default as FunctionOverloadingNode } from "./utils/FunctionOverloadingNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as LoopNode } from "./utils/LoopNode.js";
@@ -66,6 +67,9 @@ export { default as SetNode } from "./utils/SetNode.js";
 export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/StorageArrayElementNode.js";
+
+// math
+export { default as BitcastNode } from "./math/BitcastNode.js";
 
 // accessors
 export { default as BatchNode } from "./accessors/BatchNode.js";

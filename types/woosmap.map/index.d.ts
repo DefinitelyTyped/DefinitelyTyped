@@ -42,6 +42,11 @@ declare namespace woosmap.map {
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
 
         /**
+         * Clean up and release all internal resources associated with this map.This includes DOM elements, event bindings, web workers, and WebGL resources.Use this method when you are done using the map and wish to ensure that it no longer consumes browser resources. Afterwards, you must not call any other methods on the map.
+         */
+        remove(): void;
+
+        /**
          * Sets the viewport to contain the given bounds.
          */
         fitBounds(
@@ -1529,6 +1534,10 @@ declare namespace woosmap.map {
          * Disable the tilt control for the users, (default: false).
          */
         disableTilt?: boolean;
+        /**
+         * Enables the markers to be selected using tab and keyboard arrows.
+         */
+        enableMarkerAccessibleNavigation?: boolean;
         /**
          * This option controls how the gesture are handled
          * Depending on the value when gesture on the map is detected (scroll on desktop, one finger pan on mobile)

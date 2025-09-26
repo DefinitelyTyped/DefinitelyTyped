@@ -8,6 +8,8 @@ import * as oidc from "oidc-provider";
 
 oidc.errors.AccessDenied.name;
 
+Provider.ctx;
+
 new oidc.Provider("https://op.example.com");
 new Provider("https://op.example.com");
 
@@ -121,6 +123,24 @@ const jwks: oidc.JWKS = {
 };
 
 new oidc.Provider("https://op.example.com", { jwks });
+
+new oidc.Provider("https://op.example.com", {
+    features: {
+        revocation: {
+            enabled: true,
+            allowedPolicy(
+                ctx: oidc.KoaContextWithOIDC,
+                client: oidc.Client,
+                token: oidc.AccessToken | oidc.ClientCredentials | oidc.RefreshToken,
+            ) {
+                ctx.oidc.issuer.substring(0);
+                token.jti.substring(0);
+                client.clientId.substring(0);
+                return true;
+            },
+        },
+    },
+});
 
 new oidc.Provider("https://op.example.com", {
     features: {
@@ -558,12 +578,12 @@ const provider = new oidc.Provider("https://op.example.com", {
         },
     },
     enabledJWA: {
-        clientAuthSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
-        idTokenSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
-        requestObjectSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
-        userinfoSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
-        introspectionSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
-        authorizationSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        clientAuthSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
+        idTokenSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
+        requestObjectSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
+        userinfoSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
+        introspectionSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
+        authorizationSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA", "ML-DSA-44"],
         idTokenEncryptionAlgValues: ["A128KW", "A256KW", "ECDH-ES", "ECDH-ES+A128KW", "ECDH-ES+A256KW", "RSA-OAEP"],
         requestObjectEncryptionAlgValues: [
             "A128KW",

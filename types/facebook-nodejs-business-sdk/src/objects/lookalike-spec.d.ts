@@ -6,7 +6,9 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 export default class LookalikeSpec extends AbstractCrudObject {
     static get Fields(): Readonly<{
         country: "country";
+        is_created_by_recommended_dfca: "is_created_by_recommended_dfca";
         is_financial_service: "is_financial_service";
+        is_parent_lal: "is_parent_lal";
         origin: "origin";
         origin_event_name: "origin_event_name";
         origin_event_source_name: "origin_event_source_name";

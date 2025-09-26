@@ -63,6 +63,7 @@ declare module "worker_threads" {
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { HeapInfo } from "node:v8";
+    import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -187,6 +188,11 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         postMessage(value: any, transferList?: readonly Transferable[]): void;
+        /**
+         * If true, the `MessagePort` object will keep the Node.js event loop active.
+         * @since v18.1.0, v16.17.0
+         */
+        hasRef(): boolean;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -476,6 +482,18 @@ declare module "worker_threads" {
          * @since v22.16.0
          */
         getHeapStatistics(): Promise<HeapInfo>;
+        /**
+         * Calls `worker.terminate()` when the dispose scope is exited.
+         *
+         * ```js
+         * async function example() {
+         *   await using worker = new Worker('for (;;) {}', { eval: true });
+         *   // Worker is automatically terminate when the scope is exited.
+         * }
+         * ```
+         * @since v22.18.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
@@ -556,18 +574,18 @@ declare module "worker_threads" {
      * ```
      * @since v15.4.0
      */
-    class BroadcastChannel {
+    class BroadcastChannel extends EventTarget {
         readonly name: string;
         /**
          * Invoked with a single \`MessageEvent\` argument when a message is received.
          * @since v15.4.0
          */
-        onmessage: (message: unknown) => void;
+        onmessage: (message: MessageEvent) => void;
         /**
          * Invoked with a received message cannot be deserialized.
          * @since v15.4.0
          */
-        onmessageerror: (message: unknown) => void;
+        onmessageerror: (message: MessageEvent) => void;
         constructor(name: string);
         /**
          * Closes the `BroadcastChannel` connection.
@@ -721,6 +739,24 @@ declare module "worker_threads" {
      * for the `key` will be deleted.
      */
     function setEnvironmentData(key: Serializable, value?: Serializable): void;
+    /**
+     * Sends a value to another worker, identified by its thread ID.
+     * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+     * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+     * @param value The value to send.
+     * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+     * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+     * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+     * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+     * @since v22.5.0
+     */
+    function postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+    function postMessageToThread(
+        threadId: number,
+        value: any,
+        transferList: readonly Transferable[],
+        timeout?: number,
+    ): Promise<void>;
 
     import {
         BroadcastChannel as _BroadcastChannel,

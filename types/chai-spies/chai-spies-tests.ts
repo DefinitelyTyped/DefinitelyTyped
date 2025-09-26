@@ -1,5 +1,5 @@
+/// <reference types="chai/register-should" />
 import spies = require("chai-spies");
-import "chai/register-should";
 import("chai").then(({ use }) => {
     const chai = use(spies);
 

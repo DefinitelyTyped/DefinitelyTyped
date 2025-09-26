@@ -1893,7 +1893,7 @@ export class ImageOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the img element that represents the ImageOverlay on the map */
     getElement(): HTMLImageElement | undefined;
@@ -1933,7 +1933,7 @@ export class SVGOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the img element that represents the SVGOverlay on the map */
     getElement(): SVGElement | undefined;
@@ -1989,7 +1989,7 @@ export class VideoOverlay extends Layer {
     getBounds(): LatLngBounds;
 
     /** Get the center of the bounds this ImageOverlay covers */
-    getCenter(): Point;
+    getCenter(): LatLng;
 
     /** Get the video element that represents the VideoOverlay on the map */
     getElement(): HTMLVideoElement | undefined;

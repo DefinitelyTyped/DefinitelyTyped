@@ -1,10 +1,16 @@
-declare var Elm: ElmInstance<{}, {}>;
+import { ElmApp, ElmInstance, ElmMain, ElmModule, PortFromElm, PortToElm } from "elm";
 
-Elm.Main.init();
+declare global {
+    var Elm: ElmInstance<{}, {}>;
+}
 
-declare var Shanghai: ElmInstance<
+(Elm.Main satisfies ElmMain<{}, {}>).init() satisfies ElmApp<{}>;
+
+// https://gist.github.com/evancz/8521339
+declare var Shanghai: ElmModule<
     ShanghaiPorts,
-    ShanghaiFlags, // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ShanghaiFlags,
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     ["Shanghai"]
 >;
 
@@ -28,7 +34,7 @@ interface Ship {
 
 // initialize the Shanghai component which keeps track of
 // shipping data in and out of the Port of Shanghai.
-var shanghai = Shanghai.Shanghai.init({
+var shanghai = Shanghai.Elm.Shanghai.init({
     flags: {
         coordinates: [0, 0],
         incomingShip: { name: "", capacity: 0 },
@@ -52,3 +58,16 @@ shanghai.ports.incomingShip.send({
 // have those ships leave the port of Shanghai
 shanghai.ports.outgoingShip.send("Mary Mærsk");
 shanghai.ports.outgoingShip.send("Emma Mærsk");
+
+declare var Trio:
+    & ElmInstance<
+        {},
+        {}
+    >
+    & // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ElmInstance<{}, {}, ["Foo"]>
+    & ElmInstance<{}, {}, ["Foo", "Bar"]>;
+
+Trio.Main.init();
+Trio.Foo.init();
+Trio.Foo.Bar.init();

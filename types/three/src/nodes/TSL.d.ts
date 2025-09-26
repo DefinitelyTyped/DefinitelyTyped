@@ -19,12 +19,14 @@ export * from "./core/UniformNode.js";
 export * from "./core/VaryingNode.js";
 
 // math
+export * from "./math/BitcastNode.js";
 export * from "./math/Hash.js";
 export * from "./math/MathUtils.js";
 export * from "./math/TriNoise3D.js";
 
 // utils
 export * from "./utils/EquirectUV.js";
+export * from "./utils/EventNode.js";
 export * from "./utils/FunctionOverloadingNode.js";
 export * from "./utils/LoopNode.js";
 export * from "./utils/MatcapUV.js";
@@ -54,6 +56,7 @@ export * from "./accessors/BatchNode.js";
 export * from "./accessors/Bitangent.js";
 export * from "./accessors/BufferAttributeNode.js";
 export * from "./accessors/BufferNode.js";
+export * from "./accessors/BuiltinNode.js";
 export * from "./accessors/Camera.js";
 export * from "./accessors/CubeTextureNode.js";
 export * from "./accessors/InstancedMeshNode.js";
@@ -127,6 +130,7 @@ export * from "./gpgpu/AtomicFunctionNode.js";
 export * from "./gpgpu/BarrierNode.js";
 export * from "./gpgpu/ComputeBuiltinNode.js";
 export * from "./gpgpu/ComputeNode.js";
+export * from "./gpgpu/SubgroupFunctionNode.js";
 export * from "./gpgpu/WorkgroupInfoNode.js";
 
 // lighting

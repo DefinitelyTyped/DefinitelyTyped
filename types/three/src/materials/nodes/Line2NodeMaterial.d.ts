@@ -17,12 +17,6 @@ export interface Line2NodeMaterialNodeProperties extends NodeMaterialNodePropert
      */
     dashOffset: number;
     /**
-     * The line width.
-     *
-     * @default 0
-     */
-    lineWidth: number;
-    /**
      * Defines the lines color.
      *
      * @default null
@@ -93,6 +87,7 @@ declare class Line2NodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isLine2NodeMaterial: boolean;
+    setValues(values?: Line2NodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

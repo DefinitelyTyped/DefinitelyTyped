@@ -3,10 +3,10 @@
     "name": "@types/bun",
     "version": "1.2.9999",
     "projects": [
-        "https://bun.sh"
+        "https://bun.com"
     ],
     "dependencies": {
-        "bun-types": "1.2.17"
+        "bun-types": "1.2.22"
     },
     "devDependencies": {
         "@types/bun": "workspace:."
@@ -15,10 +15,6 @@
         {
             "name": "Jarred Sumner",
             "githubUsername": "Jarred-Sumner"
-        },
-        {
-            "name": "Ashcon Partovi",
-            "githubUsername": "electroid"
         },
         {
             "name": "Robobun",

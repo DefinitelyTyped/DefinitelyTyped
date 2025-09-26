@@ -243,8 +243,8 @@ declare module "fs" {
          */
         name: Name;
         /**
-         * The base path that this `fs.Dirent` object refers to.
-         * @since v20.12.0
+         * The path to the parent directory of the file this `fs.Dirent` object refers to.
+         * @since v20.12.0, v18.20.0
          */
         parentPath: string;
         /**
@@ -328,6 +328,20 @@ declare module "fs" {
          * @since v12.12.0
          */
         readSync(): Dirent | null;
+        /**
+         * Calls `dir.close()` if the directory handle is open, and returns a promise that
+         * fulfills when disposal is complete.
+         * @since v22.17.0
+         * @experimental
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+        /**
+         * Calls `dir.closeSync()` if the directory handle is open, and returns
+         * `undefined`.
+         * @since v22.17.0
+         * @experimental
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * Class: fs.StatWatcher
@@ -3327,6 +3341,12 @@ declare module "fs" {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
+    export interface WatchOptionsWithBufferEncoding extends WatchOptions {
+        encoding: "buffer";
+    }
+    export interface WatchOptionsWithStringEncoding extends WatchOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     export type WatchEventType = "rename" | "change";
     export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
     export type StatsListener = (curr: Stats, prev: Stats) => void;
@@ -3353,44 +3373,20 @@ declare module "fs" {
      */
     export function watch(
         filename: PathLike,
-        options:
-            | (WatchOptions & {
-                encoding: "buffer";
-            })
-            | "buffer",
-        listener?: WatchListener<Buffer>,
-    ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
-    export function watch(
-        filename: PathLike,
-        options?: WatchOptions | BufferEncoding | null,
+        options?: WatchOptionsWithStringEncoding | BufferEncoding | null,
         listener?: WatchListener<string>,
     ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
     export function watch(
         filename: PathLike,
-        options: WatchOptions | string,
-        listener?: WatchListener<string | Buffer>,
+        options: WatchOptionsWithBufferEncoding | "buffer",
+        listener: WatchListener<Buffer>,
     ): FSWatcher;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     */
-    export function watch(filename: PathLike, listener?: WatchListener<string>): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: WatchOptions | BufferEncoding | "buffer" | null,
+        listener: WatchListener<string | Buffer>,
+    ): FSWatcher;
+    export function watch(filename: PathLike, listener: WatchListener<string>): FSWatcher;
     /**
      * Test whether or not the given path exists by checking with the file system.
      * Then call the `callback` argument with either true or false:
@@ -4200,7 +4196,6 @@ declare module "fs" {
      * blob.stream();
      * ```
      * @since v19.8.0
-     * @experimental
      */
     export function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
 
@@ -4361,7 +4356,7 @@ declare module "fs" {
          * Current working directory.
          * @default process.cwd()
          */
-        cwd?: string | undefined;
+        cwd?: string | URL | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
@@ -4386,13 +4381,23 @@ declare module "fs" {
 
     /**
      * Retrieves the files matching the specified pattern.
+     *
+     * ```js
+     * import { glob } from 'node:fs';
+     *
+     * glob('*.js', (err, matches) => {
+     *   if (err) throw err;
+     *   console.log(matches);
+     * });
+     * ```
+     * @since v22.0.0
      */
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4400,7 +4405,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4408,7 +4413,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4416,19 +4421,25 @@ declare module "fs" {
         ) => void,
     ): void;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { globSync } from 'node:fs';
+     *
+     * console.log(globSync('*.js'));
+     * ```
+     * @since v22.0.0
+     * @returns paths of files that match the pattern.
      */
-    export function globSync(pattern: string | string[]): string[];
+    export function globSync(pattern: string | readonly string[]): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
     ): Dirent[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
     ): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
     ): Dirent[] | string[];
 }

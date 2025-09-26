@@ -15,10 +15,12 @@ import {
     BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
+    ClientSupport,
     CloudPakForApplications,
     CodeConversion,
     ContentDesign,
     Dashboard,
+    Design,
     DoctorPatient,
     Download_01,
     Export_01,
@@ -87,3 +89,5 @@ import * as React from "react";
 <AgileCoaching />; // $ExpectType Element
 <CodeConversion />; // $ExpectType Element
 <NoLiquids />; // $ExpectType Element
+<Design />; // $ExpectType Element
+<ClientSupport />; // $ExpectType Element

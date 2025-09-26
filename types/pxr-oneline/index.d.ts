@@ -30,6 +30,7 @@ declare namespace OneLine {
          * @param adUnitIds - Array of ad unit IDs to request
          */
         requestSpecificAdUnits(adUnitIds: string[]): void;
+        setBettingCookie(betting: boolean): void;
     }
     interface VideoCustomParameters {
         [key: string]: number | string | undefined;
@@ -73,6 +74,7 @@ declare namespace OneLine {
         };
         subscribe(topic: string, fn: NoParamFunction): void;
         subscribeSocialConsents(fn: (data: SocialConsents) => void): void;
+        subscribeAdsLoaded(fn: (data: { adsLoaded: boolean }) => void): void;
     }
 
     interface SocialConsents {

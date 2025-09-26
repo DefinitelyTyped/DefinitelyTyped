@@ -107,7 +107,7 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} width
          * @param {number} height
-         * @param {number} slope
+         * @param {number} slope Must be a number < 1.
          * @param {any} [options]
          * @returns {Body} A new trapezoid body
          */
@@ -421,6 +421,16 @@ declare namespace Matter {
          * are both true.
          */
         collisionFilter?: ICollisionFilter | undefined;
+        /**
+         * Temporarily may hold parameters to be passed to `Vertices.chamfer` where supported by external functions.
+         *
+         * See `Vertices.chamfer` for possible parameters this object may hold.
+         *
+         * Currently only functions inside `Matter.Bodies` provide a utility using this property as a vertices pre-processing option.
+         *
+         * Alternatively consider using `Vertices.chamfer` directly on vertices before passing them to a body creation function.
+         */
+        chamfer?: IChamfer | null | undefined;
     }
 
     export interface IBodyRenderOptions {
@@ -1627,6 +1637,14 @@ declare namespace Matter {
         static pointBWorld(constraint: Constraint): Vector;
 
         /**
+         * Returns the current length of the constraint. This is the distance between both of the constraint's end points. See constraint.length for the target rest length.
+         * @method currentLength
+         * @param {constraint} constraint
+         * @returns {number} the current length
+         */
+        static currentLength(constraint: Constraint): number;
+
+        /**
          * The first possible `Body` that this constraint is attached to.
          *
          * @default null
@@ -1853,7 +1871,7 @@ declare namespace Matter {
          * Therefore the value is always `1` (no correction) when `delta` constant (or when no correction is desired, which is the default).
          * See the paper on <a href="http://lonesock.net/article/verlet.html">Time Corrected Verlet</a> for more information.
          *
-         * Triggers `beforeUpdate` and `afterUpdate` events.
+         * Triggers `beforeUpdate`, `beforeSolve` and `afterUpdate` events.
          * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
          * @method update
          * @param {engine} engine
@@ -2354,11 +2372,20 @@ declare namespace Matter {
         background?: string | undefined;
 
         /**
-         * Sets wireframe background if `render.options.wireframes` is enabled
+         * A CSS color string to use for background when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
          *
          * default undefined
          */
         wireframeBackground?: string | undefined;
+
+        /**
+         * A CSS color string to use for stroke when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
+         *
+         * default '#bbb'
+         */
+        wireframeStrokeStyle?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
@@ -2408,6 +2435,7 @@ declare namespace Matter {
          * From left to right, the values shown are:
          * - average render frequency (e.g. 60 fps)
          * - exact engine delta time used for last update (e.g. 16.66ms)
+         * - average updates per frame (e.g. 1)
          * - average engine execution duration (e.g. 5.00ms)
          * - average render execution duration (e.g. 0.40ms)
          * - average effective play speed (e.g. '1.00x' is 'real-time')
@@ -2511,7 +2539,7 @@ declare namespace Matter {
     }
 
     /**
-     * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+     * The `Matter.Render` module is a lightweight, optional utility which provides a simple canvas based renderer for visualising instances of `Matter.Engine`.
      * It is intended for development and debugging purposes, but may also be suitable for simple games.
      * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
      */
@@ -2545,6 +2573,23 @@ declare namespace Matter {
          * @param {number} pixelRatio
          */
         static setPixelRatio(render: Render, pixelRatio: number): void;
+        /**
+         * Sets the render `width` and `height`.
+         *
+         * Updates the canvas accounting for `render.options.pixelRatio`.
+         *
+         * Updates the bottom right render bound `render.bounds.max` relative to the provided `width` and `height`.
+         * The top left render bound `render.bounds.min` isn't changed.
+         *
+         * Follow this call with `Render.lookAt` if you need to change the render bounds.
+         *
+         * See also `Render.setPixelRatio`.
+         * @method setSize
+         * @param {render} render
+         * @param {number} width The width (in CSS pixels)
+         * @param {number} height The height (in CSS pixels)
+         */
+        static setSize(render: Render, width: number, height: number): void;
         /**
          * Renders the given `engine`'s `Matter.World` object.
          * This is the entry point for all rendering and should be called every time the scene changes.
@@ -2659,18 +2704,23 @@ declare namespace Matter {
 
     export interface IRunnerOptions {
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
+         * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
          *
-         * @default false
-         */
-        isFixed?: boolean | undefined;
-
-        /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
+         * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
+         *
+         * Smaller `delta` values provide higher quality results at the cost of performance.
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
+         * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
+         *
+         * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
+         *
+         * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
+         * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
          *
          * @default 1000 / 60
          */
@@ -2678,9 +2728,60 @@ declare namespace Matter {
 
         /**
          * A flag that specifies whether the runner is running or not.
+         *
          * @default true
          */
         enabled?: boolean | undefined;
+
+        /**
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
+         */
+        frameDelta?: number | undefined;
+
+        /**
+         * Enables averaging to smooth frame rate measurements and therefore stabilise play rate.
+         *
+         * @default true
+         */
+        frameDeltaSmoothing?: boolean | undefined;
+
+        /**
+         * Rounds measured browser frame delta to the nearest 1 Hz.
+         * This option can help smooth frame rate measurements and simplify handling hardware timing differences e.g. 59.94Hz and 60Hz displays.
+         * For best results you should also round your `runner.delta` equivalent to the nearest 1 Hz.
+         *
+         * @default true
+         */
+        frameDeltaSnapping?: boolean | undefined;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
+         *
+         * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
+         *
+         * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
+         *
+         * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
+         *
+         * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
+         *
+         * See also `runner.maxUpdates`.
+         *
+         * @default 1000 / 30
+         */
+        maxFrameTime?: number | undefined;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
+         *
+         * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
+         *
+         * See also `runner.maxFrameTime`.
+         *
+         *  @default null
+         */
+        maxUpdates?: number | null;
     }
 
     /**
@@ -2739,6 +2840,29 @@ declare namespace Matter {
         static start(runner: Runner, engine: Engine): void;
 
         /**
+         * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
+         *
+         * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
+         *
+         * Smaller `delta` values provide higher quality results at the cost of performance.
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
+         * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
+         *
+         * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
+         *
+         * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
+         * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
+         *
+         * @default 1000 / 60
+         */
+        delta: number;
+
+        /**
          * A flag that specifies whether the runner is running or not.
          *
          * @default true
@@ -2746,22 +2870,54 @@ declare namespace Matter {
         enabled: boolean;
 
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
-         *
-         * @default false
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
          */
-        isFixed: boolean;
+        frameDelta: number;
 
         /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
+         * Enables averaging to smooth frame rate measurements and therefore stabilise play rate.
          *
-         * @default 1000 / 60
+         * @default true
          */
-        delta: number;
+        frameDeltaSmoothing: boolean;
+
+        /**
+         * Rounds measured browser frame delta to the nearest 1 Hz.
+         * This option can help smooth frame rate measurements and simplify handling hardware timing differences e.g. 59.94Hz and 60Hz displays.
+         * For best results you should also round your `runner.delta` equivalent to the nearest 1 Hz.
+         *
+         * @default true
+         */
+        frameDeltaSnapping: boolean;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
+         *
+         * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
+         *
+         * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
+         *
+         * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
+         *
+         * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
+         *
+         * See also `runner.maxUpdates`.
+         *
+         *  @default 1000 / 30
+         */
+        maxFrameTime: number;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
+         *
+         * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
+         *
+         * See also `runner.maxFrameTime`.
+         *
+         * @default null
+         */
+        maxUpdates: number | null;
     }
 
     /**
@@ -3670,6 +3826,7 @@ declare namespace Matter {
          * @event afterUpdate
          * @param {} event An event object
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3708,12 +3865,25 @@ declare namespace Matter {
         static on<C extends IEngineCallback>(obj: Engine, name: "beforeUpdate", callback: C): C;
 
         /**
+         * Fired after bodies updated based on their velocity and forces, but before any collision detection, constraints and resolving etc.
+         *
+         * @event beforeSolve
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on<C extends IEngineCallback>(obj: Engine, name: "beforeSolve", callback: C): C;
+
+        /**
          * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
          *
          * @event collisionActive
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3726,6 +3896,7 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
@@ -3738,6 +3909,7 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */

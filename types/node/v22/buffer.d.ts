@@ -118,7 +118,6 @@ declare module "buffer" {
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
      * @since v16.7.0
-     * @experimental
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
@@ -140,7 +139,7 @@ declare module "buffer" {
         type?: string | undefined;
     }
     /**
-     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
+     * A `Blob` encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0, v14.18.0
      */
@@ -1773,6 +1772,7 @@ declare module "buffer" {
              * @return The index of the first occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+            indexOf(value: string | number | Uint8Array, encoding: BufferEncoding): number;
             /**
              * Identical to `buf.indexOf()`, except the last occurrence of `value` is found
              * rather than the first occurrence.
@@ -1841,6 +1841,7 @@ declare module "buffer" {
              * @return The index of the last occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+            lastIndexOf(value: string | number | Uint8Array, encoding: BufferEncoding): number;
             /**
              * Equivalent to `buf.indexOf() !== -1`.
              *
@@ -1871,6 +1872,7 @@ declare module "buffer" {
              * @return `true` if `value` was found in `buf`, `false` otherwise.
              */
             includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
+            includes(value: string | number | Buffer, encoding: BufferEncoding): boolean;
         }
         var Buffer: BufferConstructor;
         /**

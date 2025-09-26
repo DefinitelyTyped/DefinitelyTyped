@@ -410,6 +410,7 @@ declare module "node:test" {
             addListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
             addListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
             addListener(event: "test:watch:drained", listener: () => void): this;
+            addListener(event: "test:watch:restarted", listener: () => void): this;
             addListener(event: string, listener: (...args: any[]) => void): this;
             emit(event: "test:coverage", data: EventData.TestCoverage): boolean;
             emit(event: "test:complete", data: EventData.TestComplete): boolean;
@@ -424,6 +425,7 @@ declare module "node:test" {
             emit(event: "test:stdout", data: EventData.TestStdout): boolean;
             emit(event: "test:summary", data: EventData.TestSummary): boolean;
             emit(event: "test:watch:drained"): boolean;
+            emit(event: "test:watch:restarted"): boolean;
             emit(event: string | symbol, ...args: any[]): boolean;
             on(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
             on(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
@@ -438,6 +440,7 @@ declare module "node:test" {
             on(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
             on(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
             on(event: "test:watch:drained", listener: () => void): this;
+            on(event: "test:watch:restarted", listener: () => void): this;
             on(event: string, listener: (...args: any[]) => void): this;
             once(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
             once(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
@@ -452,6 +455,7 @@ declare module "node:test" {
             once(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
             once(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
             once(event: "test:watch:drained", listener: () => void): this;
+            once(event: "test:watch:restarted", listener: () => void): this;
             once(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
             prependListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
@@ -466,6 +470,7 @@ declare module "node:test" {
             prependListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
             prependListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
             prependListener(event: "test:watch:drained", listener: () => void): this;
+            prependListener(event: "test:watch:restarted", listener: () => void): this;
             prependListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
             prependOnceListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
@@ -480,6 +485,7 @@ declare module "node:test" {
             prependOnceListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
             prependOnceListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
             prependOnceListener(event: "test:watch:drained", listener: () => void): this;
+            prependOnceListener(event: "test:watch:restarted", listener: () => void): this;
             prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         }
         namespace EventData {
@@ -510,6 +516,14 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The severity level of the diagnostic message.
+                 * Possible values are:
+                 * * `'info'`: Informational messages.
+                 * * `'warn'`: Warnings.
+                 * * `'error'`: Errors.
+                 */
+                level: "info" | "warn" | "error";
             }
             interface TestCoverage {
                 /**
@@ -1694,6 +1708,46 @@ declare module "node:test" {
              */
             module(specifier: string, options?: MockModuleOptions): MockModuleContext;
             /**
+             * Creates a mock for a property value on an object. This allows you to track and control access to a specific property,
+             * including how many times it is read (getter) or written (setter), and to restore the original value after mocking.
+             *
+             * ```js
+             * test('mocks a property value', (t) => {
+             *   const obj = { foo: 42 };
+             *   const prop = t.mock.property(obj, 'foo', 100);
+             *
+             *   assert.strictEqual(obj.foo, 100);
+             *   assert.strictEqual(prop.mock.accessCount(), 1);
+             *   assert.strictEqual(prop.mock.accesses[0].type, 'get');
+             *   assert.strictEqual(prop.mock.accesses[0].value, 100);
+             *
+             *   obj.foo = 200;
+             *   assert.strictEqual(prop.mock.accessCount(), 2);
+             *   assert.strictEqual(prop.mock.accesses[1].type, 'set');
+             *   assert.strictEqual(prop.mock.accesses[1].value, 200);
+             *
+             *   prop.mock.restore();
+             *   assert.strictEqual(obj.foo, 42);
+             * });
+             * ```
+             * @since v24.3.0
+             * @param object The object whose value is being mocked.
+             * @param propertyName The identifier of the property on `object` to mock.
+             * @param value An optional value used as the mock value
+             * for `object[propertyName]`. **Default:** The original property value.
+             * @returns A proxy to the mocked object. The mocked object contains a
+             * special `mock` property, which is an instance of [`MockPropertyContext`][], and
+             * can be used for inspecting and changing the behavior of the mocked property.
+             */
+            property<
+                MockedObject extends object,
+                PropertyName extends keyof MockedObject,
+            >(
+                object: MockedObject,
+                property: PropertyName,
+                value?: MockedObject[PropertyName],
+            ): MockedObject & { mock: MockPropertyContext<MockedObject[PropertyName]> };
+            /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
              * used to reset their behavior or
@@ -1859,6 +1913,70 @@ declare module "node:test" {
             /**
              * Resets the implementation of the mock module.
              * @since v22.3.0
+             */
+            restore(): void;
+        }
+        /**
+         * @since v24.3.0
+         */
+        class MockPropertyContext<PropertyType = any> {
+            /**
+             * A getter that returns a copy of the internal array used to track accesses (get/set) to
+             * the mocked property. Each entry in the array is an object with the following properties:
+             */
+            readonly accesses: Array<{
+                type: "get" | "set";
+                value: PropertyType;
+                stack: Error;
+            }>;
+            /**
+             * This function returns the number of times that the property was accessed.
+             * This function is more efficient than checking `ctx.accesses.length` because
+             * `ctx.accesses` is a getter that creates a copy of the internal access tracking array.
+             * @returns The number of times that the property was accessed (read or written).
+             */
+            accessCount(): number;
+            /**
+             * This function is used to change the value returned by the mocked property getter.
+             * @param value The new value to be set as the mocked property value.
+             */
+            mockImplementation(value: PropertyType): void;
+            /**
+             * This function is used to change the behavior of an existing mock for a single
+             * invocation. Once invocation `onAccess` has occurred, the mock will revert to
+             * whatever behavior it would have used had `mockImplementationOnce()` not been
+             * called.
+             *
+             * The following example creates a mock function using `t.mock.property()`, calls the
+             * mock property, changes the mock implementation to a different value for the
+             * next invocation, and then resumes its previous behavior.
+             *
+             * ```js
+             * test('changes a mock behavior once', (t) => {
+             *   const obj = { foo: 1 };
+             *
+             *   const prop = t.mock.property(obj, 'foo', 5);
+             *
+             *   assert.strictEqual(obj.foo, 5);
+             *   prop.mock.mockImplementationOnce(25);
+             *   assert.strictEqual(obj.foo, 25);
+             *   assert.strictEqual(obj.foo, 5);
+             * });
+             * ```
+             * @param value The value to be used as the mock's
+             * implementation for the invocation number specified by `onAccess`.
+             * @param onAccess The invocation number that will use `value`. If
+             * the specified invocation has already occurred then an exception is thrown.
+             * **Default:** The number of the next invocation.
+             */
+            mockImplementationOnce(value: PropertyType, onAccess?: number): void;
+            /**
+             * Resets the access history of the mocked property.
+             */
+            resetAccesses(): void;
+            /**
+             * Resets the implementation of the mock property to its original behavior. The
+             * mock can still be used after calling this function.
              */
             restore(): void;
         }
@@ -2168,7 +2286,8 @@ declare module "node:test/reporters" {
         | { type: "test:stderr"; data: EventData.TestStderr }
         | { type: "test:stdout"; data: EventData.TestStdout }
         | { type: "test:summary"; data: EventData.TestSummary }
-        | { type: "test:watch:drained"; data: undefined };
+        | { type: "test:watch:drained"; data: undefined }
+        | { type: "test:watch:restarted"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {

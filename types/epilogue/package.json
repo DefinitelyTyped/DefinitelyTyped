@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/express": "*",
-        "@types/sequelize": "*"
+        "@types/sequelize": "<4"
     },
     "devDependencies": {
         "@types/epilogue": "workspace:."

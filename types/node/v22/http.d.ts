@@ -44,7 +44,7 @@ declare module "http" {
     import { URL } from "node:url";
     import { LookupOptions } from "node:dns";
     import { EventEmitter } from "node:events";
-    import { LookupFunction, NetConnectOpts, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
+    import { LookupFunction, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -911,7 +911,7 @@ declare module "http" {
          * the request body should be sent.
          * @since v10.0.0
          */
-        writeProcessing(): void;
+        writeProcessing(callback?: () => void): void;
     }
     interface InformationEvent {
         statusCode: number;
@@ -1451,21 +1451,6 @@ declare module "http" {
          */
         scheduling?: "fifo" | "lifo" | undefined;
     }
-    interface AgentGetNameOptions {
-        /**
-         * A domain name or IP address of the server to issue the request to
-         */
-        host?: string | undefined;
-        /**
-         * Port of remote server
-         */
-        port?: number | undefined;
-        /**
-         * Local interface to bind for network connections when issuing the request
-         */
-        localAddress?: string | undefined;
-        family?: 4 | 6 | undefined;
-    }
     /**
      * An `Agent` is responsible for managing connection persistence
      * and reuse for HTTP clients. It maintains a queue of pending requests
@@ -1604,9 +1589,9 @@ declare module "http" {
          * @param callback Callback function that receives the created socket
          */
         createConnection(
-            options: NetConnectOpts,
+            options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *
@@ -1646,7 +1631,7 @@ declare module "http" {
          * @since v0.11.4
          * @param options A set of options providing information for name generation
          */
-        getName(options?: AgentGetNameOptions): string;
+        getName(options?: ClientRequestArgs): string;
     }
     const METHODS: string[];
     const STATUS_CODES: {
@@ -2043,18 +2028,18 @@ declare module "http" {
      */
     const maxHeaderSize: number;
     /**
-     * A browser-compatible implementation of [WebSocket](https://nodejs.org/docs/latest/api/http.html#websocket).
+     * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
-    const WebSocket: import("undici-types").WebSocket;
+    const WebSocket: typeof import("undici-types").WebSocket;
     /**
      * @since v22.5.0
      */
-    const CloseEvent: import("undici-types").CloseEvent;
+    const CloseEvent: typeof import("undici-types").CloseEvent;
     /**
      * @since v22.5.0
      */
-    const MessageEvent: import("undici-types").MessageEvent;
+    const MessageEvent: typeof import("undici-types").MessageEvent;
 }
 declare module "node:http" {
     export * from "http";

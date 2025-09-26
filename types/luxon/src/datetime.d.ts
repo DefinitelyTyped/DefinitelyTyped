@@ -3,7 +3,6 @@ import {
     DateTimeFormatOptions,
     NumberingSystem,
     StringUnitLength,
-    ToISOFormat,
     ToISOTimeDurationOptions,
     WeekSettings,
     ZoneOptions,
@@ -220,22 +219,31 @@ export type _ToObjectUnit = Exclude<DateTimeUnit, "quarter" | "week">;
 
 export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, "unit"> {
     /**
+     * The style of units, must be "long", "short", or "narrow".
      * @default long
      */
     style?: StringUnitLength | undefined;
-    /** @default true */
+    /**
+     * A single unit or an array of units. If an array is supplied, the method will pick the best one
+     * to use from the array. If omitted, the method will pick the unit from a default set.
+     */
+    unit?: ToRelativeUnit | ToRelativeUnit[] | undefined;
+    /**
+     * Whether or not to round the numbers in the output.
+     * @default true
+     */
     round?: boolean | undefined;
+    /**
+     * Rounding method to use when rounding the numbers in the output
+     * @default 'trunc'
+     */
+    rounding?: "trunc" | "expand" | "round" | "floor" | "ceil" | undefined;
     /**
      * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
      * Do not use this in combination with `{round: false}` because the decimal output will include the padding.
      * @default 0
      */
     padding?: number | undefined;
-    /**
-     * A single unit or an array of units. If an array is supplied, the method will pick the best one
-     * to use from the array. If omitted, the method will pick the unit from a default set.
-     */
-    unit?: ToRelativeUnit | ToRelativeUnit[] | undefined;
 }
 
 export interface ToRelativeCalendarOptions {
@@ -275,12 +283,12 @@ export interface ToSQLOptions {
     includeOffsetSpace?: boolean;
 }
 
-export interface ToISODateOptions {
+export interface ToISODateOptions extends Pick<ToISOTimeDurationOptions, "format"> {
     /**
-     * Choose between the basic and extended format
-     * @default 'extended'
+     * Truncate output to desired presicion.
+     * @default 'day'
      */
-    format?: ToISOFormat | undefined;
+    precision?: "year" | "years" | "month" | "months" | "day" | "days" | undefined;
 }
 
 export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
@@ -295,6 +303,29 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default false
      */
     extendedZone?: boolean | undefined;
+
+    /**
+     * Truncate output to desired presicion.
+     * When precision and suppressSeconds or suppressMilliseconds are used together,
+     * precision sets the maximum unit shown in the output,
+     * however seconds or milliseconds will still be suppressed if they are 0.
+     * @default 'milliseconds'
+     */
+    precision?:
+        | "year"
+        | "years"
+        | "month"
+        | "months"
+        | "day"
+        | "days"
+        | "hour"
+        | "hours"
+        | "minute"
+        | "minutes"
+        | "second"
+        | "seconds"
+        | "millisecond"
+        | "milliseconds";
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -687,7 +718,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime<Valid>;
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
@@ -1427,19 +1458,22 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * DateTime.now().toISO({ includeOffset: false }) //=> '2017-04-22T20:47:05.335'
      * @example
      * DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
+     * @example
+     * DateTime.now().toISO({ precision: 'day' }) //=> '2017-04-22Z'
+     * @example
+     * DateTime.now().toISO({ precision: 'minute' }) //=> '2017-04-22T20:47Z'
      */
     toISO(opts?: ToISOTimeOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's date component
      *
-     * @param opts - options
-     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
-     *
      * @example
      * DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
      * @example
      * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
+     * @example
+     * DateTime.utc(1982, 5, 25).toISODate({ precision: 'month' }) //=> '1982-05'
      */
     toISODate(opts?: ToISODateOptions): IfValid<string, null, IsValid>;
 
@@ -1454,13 +1488,6 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's time component
      *
-     * @param opts - options
-     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they're 0. Defaults to false.
-     * @param opts.suppressSeconds - exclude seconds from the format if they're 0. Defaults to false.
-     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
-     * @param opts.includePrefix - include the `T` prefix. Defaults to false.
-     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
-     *
      * @example
      * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime() //=> '07:34:19.361Z'
      * @example
@@ -1469,6 +1496,8 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'basic' }) //=> '073419.361Z'
      * @example
      * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
+     * @example
+     * DateTime.utc().set({ hour: 7, minute: 34, second: 56 }).toISOTime({ precision: 'minute' }) //=> '07:34Z'
      */
     toISOTime(opts?: ToISOTimeOptions): IfValid<string, null, IsValid>;
 
@@ -1650,7 +1679,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns a string representation of this time relative to now, such as "in two days".
      * Can only internationalize if your platform supports Intl.RelativeTimeFormat.
-     * Rounds down by default.
+     * Rounds towards zero by default.
      *
      * @example
      * DateTime.now().plus({ days: 1 }).toRelative() //=> "in 1 day"

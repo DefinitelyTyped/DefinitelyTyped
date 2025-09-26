@@ -50,7 +50,10 @@ breaker = new CircuitBreaker(async () => true, {
         flush: () => {},
     },
 });
-breaker = new CircuitBreaker(async () => true, { abortController: new AbortController() });
+breaker = new CircuitBreaker(async () => true, {
+    abortController: new AbortController(),
+    autoRenewAbortController: true,
+});
 breaker = new CircuitBreaker(async () => true, { enableSnapshots: true });
 breaker = new CircuitBreaker(async () => true, { rotateBucketController: new EventEmitter() });
 

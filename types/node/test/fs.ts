@@ -221,14 +221,36 @@ async function testPromisify() {
 
 {
     fs.mkdtemp("/tmp/foo-", (err, folder) => {
-        console.log(folder);
-        // Prints: /tmp/foo-itXde2
+        // $ExpectType string
+        folder;
+    });
+
+    // $ExpectType string
+    fs.mkdtempSync("/tmp/foo-");
+
+    fs.promises.mkdtemp("/tmp/foo-").then((result) => {
+        // $ExpectType string
+        result;
     });
 }
 
 {
-    let tempDir: string;
-    tempDir = fs.mkdtempSync("/tmp/foo-");
+    const disposable = fs.mkdtempDisposableSync("/tmp/foo-");
+    // $ExpectType string
+    disposable.path;
+    // $ExpectType Promise<void>
+    disposable.remove();
+    // $ExpectType Promise<void>
+    disposable[Symbol.asyncDispose]();
+
+    fs.promises.mkdtempDisposable("/tmp/foo-").then((result) => {
+        // $ExpectType string
+        result.path;
+        // $ExpectType Promise<void>
+        result.remove();
+        // $ExpectType Promise<void>
+        result[Symbol.asyncDispose]();
+    });
 }
 
 {
@@ -626,6 +648,7 @@ async function testPromisify() {
     await handle.write(Buffer.from("hurr"), { position: 1 });
 
     handle.readableWebStream();
+    handle.readableWebStream({ autoClose: true });
 
     handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, undefined, any>
 });
@@ -917,11 +940,14 @@ const bigIntStatFs: bigint = bigStatFs.bfree;
 const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Math.random() > 0.5 });
 
 {
-    watchAsync("y33t"); // $ExpectType AsyncIterable<FileChangeInfo<string>>
-    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
-    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
-
-    watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8" }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
+    // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
+    watchAsync("y33t");
+    // $ExpectType AsyncIterator<FileChangeInfo<Buffer>, undefined, any> || AsyncIterator<FileChangeInfo<Buffer<ArrayBufferLike>>, undefined, any>
+    watchAsync("y33t", "buffer");
+    // $ExpectType AsyncIterator<FileChangeInfo<Buffer>, undefined, any> || AsyncIterator<FileChangeInfo<Buffer<ArrayBufferLike>>, undefined, any>
+    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
+    // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
+    watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
 }
 
 {
@@ -1027,6 +1053,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     }
 
     glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {

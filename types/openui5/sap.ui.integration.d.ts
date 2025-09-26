@@ -1,4 +1,4 @@
-// For Library Version: 1.136.0
+// For Library Version: 1.140.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -956,7 +956,7 @@ declare module "sap/ui/integration/widgets/Card" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * Settings for blocking message that ocurred in a {@link sap.ui.integration.widgets.Card}
+   * Settings for blocking message that occurred in a {@link sap.ui.integration.widgets.Card}
    *
    * @experimental As of version 1.114.
    */
@@ -996,6 +996,29 @@ declare module "sap/ui/integration/widgets/Card" {
      * A list of buttons placed below the description as additional content. Experimental since 1.121
      */
     additionalContent?: any[];
+  };
+
+  /**
+   * Settings for card request error.
+   *
+   * **Note:** For backward compatibility, the object can also be accessed as an array with the properties
+   * in the order - message, response, and responseText.
+   *
+   * @experimental As of version 1.139.
+   */
+  export type CardRequestError = {
+    /**
+     * The error message
+     */
+    message: string;
+    /**
+     * The response object
+     */
+    response: object;
+    /**
+     * The response text
+     */
+    responseText: string;
   };
 
   /**
@@ -1718,12 +1741,11 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets translated text from the i18n properties files configured for this card.
      *
-     * For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
+     * This method uses `ResourceBundle.getText()`. For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
      *
-     * @experimental As of version 1.83. The API might change.
      *
-     * @returns The value belonging to the key, if found; otherwise the key itself or `undefined` depending
-     * on `bIgnoreKeyFallback`.
+     * @returns The value belonging to the key, if found; otherwise, it returns the key itself or `undefined`
+     * depending on `bIgnoreKeyFallback`.
      */
     getTranslatedText(
       /**
@@ -1742,7 +1764,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * fallback bundle.
        */
       bIgnoreKeyFallback?: boolean
-    ): string;
+    ): string | undefined;
     /**
      * Gets current value of property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
      *
@@ -1875,9 +1897,15 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     removeAllActionDefinitions(): ActionDefinition[];
     /**
-     * Performs an HTTP request using the given configuration.
+     * Performs an asynchronous network request using the specified request settings, enabling dynamic bindings
+     * to card configurations, such as CSRF tokens, destinations, and parameters. If the request is successful,
+     * it returns a Promise that resolves with the response data.
      *
-     * @experimental As of version 1.79.
+     * If an error occurs during the request, the Promise will reject with a {@link sap.ui.integration.CardRequestError}.
+     *
+     * For more details on card data handling and request settings see [Card Explorer Data Section]{@link https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/learn/features/data}.
+     *
+     * @since 1.79
      *
      * @returns Resolves when the request is successful, rejects otherwise.
      */
@@ -1899,15 +1927,26 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         method?: string;
         /**
-         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put into the body of the request.
+         * The request parameters to be sent to the server. They are sent as follows:
+         * 	 -  When the HTTP method is "GET" or "HEAD", and parameters are set as:
+         * 	object - Sent as part of the URL, appended as key/value pairs in the query string
+         * 	 - FormData - Not sent
+         * 	 - string - Not sent
+         * 	 -  When the HTTP method is "POST", "PUT", "PATCH", or "DELETE", the parameters will be sent in the
+         *     request body, encoded based on the `Content-Type` header and parameters type:
+         * 	 object - Supports the following encodings, decided based on the Content-Type header of the request:
          *
-         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
-         * and others. It will be sent as it is.
+         * 	`application/x-www-form-urlencoded` - Default
+         * 	 - `application/json`
+         * 	 -  FormData - Encoded as `multipart/form-data`. The `Content-Type` header on the request must not be
+         *     set explicitly. **Note:** FormData will not be resolved for bindings, destinations and others. It will
+         *     be sent as it is. Added since version 1.130
+         * 	 - string - Must be used in combination with `Content-Type: text/plain`. Will be sent as is. Added since
+         *     version 1.138
          */
-        parameters?: object | FormData;
+        parameters?: object | FormData | string;
         /**
-         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
+         * Deprecated. Use the correct `Accept` headers and set correct `Content-Type` header in the response.
          */
         dataType?: string;
         /**
@@ -1915,7 +1954,8 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         headers?: object;
         /**
-         * Indicates whether cross-site requests should be made using credentials.
+         * Indicates whether cross-site requests should be made using credentials. Same-origin requests are always
+         * made using credentials.
          */
         withCredentials?: boolean;
       }
@@ -2358,12 +2398,11 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets translated text from the i18n properties files configured for this card.
      *
-     * For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
+     * This method uses `ResourceBundle.getText()`. For more details see {@link module:sap/base/i18n/ResourceBundle#getText}.
      *
-     * @experimental As of version 1.83. The API might change.
      *
-     * @returns The value belonging to the key, if found; otherwise the key itself or `undefined` depending
-     * on `bIgnoreKeyFallback`.
+     * @returns The value belonging to the key, if found; otherwise, it returns the key itself or `undefined`
+     * depending on `bIgnoreKeyFallback`.
      */
     getTranslatedText(
       /**
@@ -2382,7 +2421,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * fallback bundle.
        */
       bIgnoreKeyFallback?: boolean
-    ): string;
+    ): string | undefined;
     /**
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      *
@@ -2470,9 +2509,15 @@ declare module "sap/ui/integration/widgets/Card" {
       vActionDefinition: int | string | ActionDefinition
     ): ActionDefinition | null;
     /**
-     * Performs an HTTP request using the given configuration.
+     * Performs an asynchronous network request using the specified request settings, enabling dynamic bindings
+     * to card configurations, such as CSRF tokens, destinations, and parameters. If the request is successful,
+     * it returns a Promise that resolves with the response data.
      *
-     * @experimental As of version 1.79.
+     * If an error occurs during the request, the Promise will reject with a {@link sap.ui.integration.CardRequestError}.
+     *
+     * For more details on card data handling and request settings see [Card Explorer Data Section]{@link https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/learn/features/data}.
+     *
+     * @since 1.79
      *
      * @returns Resolves when the request is successful, rejects otherwise.
      */
@@ -2494,15 +2539,26 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         method?: string;
         /**
-         * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put into the body of the request.
+         * The request parameters to be sent to the server. They are sent as follows:
+         * 	 -  When the HTTP method is "GET" or "HEAD", and parameters are set as:
+         * 	object - Sent as part of the URL, appended as key/value pairs in the query string
+         * 	 - FormData - Not sent
+         * 	 - string - Not sent
+         * 	 -  When the HTTP method is "POST", "PUT", "PATCH", or "DELETE", the parameters will be sent in the
+         *     request body, encoded based on the `Content-Type` header and parameters type:
+         * 	 object - Supports the following encodings, decided based on the Content-Type header of the request:
          *
-         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
-         * and others. It will be sent as it is.
+         * 	`application/x-www-form-urlencoded` - Default
+         * 	 - `application/json`
+         * 	 -  FormData - Encoded as `multipart/form-data`. The `Content-Type` header on the request must not be
+         *     set explicitly. **Note:** FormData will not be resolved for bindings, destinations and others. It will
+         *     be sent as it is. Added since version 1.130
+         * 	 - string - Must be used in combination with `Content-Type: text/plain`. Will be sent as is. Added since
+         *     version 1.138
          */
-        parameters?: object | FormData;
+        parameters?: object | FormData | string;
         /**
-         * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
+         * Deprecated. Use the correct `Accept` headers and set correct `Content-Type` header in the response.
          */
         dataType?: string;
         /**
@@ -2510,7 +2566,8 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         headers?: object;
         /**
-         * Indicates whether cross-site requests should be made using credentials.
+         * Indicates whether cross-site requests should be made using credentials. Same-origin requests are always
+         * made using credentials.
          */
         withCredentials?: boolean;
       }
@@ -3058,7 +3115,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsBoolean" {
    * Validates if the provided value is a boolean or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsBoolean {
     /**
@@ -3083,7 +3140,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsDate" {
    * Validates if the provided value can be parsed to a valid date.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsDate {
     /**
@@ -3108,7 +3165,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsInteger" {
    * Validates if the provided value is an integer or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsInteger {
     /**
@@ -3133,7 +3190,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsNumber" {
    * Validates if the provided value is a number or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsNumber {
     /**
@@ -3158,7 +3215,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsSelectedKey
    * Validates if the provided value is one of the given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsSelectedKey {
     /**
@@ -3192,7 +3249,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsStringList"
    * Validates if none of the provided values is an invalid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsStringList {
     /**
@@ -3217,7 +3274,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueKey" 
    * Validates if the provided key is unique in a list of given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueKey {
     /**
@@ -3255,7 +3312,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueList"
    * Validates if the provided list contains no duplicates.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueList {
     /**
@@ -3280,7 +3337,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsValidBindin
    * Validates if the provided value is a valid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsValidBinding {
     /**
@@ -3314,7 +3371,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/MaxLength" {
    * Validates if the provided value doesn't exceed the maximum length.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface MaxLength {
     /**
@@ -3339,7 +3396,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" 
    * Validates if the provided value doesn't contain a binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface NotABinding {
     /**
@@ -3706,7 +3763,7 @@ declare module "sap/ui/integration/Extension" {
      *
      * @returns Value of property `formatters`
      */
-    getFormatters(): Record<string, () => void> | undefined;
+    getFormatters(): Record<string, Function> | undefined;
     /**
      * Override this method to lazy load dependencies for the extension.
      *
@@ -4792,7 +4849,7 @@ declare namespace sap {
                * Validates if the provided value belongs to the icon pool.
                *
                * @since 1.81
-               * @experimental 1.81
+               * @experimental As of version 1.81.
                */
               namespace IsInIconPool {
                 /**

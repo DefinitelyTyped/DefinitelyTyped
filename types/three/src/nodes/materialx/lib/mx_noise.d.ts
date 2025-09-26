@@ -357,3 +357,31 @@ export const mx_worley_noise_vec3: (
     jitter_immutable: Node | number,
     metric_immutable: Node | number,
 ) => ShaderNodeObject<Node>;
+
+export const mx_unifiednoise2d: (
+    noiseType_immutable: Node,
+    texcoord_immutable: Node,
+    freq_immutable: Node,
+    offset_immutable: Node,
+    jitter_immutable: Node,
+    outmin_immutable: Node,
+    outmax_immutable: Node,
+    clampoutput_immutable: Node,
+    octaves_immutable: Node,
+    lacunarity_immutable: Node,
+    diminish_immutable: Node,
+) => ShaderNodeObject<Node>;
+
+export const mx_unifiednoise3d: (
+    noiseType_immutable: Node,
+    position_immutable: Node,
+    freq_immutable: Node,
+    offset_immutable: Node,
+    jitter_immutable: Node,
+    outmin_immutable: Node,
+    outmax_immutable: Node,
+    clampoutput_immutable: Node,
+    octaves_immutable: Node,
+    lacunarity_immutable: Node,
+    diminish_immutable: Node,
+) => ShaderNodeObject<Node>;

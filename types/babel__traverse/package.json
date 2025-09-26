@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/babel__traverse",
-    "version": "7.20.9999",
+    "version": "7.28.9999",
     "projects": [
         "https://github.com/babel/babel/tree/main/packages/babel-traverse",
         "https://babeljs.io"
     ],
     "dependencies": {
-        "@babel/types": "^7.20.7"
+        "@babel/types": "^7.28.2"
     },
     "devDependencies": {
         "@types/babel__traverse": "workspace:."

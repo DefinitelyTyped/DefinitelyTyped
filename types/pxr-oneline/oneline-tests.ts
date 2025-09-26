@@ -1,5 +1,4 @@
 import * as OneLine from "pxr-oneline";
-
 interface BidderParams {
     placementId: string;
 }
@@ -56,6 +55,11 @@ const ndOne: OneLine.OneLine = {
         subscribeSocialConsents: (fn: NoParamFunction | ((data: SocialConsents) => void)) => {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic`);
+        },
+
+        subscribeAdsLoaded: (fn: NoParamFunction | ((data: { adsLoaded: boolean }) => void)) => {
+            // Mock implementation for subscribe
+            console.log(`Subscribed to topic ads Loaded `);
         },
     },
     adUnitRequest: (arrFoAdIds?: string[], allowReload?: boolean) => {
@@ -118,6 +122,11 @@ const ndOne: OneLine.OneLine = {
     requestSpecificAdUnits: function(adUnitIds: string[]) {
         this.adUnitRequest(adUnitIds, false);
     },
+
+    setBettingCookie: function(betting: boolean) {
+        // Mock implementation for setBettingCookie
+        this.setBettingCookie(betting);
+    },
 };
 
 // Test cases
@@ -128,3 +137,4 @@ ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlaceme
 ndOne.requestVideoPlayerAds(() => {
     console.log("Video player ads bidding complete");
 });
+ndOne.setBettingCookie(true);

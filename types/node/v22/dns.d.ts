@@ -250,6 +250,9 @@ declare module "dns" {
         contactemail?: string | undefined;
         contactphone?: string | undefined;
     }
+    export interface AnyCaaRecord extends CaaRecord {
+        type: "CAA";
+    }
     export interface MxRecord {
         priority: number;
         exchange: string;
@@ -317,6 +320,7 @@ declare module "dns" {
     export type AnyRecord =
         | AnyARecord
         | AnyAaaaRecord
+        | AnyCaaRecord
         | AnyCnameRecord
         | AnyMxRecord
         | AnyNaptrRecord
@@ -345,12 +349,7 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "A",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "AAAA",
+        rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR",
         callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
@@ -360,8 +359,8 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "CNAME",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        rrtype: "CAA",
+        callback: (err: NodeJS.ErrnoException | null, address: CaaRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -372,16 +371,6 @@ declare module "dns" {
         hostname: string,
         rrtype: "NAPTR",
         callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "NS",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "PTR",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -410,6 +399,7 @@ declare module "dns" {
             err: NodeJS.ErrnoException | null,
             addresses:
                 | string[]
+                | CaaRecord[]
                 | MxRecord[]
                 | NaptrRecord[]
                 | SoaRecord
@@ -422,6 +412,7 @@ declare module "dns" {
     export namespace resolve {
         function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
         function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+        function __promisify__(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
         function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
@@ -432,7 +423,15 @@ declare module "dns" {
             hostname: string,
             rrtype: string,
         ): Promise<
-            string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | TlsaRecord[] | string[][] | AnyRecord[]
+            | string[]
+            | CaaRecord[]
+            | MxRecord[]
+            | NaptrRecord[]
+            | SoaRecord
+            | SrvRecord[]
+            | TlsaRecord[]
+            | string[][]
+            | AnyRecord[]
         >;
     }
     /**

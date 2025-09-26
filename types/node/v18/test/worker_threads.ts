@@ -128,8 +128,12 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
-    bc.onmessageerror = (msg: unknown) => {};
+    bc.onmessage = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
+    bc.onmessageerror = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
 
     // Test global alias
     const bc2 = new BroadcastChannel("test");

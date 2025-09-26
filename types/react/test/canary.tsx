@@ -25,3 +25,33 @@ function useCacheTest() {
         refresh(() => "refresh");
     }
 }
+
+function cacheSignalTest() {
+    const cacheSignal = React.cacheSignal;
+
+    const signal = cacheSignal();
+    if (signal !== null) {
+        // $ExpectType CacheSignal
+        signal;
+        // @ts-expect-error -- implemented by renderer
+        signal.aborted;
+    }
+}
+
+// @enableActivity
+function activityTest() {
+    const Activity = React.Activity;
+
+    <Activity children="peekaboo" />;
+    <Activity children="peekaboo" mode={undefined} />;
+    <Activity children="peekaboo" mode="visible" />;
+    <Activity children="peekaboo" mode="hidden" />;
+    // @ts-expect-error -- Forgot children
+    <Activity />;
+    <Activity
+        children="peekaboo"
+        // @ts-expect-error -- Unknown mode
+        mode="not-a-mode"
+    />;
+    <Activity children="peekaboo" name="/" />;
+}

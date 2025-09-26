@@ -1,4 +1,4 @@
-// For Library Version: 1.136.0
+// For Library Version: 1.140.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1605,8 +1605,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
 
-    "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
-
     "sap/ui/fl/apply/_internal/flexState/controlVariants/Switcher": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagementState": undefined;
@@ -1618,8 +1616,6 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexState/FlexState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/InitialPrepareFunctions": undefined;
-
-    "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
 
@@ -1647,8 +1643,6 @@ declare namespace sap {
 
     "sap/ui/fl/changeHandler/BaseRename": undefined;
 
-    "sap/ui/fl/ChangePersistenceFactory": undefined;
-
     "sap/ui/fl/descriptorRelated/api/DescriptorChange": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
@@ -1656,8 +1650,6 @@ declare namespace sap {
     "sap/ui/fl/descriptorRelated/api/DescriptorInlineChangeFactory": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorVariantFactory": undefined;
-
-    "sap/ui/fl/FlexControllerFactory": undefined;
 
     "sap/ui/fl/initial/_internal/connectors/BackendConnector": undefined;
 
@@ -1675,6 +1667,8 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
 
+    "sap/ui/fl/initial/_internal/Settings": undefined;
+
     "sap/ui/fl/initial/_internal/Storage": undefined;
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
@@ -1686,8 +1680,6 @@ declare namespace sap {
     "sap/ui/fl/interfaces/Delegate": undefined;
 
     "sap/ui/fl/library": undefined;
-
-    "sap/ui/fl/registry/Settings": undefined;
 
     "sap/ui/fl/support/_internal/getAllUIChanges": undefined;
 
@@ -1750,8 +1742,6 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant": undefined;
 
     "sap/ui/fl/write/_internal/flexState/changes/UIChangeManager": undefined;
-
-    "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 
     "sap/ui/fl/write/_internal/flexState/FlexObjectManager": undefined;
 

@@ -383,6 +383,7 @@ export class Client extends EventEmitter {
             ),
             ...any[],
         ],
+        callback?: CommandCallback,
     ): void;
 
     /**
