@@ -41,3 +41,6 @@ api.UI.showModal(document.createElement("div"), {
 
 api.patcher.before({}, "foo", () => {});
 api.patcher.before({}, "foo", () => true);
+GL.net.gamemode; // $ExpectType string
+api.net.gamemode; // $ExpectType string
+api.net.onLoad((type, gamemode) => {});
