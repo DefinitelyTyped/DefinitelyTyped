@@ -658,7 +658,6 @@ interface XRSession {
 }
 
 interface XRHitTestResult {
-
     /**
      * Creates a new anchor from the hit test result.
      *
@@ -666,7 +665,6 @@ interface XRHitTestResult {
      */
     createAnchor?: () => Promise<XRAnchor>;
 }
-
 
 // AR Hit testing
 declare class XRRay {

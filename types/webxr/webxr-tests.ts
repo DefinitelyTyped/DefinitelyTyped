@@ -142,7 +142,7 @@ function assertNever(value: never) {
             });
             anchor.delete();
         });
-        if (frame.trackedAnchors){
+        if (frame.trackedAnchors) {
             frame.trackedAnchors.forEach((anchor: XRAnchor) => {
                 const anchorPose = frame.getPose(anchor.anchorSpace, space);
                 if (anchorPose) {
@@ -150,9 +150,10 @@ function assertNever(value: never) {
                 }
             });
         }
-        if (session.requestHitTestSource){
+        if (session.requestHitTestSource) {
             session.requestHitTestSource(
-                { space:space! })?.then((source: XRHitTestSource) => {
+                { space: space! },
+            )?.then((source: XRHitTestSource) => {
                 console.log("Created hit test source:", source);
                 frame.getHitTestResults(source).forEach((result: XRHitTestResult) => {
                     result.createAnchor?.().then((anchor: XRAnchor) => {
@@ -362,5 +363,4 @@ function assertNever(value: never) {
             });
         }
     }
-
 })();
