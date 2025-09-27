@@ -124,7 +124,7 @@ declare module "." {
     type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
 
     interface HTMLAttributes<T> {
-        popover?: "" | "auto" | "manual" | undefined;
+        popover?: "" | "auto" | "manual" | "hint" | undefined;
         popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
         popoverTarget?: string | undefined;
         onToggle?: ToggleEventHandler<T> | undefined;

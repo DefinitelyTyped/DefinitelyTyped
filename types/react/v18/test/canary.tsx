@@ -437,6 +437,7 @@ function PopoverAPI() {
             </div>
             <div popover="auto" />
             <div popover="manual" />
+            <div popover="hint" />
             <div
                 // @ts-expect-error accidental boolean
                 popover
