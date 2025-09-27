@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/leaflet-rotate",
-    "version": "0.1.9999",
+    "version": "0.2.1",
     "projects": [
-        "https://github.com//Raruto/leaflet-rotate"
+        "https://github.com/Raruto/leaflet-rotate"
     ],
     "dependencies": {
         "@types/leaflet": "^1.9"
