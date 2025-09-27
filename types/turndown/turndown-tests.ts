@@ -2,7 +2,7 @@ import TurndownService = require("turndown");
 
 const replacementFunction: TurndownService.ReplacementFunction = (
     content: string,
-    node: TurndownService.Node,
+    node: HTMLElement,
     options: TurndownService.Options,
 ) => content;
 
