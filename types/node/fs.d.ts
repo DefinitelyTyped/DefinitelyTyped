@@ -450,6 +450,230 @@ declare module "fs" {
         prependListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
         prependOnceListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
     }
+    export interface Utf8StreamOptions {
+        /**
+         * Appends writes to dest file instead of truncating it.
+         * @default true
+         */
+        append?: boolean | undefined;
+        /**
+         * Which type of data you can send to the write
+         * function, supported values are `'utf8'` or `'buffer'`.
+         * @default 'utf8'
+         */
+        contentMode?: "utf8" | "buffer" | undefined;
+        /**
+         * A path to a file to be written to (mode controlled by the
+         * append option).
+         */
+        dest?: string | undefined;
+        /**
+         * A file descriptor, something that is returned by `fs.open()`
+         * or `fs.openSync()`.
+         */
+        fd?: number | undefined;
+        /**
+         * An object that has the same API as the `fs` module, useful
+         * for mocking, testing, or customizing the behavior of the stream.
+         */
+        fs?: object | undefined;
+        /**
+         * Perform a `fs.fsyncSync()` every time a write is
+         * completed.
+         */
+        fsync?: boolean | undefined;
+        /**
+         * The maximum length of the internal buffer. If a write
+         * operation would cause the buffer to exceed `maxLength`, the data written is
+         * dropped and a drop event is emitted with the dropped data
+         */
+        maxLength?: number | undefined;
+        /**
+         * The maximum number of bytes that can be written;
+         * @default 16384
+         */
+        maxWrite?: number | undefined;
+        /**
+         * The minimum length of the internal buffer that is
+         * required to be full before flushing.
+         */
+        minLength?: number | undefined;
+        /**
+         * Ensure directory for `dest` file exists when true.
+         * @default false
+         */
+        mkdir?: boolean | undefined;
+        /**
+         * Specify the creating file mode (see `fs.open()`).
+         */
+        mode?: number | string | undefined;
+        /**
+         * Calls flush every `periodicFlush` milliseconds.
+         */
+        periodicFlush?: number | undefined;
+        /**
+         * A function that will be called when `write()`,
+         * `writeSync()`, or `flushSync()` encounters an `EAGAIN` or `EBUSY` error.
+         * If the return value is `true` the operation will be retried, otherwise it
+         * will bubble the error. The `err` is the error that caused this function to
+         * be called, `writeBufferLen` is the length of the buffer that was written,
+         * and `remainingBufferLen` is the length of the remaining buffer that the
+         * stream did not try to write.
+         */
+        retryEAGAIN?: ((err: Error | null, writeBufferLen: number, remainingBufferLen: number) => boolean) | undefined;
+        /**
+         * Perform writes synchronously.
+         */
+        sync?: boolean | undefined;
+    }
+    /**
+     * An optimized UTF-8 stream writer that allows for flushing all the internal
+     * buffering on demand. It handles `EAGAIN` errors correctly, allowing for
+     * customization, for example, by dropping content if the disk is busy.
+     * @since v24.6.0
+     * @experimental
+     */
+    export class Utf8Stream extends EventEmitter {
+        constructor(options: Utf8StreamOptions);
+        /**
+         * Whether the stream is appending to the file or truncating it.
+         */
+        readonly append: boolean;
+        /**
+         * The type of data that can be written to the stream. Supported
+         * values are `'utf8'` or `'buffer'`.
+         * @default 'utf8'
+         */
+        readonly contentMode: "utf8" | "buffer";
+        /**
+         * Close the stream immediately, without flushing the internal buffer.
+         */
+        destroy(): void;
+        /**
+         * Close the stream gracefully, flushing the internal buffer before closing.
+         */
+        end(): void;
+        /**
+         * The file descriptor that is being written to.
+         */
+        readonly fd: number;
+        /**
+         * The file that is being written to.
+         */
+        readonly file: string;
+        /**
+         * Writes the current buffer to the file if a write was not in progress. Do
+         * nothing if `minLength` is zero or if it is already writing.
+         */
+        flush(callback: (err: Error | null) => void): void;
+        /**
+         * Flushes the buffered data synchronously. This is a costly operation.
+         */
+        flushSync(): void;
+        /**
+         * Whether the stream is performing a `fs.fsyncSync()` after every
+         * write operation.
+         */
+        readonly fsync: boolean;
+        /**
+         * The maximum length of the internal buffer. If a write
+         * operation would cause the buffer to exceed `maxLength`, the data written is
+         * dropped and a drop event is emitted with the dropped data.
+         */
+        readonly maxLength: number;
+        /**
+         * The minimum length of the internal buffer that is required to be
+         * full before flushing.
+         */
+        readonly minLength: number;
+        /**
+         * Whether the stream should ensure that the directory for the
+         * `dest` file exists. If `true`, it will create the directory if it does not
+         * exist.
+         * @default false
+         */
+        readonly mkdir: boolean;
+        /**
+         * The mode of the file that is being written to.
+         */
+        readonly mode: number | string;
+        /**
+         * The number of milliseconds between flushes. If set to `0`, no
+         * periodic flushes will be performed.
+         */
+        readonly periodicFlush: number;
+        /**
+         * Reopen the file in place, useful for log rotation.
+         * @param file A path to a file to be written to (mode
+         * controlled by the append option).
+         */
+        reopen(file: PathLike): void;
+        /**
+         * Whether the stream is writing synchronously or asynchronously.
+         */
+        readonly sync: boolean;
+        /**
+         * When the `options.contentMode` is set to `'utf8'` when the stream is created,
+         * the `data` argument must be a string. If the `contentMode` is set to `'buffer'`,
+         * the `data` argument must be a `Buffer`.
+         * @param data The data to write.
+         */
+        write(data: string | Buffer): boolean;
+        /**
+         * Whether the stream is currently writing data to the file.
+         */
+        readonly writing: boolean;
+        /**
+         * Calls `utf8Stream.destroy()`.
+         */
+        [Symbol.dispose](): void;
+        /**
+         * events.EventEmitter
+         *   1. change
+         *   2. close
+         *   3. error
+         */
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "drop", listener: (data: string | Buffer) => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "ready", listener: () => void): this;
+        addListener(event: "write", listener: (n: number) => void): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "drop", listener: (data: string | Buffer) => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "ready", listener: () => void): this;
+        on(event: "write", listener: (n: number) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "drop", listener: (data: string | Buffer) => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+        once(event: "ready", listener: () => void): this;
+        once(event: "write", listener: (n: number) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "drop", listener: (data: string | Buffer) => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "ready", listener: () => void): this;
+        prependListener(event: "write", listener: (n: number) => void): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "drop", listener: (data: string | Buffer) => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
+        prependOnceListener(event: "write", listener: (n: number) => void): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+    }
 
     /**
      * The Keys are events of the ReadStream and the values are the functions that are called when the event is emitted.

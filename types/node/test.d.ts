@@ -79,6 +79,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
  */
 declare module "node:test" {
+    import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
@@ -1171,29 +1172,7 @@ declare module "node:test" {
              */
             readonly mock: MockTracker;
         }
-        interface TestContextAssert extends
-            Pick<
-                typeof import("assert"),
-                | "deepEqual"
-                | "deepStrictEqual"
-                | "doesNotMatch"
-                | "doesNotReject"
-                | "doesNotThrow"
-                | "equal"
-                | "fail"
-                | "ifError"
-                | "match"
-                | "notDeepEqual"
-                | "notDeepStrictEqual"
-                | "notEqual"
-                | "notStrictEqual"
-                | "ok"
-                | "partialDeepStrictEqual"
-                | "rejects"
-                | "strictEqual"
-                | "throws"
-            >
-        {
+        interface TestContextAssert extends Pick<typeof import("assert"), AssertMethodNames> {
             /**
              * This function serializes `value` and writes it to the file specified by `path`.
              *
