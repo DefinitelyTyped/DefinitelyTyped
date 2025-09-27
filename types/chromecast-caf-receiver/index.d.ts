@@ -31,7 +31,7 @@ import {
     SegmentDownloadedEvent,
     TimedMetadataEvent,
 } from "./cast.framework.events";
-import { Event as SystemEvent } from "./cast.framework.system";
+import { Event as SystemEvent, Message as SystemMessage } from "./cast.framework.system";
 import { PlayerDataChangedEvent } from "./cast.framework.ui";
 
 export namespace cast {
@@ -49,6 +49,7 @@ declare global {
 
     type EventHandler = (event: Event) => void;
     type SystemEventHandler = (event: SystemEvent) => void;
+    type CustomMessageHandler = (event: SystemMessage) => void;
     type Id3EventHandler = (event: Id3Event) => void;
     type ErrorEventHandler = (event: ErrorEvent) => void;
     type MediaElementEventHandler = (event: MediaElementEvent) => void;
