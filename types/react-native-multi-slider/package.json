@@ -12,10 +12,5 @@
     "devDependencies": {
         "@types/react-native-multi-slider": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Edward Sammut Alessi",
-            "githubUsername": "Slessi"
-        }
-    ]
+    "owners": []
 }

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/args": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Slessi",
-            "githubUsername": "Slessi"
-        }
-    ]
+    "owners": []
 }
