@@ -23,7 +23,7 @@ async function REDTests() {
     // $ExpectType Util
     RED.util;
 
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<NoEventMap>
     RED.events;
 
     // $ExpectType Hooks
