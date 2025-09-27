@@ -1,11 +1,11 @@
-import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 import formDataAppendFile from "apollo-upload-client/formDataAppendFile.mjs";
 import isExtractableFile from "apollo-upload-client/isExtractableFile.mjs";
+import UploadHttpLink from "apollo-upload-client/UploadHttpLink.mjs";
 
 // ==============================================================================
-// createUploadLink
+// UploadHttpLink
 // ==============================================================================
-createUploadLink({
+new UploadHttpLink({
     uri: "http://localhost",
     isExtractableFile,
     formDataAppendFile,
