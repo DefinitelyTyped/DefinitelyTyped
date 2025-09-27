@@ -1,35 +1,33 @@
-enum EventTypeEnum {
-    INIT = 'init',
-    TRACK = 'track',
-    TRACK_CUSTOM = 'trackCustom',
-    TRACK_SINGLE = 'trackSingle'
-}
-
-enum EventNameEnum {
-    AddPaymentInfo = 'AddPaymentInfo',
-    AddToCart = 'AddToCart',
-    AddToWishlist = 'AddToWishlist',
-    CompleteRegistration = 'CompleteRegistration',
-    Contact = 'Contact',
-    CustomizeProduct = 'CustomizeProduct',
-    Donate = 'Donate',
-    FindLocation = 'FindLocation',
-    InitiateCheckout = 'InitiateCheckout',
-    Lead = 'Lead',
-    Purchase = 'Purchase',
-    Schedule = 'Schedule',
-    Search = 'Search',
-    StartTrial = 'StartTrial',
-    SubmitApplication = 'SubmitApplication',
-    Subscribe = 'Subscribe',
-    ViewContent = 'ViewContent'
-}
-
-// this code below is copied from https://www.npmjs.com/package/@types/facebook-pixel?activeTab=code
-
 declare var fbq: facebook.Pixel.Event;
 
 declare namespace facebook.Pixel {
+    declare enum EventTypeEnum {
+        INIT = 'init',
+        TRACK = 'track',
+        TRACK_CUSTOM = 'trackCustom',
+        TRACK_SINGLE = 'trackSingle'
+    }
+
+    declare enum EventNameEnum {
+        AddPaymentInfo = 'AddPaymentInfo',
+        AddToCart = 'AddToCart',
+        AddToWishlist = 'AddToWishlist',
+        CompleteRegistration = 'CompleteRegistration',
+        Contact = 'Contact',
+        CustomizeProduct = 'CustomizeProduct',
+        Donate = 'Donate',
+        FindLocation = 'FindLocation',
+        InitiateCheckout = 'InitiateCheckout',
+        Lead = 'Lead',
+        Purchase = 'Purchase',
+        Schedule = 'Schedule',
+        Search = 'Search',
+        StartTrial = 'StartTrial',
+        SubmitApplication = 'SubmitApplication',
+        Subscribe = 'Subscribe',
+        ViewContent = 'ViewContent'
+    }
+    
     interface Event {
         (eventType: EventTypeEnum.INIT, InitialAppId: string): void;
         (
