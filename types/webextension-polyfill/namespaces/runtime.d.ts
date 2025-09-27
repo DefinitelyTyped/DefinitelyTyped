@@ -193,7 +193,7 @@ export namespace Runtime {
     /**
      * The machine's processor architecture.
      */
-    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
+    type PlatformArch = "aarch64" | "arm" | "ppc64" | "riscv64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
     /**
      * An object containing information about the current platform.

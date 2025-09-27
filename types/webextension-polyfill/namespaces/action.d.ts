@@ -137,6 +137,15 @@ export namespace Action {
         windowId?: number;
     }
 
+    interface OnUserSettingsChangedChangeType {
+        /**
+         * Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e.,
+         * whether the extension has been 'pinned' by the user).
+         * Optional.
+         */
+        isOnToolbar?: boolean;
+    }
+
     type OnClickDataModifiersItemEnum = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
     interface Static {
@@ -235,5 +244,10 @@ export namespace Action {
          * @param info Optional.
          */
         onClicked: Events.Event<(tab: Tabs.Tab, info: OnClickData | undefined) => void>;
+
+        /**
+         * Fired when user-specified settings relating to an extension's action change.
+         */
+        onUserSettingsChanged: Events.Event<(change: OnUserSettingsChangedChangeType) => void>;
     }
 }

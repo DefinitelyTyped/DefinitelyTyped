@@ -65,7 +65,7 @@ export namespace Alarms {
          * Users should never provide both 'when' and 'delayInMinutes'. If 'periodInMinutes' is provided,
          * then the alarm recurs repeatedly after that many minutes.
          */
-        create(name: string | undefined, alarmInfo: CreateAlarmInfoType): void;
+        create(name: string | undefined, alarmInfo: CreateAlarmInfoType): Promise<void>;
 
         /**
          * Creates an alarm. After the delay is expired, the onAlarm event is fired. If there is another alarm with the same name
@@ -77,7 +77,7 @@ export namespace Alarms {
          * Users should never provide both 'when' and 'delayInMinutes'. If 'periodInMinutes' is provided,
          * then the alarm recurs repeatedly after that many minutes.
          */
-        create(alarmInfo: CreateAlarmInfoType): void;
+        create(alarmInfo: CreateAlarmInfoType): Promise<void>;
 
         /**
          * Retrieves details about the specified alarm.
