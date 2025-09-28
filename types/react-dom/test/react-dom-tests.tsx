@@ -45,15 +45,34 @@ describe("ReactDOM", () => {
     });
 });
 
+const importMap: ReactDOMStatic.ImportMap = {
+    imports: {
+        "moduleA": "/modules/moduleA.v1.0.0.js",
+    },
+    scopes: {
+        "/modules/": {
+            "moduleB": "/modules/moduleB.v1.0.0.js",
+        },
+    },
+};
+
 describe("ReactDOMServer", () => {
     it("renderToString", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
-        ReactDOMServer.renderToString(React.createElement("div"), { identifierPrefix: "react-18-app" });
+        ReactDOMServer.renderToString(React.createElement("div"), {
+            identifierPrefix: "react-18-app",
+            // @ts-expect-error Not supported in legacy APIS
+            importMap,
+        });
     });
 
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
-        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
+        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), {
+            identifierPrefix: "react-18-app",
+            // @ts-expect-error Not supported in legacy APIS
+            importMap,
+        });
     });
 });
 
@@ -61,13 +80,16 @@ describe("ReactDOMStatic", () => {
     it("prerender", async () => {
         const prelude: ReadableStream<Uint8Array> =
             (await ReactDOMStatic.prerender(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerender(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
+        ReactDOMStatic.prerender(React.createElement("div"), { bootstrapScripts: ["./my-script.js"], importMap });
     });
 
     it("prerenderToNodeStream", async () => {
         const prelude: NodeJS.ReadableStream =
             (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
+        ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), {
+            bootstrapScripts: ["./my-script.js"],
+            importMap,
+        });
     });
 });
 
@@ -207,6 +229,7 @@ function pipeableStreamDocumentedExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ["/main.js"],
+        importMap,
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -254,6 +277,7 @@ function pipeableStreamDocumentedStringExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
         bootstrapScripts: ["/main.js"],
+        importMap,
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -295,6 +319,7 @@ async function readableStreamDocumentedExample() {
                 <body>Success</body>
             </html>,
             {
+                importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
@@ -327,6 +352,7 @@ async function readableStreamDocumentedStringExample() {
         const stream = await ReactDOMServer.renderToReadableStream(
             "app",
             {
+                importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
