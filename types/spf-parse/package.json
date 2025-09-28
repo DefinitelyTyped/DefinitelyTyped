@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spf-parse",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/softvu/spf-parse#readme"
+    ],
+    "devDependencies": {
+        "@types/spf-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ultraslayyy",
+            "githubUsername": "ultraslayyy"
+        }
+    ]
+}
