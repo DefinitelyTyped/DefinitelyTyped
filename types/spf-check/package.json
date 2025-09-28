@@ -5,6 +5,10 @@
     "projects": [
         "https://github.com/mediamonks/node-spf-check#readme"
     ],
+    "dependencies": {
+        "@types/node": "*",
+        "ipaddr.js": "^1.8.1"
+    },
     "devDependencies": {
         "@types/spf-check": "workspace:."
     },

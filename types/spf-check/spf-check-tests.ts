@@ -10,6 +10,8 @@ import spfCheck = require('spf-check');
     await spf.resolveMX('example.com', 'MX');
     await spf.resolveDNS('example.com', 'A', true);
     await spf.resolveSPF('example.com', 'TXT');
-    const evalResult = await spf.evaluate([], '127.0.0.1'); // $ExpectType SPFResult
+    // @ts-expect-error
+    const evalResult = await spf.evaluate([], '127.0.0.1');
+    // @ts-expect-error
     const isMatch = spf.match({ type: 'ip4', value: '127.0.0.1' }, '127.0.0.1'); // $ExpectType boolean
 })();

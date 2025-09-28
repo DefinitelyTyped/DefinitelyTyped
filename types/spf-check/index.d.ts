@@ -1,3 +1,7 @@
+/// <reference types="node" />
+import * as dns from 'node:dns';
+import * as ipaddr from 'ipaddr.js';
+
 export as namespace SPFCheck;
 export = spfCheck;
 
@@ -73,6 +77,49 @@ declare namespace spfCheck {
         [key: string]: any;
     }
 
+    /** Represents a single SPF mechanism in a parsed SPF record */
+    interface Mechanism {
+        /** The type of the mechanism (e.g., 'a', 'mx', 'ip4', 'ip6', 'include', 'all') */
+        type: string;
+
+        /** Optional value associated with the mechanism (e.g., domain, IP/CIDR) */
+        value?: string;
+
+        /** Optional prefix modifier (e.g., '+', '-', '~', '?') that affects result evaluation */
+        prefix?: string;
+
+        /** Optional human-readable description of the prefix, used in resutls */
+        prefixdesc?: string;
+
+        /**
+         * Optional asynchronous function that resolves additional information for this mechanism.
+         * Returns one of:
+         * - `{ records: string[] }` for A/AAAA record lookups
+         * - `{ exchanges: (dns.MxRecord & { records: string[] })[] }` for MX lookups
+         * - `{ includes: Mechanism[] }` for include mechanisms
+         */
+        resolve?: () => Promise<
+            { records: string[] } |
+            { exchanges: (dns.MxRecord & { records: string[] })[] } |
+            { includes: Mechanism[] }
+        >;
+
+        /** Parsed IP address and CIDR length for ip4/ip6 mechanisms */
+        address?: [ipaddr.IPv4 | ipaddr.IPv6, number];
+
+        /** Resolved A/AAAA records for this mechanism */
+        records?: string[];
+
+        /** Resolved MX records with their corresponding addresses */
+        exchanges?: (dns.MxRecord & { records: string[] })[];
+
+        /** Nested mechanisms for include statements */
+        includes?: Mechanism[];
+
+        /** Evaluation result of this mechanism after SPF check */
+        evaluated?: SPFResult;
+    }
+
     /**
      * SPF class for programmatic SPF checks
      */
@@ -86,22 +133,23 @@ declare namespace spfCheck {
         constructor(domain?: string, sender?: string, options?: SPFOptions);
 
         /** Resolve MX records */
-        resolveMX(hostname: string, rrtype: string): Promise<any[]>;
+        resolveMX(hostname: string, rrtype: 'MX'): Promise<(dns.MxRecord & { records: string[] })[]>;
 
         /** Resolve DNS records */
-        resolveDNS(hostname: string, rrtype: string, lookupLimit?: boolean): Promise<any[]>;
+        resolveDNS(hostname: string, rrtype: 'TXT' | 'A' | 'AAAA', lookupLimit?: boolean): Promise<string[]>;
+        resolveDNS(hostname: string, rrtype: 'MX', lookupLimit?: boolean): Promise<(dns.MxRecord & { records: string[] })[]>;
 
         /** Resolve SPF records */
-        resolveSPF(hostname: string, rrtype: string): Promise<any[]>;
+        resolveSPF(hostname: string, rrtype: string): Promise<Mechanism[]>;
 
         /** Check an IP against SPF */
         check(ip: string): Promise<SPFResult>;
 
         /** Evaluate SPF mechanisms manually */
-        evaluate(mechanisms: any[], addr: any): Promise<SPFResult>;
+        evaluate(mechanisms: Mechanism[], addr: ipaddr.IPv4 | ipaddr.IPv6): Promise<SPFResult>;
 
         /** Match a single mechanism */
-        match(mechanism: any, addr: any): boolean;
+        match(mechanism: Mechanism, addr: ipaddr.IPv4 | ipaddr.IPv6): boolean;
     }
 }
 
