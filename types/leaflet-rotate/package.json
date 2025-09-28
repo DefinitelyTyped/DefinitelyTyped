@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/leaflet-rotate",
-    "version": "0.2.1",
+    "version": "0.2.9999",
     "projects": [
         "https://github.com/Raruto/leaflet-rotate"
     ],
