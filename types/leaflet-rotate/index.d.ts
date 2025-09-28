@@ -7,7 +7,7 @@ declare module "leaflet" {
         trackContainerMutation?: boolean;
         touchRotate?: boolean | string;
         shiftKeyRotate?: boolean | string;
-        rotateControl?: {
+        rotateControl?: boolean | {
             position?: string;
             closeOnZeroBearing?: boolean;
         };
