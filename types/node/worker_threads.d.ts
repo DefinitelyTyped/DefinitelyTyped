@@ -70,6 +70,7 @@ declare module "worker_threads" {
     const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
+    const threadName: string | null;
     const workerData: any;
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
@@ -402,6 +403,12 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         readonly threadId: number;
+        /**
+         * A string identifier for the referenced thread or null if the thread is not running.
+         * Inside the worker thread, it is available as `require('node:worker_threads').threadName`.
+         * @since v24.6.0
+         */
+        readonly threadName: string | null;
         /**
          * Provides the set of JS engine resource constraints for this Worker thread.
          * If the `resourceLimits` option was passed to the `Worker` constructor,
