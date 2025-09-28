@@ -1609,36 +1609,35 @@ function testOmnibox() {
     chrome.omnibox.setDefaultSuggestion(suggestion, () => {}).then(() => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/search
 function testSearch() {
-    function getCallback() {}
+    chrome.search.Disposition.CURRENT_TAB === "CURRENT_TAB";
+    chrome.search.Disposition.NEW_TAB === "NEW_TAB";
+    chrome.search.Disposition.NEW_WINDOW === "NEW_WINDOW";
 
-    const DISPOSITIONS: chrome.search.Disposition[] = ["CURRENT_TAB", "NEW_TAB", "NEW_WINDOW"];
+    const queryInfo1: chrome.search.QueryInfo = {
+        disposition: "CURRENT_TAB",
+        text: "text",
+    };
 
-    DISPOSITIONS.forEach(disposition => {
-        chrome.search.query(
-            {
-                disposition,
-                tabId: 1,
-                text: "text",
-            },
-            getCallback,
-        );
-    });
-}
+    const queryInfo2: chrome.search.QueryInfo = {
+        tabId: 1,
+        text: "text",
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/search/
-async function testSearchForPromise() {
-    const DISPOSITIONS: chrome.search.Disposition[] = ["CURRENT_TAB", "NEW_TAB", "NEW_WINDOW"];
+    // @ts-expect-error Cannot set both 'disposition' and 'tabId'.
+    const queryInfoBad: chrome.search.QueryInfo = {
+        disposition: "CURRENT_TAB",
+        tabId: 1,
+        text: "text",
+    };
 
-    for (const disposition of DISPOSITIONS) {
-        await chrome.search.query(
-            {
-                disposition,
-                tabId: 1,
-                text: "text",
-            },
-        );
-    }
+    chrome.search.query(queryInfo1); // $ExpectType Promise<void>
+    chrome.search.query(queryInfo1, () => {}); // $ExpectType void
+    chrome.search.query(queryInfo2); // $ExpectType Promise<void>
+    chrome.search.query(queryInfo2, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.search.query(queryInfo1, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
