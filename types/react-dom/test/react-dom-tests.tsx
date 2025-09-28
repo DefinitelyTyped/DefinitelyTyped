@@ -45,7 +45,7 @@ describe("ReactDOM", () => {
     });
 });
 
-const importMap: ReactDOMStatic.ImportMap = {
+const importMap: ReactDOMStatic.ReactImportMap = {
     imports: {
         "moduleA": "/modules/moduleA.v1.0.0.js",
     },
@@ -61,8 +61,6 @@ describe("ReactDOMServer", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
         ReactDOMServer.renderToString(React.createElement("div"), {
             identifierPrefix: "react-18-app",
-            // @ts-expect-error Not supported in legacy APIS
-            importMap,
         });
     });
 
@@ -70,8 +68,6 @@ describe("ReactDOMServer", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
         ReactDOMServer.renderToStaticMarkup(React.createElement("div"), {
             identifierPrefix: "react-18-app",
-            // @ts-expect-error Not supported in legacy APIS
-            importMap,
         });
     });
 });
@@ -80,7 +76,15 @@ describe("ReactDOMStatic", () => {
     it("prerender", async () => {
         const prelude: ReadableStream<Uint8Array> =
             (await ReactDOMStatic.prerender(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerender(React.createElement("div"), { bootstrapScripts: ["./my-script.js"], importMap });
+        ReactDOMStatic.prerender(React.createElement("div"), {
+            bootstrapScripts: ["./my-script.js"],
+            headersLengthHint: 4000,
+            importMap,
+            onHeaders(headers) {
+                // $ExpectType Headers
+                headers;
+            },
+        });
     });
 
     it("prerenderToNodeStream", async () => {
@@ -88,7 +92,12 @@ describe("ReactDOMStatic", () => {
             (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
         ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), {
             bootstrapScripts: ["./my-script.js"],
+            headersLengthHint: 4000,
             importMap,
+            onHeaders(headers) {
+                // $ExpectType Headers
+                headers;
+            },
         });
     });
 });
@@ -229,7 +238,12 @@ function pipeableStreamDocumentedExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ["/main.js"],
+        headersLengthHint: 4000,
         importMap,
+        onHeaders(headers) {
+            // $ExpectType Headers
+            headers;
+        },
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -277,7 +291,12 @@ function pipeableStreamDocumentedStringExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
         bootstrapScripts: ["/main.js"],
+        headersLengthHint: 4000,
         importMap,
+        onHeaders(headers) {
+            // $ExpectType Headers
+            headers;
+        },
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -319,11 +338,16 @@ async function readableStreamDocumentedExample() {
                 <body>Success</body>
             </html>,
             {
+                headersLengthHint: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
                     console.error(error);
+                },
+                onHeaders(headers) {
+                    // $ExpectType Headers
+                    headers;
                 },
             },
         );
@@ -352,11 +376,16 @@ async function readableStreamDocumentedStringExample() {
         const stream = await ReactDOMServer.renderToReadableStream(
             "app",
             {
+                headersLengthHint: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
                     console.error(error);
+                },
+                onHeaders(headers) {
+                    // $ExpectType Headers
+                    headers;
                 },
             },
         );

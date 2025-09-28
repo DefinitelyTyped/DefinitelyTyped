@@ -65,10 +65,17 @@ export interface PrerenderOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
     identifierPrefix?: string;
     importMap?: ImportMap | undefined;
     namespaceURI?: string;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    onHeaders?: (headers: Headers) => void | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
 }

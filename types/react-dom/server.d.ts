@@ -65,8 +65,15 @@ export interface RenderToPipeableStreamOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
     importMap?: ReactImportMap | undefined;
     progressiveChunkSize?: number;
+    onHeaders?: ((headers: Headers) => void) | undefined;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
@@ -121,9 +128,16 @@ export interface RenderToReadableStreamOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    onHeaders?: ((headers: Headers) => void) | undefined;
     formState?: ReactFormState | null;
 }
 
