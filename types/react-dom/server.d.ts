@@ -23,6 +23,7 @@ declare global {
 
 import { ReactNode } from "react";
 import { ErrorInfo, ReactFormState } from "./client";
+import { PostponedState, ResumeOptions } from "./static";
 
 export interface BootstrapScriptDescriptor {
     src: string;
@@ -154,6 +155,28 @@ export function renderToReadableStream(
     children: ReactNode,
     options?: RenderToReadableStreamOptions,
 ): Promise<ReactDOMServerReadableStream>;
+
+export { ResumeOptions };
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/server/resume `resume`` reference documentation}
+ * @version 19.2
+ */
+export function resume(
+    children: React.ReactNode,
+    postponedState: PostponedState,
+    options?: ResumeOptions,
+): Promise<ReactDOMServerReadableStream>;
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/server/resumeToPipeableStream `resumeToPipeableStream`` reference documentation}
+ * @version 19.2
+ */
+export function resumeToPipeableStream(
+    children: React.ReactNode,
+    postponedState: PostponedState,
+    options?: ResumeOptions,
+): Promise<PipeableStream>;
 
 export const version: string;
 

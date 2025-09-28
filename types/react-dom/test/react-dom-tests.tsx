@@ -72,19 +72,35 @@ describe("ReactDOMServer", () => {
     });
 });
 
+declare const children: React.ReactNode;
 describe("ReactDOMStatic", () => {
     it("prerender", async () => {
-        const prelude: ReadableStream<Uint8Array> =
-            (await ReactDOMStatic.prerender(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerender(React.createElement("div"), {
-            bootstrapScripts: ["./my-script.js"],
-            headersLengthHint: 4000,
-            importMap,
-            onHeaders(headers) {
-                // $ExpectType Headers
-                headers;
-            },
-        });
+        const prerenderController = new AbortController();
+        setTimeout(prerenderController.abort, 1);
+        const { prelude, postponed } = await ReactDOMStatic.prerender(children, { signal: prerenderController.signal });
+
+        let stream: ReadableStream<Uint8Array>;
+        if (postponed !== null) {
+            const resumeController = new AbortController();
+            const reactStream = await ReactDOMServer.resume(children, postponed, {
+                nonce: "nonce",
+                signal: resumeController.signal,
+                onError(error) {
+                    return (error as { digest?: string | undefined }).digest;
+                },
+            });
+            await reactStream.allReady;
+            // In a real app you'd also have to flush the prelude first
+            stream = reactStream;
+        } else {
+            stream = prelude;
+        }
+
+        await ReactDOMServer.resume(
+            children,
+            // @ts-expect-error Requires the opaque postponed state
+            {},
+        );
     });
 
     it("prerenderToNodeStream", async () => {
@@ -670,4 +686,17 @@ function requestFormResetTest(form: HTMLFormElement, button: HTMLButtonElement) 
     ReactDOM.requestFormReset(button);
     // @ts-expect-error
     ReactDOM.requestFormReset(null);
+}
+
+function cacheSignalTest() {
+    const cacheSignal = React.cacheSignal;
+
+    const signal = cacheSignal();
+    if (signal !== null) {
+        // $ExpectType CacheSignal
+        signal;
+        if (signal.aborted) {
+            console.error(signal.reason);
+        }
+    }
 }
