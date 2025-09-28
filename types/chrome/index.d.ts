@@ -8400,56 +8400,72 @@ declare namespace chrome {
      * Permissions: "proxy"
      */
     export namespace proxy {
+        /** @since Chrome 54 */
+        export enum Mode {
+            /** Never use a proxy */
+            DIRECT = "direct",
+            /** Auto detect proxy settings */
+            AUTO_DETECT = "auto_detect",
+            /** Use specified PAC script */
+            PAC_SCRIPT = "pac_script",
+            /** Manually specify proxy servers */
+            FIXED_SERVERS = "fixed_servers",
+            /** Use system proxy settings */
+            SYSTEM = "system",
+        }
+
         /** An object holding proxy auto-config information. Exactly one of the fields should be non-empty. */
         export interface PacScript {
-            /** Optional. URL of the PAC file to be used. */
+            /** URL of the PAC file to be used. */
             url?: string | undefined;
-            /** Optional. If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false. */
+            /** If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false. */
             mandatory?: boolean | undefined;
-            /** Optional. A PAC script. */
+            /** A PAC script. */
             data?: string | undefined;
         }
 
         /** An object encapsulating a complete proxy configuration. */
         export interface ProxyConfig {
-            /** Optional. The proxy rules describing this configuration. Use this for 'fixed_servers' mode. */
+            /** The proxy rules describing this configuration. Use this for 'fixed_servers' mode. */
             rules?: ProxyRules | undefined;
-            /** Optional. The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode. */
+            /** The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode. */
             pacScript?: PacScript | undefined;
-            /**
-             * 'direct' = Never use a proxy
-             * 'auto_detect' = Auto detect proxy settings
-             * 'pac_script' = Use specified PAC script
-             * 'fixed_servers' = Manually specify proxy servers
-             * 'system' = Use system proxy settings
-             */
-            mode: string;
+            mode: `${Mode}`;
         }
 
         /** An object encapsulating a single proxy server's specification. */
         export interface ProxyServer {
-            /** The URI of the proxy server. This must be an ASCII hostname (in Punycode format). IDNA is not supported, yet. */
+            /** The hostname or IP address of the proxy server. Hostnames must be in ASCII (in Punycode format). IDNA is not supported, yet. */
             host: string;
-            /** Optional. The scheme (protocol) of the proxy server itself. Defaults to 'http'. */
-            scheme?: string | undefined;
-            /** Optional. The port of the proxy server. Defaults to a port that depends on the scheme. */
+            /** The scheme (protocol) of the proxy server itself. Defaults to 'http'. */
+            scheme?: `${Scheme}` | undefined;
+            /** The port of the proxy server. Defaults to a port that depends on the scheme. */
             port?: number | undefined;
         }
 
         /** An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'. */
         export interface ProxyRules {
-            /** Optional. The proxy server to be used for FTP requests. */
+            /** The proxy server to be used for FTP requests. */
             proxyForFtp?: ProxyServer | undefined;
-            /** Optional. The proxy server to be used for HTTP requests. */
+            /** The proxy server to be used for HTTP requests. */
             proxyForHttp?: ProxyServer | undefined;
-            /** Optional. The proxy server to be used for everything else or if any of the specific proxyFor... is not specified. */
+            /** The proxy server to be used for everything else or if any of the specific proxyFor... is not specified. */
             fallbackProxy?: ProxyServer | undefined;
-            /** Optional. The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
+            /** The proxy server to be used for all per-URL requests (that is http, https, and ftp). */
             singleProxy?: ProxyServer | undefined;
-            /** Optional. The proxy server to be used for HTTPS requests. */
+            /** The proxy server to be used for HTTPS requests. */
             proxyForHttps?: ProxyServer | undefined;
-            /** Optional. List of servers to connect to without a proxy server. */
+            /** List of servers to connect to without a proxy server. */
             bypassList?: string[] | undefined;
+        }
+
+        /** @since Chrome 54 */
+        export enum Scheme {
+            HTTP = "http",
+            HTTPS = "https",
+            QUIC = "quic",
+            SOCKS4 = "socks4",
+            SOCKS5 = "socks5",
         }
 
         export interface ErrorDetails {
@@ -8461,11 +8477,11 @@ declare namespace chrome {
             fatal: boolean;
         }
 
-        export interface ProxyErrorEvent extends chrome.events.Event<(details: ErrorDetails) => void> {}
+        /** Proxy settings to be used. The value of this setting is a ProxyConfig object. */
+        export const settings: types.ChromeSetting<ProxyConfig>;
 
-        export var settings: chrome.types.ChromeSetting<ProxyConfig>;
         /** Notifies about proxy errors. */
-        export var onProxyError: ProxyErrorEvent;
+        export const onProxyError: events.Event<(details: ErrorDetails) => void>;
     }
 
     ////////////////////
