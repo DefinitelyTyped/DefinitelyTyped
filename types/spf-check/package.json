@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spf-check",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/mediamonks/node-spf-check#readme"
+    ],
+    "devDependencies": {
+        "@types/spf-check": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ultraslayyy",
+            "githubUsername": "ultraslayyy"
+        }
+    ]
+}
