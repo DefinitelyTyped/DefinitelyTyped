@@ -1777,3 +1777,19 @@ import { promisify } from "node:util";
     keyObject.toCryptoKey({ name: "RSA-OAEP", hash: "SHA-256" }, true, ["sign"]); // $ExpectType CryptoKey
     keyObject.toCryptoKey({ name: "RSA-OAEP", hash: { name: "SHA-256" } }, true, ["sign"]); // $ExpectType CryptoKey
 }
+
+{
+    const parameters = {
+        message: Buffer.from("abcde"),
+        nonce: crypto.randomBytes(8),
+        parallelism: 4,
+        tagLength: 8,
+        memory: 8 * 1024,
+        passes: 16,
+    };
+    crypto.argon2("argon2i", parameters, (err, derivedKey) => {
+        err; // $ExpectType Error | null
+        derivedKey; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
+    crypto.argon2Sync("argon2i", parameters); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+}

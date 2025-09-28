@@ -4115,6 +4115,130 @@ declare module "crypto" {
      * @return Returns `typedArray`.
      */
     function getRandomValues<T extends webcrypto.BufferSource>(typedArray: T): T;
+    type Argon2Algorithm = "argon2d" | "argon2i" | "argon2id";
+    interface Argon2Parameters {
+        /**
+         * REQUIRED, this is the password for password hashing applications of Argon2.
+         */
+        message: string | ArrayBuffer | NodeJS.ArrayBufferView;
+        /**
+         * REQUIRED, must be at least 8 bytes long. This is the salt for password hashing applications of Argon2.
+         */
+        nonce: string | ArrayBuffer | NodeJS.ArrayBufferView;
+        /**
+         * REQUIRED, degree of parallelism determines how many computational chains (lanes)
+         * can be run. Must be greater than 1 and less than `2**24-1`.
+         */
+        parallelism: number;
+        /**
+         * REQUIRED, the length of the key to generate. Must be greater than 4 and
+         * less than `2**32-1`.
+         */
+        tagLength: number;
+        /**
+         * REQUIRED, memory cost in 1KiB blocks. Must be greater than
+         * `8 * parallelism` and less than `2**32-1`. The actual number of blocks is rounded
+         * down to the nearest multiple of `4 * parallelism`.
+         */
+        memory: number;
+        /**
+         * REQUIRED, number of passes (iterations). Must be greater than 1 and less
+         * than `2**32-1`.
+         */
+        passes: number;
+        /**
+         * OPTIONAL, Random additional input,
+         * similar to the salt, that should **NOT** be stored with the derived key. This is known as pepper in
+         * password hashing applications. If used, must have a length not greater than `2**32-1` bytes.
+         */
+        secret?: string | ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        /**
+         * OPTIONAL, Additional data to
+         * be added to the hash, functionally equivalent to salt or secret, but meant for
+         * non-random data. If used, must have a length not greater than `2**32-1` bytes.
+         */
+        associatedData?: string | ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+    }
+    /**
+     * Provides an asynchronous [Argon2](https://www.rfc-editor.org/rfc/rfc9106.html) implementation. Argon2 is a password-based
+     * key derivation function that is designed to be expensive computationally and
+     * memory-wise in order to make brute-force attacks unrewarding.
+     *
+     * The `nonce` should be as unique as possible. It is recommended that a nonce is
+     * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
+     *
+     * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v24.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     *
+     * The `callback` function is called with two arguments: `err` and `derivedKey`.
+     * `err` is an exception object when key derivation fails, otherwise `err` is
+     * `null`. `derivedKey` is passed to the callback as a `Buffer`.
+     *
+     * An exception is thrown when any of the input arguments specify invalid values
+     * or types.
+     *
+     * ```js
+     * const { argon2, randomBytes } = await import('node:crypto');
+     *
+     * const parameters = {
+     *   message: 'password',
+     *   nonce: randomBytes(16),
+     *   parallelism: 4,
+     *   tagLength: 64,
+     *   memory: 65536,
+     *   passes: 3,
+     * };
+     *
+     * argon2('argon2id', parameters, (err, derivedKey) => {
+     *   if (err) throw err;
+     *   console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
+     * });
+     * ```
+     * @since v24.7.0
+     * @param algorithm Variant of Argon2, one of `"argon2d"`, `"argon2i"` or `"argon2id"`.
+     * @experimental
+     */
+    function argon2(
+        algorithm: Argon2Algorithm,
+        parameters: Argon2Parameters,
+        callback: (err: Error | null, derivedKey: Buffer) => void,
+    ): void;
+    /**
+     * Provides a synchronous [Argon2][] implementation. Argon2 is a password-based
+     * key derivation function that is designed to be expensive computationally and
+     * memory-wise in order to make brute-force attacks unrewarding.
+     *
+     * The `nonce` should be as unique as possible. It is recommended that a nonce is
+     * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
+     *
+     * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v24.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     *
+     * An exception is thrown when key derivation fails, otherwise the derived key is
+     * returned as a `Buffer`.
+     *
+     * An exception is thrown when any of the input arguments specify invalid values
+     * or types.
+     *
+     * ```js
+     * const { argon2Sync, randomBytes } = await import('node:crypto');
+     *
+     * const parameters = {
+     *   message: 'password',
+     *   nonce: randomBytes(16),
+     *   parallelism: 4,
+     *   tagLength: 64,
+     *   memory: 65536,
+     *   passes: 3,
+     * };
+     *
+     * const derivedKey = argon2Sync('argon2id', parameters);
+     * console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
+     * ```
+     * @since v24.7.0
+     * @experimental
+     */
+    function argon2Sync(algorithm: Argon2Algorithm, parameters: Argon2Parameters): Buffer;
     /**
      * A convenient alias for `crypto.webcrypto.subtle`.
      * @since v17.4.0
