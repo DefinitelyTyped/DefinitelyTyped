@@ -8627,29 +8627,42 @@ declare namespace chrome {
      * @since Chrome 87
      */
     export namespace search {
-        export type Disposition = "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
-
-        export interface QueryInfo {
-            /** Location where search results should be displayed. CURRENT_TAB is the default.  */
-            disposition?: Disposition | undefined;
-            /** Location where search results should be displayed. tabIdcannot be used with disposition. */
-            tabId?: number | undefined;
-            /** String to query with the default search provider. */
-            text?: string | undefined;
+        export enum Disposition {
+            /** Specifies that the search results display in the calling tab or the tab from the active browser. */
+            CURRENT_TAB = "CURRENT_TAB",
+            /** Specifies that the search results display in a new tab. */
+            NEW_TAB = "NEW_TAB",
+            /** Specifies that the search results display in a new window. */
+            NEW_WINDOW = "NEW_WINDOW",
         }
 
-        /**
-         * Used to query the default search provider. In case of an error, runtime.lastError will be set.
-         * @param options search configuration options.
-         */
-        export function query(options: QueryInfo, callback: () => void): void;
+        export type QueryInfo =
+            & {
+                /** String to query with the default search provider. */
+                text?: string | undefined;
+            }
+            & (
+                | {
+                    /** Location where search results should be displayed. `CURRENT_TAB` is the default. */
+                    disposition?: `${Disposition}` | undefined;
+                    /** Location where search results should be displayed. `tabId` cannot be used with `disposition`. */
+                    tabId?: undefined;
+                }
+                | {
+                    /** Location where search results should be displayed. `CURRENT_TAB` is the default. */
+                    disposition?: undefined;
+                    /** Location where search results should be displayed. `tabId` cannot be used with `disposition`. */
+                    tabId?: number | undefined;
+                }
+            );
 
         /**
-         * Used to query the default search provider. In case of an error, runtime.lastError will be set.
-         * @param options search configuration options.
-         * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         * Used to query the default search provider. In case of an error, {@link runtime.lastError} will be set.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function query(options: QueryInfo): Promise<void>;
+        export function query(options: QueryInfo, callback: () => void): void;
     }
 
     ////////////////////
