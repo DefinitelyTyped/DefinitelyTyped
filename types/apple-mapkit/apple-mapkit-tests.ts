@@ -1,6 +1,5 @@
 import {
     AddressFilter,
-    AddressFilterOptions,
     Annotation,
     AnnotationCalloutDelegate,
     AnnotationConstructorOptions,
@@ -51,7 +50,6 @@ import {
     PlaceSelectionAccessory,
     PlaceSelectionAccessoryOptions,
     PointOfInterestFilter,
-    PointOfInterestFilterOptions,
     PointsOfInterestSearch,
     PointsOfInterestSearchOptions,
     PointsOfInterestSearchResponse,
@@ -239,8 +237,8 @@ const markerOptions: MarkerAnnotationConstructorOptions = {
     glyphText: "<�",
     title: "Marker Annotation",
     subtitle: "A marker annotation example",
-    titleVisibility: true,
-    subtitleVisibility: true,
+    titleVisibility: "adaptive",
+    subtitleVisibility: "hidden",
 };
 
 const marker: MarkerAnnotation = new mapkit.MarkerAnnotation(
@@ -539,14 +537,6 @@ poiSearch.search(
 
 // ===== Filters =====
 
-const addressFilterOptions: AddressFilterOptions = {
-    includes: [
-        mapkit.AddressCategory.Locality,
-        mapkit.AddressCategory.PostalCode,
-    ],
-    excludes: [mapkit.AddressCategory.Country],
-};
-
 const addressFilter: AddressFilter = new mapkit.AddressFilter();
 
 const includesLocality: boolean = addressFilter.includesCategory(
@@ -555,11 +545,6 @@ const includesLocality: boolean = addressFilter.includesCategory(
 const excludesCountry: boolean = addressFilter.excludesCategory(
     mapkit.AddressCategory.Country,
 );
-
-const poiFilterOptions: PointOfInterestFilterOptions = {
-    includes: [mapkit.PointOfInterestCategory.Restaurant],
-    excludes: [mapkit.PointOfInterestCategory.Store],
-};
 
 const poiFilter: PointOfInterestFilter = new mapkit.PointOfInterestFilter();
 
