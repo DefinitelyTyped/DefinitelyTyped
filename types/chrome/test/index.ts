@@ -1419,7 +1419,11 @@ function testDevtoolsPanels() {
 
     chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
-        panel; // $ExpectType ExtensionPanel
+        checkChromeEvent(panel.onHidden, () => void 0);
+        checkChromeEvent(panel.onSearch, () => void 0);
+        checkChromeEvent(panel.onShown, () => void 0);
+        panel.createStatusBarButton("iconPath", "tooltipText", true); // $ExpectType Button
+        panel.show(); // $ExpectType void
     });
 
     const url = "url";
@@ -2715,6 +2719,7 @@ async function testTabs() {
         lastFocusedWindow: true,
         muted: true,
         pinned: true,
+        splitViewId: 1,
         status: "complete",
         title: "title",
         url: "url",
@@ -2879,6 +2884,7 @@ async function testTabs() {
         changeInfo.groupId; // $ExpectType number | undefined
         changeInfo.mutedInfo; // $ExpectType MutedInfo | undefined
         changeInfo.pinned; // $ExpectType boolean | undefined
+        changeInfo.splitViewId; // $ExpectType number | undefined
         changeInfo.status; // $ExpectType "unloaded" | "loading" | "complete" | undefined
         changeInfo.title; // $ExpectType string | undefined
         changeInfo.url; // $ExpectType string | undefined
@@ -5348,8 +5354,15 @@ async function testSessionsForPromise() {
     await chrome.sessions.restore("myString");
 }
 
-// Test for chrome.sidePanel API
-function testSidePanelAPI() {
+// https://developer.chrome.com/docs/extensions/reference/api/sidePanel
+function testSidePanel() {
+    chrome.sidePanel.getLayout(); // $ExpectType Promise<PanelLayout>
+    chrome.sidePanel.getLayout((layout) => { // $ExpectType void
+        layout.side; // $ExpectType "left" | "right"
+    });
+    // @ts-expect-error
+    chrome.sidePanel.getLayout(() => {}).then(() => {});
+
     let getPanelOptions: chrome.sidePanel.GetPanelOptions = {
         tabId: 123,
     };
