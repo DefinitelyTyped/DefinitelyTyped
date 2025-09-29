@@ -4664,7 +4664,7 @@ declare namespace browser.runtime {
 declare namespace browser.scripting {
     /* scripting types */
     /** Details of a script injection */
-    interface ScriptInjection<Args extends any[]> {
+    interface ScriptInjection<Args extends any[] = any[]> {
         /**
          * The arguments to curry into a provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable.
          */
