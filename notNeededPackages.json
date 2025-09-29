@@ -232,6 +232,10 @@
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
         },
+        "array-equal": {
+            "libraryName": "array-equal",
+            "asOfVersion": "2.0.0"
+        },
         "array-move": {
             "libraryName": "array-move",
             "asOfVersion": "2.0.0"
