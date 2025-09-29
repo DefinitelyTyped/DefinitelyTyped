@@ -126,19 +126,19 @@ export interface GaugeChartProps {
      * Custom text label textComponent
      * @default null
      */
-    textComponent?: React.ReactElement;
+    textComponent?: React.ReactElement | undefined;
 
     /**
      * Add `className` to the text component container
      * @default null
      */
-    textComponentContainerClassName?: string;
+    textComponentContainerClassName?: string | undefined;
 
     /**
      * Needle arc cornerRadius
      * @default 0.55
      */
-    needleScale?: number;
+    needleScale?: number | undefined;
 
     /**
      * Custom needle component
@@ -146,13 +146,13 @@ export interface GaugeChartProps {
      * Note: Make sure to rotate the needle as per the percentage value
      * @default null
      */
-    customNeedleComponent?: React.ReactElement;
+    customNeedleComponent?: React.ReactElement | undefined;
 
     /**
      * Add `className` to the custom needle container
      * @default null
      */
-    customNeedleComponentClassName?: string;
+    customNeedleComponentClassName?: string | undefined;
 
     /**
      * Add `style` to custom needle container div
