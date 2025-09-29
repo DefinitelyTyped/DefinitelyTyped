@@ -405,12 +405,12 @@ export class Event {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.Message
  */
 export class Message {
-    constructor(type: 'message', senderId: string, data?: any);
+    constructor(type: "message", senderId: string, data?: any);
     /**
      * string
      * The message type. It is always "message".
      */
-    type: 'message';
+    type: "message";
     /**
      * string
      * The sender ID.
