@@ -228,7 +228,19 @@ async function getAllFrames() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
-function proxySettings() {
+function testProxy() {
+    chrome.proxy.Mode.AUTO_DETECT === "auto_detect";
+    chrome.proxy.Mode.DIRECT === "direct";
+    chrome.proxy.Mode.FIXED_SERVERS === "fixed_servers";
+    chrome.proxy.Mode.PAC_SCRIPT === "pac_script";
+    chrome.proxy.Mode.SYSTEM === "system";
+
+    chrome.proxy.Scheme.HTTP === "http";
+    chrome.proxy.Scheme.HTTPS === "https";
+    chrome.proxy.Scheme.QUIC === "quic";
+    chrome.proxy.Scheme.SOCKS4 === "socks4";
+    chrome.proxy.Scheme.SOCKS5 === "socks5";
+
     chrome.proxy.settings.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<ProxyConfig>>
     chrome.proxy.settings.get({ incognito: false }, (details) => { // $ExpectType void
         details; // $ExpectType ChromeSettingGetResult<ProxyConfig>
@@ -236,18 +248,26 @@ function proxySettings() {
     // @ts-expect-error
     chrome.proxy.settings.get({}, () => {}).then(() => {});
 
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }); // $ExpectType Promise<void>
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}); // $ExpectType void
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }, () => void 0); // $ExpectType void
     // @ts-expect-error
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}).then(() => {});
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }, () => {}).then(() => {});
 
     chrome.proxy.settings.clear({ scope: "regular" }); // $ExpectType Promise<void>
-    chrome.proxy.settings.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    chrome.proxy.settings.clear({ scope: "regular" }, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.proxy.settings.clear({ scope: "regular" }, () => {}).then(() => {});
 
     checkChromeEvent(chrome.proxy.settings.onChange, (details) => {
-        details; // $ExpectType ChromeSettingOnChangeDetails<ProxyConfig>
+        details.incognitoSpecific; // $ExpectType boolean | undefined
+        details.levelOfControl; // $ExpectType LevelOfControl
+        details.value; // $ExpectType ProxyConfig
+    });
+
+    checkChromeEvent(chrome.proxy.onProxyError, (details) => {
+        details.details; // $ExpectType string
+        details.error; // $ExpectType string
+        details.fatal; // $ExpectType boolean
     });
 }
 
