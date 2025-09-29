@@ -2040,7 +2040,7 @@ declare namespace _ {
     type LodashIsNumber = (value: any) => value is number;
     type LodashIsObject = (value: any) => value is object;
     type LodashIsObjectLike = (value: any) => boolean;
-    type LodashIsPlainObject = (value: any) => boolean;
+    type LodashIsPlainObject = (value: any) => value is Record<string, unknown>;
     type LodashIsRegExp = (value: any) => value is RegExp;
     type LodashIsSafeInteger = (value: any) => boolean;
     type LodashIsSet = (value: any) => value is Set<any>;
