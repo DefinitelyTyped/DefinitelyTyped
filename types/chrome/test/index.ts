@@ -1547,40 +1547,46 @@ function testAssistiveWindow() {
     );
 }
 
-// https://developer.chrome.com/extensions/omnibox#types
+// https://developer.chrome.com/docs/extensions/reference/api/omnibox
 function testOmnibox() {
-    const suggestion: chrome.omnibox.Suggestion = { description: "description" };
-    chrome.omnibox.setDefaultSuggestion(suggestion);
+    chrome.omnibox.DescriptionStyleType.DIM === "dim";
+    chrome.omnibox.DescriptionStyleType.MATCH === "match";
+    chrome.omnibox.DescriptionStyleType.URL === "url";
 
-    function onInputEnteredCallback(text: string, disposition: chrome.omnibox.OnInputEnteredDisposition) {
-        if (disposition === "currentTab") {
-        }
-        if (disposition === "newForegroundTab") {
-        }
-        if (disposition === "newBackgroundTab") {
-        }
-    }
-    chrome.omnibox.onInputEntered.addListener(onInputEnteredCallback);
+    chrome.omnibox.OnInputEnteredDisposition.CURRENT_TAB === "currentTab";
+    chrome.omnibox.OnInputEnteredDisposition.NEW_BACKGROUND_TAB === "newBackgroundTab";
+    chrome.omnibox.OnInputEnteredDisposition.NEW_FOREGROUND_TAB === "newForegroundTab";
 
-    const suggestResult1: chrome.omnibox.SuggestResult = {
+    checkChromeEvent(chrome.omnibox.onDeleteSuggestion, (text) => {
+        text; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.omnibox.onInputCancelled, () => void 0);
+
+    const suggestResult: chrome.omnibox.SuggestResult = {
         content: "content",
-        description: "description",
-    };
-    const suggestResult2: chrome.omnibox.SuggestResult = {
-        content: "content",
-        description: "description",
         deletable: true,
+        description: "description",
     };
-    function onInputChangedCallback(text: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
-        suggest([suggestResult1, suggestResult2]);
-    }
-    chrome.omnibox.onInputChanged.addListener(onInputChangedCallback);
 
-    chrome.omnibox.onInputStarted.addListener(() => {});
+    checkChromeEvent(chrome.omnibox.onInputChanged, (text, suggest) => {
+        text; // $ExpectType string
+        suggest([suggestResult]); // $ExpectType void
+    });
 
-    chrome.omnibox.onInputCancelled.addListener(() => {});
+    checkChromeEvent(chrome.omnibox.onInputEntered, (text, disposition) => {
+        text; // $ExpectType string
+        disposition; // $ExpectType "currentTab" | "newForegroundTab" | "newBackgroundTab"
+    });
 
-    chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
+    checkChromeEvent(chrome.omnibox.onInputStarted, () => void 0);
+
+    const suggestion: chrome.omnibox.DefaultSuggestResult = { description: "description" };
+
+    chrome.omnibox.setDefaultSuggestion(suggestion); // $ExpectType Promise<void>
+    chrome.omnibox.setDefaultSuggestion(suggestion, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.omnibox.setDefaultSuggestion(suggestion, () => {}).then(() => {});
 }
 
 function testSearch() {

@@ -7494,47 +7494,60 @@ declare namespace chrome {
             deletable?: boolean | undefined;
         }
 
-        export interface Suggestion {
+        /** A suggest result. */
+        export interface DefaultSuggestResult {
             /** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. */
             description: string;
         }
 
-        /** The window disposition for the omnibox query. This is the recommended context to display results. */
-        export type OnInputEnteredDisposition = "currentTab" | "newForegroundTab" | "newBackgroundTab";
+        /**
+         * The style type.
+         * @since Chrome 44
+         */
+        export enum DescriptionStyleType {
+            URL = "url",
+            MATCH = "match",
+            DIM = "dim",
+        }
 
-        export interface OmniboxInputEnteredEvent
-            extends chrome.events.Event<(text: string, disposition: OnInputEnteredDisposition) => void>
-        {}
-
-        export interface OmniboxInputChangedEvent
-            extends chrome.events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void>
-        {}
-
-        export interface OmniboxInputStartedEvent extends chrome.events.Event<() => void> {}
-
-        export interface OmniboxInputCancelledEvent extends chrome.events.Event<() => void> {}
-
-        export interface OmniboxSuggestionDeletedEvent extends chrome.events.Event<(text: string) => void> {}
+        /**
+         * The window disposition for the omnibox query. This is the recommended context to display results. For example, if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation should take place in a new selected tab.
+         * @since Chrome 44
+         */
+        export enum OnInputEnteredDisposition {
+            CURRENT_TAB = "currentTab",
+            NEW_FOREGROUND_TAB = "newForegroundTab",
+            NEW_BACKGROUND_TAB = "newBackgroundTab",
+        }
 
         /**
          * Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 100
          * @param suggestion A partial SuggestResult object, without the 'content' parameter.
          */
-        export function setDefaultSuggestion(suggestion: Suggestion): void;
+        export function setDefaultSuggestion(suggestion: DefaultSuggestResult): Promise<void>;
+        export function setDefaultSuggestion(suggestion: DefaultSuggestResult, callback: () => void): void;
 
         /** User has accepted what is typed into the omnibox. */
-        export var onInputEntered: OmniboxInputEnteredEvent;
+        export const onInputEntered: events.Event<(text: string, disposition: `${OnInputEnteredDisposition}`) => void>;
+
         /** User has changed what is typed into the omnibox. */
-        export var onInputChanged: OmniboxInputChangedEvent;
+        export const onInputChanged: events.Event<
+            (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void
+        >;
+
         /** User has started a keyword input session by typing the extension's keyword. This is guaranteed to be sent exactly once per input session, and before any onInputChanged events. */
-        export var onInputStarted: OmniboxInputStartedEvent;
+        export const onInputStarted: events.Event<() => void>;
+
         /** User has ended the keyword input session without accepting the input. */
-        export var onInputCancelled: OmniboxInputCancelledEvent;
+        export const onInputCancelled: events.Event<() => void>;
+
         /**
          * User has deleted a suggested result
          * @since Chrome 63
          */
-        export var onDeleteSuggestion: OmniboxSuggestionDeletedEvent;
+        export const onDeleteSuggestion: events.Event<(text: string) => void>;
     }
 
     ////////////////////
