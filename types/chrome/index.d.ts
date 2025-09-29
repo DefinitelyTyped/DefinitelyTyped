@@ -8646,11 +8646,11 @@ declare namespace chrome {
                     /** Location where search results should be displayed. `CURRENT_TAB` is the default. */
                     disposition?: `${Disposition}` | undefined;
                     /** Location where search results should be displayed. `tabId` cannot be used with `disposition`. */
-                    tabId?: never | undefined;
+                    tabId?: undefined;
                 }
                 | {
                     /** Location where search results should be displayed. `CURRENT_TAB` is the default. */
-                    disposition?: never | undefined;
+                    disposition?: undefined;
                     /** Location where search results should be displayed. `tabId` cannot be used with `disposition`. */
                     tabId?: number | undefined;
                 }
