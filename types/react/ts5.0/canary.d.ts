@@ -57,4 +57,10 @@ declare module "." {
      * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
      */
     export const Activity: ExoticComponent<ActivityProps>;
+
+    /**
+     * @see {@link https://react.dev/reference/react/useEffectEvent `useEffectEvent()` documentation}
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function useEffectEvent<T extends Function>(callback: T): T;
 }

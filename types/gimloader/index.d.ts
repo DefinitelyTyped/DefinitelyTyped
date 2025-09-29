@@ -188,6 +188,7 @@ declare namespace Gimloader {
             needsLib: string[];
             optionalLib: string[];
             syncEval: string;
+            gamemode: string[];
             hasSettings: string;
         };
         /** Gets the exported values of a plugin, if it has been enabled */
@@ -219,6 +220,7 @@ declare namespace Gimloader {
             needsLib: string[];
             optionalLib: string[];
             syncEval: string;
+            gamemode: string[];
             hasSettings: string;
         };
         /** Gets the exported values of a library */
@@ -403,12 +405,14 @@ declare namespace Gimloader {
 
     class ScopedNetApi extends BaseNetApi {
         private readonly id;
-        constructor(id: string);
+        private readonly defaultGamemode;
+        constructor(id: string, defaultGamemode: string[]);
         /**
-         * Runs a callback when the game is loaded, or runs it immediately if the game has already loaded
+         * Runs a callback when the game is loaded, or runs it immediately if the game has already loaded.
+         * If the \@gamemode header is set the callback will only fire if the gamemode matches one of the provided gamemodes.
          * @returns A function to cancel waiting for load
          */
-        onLoad(callback: (type: ConnectionType) => void): () => void;
+        onLoad(callback: (type: ConnectionType, gamemode: string) => void, gamemode?: string | string[]): () => void;
     }
 
     type ConnectionType = "None" | "Colyseus" | "Blueboat";
@@ -417,6 +421,8 @@ declare namespace Gimloader {
         constructor();
         /** Which type of server the client is currently connected to */
         get type(): ConnectionType;
+        /** The id of the gamemode the player is currently playing */
+        get gamemode(): string;
         /** The room that the client is connected to, or null if there is no connection */
         get room(): any;
         /** Whether the user is the one hosting the current game */
@@ -431,7 +437,11 @@ declare namespace Gimloader {
          * Runs a callback when the game is loaded, or runs it immediately if the game has already loaded
          * @returns A function to cancel waiting for load
          */
-        onLoad(id: string, callback: (type: ConnectionType) => void): () => void;
+        onLoad(
+            id: string,
+            callback: (type: ConnectionType, gamemode: string) => void,
+            gamemode?: string | string[],
+        ): () => void;
         /** Cancels any calls to {@link onLoad} with the same id */
         offLoad(id: string): void;
         /**
