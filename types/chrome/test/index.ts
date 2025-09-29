@@ -5453,24 +5453,50 @@ function testSidePanel() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/instanceID
 function testInstanceID() {
     chrome.instanceID.deleteID(); // $ExpectType Promise<void>
     chrome.instanceID.deleteID(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.instanceID.deleteID(() => {}).then(() => {});
 
-    const deleteTokenParams = { authorizedEntity: "", scope: "" };
+    const deleteTokenParams: chrome.instanceID.DeleteTokenParams = {
+        authorizedEntity: "",
+        scope: "",
+    };
     chrome.instanceID.deleteToken(deleteTokenParams); // $ExpectType Promise<void>
     chrome.instanceID.deleteToken(deleteTokenParams, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.instanceID.deleteToken(deleteTokenParams, () => {}).then(() => {});
 
     chrome.instanceID.getCreationTime(); // $ExpectType Promise<number>
-    chrome.instanceID.getCreationTime((creationTime: number) => void 0); // $ExpectType void
+    chrome.instanceID.getCreationTime((creationTime) => { // $ExpectType void
+        creationTime; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.instanceID.getCreationTime(() => {}).then(() => {});
 
     chrome.instanceID.getID(); // $ExpectType Promise<string>
-    chrome.instanceID.getID((id: string) => void 0); // $ExpectType void
+    chrome.instanceID.getID((instanceID) => { // $ExpectType void
+        instanceID; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.instanceID.getID(() => {}).then(() => {});
 
-    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }); // $ExpectType Promise<string>
-    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }, (token: string) => void 0); // $ExpectType void
+    const getTokenParams: chrome.instanceID.GetTokenParams = {
+        authorizedEntity: "",
+        scope: "",
+        options: {},
+    };
 
-    chrome.instanceID.onTokenRefresh.addListener(() => void 0);
+    chrome.instanceID.getToken(getTokenParams); // $ExpectType Promise<string>
+    chrome.instanceID.getToken(getTokenParams, (token) => { // $ExpectType void
+        token; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.instanceID.getToken(getTokenParams, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.instanceID.onTokenRefresh, () => void 0);
 }
 
 function testUserScripts() {
