@@ -14,6 +14,7 @@ import {
 
 adinfo.getVersion(); // $ExpectType string
 appcommon.getVersion(); // $ExpectType string
+appcommon.getUuid(); // $ExpectType string
 avplay.getVersion(); // $ExpectType string
 avinfo.getVersion(); // $ExpectType string
 billing.getVersion(); // $ExpectType string
