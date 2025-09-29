@@ -70,6 +70,7 @@ declare module "worker_threads" {
     const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
+    const threadName: string | null;
     const workerData: any;
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
@@ -393,6 +394,12 @@ declare module "worker_threads" {
          */
         readonly threadId: number;
         /**
+         * A string identifier for the referenced thread or null if the thread is not running.
+         * Inside the worker thread, it is available as `require('node:worker_threads').threadName`.
+         * @since v24.6.0
+         */
+        readonly threadName: string | null;
+        /**
          * Provides the set of JS engine resource constraints for this Worker thread.
          * If the `resourceLimits` option was passed to the `Worker` constructor,
          * this matches its values.
@@ -438,6 +445,13 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         terminate(): Promise<number>;
+        /**
+         * This method returns a `Promise` that will resolve to an object identical to `process.threadCpuUsage()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v24.6.0
+         */
+        cpuUsage(prev?: NodeJS.CpuUsage): Promise<NodeJS.CpuUsage>;
         /**
          * Returns a readable stream for a V8 snapshot of the current state of the Worker.
          * See `v8.getHeapSnapshot()` for more details.
