@@ -113,7 +113,7 @@ declare module "worker_threads" {
      * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
      */
-    class MessagePort extends EventTarget {
+    class MessagePort implements EventTarget {
         /**
          * Disables further sending of messages on either side of the connection.
          * This method can be called when no further communication will happen over this `MessagePort`.
