@@ -31,5 +31,6 @@ point.rotateFrom(60, point2);
 const marker = new L.Marker([0, 0], {
     rotation: 30,
     rotateWithView: true,
+    scale: 0.5,
 });
 marker.setRotation(30);

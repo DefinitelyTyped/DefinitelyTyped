@@ -79,6 +79,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test.js)
  */
 declare module "node:test" {
+    import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
@@ -933,28 +934,7 @@ declare module "node:test" {
              */
             readonly mock: MockTracker;
         }
-        interface TestContextAssert extends
-            Pick<
-                typeof import("assert"),
-                | "deepEqual"
-                | "deepStrictEqual"
-                | "doesNotMatch"
-                | "doesNotReject"
-                | "doesNotThrow"
-                | "equal"
-                | "fail"
-                | "ifError"
-                | "match"
-                | "notDeepEqual"
-                | "notDeepStrictEqual"
-                | "notEqual"
-                | "notStrictEqual"
-                | "ok"
-                | "rejects"
-                | "strictEqual"
-                | "throws"
-            >
-        {}
+        interface TestContextAssert extends Pick<typeof import("assert"), AssertMethodNames> {}
         /**
          * An instance of `SuiteContext` is passed to each suite function in order to
          * interact with the test runner. However, the `SuiteContext` constructor is not

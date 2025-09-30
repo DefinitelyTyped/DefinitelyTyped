@@ -324,6 +324,23 @@ browser.permissions.onAdded.addListener(permissions => {
     permissions.data_collection; // $ExpectType OptionalDataCollectionPermission[] | undefined
 });
 
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => {},
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    // @ts-expect-error
+    args: [true],
+    func: (_n: number) => {},
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    args: [0, "", false, [], {}],
+    func: (_n: number, _s: string, _b: boolean, _a: [], _o: {}) => {},
+});
 browser.scripting.executeScript({ target: { tabId: 0 }, world: "MAIN" });
 browser.scripting.registerContentScripts([{ id: "scriptId", matchOriginAsFallback: true, world: "MAIN" }]);
 browser.scripting.updateContentScripts([{ id: "scriptId", persistAcrossSessions: true, world: "MAIN" }]);
