@@ -2240,22 +2240,161 @@ async function testCookie() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/management
-async function testManagementForPromise() {
-    await chrome.management.setEnabled("id1", true);
-    await chrome.management.getPermissionWarningsById("id1");
-    await chrome.management.get("id1");
-    await chrome.management.getAll();
-    await chrome.management.getPermissionWarningsByManifest("manifestStr1");
-    await chrome.management.launchApp("id1");
-    await chrome.management.uninstall("id1");
-    await chrome.management.uninstall("id1", {});
-    await chrome.management.getSelf();
-    await chrome.management.uninstallSelf({});
-    await chrome.management.uninstallSelf();
-    await chrome.management.createAppShortcut("id1");
-    await chrome.management.setLaunchType("id1", "launchType1");
-    await chrome.management.generateAppForLink("url1", "title1");
+// https://developer.chrome.com/docs/extensions/reference/api/management
+async function testManagement() {
+    chrome.management.ExtensionDisabledReason.PERMISSIONS_INCREASE === "permissions_increase";
+    chrome.management.ExtensionDisabledReason.UNKNOWN === "unknown";
+
+    chrome.management.ExtensionInstallType.ADMIN === "admin";
+    chrome.management.ExtensionInstallType.DEVELOPMENT === "development";
+    chrome.management.ExtensionInstallType.NORMAL === "normal";
+    chrome.management.ExtensionInstallType.OTHER === "other";
+    chrome.management.ExtensionInstallType.SIDELOAD === "sideload";
+
+    chrome.management.ExtensionType.EXTENSION === "extension";
+    chrome.management.ExtensionType.HOSTED_APP === "hosted_app";
+    chrome.management.ExtensionType.LEGACY_PACKAGED_APP === "legacy_packaged_app";
+    chrome.management.ExtensionType.LOGIN_SCREEN_EXTENSION === "login_screen_extension";
+    chrome.management.ExtensionType.PACKAGE_APP === "package_app";
+    chrome.management.ExtensionType.THEME === "theme";
+
+    chrome.management.LaunchType.OPEN_AS_PINNED_TAB === "OPEN_AS_PINNED_TAB";
+    chrome.management.LaunchType.OPEN_AS_REGULAR_TAB === "OPEN_AS_REGULAR_TAB";
+    chrome.management.LaunchType.OPEN_AS_WINDOW === "OPEN_AS_WINDOW";
+    chrome.management.LaunchType.OPEN_FULL_SCREEN === "OPEN_FULL_SCREEN";
+
+    const id = "id";
+    const title = "title";
+    const url = "https://example.com";
+
+    chrome.management.createAppShortcut(id); // $ExpectType Promise<void>
+    chrome.management.createAppShortcut(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.createAppShortcut(id, () => {}).then(() => {});
+
+    chrome.management.generateAppForLink(url, title); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.generateAppForLink(url, title, (result) => { // $ExpectType void
+        result.appLaunchUrl; // $ExpectType string | undefined
+        result.availableLaunchTypes; // $ExpectType ("OPEN_AS_PINNED_TAB" | "OPEN_AS_REGULAR_TAB" | "OPEN_AS_WINDOW" | "OPEN_FULL_SCREEN")[] | undefined
+        result.description; // $ExpectType string
+        result.disabledReason; // $ExpectType "unknown" | "permissions_increase" | undefined
+        result.enabled; // $ExpectType boolean
+        result.homepageUrl; // $ExpectType string | undefined
+        result.hostPermissions; // $ExpectType string[]
+        result.icons; // $ExpectType IconInfo[] | undefined
+        result.icons![0].size; // $ExpectType number
+        result.icons![0].url; // $ExpectType string
+        result.id; // $ExpectType string
+        result.installType; // $ExpectType "admin" | "development" | "normal" | "other" | "sideload"
+        result.isApp; // $ExpectType boolean
+        result.launchType; // $ExpectType "OPEN_AS_PINNED_TAB" | "OPEN_AS_REGULAR_TAB" | "OPEN_AS_WINDOW" | "OPEN_FULL_SCREEN" | undefined
+        result.mayDisable; // $ExpectType boolean
+        result.mayEnable; // $ExpectType boolean | undefined
+        result.name; // $ExpectType string
+        result.offlineEnabled; // $ExpectType boolean
+        result.optionsUrl; // $ExpectType string
+        result.permissions; // $ExpectType string[]
+        result.shortName; // $ExpectType string
+        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "package_app" | "theme"
+        result.updateUrl; // $ExpectType string | undefined
+        result.version; // $ExpectType string
+        result.versionName; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.management.generateAppForLink(url, title, () => {}).then(() => {});
+
+    chrome.management.get(id); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.get(id, (result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo
+    });
+    // @ts-expect-error
+    chrome.management.get(id, () => {}).then(() => {});
+
+    chrome.management.getAll(); // $ExpectType Promise<ExtensionInfo[]>
+    chrome.management.getAll((result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo[]
+    });
+    // @ts-expect-error
+    chrome.management.getAll(() => {}).then(() => {});
+
+    chrome.management.getPermissionWarningsById(id); // $ExpectType Promise<string[]>
+    chrome.management.getPermissionWarningsById(id, (permissionWarnings) => { // $ExpectType void
+        permissionWarnings; // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.management.getPermissionWarningsById(id, () => {}).then(() => {});
+
+    const manifestStr = "{}";
+
+    chrome.management.getPermissionWarningsByManifest(manifestStr); // $ExpectType Promise<string[]>
+    chrome.management.getPermissionWarningsByManifest(manifestStr, (permissionWarnings) => { // $ExpectType void
+        permissionWarnings; // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.management.getPermissionWarningsByManifest(manifestStr, () => {}).then(() => {});
+
+    chrome.management.getSelf(); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.getSelf((result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo
+    });
+    // @ts-expect-error
+    chrome.management.getSelf(() => {}).then(() => {});
+
+    chrome.management.installReplacementWebApp(); // $ExpectType Promise<void>
+    chrome.management.installReplacementWebApp(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.installReplacementWebApp(() => {}).then(() => {});
+
+    chrome.management.launchApp(id); // $ExpectType Promise<void>
+    chrome.management.launchApp(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.launchApp(id, () => {}).then(() => {});
+
+    chrome.management.setEnabled(id, true); // $ExpectType Promise<void>
+    chrome.management.setEnabled(id, true, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.setEnabled(id, true, () => {}).then(() => {});
+
+    const launchType = "OPEN_AS_PINNED_TAB";
+
+    chrome.management.setLaunchType(id, launchType); // $ExpectType Promise<void>
+    chrome.management.setLaunchType(id, launchType, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.setLaunchType(id, launchType, () => {}).then(() => {});
+
+    const options: chrome.management.UninstallOptions = {
+        showConfirmDialog: true,
+    };
+
+    chrome.management.uninstall(id); // $ExpectType Promise<void>
+    chrome.management.uninstall(id, options); // $ExpectType Promise<void>
+    chrome.management.uninstall(id, () => void 0); // $ExpectType void
+    chrome.management.uninstall(id, options, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.uninstall(id, () => {}).then(() => {});
+
+    chrome.management.uninstallSelf(); // $ExpectType Promise<void>
+    chrome.management.uninstallSelf(options); // $ExpectType Promise<void>
+    chrome.management.uninstallSelf(() => void 0); // $ExpectType void
+    chrome.management.uninstallSelf(options, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.uninstallSelf(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.management.onDisabled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onEnabled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onInstalled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onUninstalled, (id) => {
+        id; // $ExpectType string
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/scripting
