@@ -25,7 +25,7 @@ const GagueWithCustomColorsAndLargeArcWidth: React.ReactElement = <GaugeChart id
 
 // Chart with other corner radius and larger padding between arcs
 
-const GagueWithOtherCornerRadiusAndLargerPaddingBetweenArcs = <GaugeChart id="gauge-chart4"
+const GagueWithOtherCornerRadiusAndLargerPaddingBetweenArcs: React.ReactElement = <GaugeChart id="gauge-chart4"
   nrOfLevels={10}
   arcPadding={0.1}
   cornerRadius={3}
@@ -34,7 +34,7 @@ const GagueWithOtherCornerRadiusAndLargerPaddingBetweenArcs = <GaugeChart id="ga
 
 // Chart with custom arcs width
 
-const GagueWithCustomArcsWidth = <GaugeChart id="gauge-chart5"
+const GagueWithCustomArcsWidth: React.ReactElement = <GaugeChart id="gauge-chart5"
   nrOfLevels={420}
   arcsLength={[0.3, 0.5, 0.2]}
   colors={['#5BE12C', '#F5CD19', '#EA4228']}
@@ -44,7 +44,7 @@ const GagueWithCustomArcsWidth = <GaugeChart id="gauge-chart5"
 
 // Chart with disabled animation
 
-const GagueWithDisabledAnimation = <GaugeChart id="gauge-chart6"
+const GagueWithDisabledAnimation: React.ReactElement = <GaugeChart id="gauge-chart6"
   animate={false}
   nrOfLevels={15}
   percent={0.56}
