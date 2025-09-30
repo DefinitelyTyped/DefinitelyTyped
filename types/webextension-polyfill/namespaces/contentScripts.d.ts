@@ -78,6 +78,12 @@ export namespace ContentScripts {
         world?: ExtensionTypes.ExecutionWorld;
 
         /**
+         * The css origin of the stylesheet to inject. Defaults to "author".
+         * Optional.
+         */
+        cssOrigin?: ExtensionTypes.CSSOrigin;
+
+        /**
          * limit the set of matched tabs to those that belong to the given cookie store id
          * Optional.
          */
