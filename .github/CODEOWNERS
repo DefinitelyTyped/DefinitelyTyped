@@ -3923,7 +3923,7 @@
 /types/jwt-then/                                        @phenomax
 /types/jxon/                                            @maxbogus
 /types/k-bucket/                                        @tomonari-t
-/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez
+/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez @AgnesToulet
 /types/kafka-node-avro/                                 @alfamegaxq
 /types/kafkajs-snappy/                                  @matteodisabatino
 /types/kahoot.js-updated/                               @MysteryBlokHed
@@ -4874,7 +4874,6 @@
 /types/minimatch-all/                                   @ChocolateLoverRaj
 /types/minimist/                                        @Bartvds @Necroskillz @kamranayub @peterblazejewicz
 /types/miniprogram/                                     @rockSandy @LynneXu @xdoer
-/types/miniprogram-wxs/                                 @NewFuture @wechat-miniprogram-admin
 /types/mirrorx/                                         @aaronphy
 /types/mithril/                                         @spacejack @dead-claudia
 /types/mithril-global/                                  @spacejack @dead-claudia
@@ -6117,7 +6116,6 @@
 /types/re-template-tag/                                 @bendingbender
 /types/reach__router/                                   @xMokAx @awwit @wroughtec @chilledoj @Eyas
 /types/react/                                           @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @priyanshurav @Semigradsky @mattpocock
-/types/react/ts5.0/v18/                                 @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @priyanshurav @Semigradsky @mattpocock
 /types/react/v15/                                       @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @onigoetz @zieka
 /types/react/v16/                                       @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav
 /types/react/v17/                                       @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav @konsalex

@@ -63,10 +63,11 @@ function test_virtualConsole() {
     virtualConsole.on("dir", () => {});
     // ... etc. See https://console.spec.whatwg.org/#logging
 
-    virtualConsole.sendTo(console);
-
-    const c = console;
-    virtualConsole.sendTo(c, { omitJSDOMErrors: true });
+    virtualConsole.forwardTo(console);
+    virtualConsole.forwardTo(console, {});
+    virtualConsole.forwardTo(console, { jsdomErrors: undefined });
+    virtualConsole.forwardTo(console, { jsdomErrors: ["unhandled-exception", "not-implemented"] });
+    virtualConsole.forwardTo(console, { jsdomErrors: "none" });
 }
 
 function test_cookieJar(store: MemoryCookieStore, options: ToughCookieJar.Options) {
