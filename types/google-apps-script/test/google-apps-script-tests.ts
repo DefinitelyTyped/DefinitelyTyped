@@ -592,10 +592,10 @@ function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
     }
 }
 
-CardService.newAction() // $ExpectType Action
-CardService.newAction().addRequiredWidget('') // $ExpectType Action
-CardService.newAction().setAllWidgetsAreRequired(true) // $ExpectType Action
-CardService.newAction().setInteraction(CardService.Interaction.OPEN_DIALOG) // $ExpectType Action
+CardService.newAction(); // $ExpectType Action
+CardService.newAction().addRequiredWidget(""); // $ExpectType Action
+CardService.newAction().setAllWidgetsAreRequired(true); // $ExpectType Action
+CardService.newAction().setInteraction(CardService.Interaction.OPEN_DIALOG); // $ExpectType Action
 
 CardService.newTextButton().setAltText("alt text"); // $ExpectType TextButton
 

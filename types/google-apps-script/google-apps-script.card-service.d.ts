@@ -15,7 +15,7 @@ declare namespace GoogleAppsScript {
          */
         interface Action {
             addRequiredWidget(requiredWidget: string): Action;
-            setAllWidgetsAreRequired(allWidgetsAreRequired: boolean): Action
+            setAllWidgetsAreRequired(allWidgetsAreRequired: boolean): Action;
             setFunctionName(functionName: string): Action;
             setInteraction(interaction: Interaction): Action;
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
@@ -30,7 +30,7 @@ declare namespace GoogleAppsScript {
          */
         enum Interaction {
             INTERACTION_UNSPECIFIED,
-            OPEN_DIALOG
+            OPEN_DIALOG,
         }
 
         /**
