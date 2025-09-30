@@ -300,6 +300,11 @@ declare module "events" {
          * @since v13.6.0, v12.16.0
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
+        static on<T extends EventMap<T>, TName extends keyof T>(
+            emitter: EventEmitter<T>,
+            eventName: TName,
+            options?: StaticEventEmitterIteratorOptions,
+        ): NodeJS.AsyncIterator<T[TName]>;
         static on(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
