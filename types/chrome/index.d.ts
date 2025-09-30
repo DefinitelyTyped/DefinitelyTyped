@@ -7587,15 +7587,11 @@ declare namespace chrome {
 
         /**
          * Saves the content of the tab with given id as MHTML.
-         * @param callback Called when the MHTML has been generated.
-         * Parameter mhtmlData: The MHTML data as a Blob.
-         */
-        export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
-        /**
-         * Saves the content of the tab with given id as MHTML.
-         * @since Chrome 116 MV3
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
+        export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
     }
 
     ////////////////////
