@@ -5547,31 +5547,48 @@ function testFileSystemProvider() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/sessions/
+// https://developer.chrome.com/docs/extensions/reference/api/sessions
 function testSessions() {
-    const myMax = { maxResults: 1 };
-    chrome.sessions.getDevices(devices => {});
-    chrome.sessions.getDevices({}, devices => {});
-    chrome.sessions.getDevices(myMax, devices => {});
-    chrome.sessions.getRecentlyClosed(sessions => {});
-    chrome.sessions.getRecentlyClosed({}, sessions => {});
-    chrome.sessions.getRecentlyClosed(myMax, sessions => {});
-    chrome.sessions.restore(restoredSession => {});
-    chrome.sessions.restore("myString", restoredSession => {});
-    chrome.sessions.onChanged.addListener(() => {});
-}
+    chrome.sessions.MAX_SESSION_RESULTS === 25;
 
-// https://developer.chrome.com/docs/extensions/reference/sessions/
-async function testSessionsForPromise() {
-    const myMax = { maxResults: 1 };
-    await chrome.sessions.getDevices();
-    await chrome.sessions.getDevices({});
-    await chrome.sessions.getDevices(myMax);
-    await chrome.sessions.getRecentlyClosed();
-    await chrome.sessions.getRecentlyClosed({});
-    await chrome.sessions.getRecentlyClosed(myMax);
-    await chrome.sessions.restore();
-    await chrome.sessions.restore("myString");
+    const filter: chrome.sessions.Filter = { maxResults: 1 };
+
+    chrome.sessions.getDevices(); // $ExpectType Promise<Device[]>
+    chrome.sessions.getDevices(filter); // $ExpectType Promise<Device[]>
+    chrome.sessions.getDevices(([device]) => { // $ExpectType void
+        device.deviceName; // $ExpectType string
+        device.sessions; // $ExpectType Session[]
+    });
+    chrome.sessions.getDevices(filter, devices => { // $ExpectType void
+        devices; // $ExpectType Device[]
+    });
+    // @ts-expect-error
+    chrome.sessions.getDevices(() => {}).then(() => {});
+
+    chrome.sessions.getRecentlyClosed(); // $ExpectType Promise<Session[]>
+    chrome.sessions.getRecentlyClosed(filter); // $ExpectType Promise<Session[]>
+    chrome.sessions.getRecentlyClosed((sessions) => { // $ExpectType void
+        sessions; // $ExpectType Session[]
+    });
+    chrome.sessions.getRecentlyClosed(filter, sessions => { // $ExpectType void
+        sessions; // $ExpectType Session[]
+    });
+    // @ts-expect-error
+    chrome.sessions.getRecentlyClosed(() => {}).then(() => {});
+
+    const sessionId = "id";
+    chrome.sessions.restore(); // $ExpectType Promise<Session>
+    chrome.sessions.restore(sessionId); // $ExpectType Promise<Session>
+    chrome.sessions.restore((restoredSession) => { // $ExpectType void
+        restoredSession.lastModified; // $ExpectType number
+        restoredSession.tab; // $ExpectType Tab | undefined
+        restoredSession.window; // $ExpectType Window | undefined
+    });
+    chrome.sessions.restore(sessionId, (restoredSession) => { // $ExpectType void
+        restoredSession; // $ExpectType Session
+    });
+
+    checkChromeEvent(chrome.sessions.onChanged, () => void 0);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/sidePanel
