@@ -4285,9 +4285,16 @@ function testI18n() {
     chrome.i18n.getUILanguage(); // $ExpectType string
 }
 
-async function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
-    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
+// https://developer.chrome.com/docs/extensions/reference/api/pageCapture
+function testPageCapture() {
+    const details = { tabId: 0 };
+
+    chrome.pageCapture.saveAsMHTML(details); // $ExpectType Promise<Blob | undefined>
+    chrome.pageCapture.saveAsMHTML(details, (data) => { // $ExpectType void
+        data; // $ExpectType Blob | undefined
+    });
+    // @ts-expect-error
+    chrome.pageCapture.saveAsMHTML(details, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/downloads
