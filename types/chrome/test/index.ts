@@ -7254,111 +7254,64 @@ function testPrivacy() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/readingList
 function testReadingList() {
-    const {
-        addEntry,
-        query,
-        removeEntry,
-        updateEntry,
-        onEntryAdded,
-        onEntryRemoved,
-        onEntryUpdated,
-    } = chrome.readingList;
-
-    const testAddEntry = () => {
-        const entry = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
-
-        // @ts-expect-error
-        addEntry();
-
-        // @ts-expect-error
-        addEntry({});
-        addEntry(entry); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        addEntry({}, () => {});
-        addEntry(entry, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        addEntry(entry, () => {}).then(() => {});
+    const entry: chrome.readingList.AddEntryOptions = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    const testQuery = () => {
-        const info = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
+    chrome.readingList.addEntry(entry); // $ExpectType Promise<void>
+    chrome.readingList.addEntry(entry, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.addEntry(entry, () => {}).then(() => {});
 
-        // @ts-expect-error
-        query();
-
-        query({}); // $ExpectType Promise<ReadingListEntry[]>
-        query(info); // $ExpectType Promise<ReadingListEntry[]>
-
-        query({}, () => {}); // $ExpectType void
-        query(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        query(info, () => {}).then(() => {});
+    const queryInfo: chrome.readingList.QueryInfo = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    const testRemoveEntry = () => {
-        const info = {
-            url: "url",
-        };
+    chrome.readingList.query(queryInfo); // $ExpectType Promise<ReadingListEntry[]>
+    chrome.readingList.query(queryInfo, ([entry]) => { // $ExpectType void
+        entry; // $ExpectType ReadingListEntry
+        entry.creationTime; // $ExpectType number
+        entry.hasBeenRead; // $ExpectType boolean
+        entry.lastUpdateTime; // $ExpectType number
+        entry.title; // $ExpectType string
+        entry.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.readingList.query(queryInfo, () => {}).then(() => {});
 
-        // @ts-expect-error
-        removeEntry();
-
-        // @ts-expect-error
-        removeEntry({});
-        removeEntry(info); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        removeEntry({}, () => {});
-        removeEntry(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        removeEntry(info, () => {}).then(() => {});
+    const removeInfo: chrome.readingList.RemoveOptions = {
+        url: "url",
     };
 
-    const testUpdateEntry = () => {
-        const info = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
+    chrome.readingList.removeEntry(removeInfo); // $ExpectType Promise<void>
+    chrome.readingList.removeEntry(removeInfo, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.removeEntry(removeInfo, () => {}).then(() => {});
 
-        // @ts-expect-error
-        updateEntry();
-
-        // @ts-expect-error
-        updateEntry({});
-        updateEntry({ url: "url" }); // $ExpectType Promise<void>
-        updateEntry(info); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        updateEntry({}, () => {});
-        updateEntry({ url: "url" }, () => {}); // $ExpectType void
-        updateEntry(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        updateEntry(info, () => {}).then(() => {});
+    const updateInfo: chrome.readingList.UpdateEntryOptions = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    checkChromeEvent(onEntryAdded, (entry) => {
+    chrome.readingList.updateEntry(updateInfo); // $ExpectType Promise<void>
+    chrome.readingList.updateEntry(updateInfo, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.updateEntry(updateInfo, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.readingList.onEntryAdded, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 
-    checkChromeEvent(onEntryRemoved, (entry) => {
+    checkChromeEvent(chrome.readingList.onEntryRemoved, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 
-    checkChromeEvent(onEntryUpdated, (entry) => {
+    checkChromeEvent(chrome.readingList.onEntryUpdated, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 }
