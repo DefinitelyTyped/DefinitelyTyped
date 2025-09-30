@@ -8503,57 +8503,48 @@ declare namespace chrome {
 
         /**
          * Adds an entry to the reading list if it does not exist.
-         * @since Chrome 120, MV3
+         *
+         * Can return its result via Promise.
          * @param entry The entry to add to the reading list.
-         * @param callback
          */
         export function addEntry(entry: AddEntryOptions): Promise<void>;
         export function addEntry(entry: AddEntryOptions, callback: () => void): void;
 
         /**
          * Retrieves all entries that match the `QueryInfo` properties. Properties that are not provided will not be matched.
-         * @since Chrome 120, MV3
+         *
+         * Can return its result via Promise.
          * @param info The properties to search for.
-         * @param callback
          */
         export function query(info: QueryInfo): Promise<ReadingListEntry[]>;
         export function query(info: QueryInfo, callback: (entries: ReadingListEntry[]) => void): void;
 
         /**
          * Removes an entry from the reading list if it exists.
-         * @since Chrome 120, MV3
+         *
+         * Can return its result via Promise.
          * @param info The entry to remove from the reading list.
-         * @param callback
          */
         export function removeEntry(info: RemoveOptions): Promise<void>;
         export function removeEntry(info: RemoveOptions, callback: () => void): void;
 
         /**
          * Updates a reading list entry if it exists.
-         * @since Chrome 120, MV3
+         *
+         * Can return its result via Promise.
          * @param info The entry to update.
-         * @param callback
          */
         export function updateEntry(info: UpdateEntryOptions): Promise<void>;
         export function updateEntry(info: UpdateEntryOptions, callback: () => void): void;
 
-        /**
-         * Triggered when a ReadingListEntry is added to the reading list.
-         * @since Chrome 120, MV3
-         */
-        export const onEntryAdded: chrome.events.Event<(entry: ReadingListEntry) => void>;
+        /** Triggered when a `ReadingListEntry` is added to the reading list. */
+        export const onEntryAdded: events.Event<(entry: ReadingListEntry) => void>;
 
-        /**
-         * Triggered when a ReadingListEntry is removed from the reading list.
-         * @since Chrome 120, MV3
-         */
-        export const onEntryRemoved: chrome.events.Event<(entry: ReadingListEntry) => void>;
+        /** Triggered when a `ReadingListEntry` is removed from the reading list. */
+        export const onEntryRemoved: events.Event<(entry: ReadingListEntry) => void>;
 
-        /**
-         * Triggered when a ReadingListEntry is updated in the reading list.
-         * @since Chrome 120, MV3
-         */
-        export const onEntryUpdated: chrome.events.Event<(entry: ReadingListEntry) => void>;
+        /** Triggered when a `ReadingListEntry` is updated in the reading list. */
+        export const onEntryUpdated: events.Event<(entry: ReadingListEntry) => void>;
     }
 
     ////////////////////
