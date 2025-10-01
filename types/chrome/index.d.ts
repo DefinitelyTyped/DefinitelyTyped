@@ -10011,7 +10011,7 @@ declare namespace chrome {
      * Permissions: "system.cpu"
      */
     export namespace system.cpu {
-        export interface ProcessorUsage {
+        export interface CpuTime {
             /** The cumulative time used by userspace programs on this processor. */
             user: number;
             /** The cumulative time used by kernel programs on this processor. */
@@ -10024,7 +10024,7 @@ declare namespace chrome {
 
         export interface ProcessorInfo {
             /** Cumulative usage info for this logical processor. */
-            usage: ProcessorUsage;
+            usage: CpuTime;
         }
 
         export interface CpuInfo {
@@ -10041,16 +10041,20 @@ declare namespace chrome {
             features: string[];
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
+            /**
+             * List of CPU temperature readings from each thermal zone of the CPU. Temperatures are in degrees Celsius.
+             * @since Chrome 60
+             */
+            temperatures: number[];
         }
-
-        /** Queries basic CPU information of the system. */
-        export function getInfo(callback: (info: CpuInfo) => void): void;
 
         /**
          * Queries basic CPU information of the system.
-         * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function getInfo(): Promise<CpuInfo>;
+        export function getInfo(callback: (info: CpuInfo) => void): void;
     }
 
     ////////////////////
