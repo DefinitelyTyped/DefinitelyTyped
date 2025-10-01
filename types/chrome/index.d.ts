@@ -14103,27 +14103,26 @@ declare namespace chrome {
              * If specified, the side panel options for the given tab will be returned.
              * Otherwise, returns the default side panel options (used for any tab that doesn't have specific settings).
              */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
-        /**
-         * @since Chrome 116
-         */
+        /** @since Chrome 116 */
         export type OpenOptions =
             & {
-                /** The tab in which to open the side panel.
+                /**
+                 * The tab in which to open the side panel.
                  * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
                  * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
                  * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
-                 * At least one of this and windowId must be provided. */
-                tabId?: number;
+                 * At least one of this and `windowId` must be provided. */
+                tabId?: number | undefined;
                 /**
                  * The window in which to open the side panel.
-                 * This is only applicable if the extension has a global (non-tab-specific) side panel or tabId is also specified.
+                 * This is only applicable if the extension has a global (non-tab-specific) side panel or `tabId` is also specified.
                  * This will override any currently-active global side panel the user has open in the given window.
-                 * At least one of this and tabId must be provided.
+                 * At least one of this and `tabId` must be provided.
                  */
-                windowId?: number;
+                windowId?: number | undefined;
             }
             & ({
                 tabId: number;
@@ -14133,7 +14132,7 @@ declare namespace chrome {
 
         export interface PanelBehavior {
             /** Whether clicking the extension's icon will toggle showing the extension's entry in the side panel. Defaults to false. */
-            openPanelOnActionClick?: boolean;
+            openPanelOnActionClick?: boolean | undefined;
         }
 
         /** @since Chrome 140 */
@@ -14143,15 +14142,15 @@ declare namespace chrome {
 
         export interface PanelOptions {
             /** Whether the side panel should be enabled. This is optional. The default value is true. */
-            enabled?: boolean;
+            enabled?: boolean | undefined;
             /** The path to the side panel HTML file to use. This must be a local resource within the extension package. */
-            path?: string;
+            path?: string | undefined;
             /**
              * If specified, the side panel options will only apply to the tab with this id.
              * If omitted, these options set the default behavior (used for any tab that doesn't have specific settings).
              * Note: if the same path is set for this tabId and the default tabId, then the panel for this tabId will be a different instance than the panel for the default tabId.
              */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
         /**
@@ -14177,84 +14176,48 @@ declare namespace chrome {
 
         /**
          * Returns the active panel configuration.
-         * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
-         * You cannot use both on the same function call.
-         * The promise resolves with the same type that is passed to the callback.
+         *
+         * Can return its result via Promise.
+         * @param options Specifies the context to return the configuration for.
          */
-        export function getOptions(
-            /** Specifies the context to return the configuration for. */
-            options: GetPanelOptions,
-            callback: (options: PanelOptions) => void,
-        ): void;
-
-        export function getOptions(
-            /** Specifies the context to return the configuration for. */
-            options: GetPanelOptions,
-        ): Promise<PanelOptions>;
+        export function getOptions(options: GetPanelOptions): Promise<PanelOptions>;
+        export function getOptions(options: GetPanelOptions, callback: (options: PanelOptions) => void): void;
 
         /**
          * Returns the extension's current side panel behavior.
-         * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
-         * You cannot use both on the same function call.
-         * The promise resolves with the same type that is passed to the callback.
+         *
+         * Can return its result via Promise.
          */
-        export function getPanelBehavior(
-            callback: (behavior: PanelBehavior) => void,
-        ): void;
-
         export function getPanelBehavior(): Promise<PanelBehavior>;
+        export function getPanelBehavior(callback: (behavior: PanelBehavior) => void): void;
 
         /**
-         * @since Chrome 116
          * Opens the side panel for the extension. This may only be called in response to a user action.
-         * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
-         * You cannot use both on the same function call.
-         * The promise resolves with the same type that is passed to the callback.
+         *
+         * Can return its result via Promise.
+         * @param options Specifies the context in which to open the side panel.
+         * @since Chrome 116
          */
-        export function open(
-            /** Specifies the context in which to open the side panel. */
-            options: OpenOptions,
-            callback: () => void,
-        ): void;
-
-        export function open(
-            /** Specifies the context in which to open the side panel. */
-            options: OpenOptions,
-        ): Promise<void>;
+        export function open(options: OpenOptions): Promise<void>;
+        export function open(options: OpenOptions, callback: () => void): void;
 
         /**
          * Configures the side panel.
-         * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
-         * You cannot use both on the same function call.
-         * The promise resolves with the same type that is passed to the callback.
+         *
+         * Can return its result via Promise.
+         * @param options The configuration options to apply to the panel.
          */
-        export function setOptions(
-            /** The configuration options to apply to the panel. */
-            options: PanelOptions,
-            callback: () => void,
-        ): void;
-
-        export function setOptions(
-            /** The configuration options to apply to the panel. */
-            options: PanelOptions,
-        ): Promise<void>;
+        export function setOptions(options: PanelOptions): Promise<void>;
+        export function setOptions(options: PanelOptions, callback: () => void): void;
 
         /**
          * Configures the extension's side panel behavior. This is an upsert operation.
-         * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
-         * You cannot use both on the same function call.
-         * The promise resolves with the same type that is passed to the callback.
+         *
+         * Can return its result via Promise.
+         * @param behavior The new behavior to be set.
          */
-        export function setPanelBehavior(
-            /** The new behavior to be set. */
-            behavior: PanelBehavior,
-            callback: () => void,
-        ): void;
-
-        export function setPanelBehavior(
-            /** The new behavior to be set. */
-            behavior: PanelBehavior,
-        ): Promise<void>;
+        export function setPanelBehavior(behavior: PanelBehavior): Promise<void>;
+        export function setPanelBehavior(behavior: PanelBehavior, callback: () => void): void;
     }
 
     ////////////////////

@@ -5600,6 +5600,9 @@ function testSessions() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/sidePanel
 function testSidePanel() {
+    chrome.sidePanel.Side.LEFT === "left";
+    chrome.sidePanel.Side.RIGHT === "right";
+
     chrome.sidePanel.getLayout(); // $ExpectType Promise<PanelLayout>
     chrome.sidePanel.getLayout((layout) => { // $ExpectType void
         layout.side; // $ExpectType "left" | "right"
@@ -5607,94 +5610,65 @@ function testSidePanel() {
     // @ts-expect-error
     chrome.sidePanel.getLayout(() => {}).then(() => {});
 
-    let getPanelOptions: chrome.sidePanel.GetPanelOptions = {
+    const getPanelOptions: chrome.sidePanel.GetPanelOptions = {
         tabId: 123,
     };
 
-    chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
-        console.log("Using callback:");
-        console.log(options.enabled);
-        console.log(options.path);
-        console.log(options.tabId);
+    chrome.sidePanel.getOptions(getPanelOptions); // $ExpectType Promise<PanelOptions>
+    chrome.sidePanel.getOptions(getPanelOptions, (options) => { // $ExpectType void
+        options.enabled; // $ExpectType boolean | undefined
+        options.path; // $ExpectType string | undefined
+        options.tabId; // $ExpectType number | undefined
     });
+    // @ts-expect-error
+    chrome.sidePanel.getOptions(getPanelOptions, () => {}).then(() => {});
 
-    chrome.sidePanel.getOptions(getPanelOptions).then((options: chrome.sidePanel.PanelOptions) => {
-        console.log("Using promise:");
-        console.log(options.enabled);
-        console.log(options.path);
-        console.log(options.tabId);
+    chrome.sidePanel.getPanelBehavior(); // $ExpectType Promise<PanelBehavior>
+    chrome.sidePanel.getPanelBehavior((behavior) => { // $ExpectType void
+        behavior.openPanelOnActionClick; // $ExpectType boolean | undefined
     });
+    // @ts-expect-error
+    chrome.sidePanel.getPanelBehavior(() => {}).then(() => {});
 
-    chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
-        console.log("Using callback:", behavior.openPanelOnActionClick);
-    });
-
-    chrome.sidePanel.getPanelBehavior().then((behavior) => {
-        console.log("Using promise:", behavior.openPanelOnActionClick);
-    });
-
-    let openOptionsTab: chrome.sidePanel.OpenOptions = {
+    const openOptionsTab: chrome.sidePanel.OpenOptions = {
         tabId: 1234567890,
     };
 
-    let openOptionsWindow: chrome.sidePanel.OpenOptions = {
+    const openOptionsWindow: chrome.sidePanel.OpenOptions = {
         windowId: 9876543210,
     };
 
-    let openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
+    const openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
         tabId: 1234567890,
         windowId: 9876543210,
     };
 
-    chrome.sidePanel.open(openOptionsTab, () => {
-        console.log("Side panel opened in tab using callback");
-    });
+    chrome.sidePanel.open(openOptionsTab); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsWindow); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsTabAndWindow); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsTab, () => void 0); // $ExpectType void
+    chrome.sidePanel.open(openOptionsWindow, () => void 0); // $ExpectType void
+    chrome.sidePanel.open(openOptionsTabAndWindow, () => void 0); // $ExpectType void
 
-    chrome.sidePanel.open(openOptionsTab).then(() => {
-        console.log("Side panel opened in tab using promise");
-    });
-
-    chrome.sidePanel.open(openOptionsWindow, () => {
-        console.log("Side panel opened in window using callback");
-    });
-
-    chrome.sidePanel.open(openOptionsWindow).then(() => {
-        console.log("Side panel opened in window using promise");
-    });
-
-    chrome.sidePanel.open(openOptionsTabAndWindow, () => {
-        console.log("Side panel opened in tab in window using callback");
-    });
-
-    chrome.sidePanel.open(openOptionsTabAndWindow).then(() => {
-        console.log("Side panel opened in tab in window using promise");
-    });
-
-    let setPanelOptions: chrome.sidePanel.PanelOptions = {
+    const setPanelOptions: chrome.sidePanel.PanelOptions = {
         enabled: true,
         path: "path/to/sidePanel.html",
         tabId: 123,
     };
 
-    chrome.sidePanel.setOptions(setPanelOptions, () => {
-        console.log("Options set successfully using callback.");
-    });
+    chrome.sidePanel.setOptions(setPanelOptions); // $ExpectType Promise<void>
+    chrome.sidePanel.setOptions(setPanelOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.sidePanel.setOptions(setPanelOptions, () => {}).then(() => {});
 
-    chrome.sidePanel.setOptions(setPanelOptions).then(() => {
-        console.log("Options set successfully using promise.");
-    });
-
-    let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
+    const setPanelBehavior: chrome.sidePanel.PanelBehavior = {
         openPanelOnActionClick: true,
     };
 
-    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
-        console.log("Behavior set successfully using callback.");
-    });
-
-    chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
-        console.log("Behavior set successfully using promise.");
-    });
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior); // $ExpectType Promise<void>
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/instanceID
