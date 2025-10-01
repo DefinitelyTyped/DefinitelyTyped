@@ -7140,6 +7140,12 @@ interface GPUPipelineError extends DOMException {
 }
 
 /** @category GPU */
+declare var GPUPipelineError: {
+    prototype: GPUPipelineError;
+    new(message: string, options: GPUPipelineErrorInit): GPUPipelineError;
+};
+
+/** @category GPU */
 interface GPUPipelineErrorInit {
     reason: "validation" | "internal";
 }
@@ -7969,13 +7975,37 @@ interface GPUError {
 }
 
 /** @category GPU */
+declare var GPUError: {
+    prototype: GPUError;
+    new(): GPUError;
+};
+
+/** @category GPU */
 interface GPUOutOfMemoryError extends GPUError {}
+
+/** @category GPU */
+declare var GPUOutOfMemoryError: {
+    prototype: GPUOutOfMemoryError;
+    new(message?: string): GPUOutOfMemoryError;
+};
 
 /** @category GPU */
 interface GPUValidationError extends GPUError {}
 
 /** @category GPU */
+declare var GPUValidationError: {
+    prototype: GPUValidationError;
+    new(message?: string): GPUValidationError;
+};
+
+/** @category GPU */
 interface GPUInternalError extends GPUError {}
+
+/** @category GPU */
+declare var GPUInternalError: {
+    prototype: GPUInternalError;
+    new(message?: string): GPUInternalError;
+};
 
 /** @category GPU */
 type GPUErrorFilter = "out-of-memory" | "validation" | "internal";
