@@ -27,19 +27,55 @@ declare global {
 import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
 
-export type BootstrapScriptDescriptor = {
+/**
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap Import maps}
+ */
+// TODO: Ideally TypeScripts standard library would include this type.
+// Until then we keep the prefixed one for future compatibility.
+export interface ReactImportMap {
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#imports `imports` reference}
+     */
+    imports?: {
+        [specifier: string]: string;
+    } | undefined;
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#integrity `integrity` reference}
+     */
+    integrity?: {
+        [moduleURL: string]: string;
+    } | undefined;
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#scopes `scopes` reference}
+     */
+    scopes?: {
+        [scope: string]: {
+            [specifier: string]: string;
+        };
+    } | undefined;
+}
+
+export interface BootstrapScriptDescriptor {
     src: string;
     integrity?: string | undefined;
     crossOrigin?: string | undefined;
-};
+}
 
 export interface PrerenderOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
     identifierPrefix?: string;
+    importMap?: ImportMap | undefined;
     namespaceURI?: string;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    onHeaders?: (headers: Headers) => void | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
 }
