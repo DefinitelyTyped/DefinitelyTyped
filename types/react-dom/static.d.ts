@@ -26,6 +26,17 @@ declare global {
 
 import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
+export {};
+
+declare const POSTPONED_STATE_SIGIL: unique symbol;
+
+/**
+ * This is an opaque type i.e. users should not make any assumptions about its structure.
+ * It is JSON-serializeable to be a able to store it and retrvieve later for use with {@link https://react.dev/reference/react-dom/server/resume `resume`}.
+ */
+export interface PostponedState {
+    [POSTPONED_STATE_SIGIL]: never;
+}
 
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap Import maps}
@@ -72,7 +83,7 @@ export interface PrerenderOptions {
      */
     headersLengthHint?: number | undefined;
     identifierPrefix?: string;
-    importMap?: ImportMap | undefined;
+    importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     onHeaders?: (headers: Headers) => void | undefined;
@@ -81,6 +92,7 @@ export interface PrerenderOptions {
 }
 
 export interface PrerenderResult {
+    postponed: null | PostponedState;
     prelude: ReadableStream<Uint8Array>;
 }
 
@@ -96,6 +108,7 @@ export function prerender(
 
 export interface PrerenderToNodeStreamResult {
     prelude: NodeJS.ReadableStream;
+    postponed: null | PostponedState;
 }
 
 /**
@@ -109,6 +122,32 @@ export interface PrerenderToNodeStreamResult {
 export function prerenderToNodeStream(
     reactNode: ReactNode,
     options?: PrerenderOptions,
+): Promise<PrerenderToNodeStreamResult>;
+
+export interface ResumeOptions {
+    nonce?: string;
+    signal?: AbortSignal;
+    onError?: (error: unknown) => string | undefined | void;
+}
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/static/resumeAndPrerender `resumeAndPrerender` reference documentation}
+ * @version 19.2
+ */
+export function resumeAndPrerender(
+    children: React.ReactNode,
+    postponedState: null | PostponedState,
+    options?: Omit<ResumeOptions, "nonce">,
+): Promise<PrerenderResult>;
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/static/resumeAndPrerenderToNodeStream `resumeAndPrerenderToNodeStream`` reference documentation}
+ * @version 19.2
+ */
+export function resumeAndPrerenderToNodeStream(
+    children: React.ReactNode,
+    postponedState: null | PostponedState,
+    options?: Omit<ResumeOptions, "nonce">,
 ): Promise<PrerenderToNodeStreamResult>;
 
 export const version: string;

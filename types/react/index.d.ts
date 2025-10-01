@@ -1774,6 +1774,12 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useEffect}
      */
     function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    /**
+     * @see {@link https://react.dev/reference/react/useEffectEvent `useEffectEvent()` documentation}
+     * @version 19.2.0
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function useEffectEvent<T extends Function>(callback: T): T;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -1938,10 +1944,39 @@ declare namespace React {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
+    export interface CacheSignal {}
+    /**
+     * @version 19.2.0
+     */
+    export function cacheSignal(): null | CacheSignal;
+
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    /**
+     * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
+     * @version 19.2.0
+     */
+    export const Activity: ExoticComponent<ActivityProps>;
+
     /**
      * Warning: Only available in development builds.
      *
      * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     * @version 19.1.0
      */
     function captureOwnerStack(): string | null;
 
