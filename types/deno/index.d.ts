@@ -7969,19 +7969,13 @@ interface GPUError {
 }
 
 /** @category GPU */
-declare class GPUOutOfMemoryError extends GPUError {
-    constructor(message: string);
-}
+interface GPUOutOfMemoryError extends GPUError {}
 
 /** @category GPU */
-declare class GPUValidationError extends GPUError {
-    constructor(message: string);
-}
+interface GPUValidationError extends GPUError {}
 
 /** @category GPU */
-declare class GPUInternalError extends GPUError {
-    constructor(message: string);
-}
+interface GPUInternalError extends GPUError {}
 
 /** @category GPU */
 type GPUErrorFilter = "out-of-memory" | "validation" | "internal";
@@ -9185,6 +9179,8 @@ declare namespace Deno {
             success: boolean;
             outputFiles?: OutputFile[];
         }
+
+        export {}; // only export exports
     }
 
     /** **UNSTABLE**: New API, yet to be vetted.
