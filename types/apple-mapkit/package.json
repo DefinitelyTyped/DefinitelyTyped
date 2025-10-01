@@ -15,8 +15,16 @@
     },
     "owners": [
         {
-            "name": "Apple",
-            "githubUsername": "apple"
+            "name": "Timothy Chien",
+            "githubUsername": "timdream"
+        },
+        {
+            "name": "Nikita Domin",
+            "githubUsername": "n1kk"
+        },
+        {
+            "name": "Apple Inc",
+            "url": "https://apple.com"
         }
     ]
 }
