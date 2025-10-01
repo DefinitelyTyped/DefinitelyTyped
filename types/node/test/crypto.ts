@@ -1753,12 +1753,6 @@ import { promisify } from "node:util";
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));
-    crypto.webcrypto.CryptoKey.name;
-    crypto.webcrypto.CryptoKey.length;
-    crypto.webcrypto.CryptoKey.prototype;
-    crypto.webcrypto.CryptoKey.toString();
-    // @ts-expect-error
-    new crypto.webcrypto.CryptoKey(); // Illegal constructor
 
     crypto.webcrypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
         (out) => {

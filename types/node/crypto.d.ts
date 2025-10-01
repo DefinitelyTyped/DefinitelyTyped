@@ -4540,15 +4540,6 @@ declare module "crypto" {
              * @since v16.7.0
              */
             randomUUID(): UUID;
-            CryptoKey: CryptoKeyConstructor;
-        }
-        // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.
-        interface CryptoKeyConstructor {
-            /** Illegal constructor */
-            (_: { readonly _: unique symbol }): never; // Allows instanceof to work but not be callable by the user.
-            readonly length: 0;
-            readonly name: "CryptoKey";
-            readonly prototype: CryptoKey;
         }
         /**
          * @since v15.0.0
@@ -4915,14 +4906,6 @@ declare module "crypto" {
                 wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
             ): Promise<ArrayBuffer>;
         }
-    }
-
-    global {
-        var crypto: typeof globalThis extends {
-            crypto: infer T;
-            onmessage: any;
-        } ? T
-            : webcrypto.Crypto;
     }
 }
 declare module "node:crypto" {
