@@ -1021,7 +1021,8 @@ declare module "url" {
         interface URLPatternResult extends _URLPatternResult {}
         interface URLPattern extends _URLPattern {}
         var URLPattern: typeof globalThis extends {
-            ViewTimeline: any; // Must be a var introduced at the same time as URLPattern.
+            onmessage: any;
+            scheduler: any; // Must be a var introduced at the same time as URLPattern.
             URLPattern: infer T;
         } ? T
             : typeof _URLPattern;
