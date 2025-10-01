@@ -770,8 +770,8 @@ declare module "url" {
         toJSON(): string;
     }
     interface URLPatternComponentResult {
-        input?: string;
-        groups?: Record<string, string | undefined>;
+        input: string;
+        groups: Record<string, string | undefined>;
     }
     interface URLPatternInit {
         protocol?: string;
@@ -788,15 +788,15 @@ declare module "url" {
         ignoreCase?: boolean;
     }
     interface URLPatternResult {
-        inputs?: (string | URLPatternInit)[];
-        protocol?: URLPatternComponentResult;
-        username?: URLPatternComponentResult;
-        password?: URLPatternComponentResult;
-        hostname?: URLPatternComponentResult;
-        port?: URLPatternComponentResult;
-        pathname?: URLPatternComponentResult;
-        search?: URLPatternComponentResult;
-        hash?: URLPatternComponentResult;
+        inputs: (string | URLPatternInit)[];
+        protocol: URLPatternComponentResult;
+        username: URLPatternComponentResult;
+        password: URLPatternComponentResult;
+        hostname: URLPatternComponentResult;
+        port: URLPatternComponentResult;
+        pathname: URLPatternComponentResult;
+        search: URLPatternComponentResult;
+        hash: URLPatternComponentResult;
     }
     /**
      * @since v23.8.0
