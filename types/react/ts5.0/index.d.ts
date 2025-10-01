@@ -1126,7 +1126,8 @@ declare namespace React {
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
         new(
-            props: P, /**
+            props: P,
+            /**
              * Value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
              * in `contextType`.
              */
