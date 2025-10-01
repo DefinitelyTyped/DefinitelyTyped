@@ -2538,9 +2538,24 @@ async function testScripting() {
     chrome.scripting.updateContentScripts([], () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/system_cpu
-async function testSystemCpuForPromise() {
-    await chrome.system.cpu.getInfo();
+// https://developer.chrome.com/docs/extensions/reference/api/system/cpu
+async function testSystemCpu() {
+    chrome.system.cpu.getInfo(); // $ExpectType Promise<CpuInfo>
+    chrome.system.cpu.getInfo((info) => { // $ExpectType void
+        info.archName; // $ExpectType string
+        info.features; // $ExpectType string[]
+        info.modelName; // $ExpectType string
+        info.numOfProcessors; // $ExpectType number
+        info.processors; // $ExpectType ProcessorInfo[]
+        info.processors[0].usage; // $ExpectType CpuTime
+        info.processors[0].usage.idle; // $ExpectType number
+        info.processors[0].usage.kernel; // $ExpectType number
+        info.processors[0].usage.total; // $ExpectType number
+        info.processors[0].usage.user; // $ExpectType number
+        info.temperatures; // $ExpectType number[]
+    });
+    // @ts-expect-error
+    chrome.system.cpu.getInfo(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_storage
