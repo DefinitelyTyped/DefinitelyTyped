@@ -10069,14 +10069,13 @@ declare namespace chrome {
             availableCapacity: number;
         }
 
-        /** Get physical memory information. */
-        export function getInfo(callback: (info: MemoryInfo) => void): void;
-
         /**
          * Get physical memory information.
-         * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
         export function getInfo(): Promise<MemoryInfo>;
+        export function getInfo(callback: (info: MemoryInfo) => void): void;
     }
 
     ////////////////////
