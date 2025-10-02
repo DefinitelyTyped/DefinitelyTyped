@@ -4533,7 +4533,7 @@ declare module "crypto" {
              * An error will be thrown if the given `typedArray` is larger than 65,536 bytes.
              * @since v15.0.0
              */
-            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float32Array | Float64Array>>(typedArray: T): T;
+            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float16Array | Float32Array | Float64Array>>(typedArray: T): T;
             /**
              * Generates a random {@link https://www.rfc-editor.org/rfc/rfc4122.txt RFC 4122} version 4 UUID.
              * The UUID is generated using a cryptographic pseudorandom number generator.
