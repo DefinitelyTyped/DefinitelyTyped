@@ -1020,7 +1020,12 @@ declare module "url" {
         interface URLPatternInit extends _URLPatternInit {}
         interface URLPatternResult extends _URLPatternResult {}
         interface URLPattern extends _URLPattern {}
-        var URLPattern: typeof _URLPattern;
+        var URLPattern: typeof globalThis extends {
+            onmessage: any;
+            scheduler: any; // Must be a var introduced at the same time as URLPattern.
+            URLPattern: infer T;
+        } ? T
+            : typeof _URLPattern;
     }
 }
 declare module "node:url" {
