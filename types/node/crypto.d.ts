@@ -4383,21 +4383,30 @@ declare module "crypto" {
     const webcrypto: webcrypto.Crypto;
     namespace webcrypto {
         type BufferSource = ArrayBufferView | ArrayBuffer;
-        type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
+        type KeyFormat = "jwk" | "pkcs8" | "raw" | "raw-public" | "raw-secret" | "raw-seed" | "spki";
         type KeyType = "private" | "public" | "secret";
         type KeyUsage =
-            | "decrypt"
-            | "deriveBits"
-            | "deriveKey"
             | "encrypt"
+            | "decrypt"
             | "sign"
-            | "unwrapKey"
             | "verify"
-            | "wrapKey";
+            | "deriveKey"
+            | "deriveBits"
+            | "encapsulateBits"
+            | "decapsulateBits"
+            | "encapsulateKey"
+            | "decapsulateKey"
+            | "wrapKey"
+            | "unwrapKey";
         type AlgorithmIdentifier = Algorithm | string;
         type HashAlgorithmIdentifier = AlgorithmIdentifier;
         type NamedCurve = string;
         type BigInteger = Uint8Array;
+        interface AeadParams extends Algorithm {
+            additionalData?: BufferSource;
+            iv: BufferSource;
+            tagLength: number;
+        }
         interface AesCbcParams extends Algorithm {
             iv: BufferSource;
         }
@@ -4408,6 +4417,8 @@ declare module "crypto" {
         interface AesDerivedKeyParams extends Algorithm {
             length: number;
         }
+        // TODO: remove in next major
+        /** @deprecated Replaced by `AeadParams`. */
         interface AesGcmParams extends Algorithm {
             additionalData?: BufferSource;
             iv: BufferSource;
@@ -4421,6 +4432,14 @@ declare module "crypto" {
         }
         interface Algorithm {
             name: string;
+        }
+        interface CShakeParams extends Algorithm {
+            customization?: BufferSource;
+            functionName?: BufferSource;
+            length: number;
+        }
+        interface ContextParams extends Algorithm {
+            context?: BufferSource;
         }
         interface EcKeyAlgorithm extends KeyAlgorithm {
             namedCurve: NamedCurve;
@@ -4533,7 +4552,9 @@ declare module "crypto" {
              * An error will be thrown if the given `typedArray` is larger than 65,536 bytes.
              * @since v15.0.0
              */
-            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float16Array | Float32Array | Float64Array>>(typedArray: T): T;
+            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float16Array | Float32Array | Float64Array>>(
+                typedArray: T,
+            ): T;
             /**
              * Generates a random {@link https://www.rfc-editor.org/rfc/rfc4122.txt RFC 4122} version 4 UUID.
              * The UUID is generated using a cryptographic pseudorandom number generator.
@@ -4594,10 +4615,50 @@ declare module "crypto" {
              */
             publicKey: CryptoKey;
         }
+        interface EncapsulatedBits {
+            sharedKey: ArrayBuffer;
+            ciphertext: ArrayBuffer;
+        }
+        interface EncapsulatedKey {
+            sharedKey: CryptoKey;
+            ciphertext: ArrayBuffer;
+        }
         /**
          * @since v15.0.0
          */
         interface SubtleCrypto {
+            /**
+             * The algorithms currently supported include:
+             *
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * @since v24.7.0
+             * @returns Fulfills with `ArrayBuffer` upon success.
+             */
+            decapsulateBits(
+                decapsulationAlgorithm: AlgorithmIdentifier,
+                decapsulationKey: CryptoKey,
+                ciphertext: BufferSource,
+            ): Promise<ArrayBuffer>;
+            /**
+             * The algorithms currently supported include:
+             *
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * @since v24.7.0
+             * @param usages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @returns Fulfills with `CryptoKey` upon success.
+             */
+            decapsulateKey(
+                decapsulationAlgorithm: AlgorithmIdentifier,
+                decapsulationKey: CryptoKey,
+                ciphertext: BufferSource,
+                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
+                extractable: boolean,
+                usages: KeyUsage[],
+            ): Promise<CryptoKey>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
              * `subtle.decrypt()` attempts to decipher the provided `data`. If successful,
@@ -4605,14 +4666,16 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'RSA-OAEP'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'RSA-OAEP'`
              * @since v15.0.0
              */
             decrypt(
-                algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
+                algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
                 data: BufferSource,
             ): Promise<ArrayBuffer>;
@@ -4626,11 +4689,11 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'ECDH'`
-             * - `'X25519'`
-             * - `'X448'`
-             * - `'HKDF'`
-             * - `'PBKDF2'`
+             * * `'ECDH'`
+             * * `'HKDF'`
+             * * `'PBKDF2'`
+             * * `'X25519'`
+             * * `'X448'`
              * @since v15.0.0
              */
             deriveBits(
@@ -4652,11 +4715,11 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'ECDH'`
-             * - `'X25519'`
-             * - `'X448'`
-             * - `'HKDF'`
-             * - `'PBKDF2'`
+             * * `'ECDH'`
+             * * `'HKDF'`
+             * * `'PBKDF2'`
+             * * `'X25519'`
+             * * `'X448'`
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
              * @since v15.0.0
              */
@@ -4673,15 +4736,50 @@ declare module "crypto" {
              *
              * If `algorithm` is provided as a `<string>`, it must be one of:
              *
-             * - `'SHA-1'`
-             * - `'SHA-256'`
-             * - `'SHA-384'`
-             * - `'SHA-512'`
+             * * `'cSHAKE128'`
+             * * `'cSHAKE256'`
+             * * `'SHA-1'`
+             * * `'SHA-256'`
+             * * `'SHA-384'`
+             * * `'SHA-512'`
+             * * `'SHA3-256'`
+             * * `'SHA3-384'`
+             * * `'SHA3-512'`
              *
              * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
              * @since v15.0.0
              */
-            digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
+            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: BufferSource): Promise<ArrayBuffer>;
+            /**
+             * The algorithms currently supported include:
+             *
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * @since v24.7.0
+             * @returns Fulfills with `EncapsulatedBits` upon success.
+             */
+            encapsulateBits(
+                encapsulationAlgorithm: AlgorithmIdentifier,
+                encapsulationKey: CryptoKey,
+            ): Promise<EncapsulatedBits>;
+            /**
+             * The algorithms currently supported include:
+             *
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * @since v24.7.0
+             * @param usages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @returns Fulfills with `EncapsulatedKey` upon success.
+             */
+            encapsulateKey(
+                encapsulationAlgorithm: AlgorithmIdentifier,
+                encapsulationKey: CryptoKey,
+                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
+                extractable: boolean,
+                usages: KeyUsage[],
+            ): Promise<EncapsulatedKey>;
             /**
              * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
              * `subtle.encrypt()` attempts to encipher `data`. If successful,
@@ -4689,14 +4787,16 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'RSA-OAEP'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'RSA-OAEP'`
              * @since v15.0.0
              */
             encrypt(
-                algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
+                algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
                 data: BufferSource,
             ): Promise<ArrayBuffer>;
@@ -4710,35 +4810,45 @@ declare module "crypto" {
              *
              * When `format` is `'jwk'` and the export is successful, the returned promise will be resolved with a
              * JavaScript object conforming to the {@link https://tools.ietf.org/html/rfc7517 JSON Web Key} specification.
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
+             * `'raw-public'`, or `'raw-seed'`.
              * @returns `<Promise>` containing `<ArrayBuffer>`.
              * @since v15.0.0
              */
             exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
             exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
             /**
-             * Using the method and parameters provided in `algorithm`,
-             * `subtle.generateKey()` attempts to generate new keying material.
-             * Depending the method used, the method may generate either a single `<CryptoKey>` or a `<CryptoKeyPair>`.
+             * Using the method and parameters provided in `algorithm`, `subtle.generateKey()`
+             * attempts to generate new keying material. Depending the method used, the method
+             * may generate either a single `CryptoKey` or a `CryptoKeyPair`.
              *
-             * The `<CryptoKeyPair>` (public and private key) generating algorithms supported include:
+             * The `CryptoKeyPair` (public and private key) generating algorithms supported
+             * include:
              *
-             * - `'RSASSA-PKCS1-v1_5'`
-             * - `'RSA-PSS'`
-             * - `'RSA-OAEP'`
-             * - `'ECDSA'`
-             * - `'Ed25519'`
-             * - `'Ed448'`
-             * - `'ECDH'`
-             * - `'X25519'`
-             * - `'X448'`
-             * The `<CryptoKey>` (secret key) generating algorithms supported include:
+             * * `'ECDH'`
+             * * `'ECDSA'`
+             * * `'Ed25519'`
+             * * `'Ed448'`
+             * * `'ML-DSA-44'`
+             * * `'ML-DSA-65'`
+             * * `'ML-DSA-87'`
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * * `'RSA-OAEP'`
+             * * `'RSA-PSS'`
+             * * `'RSASSA-PKCS1-v1_5'`
+             * * `'X25519'`
+             * * `'X448'`
              *
-             * - `'HMAC'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
-             * - `'AES-KW'`
+             * The {CryptoKey} (secret key) generating algorithms supported include:
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-KW'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'HMAC'`
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
              * @since v15.0.0
              */
@@ -4758,12 +4868,21 @@ declare module "crypto" {
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKeyPair | CryptoKey>;
             /**
+             * Derives the public key from a given private key.
+             * @since v24.7.0
+             * @param key A private key from which to derive the corresponding public key.
+             * @param keyUsages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @returns Fulfills with a `CryptoKey` upon success.
+             */
+            getPublicKey(key: CryptoKey, keyUsages: KeyUsage[]): Promise<CryptoKey>;
+            /**
              * The `subtle.importKey()` method attempts to interpret the provided `keyData` as the given `format`
              * to create a `<CryptoKey>` instance using the provided `algorithm`, `extractable`, and `keyUsages` arguments.
              * If the import is successful, the returned promise will be resolved with the created `<CryptoKey>`.
              *
              * If importing a `'PBKDF2'` key, `extractable` must be `false`.
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
+             * `'raw-public'`, or `'raw-seed'`.
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
              * @since v15.0.0
              */
@@ -4798,16 +4917,19 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'RSASSA-PKCS1-v1_5'`
-             * - `'RSA-PSS'`
-             * - `'ECDSA'`
-             * - `'Ed25519'`
-             * - `'Ed448'`
-             * - `'HMAC'`
+             * * `'ECDSA'`
+             * * `'Ed25519'`
+             * * `'Ed448'`
+             * * `'HMAC'`
+             * * `'ML-DSA-44'`
+             * * `'ML-DSA-65'`
+             * * `'ML-DSA-87'`
+             * * `'RSA-PSS'`
+             * * `'RSASSA-PKCS1-v1_5'`
              * @since v15.0.0
              */
             sign(
-                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params,
+                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params | ContextParams,
                 key: CryptoKey,
                 data: BufferSource,
             ): Promise<ArrayBuffer>;
@@ -4820,29 +4942,40 @@ declare module "crypto" {
              *
              * The wrapping algorithms currently supported include:
              *
-             * - `'RSA-OAEP'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
-             * - `'AES-KW'`
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-KW'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'RSA-OAEP'`
              *
              * The unwrapped key algorithms supported include:
              *
-             * - `'RSASSA-PKCS1-v1_5'`
-             * - `'RSA-PSS'`
-             * - `'RSA-OAEP'`
-             * - `'ECDSA'`
-             * - `'Ed25519'`
-             * - `'Ed448'`
-             * - `'ECDH'`
-             * - `'X25519'`
-             * - `'X448'`
-             * - `'HMAC'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
-             * - `'AES-KW'`
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-KW'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'ECDH'`
+             * * `'ECDSA'`
+             * * `'Ed25519'`
+             * * `'Ed448'`
+             * * `'HMAC'`
+             * * `'ML-DSA-44'`
+             * * `'ML-DSA-65'`
+             * * `'ML-DSA-87'`
+             * * `'ML-KEM-512'`
+             * * `'ML-KEM-768'`
+             * * `'ML-KEM-1024'`
+             * * `'RSA-OAEP'`
+             * * `'RSA-PSS'`
+             * * `'RSASSA-PKCS1-v1_5'`
+             * * `'X25519'`
+             * * `'X448'`
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
+             * `'raw-public'`, or `'raw-seed'`.
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
              * @since v15.0.0
              */
@@ -4850,7 +4983,7 @@ declare module "crypto" {
                 format: KeyFormat,
                 wrappedKey: BufferSource,
                 unwrappingKey: CryptoKey,
-                unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
+                unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 unwrappedKeyAlgorithm:
                     | AlgorithmIdentifier
                     | RsaHashedImportParams
@@ -4867,16 +5000,19 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
-             * - `'RSASSA-PKCS1-v1_5'`
-             * - `'RSA-PSS'`
-             * - `'ECDSA'`
-             * - `'Ed25519'`
-             * - `'Ed448'`
-             * - `'HMAC'`
+             * * `'ECDSA'`
+             * * `'Ed25519'`
+             * * `'Ed448'`[^secure-curves]
+             * * `'HMAC'`
+             * * `'ML-DSA-44'`
+             * * `'ML-DSA-65'`
+             * * `'ML-DSA-87'`
+             * * `'RSA-PSS'`
+             * * `'RSASSA-PKCS1-v1_5'`
              * @since v15.0.0
              */
             verify(
-                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params,
+                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params | ContextParams,
                 key: CryptoKey,
                 signature: BufferSource,
                 data: BufferSource,
@@ -4891,19 +5027,22 @@ declare module "crypto" {
              *
              * The wrapping algorithms currently supported include:
              *
-             * - `'RSA-OAEP'`
-             * - `'AES-CTR'`
-             * - `'AES-CBC'`
-             * - `'AES-GCM'`
-             * - `'AES-KW'`
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * * `'AES-CBC'`
+             * * `'AES-CTR'`
+             * * `'AES-GCM'`
+             * * `'AES-KW'`
+             * * `'AES-OCB'`
+             * * `'ChaCha20-Poly1305'`
+             * * `'RSA-OAEP'`
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
+             * `'raw-public'`, or `'raw-seed'`.
              * @since v15.0.0
              */
             wrapKey(
                 format: KeyFormat,
                 key: CryptoKey,
                 wrappingKey: CryptoKey,
-                wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
+                wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
             ): Promise<ArrayBuffer>;
         }
     }
