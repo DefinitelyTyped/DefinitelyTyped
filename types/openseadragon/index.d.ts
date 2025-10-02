@@ -228,18 +228,6 @@ declare namespace OpenSeadragon {
         next: NavImagesValues;
     }
 
-    class DrawerBase {
-        constructor(options: any);
-        isSupported(): boolean;
-        canRotate(): boolean;
-        destroy(): void;
-        drawDebuggingRect(rect: Rect): void;
-        getType(): void;
-        setImageSmoothingEnabled(options: {imageSmoothingEnabled: boolean}): void;
-        viewportCoordToDrawerCoord(point: Point): Point;
-        viewportToDrawerRectangle(rectangle: Rect): Rect;
-    }
-
     type DrawerImplementation = new (options: any) => DrawerBase;
 
     interface Options {
@@ -441,6 +429,7 @@ declare namespace OpenSeadragon {
         success?: ((event: Event) => void) | undefined;
         ajaxWithCredentials?: boolean | undefined;
         ajaxHeaders?: object | undefined;
+        splitHashDataForPost?: boolean;
         width?: number | undefined;
         height?: number | undefined;
         tileSize?: number | undefined;
@@ -478,12 +467,13 @@ declare namespace OpenSeadragon {
             onBlur?: EventHandler<ButtonEvent> | undefined;
         });
 
-        addHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>, userData?: object): void;
+        addHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>, userData?: object, priority?: number): void;
         addOnceHandler(
             eventName: ButtonEventName,
             handler: EventHandler<ButtonEvent>,
             userData?: object,
             times?: number,
+            priority?: number,
         ): void;
         disable(): void;
         enable(): void;
@@ -493,6 +483,7 @@ declare namespace OpenSeadragon {
         removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
         notifyGroupEnter(): void;
         notifyGroupExit(): void;
+        numberOfHandlers(eventName: string): number;
         destroy(): void;
     }
 
@@ -503,6 +494,7 @@ declare namespace OpenSeadragon {
 
         constructor(options: { buttons: Button[]; element?: Element | undefined });
 
+        addButton(button: Button): void;
         destroy(): void;
     }
 
@@ -544,75 +536,99 @@ declare namespace OpenSeadragon {
         constructor(x: number, y: number, width: number, height: number, minLevel: number, maxLevel: number);
     }
 
-    class Drawer {
-        canvas: HTMLCanvasElement | HTMLElement;
-        container: Element;
-        context: CanvasRenderingContext2D | null;
-        // element : Element; // Deprecated
-
-        constructor(options: {
-            viewer: Viewer;
-            viewport: Viewport;
-            element: Element;
-            debugGridColor?: string | undefined;
-        });
-
-        blendSketch(options: {
-            opacity: number;
-            scale?: number | undefined;
-            translate?: Point | undefined;
-            compositeOperation?: string | undefined;
-            bounds?: Rect | undefined;
-        }): void;
+    class DrawerBase {
+        constructor(options: { viewer: Viewer, viewport: Viewport, element: HTMLElement });
+        isSupported(): boolean;
         canRotate(): boolean;
-        clear(): void;
         destroy(): void;
-        drawTile(
-            tile: Tile,
-            drawingHandler: (context: CanvasRenderingContext2D, tile: any, rendered: any) => void, // TODO: determine handler parameter types
-            useSketch: boolean,
-            scale?: number,
-            translate?: Point,
-        ): void;
-        getCanvasSize(sketch: boolean): Point;
-        getOpacity(): number;
-        setOpacity(opacity: number): Drawer;
-        viewportToDrawerRectangle(rectangle: Rect): Rect;
-        setImageSmoothingEnabled(imageSmoothingEnabled?: boolean): void;
+        drawDebuggingRect(rect: Rect): void;
+        getType(): string | undefined;
+        setImageSmoothingEnabled(options: { imageSmoothingEnabled: boolean }): void;
         viewportCoordToDrawerCoord(point: Point): Point;
-        clipWithPolygons(polygons: Point[][], useSketch?: boolean): void;
+        viewportToDrawerRectangle(rectangle: Rect): Rect;
+    }
+
+    interface TDrawerOptions {
+        viewer: Viewer;
+        viewport: Viewport;
+        element: Element;
+        debugGridColor?: number
+    }
+
+    class CanvasDrawer extends DrawerBase {
+        canvas: Element;
+        container: Element;
+
+        constructor(options: TDrawerOptions);
     }
 
     class DziTileSource extends TileSource {
+        tilesUrl: string;
+        fileFormat: string;
+        displayRects: DisplayRect[];
+
         constructor(
-            width: number,
+            width: number | object,
             height: number,
             tileSize: number,
             tileOverlap: number,
-            tilesUrl: number,
-            fileFormat: number,
-            displayRects: number,
-            minLevel: number,
-            maxLevel: number,
+            tilesUrl: string,
+            fileFormat: string,
+            displayRects: DisplayRect[],
         );
+    }
+
+    class EventSource<EventMap extends Record<string, any> = any> {
+        constructor();
+
+        addHandler<K extends keyof EventMap>(eventName: K, handler: EventHandler<EventMap[K]>, userData?: object, priority?: number): boolean;
+        addOnceHandler<K extends keyof EventMap>(eventName: K, handler: EventHandler<EventMap[K]>, userData?: object, times?: number, priority?: number): boolean;
+        getHandler<K extends keyof EventMap>(eventName: K): void;
+        numberOfHandlers<K extends keyof EventMap>(eventName: K): number;
+        raiseEvent<K extends keyof EventMap>(eventName: K, eventArgs: object): boolean;
+        removeAllHandlers<K extends keyof EventMap>(eventName: K): boolean;
+        removeHandler<K extends keyof EventMap>(eventName: K, handler: EventHandler<EventMap[K]>): boolean;
+    }
+
+    class HTMLDrawer extends DrawerBase {
+        canvas: Element;
+        container: Element;
+        constructor(options: TDrawerOptions);
     }
 
     class IIIFTileSource extends TileSource {
         constructor(options: TileSourceOptions & { tileFormat?: string | undefined });
     }
 
+    interface TImageJobOptions {
+        src?: string;
+        tile?: Tile;
+        source?: TileSource;
+        loadWithAjax?: string;
+        ajaxHeaders?: Record<string, string>;
+        ajaxWithCredentials?: boolean;
+        crossOriginPolicy?: string;
+        postData?: string | null;
+        userData?: any;
+        abort?(): void;
+        callback?(): void;
+        timeout?: number;
+        tries?: number;
+    }
+
+    class ImageJob {
+        data: HTMLImageElement | any;
+        userData: any;
+        constructor(options: TImageJobOptions);
+        finish(data: any, request: XMLHttpRequest, errorMessage: string): void;
+        start(): void;
+    }
+
+
     class ImageLoader {
         constructor(options: { jobLimit?: number | undefined; timeout?: number | undefined });
 
-        addJob(options: {
-            src?: string | undefined;
-            loadWithAjax?: string | undefined;
-            ajaxHeaders?: string | undefined;
-            crossOriginPolicy?: string | boolean | undefined;
-            ajaxWithCredentials?: boolean | undefined;
-            callback?: (() => void) | undefined;
-            abort?: (() => void) | undefined;
-        }): void;
+        addJob(options: TImageJobOptions): void;
         clear(): void;
     }
 
@@ -622,19 +638,35 @@ declare namespace OpenSeadragon {
             buildPyramid?: boolean | undefined;
             crossOriginPolicy?: string | boolean | undefined;
             ajaxWithCredentials?: string | boolean | undefined;
-            useCanvas?: boolean | undefined;
         });
-        destroy(): void;
+        _freeupCanvasMemory(): void;
+        destroy(viewer: Viewer): void;
+        getContext2D(level: number, x: number, y: number): CanvasRenderingContext2D | null;
     }
 
     class LegacyTileSource extends TileSource {
         constructor(
+            aspectRatio: number,
+            dimensions: number,
+            tileSize: number,
+            tileOverlap: number,
+            minLevel: number,
+            maxLevel: number,
             levels?: Array<{
                 url: string;
                 width: number;
                 height: number;
             }>,
         );
+    }
+
+    class Mat3 {
+        constructor(values: any[]);
+        multiply(other: Mat3): Mat3;
+        static makeIdentity(): Mat3;
+        static makeRotation(angleInRadians: number): Mat3;
+        static makeScaling(sx: number, sy: number): Mat3;
+        static makeTranslation(tx: number, ty: number): Mat3;
     }
 
     interface MouseTrackerOptions {
@@ -699,6 +731,10 @@ declare namespace OpenSeadragon {
         focusHandler: EventHandler<MouseTrackerEvent>;
         getActivePointerCount(): number;
         getActivePointersListByType(type: string): GesturePointList;
+        /**
+         * @deprecated Just use `this.tracking`
+         */
+        isTracking(): boolean;
         keyDownHandler: EventHandler<KeyMouseTrackerEvent>;
         keyHandler: EventHandler<KeyMouseTrackerEvent>;
         keyUpHandler: EventHandler<KeyMouseTrackerEvent>;
@@ -1079,7 +1115,11 @@ declare namespace OpenSeadragon {
         windowToImageCoordinates(pixel: Point): Point;
     }
 
-    class TileSource extends EventSource {
+    interface ConfigureOptions {
+        [key: string]: any;
+    }
+
+    class TileSource extends EventSource<TileSourceEventMap> {
         aspectRatio: number;
         dimensions: Point;
         maxLevel: number;
@@ -1087,20 +1127,12 @@ declare namespace OpenSeadragon {
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
-        addHandler<T extends keyof TileSourceEventMap>(
-            eventName: T,
-            handler: EventHandler<TileSourceEventMap[T]>,
-            userData?: object,
-        ): void;
-        addOnceHandler<T extends keyof TileSourceEventMap>(
-            eventName: T,
-            handler: EventHandler<TileSourceEventMap[T]>,
-            userData?: object,
-            times?: number,
-        ): void;
-        configure(data: string | object | any[] | Document): object;
+        configure(data: string | object | any[] | Document, url: string, postData: string): ConfigureOptions;
+        createTileCache(cacheObject: object, data: any, tile: Tile): void;
+        destroyTileCache(cacheObject: object): void;
+        downloadTileAbort(context: object): void;
+        downloadTileStart(context: ImageJob): void;
         getClosestLevel(): number;
-        getHandler(eventName: string): (event: Event) => void;
         getImageInfo(url: string): void;
         getLevelScale(level: number): number;
         getNumTiles(level: number): number;
@@ -1108,15 +1140,15 @@ declare namespace OpenSeadragon {
         getTileAjaxHeaders(level: number, x: number, y: number): object;
         getTileAtPoint(level: number, point: Point): Tile;
         getTileBounds(level: number, x: number, y: number, isSource?: boolean): Rect;
+        getTileCacheData(cacheObject: object): any;
+        getTileCacheDataAsContext2D(cacheObject: object): CanvasRenderingContext2D;
+        getTileCacheDataAsImage(cacheObject: object): HTMLImageElement;
+        getTileHashKey(level: number, x: number, y: number, url: string, ajaxHeaders: object, postData: any): void;
         getTileHeight(level: number): number;
+        getTilePostData(level: number, x: number, y: number): any | null;
         getTileUrl(level: number, x: number, y: number): string;
         getTileWidth(level: number): number;
-        raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: keyof TileSourceEventMap): void;
-        removeHandler<T extends keyof TileSourceEventMap>(
-            eventName: T,
-            handler: EventHandler<TileSourceEventMap[T]>,
-        ): void;
+        hasTransparency(): boolean;
         setMaxLevel(level: number): void;
         supports(data: string | object | any[] | Document, url: string): boolean;
         tileExists(level: number, x: number, y: number): boolean;
@@ -1355,7 +1387,7 @@ declare namespace OpenSeadragon {
         constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
-    type EventHandler<T extends OSDEvent<unknown>> = (event: T) => void;
+    type EventHandler<T> = (event: T) => void;
 
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
