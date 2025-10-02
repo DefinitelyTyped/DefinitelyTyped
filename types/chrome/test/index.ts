@@ -1535,36 +1535,321 @@ function testDevtoolsNetwork() {
     });
 }
 
-function testAssistiveWindow() {
-    chrome.input.ime.setAssistiveWindowProperties({
-        contextID: 0,
+// https://developer.chrome.com/docs/extensions/reference/api/input/ime
+function testInputIme() {
+    chrome.input.ime.AssistiveWindowButton.ADD_TO_DICTIONARY === "addToDictionary";
+    chrome.input.ime.AssistiveWindowButton.UNDO === "undo";
+
+    chrome.input.ime.AssistiveWindowType.UNDO === "undo";
+
+    chrome.input.ime.AutoCapitalizeType.CHARACTERS === "characters";
+    chrome.input.ime.AutoCapitalizeType.SENTENCES === "sentences";
+    chrome.input.ime.AutoCapitalizeType.WORDS === "words";
+
+    chrome.input.ime.InputContextType.EMAIL === "email";
+    chrome.input.ime.InputContextType.NULL === "null";
+    chrome.input.ime.InputContextType.NUMBER === "number";
+    chrome.input.ime.InputContextType.PASSWORD === "password";
+    chrome.input.ime.InputContextType.SEARCH === "search";
+    chrome.input.ime.InputContextType.TEL === "tel";
+    chrome.input.ime.InputContextType.TEXT === "text";
+    chrome.input.ime.InputContextType.URL === "url";
+
+    chrome.input.ime.KeyboardEventType.KEYDOWN === "keydown";
+    chrome.input.ime.KeyboardEventType.KEYUP === "keyup";
+
+    chrome.input.ime.MenuItemStyle.CHECK === "check";
+    chrome.input.ime.MenuItemStyle.RADIO === "radio";
+    chrome.input.ime.MenuItemStyle.SEPARATOR === "separator";
+
+    chrome.input.ime.MouseButton.LEFT === "left";
+    chrome.input.ime.MouseButton.MIDDLE === "middle";
+    chrome.input.ime.MouseButton.RIGHT === "right";
+
+    chrome.input.ime.ScreenType.LOCK === "lock";
+    chrome.input.ime.ScreenType.LOGIN === "login";
+    chrome.input.ime.ScreenType.NORMAL === "normal";
+    chrome.input.ime.ScreenType.SECONDARY_LOGIN === "secondary-login";
+
+    chrome.input.ime.UnderlineStyle.DOUBLE_UNDERLINE === "doubleUnderline";
+    chrome.input.ime.UnderlineStyle.NO_UNDERLINE === "noUnderline";
+    chrome.input.ime.UnderlineStyle.UNDERLINE === "underline";
+
+    chrome.input.ime.WindowPosition.COMPOSITION === "composition";
+    chrome.input.ime.WindowPosition.CURSOR === "cursor";
+
+    const contextID = 0;
+
+    const clearCompositionParameters: chrome.input.ime.ClearCompositionParameters = {
+        contextID,
+    };
+
+    chrome.input.ime.clearComposition(clearCompositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.clearComposition(clearCompositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.clearComposition(clearCompositionParameters, () => {}).then(() => {});
+
+    const commitTextParameters: chrome.input.ime.CommitTextParameters = {
+        contextID,
+        text: "text",
+    };
+
+    chrome.input.ime.commitText(commitTextParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.commitText(commitTextParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.commitText(commitTextParameters, () => {}).then(() => {});
+
+    const deleteSurroundingTextParameters: chrome.input.ime.DeleteSurroundingTextParameters = {
+        contextID,
+        engineID: "engineID",
+        length: 1,
+        offset: 1,
+    };
+
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters); // $ExpectType Promise<void>
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters, () => {}).then(() => {});
+
+    chrome.input.ime.hideInputView(); // $ExpectType void
+
+    chrome.input.ime.keyEventHandled("requestId", true); // $ExpectType void
+
+    const sendKeyEventsParameters: chrome.input.ime.SendKeyEventParameters = {
+        contextID,
+        keyData: [
+            {
+                altKey: false,
+                altgrKey: false,
+                capsLock: false,
+                code: "KeyA",
+                ctrlKey: false,
+                extensionId: "extensionId",
+                key: "a",
+                keyCode: 65,
+                requestId: "requestId",
+                shiftKey: false,
+                type: "keyup",
+            },
+        ],
+    };
+
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters); // $ExpectType Promise<void>
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters, () => {}).then(() => {});
+
+    const setAssistiveWindowButtonHighlightedParameters: chrome.input.ime.AssistiveWindowButtonHighlightedParameters = {
+        announceString: "announceString",
+        contextID,
+        buttonID: "undo",
+        highlighted: true,
+        windowType: "undo",
+    };
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters); // $ExpectType Promise<void>
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters, () => {}).then(
+        () => {},
+    );
+
+    const setAssistiveWindowPropertiesParameters: chrome.input.ime.AssistiveWindowPropertiesParameters = {
+        contextID,
         properties: {
+            announceString: "announceString",
             type: "undo",
             visible: true,
         },
-    });
+    };
 
-    chrome.input.ime.setAssistiveWindowButtonHighlighted({
-        contextID: 0,
-        buttonID: "undo",
-        windowType: "undo",
-        announceString: "Undo button highlighted",
-        highlighted: true,
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
     });
+    // @ts-expect-error
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters, () => {}).then(() => {});
 
-    chrome.input.ime.setAssistiveWindowButtonHighlighted({
-        contextID: 0,
-        buttonID: "undo",
-        windowType: "undo",
-        highlighted: false,
+    const setCandidatesParameters: chrome.input.ime.CandidatesParameters = {
+        contextID,
+        candidates: [
+            {
+                annotation: "annotation",
+                candidate: "candidate",
+                id: 0,
+                label: "label",
+                parentId: 0,
+                usage: {
+                    body: "body",
+                    title: "title",
+                },
+            },
+        ],
+    };
+
+    chrome.input.ime.setCandidates(setCandidatesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCandidates(setCandidatesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
     });
+    // @ts-expect-error
+    chrome.input.ime.setCandidates(setCandidatesParameters, () => {}).then(() => {});
 
-    chrome.input.ime.onAssistiveWindowButtonClicked.addListener(
-        (details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
-            details;
-            console.log(`${details.buttonID} button in ${details.windowType} window clicked`);
+    const setCandidateWindowPropertiesParameters: chrome.input.ime.CandidateWindowParameter = {
+        engineID: "engineID",
+        properties: {
+            auxiliaryText: "auxiliaryText",
+            auxiliaryTextVisible: true,
+            currentCandidateIndex: 0,
+            cursorVisible: true,
+            pageSize: 5,
+            totalCandidates: 10,
+            vertical: true,
+            visible: true,
+            windowPosition: "composition",
         },
-    );
+    };
+
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters, () => {}).then(() => {});
+
+    const setCompositionParameters: chrome.input.ime.CompositionParameters = {
+        contextID,
+        cursor: 1,
+        segments: [{
+            end: 1,
+            start: 2,
+            style: "underline",
+        }],
+        selectionEnd: 2,
+        selectionStart: 1,
+        text: "text",
+    };
+
+    chrome.input.ime.setComposition(setCompositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setComposition(setCompositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setComposition(setCompositionParameters, () => {}).then(() => {});
+
+    const setCursorPositionParameters: chrome.input.ime.CursorPositionParameters = {
+        candidateID: 1,
+        contextID,
+    };
+
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters, () => {}).then(() => {});
+
+    const menuParameters: chrome.input.ime.MenuParameters = {
+        engineID: "engineID",
+        items: [{
+            checked: true,
+            enabled: true,
+            id: "id",
+            label: "label",
+            style: "check",
+            visible: true,
+        }],
+    };
+
+    chrome.input.ime.setMenuItems(menuParameters); // $ExpectType Promise<void>
+    chrome.input.ime.setMenuItems(menuParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.setMenuItems(menuParameters, () => {}).then(() => {});
+
+    chrome.input.ime.updateMenuItems(menuParameters); // $ExpectType Promise<void>
+    chrome.input.ime.updateMenuItems(menuParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.updateMenuItems(menuParameters, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.input.ime.onActivate, (engineID, screen) => {
+        engineID; // $ExpectType string
+        screen; // $ExpectType "normal" | "login" | "lock" | "secondary-login"
+    });
+
+    checkChromeEvent(chrome.input.ime.onAssistiveWindowButtonClicked, (details) => {
+        details.buttonID; // $ExpectType "undo" | "addToDictionary"
+        details.windowType; // $ExpectType "undo"
+    });
+
+    checkChromeEvent(chrome.input.ime.onBlur, (contextID) => {
+        contextID; // $ExpectType number
+    });
+
+    checkChromeEvent(chrome.input.ime.onCandidateClicked, (engineID, candidateID, button) => {
+        engineID; // $ExpectType string
+        candidateID; // $ExpectType number
+        button; // $ExpectType "left" | "middle" | "right"
+    });
+
+    checkChromeEvent(chrome.input.ime.onDeactivated, (engineID) => {
+        engineID; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onFocus, (context) => {
+        context.autoCapitalize; // $ExpectType "characters" | "words" | "sentences"
+        context.autoComplete; // $ExpectType boolean
+        context.autoCorrect; // $ExpectType boolean
+        context.contextID; // $ExpectType number
+        context.shouldDoLearning; // $ExpectType boolean
+        context.spellCheck; // $ExpectType boolean
+        context.type; // $ExpectType "text" | "search" | "tel" | "url" | "email" | "number" | "password" | "null"
+    });
+
+    checkChromeEvent(chrome.input.ime.onInputContextUpdate, (context) => {
+        context.autoCapitalize; // $ExpectType "characters" | "words" | "sentences"
+        context.autoComplete; // $ExpectType boolean
+        context.autoCorrect; // $ExpectType boolean
+        context.contextID; // $ExpectType number
+        context.shouldDoLearning; // $ExpectType boolean
+        context.spellCheck; // $ExpectType boolean
+        context.type; // $ExpectType "text" | "search" | "tel" | "url" | "email" | "number" | "password" | "null"
+    });
+
+    checkChromeEvent(chrome.input.ime.onKeyEvent, (engineID, keyData, requestId) => {
+        engineID; // $ExpectType string
+        keyData.altKey; // $ExpectType boolean | undefined
+        keyData.altgrKey; // $ExpectType boolean | undefined
+        keyData.capsLock; // $ExpectType boolean | undefined
+        keyData.code; // $ExpectType string
+        keyData.ctrlKey; // $ExpectType boolean | undefined
+        keyData.extensionId; // $ExpectType string | undefined
+        keyData.key; // $ExpectType string
+        keyData.keyCode; // $ExpectType number | undefined
+        keyData.shiftKey; // $ExpectType boolean | undefined
+        keyData.type; // $ExpectType "keydown" | "keyup"
+        requestId; // $ExpectType string
+        return true;
+    });
+
+    checkChromeEvent(chrome.input.ime.onMenuItemActivated, (engineID, name) => {
+        engineID; // $ExpectType string
+        name; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onReset, (engineID) => {
+        engineID; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onSurroundingTextChanged, (engineID, surroundingInfo) => {
+        engineID; // $ExpectType string
+        surroundingInfo.anchor; // $ExpectType number
+        surroundingInfo.focus; // $ExpectType number
+        surroundingInfo.offset; // $ExpectType number
+        surroundingInfo.text; // $ExpectType string
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/omnibox
