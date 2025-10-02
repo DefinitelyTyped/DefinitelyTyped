@@ -2654,6 +2654,17 @@ async function testSystemDisplay() {
     checkChromeEvent(chrome.system.display.onDisplayChanged, () => void 0);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/system/memory
+function testSystemMemory() {
+    chrome.system.memory.getInfo(); // $ExpectType Promise<MemoryInfo>
+    chrome.system.memory.getInfo((info) => { // $ExpectType void
+        info.availableCapacity; // $ExpectType number
+        info.capacity; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.system.memory.getInfo(() => {}).then(() => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/systemLog
 function testSystemLog() {
     chrome.systemLog.add({ message: "" }); // $ExpectType Promise<void>
