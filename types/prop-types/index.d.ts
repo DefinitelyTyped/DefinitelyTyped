@@ -4,6 +4,12 @@ import * as React from "react";
 export = PropTypes;
 
 declare namespace PropTypes {
+    type ReactComponentLike = React.JSX.ElementType;
+
+    interface ReactElementLike extends React.JSX.Element {}
+
+    type ReactNodeLike = React.ReactNode;
+
     const nominalTypeHack: unique symbol;
 
     type IsOptional<T> = undefined extends T ? true : false;
