@@ -1,21 +1,8 @@
+import type { AttributeValue } from "@aws-sdk/client-dynamodb";
 import { Handler } from "../handler";
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
-
-// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
-export interface AttributeValue {
-    B?: string | undefined;
-    BS?: string[] | undefined;
-    BOOL?: boolean | undefined;
-    L?: AttributeValue[] | undefined;
-    M?: { [id: string]: AttributeValue } | undefined;
-    N?: string | undefined;
-    NS?: string[] | undefined;
-    NULL?: boolean | undefined;
-    S?: string | undefined;
-    SS?: string[] | undefined;
-}
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {

@@ -7,6 +7,9 @@
     "projects": [
         "http://docs.aws.amazon.com/lambda"
     ],
+    "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.0.0"
+    },
     "devDependencies": {
         "@types/aws-lambda": "workspace:.",
         "@types/node": "*"
