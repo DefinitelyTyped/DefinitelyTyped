@@ -10022,6 +10022,9 @@ declare namespace chrome {
             total: number;
         }
 
+        /** @deprecated Use {@link CpuTime} instead. */
+        type ProcessorUsage = CpuTime;
+
         export interface ProcessorInfo {
             /** Cumulative usage info for this logical processor. */
             usage: CpuTime;
