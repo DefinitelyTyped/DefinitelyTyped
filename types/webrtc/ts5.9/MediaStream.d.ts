@@ -21,11 +21,6 @@ interface ConstrainStringParameters {
     ideal?: string | string[] | undefined;
 }
 
-interface ConstrainBooleanOrDOMStringParameters {
-    exact?: boolean | string;
-    ideal?: boolean | string;
-}
-
 interface MediaStreamConstraints {
     video?: boolean | MediaTrackConstraints | undefined;
     audio?: boolean | MediaTrackConstraints | undefined;
@@ -39,7 +34,6 @@ declare namespace W3C {
     type ConstrainLong = ConstrainNumber;
     type ConstrainDouble = ConstrainNumber;
     type ConstrainString = string | string[] | ConstrainStringParameters;
-    type ConstrainBooleanOrDOMString = boolean | string | ConstrainBooleanOrDOMStringParameters;
 }
 
 interface MediaTrackConstraints extends MediaTrackConstraintSet {
@@ -55,7 +49,7 @@ interface MediaTrackConstraintSet {
     volume?: W3C.ConstrainDouble | undefined;
     sampleRate?: W3C.ConstrainLong | undefined;
     sampleSize?: W3C.ConstrainLong | undefined;
-    echoCancellation?: W3C.ConstrainBooleanOrDOMString | undefined;
+    echoCancellation?: W3C.ConstrainBoolean | undefined;
     latency?: W3C.ConstrainDouble | undefined;
     deviceId?: W3C.ConstrainString | undefined;
     groupId?: W3C.ConstrainString | undefined;
