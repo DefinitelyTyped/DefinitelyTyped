@@ -39,17 +39,6 @@ declare module "." {
 }
 
 declare module "react" {
-    interface ViewTransitionPseudoElement extends Animatable {
-        getComputedStyle: () => CSSStyleDeclaration;
-    }
-
-    interface ViewTransitionInstance {
-        group: ViewTransitionPseudoElement;
-        imagePair: ViewTransitionPseudoElement;
-        old: ViewTransitionPseudoElement;
-        new: ViewTransitionPseudoElement;
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface GestureProvider extends AnimationTimeline {}
 
