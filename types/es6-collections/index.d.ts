@@ -13,10 +13,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-interface IteratorResult<T> {
-    done: boolean;
-    value?: T | undefined;
-}
+/// <reference lib="es2015" />
 
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
@@ -38,13 +35,13 @@ interface Map<K, V> {
     entries(): Iterator<[K, V]>;
     keys(): Iterator<K>;
     values(): Iterator<V>;
-    size: number;
+    readonly size: number;
 }
 
 interface MapConstructor {
     new<K, V>(): Map<K, V>;
     new<K, V>(iterable: ForEachable<[K, V]>): Map<K, V>;
-    prototype: Map<any, any>;
+    readonly prototype: Map<any, any>;
 }
 
 declare var Map: MapConstructor;
@@ -58,13 +55,13 @@ interface Set<T> {
     entries(): Iterator<[T, T]>;
     keys(): Iterator<T>;
     values(): Iterator<T>;
-    size: number;
+    readonly size: number;
 }
 
 interface SetConstructor {
     new<T>(): Set<T>;
     new<T>(iterable: ForEachable<T>): Set<T>;
-    prototype: Set<any>;
+    readonly prototype: Set<any>;
 }
 
 declare var Set: SetConstructor;
@@ -80,7 +77,7 @@ interface WeakMap<K extends object, V> {
 interface WeakMapConstructor {
     new<K extends object, V>(): WeakMap<K, V>;
     new<K extends object, V>(iterable: ForEachable<[K, V]>): WeakMap<K, V>;
-    prototype: WeakMap<any, any>;
+    readonly prototype: WeakMap<object, any>;
 }
 
 declare var WeakMap: WeakMapConstructor;
@@ -93,9 +90,9 @@ interface WeakSet<T> {
 }
 
 interface WeakSetConstructor {
-    new<T>(): WeakSet<T>;
-    new<T>(iterable: ForEachable<T>): WeakSet<T>;
-    prototype: WeakSet<any>;
+    new<T extends WeakKey = WeakKey>(): WeakSet<T>;
+    new<T extends WeakKey = WeakKey>(iterable: ForEachable<T>): WeakSet<T>;
+    readonly prototype: WeakSet<object>;
 }
 
 declare var WeakSet: WeakSetConstructor;
