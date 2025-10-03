@@ -6048,6 +6048,37 @@ function testInstanceID() {
     checkChromeEvent(chrome.instanceID.onTokenRefresh, () => void 0);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/loginState
+function testLoginState() {
+    chrome.loginState.ProfileType.SIGNIN_PROFILE === "SIGNIN_PROFILE";
+    chrome.loginState.ProfileType.USER_PROFILE === "USER_PROFILE";
+
+    chrome.loginState.SessionState.IN_LOCK_SCREEN === "IN_LOCK_SCREEN";
+    chrome.loginState.SessionState.IN_LOGIN_SCREEN === "IN_LOGIN_SCREEN";
+    chrome.loginState.SessionState.IN_OOBE_SCREEN === "IN_OOBE_SCREEN";
+    chrome.loginState.SessionState.IN_RMA_SCREEN === "IN_RMA_SCREEN";
+    chrome.loginState.SessionState.IN_SESSION === "IN_SESSION";
+    chrome.loginState.SessionState.UNKNOWN === "UNKNOWN";
+
+    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE">
+    chrome.loginState.getProfileType((result) => { // $ExpectType void
+        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE"
+    });
+    // @ts-expect-error
+    chrome.loginState.getProfileType(() => {}).then(() => {});
+
+    chrome.loginState.getSessionState(); // $ExpectType Promise<"IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN">
+    chrome.loginState.getSessionState((result) => { // $ExpectType void
+        result; // $ExpectType "IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN"
+    });
+    // @ts-expect-error
+    chrome.loginState.getSessionState(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.loginState.onSessionStateChanged, (sessionState) => {
+        sessionState; // $ExpectType "IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN"
+    });
+}
+
 function testUserScripts() {
     const worldProperties: chrome.userScripts.WorldProperties = {
         csp: "script-src 'self'",
