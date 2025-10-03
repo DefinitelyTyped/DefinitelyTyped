@@ -3,6 +3,10 @@ import send = require("send");
 
 const app = express();
 
+send.mime.define({
+    "application/x-my-type": ["x-mt", "x-mtt"],
+});
+
 app.get("/test.html", (req, res) => {
     send(req, "/test.html", {
         immutable: true,
@@ -13,6 +17,8 @@ app.get("/test.html", (req, res) => {
 
 app.get("/test.html", (req, res) => {
     send(req, "/test.html")
+        .maxage(0)
+        .root(__dirname + "/wwwroot")
         .on("error", (err: any) => {
             res.statusCode = err.status || 500;
             res.end(err.message);
