@@ -11869,7 +11869,7 @@ declare namespace chrome {
      * Permissions: "topSites"
      */
     export namespace topSites {
-        /** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
+        /** An object encapsulating a most visited URL, such as the default shortcuts on the new tab page. */
         export interface MostVisitedURL {
             /** The most visited URL. */
             url: string;
@@ -11877,14 +11877,13 @@ declare namespace chrome {
             title: string;
         }
 
-        /** Gets a list of top sites. */
-        export function get(callback: (data: MostVisitedURL[]) => void): void;
-
         /**
          * Gets a list of top sites.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function get(): Promise<MostVisitedURL[]>;
+        export function get(callback: (data: MostVisitedURL[]) => void): void;
     }
 
     ////////////////////
