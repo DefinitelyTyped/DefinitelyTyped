@@ -53,9 +53,9 @@
         // tslint:disable-next-line await-promise
         for await (const [name, handle] of dirHandle) {
             if (handle.kind === "file") {
-                yield (handle as FileSystemFileHandle).getFile();
+                yield handle.getFile();
             } else {
-                yield* recursivelyWalkDir(handle as FileSystemDirectoryHandle);
+                yield* recursivelyWalkDir(handle);
             }
         }
     })(dirHandle);
@@ -95,9 +95,9 @@
     (async function* recursivelyWalkDir(dirHandle: FileSystemDirectoryHandle): AsyncIterable<File> {
         for await (const handle of dirHandle.getEntries()) {
             if (handle.isFile) {
-                yield (handle as FileSystemFileHandle).getFile();
+                yield handle.getFile();
             } else {
-                yield* recursivelyWalkDir(handle as FileSystemDirectoryHandle);
+                yield* recursivelyWalkDir(handle);
             }
         }
     })(dirHandle);

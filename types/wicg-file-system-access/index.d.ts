@@ -144,9 +144,9 @@ declare global {
         removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
         resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null>;
         keys(): AsyncIterableIterator<string>;
-        values(): AsyncIterableIterator<FileSystemHandle>;
-        entries(): AsyncIterableIterator<[string, FileSystemHandle]>;
-        [Symbol.asyncIterator](): AsyncIterableIterator<[string, FileSystemHandle]>;
+        values(): AsyncIterableIterator<FileSystemDirectoryHandle | FileSystemFileHandle>;
+        entries(): AsyncIterableIterator<[string, FileSystemDirectoryHandle | FileSystemFileHandle]>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<[string, FileSystemDirectoryHandle | FileSystemFileHandle]>;
         /**
          * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
          */
