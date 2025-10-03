@@ -1,7 +1,4 @@
-interface IteratorResult<T> {
-    done: boolean;
-    value?: T | undefined;
-}
+/// <reference lib="es2015" />
 
 interface IterableShim<T> {
     /**
@@ -237,7 +234,7 @@ interface NumberConstructor {
      * that is representable as a Number value, which is approximately:
      * 2.2204460492503130808472633361816 x 10‍−‍16.
      */
-    EPSILON: number;
+    readonly EPSILON: number;
 
     /**
      * Returns true if passed value is finite.
@@ -272,14 +269,14 @@ interface NumberConstructor {
      * a Number value.
      * The value of Number.MIN_SAFE_INTEGER is 9007199254740991 2^53 − 1.
      */
-    MAX_SAFE_INTEGER: number;
+    readonly MAX_SAFE_INTEGER: number;
 
     /**
      * The value of the smallest integer n such that n and n − 1 are both exactly representable as
      * a Number value.
      * The value of Number.MIN_SAFE_INTEGER is −9007199254740991 (−(2^53 − 1)).
      */
-    MIN_SAFE_INTEGER: number;
+    readonly MIN_SAFE_INTEGER: number;
 
     /**
      * Converts a string to a floating-point number.
@@ -335,7 +332,7 @@ interface RegExp {
      *
      * If no flags are set, the value is the empty string.
      */
-    flags: string;
+    readonly flags: string;
 }
 
 interface Math {
@@ -499,7 +496,7 @@ interface PromiseConstructor {
     /**
      * A reference to the prototype.
      */
-    prototype: Promise<any>;
+    readonly prototype: Promise<any>;
 
     /**
      * Creates a new Promise.
@@ -564,7 +561,7 @@ interface Map<K, V> {
     get(key: K): V | undefined;
     has(key: K): boolean;
     set(key: K, value: V): Map<K, V>;
-    size: number;
+    readonly size: number;
     entries(): IterableIteratorShim<[K, V]>;
     keys(): IterableIteratorShim<K>;
     values(): IterableIteratorShim<V>;
@@ -573,7 +570,7 @@ interface Map<K, V> {
 interface MapConstructor {
     new<K, V>(): Map<K, V>;
     new<K, V>(iterable: IterableShim<[K, V]>): Map<K, V>;
-    prototype: Map<any, any>;
+    readonly prototype: Map<any, any>;
 }
 
 declare var Map: MapConstructor;
@@ -584,7 +581,7 @@ interface Set<T> {
     delete(value: T): boolean;
     forEach(callbackfn: (value: T, index: T, set: Set<T>) => void, thisArg?: any): void;
     has(value: T): boolean;
-    size: number;
+    readonly size: number;
     entries(): IterableIteratorShim<[T, T]>;
     keys(): IterableIteratorShim<T>;
     values(): IterableIteratorShim<T>;
@@ -594,7 +591,7 @@ interface Set<T> {
 interface SetConstructor {
     new<T>(): Set<T>;
     new<T>(iterable: IterableShim<T>): Set<T>;
-    prototype: Set<any>;
+    readonly prototype: Set<any>;
 }
 
 declare var Set: SetConstructor;
@@ -609,7 +606,7 @@ interface WeakMap<K extends object, V> {
 interface WeakMapConstructor {
     new<K extends object, V>(): WeakMap<K, V>;
     new<K extends object, V>(iterable: IterableShim<[K, V]>): WeakMap<K, V>;
-    prototype: WeakMap<any, any>;
+    readonly prototype: WeakMap<object, any>;
 }
 
 declare var WeakMap: WeakMapConstructor;
@@ -621,9 +618,9 @@ interface WeakSet<T> {
 }
 
 interface WeakSetConstructor {
-    new<T>(): WeakSet<T>;
-    new<T>(iterable: IterableShim<T>): WeakSet<T>;
-    prototype: WeakSet<any>;
+    new<T extends WeakKey = WeakKey>(): WeakSet<T>;
+    new<T extends WeakKey = WeakKey>(iterable: IterableShim<T>): WeakSet<T>;
+    readonly prototype: WeakSet<object>;
 }
 
 declare var WeakSet: WeakSetConstructor;
