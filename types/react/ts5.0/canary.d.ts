@@ -110,4 +110,11 @@ declare module "." {
      * @see {@link https://react.dev/reference/react/addTransitionType `addTransitionType` reference documentation}
      */
     export function addTransitionType(type: string): void;
+
+    // @enableFragmentRefs
+    export interface FragmentInstance {}
+
+    export interface FragmentProps {
+        ref?: Ref<FragmentInstance> | undefined;
+    }
 }

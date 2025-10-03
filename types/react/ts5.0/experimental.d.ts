@@ -133,13 +133,6 @@ declare module "." {
         options?: GestureOptions,
     ): () => void;
 
-    // @enableFragmentRefs
-    export interface FragmentInstance {}
-
-    export interface FragmentProps {
-        ref?: Ref<FragmentInstance> | undefined;
-    }
-
     // @enableSrcObject
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
         srcObject: Blob;
