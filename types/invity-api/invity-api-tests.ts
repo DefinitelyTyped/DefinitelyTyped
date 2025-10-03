@@ -166,5 +166,6 @@ const exchangeTradeQuoteRequest: ExchangeTradeQuoteRequest = {
     send: "bitcoin" as CryptoId,
     receive: "ethereum" as CryptoId,
     sendStringAmount: "0.1",
+    fromAddress: "fromAddress",
     receiveAddress: "receiveAddress",
 };
