@@ -21,7 +21,7 @@ export interface SNSMessage {
     Message: string;
     MessageAttributes: SNSMessageAttributes;
     Type: string;
-    UnsubscribeUrl: string;
+    UnsubscribeUrl: string; // Not UnsubscribeURL; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73817#issuecomment-3367340170
     TopicArn: string;
     Subject?: string;
     Token?: string;
