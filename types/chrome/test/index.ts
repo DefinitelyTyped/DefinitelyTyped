@@ -922,7 +922,12 @@ function testGetManifest() {
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
-        manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
+        manifest.web_accessible_resources = [{
+            matches: ["https://*/*"],
+            resources: ["resource.js"],
+            extension_ids: ["*"],
+            use_dynamic_url: true,
+        }];
         // @ts-expect-error
         manifest.web_accessible_resources = ["script.js"];
 
@@ -991,6 +996,8 @@ function testGetManifest() {
             {
                 matches: ["https://*/*"],
                 resources: ["some-script.js"],
+                extension_ids: ["*"],
+                use_dynamic_url: true,
             },
         ],
     };

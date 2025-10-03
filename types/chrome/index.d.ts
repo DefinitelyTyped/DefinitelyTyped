@@ -9280,7 +9280,14 @@ declare namespace chrome {
             optional_permissions?: ManifestOptionalPermissions[] | undefined;
             optional_host_permissions?: string[] | undefined;
             permissions?: ManifestPermissions[] | undefined;
-            web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
+            web_accessible_resources?:
+                | Array<{
+                    resources: string[];
+                    matches: string[];
+                    extension_ids?: string[] | undefined;
+                    use_dynamic_url?: boolean | undefined;
+                }>
+                | undefined;
         }
 
         export type Manifest = ManifestV2 | ManifestV3;
