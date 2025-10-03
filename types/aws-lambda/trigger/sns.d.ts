@@ -16,7 +16,7 @@ export interface SNSMessage {
     SignatureVersion: string;
     Timestamp: string;
     Signature: string;
-    SigningCertUrl: string;
+    SigningCertUrl: string; // Not SigningCertURL; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73817#issuecomment-3367340170
     MessageId: string;
     Message: string;
     MessageAttributes: SNSMessageAttributes;
