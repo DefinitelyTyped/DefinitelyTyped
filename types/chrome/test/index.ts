@@ -996,38 +996,58 @@ function testGetManifest() {
     };
 }
 
-// https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
-function testTabCaptureOptions() {
-    // Constraints based on:
-    // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Chrome-Extensions/tabCapture/tab-capturing.js
+// https://developer.chrome.com/docs/extensions/reference/api/tabCapture
+function testTabCapture() {
+    chrome.tabCapture.TabCaptureState.ACTIVE === "active";
+    chrome.tabCapture.TabCaptureState.ERROR === "error";
+    chrome.tabCapture.TabCaptureState.PENDING === "pending";
+    chrome.tabCapture.TabCaptureState.STOPPED === "stopped";
 
-    const resolutions = {
-        maxWidth: 1920,
-        maxHeight: 1080,
-    };
-
-    const constraints: chrome.tabCapture.CaptureOptions = {
+    const captureOptions: chrome.tabCapture.CaptureOptions = {
         audio: true,
-        video: true,
         audioConstraints: {
-            mandatory: {
-                chromeMediaSource: "tab",
-                echoCancellation: true,
-            },
+            mandatory: {},
+            optional: {},
         },
+        video: true,
         videoConstraints: {
-            mandatory: {
-                chromeMediaSource: "tab",
-                maxWidth: resolutions.maxWidth,
-                maxHeight: resolutions.maxHeight,
-                minFrameRate: 30,
-                minAspectRatio: 1.77,
-            },
+            mandatory: {},
+            optional: {},
         },
     };
 
-    let constraints2: chrome.tabCapture.CaptureOptions;
-    constraints2 = constraints;
+    chrome.tabCapture.capture(captureOptions, (stream) => { // $ExpectType void
+        stream; // $ExpectType MediaStream | null
+    });
+
+    chrome.tabCapture.getCapturedTabs(); // $ExpectType Promise<CaptureInfo[]>
+    chrome.tabCapture.getCapturedTabs((result) => { // $ExpectType void
+        result; // $ExpectType CaptureInfo[]
+    });
+    // @ts-expect-error
+    chrome.tabCapture.getCapturedTabs(() => {}).then(() => {});
+
+    const mediaStreamOptions: chrome.tabCapture.GetMediaStreamOptions = {
+        consumerTabId: 123,
+        targetTabId: 456,
+    };
+
+    chrome.tabCapture.getMediaStreamId(); // $ExpectType Promise<string>
+    chrome.tabCapture.getMediaStreamId(mediaStreamOptions); // $ExpectType Promise<string>
+    chrome.tabCapture.getMediaStreamId((streamId) => { // $ExpectType void
+        streamId; // $ExpectType string
+    });
+    chrome.tabCapture.getMediaStreamId(mediaStreamOptions, (streamId) => { // $ExpectType void
+        streamId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.tabCapture.getMediaStreamId(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.tabCapture.onStatusChanged, (info) => {
+        info.fullscreen; // $ExpectType boolean
+        info.status; // $ExpectType "active" | "error" | "pending" | "stopped"
+        info.tabId; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/debugger
