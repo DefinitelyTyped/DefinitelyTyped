@@ -1022,7 +1022,7 @@ let circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({});
 circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({ radius: 10 });
 circleMarker = new L.CircleMarker(latLng, { color: "red" })
 // @ts-expect-error
-circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle();
+circleMarker = new L.CircleMarker(latLng, { radius: "10" });
 
 // region Control typed custom options
 
