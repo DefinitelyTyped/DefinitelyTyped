@@ -926,6 +926,8 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
+    interface BaseErrorInfo { componentStack?: string }
+
     interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
         createContainer(
             containerInfo: Container,
@@ -934,7 +936,10 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onRecoverableError: (error: Error) => void,
+            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
+            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
+            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
+            onDefaultTransitionIndicator: () => void,
             transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
