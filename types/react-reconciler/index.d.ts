@@ -926,7 +926,9 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
-    interface BaseErrorInfo { componentStack?: string }
+    interface BaseErrorInfo {
+        componentStack?: string;
+    }
 
     interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
         createContainer(
