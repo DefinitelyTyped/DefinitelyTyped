@@ -9281,12 +9281,16 @@ declare namespace chrome {
             optional_host_permissions?: string[] | undefined;
             permissions?: ManifestPermissions[] | undefined;
             web_accessible_resources?:
-                | Array<{
-                    resources: string[];
-                    matches: string[];
-                    extension_ids?: string[] | undefined;
-                    use_dynamic_url?: boolean | undefined;
-                }>
+                | Array<
+                    & {
+                        resources: string[];
+                        use_dynamic_url?: boolean | undefined;
+                    }
+                    & (
+                        | { extension_ids: string[]; matches?: string[] | undefined }
+                        | { matches: string[]; extension_ids?: string[] | undefined }
+                    )
+                >
                 | undefined;
         }
 
