@@ -6375,57 +6375,70 @@ function testLoginState() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/userScripts
 function testUserScripts() {
+    chrome.userScripts.ExecutionWorld.MAIN === "MAIN";
+    chrome.userScripts.ExecutionWorld.USER_SCRIPT === "USER_SCRIPT";
+
     const worldProperties: chrome.userScripts.WorldProperties = {
         csp: "script-src 'self'",
         messaging: true,
         worldId: "customId",
     };
+
     chrome.userScripts.configureWorld(worldProperties); // $ExpectType Promise<void>
     chrome.userScripts.configureWorld(worldProperties, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.userScripts.configureWorld(worldProperties, () => {}).then(() => {});
 
-    const userScriptFilter = { ids: ["scriptId1", "scriptId2"] };
-    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
-    chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
-
-    const badScripts = [
-        {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
-        },
-    ];
-    const scripts = [
-        {
-            id: "scriptId1",
-            js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
-            matches: ["*://example.com/*"],
-        },
-        {
-            id: "scriptId2",
-            js: [{ code: "console.log(\"Hello from scriptId2!\");" }],
-            matches: ["*://example.org/*"],
-        },
-    ];
-    const jsInjections: chrome.userScripts.ScriptSource[] = [
-        {
-            file: "./the/script.js",
-        },
-        {
-            code: "console.log(\"Wow the script works!\");",
-        },
-    ];
-    const injectionTarget: chrome.userScripts.InjectionTarget = {
-        tabId: 46,
-        allFrames: true,
-    };
-
-    const badExeOptions = {};
-    const exeOptions: chrome.userScripts.UserScriptInjection = {
+    const injection: chrome.userScripts.UserScriptInjection = {
         injectImmediately: true,
-        js: jsInjections,
-        target: injectionTarget,
-        worldId: "USER_SCRIPT",
+        js: [{ code: "console.log('Hello, world!');" }, { file: "script.js" }],
+        target: {
+            tabId: 123,
+            allFrames: true,
+            frameIds: undefined,
+            documentIds: undefined,
+        },
+        world: "MAIN",
+        worldId: "customId",
     };
+
+    chrome.userScripts.execute(injection); // $ExpectType Promise<InjectionResult<unknown>[]>
+    chrome.userScripts.execute(injection, ([result]) => { // $ExpectType void
+        result.documentId; // $ExpectType string
+        result.error; // $ExpectType string | undefined
+        result.frameId; // $ExpectType number
+        result.result; // $ExpectType unknown
+        if (result.error !== undefined) {
+            result.error; // $ExpectType string
+            result.result; // $ExpectType undefined
+        } else {
+            result.error; // $ExpectType undefined
+            result.result; // $ExpectType unknown
+        }
+    });
+    chrome.userScripts.execute<string>(injection, ([result]) => { // $ExpectType void
+        result.result; // $ExpectType string | undefined
+        if (result.error !== undefined) {
+            result.result; // $ExpectType undefined
+        } else {
+            result.result; // $ExpectType string
+        }
+    });
+    // @ts-expect-error
+    chrome.userScripts.execute(injection, () => {}).then(() => {});
+
+    const userScriptFilter: chrome.userScripts.UserScriptFilter = {
+        ids: ["scriptId1", "scriptId2"],
+    };
+
+    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
+    chrome.userScripts.getScripts(userScriptFilter, (results) => { // $ExpectType void
+        results; // $ExpectType RegisteredUserScript[]
+    });
+    // @ts-expect-error
+    chrome.userScripts.getScripts(userScriptFilter, () => {}).then(() => {});
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -6436,32 +6449,43 @@ function testUserScripts() {
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
 
-    // @ts-expect-error
-    chrome.userScripts.execute(badExeOptions);
-    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
-    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
-        result; // $ExpectType InjectionResult[]
-    });
+    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+        {
+            allFrames: true,
+            excludeGlobs: ["*://*.example.com/exclude*"],
+            id: "scriptId1",
+            includeGlobs: ["*://*.example.com/include*"],
+            js: [],
+            matches: ["*://example.com/*"],
+            runAt: "document_end",
+            world: "MAIN",
+            worldId: "customId",
+        },
+    ];
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.register(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.register(scripts, () => {}).then(() => {});
+
+    const worldId = "customId";
 
     chrome.userScripts.resetWorldConfiguration(); // $ExpectType Promise<void>
-    chrome.userScripts.resetWorldConfiguration("scriptId1"); // $ExpectType Promise<void>
+    chrome.userScripts.resetWorldConfiguration(worldId); // $ExpectType Promise<void>
     chrome.userScripts.resetWorldConfiguration(() => {}); // $ExpectType void
-    chrome.userScripts.resetWorldConfiguration("scriptId1", () => {}); // $ExpectType void
+    chrome.userScripts.resetWorldConfiguration(worldId, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.userScripts.resetWorldConfiguration(() => {}).then(() => {});
 
+    chrome.userScripts.unregister(); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
+    chrome.userScripts.unregister(() => void 0); // $ExpectType void
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
 
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.update(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.update(scripts, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
