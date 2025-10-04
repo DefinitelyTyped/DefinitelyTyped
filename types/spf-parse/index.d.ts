@@ -1,4 +1,3 @@
-export as namespace SPFParse;
 export = spfParse;
 
 declare namespace spfParse {
