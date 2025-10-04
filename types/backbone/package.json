@@ -6,6 +6,13 @@
         "http://backbonejs.org/",
         "https://github.com/jashkenas/backbone"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.esm.d.ts",
+            "require": "./index.d.ts"
+        },
+        "./esm": "./index.esm.d.ts"
+    },
     "dependencies": {
         "@types/jquery": "*",
         "@types/underscore": "*"
