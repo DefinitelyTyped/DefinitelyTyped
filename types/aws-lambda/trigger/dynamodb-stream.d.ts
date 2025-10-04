@@ -1,8 +1,29 @@
-import type { AttributeValue } from "@aws-sdk/client-dynamodb";
 import { Handler } from "../handler";
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
+
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, @definitelytyped/no-single-element-tuple-type
+type Merge<T> = [{ [K in keyof T]: T[K] }][number];
+
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+type ExclusivePropertyUnion<T, P = keyof T> = P extends any
+    ? Merge<{ [K in Extract<keyof T, P>]: T[K] } & { [K in Exclude<keyof T, P>]?: never }>
+    : never;
+
+// http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
+export type AttributeValue = ExclusivePropertyUnion<{
+    B: Uint8Array;
+    BOOL: boolean;
+    BS: Uint8Array[];
+    L: AttributeValue[];
+    M: Record<string, AttributeValue>;
+    N: string;
+    NS: string[];
+    NULL: boolean;
+    S: string;
+    SS: string[];
+}>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
