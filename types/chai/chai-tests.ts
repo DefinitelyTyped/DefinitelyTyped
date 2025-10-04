@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { assert, config, expect, Should, use, util } from "chai";
+import { assert, AssertionError, config, expect, Should, use, util } from "chai";
 
 const should = Should();
 
@@ -2241,4 +2241,12 @@ function configuringDeepEqual() {
             },
         });
     };
+}
+
+function assertionErrorChecks() {
+    // @ts-expect-error Missing message
+    new AssertionError();
+    new AssertionError("foo");
+    new AssertionError("foo", {});
+    new AssertionError("foo", {}, () => {});
 }
