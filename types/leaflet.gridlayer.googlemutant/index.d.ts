@@ -87,6 +87,8 @@ declare module "leaflet" {
              * Google's map styles.
              */
             styles?: GoogleMutantStyle[] | undefined;
+
+            mapId?: string | undefined;
         }
 
         function googleMutant(options?: GoogleMutantOptions): GoogleMutant;
