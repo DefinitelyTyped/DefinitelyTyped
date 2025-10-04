@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 
 declare namespace ReactHtml5CameraPhoto {
     // Facing modes for camera
@@ -103,6 +103,6 @@ declare namespace ReactHtml5CameraPhoto {
  * A camera component.
  * @param props Camera properties.
  */
-declare function ReactHtml5CameraPhoto(props: ReactHtml5CameraPhoto.CameraProps): ReactNode;
+declare function ReactHtml5CameraPhoto(props: ReactHtml5CameraPhoto.CameraProps): ReactElement;
 
 export = ReactHtml5CameraPhoto;
