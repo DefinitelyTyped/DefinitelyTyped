@@ -7,7 +7,8 @@
         "http://chaijs.com/"
     ],
     "dependencies": {
-        "@types/deep-eql": "*"
+        "@types/deep-eql": "*",
+        "assertion-error": "^2.0.1"
     },
     "devDependencies": {
         "@types/chai": "workspace:.",
