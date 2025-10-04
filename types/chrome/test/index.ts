@@ -2863,11 +2863,50 @@ async function testSystemCpu() {
     chrome.system.cpu.getInfo(() => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/system_storage
-async function testSystemStorageForPromise() {
-    await chrome.system.storage.getInfo();
-    await chrome.system.storage.ejectDevice("id1");
-    await chrome.system.storage.getAvailableCapacity("id1");
+// https://developer.chrome.com/docs/extensions/reference/api/system/storage
+async function testSystemStorage() {
+    chrome.system.storage.EjectDeviceResultCode.FAILURE === "failure";
+    chrome.system.storage.EjectDeviceResultCode.IN_USE === "in_use";
+    chrome.system.storage.EjectDeviceResultCode.NO_SUCH_DEVICE === "no_such_device";
+    chrome.system.storage.EjectDeviceResultCode.SUCCESS === "success";
+
+    chrome.system.storage.StorageUnitType.FIXED === "fixed";
+    chrome.system.storage.StorageUnitType.REMOVABLE === "removable";
+    chrome.system.storage.StorageUnitType.UNKNOWN === "unknown";
+
+    const id = "id";
+    chrome.system.storage.ejectDevice(id); // $ExpectType Promise<"success" | "in_use" | "no_such_device" | "failure">
+    chrome.system.storage.ejectDevice(id, (result) => { // $ExpectType void
+        result; // $ExpectType "success" | "in_use" | "no_such_device" | "failure"
+    });
+    // @ts-expect-error
+    chrome.system.storage.ejectDevice(id, () => {}).then(() => {});
+
+    chrome.system.storage.getAvailableCapacity(id); // $ExpectType Promise<StorageAvailableCapacityInfo>
+    chrome.system.storage.getAvailableCapacity(id, (info) => { // $ExpectType void
+        info.availableCapacity; // $ExpectType number
+        info.id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.system.storage.getAvailableCapacity(id, () => {}).then(() => {});
+
+    chrome.system.storage.getInfo(); // $ExpectType Promise<StorageUnitInfo[]>
+    chrome.system.storage.getInfo((units) => { // $ExpectType void
+        units; // $ExpectType StorageUnitInfo[]
+    });
+    // @ts-expect-error
+    chrome.system.storage.getInfo(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.system.storage.onAttached, (info) => {
+        info.capacity; // $ExpectType number
+        info.id; // $ExpectType string
+        info.name; // $ExpectType string
+        info.type; // $ExpectType "fixed" | "removable" | "unknown"
+    });
+
+    checkChromeEvent(chrome.system.storage.onDetached, (id) => {
+        id; // $ExpectType string
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/system/display
