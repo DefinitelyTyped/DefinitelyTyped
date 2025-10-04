@@ -163,6 +163,8 @@ declare namespace FS {
         parent: FSNode;
         mount: Mount;
         mounted?: Mount;
+        // Supported in MEMFS
+        contents?: Uint8Array | {} | null;
         id: number;
         name: string;
         mode: number;
