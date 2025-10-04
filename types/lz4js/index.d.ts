@@ -14,7 +14,7 @@ export function compressBlock(
     dst: Uint8Array | number[],
     sIndex: number,
     sLength: number,
-    dIndex: number,
+    hashTable: ArrayLike<number>,
 ): number;
 
 export function decompressBlock(
@@ -27,4 +27,6 @@ export function decompressBlock(
 
 export function compressFrame(src: Uint8Array | number[], dst: Uint8Array): number;
 
-export function makeBuffer(size: number): number;
+export function decompressFrame(src: Uint8Array | number[], dst: Uint8Array): number;
+
+export function makeBuffer(size: number): Uint8Array;
