@@ -1,4 +1,5 @@
 import deepEqual = require("deep-eql");
+import { AssertionError as ImportedAssertionError } from "assertion-error";
 
 declare global {
     namespace Chai {
@@ -2128,13 +2129,7 @@ declare global {
             deepEqual: <L, R>(expected: L, actual: R) => void;
         }
 
-        export class AssertionError {
-            constructor(message: string, _props?: any, ssf?: Function);
-            name: string;
-            message: string;
-            showDiff: boolean;
-            stack: string;
-        }
+        export type AssertionError = typeof ImportedAssertionError;
     }
 }
 
@@ -2143,6 +2138,7 @@ export function use(fn: Chai.ChaiPlugin): Chai.ChaiStatic;
 export const util: Chai.ChaiUtils;
 export const config: Chai.Config;
 export const Assertion: Chai.AssertionStatic;
+export const AssertionError: typeof ImportedAssertionError;
 export function should(): Chai.Should;
 export function Should(): Chai.Should;
 export const assert: Chai.AssertStatic;
