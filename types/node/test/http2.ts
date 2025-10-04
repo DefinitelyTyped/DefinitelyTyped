@@ -202,6 +202,7 @@ import { URL } from "node:url";
     serverHttp2Stream.respond();
     serverHttp2Stream.respond(headers);
     serverHttp2Stream.respond(headers, options);
+    serverHttp2Stream.respond([":status", "400"]);
 
     const options2: ServerStreamFileResponseOptions = {
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},

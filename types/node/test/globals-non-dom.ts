@@ -37,6 +37,8 @@
             out.usages; // $ExpectType KeyUsage[]
         },
     );
+
+    SubtleCrypto.supports("sign", "ML-DSA-44"); // $ExpectType boolean
 }
 
 {

@@ -351,6 +351,7 @@ import * as url from "node:url";
     let agent: http.Agent = new http.Agent({
         keepAlive: true,
         keepAliveMsecs: 10000,
+        agentKeepAliveTimeoutBuffer: 1000,
         maxSockets: Infinity,
         maxTotalSockets: Infinity,
         maxFreeSockets: 256,

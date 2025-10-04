@@ -159,6 +159,30 @@ declare module "inspector" {
          * @since v22.7.0
          */
         function loadingFailed(params: LoadingFailedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Broadcasts the `Network.webSocketCreated` event to connected frontends. This event indicates that
+         * a WebSocket connection has been initiated.
+         * @since v24.7.0
+         */
+        function webSocketCreated(params: WebSocketCreatedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Broadcasts the `Network.webSocketHandshakeResponseReceived` event to connected frontends.
+         * This event indicates that the WebSocket handshake response has been received.
+         * @since v24.7.0
+         */
+        function webSocketHandshakeResponseReceived(params: WebSocketHandshakeResponseReceivedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Broadcasts the `Network.webSocketClosed` event to connected frontends.
+         * This event indicates that a WebSocket connection has been closed.
+         * @since v24.7.0
+         */
+        function webSocketClosed(params: WebSocketClosedEventDataType): void;
     }
     namespace NetworkResources {
         /**

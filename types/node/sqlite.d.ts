@@ -637,8 +637,9 @@ declare module "node:sqlite" {
          */
         rate?: number | undefined;
         /**
-         * Callback function that will be called with the number of pages copied and the total number of
-         * pages.
+         * An optional callback function that will be called after each backup step. The argument passed
+         * to this callback is an `Object` with `remainingPages` and `totalPages` properties, describing the current progress
+         * of the backup operation.
          */
         progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
     }
@@ -675,9 +676,10 @@ declare module "node:sqlite" {
      * the contents will be overwritten.
      * @param options Optional configuration for the backup. The
      * following properties are supported:
-     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
+     * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */

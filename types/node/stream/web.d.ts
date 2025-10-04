@@ -1,11 +1,7 @@
 type _ByteLengthQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ByteLengthQueuingStrategy;
-type _CompressionStream = typeof globalThis extends { onmessage: any; ReportingObserver: any } ? {}
-    : import("stream/web").CompressionStream;
 type _CountQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").CountQueuingStrategy;
-type _DecompressionStream = typeof globalThis extends { onmessage: any; ReportingObserver: any } ? {}
-    : import("stream/web").DecompressionStream;
 type _QueuingStrategy<T = any> = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").QueuingStrategy<T>;
 type _ReadableByteStreamController = typeof globalThis extends { onmessage: any } ? {}
@@ -412,22 +408,17 @@ declare module "stream/web" {
         prototype: TextDecoderStream;
         new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
-    interface CompressionStream {
+    type CompressionFormat = "brotli" | "deflate" | "deflate-raw" | "gzip";
+    class CompressionStream {
+        constructor(format: CompressionFormat);
         readonly readable: ReadableStream;
         readonly writable: WritableStream;
     }
-    const CompressionStream: {
-        prototype: CompressionStream;
-        new(format: "deflate" | "deflate-raw" | "gzip"): CompressionStream;
-    };
-    interface DecompressionStream {
-        readonly writable: WritableStream;
+    class DecompressionStream {
+        constructor(format: CompressionFormat);
         readonly readable: ReadableStream;
+        readonly writable: WritableStream;
     }
-    const DecompressionStream: {
-        prototype: DecompressionStream;
-        new(format: "deflate" | "deflate-raw" | "gzip"): DecompressionStream;
-    };
 
     global {
         interface ByteLengthQueuingStrategy extends _ByteLengthQueuingStrategy {}
@@ -440,26 +431,6 @@ declare module "stream/web" {
             ? T
             : typeof import("stream/web").ByteLengthQueuingStrategy;
 
-        interface CompressionStream extends _CompressionStream {}
-        /**
-         * `CompressionStream` class is a global reference for `import { CompressionStream } from 'node:stream/web'`.
-         * https://nodejs.org/api/globals.html#class-compressionstream
-         * @since v18.0.0
-         */
-        var CompressionStream: typeof globalThis extends {
-            onmessage: any;
-            // CompressionStream, DecompressionStream and ReportingObserver was introduced in the same commit.
-            // If ReportingObserver check is removed, the type here will form a circular reference in TS5.0+lib.dom.d.ts
-            ReportingObserver: any;
-            CompressionStream: infer T;
-        } ? T
-            // TS 4.8, 4.9, 5.0
-            : typeof globalThis extends { onmessage: any; TransformStream: { prototype: infer T } } ? {
-                    prototype: T;
-                    new(format: "deflate" | "deflate-raw" | "gzip"): T;
-                }
-            : typeof import("stream/web").CompressionStream;
-
         interface CountQueuingStrategy extends _CountQueuingStrategy {}
         /**
          * `CountQueuingStrategy` class is a global reference for `import { CountQueuingStrategy } from 'node:stream/web'`.
@@ -468,26 +439,6 @@ declare module "stream/web" {
          */
         var CountQueuingStrategy: typeof globalThis extends { onmessage: any; CountQueuingStrategy: infer T } ? T
             : typeof import("stream/web").CountQueuingStrategy;
-
-        interface DecompressionStream extends _DecompressionStream {}
-        /**
-         * `DecompressionStream` class is a global reference for `import { DecompressionStream } from 'node:stream/web'`.
-         * https://nodejs.org/api/globals.html#class-decompressionstream
-         * @since v18.0.0
-         */
-        var DecompressionStream: typeof globalThis extends {
-            onmessage: any;
-            // CompressionStream, DecompressionStream and ReportingObserver was introduced in the same commit.
-            // If ReportingObserver check is removed, the type here will form a circular reference in TS5.0+lib.dom.d.ts
-            ReportingObserver: any;
-            DecompressionStream: infer T extends object;
-        } ? T
-            // TS 4.8, 4.9, 5.0
-            : typeof globalThis extends { onmessage: any; TransformStream: { prototype: infer T } } ? {
-                    prototype: T;
-                    new(format: "deflate" | "deflate-raw" | "gzip"): T;
-                }
-            : typeof import("stream/web").DecompressionStream;
 
         interface QueuingStrategy<T = any> extends _QueuingStrategy<T> {}
 

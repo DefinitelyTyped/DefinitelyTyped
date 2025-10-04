@@ -423,7 +423,7 @@ declare module "http2" {
          * ```
          * @since v8.4.0
          */
-        respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
+        respond(headers?: OutgoingHttpHeaders | readonly string[], options?: ServerStreamResponseOptions): void;
         /**
          * Initiates a response whose data is read from the given file descriptor. No
          * validation is performed on the given file descriptor. If an error occurs while
