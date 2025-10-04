@@ -32,3 +32,16 @@ import React = require("react");
 import ReactDOM = require(".");
 
 export {};
+
+declare module "react" {
+    interface ViewTransitionPseudoElement extends Animatable {
+        getComputedStyle: () => CSSStyleDeclaration;
+    }
+
+    interface ViewTransitionInstance {
+        group: ViewTransitionPseudoElement;
+        imagePair: ViewTransitionPseudoElement;
+        old: ViewTransitionPseudoElement;
+        new: ViewTransitionPseudoElement;
+    }
+}
