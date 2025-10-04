@@ -8054,3 +8054,25 @@ function testDesktopCapture() {
         options; // $ExpectType StreamOptions
     });
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/wallpaper
+function testWallpaper() {
+    chrome.wallpaper.WallpaperLayout.CENTER === "CENTER";
+    chrome.wallpaper.WallpaperLayout.CENTER_CROPPED === "CENTER_CROPPED";
+    chrome.wallpaper.WallpaperLayout.STRETCH === "STRETCH";
+
+    const details: chrome.wallpaper.WallpaperDetails = {
+        data: new ArrayBuffer(10),
+        filename: "filename",
+        layout: "CENTER",
+        thumbnail: true,
+        url: "https://example.com/wallpaper.png",
+    };
+
+    chrome.wallpaper.setWallpaper(details); // $ExpectType Promise<ArrayBuffer | undefined>
+    chrome.wallpaper.setWallpaper(details, (thumbnail) => { // $ExpectType void
+        thumbnail; // $ExpectType ArrayBuffer | undefined
+    });
+    // @ts-expect-error
+    chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
+}
