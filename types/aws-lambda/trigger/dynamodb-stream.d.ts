@@ -13,9 +13,9 @@ type ExclusivePropertyUnion<T, P = keyof T> = P extends any
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
 export type AttributeValue = ExclusivePropertyUnion<{
-    B: Uint8Array;
+    B: string;
     BOOL: boolean;
-    BS: Uint8Array[];
+    BS: string[];
     L: AttributeValue[];
     M: Record<string, AttributeValue>;
     N: string;
