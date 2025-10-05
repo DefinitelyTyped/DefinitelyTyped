@@ -228,8 +228,8 @@ declare namespace OpenSeadragon {
         next: NavImagesValues;
     }
 
-    type DrawerType = 'html' | 'canvas' | 'webgl';
-    type DrawerConstructor = new (options: TDrawerOptions) => DrawerBase;
+    type DrawerType = "html" | "canvas" | "webgl";
+    type DrawerConstructor = new(options: TDrawerOptions) => DrawerBase;
 
     interface Options {
         id?: string | undefined;
@@ -560,7 +560,7 @@ declare namespace OpenSeadragon {
     }
 
     class DrawerBase {
-        constructor(options: { viewer: Viewer, viewport: Viewport, element: HTMLElement });
+        constructor(options: { viewer: Viewer; viewport: Viewport; element: HTMLElement });
         static isSupported(): boolean;
         canRotate(): boolean;
         destroy(): void;
@@ -575,7 +575,7 @@ declare namespace OpenSeadragon {
         viewer: Viewer;
         viewport: Viewport;
         element: Element;
-        debugGridColor?: number
+        debugGridColor?: number;
     }
 
     class CanvasDrawer extends DrawerBase {
@@ -602,8 +602,19 @@ declare namespace OpenSeadragon {
     }
 
     class EventSource<EventMap extends Record<string, any> = any> {
-        addHandler<K extends keyof EventMap>(eventName: K, handler: EventHandler<EventMap[K]>, userData?: object, priority?: number): boolean;
-        addOnceHandler<K extends keyof EventMap>(eventName: K, handler: EventHandler<EventMap[K]>, userData?: object, times?: number, priority?: number): boolean;
+        addHandler<K extends keyof EventMap>(
+            eventName: K,
+            handler: EventHandler<EventMap[K]>,
+            userData?: object,
+            priority?: number,
+        ): boolean;
+        addOnceHandler<K extends keyof EventMap>(
+            eventName: K,
+            handler: EventHandler<EventMap[K]>,
+            userData?: object,
+            times?: number,
+            priority?: number,
+        ): boolean;
         getHandler<K extends keyof EventMap>(eventName: K): void;
         numberOfHandlers<K extends keyof EventMap>(eventName: K): number;
         raiseEvent<K extends keyof EventMap>(eventName: K, eventArgs: object): boolean;
@@ -644,7 +655,6 @@ declare namespace OpenSeadragon {
         finish(data: any, request: XMLHttpRequest, errorMessage: string): void;
         start(): void;
     }
-
 
     class ImageLoader {
         constructor(options: { jobLimit?: number | undefined; timeout?: number | undefined });
@@ -943,7 +953,7 @@ declare namespace OpenSeadragon {
         current: TSpringObj;
         springStiffness: number;
         start: TSpringObj;
-        target: TSpringObj
+        target: TSpringObj;
         constructor(options: {
             springStiffness: number;
             animationTime: number;
@@ -1072,7 +1082,7 @@ declare namespace OpenSeadragon {
         ajaxHeaders?: object | undefined;
     }
 
-    class TiledImage extends EventSource<TiledImageEventMap>{
+    class TiledImage extends EventSource<TiledImageEventMap> {
         source: TileSource;
         constructor(options: TiledImageInitOptions);
 
@@ -1262,9 +1272,9 @@ declare namespace OpenSeadragon {
         removeOverlay(overlay: Element | string): Viewer;
         removeReferenceStrip(): void;
         requestDrawer(drawerCandidate: string | DrawerBase, options: {
-            mainDrawer?: boolean,
-            redrawImmediately?: boolean,
-            drawerOptions: object
+            mainDrawer?: boolean;
+            redrawImmediately?: boolean;
+            drawerOptions: object;
         }): object | boolean;
         setAjaxHeaders(ajaxHeaders: object, propagate?: boolean): void;
         setDebugMode(debug: boolean): Viewer;
@@ -1275,7 +1285,7 @@ declare namespace OpenSeadragon {
         updateOverlay(element: Element | string, location: Point | Rect, placement?: Placement): Viewer;
     }
 
-    interface Viewer extends ControlDock, EventSource<ViewerEventMap>{}
+    interface Viewer extends ControlDock, EventSource<ViewerEventMap> {}
 
     interface ViewportOptions {
         margins: object;
@@ -1347,7 +1357,7 @@ declare namespace OpenSeadragon {
         resetContentSize(contentSize: Point): Viewport;
         resize(): Viewport;
         rotateBy(degrees: number, pivot?: Point): Viewport;
-        rotateTo(degrees: number, pivot?: Point, immediately?: boolean): Viewport
+        rotateTo(degrees: number, pivot?: Point, immediately?: boolean): Viewport;
         setFlip(state: boolean): Viewport;
         setMargins(margins: object): void;
         setMaxZoomPixelRatio(ratio: number, applyConstraints?: boolean, immediately?: boolean): void;
