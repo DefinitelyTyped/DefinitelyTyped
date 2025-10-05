@@ -150,6 +150,11 @@ function FSTest(): void {
     const lookup = FS.lookupPath("path", { parent: true, follow: false });
     // $ExpectType number
     lookup.node.mode;
+    // Due to TypeScript versioning issues, this is not currently typeable as expected ($ExpectType)
+    // Expected: Uint8Array, but actual type varies by TS version:
+    // TS 5.2-5.6: {} | Uint8Array | null | undefined
+    // TS 5.7+: {} | Uint8Array<ArrayBufferLike> | null | undefined
+    lookup.node.contents;
 
     const analyze = FS.analyzePath("path");
     // $ExpectType boolean
