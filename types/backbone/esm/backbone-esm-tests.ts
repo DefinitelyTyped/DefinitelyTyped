@@ -10,6 +10,12 @@ import type {
     ViewOptions,
 } from "backbone/esm";
 
+function test_esm_noConflict() {
+    const backbone = Backbone.noConflict();
+    const view = new backbone.View(); // $ExpectType Backbone.View
+    alert(view);
+}
+
 function test_esm_version() {
     const version = Backbone.VERSION;
     alert(version);

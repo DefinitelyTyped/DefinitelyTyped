@@ -613,5 +613,5 @@ export let emulateHTTP: boolean;
 export let emulateJSON: boolean;
 
 // Utility
-export function noConflict(): any;
+export function noConflict(): BackboneStatic;
 export let $: JQueryStatic;
