@@ -8,10 +8,10 @@
     ],
     "exports": {
         ".": {
-            "import": "./index.esm.d.ts",
+            "import": "./esm/index.esm.d.ts",
             "require": "./index.d.ts"
         },
-        "./esm": "./index.esm.d.ts"
+        "./esm": { "types": "./esm/index.esm.d.ts" }
     },
     "dependencies": {
         "@types/jquery": "*",

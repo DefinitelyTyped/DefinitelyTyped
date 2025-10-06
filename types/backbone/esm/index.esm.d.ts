@@ -584,6 +584,28 @@ export class View<TModel extends (Model | undefined) = Model, TElement extends E
     protected _setAttributes(attributes: Record<string, any>): void;
 }
 
+interface BackboneStatic extends EventsMixin {
+    sync: typeof sync;
+    ajax: typeof ajax;
+    emulateHTTP: boolean;
+    emulateJSON: boolean;
+    noConflict: typeof noConflict;
+    $: JQueryStatic;
+
+    Model: typeof Model;
+    Collection: typeof Collection;
+    Router: typeof Router;
+    History: typeof History;
+    history: History;
+    View: typeof View;
+    Events: typeof Events;
+
+    VERSION: string;
+}
+
+declare const Backbone: BackboneStatic;
+export default Backbone;
+
 // SYNC
 export function sync(method: string, model: Model | Collection, options?: JQueryAjaxSettings): any;
 export function ajax(options?: JQueryAjaxSettings): JQueryXHR;

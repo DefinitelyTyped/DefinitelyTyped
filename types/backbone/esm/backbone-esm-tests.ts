@@ -1,7 +1,22 @@
-import * as bb from "backbone";
+import Backbone from "backbone/esm";
+import type {
+    Events,
+    Events_Listen,
+    Events_Off,
+    Events_On,
+    Events_Stop,
+    Events_Trigger,
+    EventsHash,
+    ViewOptions,
+} from "backbone/esm";
 
-function test_events() {
-    const object = bb.Events;
+function test_esm_version() {
+    const version = Backbone.VERSION;
+    alert(version);
+}
+
+function test_esm_events() {
+    const object = Backbone.Events;
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
@@ -22,20 +37,20 @@ function test_events() {
     object.off();
 }
 
-class PubSub implements bb.Events {
-    on: bb.Events_On<PubSub>;
-    off: bb.Events_Off<PubSub>;
-    trigger: bb.Events_Trigger<PubSub>;
-    bind: bb.Events_On<PubSub>;
-    unbind: bb.Events_Off<PubSub>;
+class PubSub implements Events {
+    on: Events_On<PubSub>;
+    off: Events_Off<PubSub>;
+    trigger: Events_Trigger<PubSub>;
+    bind: Events_On<PubSub>;
+    unbind: Events_Off<PubSub>;
 
-    once: bb.Events_On<PubSub>;
-    listenTo: bb.Events_Listen<PubSub>;
-    listenToOnce: bb.Events_Listen<PubSub>;
-    stopListening: bb.Events_Stop<PubSub>;
+    once: Events_On<PubSub>;
+    listenTo: Events_Listen<PubSub>;
+    listenToOnce: Events_Listen<PubSub>;
+    stopListening: Events_Stop<PubSub>;
 }
 
-Object.assign(PubSub.prototype, bb.Events);
+Object.assign(PubSub.prototype, Backbone.Events);
 
 function test_events_shorthands() {
     const channel1 = new PubSub();
@@ -66,7 +81,7 @@ function test_events_shorthands() {
     channel2.stopListening(channel1);
 }
 
-class SettingDefaults extends bb.Model {
+class SettingDefaults extends Backbone.Model {
     // 'defaults' could be set in one of the following ways:
 
     defaults() {
@@ -100,7 +115,7 @@ class SettingDefaults extends bb.Model {
     // same patterns could be used for setting 'Router.routes' and 'View.events'
 }
 
-class FullyTyped extends bb.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
+class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
     getILikeBacon(): boolean | undefined {
         return this.get("iLikeBacon");
     }
@@ -118,7 +133,7 @@ class FullyTyped extends bb.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> 
     }
 }
 
-class FullyTypedDefault extends bb.Model {
+class FullyTypedDefault extends Backbone.Model {
     getILikeBacon(): boolean {
         return this.get("iLikeBacon");
     }
@@ -136,14 +151,14 @@ class FullyTypedDefault extends bb.Model {
     }
 }
 
-class Sidebar extends bb.Model {
+class Sidebar extends Backbone.Model {
     promptColor() {
         const cssColor = prompt("Please enter a CSS color:");
         this.set({ color: cssColor });
     }
 }
 
-class Note extends bb.Model {
+class Note extends Backbone.Model {
     initialize() {}
     author() {}
     coordinates() {}
@@ -158,11 +173,11 @@ class PrivateNote extends Note {
     }
 
     set(attributes: any, options?: any): this {
-        return bb.Model.prototype.set.call(this, attributes, options);
+        return Backbone.Model.prototype.set.call(this, attributes, options);
     }
 }
 
-function test_models() {
+function test_esm_models() {
     const sidebar = new Sidebar();
     sidebar.on("change:color", (model: {}, color: string) => $("#sidebar").css({ background: color }));
     sidebar.set({ color: "white" });
@@ -198,7 +213,7 @@ function test_models() {
     bool = note.isEmpty();
 }
 
-class Employee extends bb.Model {
+class Employee extends Backbone.Model {
     reports: EmployeeCollection;
 
     constructor(attributes?: any, options?: any) {
@@ -214,20 +229,21 @@ class Employee extends bb.Model {
     }
 }
 
-class EmployeeCollection extends bb.Collection<Employee> {
+class EmployeeCollection extends Backbone.Collection<Employee> {
     findByName(key: any) {}
 }
 
-class Book extends bb.Model {
+class Book extends Backbone.Model {
     title: string;
     author: string;
     published: boolean;
 }
 
-class Library extends bb.Collection<Book> {
+class Library extends Backbone.Collection<Book> {
     // This model definition is here only to test type compatibility of the model, but it
     // is not necessary in working code as it is automatically inferred through generics.
-    model: typeof Book;
+    declare model: typeof Book;
+    comparator: string | ((model: Book) => any) | ((model1: Book, model2: Book) => number);
 
     constructor(models?: Book[] | Array<Record<string, any>>, options?: any) {
         super(models, options);
@@ -240,17 +256,17 @@ class Library extends bb.Collection<Book> {
     }
 }
 
-class AnotherLibrary extends bb.Collection<Book> {
+class AnotherLibrary extends Backbone.Collection<Book> {
     model = (...args: any[]): Book => {
         return new Book();
     };
 }
 
-class Books extends bb.Collection<Book> {}
+class Books extends Backbone.Collection<Book> {}
 
-class ArbitraryCollection extends bb.Collection {}
+class ArbitraryCollection extends Backbone.Collection {}
 
-function test_collection() {
+function test_esm_collection() {
     const books = new Books();
     books.set([{ title: "Title 0", author: "Johan" }]);
     books.reset();
@@ -375,15 +391,15 @@ function test_collection() {
 
 //////////
 
-bb.history.start();
-bb.history.start({ hashChange: false });
-bb.History.started;
-bb.history.loadUrl();
-bb.history.loadUrl("12345");
+Backbone.history.start();
+Backbone.history.start({ hashChange: false });
+Backbone.History.started;
+Backbone.history.loadUrl();
+Backbone.history.loadUrl("12345");
 
 namespace v1Changes {
     namespace events {
-        function test_once() {
+        function test_esm_once() {
             const model = new Employee();
             model.once("invalid", () => {}, this);
             model.once("invalid", () => {});
@@ -391,23 +407,23 @@ namespace v1Changes {
             model.once({ invalid: () => {}, success: () => {} });
         }
 
-        function test_listenTo() {
+        function test_esm_listenTo() {
             const model = new Employee();
-            const view = new bb.View<Employee>();
+            const view = new Backbone.View<Employee>();
             view.listenTo(model, "invalid", () => {});
             view.listenTo(model, { invalid: () => {}, success: () => {} });
         }
 
-        function test_listenToOnce() {
+        function test_esm_listenToOnce() {
             const model = new Employee();
-            const view = new bb.View<Employee>();
+            const view = new Backbone.View<Employee>();
             view.listenToOnce(model, "invalid", () => {});
             view.listenToOnce(model, { invalid: () => {}, success: () => {} });
         }
 
-        function test_stopListening() {
+        function test_esm_stopListening() {
             const model = new Employee();
-            const view = new bb.View<Employee>();
+            const view = new Backbone.View<Employee>();
             view.stopListening(model, "invalid", () => {});
             view.stopListening(model, "invalid");
             view.stopListening(model, {
@@ -419,32 +435,32 @@ namespace v1Changes {
     }
 
     namespace ModelAndCollection {
-        function test_url() {
+        function test_esm_url() {
             Employee.prototype.url = () => "/employees";
             EmployeeCollection.prototype.url = () => "/employees";
         }
 
-        function test_model_create_with_collection() {
+        function test_esm_model_create_with_collection() {
             const collection = new Books();
             const employee = new Book({}, { collection, parse: true });
             employee.collection;
         }
 
-        function test_parse() {
+        function test_esm_parse() {
             const model = new Employee();
             model.parse("{}", {});
             const collection = new EmployeeCollection();
             collection.parse("{}", {});
         }
 
-        function test_toJSON() {
+        function test_esm_toJSON() {
             const model = new Employee();
             model.toJSON({});
             const collection = new EmployeeCollection();
             collection.toJSON({});
         }
 
-        function test_sync() {
+        function test_esm_sync() {
             const model = new Employee();
             model.sync();
             const collection = new EmployeeCollection();
@@ -453,14 +469,14 @@ namespace v1Changes {
     }
 
     namespace Model {
-        function test_validationError() {
+        function test_esm_validationError() {
             const model = new Employee();
             if (model.validationError) {
                 console.log("has validation errors");
             }
         }
 
-        function test_fetch() {
+        function test_esm_fetch() {
             const model = new Employee({ id: 1 });
             model.fetch({
                 success: () => {},
@@ -468,13 +484,13 @@ namespace v1Changes {
             });
         }
 
-        function test_set() {
+        function test_esm_set() {
             const model = new Employee();
             model.set({ name: "JoeDoe", age: 21 }, { validate: false });
             model.set("name", "JoeDoes", { validate: false });
         }
 
-        function test_destroy() {
+        function test_esm_destroy() {
             const model = new Employee();
             model.destroy({
                 wait: true,
@@ -493,7 +509,7 @@ namespace v1Changes {
             });
         }
 
-        function test_save() {
+        function test_esm_save() {
             const model = new Employee();
 
             model.save(
@@ -521,7 +537,7 @@ namespace v1Changes {
             );
         }
 
-        function test_validate() {
+        function test_esm_validate() {
             const model = new Employee();
 
             model.validate({ name: "JoeDoe", age: 21 }, { validateAge: false });
@@ -529,7 +545,7 @@ namespace v1Changes {
     }
 
     namespace Collection {
-        function test_fetch() {
+        function test_esm_fetch() {
             const collection = new EmployeeCollection();
             collection.fetch({
                 reset: true,
@@ -537,7 +553,7 @@ namespace v1Changes {
             });
         }
 
-        function test_create() {
+        function test_esm_create() {
             const collection = new EmployeeCollection();
             const model = new Employee();
 
@@ -546,7 +562,7 @@ namespace v1Changes {
             });
         }
 
-        function test_set() {
+        function test_esm_set() {
             const collection = new EmployeeCollection();
             const model = new Employee();
             collection.set([model], { add: false, remove: true, merge: false });
@@ -555,16 +571,16 @@ namespace v1Changes {
 
     namespace Sync {
         // Test for Backbone.sync override.
-        bb.sync("create", new Employee());
-        bb.sync("read", new EmployeeCollection());
+        Backbone.sync("create", new Employee());
+        Backbone.sync("read", new EmployeeCollection());
     }
 }
 
-interface BookViewOptions extends bb.ViewOptions<Book> {
+interface BookViewOptions extends ViewOptions<Book> {
     featured: boolean;
 }
 
-class BookView extends bb.View<Book> {
+class BookView extends Backbone.View<Book> {
     featured: boolean;
     constructor(options: BookViewOptions) {
         super(options);
@@ -572,11 +588,11 @@ class BookView extends bb.View<Book> {
     }
 }
 
-interface ModellessViewOptions extends bb.ViewOptions {
+interface ModellessViewOptions extends ViewOptions {
     color?: string | undefined;
 }
 
-class ModellessView extends bb.View {
+class ModellessView extends Backbone.View {
     color?: string | undefined;
     constructor(options: ModellessViewOptions) {
         super(options);
@@ -584,10 +600,10 @@ class ModellessView extends bb.View {
     }
 }
 
-class EventsViewObject extends bb.View {
-    events: bb.EventsHash;
+class EventsViewObject extends Backbone.View {
+    events: EventsHash;
 
-    constructor(options: bb.ViewOptions) {
+    constructor(options: ViewOptions) {
         super(options);
 
         this.events = {
@@ -601,7 +617,7 @@ class EventsViewObject extends bb.View {
 }
 
 function eventsFn(this: EventsViewMethod) {
-    const eventsHash: bb.EventsHash = {
+    const eventsHash: EventsHash = {
         click: "onClick",
     };
 
@@ -610,10 +626,10 @@ function eventsFn(this: EventsViewMethod) {
     return eventsHash;
 }
 
-class EventsViewMethod extends bb.View {
-    events: () => bb.EventsHash;
+class EventsViewMethod extends Backbone.View {
+    events: () => EventsHash;
 
-    constructor(options: bb.ViewOptions) {
+    constructor(options: ViewOptions) {
         super(options);
 
         this.events = () => ({
@@ -628,10 +644,11 @@ class EventsViewMethod extends bb.View {
     }
 }
 
-interface SVGViewOptions extends bb.ViewOptions<bb.Model, SVGGraphicsElement> {
+type Model = InstanceType<(typeof Backbone)["Model"]>;
+interface SVGViewOptions extends ViewOptions<Model, SVGGraphicsElement> {
 }
 
-class SVGView extends bb.View<bb.Model, SVGGraphicsElement> {
+class SVGView extends Backbone.View<Model, SVGGraphicsElement> {
     matrix: DOMMatrix | null = null;
     document: SVGSVGElement | null = null;
     constructor(options: SVGViewOptions) {
@@ -644,11 +661,11 @@ class SVGView extends bb.View<bb.Model, SVGGraphicsElement> {
 }
 
 function testViewWithoutModel() {
-    const view = new bb.View<undefined>();
+    const view = new Backbone.View<undefined>();
     // @ts-expect-error
     view.model.id;
-    const view2 = new bb.View<bb.Model>({
-        model: new bb.Model(),
+    const view2 = new Backbone.View<Model>({
+        model: new Backbone.Model(),
     });
     view2.model.id; // $ExpectType string | number
 }
@@ -658,7 +675,7 @@ interface TypedModelAttributes {
     numberAttr: number;
 }
 
-class TypedModel extends bb.Model<TypedModelAttributes> {}
+class TypedModel extends Backbone.Model<TypedModelAttributes> {}
 
 function testTypedModel() {
     const model = new TypedModel();
@@ -721,8 +738,8 @@ function testTypedModel() {
 }
 
 function testRouter() {
-    let router = new bb.Router();
-    router = new bb.Router({
+    let router = new Backbone.Router();
+    router = new Backbone.Router({
         routes: {
             help: "help", // #help
             "search/:query": "search", // #search/kiwis
@@ -731,7 +748,7 @@ function testRouter() {
     });
 
     // @ts-expect-error
-    router = new bb.Router({ routes: "not object" });
+    router = new Backbone.Router({ routes: "not object" });
 
     router.route("search/:query/p:num", "search", (query, num) => {});
     router.route(/search/, (query, num) => {});

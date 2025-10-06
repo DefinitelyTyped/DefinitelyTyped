@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -11,10 +11,11 @@
         "strictFunctionTypes": false,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": false
     },
     "files": [
-        "index.d.ts",
-        "backbone-tests.ts"
+        "index.esm.d.ts",
+        "backbone-esm-tests.ts"
     ]
 }
