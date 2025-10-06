@@ -14,12 +14,25 @@ declare namespace GoogleAppsScript {
          *             .setParameters({imageSrc: 'carImage'}));
          */
         interface Action {
+            addRequiredWidget(requiredWidget: string): Action;
+            setAllWidgetsAreRequired(allWidgetsAreRequired: boolean): Action;
             setFunctionName(functionName: string): Action;
+            setInteraction(interaction: Interaction): Action;
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
             setPersistValues(persistValues: boolean): Action;
         }
+
+        /**
+         * An enum type that specifies what to do in response to an interaction with a user,
+         * such as a user clicking a button in a card message.
+         */
+        enum Interaction {
+            INTERACTION_UNSPECIFIED,
+            OPEN_DIALOG,
+        }
+
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)
          * to perform one or more actions on the client. Some combinations of actions are not supported.
@@ -271,6 +284,7 @@ declare namespace GoogleAppsScript {
             TextButtonStyle: typeof TextButtonStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
+            Interaction: typeof Interaction;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
