@@ -26,6 +26,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/dgram.js)
  */
 declare module "dgram" {
+    import { NonSharedBuffer } from "node:buffer";
     import { AddressInfo, BlockList } from "node:net";
     import * as dns from "node:dns";
     import { Abortable, EventEmitter } from "node:events";
@@ -85,8 +86,8 @@ declare module "dgram" {
      * @param options Available options are:
      * @param callback Attached as a listener for `'message'` events. Optional.
      */
-    function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
-    function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    function createSocket(type: SocketType, callback?: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): Socket;
+    function createSocket(options: SocketOptions, callback?: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): Socket;
     /**
      * Encapsulates the datagram functionality.
      *
@@ -556,37 +557,37 @@ declare module "dgram" {
         addListener(event: "connect", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        addListener(event: "message", listener: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connect"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
+        emit(event: "message", msg: NonSharedBuffer, rinfo: RemoteInfo): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "connect", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        on(event: "message", listener: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "connect", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        once(event: "message", listener: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "connect", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependListener(event: "message", listener: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "connect", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependOnceListener(event: "message", listener: (msg: NonSharedBuffer, rinfo: RemoteInfo) => void): this;
         /**
          * Calls `socket.close()` and returns a promise that fulfills when the socket has closed.
          * @since v20.5.0
