@@ -66,6 +66,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/child_process.js)
  */
 declare module "child_process" {
+    import { NonSharedBuffer } from "node:buffer";
     import { Abortable, EventEmitter } from "node:events";
     import * as dgram from "node:dgram";
     import * as net from "node:net";
@@ -996,7 +997,7 @@ declare module "child_process" {
     function exec(
         command: string,
         options: ExecOptionsWithBufferEncoding,
-        callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void,
+        callback?: (error: ExecException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
     ): ChildProcess;
     // `options` with well-known or absent `encoding` means stdout/stderr are definitely `string`.
     function exec(
@@ -1008,7 +1009,11 @@ declare module "child_process" {
     function exec(
         command: string,
         options: ExecOptions | undefined | null,
-        callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
+        callback?: (
+            error: ExecException | null,
+            stdout: string | NonSharedBuffer,
+            stderr: string | NonSharedBuffer,
+        ) => void,
     ): ChildProcess;
     interface PromiseWithChild<T> extends Promise<T> {
         child: ChildProcess;
@@ -1022,8 +1027,8 @@ declare module "child_process" {
             command: string,
             options: ExecOptionsWithBufferEncoding,
         ): PromiseWithChild<{
-            stdout: Buffer;
-            stderr: Buffer;
+            stdout: NonSharedBuffer;
+            stderr: NonSharedBuffer;
         }>;
         function __promisify__(
             command: string,
@@ -1036,8 +1041,8 @@ declare module "child_process" {
             command: string,
             options: ExecOptions | undefined | null,
         ): PromiseWithChild<{
-            stdout: string | Buffer;
-            stderr: string | Buffer;
+            stdout: string | NonSharedBuffer;
+            stderr: string | NonSharedBuffer;
         }>;
     }
     interface ExecFileOptions extends CommonOptions, Abortable {
@@ -1137,13 +1142,13 @@ declare module "child_process" {
     function execFile(
         file: string,
         options: ExecFileOptionsWithBufferEncoding,
-        callback?: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithBufferEncoding,
-        callback?: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
     ): ChildProcess;
     // `options` with well-known or absent `encoding` means stdout/stderr are definitely `string`.
     function execFile(
@@ -1162,7 +1167,11 @@ declare module "child_process" {
         file: string,
         options: ExecFileOptions | undefined | null,
         callback:
-            | ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void)
+            | ((
+                error: ExecFileException | null,
+                stdout: string | NonSharedBuffer,
+                stderr: string | NonSharedBuffer,
+            ) => void)
             | undefined
             | null,
     ): ChildProcess;
@@ -1171,7 +1180,11 @@ declare module "child_process" {
         args: readonly string[] | undefined | null,
         options: ExecFileOptions | undefined | null,
         callback:
-            | ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void)
+            | ((
+                error: ExecFileException | null,
+                stdout: string | NonSharedBuffer,
+                stderr: string | NonSharedBuffer,
+            ) => void)
             | undefined
             | null,
     ): ChildProcess;
@@ -1191,16 +1204,16 @@ declare module "child_process" {
             file: string,
             options: ExecFileOptionsWithBufferEncoding,
         ): PromiseWithChild<{
-            stdout: Buffer;
-            stderr: Buffer;
+            stdout: NonSharedBuffer;
+            stderr: NonSharedBuffer;
         }>;
         function __promisify__(
             file: string,
             args: readonly string[] | undefined | null,
             options: ExecFileOptionsWithBufferEncoding,
         ): PromiseWithChild<{
-            stdout: Buffer;
-            stderr: Buffer;
+            stdout: NonSharedBuffer;
+            stderr: NonSharedBuffer;
         }>;
         function __promisify__(
             file: string,
@@ -1221,16 +1234,16 @@ declare module "child_process" {
             file: string,
             options: ExecFileOptions | undefined | null,
         ): PromiseWithChild<{
-            stdout: string | Buffer;
-            stderr: string | Buffer;
+            stdout: string | NonSharedBuffer;
+            stderr: string | NonSharedBuffer;
         }>;
         function __promisify__(
             file: string,
             args: readonly string[] | undefined | null,
             options: ExecFileOptions | undefined | null,
         ): PromiseWithChild<{
-            stdout: string | Buffer;
-            stderr: string | Buffer;
+            stdout: string | NonSharedBuffer;
+            stderr: string | NonSharedBuffer;
         }>;
     }
     interface ForkOptions extends ProcessEnvOptions, MessagingOptions, Abortable {
@@ -1336,11 +1349,11 @@ declare module "child_process" {
      * @param command The command to run.
      * @param args List of string arguments.
      */
-    function spawnSync(command: string): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string): SpawnSyncReturns<NonSharedBuffer>;
     function spawnSync(command: string, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
-    function spawnSync(command: string, args: readonly string[]): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<NonSharedBuffer>;
+    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | NonSharedBuffer>;
+    function spawnSync(command: string, args: readonly string[]): SpawnSyncReturns<NonSharedBuffer>;
     function spawnSync(
         command: string,
         args: readonly string[],
@@ -1350,12 +1363,12 @@ declare module "child_process" {
         command: string,
         args: readonly string[],
         options: SpawnSyncOptionsWithBufferEncoding,
-    ): SpawnSyncReturns<Buffer>;
+    ): SpawnSyncReturns<NonSharedBuffer>;
     function spawnSync(
         command: string,
         args?: readonly string[],
         options?: SpawnSyncOptions,
-    ): SpawnSyncReturns<string | Buffer>;
+    ): SpawnSyncReturns<string | NonSharedBuffer>;
     interface CommonExecOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         /**
@@ -1397,10 +1410,10 @@ declare module "child_process" {
      * @param command The command to run.
      * @return The stdout from the command.
      */
-    function execSync(command: string): Buffer;
+    function execSync(command: string): NonSharedBuffer;
     function execSync(command: string, options: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): Buffer;
-    function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
+    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): NonSharedBuffer;
+    function execSync(command: string, options?: ExecSyncOptions): string | NonSharedBuffer;
     interface ExecFileSyncOptions extends CommonExecOptions {
         shell?: boolean | string | undefined;
     }
@@ -1430,11 +1443,11 @@ declare module "child_process" {
      * @param args List of string arguments.
      * @return The stdout from the command.
      */
-    function execFileSync(file: string): Buffer;
+    function execFileSync(file: string): NonSharedBuffer;
     function execFileSync(file: string, options: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(file: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(file: string, options?: ExecFileSyncOptions): string | Buffer;
-    function execFileSync(file: string, args: readonly string[]): Buffer;
+    function execFileSync(file: string, options: ExecFileSyncOptionsWithBufferEncoding): NonSharedBuffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptions): string | NonSharedBuffer;
+    function execFileSync(file: string, args: readonly string[]): NonSharedBuffer;
     function execFileSync(
         file: string,
         args: readonly string[],
@@ -1444,8 +1457,12 @@ declare module "child_process" {
         file: string,
         args: readonly string[],
         options: ExecFileSyncOptionsWithBufferEncoding,
-    ): Buffer;
-    function execFileSync(file: string, args?: readonly string[], options?: ExecFileSyncOptions): string | Buffer;
+    ): NonSharedBuffer;
+    function execFileSync(
+        file: string,
+        args?: readonly string[],
+        options?: ExecFileSyncOptions,
+    ): string | NonSharedBuffer;
 }
 declare module "node:child_process" {
     export * from "child_process";
