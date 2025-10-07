@@ -1463,6 +1463,16 @@ declare module "http" {
          */
         keepAliveMsecs?: number | undefined;
         /**
+         * Milliseconds to subtract from
+         * the server-provided `keep-alive: timeout=...` hint when determining socket
+         * expiration time. This buffer helps ensure the agent closes the socket
+         * slightly before the server does, reducing the chance of sending a request
+         * on a socket that’s about to be closed by the server.
+         * @since v24.7.0
+         * @default 1000
+         */
+        agentKeepAliveTimeoutBuffer?: number | undefined;
+        /**
          * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
          */
         maxSockets?: number | undefined;
