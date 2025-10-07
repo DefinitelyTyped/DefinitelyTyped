@@ -313,7 +313,7 @@ declare namespace jasmine {
          * @since 5.5.0
          * @default false
          */
-        forbidDuplicateNames?: boolean | undefined,
+        forbidDuplicateNames?: boolean | undefined;
         /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
