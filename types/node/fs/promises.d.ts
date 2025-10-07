@@ -32,6 +32,8 @@ declare module "fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadOptions,
+        ReadOptionsWithBuffer,
         ReadPosition,
         ReadStream,
         ReadVResult,
@@ -60,7 +62,12 @@ declare module "fs/promises" {
         bytesRead: number;
         buffer: T;
     }
-    interface FileReadOptions {
+    /** @deprecated This interface will be removed in a future version. Use `import { ReadOptionsWithBuffer } from "node:fs"` instead. */
+    interface FileReadOptions<T extends NodeJS.ArrayBufferView = Buffer> {
+        /**
+         * @default `Buffer.alloc(0xffff)`
+         */
+        buffer?: T;
         /**
          * @default 0
          */
@@ -70,12 +77,6 @@ declare module "fs/promises" {
          */
         length?: number | null;
         position?: ReadPosition | null;
-    }
-    interface FileReadOptionsWithBuffer<T extends NodeJS.ArrayBufferView> extends FileReadOptions {
-        /**
-         * @default Buffer.alloc(0xffff)
-         */
-        buffer?: T | undefined;
     }
     interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
@@ -242,10 +243,10 @@ declare module "fs/promises" {
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView>(
             buffer: T,
-            options?: FileReadOptions,
+            options?: ReadOptions,
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = NonSharedBuffer>(
-            options?: FileReadOptionsWithBuffer<T>,
+            options?: ReadOptionsWithBuffer<T>,
         ): Promise<FileReadResult<T>>;
         /**
          * Returns a byte-oriented `ReadableStream` that may be used to read the file's
