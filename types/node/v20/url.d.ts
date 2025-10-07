@@ -8,7 +8,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/url.js)
  */
 declare module "url" {
-    import { Blob as NodeBlob } from "node:buffer";
+    import { Blob as NodeBlob, NonSharedBuffer } from "node:buffer";
     import { ClientRequestArgs } from "node:http";
     import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
