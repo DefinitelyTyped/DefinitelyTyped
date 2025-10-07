@@ -77,7 +77,7 @@ import {
     });
 
     fn satisfies Function;
-    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    // $ExpectType NonSharedBuffer | undefined
     fn.cachedData;
     // $ExpectType boolean | undefined
     fn.cachedDataProduced;
@@ -250,7 +250,7 @@ import {
     compileFunction(code, ["param"], {
         importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
-            referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
+            referrer; // $ExpectType Function & { cachedData?: NonSharedBuffer | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
             importAttributes; // $ExpectType ImportAttributes
             phase; // $ExpectType ImportPhase
 
