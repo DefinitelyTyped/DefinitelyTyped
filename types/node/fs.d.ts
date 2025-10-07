@@ -4600,6 +4600,7 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
+    // TODO: collapse
     interface _GlobOptions<T extends Dirent | string> {
         /**
          * Current working directory.
@@ -4616,6 +4617,9 @@ declare module "fs" {
          * Function to filter out files/directories or a
          * list of glob patterns to be excluded. If a function is provided, return
          * `true` to exclude the item, `false` to include it.
+         * If a string array is provided, each string should be a glob pattern that
+         * specifies paths to exclude. Note: Negation patterns (e.g., '!foo.js') are
+         * not supported.
          * @default undefined
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
