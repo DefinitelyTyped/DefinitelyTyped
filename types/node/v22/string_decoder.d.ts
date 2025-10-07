@@ -48,7 +48,7 @@ declare module "string_decoder" {
          * @since v0.1.99
          * @param buffer The bytes to decode.
          */
-        write(buffer: string | Buffer | NodeJS.ArrayBufferView): string;
+        write(buffer: string | NodeJS.ArrayBufferView): string;
         /**
          * Returns any remaining input stored in the internal buffer as a string. Bytes
          * representing incomplete UTF-8 and UTF-16 characters will be replaced with
@@ -59,7 +59,7 @@ declare module "string_decoder" {
          * @since v0.9.3
          * @param buffer The bytes to decode.
          */
-        end(buffer?: string | Buffer | NodeJS.ArrayBufferView): string;
+        end(buffer?: string | NodeJS.ArrayBufferView): string;
     }
 }
 declare module "node:string_decoder" {
