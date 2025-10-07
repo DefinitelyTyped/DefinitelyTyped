@@ -4,7 +4,7 @@
  * @since v16.7.0
  */
 declare module "stream/consumers" {
-    import { Blob as NodeBlob } from "node:buffer";
+    import { Blob as NodeBlob, NonSharedBuffer } from "node:buffer";
     import { ReadableStream as WebReadableStream } from "node:stream/web";
     /**
      * @since v16.7.0
@@ -20,7 +20,7 @@ declare module "stream/consumers" {
      * @since v16.7.0
      * @returns Fulfills with a `Buffer` containing the full contents of the stream.
      */
-    function buffer(stream: WebReadableStream | NodeJS.ReadableStream | AsyncIterable<any>): Promise<Buffer>;
+    function buffer(stream: WebReadableStream | NodeJS.ReadableStream | AsyncIterable<any>): Promise<NonSharedBuffer>;
     /**
      * @since v16.7.0
      * @returns Fulfills with the contents of the stream parsed as a
