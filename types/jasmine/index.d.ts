@@ -311,7 +311,7 @@ declare namespace jasmine {
          * the same name multiple times in the same immediate parent suite is an
          * error.
          * @since 5.5.0
-         * @default true
+         * @default false
          */
         forbidDuplicateNames?: boolean | undefined,
         /**
