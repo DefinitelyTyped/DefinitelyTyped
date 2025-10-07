@@ -1,8 +1,8 @@
-import { Compiler, WebpackPluginInstance } from "webpack";
+import webpack = require("webpack");
 
 export = GenerateJsonWebpackPlugin;
 
-declare class GenerateJsonWebpackPlugin implements WebpackPluginInstance {
+declare class GenerateJsonWebpackPlugin implements webpack.WebpackPluginInstance {
     constructor(
         fileName: string,
         value: object,
@@ -10,5 +10,5 @@ declare class GenerateJsonWebpackPlugin implements WebpackPluginInstance {
         space?: string | number | null,
     );
 
-    apply: (compiler: Compiler) => void;
+    apply: (compiler: webpack.Compiler) => void;
 }
