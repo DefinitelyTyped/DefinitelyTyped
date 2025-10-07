@@ -324,7 +324,7 @@ import * as url from "node:url";
     let _buffer: Buffer = Buffer.from("");
     let _err = new Error();
     let _boolean = true;
-    let sessionCallback = (err: Error, resp: Buffer) => {};
+    let sessionCallback = (err: Error | null, resp: Buffer) => {};
     let ocspRequestCallback = (err: Error | null, resp: Buffer) => {};
 
     server = server.addListener("keylog", (ln, tlsSocket) => {
