@@ -4364,7 +4364,9 @@ declare module "fs" {
         position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: TBuffers) => void,
     ): void;
-    export interface WriteVResult<T extends readonly NodeJS.ArrayBufferView[]> {
+    // Providing a default type parameter doesn't provide true BC for userland consumers, but at least suppresses TS2314
+    // TODO: remove default in future major version
+    export interface WriteVResult<T extends readonly NodeJS.ArrayBufferView[] = NodeJS.ArrayBufferView[]> {
         bytesWritten: number;
         buffers: T;
     }
@@ -4409,7 +4411,9 @@ declare module "fs" {
         position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: TBuffers) => void,
     ): void;
-    export interface ReadVResult<T extends readonly NodeJS.ArrayBufferView[]> {
+    // Providing a default type parameter doesn't provide true BC for userland consumers, but at least suppresses TS2314
+    // TODO: remove default in future major version
+    export interface ReadVResult<T extends readonly NodeJS.ArrayBufferView[] = NodeJS.ArrayBufferView[]> {
         bytesRead: number;
         buffers: T;
     }
