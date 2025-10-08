@@ -4664,11 +4664,11 @@ declare namespace browser.runtime {
 declare namespace browser.scripting {
     /* scripting types */
     /** Details of a script injection */
-    interface ScriptInjection {
+    interface ScriptInjection<Args extends any[] = any[]> {
         /**
          * The arguments to curry into a provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable.
          */
-        args?: any[] | undefined;
+        args?: Args | undefined;
         /**
          * The path of the JS files to inject, relative to the extension's root directory. Exactly one of `files` and `func` must be specified.
          */
@@ -4677,7 +4677,7 @@ declare namespace browser.scripting {
          * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` and `func` must be specified.
          */
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        func?: () => void | undefined;
+        func?: (...args: Args) => void | undefined;
         /** Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         world?: ExecutionWorld | undefined;
@@ -4801,7 +4801,8 @@ declare namespace browser.scripting {
      * Injects a script into a target context. The script will be run at `document_idle`.
      * @param injection The details of the script which to inject.
      */
-    function executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    function executeScript<T extends any[]>(injection: ScriptInjection<T>): Promise<InjectionResult[]>;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.

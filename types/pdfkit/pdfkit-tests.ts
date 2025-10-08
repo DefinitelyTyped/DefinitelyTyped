@@ -560,6 +560,12 @@ doc.table({
     ],
 });
 
+doc.table({
+    data: [["col 1", "col 2", "col 3"]],
+    rowStyles: { minHeight: 20 },
+    columnStyles: { maxWidth: 50 },
+});
+
 doc.text("Scale", { align: "justify" });
 
 doc.text("Baseline - string literal", { baseline: "alphabetic" });

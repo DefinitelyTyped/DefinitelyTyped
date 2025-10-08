@@ -140,13 +140,6 @@ declare class Node extends EventDispatcher<{
      */
     onReference(callback: (this: this, frame: NodeBuilder | NodeFrame) => unknown): this;
     /**
-     * The `this` reference might point to a Proxy so this method can be used
-     * to get the reference to the actual node instance.
-     *
-     * @return {Node} A reference to the node.
-     */
-    getSelf(): this;
-    /**
      * Nodes might refer to other objects like materials. This method allows to dynamically update the reference
      * to such objects based on a given state (e.g. the current node frame or builder).
      *
@@ -296,7 +289,7 @@ declare class Node extends EventDispatcher<{
      * This state builds the output node and returns the resulting shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {?string} output - Can be used to define the output type.
+     * @param {?string} [output] - Can be used to define the output type.
      * @return {?string} The generated shader string.
      */
     generate(builder: NodeBuilder, output?: string | null): string | null | undefined;
@@ -334,14 +327,14 @@ declare class Node extends EventDispatcher<{
      * - **generate**: Generates the shader code for the node. Returns the generated shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {string|Node|null} [output=null] - Can be used to define the output type.
-     * @return {Node|string|null} The result of the build process, depending on the build stage.
+     * @param {?(string|Node)} [output=null] - Can be used to define the output type.
+     * @return {?(Node|string)} The result of the build process, depending on the build stage.
      */
     build(builder: NodeBuilder, output?: string | Node | null): Node | string | null;
     /**
      * Returns the child nodes as a JSON object.
      *
-     * @return {Array<Object>} An iterable list of serialized child objects as JSON.
+     * @return {Generator<Object>} An iterable list of serialized child objects as JSON.
      */
     getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
     /**

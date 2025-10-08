@@ -158,6 +158,15 @@ import {
     });
 
     await bar.evaluate();
+
+    for (const request of bar.moduleRequests) {
+        // $ExpectType string
+        request.specifier;
+        // $ExpectType ImportAttributes
+        request.attributes;
+        // $ExpectType ImportPhase
+        request.phase;
+    }
 });
 
 (async () => {
@@ -178,7 +187,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -195,7 +204,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -211,7 +220,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -227,7 +236,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -243,7 +252,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -260,7 +269,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType SourceTextModule
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -279,7 +288,7 @@ import {
             specifier; // $ExpectType string
             referrer; // $ExpectType Context
             importAttributes; // $ExpectType ImportAttributes
-            phase; // $ExpectType "source" | "evaluation"
+            phase; // $ExpectType ImportPhase
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));

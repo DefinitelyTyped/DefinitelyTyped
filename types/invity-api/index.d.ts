@@ -360,6 +360,8 @@ export interface ExchangeTradeQuoteRequest {
     send: CryptoId; // bitcoin
     receive: CryptoId; // litecoin
     sendStringAmount?: string | undefined; // "0.01"
+    fromAddress?: string; // user's address from which the tx is sent - used in DEX
+    receiveAddress?: string; // user's address where they'll receive exchanged crypto
     dex?: "enable" | "exclusively" | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
 

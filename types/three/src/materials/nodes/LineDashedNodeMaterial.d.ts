@@ -79,6 +79,7 @@ declare class LineDashedNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isLineDashedNodeMaterial: boolean;
+    setValues(values?: LineDashedNodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

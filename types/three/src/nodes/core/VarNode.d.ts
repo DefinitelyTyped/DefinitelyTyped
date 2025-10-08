@@ -32,17 +32,3 @@ declare module "../tsl/TSLCore.js" {
         toVarIntent: (node: Node) => Node;
     }
 }
-
-/**
- * @deprecated Use ".toVar()" instead.
- */
-export const temp: (node: Node, name?: string | null) => ShaderNodeObject<VarNode>;
-
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        /**
-         * @deprecated Use ".toVar()" instead.
-         */
-        temp: typeof temp;
-    }
-}

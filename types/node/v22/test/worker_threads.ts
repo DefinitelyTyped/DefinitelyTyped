@@ -144,8 +144,12 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
-    bc.onmessageerror = (msg: unknown) => {};
+    bc.onmessage = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
+    bc.onmessageerror = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
 
     // Test global alias
     const bc2 = new BroadcastChannel("test");
@@ -193,10 +197,11 @@ import { createContext } from "node:vm";
         // emit message event
         worker.postMessage({ port: port2 }, [port2]);
         port1.postMessage("From main to parent");
-        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
-        worker.postMessageToThread(10, { port: port2 }, [port2]);
-        worker.postMessageToThread(10, { x: 100 }, 1000);
-        worker.postMessageToThread(10, { x: 100 });
+
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
+        workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+        workerThreads.postMessageToThread(10, { x: 100 });
 
         // close event
         setTimeout(() => {

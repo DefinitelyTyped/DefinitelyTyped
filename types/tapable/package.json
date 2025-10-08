@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/tapable",
-    "version": "2.2.9999",
+    "version": "2.3.9999",
     "projects": [
         "https://github.com/webpack/tapable.git"
     ],
     "dependencies": {
-        "tapable": "^2.2.0"
+        "tapable": "^2.3.0"
     },
     "devDependencies": {
         "@types/tapable": "workspace:."

@@ -1591,7 +1591,7 @@ declare module "http" {
         createConnection(
             options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *
@@ -2031,15 +2031,15 @@ declare module "http" {
      * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
-    const WebSocket: import("undici-types").WebSocket;
+    const WebSocket: typeof import("undici-types").WebSocket;
     /**
      * @since v22.5.0
      */
-    const CloseEvent: import("undici-types").CloseEvent;
+    const CloseEvent: typeof import("undici-types").CloseEvent;
     /**
      * @since v22.5.0
      */
-    const MessageEvent: import("undici-types").MessageEvent;
+    const MessageEvent: typeof import("undici-types").MessageEvent;
 }
 declare module "node:http" {
     export * from "http";

@@ -17,6 +17,7 @@ export default class AdCreativeLinkDataImageOverlaySpec extends AbstractCrudObje
     static get CustomTextType(): Readonly<{
         free_shipping: "free_shipping";
         popular: "popular";
+        sale: "sale";
     }>;
     static get OverlayTemplate(): Readonly<{
         circle_with_text: "circle_with_text";

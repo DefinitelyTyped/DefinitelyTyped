@@ -339,6 +339,11 @@ declare module "util" {
      */
     export function getSystemErrorName(err: number): string;
     /**
+     * Enable or disable printing a stack trace on `SIGINT`. The API is only available on the main thread.
+     * @since 24.6.0
+     */
+    export function setTraceSigInt(enable: boolean): void;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -1420,10 +1425,12 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default value to
-         * be used if (and only if) the option does not appear in the arguments to be
-         * parsed. It must be of the same type as the `type` property. When `multiple`
-         * is `true`, it must be an array.
+         * The value to assign to
+         * the option if it does not appear in the arguments to be parsed. The value
+         * must match the type specified by the `type` property. If `multiple` is
+         * `true`, it must be an array. No default value is applied when the option
+         * does appear in the arguments to be parsed, even if the provided value
+         * is falsy.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;

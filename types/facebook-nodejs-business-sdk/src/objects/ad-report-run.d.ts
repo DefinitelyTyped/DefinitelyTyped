@@ -14,6 +14,7 @@ export default class AdReportRun extends AbstractCrudObject {
         date_start: "date_start";
         date_stop: "date_stop";
         emails: "emails";
+        error_code: "error_code";
         friendly_name: "friendly_name";
         id: "id";
         is_async_export: "is_async_export";

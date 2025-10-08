@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/notifme-sdk",
+    "version": "1.16.9999",
+    "projects": [
+        "https://github.com/notifme/notifme-sdk#readme"
+    ],
+    "devDependencies": {
+        "@types/notifme-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oghenetefa Oluwatofunmi",
+            "githubUsername": "everurstruly"
+        }
+    ]
+}

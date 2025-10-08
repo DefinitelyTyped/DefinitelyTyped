@@ -270,6 +270,13 @@ declare module "http" {
          */
         keepAliveTimeout?: number | undefined;
         /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         * @since 24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer?: number | undefined;
+        /**
          * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
          * @default 30000
          */
@@ -413,12 +420,18 @@ declare module "http" {
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional
          * incoming data, after it has finished writing the last response, before a socket
-         * will be destroyed. If the server receives new data before the keep-alive
-         * timeout has fired, it will reset the regular inactivity timeout, i.e., `server.timeout`.
+         * will be destroyed.
+         *
+         * This timeout value is combined with the
+         * `server.keepAliveTimeoutBuffer` option to determine the actual socket
+         * timeout, calculated as:
+         * socketTimeout = keepAliveTimeout + keepAliveTimeoutBuffer
+         * If the server receives new data before the keep-alive timeout has fired, it
+         * will reset the regular inactivity timeout, i.e., `server.timeout`.
          *
          * A value of `0` will disable the keep-alive timeout behavior on incoming
          * connections.
-         * A value of `0` makes the http server behave similarly to Node.js versions prior
+         * A value of `0` makes the HTTP server behave similarly to Node.js versions prior
          * to 8.0.0, which did not have a keep-alive timeout.
          *
          * The socket timeout logic is set up on connection, so changing this value only
@@ -426,6 +439,18 @@ declare module "http" {
          * @since v8.0.0
          */
         keepAliveTimeout: number;
+        /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         *
+         * This buffer helps reduce connection reset (`ECONNRESET`) errors by increasing
+         * the socket timeout slightly beyond the advertised keep-alive timeout.
+         *
+         * This option applies only to new incoming connections.
+         * @since v24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer: number;
         /**
          * Sets the timeout value in milliseconds for receiving the entire request from
          * the client.
@@ -1419,6 +1444,14 @@ declare module "http" {
          */
         destroy(error?: Error): this;
     }
+    interface ProxyEnv extends NodeJS.ProcessEnv {
+        HTTP_PROXY?: string | undefined;
+        HTTPS_PROXY?: string | undefined;
+        NO_PROXY?: string | undefined;
+        http_proxy?: string | undefined;
+        https_proxy?: string | undefined;
+        no_proxy?: string | undefined;
+    }
     interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
@@ -1429,6 +1462,16 @@ declare module "http" {
          * Only relevant if keepAlive is set to true.
          */
         keepAliveMsecs?: number | undefined;
+        /**
+         * Milliseconds to subtract from
+         * the server-provided `keep-alive: timeout=...` hint when determining socket
+         * expiration time. This buffer helps ensure the agent closes the socket
+         * slightly before the server does, reducing the chance of sending a request
+         * on a socket that’s about to be closed by the server.
+         * @since v24.7.0
+         * @default 1000
+         */
+        agentKeepAliveTimeoutBuffer?: number | undefined;
         /**
          * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
          */
@@ -1450,6 +1493,22 @@ declare module "http" {
          * @default `lifo`
          */
         scheduling?: "fifo" | "lifo" | undefined;
+        /**
+         * Environment variables for proxy configuration. See
+         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v24.x/api/http.html#built-in-proxy-support) for details.
+         * @since v24.5.0
+         */
+        proxyEnv?: ProxyEnv | undefined;
+        /**
+         * Default port to use when the port is not specified in requests.
+         * @since v24.5.0
+         */
+        defaultPort?: number | undefined;
+        /**
+         * The protocol to use for the agent.
+         * @since v24.5.0
+         */
+        protocol?: string | undefined;
     }
     /**
      * An `Agent` is responsible for managing connection persistence
@@ -1591,7 +1650,7 @@ declare module "http" {
         createConnection(
             options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *
@@ -2028,18 +2087,18 @@ declare module "http" {
      */
     const maxHeaderSize: number;
     /**
-     * A browser-compatible implementation of [WebSocket](https://nodejs.org/docs/latest/api/http.html#websocket).
+     * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
-    const WebSocket: import("undici-types").WebSocket;
+    const WebSocket: typeof import("undici-types").WebSocket;
     /**
      * @since v22.5.0
      */
-    const CloseEvent: import("undici-types").CloseEvent;
+    const CloseEvent: typeof import("undici-types").CloseEvent;
     /**
      * @since v22.5.0
      */
-    const MessageEvent: import("undici-types").MessageEvent;
+    const MessageEvent: typeof import("undici-types").MessageEvent;
 }
 declare module "node:http" {
     export * from "http";

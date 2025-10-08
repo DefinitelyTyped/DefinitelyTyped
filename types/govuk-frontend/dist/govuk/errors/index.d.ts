@@ -73,22 +73,22 @@ export class InitError extends GOVUKFrontendError {
  */
 export interface ElementErrorOptions {
     /**
+     * - The element in error (optional)
+     */
+    element?: Document | Element | null | undefined;
+
+    /**
+     * - Component throwing the error (optional)
+     */
+    component?: ComponentWithModuleName | undefined;
+
+    /**
      * - An identifier that'll let the user understand which element has an error. This is whatever makes the most sense
      */
     identifier: string;
 
     /**
-     * - The element in error
-     */
-    element?: Element | null | undefined;
-
-    /**
-     * - The type that was expected for the identifier
+     * - The type that was expected for the identifier (optional)
      */
     expectedType?: string | undefined;
-
-    /**
-     * - Component throwing the error
-     */
-    component: ComponentWithModuleName;
 }
