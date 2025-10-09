@@ -1417,7 +1417,7 @@ declare module "http" {
          */
         destroy(error?: Error): this;
     }
-    interface AgentOptions extends PartialWithUndefined<TcpSocketConnectOpts> {
+    interface AgentOptions extends NodeJS.PartialOptions<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
@@ -2029,7 +2029,3 @@ declare module "http" {
 declare module "node:http" {
     export * from "http";
 }
-
-type PartialWithUndefined<T> = {
-    [P in keyof T]?: T[P] | undefined;
-};
