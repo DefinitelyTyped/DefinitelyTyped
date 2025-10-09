@@ -93,6 +93,7 @@ declare namespace OneLine {
             liveblog: boolean;
             art19: boolean;
             roninmedia: boolean;
+            sporcle: boolean;
         };
     }
 
