@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -12,10 +12,11 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
    */
   interface ControlVariantApplyAPI {
     /**
-     * Activates the passed variant applicable to the passed control/component. If the Variant is not available
-     * and the backend supports lazy loading, a backend request is made to fetch the variant. If the flag standardVariant
-     * is set to true, the standard variant is activated and the variantReference is ignored. In this scenario
-     * the passed element must be the variant management control.
+     * Activates the passed variant applicable to the passed control/component. The corresponding variant management
+     * control must be available when this function is called. If the variant is not found and the backend supports
+     * lazy loading, a backend request is made to fetch the variant. If the flag standardVariant is set to true,
+     * the standard variant is activated and the variantReference is ignored: in this scenario, the passed element
+     * must be the variant management control.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -1621,8 +1622,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
-    "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
-
     "sap/ui/fl/apply/api/AnnotationChangeHandlerAPI": undefined;
 
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
@@ -1666,6 +1665,8 @@ declare namespace sap {
     "sap/ui/fl/initial/_internal/connectors/StaticFileConnector": undefined;
 
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
+
+    "sap/ui/fl/initial/_internal/preprocessors/ControllerExtension": undefined;
 
     "sap/ui/fl/initial/_internal/Settings": undefined;
 
