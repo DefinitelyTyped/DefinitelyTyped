@@ -1,5 +1,4 @@
 import moment from "moment";
-import "moment/locale/de";
 import Vue from "vue";
 import VueMoment from "vue-moment";
 

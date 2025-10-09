@@ -3,10 +3,10 @@
     "name": "@types/bun",
     "version": "1.2.9999",
     "projects": [
-        "https://bun.sh"
+        "https://bun.com"
     ],
     "dependencies": {
-        "bun-types": "1.2.21"
+        "bun-types": "1.2.23"
     },
     "devDependencies": {
         "@types/bun": "workspace:."

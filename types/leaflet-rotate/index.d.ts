@@ -7,7 +7,10 @@ declare module "leaflet" {
         trackContainerMutation?: boolean;
         touchRotate?: boolean | string;
         shiftKeyRotate?: boolean | string;
-        rotateControl?: boolean;
+        rotateControl?: boolean | {
+            position?: string;
+            closeOnZeroBearing?: boolean;
+        };
     }
 
     interface Map {
@@ -25,6 +28,7 @@ declare module "leaflet" {
     interface MarkerOptions {
         rotation?: number;
         rotateWithView?: boolean;
+        scale?: number;
     }
 
     interface Marker {

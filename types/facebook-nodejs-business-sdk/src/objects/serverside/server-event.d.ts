@@ -4,6 +4,8 @@ import CustomData from "./custom-data";
 import OriginalEventData from "./original-event-data";
 import UserData from "./user-data";
 import type {StandardEvents} from './standard-events'
+
+
 /**
  * ServerEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event}
@@ -51,12 +53,12 @@ export default class ServerEvent {
     get event_name(): StandardEvents;
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name a Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name a Facebook pixel Standard Event or Custom Event name.
      */
     set event_name(event_name: StandardEvents);
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name Facebook pixel Standard Event or Custom Event name.
      */
     setEventName(event_name: StandardEvents): ServerEvent;
     /**

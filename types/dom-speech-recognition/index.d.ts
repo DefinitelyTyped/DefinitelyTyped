@@ -76,15 +76,15 @@ declare var SpeechRecognitionEvent: {
 };
 
 // https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
-type SpeechRecognitionErrorCode =
-    | "aborted"
-    | "audio-capture"
-    | "bad-grammar"
-    | "language-not-supported"
-    | "network"
-    | "no-speech"
-    | "not-allowed"
-    | "service-not-allowed";
+// type SpeechRecognitionErrorCode =
+//     | "aborted"
+//     | "audio-capture"
+//     | "bad-grammar"
+//     | "language-not-supported"
+//     | "network"
+//     | "no-speech"
+//     | "not-allowed"
+//     | "service-not-allowed";
 
 // https://wicg.github.io/speech-api/#dictdef-speechrecognitionerroreventinit
 interface SpeechRecognitionErrorEventInit extends EventInit {

@@ -1,4 +1,4 @@
-import { browser } from "k6/browser";
+import { browser, devices } from "k6/browser";
 
 const url = "http://example.com";
 const selector = "a[href=\"http://example.com\"]";
@@ -62,6 +62,11 @@ async function test() {
     browser.newContext({ userAgent: "foo" });
     // $ExpectType Promise<BrowserContext>
     browser.newContext({ viewport: { width: 1280, height: 720 } });
+
+    // $ExpectType Device
+    const iphoneX = devices["iPhone X"];
+    // $ExpectType Promise<BrowserContext>
+    browser.newContext(iphoneX);
 
     // $ExpectType Promise<Page>
     browser.newPage();

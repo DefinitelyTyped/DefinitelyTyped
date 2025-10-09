@@ -64,7 +64,7 @@ declare class USBAlternateInterface {
 declare class USBInTransferResult {
     constructor(status: USBTransferStatus, data?: DataView);
     readonly data?: DataView | undefined;
-    readonly status?: USBTransferStatus | undefined;
+    readonly status: USBTransferStatus;
 }
 
 declare class USBOutTransferResult {
@@ -76,7 +76,7 @@ declare class USBOutTransferResult {
 declare class USBIsochronousInTransferPacket {
     constructor(status: USBTransferStatus, data?: DataView);
     readonly data?: DataView | undefined;
-    readonly status?: USBTransferStatus | undefined;
+    readonly status: USBTransferStatus;
 }
 
 declare class USBIsochronousInTransferResult {

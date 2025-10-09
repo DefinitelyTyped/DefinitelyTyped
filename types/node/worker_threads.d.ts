@@ -56,19 +56,21 @@
  */
 declare module "worker_threads" {
     import { Context } from "node:vm";
-    import { EventEmitter } from "node:events";
+    import { EventEmitter, NodeEventTarget } from "node:events";
     import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { HeapInfo } from "node:v8";
+    import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
+    const threadName: string | null;
     const workerData: any;
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
@@ -111,7 +113,7 @@ declare module "worker_threads" {
      * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
      */
-    class MessagePort extends EventEmitter {
+    class MessagePort implements EventTarget {
         /**
          * Disables further sending of messages on either side of the connection.
          * This method can be called when no further communication will happen over this `MessagePort`.
@@ -224,42 +226,32 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         start(): void;
-        addListener(event: "close", listener: () => void): this;
+        addListener(event: "close", listener: (ev: Event) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
         addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "close"): boolean;
+        addListener(event: string, listener: (arg: any) => void): this;
+        emit(event: "close", ev: Event): boolean;
         emit(event: "message", value: any): boolean;
         emit(event: "messageerror", error: Error): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "close", listener: () => void): this;
+        emit(event: string, arg: any): boolean;
+        off(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        off(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        off(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        off(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+        on(event: "close", listener: (ev: Event) => void): this;
         on(event: "message", listener: (value: any) => void): this;
         on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
+        on(event: string, listener: (arg: any) => void): this;
+        once(event: "close", listener: (ev: Event) => void): this;
         once(event: "message", listener: (value: any) => void): this;
         once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: "close", listener: () => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: string | symbol, listener: (...args: any[]) => void): this;
-        addEventListener: EventTarget["addEventListener"];
-        dispatchEvent: EventTarget["dispatchEvent"];
-        removeEventListener: EventTarget["removeEventListener"];
+        once(event: string, listener: (arg: any) => void): this;
+        removeListener(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        removeListener(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        removeListener(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        removeListener(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
     }
+    interface MessagePort extends NodeEventTarget {}
     interface WorkerOptions {
         /**
          * List of arguments which would be stringified and appended to
@@ -402,6 +394,12 @@ declare module "worker_threads" {
          */
         readonly threadId: number;
         /**
+         * A string identifier for the referenced thread or null if the thread is not running.
+         * Inside the worker thread, it is available as `require('node:worker_threads').threadName`.
+         * @since v24.6.0
+         */
+        readonly threadName: string | null;
+        /**
          * Provides the set of JS engine resource constraints for this Worker thread.
          * If the `resourceLimits` option was passed to the `Worker` constructor,
          * this matches its values.
@@ -429,24 +427,6 @@ declare module "worker_threads" {
          */
         postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
-         * Sends a value to another worker, identified by its thread ID.
-         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
-         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
-         * @param value The value to send.
-         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
-         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
-         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
-         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
-         * @since v22.5.0
-         */
-        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
-        postMessageToThread(
-            threadId: number,
-            value: any,
-            transferList: readonly Transferable[],
-            timeout?: number,
-        ): Promise<void>;
-        /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has
          * no effect.
@@ -465,6 +445,13 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         terminate(): Promise<number>;
+        /**
+         * This method returns a `Promise` that will resolve to an object identical to `process.threadCpuUsage()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v24.6.0
+         */
+        cpuUsage(prev?: NodeJS.CpuUsage): Promise<NodeJS.CpuUsage>;
         /**
          * Returns a readable stream for a V8 snapshot of the current state of the Worker.
          * See `v8.getHeapSnapshot()` for more details.
@@ -574,18 +561,18 @@ declare module "worker_threads" {
      * ```
      * @since v15.4.0
      */
-    class BroadcastChannel {
+    class BroadcastChannel extends EventTarget {
         readonly name: string;
         /**
          * Invoked with a single \`MessageEvent\` argument when a message is received.
          * @since v15.4.0
          */
-        onmessage: (message: unknown) => void;
+        onmessage: (message: MessageEvent) => void;
         /**
          * Invoked with a received message cannot be deserialized.
          * @since v15.4.0
          */
-        onmessageerror: (message: unknown) => void;
+        onmessageerror: (message: MessageEvent) => void;
         constructor(name: string);
         /**
          * Closes the `BroadcastChannel` connection.
@@ -598,6 +585,35 @@ declare module "worker_threads" {
          */
         postMessage(message: unknown): void;
     }
+    interface Lock {
+        readonly mode: LockMode;
+        readonly name: string;
+    }
+    interface LockGrantedCallback<T> {
+        (lock: Lock | null): T;
+    }
+    interface LockInfo {
+        clientId: string;
+        mode: LockMode;
+        name: string;
+    }
+    interface LockManager {
+        query(): Promise<LockManagerSnapshot>;
+        request<T>(name: string, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+        request<T>(name: string, options: LockOptions, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+    }
+    interface LockManagerSnapshot {
+        held: LockInfo[];
+        pending: LockInfo[];
+    }
+    type LockMode = "exclusive" | "shared";
+    interface LockOptions {
+        ifAvailable?: boolean;
+        mode?: LockMode;
+        signal?: AbortSignal;
+        steal?: boolean;
+    }
+    var locks: LockManager;
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
      * a `port.postMessage()` call, it is ignored.
@@ -739,6 +755,24 @@ declare module "worker_threads" {
      * for the `key` will be deleted.
      */
     function setEnvironmentData(key: Serializable, value?: Serializable): void;
+    /**
+     * Sends a value to another worker, identified by its thread ID.
+     * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+     * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+     * @param value The value to send.
+     * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+     * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+     * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+     * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+     * @since v22.5.0
+     */
+    function postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+    function postMessageToThread(
+        threadId: number,
+        value: any,
+        transferList: readonly Transferable[],
+        timeout?: number,
+    ): Promise<void>;
 
     import {
         BroadcastChannel as _BroadcastChannel,

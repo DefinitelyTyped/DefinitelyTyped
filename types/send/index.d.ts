@@ -1,7 +1,6 @@
 /// <reference types="node" />
 
 import * as fs from "fs";
-import * as m from "mime";
 import * as stream from "stream";
 
 /**
@@ -11,7 +10,6 @@ import * as stream from "stream";
 declare function send(req: stream.Readable, path: string, options?: send.SendOptions): send.SendStream;
 
 declare namespace send {
-    const mime: typeof m;
     interface SendOptions {
         /**
          * Enable or disable accepting ranged requests, defaults to true.
@@ -94,42 +92,6 @@ declare namespace send {
     }
 
     interface SendStream extends stream.Stream {
-        /**
-         * @deprecated pass etag as option
-         * Enable or disable etag generation.
-         */
-        etag(val: boolean): SendStream;
-
-        /**
-         * @deprecated use dotfiles option
-         * Enable or disable "hidden" (dot) files.
-         */
-        hidden(val: boolean): SendStream;
-
-        /**
-         * @deprecated pass index as option
-         * Set index `paths`, set to a falsy value to disable index support.
-         */
-        index(paths: string[] | string): SendStream;
-
-        /**
-         * @deprecated pass root as option
-         * Set root `path`.
-         */
-        root(paths: string): SendStream;
-
-        /**
-         * @deprecated pass root as option
-         * Set root `path`.
-         */
-        from(paths: string): SendStream;
-
-        /**
-         * @deprecated pass maxAge as option
-         * Set max-age to `maxAge`.
-         */
-        maxage(maxAge: string | number): SendStream;
-
         /**
          * Emit error with `status`.
          */

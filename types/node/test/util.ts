@@ -255,6 +255,8 @@ const encIntoRes: util.EncodeIntoResult = te.encodeInto("asdf", new Uint8Array(1
 
 const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 
+util.setTraceSigInt(true);
+
 {
     const logger: util.DebugLogger = util.debuglog("section");
     logger.enabled; // $ExpectType boolean

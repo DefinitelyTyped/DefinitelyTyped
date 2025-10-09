@@ -499,6 +499,8 @@ deck.configure({ controls: "speaker-only" });
 // @ts-expect-error
 deck.configure({ controls: "foo" });
 
+deck.configure({ totalTime: 0, minTimePerSlide: 0 });
+
 // -------------- //
 // destroy method //
 // -------------- //

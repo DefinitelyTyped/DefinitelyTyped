@@ -232,6 +232,10 @@
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
         },
+        "array-equal": {
+            "libraryName": "array-equal",
+            "asOfVersion": "2.0.0"
+        },
         "array-move": {
             "libraryName": "array-move",
             "asOfVersion": "2.0.0"
@@ -351,6 +355,10 @@
         "azure-mobile-apps": {
             "libraryName": "azure-mobile-apps",
             "asOfVersion": "3.0.0"
+        },
+        "babel-plugin-tester": {
+            "libraryName": "babel-plugin-tester",
+            "asOfVersion": "11.0.0"
         },
         "babel__parser": {
             "libraryName": "@babel/parser",
@@ -3017,6 +3025,10 @@
             "libraryName": "images",
             "asOfVersion": "3.2.0"
         },
+        "imapflow": {
+            "libraryName": "imapflow",
+            "asOfVersion": "1.0.189"
+        },
         "img-diff-js": {
             "libraryName": "img-diff-js",
             "asOfVersion": "0.5.0"
@@ -3136,6 +3148,10 @@
         "ip-regex": {
             "libraryName": "ip-regex",
             "asOfVersion": "4.1.0"
+        },
+        "ip-subnet-calculator": {
+            "libraryName": "ip-subnet-calculator",
+            "asOfVersion": "2.0.0"
         },
         "ipify": {
             "libraryName": "ipify",
@@ -3816,6 +3832,10 @@
         "libra-core": {
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
+        },
+        "libxmljs": {
+            "libraryName": "libxmljs",
+            "asOfVersion": "1.0.1"
         },
         "lifeomic__axios-fetch": {
             "libraryName": "@lifeomic/axios-fetch",
@@ -6471,6 +6491,14 @@
             "libraryName": "react-widgets",
             "asOfVersion": "5.0.0"
         },
+        "react-window": {
+            "libraryName": "react-window",
+            "asOfVersion": "2.0.0"
+        },
+        "react-window-infinite-loader": {
+            "libraryName": "react-window-infinite-loader",
+            "asOfVersion": "2.0.0"
+        },
         "react-youtube": {
             "libraryName": "react-youtube",
             "asOfVersion": "7.10.0"
@@ -7838,6 +7866,10 @@
         "username": {
             "libraryName": "username",
             "asOfVersion": "5.0.0"
+        },
+        "uuid": {
+            "libraryName": "uuid",
+            "asOfVersion": "11.0.0"
         },
         "uuid-apikey": {
             "libraryName": "uuid-apikey",

@@ -19,8 +19,10 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
         health_status: "health_status";
         id: "id";
         is_enabled_for_insights: "is_enabled_for_insights";
+        is_shared_with_partners: "is_shared_with_partners";
         linked_commerce_account: "linked_commerce_account";
         marketing_messages_lite_api_status: "marketing_messages_lite_api_status";
+        marketing_messages_onboarding_status: "marketing_messages_onboarding_status";
         message_template_namespace: "message_template_namespace";
         name: "name";
         on_behalf_of_business_info: "on_behalf_of_business_info";

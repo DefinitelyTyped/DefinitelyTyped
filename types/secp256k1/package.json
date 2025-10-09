@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/secp256k1": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Anler",
-            "githubUsername": "anler"
-        }
-    ]
+    "owners": []
 }

@@ -401,6 +401,30 @@ export class Event {
 }
 
 /**
+ * A custom message received from a sender. To listen for custom events use the {@link framework.addCustomMessageListener} method.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.Message
+ */
+export class Message {
+    constructor(type: "message", senderId: string, data?: any);
+    /**
+     * string
+     * The message type. It is always "message".
+     */
+    type: "message";
+    /**
+     * string
+     * The sender ID.
+     */
+    senderId: string;
+    /**
+     * any type
+     * The message payload.
+     * Value must not be null.
+     */
+    data: Exclude<any, null>;
+}
+
+/**
  * Represents the data of the launched application.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.ApplicationData
  */

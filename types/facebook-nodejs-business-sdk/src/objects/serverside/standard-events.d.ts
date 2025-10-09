@@ -1,8 +1,8 @@
 /**
  * StandardEvents
- * 
+ *
  * Represents the standard Facebook Pixel events. Allows any string but provides autocomplete for known standard events.
- * 
+ *
  * Reference: https://developers.facebook.com/docs/meta-pixel/reference
  */
 export type StandardEvents =

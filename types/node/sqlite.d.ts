@@ -97,6 +97,33 @@ declare module "node:sqlite" {
          * @default 0
          */
         timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v24.4.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v24.4.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v24.4.40
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v24.4.40
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -567,6 +594,13 @@ declare module "node:sqlite" {
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v24.0.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
@@ -603,8 +637,9 @@ declare module "node:sqlite" {
          */
         rate?: number | undefined;
         /**
-         * Callback function that will be called with the number of pages copied and the total number of
-         * pages.
+         * An optional callback function that will be called after each backup step. The argument passed
+         * to this callback is an `Object` with `remainingPages` and `totalPages` properties, describing the current progress
+         * of the backup operation.
          */
         progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
     }
@@ -641,9 +676,10 @@ declare module "node:sqlite" {
      * the contents will be overwritten.
      * @param options Optional configuration for the backup. The
      * following properties are supported:
-     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
+     * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */

@@ -30,7 +30,6 @@ export default class InsightsResult extends AbstractCrudObject {
         impressions: "impressions";
         likes: "likes";
         navigation: "navigation";
-        peak_concurrent_viewers: "peak_concurrent_viewers";
         plays: "plays";
         profile_activity: "profile_activity";
         profile_visits: "profile_visits";
@@ -42,9 +41,9 @@ export default class InsightsResult extends AbstractCrudObject {
         shares: "shares";
         thread_replies: "thread_replies";
         thread_shares: "thread_shares";
+        threads_media_clicks: "threads_media_clicks";
         threads_views: "threads_views";
         total_interactions: "total_interactions";
-        video_views: "video_views";
         views: "views";
     }>;
     static get Period(): Readonly<{
