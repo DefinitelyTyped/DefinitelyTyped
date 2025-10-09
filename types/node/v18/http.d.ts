@@ -1398,7 +1398,7 @@ declare module "http" {
          */
         destroy(error?: Error): this;
     }
-    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
+    interface AgentOptions extends NodeJS.PartialOptions<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
