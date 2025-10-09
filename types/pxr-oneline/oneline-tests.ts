@@ -31,6 +31,7 @@ interface SocialConsents {
         liveblog: boolean;
         art19: boolean;
         roninmedia: boolean;
+        sporcle: boolean;
     };
 }
 
