@@ -1,4 +1,5 @@
 declare module "process" {
+    import { Control, MessageOptions } from "node:child_process";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
 
@@ -346,7 +347,7 @@ declare module "process" {
                 /**
                  * Can be used to change the default timezone at runtime
                  */
-                TZ?: string;
+                TZ?: string | undefined;
             }
             interface HRTime {
                 /**
@@ -990,7 +991,7 @@ declare module "process" {
                  * @since v0.1.13
                  * @param [code=0] The exit code. For string type, only integer strings (e.g.,'1') are allowed.
                  */
-                exit(code?: number | string | null | undefined): never;
+                exit(code?: number | string | null): never;
                 /**
                  * A number which will be the process exit code, when the process either
                  * exits gracefully, or is exited via {@link exit} without specifying
@@ -1001,7 +1002,7 @@ declare module "process" {
                  * @default undefined
                  * @since v0.11.8
                  */
-                exitCode?: number | string | number | undefined;
+                exitCode: number | string | null | undefined;
                 finalization: {
                     /**
                      * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
@@ -1076,7 +1077,7 @@ declare module "process" {
                  * Android).
                  * @since v0.1.31
                  */
-                getgid?: () => number;
+                getgid?(): number;
                 /**
                  * The `process.setgid()` method sets the group identity of the process. (See [`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
                  * numeric ID or a group name
@@ -1103,7 +1104,7 @@ declare module "process" {
                  * @since v0.1.31
                  * @param id The group name or ID
                  */
-                setgid?: (id: number | string) => void;
+                setgid?(id: number | string): void;
                 /**
                  * The `process.getuid()` method returns the numeric user identity of the process.
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
@@ -1120,7 +1121,7 @@ declare module "process" {
                  * Android).
                  * @since v0.1.28
                  */
-                getuid?: () => number;
+                getuid?(): number;
                 /**
                  * The `process.setuid(id)` method sets the user identity of the process. (See [`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
                  * numeric ID or a username string.
@@ -1146,7 +1147,7 @@ declare module "process" {
                  * This feature is not available in `Worker` threads.
                  * @since v0.1.28
                  */
-                setuid?: (id: number | string) => void;
+                setuid?(id: number | string): void;
                 /**
                  * The `process.geteuid()` method returns the numerical effective user identity of
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
@@ -1163,7 +1164,7 @@ declare module "process" {
                  * Android).
                  * @since v2.0.0
                  */
-                geteuid?: () => number;
+                geteuid?(): number;
                 /**
                  * The `process.seteuid()` method sets the effective user identity of the process.
                  * (See [`seteuid(2)`](http://man7.org/linux/man-pages/man2/seteuid.2.html).) The `id` can be passed as either a numeric ID or a username
@@ -1190,7 +1191,7 @@ declare module "process" {
                  * @since v2.0.0
                  * @param id A user name or ID
                  */
-                seteuid?: (id: number | string) => void;
+                seteuid?(id: number | string): void;
                 /**
                  * The `process.getegid()` method returns the numerical effective group identity
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
@@ -1207,7 +1208,7 @@ declare module "process" {
                  * Android).
                  * @since v2.0.0
                  */
-                getegid?: () => number;
+                getegid?(): number;
                 /**
                  * The `process.setegid()` method sets the effective group identity of the process.
                  * (See [`setegid(2)`](http://man7.org/linux/man-pages/man2/setegid.2.html).) The `id` can be passed as either a numeric ID or a group
@@ -1234,7 +1235,7 @@ declare module "process" {
                  * @since v2.0.0
                  * @param id A group name or ID
                  */
-                setegid?: (id: number | string) => void;
+                setegid?(id: number | string): void;
                 /**
                  * The `process.getgroups()` method returns an array with the supplementary group
                  * IDs. POSIX leaves it unspecified if the effective group ID is included but
@@ -1252,7 +1253,7 @@ declare module "process" {
                  * Android).
                  * @since v0.9.4
                  */
-                getgroups?: () => number[];
+                getgroups?(): number[];
                 /**
                  * The `process.setgroups()` method sets the supplementary group IDs for the
                  * Node.js process. This is a privileged operation that requires the Node.js
@@ -1278,7 +1279,7 @@ declare module "process" {
                  * This feature is not available in `Worker` threads.
                  * @since v0.9.4
                  */
-                setgroups?: (groups: ReadonlyArray<string | number>) => void;
+                setgroups?(groups: ReadonlyArray<string | number>): void;
                 /**
                  * The `process.setUncaughtExceptionCaptureCallback()` function sets a function
                  * that will be invoked when an uncaught exception occurs, which will receive the
@@ -1568,7 +1569,7 @@ declare module "process" {
                  * @since v0.1.17
                  * @deprecated Since v14.0.0 - Use `main` instead.
                  */
-                mainModule?: Module | undefined;
+                mainModule?: Module;
                 memoryUsage: MemoryUsageFn;
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
@@ -1760,18 +1761,7 @@ declare module "process" {
                  * If no IPC channel exists, this property is undefined.
                  * @since v7.1.0
                  */
-                channel?: {
-                    /**
-                     * This method makes the IPC channel keep the event loop of the process running if .unref() has been called before.
-                     * @since v7.1.0
-                     */
-                    ref(): void;
-                    /**
-                     * This method makes the IPC channel not keep the event loop of the process running, and lets it finish even while the channel is open.
-                     * @since v7.1.0
-                     */
-                    unref(): void;
-                };
+                channel?: Control;
                 /**
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
@@ -1786,9 +1776,7 @@ declare module "process" {
                 send?(
                     message: any,
                     sendHandle?: any,
-                    options?: {
-                        keepOpen?: boolean | undefined;
-                    },
+                    options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
                 /**

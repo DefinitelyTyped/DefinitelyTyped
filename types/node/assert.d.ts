@@ -88,7 +88,7 @@ declare module "assert" {
              * @since v24.6.0
              */
             new(
-                options?: AssertOptions & { strict?: true },
+                options?: AssertOptions & { strict?: true | undefined },
             ): AssertStrict;
             new(
                 options: AssertOptions,

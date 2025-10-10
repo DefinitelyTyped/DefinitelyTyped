@@ -43,12 +43,12 @@ declare module "v8" {
          * If true, expose internals in the heap snapshot.
          * @default false
          */
-        exposeInternals?: boolean;
+        exposeInternals?: boolean | undefined;
         /**
          * If true, expose numeric values in artificial fields.
          * @default false
          */
-        exposeNumericValues?: boolean;
+        exposeNumericValues?: boolean | undefined;
     }
     /**
      * Returns an integer representing a version tag derived from the V8 version,
