@@ -1452,7 +1452,7 @@ declare module "http" {
         https_proxy?: string | undefined;
         no_proxy?: string | undefined;
     }
-    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
+    interface AgentOptions extends NodeJS.PartialOptions<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
