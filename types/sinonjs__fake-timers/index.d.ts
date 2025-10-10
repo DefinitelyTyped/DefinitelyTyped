@@ -105,6 +105,18 @@ export interface NodeTimer {
 export type TimerId = number | NodeTimer;
 
 /**
+ * Allows configuring how the clock advances time, automatically or manually.
+ *
+ * - `manual`: Timers do not advance without explicit, manual calls to the tick APIs (`clock.nextAsync`, `clock.runAllAsync`, etc).
+ * - `nextAsync`: The clock will continuously break the event loop, then run the next timer until the mode changes.
+ * - `interval`: This is the same as specifying `shouldAdvanceTime: true` with an `advanceTimeDelta`. If the delta is not specified, 20 will be used by default.
+ */
+export type TimerTickMode =
+    | { mode: "manual" }
+    | { mode: "nextAsync" }
+    | { mode: "interval"; delta?: number };
+
+/**
  * Controls the flow of time.
  */
 export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimerId> {
@@ -253,6 +265,12 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * @remarks This affects the current time but it does not in itself cause timers to fire.
      */
     setSystemTime: (now?: number | Date) => void;
+
+    /**
+     * Allows configuring how the clock advances time, automatically or manually.
+     * @param tickModeConfig The new configuration for how the clock should tick.
+     */
+    setTickMode: (tickModeConfig: TimerTickMode) => void;
 }
 
 /**

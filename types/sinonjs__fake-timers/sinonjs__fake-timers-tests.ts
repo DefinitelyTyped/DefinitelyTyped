@@ -127,6 +127,10 @@ nodeClock.setSystemTime();
 nodeClock.setSystemTime(7);
 nodeClock.setSystemTime(new Date());
 
+nodeClock.setTickMode({ mode: "manual" });
+nodeClock.setTickMode({ mode: "nextAsync" });
+nodeClock.setTickMode({ mode: "interval", delta: 200 });
+
 nodeClock.nextTick(() => undefined);
 nodeClock.queueMicrotask(() => {});
 
