@@ -4176,7 +4176,7 @@ export declare class MapKitEvent {
 export declare type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
     | ((event: T) => void)
     | {
-        handleEvent<T>(event: T): void;
+        handleEvent(event: T): void;
     };
 
 /**

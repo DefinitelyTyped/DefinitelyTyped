@@ -1,4 +1,4 @@
-import { MapKit } from "./mapkit";
+import type { MapKit } from "./mapkit";
 export type * from "./mapkit";
 
 declare global {
