@@ -1438,6 +1438,95 @@ function testTtsEngine() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/vpnProvider
+function testVpnProvider() {
+    chrome.vpnProvider.PlatformMessage.CONNECTED === "connected";
+    chrome.vpnProvider.PlatformMessage.DISCONNECTED === "disconnected";
+    chrome.vpnProvider.PlatformMessage.ERROR === "error";
+    chrome.vpnProvider.PlatformMessage.LINK_CHANGED === "linkChanged";
+    chrome.vpnProvider.PlatformMessage.LINK_DOWN === "linkDown";
+    chrome.vpnProvider.PlatformMessage.LINK_UP === "linkUp";
+    chrome.vpnProvider.PlatformMessage.RESUME === "resume";
+    chrome.vpnProvider.PlatformMessage.SUSPEND === "suspend";
+
+    chrome.vpnProvider.UIEvent.SHOW_ADD_DIALOG === "showAddDialog";
+    chrome.vpnProvider.UIEvent.SHOW_CONFIGURE_DIALOG === "showConfigureDialog";
+
+    chrome.vpnProvider.VpnConnectionState.CONNECTED === "connected";
+    chrome.vpnProvider.VpnConnectionState.FAILURE === "failure";
+
+    const name = "My VPN";
+
+    chrome.vpnProvider.createConfig(name); // $ExpectType Promise<string>
+    chrome.vpnProvider.createConfig(name, (id) => { // $ExpectType void
+        id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.vpnProvider.createConfig(name, () => {}).then(() => {});
+
+    const id = "config-id";
+
+    chrome.vpnProvider.destroyConfig(id); // $ExpectType Promise<void>
+    chrome.vpnProvider.destroyConfig(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.destroyConfig(id, () => {}).then(() => {});
+
+    const state = "connected";
+
+    chrome.vpnProvider.notifyConnectionStateChanged(state); // $ExpectType Promise<void>
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => {}).then(() => {});
+
+    const data: ArrayBuffer = new ArrayBuffer(8);
+
+    chrome.vpnProvider.sendPacket(data); // $ExpectType Promise<void>
+    chrome.vpnProvider.sendPacket(data, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.sendPacket(data, () => {}).then(() => {});
+
+    const parameters: chrome.vpnProvider.Parameters = {
+        address: "255.255.255.255",
+        broadcastAddress: "255.255.255.255",
+        dnsServers: ["255.255.255.255"],
+        domainSearch: ["example.com"],
+        exclusionList: ["255.255.255.255"],
+        inclusionList: ["255.255.255.255"],
+        mtu: "1500",
+        reconnect: "linkUp",
+    };
+
+    chrome.vpnProvider.setParameters(parameters); // $ExpectType Promise<void>
+    chrome.vpnProvider.setParameters(parameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.setParameters(parameters, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.vpnProvider.onConfigCreated, (id, name, data) => {
+        id; // $ExpectType string
+        name; // $ExpectType string
+        data; // $ExpectType { [key: string]: unknown }
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onConfigRemoved, (id) => {
+        id; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPacketReceived, (data) => {
+        data; // $ExpectType ArrayBuffer
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPlatformMessage, (id, message, error) => {
+        id; // $ExpectType string
+        message; // $ExpectType "connected" | "disconnected" | "error" | "linkChanged" | "linkDown" | "linkUp" | "resume" | "suspend"
+        error; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onUIEvent, (event, id) => {
+        event; // $ExpectType "showAddDialog" | "showConfigureDialog"
+        id; // $ExpectType string | undefined
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/recorder
 function testDevtoolsRecorder() {
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
