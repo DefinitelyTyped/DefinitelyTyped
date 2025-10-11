@@ -401,6 +401,22 @@ declare module "v8" {
      */
     function getHeapCodeStatistics(): HeapCodeStatistics;
     /**
+     * @since v24.8.0
+     */
+    interface CPUProfileHandle {
+        /**
+         * Stopping collecting the profile, then return a Promise that fulfills with an error or the
+         * profile data.
+         * @since v24.8.0
+         */
+        stop(): Promise<string>;
+        /**
+         * Stopping collecting the profile and the profile will be discarded.
+         * @since v24.8.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+    }
+    /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;
      * otherwise, it returns false.

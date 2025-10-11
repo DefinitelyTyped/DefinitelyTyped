@@ -1,4 +1,4 @@
-import { getAsset, getAssetAsBlob, getRawAsset, isSea } from "node:sea";
+import { getAsset, getAssetAsBlob, getAssetKeys, getRawAsset, isSea } from "node:sea";
 
 {
     // $ExpectType boolean
@@ -14,4 +14,7 @@ import { getAsset, getAssetAsBlob, getRawAsset, isSea } from "node:sea";
 
     // $ExpectType ArrayBuffer
     getRawAsset("d.webm");
+
+    // $ExpectType string[]
+    getAssetKeys();
 }
