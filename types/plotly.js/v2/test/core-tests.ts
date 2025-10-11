@@ -49,7 +49,8 @@ const layout = {
     datarevision: 0,
     editrevision: 0,
     selectionrevision: 0,
-};
+    hoversubplots: "overlaying",
+} satisfies Partial<Layout>;
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
