@@ -6301,6 +6301,49 @@ function testPower() {
     chrome.power.reportActivity(() => {}).then(() => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/printerProvider
+function testPrinterProvider() {
+    chrome.printerProvider.PrintError.FAILED === "FAILED";
+    chrome.printerProvider.PrintError.INVALID_DATA === "INVALID_DATA";
+    chrome.printerProvider.PrintError.INVALID_TICKET === "INVALID_TICKET";
+    chrome.printerProvider.PrintError.OK === "OK";
+
+    const printInfo: chrome.printerProvider.PrinterInfo = {
+        description: "description",
+        id: "id",
+        name: "name",
+    };
+
+    checkChromeEvent(chrome.printerProvider.onGetCapabilityRequested, (printerId, resultCallback) => {
+        printerId; // $ExpectType string
+        resultCallback({ capabilities: {} }); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetPrintersRequested, (resultCallback) => {
+        resultCallback([printInfo]); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetUsbPrinterInfoRequested, (device, resultCallback) => {
+        device.device; // $ExpectType number
+        device.manufacturerName; // $ExpectType string
+        device.productId; // $ExpectType number
+        device.productName; // $ExpectType string
+        device.serialNumber; // $ExpectType string
+        device.vendorId; // $ExpectType number
+        device.version; // $ExpectType number
+        resultCallback(printInfo); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onPrintRequested, (printJob, resultCallback) => {
+        printJob.contentType; // $ExpectType string
+        printJob.document; // $ExpectType Blob
+        printJob.printerId; // $ExpectType string
+        printJob.ticket; // $ExpectType { [key: string]: unknown; }
+        printJob.title; // $ExpectType string
+        resultCallback("OK"); // $ExpectType void
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/platformKeys
 function testPlatformKeys() {
     chrome.platformKeys.ClientCertificateType.ECDSA_SIGN === "ecdsaSign";
