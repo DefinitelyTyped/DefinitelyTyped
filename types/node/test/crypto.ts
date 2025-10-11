@@ -787,6 +787,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const slhdsaRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("slh-dsa-sha2-128s", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -941,6 +957,21 @@ import { promisify } from "node:util";
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
     );
+
+    crypto.generateKeyPair(
+        "slh-dsa-sha2-128s",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
 }
 
 {
@@ -1061,6 +1092,20 @@ import { promisify } from "node:util";
         publicKey: string;
         privateKey: string;
     }> = generateKeyPairPromisified("ml-kem-1024", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const slhdsaRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("slh-dsa-sha2-128s", {
         publicKeyEncoding: {
             format: "pem",
             type: "spki",
@@ -1348,6 +1393,8 @@ import { promisify } from "node:util";
         key: jwk,
         dsaEncoding: "der",
     });
+
+    crypto.sign("slh-dsa-sha2-128s", Buffer.from("asd"), { key, context: Uint8Array.of(1, 2, 3, 4).buffer });
 }
 
 {

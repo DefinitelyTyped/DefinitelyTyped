@@ -1310,6 +1310,7 @@ declare module "crypto" {
      * @since v0.1.92
      * @param options `stream.Writable` options
      */
+    // TODO: signing algorithm type
     function createSign(algorithm: string, options?: stream.WritableOptions): Sign;
     type DSAEncoding = "der" | "ieee-p1363";
     interface SigningOptions {
@@ -1319,6 +1320,7 @@ declare module "crypto" {
         padding?: number | undefined;
         saltLength?: number | undefined;
         dsaEncoding?: DSAEncoding | undefined;
+        context?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
     }
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
     interface SignKeyObjectInput extends SigningOptions {
@@ -2460,6 +2462,18 @@ declare module "crypto" {
         | "ml-kem-768"
         | "rsa-pss"
         | "rsa"
+        | "slh-dsa-sha2-128f"
+        | "slh-dsa-sha2-128s"
+        | "slh-dsa-sha2-192f"
+        | "slh-dsa-sha2-192s"
+        | "slh-dsa-sha2-256f"
+        | "slh-dsa-sha2-256s"
+        | "slh-dsa-shake-128f"
+        | "slh-dsa-shake-128s"
+        | "slh-dsa-shake-192f"
+        | "slh-dsa-shake-192s"
+        | "slh-dsa-shake-256f"
+        | "slh-dsa-shake-256s"
         | "x25519"
         | "x448";
     type KeyFormat = "pem" | "der" | "jwk";
@@ -2478,6 +2492,7 @@ declare module "crypto" {
     interface X448KeyPairKeyObjectOptions {}
     interface MLDSAKeyPairKeyObjectOptions {}
     interface MLKEMKeyPairKeyObjectOptions {}
+    interface SLHDSAKeyPairKeyObjectOptions {}
     interface ECKeyPairKeyObjectOptions {
         /**
          * Name of the curve to use
@@ -2652,6 +2667,15 @@ declare module "crypto" {
         };
     }
     interface MLKEMKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        publicKeyEncoding: {
+            type: "spki";
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: "pkcs8";
+        };
+    }
+    interface SLHDSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
         publicKeyEncoding: {
             type: "spki";
             format: PubF;
@@ -2881,6 +2905,86 @@ declare module "crypto" {
     function generateKeyPairSync(
         type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
         options?: MLKEMKeyPairKeyObjectOptions,
+    ): KeyPairKeyObjectResult;
+    function generateKeyPairSync(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"pem", "pem">,
+    ): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"pem", "der">,
+    ): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"der", "pem">,
+    ): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"der", "der">,
+    ): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options?: SLHDSAKeyPairKeyObjectOptions,
     ): KeyPairKeyObjectResult;
     /**
      * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
@@ -3170,6 +3274,91 @@ declare module "crypto" {
     function generateKeyPair(
         type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
         options: MLKEMKeyPairKeyObjectOptions | undefined,
+        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+    ): void;
+    function generateKeyPair(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"pem", "pem">,
+        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+    ): void;
+    function generateKeyPair(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"pem", "der">,
+        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+    ): void;
+    function generateKeyPair(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"der", "pem">,
+        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+    ): void;
+    function generateKeyPair(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairOptions<"der", "der">,
+        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+    ): void;
+    function generateKeyPair(
+        type:
+            | "slh-dsa-sha2-128f"
+            | "slh-dsa-sha2-128s"
+            | "slh-dsa-sha2-192f"
+            | "slh-dsa-sha2-192s"
+            | "slh-dsa-sha2-256f"
+            | "slh-dsa-sha2-256s"
+            | "slh-dsa-shake-128f"
+            | "slh-dsa-shake-128s"
+            | "slh-dsa-shake-192f"
+            | "slh-dsa-shake-192s"
+            | "slh-dsa-shake-256f"
+            | "slh-dsa-shake-256s",
+        options: SLHDSAKeyPairKeyObjectOptions | undefined,
         callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     namespace generateKeyPair {
@@ -3477,6 +3666,98 @@ declare module "crypto" {
         function __promisify__(
             type: "ml-kem-1024" | "ml-kem-512" | "ml-kem-768",
             options?: MLKEMKeyPairKeyObjectOptions,
+        ): Promise<KeyPairKeyObjectResult>;
+        function __promisify__(
+            type:
+                | "slh-dsa-sha2-128f"
+                | "slh-dsa-sha2-128s"
+                | "slh-dsa-sha2-192f"
+                | "slh-dsa-sha2-192s"
+                | "slh-dsa-sha2-256f"
+                | "slh-dsa-sha2-256s"
+                | "slh-dsa-shake-128f"
+                | "slh-dsa-shake-128s"
+                | "slh-dsa-shake-192f"
+                | "slh-dsa-shake-192s"
+                | "slh-dsa-shake-256f"
+                | "slh-dsa-shake-256s",
+            options: SLHDSAKeyPairOptions<"pem", "pem">,
+        ): Promise<{
+            publicKey: string;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type:
+                | "slh-dsa-sha2-128f"
+                | "slh-dsa-sha2-128s"
+                | "slh-dsa-sha2-192f"
+                | "slh-dsa-sha2-192s"
+                | "slh-dsa-sha2-256f"
+                | "slh-dsa-sha2-256s"
+                | "slh-dsa-shake-128f"
+                | "slh-dsa-shake-128s"
+                | "slh-dsa-shake-192f"
+                | "slh-dsa-shake-192s"
+                | "slh-dsa-shake-256f"
+                | "slh-dsa-shake-256s",
+            options: SLHDSAKeyPairOptions<"pem", "der">,
+        ): Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type:
+                | "slh-dsa-sha2-128f"
+                | "slh-dsa-sha2-128s"
+                | "slh-dsa-sha2-192f"
+                | "slh-dsa-sha2-192s"
+                | "slh-dsa-sha2-256f"
+                | "slh-dsa-sha2-256s"
+                | "slh-dsa-shake-128f"
+                | "slh-dsa-shake-128s"
+                | "slh-dsa-shake-192f"
+                | "slh-dsa-shake-192s"
+                | "slh-dsa-shake-256f"
+                | "slh-dsa-shake-256s",
+            options: SLHDSAKeyPairOptions<"der", "pem">,
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type:
+                | "slh-dsa-sha2-128f"
+                | "slh-dsa-sha2-128s"
+                | "slh-dsa-sha2-192f"
+                | "slh-dsa-sha2-192s"
+                | "slh-dsa-sha2-256f"
+                | "slh-dsa-sha2-256s"
+                | "slh-dsa-shake-128f"
+                | "slh-dsa-shake-128s"
+                | "slh-dsa-shake-192f"
+                | "slh-dsa-shake-192s"
+                | "slh-dsa-shake-256f"
+                | "slh-dsa-shake-256s",
+            options: SLHDSAKeyPairOptions<"der", "der">,
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type:
+                | "slh-dsa-sha2-128f"
+                | "slh-dsa-sha2-128s"
+                | "slh-dsa-sha2-192f"
+                | "slh-dsa-sha2-192s"
+                | "slh-dsa-sha2-256f"
+                | "slh-dsa-sha2-256s"
+                | "slh-dsa-shake-128f"
+                | "slh-dsa-shake-128s"
+                | "slh-dsa-shake-192f"
+                | "slh-dsa-shake-192s"
+                | "slh-dsa-shake-256f"
+                | "slh-dsa-shake-256s",
+            options?: SLHDSAKeyPairKeyObjectOptions,
         ): Promise<KeyPairKeyObjectResult>;
     }
     /**
