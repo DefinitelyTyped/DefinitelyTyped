@@ -48,13 +48,13 @@ declare module "perf_hooks" {
          * the type of garbage collection operation that occurred.
          * See perf_hooks.constants for valid values.
          */
-        readonly kind?: number | undefined;
+        readonly kind: number;
         /**
          * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
          * property contains additional information about garbage collection operation.
          * See perf_hooks.constants for valid values.
          */
-        readonly flags?: number | undefined;
+        readonly flags: number;
     }
     /**
      * The constructor of this class is not exposed to users directly.
@@ -92,11 +92,6 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly entryType: EntryType;
-        /**
-         * Additional detail specific to the `entryType`.
-         * @since v16.0.0
-         */
-        readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
         toJSON(): any;
     }
     /**
@@ -104,6 +99,7 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceMark extends PerformanceEntry {
+        readonly detail: any;
         readonly duration: 0;
         readonly entryType: "mark";
     }
@@ -114,6 +110,7 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceMeasure extends PerformanceEntry {
+        readonly detail: any;
         readonly entryType: "measure";
     }
     interface UVMetrics {
@@ -130,6 +127,7 @@ declare module "perf_hooks" {
          */
         readonly eventsWaiting: number;
     }
+    // TODO: PerformanceNodeEntry is missing
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -225,7 +223,7 @@ declare module "perf_hooks" {
         /**
          * Additional optional detail to include with the mark.
          */
-        detail?: unknown | undefined;
+        detail?: unknown;
         /**
          * Duration between start and end times.
          */

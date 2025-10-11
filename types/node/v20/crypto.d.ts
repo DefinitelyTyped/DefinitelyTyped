@@ -510,50 +510,50 @@ declare module "crypto" {
         format: "jwk";
     }
     interface JsonWebKey {
-        crv?: string | undefined;
-        d?: string | undefined;
-        dp?: string | undefined;
-        dq?: string | undefined;
-        e?: string | undefined;
-        k?: string | undefined;
-        kty?: string | undefined;
-        n?: string | undefined;
-        p?: string | undefined;
-        q?: string | undefined;
-        qi?: string | undefined;
-        x?: string | undefined;
-        y?: string | undefined;
+        crv?: string;
+        d?: string;
+        dp?: string;
+        dq?: string;
+        e?: string;
+        k?: string;
+        kty?: string;
+        n?: string;
+        p?: string;
+        q?: string;
+        qi?: string;
+        x?: string;
+        y?: string;
         [key: string]: unknown;
     }
     interface AsymmetricKeyDetails {
         /**
          * Key size in bits (RSA, DSA).
          */
-        modulusLength?: number | undefined;
+        modulusLength?: number;
         /**
          * Public exponent (RSA).
          */
-        publicExponent?: bigint | undefined;
+        publicExponent?: bigint;
         /**
          * Name of the message digest (RSA-PSS).
          */
-        hashAlgorithm?: string | undefined;
+        hashAlgorithm?: string;
         /**
          * Name of the message digest used by MGF1 (RSA-PSS).
          */
-        mgf1HashAlgorithm?: string | undefined;
+        mgf1HashAlgorithm?: string;
         /**
          * Minimal salt length in bytes (RSA-PSS).
          */
-        saltLength?: number | undefined;
+        saltLength?: number;
         /**
          * Size of q in bits (DSA).
          */
-        divisorLength?: number | undefined;
+        divisorLength?: number;
         /**
          * Name of the curve (EC).
          */
-        namedCurve?: string | undefined;
+        namedCurve?: string;
     }
     /**
      * Node.js uses a `KeyObject` class to represent a symmetric or asymmetric key,
@@ -608,7 +608,7 @@ declare module "crypto" {
          * keys.
          * @since v11.6.0
          */
-        asymmetricKeyType?: KeyType | undefined;
+        asymmetricKeyType?: KeyType;
         /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
@@ -622,7 +622,7 @@ declare module "crypto" {
          * Other key details might be exposed via this API using additional attributes.
          * @since v15.7.0
          */
-        asymmetricKeyDetails?: AsymmetricKeyDetails | undefined;
+        asymmetricKeyDetails?: AsymmetricKeyDetails;
         /**
          * For symmetric keys, the following encoding options can be used:
          *
@@ -661,7 +661,7 @@ declare module "crypto" {
          * property is `undefined` for asymmetric keys.
          * @since v11.6.0
          */
-        symmetricKeySize?: number | undefined;
+        symmetricKeySize?: number;
         /**
          * Depending on the type of this `KeyObject`, this property is either`'secret'` for secret (symmetric) keys, `'public'` for public (asymmetric) keys
          * or `'private'` for private (asymmetric) keys.
@@ -2575,15 +2575,15 @@ declare module "crypto" {
         /**
          * Name of the message digest
          */
-        hashAlgorithm?: string;
+        hashAlgorithm?: string | undefined;
         /**
          * Name of the message digest used by MGF1
          */
-        mgf1HashAlgorithm?: string;
+        mgf1HashAlgorithm?: string | undefined;
         /**
          * Minimal salt length in bytes
          */
-        saltLength?: string;
+        saltLength?: string | undefined;
     }
     interface DSAKeyPairKeyObjectOptions {
         /**
@@ -2626,15 +2626,15 @@ declare module "crypto" {
         /**
          * Name of the message digest
          */
-        hashAlgorithm?: string;
+        hashAlgorithm?: string | undefined;
         /**
          * Name of the message digest used by MGF1
          */
-        mgf1HashAlgorithm?: string;
+        mgf1HashAlgorithm?: string | undefined;
         /**
          * Minimal salt length in bytes
          */
-        saltLength?: string;
+        saltLength?: string | undefined;
         publicKeyEncoding: {
             type: "spki";
             format: PubF;
@@ -3624,23 +3624,23 @@ declare module "crypto" {
         /**
          * @default 'always'
          */
-        subject?: "always" | "default" | "never";
+        subject?: "always" | "default" | "never" | undefined;
         /**
          * @default true
          */
-        wildcards?: boolean;
+        wildcards?: boolean | undefined;
         /**
          * @default true
          */
-        partialWildcards?: boolean;
+        partialWildcards?: boolean | undefined;
         /**
          * @default false
          */
-        multiLabelWildcards?: boolean;
+        multiLabelWildcards?: boolean | undefined;
         /**
          * @default false
          */
-        singleLabelSubdomains?: boolean;
+        singleLabelSubdomains?: boolean | undefined;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to
@@ -3742,7 +3742,7 @@ declare module "crypto" {
          * available.
          * @since v15.9.0
          */
-        readonly issuerCertificate?: X509Certificate | undefined;
+        readonly issuerCertificate: X509Certificate | undefined;
         /**
          * The public key `KeyObject` for this certificate.
          * @since v15.6.0

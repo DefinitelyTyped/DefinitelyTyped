@@ -586,7 +586,7 @@ declare module "tls" {
          * requires explicitly specifying a cipher suite with the `ciphers` option.
          * More information can be found in the RFC 4279.
          */
-        pskCallback?(socket: TLSSocket, identity: string): DataView | NodeJS.TypedArray | null;
+        pskCallback?: ((socket: TLSSocket, identity: string) => NodeJS.ArrayBufferView | null) | undefined;
         /**
          * hint to send to a client to help
          * with selecting the identity during TLS-PSK negotiation. Will be ignored
@@ -627,7 +627,7 @@ declare module "tls" {
          * compatible with the selected cipher's digest.
          * `identity` must use UTF-8 encoding.
          */
-        pskCallback?(hint: string | null): PSKCallbackNegotation | null;
+        pskCallback?: ((hint: string | null) => PSKCallbackNegotation | null) | undefined;
     }
     /**
      * Accepts encrypted connections using TLS or SSL.
