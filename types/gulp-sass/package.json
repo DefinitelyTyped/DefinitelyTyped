@@ -1,15 +1,17 @@
 {
     "private": true,
     "name": "@types/gulp-sass",
-    "version": "5.0.9999",
+    "version": "6.0.9999",
     "projects": [
         "https://github.com/dlmanning/gulp-sass"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "@types/node-sass": "*"
+        "@sass/types": "^1.93",
+        "@types/node": "*"
     },
     "devDependencies": {
+        "sass": "^1.93",
+        "sass-embedded": "^1.93",
         "@types/gulp": "*",
         "@types/gulp-sass": "workspace:."
     },
