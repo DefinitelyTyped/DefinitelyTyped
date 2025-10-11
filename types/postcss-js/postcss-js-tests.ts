@@ -22,6 +22,8 @@ postcss().process(".a {}", { parser: postcssJs.parse });
 postcssJs.parse(style);
 
 postcssJs.objectify(postcss.root());
+postcssJs.objectify(postcss.root(), {});
+postcssJs.objectify(postcss.root(), { stringifyImportant: true });
 
 // Sync and async fail to work if no parameters are passed
 // @ts-expect-error
