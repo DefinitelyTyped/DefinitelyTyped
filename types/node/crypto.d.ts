@@ -4714,6 +4714,15 @@ declare module "crypto" {
         interface Algorithm {
             name: string;
         }
+        interface Argon2Params extends Algorithm {
+            associatedData?: BufferSource;
+            memory: number;
+            nonce: BufferSource;
+            parallelism: number;
+            passes: number;
+            secretValue?: BufferSource;
+            version?: number;
+        }
         interface CShakeParams extends Algorithm {
             customization?: BufferSource;
             functionName?: BufferSource;
@@ -4988,6 +4997,9 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
+             * * `'Argon2d'`
+             * * `'Argon2i'`
+             * * `'Argon2id'`
              * * `'ECDH'`
              * * `'HKDF'`
              * * `'PBKDF2'`
@@ -5001,7 +5013,7 @@ declare module "crypto" {
                 length?: number | null,
             ): Promise<ArrayBuffer>;
             deriveBits(
-                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
                 baseKey: CryptoKey,
                 length: number,
             ): Promise<ArrayBuffer>;
@@ -5014,6 +5026,9 @@ declare module "crypto" {
              *
              * The algorithms currently supported include:
              *
+             * * `'Argon2d'`
+             * * `'Argon2i'`
+             * * `'Argon2id'`
              * * `'ECDH'`
              * * `'HKDF'`
              * * `'PBKDF2'`
@@ -5023,7 +5038,7 @@ declare module "crypto" {
              * @since v15.0.0
              */
             deriveKey(
-                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
                 baseKey: CryptoKey,
                 derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
