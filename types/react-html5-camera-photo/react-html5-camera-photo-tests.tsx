@@ -1,6 +1,7 @@
 import * as React from "react";
 import Camera, { FACING_MODES, IMAGE_TYPES } from "react-html5-camera-photo";
 
+// $ExpectType Element
 <Camera />;
 
 <Camera
