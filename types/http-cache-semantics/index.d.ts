@@ -1,7 +1,7 @@
 export = CachePolicy;
 
 declare class CachePolicy {
-    constructor(req: CachePolicy.Request, res: CachePolicy.Response, options?: CachePolicy.Options);
+    constructor(req: CachePolicy.HttpRequest, res: CachePolicy.HttpResponse, options?: CachePolicy.Options);
 
     /**
      * Returns `true` if the response can be stored in a cache.
@@ -20,7 +20,28 @@ declare class CachePolicy {
      * If it returns `false`, then the response may not be matching at all (e.g. it's for a different URL or method),
      * or may require to be refreshed first (see `revalidationHeaders()`).
      */
-    satisfiesWithoutRevalidation(newRequest: CachePolicy.Request): boolean;
+    satisfiesWithoutRevalidation(newRequest: CachePolicy.HttpRequest): boolean;
+
+    /**
+     * Checks if the given request matches this cache entry, and how the cache can be used to satisfy it. Returns an object with:
+     *
+     * ```
+     * {
+     *     // If defined, you must send a request to the server.
+     *     revalidation: {
+     *         headers: {}, // HTTP headers to use when sending the revalidation response
+     *         // If true, you MUST wait for a response from the server before using the cache
+     *         // If false, this is stale-while-revalidate. The cache is stale, but you can use it while you update it asynchronously.
+     *         synchronous: bool,
+     *     },
+     *     // If defined, you can use this cached response.
+     *     response: {
+     *         headers: {}, // Updated cached HTTP headers you must use when responding to the client
+     *     },
+     * }
+     * ```
+     */
+    evaluateRequest(newRequest: CachePolicy.HttpRequest): CachePolicy.EvaluateRequestResult;
 
     /**
      * Returns updated, filtered set of response headers to return to clients receiving the cached response.
@@ -33,6 +54,28 @@ declare class CachePolicy {
     responseHeaders(): CachePolicy.Headers;
 
     /**
+     * Returns the Date header value from the response or the current time if invalid.
+     */
+    date(): number;
+
+    /**
+     * Value of the Age header, in seconds, updated for the current time.
+     * May be fractional.
+     */
+    age(): number;
+
+    /**
+     * Possibly outdated value of applicable max-age (or heuristic equivalent) in seconds.
+     * This counts since response's `Date`.
+     *
+     * For an up-to-date value, see `timeToLive()`.
+     *
+     * Returns the maximum age (freshness lifetime) of the response in seconds.
+     * @returns {number} The max-age value in seconds.
+     */
+    maxAge(): number;
+
+    /**
      * Returns approximate time in milliseconds until the response becomes stale (i.e. not fresh).
      *
      * After that time (when `timeToLive() <= 0`) the response might not be usable without revalidation. However,
@@ -42,15 +85,21 @@ declare class CachePolicy {
     timeToLive(): number;
 
     /**
-     * Chances are you'll want to store the `CachePolicy` object along with the cached response.
-     * `obj = policy.toObject()` gives a plain JSON-serializable object.
+     * If true, this cache entry is past its expiration date.
+     * Note that stale cache may be useful sometimes, see `evaluateRequest()`.
      */
-    toObject(): CachePolicy.CachePolicyObject;
+    stale(): boolean;
 
     /**
      * `policy = CachePolicy.fromObject(obj)` creates an instance from object created by `toObject()`.
      */
     static fromObject(obj: CachePolicy.CachePolicyObject): CachePolicy;
+
+    /**
+     * Chances are you'll want to store the `CachePolicy` object along with the cached response.
+     * `obj = policy.toObject()` gives a plain JSON-serializable object.
+     */
+    toObject(): CachePolicy.CachePolicyObject;
 
     /**
      * Returns updated, filtered set of request headers to send to the origin server to check if the cached
@@ -62,28 +111,36 @@ declare class CachePolicy {
      * @example
      * updateRequest.headers = cachePolicy.revalidationHeaders(updateRequest);
      */
-    revalidationHeaders(newRequest: CachePolicy.Request): CachePolicy.Headers;
+    revalidationHeaders(newRequest: CachePolicy.HttpRequest): CachePolicy.Headers;
 
     /**
-     * Use this method to update the cache after receiving a new response from the origin server.
+     * Creates new CachePolicy with information combined from the previews response,
+     * and the new revalidation response.
+     *
+     * Returns {policy, modified} where modified is a boolean indicating
+     * whether the response body has been modified, and old cached body can't be used.
      */
     revalidatedPolicy(
-        revalidationRequest: CachePolicy.Request,
-        revalidationResponse: CachePolicy.Response,
+        revalidationRequest: CachePolicy.HttpRequest,
+        revalidationResponse?: CachePolicy.HttpResponse,
     ): CachePolicy.RevalidationPolicy;
 }
 
 declare namespace CachePolicy {
-    interface Request {
+    interface HttpRequest {
         url?: string | undefined;
         method?: string | undefined;
         headers: Headers;
     }
 
-    interface Response {
+    type Request = HttpRequest;
+
+    interface HttpResponse {
         status?: number | undefined;
         headers: Headers;
     }
+
+    type Response = HttpResponse;
 
     interface Options {
         /**
@@ -162,4 +219,33 @@ declare namespace CachePolicy {
         modified: boolean;
         matches: boolean;
     }
+
+    interface EvaluateRequestRevalidation {
+        synchronous: boolean;
+        headers: CachePolicy.Headers;
+    }
+
+    interface EvaluateRequestHitWithoutRevalidationResult {
+        response: {
+            headers: CachePolicy.Headers;
+        };
+        revalidation: undefined;
+    }
+
+    interface EvaluateRequestHitWithRevalidationResult {
+        response: {
+            headers: CachePolicy.Headers;
+        };
+        revalidation: EvaluateRequestRevalidation;
+    }
+
+    interface EvaluateRequestMissResult {
+        response: undefined;
+        revalidation: EvaluateRequestRevalidation;
+    }
+
+    type EvaluateRequestResult =
+        | EvaluateRequestHitWithRevalidationResult
+        | EvaluateRequestHitWithoutRevalidationResult
+        | EvaluateRequestMissResult;
 }
