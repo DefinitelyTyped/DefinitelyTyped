@@ -28,6 +28,10 @@ interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObj
 
 type ComposeFnParam = (source: any) => void;
 
+// @types/node's `EventEmitter.listeners()` returns true functions in >=v25, but `Function` objects
+// in <=v24. To maintain assignability to @types/node streams, use whichever variant is present.
+type EventListenerArray = ReturnType<NodeJS.EventEmitter["listeners"]>;
+
 interface _IEventEmitter {
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
     emit(event: string | symbol, ...args: any[]): boolean;
@@ -36,17 +40,14 @@ interface _IEventEmitter {
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
     removeAllListeners(event?: string | symbol): this;
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): EventListenerArray;
+    rawListeners(eventName: string | symbol): EventListenerArray;
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 }
 
 interface SignalOption {
@@ -217,12 +218,10 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): EventListenerArray;
+    rawListeners(eventName: string | symbol): EventListenerArray;
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 
     iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
     [Symbol.asyncIterator](): StreamIterator<any>;

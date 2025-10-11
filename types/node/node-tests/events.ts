@@ -1,9 +1,48 @@
 import events from "node:events";
 
-const emitter: events = new events.EventEmitter();
+const emitter = new events.EventEmitter();
+const eventTarget = new EventTarget();
 declare const listener: (...args: any[]) => void;
 declare const event: string | symbol;
 declare const any: any;
+
+{
+    using abortListener = events.addAbortListener(new AbortController().signal, (event) => {
+        event; // $ExpectType Event
+    });
+
+    const { EventEmitter } = events;
+    EventEmitter.defaultMaxListeners; // $ExpectType number
+    EventEmitter.defaultMaxListeners = 100;
+
+    events.getEventListeners(emitter, "event"); // $ExpectType ((...args: any[]) => void)[]
+    events.getEventListeners(eventTarget, "event"); // $ExpectType ((...args: any[]) => void)[]
+    events.getMaxListeners(emitter); // $ExpectType number
+    events.getMaxListeners(eventTarget); // $ExpectType number
+    events.setMaxListeners(10);
+    events.setMaxListeners(10, emitter, eventTarget);
+
+    events.listenerCount(emitter, event); // $ExpectType number
+}
+
+void async function() {
+    await events.once(emitter, "event"); // $ExpectType any[]
+    await events.once(eventTarget, "event"); // $ExpectType any[]
+    events.once(emitter, "event", { signal: new AbortController().signal });
+
+    for await (const result of events.on(emitter, "event")) {
+        result; // $ExpectType any[]
+    }
+    for await (const result of events.on(eventTarget, "event")) {
+        result; // $ExpectType any[]
+    }
+    events.on(emitter, "event", {
+        close: ["end"],
+        highWaterMark: 100,
+        lowWaterMark: 5,
+        signal: new AbortController().signal,
+    });
+};
 
 {
     let result: events.EventEmitter;
@@ -21,35 +60,6 @@ declare const any: any;
 }
 
 {
-    let result: number;
-
-    result = events.EventEmitter.defaultMaxListeners;
-    result = events.EventEmitter.listenerCount(emitter, event); // deprecated
-
-    const promise: Promise<any[]> = events.once(new events.EventEmitter(), "error");
-
-    result = emitter.getMaxListeners();
-    result = emitter.listenerCount(event);
-
-    const handler: Function = () => {};
-    result = emitter.listenerCount(event, handler);
-}
-
-{
-    let result: Promise<number[]>;
-
-    result = events.once(emitter, event);
-
-    emitter.emit(event, 42);
-}
-
-{
-    let result: Function[];
-
-    result = emitter.listeners(event);
-}
-
-{
     let result: boolean;
 
     result = emitter.emit(event);
@@ -59,119 +69,18 @@ declare const any: any;
 }
 
 {
-    let result: Array<string | symbol>;
-
-    result = emitter.eventNames();
+    emitter.eventNames(); // $ExpectType (string | symbol)[]
+    emitter.getMaxListeners(); // $ExpectType number
+    emitter.listenerCount(event); // $ExpectType number
+    emitter.listenerCount(event, listener); // $ExpectType number
+    emitter.listeners(event); // $ExpectType ((...args: any[]) => void)[]
 }
 
 {
-    class Networker extends events.EventEmitter {
-        constructor() {
-            super();
-
-            this.emit("mingling");
-        }
-    }
-}
-
-{
-    const emitter2: events.EventEmitter = new events();
-}
-
-{
-    class CustomEventTarget extends EventTarget {
-        override addEventListener(...args: Parameters<EventTarget["addEventListener"]>) {
-            const [name, listener] = args;
-
-            if (typeof listener === "function") {
-                setTimeout(() => listener(new Event(name)), 100);
-            }
-        }
-    }
-
-    events.once(
-        new CustomEventTarget(),
-        "name",
-    );
-}
-
-async function test() {
-    for await (const e of events.on(new events.EventEmitter(), "test")) {
-        console.log(e.length);
-    }
-    events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
-    events.on(new events.EventEmitter(), "test", { close: ["close"] });
-    events.on(new events.EventEmitter(), "test", { highWaterMark: 42 });
-    events.on(new events.EventEmitter(), "test", { lowWaterMark: 42 });
-}
-
-async function testWithSymbol() {
-    for await (const e of events.on(new events.EventEmitter(), Symbol("test"))) {
-        console.log(e.length);
-    }
-    events.on(new events.EventEmitter(), Symbol("test"), { signal: new AbortController().signal });
-}
-
-async function testEventTarget() {
-    for await (const e of events.on(new EventTarget(), "test")) {
-        console.log(e);
-    }
-    events.on(new EventTarget(), "test", { signal: new AbortController().signal });
-}
-
-{
-    emitter.on(events.errorMonitor, listener);
-    emitter.on(events.EventEmitter.errorMonitor, listener);
-}
-
-{
-    let errorMonitor1: typeof events.errorMonitor = events.errorMonitor;
-    errorMonitor1 = events.EventEmitter.errorMonitor;
-
-    let errorMonitor2: typeof events.EventEmitter.errorMonitor = events.EventEmitter.errorMonitor;
-    errorMonitor2 = events.errorMonitor;
-}
-
-{
-    let captureRejectionSymbol1: typeof events.captureRejectionSymbol = events.captureRejectionSymbol;
-    captureRejectionSymbol1 = events.EventEmitter.captureRejectionSymbol;
-
-    let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
-        events.EventEmitter.captureRejectionSymbol;
-    captureRejectionSymbol2 = events.captureRejectionSymbol;
-
-    const emitter = new events.EventEmitter();
+    const emitter = new events.EventEmitter({ captureRejections: true });
     emitter[events.captureRejectionSymbol] = (err: Error, name: string, ...args: any[]) => {};
-}
 
-{
-    // $ExpectType void
-    events.EventEmitter.setMaxListeners();
-    // $ExpectType void
-    events.EventEmitter.setMaxListeners(42);
-
-    const eventTarget = new EventTarget();
-    // $ExpectType void
-    events.EventEmitter.setMaxListeners(42, eventTarget);
-    // @ts-expect-error - ensure constructor does not return a constructor
-    new eventTarget();
-
-    const eventEmitter = new events.EventEmitter();
-    // $ExpectType void
-    events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
-}
-
-{
-    let disposable: Disposable | undefined;
-    try {
-        const signal = new AbortSignal();
-        signal.addEventListener("abort", (e) => e.stopImmediatePropagation());
-        disposable = events.addAbortListener(signal, (e) => {
-            console.log(e);
-        });
-    } finally {
-        disposable?.[Symbol.dispose]();
-    }
+    emitter.on(events.errorMonitor, listener);
 }
 
 {

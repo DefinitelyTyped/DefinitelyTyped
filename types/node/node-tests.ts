@@ -10,7 +10,7 @@ import "./node-tests/dgram";
 import "./node-tests/diagnostics_channel";
 import "./node-tests/dns";
 import "./node-tests/events";
-import "./node-tests/events_generic";
+import "./node-tests/events-maps";
 import "./node-tests/fs";
 import "./node-tests/globals";
 import "./node-tests/http";

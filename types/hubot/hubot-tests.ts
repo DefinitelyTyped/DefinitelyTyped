@@ -6,7 +6,7 @@ const message = new Message(user);
 const robot = new Robot<Adapter>("src/adapters", false, "hubot");
 robot; // $ExpectType Robot<Adapter>
 robot.name; // $ExpectType string
-robot.events; // $ExpectType EventEmitter<DefaultEventMap>
+robot.events; // $ExpectType EventEmitter<any>
 robot.brain; // $ExpectType Brain<Adapter>
 robot.alias; // $ExpectType string
 robot.adapterName; // $ExpectType string
