@@ -37,6 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
  */
 declare module "vm" {
+    import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
@@ -66,7 +67,7 @@ declare module "vm" {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
@@ -367,7 +368,7 @@ declare module "vm" {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
         cachedDataProduced?: boolean;
         /**
@@ -377,7 +378,7 @@ declare module "vm" {
          * @since v5.7.0
          */
         cachedDataRejected?: boolean;
-        cachedData?: Buffer;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.

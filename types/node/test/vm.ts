@@ -77,7 +77,7 @@ import {
     });
 
     fn satisfies Function;
-    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    // $ExpectType NonSharedBuffer | undefined
     fn.cachedData;
     // $ExpectType boolean | undefined
     fn.cachedDataProduced;

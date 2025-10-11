@@ -8,6 +8,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/os.js)
  */
 declare module "os" {
+    import { NonSharedBuffer } from "buffer";
     interface CpuInfo {
         model: string;
         speed: number;
@@ -253,8 +254,8 @@ declare module "os" {
      * Throws a [`SystemError`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-systemerror) if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
-    function userInfo(options: UserInfoOptionsWithBufferEncoding): UserInfo<Buffer>;
     function userInfo(options?: UserInfoOptionsWithStringEncoding): UserInfo<string>;
+    function userInfo(options: UserInfoOptionsWithBufferEncoding): UserInfo<NonSharedBuffer>;
     function userInfo(options: UserInfoOptions): UserInfo<string | Buffer>;
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
