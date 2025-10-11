@@ -169,6 +169,8 @@ cal = createCalendar(target, plugins, {
     eventLongPressDelay: 100,
     eventMouseEnter: (_info: Calendar.MouseEnterInfo) => {},
     eventMouseLeave: (_info: Calendar.MouseEnterInfo) => {},
+    eventOrder: (_a: Calendar.EventOrderInfo, _b: Calendar.EventOrderInfo) => 0,
+    eventResizableFromStart: true,
     eventResize: (_info: Calendar.EventResizeInfo) => {},
     eventResizeStart: (_info: Calendar.EventDuringResizeInfo) => {},
     eventResizeStop: (_info: Calendar.EventDuringResizeInfo) => {},
@@ -256,6 +258,11 @@ cal = createCalendar(target, plugins, {
 cal.setOption("buttonText", () => {
     return { baz: "bux" };
 })
+    .setOption("customButtons", (customButtons: Calendar.CustomButtons) => {
+        customButtons.foo = { text: "Foo", click: () => null };
+        customButtons.bar = { text: "Bar", active: false, click: () => undefined };
+        return customButtons;
+    })
     .setOption("dayCellFormat", (_d: Date) => "content")
     .setOption("dayHeaderAriaLabelFormat", (_d: Date) => "content")
     .setOption("dayHeaderFormat", (_d: Date) => "content")
