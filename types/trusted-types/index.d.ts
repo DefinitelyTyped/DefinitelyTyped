@@ -1,4 +1,4 @@
-import * as lib from "./lib";
+import * as lib from "./lib/index";
 
 // Re-export the type definitions globally.
 declare global {
