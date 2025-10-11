@@ -268,12 +268,16 @@ declare namespace FS {
     function makedev(ma: number, mi: number): number;
     function registerDevice(dev: number, ops: Partial<StreamOps>): void;
     function getDevice(dev: number): { stream_ops: StreamOps };
-    function createDevice(
-        parent: string | FSNode,
-        name: string,
-        input?: () => number | null | undefined,
-        output?: (c: number) => any,
-    ): FSNode;
+    var createDevice:
+        & ((
+            parent: string | FSNode,
+            name: string,
+            input?: (() => number | null | undefined) | null,
+            output?: ((code: number) => void) | null,
+        ) => FSNode)
+        & {
+            major: number;
+        };
 
     //
     // core
