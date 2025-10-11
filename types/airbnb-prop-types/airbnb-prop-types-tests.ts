@@ -33,45 +33,45 @@ AirbnbPropTypes.between({ lt: 1, gt: 0 });
 // $ExpectType Requireable<boolean>
 AirbnbPropTypes.booleanSome("foo", "bar", "baz");
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenHavePropXorChildren("foo");
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenOf(PropTypes.string);
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenOfType(ClassComp);
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenOfType(FuncComp);
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenOfType("div");
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenOfType(ClassComp, FuncComp, "div");
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenSequenceOf({ validator: PropTypes.number });
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenSequenceOf({ validator: PropTypes.string, max: 100 });
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.childrenSequenceOf({ validator: PropTypes.bool, min: 0 });
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.componentWithName("Foo");
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.componentWithName(/Foo/);
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.componentWithName("Foo", { stripHOCs: ["connect"] });
 
 // $ExpectType Requireable<number>
 AirbnbPropTypes.disallowedIf(PropTypes.number, "foo", PropTypes.string);
 
-// $ExpectType Requireable<Element>
+// $ExpectType Requireable<ReactElementLike>
 AirbnbPropTypes.elementType(ClassComp);
-// $ExpectType Requireable<Element>
+// $ExpectType Requireable<ReactElementLike>
 AirbnbPropTypes.elementType(FuncComp);
-// $ExpectType Requireable<Element>
+// $ExpectType Requireable<ReactElementLike>
 AirbnbPropTypes.elementType("div");
-// $ExpectType Requireable<Element>
+// $ExpectType Requireable<ReactElementLike>
 AirbnbPropTypes.elementType("*");
 // @ts-expect-error
 AirbnbPropTypes.elementType(ClassComp, FuncComp, "div");
@@ -124,9 +124,9 @@ AirbnbPropTypes.mutuallyExclusiveTrueProps("foo");
 // $ExpectType Requireable<boolean>
 AirbnbPropTypes.mutuallyExclusiveTrueProps("foo", "bar");
 
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.nChildren(1, PropTypes.number);
-// $ExpectType Requireable<ReactNode>
+// $ExpectType Requireable<ReactNodeLike>
 AirbnbPropTypes.nChildren(1, AirbnbPropTypes.childrenOfType("span"));
 
 // $ExpectType Requireable<number>

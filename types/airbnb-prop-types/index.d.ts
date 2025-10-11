@@ -3,7 +3,7 @@ import * as PropTypes from "prop-types";
 export interface ReactComponentLike {
     setState(...args: any[]): any;
     forceUpdate(...args: any[]): any;
-    render(): React.ReactNode;
+    render(): PropTypes.ReactNodeLike;
     props: any;
     state: any;
     context: any;
@@ -14,7 +14,7 @@ export interface ReactClassComponentLike {
     new(...args: any[]): ReactComponentLike;
 }
 
-export type ReactFunctionComponentLike = (...args: any[]) => React.ReactNode;
+export type ReactFunctionComponentLike = (...args: any[]) => PropTypes.ReactNodeLike;
 
 export type ReactTypeLike = string | ReactClassComponentLike | ReactFunctionComponentLike;
 
@@ -59,23 +59,23 @@ export function between(options: {
 
 export function booleanSome(...props: string[]): PropTypes.Requireable<boolean>;
 
-export function childrenHavePropXorChildren<T = React.ReactNode>(
+export function childrenHavePropXorChildren<T = PropTypes.ReactNodeLike>(
     prop: string | symbol,
 ): PropTypes.Requireable<T>;
 
-export function childrenOf<T = React.ReactNode, P = any>(
+export function childrenOf<T = PropTypes.ReactNodeLike, P = any>(
     propType: PropTypes.Validator<P>,
 ): PropTypes.Requireable<T>;
 
-export function childrenOfType<T = React.ReactNode>(
+export function childrenOfType<T = PropTypes.ReactNodeLike>(
     ...types: ReactTypeLike[]
 ): PropTypes.Requireable<T>;
 
-export function childrenSequenceOf<T = React.ReactNode>(
+export function childrenSequenceOf<T = PropTypes.ReactNodeLike>(
     ...specifiers: Specifier[]
 ): PropTypes.Requireable<T>;
 
-export function componentWithName<T = React.ReactNode>(
+export function componentWithName<T = PropTypes.ReactNodeLike>(
     name: string | RegExp,
     options?: { stripHOCs: readonly string[] },
 ): PropTypes.Requireable<T>;
@@ -86,7 +86,7 @@ export function disallowedIf<T>(
     otherPropType: PropTypes.Validator<any>,
 ): PropTypes.Requireable<T>;
 
-export function elementType<T = React.JSX.Element>(
+export function elementType<T = PropTypes.ReactElementLike>(
     type: ReactTypeLike,
 ): PropTypes.Requireable<T>;
 
@@ -116,7 +116,7 @@ export function mutuallyExclusiveProps<T>(
 
 export function mutuallyExclusiveTrueProps(...propNames: string[]): PropTypes.Requireable<boolean>;
 
-export function nChildren<T = React.ReactNode, P = any>(
+export function nChildren<T = PropTypes.ReactNodeLike, P = any>(
     n: number,
     propType?: PropTypes.Validator<P>,
 ): PropTypes.Requireable<T>;
