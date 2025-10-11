@@ -4777,6 +4777,19 @@ declare module "crypto" {
         interface KeyAlgorithm {
             name: string;
         }
+        interface KmacImportParams extends Algorithm {
+            length?: number;
+        }
+        interface KmacKeyAlgorithm extends KeyAlgorithm {
+            length: number;
+        }
+        interface KmacKeyGenParams extends Algorithm {
+            length?: number;
+        }
+        interface KmacParams extends Algorithm {
+            customization?: BufferSource;
+            length: number;
+        }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
             iterations: number;
@@ -4906,6 +4919,10 @@ declare module "crypto" {
          */
         interface SubtleCrypto {
             /**
+             * A message recipient uses their asymmetric private key to decrypt an
+             * "encapsulated key" (ciphertext), thereby recovering a temporary symmetric
+             * key (represented as `ArrayBuffer`) which is then used to decrypt a message.
+             *
              * The algorithms currently supported include:
              *
              * * `'ML-KEM-512'`
@@ -4920,6 +4937,10 @@ declare module "crypto" {
                 ciphertext: BufferSource,
             ): Promise<ArrayBuffer>;
             /**
+             * A message recipient uses their asymmetric private key to decrypt an
+             * "encapsulated key" (ciphertext), thereby recovering a temporary symmetric
+             * key (represented as `CryptoKey`) which is then used to decrypt a message.
+             *
              * The algorithms currently supported include:
              *
              * * `'ML-KEM-512'`
@@ -4933,13 +4954,13 @@ declare module "crypto" {
                 decapsulationAlgorithm: AlgorithmIdentifier,
                 decapsulationKey: CryptoKey,
                 ciphertext: BufferSource,
-                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
+                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
                 usages: KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
-             * `subtle.decrypt()` attempts to decipher the provided `data`. If successful,
+             * this method attempts to decipher the provided `data`. If successful,
              * the returned promise will be resolved with an `<ArrayBuffer>` containing the plaintext result.
              *
              * The algorithms currently supported include:
@@ -4959,7 +4980,7 @@ declare module "crypto" {
             ): Promise<ArrayBuffer>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `baseKey`,
-             * `subtle.deriveBits()` attempts to generate `length` bits.
+             * this method attempts to generate `length` bits.
              * The Node.js implementation requires that when `length` is a number it must be multiple of `8`.
              * When `length` is `null` the maximum number of bits for a given algorithm is generated. This is allowed
              * for the `'ECDH'`, `'X25519'`, and `'X448'` algorithms.
@@ -4986,7 +5007,7 @@ declare module "crypto" {
             ): Promise<ArrayBuffer>;
             /**
              * Using the method and parameters specified in `algorithm`, and the keying material provided by `baseKey`,
-             * `subtle.deriveKey()` attempts to generate a new <CryptoKey>` based on the method and parameters in `derivedKeyAlgorithm`.
+             * this method attempts to generate a new <CryptoKey>` based on the method and parameters in `derivedKeyAlgorithm`.
              *
              * Calling `subtle.deriveKey()` is equivalent to calling `subtle.deriveBits()` to generate raw keying material,
              * then passing the result into the `subtle.importKey()` method using the `deriveKeyAlgorithm`, `extractable`, and `keyUsages` parameters as input.
@@ -5004,7 +5025,7 @@ declare module "crypto" {
             deriveKey(
                 algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
+                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
@@ -5029,6 +5050,9 @@ declare module "crypto" {
              */
             digest(algorithm: AlgorithmIdentifier | CShakeParams, data: BufferSource): Promise<ArrayBuffer>;
             /**
+             * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
+             * This encrypted key is the "encapsulated key" represented as `EncapsulatedBits`.
+             *
              * The algorithms currently supported include:
              *
              * * `'ML-KEM-512'`
@@ -5042,6 +5066,9 @@ declare module "crypto" {
                 encapsulationKey: CryptoKey,
             ): Promise<EncapsulatedBits>;
             /**
+             * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
+             * This encrypted key is the "encapsulated key" represented as `EncapsulatedKey`.
+             *
              * The algorithms currently supported include:
              *
              * * `'ML-KEM-512'`
@@ -5054,13 +5081,13 @@ declare module "crypto" {
             encapsulateKey(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
-                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
+                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
                 usages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             /**
              * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
-             * `subtle.encrypt()` attempts to encipher `data`. If successful,
+             * this method attempts to encipher `data`. If successful,
              * the returned promise is resolved with an `<ArrayBuffer>` containing the encrypted result.
              *
              * The algorithms currently supported include:
@@ -5119,7 +5146,7 @@ declare module "crypto" {
              * * `'X25519'`
              * * `'X448'`
              *
-             * The {CryptoKey} (secret key) generating algorithms supported include:
+             * The `CryptoKey` (secret key) generating algorithms supported include:
              * * `'AES-CBC'`
              * * `'AES-CTR'`
              * * `'AES-GCM'`
@@ -5127,6 +5154,8 @@ declare module "crypto" {
              * * `'AES-OCB'`
              * * `'ChaCha20-Poly1305'`
              * * `'HMAC'`
+             * * `'KMAC128'`
+             * * `'KMAC256'`
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
              * @since v15.0.0
              */
@@ -5136,7 +5165,7 @@ declare module "crypto" {
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
-                algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
+                algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params | KmacKeyGenParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
@@ -5158,7 +5187,7 @@ declare module "crypto" {
              * to create a `<CryptoKey>` instance using the provided `algorithm`, `extractable`, and `keyUsages` arguments.
              * If the import is successful, the returned promise will be resolved with the created `<CryptoKey>`.
              *
-             * If importing a `'PBKDF2'` key, `extractable` must be `false`.
+             * If importing KDF algorithm keys, `extractable` must be `false`.
              * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
              * `'raw-public'`, or `'raw-seed'`.
              * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
@@ -5172,7 +5201,8 @@ declare module "crypto" {
                     | RsaHashedImportParams
                     | EcKeyImportParams
                     | HmacImportParams
-                    | AesKeyAlgorithm,
+                    | AesKeyAlgorithm
+                    | KmacImportParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
@@ -5184,13 +5214,14 @@ declare module "crypto" {
                     | RsaHashedImportParams
                     | EcKeyImportParams
                     | HmacImportParams
-                    | AesKeyAlgorithm,
+                    | AesKeyAlgorithm
+                    | KmacImportParams,
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method and parameters given by `algorithm` and the keying material provided by `key`,
-             * `subtle.sign()` attempts to generate a cryptographic signature of `data`. If successful,
+             * this method attempts to generate a cryptographic signature of `data`. If successful,
              * the returned promise is resolved with an `<ArrayBuffer>` containing the generated signature.
              *
              * The algorithms currently supported include:
@@ -5199,6 +5230,8 @@ declare module "crypto" {
              * * `'Ed25519'`
              * * `'Ed448'`
              * * `'HMAC'`
+             * * `'KMAC128'`
+             * * `'KMAC256'`
              * * `'ML-DSA-44'`
              * * `'ML-DSA-65'`
              * * `'ML-DSA-87'`
@@ -5207,13 +5240,13 @@ declare module "crypto" {
              * @since v15.0.0
              */
             sign(
-                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams,
+                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
                 data: BufferSource,
             ): Promise<ArrayBuffer>;
             /**
              * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
-             * The `subtle.unwrapKey()` method attempts to decrypt a wrapped key and create a `<CryptoKey>` instance.
+             * This method attempts to decrypt a wrapped key and create a `<CryptoKey>` instance.
              * It is equivalent to calling `subtle.decrypt()` first on the encrypted key data (using the `wrappedKey`, `unwrapAlgo`, and `unwrappingKey` arguments as input)
              * then passing the results in to the `subtle.importKey()` method using the `unwrappedKeyAlgo`, `extractable`, and `keyUsages` arguments as inputs.
              * If successful, the returned promise is resolved with a `<CryptoKey>` object.
@@ -5241,6 +5274,8 @@ declare module "crypto" {
              * * `'Ed25519'`
              * * `'Ed448'`
              * * `'HMAC'`
+             * * `'KMAC128'`
+             * * `'KMAC256'`
              * * `'ML-DSA-44'`
              * * `'ML-DSA-65'`
              * * `'ML-DSA-87'`
@@ -5267,13 +5302,14 @@ declare module "crypto" {
                     | RsaHashedImportParams
                     | EcKeyImportParams
                     | HmacImportParams
-                    | AesKeyAlgorithm,
+                    | AesKeyAlgorithm
+                    | KmacImportParams,
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method and parameters given in `algorithm` and the keying material provided by `key`,
-             * `subtle.verify()` attempts to verify that `signature` is a valid cryptographic signature of `data`.
+             * This method attempts to verify that `signature` is a valid cryptographic signature of `data`.
              * The returned promise is resolved with either `true` or `false`.
              *
              * The algorithms currently supported include:
@@ -5282,6 +5318,8 @@ declare module "crypto" {
              * * `'Ed25519'`
              * * `'Ed448'`
              * * `'HMAC'`
+             * * `'KMAC128'`
+             * * `'KMAC256'`
              * * `'ML-DSA-44'`
              * * `'ML-DSA-65'`
              * * `'ML-DSA-87'`
@@ -5290,14 +5328,14 @@ declare module "crypto" {
              * @since v15.0.0
              */
             verify(
-                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params | ContextParams,
+                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
                 signature: BufferSource,
                 data: BufferSource,
             ): Promise<boolean>;
             /**
              * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
-             * The `subtle.wrapKey()` method exports the keying material into the format identified by `format`,
+             * This method exports the keying material into the format identified by `format`,
              * then encrypts it using the method and parameters specified by `wrapAlgo` and the keying material provided by `wrappingKey`.
              * It is the equivalent to calling `subtle.exportKey()` using `format` and `key` as the arguments,
              * then passing the result to the `subtle.encrypt()` method using `wrappingKey` and `wrapAlgo` as inputs.
