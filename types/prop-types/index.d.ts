@@ -1,45 +1,14 @@
+import * as React from "react";
+
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = PropTypes;
 
 declare namespace PropTypes {
-    type ReactComponentLike =
-        | string
-        | ((props: any) => any)
-        | (new(props: any, context: any) => any);
+    type ReactComponentLike = React.JSX.ElementType;
 
-    interface ReactElementLike {
-        type: ReactComponentLike;
-        props: unknown;
-        key: string | null;
-    }
+    interface ReactElementLike extends React.JSX.Element {}
 
-    interface ReactNodeArray extends Iterable<ReactNodeLike> {}
-
-    /**
-     * @internal Use `Awaited<ReactNodeLike>` instead
-     */
-    // Helper type to enable `Awaited<ReactNodeLike>`.
-    // Must be a copy of the non-thenables of `ReactNodeLike`.
-    type AwaitedReactNodeLike =
-        | ReactElementLike
-        | string
-        | number
-        | bigint
-        | ReactNodeArray
-        | boolean
-        | null
-        | undefined;
-
-    type ReactNodeLike =
-        | ReactElementLike
-        | ReactNodeArray
-        | string
-        | number
-        | bigint
-        | boolean
-        | null
-        | undefined
-        | Promise<AwaitedReactNodeLike>;
+    type ReactNodeLike = React.ReactNode;
 
     const nominalTypeHack: unique symbol;
 
@@ -89,15 +58,17 @@ declare namespace PropTypes {
 
     const any: Requireable<any>;
     const array: Requireable<any[]>;
+    const bigint: Requireable<bigint>;
     const bool: Requireable<boolean>;
     const func: Requireable<(...args: any[]) => any>;
     const number: Requireable<number>;
     const object: Requireable<object>;
     const string: Requireable<string>;
-    const node: Requireable<ReactNodeLike>;
-    const element: Requireable<ReactElementLike>;
+    const node: Requireable<React.ReactNode>;
+    const element: Requireable<React.JSX.Element>;
     const symbol: Requireable<symbol>;
-    const elementType: Requireable<ReactComponentLike>;
+    const elementType: Requireable<React.JSX.ElementType>;
+
     function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
     function oneOf<T>(types: readonly T[]): Requireable<T>;
     function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
