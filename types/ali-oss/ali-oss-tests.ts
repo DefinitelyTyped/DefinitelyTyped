@@ -22,6 +22,42 @@ const clusterClient = new OSS.ClusterClient(clusterOptions);
 
 clusterClient.deleteMulti(["cluster"], { quiet: true });
 
+// $ExpectType string
+clusterClient.signatureUrl("ossdemo.txt", {
+    expires: 3600,
+    response: { "content-type": "text/custom", "content-disposition": "attachment" },
+}, false);
+
+// $ExpectType Promise<string>
+clusterClient.asyncSignatureUrl("ossdemo.txt", {
+    expires: 3600,
+    response: { "content-type": "text/custom", "content-disposition": "attachment" },
+}, false);
+
+// $ExpectType Promise<string>
+clusterClient.signatureUrlV4("GET", 60, undefined, "your object name");
+
+// $ExpectType Promise<string>
+clusterClient.signatureUrlV4(
+    "GET",
+    60,
+    { headers: { "Cache-Control": "no-cache" }, queries: { versionId: "version ID of your object" } },
+    "your object name",
+    ["Cache-Control"],
+);
+
+// $ExpectType Promise<string>
+clusterClient.signatureUrlV4("PUT", 60, undefined, "your object name");
+
+// $ExpectType Promise<string>
+clusterClient.signatureUrlV4(
+    "PUT",
+    60,
+    { headers: { "Content-Type": "text/plain", "Content-MD5": "xxx", "Content-Length": 1 } },
+    "your obejct name",
+    ["Content-Length"],
+);
+
 const imageOptions: OSS.ImageClientOptions = {
     imageHost: "xxxx",
     accessKeyId: "xxxx",
