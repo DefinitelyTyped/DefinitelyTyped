@@ -4737,9 +4737,6 @@ declare module "crypto" {
         interface EcdsaParams extends Algorithm {
             hash: HashAlgorithmIdentifier;
         }
-        interface Ed448Params extends Algorithm {
-            context?: BufferSource;
-        }
         interface HkdfParams extends Algorithm {
             hash: HashAlgorithmIdentifier;
             info: BufferSource;
@@ -5210,7 +5207,7 @@ declare module "crypto" {
              * @since v15.0.0
              */
             sign(
-                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params | ContextParams,
+                algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams,
                 key: CryptoKey,
                 data: BufferSource,
             ): Promise<ArrayBuffer>;
@@ -5283,7 +5280,7 @@ declare module "crypto" {
              *
              * * `'ECDSA'`
              * * `'Ed25519'`
-             * * `'Ed448'`[^secure-curves]
+             * * `'Ed448'`
              * * `'HMAC'`
              * * `'ML-DSA-44'`
              * * `'ML-DSA-65'`
