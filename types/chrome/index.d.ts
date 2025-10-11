@@ -7899,13 +7899,25 @@ declare namespace chrome {
             id: string;
             /** Printer's human readable name. */
             name: string;
-            /** Optional. Printer's human readable description. */
+            /** Printer's human readable description. */
             description?: string | undefined;
+        }
+
+        /** Error codes returned in response to {@link onPrintRequested} event. */
+        export enum PrintError {
+            /** Specifies that the operation was completed successfully. */
+            OK = "OK",
+            /** Specifies that a general failure occured. */
+            FAILED = "FAILED",
+            /** Specifies that the print ticket is invalid. For example, the ticket is inconsistent with some capabilities, or the extension is not able to handle all settings from the ticket. */
+            INVALID_TICKET = "INVALID_TICKET",
+            /** Specifies that the document is invalid. For example, data may be corrupted or the format is incompatible with the extension. */
+            INVALID_DATA = "INVALID_DATA",
         }
 
         export interface PrinterCapabilities {
             /** Device capabilities in CDD format. */
-            capabilities: any;
+            capabilities: { [key: string]: unknown };
         }
 
         export interface PrintJob {
@@ -7913,44 +7925,68 @@ declare namespace chrome {
             printerId: string;
             /** The print job title. */
             title: string;
-            /** Print ticket in  CJT format. */
+            /** Print ticket in CJT format. */
             ticket: { [key: string]: unknown };
-            /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
+            /** The document content type. Supported formats are `application/pdf` and `image/pwg-raster`. */
             contentType: string;
-            /** Blob containing the document data to print. Format must match |contentType|. */
+            /** Blob containing the document data to print. Format must match `contentType`. */
             document: Blob;
         }
 
-        export interface PrinterRequestedEvent
-            extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void>
-        {}
-
-        export interface PrinterInfoRequestedEvent
-            extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void>
-        {}
-
-        export interface CapabilityRequestedEvent extends
-            chrome.events.Event<
-                (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
-            >
-        {}
-
-        export interface PrintRequestedEvent
-            extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void>
-        {}
+        /** from https://developer.chrome.com/docs/apps/reference/usb#type-Device */
+        export interface Device {
+            /** An opaque ID for the USB device. It remains unchanged until the device is unplugged. */
+            device: number;
+            /**
+             * The iManufacturer string read from the device, if available.
+             * @since Chrome 46
+             */
+            manufacturerName: string;
+            /** The product ID. */
+            productId: number;
+            /**
+             * The iProduct string read from the device, if available.
+             * @since Chrome 46
+             */
+            productName: string;
+            /**
+             * The iSerialNumber string read from the device, if available.
+             * @since Chrome 46
+             */
+            serialNumber: string;
+            /** The device vendor ID. */
+            vendorId: number;
+            /**
+             * The device version (bcdDevice field).
+             * @since Chrome 51
+             */
+            version: number;
+        }
 
         /** Event fired when print manager requests printers provided by extensions. */
-        export var onGetPrintersRequested: PrinterRequestedEvent;
+        export const onGetPrintersRequested: events.Event<
+            (resultCallback: (printerInfo: PrinterInfo[]) => void) => void
+        >;
+
         /**
          * Event fired when print manager requests information about a USB device that may be a printer.
-         * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the onGetPrintersRequested event.
+         *
+         * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the {@link onGetPrintersRequested} event.
          * @since Chrome 45
          */
-        export var onGetUsbPrinterInfoRequested: PrinterInfoRequestedEvent;
+        export const onGetUsbPrinterInfoRequested: events.Event<
+            (device: Device, resultCallback: (printerInfo?: PrinterInfo) => void) => void
+        >;
+
         /** Event fired when print manager requests printer capabilities. */
-        export var onGetCapabilityRequested: CapabilityRequestedEvent;
+        export const onGetCapabilityRequested: events.Event<
+            (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
+        >;
+
         /** Event fired when print manager requests printing. */
-        export var onPrintRequested: PrintRequestedEvent;
+        export const onPrintRequested: events.Event<
+            (printJob: PrintJob, resultCallback: (result: `${PrintError}`) => void) => void
+        >;
     }
 
     ////////////////////
@@ -9296,7 +9332,18 @@ declare namespace chrome {
             optional_permissions?: ManifestOptionalPermissions[] | undefined;
             optional_host_permissions?: string[] | undefined;
             permissions?: ManifestPermissions[] | undefined;
-            web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
+            web_accessible_resources?:
+                | Array<
+                    & {
+                        resources: string[];
+                        use_dynamic_url?: boolean | undefined;
+                    }
+                    & (
+                        | { extension_ids: string[]; matches?: string[] | undefined }
+                        | { matches: string[]; extension_ids?: string[] | undefined }
+                    )
+                >
+                | undefined;
         }
 
         export type Manifest = ManifestV2 | ManifestV3;

@@ -11,6 +11,7 @@
             "es6",
             "webworker"
         ],
+        "exactOptionalPropertyTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

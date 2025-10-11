@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -7657,9 +7657,9 @@ declare module "sap/ui/unified/CalendarAppointment" {
     $DateTypeRangeSettings,
   } from "sap/ui/unified/DateTypeRange";
 
-  import Control from "sap/ui/core/Control";
+  import { ID, CSSColor, URI } from "sap/ui/core/library";
 
-  import { CSSColor, URI } from "sap/ui/core/library";
+  import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -7740,6 +7740,18 @@ declare module "sap/ui/unified/CalendarAppointment" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Adds some customContent to the aggregation {@link #getCustomContent customContent}.
      *
      * @since 1.93.0
@@ -7760,6 +7772,10 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomContent(): this;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * Gets current value of property {@link #getColor color}.
      *
@@ -7784,6 +7800,12 @@ declare module "sap/ui/unified/CalendarAppointment" {
      *     the height of the content conforms with the height provided by the appointment.
      * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
      *     and may lead to unpredictable results.
+     *
+     * **Note:** When using the `customContent` aggregation, it is the application developer's responsibility
+     * to add appropriate labels to the `ariaLabelledBy` association to provide accessible information about
+     * this appointment as the standard properties (`title`, `text`, `description`, and `icon`) are ignored,
+     * which means screen readers will have no information about the appointment unless proper ARIA labeling
+     * is implemented.
      *
      * @since 1.93.0
      */
@@ -7892,6 +7914,13 @@ declare module "sap/ui/unified/CalendarAppointment" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getCustomContent customContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -7901,6 +7930,18 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllCustomContent(): Control[];
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
     /**
      * Removes a customContent from the aggregation {@link #getCustomContent customContent}.
      *
@@ -8115,6 +8156,12 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
      *     and may lead to unpredictable results.
      *
+     * **Note:** When using the `customContent` aggregation, it is the application developer's responsibility
+     * to add appropriate labels to the `ariaLabelledBy` association to provide accessible information about
+     * this appointment as the standard properties (`title`, `text`, `description`, and `icon`) are ignored,
+     * which means screen readers will have no information about the appointment unless proper ARIA labeling
+     * is implemented.
+     *
      * @since 1.93.0
      */
     customContent?:
@@ -8122,6 +8169,11 @@ declare module "sap/ui/unified/CalendarAppointment" {
       | Control
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledBy).
+     */
+    ariaLabelledBy?: Array<Control | string>;
   }
 }
 

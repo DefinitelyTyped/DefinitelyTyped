@@ -250,7 +250,7 @@ import {
     compileFunction(code, ["param"], {
         importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
-            referrer; // $ExpectType Function & { cachedData?: NonSharedBuffer | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
+            referrer; // $ExpectType Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">
             importAttributes; // $ExpectType ImportAttributes
             phase; // $ExpectType ImportPhase
 

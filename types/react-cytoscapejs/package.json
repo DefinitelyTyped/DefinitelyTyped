@@ -6,8 +6,8 @@
         "https://github.com/plotly/react-cytoscapejs"
     ],
     "dependencies": {
-        "@types/cytoscape": "*",
-        "@types/react": "*"
+        "@types/react": "*",
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/react-cytoscapejs": "workspace:."

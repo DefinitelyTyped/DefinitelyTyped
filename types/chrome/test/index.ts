@@ -922,7 +922,24 @@ function testGetManifest() {
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
-        manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            use_dynamic_url: true,
+            matches: ["https://*/*"],
+            extension_ids: ["*"],
+        }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            matches: ["https://*/*"],
+        }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            extension_ids: ["*"],
+        }];
+        // @ts-expect-error
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+        }];
         // @ts-expect-error
         manifest.web_accessible_resources = ["script.js"];
 
@@ -991,6 +1008,8 @@ function testGetManifest() {
             {
                 matches: ["https://*/*"],
                 resources: ["some-script.js"],
+                extension_ids: ["*"],
+                use_dynamic_url: true,
             },
         ],
     };
@@ -6280,6 +6299,49 @@ function testPower() {
     chrome.power.reportActivity(); // $ExpectType Promise<void>
     // @ts-expect-error
     chrome.power.reportActivity(() => {}).then(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/printerProvider
+function testPrinterProvider() {
+    chrome.printerProvider.PrintError.FAILED === "FAILED";
+    chrome.printerProvider.PrintError.INVALID_DATA === "INVALID_DATA";
+    chrome.printerProvider.PrintError.INVALID_TICKET === "INVALID_TICKET";
+    chrome.printerProvider.PrintError.OK === "OK";
+
+    const printInfo: chrome.printerProvider.PrinterInfo = {
+        description: "description",
+        id: "id",
+        name: "name",
+    };
+
+    checkChromeEvent(chrome.printerProvider.onGetCapabilityRequested, (printerId, resultCallback) => {
+        printerId; // $ExpectType string
+        resultCallback({ capabilities: {} }); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetPrintersRequested, (resultCallback) => {
+        resultCallback([printInfo]); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetUsbPrinterInfoRequested, (device, resultCallback) => {
+        device.device; // $ExpectType number
+        device.manufacturerName; // $ExpectType string
+        device.productId; // $ExpectType number
+        device.productName; // $ExpectType string
+        device.serialNumber; // $ExpectType string
+        device.vendorId; // $ExpectType number
+        device.version; // $ExpectType number
+        resultCallback(printInfo); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onPrintRequested, (printJob, resultCallback) => {
+        printJob.contentType; // $ExpectType string
+        printJob.document; // $ExpectType Blob
+        printJob.printerId; // $ExpectType string
+        printJob.ticket; // $ExpectType { [key: string]: unknown; }
+        printJob.title; // $ExpectType string
+        resultCallback("OK"); // $ExpectType void
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/platformKeys

@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -6516,23 +6516,27 @@ declare module "sap/ui/layout/form/Form" {
    * A `Form` control arranges labels and fields (like input fields) into groups and rows. There are different
    * ways to visualize forms for different screen sizes.
    *
-   * A `Form` is structured into `FormContainers`. Each `FormContainer` consists of `FormElements`. The `FormElements`
-   * consists of a label and the form fields. A `Form` doesn't render its content by itself. The rendering
-   * is done by the assigned `FormLayout`. This is so that the rendering can be adopted to new UI requirements
-   * without changing the `Form` itself.
+   * A `Form` is structured into `FormContainers`. Each {@link sap.ui.layout.form.FormContainer FormContainer }
+   * consists of `FormElements`. The {@link sap.ui.layout.form.FormElement FormElement} consists of a label
+   * and the form fields. A `Form` doesn't render its content on its own. The rendering is done by the assigned
+   * {@link sap.ui.layout.form.FormLayout FormLayout}. This is so that the rendering can be adopted to new
+   * UI requirements without changing the `Form` itself.
    *
-   * For the content of a `Form`, `VariantLayoutData` are supported to allow simple switching of the `FormLayout`.
-   * `LayoutData` on the content can be used to overwrite the default layout of the `Form`.
+   * For the content of a `Form`, {@link sap.ui.core.VariantLayoutData VariantLayoutData} are supported to
+   * allow simple switching of the `FormLayout`. `LayoutData` on the content can be used to overwrite the
+   * default layout of the `Form`.
    *
    * The `Form` (and its sub-controls) automatically add label and field assignment to enable screen reader
    * support. It also adds keyboard support to navigate between the fields and groups inside the form.
    *
-   * **Warning:** Do not put any layout or other container controls into the `FormElement`. Views are also
-   * not supported. This could damage the visual layout, keyboard support and screen-reader support.
+   * **Warning:** Do not put any layout or other container controls into the {@link sap.ui.layout.form.FormElement FormElement}.
+   * Views are also not supported. This could damage the visual layout, keyboard support and screen-reader
+   * support.
    *
    * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
    * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-   * alignment or wrong spacing between the controls.
+   * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
+   * might occur.
    *
    * @since 1.16.0
    */
@@ -6673,7 +6677,8 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * Default value is `false`.
      *
@@ -6817,7 +6822,8 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6908,7 +6914,8 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * @since 1.20.0
      */
@@ -9528,7 +9535,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
    * a `{@link sap.ui.layout.form.Form Form}` control is created along with its `{@link sap.ui.layout.form.FormContainer FormContainer}`
    * elements and `{@link sap.ui.layout.form.FormElement FormElement}` elements, but the complexity in the
    * API is not exposed to the user.
-   * 	 - A new `sap.ui.core.Title` element or `Toolbar` control starts a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`)
+   * 	 - A new {@link sap.ui.core.Title Title} element or `Toolbar` control starts a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`)
    *     in the form.
    * 	 - A new `Label` control starts a new row (`{@link sap.ui.layout.form.FormElement FormElement}`) in
    *     the form.
@@ -9784,7 +9791,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of the form is structured in the following way:
-     * 	 - Add a `sap.ui.core.Title` element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
+     * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
      * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
@@ -9792,26 +9799,28 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
      *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
      *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
-     *     to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
-     *     not more than 12, as this is the total width of the input control part of each form row.  Example
-     *     for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
+     *     and each field uses 12 cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link #setLayoutData setLayoutData} method. Ensure that the sum of the weights in the
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12, as this is the total
+     *     width of the input control part of each form row.  Example for a row where the {@link sap.m.Input Input }
+     *     uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      *
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
-     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
-     * For example, if a `ResponsiveGridLayout` is used as a layout, there are 12 cells in one row. Depending
-     * on the screen size the labels use the defined `labelSpan`. The remaining cells are used for the fields
-     * (and `emptySpan` if defined). The available cells are distributed to all fields in the row. If one field
-     * should use a fixed number of cells you can add `sap.ui.layout.GridData` to them via `setLayoutData` method.
-     * If there are additional fields in the row they will get the remaining cells.  Example for a row
-     * with two `Input` controls where one uses four cells on small screens, one cell on medium screens and
-     * 2 cells on larger screens (using `ResponsiveGridLayout`):
+     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
+     * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
+     * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
+     * to them via the {@link #setLayoutData setLayoutData} method. If there are additional fields in the row
+     * they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input} controls
+     * where one uses four cells on small screens, one cell on medium screens and 2 cells on larger screens
+     * (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -9826,7 +9835,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
      * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls.
+     * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
+     * might occur.
      */
     getContent(): UI5Element[];
     /**
@@ -9843,7 +9853,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * Default value is `false`.
      *
@@ -10364,7 +10375,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -10771,7 +10783,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      */
     editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -10987,7 +11000,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
 
     /**
      * The content of the form is structured in the following way:
-     * 	 - Add a `sap.ui.core.Title` element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
+     * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
      * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
@@ -10995,26 +11008,28 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
      *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
      *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
-     *     to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
-     *     not more than 12, as this is the total width of the input control part of each form row.  Example
-     *     for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
+     *     and each field uses 12 cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link #setLayoutData setLayoutData} method. Ensure that the sum of the weights in the
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12, as this is the total
+     *     width of the input control part of each form row.  Example for a row where the {@link sap.m.Input Input }
+     *     uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      *
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
-     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
-     * For example, if a `ResponsiveGridLayout` is used as a layout, there are 12 cells in one row. Depending
-     * on the screen size the labels use the defined `labelSpan`. The remaining cells are used for the fields
-     * (and `emptySpan` if defined). The available cells are distributed to all fields in the row. If one field
-     * should use a fixed number of cells you can add `sap.ui.layout.GridData` to them via `setLayoutData` method.
-     * If there are additional fields in the row they will get the remaining cells.  Example for a row
-     * with two `Input` controls where one uses four cells on small screens, one cell on medium screens and
-     * 2 cells on larger screens (using `ResponsiveGridLayout`):
+     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
+     * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
+     * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
+     * to them via the {@link #setLayoutData setLayoutData} method. If there are additional fields in the row
+     * they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input} controls
+     * where one uses four cells on small screens, one cell on medium screens and 2 cells on larger screens
+     * (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -11029,7 +11044,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
      * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls.
+     * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
+     * might occur.
      */
     content?:
       | UI5Element[]
