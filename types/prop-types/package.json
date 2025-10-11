@@ -6,11 +6,18 @@
         "https://github.com/facebook/prop-types",
         "https://react.dev/"
     ],
-    "dependencies": {
-        "@types/react": "*"
-    },
     "devDependencies": {
         "@types/prop-types": "workspace:."
+    },
+    "peerDependencies": {
+        "@types/react": "*"
+    },
+    "pnpm": {
+        "peerDependencyRules": {
+            "ignoreMissing": [
+                "@types/react"
+            ]
+        }
     },
     "owners": [
         {

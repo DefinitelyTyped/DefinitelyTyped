@@ -1,14 +1,53 @@
+// @ts-ignore -- use react if available
 import * as React from "react";
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = PropTypes;
 
+type UseReactIfAvailable<ReactType, ReactLikeType> = any extends React.ReactNode ? ReactLikeType : ReactType;
+
 declare namespace PropTypes {
-    type ReactComponentLike = React.JSX.ElementType;
+    type ReactComponentLike = UseReactIfAvailable<
+        React.JSX.ElementType,
+        | string
+        | ((props: any) => any)
+        | (new(props: any, context: any) => any)
+    >;
 
-    interface ReactElementLike extends React.JSX.Element {}
+    type ReactElementLike = UseReactIfAvailable<
+        React.JSX.Element,
+        {
+            type: ReactComponentLike;
+            props: unknown;
+            key: string | null;
+        }
+    >;
 
-    type ReactNodeLike = React.ReactNode;
+    /**
+     * @internal Use `Awaited<ReactNodeLike>` instead
+     */
+    // Helper type to enable `Awaited<ReactNodeLike>`.
+    // Must be a copy of the non-thenables of `ReactNodeLike`.
+    type AwaitedReactNodeLike =
+        | ReactElementLike
+        | string
+        | number
+        | Iterable<ReactNodeLike>
+        | boolean
+        | null
+        | undefined;
+
+    type ReactNodeLike = UseReactIfAvailable<
+        React.ReactNode,
+        | ReactElementLike
+        | string
+        | number
+        | Iterable<ReactNodeLike>
+        | boolean
+        | null
+        | undefined
+        | Promise<AwaitedReactNodeLike>
+    >;
 
     const nominalTypeHack: unique symbol;
 
@@ -64,10 +103,10 @@ declare namespace PropTypes {
     const number: Requireable<number>;
     const object: Requireable<object>;
     const string: Requireable<string>;
-    const node: Requireable<React.ReactNode>;
-    const element: Requireable<React.JSX.Element>;
+    const node: Requireable<ReactNodeLike>;
+    const element: Requireable<ReactElementLike>;
     const symbol: Requireable<symbol>;
-    const elementType: Requireable<React.JSX.ElementType>;
+    const elementType: Requireable<ReactComponentLike>;
 
     function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
     function oneOf<T>(types: readonly T[]): Requireable<T>;
