@@ -1,8 +1,18 @@
-import { Client, ServerStatus } from "exaroton";
+import { Client, RequestError, ServerStatus } from "exaroton";
+import { MinecraftServer, Notifications } from "mc-server-management";
 
 const client = new Client("my token");
 
 const startServer = async (name: string) => {
+    try {
+        const { name, email } = await client.getAccount();
+        console.log(`Using Account ${name} (${email})`);
+    } catch (err: unknown) {
+        if (err instanceof RequestError) {
+            console.error(`${err.statusCode}: ${err.message}`);
+        }
+    }
+
     const servers = await client.getServers();
     const myServer = servers.find(s => s.name === name);
     if (!myServer) throw Error("Server not found");
@@ -10,7 +20,7 @@ const startServer = async (name: string) => {
     console.log(myServer.status);
     if (myServer.hasStatus([myServer.STATUS.ONLINE, ServerStatus.STARTING])) return;
     await myServer.start();
-    console.log(`${myServer.name} has benn started. Running on: ${myServer.address}`);
+    console.log(`${myServer.name} has been started. Running on: ${myServer.address}`);
     console.log(myServer.status);
     console.log(myServer.players.max);
 
@@ -53,6 +63,21 @@ const startServer = async (name: string) => {
     myServer.on("stats:stats", data => console.log(data.memory.usage));
     myServer.on("heap:heap", data => console.log(data.usage));
     myServer.unsubscribe();
+
+    // management protocol
+    myServer.subscribe("management");
+    const stream = myServer.getWebsocketClient().getStream("management");
+    if (typeof stream === "boolean") return;
+
+    const connection = stream.getProxyConnection();
+
+    const mcServer = new MinecraftServer(connection);
+    const status = await mcServer.getStatus();
+    console.log(status);
+
+    mcServer.on(Notifications.ALLOWLIST_ADDED, data => {
+        console.log("Allowlist added", data);
+    });
 };
 
-startServer("my server");
+startServer("my server").then(() => console.log("Server started"));
