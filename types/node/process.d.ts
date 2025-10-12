@@ -1,5 +1,6 @@
 declare module "node:process" {
     import { Control, MessageOptions, SendHandle } from "node:child_process";
+    import { InternalEventEmitter } from "node:events";
     import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
@@ -115,6 +116,23 @@ declare module "node:process" {
         "node:worker_threads": typeof import("node:worker_threads");
         "zlib": typeof import("zlib");
         "node:zlib": typeof import("node:zlib");
+    }
+    type SignalsEventMap = { [S in NodeJS.Signals]: [signal: S] };
+    interface ProcessEventMap extends SignalsEventMap {
+        "beforeExit": [];
+        "disconnect": [];
+        "exit": [code: number];
+        "message": [
+            message: object | boolean | number | string | null,
+            sendHandle: SendHandle | undefined,
+        ];
+        "rejectionHandled": [promise: Promise<unknown>];
+        "uncaughtException": Parameters<NodeJS.UncaughtExceptionListener>;
+        "uncaughtExceptionMonitor": Parameters<NodeJS.UncaughtExceptionListener>;
+        "unhandledRejection": Parameters<NodeJS.UnhandledRejectionListener>;
+        "warning": [warning: Error];
+        "worker": [worker: Worker];
+        "workerMessage": [value: any, source: number];
     }
     global {
         var process: NodeJS.Process;
@@ -318,20 +336,8 @@ declare module "node:process" {
                 | "SIGLOST"
                 | "SIGINFO";
             type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
-            type BeforeExitListener = (code: number) => void;
-            type DisconnectListener = () => void;
-            type ExitListener = (code: number) => void;
-            type RejectionHandledListener = (promise: Promise<unknown>) => void;
             type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
-            /**
-             * Most of the time the unhandledRejection will be an Error, but this should not be relied upon
-             * as *anything* can be thrown/rejected, it is therefore unsafe to assume that the value is an Error.
-             */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
-            type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
-            type SignalsListener = (signal: Signals) => void;
-            type WorkerListener = (worker: Worker) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
             }
@@ -552,7 +558,7 @@ declare module "node:process" {
                     readonly visibility: string;
                 };
             }
-            interface Process extends EventEmitter {
+            interface Process extends InternalEventEmitter<ProcessEventMap> {
                 /**
                  * The `process.stdout` property returns a stream connected to`stdout` (fd `1`). It is a `net.Socket` (which is a `Duplex` stream) unless fd `1` refers to a file, in which case it is
                  * a `Writable` stream.
@@ -1951,93 +1957,6 @@ declare module "node:process" {
                  * **Default:** `process.env`.
                  */
                 execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
-                /* EventEmitter */
-                addListener(event: "beforeExit", listener: BeforeExitListener): this;
-                addListener(event: "disconnect", listener: DisconnectListener): this;
-                addListener(event: "exit", listener: ExitListener): this;
-                addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                addListener(event: "warning", listener: WarningListener): this;
-                addListener(event: "message", listener: MessageListener): this;
-                addListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: "worker", listener: WorkerListener): this;
-                emit(event: "beforeExit", code: number): boolean;
-                emit(event: "disconnect"): boolean;
-                emit(event: "exit", code: number): boolean;
-                emit(event: "rejectionHandled", promise: Promise<unknown>): boolean;
-                emit(event: "uncaughtException", error: Error): boolean;
-                emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
-                emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
-                emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: unknown, sendHandle: SendHandle): this;
-                emit(event: "workerMessage", value: any, source: number): this;
-                emit(event: Signals, signal?: Signals): boolean;
-                emit(event: "worker", listener: WorkerListener): this;
-                on(event: "beforeExit", listener: BeforeExitListener): this;
-                on(event: "disconnect", listener: DisconnectListener): this;
-                on(event: "exit", listener: ExitListener): this;
-                on(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                on(event: "warning", listener: WarningListener): this;
-                on(event: "message", listener: MessageListener): this;
-                on(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                on(event: Signals, listener: SignalsListener): this;
-                on(event: "worker", listener: WorkerListener): this;
-                on(event: string | symbol, listener: (...args: any[]) => void): this;
-                once(event: "beforeExit", listener: BeforeExitListener): this;
-                once(event: "disconnect", listener: DisconnectListener): this;
-                once(event: "exit", listener: ExitListener): this;
-                once(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                once(event: "warning", listener: WarningListener): this;
-                once(event: "message", listener: MessageListener): this;
-                once(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                once(event: Signals, listener: SignalsListener): this;
-                once(event: "worker", listener: WorkerListener): this;
-                once(event: string | symbol, listener: (...args: any[]) => void): this;
-                prependListener(event: "beforeExit", listener: BeforeExitListener): this;
-                prependListener(event: "disconnect", listener: DisconnectListener): this;
-                prependListener(event: "exit", listener: ExitListener): this;
-                prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                prependListener(event: "warning", listener: WarningListener): this;
-                prependListener(event: "message", listener: MessageListener): this;
-                prependListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: "worker", listener: WorkerListener): this;
-                prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
-                prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
-                prependOnceListener(event: "exit", listener: ExitListener): this;
-                prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                prependOnceListener(event: "warning", listener: WarningListener): this;
-                prependOnceListener(event: "message", listener: MessageListener): this;
-                prependOnceListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: "worker", listener: WorkerListener): this;
-                listeners(event: "beforeExit"): BeforeExitListener[];
-                listeners(event: "disconnect"): DisconnectListener[];
-                listeners(event: "exit"): ExitListener[];
-                listeners(event: "rejectionHandled"): RejectionHandledListener[];
-                listeners(event: "uncaughtException"): UncaughtExceptionListener[];
-                listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
-                listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
-                listeners(event: "warning"): WarningListener[];
-                listeners(event: "message"): MessageListener[];
-                listeners(event: "workerMessage"): ((value: any, source: number) => void)[];
-                listeners(event: Signals): SignalsListener[];
-                listeners(event: "worker"): WorkerListener[];
             }
         }
     }

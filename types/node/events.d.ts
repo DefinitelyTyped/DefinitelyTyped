@@ -834,6 +834,48 @@ declare module "node:events" {
          * objects.
          */
         function setMaxListeners(n: number, ...eventTargets: ReadonlyArray<NodeJS.EventEmitter | EventTarget>): void;
+        /**
+         * This is the interface from which event-emitting Node.js APIs inherit in the types package.
+         * **It is not intended for consumer use.**
+         *
+         * It provides event-mapped definitions similar to EventEmitter, except that its signatures
+         * are deliberately permissive: they provide type _hinting_, but not rigid type-checking,
+         * for compatibility reasons.
+         *
+         * Classes that inherit directly from EventEmitter in JavaScript can inherit directly from
+         * this interface in the type definitions. Classes that are more than one inheritance level
+         * away from EventEmitter (eg. `net.Socket` > `stream.Duplex` > `EventEmitter`) must instead
+         * copy these method definitions into the derived class. Search "#region InternalEventEmitter"
+         * for examples.
+         * @internal
+         */
+        interface InternalEventEmitter<T extends EventMap<T>> extends EventEmitter {
+            addListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof T>(eventName: E, ...args: T[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof T>(eventName: E, listener?: (...args: T[E]) => void): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof T>(eventName: E): ((...args: T[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof T>(eventName: E): ((...args: T[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof T>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        }
         interface EventEmitterReferencingAsyncResource extends AsyncResource {
             readonly eventEmitter: EventEmitterAsyncResource;
         }

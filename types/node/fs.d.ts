@@ -20,7 +20,7 @@
  */
 declare module "node:fs" {
     import { NonSharedBuffer } from "node:buffer";
-    import { Abortable, EventEmitter } from "node:events";
+    import { Abortable, EventEmitter, InternalEventEmitter } from "node:events";
     import { FileHandle } from "node:fs/promises";
     import * as stream from "node:stream";
     import { URL } from "node:url";
@@ -362,7 +362,12 @@ declare module "node:fs" {
          */
         unref(): this;
     }
-    interface FSWatcher extends EventEmitter {
+    interface FSWatcherEventMap {
+        "change": [eventType: string, filename: string | NonSharedBuffer];
+        "close": [];
+        "error": [error: Error];
+    }
+    interface FSWatcher extends InternalEventEmitter<FSWatcherEventMap> {
         /**
          * Stop watching for changes on the given `fs.FSWatcher`. Once stopped, the `fs.FSWatcher` object is no longer usable.
          * @since v0.5.8
@@ -387,38 +392,12 @@ declare module "node:fs" {
          * @since v14.3.0, v12.20.0
          */
         unref(): this;
-        /**
-         * events.EventEmitter
-         *   1. change
-         *   2. close
-         *   3. error
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(
-            event: "change",
-            listener: (eventType: string, filename: string | NonSharedBuffer) => void,
-        ): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(
-            event: "change",
-            listener: (eventType: string, filename: string | NonSharedBuffer) => void,
-        ): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
+    }
+    interface ReadStreamEventMap extends stream.ReadableEventMap {
+        "close": [];
+        "data": [chunk: string | NonSharedBuffer];
+        "open": [fd: number];
+        "ready": [];
     }
     /**
      * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
@@ -444,17 +423,51 @@ declare module "node:fs" {
          * @since v11.2.0, v10.16.0
          */
         pending: boolean;
-        /**
-         * events.EventEmitter
-         *   1. open
-         *   2. close
-         *   3. ready
-         */
-        addListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
-        on<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
-        once<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
-        prependListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
-        prependOnceListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
+        // #region InternalEventEmitter
+        addListener<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener: (...args: ReadStreamEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ReadStreamEventMap>(eventName: E, ...args: ReadStreamEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener?: (...args: ReadStreamEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ReadStreamEventMap>(eventName: E): ((...args: ReadStreamEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ReadStreamEventMap>(eventName: E, listener: (...args: ReadStreamEventMap[E]) => void): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ReadStreamEventMap>(eventName: E, listener: (...args: ReadStreamEventMap[E]) => void): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener: (...args: ReadStreamEventMap[E]) => void,
+        ): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener: (...args: ReadStreamEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener: (...args: ReadStreamEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ReadStreamEventMap>(eventName: E): ((...args: ReadStreamEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ReadStreamEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ReadStreamEventMap>(
+            eventName: E,
+            listener: (...args: ReadStreamEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     interface Utf8StreamOptions {
         /**
@@ -532,6 +545,15 @@ declare module "node:fs" {
          */
         sync?: boolean | undefined;
     }
+    interface Utf8StreamEventMap {
+        "close": [];
+        "drain": [];
+        "drop": [data: string | Buffer];
+        "error": [error: Error];
+        "finish": [];
+        "ready": [];
+        "write": [n: number];
+    }
     /**
      * An optimized UTF-8 stream writer that allows for flushing all the internal
      * buffering on demand. It handles `EAGAIN` errors correctly, allowing for
@@ -539,7 +561,7 @@ declare module "node:fs" {
      * @since v24.6.0
      * @experimental
      */
-    class Utf8Stream extends EventEmitter {
+    class Utf8Stream implements EventEmitter {
         constructor(options: Utf8StreamOptions);
         /**
          * Whether the stream is appending to the file or truncating it.
@@ -633,91 +655,14 @@ declare module "node:fs" {
          * Calls `utf8Stream.destroy()`.
          */
         [Symbol.dispose](): void;
-        /**
-         * events.EventEmitter
-         *   1. change
-         *   2. close
-         *   3. error
-         */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "drop", listener: (data: string | Buffer) => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "write", listener: (n: number) => void): this;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "drop", listener: (data: string | Buffer) => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "write", listener: (n: number) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "drop", listener: (data: string | Buffer) => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "write", listener: (n: number) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "drop", listener: (data: string | Buffer) => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "write", listener: (n: number) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "drop", listener: (data: string | Buffer) => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "write", listener: (n: number) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
-
+    interface Utf8Stream extends InternalEventEmitter<Utf8StreamEventMap> {}
+    interface WriteStreamEventMap extends stream.WritableEventMap {
+        "close": [];
+        "open": [fd: number];
+        "ready": [];
+    }
     /**
-     * The Keys are events of the ReadStream and the values are the functions that are called when the event is emitted.
-     */
-    type ReadStreamEvents = {
-        close: () => void;
-        data: (chunk: Buffer | string) => void;
-        end: () => void;
-        error: (err: Error) => void;
-        open: (fd: number) => void;
-        pause: () => void;
-        readable: () => void;
-        ready: () => void;
-        resume: () => void;
-    } & CustomEvents;
-
-    /**
-     * string & {} allows to allow any kind of strings for the event
-     * but still allows to have auto completion for the normal events.
-     */
-    type CustomEvents = { [Key in string & {} | symbol]: (...args: any[]) => void };
-
-    /**
-     * The Keys are events of the WriteStream and the values are the functions that are called when the event is emitted.
-     */
-    type WriteStreamEvents = {
-        close: () => void;
-        drain: () => void;
-        error: (err: Error) => void;
-        finish: () => void;
-        open: (fd: number) => void;
-        pipe: (src: stream.Readable) => void;
-        ready: () => void;
-        unpipe: (src: stream.Readable) => void;
-    } & CustomEvents;
-    /**
-     * * Extends `stream.Writable`
-     *
      * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
      * @since v0.1.93
      */
@@ -747,17 +692,57 @@ declare module "node:fs" {
          * @since v11.2.0
          */
         pending: boolean;
-        /**
-         * events.EventEmitter
-         *   1. open
-         *   2. close
-         *   3. ready
-         */
-        addListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
-        on<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
-        once<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
-        prependListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
-        prependOnceListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
+        // #region InternalEventEmitter
+        addListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof WriteStreamEventMap>(eventName: E, ...args: WriteStreamEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener?: (...args: WriteStreamEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof WriteStreamEventMap>(eventName: E): ((...args: WriteStreamEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof WriteStreamEventMap>(eventName: E): ((...args: WriteStreamEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof WriteStreamEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     /**
      * Asynchronously rename file at `oldPath` to the pathname provided

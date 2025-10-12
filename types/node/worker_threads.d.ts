@@ -55,7 +55,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
  */
 declare module "node:worker_threads" {
-    import { EventEmitter, NodeEventTarget } from "node:events";
+    import { EventEmitter, InternalEventEmitter, NodeEventTarget } from "node:events";
     import { FileHandle } from "node:fs/promises";
     import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
@@ -126,6 +126,13 @@ declare module "node:worker_threads" {
          */
         stackSizeMb?: number | undefined;
     }
+    interface WorkerEventMap {
+        "error": [err: unknown];
+        "exit": [exitCode: number];
+        "message": [value: any];
+        "messageerror": [error: Error];
+        "online": [];
+    }
     /**
      * The `Worker` class represents an independent JavaScript execution thread.
      * Most Node.js APIs are available inside of it.
@@ -190,7 +197,7 @@ declare module "node:worker_threads" {
      * ```
      * @since v10.5.0
      */
-    class Worker extends EventEmitter {
+    class Worker implements EventEmitter {
         /**
          * If `stdin: true` was passed to the `Worker` constructor, this is a
          * writable stream. The data written to this stream will be made available in
@@ -380,55 +387,8 @@ declare module "node:worker_threads" {
          * @since v24.2.0
          */
         [Symbol.asyncDispose](): Promise<void>;
-        addListener(event: "error", listener: (err: unknown) => void): this;
-        addListener(event: "exit", listener: (exitCode: number) => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: "online", listener: () => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "error", err: unknown): boolean;
-        emit(event: "exit", exitCode: number): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "messageerror", error: Error): boolean;
-        emit(event: "online"): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "error", listener: (err: unknown) => void): this;
-        on(event: "exit", listener: (exitCode: number) => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: "online", listener: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "error", listener: (err: unknown) => void): this;
-        once(event: "exit", listener: (exitCode: number) => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: "online", listener: () => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "error", listener: (err: unknown) => void): this;
-        prependListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: "online", listener: () => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "error", listener: (err: unknown) => void): this;
-        prependOnceListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: "online", listener: () => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: "error", listener: (err: unknown) => void): this;
-        removeListener(event: "exit", listener: (exitCode: number) => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: "online", listener: () => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: "error", listener: (err: unknown) => void): this;
-        off(event: "exit", listener: (exitCode: number) => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: "online", listener: () => void): this;
-        off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+    interface Worker extends InternalEventEmitter<WorkerEventMap> {}
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
      * a `port.postMessage()` call, it is ignored.
