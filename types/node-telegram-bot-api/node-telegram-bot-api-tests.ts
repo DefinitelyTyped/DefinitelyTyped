@@ -346,7 +346,15 @@ MyTelegramBot.createInvoiceLink(
             amount: 1200,
         },
     ],
-    { photo_url: "url", need_email: false, send_phone_number_to_provider: false, is_flexible: true },
+    {
+        photo_url: "url",
+        need_email: false,
+        send_phone_number_to_provider: false,
+        is_flexible: true,
+        subscription_period: 2592000,
+        max_tip_amount: 145,
+        suggested_tip_amounts: [40, 75, 110, 145],
+    },
 );
 MyTelegramBot.answerShippingQuery("shippingQueryId", true, {
     shipping_options: [

@@ -416,6 +416,9 @@ declare namespace TelegramBot {
     }
 
     interface CreateInvoiceLinkOptions {
+        subscription_period?: number | undefined;
+        max_tip_amount?: number | undefined;
+        suggested_tip_amounts?: number[] | undefined;
         provider_data?: string | undefined;
         photo_url?: string | undefined;
         photo_size?: number | undefined;
