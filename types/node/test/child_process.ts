@@ -740,13 +740,6 @@ async function testPromisify() {
     cp = cp.addListener("spawn", () => {
     });
 
-    _boolean = cp.emit("close", () => {});
-    _boolean = cp.emit("disconnect", () => {});
-    _boolean = cp.emit("error", () => {});
-    _boolean = cp.emit("exit", () => {});
-    _boolean = cp.emit("message", () => {});
-    _boolean = cp.emit("spawn", () => {});
-
     cp = cp.on("close", (code, signal) => {
         const _code: number | null = code;
         const _signal: NodeJS.Signals | null = signal;
