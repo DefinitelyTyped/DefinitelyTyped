@@ -80,7 +80,8 @@
  */
 declare module "node:test" {
     import { AssertMethodNames } from "node:assert";
-    import { Readable } from "node:stream";
+    import { Readable, ReadableEventMap } from "node:stream";
+    import { TestEvent } from "node:test/reporters";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -398,6 +399,23 @@ declare module "node:test" {
              */
             functionCoverage?: number | undefined;
         }
+        interface TestsStreamEventMap extends ReadableEventMap {
+            "data": [data: TestEvent];
+            "test:coverage": [data: EventData.TestCoverage];
+            "test:complete": [data: EventData.TestComplete];
+            "test:dequeue": [data: EventData.TestDequeue];
+            "test:diagnostic": [data: EventData.TestDiagnostic];
+            "test:enqueue": [data: EventData.TestEnqueue];
+            "test:fail": [data: EventData.TestFail];
+            "test:pass": [data: EventData.TestPass];
+            "test:plan": [data: EventData.TestPlan];
+            "test:start": [data: EventData.TestStart];
+            "test:stderr": [data: EventData.TestStderr];
+            "test:stdout": [data: EventData.TestStdout];
+            "test:summary": [data: EventData.TestSummary];
+            "test:watch:drained": [];
+            "test:watch:restarted": [];
+        }
         /**
          * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
          *
@@ -405,96 +423,59 @@ declare module "node:test" {
          * @since v18.9.0, v16.19.0
          */
         interface TestsStream extends Readable {
-            addListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            addListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            addListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            addListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            addListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            addListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            addListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            addListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            addListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            addListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            addListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            addListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            addListener(event: "test:watch:drained", listener: () => void): this;
-            addListener(event: "test:watch:restarted", listener: () => void): this;
-            addListener(event: string, listener: (...args: any[]) => void): this;
-            emit(event: "test:coverage", data: EventData.TestCoverage): boolean;
-            emit(event: "test:complete", data: EventData.TestComplete): boolean;
-            emit(event: "test:dequeue", data: EventData.TestDequeue): boolean;
-            emit(event: "test:diagnostic", data: EventData.TestDiagnostic): boolean;
-            emit(event: "test:enqueue", data: EventData.TestEnqueue): boolean;
-            emit(event: "test:fail", data: EventData.TestFail): boolean;
-            emit(event: "test:pass", data: EventData.TestPass): boolean;
-            emit(event: "test:plan", data: EventData.TestPlan): boolean;
-            emit(event: "test:start", data: EventData.TestStart): boolean;
-            emit(event: "test:stderr", data: EventData.TestStderr): boolean;
-            emit(event: "test:stdout", data: EventData.TestStdout): boolean;
-            emit(event: "test:summary", data: EventData.TestSummary): boolean;
-            emit(event: "test:watch:drained"): boolean;
-            emit(event: "test:watch:restarted"): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            on(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            on(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            on(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            on(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            on(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            on(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            on(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            on(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            on(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            on(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            on(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            on(event: "test:watch:drained", listener: () => void): this;
-            on(event: "test:watch:restarted", listener: () => void): this;
-            on(event: string, listener: (...args: any[]) => void): this;
-            once(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            once(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            once(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            once(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            once(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            once(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            once(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            once(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            once(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            once(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            once(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            once(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            once(event: "test:watch:drained", listener: () => void): this;
-            once(event: "test:watch:restarted", listener: () => void): this;
-            once(event: string, listener: (...args: any[]) => void): this;
-            prependListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependListener(event: "test:watch:drained", listener: () => void): this;
-            prependListener(event: "test:watch:restarted", listener: () => void): this;
-            prependListener(event: string, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependOnceListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependOnceListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependOnceListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependOnceListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependOnceListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependOnceListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependOnceListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependOnceListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependOnceListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependOnceListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependOnceListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependOnceListener(event: "test:watch:drained", listener: () => void): this;
-            prependOnceListener(event: "test:watch:restarted", listener: () => void): this;
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+            // #region InternalEventEmitter
+            addListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof TestsStreamEventMap>(eventName: E, ...args: TestsStreamEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener?: (...args: TestsStreamEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof TestsStreamEventMap>(eventName: E): ((...args: TestsStreamEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+            ): ((...args: TestsStreamEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof TestsStreamEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         namespace EventData {
             interface Error extends globalThis.Error {
