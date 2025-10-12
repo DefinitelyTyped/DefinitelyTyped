@@ -834,6 +834,34 @@ declare module "events" {
          * objects.
          */
         function setMaxListeners(n: number, ...eventTargets: ReadonlyArray<NodeJS.EventEmitter | EventTarget>): void;
+        /** @internal */
+        interface InternalEventEmitter<T extends EventMap<T>> extends EventEmitter {
+            addListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof T>(eventName: E, ...args: T[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof T>(eventName: E, listener?: (...args: T[E]) => void): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof T>(eventName: E): ((...args: T[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof T>(eventName: E): ((...args: T[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof T>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof T>(eventName: E, listener: (...args: T[E]) => void): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        }
         interface EventEmitterReferencingAsyncResource extends AsyncResource {
             readonly eventEmitter: EventEmitterAsyncResource;
         }
