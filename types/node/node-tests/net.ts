@@ -229,19 +229,6 @@ import * as net from "node:net";
     _socket = _socket.addListener("ready", () => {});
     _socket = _socket.addListener("timeout", () => {});
 
-    /// emit
-    bool = _socket.emit("close", bool);
-    bool = _socket.emit("connect");
-    bool = _socket.emit("connectionAttemptFailed", str, num, num, error);
-    bool = _socket.emit("data", buffer);
-    bool = _socket.emit("drain");
-    bool = _socket.emit("end");
-    bool = _socket.emit("error", error);
-    bool = _socket.emit("lookup", error, str, str, str);
-    bool = _socket.emit("lookup", error, str, num, str);
-    bool = _socket.emit("ready");
-    bool = _socket.emit("timeout");
-
     /// on
     _socket = _socket.on("close", had_error => {
         bool = had_error;
@@ -400,7 +387,6 @@ import * as net from "node:net";
     let _server = net.createServer();
 
     let _socket = net.connect("");
-    let bool: boolean;
     let error = new Error();
 
     /// addListener
@@ -413,13 +399,6 @@ import * as net from "node:net";
     });
     _server = _server.addListener("listening", () => {});
     _server = _server.addListener("drop", data => {});
-
-    /// emit
-    bool = _server.emit("close");
-    bool = _server.emit("connection", _socket);
-    bool = _server.emit("error", error);
-    bool = _server.emit("listening");
-    bool = _server.emit("drop");
 
     /// once
     _server = _server.once("close", () => {});

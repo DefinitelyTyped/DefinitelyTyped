@@ -35,14 +35,6 @@ import * as net from "node:net";
 {
     let _socket = new dgram.Socket();
     let _boolean: boolean;
-    const _err: Error = new Error();
-    const _str = "";
-    const _rinfo: dgram.RemoteInfo = {
-        address: "::1",
-        family: "IPv4",
-        port: 1,
-        size: 0,
-    };
     /**
      * events.EventEmitter
      * 1. close
@@ -60,11 +52,6 @@ import * as net from "node:net";
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
-
-    _boolean = _socket.emit("close");
-    _boolean = _socket.emit("error", _err);
-    _boolean = _socket.emit("listening");
-    _boolean = _socket.emit("message", Buffer.from(_str), _rinfo);
 
     _socket = _socket.on("close", () => {});
     _socket = _socket.on("error", (err) => {

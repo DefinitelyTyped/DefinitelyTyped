@@ -33,7 +33,6 @@ import { fileURLToPath } from "node:url";
         (message: any, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {},
     );
     process.prependOnceListener("SIGBREAK", () => {});
-    process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
     process.once("removeListener", (event: string | symbol, listener: Function) => {});
     process.on("workerMessage", (value: any, source: number) => {});

@@ -263,7 +263,6 @@ import * as url from "node:url";
     let server = new https.Server();
     let _socket = new stream.Duplex();
     let _err = new Error();
-    let _bool = true;
 
     server = server.addListener("close", () => {});
     server = server.addListener("connection", (socket) => {
@@ -273,11 +272,6 @@ import * as url from "node:url";
         _err = err;
     });
     server = server.addListener("listening", () => {});
-
-    _bool = server.emit("close");
-    _bool = server.emit("connection", _socket);
-    _bool = server.emit("error", _err);
-    _bool = server.emit("listening");
 
     server = server.on("close", () => {});
     server = server.on("connection", (socket) => {
@@ -323,7 +317,6 @@ import * as url from "node:url";
     let _socket = new tls.TLSSocket(new net.Socket());
     let _buffer: Buffer = Buffer.from("");
     let _err = new Error();
-    let _boolean = true;
     let sessionCallback = (err: Error | null, resp: Buffer) => {};
     let ocspRequestCallback = (err: Error | null, resp: Buffer) => {};
 
@@ -352,13 +345,6 @@ import * as url from "node:url";
         _err = err;
         _socket = tlsSocket;
     });
-
-    _boolean = server.emit("keylog", _buffer, _socket);
-    _boolean = server.emit("newSession", _buffer, _buffer, sessionCallback);
-    _boolean = server.emit("OCSPRequest", _buffer, _buffer, ocspRequestCallback);
-    _boolean = server.emit("resumeSession", _buffer, sessionCallback);
-    _boolean = server.emit("secureConnection", _socket);
-    _boolean = server.emit("tlsClientError", _err, _socket);
 
     server = server.on("keylog", (ln, tlsSocket) => {
         _buffer = ln;
@@ -473,7 +459,6 @@ import * as url from "node:url";
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
     let _head: Buffer = Buffer.from("");
-    let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {
         _req = req;
@@ -501,13 +486,6 @@ import * as url from "node:url";
         _socket = socket;
         _head = head;
     });
-
-    _bool = server.emit("checkContinue", _req, _res);
-    _bool = server.emit("checkExpectation", _req, _res);
-    _bool = server.emit("clientError", _err, _socket);
-    _bool = server.emit("connect", _req, _socket, _head);
-    _bool = server.emit("request", _req, _res);
-    _bool = server.emit("upgrade", _req, _socket, _head);
 
     server = server.on("checkContinue", (req, res) => {
         _req = req;

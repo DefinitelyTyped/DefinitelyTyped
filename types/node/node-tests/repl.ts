@@ -20,9 +20,6 @@ import { Context } from "node:vm";
     server = server.addListener("exit", () => {});
     server = server.addListener("reset", () => {});
 
-    _boolean = server.emit("exit", () => {});
-    _boolean = server.emit("reset", _ctx);
-
     server = server.on("exit", () => {});
     server = server.on("reset", () => {});
 

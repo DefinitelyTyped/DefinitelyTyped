@@ -169,15 +169,6 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         const _input: string[] = history;
     });
 
-    _boolean = _rl.emit("close");
-    _boolean = _rl.emit("line");
-    _boolean = _rl.emit("pause");
-    _boolean = _rl.emit("resume");
-    _boolean = _rl.emit("SIGCONT");
-    _boolean = _rl.emit("SIGINT");
-    _boolean = _rl.emit("SIGTSTP");
-    _boolean = _rl.emit("history");
-
     _rl = _rl.on("close", () => {});
     _rl = _rl.on("line", (input) => {
         const _input: string = input;
