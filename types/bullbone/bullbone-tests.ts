@@ -1,29 +1,29 @@
-import { Events, Factory, View } from 'bullbone';
+import { Events, Factory, View } from "bullbone";
 
 // Events tests
 const events = new Events();
 
 // $ExpectType Events
-events.on('test', (data: string) => console.log(data));
+events.on("test", (data: string) => console.log(data));
 
 // $ExpectType Events
-events.once('click', (e: Event) => {});
+events.once("click", (e: Event) => {});
 
 // $ExpectType Events
-events.trigger('test', 'hello', 123);
+events.trigger("test", "hello", 123);
 
 // $ExpectType Events
-events.off('test');
+events.off("test");
 
 // $ExpectType Events
-events.listenTo(events, 'change', (value: any) => {});
+events.listenTo(events, "change", (value: any) => {});
 
 // $ExpectType Events
 events.stopListening();
 
 // Factory tests
 const factory = new Factory({
-    defaultViewName: 'DefaultView',
+    defaultViewName: "DefaultView",
     customLoader: {},
     viewLoader: (name: string, callback: (view: View) => void) => {
         callback(new View());
@@ -31,16 +31,16 @@ const factory = new Factory({
     resources: {
         loaders: {
             template: (name: string, callback: (content: string) => void) => {
-                callback('<div></div>');
-            }
-        }
-    }
+                callback("<div></div>");
+            },
+        },
+    },
 });
 
 // $ExpectType string
 factory.defaultViewName;
 
-factory.create('TestView', { template: 'test' }, (view: View) => {
+factory.create("TestView", { template: "test" }, (view: View) => {
     // $ExpectType View
     view;
 });
@@ -52,12 +52,12 @@ factory.prepare(new View(), (view: View) => {
 
 // View tests
 const viewOptions = {
-    template: 'my-template',
-    selector: '.container',
-    data: { title: 'Test' },
+    template: "my-template",
+    selector: ".container",
+    data: { title: "Test" },
     events: {
-        'click .button': (e: JQuery.Event) => {}
-    }
+        "click .button": (e: JQuery.Event) => {},
+    },
 };
 
 const view = new View(viewOptions);
@@ -93,12 +93,12 @@ view.reRender();
 view.whenRendered();
 
 // Element management
-view.setElement('.new-selector');
+view.setElement(".new-selector");
 view.undelegateEvents();
 
 // Event handlers
-view.addHandler('click', '.button', (e: Event) => {});
-view.addHandler('click', '.button', 'methodName');
+view.addHandler("click", ".button", (e: Event) => {});
+view.addHandler("click", ".button", "methodName");
 
 // View state
 // $ExpectType boolean
@@ -109,16 +109,16 @@ view.isFullyRendered();
 
 // Nested views
 // $ExpectType Promise<View>
-view.createView('child', 'ChildView', { template: 'child' });
+view.createView("child", "ChildView", { template: "child" });
 
 // $ExpectType boolean
-view.hasView('child');
+view.hasView("child");
 
 // $ExpectType View | null
-view.getView('child');
+view.getView("child");
 
-view.setView('child', new View());
-view.clearView('child');
+view.setView("child", new View());
+view.clearView("child");
 
 // Parent/child relationships
 // $ExpectType boolean
@@ -129,7 +129,7 @@ view.addReadyCondition((data: any) => true);
 view.addReadyCondition(true);
 
 // Waiting
-view.waitForView('child');
+view.waitForView("child");
 
 // $ExpectType Promise<any> | undefined
 view.wait(Promise.resolve());
@@ -145,18 +145,18 @@ view.onRemove();
 
 // Events (inherited from Events)
 // $ExpectType any
-view.on('render', (data: any) => {});
+view.on("render", (data: any) => {});
 
 // $ExpectType any
-view.trigger('custom:event', 'data');
+view.trigger("custom:event", "data");
 
 // Template management
-view.setTemplate('new-template');
-view.setTemplateContent('<div>content</div>');
+view.setTemplate("new-template");
+view.setTemplateContent("<div>content</div>");
 
 // Error cases
 // @ts-expect-error
-view.addHandler('click');
+view.addHandler("click");
 
 // @ts-expect-error
 factory.create();
