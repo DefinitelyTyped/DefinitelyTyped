@@ -98,11 +98,9 @@ declare module "react" {
         "click": MouseEvent;
         "clipboardchange": ClipboardEvent;
         "close": Event;
-        "command": CommandEvent;
         "compositionend": CompositionEvent;
         "compositionstart": CompositionEvent;
         "compositionupdate": CompositionEvent;
-        "contentvisibilityautostatechange": ContentVisibilityAutoStateChangeEvent;
         "contextlost": Event;
         "contextmenu": MouseEvent;
         "contextrestored": Event;
