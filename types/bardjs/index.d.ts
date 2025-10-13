@@ -47,7 +47,7 @@ declare namespace bard {
     /**
      * Assert a failure in mocha, without condition
      */
-    function assertFail(message: string): Chai.AssertionError;
+    function assertFail(message: string): Chai.AssertionError<never>;
 
     /**
      * Prepare ngMocked module definition that makes real $http and $q calls
