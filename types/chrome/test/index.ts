@@ -842,7 +842,7 @@ function testRuntime() {
     checkChromeEvent(chrome.runtime.onInstalled, (details) => {
         details.id; // $ExpectType string | undefined
         details.previousVersion; // $ExpectType string | undefined
-        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+        details.reason; // $ExpectType OnInstalledReason
     });
 
     checkChromeEvent(chrome.runtime.onMessage, (message, sender, sendResponse) => {

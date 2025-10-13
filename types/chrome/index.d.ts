@@ -8835,7 +8835,7 @@ declare namespace chrome {
 
         export interface InstalledDetails {
             /** The reason that this event is being dispatched. */
-            reason: `${OnInstalledReason}`;
+            reason: OnInstalledReason;
             /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
             previousVersion?: string;
             /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
