@@ -4255,6 +4255,16 @@ declare module "crypto" {
          */
         readonly serialNumber: string;
         /**
+         * The algorithm used to sign the certificate or `undefined` if the signature algorithm is unknown by OpenSSL.
+         * @since v24.9.0
+         */
+        readonly signatureAlgorithm: string | undefined;
+        /**
+         * The OID of the algorithm used to sign the certificate.
+         * @since v24.9.0
+         */
+        readonly signatureAlgorithmOid: string;
+        /**
          * The date/time from which this certificate is considered valid.
          * @since v15.6.0
          */

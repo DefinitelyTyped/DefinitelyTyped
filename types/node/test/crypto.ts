@@ -1573,6 +1573,8 @@ import { promisify } from "node:util";
     cert.publicKey; // $ExpectType KeyObject
     cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     cert.serialNumber; // $ExpectType string
+    cert.signatureAlgorithm; // $ExpectType string | undefined
+    cert.signatureAlgorithmOid; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
