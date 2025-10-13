@@ -1,4 +1,4 @@
-import * as Plotly from "plotly.js/lib/core";
+import * as Plotly from "plotly.js/v2/lib/core";
 import {
     CandlestickData,
     Datum,
@@ -9,7 +9,7 @@ import {
     SankeyData,
     ScatterData,
     ViolinData,
-} from "plotly.js/lib/core";
+} from "plotly.js/v2/lib/core";
 
 const graphDiv = "#test";
 const trace1 = {

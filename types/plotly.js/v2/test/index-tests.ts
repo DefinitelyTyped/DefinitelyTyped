@@ -1,5 +1,5 @@
-import * as Plotly from "plotly.js";
-import { Config, Datum, Font, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
+import * as Plotly from "plotly.js/v2";
+import { Config, Datum, Font, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js/v2";
 
 const graphDiv = "#test";
 
