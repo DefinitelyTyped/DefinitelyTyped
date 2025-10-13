@@ -1233,7 +1233,6 @@
 /types/cypress-image-snapshot/                          @Keysox
 /types/cypress__code-coverage/                          @k-yle
 /types/cyrb53/                                          @igrek8
-/types/cytoscape/                                       @phreed @ypconstante @janniclas @gsbelarus @peterjferrarotto @spaxe @Veckodag @jsve
 /types/cytoscape-avsdf/                                 @rogerdubbs
 /types/cytoscape-canvas/                                @hellomusa
 /types/cytoscape-context-menus/                         @hellomusa
@@ -5135,7 +5134,6 @@
 /types/noble-mac/                                       @swook @shantanubhadoria @lukel99 @bioball @keton @thegecko
 /types/nodal/                                           @charrondev
 /types/node/                                            @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334 @anonrig
-/types/node/v18/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @SimonSchick @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v20/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v22/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
 /types/node-7z/                                         @erkie @colin969
@@ -8335,7 +8333,7 @@
 /types/webpack-fail-plugin/                             @deevus
 /types/webpack-files-archive-plugin/                    @yusufades
 /types/webpack-hot-client/                              @ZSkycat @barm
-/types/webpack-hot-middleware/                          @bumbleblym @icylace @chrisabrams @iliyaZelenko @saboya
+/types/webpack-hot-middleware/                          @bumbleblym @icylace @chrisabrams @saboya
 /types/webpack-livereload-plugin/                       @peterblazejewicz
 /types/webpack-merge-and-include-globally/              @peterblazejewicz
 /types/webpack-node-externals/                          @mtraynham @MrSpoocy @peterblazejewicz
