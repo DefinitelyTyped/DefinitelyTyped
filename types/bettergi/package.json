@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/bettergi",
+    "nonNpm": true,
+    "nonNpmDescription": "TypeScript definitions for BetterGenshinImpact JS Script API",
+    "version": "0.51.9999",
+    "projects": [
+        "https://github.com/babalae/better-genshin-impact/tree/main/BetterGenshinImpact/Core/Script/JsTypeDef"
+    ],
+    "devDependencies": {
+        "@types/bettergi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "babalae",
+            "githubUsername": "babalae"
+        },
+        {
+            "name": "zaodonganqi",
+            "githubUsername": "babalae"
+        },
+        {
+            "name": "huiyadanli",
+            "githubUsername": "huiyadanli"
+        },
+        {
+            "name": "NyaMisty",
+            "githubUsername": "NyaMisty"
+        }
+    ]
+}
