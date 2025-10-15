@@ -142,3 +142,14 @@ import { TextEncoder } from "node:util";
         },
     );
 }
+
+{
+    const db = new DatabaseSync(":memory:");
+
+    db.setAuthorizer((actionCode) => {
+        if (actionCode === constants.SQLITE_CREATE_TABLE) {
+            return constants.SQLITE_DENY;
+        }
+        return constants.SQLITE_OK;
+    });
+}
