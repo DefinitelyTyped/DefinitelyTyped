@@ -1442,7 +1442,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */
