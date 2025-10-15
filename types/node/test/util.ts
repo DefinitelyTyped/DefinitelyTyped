@@ -150,33 +150,33 @@ class callbackifyTest {
         const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
         const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
-        cfn((err: NodeJS.ErrnoException | null, ...args: readonly string[]) =>
+        cfn((err: NodeJS.ErrnoException | null, ...args: string[]) =>
             assert(err === null && args.length === 1 && args[0] === undefined)
         );
-        cfnE((err: NodeJS.ErrnoException, ...args: readonly string[]) => assert(err.message === "fail" && args.length === 0));
+        cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0));
         cfnT1(
             "parameter",
-            (err: NodeJS.ErrnoException | null, ...args: readonly string[]) =>
+            (err: NodeJS.ErrnoException | null, ...args: string[]) =>
                 assert(err === null && args.length === 1 && args[0] === undefined),
         );
         cfnT1E(
             "parameter",
-            (err: NodeJS.ErrnoException, ...args: readonly string[]) => assert(err.message === "fail" && args.length === 0),
+            (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0),
         );
-        cfnTResult((err: NodeJS.ErrnoException | null, ...args: readonly string[]) =>
+        cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) =>
             assert(err === null && args.length === 1 && args[0] === "result")
         );
-        cfnTResultE((err: NodeJS.ErrnoException, ...args: readonly string[]) =>
+        cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) =>
             assert(err.message === "fail" && args.length === 0)
         );
         cfnT1TResult(
             "parameter",
-            (err: NodeJS.ErrnoException | null, ...args: readonly string[]) =>
+            (err: NodeJS.ErrnoException | null, ...args: string[]) =>
                 assert(err === null && args.length === 1 && args[0] === "result"),
         );
         cfnT1TResultE(
             "parameter",
-            (err: NodeJS.ErrnoException, ...args: readonly string[]) => assert(err.message === "fail" && args.length === 0),
+            (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0),
         );
     }
 }
