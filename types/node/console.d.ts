@@ -431,9 +431,10 @@ declare module "node:console" {
                 colorMode?: boolean | "auto" | undefined;
                 /**
                  * Specifies options that are passed along to
-                 * [`util.inspect()`](https://nodejs.org/docs/latest-v24.x/api/util.html#utilinspectobject-options).
+                 * `util.inspect()`. Can be an options object or, if different options
+                 * for stdout and stderr are desired, a `Map` from stream objects to options.
                  */
-                inspectOptions?: InspectOptions | undefined;
+                inspectOptions?: InspectOptions | ReadonlyMap<NodeJS.WritableStream, InspectOptions> | undefined;
                 /**
                  * Set group indentation.
                  * @default 2
