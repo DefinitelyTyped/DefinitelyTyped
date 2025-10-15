@@ -164,7 +164,7 @@ declare namespace FS {
         mount: Mount;
         mounted?: Mount;
         // Supported in MEMFS
-        contents?: Uint8Array | {} | null;
+        contents?: any;
         id: number;
         name: string;
         mode: number;
