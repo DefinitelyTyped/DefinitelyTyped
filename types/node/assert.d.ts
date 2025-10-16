@@ -200,22 +200,10 @@ declare module "assert" {
          * assert.fail(new TypeError('need array'));
          * // TypeError: need array
          * ```
-         *
-         * Using `assert.fail()` with more than two arguments is possible but deprecated.
-         * See below for further details.
          * @since v0.1.21
          * @param [message='Failed']
          */
         function fail(message?: string | Error): never;
-        /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
-        function fail(
-            actual: unknown,
-            expected: unknown,
-            message?: string | Error,
-            operator?: string,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-            stackStartFn?: Function,
-        ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to `assert.equal(!!value, true, message)`.
          *
