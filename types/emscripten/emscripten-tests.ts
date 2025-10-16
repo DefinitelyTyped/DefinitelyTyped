@@ -166,6 +166,8 @@ function FSTest(): void {
     const lookup = FS.lookupPath("path", { parent: true, follow: false });
     // $ExpectType number
     lookup.node.mode;
+    // $ExpectType any
+    lookup.node.contents;
 
     const analyze = FS.analyzePath("path");
     // $ExpectType boolean
