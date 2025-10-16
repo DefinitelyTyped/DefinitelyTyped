@@ -94,14 +94,6 @@ assert.match("test", /test/, "yeet");
     assert.fail("stuff broke"); // $ExpectType never
 });
 
-(() => {
-    assert.fail("actual", "expected", "message"); // $ExpectType never
-});
-
-(() => {
-    assert.fail(1, 2, undefined, ">"); // $ExpectType never
-});
-
 assert(true, "it's working");
 
 assert.ok(true, "inner functions work as well");
@@ -113,8 +105,6 @@ assert.throws(
     () => {},
     "works wonderfully",
 );
-
-assert["fail"](true, true, "works like a charm");
 
 assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
