@@ -11,7 +11,6 @@ import {
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
-    SlowBuffer,
     transcode,
     TranscodeEncoding,
 } from "node:buffer";
@@ -311,14 +310,6 @@ result = b.write("asd", 123, 123, "hex");
         val = value;
     }
     */
-}
-
-// SlowBuffer
-{
-    // $ExpectType Buffer || Buffer<ArrayBuffer>
-    new SlowBuffer(256);
-    // @ts-expect-error
-    SlowBuffer(256);
 }
 
 // NodeJS.BufferEncoding works properly

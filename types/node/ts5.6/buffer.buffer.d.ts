@@ -459,10 +459,4 @@ declare module "buffer" {
          */
         type AllowSharedBuffer = Buffer;
     }
-    /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-    var SlowBuffer: {
-        /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-        new(size: number): Buffer;
-        prototype: Buffer;
-    };
 }
