@@ -160,17 +160,6 @@ import {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
-    const _err: Error = new Error();
-    const _tlsSocket: TLSSocket = connect(1);
-    const _any: Buffer = Buffer.from("asd");
-    const _func: Function = () => {};
-    const _buffer: Buffer = Buffer.from("a");
-    _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
-    _boolean = _server.emit("newSession", _any, _any, _func1);
-    _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
-    _boolean = _server.emit("resumeSession", _any, _func2);
-    _boolean = _server.emit("secureConnection", _tlsSocket);
-
     _server = _server.on("tlsClientError", (err, tlsSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
@@ -288,10 +277,6 @@ import {
         const _response: Buffer = response;
     });
     socket = socket.addListener("secureConnect", () => {});
-
-    const _buffer: Buffer = Buffer.from("");
-    _boolean = socket.emit("OCSPResponse", _buffer);
-    _boolean = socket.emit("secureConnect");
 
     socket = socket.on("OCSPResponse", (response) => {
         const _response: Buffer = response;

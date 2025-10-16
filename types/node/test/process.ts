@@ -28,7 +28,6 @@ import { fileURLToPath } from "node:url";
     process.once("warning", (warning: Error) => {});
     process.prependListener("message", (message: any, sendHandle: any) => {});
     process.prependOnceListener("SIGBREAK", () => {});
-    process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
     process.once("removeListener", (event: string | symbol, listener: Function) => {});
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});

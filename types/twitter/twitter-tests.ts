@@ -53,7 +53,7 @@ stream.on("error", error => {
 });
 
 client.stream("statuses/filter", { track: "javascript" }, stream => {
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     stream;
 
     stream.on("data", (event: any) => {
@@ -65,6 +65,6 @@ client.stream("statuses/filter", { track: "javascript" }, stream => {
     });
 });
 client.stream("statuses/filter", stream => {
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     stream;
 });

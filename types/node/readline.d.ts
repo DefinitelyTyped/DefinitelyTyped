@@ -34,7 +34,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/readline.js)
  */
 declare module "readline" {
-    import { Abortable, EventEmitter } from "node:events";
+    import { Abortable, EventEmitter, InternalEventEmitter } from "node:events";
     import * as promises from "node:readline/promises";
     export { promises };
     export interface Key {
@@ -44,6 +44,16 @@ declare module "readline" {
         meta?: boolean | undefined;
         shift?: boolean | undefined;
     }
+    export interface InterfaceEventMap {
+        "close": [];
+        "history": [history: string[]];
+        "line": [input: string];
+        "pause": [];
+        "resume": [];
+        "SIGCONT": [];
+        "SIGINT": [];
+        "SIGTSTP": [];
+    }
     /**
      * Instances of the `readline.Interface` class are constructed using the `readline.createInterface()` method. Every instance is associated with a
      * single `input` [Readable](https://nodejs.org/docs/latest-v24.x/api/stream.html#readable-streams) stream and a single `output` [Writable](https://nodejs.org/docs/latest-v24.x/api/stream.html#writable-streams) stream.
@@ -51,7 +61,30 @@ declare module "readline" {
      * and is read from, the `input` stream.
      * @since v0.1.104
      */
-    export class Interface extends EventEmitter implements Disposable {
+    export class Interface implements EventEmitter, Disposable {
+        /**
+         * NOTE: According to the documentation:
+         *
+         * > Instances of the `readline.Interface` class are constructed using the
+         * > `readline.createInterface()` method.
+         *
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/readline.html#class-interfaceconstructor
+         */
+        protected constructor(
+            input: NodeJS.ReadableStream,
+            output?: NodeJS.WritableStream,
+            completer?: Completer | AsyncCompleter,
+            terminal?: boolean,
+        );
+        /**
+         * NOTE: According to the documentation:
+         *
+         * > Instances of the `readline.Interface` class are constructed using the
+         * > `readline.createInterface()` method.
+         *
+         * @see https://nodejs.org/dist/latest-v24.x/docs/api/readline.html#class-interfaceconstructor
+         */
+        protected constructor(options: ReadLineOptions);
         readonly terminal: boolean;
         /**
          * The current input data being processed by node.
@@ -94,29 +127,6 @@ declare module "readline" {
          * @since v0.1.98
          */
         readonly cursor: number;
-        /**
-         * NOTE: According to the documentation:
-         *
-         * > Instances of the `readline.Interface` class are constructed using the
-         * > `readline.createInterface()` method.
-         *
-         * @see https://nodejs.org/dist/latest-v24.x/docs/api/readline.html#class-interfaceconstructor
-         */
-        protected constructor(
-            input: NodeJS.ReadableStream,
-            output?: NodeJS.WritableStream,
-            completer?: Completer | AsyncCompleter,
-            terminal?: boolean,
-        );
-        /**
-         * NOTE: According to the documentation:
-         *
-         * > Instances of the `readline.Interface` class are constructed using the
-         * > `readline.createInterface()` method.
-         *
-         * @see https://nodejs.org/dist/latest-v24.x/docs/api/readline.html#class-interfaceconstructor
-         */
-        protected constructor(options: ReadLineOptions);
         /**
          * The `rl.getPrompt()` method returns the current prompt used by `rl.prompt()`.
          * @since v15.3.0, v14.17.0
@@ -244,73 +254,9 @@ declare module "readline" {
          * @since v13.5.0, v12.16.0
          */
         getCursorPos(): CursorPos;
-        /**
-         * events.EventEmitter
-         * 1. close
-         * 2. line
-         * 3. pause
-         * 4. resume
-         * 5. SIGCONT
-         * 6. SIGINT
-         * 7. SIGTSTP
-         * 8. history
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
-        addListener(event: "history", listener: (history: string[]) => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "line", input: string): boolean;
-        emit(event: "pause"): boolean;
-        emit(event: "resume"): boolean;
-        emit(event: "SIGCONT"): boolean;
-        emit(event: "SIGINT"): boolean;
-        emit(event: "SIGTSTP"): boolean;
-        emit(event: "history", history: string[]): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
-        on(event: "history", listener: (history: string[]) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
-        once(event: "history", listener: (history: string[]) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
-        prependListener(event: "history", listener: (history: string[]) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
-        prependOnceListener(event: "history", listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<string>;
     }
+    export interface Interface extends InternalEventEmitter<InterfaceEventMap> {}
     export type ReadLine = Interface; // type forwarded for backwards compatibility
     export type Completer = (line: string) => CompleterResult;
     export type AsyncCompleter = (

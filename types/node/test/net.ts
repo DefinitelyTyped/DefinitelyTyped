@@ -146,6 +146,7 @@ import * as net from "node:net";
 
     let bool = true;
     let buffer: Buffer = Buffer.from("123");
+    let data: string | Buffer = buffer;
     let error = new Error("asd");
     let str = "123";
     let num = 123;
@@ -206,8 +207,8 @@ import * as net from "node:net";
         // $ExpectType Error
         error;
     });
-    _socket = _socket.addListener("data", data => {
-        buffer = data;
+    _socket = _socket.addListener("data", _data => {
+        data = _data;
     });
     _socket = _socket.addListener("drain", () => {});
     _socket = _socket.addListener("end", () => {});
@@ -215,7 +216,7 @@ import * as net from "node:net";
         error = err;
     });
     _socket = _socket.addListener("lookup", (err, address, family, host) => {
-        error = err;
+        error = err!;
 
         if (typeof family === "string") {
             str = family;
@@ -227,19 +228,6 @@ import * as net from "node:net";
     });
     _socket = _socket.addListener("ready", () => {});
     _socket = _socket.addListener("timeout", () => {});
-
-    /// emit
-    bool = _socket.emit("close", bool);
-    bool = _socket.emit("connect");
-    bool = _socket.emit("connectionAttemptFailed", str, num, num, error);
-    bool = _socket.emit("data", buffer);
-    bool = _socket.emit("drain");
-    bool = _socket.emit("end");
-    bool = _socket.emit("error", error);
-    bool = _socket.emit("lookup", error, str, str, str);
-    bool = _socket.emit("lookup", error, str, num, str);
-    bool = _socket.emit("ready");
-    bool = _socket.emit("timeout");
 
     /// on
     _socket = _socket.on("close", had_error => {
@@ -256,8 +244,8 @@ import * as net from "node:net";
         // $ExpectType Error
         error;
     });
-    _socket = _socket.on("data", data => {
-        buffer = data;
+    _socket = _socket.on("data", _data => {
+        data = _data;
     });
     _socket = _socket.on("drain", () => {});
     _socket = _socket.on("end", () => {});
@@ -265,14 +253,9 @@ import * as net from "node:net";
         error = err;
     });
     _socket = _socket.on("lookup", (err, address, family, host) => {
-        error = err;
-
-        if (typeof family === "string") {
-            str = family;
-        } else if (typeof family === "number") {
-            num = family;
-        }
-
+        error = err!;
+        str = address;
+        num = family!;
         str = host;
     });
     _socket = _socket.on("ready", () => {});
@@ -293,8 +276,8 @@ import * as net from "node:net";
         // $ExpectType Error
         error;
     });
-    _socket = _socket.once("data", data => {
-        buffer = data;
+    _socket = _socket.once("data", _data => {
+        data = _data;
     });
     _socket = _socket.once("drain", () => {});
     _socket = _socket.once("end", () => {});
@@ -302,14 +285,9 @@ import * as net from "node:net";
         error = err;
     });
     _socket = _socket.once("lookup", (err, address, family, host) => {
-        error = err;
-
-        if (typeof family === "string") {
-            str = family;
-        } else if (typeof family === "number") {
-            num = family;
-        }
-
+        error = err!;
+        str = address;
+        num = family!
         str = host;
     });
     _socket = _socket.once("ready", () => {});
@@ -330,8 +308,8 @@ import * as net from "node:net";
         // $ExpectType Error
         error;
     });
-    _socket = _socket.prependListener("data", data => {
-        buffer = data;
+    _socket = _socket.prependListener("data", _data => {
+        data = _data;
     });
     _socket = _socket.prependListener("drain", () => {});
     _socket = _socket.prependListener("end", () => {});
@@ -339,14 +317,9 @@ import * as net from "node:net";
         error = err;
     });
     _socket = _socket.prependListener("lookup", (err, address, family, host) => {
-        error = err;
-
-        if (typeof family === "string") {
-            str = family;
-        } else if (typeof family === "number") {
-            num = family;
-        }
-
+        error = err!;
+        str = address;
+        num = family!;
         str = host;
     });
     _socket = _socket.prependListener("ready", () => {});
@@ -367,8 +340,8 @@ import * as net from "node:net";
         // $ExpectType Error
         error;
     });
-    _socket = _socket.prependOnceListener("data", data => {
-        buffer = data;
+    _socket = _socket.prependOnceListener("data", _data => {
+        data = _data;
     });
     _socket = _socket.prependOnceListener("drain", () => {});
     _socket = _socket.prependOnceListener("end", () => {});
@@ -376,14 +349,9 @@ import * as net from "node:net";
         error = err;
     });
     _socket = _socket.prependOnceListener("lookup", (err, address, family, host) => {
-        error = err;
-
-        if (typeof family === "string") {
-            str = family;
-        } else if (typeof family === "number") {
-            num = family;
-        }
-
+        error = err!;
+        str = address;
+        num = family!;
         str = host;
     });
     _socket = _socket.prependOnceListener("ready", () => {});
@@ -419,7 +387,6 @@ import * as net from "node:net";
     let _server = net.createServer();
 
     let _socket = net.connect("");
-    let bool: boolean;
     let error = new Error();
 
     /// addListener
@@ -432,13 +399,6 @@ import * as net from "node:net";
     });
     _server = _server.addListener("listening", () => {});
     _server = _server.addListener("drop", data => {});
-
-    /// emit
-    bool = _server.emit("close");
-    bool = _server.emit("connection", _socket);
-    bool = _server.emit("error", error);
-    bool = _server.emit("listening");
-    bool = _server.emit("drop");
 
     /// once
     _server = _server.once("close", () => {});
