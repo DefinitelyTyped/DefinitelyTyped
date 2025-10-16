@@ -69,6 +69,7 @@ declare module "process" {
         "node:punycode": typeof import("node:punycode");
         "querystring": typeof import("querystring");
         "node:querystring": typeof import("node:querystring");
+        "node:quic": typeof import("node:quic");
         "readline": typeof import("readline");
         "node:readline": typeof import("node:readline");
         "readline/promises": typeof import("readline/promises");

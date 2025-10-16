@@ -23,6 +23,7 @@ import "./test/os";
 import "./test/path";
 import "./test/perf_hooks";
 import "./test/process";
+import "./test/quic";
 import "./test/querystring";
 import "./test/readline";
 import "./test/repl";
