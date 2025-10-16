@@ -95,3 +95,12 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     // @ts-expect-error The pseudoglobal `NodeJS` namespace should not be addressable outside ambient contexts
     NodeJS;
 }
+
+{
+    const bytes = new Uint8Array([0, 255]);
+    bytes.toBase64(); // $ExpectType string
+    bytes.toHex(); // $ExpectType string
+
+    Uint8Array.fromBase64(bytes.toBase64()); // $ExpectType Uint8Array<ArrayBufferLike>
+    Uint8Array.fromHex(bytes.toHex()); // $ExpectType Uint8Array<ArrayBufferLike>
+}

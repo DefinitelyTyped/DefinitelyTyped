@@ -168,3 +168,13 @@ declare namespace NodeJS {
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
     }
 }
+
+interface Uint8Array<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> {
+    toBase64(): string;
+    toHex(): string;
+}
+
+interface Uint8ArrayConstructor {
+    fromBase64(data: string): Uint8Array<ArrayBufferLike>;
+    fromHex(data: string): Uint8Array<ArrayBufferLike>;
+}
