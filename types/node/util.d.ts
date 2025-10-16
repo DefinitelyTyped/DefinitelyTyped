@@ -1358,8 +1358,7 @@ declare module "util" {
         var TextDecoder: typeof globalThis extends {
             onmessage: any;
             TextDecoder: infer TextDecoder;
-        }
-            ? TextDecoder
+        } ? TextDecoder
             : typeof _TextDecoder;
         /**
          * `TextEncoder` class is a global reference for `import { TextEncoder } from 'node:util'`
@@ -1369,8 +1368,7 @@ declare module "util" {
         var TextEncoder: typeof globalThis extends {
             onmessage: any;
             TextEncoder: infer TextEncoder;
-        }
-            ? TextEncoder
+        } ? TextEncoder
             : typeof _TextEncoder;
     }
 
@@ -1492,30 +1490,31 @@ declare module "util" {
         string | boolean
     >;
 
-    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = {
-        -readonly [LongOption in keyof O]?: V[LongOption];
-    } & {
-        [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption];
-    } extends infer P
-        ? { [K in keyof P]: P[K] }
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> =
+        & {
+            -readonly [LongOption in keyof O]?: V[LongOption];
+        }
+        & {
+            [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption];
+        } extends infer P ? { [K in keyof P]: P[K] }
         : never; // resolve intersection to object
 
-    type ParsedValues<T extends ParseArgsConfig> = IfDefaultsTrue<
-        T["strict"],
-        unknown,
-        { [longOption: string]: undefined | string | boolean }
-    > &
-        (T["options"] extends ParseArgsOptionsConfig
-            ? ApplyOptionalModifiers<
-                  T["options"],
-                  {
-                      [LongOption in keyof T["options"]]: IfDefaultsFalse<
-                          T["options"][LongOption]["multiple"],
-                          Array<ExtractOptionValue<T, T["options"][LongOption]>>,
-                          ExtractOptionValue<T, T["options"][LongOption]>
-                      >;
-                  }
-              >
+    type ParsedValues<T extends ParseArgsConfig> =
+        & IfDefaultsTrue<
+            T["strict"],
+            unknown,
+            { [longOption: string]: undefined | string | boolean }
+        >
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                        T["options"][LongOption]["multiple"],
+                        Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                        ExtractOptionValue<T, T["options"][LongOption]>
+                    >;
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
@@ -1526,15 +1525,14 @@ declare module "util" {
 
     type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionsConfig[string]> = O["type"] extends "string"
         ? {
-              kind: "option";
-              index: number;
-              name: K;
-              rawName: string;
-              value: string;
-              inlineValue: boolean;
-          }
-        : O["type"] extends "boolean"
-          ? {
+            kind: "option";
+            index: number;
+            name: K;
+            rawName: string;
+            value: string;
+            inlineValue: boolean;
+        }
+        : O["type"] extends "boolean" ? {
                 kind: "option";
                 index: number;
                 name: K;
@@ -1542,15 +1540,14 @@ declare module "util" {
                 value: undefined;
                 inlineValue: undefined;
             }
-          : OptionToken & { name: K };
+        : OptionToken & { name: K };
 
     type TokenForOptions<
         T extends ParseArgsConfig,
         K extends keyof T["options"] = keyof T["options"],
     > = K extends unknown
-        ? T["options"] extends ParseArgsOptionsConfig
-            ? PreciseTokenForOptions<K & string, T["options"][K]>
-            : OptionToken
+        ? T["options"] extends ParseArgsOptionsConfig ? PreciseTokenForOptions<K & string, T["options"][K]>
+        : OptionToken
         : never;
 
     type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T["strict"], TokenForOptions<T>, OptionToken>;
@@ -1581,13 +1578,13 @@ declare module "util" {
     type OptionToken =
         | { kind: "option"; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
-              kind: "option";
-              index: number;
-              name: string;
-              rawName: string;
-              value: undefined;
-              inlineValue: undefined;
-          };
+            kind: "option";
+            index: number;
+            name: string;
+            rawName: string;
+            value: undefined;
+            inlineValue: undefined;
+        };
 
     type Token =
         | OptionToken
@@ -1596,14 +1593,13 @@ declare module "util" {
 
     // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
-    type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
-        ? {
-              values: {
-                  [longOption: string]: undefined | string | boolean | Array<string | boolean>;
-              };
-              positionals: string[];
-              tokens?: Token[];
-          }
+    type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
+            values: {
+                [longOption: string]: undefined | string | boolean | Array<string | boolean>;
+            };
+            positionals: string[];
+            tokens?: Token[];
+        }
         : PreciseParsedResults<T>;
 
     /**
@@ -2056,10 +2052,8 @@ declare module "util/types" {
      */
     function isMap<T>(
         object: T | {},
-    ): object is T extends ReadonlyMap<any, any>
-        ? unknown extends T
-            ? never
-            : ReadonlyMap<any, any>
+    ): object is T extends ReadonlyMap<any, any> ? unknown extends T ? never
+        : ReadonlyMap<any, any>
         : Map<unknown, unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
