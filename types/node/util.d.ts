@@ -1503,13 +1503,21 @@ declare module "util" {
         string | boolean
     >;
 
-    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
-        & { -readonly [LongOption in keyof O]?: V[LongOption] }
-        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
-    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> =
+        & {
+            -readonly [LongOption in keyof O]?: V[LongOption];
+        }
+        & {
+            [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption];
+        } extends infer P ? { [K in keyof P]: P[K] }
+        : never; // resolve intersection to object
 
     type ParsedValues<T extends ParseArgsConfig> =
-        & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
+        & IfDefaultsTrue<
+            T["strict"],
+            unknown,
+            { [longOption: string]: undefined | string | boolean }
+        >
         & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
                 T["options"],
                 {
@@ -1530,15 +1538,14 @@ declare module "util" {
 
     type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionDescriptor> = O["type"] extends "string"
         ? {
-              kind: "option";
-              index: number;
-              name: K;
-              rawName: string;
-              value: string;
-              inlineValue: boolean;
-          }
-        : O["type"] extends "boolean"
-          ? {
+            kind: "option";
+            index: number;
+            name: K;
+            rawName: string;
+            value: string;
+            inlineValue: boolean;
+        }
+        : O["type"] extends "boolean" ? {
                 kind: "option";
                 index: number;
                 name: K;
@@ -2058,7 +2065,8 @@ declare module "util/types" {
      */
     function isMap<T>(
         object: T | {},
-    ): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>)
+    ): object is T extends ReadonlyMap<any, any> ? unknown extends T ? never
+        : ReadonlyMap<any, any>
         : Map<unknown, unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
