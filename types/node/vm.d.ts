@@ -676,14 +676,12 @@ declare module "vm" {
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script` class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
-     * defined in the ECMAScript
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`
+     * class that closely mirrors [Module Record](https://tc39.es/ecma262/#sec-abstract-module-records)s as defined in the ECMAScript
      * specification.
      *
      * Unlike `vm.Script` however, every `vm.Module` object is bound to a context from
-     * its creation. Operations on `vm.Module` objects are intrinsically asynchronous,
-     * in contrast with the synchronous nature of `vm.Script` objects. The use of
-     * 'async' functions can help with manipulating `vm.Module` objects.
+     * its creation.
      *
      * Using a `vm.Module` object requires three distinct steps: creation/parsing,
      * linking, and evaluation. These three steps are illustrated in the following
@@ -711,7 +709,7 @@ declare module "vm" {
      * // Here, we attempt to obtain the default export from the module "foo", and
      * // put it into local binding "secret".
      *
-     * const bar = new vm.SourceTextModule(`
+     * const rootModule = new vm.SourceTextModule(`
      *   import s from 'foo';
      *   s;
      *   print(s);
@@ -721,39 +719,48 @@ declare module "vm" {
      * //
      * // "Link" the imported dependencies of this Module to it.
      * //
-     * // The provided linking callback (the "linker") accepts two arguments: the
-     * // parent module (`bar` in this case) and the string that is the specifier of
-     * // the imported module. The callback is expected to return a Module that
-     * // corresponds to the provided specifier, with certain requirements documented
-     * // in `module.link()`.
-     * //
-     * // If linking has not started for the returned Module, the same linker
-     * // callback will be called on the returned Module.
+     * // Obtain the requested dependencies of a SourceTextModule by
+     * // `sourceTextModule.moduleRequests` and resolve them.
      * //
      * // Even top-level Modules without dependencies must be explicitly linked. The
-     * // callback provided would never be called, however.
+     * // array passed to `sourceTextModule.linkRequests(modules)` can be
+     * // empty, however.
      * //
-     * // The link() method returns a Promise that will be resolved when all the
-     * // Promises returned by the linker resolve.
-     * //
-     * // Note: This is a contrived example in that the linker function creates a new
-     * // "foo" module every time it is called. In a full-fledged module system, a
-     * // cache would probably be used to avoid duplicated modules.
+     * // Note: This is a contrived example in that the resolveAndLinkDependencies
+     * // creates a new "foo" module every time it is called. In a full-fledged
+     * // module system, a cache would probably be used to avoid duplicated modules.
      *
-     * async function linker(specifier, referencingModule) {
-     *   if (specifier === 'foo') {
-     *     return new vm.SourceTextModule(`
-     *       // The "secret" variable refers to the global variable we added to
-     *       // "contextifiedObject" when creating the context.
-     *       export default secret;
-     *     `, { context: referencingModule.context });
+     * const moduleMap = new Map([
+     *   ['root', rootModule],
+     * ]);
      *
-     *     // Using `contextifiedObject` instead of `referencingModule.context`
-     *     // here would work as well.
-     *   }
-     *   throw new Error(`Unable to resolve dependency: ${specifier}`);
+     * function resolveAndLinkDependencies(module) {
+     *   const requestedModules = module.moduleRequests.map((request) => {
+     *     // In a full-fledged module system, the resolveAndLinkDependencies would
+     *     // resolve the module with the module cache key `[specifier, attributes]`.
+     *     // In this example, we just use the specifier as the key.
+     *     const specifier = request.specifier;
+     *
+     *     let requestedModule = moduleMap.get(specifier);
+     *     if (requestedModule === undefined) {
+     *       requestedModule = new vm.SourceTextModule(`
+     *         // The "secret" variable refers to the global variable we added to
+     *         // "contextifiedObject" when creating the context.
+     *         export default secret;
+     *       `, { context: referencingModule.context });
+     *       moduleMap.set(specifier, linkedModule);
+     *       // Resolve the dependencies of the new module as well.
+     *       resolveAndLinkDependencies(requestedModule);
+     *     }
+     *
+     *     return requestedModule;
+     *   });
+     *
+     *   module.linkRequests(requestedModules);
      * }
-     * await bar.link(linker);
+     *
+     * resolveAndLinkDependencies(rootModule);
+     * rootModule.instantiate();
      *
      * // Step 3
      * //
@@ -761,7 +768,7 @@ declare module "vm" {
      * // resolve after the module has finished evaluating.
      *
      * // Prints 42.
-     * await bar.evaluate();
+     * await rootModule.evaluate();
      * ```
      * @since v13.0.0, v12.16.0
      * @experimental
@@ -830,6 +837,10 @@ declare module "vm" {
         /**
          * Link module dependencies. This method must be called before evaluation, and
          * can only be called once per module.
+         *
+         * Use `sourceTextModule.linkRequests(modules)` and
+         * `sourceTextModule.instantiate()` to link modules either synchronously or
+         * asynchronously.
          *
          * The function is expected to return a `Module` object or a `Promise` that
          * eventually resolves to a `Module` object. The returned `Module` must satisfy the
@@ -911,6 +922,39 @@ declare module "vm" {
     class SourceTextModule extends Module {
         /**
          * Creates a new `SourceTextModule` instance.
+         *
+         * Properties assigned to the `import.meta` object that are objects may
+         * allow the module to access information outside the specified `context`. Use
+         * `vm.runInContext()` to create objects in a specific context.
+         *
+         * ```js
+         * import vm from 'node:vm';
+         *
+         * const contextifiedObject = vm.createContext({ secret: 42 });
+         *
+         * const module = new vm.SourceTextModule(
+         *   'Object.getPrototypeOf(import.meta.prop).secret = secret;',
+         *   {
+         *     initializeImportMeta(meta) {
+         *       // Note: this object is created in the top context. As such,
+         *       // Object.getPrototypeOf(import.meta.prop) points to the
+         *       // Object.prototype in the top context rather than that in
+         *       // the contextified object.
+         *       meta.prop = {};
+         *     },
+         *   });
+         * // The module has an empty `moduleRequests` array.
+         * module.linkRequests([]);
+         * module.instantiate();
+         * await module.evaluate();
+         *
+         * // Now, Object.prototype.secret will be equal to 42.
+         * //
+         * // To fix this problem, replace
+         * //     meta.prop = {};
+         * // above with
+         * //     meta.prop = vm.runInContext('{}', contextifiedObject);
+         * ```
          * @param code JavaScript Module code to parse
          */
         constructor(code: string, options?: SourceTextModuleOptions);
@@ -918,6 +962,55 @@ declare module "vm" {
          * @deprecated Use `sourceTextModule.moduleRequests` instead.
          */
         readonly dependencySpecifiers: readonly string[];
+        /**
+         * Instantiate the module with the linked requested modules.
+         *
+         * This resolves the imported bindings of the module, including re-exported
+         * binding names. When there are any bindings that cannot be resolved,
+         * an error would be thrown synchronously.
+         *
+         * If the requested modules include cyclic dependencies, the
+         * `sourceTextModule.linkRequests(modules)` method must be called on all
+         * modules in the cycle before calling this method.
+         * @since v24.8.0
+         */
+        instantiate(): void;
+        /**
+         * Link module dependencies. This method must be called before evaluation, and
+         * can only be called once per module.
+         *
+         * The order of the module instances in the `modules` array should correspond to the order of
+         * `sourceTextModule.moduleRequests` being resolved. If two module requests have the same
+         * specifier and import attributes, they must be resolved with the same module instance or an
+         * `ERR_MODULE_LINK_MISMATCH` would be thrown. For example, when linking requests for this
+         * module:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import source Foo from 'foo';
+         * ```
+         *
+         * The `modules` array must contain two references to the same instance, because the two
+         * module requests are identical but in two phases.
+         *
+         * If the module has no dependencies, the `modules` array can be empty.
+         *
+         * Users can use `sourceTextModule.moduleRequests` to implement the host-defined
+         * [HostLoadImportedModule](https://tc39.es/ecma262/#sec-HostLoadImportedModule) abstract operation in the ECMAScript specification,
+         * and using `sourceTextModule.linkRequests()` to invoke specification defined
+         * [FinishLoadingImportedModule](https://tc39.es/ecma262/#sec-FinishLoadingImportedModule), on the module with all dependencies in a batch.
+         *
+         * It's up to the creator of the `SourceTextModule` to determine if the resolution
+         * of the dependencies is synchronous or asynchronous.
+         *
+         * After each module in the `modules` array is linked, call
+         * `sourceTextModule.instantiate()`.
+         * @since v24.8.0
+         * @param modules Array of `vm.Module` objects that this module depends on.
+         * The order of the modules in the array is the order of
+         * `sourceTextModule.moduleRequests`.
+         */
+        linkRequests(modules: readonly Module[]): void;
         /**
          * The requested import dependencies of this module. The returned array is frozen
          * to disallow any changes to it.
@@ -1013,9 +1106,7 @@ declare module "vm" {
             options?: SyntheticModuleOptions,
         );
         /**
-         * This method is used after the module is linked to set the values of exports. If
-         * it is called before the module is linked, an `ERR_VM_MODULE_STATUS` error
-         * will be thrown.
+         * This method sets the module export binding slots with the given value.
          *
          * ```js
          * import vm from 'node:vm';
@@ -1024,7 +1115,6 @@ declare module "vm" {
          *   m.setExport('x', 1);
          * });
          *
-         * await m.link(() => {});
          * await m.evaluate();
          *
          * assert.strictEqual(m.namespace.x, 1);
