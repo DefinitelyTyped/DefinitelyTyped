@@ -1524,7 +1524,7 @@ declare module "util" {
         IfDefaultsTrue<T["allowPositionals"], string[], []>
     >;
 
-    type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionConfig> = O["type"] extends "string"
+    type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionsConfig[string]> = O["type"] extends "string"
         ? {
               kind: "option";
               index: number;
