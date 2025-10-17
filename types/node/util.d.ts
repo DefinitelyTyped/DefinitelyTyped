@@ -1488,14 +1488,10 @@ declare module "util" {
     This is technically incorrect but is a much nicer UX for the common case.
     The IfDefaultsTrue version is for things which default to true; the IfDefaultsFalse version is for things which default to false.
     */
-    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue
-        : T extends false ? IfFalse
-        : IfTrue;
+    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue : T extends false ? IfFalse : IfTrue;
 
     // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
-    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse
-        : T extends true ? IfTrue
-        : IfFalse;
+    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse : T extends true ? IfTrue : IfFalse;
 
     type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
@@ -1536,8 +1532,7 @@ declare module "util" {
         IfDefaultsTrue<T["allowPositionals"], string[], []>
     >;
 
-    type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionDescriptor> = O["type"] extends "string"
-        ? {
+    type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionDescriptor> = O["type"] extends "string" ? {
             kind: "option";
             index: number;
             name: K;
