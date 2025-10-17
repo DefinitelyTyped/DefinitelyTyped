@@ -37,7 +37,6 @@ declare module "fs/promises" {
         ReadPosition,
         ReadStream,
         ReadVResult,
-        RmDirOptions,
         RmOptions,
         StatFsOptions,
         StatOptions,
@@ -602,7 +601,7 @@ declare module "fs/promises" {
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
-    function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+    function rmdir(path: PathLike): Promise<void>;
     /**
      * Removes files and directories (modeled on the standard POSIX `rm` utility).
      * @since v14.14.0

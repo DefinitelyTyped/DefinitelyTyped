@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Dirent, MakeDirectoryOptions, PathLike, RmDirOptions, Stats, WriteFileOptions } from "fs";
+import { Dirent, MakeDirectoryOptions, PathLike, Stats, WriteFileOptions } from "fs";
 
 export * from "fs";
 
@@ -147,7 +147,7 @@ export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
  * Asynchronous rmdir(2) - delete a directory.
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+export function rmdir(path: PathLike, options?: object): Promise<void>;
 
 /**
  * Asynchronous mkdir(2) - create a directory.
