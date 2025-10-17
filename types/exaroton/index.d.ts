@@ -1005,6 +1005,8 @@ declare class RequestError extends Error {
 // all types used by the API, see: https://developers.exaroton.com
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
+type ResponseType = "text" | "json" | "buffer";
+
 declare class Account {
     #client: Client;
 
