@@ -72,7 +72,7 @@ declare module "cluster" {
          * String arguments passed to worker.
          * @default process.argv.slice(2)
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Whether or not to send output to parent's stdio.
          * @default false
