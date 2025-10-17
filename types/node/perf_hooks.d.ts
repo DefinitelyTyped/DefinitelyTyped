@@ -42,20 +42,6 @@ declare module "perf_hooks" {
         | "net" // Node.js only
         | "node" // Node.js only
         | "resource"; // available on the Web
-    interface NodeGCPerformanceDetail {
-        /**
-         * When `performanceEntry.entryType` is equal to 'gc', the `performance.kind` property identifies
-         * the type of garbage collection operation that occurred.
-         * See perf_hooks.constants for valid values.
-         */
-        readonly kind: number;
-        /**
-         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
-         * property contains additional information about garbage collection operation.
-         * See perf_hooks.constants for valid values.
-         */
-        readonly flags: number;
-    }
     /**
      * The constructor of this class is not exposed to users directly.
      * @since v8.5.0
@@ -82,17 +68,36 @@ declare module "perf_hooks" {
         /**
          * The type of the performance entry. It may be one of:
          *
-         * * `'node'` (Node.js only)
-         * * `'mark'` (available on the Web)
-         * * `'measure'` (available on the Web)
-         * * `'gc'` (Node.js only)
+         * * `'dns'` (Node.js only)
          * * `'function'` (Node.js only)
+         * * `'gc'` (Node.js only)
          * * `'http2'` (Node.js only)
          * * `'http'` (Node.js only)
+         * * `'mark'` (available on the Web)
+         * * `'measure'` (available on the Web)
+         * * `'net'` (Node.js only)
+         * * `'node'` (Node.js only)
+         * * `'resource'` (available on the Web)
          * @since v8.5.0
          */
         readonly entryType: EntryType;
         toJSON(): any;
+    }
+    /**
+     * _This class is an extension by Node.js. It is not available in Web browsers._
+     *
+     * Provides detailed Node.js timing data.
+     *
+     * The constructor of this class is not exposed to users directly.
+     * @since v19.0.0
+     */
+    class PerformanceNodeEntry extends PerformanceEntry {
+        /**
+         * Additional detail specific to the `entryType`.
+         * @since v16.0.0
+         */
+        readonly detail: any;
+        readonly entryType: "dns" | "function" | "gc" | "http2" | "http" | "net" | "node";
     }
     /**
      * Exposes marks created via the `Performance.mark()` method.
@@ -127,7 +132,6 @@ declare module "perf_hooks" {
          */
         readonly eventsWaiting: number;
     }
-    // TODO: PerformanceNodeEntry is missing
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
