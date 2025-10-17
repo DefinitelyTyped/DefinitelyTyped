@@ -564,7 +564,7 @@ declare namespace jasmine {
         clearReporters(): void;
         configuration(): Configuration;
         configure(configuration: Configuration): void;
-        execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
+        execute(runnablesToRun?: Suite[]): Promise<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
          * Sets a user-defined property that will be provided to reporters as
