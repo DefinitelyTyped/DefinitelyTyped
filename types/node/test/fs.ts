@@ -492,17 +492,11 @@ async function testPromisify() {
     const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
-(async () => {
-    try {
-        await fs.promises.rmdir("some/test/path");
-        await fs.promises.rmdir("some/test/path", { maxRetries: 123, retryDelay: 123, recursive: true });
-    } catch (e) {}
-
-    try {
-        await fs.promises.rmdir("some/test/file");
-        await fs.promises.rmdir("some/test/file", { maxRetries: 123, retryDelay: 123 });
-    } catch (e) {}
-})();
+{
+    fs.rmdir("/path", () => {});
+    fs.rmdirSync("/path");
+    fs.promises.rmdir("/path"); // $ExpectType Promise<void>
+}
 
 {
     fs.open("test", (err, fd) => {});
