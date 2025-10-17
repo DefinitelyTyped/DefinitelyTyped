@@ -10,7 +10,7 @@ export interface ChannelNameWithParams {
  */
 export const adapters: {
     logger: Console;
-    WebSocket: WebSocket;
+    WebSocket: typeof WebSocket;
 };
 
 /**
