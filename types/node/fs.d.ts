@@ -1793,33 +1793,6 @@ declare module "fs" {
      * @since v0.1.21
      */
     export function unlinkSync(path: PathLike): void;
-    export interface RmDirOptions {
-        /**
-         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
-         * `EPERM` error is encountered, Node.js will retry the operation with a linear
-         * backoff wait of `retryDelay` ms longer on each try. This option represents the
-         * number of retries. This option is ignored if the `recursive` option is not
-         * `true`.
-         * @default 0
-         */
-        maxRetries?: number | undefined;
-        /**
-         * @deprecated since v14.14.0 In future versions of Node.js and will trigger a warning
-         * `fs.rmdir(path, { recursive: true })` will throw if `path` does not exist or is a file.
-         * Use `fs.rm(path, { recursive: true, force: true })` instead.
-         *
-         * If `true`, perform a recursive directory removal. In
-         * recursive mode, operations are retried on failure.
-         * @default false
-         */
-        recursive?: boolean | undefined;
-        /**
-         * The amount of time in milliseconds to wait between retries.
-         * This option is ignored if the `recursive` option is not `true`.
-         * @default 100
-         */
-        retryDelay?: number | undefined;
-    }
     /**
      * Asynchronous [`rmdir(2)`](http://man7.org/linux/man-pages/man2/rmdir.2.html). No arguments other than a possible exception are given
      * to the completion callback.
@@ -1831,13 +1804,12 @@ declare module "fs" {
      * @since v0.0.2
      */
     export function rmdir(path: PathLike, callback: NoParamCallback): void;
-    export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
     export namespace rmdir {
         /**
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options?: RmDirOptions): Promise<void>;
+        function __promisify__(path: PathLike): Promise<void>;
     }
     /**
      * Synchronous [`rmdir(2)`](http://man7.org/linux/man-pages/man2/rmdir.2.html). Returns `undefined`.
@@ -1848,7 +1820,7 @@ declare module "fs" {
      * To get a behavior similar to the `rm -rf` Unix command, use {@link rmSync} with options `{ recursive: true, force: true }`.
      * @since v0.1.21
      */
-    export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
+    export function rmdirSync(path: PathLike): void;
     export interface RmOptions {
         /**
          * When `true`, exceptions will be ignored if `path` does not exist.
