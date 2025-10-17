@@ -320,7 +320,6 @@ declare module "process" {
                 | "SIGLOST"
                 | "SIGINFO";
             type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
-            type MultipleResolveType = "resolve" | "reject";
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
@@ -334,11 +333,6 @@ declare module "process" {
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
             type SignalsListener = (signal: Signals) => void;
-            type MultipleResolveListener = (
-                type: MultipleResolveType,
-                promise: Promise<unknown>,
-                value: unknown,
-            ) => void;
             type WorkerListener = (worker: Worker) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
@@ -1971,7 +1965,6 @@ declare module "process" {
                 addListener(event: "message", listener: MessageListener): this;
                 addListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
                 addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
                 addListener(event: "worker", listener: WorkerListener): this;
                 emit(event: "beforeExit", code: number): boolean;
                 emit(event: "disconnect"): boolean;
@@ -1984,12 +1977,6 @@ declare module "process" {
                 emit(event: "message", message: unknown, sendHandle: SendHandle): this;
                 emit(event: "workerMessage", value: any, source: number): this;
                 emit(event: Signals, signal?: Signals): boolean;
-                emit(
-                    event: "multipleResolves",
-                    type: MultipleResolveType,
-                    promise: Promise<unknown>,
-                    value: unknown,
-                ): this;
                 emit(event: "worker", listener: WorkerListener): this;
                 on(event: "beforeExit", listener: BeforeExitListener): this;
                 on(event: "disconnect", listener: DisconnectListener): this;
@@ -2002,7 +1989,6 @@ declare module "process" {
                 on(event: "message", listener: MessageListener): this;
                 on(event: "workerMessage", listener: (value: any, source: number) => void): this;
                 on(event: Signals, listener: SignalsListener): this;
-                on(event: "multipleResolves", listener: MultipleResolveListener): this;
                 on(event: "worker", listener: WorkerListener): this;
                 on(event: string | symbol, listener: (...args: any[]) => void): this;
                 once(event: "beforeExit", listener: BeforeExitListener): this;
@@ -2016,7 +2002,6 @@ declare module "process" {
                 once(event: "message", listener: MessageListener): this;
                 once(event: "workerMessage", listener: (value: any, source: number) => void): this;
                 once(event: Signals, listener: SignalsListener): this;
-                once(event: "multipleResolves", listener: MultipleResolveListener): this;
                 once(event: "worker", listener: WorkerListener): this;
                 once(event: string | symbol, listener: (...args: any[]) => void): this;
                 prependListener(event: "beforeExit", listener: BeforeExitListener): this;
@@ -2030,7 +2015,6 @@ declare module "process" {
                 prependListener(event: "message", listener: MessageListener): this;
                 prependListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
                 prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
                 prependListener(event: "worker", listener: WorkerListener): this;
                 prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
                 prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
@@ -2043,7 +2027,6 @@ declare module "process" {
                 prependOnceListener(event: "message", listener: MessageListener): this;
                 prependOnceListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
                 prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
                 prependOnceListener(event: "worker", listener: WorkerListener): this;
                 listeners(event: "beforeExit"): BeforeExitListener[];
                 listeners(event: "disconnect"): DisconnectListener[];
@@ -2056,7 +2039,6 @@ declare module "process" {
                 listeners(event: "message"): MessageListener[];
                 listeners(event: "workerMessage"): ((value: any, source: number) => void)[];
                 listeners(event: Signals): SignalsListener[];
-                listeners(event: "multipleResolves"): MultipleResolveListener[];
                 listeners(event: "worker"): WorkerListener[];
             }
         }
