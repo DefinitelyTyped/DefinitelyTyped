@@ -1,10 +1,8 @@
 import {
-    constants,
     createHistogram,
     EntryType,
     IntervalHistogram,
     monitorEventLoopDelay,
-    NodeGCPerformanceDetail,
     performance as NodePerf,
     PerformanceEntry,
     PerformanceMark,
