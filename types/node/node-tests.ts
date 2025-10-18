@@ -39,6 +39,7 @@ import "./test/tty";
 import "./test/url";
 import "./test/util_types";
 import "./test/util";
+import "./test/util-isDeepStrictEqual";
 import "./test/v8";
 import "./test/vm";
 import "./test/wasi";
