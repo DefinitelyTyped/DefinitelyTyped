@@ -40,6 +40,10 @@ import * as url from "node:url";
         headersTimeout: 50000,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
+        shouldUpgradeCallback(request) {
+            request; // $ExpectType IncomingMessage
+            return true;
+        },
     }, reqListener);
 
     server.close();
