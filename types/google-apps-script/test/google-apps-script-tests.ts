@@ -599,6 +599,11 @@ CardService.newAction().setInteraction(CardService.Interaction.OPEN_DIALOG); // 
 
 CardService.newTextButton().setAltText("alt text"); // $ExpectType TextButton
 
+CardService.newTextButton().setTextButtonStyle(CardService.TextButtonStyle.OUTLINED); // $ExpectType TextButton
+CardService.newTextButton().setTextButtonStyle(CardService.TextButtonStyle.FILLED); // $ExpectType TextButton
+CardService.newTextButton().setTextButtonStyle(CardService.TextButtonStyle.FILLED_TONAL); // $ExpectType TextButton
+CardService.newTextButton().setTextButtonStyle(CardService.TextButtonStyle.BORDERLESS); // $ExpectType TextButton
+
 CardService.newLinkPreview().setTitle("Smart chip title"); // $ExpectType LinkPreview
 
 CardService.newDecoratedText(); // $ExpectType DecoratedText
