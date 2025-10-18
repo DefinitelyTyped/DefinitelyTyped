@@ -831,13 +831,19 @@ declare namespace GoogleAppsScript {
         /**
          * An enum that specifies the style for TextButton.
          *
-         * TEXT is the default; it renders a simple text button with clear background.
+         * OUTLINED is the default; it renders a simple text button with clear background.
          * FILLED buttons have a background color you can set with
          * TextButton.setBackgroundColor(backgroundColor).
+         *
+         * To call an enum, you call its parent class, name, and property.
+         * For example, CardService.TextButtonStyle.OUTLINED.
          */
         enum TextButtonStyle {
-            TEXT,
+            OUTLINED,
+            /** @deprecated DO NOT USE */ TEXT,
             FILLED,
+            FILLED_TONAL,
+            BORDERLESS,
         }
         /**
          * A input field widget that accepts text input.
