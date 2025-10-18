@@ -454,10 +454,4 @@ declare module "buffer" {
         type NonSharedBuffer = Buffer<ArrayBuffer>;
         type AllowSharedBuffer = Buffer<ArrayBufferLike>;
     }
-    /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-    var SlowBuffer: {
-        /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-        new(size: number): Buffer<ArrayBuffer>;
-        prototype: Buffer;
-    };
 }
