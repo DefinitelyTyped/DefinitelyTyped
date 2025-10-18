@@ -853,6 +853,15 @@ declare module "util" {
      * @return The deprecated function wrapped to emit a warning.
      */
     export function deprecate<T extends Function>(fn: T, msg: string, code?: string): T;
+    export interface IsDeepStrictEqualOptions {
+        /**
+         * If `true`, prototype and constructor
+         * comparison is skipped during deep strict equality check.
+         * @since v24.9.0
+         * @default false
+         */
+        skipPrototype?: boolean | undefined;
+    }
     /**
      * Returns `true` if there is deep strict equality between `val1` and `val2`.
      * Otherwise, returns `false`.
@@ -861,7 +870,7 @@ declare module "util" {
      * equality.
      * @since v9.0.0
      */
-    export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
+    export function isDeepStrictEqual(val1: unknown, val2: unknown, options?: IsDeepStrictEqualOptions): boolean;
     /**
      * Returns `str` with any ANSI escape codes removed.
      *
@@ -1479,14 +1488,10 @@ declare module "util" {
     This is technically incorrect but is a much nicer UX for the common case.
     The IfDefaultsTrue version is for things which default to true; the IfDefaultsFalse version is for things which default to false.
     */
-    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue
-        : T extends false ? IfFalse
-        : IfTrue;
+    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue : T extends false ? IfFalse : IfTrue;
 
     // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
-    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse
-        : T extends true ? IfTrue
-        : IfFalse;
+    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse : T extends true ? IfTrue : IfFalse;
 
     type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
@@ -1494,13 +1499,21 @@ declare module "util" {
         string | boolean
     >;
 
-    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
-        & { -readonly [LongOption in keyof O]?: V[LongOption] }
-        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
-    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> =
+        & {
+            -readonly [LongOption in keyof O]?: V[LongOption];
+        }
+        & {
+            [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption];
+        } extends infer P ? { [K in keyof P]: P[K] }
+        : never; // resolve intersection to object
 
     type ParsedValues<T extends ParseArgsConfig> =
-        & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
+        & IfDefaultsTrue<
+            T["strict"],
+            unknown,
+            { [longOption: string]: undefined | string | boolean }
+        >
         & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
                 T["options"],
                 {
@@ -1519,10 +1532,7 @@ declare module "util" {
         IfDefaultsTrue<T["allowPositionals"], string[], []>
     >;
 
-    type PreciseTokenForOptions<
-        K extends string,
-        O extends ParseArgsOptionDescriptor,
-    > = O["type"] extends "string" ? {
+    type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionDescriptor> = O["type"] extends "string" ? {
             kind: "option";
             index: number;
             name: K;
@@ -2050,7 +2060,8 @@ declare module "util/types" {
      */
     function isMap<T>(
         object: T | {},
-    ): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>)
+    ): object is T extends ReadonlyMap<any, any> ? unknown extends T ? never
+        : ReadonlyMap<any, any>
         : Map<unknown, unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.

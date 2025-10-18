@@ -340,6 +340,17 @@ declare module "http" {
          */
         uniqueHeaders?: Array<string | string[]> | undefined;
         /**
+         * A callback which receives an
+         * incoming request and returns a boolean, to control which upgrade attempts
+         * should be accepted. Accepted upgrades will fire an `'upgrade'` event (or
+         * their sockets will be destroyed, if no listener is registered) while
+         * rejected upgrades will fire a `'request'` event like any non-upgrade
+         * request.
+         * @since v24.9.0
+         * @default () => server.listenerCount('upgrade') > 0
+         */
+        shouldUpgradeCallback?: ((request: InstanceType<Request>) => boolean) | undefined;
+        /**
          * If set to `true`, an error is thrown when writing to an HTTP response which does not have a body.
          * @default false
          * @since v18.17.0, v20.2.0
