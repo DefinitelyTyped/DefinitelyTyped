@@ -702,7 +702,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isFunction<T>(value: T, message?: string): void;
+            isFunction(value: unknown, message?: string): asserts value is Function;
 
             /**
              * Asserts that value is not a function.
@@ -711,7 +711,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotFunction<T>(value: T, message?: string): void;
+            isNotFunction(value: unknown, message?: string): asserts value is Exclude<unknown, Function>;
 
             /**
              * Asserts that value is an object of type 'Object'
@@ -722,7 +722,7 @@ declare global {
              * @param message   Message to display on error.
              * @remarks The assertion does not match subclassed objects.
              */
-            isObject<T>(value: T, message?: string): void;
+            isObject(value: unknown, message?: string): asserts value is object;
 
             /**
              * Asserts that value is not an object of type 'Object'
@@ -732,7 +732,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotObject<T>(value: T, message?: string): void;
+            isNotObject(value: unknown, message?: string): asserts value is Exclude<unknown, object>;
 
             /**
              * Asserts that value is an array.
@@ -741,7 +741,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isArray<T>(value: T, message?: string): void;
+            isArray(value: unknown, message?: string): asserts value is unknown[];
 
             /**
              * Asserts that value is not an array.
@@ -750,7 +750,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotArray<T>(value: T, message?: string): void;
+            isNotArray(value: unknown, message?: string): asserts value is Exclude<unknown, unknown[]>;
 
             /**
              * Asserts that value is a string.
@@ -759,7 +759,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isString<T>(value: T, message?: string): void;
+            isString(value: unknown, message?: string): asserts value is string;
 
             /**
              * Asserts that value is not a string.
@@ -768,7 +768,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotString<T>(value: T, message?: string): void;
+            isNotString(value: unknown, message?: string): asserts value is Exclude<unknown, string>;
 
             /**
              * Asserts that value is a number.
@@ -777,7 +777,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNumber<T>(value: T, message?: string): void;
+            isNumber(value: unknown, message?: string): asserts value is number;
 
             /**
              * Asserts that value is not a number.
@@ -786,7 +786,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotNumber<T>(value: T, message?: string): void;
+            isNotNumber(value: unknown, message?: string): asserts value is Exclude<unknown, number>;
 
             /**
              * Asserts that value is a finite number.
@@ -796,7 +796,7 @@ declare global {
              * @param value    Actual value
              * @param message   Message to display on error.
              */
-            isFinite<T>(value: T, message?: string): void;
+            isFinite(value: unknown, message?: string): asserts value is number;
 
             /**
              * Asserts that value is a boolean.
@@ -805,7 +805,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isBoolean<T>(value: T, message?: string): void;
+            isBoolean(value: unknown, message?: string): asserts value is boolean;
 
             /**
              * Asserts that value is not a boolean.
@@ -814,7 +814,7 @@ declare global {
              * @param value   Actual value.
              * @param message   Message to display on error.
              */
-            isNotBoolean<T>(value: T, message?: string): void;
+            isNotBoolean(value: unknown, message?: string): asserts value is Exclude<unknown, boolean>;
 
             /**
              * Asserts that value's type is name, as determined by Object.prototype.toString.
@@ -1139,7 +1139,11 @@ declare global {
              * @param property   Potential contained property of object.
              * @param message   Message to display on error.
              */
-            property<T>(object: T, property: string, /* keyof T */ message?: string): void;
+            property<T>(
+                object: T,
+                property: string,
+                /* keyof T */ message?: string,
+            ): asserts object is T & { [property: string]: unknown };
 
             /**
              * Asserts that object does not have a property named by property.
@@ -1149,7 +1153,11 @@ declare global {
              * @param property   Potential contained property of object.
              * @param message   Message to display on error.
              */
-            notProperty<T>(object: T, property: string, /* keyof T */ message?: string): void;
+            notProperty<T>(
+                object: T,
+                property: string,
+                /* keyof T */ message?: string,
+            ): asserts object is Exclude<T, { [property: string]: unknown }>;
 
             /**
              * Asserts that object has a property named by property, which can be a string
@@ -1183,10 +1191,15 @@ declare global {
              * @param value   Potential expected property value.
              * @param message   Message to display on error.
              */
-            propertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): void;
+            propertyVal<T, V>(
+                object: T,
+                property: string,
+                /* keyof T */ value: V,
+                message?: string,
+            ): asserts object is T & { [property: string]: V };
 
             /**
-             * Asserts that object has a property named by property with value given by value.
+             * Asserts that object does not have a property named by property with value given by value.
              *
              * T   Type of object.
              * V   Type of value.
@@ -1195,7 +1208,12 @@ declare global {
              * @param value   Potential expected property value.
              * @param message   Message to display on error.
              */
-            notPropertyVal<T, V>(object: T, property: string, /* keyof T */ value: V, message?: string): void;
+            notPropertyVal<T, V>(
+                object: T,
+                property: string,
+                /* keyof T */ value: V,
+                message?: string,
+            ): asserts object is Exclude<T, { [property: string]: V }>;
 
             /**
              * Asserts that object has a property named by property, which can be a string
