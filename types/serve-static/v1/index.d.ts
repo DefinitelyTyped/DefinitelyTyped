@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import * as http from "http";
 import { HttpError } from "http-errors";
+import * as send from "send";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -13,6 +14,7 @@ declare function serveStatic<R extends http.ServerResponse>(
 ): serveStatic.RequestHandler<R>;
 
 declare namespace serveStatic {
+    var mime: typeof send.mime;
     interface ServeStaticOptions<R extends http.ServerResponse = http.ServerResponse> {
         /**
          * Enable or disable accepting ranged requests, defaults to true.
@@ -50,19 +52,7 @@ declare namespace serveStatic {
         extensions?: string[] | false | undefined;
 
         /**
-         * Set the middleware to have client errors fall-through as just unhandled requests,
-         * otherwise forward a client error.
-         * The difference is that client errors like a bad request or a request to a non-existent file
-         * will cause this middleware to simply next() to your next middleware when this value is true.
-         * When this value is false, these errors (even 404s), will invoke next(err).
-         *
-         * Typically true is desired such that multiple physical directories can be mapped to the same web address
-         * or for routes to fill in non-existent files.
-         *
-         * The value false can be used if this middleware is mounted at a path that is designed to be strictly
-         * a single file system directory, which allows for short-circuiting 404s for less overhead.
-         * This middleware will also reply to all methods.
-         *
+         * Let client errors fall-through as unhandled requests, otherwise forward a client error.
          * The default value is true.
          */
         fallthrough?: boolean | undefined;
@@ -110,6 +100,7 @@ declare namespace serveStatic {
 
     interface RequestHandlerConstructor<R extends http.ServerResponse> {
         (root: string, options?: ServeStaticOptions<R>): RequestHandler<R>;
+        mime: typeof send.mime;
     }
 }
 
