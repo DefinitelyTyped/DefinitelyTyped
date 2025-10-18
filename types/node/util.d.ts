@@ -10,6 +10,56 @@
  */
 declare module "util" {
     import * as types from "node:util/types";
+    export type InspectStyle =
+        | "special"
+        | "number"
+        | "bigint"
+        | "boolean"
+        | "undefined"
+        | "null"
+        | "string"
+        | "symbol"
+        | "date"
+        | "name"
+        | "regexp"
+        | "module";
+    export interface InspectStyles extends Record<InspectStyle, InspectColor | ((value: string) => string)> {
+        regexp: {
+            (value: string): string;
+            colors: InspectColor[];
+        };
+    }
+    export type InspectColorModifier =
+        | "reset"
+        | "bold"
+        | "dim"
+        | "italic"
+        | "underline"
+        | "blink"
+        | "inverse"
+        | "hidden"
+        | "strikethrough"
+        | "doubleunderline";
+    export type InspectColorForeground =
+        | "black"
+        | "red"
+        | "green"
+        | "yellow"
+        | "blue"
+        | "magenta"
+        | "cyan"
+        | "white"
+        | "gray"
+        | "redBright"
+        | "greenBright"
+        | "yellowBright"
+        | "blueBright"
+        | "magentaBright"
+        | "cyanBright"
+        | "whiteBright";
+    export type InspectColorBackground = `bg${Capitalize<InspectColorForeground>}`;
+    export type InspectColor = InspectColorModifier | InspectColorForeground | InspectColorBackground;
+    export interface InspectColors extends Record<InspectColor, [number, number]> {}
     export interface InspectOptions {
         /**
          * If `true`, object's non-enumerable symbols and properties are included in the formatted result.
@@ -92,22 +142,26 @@ declare module "util" {
          */
         numericSeparator?: boolean | undefined;
     }
-    export type Style =
-        | "special"
-        | "number"
-        | "bigint"
-        | "boolean"
-        | "undefined"
-        | "null"
-        | "string"
-        | "symbol"
-        | "date"
-        | "regexp"
-        | "module";
-    export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => any; // TODO: , inspect: inspect
-    export interface InspectOptionsStylized extends InspectOptions {
-        stylize(text: string, styleType: Style): string;
+    export interface InspectContext extends Required<InspectOptions> {
+        stylize(text: string, styleType: InspectStyle): string;
     }
+    import _inspect = inspect;
+    export interface Inspectable {
+        [inspect.custom](depth: number, options: InspectContext, inspect: typeof _inspect): any;
+    }
+    // TODO: Remove these in a future major
+    /** @deprecated Use `InspectStyle` instead. */
+    export type Style = Exclude<InspectStyle, "name">;
+    /** @deprecated Use the `Inspectable` interface instead. */
+    export type CustomInspectFunction = (depth: number, options: InspectContext) => any;
+    /** @deprecated Use `InspectContext` instead. */
+    export interface InspectOptionsStylized extends InspectContext {}
+    /** @deprecated Use `InspectColorModifier` instead. */
+    export type Modifiers = InspectColorModifier;
+    /** @deprecated Use `InspectColorForeground` instead. */
+    export type ForegroundColors = InspectColorForeground;
+    /** @deprecated Use `InspectColorBackground` instead. */
+    export type BackgroundColors = InspectColorBackground;
     export interface CallSiteObject {
         /**
          * Returns the name of the function associated with this call site.
@@ -609,19 +663,11 @@ declare module "util" {
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
-        let colors: NodeJS.Dict<[number, number]>;
-        let styles: {
-            [K in Style]: string;
-        };
-        let defaultOptions: InspectOptions;
-        /**
-         * Allows changing inspect settings from the repl.
-         */
-        let replDefaults: InspectOptions;
-        /**
-         * That can be used to declare custom inspect functions.
-         */
         const custom: unique symbol;
+        let colors: InspectColors;
+        let styles: InspectStyles;
+        let defaultOptions: InspectOptions;
+        let replDefaults: InspectOptions;
     }
     /**
      * Alias for [`Array.isArray()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray).
@@ -1136,61 +1182,6 @@ declare module "util" {
      * @since v20.12.0
      */
     export function parseEnv(content: string): NodeJS.Dict<string>;
-    // https://nodejs.org/docs/latest/api/util.html#foreground-colors
-    type ForegroundColors =
-        | "black"
-        | "blackBright"
-        | "blue"
-        | "blueBright"
-        | "cyan"
-        | "cyanBright"
-        | "gray"
-        | "green"
-        | "greenBright"
-        | "grey"
-        | "magenta"
-        | "magentaBright"
-        | "red"
-        | "redBright"
-        | "white"
-        | "whiteBright"
-        | "yellow"
-        | "yellowBright";
-    // https://nodejs.org/docs/latest/api/util.html#background-colors
-    type BackgroundColors =
-        | "bgBlack"
-        | "bgBlackBright"
-        | "bgBlue"
-        | "bgBlueBright"
-        | "bgCyan"
-        | "bgCyanBright"
-        | "bgGray"
-        | "bgGreen"
-        | "bgGreenBright"
-        | "bgGrey"
-        | "bgMagenta"
-        | "bgMagentaBright"
-        | "bgRed"
-        | "bgRedBright"
-        | "bgWhite"
-        | "bgWhiteBright"
-        | "bgYellow"
-        | "bgYellowBright";
-    // https://nodejs.org/docs/latest/api/util.html#modifiers
-    type Modifiers =
-        | "blink"
-        | "bold"
-        | "dim"
-        | "doubleunderline"
-        | "framed"
-        | "hidden"
-        | "inverse"
-        | "italic"
-        | "none"
-        | "overlined"
-        | "reset"
-        | "strikethrough"
-        | "underline";
     export interface StyleTextOptions {
         /**
          * When true, `stream` is checked to see if it can handle colors.
@@ -1251,11 +1242,7 @@ declare module "util" {
      * @since v20.12.0
      */
     export function styleText(
-        format:
-            | ForegroundColors
-            | BackgroundColors
-            | Modifiers
-            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+        format: InspectColor | readonly InspectColor[],
         text: string,
         options?: StyleTextOptions,
     ): string;
