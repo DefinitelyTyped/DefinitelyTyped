@@ -499,6 +499,10 @@ docker.pruneImages((err, response) => {
     // NOOP
 });
 
+docker.pruneBuilder((err, response) => {
+    // NOOP
+});
+
 docker.pruneNetworks((err, response) => {
     // NOOP
 });
