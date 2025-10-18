@@ -39,17 +39,31 @@ util.inspect(["This is nice"], {
 });
 assert(typeof util.inspect.custom === "symbol");
 
-util.inspect.replDefaults = {
-    colors: true,
-};
+{
+    const { styles } = util.inspect;
+    util.inspect.styles = {
+        ...styles,
+        name: "yellow",
+    };
+    util.inspect.styles.regexp.colors = ["red", "green", "blue"];
+    util.inspect.replDefaults = {
+        colors: true,
+    };
+}
 
-util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize("woop", "module")),
-});
-
-util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: "baz" })),
-});
+{
+    interface CustomInspectable extends util.Inspectable {}
+    const inspectable: CustomInspectable = {
+        [util.inspect.custom](depth, options, inspect) {
+            this; // $ExpectType CustomInspectable
+            depth; // $ExpectType number
+            options; // $ExpectType InspectContext
+            inspect; // $ExpectType typeof inspect
+            return options.stylize("CustomInspectable", "name");
+        },
+    };
+    util.inspect(inspectable);
+}
 
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
