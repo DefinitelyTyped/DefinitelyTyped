@@ -17,6 +17,8 @@ const contactFlowHandler: ConnectContactFlowHandler = async (event, context, cal
 
     strOrUndefined = event.Details.ContactData.Attributes[num];
     channel = event.Details.ContactData.Channel;
+    // Test EMAIL channel assignment
+    channel = "EMAIL";
     str = event.Details.ContactData.ContactId;
     endpoint = event.Details.ContactData.CustomerEndpoint;
     str = event.Details.ContactData.InitialContactId;

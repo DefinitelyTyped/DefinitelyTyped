@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/http-errors": "*",
         "@types/node": "*",
-        "@types/send": "*"
+        "@types/send": "<1"
     },
     "devDependencies": {
         "@types/express": "*",

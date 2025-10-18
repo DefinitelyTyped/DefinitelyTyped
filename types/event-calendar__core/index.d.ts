@@ -55,6 +55,10 @@ export namespace Calendar {
         active?: boolean;
     }
 
+    interface CustomButtons {
+        [key: string]: CustomButton;
+    }
+
     interface View {
         type: string;
         title: string;
@@ -175,6 +179,12 @@ export namespace Calendar {
         index: number;
         events: Event[];
         view: View;
+    }
+
+    interface EventOrderInfo {
+        start: Date;
+        end: Date;
+        event: Event;
     }
 
     interface EventResizeInfo {
@@ -299,7 +309,7 @@ export namespace Calendar {
         allDayContent?: Content;
         allDaySlot?: boolean;
         buttonText?: ButtonTextMapping | ((text: ButtonTextMapping) => ButtonTextMapping);
-        customButtons?: Record<string, CustomButton>;
+        customButtons?: CustomButtons | ((customButtons: CustomButtons) => CustomButtons);
         date?: Date | string | undefined;
         dateClick?: (info: DateClickInfo) => void;
         datesAboveResources?: boolean;
@@ -331,6 +341,8 @@ export namespace Calendar {
         eventLongPressDelay?: number;
         eventMouseEnter?: (info: MouseEnterInfo) => void;
         eventMouseLeave?: (info: MouseEnterInfo) => void;
+        eventOrder?: (a: EventOrderInfo, b: EventOrderInfo) => number;
+        eventResizableFromStart?: boolean;
         eventResize?: (info: EventResizeInfo) => void;
         eventResizeStart?: (info: EventDuringResizeInfo) => void;
         eventResizeStop?: (info: EventDuringResizeInfo) => void;

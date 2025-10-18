@@ -592,6 +592,11 @@ function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
     }
 }
 
+CardService.newAction(); // $ExpectType Action
+CardService.newAction().addRequiredWidget(""); // $ExpectType Action
+CardService.newAction().setAllWidgetsAreRequired(true); // $ExpectType Action
+CardService.newAction().setInteraction(CardService.Interaction.OPEN_DIALOG); // $ExpectType Action
+
 CardService.newTextButton().setAltText("alt text"); // $ExpectType TextButton
 
 CardService.newLinkPreview().setTitle("Smart chip title"); // $ExpectType LinkPreview
@@ -627,6 +632,10 @@ CardService.newMaterialIcon().setGrade(100); // $ExpectType MaterialIcon
 CardService.newMaterialIcon().setName(""); // $ExpectType MaterialIcon
 CardService.newMaterialIcon().setWeight(100); // $ExpectType MaterialIcon
 
+CardService.newValidation(); // $ExpectType Validation
+CardService.newValidation().setCharacterLimit(10); // $ExpectType Validation
+CardService.newValidation().setInputType(CardService.InputType.TEXT); // $ExpectType Validation
+
 // CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
 CardService.DisplayStyle.PEEK;
 CardService.DisplayStyle.REPLACE;
@@ -643,6 +652,13 @@ CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $Exp
 // Class CardService.SelectionInput
 // https://developers.google.com/apps-script/reference/card-service/selection-input
 CardService.newSelectionInput(); // $ExpectType SelectionInput
+CardService.newSelectionInput().addItem("", "", true); // $ExpectType SelectionInput
+CardService.newSelectionInput().addMultiSelectItem("", "", false, "", ""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setFieldName(""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setMultiSelectMaxSelectedItems(5); // $ExpectType SelectionInput
+CardService.newSelectionInput().setMultiSelectMinQueryLength(1); // $ExpectType SelectionInput
+CardService.newSelectionInput().setTitle(""); // $ExpectType SelectionInput
+CardService.newSelectionInput().setType(CardService.SelectionInputType.CHECK_BOX); // $ExpectType SelectionInput
 
 // Enum SelectionInputType
 // https://developers.google.com/apps-script/reference/card-service/selection-input-type

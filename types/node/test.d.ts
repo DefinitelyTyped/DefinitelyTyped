@@ -79,6 +79,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
  */
 declare module "node:test" {
+    import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
@@ -342,6 +343,13 @@ declare module "node:test" {
              * @default undefined
              */
             shard?: TestShard | undefined;
+            /**
+             * A file path where the test runner will
+             * store the state of the tests to allow rerunning only the failed tests on a next run.
+             * @since v24.7.0
+             * @default undefined
+             */
+            rerunFailuresFilePath?: string | undefined;
             /**
              * enable [code coverage](https://nodejs.org/docs/latest-v24.x/api/test.html#collecting-code-coverage) collection.
              * @since v22.10.0
@@ -710,7 +718,7 @@ declare module "node:test" {
                     /**
                      * The type of the test, used to denote whether this is a suite.
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
                 };
                 /**
                  * The test name.
@@ -780,7 +788,13 @@ declare module "node:test" {
                      * The type of the test, used to denote whether this is a suite.
                      * @since v20.0.0, v19.9.0, v18.17.0
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
+                    /**
+                     * The attempt number of the test run,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    attempt?: number;
                 };
                 /**
                  * The test name.
@@ -816,7 +830,19 @@ declare module "node:test" {
                      * The type of the test, used to denote whether this is a suite.
                      * @since 20.0.0, 19.9.0, 18.17.0
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
+                    /**
+                     * The attempt number of the test run,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    attempt?: number;
+                    /**
+                     * The attempt number the test passed on,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    passed_on_attempt?: number;
                 };
                 /**
                  * The test name.
@@ -961,6 +987,7 @@ declare module "node:test" {
              * @since v22.2.0, v20.15.0
              */
             readonly assert: TestContextAssert;
+            readonly attempt: number;
             /**
              * This function is used to create a hook running before subtest of the current test.
              * @param fn The hook function. The first argument to this function is a `TestContext` object.
@@ -1171,29 +1198,7 @@ declare module "node:test" {
              */
             readonly mock: MockTracker;
         }
-        interface TestContextAssert extends
-            Pick<
-                typeof import("assert"),
-                | "deepEqual"
-                | "deepStrictEqual"
-                | "doesNotMatch"
-                | "doesNotReject"
-                | "doesNotThrow"
-                | "equal"
-                | "fail"
-                | "ifError"
-                | "match"
-                | "notDeepEqual"
-                | "notDeepStrictEqual"
-                | "notEqual"
-                | "notStrictEqual"
-                | "ok"
-                | "partialDeepStrictEqual"
-                | "rejects"
-                | "strictEqual"
-                | "throws"
-            >
-        {
+        interface TestContextAssert extends Pick<typeof import("assert"), AssertMethodNames> {
             /**
              * This function serializes `value` and writes it to the file specified by `path`.
              *

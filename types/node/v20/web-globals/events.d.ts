@@ -51,6 +51,7 @@ interface EventListenerObject {
     handleEvent(object: Event): void;
 }
 
+type _EventListenerOptions = typeof globalThis extends { onmessage: any } ? {} : EventListenerOptions;
 interface EventListenerOptions {
     capture?: boolean;
 }
@@ -84,6 +85,8 @@ declare global {
             prototype: Event;
             new(type: string, eventInitDict?: EventInit): Event;
         };
+
+    interface EventListenerOptions extends _EventListenerOptions {}
 
     interface EventTarget extends _EventTarget {}
     var EventTarget: typeof globalThis extends { onmessage: any; EventTarget: infer T } ? T

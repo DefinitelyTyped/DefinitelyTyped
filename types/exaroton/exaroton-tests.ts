@@ -23,6 +23,8 @@ const startServer = async (name: string) => {
     options.get("max-players")?.setValue(26);
     options.get("pvp")?.setValue(false);
 
+    await myServer.extendStopTime(120);
+
     await config.save();
 
     let pools = await client.getPools();

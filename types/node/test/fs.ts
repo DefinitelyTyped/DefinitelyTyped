@@ -1153,3 +1153,19 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     // @ts-expect-error
     fd.readFile({ encoding: "utf-8", flag: "r" });
 });
+
+{
+    const u8s = new fs.Utf8Stream({
+        dest: "/tmp/out",
+        append: false,
+        contentMode: "utf8",
+        retryEAGAIN: () => true,
+        sync: true,
+    });
+    u8s.on("write", (n) => {
+        n; // $ExpectType number
+    });
+    u8s.write("the quick brown fox jumped over the lazy dog");
+    u8s.flushSync();
+    u8s.end();
+}

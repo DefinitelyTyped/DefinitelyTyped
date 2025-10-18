@@ -30,10 +30,10 @@ declare module "os" {
         mac: string;
         internal: boolean;
         cidr: string | null;
+        scopeid?: number;
     }
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
         family: "IPv4";
-        scopeid?: undefined;
     }
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
         family: "IPv6";
@@ -231,6 +231,15 @@ declare module "os" {
      * @since v2.3.0
      */
     function homedir(): string;
+    interface UserInfoOptions {
+        encoding?: BufferEncoding | "buffer" | undefined;
+    }
+    interface UserInfoOptionsWithBufferEncoding extends UserInfoOptions {
+        encoding: "buffer";
+    }
+    interface UserInfoOptionsWithStringEncoding extends UserInfoOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     /**
      * Returns information about the currently effective user. On POSIX platforms,
      * this is typically a subset of the password file. The returned object includes
@@ -244,8 +253,9 @@ declare module "os" {
      * Throws a [`SystemError`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-systemerror) if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
-    function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
-    function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
+    function userInfo(options: UserInfoOptionsWithBufferEncoding): UserInfo<Buffer>;
+    function userInfo(options?: UserInfoOptionsWithStringEncoding): UserInfo<string>;
+    function userInfo(options: UserInfoOptions): UserInfo<string | Buffer>;
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
     };

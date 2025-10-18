@@ -19,6 +19,18 @@ import * as url from "node:url";
 
     agent = https.globalAgent;
 
+    class CustomAgent extends https.Agent {
+        createConnection(options: https.RequestOptions, callback?: (err: Error | null, socket: net.Socket) => void) {
+            const socket = new net.Socket(options);
+            callback?.(null, socket);
+            return socket;
+        }
+        getName(options: https.RequestOptions) {
+            return `${super.getName(options)}:${options?.ca}:${options?.cert}:${options?.key}`;
+        }
+    }
+    agent = new CustomAgent();
+
     let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
     sockets = agent.freeSockets;
 

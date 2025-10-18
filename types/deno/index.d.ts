@@ -92,7 +92,7 @@ declare namespace Deno {
          * @category Errors */
         export class AlreadyExists extends Error {}
         /**
-         * Raised when an operation to returns data that is invalid for the
+         * Raised when an operation returns data that is invalid for the
          * operation being performed.
          *
          * @category Errors */
@@ -106,7 +106,7 @@ declare namespace Deno {
         /**
          * Raised when the underlying operating system reports an `EINTR` error. In
          * many cases, this underlying IO error will be handled internally within
-         * Deno, or result in an @{link BadResource} error instead.
+         * Deno, or result in an {@link BadResource} error instead.
          *
          * @category Errors */
         export class Interrupted extends Error {}
@@ -1024,6 +1024,78 @@ declare namespace Deno {
             options: Omit<TestDefinition, "fn" | "only">,
             fn: (t: TestContext) => void | Promise<void>,
         ): void;
+
+        /** Register a function to be called before all tests in the current scope.
+         *
+         * These functions are run in FIFO order (first in, first out).
+         *
+         * If an exception is raised during execution of this hook, the remaining `beforeAll` hooks will not be run.
+         *
+         * ```ts
+         * Deno.test.beforeAll(() => {
+         *   // Setup code that runs once before all tests
+         *   console.log("Setting up test suite");
+         * });
+         * ```
+         *
+         * @category Testing
+         */
+        beforeAll(
+            fn: () => void | Promise<void>,
+        ): void;
+
+        /** Register a function to be called before each test in the current scope.
+         *
+         * These functions are run in FIFO order (first in, first out).
+         *
+         * If an exception is raised during execution of this hook, the remaining hooks will not be run and the currently running
+         * test case will be marked as failed.
+         *
+         * ```ts
+         * Deno.test.beforeEach(() => {
+         *   // Setup code that runs before each test
+         *   console.log("Setting up test");
+         * });
+         * ```
+         *
+         * @category Testing
+         */
+        beforeEach(fn: () => void | Promise<void>): void;
+
+        /** Register a function to be called after each test in the current scope.
+         *
+         * These functions are run in LIFO order (last in, first out).
+         *
+         * If an exception is raised during execution of this hook, the remaining hooks will not be run and the currently running
+         * test case will be marked as failed.
+         *
+         * ```ts
+         * Deno.test.afterEach(() => {
+         *   // Cleanup code that runs after each test
+         *   console.log("Cleaning up test");
+         * });
+         * ```
+         *
+         * @category Testing
+         */
+        afterEach(fn: () => void | Promise<void>): void;
+
+        /** Register a function to be called after all tests in the current scope have finished running.
+         *
+         * These functions are run in the LIFO order (last in, first out).
+         *
+         * If an exception is raised during execution of this hook, the remaining `afterAll` hooks will not be run.
+         *
+         * ```ts
+         * Deno.test.afterAll(() => {
+         *   // Cleanup code that runs once after all tests
+         *   console.log("Cleaning up test suite");
+         * });
+         * ```
+         *
+         * @category Testing
+         */
+        afterAll(fn: () => void | Promise<void>): void;
     }
 
     /**
@@ -1368,7 +1440,7 @@ declare namespace Deno {
          *
          * ```ts
          * console.log(Deno.env.get("HOME"));  // e.g. outputs "/home/alice"
-         * console.log(Deno.env.get("MADE_UP_VAR"));  // outputs "undefined"
+         * console.log(Deno.env.get("MADE_UP_VAR"));  // outputs undefined
          * ```
          *
          * Requires `allow-env` permission.
@@ -1449,9 +1521,6 @@ declare namespace Deno {
      * console.log(Deno.execPath());  // e.g. "/home/alice/.local/bin/deno"
      * ```
      *
-     * Requires `allow-read` permission.
-     *
-     * @tags allow-read
      * @category Runtime
      */
     export function execPath(): string;
@@ -2562,7 +2631,8 @@ declare namespace Deno {
      * | 1      | execute only |
      * | 0      | no permission |
      *
-     * NOTE: This API currently throws on Windows
+     * Note: On Windows, only the read and write permissions can be modified.
+     * Distinctions between owner, group, and others are not supported.
      *
      * Requires `allow-write` permission.
      *
@@ -2579,8 +2649,6 @@ declare namespace Deno {
      * ```
      *
      * For a full description, see {@linkcode Deno.chmod}.
-     *
-     * NOTE: This API currently throws on Windows
      *
      * Requires `allow-write` permission.
      *
@@ -3300,24 +3368,6 @@ declare namespace Deno {
      */
     export function truncateSync(name: string, len?: number): void;
 
-    /** @category Runtime
-     *
-     * @deprecated This will be removed in Deno 2.0.
-     */
-    export interface OpMetrics {
-        opsDispatched: number;
-        opsDispatchedSync: number;
-        opsDispatchedAsync: number;
-        opsDispatchedAsyncUnref: number;
-        opsCompleted: number;
-        opsCompletedSync: number;
-        opsCompletedAsync: number;
-        opsCompletedAsyncUnref: number;
-        bytesSentControl: number;
-        bytesSentData: number;
-        bytesReceived: number;
-    }
-
     /**
      * Additional information for FsEvent objects with the "other" kind.
      *
@@ -3599,8 +3649,8 @@ declare namespace Deno {
      */
     export class ChildProcess implements AsyncDisposable {
         get stdin(): WritableStream<Uint8Array<ArrayBufferLike>>;
-        get stdout(): ReadableStream<Uint8Array<ArrayBuffer>>;
-        get stderr(): ReadableStream<Uint8Array<ArrayBuffer>>;
+        get stdout(): SubprocessReadableStream;
+        get stderr(): SubprocessReadableStream;
         readonly pid: number;
         /** Get the status of the child. */
         readonly status: Promise<CommandStatus>;
@@ -3624,6 +3674,35 @@ declare namespace Deno {
         unref(): void;
 
         [Symbol.asyncDispose](): Promise<void>;
+    }
+
+    /**
+     * The interface for stdout and stderr streams for child process returned from
+     * {@linkcode Deno.Command.spawn}.
+     *
+     * @category Subprocess
+     */
+    export interface SubprocessReadableStream extends ReadableStream<Uint8Array<ArrayBuffer>> {
+        /**
+         * Reads the stream to completion. It returns a promise that resolves with
+         * an `ArrayBuffer`.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
+        /**
+         * Reads the stream to completion. It returns a promise that resolves with
+         * a `Uint8Array`.
+         */
+        bytes(): Promise<Uint8Array<ArrayBuffer>>;
+        /**
+         * Reads the stream to completion. It returns a promise that resolves with
+         * the result of parsing the body text as JSON.
+         */
+        json(): Promise<any>;
+        /**
+         * Reads the stream to completion. It returns a promise that resolves with
+         * a `USVString` (text).
+         */
+        text(): Promise<string>;
     }
 
     /**
@@ -3688,6 +3767,20 @@ declare namespace Deno {
          *
          * @default {false} */
         windowsRawArguments?: boolean;
+
+        /** Whether to detach the spawned process from the current process.
+         * This allows the spawned process to continue running after the current
+         * process exits.
+         *
+         * Note: In order to allow the current process to exit, you need to ensure
+         * you call `unref()` on the child process.
+         *
+         * In addition, the stdio streams – if inherited or piped – may keep the
+         * current process from exiting until the streams are closed.
+         *
+         * @default {false}
+         */
+        detached?: boolean;
     }
 
     /**
@@ -3948,6 +4041,21 @@ declare namespace Deno {
         path?: string | URL;
     }
 
+    /** The permission descriptor for the `allow-import` and `deny-import` permissions, which controls
+     * access to importing from remote hosts via the network. The option `host` allows scoping the
+     * permission for outbound connection to a specific host and port.
+     *
+     * @category Permissions */
+    export interface ImportPermissionDescriptor {
+        name: "import";
+        /** Optional host string of the form `"<hostname>[:<port>]"`. Examples:
+         *
+         *      "github.com"
+         *      "deno.land:8080"
+         */
+        host?: string;
+    }
+
     /** Permission descriptors which define a permission and can be queried,
      * requested, or revoked.
      *
@@ -3963,7 +4071,8 @@ declare namespace Deno {
         | NetPermissionDescriptor
         | EnvPermissionDescriptor
         | SysPermissionDescriptor
-        | FfiPermissionDescriptor;
+        | FfiPermissionDescriptor
+        | ImportPermissionDescriptor;
 
     /** The interface which defines what event types are supported by
      * {@linkcode PermissionStatus} instances.
@@ -4955,6 +5064,12 @@ declare namespace Deno {
          * @category HTTP Server
          */
         fetch: ServeHandler;
+        /**
+         * The callback which is called when the server starts listening.
+         *
+         * @category HTTP Server
+         */
+        onListen?: (localAddr: Deno.Addr) => void;
     }
 
     /** Options which can be set when calling {@linkcode Deno.serve}.
@@ -5001,6 +5116,18 @@ declare namespace Deno {
 
         /** Sets `SO_REUSEPORT` on POSIX systems. */
         reusePort?: boolean;
+
+        /** Maximum number of pending connections in the listen queue.
+         *
+         * This parameter controls how many incoming connections can be queued by the
+         * operating system while waiting for the application to accept them. If more
+         * connections arrive when the queue is full, they will be refused.
+         *
+         * The kernel may adjust this value (e.g., rounding up to the next power of 2
+         * plus 1). Different operating systems have different maximum limits.
+         *
+         * @default {511} */
+        tcpBacklog?: number;
     }
 
     /**
@@ -5522,7 +5649,7 @@ declare namespace Deno {
      *
      * @category FFI
      */
-    export type FromNativeType<T extends NativeType = NativeType> = T extends NativeStructType ? Uint8Array
+    export type FromNativeType<T extends NativeType = NativeType> = T extends NativeStructType ? Uint8Array<ArrayBuffer>
         : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
             : T extends NativeI8Enum<infer U> ? U
             : T extends NativeU16Enum<infer U> ? U
@@ -5545,7 +5672,7 @@ declare namespace Deno {
      */
     export type FromNativeResultType<
         T extends NativeResultType = NativeResultType,
-    > = T extends NativeStructType ? Uint8Array
+    > = T extends NativeStructType ? Uint8Array<ArrayBuffer>
         : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
             : T extends NativeI8Enum<infer U> ? U
             : T extends NativeU16Enum<infer U> ? U
@@ -6030,7 +6157,7 @@ declare namespace Deno {
          *
          * Must be in PEM format. */
         caCerts?: string[];
-        /** A HTTP proxy to use for new connections. */
+        /** An alternative transport (a proxy) to use for new connections. */
         proxy?: Proxy;
         /** Sets the maximum number of idle connections per host allowed in the pool. */
         poolMaxIdlePerHost?: number;
@@ -6058,17 +6185,53 @@ declare namespace Deno {
     }
 
     /**
-     * The definition of a proxy when specifying
+     * The definition for alternative transports (or proxies) in
      * {@linkcode Deno.CreateHttpClientOptions}.
+     *
+     * Supported proxies:
+     *  - HTTP/HTTPS proxy: this uses passthrough to tunnel HTTP requests, or HTTP
+     *    CONNECT to tunnel HTTPS requests through a different server.
+     *  - SOCKS5 proxy: this uses the SOCKS5 protocol to tunnel TCP connections
+     *    through a different server.
+     *  - TCP socket: this sends all requests to a specified TCP socket.
+     *  - Unix domain socket: this sends all requests to a local Unix domain
+     *    socket rather than a TCP socket. *Not supported on Windows.*
+     *  - Vsock socket: this sends all requests to a local vsock socket.
+     *    *Only supported on Linux and macOS.*
      *
      * @category Fetch
      */
-    export interface Proxy {
-        /** The string URL of the proxy server to use. */
+    export type Proxy = {
+        transport?: "http" | "https" | "socks5";
+        /**
+         * The string URL of the proxy server to use.
+         *
+         * For `http` and `https` transports, the URL must start with `http://` or
+         * `https://` respectively, or be a plain hostname.
+         *
+         * For `socks` transport, the URL must start with `socks5://` or
+         * `socks5h://`.
+         */
         url: string;
         /** The basic auth credentials to be used against the proxy server. */
         basicAuth?: BasicAuth;
-    }
+    } | {
+        transport: "tcp";
+        /** The hostname of the TCP server to connect to. */
+        hostname: string;
+        /** The port of the TCP server to connect to. */
+        port: number;
+    } | {
+        transport: "unix";
+        /** The path to the unix domain socket to use. */
+        path: string;
+    } | {
+        transport: "vsock";
+        /** The CID (Context Identifier) of the vsock to connect to. */
+        cid: number;
+        /** The port of the vsock to connect to. */
+        port: number;
+    };
 
     /**
      * Basic authentication credentials to be used with a {@linkcode Deno.Proxy}
@@ -6119,6 +6282,89 @@ declare namespace Deno {
             | CreateHttpClientOptions
             | (CreateHttpClientOptions & TlsCertifiedKeyPem),
     ): HttpClient;
+
+    /**
+     * APIs for working with the OpenTelemetry observability framework. Deno can
+     * export traces, metrics, and logs to OpenTelemetry compatible backends via
+     * the OTLP protocol.
+     *
+     * Deno automatically instruments the runtime with OpenTelemetry traces and
+     * metrics. This data is exported via OTLP to OpenTelemetry compatible
+     * backends. User logs from the `console` API are exported as OpenTelemetry
+     * logs via OTLP.
+     *
+     * User code can also create custom traces, metrics, and logs using the
+     * OpenTelemetry API. This is done using the official OpenTelemetry package
+     * for JavaScript:
+     * [`npm:@opentelemetry/api`](https://opentelemetry.io/docs/languages/js/).
+     * Deno integrates with this package to provide tracing, metrics, and trace
+     * context propagation between native Deno APIs (like `Deno.serve` or `fetch`)
+     * and custom user code. Deno automatically registers the providers with the
+     * OpenTelemetry API, so users can start creating custom traces, metrics, and
+     * logs without any additional setup.
+     *
+     * @example Using OpenTelemetry API to create custom traces
+     * ```ts,ignore
+     * import { trace } from "npm:@opentelemetry/api@1";
+     *
+     * const tracer = trace.getTracer("example-tracer");
+     *
+     * async function doWork() {
+     *   return tracer.startActiveSpan("doWork", async (span) => {
+     *     span.setAttribute("key", "value");
+     *     await new Promise((resolve) => setTimeout(resolve, 1000));
+     *     span.end();
+     *   });
+     * }
+     *
+     * Deno.serve(async (req) => {
+     *   await doWork();
+     *   const resp = await fetch("https://example.com");
+     *   return resp;
+     * });
+     * ```
+     *
+     * @category Telemetry
+     */
+    export namespace telemetry {
+        /**
+         * A TracerProvider compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.TracerProvider.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * TracerProvider interface.
+         *
+         * @category Telemetry
+         */
+        // deno-lint-ignore no-explicit-any
+        export const tracerProvider: any;
+
+        /**
+         * A ContextManager compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.ContextManager.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * ContextManager interface.
+         *
+         * @category Telemetry
+         */
+        // deno-lint-ignore no-explicit-any
+        export const contextManager: any;
+
+        /**
+         * A MeterProvider compatible with OpenTelemetry.js
+         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.MeterProvider.html
+         *
+         * This is a singleton object that implements the OpenTelemetry
+         * MeterProvider interface.
+         *
+         * @category Telemetry
+         */
+        // deno-lint-ignore no-explicit-any
+        export const meterProvider: any;
+
+        export {}; // only export exports
+    }
 
     export {}; // only export exports
 }
@@ -6877,20 +7123,32 @@ interface GPUCompilationInfo {
     readonly messages: ReadonlyArray<GPUCompilationMessage>;
 }
 
-/** @category GPU */
-declare class GPUPipelineError extends DOMException {
-    constructor(message?: string, options?: GPUPipelineErrorInit);
-
-    readonly reason: GPUPipelineErrorReason;
+/**
+ * The **`GPUPipelineError`** interface of the WebGPU API describes a pipeline failure.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUPipelineError)
+ * @category GPU
+ */
+interface GPUPipelineError extends DOMException {
+    /**
+     * The **`reason`** read-only property of the GPUPipelineError interface defines the reason the pipeline creation failed in a machine-readable way.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUPipelineError/reason)
+     */
+    readonly reason: "validation" | "internal";
 }
+
+/** @category GPU */
+declare var GPUPipelineError: {
+    prototype: GPUPipelineError;
+    new(message: string, options: GPUPipelineErrorInit): GPUPipelineError;
+};
 
 /** @category GPU */
 interface GPUPipelineErrorInit {
-    reason: GPUPipelineErrorReason;
+    reason: "validation" | "internal";
 }
-
-/** @category GPU */
-type GPUPipelineErrorReason = "validation" | "internal";
 
 /**
  * Represents a compiled shader module that can be used to create graphics or compute pipelines.
@@ -7699,25 +7957,55 @@ interface GPUDeviceLostInfo {
     readonly message: string;
 }
 
-/** @category GPU */
-declare class GPUError {
+/**
+ * The **`GPUError`** interface of the WebGPU API is the base interface for errors surfaced by GPUDevice.popErrorScope and the GPUDevice.uncapturederror_event event.
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUError)
+ * @category GPU
+ */
+interface GPUError {
+    /**
+     * The **`message`** read-only property of the A string.
+     * The **`message`** read-only property of the GPUError interface provides a human-readable message that explains why the error occurred.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUError/message)
+     */
     readonly message: string;
 }
 
 /** @category GPU */
-declare class GPUOutOfMemoryError extends GPUError {
-    constructor(message: string);
-}
+declare var GPUError: {
+    prototype: GPUError;
+    new(): GPUError;
+};
 
 /** @category GPU */
-declare class GPUValidationError extends GPUError {
-    constructor(message: string);
-}
+interface GPUOutOfMemoryError extends GPUError {}
 
 /** @category GPU */
-declare class GPUInternalError extends GPUError {
-    constructor(message: string);
-}
+declare var GPUOutOfMemoryError: {
+    prototype: GPUOutOfMemoryError;
+    new(message?: string): GPUOutOfMemoryError;
+};
+
+/** @category GPU */
+interface GPUValidationError extends GPUError {}
+
+/** @category GPU */
+declare var GPUValidationError: {
+    prototype: GPUValidationError;
+    new(message?: string): GPUValidationError;
+};
+
+/** @category GPU */
+interface GPUInternalError extends GPUError {}
+
+/** @category GPU */
+declare var GPUInternalError: {
+    prototype: GPUInternalError;
+    new(message?: string): GPUInternalError;
+};
 
 /** @category GPU */
 type GPUErrorFilter = "out-of-memory" | "validation" | "internal";
@@ -7974,6 +8262,18 @@ declare namespace Deno {
          *
          * @default {"0.0.0.0"} */
         hostname?: string;
+
+        /** Maximum number of pending connections in the listen queue.
+         *
+         * This parameter controls how many incoming connections can be queued by the
+         * operating system while waiting for the application to accept them. If more
+         * connections arrive when the queue is full, they will be refused.
+         *
+         * The kernel may adjust this value (e.g., rounding up to the next power of 2
+         * plus 1). Different operating systems have different maximum limits.
+         *
+         * @default {511} */
+        tcpBacklog?: number;
     }
 
     /** @category Network */
@@ -8239,6 +8539,15 @@ declare namespace Deno {
          * TLS handshake.
          */
         alpnProtocols?: string[];
+        /** If true, the certificate's common name or subject alternative names will not be
+         * checked against the hostname provided in the options.
+         *
+         * This disables hostname verification but still validates the certificate chain.
+         * Use with caution and only when connecting to known servers.
+         *
+         * @default {false}
+         */
+        unsafelyDisableHostnameVerification?: boolean;
     }
 
     /** Establishes a secure connection over TLS (transport layer security) using
@@ -8288,6 +8597,15 @@ declare namespace Deno {
          * TLS handshake.
          */
         alpnProtocols?: string[];
+        /** If true, the certificate's common name or subject alternative names will not be
+         * checked against the hostname provided in the options.
+         *
+         * This disables hostname verification but still validates the certificate chain.
+         * Use with caution and only when connecting to known servers.
+         *
+         * @default {false}
+         */
+        unsafelyDisableHostnameVerification?: boolean;
     }
 
     /** Start TLS handshake from an existing connection using an optional list of
@@ -8538,7 +8856,7 @@ declare namespace Deno {
      * @experimental
      * @category Network
      */
-    export interface QuicListener extends AsyncIterable<QuicConn> {
+    export interface QuicListener extends AsyncIterable<QuicIncoming> {
         /** Waits for and resolves to the next incoming connection. */
         incoming(): Promise<QuicIncoming>;
 
@@ -8548,7 +8866,7 @@ declare namespace Deno {
         /** Stops the listener. This does not close the endpoint. */
         stop(): void;
 
-        [Symbol.asyncIterator](): AsyncIterableIterator<QuicConn>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<QuicIncoming>;
 
         /** The endpoint for this listener. */
         readonly endpoint: QuicEndpoint;
@@ -8738,6 +9056,173 @@ declare namespace Deno {
 declare namespace Deno {
     export {}; // stop default export type behavior
 
+    /**
+     * @category Bundler
+     * @experimental
+     */
+    export namespace bundle {
+        /**
+         * The target platform of the bundle.
+         * @category Bundler
+         * @experimental
+         */
+        export type Platform = "browser" | "deno";
+
+        /**
+         * The output format of the bundle.
+         * @category Bundler
+         * @experimental
+         */
+        export type Format = "esm" | "cjs" | "iife";
+
+        /**
+         * The source map type of the bundle.
+         * @category Bundler
+         * @experimental
+         */
+        export type SourceMapType = "linked" | "inline" | "external";
+
+        /**
+         * How to handle packages.
+         *
+         * - `bundle`: packages are inlined into the bundle.
+         * - `external`: packages are excluded from the bundle, and treated as external dependencies.
+         * @category Bundler
+         * @experimental
+         */
+        export type PackageHandling = "bundle" | "external";
+
+        /**
+         * Options for the bundle.
+         * @category Bundler
+         * @experimental
+         */
+        export interface Options {
+            /**
+             * The entrypoints of the bundle.
+             */
+            entrypoints: string[];
+            /**
+             * Output file path.
+             */
+            outputPath?: string;
+            /**
+             * Output directory path.
+             */
+            outputDir?: string;
+            /**
+             * External modules to exclude from bundling.
+             */
+            external?: string[];
+            /**
+             * Bundle format.
+             */
+            format?: Format;
+            /**
+             * Whether to minify the output.
+             */
+            minify?: boolean;
+            /**
+             * Whether to enable code splitting.
+             */
+            codeSplitting?: boolean;
+            /**
+             * Whether to inline imports.
+             */
+            inlineImports?: boolean;
+            /**
+             * How to handle packages.
+             */
+            packages?: PackageHandling;
+            /**
+             * Source map configuration.
+             */
+            sourcemap?: SourceMapType;
+            /**
+             * Target platform.
+             */
+            platform?: Platform;
+
+            /**
+             * Whether to write the output to the filesystem.
+             *
+             * @default true if outputDir or outputPath is set, false otherwise
+             */
+            write?: boolean;
+        }
+
+        /**
+         * The location of a message.
+         * @category Bundler
+         * @experimental
+         */
+        export interface MessageLocation {
+            file: string;
+            namespace?: string;
+            line: number;
+            column: number;
+            length: number;
+            suggestion?: string;
+        }
+
+        /**
+         * A note about a message.
+         * @category Bundler
+         * @experimental
+         */
+        export interface MessageNote {
+            text: string;
+            location?: MessageLocation;
+        }
+
+        /**
+         * A message emitted from the bundler.
+         * @category Bundler
+         * @experimental
+         */
+        export interface Message {
+            text: string;
+            location?: MessageLocation;
+            notes?: MessageNote[];
+        }
+
+        /**
+         * An output file in the bundle.
+         * @category Bundler
+         * @experimental
+         */
+        export interface OutputFile {
+            path: string;
+            contents?: Uint8Array<ArrayBuffer>;
+            hash: string;
+            text(): string;
+        }
+
+        /**
+         * The result of bundling.
+         * @category Bundler
+         * @experimental
+         */
+        export interface Result {
+            errors: Message[];
+            warnings: Message[];
+            success: boolean;
+            outputFiles?: OutputFile[];
+        }
+
+        export {}; // only export exports
+    }
+
+    /** **UNSTABLE**: New API, yet to be vetted.
+     *
+     * Bundle Typescript/Javascript code
+     * @category Bundle
+     * @experimental
+     */
+    export function bundle(
+        options: Deno.bundle.Options,
+    ): Promise<Deno.bundle.Result>;
+
     /** **UNSTABLE**: New API, yet to be vetted.
      *
      *  Creates a presentable WebGPU surface from given window and
@@ -8767,6 +9252,10 @@ declare namespace Deno {
         );
         getContext(context: "webgpu"): GPUCanvasContext;
         present(): void;
+        /**
+         * This method should be invoked when the size of the window changes.
+         */
+        resize(width: number, height: number): void;
     }
 
     /** **UNSTABLE**: New API, yet to be vetted.
@@ -9984,95 +10473,6 @@ declare namespace Deno {
     }
 
     /**
-     * **UNSTABLE**: New API, yet to be vetted.
-     *
-     * APIs for working with the OpenTelemetry observability framework. Deno can
-     * export traces, metrics, and logs to OpenTelemetry compatible backends via
-     * the OTLP protocol.
-     *
-     * Deno automatically instruments the runtime with OpenTelemetry traces and
-     * metrics. This data is exported via OTLP to OpenTelemetry compatible
-     * backends. User logs from the `console` API are exported as OpenTelemetry
-     * logs via OTLP.
-     *
-     * User code can also create custom traces, metrics, and logs using the
-     * OpenTelemetry API. This is done using the official OpenTelemetry package
-     * for JavaScript:
-     * [`npm:@opentelemetry/api`](https://opentelemetry.io/docs/languages/js/).
-     * Deno integrates with this package to provide tracing, metrics, and trace
-     * context propagation between native Deno APIs (like `Deno.serve` or `fetch`)
-     * and custom user code. Deno automatically registers the providers with the
-     * OpenTelemetry API, so users can start creating custom traces, metrics, and
-     * logs without any additional setup.
-     *
-     * @example Using OpenTelemetry API to create custom traces
-     * ```ts,ignore
-     * import { trace } from "npm:@opentelemetry/api@1";
-     *
-     * const tracer = trace.getTracer("example-tracer");
-     *
-     * async function doWork() {
-     *   return tracer.startActiveSpan("doWork", async (span) => {
-     *     span.setAttribute("key", "value");
-     *     await new Promise((resolve) => setTimeout(resolve, 1000));
-     *     span.end();
-     *   });
-     * }
-     *
-     * Deno.serve(async (req) => {
-     *   await doWork();
-     *   const resp = await fetch("https://example.com");
-     *   return resp;
-     * });
-     * ```
-     *
-     * @category Telemetry
-     * @experimental
-     */
-    export namespace telemetry {
-        /**
-         * A TracerProvider compatible with OpenTelemetry.js
-         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.TracerProvider.html
-         *
-         * This is a singleton object that implements the OpenTelemetry
-         * TracerProvider interface.
-         *
-         * @category Telemetry
-         * @experimental
-         */
-        // deno-lint-ignore no-explicit-any
-        export const tracerProvider: any;
-
-        /**
-         * A ContextManager compatible with OpenTelemetry.js
-         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.ContextManager.html
-         *
-         * This is a singleton object that implements the OpenTelemetry
-         * ContextManager interface.
-         *
-         * @category Telemetry
-         * @experimental
-         */
-        // deno-lint-ignore no-explicit-any
-        export const contextManager: any;
-
-        /**
-         * A MeterProvider compatible with OpenTelemetry.js
-         * https://open-telemetry.github.io/opentelemetry-js/interfaces/_opentelemetry_api.MeterProvider.html
-         *
-         * This is a singleton object that implements the OpenTelemetry
-         * MeterProvider interface.
-         *
-         * @category Telemetry
-         * @experimental
-         */
-        // deno-lint-ignore no-explicit-any
-        export const meterProvider: any;
-
-        export {}; // only export exports
-    }
-
-    /**
      * @category Linter
      * @experimental
      */
@@ -10134,6 +10534,27 @@ declare namespace Deno {
              * current node.
              */
             getAncestors(node: Node): Node[];
+
+            /**
+             * Get all comments inside the source.
+             */
+            getAllComments(): Array<LineComment | BlockComment>;
+
+            /**
+             * Get leading comments before a node.
+             */
+            getCommentsBefore(node: Node): Array<LineComment | BlockComment>;
+
+            /**
+             * Get trailing comments after a node.
+             */
+            getCommentsAfter(node: Node): Array<LineComment | BlockComment>;
+
+            /**
+             * Get comments inside a node.
+             */
+            getCommentsInside(node: Node): Array<LineComment | BlockComment>;
+
             /**
              * Get the full source code.
              */
@@ -10260,6 +10681,7 @@ declare namespace Deno {
             range: Range;
             sourceType: "module" | "script";
             body: Statement[];
+            comments: Array<LineComment | BlockComment>;
         }
 
         /**
@@ -13064,6 +13486,28 @@ declare namespace Deno {
             | TSVoidKeyword;
 
         /**
+         * A single line comment
+         * @category Linter
+         * @experimental
+         */
+        export interface LineComment {
+            type: "Line";
+            range: Range;
+            value: string;
+        }
+
+        /**
+         * A potentially multi-line block comment
+         * @category Linter
+         * @experimental
+         */
+        export interface BlockComment {
+            type: "Block";
+            range: Range;
+            value: string;
+        }
+
+        /**
          * Union type of all possible AST nodes
          * @category Linter
          * @experimental
@@ -13122,7 +13566,9 @@ declare namespace Deno {
             | TSIndexSignature
             | TSTypeAnnotation
             | TSTypeParameterDeclaration
-            | TSTypeParameter;
+            | TSTypeParameter
+            | LineComment
+            | BlockComment;
 
         export {}; // only export exports
     }

@@ -658,6 +658,15 @@ unsafeWindow.GM;
     // $ExpectType string
     minResponse.responseText;
 
+    // Test abort method on promise
+    const abortableRequest = GM.xmlHttpRequest({
+        url: "https://github.com/",
+        method: "GET",
+    });
+    // $ExpectType void
+    abortableRequest.abort();
+    const abortedResponse = await abortableRequest;
+
     // GET request
     await GM.xmlHttpRequest({
         method: "GET",

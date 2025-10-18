@@ -200,7 +200,7 @@ declare module "http" {
         "x-frame-options"?: string | undefined;
         "x-xss-protection"?: string | undefined;
     }
-    interface ClientRequestArgs {
+    interface ClientRequestArgs extends Pick<LookupOptions, "hints"> {
         _defaultAgent?: Agent | undefined;
         agent?: Agent | boolean | undefined;
         auth?: string | null | undefined;
@@ -213,7 +213,6 @@ declare module "http" {
         defaultPort?: number | string | undefined;
         family?: number | undefined;
         headers?: OutgoingHttpHeaders | readonly string[] | undefined;
-        hints?: LookupOptions["hints"];
         host?: string | null | undefined;
         hostname?: string | null | undefined;
         insecureHTTPParser?: boolean | undefined;
@@ -234,7 +233,7 @@ declare module "http" {
         socketPath?: string | undefined;
         timeout?: number | undefined;
         uniqueHeaders?: Array<string | string[]> | undefined;
-        joinDuplicateHeaders?: boolean;
+        joinDuplicateHeaders?: boolean | undefined;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -260,7 +259,7 @@ declare module "http" {
          * @default false
          * @since v18.14.0
          */
-        joinDuplicateHeaders?: boolean;
+        joinDuplicateHeaders?: boolean | undefined;
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
@@ -269,6 +268,13 @@ declare module "http" {
          * @since v18.0.0
          */
         keepAliveTimeout?: number | undefined;
+        /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         * @since 24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer?: number | undefined;
         /**
          * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
          * @default 30000
@@ -413,12 +419,18 @@ declare module "http" {
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional
          * incoming data, after it has finished writing the last response, before a socket
-         * will be destroyed. If the server receives new data before the keep-alive
-         * timeout has fired, it will reset the regular inactivity timeout, i.e., `server.timeout`.
+         * will be destroyed.
+         *
+         * This timeout value is combined with the
+         * `server.keepAliveTimeoutBuffer` option to determine the actual socket
+         * timeout, calculated as:
+         * socketTimeout = keepAliveTimeout + keepAliveTimeoutBuffer
+         * If the server receives new data before the keep-alive timeout has fired, it
+         * will reset the regular inactivity timeout, i.e., `server.timeout`.
          *
          * A value of `0` will disable the keep-alive timeout behavior on incoming
          * connections.
-         * A value of `0` makes the http server behave similarly to Node.js versions prior
+         * A value of `0` makes the HTTP server behave similarly to Node.js versions prior
          * to 8.0.0, which did not have a keep-alive timeout.
          *
          * The socket timeout logic is set up on connection, so changing this value only
@@ -426,6 +438,18 @@ declare module "http" {
          * @since v8.0.0
          */
         keepAliveTimeout: number;
+        /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         *
+         * This buffer helps reduce connection reset (`ECONNRESET`) errors by increasing
+         * the socket timeout slightly beyond the advertised keep-alive timeout.
+         *
+         * This option applies only to new incoming connections.
+         * @since v24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer: number;
         /**
          * Sets the timeout value in milliseconds for receiving the entire request from
          * the client.
@@ -1427,7 +1451,7 @@ declare module "http" {
         https_proxy?: string | undefined;
         no_proxy?: string | undefined;
     }
-    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
+    interface AgentOptions extends NodeJS.PartialOptions<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
@@ -1437,6 +1461,16 @@ declare module "http" {
          * Only relevant if keepAlive is set to true.
          */
         keepAliveMsecs?: number | undefined;
+        /**
+         * Milliseconds to subtract from
+         * the server-provided `keep-alive: timeout=...` hint when determining socket
+         * expiration time. This buffer helps ensure the agent closes the socket
+         * slightly before the server does, reducing the chance of sending a request
+         * on a socket that’s about to be closed by the server.
+         * @since v24.7.0
+         * @default 1000
+         */
+        agentKeepAliveTimeoutBuffer?: number | undefined;
         /**
          * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
          */
@@ -1615,7 +1649,7 @@ declare module "http" {
         createConnection(
             options: ClientRequestArgs,
             callback?: (err: Error | null, stream: stream.Duplex) => void,
-        ): stream.Duplex;
+        ): stream.Duplex | null | undefined;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
          *

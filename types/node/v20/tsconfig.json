@@ -12,6 +12,7 @@
             "es6",
             "dom"
         ],
+        "exactOptionalPropertyTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

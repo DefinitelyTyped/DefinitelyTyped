@@ -45,22 +45,22 @@ declare module "stream" {
             emitClose?: boolean | undefined;
             highWaterMark?: number | undefined;
             objectMode?: boolean | undefined;
-            construct?(this: T, callback: (error?: Error | null) => void): void;
-            destroy?(this: T, error: Error | null, callback: (error?: Error | null) => void): void;
+            construct?: ((this: T, callback: (error?: Error | null) => void) => void) | undefined;
+            destroy?: ((this: T, error: Error | null, callback: (error?: Error | null) => void) => void) | undefined;
             autoDestroy?: boolean | undefined;
         }
         interface ReadableOptions<T extends Readable = Readable> extends StreamOptions<T> {
             encoding?: BufferEncoding | undefined;
-            read?(this: T, size: number): void;
+            read?: ((this: T, size: number) => void) | undefined;
         }
         interface ArrayOptions {
             /**
              * The maximum concurrent invocations of `fn` to call on the stream at once.
              * @default 1
              */
-            concurrency?: number;
+            concurrency?: number | undefined;
             /** Allows destroying the stream if the signal is aborted. */
-            signal?: AbortSignal;
+            signal?: AbortSignal | undefined;
         }
         /**
          * @since v0.9.4
@@ -697,21 +697,25 @@ declare module "stream" {
         interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
             defaultEncoding?: BufferEncoding | undefined;
-            write?(
-                this: T,
-                chunk: any,
-                encoding: BufferEncoding,
-                callback: (error?: Error | null) => void,
-            ): void;
-            writev?(
-                this: T,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: T, callback: (error?: Error | null) => void): void;
+            write?:
+                | ((
+                    this: T,
+                    chunk: any,
+                    encoding: BufferEncoding,
+                    callback: (error?: Error | null) => void,
+                ) => void)
+                | undefined;
+            writev?:
+                | ((
+                    this: T,
+                    chunks: Array<{
+                        chunk: any;
+                        encoding: BufferEncoding;
+                    }>,
+                    callback: (error?: Error | null) => void,
+                ) => void)
+                | undefined;
+            final?: ((this: T, callback: (error?: Error | null) => void) => void) | undefined;
         }
         /**
          * @since v0.9.4
@@ -1235,8 +1239,10 @@ declare module "stream" {
         function duplexPair(options?: DuplexOptions): [Duplex, Duplex];
         type TransformCallback = (error?: Error | null, data?: any) => void;
         interface TransformOptions<T extends Transform = Transform> extends DuplexOptions<T> {
-            transform?(this: T, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
-            flush?(this: T, callback: TransformCallback): void;
+            transform?:
+                | ((this: T, chunk: any, encoding: BufferEncoding, callback: TransformCallback) => void)
+                | undefined;
+            flush?: ((this: T, callback: TransformCallback) => void) | undefined;
         }
         /**
          * Transform streams are `Duplex` streams where the output is in some way
@@ -1643,12 +1649,14 @@ declare module "stream" {
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>
             ): Promise<void>;
         }
+        // TODO: this interface never existed; remove in next major
         interface Pipe {
             close(): void;
             hasRef(): boolean;
             ref(): void;
             unref(): void;
         }
+        // TODO: these should all take webstream arguments
         /**
          * Returns whether the stream has encountered an error.
          * @since v17.3.0, v16.14.0
@@ -1657,8 +1665,15 @@ declare module "stream" {
         /**
          * Returns whether the stream is readable.
          * @since v17.4.0, v16.14.0
+         * @returns Only returns `null` if `stream` is not a valid `Readable`, `Duplex` or `ReadableStream`.
          */
-        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
+        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean | null;
+        /**
+         * Returns whether the stream is writable.
+         * @since v20.0.0
+         * @returns Only returns `null` if `stream` is not a valid `Writable`, `Duplex` or `WritableStream`.
+         */
+        function isWritable(stream: Writable | NodeJS.WritableStream): boolean | null;
     }
     export = Stream;
 }

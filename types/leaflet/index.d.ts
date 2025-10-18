@@ -2080,7 +2080,7 @@ export class Rectangle<P = any> extends Polygon<P> {
 export function rectangle<P = any>(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle<P>;
 
 export interface CircleMarkerOptions extends PathOptions {
-    radius: number;
+    radius?: number | undefined;
 }
 
 export class CircleMarker<P = any> extends Path {

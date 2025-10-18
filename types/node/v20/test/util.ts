@@ -279,7 +279,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string; bar?: boolean[]; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -342,7 +342,7 @@ access("file/that/does/not/exist", (err) => {
     // util.parseArgs: config not inferred precisely
     const config = {};
 
-    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
+    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[]; }
     const result = util.parseArgs(config);
 }
 
@@ -356,7 +356,7 @@ access("file/that/does/not/exist", (err) => {
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean | undefined; }
+    // $ExpectType { alpha?: boolean; }
     result.values;
 
     // $ExpectType boolean | undefined
@@ -375,7 +375,7 @@ access("file/that/does/not/exist", (err) => {
         allowNegative: true,
     });
 
-    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    // $ExpectType { alpha: boolean; beta?: boolean; gamma?: boolean; }
     result.values;
 
     // $ExpectType boolean
@@ -396,7 +396,7 @@ access("file/that/does/not/exist", (err) => {
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean[] | undefined; }
+    // $ExpectType { alpha?: boolean[]; }
     result.values;
 
     // $ExpectType boolean[] | undefined
@@ -413,7 +413,7 @@ access("file/that/does/not/exist", (err) => {
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean | undefined; }
+    // $ExpectType { alpha?: boolean; }
     result.values;
 
     // $ExpectType boolean | undefined

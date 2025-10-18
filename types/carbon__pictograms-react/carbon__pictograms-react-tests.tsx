@@ -19,7 +19,9 @@ import {
     CloudPakForApplications,
     CodeConversion,
     ContentDesign,
+    CowboyHat,
     Dashboard,
+    DeepLearning_02,
     Design,
     DoctorPatient,
     Download_01,
@@ -91,3 +93,5 @@ import * as React from "react";
 <NoLiquids />; // $ExpectType Element
 <Design />; // $ExpectType Element
 <ClientSupport />; // $ExpectType Element
+<CowboyHat />; // $ExpectType Element
+<DeepLearning_02 />; // $ExpectType Element

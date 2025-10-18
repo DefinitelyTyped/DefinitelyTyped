@@ -8,18 +8,15 @@ declare module "https" {
     import * as tls from "node:tls";
     import * as http from "node:http";
     import { URL } from "node:url";
-    type ServerOptions<
+    interface ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
         Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
-    > = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions<Request, Response>;
-    type RequestOptions =
-        & http.RequestOptions
-        & tls.SecureContextOptions
-        & {
-            checkServerIdentity?: typeof tls.checkServerIdentity | undefined;
-            rejectUnauthorized?: boolean | undefined; // Defaults to true
-            servername?: string | undefined; // SNI TLS Extension
-        };
+    > extends http.ServerOptions<Request, Response>, tls.TlsOptions {}
+    interface RequestOptions extends http.RequestOptions, tls.SecureContextOptions {
+        checkServerIdentity?: typeof tls.checkServerIdentity | undefined;
+        rejectUnauthorized?: boolean | undefined; // Defaults to true
+        servername?: string | undefined; // SNI TLS Extension
+    }
     interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean | undefined;
         maxCachedSessions?: number | undefined;
@@ -31,6 +28,11 @@ declare module "https" {
     class Agent extends http.Agent {
         constructor(options?: AgentOptions);
         options: AgentOptions;
+        createConnection(
+            options: RequestOptions,
+            callback?: (err: Error | null, stream: Duplex) => void,
+        ): Duplex | null | undefined;
+        getName(options?: RequestOptions): string;
     }
     interface Server<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,

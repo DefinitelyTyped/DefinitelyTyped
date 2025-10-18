@@ -339,6 +339,11 @@ declare module "util" {
      */
     export function getSystemErrorName(err: number): string;
     /**
+     * Enable or disable printing a stack trace on `SIGINT`. The API is only available on the main thread.
+     * @since 24.6.0
+     */
+    export function setTraceSigInt(enable: boolean): void;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -1437,7 +1442,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */
