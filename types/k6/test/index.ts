@@ -22,6 +22,8 @@ check(
         found: (value: object) => false,
     },
 );
+check({}, { pass: async () => await true });
+
 // @ts-expect-error
 check(null, {}, 5);
 check(null, {}, { session: "abc123" });
