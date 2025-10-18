@@ -1,5 +1,6 @@
 declare module "process" {
     import { Control, MessageOptions } from "node:child_process";
+    import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
 
@@ -1466,7 +1467,7 @@ declare module "process" {
                  * @since v20.12.0
                  * @param path The path to the .env file
                  */
-                loadEnvFile(path?: string | URL | Buffer): void;
+                loadEnvFile(path?: PathLike): void;
                 /**
                  * The `process.pid` property returns the PID of the process.
                  *

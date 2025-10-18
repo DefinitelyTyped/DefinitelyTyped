@@ -32,7 +32,7 @@ declare module "buffer" {
              * @param arrayBuffer The ArrayBuffer with which to share memory.
              * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
              */
-            new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+            new(arrayBuffer: ArrayBufferLike): Buffer;
             /**
              * Allocates a new `Buffer` using an `array` of bytes in the range `0` – `255`.
              * Array entries outside that range will be truncated to fit into it.
@@ -126,7 +126,7 @@ declare module "buffer" {
              * `arrayBuffer.byteLength - byteOffset`.
              */
             from(
-                arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+                arrayBuffer: WithImplicitCoercion<ArrayBufferLike>,
                 byteOffset?: number,
                 length?: number,
             ): Buffer;
@@ -448,7 +448,15 @@ declare module "buffer" {
              */
             subarray(start?: number, end?: number): Buffer;
         }
+        /**
+         * @deprecated This is intended for internal use, and will be removed once `@types/node` no longer supports
+         * TypeScript versions earlier than 5.7.
+         */
         type NonSharedBuffer = Buffer;
+        /**
+         * @deprecated This is intended for internal use, and will be removed once `@types/node` no longer supports
+         * TypeScript versions earlier than 5.7.
+         */
         type AllowSharedBuffer = Buffer;
     }
     /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */

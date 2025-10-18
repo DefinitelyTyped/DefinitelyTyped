@@ -508,7 +508,7 @@ async function testConsumers() {
     await consumers.arrayBuffer(consumable);
     // $ExpectType Blob
     await consumers.blob(consumable);
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     await consumers.buffer(consumable);
     // $ExpectType unknown
     await consumers.json(consumable);

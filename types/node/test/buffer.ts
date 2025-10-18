@@ -345,11 +345,11 @@ result = b.write("asd", 123, 123, "hex");
 
 // Buffer module, transcode function
 {
-    transcode(Buffer.from("€"), "utf8", "ascii"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    transcode(Buffer.from("€"), "utf8", "ascii"); // $ExpectType NonSharedBuffer
 
     const source: TranscodeEncoding = "utf8";
     const target: TranscodeEncoding = "ascii";
-    transcode(Buffer.from("€"), source, target); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    transcode(Buffer.from("€"), source, target); // $ExpectType NonSharedBuffer
 }
 
 {

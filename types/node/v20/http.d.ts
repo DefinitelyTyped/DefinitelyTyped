@@ -40,6 +40,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/http.js)
  */
 declare module "http" {
+    import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { URL } from "node:url";
     import { LookupOptions } from "node:dns";
@@ -457,13 +458,13 @@ declare module "http" {
         addListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         addListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         addListener(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         addListener(event: "request", listener: RequestListener<Request, Response>): this;
         addListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -481,14 +482,14 @@ declare module "http" {
             res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
         emit(event: "clientError", err: Error, socket: stream.Duplex): boolean;
-        emit(event: "connect", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: "connect", req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer): boolean;
         emit(event: "dropRequest", req: InstanceType<Request>, socket: stream.Duplex): boolean;
         emit(
             event: "request",
             req: InstanceType<Request>,
             res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
-        emit(event: "upgrade", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: "upgrade", req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "connection", listener: (socket: Socket) => void): this;
@@ -497,10 +498,16 @@ declare module "http" {
         on(event: "checkContinue", listener: RequestListener<Request, Response>): this;
         on(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
         on(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: "connect", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        on(
+            event: "connect",
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
+        ): this;
         on(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         on(event: "request", listener: RequestListener<Request, Response>): this;
-        on(event: "upgrade", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        on(
+            event: "upgrade",
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
+        ): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "connection", listener: (socket: Socket) => void): this;
@@ -511,13 +518,13 @@ declare module "http" {
         once(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         once(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         once(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
         once(event: "request", listener: RequestListener<Request, Response>): this;
         once(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
@@ -529,7 +536,7 @@ declare module "http" {
         prependListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         prependListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         prependListener(
             event: "dropRequest",
@@ -538,7 +545,7 @@ declare module "http" {
         prependListener(event: "request", listener: RequestListener<Request, Response>): this;
         prependListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -550,7 +557,7 @@ declare module "http" {
         prependOnceListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         prependOnceListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
         prependOnceListener(
             event: "dropRequest",
@@ -559,7 +566,7 @@ declare module "http" {
         prependOnceListener(event: "request", listener: RequestListener<Request, Response>): this;
         prependOnceListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer) => void,
         ): this;
     }
     /**
@@ -1079,7 +1086,7 @@ declare module "http" {
         addListener(event: "abort", listener: () => void): this;
         addListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         addListener(event: "continue", listener: () => void): this;
         addListener(event: "information", listener: (info: InformationEvent) => void): this;
@@ -1088,7 +1095,7 @@ declare module "http" {
         addListener(event: "timeout", listener: () => void): this;
         addListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "drain", listener: () => void): this;
@@ -1101,13 +1108,19 @@ declare module "http" {
          * @deprecated
          */
         on(event: "abort", listener: () => void): this;
-        on(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(
+            event: "connect",
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
+        ): this;
         on(event: "continue", listener: () => void): this;
         on(event: "information", listener: (info: InformationEvent) => void): this;
         on(event: "response", listener: (response: IncomingMessage) => void): this;
         on(event: "socket", listener: (socket: Socket) => void): this;
         on(event: "timeout", listener: () => void): this;
-        on(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(
+            event: "upgrade",
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
+        ): this;
         on(event: "close", listener: () => void): this;
         on(event: "drain", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
@@ -1119,13 +1132,19 @@ declare module "http" {
          * @deprecated
          */
         once(event: "abort", listener: () => void): this;
-        once(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(
+            event: "connect",
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
+        ): this;
         once(event: "continue", listener: () => void): this;
         once(event: "information", listener: (info: InformationEvent) => void): this;
         once(event: "response", listener: (response: IncomingMessage) => void): this;
         once(event: "socket", listener: (socket: Socket) => void): this;
         once(event: "timeout", listener: () => void): this;
-        once(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(
+            event: "upgrade",
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
+        ): this;
         once(event: "close", listener: () => void): this;
         once(event: "drain", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
@@ -1139,7 +1158,7 @@ declare module "http" {
         prependListener(event: "abort", listener: () => void): this;
         prependListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         prependListener(event: "continue", listener: () => void): this;
         prependListener(event: "information", listener: (info: InformationEvent) => void): this;
@@ -1148,7 +1167,7 @@ declare module "http" {
         prependListener(event: "timeout", listener: () => void): this;
         prependListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "drain", listener: () => void): this;
@@ -1163,7 +1182,7 @@ declare module "http" {
         prependOnceListener(event: "abort", listener: () => void): this;
         prependOnceListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         prependOnceListener(event: "continue", listener: () => void): this;
         prependOnceListener(event: "information", listener: (info: InformationEvent) => void): this;
@@ -1172,7 +1191,7 @@ declare module "http" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            listener: (response: IncomingMessage, socket: Socket, head: NonSharedBuffer) => void,
         ): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "drain", listener: () => void): this;
