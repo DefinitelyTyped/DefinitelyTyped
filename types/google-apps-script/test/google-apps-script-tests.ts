@@ -1536,3 +1536,46 @@ function optionalFields() {
         console.log("Found an element");
     }
 }
+
+// GmailMessage.createDraftReply and createDraftReplyAll with subject option
+function testGmailDraftReplyWithSubject() {
+    const message = GmailApp.getMessageById("message-id");
+    const thread = GmailApp.getThreadById("thread-id");
+
+    // Test GmailMessage.createDraftReply with subject option
+    message.createDraftReply("Reply body"); // $ExpectType GmailDraft
+    message.createDraftReply("Reply body", { subject: "Custom subject" }); // $ExpectType GmailDraft
+    message.createDraftReply("Reply body", {
+        subject: "Custom subject",
+        cc: "cc@example.com",
+        bcc: "bcc@example.com",
+        htmlBody: "<p>HTML reply</p>",
+    }); // $ExpectType GmailDraft
+
+    // Test GmailMessage.createDraftReplyAll with subject option
+    message.createDraftReplyAll("Reply all body"); // $ExpectType GmailDraft
+    message.createDraftReplyAll("Reply all body", { subject: "Custom subject for all" }); // $ExpectType GmailDraft
+    message.createDraftReplyAll("Reply all body", {
+        subject: "Custom subject for all",
+        cc: "cc@example.com",
+        htmlBody: "<p>HTML reply all</p>",
+    }); // $ExpectType GmailDraft
+
+    // Test GmailThread.createDraftReply with subject option
+    thread.createDraftReply("Thread reply body"); // $ExpectType GmailDraft
+    thread.createDraftReply("Thread reply body", { subject: "Thread custom subject" }); // $ExpectType GmailDraft
+    thread.createDraftReply("Thread reply body", {
+        subject: "Thread custom subject",
+        from: "from@example.com",
+        name: "Custom Name",
+    }); // $ExpectType GmailDraft
+
+    // Test GmailThread.createDraftReplyAll with subject option
+    thread.createDraftReplyAll("Thread reply all body"); // $ExpectType GmailDraft
+    thread.createDraftReplyAll("Thread reply all body", { subject: "Thread custom subject for all" }); // $ExpectType GmailDraft
+    thread.createDraftReplyAll("Thread reply all body", {
+        subject: "Thread custom subject for all",
+        replyTo: "replyto@example.com",
+        attachments: [DriveApp.getFileById("file-id").getBlob()],
+    }); // $ExpectType GmailDraft
+}
