@@ -4618,6 +4618,12 @@ fp.now(); // $ExpectType number
     _(42).isPlainObject(); // $ExpectType boolean
     _.chain([]).isPlainObject(); // $ExpectType PrimitiveChain<boolean>
     fp.isPlainObject(anything); // $ExpectType boolean
+    if (fp.isPlainObject(anything)) {
+        anything; // $ExpectType Record<string, unknown>
+    }
+    if (_.isPlainObject(anything)) {
+        anything; // $ExpectType Record<string, unknown>
+    }
 }
 
 // _.isRegExp
