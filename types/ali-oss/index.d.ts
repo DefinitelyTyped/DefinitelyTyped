@@ -693,9 +693,24 @@ declare namespace OSS {
 
         deleteMulti(names: string[], options?: DeleteMultiOptions): Promise<DeleteMultiResult>;
 
-        signatureUrl(name: string, options?: SignatureUrlOptions): string;
+        signatureUrl(name: string, options?: SignatureUrlOptions, strictObjectNameValidation?: boolean): string;
 
-        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
+        signatureUrlV4(
+            method: HTTPMethods,
+            expires: number,
+            request?: {
+                headers?: object | undefined;
+                queries?: object | undefined;
+            },
+            objectName?: string,
+            additionalHeaders?: string[],
+        ): Promise<string>;
+
+        asyncSignatureUrl(
+            name: string,
+            options?: SignatureUrlOptions,
+            strictObjectNameValidation?: boolean,
+        ): Promise<string>;
 
         putACL(name: string, acl: ACLType, options?: RequestOptions): Promise<NormalSuccessResponse>;
 
