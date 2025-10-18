@@ -32,7 +32,10 @@ server.use(jsonServer.bodyParser);
 
 server.use((req, res, next) => {
     if (req.method === "POST") {
-        req.body.createdAt = Date.now();
+        req.body = {
+            ...req.body ?? {},
+            createdAt: Date.now(),
+        };
     }
     next();
 });

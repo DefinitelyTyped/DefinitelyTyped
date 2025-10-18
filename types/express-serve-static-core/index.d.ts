@@ -52,7 +52,7 @@ export interface Locals extends Express.Locals {}
 export interface RequestHandler<
     P = ParamsDictionary,
     ResBody = any,
-    ReqBody = any,
+    ReqBody = unknown,
     ReqQuery = ParsedQs,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > {
@@ -67,7 +67,7 @@ export interface RequestHandler<
 export type ErrorRequestHandler<
     P = ParamsDictionary,
     ResBody = any,
-    ReqBody = any,
+    ReqBody = unknown,
     ReqQuery = ParsedQs,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > = (
@@ -82,7 +82,7 @@ export type PathParams = string | RegExp | Array<string | RegExp>;
 export type RequestHandlerParams<
     P = ParamsDictionary,
     ResBody = any,
-    ReqBody = any,
+    ReqBody = unknown,
     ReqQuery = ParsedQs,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > =
@@ -121,7 +121,7 @@ export interface IRouterMatcher<
         Route extends string,
         P = RouteParameters<Route>,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -134,7 +134,7 @@ export interface IRouterMatcher<
         Path extends string,
         P = RouteParameters<Path>,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -146,7 +146,7 @@ export interface IRouterMatcher<
     <
         P = ParamsDictionary,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -157,7 +157,7 @@ export interface IRouterMatcher<
     <
         P = ParamsDictionary,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -174,7 +174,7 @@ export interface IRouterHandler<T, Route extends string = string> {
     <
         P = RouteParameters<Route>,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -185,7 +185,7 @@ export interface IRouterHandler<T, Route extends string = string> {
     <
         P = RouteParameters<Route>,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -196,7 +196,7 @@ export interface IRouterHandler<T, Route extends string = string> {
     <
         P = ParamsDictionary,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -207,7 +207,7 @@ export interface IRouterHandler<T, Route extends string = string> {
     <
         P = ParamsDictionary,
         ResBody = any,
-        ReqBody = any,
+        ReqBody = unknown,
         ReqQuery = ParsedQs,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
@@ -395,7 +395,7 @@ export type Errback = (err: Error) => void;
 export interface Request<
     P = ParamsDictionary,
     ResBody = any,
-    ReqBody = any,
+    ReqBody = unknown,
     ReqQuery = ParsedQs,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > extends http.IncomingMessage, Express.Request {
