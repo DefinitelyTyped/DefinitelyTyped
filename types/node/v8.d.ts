@@ -402,6 +402,21 @@ declare module "v8" {
      */
     function getHeapCodeStatistics(): HeapCodeStatistics;
     /**
+     * @since v25.0.0
+     */
+    interface SyncCPUProfileHandle {
+        /**
+         * Stopping collecting the profile and return the profile data.
+         * @since v25.0.0
+         */
+        stop(): string;
+        /**
+         * Stopping collecting the profile and the profile will be discarded.
+         * @since v25.0.0
+         */
+        [Symbol.dispose](): void;
+    }
+    /**
      * @since v24.8.0
      */
     interface CPUProfileHandle {
@@ -433,6 +448,18 @@ declare module "v8" {
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
+    /**
+     * Starting a CPU profile then return a `SyncCPUProfileHandle` object.
+     * This API supports `using` syntax.
+     *
+     * ```js
+     * const handle = v8.startCpuProfile();
+     * const profile = handle.stop();
+     * console.log(profile);
+     * ```
+     * @since v25.0.0
+     */
+    function startCPUProfile(): SyncCPUProfileHandle;
     /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;
