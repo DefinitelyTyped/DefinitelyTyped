@@ -12247,16 +12247,16 @@ declare namespace chrome {
              */
             value: T;
             /** Where to set the setting (default: regular). */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         /** Which setting to consider. */
         export interface ChromeSettingGetDetails {
             /** Whether to return the value that applies to the incognito session (default false). */
-            incognito?: boolean;
+            incognito?: boolean | undefined;
         }
 
-        /** Details of the currently effective value */
+        /** Details of the currently effective value. */
         export interface ChromeSettingGetResult<T> {
             /** The level of control of the setting. */
             levelOfControl: LevelOfControl;
@@ -12264,7 +12264,7 @@ declare namespace chrome {
             value: T;
             /**
              * Whether the effective value is specific to the incognito session.
-             * This property will only be present if the incognito property in the details parameter of get() was true.
+             * This property will only be present if the `incognito` property in the `details` parameter of `get()` was true.
              */
             incognitoSpecific?: boolean;
         }
@@ -12272,17 +12272,14 @@ declare namespace chrome {
         /** Which setting to clear. */
         export interface ChromeSettingClearDetails {
             /** Where to clear the setting (default: regular). */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         /** Details of the currently effective value. */
         export interface ChromeSettingOnChangeDetails<T> {
-            /**
-             * Whether the effective value is specific to the incognito session. T
-             * his property will only be present if the incognito property in the details parameter of get() was true.
-             */
+            /** Whether the value that has changed is specific to the incognito session. This property will only be present if the user has enabled the extension in incognito mode. */
             incognitoSpecific?: boolean;
-            /** The value of the setting. */
+            /** The value of the setting after the change. */
             value: T;
             /** The level of control of the setting. */
             levelOfControl: LevelOfControl;
@@ -12295,27 +12292,30 @@ declare namespace chrome {
         export interface ChromeSetting<T> {
             /**
              * Sets the value of a setting.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            set(details: ChromeSettingSetDetails<T>, callback: () => void): void;
             set(details: ChromeSettingSetDetails<T>): Promise<void>;
+            set(details: ChromeSettingSetDetails<T>, callback: () => void): void;
 
             /**
              * Gets the value of a setting.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            get(details: ChromeSettingGetDetails, callback: (details: ChromeSettingGetResult<T>) => void): void;
             get(details: ChromeSettingGetDetails): Promise<ChromeSettingGetResult<T>>;
+            get(details: ChromeSettingGetDetails, callback: (details: ChromeSettingGetResult<T>) => void): void;
 
             /**
              * Clears the setting, restoring any default value.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            clear(details: ChromeSettingClearDetails, callback: () => void): void;
             clear(details: ChromeSettingClearDetails): Promise<void>;
+            clear(details: ChromeSettingClearDetails, callback: () => void): void;
 
             /** Fired after the setting changes. */
-            onChange: chrome.events.Event<(details: ChromeSettingOnChangeDetails<T>) => void>;
+            onChange: events.Event<(details: ChromeSettingOnChangeDetails<T>) => void>;
         }
     }
 
