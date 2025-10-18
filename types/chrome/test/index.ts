@@ -172,59 +172,211 @@ function printPage() {
     });
 }
 
-// webNavigation.onBeforeNavigate.addListener example
-function beforeRedditNavigation() {
-    chrome.webNavigation.onBeforeNavigate.addListener(
-        function(requestDetails) {
-            console.log("URL we want to redirect to: " + requestDetails.url);
-            // NOTE: This will search for top level frames with the value -1.
-            if (requestDetails.parentFrameId != -1) {
-                return;
-            }
+// https://developer.chrome.com/docs/extensions/reference/api/webNavigation
+function testWebNavigation() {
+    /**
+     * Check all listeners for a webNavigation event with filters.
+     * @param event - The event to check.
+     * @param callback - The callback to check.
+     */
+    const checkWebNavigationEvent = <T extends chrome.webNavigation.WebNavigationEvent<(...args: any) => unknown>>(
+        event: T,
+        callback: Parameters<T["addListener"]>[0],
+    ) => {
+        const filters: chrome.webNavigation.WebNavigationEventFilter = {
+            url: [{ hostContains: "example" }],
+        }
 
-            alert("Were you trying to go on reddit, during working hours? :(");
-        },
-        {
-            url: [{ hostSuffix: ".reddit.com" }],
-        },
-    );
-}
+        event.addListener(callback, filters); // $ExpectType void
+        event.removeListener(callback); // $ExpectType void
+        event.hasListener(callback); // $ExpectType boolean
+        event.hasListeners(); // $ExpectType boolean
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
-async function getFrame() {
-    const testTabId = 0;
-    const testFrameId = 0;
 
-    chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
-    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
-        console.log("Frame (in-callback): ", frame);
+
+    chrome.webNavigation.TransitionQualifier.CLIENT_REDIRECT === "client_redirect";
+    chrome.webNavigation.TransitionQualifier.FORWARD_BACK === "forward_back";
+    chrome.webNavigation.TransitionQualifier.FROM_ADDRESS_BAR === "from_address_bar";
+    chrome.webNavigation.TransitionQualifier.SERVER_REDIRECT === "server_redirect";
+
+    chrome.webNavigation.TransitionType.AUTO_BOOKMARK === "auto_bookmark";
+    chrome.webNavigation.TransitionType.AUTO_SUBFRAME === "auto_subframe";
+    chrome.webNavigation.TransitionType.FORM_SUBMIT === "form_submit";
+    chrome.webNavigation.TransitionType.GENERATED === "generated";
+    chrome.webNavigation.TransitionType.KEYWORD === "keyword";
+    chrome.webNavigation.TransitionType.KEYWORD_GENERATED === "keyword_generated";
+    chrome.webNavigation.TransitionType.LINK === "link";
+    chrome.webNavigation.TransitionType.MANUAL_SUBFRAME === "manual_subframe";
+    chrome.webNavigation.TransitionType.RELOAD === "reload";
+    chrome.webNavigation.TransitionType.START_PAGE === "start_page";
+    chrome.webNavigation.TransitionType.TYPED === "typed";
+
+    const getAllFramesDetails: chrome.webNavigation.GetAllFrameDetails = {
+        tabId: 0,
+    }
+
+    chrome.webNavigation.getAllFrames(getAllFramesDetails); // $ExpectType Promise<GetAllFrameResultDetails[] | null>
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, (frames) => { // $ExpectType void
+        frames; // $ExpectType GetAllFrameResultDetails[] | null
+        if (!frames?.[0]) return
+        frames[0].documentId; // $ExpectType string
+        frames[0].documentLifecycle; // $ExpectType DocumentLifecycle
+        frames[0].errorOccurred; // $ExpectType boolean
+        frames[0].frameId; // $ExpectType number
+        frames[0].frameType;  // $ExpectType FrameType
+        frames[0].parentDocumentId; // $ExpectType string | undefined
+        frames[0].parentFrameId; // $ExpectType number
+        frames[0].processId; // $ExpectType number
+        frames[0].url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, () => {}).then(() => {});
+
+    const getFrameDetails: chrome.webNavigation.GetFrameDetails = {
+        documentId: "documentId",
+        processId: 0,
+    }
+
+    const getFrameDetails2: chrome.webNavigation.GetFrameDetails = {
+        frameId: 0,
+        tabId: 0,
+        processId: 0,
+    }
+
+
+    chrome.webNavigation.getFrame(getFrameDetails); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails2); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails, (frame) => { // $ExpectType void;
+        frame; // $ExpectType GetFrameResultDetails | null
+    });
+    chrome.webNavigation.getFrame(getFrameDetails2, (frame) => { // $ExpectType void
+        frame; // $ExpectType GetFrameResultDetails | null
+        if (!frame) return
+        frame.documentId; // $ExpectType string
+        frame.documentLifecycle; // $ExpectType DocumentLifecycle
+        frame.errorOccurred; // $ExpectType boolean
+        frame.frameType;  // $ExpectType FrameType
+        frame.parentDocumentId; // $ExpectType string | undefined
+        frame.parentFrameId; // $ExpectType number
+        frame.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.webNavigation.getFrame(getFrameDetails, () => {}).then(() => {});
+
+    checkWebNavigationEvent(chrome.webNavigation.onBeforeNavigate, (details) => {
+        // @ts-expect-error
+        details.documentId
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
     });
 
-    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
+    checkWebNavigationEvent(chrome.webNavigation.onCommitted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
     });
 
-    console.log("Frame (promise resolved):", frame);
-}
-
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
-async function getAllFrames() {
-    const testTabId = 0;
-
-    chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
-        console.log("All frames (in-callback): ", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onCompleted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
     });
 
-    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }) || [];
+    checkWebNavigationEvent(chrome.webNavigation.onCreatedNavigationTarget, (details) => {
+        details.sourceFrameId; // $ExpectType number
+        details.sourceProcessId; // $ExpectType number
+        details.sourceTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
 
-    console.log("All frames (promise resolved):", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onDOMContentLoaded, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onErrorOccurred, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.error; // $ExpectType string
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    })
+
+    checkWebNavigationEvent(chrome.webNavigation.onHistoryStateUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onReferenceFragmentUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    })
+
+    checkChromeEvent(chrome.webNavigation.onTabReplaced, (details) => {
+        details.replacedTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+    })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
