@@ -5,7 +5,6 @@ declare module "process" {
     import { Worker } from "node:worker_threads";
     type SendHandle = net.Socket | net.Server | undefined;
 
-
     interface BuiltInModule {
         "assert": typeof import("assert");
         "node:assert": typeof import("node:assert");

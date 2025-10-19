@@ -2,10 +2,10 @@ import * as p from "node:process";
 import { finalization } from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import { Server, Socket } from "node:net";
 import { constants } from "node:os";
 import { dlopen } from "node:process";
 import { fileURLToPath } from "node:url";
-import { Server, Socket } from "node:net";
 
 {
     let eventEmitter: EventEmitter;
