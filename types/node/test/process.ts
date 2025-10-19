@@ -5,6 +5,7 @@ import EventEmitter = require("node:events");
 import { constants } from "node:os";
 import { dlopen } from "node:process";
 import { fileURLToPath } from "node:url";
+import { Server, Socket } from "node:net";
 
 {
     let eventEmitter: EventEmitter;
@@ -17,7 +18,7 @@ import { fileURLToPath } from "node:url";
     assert.ok(process.argv[0] === process.argv0);
 }
 {
-    process.on("message", (req: any) => {});
+    process.on("message", (message: unknown, sendHandle: Server | Socket | undefined) => {});
     process.addListener("beforeExit", (code: number) => {});
     process.once("disconnect", () => {});
     process.prependListener("exit", (code: number) => {});
@@ -26,7 +27,7 @@ import { fileURLToPath } from "node:url";
     process.once("uncaughtExceptionMonitor", (error: Error) => {});
     process.addListener("unhandledRejection", (reason: unknown, promise: Promise<unknown>) => {});
     process.once("warning", (warning: Error) => {});
-    process.prependListener("message", (message: any, sendHandle: any) => {});
+    process.prependListener("message", (message: any, sendHandle: Server | Socket | undefined) => {});
     process.prependOnceListener("SIGBREAK", () => {});
     process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
@@ -74,9 +75,12 @@ import { fileURLToPath } from "node:url";
     }
     if (process.send) {
         let r: boolean = process.send("aMessage");
-        r = process.send({ msg: "foo" }, {});
-        r = process.send({ msg: "foo" }, {}, { keepOpen: true });
-        r = process.send({ msg: "foo" }, {}, { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new Server());
+        r = process.send({ msg: "foo" }, new Socket());
+        r = process.send({ msg: "foo" }, new Server(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new Socket(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new Server(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new Socket(), { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
