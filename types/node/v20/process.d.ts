@@ -1,7 +1,10 @@
 declare module "process" {
     import { Control, MessageOptions } from "node:child_process";
     import * as tty from "node:tty";
+    import * as net from "node:net";
     import { Worker } from "node:worker_threads";
+    type SendHandle = net.Socket | net.Server | undefined;
+
 
     interface BuiltInModule {
         "assert": typeof import("assert");
@@ -308,7 +311,7 @@ declare module "process" {
              */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: unknown, sendHandle: unknown) => void;
+            type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
             type SignalsListener = (signal: Signals) => void;
             type MultipleResolveListener = (
                 type: MultipleResolveType,
@@ -1708,7 +1711,7 @@ declare module "process" {
                  */
                 send?(
                     message: any,
-                    sendHandle?: any,
+                    sendHandle?: SendHandle,
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
@@ -1862,7 +1865,7 @@ declare module "process" {
                 emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
                 emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: unknown, sendHandle: unknown): this;
+                emit(event: "message", message: unknown, sendHandle: SendHandle): this;
                 emit(event: Signals, signal?: Signals): boolean;
                 emit(
                     event: "multipleResolves",
