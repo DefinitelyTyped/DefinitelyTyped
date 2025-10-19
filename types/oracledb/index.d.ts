@@ -672,6 +672,7 @@ declare namespace OracleDB {
      * annotations: The object representing the annotations.
      * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
      * dbType: The database type, that is, one of the Oracle Database Type Objects.
+     * dbColumnName: The actual database column name. This is to distinguish from the name attribute as the duplicate columns in the query will have the same value for this attribute.
      * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
      * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
      * domainName: The name of the SQL domain.
@@ -837,7 +838,7 @@ declare namespace OracleDB {
      * This attribute is not used in node-oracledb version 2, 3 or 4. In those versions use only oracledb.fetchArraySize instead.
      *
      * @default 2
-     * @see https://oracle.github.io/node-oracledb/doc/api.html#rowfetching
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/tuning.html#rowfetching
      */
     let prefetchRows: number;
     /**
@@ -872,13 +873,6 @@ declare namespace OracleDB {
      */
     let queueMax: number;
     /**
-     * This property was removed in node-oracledb 3.0 and queuing was always enabled.
-     * In node-oracledb 5.0, set queueMax to 0 to disable queuing.
-     *
-     * @see https://oracle.github.io/node-oracledb/doc/api.html#connpoolqueue
-     */
-    let errorOnConcurrentExecute: boolean;
-    /**
      * This property can be set to throw an error if concurrent operations are attempted
      * on a single connection.
      *
@@ -890,6 +884,13 @@ declare namespace OracleDB {
      * Examples of operations that cannot be executed in parallel on a single connection include connection.execute(),
      *  connection.executeMany(), connection.queryStream(), connection.getDbObjectClass(), connection.commit(),
      *  connection.close(), SODA calls, and streaming from Lobs.
+     */
+    let errorOnConcurrentExecute: boolean;
+    /**
+     * This property was removed in node-oracledb 3.0 and queuing was always enabled.
+     * In node-oracledb 5.0, set queueMax to 0 to disable queuing.
+     *
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connpoolqueue
      */
     let queueRequests: number;
     /**
@@ -936,14 +937,14 @@ declare namespace OracleDB {
         /**
          * The direction of the bind. One of the Execute Bind Direction Constants.
          *
-         * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsbinddir
+         * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledbconstantsbinddir
          */
         dir?: number | undefined;
         /**
          * The number of array elements to be allocated for a PL/SQL Collection INDEX BY associative
          * array OUT or IN OUT array bind variable. For IN binds, the value of maxArraySize is ignored.
          *
-         * @see https://oracle.github.io/node-oracledb/doc/api.html#plsqlindexbybinds
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/objects.html#plsqlindexbybinds
          */
         maxArraySize?: number | undefined;
         /**
@@ -995,7 +996,7 @@ declare namespace OracleDB {
     /**
      * Used with connection.execute() to associate values or JavaScript variables to a statement’s bind variables by name.
      *
-     * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/connection.html#executebindparams
      */
     type BindParameters =
         | Record<string, BindParameter | string | number | bigint | Date | DBObject_IN<any> | Buffer | null | undefined>
@@ -1068,7 +1069,7 @@ declare namespace OracleDB {
          * The client information for end-to-end application tracing.
          * This is a write-only property. Displaying connection.clientInfo will show a value of null.
          *
-         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/tracing.html#endtoend
          * @since 4.1
          */
         clientInfo?: string | undefined;
@@ -1145,7 +1146,7 @@ declare namespace OracleDB {
          * The database operation information for end-to-end application tracing.
          * This is a write-only property. Displaying connection.dbOp will show a value of null.
          *
-         * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/tracing.html#endtoend
          * @since 4.1
          */
         dbOp?: string | undefined;
@@ -1314,7 +1315,7 @@ declare namespace OracleDB {
          *
          * If you use use break() with DRCP connections, it is currently recommended to drop the connection when releasing it back to the pool: await connection.close({drop: true}).
          *
-         * @see https://oracle.github.io/node-oracledb/doc/api.html#tnsadmin
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/initialization.html#tnsadmin
          */
         break(): Promise<void>;
         break(callback: (error: DBError) => void): void;
@@ -1869,11 +1870,11 @@ declare namespace OracleDB {
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?:
-            | Array<{
-                /** Array of objects specifying the tables which were affected by the notification. */
-                tables?: SubscriptionTable[];
-            }>
-            | undefined;
+        | Array<{
+            /** Array of objects specifying the tables which were affected by the notification. */
+            tables?: SubscriptionTable[];
+        }>
+        | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
 
@@ -1901,13 +1902,13 @@ declare namespace OracleDB {
          * summary grouping took place.
          */
         rows?:
-            | Array<{
-                /** One of the CQN_OPCODE_* constants. */
-                operation: number;
-                /** ROWID of the row that was affected. */
-                rowid: string;
-            }>
-            | undefined;
+        | Array<{
+            /** One of the CQN_OPCODE_* constants. */
+            operation: number;
+            /** ROWID of the row that was affected. */
+            rowid: string;
+        }>
+        | undefined;
     }
 
     /**
@@ -2394,13 +2395,13 @@ declare namespace OracleDB {
          *      }
          */
         fetchInfo?:
-            | Record<
-                string,
-                {
-                    type: DbType | number;
-                }
-            >
-            | undefined;
+        | Record<
+            string,
+            {
+                type: DbType | number;
+            }
+        >
+        | undefined;
         /**
          * Overrides oracledb.fetchTypeHandler.
          *
@@ -2673,6 +2674,12 @@ declare namespace OracleDB {
          * The annotations object associated with the fetched column. If the column has no associated annotations, this property value is undefined. Annotations are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
          */
         annotations?: any;
+        /**
+         * The actual database column name. This is to distinguish from the name attribute as the duplicate columns in the query will have the same value for this attribute.
+         * 
+         * @since 6.10
+         */
+        dbColumnName?: string;
         /**
          * One of the Node-oracledb Type Constant values.
          *
@@ -3294,9 +3301,9 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
-            | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
-            | undefined;
+        | string
+        | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
+        | undefined;
         /**
          * Indicates whether the pool’s connections should share a cache of SODA metadata. This improves SODA performance by reducing round-trips to the database when opening collections. It has no effect on non-SODA operations.
          * The default is false.
@@ -3708,6 +3715,8 @@ declare namespace OracleDB {
         consumerName: string;
         /** Correlation to use when dequeuing. */
         correlation: string;
+        /** Property for the deliveryMode to use for dequeuing messages. */
+        deliveryMode: number;
         /** Mode to use for dequeuing messages. It can be any one of the AQ_DEQ_MODE constants. */
         mode: number;
         /** Unique identifier specifying the message to be dequeued. */
