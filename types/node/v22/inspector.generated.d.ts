@@ -3,14 +3,7 @@
 // See scripts/generate-inspector/README.md for information on how to update the protocol definitions.
 // Changes to the module itself should be added to the generator template (scripts/generate-inspector/inspector.d.ts.template).
 
-/**
- * The `node:inspector` module provides an API for interacting with the V8
- * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector.js)
- */
-declare module 'inspector' {
-    import EventEmitter = require('node:events');
-
+declare module "inspector" {
     interface InspectorNotification<T> {
         method: string;
         params: T;
@@ -1777,6 +1770,10 @@ declare module 'inspector' {
          */
         interface Headers {
         }
+        interface LoadNetworkResourcePageResult {
+            success: boolean;
+            stream?: IO.StreamHandle | undefined;
+        }
         interface GetRequestPostDataParameterType {
             /**
              * Identifier of the network request to get content for.
@@ -1794,6 +1791,12 @@ declare module 'inspector' {
              * Identifier of the request to stream.
              */
             requestId: RequestId;
+        }
+        interface LoadNetworkResourceParameterType {
+            /**
+             * URL of the resource to get content for.
+             */
+            url: string;
         }
         interface GetRequestPostDataReturnType {
             /**
@@ -1816,6 +1819,9 @@ declare module 'inspector' {
              * Data that has been buffered until streaming is enabled.
              */
             bufferedData: string;
+        }
+        interface LoadNetworkResourceReturnType {
+            resource: LoadNetworkResourcePageResult;
         }
         interface RequestWillBeSentEventDataType {
             /**
@@ -1938,37 +1944,42 @@ declare module 'inspector' {
             waitingForDebugger: boolean;
         }
     }
+    namespace IO {
+        type StreamHandle = string;
+        interface ReadParameterType {
+            /**
+             * Handle of the stream to read.
+             */
+            handle: StreamHandle;
+            /**
+             * Seek to the specified offset before reading (if not specified, proceed with offset
+             * following the last read). Some types of streams may only support sequential reads.
+             */
+            offset?: number | undefined;
+            /**
+             * Maximum number of bytes to read (left upon the agent discretion if not specified).
+             */
+            size?: number | undefined;
+        }
+        interface CloseParameterType {
+            /**
+             * Handle of the stream to close.
+             */
+            handle: StreamHandle;
+        }
+        interface ReadReturnType {
+            /**
+             * Data that were read.
+             */
+            data: string;
+            /**
+             * Set if the end-of-file condition occurred while reading.
+             */
+            eof: boolean;
+        }
+    }
 
-    /**
-     * The `inspector.Session` is used for dispatching messages to the V8 inspector
-     * back-end and receiving message responses and notifications.
-     */
-    class Session extends EventEmitter {
-        /**
-         * Create a new instance of the inspector.Session class.
-         * The inspector session needs to be connected through `session.connect()` before the messages can be dispatched to the inspector backend.
-         */
-        constructor();
-
-        /**
-         * Connects a session to the inspector back-end.
-         */
-        connect(): void;
-
-        /**
-         * Connects a session to the inspector back-end.
-         * An exception will be thrown if this API was not called on a Worker thread.
-         * @since v12.11.0
-         */
-        connectToMainThread(): void;
-
-        /**
-         * Immediately close the session. All pending message callbacks will be called with an error.
-         * `session.connect()` will need to be called to be able to send messages again.
-         * Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
-         */
-        disconnect(): void;
-
+    interface Session {
         /**
          * Posts a message to the inspector back-end. `callback` will be notified when
          * a response is received. `callback` is a function that accepts two optional
@@ -1993,1175 +2004,1049 @@ declare module 'inspector' {
         /**
          * Returns supported domains.
          */
-        post(method: 'Schema.getDomains', callback?: (err: Error | null, params: Schema.GetDomainsReturnType) => void): void;
+        post(method: "Schema.getDomains", callback?: (err: Error | null, params: Schema.GetDomainsReturnType) => void): void;
         /**
          * Evaluates expression on global object.
          */
-        post(method: 'Runtime.evaluate', params?: Runtime.EvaluateParameterType, callback?: (err: Error | null, params: Runtime.EvaluateReturnType) => void): void;
-        post(method: 'Runtime.evaluate', callback?: (err: Error | null, params: Runtime.EvaluateReturnType) => void): void;
+        post(method: "Runtime.evaluate", params?: Runtime.EvaluateParameterType, callback?: (err: Error | null, params: Runtime.EvaluateReturnType) => void): void;
+        post(method: "Runtime.evaluate", callback?: (err: Error | null, params: Runtime.EvaluateReturnType) => void): void;
         /**
          * Add handler to promise with given promise object id.
          */
-        post(method: 'Runtime.awaitPromise', params?: Runtime.AwaitPromiseParameterType, callback?: (err: Error | null, params: Runtime.AwaitPromiseReturnType) => void): void;
-        post(method: 'Runtime.awaitPromise', callback?: (err: Error | null, params: Runtime.AwaitPromiseReturnType) => void): void;
+        post(method: "Runtime.awaitPromise", params?: Runtime.AwaitPromiseParameterType, callback?: (err: Error | null, params: Runtime.AwaitPromiseReturnType) => void): void;
+        post(method: "Runtime.awaitPromise", callback?: (err: Error | null, params: Runtime.AwaitPromiseReturnType) => void): void;
         /**
          * Calls function with given declaration on the given object. Object group of the result is inherited from the target object.
          */
-        post(method: 'Runtime.callFunctionOn', params?: Runtime.CallFunctionOnParameterType, callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
-        post(method: 'Runtime.callFunctionOn', callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
+        post(method: "Runtime.callFunctionOn", params?: Runtime.CallFunctionOnParameterType, callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
+        post(method: "Runtime.callFunctionOn", callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
         /**
          * Returns properties of a given object. Object group of the result is inherited from the target object.
          */
-        post(method: 'Runtime.getProperties', params?: Runtime.GetPropertiesParameterType, callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
-        post(method: 'Runtime.getProperties', callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
+        post(method: "Runtime.getProperties", params?: Runtime.GetPropertiesParameterType, callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
+        post(method: "Runtime.getProperties", callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
         /**
          * Releases remote object with given id.
          */
-        post(method: 'Runtime.releaseObject', params?: Runtime.ReleaseObjectParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Runtime.releaseObject', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.releaseObject", params?: Runtime.ReleaseObjectParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.releaseObject", callback?: (err: Error | null) => void): void;
         /**
          * Releases all remote objects that belong to a given group.
          */
-        post(method: 'Runtime.releaseObjectGroup', params?: Runtime.ReleaseObjectGroupParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Runtime.releaseObjectGroup', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.releaseObjectGroup", params?: Runtime.ReleaseObjectGroupParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.releaseObjectGroup", callback?: (err: Error | null) => void): void;
         /**
          * Tells inspected instance to run if it was waiting for debugger to attach.
          */
-        post(method: 'Runtime.runIfWaitingForDebugger', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.runIfWaitingForDebugger", callback?: (err: Error | null) => void): void;
         /**
          * Enables reporting of execution contexts creation by means of <code>executionContextCreated</code> event. When the reporting gets enabled the event will be sent immediately for each existing execution context.
          */
-        post(method: 'Runtime.enable', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.enable", callback?: (err: Error | null) => void): void;
         /**
          * Disables reporting of execution contexts creation.
          */
-        post(method: 'Runtime.disable', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.disable", callback?: (err: Error | null) => void): void;
         /**
          * Discards collected exceptions and console API calls.
          */
-        post(method: 'Runtime.discardConsoleEntries', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.discardConsoleEntries", callback?: (err: Error | null) => void): void;
         /**
          * @experimental
          */
-        post(method: 'Runtime.setCustomObjectFormatterEnabled', params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Runtime.setCustomObjectFormatterEnabled', callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setCustomObjectFormatterEnabled", callback?: (err: Error | null) => void): void;
         /**
          * Compiles expression.
          */
-        post(method: 'Runtime.compileScript', params?: Runtime.CompileScriptParameterType, callback?: (err: Error | null, params: Runtime.CompileScriptReturnType) => void): void;
-        post(method: 'Runtime.compileScript', callback?: (err: Error | null, params: Runtime.CompileScriptReturnType) => void): void;
+        post(method: "Runtime.compileScript", params?: Runtime.CompileScriptParameterType, callback?: (err: Error | null, params: Runtime.CompileScriptReturnType) => void): void;
+        post(method: "Runtime.compileScript", callback?: (err: Error | null, params: Runtime.CompileScriptReturnType) => void): void;
         /**
          * Runs script with given id in a given context.
          */
-        post(method: 'Runtime.runScript', params?: Runtime.RunScriptParameterType, callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
-        post(method: 'Runtime.runScript', callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
-        post(method: 'Runtime.queryObjects', params?: Runtime.QueryObjectsParameterType, callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
-        post(method: 'Runtime.queryObjects', callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
+        post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType, callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
+        post(method: "Runtime.runScript", callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
+        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
+        post(method: "Runtime.queryObjects", callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
         /**
          * Returns all let, const and class variables from global scope.
          */
         post(
-            method: 'Runtime.globalLexicalScopeNames',
+            method: "Runtime.globalLexicalScopeNames",
             params?: Runtime.GlobalLexicalScopeNamesParameterType,
             callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void
         ): void;
-        post(method: 'Runtime.globalLexicalScopeNames', callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void): void;
+        post(method: "Runtime.globalLexicalScopeNames", callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void): void;
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been enabled until the result for this command is received.
          */
-        post(method: 'Debugger.enable', callback?: (err: Error | null, params: Debugger.EnableReturnType) => void): void;
+        post(method: "Debugger.enable", callback?: (err: Error | null, params: Debugger.EnableReturnType) => void): void;
         /**
          * Disables debugger for given page.
          */
-        post(method: 'Debugger.disable', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.disable", callback?: (err: Error | null) => void): void;
         /**
          * Activates / deactivates all breakpoints on the page.
          */
-        post(method: 'Debugger.setBreakpointsActive', params?: Debugger.SetBreakpointsActiveParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setBreakpointsActive', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBreakpointsActive", params?: Debugger.SetBreakpointsActiveParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBreakpointsActive", callback?: (err: Error | null) => void): void;
         /**
          * Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
          */
-        post(method: 'Debugger.setSkipAllPauses', params?: Debugger.SetSkipAllPausesParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setSkipAllPauses', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setSkipAllPauses", params?: Debugger.SetSkipAllPausesParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setSkipAllPauses", callback?: (err: Error | null) => void): void;
         /**
          * Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this command is issued, all existing parsed scripts will have breakpoints resolved and returned in <code>locations</code> property. Further matching script parsing will result in subsequent <code>breakpointResolved</code> events issued. This logical breakpoint will survive page reloads.
          */
-        post(method: 'Debugger.setBreakpointByUrl', params?: Debugger.SetBreakpointByUrlParameterType, callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
-        post(method: 'Debugger.setBreakpointByUrl', callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
+        post(method: "Debugger.setBreakpointByUrl", params?: Debugger.SetBreakpointByUrlParameterType, callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
+        post(method: "Debugger.setBreakpointByUrl", callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
         /**
          * Sets JavaScript breakpoint at a given location.
          */
-        post(method: 'Debugger.setBreakpoint', params?: Debugger.SetBreakpointParameterType, callback?: (err: Error | null, params: Debugger.SetBreakpointReturnType) => void): void;
-        post(method: 'Debugger.setBreakpoint', callback?: (err: Error | null, params: Debugger.SetBreakpointReturnType) => void): void;
+        post(method: "Debugger.setBreakpoint", params?: Debugger.SetBreakpointParameterType, callback?: (err: Error | null, params: Debugger.SetBreakpointReturnType) => void): void;
+        post(method: "Debugger.setBreakpoint", callback?: (err: Error | null, params: Debugger.SetBreakpointReturnType) => void): void;
         /**
          * Removes JavaScript breakpoint.
          */
-        post(method: 'Debugger.removeBreakpoint', params?: Debugger.RemoveBreakpointParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.removeBreakpoint', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.removeBreakpoint", params?: Debugger.RemoveBreakpointParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.removeBreakpoint", callback?: (err: Error | null) => void): void;
         /**
          * Returns possible locations for breakpoint. scriptId in start and end range locations should be the same.
          */
         post(
-            method: 'Debugger.getPossibleBreakpoints',
+            method: "Debugger.getPossibleBreakpoints",
             params?: Debugger.GetPossibleBreakpointsParameterType,
             callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void
         ): void;
-        post(method: 'Debugger.getPossibleBreakpoints', callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
+        post(method: "Debugger.getPossibleBreakpoints", callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
         /**
          * Continues execution until specific location is reached.
          */
-        post(method: 'Debugger.continueToLocation', params?: Debugger.ContinueToLocationParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.continueToLocation', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.continueToLocation", params?: Debugger.ContinueToLocationParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.continueToLocation", callback?: (err: Error | null) => void): void;
         /**
          * @experimental
          */
-        post(method: 'Debugger.pauseOnAsyncCall', params?: Debugger.PauseOnAsyncCallParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.pauseOnAsyncCall', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.pauseOnAsyncCall", params?: Debugger.PauseOnAsyncCallParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.pauseOnAsyncCall", callback?: (err: Error | null) => void): void;
         /**
          * Steps over the statement.
          */
-        post(method: 'Debugger.stepOver', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.stepOver", callback?: (err: Error | null) => void): void;
         /**
          * Steps into the function call.
          */
-        post(method: 'Debugger.stepInto', params?: Debugger.StepIntoParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.stepInto', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.stepInto", params?: Debugger.StepIntoParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.stepInto", callback?: (err: Error | null) => void): void;
         /**
          * Steps out of the function call.
          */
-        post(method: 'Debugger.stepOut', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.stepOut", callback?: (err: Error | null) => void): void;
         /**
          * Stops on the next JavaScript statement.
          */
-        post(method: 'Debugger.pause', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.pause", callback?: (err: Error | null) => void): void;
         /**
          * This method is deprecated - use Debugger.stepInto with breakOnAsyncCall and Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before next pause. Returns success when async task is actually scheduled, returns error if no task were scheduled or another scheduleStepIntoAsync was called.
          * @experimental
          */
-        post(method: 'Debugger.scheduleStepIntoAsync', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.scheduleStepIntoAsync", callback?: (err: Error | null) => void): void;
         /**
          * Resumes JavaScript execution.
          */
-        post(method: 'Debugger.resume', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.resume", callback?: (err: Error | null) => void): void;
         /**
          * Returns stack trace with given <code>stackTraceId</code>.
          * @experimental
          */
-        post(method: 'Debugger.getStackTrace', params?: Debugger.GetStackTraceParameterType, callback?: (err: Error | null, params: Debugger.GetStackTraceReturnType) => void): void;
-        post(method: 'Debugger.getStackTrace', callback?: (err: Error | null, params: Debugger.GetStackTraceReturnType) => void): void;
+        post(method: "Debugger.getStackTrace", params?: Debugger.GetStackTraceParameterType, callback?: (err: Error | null, params: Debugger.GetStackTraceReturnType) => void): void;
+        post(method: "Debugger.getStackTrace", callback?: (err: Error | null, params: Debugger.GetStackTraceReturnType) => void): void;
         /**
          * Searches for given string in script content.
          */
-        post(method: 'Debugger.searchInContent', params?: Debugger.SearchInContentParameterType, callback?: (err: Error | null, params: Debugger.SearchInContentReturnType) => void): void;
-        post(method: 'Debugger.searchInContent', callback?: (err: Error | null, params: Debugger.SearchInContentReturnType) => void): void;
+        post(method: "Debugger.searchInContent", params?: Debugger.SearchInContentParameterType, callback?: (err: Error | null, params: Debugger.SearchInContentReturnType) => void): void;
+        post(method: "Debugger.searchInContent", callback?: (err: Error | null, params: Debugger.SearchInContentReturnType) => void): void;
         /**
          * Edits JavaScript source live.
          */
-        post(method: 'Debugger.setScriptSource', params?: Debugger.SetScriptSourceParameterType, callback?: (err: Error | null, params: Debugger.SetScriptSourceReturnType) => void): void;
-        post(method: 'Debugger.setScriptSource', callback?: (err: Error | null, params: Debugger.SetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.setScriptSource", params?: Debugger.SetScriptSourceParameterType, callback?: (err: Error | null, params: Debugger.SetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.setScriptSource", callback?: (err: Error | null, params: Debugger.SetScriptSourceReturnType) => void): void;
         /**
          * Restarts particular call frame from the beginning.
          */
-        post(method: 'Debugger.restartFrame', params?: Debugger.RestartFrameParameterType, callback?: (err: Error | null, params: Debugger.RestartFrameReturnType) => void): void;
-        post(method: 'Debugger.restartFrame', callback?: (err: Error | null, params: Debugger.RestartFrameReturnType) => void): void;
+        post(method: "Debugger.restartFrame", params?: Debugger.RestartFrameParameterType, callback?: (err: Error | null, params: Debugger.RestartFrameReturnType) => void): void;
+        post(method: "Debugger.restartFrame", callback?: (err: Error | null, params: Debugger.RestartFrameReturnType) => void): void;
         /**
          * Returns source for the script with given id.
          */
-        post(method: 'Debugger.getScriptSource', params?: Debugger.GetScriptSourceParameterType, callback?: (err: Error | null, params: Debugger.GetScriptSourceReturnType) => void): void;
-        post(method: 'Debugger.getScriptSource', callback?: (err: Error | null, params: Debugger.GetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.getScriptSource", params?: Debugger.GetScriptSourceParameterType, callback?: (err: Error | null, params: Debugger.GetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.getScriptSource", callback?: (err: Error | null, params: Debugger.GetScriptSourceReturnType) => void): void;
         /**
          * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or no exceptions. Initial pause on exceptions state is <code>none</code>.
          */
-        post(method: 'Debugger.setPauseOnExceptions', params?: Debugger.SetPauseOnExceptionsParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setPauseOnExceptions', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setPauseOnExceptions", params?: Debugger.SetPauseOnExceptionsParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setPauseOnExceptions", callback?: (err: Error | null) => void): void;
         /**
          * Evaluates expression on a given call frame.
          */
-        post(method: 'Debugger.evaluateOnCallFrame', params?: Debugger.EvaluateOnCallFrameParameterType, callback?: (err: Error | null, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
-        post(method: 'Debugger.evaluateOnCallFrame', callback?: (err: Error | null, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
+        post(method: "Debugger.evaluateOnCallFrame", params?: Debugger.EvaluateOnCallFrameParameterType, callback?: (err: Error | null, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
+        post(method: "Debugger.evaluateOnCallFrame", callback?: (err: Error | null, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
         /**
          * Changes value of variable in a callframe. Object-based scopes are not supported and must be mutated manually.
          */
-        post(method: 'Debugger.setVariableValue', params?: Debugger.SetVariableValueParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setVariableValue', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setVariableValue", params?: Debugger.SetVariableValueParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setVariableValue", callback?: (err: Error | null) => void): void;
         /**
          * Changes return value in top frame. Available only at return break position.
          * @experimental
          */
-        post(method: 'Debugger.setReturnValue', params?: Debugger.SetReturnValueParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setReturnValue', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setReturnValue", params?: Debugger.SetReturnValueParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setReturnValue", callback?: (err: Error | null) => void): void;
         /**
          * Enables or disables async call stacks tracking.
          */
-        post(method: 'Debugger.setAsyncCallStackDepth', params?: Debugger.SetAsyncCallStackDepthParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setAsyncCallStackDepth', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setAsyncCallStackDepth", params?: Debugger.SetAsyncCallStackDepthParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setAsyncCallStackDepth", callback?: (err: Error | null) => void): void;
         /**
          * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
          * @experimental
          */
-        post(method: 'Debugger.setBlackboxPatterns', params?: Debugger.SetBlackboxPatternsParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setBlackboxPatterns', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBlackboxPatterns", params?: Debugger.SetBlackboxPatternsParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBlackboxPatterns", callback?: (err: Error | null) => void): void;
         /**
          * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful. Positions array contains positions where blackbox state is changed. First interval isn't blackboxed. Array should be sorted.
          * @experimental
          */
-        post(method: 'Debugger.setBlackboxedRanges', params?: Debugger.SetBlackboxedRangesParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Debugger.setBlackboxedRanges', callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBlackboxedRanges", params?: Debugger.SetBlackboxedRangesParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Debugger.setBlackboxedRanges", callback?: (err: Error | null) => void): void;
         /**
          * Enables console domain, sends the messages collected so far to the client by means of the <code>messageAdded</code> notification.
          */
-        post(method: 'Console.enable', callback?: (err: Error | null) => void): void;
+        post(method: "Console.enable", callback?: (err: Error | null) => void): void;
         /**
          * Disables console domain, prevents further console messages from being reported to the client.
          */
-        post(method: 'Console.disable', callback?: (err: Error | null) => void): void;
+        post(method: "Console.disable", callback?: (err: Error | null) => void): void;
         /**
          * Does nothing.
          */
-        post(method: 'Console.clearMessages', callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.enable', callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.disable', callback?: (err: Error | null) => void): void;
+        post(method: "Console.clearMessages", callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.enable", callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.disable", callback?: (err: Error | null) => void): void;
         /**
          * Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.
          */
-        post(method: 'Profiler.setSamplingInterval', params?: Profiler.SetSamplingIntervalParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.setSamplingInterval', callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.start', callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.stop', callback?: (err: Error | null, params: Profiler.StopReturnType) => void): void;
+        post(method: "Profiler.setSamplingInterval", params?: Profiler.SetSamplingIntervalParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.setSamplingInterval", callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.start", callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.stop", callback?: (err: Error | null, params: Profiler.StopReturnType) => void): void;
         /**
          * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code coverage may be incomplete. Enabling prevents running optimized code and resets execution counters.
          */
-        post(method: 'Profiler.startPreciseCoverage', params?: Profiler.StartPreciseCoverageParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Profiler.startPreciseCoverage', callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.startPreciseCoverage", params?: Profiler.StartPreciseCoverageParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.startPreciseCoverage", callback?: (err: Error | null) => void): void;
         /**
          * Disable precise code coverage. Disabling releases unnecessary execution count records and allows executing optimized code.
          */
-        post(method: 'Profiler.stopPreciseCoverage', callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.stopPreciseCoverage", callback?: (err: Error | null) => void): void;
         /**
          * Collect coverage data for the current isolate, and resets execution counters. Precise code coverage needs to have started.
          */
-        post(method: 'Profiler.takePreciseCoverage', callback?: (err: Error | null, params: Profiler.TakePreciseCoverageReturnType) => void): void;
+        post(method: "Profiler.takePreciseCoverage", callback?: (err: Error | null, params: Profiler.TakePreciseCoverageReturnType) => void): void;
         /**
          * Collect coverage data for the current isolate. The coverage data may be incomplete due to garbage collection.
          */
-        post(method: 'Profiler.getBestEffortCoverage', callback?: (err: Error | null, params: Profiler.GetBestEffortCoverageReturnType) => void): void;
-        post(method: 'HeapProfiler.enable', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.disable', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.startTrackingHeapObjects', params?: HeapProfiler.StartTrackingHeapObjectsParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.startTrackingHeapObjects', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.stopTrackingHeapObjects', params?: HeapProfiler.StopTrackingHeapObjectsParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.stopTrackingHeapObjects', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.takeHeapSnapshot', params?: HeapProfiler.TakeHeapSnapshotParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.takeHeapSnapshot', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.collectGarbage', callback?: (err: Error | null) => void): void;
+        post(method: "Profiler.getBestEffortCoverage", callback?: (err: Error | null, params: Profiler.GetBestEffortCoverageReturnType) => void): void;
+        post(method: "HeapProfiler.enable", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.disable", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.startTrackingHeapObjects", params?: HeapProfiler.StartTrackingHeapObjectsParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.startTrackingHeapObjects", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.stopTrackingHeapObjects", params?: HeapProfiler.StopTrackingHeapObjectsParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.stopTrackingHeapObjects", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.takeHeapSnapshot", params?: HeapProfiler.TakeHeapSnapshotParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.takeHeapSnapshot", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.collectGarbage", callback?: (err: Error | null) => void): void;
         post(
-            method: 'HeapProfiler.getObjectByHeapObjectId',
+            method: "HeapProfiler.getObjectByHeapObjectId",
             params?: HeapProfiler.GetObjectByHeapObjectIdParameterType,
             callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void
         ): void;
-        post(method: 'HeapProfiler.getObjectByHeapObjectId', callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getObjectByHeapObjectId", callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
         /**
          * Enables console to refer to the node with given id via $x (see Command Line API for more details $x functions).
          */
-        post(method: 'HeapProfiler.addInspectedHeapObject', params?: HeapProfiler.AddInspectedHeapObjectParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.addInspectedHeapObject', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.getHeapObjectId', params?: HeapProfiler.GetHeapObjectIdParameterType, callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
-        post(method: 'HeapProfiler.getHeapObjectId', callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
-        post(method: 'HeapProfiler.startSampling', params?: HeapProfiler.StartSamplingParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.startSampling', callback?: (err: Error | null) => void): void;
-        post(method: 'HeapProfiler.stopSampling', callback?: (err: Error | null, params: HeapProfiler.StopSamplingReturnType) => void): void;
-        post(method: 'HeapProfiler.getSamplingProfile', callback?: (err: Error | null, params: HeapProfiler.GetSamplingProfileReturnType) => void): void;
+        post(method: "HeapProfiler.addInspectedHeapObject", params?: HeapProfiler.AddInspectedHeapObjectParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.addInspectedHeapObject", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.getHeapObjectId", params?: HeapProfiler.GetHeapObjectIdParameterType, callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getHeapObjectId", callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.startSampling", params?: HeapProfiler.StartSamplingParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.startSampling", callback?: (err: Error | null) => void): void;
+        post(method: "HeapProfiler.stopSampling", callback?: (err: Error | null, params: HeapProfiler.StopSamplingReturnType) => void): void;
+        post(method: "HeapProfiler.getSamplingProfile", callback?: (err: Error | null, params: HeapProfiler.GetSamplingProfileReturnType) => void): void;
         /**
          * Gets supported tracing categories.
          */
-        post(method: 'NodeTracing.getCategories', callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
+        post(method: "NodeTracing.getCategories", callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
         /**
          * Start trace events collection.
          */
-        post(method: 'NodeTracing.start', params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'NodeTracing.start', callback?: (err: Error | null) => void): void;
+        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeTracing.start", callback?: (err: Error | null) => void): void;
         /**
          * Stop trace events collection. Remaining collected events will be sent as a sequence of
          * dataCollected events followed by tracingComplete event.
          */
-        post(method: 'NodeTracing.stop', callback?: (err: Error | null) => void): void;
+        post(method: "NodeTracing.stop", callback?: (err: Error | null) => void): void;
         /**
          * Sends protocol message over session with given id.
          */
-        post(method: 'NodeWorker.sendMessageToWorker', params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'NodeWorker.sendMessageToWorker', callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.sendMessageToWorker", callback?: (err: Error | null) => void): void;
         /**
          * Instructs the inspector to attach to running workers. Will also attach to new workers
          * as they start
          */
-        post(method: 'NodeWorker.enable', params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'NodeWorker.enable', callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.enable", callback?: (err: Error | null) => void): void;
         /**
          * Detaches from all running workers and disables attaching to new workers as they are started.
          */
-        post(method: 'NodeWorker.disable', callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.disable", callback?: (err: Error | null) => void): void;
         /**
          * Detached from the worker with given sessionId.
          */
-        post(method: 'NodeWorker.detach', params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'NodeWorker.detach', callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
         /**
          * Disables network tracking, prevents network events from being sent to the client.
          */
-        post(method: 'Network.disable', callback?: (err: Error | null) => void): void;
+        post(method: "Network.disable", callback?: (err: Error | null) => void): void;
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
-        post(method: 'Network.enable', callback?: (err: Error | null) => void): void;
+        post(method: "Network.enable", callback?: (err: Error | null) => void): void;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
          */
-        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType, callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
-        post(method: 'Network.getRequestPostData', callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        post(method: "Network.getRequestPostData", params?: Network.GetRequestPostDataParameterType, callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        post(method: "Network.getRequestPostData", callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
         /**
          * Returns content served for the given request.
          */
-        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType, callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
-        post(method: 'Network.getResponseBody', callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        post(method: "Network.getResponseBody", params?: Network.GetResponseBodyParameterType, callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        post(method: "Network.getResponseBody", callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.
          * @experimental
          */
         post(
-            method: 'Network.streamResourceContent',
+            method: "Network.streamResourceContent",
             params?: Network.StreamResourceContentParameterType,
             callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void
         ): void;
-        post(method: 'Network.streamResourceContent', callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void): void;
+        post(method: "Network.streamResourceContent", callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void): void;
+        /**
+         * Fetches the resource and returns the content.
+         */
+        post(method: "Network.loadNetworkResource", params?: Network.LoadNetworkResourceParameterType, callback?: (err: Error | null, params: Network.LoadNetworkResourceReturnType) => void): void;
+        post(method: "Network.loadNetworkResource", callback?: (err: Error | null, params: Network.LoadNetworkResourceReturnType) => void): void;
         /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
-        post(method: 'NodeRuntime.enable', callback?: (err: Error | null) => void): void;
+        post(method: "NodeRuntime.enable", callback?: (err: Error | null) => void): void;
         /**
          * Disable NodeRuntime events
          */
-        post(method: 'NodeRuntime.disable', callback?: (err: Error | null) => void): void;
+        post(method: "NodeRuntime.disable", callback?: (err: Error | null) => void): void;
         /**
          * Enable the `NodeRuntime.waitingForDisconnect`.
          */
-        post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', callback?: (err: Error | null) => void): void;
-        post(method: 'Target.setAutoAttach', params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
-        post(method: 'Target.setAutoAttach', callback?: (err: Error | null) => void): void;
+        post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", callback?: (err: Error | null) => void): void;
+        post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Target.setAutoAttach", callback?: (err: Error | null) => void): void;
+        /**
+         * Read a chunk of the stream
+         */
+        post(method: "IO.read", params?: IO.ReadParameterType, callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.read", callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.close", params?: IO.CloseParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "IO.close", callback?: (err: Error | null) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        addListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        addListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        addListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        addListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        addListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        addListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        addListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        addListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        addListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        addListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        addListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        addListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        addListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        addListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        addListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        addListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        addListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        addListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        addListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        addListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        addListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        addListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        addListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        addListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        addListener(event: 'Debugger.resumed', listener: () => void): this;
+        addListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        addListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        addListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        addListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        addListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        addListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        addListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        addListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        addListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        addListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        addListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        addListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        addListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        addListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        addListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        addListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        addListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        addListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        addListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        addListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        addListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        addListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        addListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        addListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        addListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        addListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        addListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        addListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        addListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        addListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        addListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'inspectorNotification', message: InspectorNotification<object>): boolean;
-        emit(event: 'Runtime.executionContextCreated', message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
-        emit(event: 'Runtime.executionContextDestroyed', message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
-        emit(event: 'Runtime.executionContextsCleared'): boolean;
-        emit(event: 'Runtime.exceptionThrown', message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
-        emit(event: 'Runtime.exceptionRevoked', message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
-        emit(event: 'Runtime.consoleAPICalled', message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
-        emit(event: 'Runtime.inspectRequested', message: InspectorNotification<Runtime.InspectRequestedEventDataType>): boolean;
-        emit(event: 'Debugger.scriptParsed', message: InspectorNotification<Debugger.ScriptParsedEventDataType>): boolean;
-        emit(event: 'Debugger.scriptFailedToParse', message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>): boolean;
-        emit(event: 'Debugger.breakpointResolved', message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>): boolean;
-        emit(event: 'Debugger.paused', message: InspectorNotification<Debugger.PausedEventDataType>): boolean;
-        emit(event: 'Debugger.resumed'): boolean;
-        emit(event: 'Console.messageAdded', message: InspectorNotification<Console.MessageAddedEventDataType>): boolean;
-        emit(event: 'Profiler.consoleProfileStarted', message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
-        emit(event: 'Profiler.consoleProfileFinished', message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
-        emit(event: 'HeapProfiler.addHeapSnapshotChunk', message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>): boolean;
-        emit(event: 'HeapProfiler.resetProfiles'): boolean;
-        emit(event: 'HeapProfiler.reportHeapSnapshotProgress', message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
-        emit(event: 'HeapProfiler.lastSeenObjectId', message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
-        emit(event: 'HeapProfiler.heapStatsUpdate', message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
-        emit(event: 'NodeTracing.dataCollected', message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
-        emit(event: 'NodeTracing.tracingComplete'): boolean;
-        emit(event: 'NodeWorker.attachedToWorker', message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
-        emit(event: 'NodeWorker.detachedFromWorker', message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
-        emit(event: 'NodeWorker.receivedMessageFromWorker', message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
-        emit(event: 'Network.requestWillBeSent', message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
-        emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
-        emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
-        emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
-        emit(event: 'Network.dataReceived', message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
-        emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
-        emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
-        emit(event: 'Target.targetCreated', message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
-        emit(event: 'Target.attachedToTarget', message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
+        emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
+        emit(event: "Runtime.executionContextDestroyed", message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
+        emit(event: "Runtime.executionContextsCleared"): boolean;
+        emit(event: "Runtime.exceptionThrown", message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
+        emit(event: "Runtime.exceptionRevoked", message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
+        emit(event: "Runtime.consoleAPICalled", message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
+        emit(event: "Runtime.inspectRequested", message: InspectorNotification<Runtime.InspectRequestedEventDataType>): boolean;
+        emit(event: "Debugger.scriptParsed", message: InspectorNotification<Debugger.ScriptParsedEventDataType>): boolean;
+        emit(event: "Debugger.scriptFailedToParse", message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>): boolean;
+        emit(event: "Debugger.breakpointResolved", message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>): boolean;
+        emit(event: "Debugger.paused", message: InspectorNotification<Debugger.PausedEventDataType>): boolean;
+        emit(event: "Debugger.resumed"): boolean;
+        emit(event: "Console.messageAdded", message: InspectorNotification<Console.MessageAddedEventDataType>): boolean;
+        emit(event: "Profiler.consoleProfileStarted", message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
+        emit(event: "Profiler.consoleProfileFinished", message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
+        emit(event: "HeapProfiler.addHeapSnapshotChunk", message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>): boolean;
+        emit(event: "HeapProfiler.resetProfiles"): boolean;
+        emit(event: "HeapProfiler.reportHeapSnapshotProgress", message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
+        emit(event: "HeapProfiler.lastSeenObjectId", message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
+        emit(event: "HeapProfiler.heapStatsUpdate", message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
+        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
+        emit(event: "NodeTracing.tracingComplete"): boolean;
+        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
+        emit(event: "Network.requestWillBeSent", message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
+        emit(event: "Network.responseReceived", message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
+        emit(event: "Network.loadingFailed", message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
+        emit(event: "Network.loadingFinished", message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
+        emit(event: "Network.dataReceived", message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
+        emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
+        emit(event: "NodeRuntime.waitingForDebugger"): boolean;
+        emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
+        emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        on(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        on(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        on(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        on(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        on(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        on(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        on(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        on(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        on(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        on(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        on(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        on(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        on(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        on(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        on(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        on(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        on(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        on(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        on(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        on(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        on(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        on(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        on(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        on(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        on(event: 'Debugger.resumed', listener: () => void): this;
+        on(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        on(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        on(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        on(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        on(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        on(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        on(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        on(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        on(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        on(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        on(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        on(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        on(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        on(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        on(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        on(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        on(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        on(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        on(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        on(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        on(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        on(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        on(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        on(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        on(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        on(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        on(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        on(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        on(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        on(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        on(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        on(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        on(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        on(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        on(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        once(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        once(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        once(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        once(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        once(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        once(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        once(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        once(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        once(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        once(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        once(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        once(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        once(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        once(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        once(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        once(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        once(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        once(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        once(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        once(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        once(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        once(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        once(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        once(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        once(event: 'Debugger.resumed', listener: () => void): this;
+        once(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        once(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        once(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        once(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        once(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        once(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        once(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        once(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        once(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        once(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        once(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        once(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        once(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        once(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        once(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        once(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        once(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        once(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        once(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        once(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        once(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        once(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        once(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        once(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        once(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        once(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        once(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        once(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        once(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        once(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        once(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        once(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        once(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        once(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        once(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        prependListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        prependListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        prependListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        prependListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        prependListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        prependListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        prependListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        prependListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        prependListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        prependListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        prependListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        prependListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        prependListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        prependListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        prependListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        prependListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        prependListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        prependListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        prependListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        prependListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        prependListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        prependListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        prependListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        prependListener(event: 'Debugger.resumed', listener: () => void): this;
+        prependListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        prependListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        prependListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        prependListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        prependListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        prependListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        prependListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        prependListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        prependListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        prependListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        prependListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        prependListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        prependListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        prependListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        prependListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        prependListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        prependListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        prependListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        prependListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        prependListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        prependListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        prependListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        prependListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        prependListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        prependListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        prependListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        prependListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        prependListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        prependListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        prependListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependOnceListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        prependOnceListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        prependOnceListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        prependOnceListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        prependOnceListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        prependOnceListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        prependOnceListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        prependOnceListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        prependOnceListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        prependOnceListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        prependOnceListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        prependOnceListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        prependOnceListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        prependOnceListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        prependOnceListener(event: 'Debugger.resumed', listener: () => void): this;
+        prependOnceListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        prependOnceListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        prependOnceListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        prependOnceListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        prependOnceListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        prependOnceListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        prependOnceListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        prependOnceListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        prependOnceListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        prependOnceListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        prependOnceListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        prependOnceListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        prependOnceListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        prependOnceListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        prependOnceListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        prependOnceListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        prependOnceListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        prependOnceListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        prependOnceListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        prependOnceListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        prependOnceListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        prependOnceListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        prependOnceListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        prependOnceListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        prependOnceListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        prependOnceListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        prependOnceListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
-    }
-
-    /**
-     * Activate inspector on host and port. Equivalent to `node --inspect=[[host:]port]`, but can be done programmatically after node has
-     * started.
-     *
-     * If wait is `true`, will block until a client has connected to the inspect port
-     * and flow control has been passed to the debugger client.
-     *
-     * See the [security warning](https://nodejs.org/docs/latest-v22.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
-     * regarding the `host` parameter usage.
-     * @param port Port to listen on for inspector connections. Defaults to what was specified on the CLI.
-     * @param host Host to listen on for inspector connections. Defaults to what was specified on the CLI.
-     * @param wait Block until a client has connected. Defaults to what was specified on the CLI.
-     * @returns Disposable that calls `inspector.close()`.
-     */
-    function open(port?: number, host?: string, wait?: boolean): Disposable;
-
-    /**
-     * Deactivate the inspector. Blocks until there are no active connections.
-     */
-    function close(): void;
-
-    /**
-     * Return the URL of the active inspector, or `undefined` if there is none.
-     *
-     * ```console
-     * $ node --inspect -p 'inspector.url()'
-     * Debugger listening on ws://127.0.0.1:9229/166e272e-7a30-4d09-97ce-f1c012b43c34
-     * For help, see: https://nodejs.org/en/docs/inspector
-     * ws://127.0.0.1:9229/166e272e-7a30-4d09-97ce-f1c012b43c34
-     *
-     * $ node --inspect=localhost:3000 -p 'inspector.url()'
-     * Debugger listening on ws://localhost:3000/51cf8d0e-3c36-4c59-8efd-54519839e56a
-     * For help, see: https://nodejs.org/en/docs/inspector
-     * ws://localhost:3000/51cf8d0e-3c36-4c59-8efd-54519839e56a
-     *
-     * $ node -p 'inspector.url()'
-     * undefined
-     * ```
-     */
-    function url(): string | undefined;
-
-    /**
-     * Blocks until a client (existing or connected later) has sent `Runtime.runIfWaitingForDebugger` command.
-     *
-     * An exception will be thrown if there is no active inspector.
-     * @since v12.7.0
-     */
-    function waitForDebugger(): void;
-
-    // These methods are exposed by the V8 inspector console API (inspector/v8-console.h).
-    // The method signatures differ from those of the Node.js console, and are deliberately
-    // typed permissively.
-    interface InspectorConsole {
-        debug(...data: any[]): void;
-        error(...data: any[]): void;
-        info(...data: any[]): void;
-        log(...data: any[]): void;
-        warn(...data: any[]): void;
-        dir(...data: any[]): void;
-        dirxml(...data: any[]): void;
-        table(...data: any[]): void;
-        trace(...data: any[]): void;
-        group(...data: any[]): void;
-        groupCollapsed(...data: any[]): void;
-        groupEnd(...data: any[]): void;
-        clear(...data: any[]): void;
-        count(label?: any): void;
-        countReset(label?: any): void;
-        assert(value?: any, ...data: any[]): void;
-        profile(label?: any): void;
-        profileEnd(label?: any): void;
-        time(label?: any): void;
-        timeLog(label?: any): void;
-        timeStamp(label?: any): void;
-    }
-
-    /**
-     * An object to send messages to the remote inspector console.
-     * @since v11.0.0
-     */
-    const console: InspectorConsole;
-
-    // DevTools protocol event broadcast methods
-    namespace Network {
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Broadcasts the `Network.requestWillBeSent` event to connected frontends. This event indicates that
-         * the application is about to send an HTTP request.
-         * @since v22.6.0
-         */
-        function requestWillBeSent(params: RequestWillBeSentEventDataType): void;
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Broadcasts the `Network.dataReceived` event to connected frontends, or buffers the data if
-         * `Network.streamResourceContent` command was not invoked for the given request yet.
-         *
-         * Also enables `Network.getResponseBody` command to retrieve the response data.
-         * @since v22.17.0
-         */
-        function dataReceived(params: DataReceivedEventDataType): void;
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Enables `Network.getRequestPostData` command to retrieve the request data.
-         * @since v22.18.0
-         */
-        function dataSent(params: unknown): void;
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Broadcasts the `Network.responseReceived` event to connected frontends. This event indicates that
-         * HTTP response is available.
-         * @since v22.6.0
-         */
-        function responseReceived(params: ResponseReceivedEventDataType): void;
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Broadcasts the `Network.loadingFinished` event to connected frontends. This event indicates that
-         * HTTP request has finished loading.
-         * @since v22.6.0
-         */
-        function loadingFinished(params: LoadingFinishedEventDataType): void;
-        /**
-         * This feature is only available with the `--experimental-network-inspection` flag enabled.
-         *
-         * Broadcasts the `Network.loadingFailed` event to connected frontends. This event indicates that
-         * HTTP request has failed to load.
-         * @since v22.7.0
-         */
-        function loadingFailed(params: LoadingFailedEventDataType): void;
+        prependOnceListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
     }
 }
 
-/**
- * The `node:inspector` module provides an API for interacting with the V8
- * inspector.
- */
-declare module 'node:inspector' {
-    export * from 'inspector';
+declare module "inspector/promises" {
+    export {
+        Schema,
+        Runtime,
+        Debugger,
+        Console,
+        Profiler,
+        HeapProfiler,
+        NodeTracing,
+        NodeWorker,
+        Network,
+        NodeRuntime,
+        Target,
+        IO,
+    } from 'inspector';
 }
 
-/**
- * The `node:inspector/promises` module provides an API for interacting with the V8
- * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector/promises.js)
- * @since v19.0.0
- */
-declare module 'inspector/promises' {
-    import EventEmitter = require('node:events');
+declare module "inspector/promises" {
     import {
-        open,
-        close,
-        url,
-        waitForDebugger,
-        console,
         InspectorNotification,
         Schema,
         Runtime,
@@ -3174,38 +3059,15 @@ declare module 'inspector/promises' {
         Network,
         NodeRuntime,
         Target,
-    } from 'inspector';
+        IO,
+    } from "inspector";
 
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
      * back-end and receiving message responses and notifications.
      * @since v19.0.0
      */
-    class Session extends EventEmitter {
-        /**
-         * Create a new instance of the `inspector.Session` class.
-         * The inspector session needs to be connected through `session.connect()` before the messages can be dispatched to the inspector backend.
-         */
-        constructor();
-
-        /**
-         * Connects a session to the inspector back-end.
-         */
-        connect(): void;
-
-        /**
-         * Connects a session to the inspector back-end.
-         * An exception will be thrown if this API was not called on a Worker thread.
-         */
-        connectToMainThread(): void;
-
-        /**
-         * Immediately close the session. All pending message callbacks will be called with an error.
-         * `session.connect()` will need to be called to be able to send messages again.
-         * Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
-         */
-        disconnect(): void;
-
+    interface Session {
         /**
          * Posts a message to the inspector back-end.
          *
@@ -3234,978 +3096,957 @@ declare module 'inspector/promises' {
         /**
          * Returns supported domains.
          */
-        post(method: 'Schema.getDomains'): Promise<Schema.GetDomainsReturnType>;
+        post(method: "Schema.getDomains"): Promise<Schema.GetDomainsReturnType>;
         /**
          * Evaluates expression on global object.
          */
-        post(method: 'Runtime.evaluate', params?: Runtime.EvaluateParameterType): Promise<Runtime.EvaluateReturnType>;
+        post(method: "Runtime.evaluate", params?: Runtime.EvaluateParameterType): Promise<Runtime.EvaluateReturnType>;
         /**
          * Add handler to promise with given promise object id.
          */
-        post(method: 'Runtime.awaitPromise', params?: Runtime.AwaitPromiseParameterType): Promise<Runtime.AwaitPromiseReturnType>;
+        post(method: "Runtime.awaitPromise", params?: Runtime.AwaitPromiseParameterType): Promise<Runtime.AwaitPromiseReturnType>;
         /**
          * Calls function with given declaration on the given object. Object group of the result is inherited from the target object.
          */
-        post(method: 'Runtime.callFunctionOn', params?: Runtime.CallFunctionOnParameterType): Promise<Runtime.CallFunctionOnReturnType>;
+        post(method: "Runtime.callFunctionOn", params?: Runtime.CallFunctionOnParameterType): Promise<Runtime.CallFunctionOnReturnType>;
         /**
          * Returns properties of a given object. Object group of the result is inherited from the target object.
          */
-        post(method: 'Runtime.getProperties', params?: Runtime.GetPropertiesParameterType): Promise<Runtime.GetPropertiesReturnType>;
+        post(method: "Runtime.getProperties", params?: Runtime.GetPropertiesParameterType): Promise<Runtime.GetPropertiesReturnType>;
         /**
          * Releases remote object with given id.
          */
-        post(method: 'Runtime.releaseObject', params?: Runtime.ReleaseObjectParameterType): Promise<void>;
+        post(method: "Runtime.releaseObject", params?: Runtime.ReleaseObjectParameterType): Promise<void>;
         /**
          * Releases all remote objects that belong to a given group.
          */
-        post(method: 'Runtime.releaseObjectGroup', params?: Runtime.ReleaseObjectGroupParameterType): Promise<void>;
+        post(method: "Runtime.releaseObjectGroup", params?: Runtime.ReleaseObjectGroupParameterType): Promise<void>;
         /**
          * Tells inspected instance to run if it was waiting for debugger to attach.
          */
-        post(method: 'Runtime.runIfWaitingForDebugger'): Promise<void>;
+        post(method: "Runtime.runIfWaitingForDebugger"): Promise<void>;
         /**
          * Enables reporting of execution contexts creation by means of <code>executionContextCreated</code> event. When the reporting gets enabled the event will be sent immediately for each existing execution context.
          */
-        post(method: 'Runtime.enable'): Promise<void>;
+        post(method: "Runtime.enable"): Promise<void>;
         /**
          * Disables reporting of execution contexts creation.
          */
-        post(method: 'Runtime.disable'): Promise<void>;
+        post(method: "Runtime.disable"): Promise<void>;
         /**
          * Discards collected exceptions and console API calls.
          */
-        post(method: 'Runtime.discardConsoleEntries'): Promise<void>;
+        post(method: "Runtime.discardConsoleEntries"): Promise<void>;
         /**
          * @experimental
          */
-        post(method: 'Runtime.setCustomObjectFormatterEnabled', params?: Runtime.SetCustomObjectFormatterEnabledParameterType): Promise<void>;
+        post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType): Promise<void>;
         /**
          * Compiles expression.
          */
-        post(method: 'Runtime.compileScript', params?: Runtime.CompileScriptParameterType): Promise<Runtime.CompileScriptReturnType>;
+        post(method: "Runtime.compileScript", params?: Runtime.CompileScriptParameterType): Promise<Runtime.CompileScriptReturnType>;
         /**
          * Runs script with given id in a given context.
          */
-        post(method: 'Runtime.runScript', params?: Runtime.RunScriptParameterType): Promise<Runtime.RunScriptReturnType>;
-        post(method: 'Runtime.queryObjects', params?: Runtime.QueryObjectsParameterType): Promise<Runtime.QueryObjectsReturnType>;
+        post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType): Promise<Runtime.RunScriptReturnType>;
+        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType): Promise<Runtime.QueryObjectsReturnType>;
         /**
          * Returns all let, const and class variables from global scope.
          */
-        post(method: 'Runtime.globalLexicalScopeNames', params?: Runtime.GlobalLexicalScopeNamesParameterType): Promise<Runtime.GlobalLexicalScopeNamesReturnType>;
+        post(method: "Runtime.globalLexicalScopeNames", params?: Runtime.GlobalLexicalScopeNamesParameterType): Promise<Runtime.GlobalLexicalScopeNamesReturnType>;
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been enabled until the result for this command is received.
          */
-        post(method: 'Debugger.enable'): Promise<Debugger.EnableReturnType>;
+        post(method: "Debugger.enable"): Promise<Debugger.EnableReturnType>;
         /**
          * Disables debugger for given page.
          */
-        post(method: 'Debugger.disable'): Promise<void>;
+        post(method: "Debugger.disable"): Promise<void>;
         /**
          * Activates / deactivates all breakpoints on the page.
          */
-        post(method: 'Debugger.setBreakpointsActive', params?: Debugger.SetBreakpointsActiveParameterType): Promise<void>;
+        post(method: "Debugger.setBreakpointsActive", params?: Debugger.SetBreakpointsActiveParameterType): Promise<void>;
         /**
          * Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
          */
-        post(method: 'Debugger.setSkipAllPauses', params?: Debugger.SetSkipAllPausesParameterType): Promise<void>;
+        post(method: "Debugger.setSkipAllPauses", params?: Debugger.SetSkipAllPausesParameterType): Promise<void>;
         /**
          * Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this command is issued, all existing parsed scripts will have breakpoints resolved and returned in <code>locations</code> property. Further matching script parsing will result in subsequent <code>breakpointResolved</code> events issued. This logical breakpoint will survive page reloads.
          */
-        post(method: 'Debugger.setBreakpointByUrl', params?: Debugger.SetBreakpointByUrlParameterType): Promise<Debugger.SetBreakpointByUrlReturnType>;
+        post(method: "Debugger.setBreakpointByUrl", params?: Debugger.SetBreakpointByUrlParameterType): Promise<Debugger.SetBreakpointByUrlReturnType>;
         /**
          * Sets JavaScript breakpoint at a given location.
          */
-        post(method: 'Debugger.setBreakpoint', params?: Debugger.SetBreakpointParameterType): Promise<Debugger.SetBreakpointReturnType>;
+        post(method: "Debugger.setBreakpoint", params?: Debugger.SetBreakpointParameterType): Promise<Debugger.SetBreakpointReturnType>;
         /**
          * Removes JavaScript breakpoint.
          */
-        post(method: 'Debugger.removeBreakpoint', params?: Debugger.RemoveBreakpointParameterType): Promise<void>;
+        post(method: "Debugger.removeBreakpoint", params?: Debugger.RemoveBreakpointParameterType): Promise<void>;
         /**
          * Returns possible locations for breakpoint. scriptId in start and end range locations should be the same.
          */
-        post(method: 'Debugger.getPossibleBreakpoints', params?: Debugger.GetPossibleBreakpointsParameterType): Promise<Debugger.GetPossibleBreakpointsReturnType>;
+        post(method: "Debugger.getPossibleBreakpoints", params?: Debugger.GetPossibleBreakpointsParameterType): Promise<Debugger.GetPossibleBreakpointsReturnType>;
         /**
          * Continues execution until specific location is reached.
          */
-        post(method: 'Debugger.continueToLocation', params?: Debugger.ContinueToLocationParameterType): Promise<void>;
+        post(method: "Debugger.continueToLocation", params?: Debugger.ContinueToLocationParameterType): Promise<void>;
         /**
          * @experimental
          */
-        post(method: 'Debugger.pauseOnAsyncCall', params?: Debugger.PauseOnAsyncCallParameterType): Promise<void>;
+        post(method: "Debugger.pauseOnAsyncCall", params?: Debugger.PauseOnAsyncCallParameterType): Promise<void>;
         /**
          * Steps over the statement.
          */
-        post(method: 'Debugger.stepOver'): Promise<void>;
+        post(method: "Debugger.stepOver"): Promise<void>;
         /**
          * Steps into the function call.
          */
-        post(method: 'Debugger.stepInto', params?: Debugger.StepIntoParameterType): Promise<void>;
+        post(method: "Debugger.stepInto", params?: Debugger.StepIntoParameterType): Promise<void>;
         /**
          * Steps out of the function call.
          */
-        post(method: 'Debugger.stepOut'): Promise<void>;
+        post(method: "Debugger.stepOut"): Promise<void>;
         /**
          * Stops on the next JavaScript statement.
          */
-        post(method: 'Debugger.pause'): Promise<void>;
+        post(method: "Debugger.pause"): Promise<void>;
         /**
          * This method is deprecated - use Debugger.stepInto with breakOnAsyncCall and Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before next pause. Returns success when async task is actually scheduled, returns error if no task were scheduled or another scheduleStepIntoAsync was called.
          * @experimental
          */
-        post(method: 'Debugger.scheduleStepIntoAsync'): Promise<void>;
+        post(method: "Debugger.scheduleStepIntoAsync"): Promise<void>;
         /**
          * Resumes JavaScript execution.
          */
-        post(method: 'Debugger.resume'): Promise<void>;
+        post(method: "Debugger.resume"): Promise<void>;
         /**
          * Returns stack trace with given <code>stackTraceId</code>.
          * @experimental
          */
-        post(method: 'Debugger.getStackTrace', params?: Debugger.GetStackTraceParameterType): Promise<Debugger.GetStackTraceReturnType>;
+        post(method: "Debugger.getStackTrace", params?: Debugger.GetStackTraceParameterType): Promise<Debugger.GetStackTraceReturnType>;
         /**
          * Searches for given string in script content.
          */
-        post(method: 'Debugger.searchInContent', params?: Debugger.SearchInContentParameterType): Promise<Debugger.SearchInContentReturnType>;
+        post(method: "Debugger.searchInContent", params?: Debugger.SearchInContentParameterType): Promise<Debugger.SearchInContentReturnType>;
         /**
          * Edits JavaScript source live.
          */
-        post(method: 'Debugger.setScriptSource', params?: Debugger.SetScriptSourceParameterType): Promise<Debugger.SetScriptSourceReturnType>;
+        post(method: "Debugger.setScriptSource", params?: Debugger.SetScriptSourceParameterType): Promise<Debugger.SetScriptSourceReturnType>;
         /**
          * Restarts particular call frame from the beginning.
          */
-        post(method: 'Debugger.restartFrame', params?: Debugger.RestartFrameParameterType): Promise<Debugger.RestartFrameReturnType>;
+        post(method: "Debugger.restartFrame", params?: Debugger.RestartFrameParameterType): Promise<Debugger.RestartFrameReturnType>;
         /**
          * Returns source for the script with given id.
          */
-        post(method: 'Debugger.getScriptSource', params?: Debugger.GetScriptSourceParameterType): Promise<Debugger.GetScriptSourceReturnType>;
+        post(method: "Debugger.getScriptSource", params?: Debugger.GetScriptSourceParameterType): Promise<Debugger.GetScriptSourceReturnType>;
         /**
          * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or no exceptions. Initial pause on exceptions state is <code>none</code>.
          */
-        post(method: 'Debugger.setPauseOnExceptions', params?: Debugger.SetPauseOnExceptionsParameterType): Promise<void>;
+        post(method: "Debugger.setPauseOnExceptions", params?: Debugger.SetPauseOnExceptionsParameterType): Promise<void>;
         /**
          * Evaluates expression on a given call frame.
          */
-        post(method: 'Debugger.evaluateOnCallFrame', params?: Debugger.EvaluateOnCallFrameParameterType): Promise<Debugger.EvaluateOnCallFrameReturnType>;
+        post(method: "Debugger.evaluateOnCallFrame", params?: Debugger.EvaluateOnCallFrameParameterType): Promise<Debugger.EvaluateOnCallFrameReturnType>;
         /**
          * Changes value of variable in a callframe. Object-based scopes are not supported and must be mutated manually.
          */
-        post(method: 'Debugger.setVariableValue', params?: Debugger.SetVariableValueParameterType): Promise<void>;
+        post(method: "Debugger.setVariableValue", params?: Debugger.SetVariableValueParameterType): Promise<void>;
         /**
          * Changes return value in top frame. Available only at return break position.
          * @experimental
          */
-        post(method: 'Debugger.setReturnValue', params?: Debugger.SetReturnValueParameterType): Promise<void>;
+        post(method: "Debugger.setReturnValue", params?: Debugger.SetReturnValueParameterType): Promise<void>;
         /**
          * Enables or disables async call stacks tracking.
          */
-        post(method: 'Debugger.setAsyncCallStackDepth', params?: Debugger.SetAsyncCallStackDepthParameterType): Promise<void>;
+        post(method: "Debugger.setAsyncCallStackDepth", params?: Debugger.SetAsyncCallStackDepthParameterType): Promise<void>;
         /**
          * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
          * @experimental
          */
-        post(method: 'Debugger.setBlackboxPatterns', params?: Debugger.SetBlackboxPatternsParameterType): Promise<void>;
+        post(method: "Debugger.setBlackboxPatterns", params?: Debugger.SetBlackboxPatternsParameterType): Promise<void>;
         /**
          * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful. Positions array contains positions where blackbox state is changed. First interval isn't blackboxed. Array should be sorted.
          * @experimental
          */
-        post(method: 'Debugger.setBlackboxedRanges', params?: Debugger.SetBlackboxedRangesParameterType): Promise<void>;
+        post(method: "Debugger.setBlackboxedRanges", params?: Debugger.SetBlackboxedRangesParameterType): Promise<void>;
         /**
          * Enables console domain, sends the messages collected so far to the client by means of the <code>messageAdded</code> notification.
          */
-        post(method: 'Console.enable'): Promise<void>;
+        post(method: "Console.enable"): Promise<void>;
         /**
          * Disables console domain, prevents further console messages from being reported to the client.
          */
-        post(method: 'Console.disable'): Promise<void>;
+        post(method: "Console.disable"): Promise<void>;
         /**
          * Does nothing.
          */
-        post(method: 'Console.clearMessages'): Promise<void>;
-        post(method: 'Profiler.enable'): Promise<void>;
-        post(method: 'Profiler.disable'): Promise<void>;
+        post(method: "Console.clearMessages"): Promise<void>;
+        post(method: "Profiler.enable"): Promise<void>;
+        post(method: "Profiler.disable"): Promise<void>;
         /**
          * Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.
          */
-        post(method: 'Profiler.setSamplingInterval', params?: Profiler.SetSamplingIntervalParameterType): Promise<void>;
-        post(method: 'Profiler.start'): Promise<void>;
-        post(method: 'Profiler.stop'): Promise<Profiler.StopReturnType>;
+        post(method: "Profiler.setSamplingInterval", params?: Profiler.SetSamplingIntervalParameterType): Promise<void>;
+        post(method: "Profiler.start"): Promise<void>;
+        post(method: "Profiler.stop"): Promise<Profiler.StopReturnType>;
         /**
          * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code coverage may be incomplete. Enabling prevents running optimized code and resets execution counters.
          */
-        post(method: 'Profiler.startPreciseCoverage', params?: Profiler.StartPreciseCoverageParameterType): Promise<void>;
+        post(method: "Profiler.startPreciseCoverage", params?: Profiler.StartPreciseCoverageParameterType): Promise<void>;
         /**
          * Disable precise code coverage. Disabling releases unnecessary execution count records and allows executing optimized code.
          */
-        post(method: 'Profiler.stopPreciseCoverage'): Promise<void>;
+        post(method: "Profiler.stopPreciseCoverage"): Promise<void>;
         /**
          * Collect coverage data for the current isolate, and resets execution counters. Precise code coverage needs to have started.
          */
-        post(method: 'Profiler.takePreciseCoverage'): Promise<Profiler.TakePreciseCoverageReturnType>;
+        post(method: "Profiler.takePreciseCoverage"): Promise<Profiler.TakePreciseCoverageReturnType>;
         /**
          * Collect coverage data for the current isolate. The coverage data may be incomplete due to garbage collection.
          */
-        post(method: 'Profiler.getBestEffortCoverage'): Promise<Profiler.GetBestEffortCoverageReturnType>;
-        post(method: 'HeapProfiler.enable'): Promise<void>;
-        post(method: 'HeapProfiler.disable'): Promise<void>;
-        post(method: 'HeapProfiler.startTrackingHeapObjects', params?: HeapProfiler.StartTrackingHeapObjectsParameterType): Promise<void>;
-        post(method: 'HeapProfiler.stopTrackingHeapObjects', params?: HeapProfiler.StopTrackingHeapObjectsParameterType): Promise<void>;
-        post(method: 'HeapProfiler.takeHeapSnapshot', params?: HeapProfiler.TakeHeapSnapshotParameterType): Promise<void>;
-        post(method: 'HeapProfiler.collectGarbage'): Promise<void>;
-        post(method: 'HeapProfiler.getObjectByHeapObjectId', params?: HeapProfiler.GetObjectByHeapObjectIdParameterType): Promise<HeapProfiler.GetObjectByHeapObjectIdReturnType>;
+        post(method: "Profiler.getBestEffortCoverage"): Promise<Profiler.GetBestEffortCoverageReturnType>;
+        post(method: "HeapProfiler.enable"): Promise<void>;
+        post(method: "HeapProfiler.disable"): Promise<void>;
+        post(method: "HeapProfiler.startTrackingHeapObjects", params?: HeapProfiler.StartTrackingHeapObjectsParameterType): Promise<void>;
+        post(method: "HeapProfiler.stopTrackingHeapObjects", params?: HeapProfiler.StopTrackingHeapObjectsParameterType): Promise<void>;
+        post(method: "HeapProfiler.takeHeapSnapshot", params?: HeapProfiler.TakeHeapSnapshotParameterType): Promise<void>;
+        post(method: "HeapProfiler.collectGarbage"): Promise<void>;
+        post(method: "HeapProfiler.getObjectByHeapObjectId", params?: HeapProfiler.GetObjectByHeapObjectIdParameterType): Promise<HeapProfiler.GetObjectByHeapObjectIdReturnType>;
         /**
          * Enables console to refer to the node with given id via $x (see Command Line API for more details $x functions).
          */
-        post(method: 'HeapProfiler.addInspectedHeapObject', params?: HeapProfiler.AddInspectedHeapObjectParameterType): Promise<void>;
-        post(method: 'HeapProfiler.getHeapObjectId', params?: HeapProfiler.GetHeapObjectIdParameterType): Promise<HeapProfiler.GetHeapObjectIdReturnType>;
-        post(method: 'HeapProfiler.startSampling', params?: HeapProfiler.StartSamplingParameterType): Promise<void>;
-        post(method: 'HeapProfiler.stopSampling'): Promise<HeapProfiler.StopSamplingReturnType>;
-        post(method: 'HeapProfiler.getSamplingProfile'): Promise<HeapProfiler.GetSamplingProfileReturnType>;
+        post(method: "HeapProfiler.addInspectedHeapObject", params?: HeapProfiler.AddInspectedHeapObjectParameterType): Promise<void>;
+        post(method: "HeapProfiler.getHeapObjectId", params?: HeapProfiler.GetHeapObjectIdParameterType): Promise<HeapProfiler.GetHeapObjectIdReturnType>;
+        post(method: "HeapProfiler.startSampling", params?: HeapProfiler.StartSamplingParameterType): Promise<void>;
+        post(method: "HeapProfiler.stopSampling"): Promise<HeapProfiler.StopSamplingReturnType>;
+        post(method: "HeapProfiler.getSamplingProfile"): Promise<HeapProfiler.GetSamplingProfileReturnType>;
         /**
          * Gets supported tracing categories.
          */
-        post(method: 'NodeTracing.getCategories'): Promise<NodeTracing.GetCategoriesReturnType>;
+        post(method: "NodeTracing.getCategories"): Promise<NodeTracing.GetCategoriesReturnType>;
         /**
          * Start trace events collection.
          */
-        post(method: 'NodeTracing.start', params?: NodeTracing.StartParameterType): Promise<void>;
+        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType): Promise<void>;
         /**
          * Stop trace events collection. Remaining collected events will be sent as a sequence of
          * dataCollected events followed by tracingComplete event.
          */
-        post(method: 'NodeTracing.stop'): Promise<void>;
+        post(method: "NodeTracing.stop"): Promise<void>;
         /**
          * Sends protocol message over session with given id.
          */
-        post(method: 'NodeWorker.sendMessageToWorker', params?: NodeWorker.SendMessageToWorkerParameterType): Promise<void>;
+        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType): Promise<void>;
         /**
          * Instructs the inspector to attach to running workers. Will also attach to new workers
          * as they start
          */
-        post(method: 'NodeWorker.enable', params?: NodeWorker.EnableParameterType): Promise<void>;
+        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType): Promise<void>;
         /**
          * Detaches from all running workers and disables attaching to new workers as they are started.
          */
-        post(method: 'NodeWorker.disable'): Promise<void>;
+        post(method: "NodeWorker.disable"): Promise<void>;
         /**
          * Detached from the worker with given sessionId.
          */
-        post(method: 'NodeWorker.detach', params?: NodeWorker.DetachParameterType): Promise<void>;
+        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType): Promise<void>;
         /**
          * Disables network tracking, prevents network events from being sent to the client.
          */
-        post(method: 'Network.disable'): Promise<void>;
+        post(method: "Network.disable"): Promise<void>;
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
-        post(method: 'Network.enable'): Promise<void>;
+        post(method: "Network.enable"): Promise<void>;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
          */
-        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType): Promise<Network.GetRequestPostDataReturnType>;
+        post(method: "Network.getRequestPostData", params?: Network.GetRequestPostDataParameterType): Promise<Network.GetRequestPostDataReturnType>;
         /**
          * Returns content served for the given request.
          */
-        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType): Promise<Network.GetResponseBodyReturnType>;
+        post(method: "Network.getResponseBody", params?: Network.GetResponseBodyParameterType): Promise<Network.GetResponseBodyReturnType>;
         /**
          * Enables streaming of the response for the given requestId.
          * If enabled, the dataReceived event contains the data that was received during streaming.
          * @experimental
          */
-        post(method: 'Network.streamResourceContent', params?: Network.StreamResourceContentParameterType): Promise<Network.StreamResourceContentReturnType>;
+        post(method: "Network.streamResourceContent", params?: Network.StreamResourceContentParameterType): Promise<Network.StreamResourceContentReturnType>;
+        /**
+         * Fetches the resource and returns the content.
+         */
+        post(method: "Network.loadNetworkResource", params?: Network.LoadNetworkResourceParameterType): Promise<Network.LoadNetworkResourceReturnType>;
         /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
-        post(method: 'NodeRuntime.enable'): Promise<void>;
+        post(method: "NodeRuntime.enable"): Promise<void>;
         /**
          * Disable NodeRuntime events
          */
-        post(method: 'NodeRuntime.disable'): Promise<void>;
+        post(method: "NodeRuntime.disable"): Promise<void>;
         /**
          * Enable the `NodeRuntime.waitingForDisconnect`.
          */
-        post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType): Promise<void>;
-        post(method: 'Target.setAutoAttach', params?: Target.SetAutoAttachParameterType): Promise<void>;
+        post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType): Promise<void>;
+        post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
+        /**
+         * Read a chunk of the stream
+         */
+        post(method: "IO.read", params?: IO.ReadParameterType): Promise<IO.ReadReturnType>;
+        post(method: "IO.close", params?: IO.CloseParameterType): Promise<void>;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        addListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        addListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        addListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        addListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        addListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        addListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        addListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        addListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        addListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        addListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        addListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        addListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        addListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        addListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        addListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        addListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        addListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        addListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        addListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        addListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        addListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        addListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        addListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        addListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        addListener(event: 'Debugger.resumed', listener: () => void): this;
+        addListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        addListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        addListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        addListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        addListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        addListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        addListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        addListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        addListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        addListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        addListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        addListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        addListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        addListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        addListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        addListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        addListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        addListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        addListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        addListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        addListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        addListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        addListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        addListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        addListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        addListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        addListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        addListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        addListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        addListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        addListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'inspectorNotification', message: InspectorNotification<object>): boolean;
-        emit(event: 'Runtime.executionContextCreated', message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
-        emit(event: 'Runtime.executionContextDestroyed', message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
-        emit(event: 'Runtime.executionContextsCleared'): boolean;
-        emit(event: 'Runtime.exceptionThrown', message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
-        emit(event: 'Runtime.exceptionRevoked', message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
-        emit(event: 'Runtime.consoleAPICalled', message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
-        emit(event: 'Runtime.inspectRequested', message: InspectorNotification<Runtime.InspectRequestedEventDataType>): boolean;
-        emit(event: 'Debugger.scriptParsed', message: InspectorNotification<Debugger.ScriptParsedEventDataType>): boolean;
-        emit(event: 'Debugger.scriptFailedToParse', message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>): boolean;
-        emit(event: 'Debugger.breakpointResolved', message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>): boolean;
-        emit(event: 'Debugger.paused', message: InspectorNotification<Debugger.PausedEventDataType>): boolean;
-        emit(event: 'Debugger.resumed'): boolean;
-        emit(event: 'Console.messageAdded', message: InspectorNotification<Console.MessageAddedEventDataType>): boolean;
-        emit(event: 'Profiler.consoleProfileStarted', message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
-        emit(event: 'Profiler.consoleProfileFinished', message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
-        emit(event: 'HeapProfiler.addHeapSnapshotChunk', message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>): boolean;
-        emit(event: 'HeapProfiler.resetProfiles'): boolean;
-        emit(event: 'HeapProfiler.reportHeapSnapshotProgress', message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
-        emit(event: 'HeapProfiler.lastSeenObjectId', message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
-        emit(event: 'HeapProfiler.heapStatsUpdate', message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
-        emit(event: 'NodeTracing.dataCollected', message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
-        emit(event: 'NodeTracing.tracingComplete'): boolean;
-        emit(event: 'NodeWorker.attachedToWorker', message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
-        emit(event: 'NodeWorker.detachedFromWorker', message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
-        emit(event: 'NodeWorker.receivedMessageFromWorker', message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
-        emit(event: 'Network.requestWillBeSent', message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
-        emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
-        emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
-        emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
-        emit(event: 'Network.dataReceived', message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
-        emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
-        emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
-        emit(event: 'Target.targetCreated', message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
-        emit(event: 'Target.attachedToTarget', message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
+        emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
+        emit(event: "Runtime.executionContextDestroyed", message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
+        emit(event: "Runtime.executionContextsCleared"): boolean;
+        emit(event: "Runtime.exceptionThrown", message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
+        emit(event: "Runtime.exceptionRevoked", message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
+        emit(event: "Runtime.consoleAPICalled", message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
+        emit(event: "Runtime.inspectRequested", message: InspectorNotification<Runtime.InspectRequestedEventDataType>): boolean;
+        emit(event: "Debugger.scriptParsed", message: InspectorNotification<Debugger.ScriptParsedEventDataType>): boolean;
+        emit(event: "Debugger.scriptFailedToParse", message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>): boolean;
+        emit(event: "Debugger.breakpointResolved", message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>): boolean;
+        emit(event: "Debugger.paused", message: InspectorNotification<Debugger.PausedEventDataType>): boolean;
+        emit(event: "Debugger.resumed"): boolean;
+        emit(event: "Console.messageAdded", message: InspectorNotification<Console.MessageAddedEventDataType>): boolean;
+        emit(event: "Profiler.consoleProfileStarted", message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
+        emit(event: "Profiler.consoleProfileFinished", message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
+        emit(event: "HeapProfiler.addHeapSnapshotChunk", message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>): boolean;
+        emit(event: "HeapProfiler.resetProfiles"): boolean;
+        emit(event: "HeapProfiler.reportHeapSnapshotProgress", message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
+        emit(event: "HeapProfiler.lastSeenObjectId", message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
+        emit(event: "HeapProfiler.heapStatsUpdate", message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
+        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
+        emit(event: "NodeTracing.tracingComplete"): boolean;
+        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
+        emit(event: "Network.requestWillBeSent", message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
+        emit(event: "Network.responseReceived", message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
+        emit(event: "Network.loadingFailed", message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
+        emit(event: "Network.loadingFinished", message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
+        emit(event: "Network.dataReceived", message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
+        emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
+        emit(event: "NodeRuntime.waitingForDebugger"): boolean;
+        emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
+        emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        on(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        on(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        on(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        on(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        on(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        on(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        on(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        on(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        on(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        on(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        on(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        on(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        on(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        on(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        on(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        on(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        on(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        on(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        on(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        on(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        on(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        on(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        on(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        on(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        on(event: 'Debugger.resumed', listener: () => void): this;
+        on(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        on(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        on(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        on(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        on(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        on(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        on(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        on(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        on(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        on(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        on(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        on(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        on(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        on(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        on(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        on(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        on(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        on(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        on(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        on(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        on(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        on(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        on(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        on(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        on(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        on(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        on(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        on(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        on(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        on(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        on(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        on(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        on(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        on(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        on(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        once(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        once(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        once(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        once(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        once(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        once(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        once(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        once(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        once(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        once(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        once(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        once(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        once(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        once(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        once(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        once(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        once(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        once(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        once(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        once(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        once(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        once(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        once(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        once(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        once(event: 'Debugger.resumed', listener: () => void): this;
+        once(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        once(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        once(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        once(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        once(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        once(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        once(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        once(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        once(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        once(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        once(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        once(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        once(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        once(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        once(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        once(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        once(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        once(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        once(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        once(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        once(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        once(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        once(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        once(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        once(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        once(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        once(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        once(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        once(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        once(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        once(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        once(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        once(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        once(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        once(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        prependListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        prependListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        prependListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        prependListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        prependListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        prependListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        prependListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        prependListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        prependListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        prependListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        prependListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        prependListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        prependListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        prependListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        prependListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        prependListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        prependListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        prependListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        prependListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        prependListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        prependListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        prependListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        prependListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        prependListener(event: 'Debugger.resumed', listener: () => void): this;
+        prependListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        prependListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        prependListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        prependListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        prependListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        prependListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        prependListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        prependListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        prependListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        prependListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        prependListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        prependListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        prependListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        prependListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        prependListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        prependListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        prependListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        prependListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        prependListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        prependListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        prependListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        prependListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        prependListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        prependListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        prependListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        prependListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        prependListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        prependListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        prependListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        prependListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        prependListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependOnceListener(event: 'inspectorNotification', listener: (message: InspectorNotification<object>) => void): this;
+        prependOnceListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
         /**
          * Issued when new execution context is created.
          */
-        prependOnceListener(event: 'Runtime.executionContextCreated', listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
         /**
          * Issued when execution context is destroyed.
          */
-        prependOnceListener(event: 'Runtime.executionContextDestroyed', listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
         /**
          * Issued when all executionContexts were cleared in browser
          */
-        prependOnceListener(event: 'Runtime.executionContextsCleared', listener: () => void): this;
+        prependOnceListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
         /**
          * Issued when exception was thrown and unhandled.
          */
-        prependOnceListener(event: 'Runtime.exceptionThrown', listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
         /**
          * Issued when unhandled exception was revoked.
          */
-        prependOnceListener(event: 'Runtime.exceptionRevoked', listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
         /**
          * Issued when console API was called.
          */
-        prependOnceListener(event: 'Runtime.consoleAPICalled', listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API call).
          */
-        prependOnceListener(event: 'Runtime.inspectRequested', listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+        prependOnceListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
          */
-        prependOnceListener(event: 'Debugger.scriptParsed', listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
         /**
          * Fired when virtual machine fails to parse the script.
          */
-        prependOnceListener(event: 'Debugger.scriptFailedToParse', listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
         /**
          * Fired when breakpoint is resolved to an actual script and location.
          */
-        prependOnceListener(event: 'Debugger.breakpointResolved', listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
          */
-        prependOnceListener(event: 'Debugger.paused', listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+        prependOnceListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
         /**
          * Fired when the virtual machine resumed execution.
          */
-        prependOnceListener(event: 'Debugger.resumed', listener: () => void): this;
+        prependOnceListener(event: "Debugger.resumed", listener: () => void): this;
         /**
          * Issued when new console message is added.
          */
-        prependOnceListener(event: 'Console.messageAdded', listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+        prependOnceListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
         /**
          * Sent when new profile recording is started using console.profile() call.
          */
-        prependOnceListener(event: 'Profiler.consoleProfileStarted', listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
-        prependOnceListener(event: 'Profiler.consoleProfileFinished', listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
-        prependOnceListener(event: 'HeapProfiler.addHeapSnapshotChunk', listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
-        prependOnceListener(event: 'HeapProfiler.resetProfiles', listener: () => void): this;
-        prependOnceListener(event: 'HeapProfiler.reportHeapSnapshotProgress', listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+        prependOnceListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+        prependOnceListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        prependOnceListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
-        prependOnceListener(event: 'HeapProfiler.lastSeenObjectId', listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
         /**
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
-        prependOnceListener(event: 'HeapProfiler.heapStatsUpdate', listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+        prependOnceListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
          * Contains an bucket of collected trace events.
          */
-        prependOnceListener(event: 'NodeTracing.dataCollected', listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
         /**
          * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
          * delivered via dataCollected events.
          */
-        prependOnceListener(event: 'NodeTracing.tracingComplete', listener: () => void): this;
+        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
         /**
          * Issued when attached to a worker.
          */
-        prependOnceListener(event: 'NodeWorker.attachedToWorker', listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
         /**
          * Issued when detached from the worker.
          */
-        prependOnceListener(event: 'NodeWorker.detachedFromWorker', listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
         /**
          * Notifies about a new protocol message received from the session
          * (session ID is provided in attachedToWorker notification).
          */
-        prependOnceListener(event: 'NodeWorker.receivedMessageFromWorker', listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         /**
          * Fired when page is about to send HTTP request.
          */
-        prependOnceListener(event: 'Network.requestWillBeSent', listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
+        prependOnceListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
         /**
          * Fired when HTTP response is available.
          */
-        prependOnceListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
-        prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
-        prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.responseReceived", listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.loadingFailed", listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.loadingFinished", listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * Fired when data chunk was received over the network.
          */
-        prependOnceListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        prependOnceListener(event: "Network.dataReceived", listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
          * waiting for all frontends to disconnect.
          */
-        prependOnceListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
+        prependOnceListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
         /**
          * This event is fired when the runtime is waiting for the debugger. For
          * example, when inspector.waitingForDebugger is called
          */
-        prependOnceListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
-        prependOnceListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
-        prependOnceListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependOnceListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
     }
-
-    export {
-        Session,
-        open,
-        close,
-        url,
-        waitForDebugger,
-        console,
-        InspectorNotification,
-        Schema,
-        Runtime,
-        Debugger,
-        Console,
-        Profiler,
-        HeapProfiler,
-        NodeTracing,
-        NodeWorker,
-        Network,
-        NodeRuntime,
-        Target,
-    };
-}
-
-/**
- * The `node:inspector/promises` module provides an API for interacting with the V8
- * inspector.
- * @since v19.0.0
- */
-declare module 'node:inspector/promises' {
-    export * from 'inspector/promises';
 }
