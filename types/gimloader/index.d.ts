@@ -1,173 +1,2092 @@
 declare namespace Gimloader {
-    type event = symbol | string;
-    type eventNS = string | event[];
+    type EventEmitter2 = import("eventemitter2").EventEmitter2;
+    namespace Stores {
+        type Collider = import("@dimforge/rapier2d-compat").Collider;
+        type ColliderDesc = import("@dimforge/rapier2d-compat").ColliderDesc;
+        type RigidBody = import("@dimforge/rapier2d-compat").RigidBody;
+        type RigidBodyDesc = import("@dimforge/rapier2d-compat").RigidBodyDesc;
+        type Vector = import("@dimforge/rapier2d-compat").Vector;
+        type BaseScene = import("phaser").Scene;
 
-    interface ConstructorOptions {
-        /**
-         * @default false
-         * @description set this to `true` to use wildcards.
-         */
-        wildcard?: boolean;
-        /**
-         * @default '.'
-         * @description the delimiter used to segment namespaces.
-         */
-        delimiter?: string;
-        /**
-         * @default false
-         * @description set this to `true` if you want to emit the newListener events.
-         */
-        newListener?: boolean;
-        /**
-         * @default false
-         * @description set this to `true` if you want to emit the removeListener events.
-         */
-        removeListener?: boolean;
-        /**
-         * @default 10
-         * @description the maximum amount of listeners that can be assigned to an event.
-         */
-        maxListeners?: number;
-        /**
-         * @default false
-         * @description show event name in memory leak message when more than maximum amount of listeners is assigned, default false
-         */
-        verboseMemoryLeak?: boolean;
-        /**
-         * @default false
-         * @description disable throwing uncaughtException if an error event is emitted and it has no listeners
-         */
-        ignoreErrors?: boolean;
-    }
-    interface ListenerFn {
-        (...values: any[]): void;
-    }
-    interface EventAndListener {
-        (event: string | string[], ...values: any[]): void;
-    }
+        interface Team {
+            characters: Map<number, string>;
+            id: string;
+            name: string;
+            score: number;
+        }
 
-    interface WaitForFilter {
-        (...values: any[]): boolean;
-    }
+        interface Teams {
+            teams: Map<string, Team>;
+            updateCounter: number;
+        }
 
-    interface WaitForOptions {
-        /**
-         * @default 0
-         */
-        timeout: number;
-        /**
-         * @default null
-         */
-        filter: WaitForFilter;
-        /**
-         * @default false
-         */
-        handleError: boolean;
-        /**
-         * @default Promise
-         */
-        Promise: any;
-        /**
-         * @default false
-         */
-        overload: boolean;
-    }
+        interface SceneStore {
+            currentScene: string;
+            gpuTier: number;
+            isCursorOverCanvas: boolean;
+        }
 
-    interface CancelablePromise<T> extends Promise<T> {
-        cancel(reason: string): undefined;
-    }
+        interface BackgroundLayersManager {
+            layerManager: LayerManager;
+            scene: Scene;
+            createLayer(options: {
+                layerId: string;
+                depth: number;
+            }): void;
+            fill(terrain: TerrainOption): void;
+            fillForPlatformer(): void;
+            fillForTopDown(terrain: TerrainOption): void;
+            removeLayer(options: {
+                layerId: string;
+            }): void;
+        }
 
-    interface OnceOptions {
-        /**
-         * @default 0
-         */
-        timeout: number;
-        /**
-         * @default Promise
-         */
-        Promise: any;
-        /**
-         * @default false
-         */
-        overload: boolean;
-    }
+        interface LayerManager {
+            backgroundLayersManager: BackgroundLayersManager;
+            colliders: Map<string, Map<string, string>>;
+            layers: Map<string, any>;
+            scene: Scene;
+            createInitialLayers(): void;
+            createLayer(id: string): void;
+            fillBottomLayer(terrain: TerrainOption): void;
+            getActualLayerDepth(id: string): number;
+            moveLayersAboveCharacters(): void;
+            onWorldSizeChange(): void;
+        }
 
-    interface ListenToOptions {
-        on?: { (event: event | eventNS, handler: ListenerFn): void };
-        off?: { (event: event | eventNS, handler: ListenerFn): void };
-        reducers: (event: any) => boolean | object;
-    }
+        interface TileManager {
+            cumulTime: number;
+            scene: Scene;
+            layerManager: LayerManager;
+        }
 
-    interface GeneralEventEmitter {
-        addEventListener(event: event, handler: ListenerFn): this;
-        removeEventListener(event: event, handler: ListenerFn): this;
-        addListener?(event: event, handler: ListenerFn): this;
-        removeListener?(event: event, handler: ListenerFn): this;
-        on?(event: event, handler: ListenerFn): this;
-        off?(event: event, handler: ListenerFn): this;
-    }
+        interface CharacterOptions {
+            id: string;
+            x: number;
+            y: number;
+            scale: number;
+            type: string;
+        }
 
-    interface OnOptions {
-        async?: boolean;
-        promisify?: boolean;
-        nextTick?: boolean;
-        objectify?: boolean;
-    }
+        interface Spectating {
+            findNewCharacter(): void;
+            onBeginSpectating(): void;
+            onEndSpectating(): void;
+            setShuffle(shuffle: boolean, save?: boolean): void;
+        }
 
-    interface Listener {
-        emitter: EventEmitter2;
-        event: event | eventNS;
-        listener: ListenerFn;
-        off(): this;
-    }
+        interface CharacterManager {
+            characterContainer: import("phaser").GameObjects.Container;
+            characters: Map<string, Character>;
+            scene: Scene;
+            spectating: Spectating;
+            addCharacter(options: CharacterOptions): Character;
+            cullCharacters(): void;
+            removeCharacter(id: string): void;
+            update(dt: number): void;
+        }
 
-    class EventEmitter2 {
-        constructor(options?: ConstructorOptions);
-        emit(event: event | eventNS, ...values: any[]): boolean;
-        emitAsync(event: event | eventNS, ...values: any[]): Promise<any[]>;
-        addListener(event: event | eventNS, listener: ListenerFn): this | Listener;
-        on(event: event | eventNS, listener: ListenerFn, options?: boolean | OnOptions): this | Listener;
-        prependListener(event: event | eventNS, listener: ListenerFn, options?: boolean | OnOptions): this | Listener;
-        once(event: event | eventNS, listener: ListenerFn, options?: true | OnOptions): this | Listener;
-        prependOnceListener(
-            event: event | eventNS,
-            listener: ListenerFn,
-            options?: boolean | OnOptions,
-        ): this | Listener;
-        many(
-            event: event | eventNS,
-            timesToListen: number,
-            listener: ListenerFn,
-            options?: boolean | OnOptions,
-        ): this | Listener;
-        prependMany(
-            event: event | eventNS,
-            timesToListen: number,
-            listener: ListenerFn,
-            options?: boolean | OnOptions,
-        ): this | Listener;
-        onAny(listener: EventAndListener): this;
-        prependAny(listener: EventAndListener): this;
-        offAny(listener: ListenerFn): this;
-        removeListener(event: event | eventNS, listener: ListenerFn): this;
-        off(event: event | eventNS, listener: ListenerFn): this;
-        removeAllListeners(event?: event | eventNS): this;
-        setMaxListeners(n: number): void;
-        getMaxListeners(): number;
-        eventNames(nsAsArray?: boolean): (event | eventNS)[];
-        listenerCount(event?: event | eventNS): number;
-        listeners(event?: event | eventNS): ListenerFn[];
-        listenersAny(): ListenerFn[];
-        waitFor(event: event | eventNS, timeout?: number): CancelablePromise<any[]>;
-        waitFor(event: event | eventNS, filter?: WaitForFilter): CancelablePromise<any[]>;
-        waitFor(event: event | eventNS, options?: WaitForOptions): CancelablePromise<any[]>;
-        listenTo(target: GeneralEventEmitter, events: event | eventNS, options?: ListenToOptions): this;
-        listenTo(target: GeneralEventEmitter, events: event[], options?: ListenToOptions): this;
-        listenTo(target: GeneralEventEmitter, events: object, options?: ListenToOptions): this;
-        stopListeningTo(target?: GeneralEventEmitter, event?: event | eventNS): boolean;
-        hasListeners(event?: string): boolean;
-        static once(emitter: EventEmitter2, event: event | eventNS, options?: OnceOptions): CancelablePromise<any[]>;
-        static defaultMaxListeners: number;
+        interface Removal {
+            overlay: Overlay;
+            prevMouseWasDown: boolean;
+            scene: Scene;
+            checkForItem(): void;
+            createStateListeners(): void;
+            removeSelectedItems(): void;
+            update(): void;
+        }
+
+        interface PlatformerEditing {
+            setTopDownControlsActive(active: boolean): void;
+        }
+
+        interface SelectedDevicesOverlay {
+            graphics: import("phaser").GameObjects.Graphics;
+            scene: Scene;
+            showing: boolean;
+            hide(): void;
+            show(rects: Rect[]): void;
+        }
+
+        interface MultiSelect {
+            boundingBoxAroundEverything: Rect | null;
+            currentlySelectedDevices: Device[];
+            currentlySelectedDevicesIds: string[];
+            hidingSelectionForDevices: boolean;
+            isSelecting: boolean;
+            modifierKeyDown: boolean;
+            mouseShifts: Vector[];
+            movedOrCopiedDevices: Device[];
+            overlay: Overlay;
+            scene: Scene;
+            selectedDevices: Device[];
+            selectedDevicesIds: string[];
+            selectedDevicesOverlay: SelectedDevicesOverlay;
+            selection: Rect | null;
+            addDeviceToSelection(device: Device): void;
+            endSelectionRect(): void;
+            findSelectedDevices(): void;
+            hasSomeSelection(): boolean;
+            hideSelection(): void;
+            multiselectDeleteKeyHandler(): void;
+            multiselectKeyHandler(down: boolean): void;
+            onDeviceAdded(device: Device): void;
+            onDeviceRemoved(id: string): void;
+            setShiftParams(): void;
+            startSelectionRect(): void;
+            unselectAll(): void;
+            update(): void;
+            updateSelectedDevicesOverlay(): void;
+            updateSelectionRect(): void;
+        }
+
+        interface DepthSort {
+            overlay: Overlay;
+            scene: Scene;
+            update(): void;
+        }
+
+        interface ActionManager {
+            depthSort: DepthSort;
+            multiSelect: MultiSelect;
+            platformerEditing: PlatformerEditing;
+            removal: Removal;
+            update(): void;
+        }
+
+        interface Projectile {
+            id: string;
+            startTime: number;
+            endTime: number;
+            start: Vector;
+            end: Vector;
+            radius: number;
+            appearance: string;
+            ownerId: string;
+            ownerTeamId: string;
+            damage: number;
+            hitPos?: Vector;
+            hitTime?: number;
+        }
+
+        interface Projectiles {
+            damageMarkers: any;
+            dynamicDevices: Set<Device>;
+            fireSlashes: any;
+            projectileJSON: Map<string, Projectile>;
+            runClientSidePrediction: boolean;
+            scene: Scene;
+            addProjectile(projectile: Projectile): void;
+            fire(pointer: import("phaser").Input.Pointer, snap: boolean): void;
+            update(): void;
+        }
+
+        interface WorldBoundsCollider {
+            body: RigidBody;
+            collider: Collider;
+        }
+
+        interface BodyBounds {
+            minX: number;
+            minY: number;
+            maxX: number;
+            maxY: number;
+        }
+
+        interface BodyStatic {
+            bounds: BodyBounds;
+            cells: Set<string>;
+        }
+
+        interface Body {
+            collider?: Collider;
+            colliderDesc: ColliderDesc;
+            rigidBody?: RigidBody;
+            rigidBodyDesc: RigidBodyDesc;
+            static: BodyStatic;
+            device?: {
+                id: string;
+            };
+            terrain?: {
+                key: string;
+            };
+        }
+
+        interface ActiveBodies {
+            activeBodies: Set<string>;
+            bodyManager: BodyManager;
+            currentCoordinateKeys: Set<string>;
+            world: World;
+            disableBody(id: string): void;
+            enable(keys: Set<string>, setAll: boolean): void;
+            enableBodiesAlongLine(options: {
+                start: Vector;
+                end: Vector;
+            }): void;
+            enableBodiesWithinAreas(options: {
+                areas: Rect[];
+                disableActiveBodiesOutsideArea: boolean;
+            }): void;
+            enableBody(id: string): void;
+            setDirty(): void;
+        }
+
+        interface BodyManager {
+            activeBodies: ActiveBodies;
+            bodies: Map<string, Body>;
+            cells: Map<string, Set<string>>;
+            dynamicBodies: Set<string>;
+            gridSize: number;
+            staticBodies: Set<string>;
+            staticSensorBodies: Set<string>;
+            _idCount: number;
+            find(id: string): Body | undefined;
+            findPotentialStaticBodiesWithinArea(area: Rect): Set<string>;
+            generateId(): void;
+            insert(body: Body): string;
+            remove(id: string): void;
+        }
+
+        interface PhysicsManager {
+            bodies: BodyManager;
+            cumulTime: number;
+            lastTime: number;
+            physicsStep(dt: number): void;
+            runPhysicsLoop(dt: number): void;
+            world: World;
+            worldBoundsColliders: Set<WorldBoundsCollider>;
+        }
+
+        interface CreateTileOptions {
+            x: number;
+            y: number;
+            tileIndex: number;
+            terrainOption: TerrainOption;
+        }
+
+        interface InGameTerrainBuilder {
+            afterFailureWithTouch: boolean;
+            clearConsumeErrorMessage(): void;
+            clearPreviewLayer(): void;
+            createPreviewTile(options: CreateTileOptions): void;
+            overlay: Overlay;
+            previewingTile?: Vector;
+            scene: Scene;
+            update(): void;
+            wasDown: boolean;
+        }
+
+        interface WorldInteractives {
+            scene: Scene;
+            currentDevice?: Device;
+            clearCurrentDevice(): void;
+            setCurrentDevice(device: Device): void;
+            update(devices: Device[]): void;
+        }
+
+        interface ShowOverlayOptions {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            depth: number;
+        }
+
+        interface Overlay {
+            scene: Scene;
+            showing: boolean;
+            showingDimensions: {
+                width: number;
+                height: number;
+            } | null;
+            showingPosition: {
+                x: number;
+                y: number;
+            } | null;
+            hide(): void;
+            show(options: ShowOverlayOptions): void;
+        }
+
+        interface DevicesPreview {
+            devicePreviewOverlay: Overlay;
+            previousDevices: Device[];
+            scene: Scene;
+            removePreviousDevices(isBeingReplaced: boolean): void;
+            update(): void;
+        }
+
+        interface DevicesAction {
+            inputManager: InputManager;
+            scene: Scene;
+            onClick(arg: any): void;
+            update(): void;
+        }
+
+        interface DeviceProjectiles {
+            device: Device;
+            addToDynamicDevices(): void;
+            collidesWithProjectile(object: Circle): boolean;
+            onClientPredictedHit(position: Vector): void;
+            removeFromDynamicDevices(): void;
+            setDynamic(dynamic: boolean): void;
+        }
+
+        interface DeviceTweens {
+            list: import("phaser").Tweens.Tween[];
+            device: Device;
+            add(config: import("phaser").Types.Tweens.TweenBuilderConfig): import("phaser").Tweens.Tween;
+            destroy(): void;
+        }
+
+        interface WirePoints {
+            device: Device;
+            end: Vector;
+            start: Vector;
+            onPointChange(): void;
+            setBoth(x: number, y: number): void;
+        }
+
+        interface Layers {
+            depth: number;
+            device: Device;
+            layer: string;
+            options: any;
+        }
+
+        interface ShadowOptions {
+            x: number;
+            y: number;
+            r1: number;
+            r2: number;
+            alphaMultip: number;
+            depth: number;
+        }
+
+        interface Shadows {
+            device: Device;
+            list: ShadowOptions[];
+            add(options: ShadowOptions): void;
+            destroy(): void;
+            forEach(callback: (shadow: ShadowOptions) => void): void;
+            hide(): void;
+            show(): void;
+        }
+
+        interface Circle {
+            x: number;
+            y: number;
+            radius: number;
+        }
+
+        interface RotatedCircle extends Circle {
+            angle: number;
+        }
+
+        interface VisualEditingCircle {
+            angle: number;
+            rotable: boolean;
+            radius: number;
+            minRadius: number;
+            maxRadius: number;
+            onChange(value: RotatedCircle): void;
+        }
+
+        interface RotatedRect extends Rect {
+            angle: number;
+        }
+
+        interface VisualEditingBox {
+            width: number;
+            height: number;
+            angle: number;
+            minWidth: number;
+            maxWidth: number;
+            minHeight: number;
+            maxHeight: number;
+            keepRatio: boolean;
+            rotable: boolean;
+            onChange(value: RotatedRect): void;
+        }
+
+        interface VisualEditing {
+            add: {
+                box(options: VisualEditingBox): void;
+                circle(options: VisualEditingCircle): void;
+            };
+            device: Device;
+            isActive: boolean;
+            shapes: (VisualEditingBox | VisualEditingCircle)[];
+            clear(): void;
+        }
+
+        interface InteractiveZones {
+            add: {
+                circle(zone: CircleShort): void;
+                rect(zone: Rect): void;
+            };
+            canInteractThroughColliders: boolean;
+            device: Device;
+            forceDisabled: boolean;
+            zones: (CircleShort | Rect)[];
+            contains(x: number, y: number): boolean;
+            destroy(): void;
+            getCanInteractThroughColliders(): boolean;
+            getInfo(): any;
+            getMaxDistance(x: number, y: number): number;
+            isInteractive(): boolean;
+            onPlayerCanInteract(): void;
+            onPlayerCantInteractAnyMore(): void;
+            setCanInteractThroughColliders(canInteract: boolean): void;
+            setForceDisabled(forceDisabled: boolean): void;
+            setInfo(info: any): void;
+        }
+
+        interface DeviceInput {
+            device: Device;
+            enabled: boolean;
+            hasKeyListeners: boolean;
+            isCurrentlyUnderMouse: boolean;
+            addDeviceToCursorUnderList(): void;
+            createKeyListeners(): void;
+            cutCopyHandler(action: string): void;
+            disable(): void;
+            dispose(): void;
+            disposeKeyListeners(): void;
+            enable(): void;
+            partIsNoLongerUnderMouse(): void;
+            partIsUnderMouse(): void;
+            removeDeviceFromCursorUnderList(): void;
+        }
+
+        interface DeviceUI {
+            device: Device;
+            close(): void;
+            open(options: Record<string, any>): void;
+            update(options: Record<string, any>): void;
+        }
+
+        interface VFX {
+            character: Character;
+            damageBoostActive: boolean;
+            phaseActive: boolean;
+            tintModifierId: string;
+            transparencyModifierId: string;
+            setTintModifier(id: string): void;
+            setTransparencyModifier(id: string): void;
+            startDamageBoostAnim(): void;
+            startPhaseAnim(): void;
+            stopDamageBoostAnim(): void;
+            stopPhaseAnim(): void;
+        }
+
+        interface TintParams {
+            type: string;
+            fromColor: string;
+            toColor: string;
+            duration: number;
+            tween?: import("phaser").Tweens.Tween;
+            ease(t: number): number;
+        }
+
+        interface Tint {
+            character: Character;
+            scene: Scene;
+            phase?: TintParams;
+            playerAppearanceModifierDevice?: TintParams;
+            immunity?: TintParams;
+            damageBoost?: TintParams;
+            getTintParams(type: string): TintParams | undefined;
+            setTintParams(type: string, tint?: TintParams): void;
+            startAnimateTint(params: TintParams): void;
+            stopAnimateTint(type: string): void;
+            update(): void;
+        }
+
+        interface SkinOptions {
+            id: string;
+            editStyles: Record<string, string>;
+        }
+
+        interface Skin {
+            character: Character;
+            editStyles?: Record<string, string>;
+            latestSkinId: string;
+            scene: Scene;
+            skinId: string;
+            applyEditStyles(options: SkinOptions): void;
+            setupSkin(position: Vector): void;
+            updateSkin(options: SkinOptions): void;
+        }
+
+        interface Shadow {
+            character: Character;
+            image?: import("phaser").GameObjects.Image;
+            createShadow(): void;
+            destroy(): void;
+            update(): void;
+        }
+
+        interface TweenScaleOptions {
+            type: string;
+            scale: number;
+            duration: number;
+        }
+
+        interface Scale {
+            activeScale: number;
+            baseScale: number;
+            character: Character;
+            respawningScale: number;
+            scaleX: number;
+            scaleY: number;
+            scene: Scene;
+            spectatorScale: number;
+            dependencyScale: number;
+            isVisible: boolean;
+            getCurrentScale(type: number): void;
+            onSkinChange(): void;
+            setScale(type: number, scale: number): void;
+            tweenScale(options: TweenScaleOptions): void;
+            update(): void;
+        }
+
+        interface Position {
+            character: Character;
+            update(dt: number): void;
+        }
+
+        interface Network {
+            lastAngle?: number;
+            lastAngleUpdate: number;
+            updateAimAngle(angle: number): void;
+        }
+
+        interface Nametag {
+            alpha: number;
+            character: Character;
+            creatingTag: boolean;
+            depth: number;
+            destroyed: boolean;
+            followScale: boolean;
+            fragilityTag?: import("phaser").GameObjects.Text;
+            healthMode: string;
+            name: string;
+            scale: number;
+            scene: Scene;
+            tag: import("phaser").GameObjects.Text;
+            teamState: TeamState;
+            fontColor: string;
+            tags: import("phaser").GameObjects.Text[];
+            createFragilityTag(): void;
+            createTag(): void;
+            destroy(): void;
+            makeVisibleChanges(force?: boolean): void;
+            playHideAnimation(): void;
+            playShowUpAnimation(): void;
+            setName(name: string): void;
+            update(update: {
+                teamState: TeamState;
+            }): void;
+            updateFontColor(): void;
+            updateFragility(fragility: number): void;
+            updateTagAlpha(force?: boolean): void;
+            updateTagDepth(force?: boolean): void;
+            updateTagPosition(force?: boolean): void;
+            updateTagScale(force?: boolean): void;
+        }
+
+        interface CharacterInput {
+            character: Character;
+            isListeningForInput: boolean;
+            scene: Scene;
+            setupInput(): void;
+        }
+
+        interface TeamState {
+            status: string;
+            teamId: string;
+        }
+
+        interface Indicator extends Updates {
+            character: Character;
+            characterHeight: number;
+            depth: number;
+            image: import("phaser").GameObjects.Image;
+            isMain: boolean;
+            isSpectated: boolean;
+            lastCharacterAlpha: number;
+            scene: Scene;
+            teamState: TeamState;
+            destroy(): void;
+            makeIndicator(): void;
+        }
+
+        interface ImpactAnimation {
+            animations: Map<string, import("phaser").GameObjects.Sprite>;
+            character: Character;
+            loadedAnimations: Set<string>;
+            scene: Scene;
+            _play(animation: string): void;
+            destroy(): void;
+            load(animation: string): void;
+            play(animation: string): void;
+        }
+
+        interface Immunity {
+            character: Character;
+            classImmunityActive: boolean;
+            spawnImmunityActive: boolean;
+            activate(): void;
+            activateClassImmunity(): void;
+            activateSpawnImmunity(): void;
+            deactivate(): void;
+            deactivateClassImmunity(): void;
+            deactivateSpawnImmunity(): void;
+            isActive(): boolean;
+        }
+
+        interface Updates {
+            update(update: {
+                delta: number;
+            }): void;
+            updateAlpha(): void;
+            updateDepth(): void;
+            updatePosition(dt: number): void;
+            updateScale(): void;
+        }
+
+        interface Healthbar extends Updates {
+            character: Character;
+            depth: number;
+            isVisible: boolean;
+            scene: Scene;
+            destroy(): void;
+            makeIndicator(): void;
+            updateValue(): void;
+        }
+
+        interface Flip {
+            character: Character;
+            flipXLastX: number;
+            isFlipped: boolean;
+            lastX: number;
+            lastY: number;
+            update(): void;
+            updateFlipForMainCharacter(): void;
+            updateFlipForOthers(): void;
+        }
+
+        interface Dimensions {
+            character: Character;
+            currentDimensionsId: string;
+            bottomY: number;
+            centerX: number;
+            topY: number;
+            x: number;
+            onPotentialDimensionsChange(): void;
+        }
+
+        interface Depth {
+            character: Character;
+            currentDepth: number;
+            lastY: number;
+            update(): void;
+            updateDepth(): void;
+        }
+
+        interface Culling {
+            character: Character;
+            isInCamera: boolean;
+            needsCullUpdate: boolean;
+            scene: Scene;
+            shouldForceUpdate: boolean;
+            forceUpdate(): void;
+            hideObject(object: any): void;
+            onInCamera(): void;
+            onOutCamera(): void;
+            showObject(object: any): void;
+            updateNeedsUpdate(): void;
+        }
+
+        interface TrailParticles {
+            frameHeight: number;
+            frameWidth: number;
+            imageUrl: string;
+            numberOfFrames: number;
+        }
+
+        interface TrailEmitter {
+            frequency: number;
+            quantity: number;
+            blendMode: number;
+            speed: number;
+            speedVariation: number;
+            lifetime: number;
+            lifetimeVariation: number;
+            scale: number;
+            scaleVariation: number;
+            scaleThreshold: number;
+            rotationRandomAtStart: boolean;
+            rotationChange: number;
+            rotationChangeVariation: number;
+            rotationAllowNegativeChange: boolean;
+            alphaThresholdStart: number;
+            alphaThresholdEnd: number;
+            gravityY: number;
+            yOriginChange: number;
+            emitterZone: Partial<Vector>;
+        }
+
+        interface TrailAppearance {
+            id: string;
+            emitter: TrailEmitter;
+            particles: TrailParticles;
+        }
+
+        interface CharacterTrail {
+            character: Character;
+            currentAppearance: TrailAppearance;
+            currentAppearanceId: string;
+            isReady: boolean;
+            lastSetAlpha: number;
+            destroy(): void;
+            followCharacter(): void;
+            setNewAppearance(appearance: TrailAppearance): void;
+            update(): void;
+            updateAppearance(id: string): void;
+        }
+
+        interface TweenAlphaOptions {
+            alpha: number;
+            type: string;
+            duration: number;
+            ease?: string;
+        }
+
+        interface Alpha {
+            character: Character;
+            cinematicModeAlpha: number;
+            currentAlpha: number;
+            immunity: number;
+            phaseAlpha: number;
+            playerAppearanceModifierDeviceAlpha: number;
+            scene: Scene;
+            getCurrentAlpha(): number;
+            setAlpha(type: string, alpha: number): void;
+            tweenAlpha(options: TweenAlphaOptions): void;
+            update(): void;
+        }
+
+        interface EndInfo {
+            end: number;
+            start: number;
+            x: number;
+            y: number;
+        }
+
+        interface Point {
+            endTime: number;
+            endX: number;
+            endY: number;
+            startTime: number;
+            startX: number;
+            startY: number;
+            teleported: boolean;
+            usedTeleported: boolean;
+        }
+
+        interface Movement {
+            character: Character;
+            currentPoint: Point;
+            currentTime: number;
+            nonMainCharacterGrounded: boolean;
+            pointMap: Point[];
+            targetIsDirty: boolean;
+            targetNonMainCharacterGrounded: boolean;
+            targetX: number;
+            targetY: number;
+            teleportCount: number;
+            teleported: boolean;
+            getCurrentEndInfo(): EndInfo;
+            moveToTargetPosition(): void;
+            onMainCharacterTeleport(): void;
+            postPhysicsUpdate(dt: number): void;
+            setNonMainCharacterTargetGrounded(grounded: boolean): void;
+            setTargetX(x: number): void;
+            setTargetY(y: number): void;
+            setTeleportCount(teleportCount: number): void;
+            update(dt: number): void;
+        }
+
+        interface NonMainCharacterState {
+            grounded: boolean;
+        }
+
+        interface Animation {
+            availableAnimations: string[];
+            blinkTimer: number;
+            bodyAnimationLocked: boolean;
+            bodyAnimationStartedAt: number;
+            character: Character;
+            currentBodyAnimation: string;
+            currentEyeAnimation: string;
+            lastGroundedAnimationAt: number;
+            nonMainCharacterState: NonMainCharacterState;
+            prevNonMainCharacterState: NonMainCharacterState;
+            skinChanged: boolean;
+            destroy(): void;
+            onAnimationComplete(options: any): void;
+            onSkinChanged(): void;
+            playAnimationOrClearTrack(animations: string[], track: number): void;
+            playBodyAnimation(animation: string): void;
+            playBodySupplementalAnimation(animation: string): void;
+            playEyeAnimation(animation: string): void;
+            playJumpSupplementalAnimation(animation: string): void;
+            playMovementSupplementalAnimation(animation: string): void;
+            setupAnimations(): void;
+            startBlinkAnimation(): void;
+            stopBlinkAnimation(): void;
+            update(dt: number): void;
+        }
+
+        interface ProjectileAppearance {
+            imageUrl: string;
+            rotateToTarget: boolean;
+            scale: number;
+        }
+
+        interface WeaponAsset extends BaseAsset {
+            fireFrames: number[];
+            fromCharacterCenterRadius: number;
+            hideFireSlash: boolean;
+            idleFrames: number;
+            originX: number;
+            originY: number;
+        }
+
+        interface BaseAsset {
+            frameHeight: number;
+            frameRate: number;
+            frameWidth: number;
+            imageUrl: string;
+            scale: number;
+        }
+
+        interface ImpactAsset extends BaseAsset {
+            frames: number[];
+            hideIfNoHit?: boolean;
+        }
+
+        interface SoundEffect {
+            path: string;
+            volume: number;
+        }
+
+        interface CurrentAppearance {
+            id: string;
+            explosionSfx: SoundEffect[];
+            fireSfx: SoundEffect[];
+            impact: ImpactAsset;
+            projectile: ProjectileAppearance;
+            reloadSfx: SoundEffect;
+            weapon: WeaponAsset;
+        }
+
+        interface AimingAndLookingAround {
+            angleTween?: import("phaser").Tweens.Tween;
+            character: Character;
+            currentAngle?: number;
+            currentAppearance?: CurrentAppearance;
+            currentWeaponId?: string;
+            isAiming: boolean;
+            lastUsedAngle: number;
+            sprite: import("phaser").GameObjects.Sprite;
+            targetAngle?: number;
+            characterShouldFlipX(): boolean;
+            destroy(): void;
+            isCurrentlyAiming(): boolean;
+            onInventoryStateChange(): void;
+            playFireAnimation(): void;
+            setImage(appearance: CurrentAppearance): void;
+            setSpriteParams(skipRecalculateAlpha: boolean): void;
+            setTargetAngle(angle: number, instant?: boolean): void;
+            update(): void;
+            updateAnotherCharacter(): void;
+            updateMainCharacterMouse(): void;
+            updateMainCharacterTouch(): void;
+        }
+
+        interface ServerPosition {
+            packet: number;
+            x: number;
+            y: number;
+            jsonState: string;
+            teleport: boolean;
+        }
+
+        interface Bodies {
+            character: Character;
+            collider: Collider;
+            colliderDesc: ColliderDesc;
+            rigidBody: RigidBody;
+            rigidBodyDesc: RigidBodyDesc;
+        }
+
+        interface PhysicsInput {
+            _jumpKeyPressed: boolean;
+            activeClassDeviceId: string;
+            angle: number;
+            ignoredStaticBodies: Set<any>;
+            ignoredTileBodies: Set<any>;
+            jump: boolean;
+            projectileHitForcesQueue: Set<any>;
+        }
+
+        interface MovementState {
+            accelerationTicks: number;
+            direction: string;
+            xVelocity: number;
+        }
+
+        interface Jump {
+            actuallyJumped: boolean;
+            isJumping: boolean;
+            jumpCounter: number;
+            jumpTicks: number;
+            jumpsLeft: number;
+            xVelocityAtJumpStart: number;
+        }
+
+        interface PhysicsState {
+            forces: any[];
+            gravity: number;
+            grounded: boolean;
+            groundedTicks: number;
+            jump: Jump;
+            lastGroundedAngle: number;
+            movement: MovementState;
+            velocity: Vector;
+        }
+
+        interface Physics {
+            character: Character;
+            currentPacketId: number;
+            frameInputsHistory: Map<number, PhysicsInput>;
+            justAppliedProjectileHitForces: Set<any>;
+            lastClassDeviceActivationId: number;
+            lastPacketSent: number[];
+            lastSentClassDeviceActivationId: number;
+            lastSentTerrainUpdateId: number;
+            lastTerrainUpdateId: number;
+            newlyAddedTileBodies: Set<any>;
+            phase: boolean;
+            physicsBodyId: string;
+            prevState: PhysicsState;
+            projectileHitForcesHistory: Map<any, any>;
+            projectileHitForcesQueue: Set<any>;
+            scene: Scene;
+            state: PhysicsState;
+            tickInput: TickInput;
+            destroy(): void;
+            getBody(): Bodies;
+            postUpdate(dt: number): void;
+            preUpdate(): void;
+            sendToServer(): void;
+            setServerPosition(serverPosition: ServerPosition): void;
+            setupBody(x: number, y: number): void;
+            updateDebugGraphics(): void;
+        }
+
+        interface Character {
+            aimingAndLookingAround: AimingAndLookingAround;
+            alpha: Alpha;
+            animation: Animation;
+            body: Vector;
+            characterTrail: CharacterTrail;
+            culling: Culling;
+            depth: Depth;
+            dimensions: Dimensions;
+            flip: Flip;
+            healthbar: Healthbar;
+            id: string;
+            immunity: Immunity;
+            impactAnimation: ImpactAnimation;
+            indicator: Indicator;
+            input: CharacterInput;
+            isActive: boolean;
+            isDestroyed: boolean;
+            isMain: boolean;
+            movement: Movement;
+            nametag: Nametag;
+            network: Network;
+            physics: Physics;
+            position: Position;
+            prevBody: Vector;
+            scale: Scale;
+            scene: Scene;
+            shadow: Shadow;
+            skin: Skin;
+            spine: any;
+            teamId: string;
+            tint: Tint;
+            type: string;
+            vfx: VFX;
+            destroy(): void;
+            setIsMain(isMain: boolean): void;
+            update(dt: number): void;
+        }
+
+        interface UpdateCullOptions {
+            mainCharacter: Character;
+            isPhase: boolean;
+            insideView: boolean;
+        }
+
+        interface Cull {
+            device: Device;
+            ignoresCull: boolean;
+            isInsideView: boolean;
+            margin: number;
+            wasInsideView: boolean;
+            getMargin(): number;
+            ignoreCulling(): void;
+            setMargin(margin: number): void;
+            setOnEnterViewCallback(callback: () => void): void;
+            setOnLeaveViewCallback(callback: () => void): void;
+            onEnterViewCallback?(): void;
+            onLeaveViewCallback?(): void;
+            updateCull(options: UpdateCullOptions): void;
+        }
+
+        type ColliderOptions = {
+            device: Device;
+            scene: Scene;
+            angle: number;
+        } & DeviceCollider;
+
+        type DeviceCollider = RectShort | CircleShort | Ellipse;
+
+        interface Colliders {
+            add: {
+                box(collider: RectShort): void;
+                circle(collider: CircleShort): void;
+                ellipse(collider: Ellipse): void;
+            };
+            device: Device;
+            list: DeviceCollider[];
+            createOptions(collider: DeviceCollider): ColliderOptions;
+            destroy(): void;
+            forEach(callback: (collider: DeviceCollider) => void): void;
+            hideDebug(): void;
+            showDebug(): void;
+        }
+
+        interface Rect {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+        }
+
+        interface BoundingBox {
+            cachedBoundingBox: Rect;
+            device: Device;
+            hardcodedBoundingBox?: Rect;
+            clearCached(): void;
+            clearHardcoded(): void;
+            getBoundingBox(): Rect;
+            isHardcoded(): boolean;
+            isInsideBoundingBox(x: number, y: number): boolean;
+            setHardcoded(rect: Rect): void;
+        }
+
+        interface AppearanceVariation {
+            device: Device;
+            resetAppearance(): void;
+            setPreviewAppearance(): void;
+            setRemovalAppearance(): void;
+        }
+
+        interface BaseDevice {
+            isPreview: boolean;
+            placedByClient: boolean;
+            isDestroyed: boolean;
+            x: number;
+            y: number;
+            forceUseMyState: boolean;
+            options: Record<string, any>;
+            state: Record<string, any>;
+            prevState: Record<string, any>;
+            name: string;
+            id: string;
+            scene: Scene;
+            deviceOption: DeviceOption;
+            visualEditing: VisualEditing;
+            shadows: Shadows;
+            input: DeviceInput;
+            parts: any;
+            cull: Cull;
+            boundingBox: BoundingBox;
+            appearanceVariation: AppearanceVariation;
+            colliders: Colliders;
+            interactiveZones: InteractiveZones;
+            deviceUI: DeviceUI;
+            layers: Layers;
+            wirePoints: WirePoints;
+            tweens: DeviceTweens;
+            projectiles: DeviceProjectiles;
+            sensors: any;
+            onHide: (() => void) | null;
+            onShow: (() => void) | null;
+            onUpdate: (() => void) | null;
+            initialStateProcessing(state: Record<string, any>): Record<string, any>;
+            getMaxDepth(): number;
+            onStateUpdateFromServer(key: string, value: any): void;
+            getRealKey(key: string): string;
+            onPostUpdate(): void;
+            onInit(): void;
+            onMessage(message: {
+                key: string;
+                data: any;
+            }): void;
+            onStateChange(key: string): void;
+            onDestroy(options: {
+                isBeingReplaced: boolean;
+            }): void;
+            sendToServerDevice(key: string, data: any): void;
+            openDeviceUI(): void;
+            checkIfCollidersEnabled(): boolean;
+            destroy(options: {
+                isBeingReplaced: boolean;
+            }): void;
+        }
+
+        type Device = BaseDevice & {
+            [key: string]: any;
+        };
+
+        interface Cameras {
+            allCameras: Device[];
+            allCamerasNeedsUpdate: boolean;
+            camerasPlayerIsInside: any[];
+            scene: Scene;
+            wasInPrePhase: boolean;
+            findNewCameras(allCameras: Device[], x: number, y: number): any;
+            setCurrentCameraSizeDevice(device: Device): void;
+            switchToDefaultCameraSize(reset: boolean): void;
+            update(devices: Device[]): void;
+        }
+
+        interface Devices {
+            allDevices: Device[];
+            cameras: Cameras;
+            devicesAction: DevicesAction;
+            devicesPreview: DevicesPreview;
+            devicesToPostUpdate: Set<Device>;
+            devicesToUpdate: Set<Device>;
+            interactives: WorldInteractives;
+            scene: Scene;
+            visualEditingManager: any;
+            addDevice(device: Device): void;
+            cullDevices(): void;
+            findDeviceUnderMouse(): Device | undefined;
+            getDeviceById(id: string): Device | undefined;
+            hasDevice(id: string): boolean;
+            removeDeviceById(id: string, options: {
+                isBeingReplaced: boolean;
+            }): void;
+            update(dt: number): void;
+        }
+
+        interface WorldManager {
+            devices: Devices;
+            inGameTerrainBuilder: InGameTerrainBuilder;
+            physics: PhysicsManager;
+            projectiles: Projectiles;
+            scene: Scene;
+            terrain: any;
+            wires: any;
+            update(dt: number): void;
+        }
+
+        interface MovementPointer {
+            id: string;
+            x: number;
+            y: number;
+            downX: number;
+            downY: number;
+        }
+
+        interface Mouse {
+            clickListeners: Map<string, (pointer: import("phaser").Input.Pointer) => void>;
+            downX: number;
+            downY: number;
+            isHoldingDown: boolean;
+            movementPointer?: MovementPointer;
+            scene: Scene;
+            stopRunningClickHandlers: boolean;
+            worldX: number;
+            worldY: number;
+            x: number;
+            y: number;
+            addClickListener(options: {
+                callback: (pointer: import("phaser").Input.Pointer) => void;
+            }): () => void;
+            pointerUpdate(pointer: import("phaser").Input.Pointer): void;
+            removeClickListener(id: string): void;
+            shouldBecomeMovementPointer(pointer: import("phaser").Input.Pointer): boolean;
+        }
+
+        interface KeyboardState {
+            isHoldingDown: boolean;
+            isHoldingLeft: boolean;
+            isHoldingRight: boolean;
+            isHoldingUp: boolean;
+            isHoldingSpace: boolean;
+        }
+
+        interface Keyboard {
+            heldKeys: Set<string>;
+            scene: Scene;
+            state: KeyboardState;
+            createListeners(): void;
+            isKeyDown(key: number): boolean;
+        }
+
+        interface PressedKeys {
+            up: boolean;
+            down: boolean;
+            left: boolean;
+            right: boolean;
+        }
+
+        interface Cursor {
+            scene: Scene;
+            createStateListeners(): void;
+            updateCursor(): void;
+        }
+
+        interface AimCursor {
+            aimCursor: import("phaser").GameObjects.Sprite;
+            aimCursorWorldPos: Vector;
+            centerShiftX: number;
+            centerShiftY: number;
+            scene: Scene;
+            x: number;
+            y: number;
+            update(): void;
+        }
+
+        interface TickInput {
+            angle: number | null;
+            jump: boolean;
+            _jumpKeyPressed: boolean;
+        }
+
+        interface InputManager {
+            aimCursor: AimCursor;
+            currentInput: TickInput;
+            cursor: Cursor;
+            isListeningForInput: boolean;
+            jumpedSinceLastPhysicsFetch: boolean;
+            keyboard: Keyboard;
+            mouse: Mouse;
+            physicsInputHandledBetweenUpdates: boolean;
+            scene: Scene;
+            getAimingDirection(): Vector;
+            getInputAngle(): number | null;
+            getKeys(): PressedKeys;
+            getMouseWorldXY(): Vector;
+            getPhysicsInput(): TickInput;
+            refreshInput(): void;
+            update(): void;
+        }
+
+        interface Scene extends BaseScene {
+            actionManager: ActionManager;
+            cameraHelper: any;
+            characterManager: CharacterManager;
+            dt: number;
+            inputManager: InputManager;
+            resizeManager: any;
+            shadowsManager: any;
+            spine: any;
+            tileManager: TileManager;
+            uiManager: any;
+            worldManager: WorldManager;
+            create(): void;
+        }
+
+        interface Phaser {
+            mainCharacter: Character;
+            mainCharacterTeleported: boolean;
+            scene: Scene;
+        }
+
+        interface NetworkStore {
+            attemptingToConnect: boolean;
+            attemptingToReconnect: boolean;
+            authId: string;
+            client: any;
+            clientConnectionString: string;
+            error: any;
+            errorFindingServerForGame: boolean;
+            errorJoiningRoom: boolean;
+            failedToReconnect: boolean;
+            findingServerForGame: boolean;
+            hasJoinedRoom: boolean;
+            isOffline: boolean;
+            isUpToDateWithPingPong: boolean;
+            joinedRoom: boolean;
+            phaseBeforeReconnect: string | null;
+            ping: number;
+            room: any;
+            roomIntentErrorMessage: string;
+            syncingAfterReconnection: boolean;
+        }
+
+        interface Matchmaker {
+            gameCode: string;
+        }
+
+        interface Loading {
+            completedInitialLoad: boolean;
+            loadedInitialDevices: boolean;
+            loadedInitialTerrain: boolean;
+            percentageAssetsLoaded: number;
+        }
+
+        interface Hooks {
+            hookJSON: string;
+        }
+
+        interface EditingStore {
+            accessPoints: Map<any, any>;
+            gridSnap: number;
+            showMemoryBarAtAllTimes: boolean;
+        }
+
+        interface Assignment {
+            hasSavedProgress: boolean;
+            objective: string;
+            percentageComplete: number;
+        }
+
+        interface ActivityFeed {
+            feedItems: {
+                id: string;
+                message: string;
+            }[];
+        }
+
+        interface CustomAssetOption {
+            id: string;
+            maxOnMap: number;
+            memoryCost: number;
+            minimumRoleLevel?: number;
+            validate: any;
+        }
+
+        interface TerrainOption {
+            id: string;
+            name: string;
+            maskTilesUrl: string;
+            borderTilesUrl: string;
+            fillUrl: string;
+            blockedMapStyles?: string[];
+            seasonTicketRequired?: boolean;
+            previewUrl: string;
+            health?: number;
+            minimumRoleLevel?: number;
+        }
+
+        interface SkinOption {
+            id: string;
+            name: string;
+            minimumRoleLevel?: number;
+        }
+
+        interface CircleShort {
+            x: number;
+            y: number;
+            r: number;
+        }
+
+        interface RectShort {
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+        }
+
+        interface RotatedRectShort extends RectShort {
+            angle: number;
+        }
+
+        interface RotatedEllipse extends Ellipse {
+            angle: number;
+        }
+
+        interface Ellipse {
+            x: number;
+            y: number;
+            r1: number;
+            r2: number;
+        }
+
+        interface PropOption {
+            id: string;
+            name: string;
+            scaleMultip: number;
+            originX: number;
+            originY: number;
+            imageUrl: string;
+            rectColliders: RotatedRectShort[];
+            circleColliders: CircleShort[];
+            ellipseColliders: RotatedEllipse[];
+            shadows: Ellipse[];
+            seasonTicketRequired?: boolean;
+            minimumRoleLevel?: number;
+            defaultLayer?: string;
+        }
+
+        interface WeaponShared {
+            cooldownBetweenShots: number;
+            allowAutoFire: boolean;
+            startingProjectileDistanceFromCharacter: number;
+        }
+
+        interface Weapon {
+            type: string;
+            appearance: string;
+            shared: WeaponShared;
+            bullet?: {
+                ammoItemId: string;
+            };
+        }
+
+        interface ItemOption {
+            type: string;
+            id: string;
+            name: string;
+            editorName: string;
+            description: string;
+            previewImage: string;
+            rarity?: string;
+            weapon?: Weapon;
+            minimumRoleLevel?: number;
+            useCommand?: string;
+            consumeType?: string;
+            terrainId?: string;
+            maxStackSize?: number;
+        }
+
+        interface OptionSchema {
+            options: any[];
+            categories?: any[];
+        }
+
+        interface DeviceInfo {
+            id: string;
+            name: string;
+            description?: string;
+            optionSchema: OptionSchema;
+            defaultState: any;
+            codeGridSchema: CodeGridSchema;
+            wireConfig?: any;
+            minimumRoleLevel?: number;
+            maxOnMap?: number;
+            initialMemoryCost?: number;
+            subsequentMemoryCost?: number;
+            supportedMapStyles?: string[];
+            seasonTicketRequired?: boolean;
+            maximumRoleLevel?: number;
+        }
+
+        interface CodeGrids {
+            blockCategories: string;
+            customBlocks: string;
+            customBlocksParsed: any[];
+        }
+
+        interface WorldOptions {
+            codeGrids: CodeGrids;
+            customAssetsOptions: CustomAssetOption[];
+            deviceOptions: DeviceInfo[];
+            hasAllProps: boolean;
+            itemOptions: ItemOption[];
+            propsOptions: PropOption[];
+            skinOptions: SkinOption[];
+            terrainOptions: TerrainOption[];
+        }
+
+        interface Limits {
+            blocksPerCodeGrid: number;
+            codeGrids: number;
+            codeGridsPerDevice: number;
+            collidingTiles: number;
+            customAssetOnMapDefault: number;
+            deviceMaxOnMapDefault: number;
+            nonCollidingTiles: number;
+            wires: number;
+        }
+
+        interface Counters {
+            codeGrids: number;
+            collidingTiles: number;
+            customAssets: Map<string, number>;
+            devices: Map<string, number>;
+            nonCollidingTiles: number;
+            wires: number;
+        }
+
+        interface Costs {
+            codeGrid: number;
+            collidingTile: number;
+            customAssetDefault: number;
+            deviceInitialDefault: number;
+            deviceSubsequentDefault: number;
+            nonCollidingTile: number;
+            wire: number;
+        }
+
+        interface MemorySystem {
+            costs: Costs;
+            counters: Counters;
+            limits: Limits;
+            maxUsedMemory: number;
+            usedMemoryCost: number;
+        }
+
+        interface CharacterData {
+            allowWeaponFire: boolean;
+            existsBeforeReconnect: boolean;
+            fragility: number;
+            health: number;
+            id: string;
+            isActive: boolean;
+            lastPlayersTeamId: string;
+            name: string;
+            permissions: Permissions;
+            score: number;
+            teamId: string;
+            type: string;
+        }
+
+        interface Characters {
+            characters: Map<string, CharacterData>;
+        }
+
+        interface Scorebar {
+            teamColors: string[];
+            teams: string[];
+        }
+
+        interface NoneGui {
+            addMenu: {
+                screen: string;
+            };
+            duringGameScreenVisible: boolean;
+            optionsMenu: {
+                screen: string;
+            };
+            screen: string;
+        }
+
+        interface Modals {
+            closeAllModals: () => void;
+            cosmosModalOpen: boolean;
+            switchToRegisterScreenWhenCosmosModalOpens: boolean;
+        }
+
+        interface KnockoutAlert {
+            id: string;
+            name: string;
+        }
+
+        interface GuiSlot {
+            id: string;
+            position: string;
+            text: string;
+            trackedItemId: any;
+            showTrackedItemMaximumAmount: boolean;
+            type: string;
+            priority: number;
+            color: string;
+        }
+
+        interface DamageIndicator {
+            show: boolean;
+            /** `h` for red, `s` for blue, and any other string for yellow. */
+            type: string;
+        }
+
+        interface BottomInGamePrimaryContent {
+            interactionWantsToBeVisible: boolean;
+            prioritizeInteraction: boolean;
+        }
+
+        interface Achievement {
+            id: string;
+            key: string;
+            reset: () => void;
+            update: () => void;
+        }
+
+        interface GUI {
+            achievement: Achievement;
+            bottomInGamePrimaryContent: BottomInGamePrimaryContent;
+            damageIndicator: DamageIndicator;
+            guiSlots: GuiSlot[];
+            guiSlotsChangeCounter: number;
+            knockoutAlerts: KnockoutAlert[];
+            modals: Modals;
+            none: NoneGui;
+            openInputBlockingUI: string[];
+            playersManagerUpdateCounter: number;
+            scale: number;
+            scorebar?: Scorebar;
+            selectedPlayerId: string;
+            showingGrid: boolean;
+        }
+
+        interface Permissions {
+            adding: boolean;
+            editing: boolean;
+            manageCodeGrids: boolean;
+            removing: boolean;
+        }
+
+        interface GameSession {
+            callToAction: any;
+            countdownEnd: number;
+            phase: string;
+            resultsEnd: number;
+            widgets: {
+                widgets: any[];
+            };
+        }
+
+        interface Session {
+            allowGoogleTranslate: boolean;
+            amIGameOwner: boolean;
+            canAddGameTime: boolean;
+            cosmosBlocked: boolean;
+            customTeams: {
+                characterToTeamMap: Map<string, string>;
+            };
+            duringTransition: boolean;
+            gameClockDuration: string;
+            gameOwnerId: string;
+            gameSession: GameSession;
+            gameTime: number;
+            gameTimeLastUpdateAt: number;
+            globalPermissions: Permissions;
+            loadingPhase: boolean;
+            mapCreatorRoleLevel: number;
+            mapStyle: string;
+            modeType: string;
+            ownerRole: string;
+            phase: string;
+            phaseChangedAt: number;
+            version: string;
+        }
+
+        interface ZoneDropOverrides {
+            allowItemDrop: boolean;
+            allowResourceDrop: boolean;
+            allowWeaponDrop: boolean;
+        }
+
+        interface XPAddition {
+            amount: number;
+            reason: string;
+            xp: number;
+        }
+
+        interface XP {
+            additionTimeouts: Map<string, ReturnType<typeof setTimeout>>;
+            additions: XPAddition[];
+            showingLevelUp: boolean;
+        }
+
+        interface MeSpectating {
+            id: string;
+            name: string;
+            shuffle: boolean;
+        }
+
+        interface TileToRemove {
+            depth: number;
+            id: string;
+            x: number;
+            y: number;
+        }
+
+        interface Removing {
+            deviceIdToRemove?: string;
+            removingMode: string;
+            removingTilesEraserSize: number;
+            removingTilesLayer: number;
+            removingTilesMode: string;
+            tilesToRemove: TileToRemove[];
+            wireIdToRemove?: string;
+        }
+
+        interface NonDismissMessage {
+            description: string;
+            title: string;
+        }
+
+        interface Mood {
+            activeDeviceId: string;
+            vignetteActive: boolean;
+            vignetteStrength: number;
+        }
+
+        interface MobileControls {
+            left: boolean;
+            right: boolean;
+            up: boolean;
+        }
+
+        interface InventorySlot {
+            amount: number;
+            existsBeforeReconnect: boolean;
+        }
+
+        interface AlertFeed {
+            amount: number;
+            itemId: string;
+        }
+
+        interface InteractiveSlot {
+            clipSize: number;
+            count: number;
+            currentClip: number;
+            durability: number;
+            itemId: string;
+            waiting: boolean;
+            waitingEndTime: number;
+            waitingStartTime: number;
+        }
+
+        interface Inventory {
+            activeInteractiveSlot: number;
+            alertFeed?: AlertFeed;
+            alertsFeed: AlertFeed[];
+            currentWaitingEndTime: number;
+            infiniteAmmo: boolean;
+            interactiveSlotErrorMessageTimeouts: Map<string, ReturnType<typeof setTimeout>>;
+            interactiveSlotErrorMessages: Map<string, string>;
+            interactiveSlots: Map<string, InteractiveSlot>;
+            interactiveSlotsOrder: number[];
+            isCurrentWaitingSoundForItem: boolean;
+            lastShotsTimestamps: Map<string, number>;
+            maxSlots: number;
+            slots: Map<string, InventorySlot>;
+        }
+
+        interface InteractiveInfo {
+            action: string;
+            allowedToInteract: boolean;
+            message: string;
+            topHeader?: string;
+            topHeaderColor: string;
+        }
+
+        interface Interactives {
+            deviceId: string;
+            info: InteractiveInfo;
+        }
+
+        interface Health {
+            fragility: number;
+            health: number;
+            lives: number;
+            maxHealth: number;
+            maxShield: number;
+            shield: number;
+        }
+
+        interface EditingPreferences {
+            cameraZoom: number;
+            movementSpeed: number | null;
+            phase: boolean | null;
+            showGrid: boolean | null;
+            topDownControlsActive: boolean;
+        }
+
+        interface CurrentlyEditedDevice {
+            deviceOptionId: string;
+            id: string;
+        }
+
+        interface EditingDevice {
+            currentlyEditedDevice: CurrentlyEditedDevice;
+            currentlyEditedGridId: string;
+            currentlySortedDeviceId: string;
+            screen: string;
+            sortingState: any[];
+            usingMultiselect: boolean;
+            visualEditing: any;
+        }
+
+        interface Editing {
+            device: EditingDevice;
+            preferences: EditingPreferences;
+            wire: {
+                currentlyEditedWireId: string;
+            };
+        }
+
+        interface MeDeviceUI {
+            current: {
+                deviceId: string;
+                props: any;
+            };
+            desiredOpenDeviceId?: string;
+            serverVersionOpenDeviceId: string;
+        }
+
+        interface MeCustomAssets {
+            currentData?: {
+                shapes: Shapes;
+            };
+            currentIcon: string;
+            currentId: string;
+            currentName: string;
+            currentOptionId: string;
+            isUIOpen: boolean;
+            openOptionId: string | null;
+            pendingDeleteId: string | null;
+            showDeleteConfirm: boolean;
+        }
+
+        interface Context {
+            cursorIsOverCharacterId: string;
+            __devicesUnderCursor: string[];
+            __wiresUnderCursor: Set<string>;
+            cursorIsOverDevice: boolean;
+            cursorIsOverWire: boolean;
+        }
+
+        interface ClassDesigner {
+            activeClassDeviceId: string;
+            lastActivatedClassDeviceId: string;
+            lastClassDeviceActivationId: number;
+        }
+
+        interface CinematicMode {
+            charactersVisible: boolean;
+            enabled: boolean;
+            followingMainCharacter: boolean;
+            hidingGUI: boolean;
+            mainCharacterVisible: boolean;
+            nameTagsVisible: boolean;
+        }
+
+        interface AddingWires {
+            hoveringOverSupportedDevice: boolean;
+            pointUnderMouseDeviceId?: string;
+            startDeviceSelected: boolean;
+        }
+
+        interface AddingTerrain {
+            brushSize: number;
+            buildTerrainAsWall: boolean;
+            currentlySelectedTerrain: string;
+            currentlySelectedTerrainDepth: number;
+        }
+
+        interface ExistingDevice {
+            action: string;
+            id: string;
+            shiftX: number;
+            shiftY: number;
+            use: boolean;
+        }
+
+        interface AddingDevices {
+            currentlySelectedProp: string;
+            existingDevice: ExistingDevice;
+            selectedDeviceType: string;
+        }
+
+        interface Adding {
+            devices: AddingDevices;
+            terrain: AddingTerrain;
+            wires: AddingWires;
+            mode: string;
+        }
+
+        interface Me {
+            adding: Adding;
+            cinematicMode: CinematicMode;
+            classDesigner: ClassDesigner;
+            completedInitialPlacement: boolean;
+            context: Context;
+            currentAction: string;
+            customAssets: MeCustomAssets;
+            deviceUI: MeDeviceUI;
+            editing: Editing;
+            gotKicked: boolean;
+            health: Health;
+            interactives: Interactives;
+            inventory: Inventory;
+            isRespawning: boolean;
+            mobileControls: MobileControls;
+            mood: Mood;
+            movementSpeed: number;
+            myTeam: string;
+            nonDismissMessage: NonDismissMessage;
+            phase: boolean;
+            preferences: {
+                startGameWithMode: string;
+            };
+            properties: Map<string, any>;
+            removing: Removing;
+            roleLevel: number;
+            spawnPosition: Vector;
+            spectating: MeSpectating;
+            teleportCount: number;
+            unredeemeedXP: number;
+            xp: XP;
+            zoneDropOverrides: ZoneDropOverrides;
+        }
+
+        interface QueuedTile {
+            timestamp: number;
+            removedBodyIds: string[];
+        }
+
+        interface Tile {
+            collides: boolean;
+            depth: number;
+            terrain: string;
+            x: number;
+            y: number;
+        }
+
+        interface Terrain {
+            currentTerrainUpdateId: number;
+            modifiedHealth: Map<string, number>;
+            queuedTiles: Map<number, QueuedTile>;
+            teamColorTiles: Map<string, string>;
+            tiles: Map<string, Tile>;
+        }
+
+        interface DeviceState {
+            deviceId: string;
+            properties: Map<string, any>;
+        }
+
+        interface CodeGridItem {
+            createdAt: number;
+            existsBeforeReconnect: boolean;
+            json: string;
+            triggerType: string;
+            owner?: string;
+            triggerValue?: string;
+            visitors: string[];
+        }
+
+        interface CodeGrid {
+            existsBeforeReconnect: boolean;
+            items: Map<string, CodeGridItem>;
+        }
+
+        interface CodeGridSchema {
+            allowChannelGrids: boolean;
+            customBlocks: any[];
+            triggers: any[];
+        }
+
+        interface DeviceOption {
+            codeGridSchema: CodeGridSchema;
+            defaultState: any;
+            id: string;
+            optionSchema: {
+                options: any[];
+            };
+            wireConfig: any;
+        }
+
+        interface DeviceData {
+            depth: number;
+            deviceOption: DeviceOption;
+            existsBeforeReconnect: boolean;
+            hooks: any;
+            id: string;
+            isPreview: boolean;
+            layerId: string;
+            name: any;
+            options: Record<string, any>;
+            props: any;
+            x: number;
+            y: number;
+        }
+
+        interface WorldDevices {
+            codeGrids: Map<string, CodeGrid>;
+            devices: Map<string, DeviceData>;
+            states: Map<string, DeviceState>;
+        }
+
+        interface Shapes {
+            circles: number[][];
+            lines: number[][];
+            paths: number[][];
+            rects: number[][];
+        }
+
+        interface CustomAsset {
+            data: {
+                shapes: Shapes;
+            };
+            icon: string;
+            id: string;
+            name: string;
+            optionId: string;
+        }
+
+        interface WorldCustomAssets {
+            customAssets: Map<string, CustomAsset>;
+            isUIOpen: boolean;
+            updateCounter: number;
+        }
+
+        interface World {
+            customAssets: WorldCustomAssets;
+            devices: WorldDevices;
+            height: number;
+            width: number;
+            mapOptionsJSON: string;
+            terrain: Terrain;
+            wires: {
+                wires: Map<any, any>;
+            };
+        }
+
+        interface Stores {
+            activityFeed: ActivityFeed;
+            assignment: Assignment;
+            characters: Characters;
+            editing: EditingStore;
+            gui: GUI;
+            hooks: Hooks;
+            loading: Loading;
+            matchmaker: Matchmaker;
+            me: Me;
+            memorySystem: MemorySystem;
+            network: NetworkStore;
+            phaser: Phaser;
+            scene: SceneStore;
+            session: Session;
+            teams: Teams;
+            world: World;
+            worldOptions: WorldOptions;
+        }
     }
 
     class PluginsApi {
@@ -298,12 +2217,12 @@ declare namespace Gimloader {
         instead(object: any, method: string, callback: PatcherInsteadCallback): () => void;
     }
 
-    type PatcherInsteadCallback = (thisVal: any, args: IArguments) => void;
+    type PatcherAfterCallback = (thisVal: any, args: IArguments, returnVal: any) => any;
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PatcherBeforeCallback = (thisVal: any, args: IArguments) => boolean | void;
 
-    type PatcherAfterCallback = (thisVal: any, args: IArguments, returnVal: any) => any;
+    type PatcherInsteadCallback = (thisVal: any, args: IArguments) => void;
 
     class PatcherApi {
         /**
@@ -403,10 +2322,8 @@ declare namespace Gimloader {
         removeStyles(id: string): void;
     }
 
-    class ScopedNetApi extends BaseNetApi {
-        private readonly id;
-        private readonly defaultGamemode;
-        constructor(id: string, defaultGamemode: string[]);
+    interface ScopedNetApi extends BaseNetApi {
+        new(id: string, defaultGamemode: string[]): this;
         /**
          * Runs a callback when the game is loaded, or runs it immediately if the game has already loaded.
          * If the \@gamemode header is set the callback will only fire if the gamemode matches one of the provided gamemodes.
@@ -417,8 +2334,8 @@ declare namespace Gimloader {
 
     type ConnectionType = "None" | "Colyseus" | "Blueboat";
 
-    class BaseNetApi extends EventEmitter2 {
-        constructor();
+    interface BaseNetApi extends EventEmitter2 {
+        new(): this;
         /** Which type of server the client is currently connected to */
         get type(): ConnectionType;
         /** The id of the gamemode the player is currently playing */
@@ -431,8 +2348,8 @@ declare namespace Gimloader {
         send(channel: string, message: any): void;
     }
 
-    class NetApi extends BaseNetApi {
-        constructor();
+    interface NetApi extends BaseNetApi {
+        new(): this;
         /**
          * Runs a callback when the game is loaded, or runs it immediately if the game has already loaded
          * @returns A function to cancel waiting for load
@@ -454,8 +2371,7 @@ declare namespace Gimloader {
          * @hidden
          */
         get blueboat(): this;
-        /** @hidden */
-        private wrappedListeners;
+
         /**
          * @deprecated use net.on
          * @hidden
@@ -653,7 +2569,7 @@ declare namespace Gimloader {
         /** Gimkit's internal reactDom instance */
         static get ReactDOM(): typeof import("react-dom/client");
         /** A variety of Gimkit internal objects available in 2d gamemodes */
-        static get stores(): any;
+        static get stores(): Stores.Stores;
         /**
          * Gimkit's notification object, only available when joining or playing a game
          *
@@ -722,7 +2638,7 @@ declare namespace Gimloader {
         /** Gimkit's internal reactDom instance */
         get ReactDOM(): typeof import("react-dom/client");
         /** A variety of gimkit internal objects available in 2d gamemodes */
-        get stores(): any;
+        get stores(): Stores.Stores;
         /**
          * Gimkit's notification object, only available when joining or playing a game
          *
@@ -743,7 +2659,7 @@ declare namespace Gimloader {
 declare const api: Gimloader.Api;
 declare const GL: typeof Gimloader.Api;
 /** @deprecated Use GL.stores */
-declare const stores: any;
+declare const stores: Gimloader.Stores.Stores;
 /** @deprecated No longer supported */
 declare const platformerPhysics: any;
 
@@ -751,7 +2667,7 @@ interface Window {
     api: Gimloader.Api;
     GL: typeof Gimloader.Api;
     /** @deprecated Use GL.stores */
-    stores: any;
+    stores: Gimloader.Stores.Stores;
     /** @deprecated No longer supported */
     platformerPhysics: any;
 }
