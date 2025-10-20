@@ -12,7 +12,7 @@ export interface StepConfig {
   readonly stepSuccessMetric?: boolean | undefined;
 }
 
-export enum WebBrowserType {
+declare enum WebBrowserType {
   CHROME = 0,
   FIREFOX = 1,
   WEBKIT = 2
