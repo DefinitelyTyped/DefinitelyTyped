@@ -20,7 +20,7 @@ export enum WebBrowserType {
 
 export interface SyntheticsType {
   readonly close: () => Promise<void>;
-  readonly executeStep: <T>(stepName: string, func: () => Promise<T>, stepConfig?: StepConfig | undefined, page?: Page | undefined) => Promise<T>;
+  readonly executeStep: <T>(stepName: string, func: () => Promise<T>, stepConfig?: StepConfig, page?: Page) => Promise<T>;
   readonly getDefaultLaunchOptions: () => Promise<LaunchOptions>;
   readonly getPage: (browser: Browser | BrowserContext) => Promise<Page>;
   readonly launch: BrowserType["launch"];
