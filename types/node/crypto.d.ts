@@ -4255,6 +4255,16 @@ declare module "crypto" {
          */
         readonly serialNumber: string;
         /**
+         * The algorithm used to sign the certificate or `undefined` if the signature algorithm is unknown by OpenSSL.
+         * @since v24.9.0
+         */
+        readonly signatureAlgorithm: string | undefined;
+        /**
+         * The OID of the algorithm used to sign the certificate.
+         * @since v24.9.0
+         */
+        readonly signatureAlgorithmOid: string;
+        /**
          * The date/time from which this certificate is considered valid.
          * @since v15.6.0
          */
@@ -5138,9 +5148,9 @@ declare module "crypto" {
             exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
             exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
             /**
-             * Using the method and parameters provided in `algorithm`, `subtle.generateKey()`
-             * attempts to generate new keying material. Depending the method used, the method
-             * may generate either a single `CryptoKey` or a `CryptoKeyPair`.
+             * Using the parameters provided in `algorithm`, this method
+             * attempts to generate new keying material. Depending on the algorithm used
+             * either a single `CryptoKey` or a `CryptoKeyPair` is generated.
              *
              * The `CryptoKeyPair` (public and private key) generating algorithms supported
              * include:
@@ -5198,9 +5208,11 @@ declare module "crypto" {
              */
             getPublicKey(key: CryptoKey, keyUsages: KeyUsage[]): Promise<CryptoKey>;
             /**
-             * The `subtle.importKey()` method attempts to interpret the provided `keyData` as the given `format`
-             * to create a `<CryptoKey>` instance using the provided `algorithm`, `extractable`, and `keyUsages` arguments.
-             * If the import is successful, the returned promise will be resolved with the created `<CryptoKey>`.
+             * This method attempts to interpret the provided `keyData`
+             * as the given `format` to create a `CryptoKey` instance using the provided
+             * `algorithm`, `extractable`, and `keyUsages` arguments. If the import is
+             * successful, the returned promise will be resolved with a {CryptoKey}
+             * representation of the key material.
              *
              * If importing KDF algorithm keys, `extractable` must be `false`.
              * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,

@@ -216,6 +216,9 @@ import {
     resolveAndLinkDependencies(rootModule);
     rootModule.instantiate();
 
+    rootModule.hasAsyncGraph(); // $ExpectType boolean
+    rootModule.hasTopLevelAwait(); // $ExpectType boolean
+
     await rootModule.evaluate();
 });
 
