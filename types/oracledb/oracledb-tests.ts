@@ -51,7 +51,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
         setTimeout((): void => {
             console.log("Testing connection.execute()...");
 
-            connection.break().then((): void => { });
+            connection.break().then((): void => {});
         }, 1000);
     });
 
@@ -859,9 +859,18 @@ export const version6_10Tests = async (): Promise<void> => {
 
     const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
 
-    const { condition, consumerName, correlation, deliveryMode, mode, msgId, navigation, transformation, visibility, wait } =
-        deqOptions;
+    const {
+        condition,
+        consumerName,
+        correlation,
+        deliveryMode,
+        mode,
+        msgId,
+        navigation,
+        transformation,
+        visibility,
+        wait,
+    } = deqOptions;
 
     const messages = await queue.deqMany(5);
-
-}
+};

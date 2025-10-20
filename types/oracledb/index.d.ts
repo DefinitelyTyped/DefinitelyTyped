@@ -1870,11 +1870,11 @@ declare namespace OracleDB {
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?:
-        | Array<{
-            /** Array of objects specifying the tables which were affected by the notification. */
-            tables?: SubscriptionTable[];
-        }>
-        | undefined;
+            | Array<{
+                /** Array of objects specifying the tables which were affected by the notification. */
+                tables?: SubscriptionTable[];
+            }>
+            | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
 
@@ -1902,13 +1902,13 @@ declare namespace OracleDB {
          * summary grouping took place.
          */
         rows?:
-        | Array<{
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }>
-        | undefined;
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
@@ -2395,13 +2395,13 @@ declare namespace OracleDB {
          *      }
          */
         fetchInfo?:
-        | Record<
-            string,
-            {
-                type: DbType | number;
-            }
-        >
-        | undefined;
+            | Record<
+                string,
+                {
+                    type: DbType | number;
+                }
+            >
+            | undefined;
         /**
          * Overrides oracledb.fetchTypeHandler.
          *
@@ -2676,7 +2676,7 @@ declare namespace OracleDB {
         annotations?: any;
         /**
          * The actual database column name. This is to distinguish from the name attribute as the duplicate columns in the query will have the same value for this attribute.
-         * 
+         *
          * @since 6.10
          */
         dbColumnName?: string;
@@ -3301,9 +3301,9 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
-        | string
-        | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
-        | undefined;
+            | string
+            | ((connection: Connection, requestedTag: string, callback: (error?: unknown) => void) => void)
+            | undefined;
         /**
          * Indicates whether the pool’s connections should share a cache of SODA metadata. This improves SODA performance by reducing round-trips to the database when opening collections. It has no effect on non-SODA operations.
          * The default is false.
