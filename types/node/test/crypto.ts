@@ -1843,3 +1843,15 @@ import { promisify } from "node:util";
     const publicKey = crypto.decapsulate(privateKey, Buffer.from("the quick brown fox jumped over the lazy dog"));
     const { sharedKey, ciphertext } = crypto.encapsulate(publicKey);
 }
+
+{
+    // crypto_getCiphers_test
+    const ciphers: string[] = crypto.getCiphers();
+    ciphers; // $ExpectType string[]
+
+    // Verify the array is not empty
+    assert(ciphers.length > 0);
+
+    // Check that a common cipher algorithm is included
+    assert(ciphers.includes("aes-256-cbc"));
+}
