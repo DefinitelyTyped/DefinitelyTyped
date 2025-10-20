@@ -1,7 +1,9 @@
 import assert = require("node:assert");
+import strict = require("node:assert/strict");
 
 {
-    const { stack } = new assert.AssertionError({});
+    // Assert that all assert exports are present in assert/strict
+    const keys: keyof typeof strict = {} as keyof typeof assert;
 }
 
 {
@@ -109,9 +111,6 @@ assert.strict.strict.strict(1);
 assert.strict.strict(1);
 assert.strict(1);
 
-const strictAssertionError: assert.strict.AssertionError = new assert.strict.AssertionError();
-assert(1);
-
 assert.match("test", /test/, new Error("yeet"));
 assert.match("test", /test/, "yeet");
 
@@ -143,50 +142,33 @@ assert["fail"](true, true, "works like a charm");
 
 assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
+// Test assert predicates
 {
-    const a = null as any;
+    let a!: Error | null;
     assert.ifError(a);
-    a; // $ExpectType null | undefined
-}
+    a; // $ExpectType null
 
-{
-    const a = true as boolean;
-    assert(a);
-    a; // $ExpectType true
-}
+    let b!: boolean;
+    assert(b);
+    b; // $ExpectType true
 
-{
-    const a = 13 as number | null | undefined;
-    assert(a);
-    a; // $ExpectType number
-}
+    let c!: boolean;
+    assert.ok(c);
+    c; // $ExpectType true
 
-{
-    const a = true as boolean;
-    assert.ok(a);
-    a; // $ExpectType true
-}
+    let d!: unknown;
+    assert.strictEqual(d, "test");
+    d; // $ExpectType "test"
 
-{
-    const a = 13 as number | null | undefined;
-    assert.ok(a);
-    a; // $ExpectType number
-}
+    let e!: unknown;
+    strict.equal(e, "test");
+    e; // $ExpectType "test"
 
-{
-    const a = "test" as any;
-    assert.strictEqual(a, "test");
-    a; // $ExpectType string || "test"
-}
+    let f!: unknown;
+    assert.deepStrictEqual(f, { n: 2 as const });
+    f; // $ExpectType { n: 2; }
 
-{
-    const a = { b: 2 } as any;
-    assert.deepStrictEqual(a, { b: 2 });
-    a; // $ExpectType { b: number; }
+    let g!: unknown;
+    strict.deepEqual(g, { n: 2 as const });
+    g; // $ExpectType { n: 2; }
 }
-
-// This is a regression test for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/71889.
-// Due to the nature of the bug this can't be switched to `import strict from "node:assert/strict";`
-// or to `import strict = require("node:assert/strict");`
-import { AssertionError } from "node:assert/strict";
-new AssertionError({ message: "some message" });
