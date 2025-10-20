@@ -36,6 +36,7 @@ import * as url from "node:url";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        keepAliveTimeoutBuffer: 200,
         headersTimeout: 50000,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
@@ -51,6 +52,7 @@ import * as url from "node:url";
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
+    const keepAliveTimeoutBuffer: number = server.keepAliveTimeoutBuffer;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000);
     server.setTimeout((socket) => {
