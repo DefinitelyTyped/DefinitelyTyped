@@ -150,44 +150,44 @@ brotliDecompress(
 );
 
 {
-    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<NonSharedBuffer>
     const pBrotliCompress = promisify(brotliCompress);
-    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<NonSharedBuffer>
     const pBrotliDecompress = promisify(brotliDecompress);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pDeflate = promisify(deflate);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pDeflateRaw = promisify(deflateRaw);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pGzip = promisify(gzip);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pGunzip = promisify(gunzip);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pInflate = promisify(inflate);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pInflateRaw = promisify(inflateRaw);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<NonSharedBuffer>
     const pUnzip = promisify(unzip);
 
     (async () => {
-        await pBrotliCompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pBrotliCompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pBrotliDecompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pBrotliDecompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pDeflate(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pDeflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pDeflateRaw(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pDeflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pGzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pGzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pGunzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pGunzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pInflate(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pInflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pInflateRaw(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pInflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pUnzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-        await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pBrotliCompress(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pBrotliCompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pBrotliDecompress(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pBrotliDecompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pDeflate(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pDeflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pDeflateRaw(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pDeflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pGzip(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pGzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pGunzip(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pGunzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pInflate(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pInflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pInflateRaw(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pInflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
+        await pUnzip(Buffer.from("buf")); // $ExpectType NonSharedBuffer
+        await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
     })();
 }
 
