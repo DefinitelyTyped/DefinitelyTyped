@@ -778,6 +778,17 @@ export namespace dygraphs {
         rangeSelectorPlotStrokeColor?: string | null | undefined;
 
         /**
+         * Whether to add a ResizeObserver to the container div ("passive") and additionally
+         * make it resizable ("horizontal", "vertical", "both"). In any case, if the container
+         * div has CSS "overflow:visible;" it will be changed to "overflow:hidden;" to make CSS
+         * resizing possible. Note that this is distinct from resizing the graph when the window
+         * size changes, which is always active; this feature adds user-resizable “handles” to
+         * the container div.
+         * @default no
+         */
+        resizable?: "passive" | "horizontal" | "vertical" | "both" | "no" | undefined;
+
+        /**
          * Number of pixels to leave blank at the right edge of the Dygraph. This makes it easier to
          * highlight the right-most data point.
          * @default 5
@@ -1099,6 +1110,12 @@ export namespace dygraphs {
          * You must set either x or xval.
          */
         x?: number | string | undefined;
+
+        /**
+         * The numeric x value of the point, milliseconds since the epoch for a Date x axis.
+         * You must set either x or xval.
+         */
+        xval?: number | undefined;
 
         /** Text that will appear on the annotation's flag. */
         shortText?: string | undefined;
