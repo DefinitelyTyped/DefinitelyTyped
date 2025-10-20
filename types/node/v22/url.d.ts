@@ -455,12 +455,15 @@ declare module "url" {
          */
         static canParse(input: string, base?: string): boolean;
         /**
-         * Parses a string as a URL. If `base` is provided, it will be used as the base URL for the purpose of resolving non-absolute `input` URLs.
-         * Returns `null` if `input` is not a valid.
-         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
-         * `converted to a string` first.
-         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         * Parses a string as a URL. If `base` is provided, it will be used as the base
+         * URL for the purpose of resolving non-absolute `input` URLs. Returns `null`
+         * if the parameters can't be resolved to a valid URL.
          * @since v22.1.0
+         * @param input The absolute or relative input URL to parse. If `input`
+         * is relative, then `base` is required. If `input` is absolute, the `base`
+         * is ignored. If `input` is not a string, it is [converted to a string](https://tc39.es/ecma262/#sec-tostring) first.
+         * @param base The base URL to resolve against if the `input` is not
+         * absolute. If `base` is not a string, it is [converted to a string](https://tc39.es/ecma262/#sec-tostring) first.
          */
         static parse(input: string, base?: string): URL | null;
         constructor(input: string | { toString: () => string }, base?: string | URL);
