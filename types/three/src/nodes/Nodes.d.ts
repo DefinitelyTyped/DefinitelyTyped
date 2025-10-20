@@ -68,6 +68,9 @@ export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/StorageArrayElementNode.js";
 
+// math
+export { default as BitcastNode } from "./math/BitcastNode.js";
+
 // accessors
 export { default as BatchNode } from "./accessors/BatchNode.js";
 export { default as BufferAttributeNode } from "./accessors/BufferAttributeNode.js";

@@ -64,7 +64,7 @@ declare module "readline/promises" {
         constructor(
             stream: NodeJS.WritableStream,
             options?: {
-                autoCommit?: boolean;
+                autoCommit?: boolean | undefined;
             },
         );
         /**

@@ -742,7 +742,7 @@ declare class Renderer {
      * if the renderer has been initialized.
      *
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
-     * @param {Array<number>|number} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
+     * @param {?(Array<number>|number)} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
      * @return {Promise|undefined} A Promise that resolve when the compute has finished. Only returned when the renderer has not been initialized.
      */
     compute(
@@ -754,7 +754,7 @@ declare class Renderer {
      *
      * @async
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
-     * @param {Array<number>|number} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
+     * @param {?(Array<number>|number)} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
      * @return {Promise} A Promise that resolve when the compute has finished.
      */
     computeAsync(
@@ -806,7 +806,7 @@ declare class Renderer {
      * Copies the current bound framebuffer into the given texture.
      *
      * @param {FramebufferTexture} framebufferTexture - The texture.
-     * @param {?Vector2|Vector4} [rectangle=null] - A two or four dimensional vector that defines the rectangular portion of the framebuffer that should be copied.
+     * @param {?(Vector2|Vector4)} [rectangle=null] - A two or four dimensional vector that defines the rectangular portion of the framebuffer that should be copied.
      */
     copyFramebufferToTexture(framebufferTexture: FramebufferTexture, rectangle?: Rectangle | null): void;
     /**

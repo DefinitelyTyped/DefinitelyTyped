@@ -7,6 +7,7 @@ export default class ALMGuidance extends AbstractCrudObject {
     static get Fields(): Readonly<{
         ad_account_id: "ad_account_id";
         guidances: "guidances";
+        opportunity_score: "opportunity_score";
         parent_advertiser_id: "parent_advertiser_id";
         parent_advertiser_name: "parent_advertiser_name";
     }>;

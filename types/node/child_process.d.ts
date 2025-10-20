@@ -24,7 +24,7 @@
  * the parent Node.js process and the spawned subprocess. These pipes have
  * limited (and platform-specific) capacity. If the subprocess writes to
  * stdout in excess of that limit without the output being captured, the
- * subprocess blocks waiting for the pipe buffer to accept more data. This is
+ * subprocess blocks, waiting for the pipe buffer to accept more data. This is
  * identical to the behavior of pipes in the shell. Use the `{ stdio: 'ignore' }` option if the output will not be consumed.
  *
  * The command lookup is performed using the `options.env.PATH` environment
@@ -69,7 +69,7 @@ declare module "child_process" {
     import { Abortable, EventEmitter } from "node:events";
     import * as dgram from "node:dgram";
     import * as net from "node:net";
-    import { Pipe, Readable, Stream, Writable } from "node:stream";
+    import { Readable, Stream, Writable } from "node:stream";
     import { URL } from "node:url";
     type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server | dgram.Socket | undefined;
@@ -139,7 +139,7 @@ declare module "child_process" {
          * no IPC channel exists, this property is `undefined`.
          * @since v7.1.0
          */
-        readonly channel?: Pipe | null | undefined;
+        readonly channel?: Control | null;
         /**
          * A sparse array of pipes to the child process, corresponding with positions in
          * the `stdio` option passed to {@link spawn} that have been set
@@ -612,6 +612,10 @@ declare module "child_process" {
             Readable | Writable | null | undefined, // extra, no modification
         ];
     }
+    interface Control extends EventEmitter {
+        ref(): void;
+        unref(): void;
+    }
     interface MessageOptions {
         keepOpen?: boolean | undefined;
     }
@@ -894,11 +898,12 @@ declare module "child_process" {
     interface ExecOptionsWithBufferEncoding extends ExecOptions {
         encoding: "buffer" | null; // specify `null`.
     }
+    // TODO: Just Plain Wrong™ (see also nodejs/node#57392)
     interface ExecException extends Error {
-        cmd?: string | undefined;
-        killed?: boolean | undefined;
-        code?: number | undefined;
-        signal?: NodeJS.Signals | undefined;
+        cmd?: string;
+        killed?: boolean;
+        code?: number;
+        signal?: NodeJS.Signals;
         stdout?: string;
         stderr?: string;
     }
@@ -1056,10 +1061,11 @@ declare module "child_process" {
     }
     /** @deprecated Use `ExecFileOptions` instead. */
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {}
+    // TODO: execFile exceptions can take many forms... this accurately describes none of them
     type ExecFileException =
         & Omit<ExecException, "code">
         & Omit<NodeJS.ErrnoException, "code">
-        & { code?: string | number | undefined | null };
+        & { code?: string | number | null };
     /**
      * The `child_process.execFile()` function is similar to {@link exec} except that it does not spawn a shell by default. Rather, the specified
      * executable `file` is spawned directly as a new process making it slightly more
@@ -1320,7 +1326,7 @@ declare module "child_process" {
         stderr: T;
         status: number | null;
         signal: NodeJS.Signals | null;
-        error?: Error | undefined;
+        error?: Error;
     }
     /**
      * The `child_process.spawnSync()` method is generally identical to {@link spawn} with the exception that the function will not return
@@ -1409,7 +1415,7 @@ declare module "child_process" {
         encoding: BufferEncoding;
     }
     interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
-        encoding?: "buffer" | null; // specify `null`.
+        encoding?: "buffer" | null | undefined; // specify `null`.
     }
     /**
      * The `child_process.execFileSync()` method is generally identical to {@link execFile} with the exception that the method will not

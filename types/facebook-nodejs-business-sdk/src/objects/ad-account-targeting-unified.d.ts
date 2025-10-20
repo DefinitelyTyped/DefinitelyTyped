@@ -67,6 +67,7 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         online_gambling_and_gaming: "ONLINE_GAMBLING_AND_GAMING";
     }>;
     static get RegulatedCountries(): Readonly<{
+        ac: "AC";
         ad: "AD";
         ae: "AE";
         af: "AF";
@@ -398,6 +399,7 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         industries: "industries";
         instagram_hashtags: "instagram_hashtags";
         instagram_positions: "instagram_positions";
+        install_state_application: "install_state_application";
         instream_video_skippable_excluded: "instream_video_skippable_excluded";
         instream_video_sponsorship_placements: "instream_video_sponsorship_placements";
         interest_defaults_source: "interest_defaults_source";

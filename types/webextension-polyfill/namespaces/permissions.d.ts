@@ -19,6 +19,11 @@ export namespace Permissions {
          * Optional.
          */
         origins?: Manifest.MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        data_collection?: Manifest.OptionalDataCollectionPermission[];
     }
 
     interface AnyPermissions {
@@ -31,6 +36,11 @@ export namespace Permissions {
          * Optional.
          */
         origins?: Manifest.MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        data_collection?: Manifest.OptionalDataCollectionPermission[];
     }
 
     interface Static {

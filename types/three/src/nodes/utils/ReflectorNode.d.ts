@@ -7,9 +7,15 @@ import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export interface ReflectorNodeParameters {
     target?: Object3D | undefined;
+    /**
+     * @deprecated The "resolution" parameter has been renamed to "resolutionScale".
+     */
     resolution?: number | undefined;
+    resolutionScale?: number | undefined;
     generateMipmaps?: boolean | undefined;
     bounces?: boolean | undefined;
+    depth?: boolean | undefined;
+    samples?: number | undefined;
 }
 
 declare class ReflectorNode extends TextureNode {
@@ -26,7 +32,7 @@ declare class ReflectorBaseNode extends Node {
     textureNode: TextureNode;
 
     target: Object3D;
-    resolution: number;
+    resolutionScale: number;
     generateMipmaps: boolean;
     bounces: boolean;
 
@@ -40,6 +46,15 @@ declare class ReflectorBaseNode extends Node {
     getVirtualCamera(camera: Camera): Camera;
 
     getRenderTarget(camera: Camera): RenderTarget;
+
+    /**
+     * @deprecated The "resolution" property has been renamed to "resolutionScale" and is now of type `number`.
+     */
+    get resolution(): number;
+    /**
+     * @deprecated The "resolution" property has been renamed to "resolutionScale" and is now of type `number`.
+     */
+    set resolution(value: number);
 }
 
 export const reflector: (parameters?: ReflectorNodeParameters) => ShaderNodeObject<ReflectorNode>;

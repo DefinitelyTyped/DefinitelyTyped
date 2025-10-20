@@ -54,6 +54,7 @@ declare class MeshPhongNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshPhongNodeMaterial: boolean;
+    setValues(values?: MeshPhongNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link BasicEnvironmentNode}
      * to implement the default environment mapping.

@@ -13,7 +13,7 @@
     headers.append("Accept", "application/json");
     fetch("https://example.com", { body: fd });
     fetch(new URL("https://example.com"), {
-        dispatcher: undefined,
+        dispatcher: {} as import("undici-types").Dispatcher,
     });
 
     const reqinit: RequestInit = {};

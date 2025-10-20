@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.141.0
 
 declare module "sap/tnt/library" {
   /**
@@ -140,6 +140,10 @@ declare module "sap/tnt/IllustratedMessageType" {
      * "Dialog" illustration type.
      */
     Dialog = "tnt-Dialog",
+    /**
+     * "EmptyContentPane" illustration type.
+     */
+    EmptyContentPane = "tnt-EmptyContentPane",
     /**
      * "ExternalLink" illustration type.
      */

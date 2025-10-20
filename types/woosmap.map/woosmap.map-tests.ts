@@ -42,6 +42,8 @@ map.panTo({ lat: 43.3, lng: 3.3 });
 map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.3, lng: 2.3 }), { left: 100 });
 // $ExpectType void
 map.setZoom(12);
+// $ExceptType void
+map.remove();
 
 // $ExpectType MVCArray<MapType>
 map.overlayMapTypes;

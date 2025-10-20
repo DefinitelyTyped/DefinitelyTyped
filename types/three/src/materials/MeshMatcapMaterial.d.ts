@@ -148,6 +148,7 @@ export class MeshMatcapMaterial extends Material {
      * @default true
      */
     readonly isMeshMatcapMaterial: boolean;
+    setValues(values?: MeshMatcapMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -813,6 +813,15 @@ declare class Server extends EventEmitter {
     executeCommand(command: string): Promise<Response | boolean>;
 
     /**
+     * Extend the time until the server automatically stops
+     *
+     * @param {number} time
+     * @return {Promise<Response>}
+     * @throws {RequestError}
+     */
+    extendStopTime(time: number): Promise<Response>;
+
+    /**
      * Get the content of the server logs
      *
      * This is cached and will not return the latest updates immediately.

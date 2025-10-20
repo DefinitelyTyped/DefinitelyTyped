@@ -26,6 +26,22 @@ export interface PointsNodeMaterialParameters
 
 /**
  * Node material version of {@link PointsMaterial}.
+ *
+ * This material can be used in two ways:
+ *
+ * - By rendering point primitives with {@link Points}. Since WebGPU only supports point primitives
+ * with a pixel size of `1`, it's not possible to define a size.
+ *
+ * ```js
+ * const pointCloud = new THREE.Points( geometry, new THREE.PointsNodeMaterial() );
+ * ```
+ *
+ * - By rendering point primitives with {@link Sprites}. In this case, size is honored,
+ * see {@link PointsNodeMaterial#sizeNode}.
+ *
+ * ```js
+ * const instancedPoints = new THREE.Sprite( new THREE.PointsNodeMaterial( { positionNode: instancedBufferAttribute( positionAttribute ) } ) );
+ * ```
  */
 declare class PointsNodeMaterial extends SpriteNodeMaterial {
     constructor(parameters?: PointsNodeMaterialParameters);
@@ -35,6 +51,7 @@ declare class PointsNodeMaterial extends SpriteNodeMaterial {
      * @default true
      */
     readonly isPointsNodeMaterial: boolean;
+    setValues(values?: PointsNodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -238,7 +238,7 @@ import {
     compileFunction(code, ["param"], {
         importModuleDynamically(specifier, referrer, importAttributes) {
             specifier; // $ExpectType string
-            referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
+            referrer; // $ExpectType Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">
             importAttributes; // $ExpectType ImportAttributes
 
             const module = new SyntheticModule(["bar"], () => {});

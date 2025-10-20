@@ -30,6 +30,7 @@ declare class ShadowNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isShadowNodeMaterial: boolean;
+    setValues(values?: ShadowNodeMaterialParameters): void;
     /**
      * Setups the lighting model.
      *

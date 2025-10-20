@@ -1,4 +1,5 @@
 declare module "process" {
+    import { Control, MessageOptions } from "node:child_process";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
 
@@ -323,7 +324,7 @@ declare module "process" {
                 /**
                  * Can be used to change the default timezone at runtime
                  */
-                TZ?: string;
+                TZ?: string | undefined;
             }
             interface HRTime {
                 /**
@@ -967,7 +968,7 @@ declare module "process" {
                  * @since v0.1.13
                  * @param [code=0] The exit code. For string type, only integer strings (e.g.,'1') are allowed.
                  */
-                exit(code?: number | string | null | undefined): never;
+                exit(code?: number | string | null): never;
                 /**
                  * A number which will be the process exit code, when the process either
                  * exits gracefully, or is exited via {@link exit} without specifying
@@ -978,7 +979,7 @@ declare module "process" {
                  * @default undefined
                  * @since v0.11.8
                  */
-                exitCode?: number | string | number | undefined;
+                exitCode: number | string | number | undefined;
                 /**
                  * The `process.getActiveResourcesInfo()` method returns an array of strings containing
                  * the types of the active resources that are currently keeping the event loop alive.
@@ -1499,7 +1500,7 @@ declare module "process" {
                  * @since v0.1.17
                  * @deprecated Since v14.0.0 - Use `main` instead.
                  */
-                mainModule?: Module | undefined;
+                mainModule?: Module;
                 memoryUsage: MemoryUsageFn;
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
@@ -1693,18 +1694,7 @@ declare module "process" {
                  * If no IPC channel exists, this property is undefined.
                  * @since v7.1.0
                  */
-                channel?: {
-                    /**
-                     * This method makes the IPC channel keep the event loop of the process running if .unref() has been called before.
-                     * @since v7.1.0
-                     */
-                    ref(): void;
-                    /**
-                     * This method makes the IPC channel not keep the event loop of the process running, and lets it finish even while the channel is open.
-                     * @since v7.1.0
-                     */
-                    unref(): void;
-                };
+                channel?: Control;
                 /**
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
@@ -1719,9 +1709,7 @@ declare module "process" {
                 send?(
                     message: any,
                     sendHandle?: any,
-                    options?: {
-                        keepOpen?: boolean | undefined;
-                    },
+                    options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
                 /**

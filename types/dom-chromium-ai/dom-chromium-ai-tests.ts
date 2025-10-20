@@ -410,4 +410,45 @@ async function topLevel() {
     console.log(languageDetectorResult.confidence);
 
     languageDetector.destroy();
+
+    // Proofreader
+
+    const proofreader = await Proofreader.create({
+        includeCorrectionTypes: true,
+        includeCorrectionExplanations: true,
+        correctionExplanationLanguage: "en",
+        expectedInputLanguages: ["en"],
+        signal: (new AbortController()).signal,
+        monitor(m: CreateMonitor) {
+            m.addEventListener("downloadprogress", (e) => {
+                console.log(e.loaded, e.total);
+            });
+        },
+    });
+
+    const proofreaderAvailability1: Availability = await Proofreader.availability();
+    console.log(proofreaderAvailability1);
+
+    const proofreaderAvailability2: Availability = await Proofreader.availability({
+        expectedInputLanguages: ["de"],
+    });
+    console.log(proofreaderAvailability2);
+
+    const proofreaderResult: ProofreadResult = await proofreader.proofread("foo");
+    console.log(proofreaderResult);
+
+    // for await (
+    //     const chunk of proofreader.proofreadStreaming("foo")
+    // ) {
+    //     console.log(chunk);
+    // }
+
+    console.log(
+        proofreader.expectedInputLanguages,
+        proofreader.correctionExplanationLanguage,
+        proofreader.includeCorrectionExplanations,
+        proofreader.includeCorrectionTypes,
+    );
+
+    proofreader.destroy();
 }

@@ -32,7 +32,7 @@ declare module "net" {
         onread?: OnReadOpts | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -321,25 +321,25 @@ declare module "net" {
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
-        readonly remoteAddress?: string | undefined;
+        readonly remoteAddress: string | undefined;
         /**
          * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.11.14
          */
-        readonly remoteFamily?: string | undefined;
+        readonly remoteFamily: string | undefined;
         /**
          * The numeric representation of the remote port. For example, `80` or `21`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
-        readonly remotePort?: number | undefined;
+        readonly remotePort: number | undefined;
         /**
          * The socket timeout in milliseconds as set by `socket.setTimeout()`.
          * It is `undefined` if a timeout has not been set.
          * @since v10.7.0
          */
-        readonly timeout?: number | undefined;
+        readonly timeout?: number;
         /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
@@ -805,6 +805,27 @@ declare module "net" {
          * @param value Any JS value
          */
         static isBlockList(value: unknown): value is BlockList;
+        /**
+         * ```js
+         * const blockList = new net.BlockList();
+         * const data = [
+         *   'Subnet: IPv4 192.168.1.0/24',
+         *   'Address: IPv4 10.0.0.5',
+         *   'Range: IPv4 192.168.2.1-192.168.2.10',
+         *   'Range: IPv4 10.0.0.1-10.0.0.10',
+         * ];
+         * blockList.fromJSON(data);
+         * blockList.fromJSON(JSON.stringify(data));
+         * ```
+         * @since v24.5.0
+         * @experimental
+         */
+        fromJSON(data: string | readonly string[]): void;
+        /**
+         * @since v24.5.0
+         * @experimental
+         */
+        toJSON(): readonly string[];
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;

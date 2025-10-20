@@ -36,39 +36,6 @@
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
-    // NOTE: This class is in the docs but is **not actually exported** by Node.
-    // If https://github.com/nodejs/node/issues/39903 gets resolved and Node
-    // actually starts exporting the class, uncomment below.
-    // import { EventListener, EventListenerObject } from '__dom-events';
-    // /** The NodeEventTarget is a Node.js-specific extension to EventTarget that emulates a subset of the EventEmitter API. */
-    // interface NodeEventTarget extends EventTarget {
-    //     /**
-    //      * Node.js-specific extension to the `EventTarget` class that emulates the equivalent `EventEmitter` API.
-    //      * The only difference between `addListener()` and `addEventListener()` is that addListener() will return a reference to the EventTarget.
-    //      */
-    //     addListener(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
-    //     /** Node.js-specific extension to the `EventTarget` class that returns an array of event `type` names for which event listeners are registered. */
-    //     eventNames(): string[];
-    //     /** Node.js-specific extension to the `EventTarget` class that returns the number of event listeners registered for the `type`. */
-    //     listenerCount(type: string): number;
-    //     /** Node.js-specific alias for `eventTarget.removeListener()`. */
-    //     off(type: string, listener: EventListener | EventListenerObject): this;
-    //     /** Node.js-specific alias for `eventTarget.addListener()`. */
-    //     on(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
-    //     /** Node.js-specific extension to the `EventTarget` class that adds a `once` listener for the given event `type`. This is equivalent to calling `on` with the `once` option set to `true`. */
-    //     once(type: string, listener: EventListener | EventListenerObject): this;
-    //     /**
-    //      * Node.js-specific extension to the `EventTarget` class.
-    //      * If `type` is specified, removes all registered listeners for `type`,
-    //      * otherwise removes all registered listeners.
-    //      */
-    //     removeAllListeners(type: string): this;
-    //     /**
-    //      * Node.js-specific extension to the `EventTarget` class that removes the listener for the given `type`.
-    //      * The only difference between `removeListener()` and `removeEventListener()` is that `removeListener()` will return a reference to the `EventTarget`.
-    //      */
-    //     removeListener(type: string, listener: EventListener | EventListenerObject): this;
-    // }
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -518,7 +485,7 @@ declare module "events" {
              * directly rather than as a child class.
              * @default new.target.name if instantiated as a child class.
              */
-            name?: string;
+            name?: string | undefined;
         }
 
         /**
@@ -584,6 +551,85 @@ declare module "events" {
              * that provides a reference to this `EventEmitterAsyncResource`.
              */
             readonly asyncResource: EventEmitterReferencingAsyncResource;
+        }
+        /**
+         * The `NodeEventTarget` is a Node.js-specific extension to `EventTarget`
+         * that emulates a subset of the `EventEmitter` API.
+         * @since v14.5.0
+         */
+        export interface NodeEventTarget extends EventTarget {
+            /**
+             * Node.js-specific extension to the `EventTarget` class that emulates the
+             * equivalent `EventEmitter` API. The only difference between `addListener()` and
+             * `addEventListener()` is that `addListener()` will return a reference to the
+             * `EventTarget`.
+             * @since v14.5.0
+             */
+            addListener(type: string, listener: (arg: any) => void): this;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that dispatches the
+             * `arg` to the list of handlers for `type`.
+             * @since v15.2.0
+             * @returns `true` if event listeners registered for the `type` exist,
+             * otherwise `false`.
+             */
+            emit(type: string, arg: any): boolean;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that returns an array
+             * of event `type` names for which event listeners are registered.
+             * @since 14.5.0
+             */
+            eventNames(): string[];
+            /**
+             * Node.js-specific extension to the `EventTarget` class that returns the number
+             * of event listeners registered for the `type`.
+             * @since v14.5.0
+             */
+            listenerCount(type: string): number;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that sets the number
+             * of max event listeners as `n`.
+             * @since v14.5.0
+             */
+            setMaxListeners(n: number): void;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that returns the number
+             * of max event listeners.
+             * @since v14.5.0
+             */
+            getMaxListeners(): number;
+            /**
+             * Node.js-specific alias for `eventTarget.removeEventListener()`.
+             * @since v14.5.0
+             */
+            off(type: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+            /**
+             * Node.js-specific alias for `eventTarget.addEventListener()`.
+             * @since v14.5.0
+             */
+            on(type: string, listener: (arg: any) => void): this;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that adds a `once`
+             * listener for the given event `type`. This is equivalent to calling `on`
+             * with the `once` option set to `true`.
+             * @since v14.5.0
+             */
+            once(type: string, listener: (arg: any) => void): this;
+            /**
+             * Node.js-specific extension to the `EventTarget` class. If `type` is specified,
+             * removes all registered listeners for `type`, otherwise removes all registered
+             * listeners.
+             * @since v14.5.0
+             */
+            removeAllListeners(type?: string): this;
+            /**
+             * Node.js-specific extension to the `EventTarget` class that removes the
+             * `listener` for the given `type`. The only difference between `removeListener()`
+             * and `removeEventListener()` is that `removeListener()` will return a reference
+             * to the `EventTarget`.
+             * @since v14.5.0
+             */
+            removeListener(type: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
         }
     }
     global {

@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -160,7 +160,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import FilterField from "sap/ui/mdc/FilterField";
+  import { FilterDelegateObject } from "sap/ui/mdc/library";
 
   import Filter from "sap/ui/model/Filter";
 
@@ -387,9 +387,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
      *
      * @returns Object for the chart filter personalization
      */
-    getFilterDelegate(): {
-      addItem: (p1: Chart, p2: string) => Promise<FilterField>;
-    };
+    getFilterDelegate(): FilterDelegateObject;
     /**
      * Gets the filters that are applied when updating the chart's binding based on the filter conditions of
      * the chart itself and its associated {@link sap.ui.mdc.IFilterSource IFilterSource}.
@@ -1903,6 +1901,9 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
    * The `p13nMode` `Group` is not supported if the table type is {@link sap.ui.mdc.table.TreeTableType TreeTable}.
    * This cannot be changed in your delegate implementation.
    *
+   * All binding-related limitations regarding selection also apply in the context of this delegate. For details,
+   * see {@link sap.ui.model.odata.v4.Context#setSelected} and {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+   *
    * @since 1.85
    */
   interface TableDelegate extends TableDelegate1 {
@@ -2102,7 +2103,7 @@ declare module "sap/ui/mdc/TableDelegate" {
 
   import Context from "sap/ui/model/Context";
 
-  import FilterField from "sap/ui/mdc/FilterField";
+  import { FilterDelegateObject } from "sap/ui/mdc/library";
 
   import Filter from "sap/ui/model/Filter";
 
@@ -2248,17 +2249,11 @@ declare module "sap/ui/mdc/TableDelegate" {
      * Returns the filter delegate of the table that provides basic filter functionality, such as adding filter
      * fields.
      *
-     * **Note:** The functionality provided in this delegate acts as a subset of a `FilterBarDelegate` to enable
-     * the table for inbuilt filtering.
-     *
-     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Object for the tables filter personalization
      */
-    getFilterDelegate(): {
-      addItem: (p1: Table, p2: string) => Promise<FilterField>;
-    };
+    getFilterDelegate(): FilterDelegateObject;
     /**
      * Returns filters to be applied when updating the table's binding based on the filter conditions of the
      * table itself and its associated {@link sap.ui.mdc.IFilterSource IFilterSource}.
@@ -3400,13 +3395,19 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
 }
 
 declare module "sap/ui/mdc/library" {
+  import Control from "sap/ui/mdc/Control";
+
+  import FilterField from "sap/ui/mdc/FilterField";
+
+  import FilterBarValidationStatus from "sap/ui/mdc/enums/FilterBarValidationStatus";
+
   import { ConditionObject } from "sap/ui/mdc/condition/Condition";
 
   import Type from "sap/ui/model/Type";
 
   import BaseType from "sap/ui/mdc/enums/BaseType";
 
-  import Control from "sap/ui/core/Control";
+  import Control1 from "sap/ui/core/Control";
 
   import {
     ItemForValueConfiguration,
@@ -3416,6 +3417,32 @@ declare module "sap/ui/mdc/library" {
   import FormatException from "sap/ui/model/FormatException";
 
   import ParseException from "sap/ui/model/ParseException";
+
+  /**
+   * Acts a subset of the `FilterBarDelegate` that can be used in {@link module:sap/ui/mdc/TableDelegate.getFilterDelegate TableDelegate.getFilterDelegate }
+   * or {@link module:sap/ui/mdc/ChartDelegate.getFilterDelegate Chart.getFilterDelegate} to enable inbuilt
+   * filtering.
+   *
+   * It provides basic filter functionality, including
+   * 	 - Adding filter fields
+   * 	 - Adding conditions
+   * 	 - Removing conditions
+   * 	 - Determining the validation state of filters
+   */
+  export type FilterDelegateObject = {
+    addItem?: (p1: Control, p2: string) => Promise<FilterField>;
+
+    addCondition?: (p1: Control, p2: string) => Promise<any>;
+
+    removeCondition?: (p1: Control, p2: string) => Promise<any>;
+
+    determineValidationState?: (
+      p1: Control,
+      p2: string
+    ) => Promise<
+      FilterBarValidationStatus | keyof typeof FilterBarValidationStatus
+    >;
+  };
 
   /**
    * Interface for controls or entities which can serve as filters in the `sap.ui.mdc.Table` & `sap.ui.mdc.Chart`.
@@ -3703,7 +3730,7 @@ declare module "sap/ui/mdc/library" {
          *
          * @returns Promise resolving in displayed content
          */
-        getContent(): Promise<Control>;
+        getContent(): Promise<Control1>;
         /**
          * Returns a title for the given Content
          *
@@ -3852,7 +3879,7 @@ declare module "sap/ui/mdc/library" {
          *
          * @returns Promise resolving in displayed content
          */
-        getContent(): Promise<Control>;
+        getContent(): Promise<Control1>;
         /**
          * Determines the item (key and description) for a given value.
          *
@@ -3944,7 +3971,10 @@ declare module "sap/ui/mdc/library" {
 declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import {
+    IOverflowToolbarContent,
+    IToolbarInteractiveControl,
+  } from "sap/m/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -3960,9 +3990,10 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
    */
   export default class ActionToolbarAction
     extends Control
-    implements IOverflowToolbarContent
+    implements IOverflowToolbarContent, IToolbarInteractiveControl
   {
     __implements__sap_m_IOverflowToolbarContent: boolean;
+    __implements__sap_m_IToolbarInteractiveControl: boolean;
     /**
      * Constructor for a new ActionToolbarAction.
      *
@@ -6694,9 +6725,17 @@ declare module "sap/ui/mdc/condition/Operator" {
          *  This text is only needed if there any language dependent text should be shown on the token, like "Next
          * 5 days". (In this case `#tokenText#` is used in `tokenFormat`, `tokenTest`, or `tokenParse`.) For operators
          * just showing the value and a operator symbol, no token text is needed.
-         *  If the token text is not given, the `longText` is used.
+         *  If the token text is not given, the `longText` is used. If `tokenTextForTypes` is provided for a special
+         * type, it will be used for that.
          */
         tokenText?: string;
+        /**
+         * Object holding string representation of the operator as a token text for single basic types.
+         *  This text is shown as text in a single-value field or as token in a multi-value field.
+         *  This is needed if the text depends on the data type used. For example, the "equal" operator should be
+         * named "Not Specified (empty)" if a date or time type is used.
+         */
+        tokenTextForTypes?: object;
         /**
          * Object holding String representation of the operator as a long text for single basic types.
          *  This text is shown in the operator dropdown of the value help.
@@ -6781,6 +6820,7 @@ declare module "sap/ui/mdc/condition/Operator" {
            * to 3, 4....
            *  group: {id : 10, text: "new group at the end"} - adds a new group with id 10 and text "new group as
            * the end" to the end of all groups
+           *  **Note:** The ids 900-999 are reserved for internal mdc usage, please use only IDs outside of this range.
            */
           id: string;
           /**
@@ -6788,6 +6828,11 @@ declare module "sap/ui/mdc/condition/Operator" {
            */
           text?: string;
         };
+        /**
+         * Additional group settings for the operator depending on the type. For every type, a group object can
+         * be defined.
+         */
+        groupsForTypes?: object;
         /**
          * Function to determine the text copied into clipboard
          */
@@ -24334,6 +24379,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      *
      * By default, if not set, the list opens if the user clicks into the connected field.
      *
+     * **Note: ** if `restrictedToFixedValues` is set, filtering should be disabled.
+     *
      * Default value is `true`.
      *
      *
@@ -24368,6 +24415,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      *
      * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
      * must be avoided.
+     *
+     * By default, if set, the list opens if the user clicks into the connected field.
      *
      * Default value is `false`.
      *
@@ -24460,6 +24509,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      *
      * By default, if not set, the list opens if the user clicks into the connected field.
      *
+     * **Note: ** if `restrictedToFixedValues` is set, filtering should be disabled.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
@@ -24497,6 +24548,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
      * must be avoided.
      *
+     * By default, if set, the list opens if the user clicks into the connected field.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
@@ -24529,6 +24582,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * case this property must be set to `false`.
      *
      * By default, if not set, the list opens if the user clicks into the connected field.
+     *
+     * **Note: ** if `restrictedToFixedValues` is set, filtering should be disabled.
      */
     filterList?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -24544,6 +24599,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
     /**
      * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
      * must be avoided.
+     *
+     * By default, if set, the list opens if the user clicks into the connected field.
      *
      * @since 1.138
      */
@@ -24836,6 +24893,15 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * @returns Value of property `groupConfig`
      */
     getGroupConfig(): object;
+    /**
+     * Gets whether quickselect (confirms values on selection) is active on the dialog.
+     *
+     * @since 1.140
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns true if quickselect is active
+     */
+    isQuickSelectActive(): boolean;
     /**
      * Sets a new value for property {@link #getGroupConfig groupConfig}.
      *

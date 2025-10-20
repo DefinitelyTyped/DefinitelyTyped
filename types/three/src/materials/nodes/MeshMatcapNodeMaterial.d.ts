@@ -30,6 +30,7 @@ declare class MeshMatcapNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshMatcapNodeMaterial: boolean;
+    setValues(values?: MeshMatcapNodeMaterialParameters): void;
     /**
      * Setups the matcap specific node variables.
      *

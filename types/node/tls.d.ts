@@ -586,7 +586,7 @@ declare module "tls" {
          * requires explicitly specifying a cipher suite with the `ciphers` option.
          * More information can be found in the RFC 4279.
          */
-        pskCallback?(socket: TLSSocket, identity: string): DataView | NodeJS.TypedArray | null;
+        pskCallback?: ((socket: TLSSocket, identity: string) => NodeJS.ArrayBufferView | null) | undefined;
         /**
          * hint to send to a client to help
          * with selecting the identity during TLS-PSK negotiation. Will be ignored
@@ -627,7 +627,7 @@ declare module "tls" {
          * compatible with the selected cipher's digest.
          * `identity` must use UTF-8 encoding.
          */
-        pskCallback?(hint: string | null): PSKCallbackNegotation | null;
+        pskCallback?: ((hint: string | null) => PSKCallbackNegotation | null) | undefined;
     }
     /**
      * Accepts encrypted connections using TLS or SSL.
@@ -1162,6 +1162,38 @@ declare module "tls" {
      * @since v0.10.2
      */
     function getCiphers(): string[];
+    /**
+     * Sets the default CA certificates used by Node.js TLS clients. If the provided
+     * certificates are parsed successfully, they will become the default CA
+     * certificate list returned by {@link getCACertificates} and used
+     * by subsequent TLS connections that don't specify their own CA certificates.
+     * The certificates will be deduplicated before being set as the default.
+     *
+     * This function only affects the current Node.js thread. Previous
+     * sessions cached by the HTTPS agent won't be affected by this change, so
+     * this method should be called before any unwanted cachable TLS connections are
+     * made.
+     *
+     * To use system CA certificates as the default:
+     *
+     * ```js
+     * import tls from 'node:tls';
+     * tls.setDefaultCACertificates(tls.getCACertificates('system'));
+     * ```
+     *
+     * This function completely replaces the default CA certificate list. To add additional
+     * certificates to the existing defaults, get the current certificates and append to them:
+     *
+     * ```js
+     * import tls from 'node:tls';
+     * const currentCerts = tls.getCACertificates('default');
+     * const additionalCerts = ['-----BEGIN CERTIFICATE-----\n...'];
+     * tls.setDefaultCACertificates([...currentCerts, ...additionalCerts]);
+     * ```
+     * @since v24.5.0
+     * @param certs An array of CA certificates in PEM format.
+     */
+    function setDefaultCACertificates(certs: ReadonlyArray<string | NodeJS.ArrayBufferView>): void;
     /**
      * The default curve name to use for ECDH key agreement in a tls server.
      * The default value is `'auto'`. See `{@link createSecureContext()}` for further

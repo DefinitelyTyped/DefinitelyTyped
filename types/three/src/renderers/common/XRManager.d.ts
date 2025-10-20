@@ -78,6 +78,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
     _controllerInputSources: (XRInputSource | null)[];
     _xrRenderTarget: XRRenderTarget | null;
     _layers: XRLayerObject[];
+    _sessionUsesLayers: boolean;
     _supportsLayers: boolean;
     _supportsGlBinding: boolean;
     _frameBufferTargets:
@@ -208,6 +209,15 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @return {'opaque'|'additive'|'alpha-blend'|undefined} The environment blend mode. Returns `undefined` when used outside of a XR session.
      */
     getEnvironmentBlendMode(): XREnvironmentBlendMode | undefined;
+    /**
+     * Returns the current XR binding.
+     *
+     * Creates a new binding if needed and the browser is
+     * capable of doing so.
+     *
+     * @return {?XRWebGLBinding} The XR binding. Returns `null` if one cannot be created.
+     */
+    getBinding(): XRWebGLBinding | null;
     /**
      * Returns the current XR frame.
      *

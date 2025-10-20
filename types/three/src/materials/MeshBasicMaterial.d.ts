@@ -167,6 +167,7 @@ export class MeshBasicMaterial extends Material {
      * @default true
      */
     readonly isMeshBasicMaterial: boolean;
+    setValues(values?: MeshBasicMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -180,6 +180,12 @@ declare module "zlib" {
          * If `true`, returns an object with `buffer` and `engine`.
          */
         info?: boolean | undefined;
+        /**
+         * Optional dictionary used to improve compression efficiency when compressing or decompressing data that
+         * shares common patterns with the dictionary.
+         * @since v24.6.0
+         */
+        dictionary?: NodeJS.ArrayBufferView | undefined;
     }
     interface Zlib {
         readonly bytesWritten: number;

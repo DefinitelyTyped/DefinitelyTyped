@@ -6,6 +6,7 @@ import {
     finished,
     isErrored,
     isReadable,
+    isWritable,
     pipeline,
     Readable,
     Transform,
@@ -571,8 +572,10 @@ addAbortSignal(new AbortSignal(), new Readable());
 }
 
 {
-    isReadable(new Readable()); // $ExpectType boolean
-    isReadable(new Duplex()); // $ExpectType boolean
+    isReadable(new Readable()); // $ExpectType boolean | null
+    isReadable(new Duplex()); // $ExpectType boolean | null
+    isWritable(new Writable()); // $ExpectType boolean | null
+    isWritable(new Duplex()); // $ExpectType boolean | null
 }
 
 {

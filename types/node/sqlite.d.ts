@@ -97,6 +97,33 @@ declare module "node:sqlite" {
          * @default 0
          */
         timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v24.4.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v24.4.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v24.4.40
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v24.4.40
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -329,6 +356,47 @@ declare module "node:sqlite" {
          */
         prepare(sql: string): StatementSync;
         /**
+         * Creates a new `SQLTagStore`, which is an LRU (Least Recently Used) cache for
+         * storing prepared statements. This allows for the efficient reuse of prepared
+         * statements by tagging them with a unique identifier.
+         *
+         * When a tagged SQL literal is executed, the `SQLTagStore` checks if a prepared
+         * statement for that specific SQL string already exists in the cache. If it does,
+         * the cached statement is used. If not, a new prepared statement is created,
+         * executed, and then stored in the cache for future use. This mechanism helps to
+         * avoid the overhead of repeatedly parsing and preparing the same SQL statements.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * const sql = db.createSQLTagStore();
+         *
+         * db.exec('CREATE TABLE users (id INT, name TEXT)');
+         *
+         * // Using the 'run' method to insert data.
+         * // The tagged literal is used to identify the prepared statement.
+         * sql.run`INSERT INTO users VALUES (1, 'Alice')`;
+         * sql.run`INSERT INTO users VALUES (2, 'Bob')`;
+         *
+         * // Using the 'get' method to retrieve a single row.
+         * const id = 1;
+         * const user = sql.get`SELECT * FROM users WHERE id = ${id}`;
+         * console.log(user); // { id: 1, name: 'Alice' }
+         *
+         * // Using the 'all' method to retrieve all rows.
+         * const allUsers = sql.all`SELECT * FROM users ORDER BY id`;
+         * console.log(allUsers);
+         * // [
+         * //   { id: 1, name: 'Alice' },
+         * //   { id: 2, name: 'Bob' }
+         * // ]
+         * ```
+         * @since v24.9.0
+         * @returns A new SQL tag store for caching prepared statements.
+         */
+        createTagStore(maxSize?: number): SQLTagStore;
+        /**
          * Creates and attaches a session to the database. This method is a wrapper around
          * [`sqlite3session_create()`](https://www.sqlite.org/session/sqlite3session_create.html) and
          * [`sqlite3session_attach()`](https://www.sqlite.org/session/sqlite3session_attach.html).
@@ -400,6 +468,73 @@ declare module "node:sqlite" {
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+    }
+    /**
+     * This class represents a single LRU (Least Recently Used) cache for storing
+     * prepared statements.
+     *
+     * Instances of this class are created via the database.createSQLTagStore() method,
+     * not by using a constructor. The store caches prepared statements based on the
+     * provided SQL query string. When the same query is seen again, the store
+     * retrieves the cached statement and safely applies the new values through
+     * parameter binding, thereby preventing attacks like SQL injection.
+     *
+     * The cache has a maxSize that defaults to 1000 statements, but a custom size can
+     * be provided (e.g., database.createSQLTagStore(100)). All APIs exposed by this
+     * class execute synchronously.
+     * @since v24.9.0
+     */
+    interface SQLTagStore {
+        /**
+         * Executes the given SQL query and returns all resulting rows as an array of objects.
+         * @since v24.9.0
+         */
+        all(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue>[];
+        /**
+         * Executes the given SQL query and returns the first resulting row as an object.
+         * @since v24.9.0
+         */
+        get(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue> | undefined;
+        /**
+         * Executes the given SQL query and returns an iterator over the resulting rows.
+         * @since v24.9.0
+         */
+        iterate(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
+        /**
+         * Executes the given SQL query, which is expected to not return any rows (e.g., INSERT, UPDATE, DELETE).
+         * @since v24.9.0
+         */
+        run(stringElements: TemplateStringsArray, ...boundParameters: SQLInputValue[]): StatementResultingChanges;
+        /**
+         * A read-only property that returns the number of prepared statements currently in the cache.
+         * @since v24.9.0
+         * @returns The maximum number of prepared statements the cache can hold.
+         */
+        size(): number;
+        /**
+         * A read-only property that returns the maximum number of prepared statements the cache can hold.
+         * @since v24.9.0
+         */
+        readonly capacity: number;
+        /**
+         * A read-only property that returns the `DatabaseSync` object associated with this `SQLTagStore`.
+         * @since v24.9.0
+         */
+        readonly db: DatabaseSync;
+        /**
+         * Resets the LRU cache, clearing all stored prepared statements.
+         * @since v24.9.0
+         */
+        clear(): void;
     }
     interface StatementColumnMetadata {
         /**
@@ -567,6 +702,13 @@ declare module "node:sqlite" {
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v24.0.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
@@ -603,8 +745,9 @@ declare module "node:sqlite" {
          */
         rate?: number | undefined;
         /**
-         * Callback function that will be called with the number of pages copied and the total number of
-         * pages.
+         * An optional callback function that will be called after each backup step. The argument passed
+         * to this callback is an `Object` with `remainingPages` and `totalPages` properties, describing the current progress
+         * of the backup operation.
          */
         progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
     }
@@ -641,9 +784,10 @@ declare module "node:sqlite" {
      * the contents will be overwritten.
      * @param options Optional configuration for the backup. The
      * following properties are supported:
-     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
+     * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */

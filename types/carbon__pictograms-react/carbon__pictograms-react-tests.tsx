@@ -15,10 +15,13 @@ import {
     BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
+    ClientSupport,
     CloudPakForApplications,
     CodeConversion,
     ContentDesign,
+    CowboyHat,
     Dashboard,
+    DeepLearning_02,
     Design,
     DoctorPatient,
     Download_01,
@@ -89,3 +92,6 @@ import * as React from "react";
 <CodeConversion />; // $ExpectType Element
 <NoLiquids />; // $ExpectType Element
 <Design />; // $ExpectType Element
+<ClientSupport />; // $ExpectType Element
+<CowboyHat />; // $ExpectType Element
+<DeepLearning_02 />; // $ExpectType Element

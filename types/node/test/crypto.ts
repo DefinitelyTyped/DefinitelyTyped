@@ -755,6 +755,54 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const mldsaRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ml-dsa-44", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
+
+    const mlkemRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ml-kem-1024", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
+
+    const slhdsaRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("slh-dsa-sha2-128s", {
+        publicKeyEncoding: {
+            format: "der",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            cipher: "some-cipher",
+            format: "pem",
+            passphrase: "secret",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -879,6 +927,51 @@ import { promisify } from "node:util";
         },
         (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
     );
+
+    crypto.generateKeyPair(
+        "ml-dsa-44",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "ml-kem-1024",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "slh-dsa-sha2-128s",
+        {
+            publicKeyEncoding: {
+                format: "pem",
+                type: "spki",
+            },
+            privateKeyEncoding: {
+                format: "pem",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
 }
 
 {
@@ -971,6 +1064,48 @@ import { promisify } from "node:util";
         publicKey: string;
         privateKey: string;
     }> = generateKeyPairPromisified("x25519", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const mldsaRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("ml-dsa-44", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const mlkemRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("ml-kem-1024", {
+        publicKeyEncoding: {
+            format: "pem",
+            type: "spki",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
+
+    const slhdsaRes: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified("slh-dsa-sha2-128s", {
         publicKeyEncoding: {
             format: "pem",
             type: "spki",
@@ -1100,8 +1235,16 @@ import { promisify } from "node:util";
 }
 
 {
+    // $ExpectType string
     crypto.hash("sha1", "Node.js");
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     crypto.hash("sha1", Buffer.from("Tm9kZS5qcw==", "base64"), "buffer");
+    // $ExpectType string
+    crypto.hash("shake256", "Node.js", { outputLength: 256 });
+    // $ExpectType string
+    crypto.hash("shake256", Buffer.allocUnsafe(0), { outputEncoding: "base64" });
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    crypto.hash("shake256", "Node.js", { outputEncoding: "buffer", outputLength: 256 });
 }
 
 {
@@ -1250,6 +1393,8 @@ import { promisify } from "node:util";
         key: jwk,
         dsaEncoding: "der",
     });
+
+    crypto.sign("slh-dsa-sha2-128s", Buffer.from("asd"), { key, context: Uint8Array.of(1, 2, 3, 4).buffer });
 }
 
 {
@@ -1428,6 +1573,8 @@ import { promisify } from "node:util";
     cert.publicKey; // $ExpectType KeyObject
     cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     cert.serialNumber; // $ExpectType string
+    cert.signatureAlgorithm; // $ExpectType string | undefined
+    cert.signatureAlgorithmOid; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
@@ -1655,12 +1802,6 @@ import { promisify } from "node:util";
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));
-    crypto.webcrypto.CryptoKey.name;
-    crypto.webcrypto.CryptoKey.length;
-    crypto.webcrypto.CryptoKey.prototype;
-    crypto.webcrypto.CryptoKey.toString();
-    // @ts-expect-error
-    new crypto.webcrypto.CryptoKey(); // Illegal constructor
 
     crypto.webcrypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
         (out) => {
@@ -1680,7 +1821,8 @@ import { promisify } from "node:util";
     // Oops, test relied on DOM `globalThis.length` before
     const length = 123;
 
-    subtle.encrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new TextEncoder().encode("hello")); // $ExpectType Promise<ArrayBuffer>
+    subtle.decapsulateBits({ name: "ML-KEM-512" }, key, buf); // $ExpectType Promise<ArrayBuffer>
+    subtle.decapsulateKey({ name: "ML-KEM-512" }, key, buf, { name: "ECDSA" }, false, ["sign", "verify"]); // $ExpectType Promise<CryptoKey>
     subtle.decrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveBits({ name: "PBKDF2", hash: "SHA-512", salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveBits({ name: "ECDH", public: key }, key, null); // $ExpectType Promise<ArrayBuffer>
@@ -1700,9 +1842,13 @@ import { promisify } from "node:util";
         ["encrypt", "decrypt"],
     );
     subtle.digest("SHA-384", buf); // $ExpectType Promise<ArrayBuffer>
+    subtle.encapsulateBits({ name: "ML-KEM-512" }, key); // $ExpectType Promise<EncapsulatedBits>
+    subtle.encapsulateKey({ name: "ML-KEM-512" }, key, { name: "ECDSA" }, false, ["sign", "verify"]); // $ExpectType Promise<EncapsulatedKey>
+    subtle.encrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new TextEncoder().encode("hello")); // $ExpectType Promise<ArrayBuffer>
     subtle.exportKey("jwk", key); // $ExpectType Promise<JsonWebKey>
-    subtle.importKey("pkcs8", buf, { name: "RSA-PSS", hash: "SHA-1" }, false, []); // $ExpectType Promise<CryptoKey>
     subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, false, ["deriveKey", "deriveBits"]); // $ExpectType Promise<CryptoKeyPair>
+    subtle.getPublicKey(key, ["sign", "verify", "deriveBits"]); // $ExpectType Promise<CryptoKey>
+    subtle.importKey("pkcs8", buf, { name: "RSA-PSS", hash: "SHA-1" }, false, []); // $ExpectType Promise<CryptoKey>
     subtle.sign({ name: "RSA-PSS", saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
     subtle.unwrapKey(
         "raw",
@@ -1723,4 +1869,26 @@ import { promisify } from "node:util";
     keyObject.toCryptoKey({ name: "EdDSA" }, true, ["sign"]); // $ExpectType CryptoKey
     keyObject.toCryptoKey({ name: "RSA-OAEP", hash: "SHA-256" }, true, ["sign"]); // $ExpectType CryptoKey
     keyObject.toCryptoKey({ name: "RSA-OAEP", hash: { name: "SHA-256" } }, true, ["sign"]); // $ExpectType CryptoKey
+}
+
+{
+    const parameters = {
+        message: Buffer.from("abcde"),
+        nonce: crypto.randomBytes(8),
+        parallelism: 4,
+        tagLength: 8,
+        memory: 8 * 1024,
+        passes: 16,
+    };
+    crypto.argon2("argon2i", parameters, (err, derivedKey) => {
+        err; // $ExpectType Error | null
+        derivedKey; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
+    crypto.argon2Sync("argon2i", parameters); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+}
+
+{
+    const { privateKey } = crypto.generateKeyPairSync("ml-kem-1024");
+    const publicKey = crypto.decapsulate(privateKey, Buffer.from("the quick brown fox jumped over the lazy dog"));
+    const { sharedKey, ciphertext } = crypto.encapsulate(publicKey);
 }

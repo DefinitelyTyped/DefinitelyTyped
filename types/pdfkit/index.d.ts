@@ -344,6 +344,42 @@ declare namespace PDFKit.Mixins {
 
     type BoundingBox = [number, number, number, number];
 
+    type SizeUnits =
+        | "em"
+        | "in"
+        | "px"
+        | "cm"
+        | "mm"
+        | "pc"
+        | "ex"
+        | "ch"
+        | "rem"
+        | "vw"
+        | "vmin"
+        | "vmax"
+        | "%"
+        | "pt";
+
+    type Size = number | `${number}` | `${number}${SizeUnits}`;
+
+    type Wideness = Size | boolean;
+
+    type Sides<T> = T | [T, T] | [T, T, T, T] | SlightlyExpandedSides<T> | ExpandedSides<T>;
+
+    type PartialSides<T> = T | [T, T] | [T, T, T, T] | Partial<SlightlyExpandedSides<T>> | Partial<ExpandedSides<T>>;
+
+    interface SlightlyExpandedSides<T> {
+        vertical: T;
+        horizontal: T;
+    }
+
+    interface ExpandedSides<T> {
+        top: T;
+        right: T;
+        bottom: T;
+        left: T;
+    }
+
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
         strokeColor(color: ColorValue, opacity?: number): this;
@@ -361,6 +397,7 @@ declare namespace PDFKit.Mixins {
         font(src: PDFFontSource, size?: number): this;
         font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
+        sizeToPoint(size: Size, defaultValue?: number, page?: PDFPage, percentageWidth?: number): number;
         currentLineHeight(includeGap?: boolean): number;
         /** Helpful method to give a font an alias, eg: `registerFont('bold', './Roboto.ttf')` */
         registerFont(
@@ -399,22 +436,26 @@ declare namespace PDFKit.Mixins {
     }
 
     interface CellStyle {
+        /** The text stroke (default 0) */
+        textStroke?: number | boolean;
+        /** Sets the text stroke color of the cells text (default black) */
+        textStrokeColor?: ColorValue;
+        /** Sets the text color of the cells text (default black) */
+        textColor?: ColorValue;
         /** The border for the cell (default 1pt) */
-        border?: boolean | number | Array<boolean | number> | {
-            top?: number;
-            right?: number;
-            bottom?: number;
-            left?: number;
-        } | undefined;
+        border?: PartialSides<Wideness> | undefined;
         /** The border colors for the cell (default black) */
-        borderColor?: string | Array<string> | {
-            top?: ColorValue;
-            right?: ColorValue;
-            bottom?: ColorValue;
-            left?: ColorValue;
-        };
+        borderColor?: PartialSides<ColorValue>;
         /** Set the background color of the cell */
         backgroundColor?: ColorValue;
+        /** The padding for the cell (default 0.25em) */
+        padding?: Sides<Wideness>;
+        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
+        align?: "center" | ExpandedAlign;
+        /** Sets any text options you wish to provide (such as rotation) */
+        textOptions?: TextOptions;
+        /** Whether to show the debug lines for the cell (default false) */
+        debug?: boolean;
     }
 
     interface TableOptions {
@@ -423,9 +464,13 @@ declare namespace PDFKit.Mixins {
         /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
         maxWidth?: number;
         /** Column definitions of the table. (default auto) */
-        columnStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        columnStyles?:
+            | number
+            | Array<number | string>
+            | ColumnStyle
+            | ((row: number) => number | ColumnStyle | undefined);
         /** Row definitions of the table. (default *) */
-        rowStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
+        rowStyles?: number | Array<number | string> | RowStyle | ((row: number) => number | RowStyle | undefined);
         /** Defaults to apply to every cell */
         defaultStyle?:
             & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
@@ -451,27 +496,13 @@ declare namespace PDFKit.Mixins {
         rowSpan?: number;
         /** How many columns this cell covers, follows the same logic as HTML colspan */
         colSpan?: number;
-        /** The padding for the cell (default 0.25em) */
-        padding?: string;
         /** Font options for the cell */
-        font?: any;
-        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
-        align?: "center" | ExpandedAlign;
-        /** The text stroke (default 0) */
-        textStroke?: number | boolean;
-        /** Sets the text stroke color of the cells text (default black) */
-        textStrokeColor?: ColorValue;
-        /** Sets the text color of the cells text (default black) */
-        textColor?: ColorValue;
+        font?: { src?: PDFFontSource; family?: string; size?: number };
         /** Sets the cell type (for accessibility) (default TD) */
-        type?: string;
-        /** Sets any text options you wish to provide (such as rotation) */
-        textOptions?: TextOptions;
-        /** Whether to show the debug lines for the cell (default false) */
-        debug?: boolean;
+        type?: "TD" | "TH";
     }
 
-    interface ColumnOptions extends CellOptions {
+    interface ColumnStyle extends CellStyle {
         /** The width of the column (default *) */
         width?: string | number;
         /** The minimum width of the column (default 0) */
@@ -480,7 +511,7 @@ declare namespace PDFKit.Mixins {
         maxWidth?: string | number;
     }
 
-    interface RowOptions extends CellOptions {
+    interface RowBase {
         /** The height of the row (default auto) */
         height?: string | number;
         /** The minimum height of the row (default 0) */
@@ -488,6 +519,10 @@ declare namespace PDFKit.Mixins {
         /** The maximum height of the row (default Infinity) */
         maxHeight?: string | number;
     }
+
+    interface RowStyle extends CellStyle, RowBase {}
+
+    interface RowOptions extends CellOptions, RowBase {}
 
     interface PDFTableObject {
         /** Add a row of data (null and undefined are not rendered) */
@@ -803,8 +838,8 @@ declare namespace PDFKit {
         pdfVersion?: "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3" | undefined;
         autoFirstPage?: boolean | undefined;
         size?: number[] | string | undefined;
-        margin?: number | undefined;
-        margins?: { top: number; left: number; bottom: number; right: number } | undefined;
+        margin?: PDFKit.Mixins.Size | undefined;
+        margins?: PDFKit.Mixins.ExpandedSides<PDFKit.Mixins.Size> | undefined;
         layout?: "portrait" | "landscape" | undefined;
         font?: string | undefined;
 
@@ -925,7 +960,7 @@ declare namespace PDFKit {
     interface PDFPage {
         size: string;
         layout: string;
-        margins: { top: number; left: number; bottom: number; right: number };
+        margins: PDFKit.Mixins.ExpandedSides<number>;
         width: number;
         height: number;
         document: PDFDocument;

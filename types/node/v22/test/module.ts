@@ -115,6 +115,7 @@ Module.Module === Module;
     importmeta.resolve("local", "/parent"); // $ExpectType string
     importmeta.resolve("local", undefined); // $ExpectType string
     importmeta.resolve("local", new URL("https://parent.module")); // $ExpectType string
+    importmeta.main; // $ExpectType boolean
 }
 
 // Globals

@@ -337,6 +337,7 @@ export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
 export const UnsignedInt5999Type: 35902;
+export const UnsignedInt101111Type: 35899;
 
 export type AttributeGPUType = typeof FloatType | typeof IntType;
 
@@ -358,7 +359,8 @@ export type TextureDataType =
     | typeof UnsignedShort4444Type
     | typeof UnsignedShort5551Type
     | typeof UnsignedInt248Type
-    | typeof UnsignedInt5999Type;
+    | typeof UnsignedInt5999Type
+    | typeof UnsignedInt101111Type;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pixel formats

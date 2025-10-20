@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/facebook-nodejs-business-sdk",
-    "version": "22.0.9999",
+    "version": "23.0.9999",
     "projects": [
         "https://github.com/facebook/facebook-nodejs-business-sdk"
     ],
@@ -15,6 +15,9 @@
         }, {
             "name": "Rodin Hatokay",
             "githubUsername": "rodinhatokay"
+        }, {
+            "name": "Lior Fadida",
+            "githubUsername": "liorf-wix"
         }
     ],
     "minimumTypeScriptVersion": "5.1"

@@ -269,6 +269,7 @@ export class MeshLambertMaterial extends Material {
      * @default true
      */
     readonly isMeshLambertMaterial: boolean;
+    setValues(values?: MeshLambertMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

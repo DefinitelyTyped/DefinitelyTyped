@@ -1126,7 +1126,8 @@ declare namespace React {
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
         new(
-            props: P, /**
+            props: P,
+            /**
              * Value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
              * in `contextType`.
              */
@@ -1772,12 +1773,16 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useEffect}
      */
     function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    /**
+     * @see {@link https://react.dev/reference/react/useEffectEvent `useEffectEvent()` documentation}
+     * @version 19.2.0
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function useEffectEvent<T extends Function>(callback: T): T;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
-     *
-     * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
@@ -1938,10 +1943,39 @@ declare namespace React {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
+    export interface CacheSignal {}
+    /**
+     * @version 19.2.0
+     */
+    export function cacheSignal(): null | CacheSignal;
+
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    /**
+     * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
+     * @version 19.2.0
+     */
+    export const Activity: ExoticComponent<ActivityProps>;
+
     /**
      * Warning: Only available in development builds.
      *
      * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     * @version 19.1.0
      */
     function captureOwnerStack(): string | null;
 
@@ -2747,7 +2781,7 @@ declare namespace React {
         unselectable?: "on" | "off" | undefined;
 
         // Popover API
-        popover?: "" | "auto" | "manual" | undefined;
+        popover?: "" | "auto" | "manual" | "hint" | undefined;
         popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
         popoverTarget?: string | undefined;
 
@@ -3001,6 +3035,7 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        closedby?: "any" | "closerequest" | "none" | undefined;
         onCancel?: ReactEventHandler<T> | undefined;
         onClose?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
@@ -3363,6 +3398,7 @@ declare namespace React {
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -3570,7 +3606,21 @@ declare namespace React {
         direction?: number | string | undefined;
         display?: number | string | undefined;
         divisor?: number | string | undefined;
-        dominantBaseline?: number | string | undefined;
+        dominantBaseline?:
+            | "auto"
+            | "use-script"
+            | "no-change"
+            | "reset-size"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "central"
+            | "middle"
+            | "text-after-edge"
+            | "text-before-edge"
+            | "inherit"
+            | undefined;
         dur?: number | string | undefined;
         dx?: number | string | undefined;
         dy?: number | string | undefined;
@@ -3717,7 +3767,7 @@ declare namespace React {
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
-        textAnchor?: string | undefined;
+        textAnchor?: "start" | "middle" | "end" | "inherit" | undefined;
         textDecoration?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;

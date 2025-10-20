@@ -8,6 +8,7 @@ export default class CTWAWhatsAppNumbersInfo extends AbstractCrudObject {
         can_manage_wa_flows: "can_manage_wa_flows";
         formatted_whatsapp_number: "formatted_whatsapp_number";
         is_business_number: "is_business_number";
+        is_calling_enabled: "is_calling_enabled";
         number_country_prefix: "number_country_prefix";
         page_whatsapp_number_id: "page_whatsapp_number_id";
         waba_id: "waba_id";

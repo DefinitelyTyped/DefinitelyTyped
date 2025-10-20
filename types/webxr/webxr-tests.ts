@@ -134,6 +134,34 @@ function assertNever(value: never) {
             console.log(plane.polygon);
             console.log(plane.semanticLabel);
         });
+
+        frame.createAnchor?.(tf, space).then((anchor: XRAnchor) => {
+            console.log(anchor.anchorSpace);
+            anchor.requestPersistentHandle?.().then((uuid: string) => {
+                console.log("Got persistent handle", uuid);
+            });
+            anchor.delete();
+        });
+        if (frame.trackedAnchors) {
+            frame.trackedAnchors.forEach((anchor: XRAnchor) => {
+                const anchorPose = frame.getPose(anchor.anchorSpace, space);
+                if (anchorPose) {
+                    console.log(anchorPose.transform);
+                }
+            });
+        }
+        if (session.requestHitTestSource) {
+            session.requestHitTestSource(
+                { space: space! },
+            )?.then((source: XRHitTestSource) => {
+                console.log("Created hit test source:", source);
+                frame.getHitTestResults(source).forEach((result: XRHitTestResult) => {
+                    result.createAnchor?.().then((anchor: XRAnchor) => {
+                        console.log("Created anchor at hit test result:", anchor);
+                    });
+                });
+            });
+        }
     };
 
     navigator.xr.addEventListener("devicechange", (e: Event) => {
@@ -222,6 +250,16 @@ function assertNever(value: never) {
         },
     });
 
+    const depthSensingSession2 = await navigator.xr!.requestSession("immersive-ar", {
+        requiredFeatures: ["depth-sensing"],
+        depthSensing: {
+            usagePreference: ["cpu-optimized", "gpu-optimized"],
+            dataFormatPreference: ["luminance-alpha", "float32"],
+            depthTypeRequest: ["raw", "smooth"],
+            matchDepthView: false,
+        },
+    });
+
     function requestAnimationFrameCallback(t: number, frame: XRFrame) {
         session.requestAnimationFrame(requestAnimationFrameCallback);
 
@@ -234,11 +272,36 @@ function assertNever(value: never) {
                 }
             }
         }
+
+        if (session.depthActive) {
+            console.log("Depth type:", session.depthType);
+            if (session.pauseDepthSensing) {
+                session.pauseDepthSensing();
+            }
+            if (session.resumeDepthSensing) {
+                session.resumeDepthSensing();
+            }
+        }
     }
 
     function useCpuDepthInformation(view: XRView, depthInformation: XRCPUDepthInformation) {
         const depthInMeters = depthInformation.getDepthInMeters(0.25, 0.75);
         console.log("Depth at normalized view coordinates (0.25, 0.75) is:", depthInMeters);
+
+        const projectionMatrix: Float32Array | undefined = depthInformation.projectionMatrix;
+        if (projectionMatrix) {
+            console.log("Depth projection matrix:", projectionMatrix);
+        }
+
+        const transformPosition: DOMPointReadOnly | undefined = depthInformation.transform?.position;
+        if (transformPosition) {
+            console.log("Depth transform position:", transformPosition);
+        }
+
+        const transformDirection: DOMPointReadOnly | undefined = depthInformation.transform?.orientation;
+        if (transformDirection) {
+            console.log("Depth transform direction:", transformDirection);
+        }
     }
 
     const glBinding = new XRWebGLBinding(session, ctx);
@@ -286,5 +349,18 @@ function assertNever(value: never) {
         );
 
         // ...
+    }
+
+    if (session.persistentAnchors) {
+        for (const uuid of session.persistentAnchors) {
+            console.log("Known persistent anchor:", uuid);
+            session.restorePersistentAnchor?.(uuid).then((anchor: XRAnchor) => {
+                console.log("Restored persistent anchor:", anchor);
+            });
+
+            session.deletePersistentAnchor?.(uuid).then(() => {
+                console.log("Deleted persistent anchor:", uuid);
+            });
+        }
     }
 })();

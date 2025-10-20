@@ -1,9 +1,10 @@
+/// <reference types="chai/register-should" />
+
 declare const assert: Chai.AssertStatic;
 declare const expect: Chai.ExpectStatic;
 
 import chai_string = require("chai-string");
 import("chai").then(({ use }) => use(chai_string));
-import "chai/register-should";
 
 // Stub mocha functions
 const { describe, it, before, after, beforeEach, afterEach } = null as any as {

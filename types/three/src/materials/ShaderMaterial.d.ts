@@ -243,6 +243,7 @@ export class ShaderMaterial extends Material {
      * @default true
      */
     readonly isShaderMaterial: boolean;
+    setValues(values?: ShaderMaterialParameters): void;
     toJSON(meta?: JSONMeta): ShaderMaterialJSON;
 }
 

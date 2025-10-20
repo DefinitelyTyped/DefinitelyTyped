@@ -156,16 +156,42 @@ export interface LegendClickEvent {
 }
 
 export interface MapboxCenter {
+    /**
+     * Sets the latitude of the center of the map (in degrees North).
+     */
     lon: number;
+    /**
+     * Sets the longitude of the center of the map (in degrees East).
+     */
     lat: number;
 }
 
 export interface MapboxSymbol {
+    /**
+     * Sets the symbol icon image (mapbox.layer.layout.icon-image).
+     * Full list: https://www.mapbox.com/maki-icons/
+     */
     icon: string;
+    /**
+     * Sets the symbol icon size (mapbox.layer.layout.icon-size).
+     * Has an effect only when `type` is set to *symbol*.
+     */
     iconsize: number;
+    /**
+     * Sets the symbol text (mapbox.layer.layout.text-field).
+     */
     text: string;
+    /**
+     * Sets the symbol and/or text placement (mapbox.layer.layout.symbol-placement).
+     * If `placement` is *point*, the label is placed where the geometry is located.
+     * If `placement` is *line*, the label is placed along the line of the geometry.
+     * If `placement` is *line-center*, the label is placed on the center of the geometry.
+     */
     placement: "point" | "line" | "line-center";
     textfont: Partial<Font>;
+    /**
+     * Sets the positions of the `text` elements with respects to the (x,y) coordinates.
+     */
     textposition:
         | "top left"
         | "top center"
@@ -176,34 +202,165 @@ export interface MapboxSymbol {
         | "bottom right";
 }
 export interface MapboxLayers {
-    visible: true;
+    /**
+     * Determines whether this layer is displayed.
+     */
+    visible: boolean;
+    /**
+     * Sets the source type for this layer, that is the type of the layer data.
+     */
     sourcetype: "geojson" | "vecotr" | "raster" | "image";
-    source: number | string;
+    /**
+     * Sets the source data for this layer (mapbox.layer.source).
+     * When `sourcetype` is set to *geojson*, `source` can be a URL to a GeoJSON or a GeoJSON object.
+     * When `sourcetype` is set to *vector* or *raster*, `source` can be a URL or an array of tile URLs.
+     * When `sourcetype` is set to *image*, `source` can be a URL to an image.
+     */
+    source: any;
+    /**
+     * Specifies the layer to use from a vector tile source (mapbox.layer.source-layer).
+     * Required for *vector* source type that supports multiple layers.
+     */
     sourcelayer: string;
+    /**
+     * Sets the attribution for this source.
+     */
     sourceattribution: string;
+    /**
+     * Sets the layer type,
+     * that is the how the layer data set in `source` will be rendered With `sourcetype` set to *geojson*,
+     * the following values are allowed: *circle*, *line*, *fill* and *symbol*.
+     * But note that *line* and *fill* are not compatible with Point GeoJSON geometries.
+     * With `sourcetype` set to *vector*, the following values are allowed: *circle*, *line*, *fill* and *symbol*.
+     * With `sourcetype` set to *raster* or `*image*`, only the *raster* value is allowed.
+     */
     type: "circle" | "line" | "fill" | "symbol" | "raster";
+    /**
+     * Sets the coordinates array contains [longitude, latitude] pairs for the image corners listed in clockwise order: top left, top right, bottom right, bottom left.
+     * Only has an effect for *image* `sourcetype`.
+     */
     coordinates: number | string;
+    /**
+     * Determines if the layer will be inserted before the layer with the specified ID.
+     * If omitted or set to '', the layer will be inserted above every existing layer.
+     */
     below: string;
+    /**
+     * Sets the primary layer color.
+     * If `type` is *circle*, color corresponds to the circle color (mapbox.layer.paint.circle-color).
+     * If `type` is *line*, color corresponds to the line color (mapbox.layer.paint.line-color).
+     * If `type` is *fill*, color corresponds to the fill color (mapbox.layer.paint.fill-color).
+     * If `type` is *symbol*, color corresponds to the icon color (mapbox.layer.paint.icon-color).
+     */
     color: Color;
+    /**
+     * Sets the opacity of the layer.
+     * If `type` is *circle*, opacity corresponds to the circle opacity (mapbox.layer.paint.circle-opacity).
+     * If `type` is *line*, opacity corresponds to the line opacity (mapbox.layer.paint.line-opacity).
+     * If `type` is *fill*, opacity corresponds to the fill opacity (mapbox.layer.paint.fill-opacity).
+     * If `type` is *symbol*, opacity corresponds to the icon/text opacity (mapbox.layer.paint.text-opacity).
+     */
     opacity: number;
+    /**
+     * Sets the minimum zoom level (mapbox.layer.minzoom).
+     * At zoom levels less than the minzoom, the layer will be hidden.
+     */
     minzoom: number;
+    /**
+     * Sets the maximum zoom level (mapbox.layer.maxzoom).
+     * At zoom levels equal to or greater than the maxzoom, the layer will be hidden.
+     */
     maxzoom: number;
-    circle: { radius: number };
+    circle: {
+        /**
+         * Sets the circle radius (mapbox.layer.paint.circle-radius).
+         * Has an effect only when `type` is set to *circle*.
+         */
+        radius: number;
+    };
     line: Partial<ShapeLine>;
-    fill: { outlinecolor: Color };
+    fill: {
+        /**
+         * Sets the fill outline color (mapbox.layer.paint.fill-outline-color).
+         * Has an effect only when `type` is set to *fill*.
+         */
+        outlinecolor: Color;
+    };
     symbol: Partial<MapboxSymbol>;
+    /**
+     * When used in a template, named items are created in the output figure in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making your own item with `templateitemname` matching this `name`
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * Has no effect outside of a template.
+     */
     name: string;
+    /**
+     * Used to refer to a named item in this array in the template.
+     * Named items from the template will be created even without a matching item in the input figure,
+     * but you can modify one by making an item with `templateitemname` matching its `name`,
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * If there is no template or no matching item,
+     * this item will be hidden unless you explicitly show it with `visible: true`.
+     */
     templateitemname: string;
 }
+
+export interface MapboxBounds {
+    /**
+     * Sets the maximum longitude of the map (in degrees East) if `west`, `south` and `north` are declared.
+     */
+    east: number;
+    /**
+     * Sets the maximum latitude of the map (in degrees North) if `east`, `west` and `south` are declared.
+     */
+    north: number;
+    /**
+     * Sets the minimum latitude of the map (in degrees North) if `east`, `west` and `north` are declared.
+     */
+    south: number;
+    /**
+     * Sets the minimum longitude of the map (in degrees East) if `east`, `south` and `north` are declared.
+     */
+    west: number;
+}
+
 export interface Mapbox {
     domain: Partial<Domain>;
+    /**
+     * Sets the mapbox access token to be used for this mapbox map.
+     * Alternatively, the mapbox access token can be set in the configuration options under `mapboxAccessToken`.
+     * Note that accessToken are only required when `style` (e.g with values : basic, streets, outdoors, light, dark, satellite, satellite-streets ) and/or a layout layer references the Mapbox server.
+     */
     accesstoken: string;
+    /**
+     * Defines the map layers that are rendered by default below the trace layers defined in `data`, which are themselves by default rendered below the layers defined in `layout.mapbox.layers`.
+     * These layers can be defined either explicitly as a Mapbox Style object which can contain multiple layer definitions that load data from any public or private Tile Map Service (TMS or XYZ) or Web Map Service (WMS) or implicitly by using one of the built-in style objects which use WMSes which do not require any access tokens, or by using a default Mapbox style or custom Mapbox style URL, both of which require a Mapbox access token.
+     * Note that Mapbox access token can be set in the `accesstoken` attribute or in the `mapboxAccessToken` config option.
+     * Mapbox Style objects are of the form described in the Mapbox GL JS documentation available at https://docs.mapbox.com/mapbox-gl-js/style-spec.
+     * The built-in plotly.js styles objects are: carto-darkmatter, carto-positron, open-street-map, stamen-terrain, stamen-toner, stamen-watercolor, white-bg.
+     * The built-in Mapbox styles are: basic, streets, outdoors, light, dark, satellite, satellite-streets.
+     * Mapbox style URLs are of the form: mapbox://mapbox.mapbox-<name>-<version>
+     */
     style: number | string;
     center: Partial<MapboxCenter>;
+    /**
+     * Sets the zoom level of the map (mapbox.zoom).
+     */
     zoom: number;
+    /**
+     * Sets the bearing angle of the map in degrees counter-clockwise from North (mapbox.bearing).
+     */
     bearing: number;
+    bounds: MapboxBounds;
+    /**
+     * Sets the pitch angle of the map (in degrees, where *0* means perpendicular to the surface of the map) (mapbox.pitch).
+     */
     pitch: number;
     layers: Array<Partial<MapboxLayers>>;
+    /**
+     * Controls persistence of user-driven changes in the view: `center`, `zoom`, `bearing`, `pitch`.
+     * Defaults to `layout.uirevision`.
+     */
     uirevision: number | string;
     uid: string;
 }
@@ -485,6 +642,15 @@ export interface Layout {
     hovermode: "closest" | "x" | "y" | "x unified" | "y unified" | false;
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
+    /**
+     * Determines expansion of hover effects to other subplots.
+     * If "single" just the axis pair of the primary point is included without overlaying subplots.
+     * If "overlaying" all subplots using the main axis and occupying the same space are included.
+     * If "axis", also include stacked subplots using the same axis
+     * when `hovermode` is set to "x", "x unified", "y" or "y unified".
+     * @default "overlaying"
+     */
+    hoversubplots: "single" | "overlaying" | "axis";
     calendar: Calendar;
     "xaxis.range": [Datum, Datum];
     "xaxis.range[0]": Datum;
@@ -1988,7 +2154,8 @@ export interface Font {
      */
     family: string;
     /**
-     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color. See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color.
+     * See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
      * @default "none"
      */
     shadow: string;
@@ -2000,9 +2167,45 @@ export interface Font {
     /**
      * Sets the weight (or boldness) of the font.
      * number between or equal to 1 and 1000
-     * @default normal
+     * @default "normal"
      */
-    weight: number;
+    weight: number | "normal" | "bold";
+    /**
+     * Sets whether a font should be styled with a normal or italic face from its family.
+     * @default "normal"
+     */
+    style: "normal" | "italic";
+    /**
+     * Sets capitalization of text. Can be used to make text appear in all-uppercase, all-lowercase, or with each word capitalized.
+     * @default "normal"
+     */
+    textcase: "normal" | "word caps" | "upper" | "lower";
+    /**
+     * Sets the variant of the font.
+     * @default "normal"
+     */
+    variant: "normal" | "small-caps" | "all-small-caps" | "all-petite-caps" | "petite-caps" | "unicase";
+    /**
+     * Sets the kind of decoration line(s) with text, such as an "under", "over" or "through" as well as combinations e.g. "under+over".
+     * @default "none"
+     */
+    lineposition:
+        | "none"
+        | "under"
+        | "over"
+        | "through"
+        | "under+over"
+        | "over+under"
+        | "over+through"
+        | "through+over"
+        | "through+under"
+        | "under+through"
+        | "under+over+through"
+        | "under+through+over"
+        | "over+under+through"
+        | "over+through+under"
+        | "through+under+over"
+        | "through+over+under";
 }
 
 export interface Edits {
@@ -2930,7 +3133,7 @@ export interface Slider {
     /**
      * Sets the font of the slider step labels.
      */
-    font: Font;
+    font: Partial<Font>;
     /**
      * Sets the background color of the slider grip
      * while dragging.

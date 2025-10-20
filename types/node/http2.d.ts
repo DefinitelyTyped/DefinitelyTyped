@@ -51,14 +51,15 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
+        statCheck?:
+            | ((stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void)
+            | undefined;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;
         length?: number | undefined;
     }
     export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
-        onError?(err: NodeJS.ErrnoException): void;
+        onError?: ((err: NodeJS.ErrnoException) => void) | undefined;
     }
     export interface Http2Stream extends stream.Duplex {
         /**
@@ -283,61 +284,111 @@ declare module "http2" {
         addListener(event: "continue", listener: () => {}): this;
         addListener(
             event: "headers",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         addListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         addListener(
             event: "response",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "continue"): boolean;
-        emit(event: "headers", headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
+        emit(
+            event: "headers",
+            headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+            flags: number,
+            rawHeaders: string[],
+        ): boolean;
         emit(event: "push", headers: IncomingHttpHeaders, flags: number): boolean;
-        emit(event: "response", headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
+        emit(
+            event: "response",
+            headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+            flags: number,
+            rawHeaders: string[],
+        ): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "continue", listener: () => {}): this;
         on(
             event: "headers",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         on(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         on(
             event: "response",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: "continue", listener: () => {}): this;
         once(
             event: "headers",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         once(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         once(
             event: "response",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         prependListener(event: "continue", listener: () => {}): this;
         prependListener(
             event: "headers",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         prependListener(
             event: "response",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "continue", listener: () => {}): this;
         prependOnceListener(
             event: "headers",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependOnceListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(
             event: "response",
-            listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void,
+            listener: (
+                headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
@@ -423,7 +474,7 @@ declare module "http2" {
          * ```
          * @since v8.4.0
          */
-        respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
+        respond(headers?: OutgoingHttpHeaders | readonly string[], options?: ServerStreamResponseOptions): void;
         /**
          * Initiates a response whose data is read from the given file descriptor. No
          * validation is performed on the given file descriptor. If an error occurs while
@@ -975,6 +1026,7 @@ declare module "http2" {
                 stream: ClientHttp2Stream,
                 headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
                 flags: number,
+                rawHeaders: string[],
             ) => void,
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -986,6 +1038,7 @@ declare module "http2" {
             stream: ClientHttp2Stream,
             headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
             flags: number,
+            rawHeaders: string[],
         ): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
@@ -997,6 +1050,7 @@ declare module "http2" {
                 stream: ClientHttp2Stream,
                 headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
                 flags: number,
+                rawHeaders: string[],
             ) => void,
         ): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1012,6 +1066,7 @@ declare module "http2" {
                 stream: ClientHttp2Stream,
                 headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
                 flags: number,
+                rawHeaders: string[],
             ) => void,
         ): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1027,6 +1082,7 @@ declare module "http2" {
                 stream: ClientHttp2Stream,
                 headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
                 flags: number,
+                rawHeaders: string[],
             ) => void,
         ): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1042,6 +1098,7 @@ declare module "http2" {
                 stream: ClientHttp2Stream,
                 headers: IncomingHttpHeaders & IncomingHttpStatusHeader,
                 flags: number,
+                rawHeaders: string[],
             ) => void,
         ): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1159,7 +1216,12 @@ declare module "http2" {
         ): this;
         addListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(
@@ -1167,7 +1229,13 @@ declare module "http2" {
             session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
             socket: net.Socket | tls.TLSSocket,
         ): boolean;
-        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(
+            event: "stream",
+            stream: ServerHttp2Stream,
+            headers: IncomingHttpHeaders,
+            flags: number,
+            rawHeaders: string[],
+        ): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(
             event: "connect",
@@ -1178,7 +1246,12 @@ declare module "http2" {
         ): this;
         on(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(
@@ -1190,7 +1263,12 @@ declare module "http2" {
         ): this;
         once(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         prependListener(
@@ -1202,7 +1280,12 @@ declare module "http2" {
         ): this;
         prependListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(
@@ -1214,7 +1297,12 @@ declare module "http2" {
         ): this;
         prependOnceListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
@@ -1383,7 +1471,12 @@ declare module "http2" {
         addListener(event: "sessionError", listener: (err: Error) => void): this;
         addListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1398,7 +1491,13 @@ declare module "http2" {
             session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
         ): boolean;
         emit(event: "sessionError", err: Error): boolean;
-        emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+        emit(
+            event: "stream",
+            stream: ServerHttp2Stream,
+            headers: IncomingHttpHeaders,
+            flags: number,
+            rawHeaders: string[],
+        ): boolean;
         emit(event: "timeout"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(
@@ -1416,7 +1515,12 @@ declare module "http2" {
         on(event: "sessionError", listener: (err: Error) => void): this;
         on(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         on(event: "timeout", listener: () => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1435,7 +1539,12 @@ declare module "http2" {
         once(event: "sessionError", listener: (err: Error) => void): this;
         once(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         once(event: "timeout", listener: () => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1454,7 +1563,12 @@ declare module "http2" {
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
         prependListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependListener(event: "timeout", listener: () => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -1473,7 +1587,12 @@ declare module "http2" {
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
         prependOnceListener(
             event: "stream",
-            listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
+            listener: (
+                stream: ServerHttp2Stream,
+                headers: IncomingHttpHeaders,
+                flags: number,
+                rawHeaders: string[],
+            ) => void,
         ): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -2194,8 +2313,8 @@ declare module "http2" {
          * will result in a `TypeError` being thrown.
          * @since v8.4.0
          */
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
-        writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders | readonly string[]): this;
+        writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders | readonly string[]): this;
         /**
          * Call `http2stream.pushStream()` with the given headers, and wrap the
          * given `Http2Stream` on a newly created `Http2ServerResponse` as the callback

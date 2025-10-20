@@ -6,7 +6,7 @@
         "https://github.com/classcraft/cytoscape.js-canvas"
     ],
     "dependencies": {
-        "@types/cytoscape": "*"
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/cytoscape-canvas": "workspace:."

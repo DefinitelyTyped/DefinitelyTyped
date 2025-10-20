@@ -3206,6 +3206,7 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        closedby?: "any" | "closerequest" | "none" | undefined;
         onCancel?: ReactEventHandler<T> | undefined;
         onClose?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
@@ -3752,7 +3753,21 @@ declare namespace React {
         direction?: number | string | undefined;
         display?: number | string | undefined;
         divisor?: number | string | undefined;
-        dominantBaseline?: number | string | undefined;
+        dominantBaseline?:
+            | "auto"
+            | "use-script"
+            | "no-change"
+            | "reset-size"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "central"
+            | "middle"
+            | "text-after-edge"
+            | "text-before-edge"
+            | "inherit"
+            | undefined;
         dur?: number | string | undefined;
         dx?: number | string | undefined;
         dy?: number | string | undefined;
@@ -3899,7 +3914,7 @@ declare namespace React {
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
-        textAnchor?: string | undefined;
+        textAnchor?: "start" | "middle" | "end" | "inherit" | undefined;
         textDecoration?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;

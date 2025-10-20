@@ -71,7 +71,10 @@ import { URL } from "node:url";
     http2Session.on("goaway", (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => {});
     http2Session.on("localSettings", (settings: Settings) => {});
     http2Session.on("remoteSettings", (settings: Settings) => {});
-    http2Session.on("stream", (stream: Http2Stream, headers: IncomingHttpHeaders, flags: number) => {});
+    http2Session.on(
+        "stream",
+        (stream: Http2Stream, headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]) => {},
+    );
     http2Session.on("timeout", () => {});
     http2Session.on("ping", () => {});
 
@@ -179,9 +182,12 @@ import { URL } from "node:url";
     const clientHttp2Stream: ClientHttp2Stream = {} as any;
     clientHttp2Stream.on("headers", (headers: IncomingHttpHeaders, flags: number) => {});
     clientHttp2Stream.on("push", (headers: IncomingHttpHeaders, flags: number) => {});
-    clientHttp2Stream.on("response", (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => {
-        const s: number = headers[":status"]!;
-    });
+    clientHttp2Stream.on(
+        "response",
+        (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number, rawHeaders: string[]) => {
+            const s: number = headers[":status"]!;
+        },
+    );
 
     // ServerHttp2Stream
     const serverHttp2Stream: ServerHttp2Stream = {} as any;
@@ -202,6 +208,7 @@ import { URL } from "node:url";
     serverHttp2Stream.respond();
     serverHttp2Stream.respond(headers);
     serverHttp2Stream.respond(headers, options);
+    serverHttp2Stream.respond([":status", "400"]);
 
     const options2: ServerStreamFileResponseOptions = {
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},
@@ -236,7 +243,10 @@ import { URL } from "node:url";
         server.on("sessionError", (err: Error) => {});
         server.on("session", (session: ServerHttp2Session) => {});
         server.on("checkContinue", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
-        server.on("stream", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
+        server.on(
+            "stream",
+            (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]) => {},
+        );
         server.on("request", (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on("timeout", () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
@@ -335,6 +345,7 @@ import { URL } from "node:url";
         response.writeHead(200, outgoingHeaders);
         response.writeHead(200, "OK", outgoingHeaders);
         response.writeHead(200, "OK");
+        response.writeHead(200, ["x-dts-library", "@types/node"]);
         response.write("");
         response.write("", (err: Error) => {});
         response.write("", "utf8");

@@ -1,4 +1,3 @@
-import RenderContext from "./RenderContext.js";
 /**
  * Abstract base class of a timestamp query pool.
  *
@@ -19,13 +18,13 @@ declare abstract class TimestampQueryPool {
      */
     constructor(maxQueries?: number);
     /**
-     * Allocate queries for a specific renderContext.
+     * Allocate queries for a specific uid.
      *
      * @abstract
-     * @param {Object} renderContext - The render context to allocate queries for.
+     * @param {string} uid - A unique identifier for the render context.
      * @returns {?number}
      */
-    abstract allocateQueriesForContext(renderContext: RenderContext): number | null;
+    abstract allocateQueriesForContext(uid: string): number | null;
     /**
      * Resolve all timestamps and return data (or process them).
      *

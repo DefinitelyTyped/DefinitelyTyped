@@ -55,14 +55,15 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
+        statCheck?:
+            | ((stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void)
+            | undefined;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;
         length?: number | undefined;
     }
     export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
-        onError?(err: NodeJS.ErrnoException): void;
+        onError?: ((err: NodeJS.ErrnoException) => void) | undefined;
     }
     export interface Http2Stream extends stream.Duplex {
         /**

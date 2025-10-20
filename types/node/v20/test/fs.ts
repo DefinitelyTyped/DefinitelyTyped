@@ -883,6 +883,11 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         stream.push(null);
         stream.read(0);
     });
+    fs.promises.open("/dev/input/event0").then(fd => {
+        // Create a stream from some character device.
+        const stream = fd.createReadStream({ signal: new AbortSignal() }); // $ExpectType ReadStream
+        stream.close();
+    });
     fs.promises.open("/dev/input/event0", "r").then(fd => {
         // Create a stream from some character device.
         const stream = fd.createReadStream(); // $ExpectType ReadStream

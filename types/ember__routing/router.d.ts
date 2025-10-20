@@ -24,7 +24,7 @@ export default class Router extends EmberObject {
      *
      * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: "history" | "hash" | "none" | "auto";
+    location: string;
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.

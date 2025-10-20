@@ -130,9 +130,10 @@ declare namespace Dockerode {
         get(callback: Callback<NodeJS.ReadableStream>): void;
         get(): Promise<NodeJS.ReadableStream>;
 
-        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        push(callback: Callback<NodeJS.ReadableStream>): void;
+        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>, auth?: AuthConfig): void;
+        push(callback: Callback<NodeJS.ReadableStream>, auth?: AuthConfig): void;
         push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
+        push(options?: ImagePushOptions, callback?: undefined, auth?: AuthConfig): Promise<NodeJS.ReadableStream>;
 
         tag(options: ImageTagOptions, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
@@ -1134,6 +1135,7 @@ declare namespace Dockerode {
         tag?: string | undefined;
         authconfig?: AuthConfig | undefined;
         abortSignal?: AbortSignal;
+        stream?: boolean | undefined;
     }
 
     interface ImageTagOptions {
@@ -1148,7 +1150,13 @@ declare namespace Dockerode {
         tag?: string;
     }
 
-    interface AuthConfig {
+    interface AuthConfigKey {
+        key: string;
+    }
+    interface AuthConfigBase64 {
+        base64: string;
+    }
+    interface AuthConfigObject {
         username?: string;
         password?: string;
         auth?: string;
@@ -1158,6 +1166,8 @@ declare namespace Dockerode {
         /** @deprecated */
         email?: string | undefined;
     }
+
+    type AuthConfig = AuthConfigKey | AuthConfigBase64 | AuthConfigObject;
 
     interface RegistryConfig {
         [registryAddress: string]: {

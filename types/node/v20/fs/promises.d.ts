@@ -68,7 +68,7 @@ declare module "fs/promises" {
         length?: number | null;
         position?: number | null;
     }
-    interface CreateReadStreamOptions {
+    interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;

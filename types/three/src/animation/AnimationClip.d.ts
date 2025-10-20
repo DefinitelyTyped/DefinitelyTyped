@@ -133,6 +133,11 @@ export class AnimationClip {
      */
     readonly uuid: string;
     /**
+     * An object that can be used to store custom data about the animation clip.
+     * It should not hold references to functions as these will not be cloned.
+     */
+    userData: Record<string, unknown>;
+    /**
      * Sets the duration of this clip to the duration of its longest keyframe track.
      *
      * @return {AnimationClip} A reference to this animation clip.

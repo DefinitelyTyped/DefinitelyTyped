@@ -12,12 +12,16 @@
     },
     "owners": [
         {
-            "name": "Martin Boehm",
-            "githubUsername": "martinboehm"
+            "name": "Michal Vanek",
+            "githubUsername": "FreeWall"
         },
         {
-            "name": "Lukas Rada",
-            "githubUsername": "LukasRada"
+            "name": "Tomas Klima",
+            "githubUsername": "tomasklim"
+        },
+        {
+            "name": "vytick",
+            "githubUsername": "vytick"
         }
     ]
 }

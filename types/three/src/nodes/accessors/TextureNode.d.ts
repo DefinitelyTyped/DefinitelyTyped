@@ -48,6 +48,8 @@ export default class TextureNode extends UniformNode<Texture> {
 
     bias(biasNode: Node): ShaderNodeObject<Node>;
 
+    getBase(): TextureNode;
+
     compare(compareNode: Node): ShaderNodeObject<Node>;
 
     grad(gradeNodeX: Node, gradeNodeY: Node): ShaderNodeObject<Node>;

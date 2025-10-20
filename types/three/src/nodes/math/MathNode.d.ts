@@ -34,7 +34,6 @@ export type MathNodeMethod1 =
     | typeof MathNode.RECIPROCAL
     | typeof MathNode.TRUNC
     | typeof MathNode.FWIDTH
-    | typeof MathNode.BITCAST
     | typeof MathNode.TRANSPOSE
     | typeof MathNode.DETERMINANT
     | typeof MathNode.INVERSE;
@@ -95,7 +94,6 @@ export default class MathNode extends TempNode {
     static RECIPROCAL: "reciprocal";
     static TRUNC: "trunc";
     static FWIDTH: "fwidth";
-    static BITCAST: "bitcast";
     static TRANSPOSE: "transpose";
     static DETERMINANT: "determinant";
     static INVERSE: "inverse";
@@ -184,7 +182,6 @@ export const inverse: (x: Node) => ShaderNodeObject<MathNode>;
 
 type Binary = (a: MathNodeParameter, b: MathNodeParameter) => ShaderNodeObject<MathNode>;
 
-export const bitcast: Binary;
 export const min: (
     x: MathNodeParameter,
     y: MathNodeParameter,

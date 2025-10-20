@@ -141,6 +141,7 @@ export default class Campaign extends AbstractCrudObject {
         online_gambling_and_gaming: "ONLINE_GAMBLING_AND_GAMING";
     }>;
     static get SpecialAdCategoryCountry(): Readonly<{
+        ac: "AC";
         ad: "AD";
         ae: "AE";
         af: "AF";

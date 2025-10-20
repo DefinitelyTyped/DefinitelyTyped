@@ -12,6 +12,7 @@ export default class ALMEvent extends AbstractCrudObject {
         event_time: "event_time";
         guidance: "guidance";
         guidance_detail: "guidance_detail";
+        guidance_type: "guidance_type";
         id: "id";
         parent_advertiser_ids: "parent_advertiser_ids";
         reseller_business_id: "reseller_business_id";

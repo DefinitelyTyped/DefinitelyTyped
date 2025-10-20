@@ -10,7 +10,7 @@
     "dependencies": {
         "@types/jquery": "*",
         "@types/jquery-mousewheel": "*",
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/dynmap": "workspace:."

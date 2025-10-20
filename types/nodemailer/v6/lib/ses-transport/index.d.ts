@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import aws from "@aws-sdk/client-ses";
+import * as aws from "@aws-sdk/client-ses";
 import { EventEmitter } from "node:events";
 
 import { Transport, TransportOptions } from "../..";

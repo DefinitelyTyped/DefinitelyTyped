@@ -503,11 +503,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {
@@ -521,11 +519,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {

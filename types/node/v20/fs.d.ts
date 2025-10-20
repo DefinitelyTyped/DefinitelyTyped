@@ -2369,7 +2369,7 @@ declare module "fs" {
         /**
          * @default null
          */
-        position?: number | undefined | null;
+        position?: number | null | undefined;
     }
     /**
      * Write `buffer` to the file specified by `fd`.
@@ -4220,7 +4220,7 @@ declare module "fs" {
         /**
          * @default false
          */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
     }
     /**
      * Synchronously open a directory. See [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html).
@@ -4273,54 +4273,54 @@ declare module "fs" {
          * Dereference symlinks
          * @default false
          */
-        dereference?: boolean;
+        dereference?: boolean | undefined;
         /**
          * When `force` is `false`, and the destination
          * exists, throw an error.
          * @default false
          */
-        errorOnExist?: boolean;
+        errorOnExist?: boolean | undefined;
         /**
          * Overwrite existing file or directory. _The copy
          * operation will ignore errors if you set this to false and the destination
          * exists. Use the `errorOnExist` option to change this behavior.
          * @default true
          */
-        force?: boolean;
+        force?: boolean | undefined;
         /**
          * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
          */
-        mode?: number;
+        mode?: number | undefined;
         /**
          * When `true` timestamps from `src` will
          * be preserved.
          * @default false
          */
-        preserveTimestamps?: boolean;
+        preserveTimestamps?: boolean | undefined;
         /**
          * Copy directories recursively.
          * @default false
          */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
         /**
          * When true, path resolution for symlinks will be skipped
          * @default false
          */
-        verbatimSymlinks?: boolean;
+        verbatimSymlinks?: boolean | undefined;
     }
     export interface CopyOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
-        filter?(source: string, destination: string): boolean | Promise<boolean>;
+        filter?: ((source: string, destination: string) => boolean | Promise<boolean>) | undefined;
     }
     export interface CopySyncOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
-        filter?(source: string, destination: string): boolean;
+        filter?: ((source: string, destination: string) => boolean) | undefined;
     }
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,

@@ -3470,7 +3470,9 @@ declare class ResizeTableModule extends Module {}
 declare class ResponsiveLayoutModule extends Module {}
 declare class SelectRowModule extends Module {}
 declare class SelectRangeModule extends Module {}
-declare class SortModule extends Module {}
+declare class SortModule extends Module {
+    setSort: (sortList: string | Sorter[], dir?: SortDirection) => void;
+}
 declare class SpreadsheetModule extends Module {}
 declare class TabulatorFull extends Tabulator {}
 declare class TooltipModule extends Module {}

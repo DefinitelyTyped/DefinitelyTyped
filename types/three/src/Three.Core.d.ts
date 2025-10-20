@@ -154,6 +154,7 @@ export * from "./textures/Data3DTexture.js";
 export * from "./textures/DataArrayTexture.js";
 export * from "./textures/DataTexture.js";
 export * from "./textures/DepthTexture.js";
+export * from "./textures/ExternalTexture.js";
 export * from "./textures/FramebufferTexture.js";
 export * from "./textures/Source.js";
 export * from "./textures/Texture.js";

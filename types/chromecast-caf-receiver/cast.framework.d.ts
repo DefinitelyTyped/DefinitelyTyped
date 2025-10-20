@@ -1167,7 +1167,7 @@ export class CastReceiverContext {
      * @param listener
      * @throws Error If system is not ready or the namespace is not supported by this application.
      */
-    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
+    addCustomMessageListener(namespace: string, listener: CustomMessageHandler): void;
 
     /**
      * Add listener to cast system events.

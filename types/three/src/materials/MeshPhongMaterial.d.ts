@@ -281,6 +281,7 @@ export class MeshPhongMaterial extends Material {
      * @default true
      */
     readonly isMeshPhongMaterial: boolean;
+    setValues(values?: MeshPhongMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
