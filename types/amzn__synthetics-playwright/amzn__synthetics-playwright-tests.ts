@@ -5,10 +5,10 @@ export const handler = async () => {
     const launchOptions: LaunchOptions = await synthetics.getDefaultLaunchOptions();
     const browser: Browser = await synthetics.launch(launchOptions);
     const page: Page = await synthetics.newPage(browser);
-    
+
     await page.goto("https://example.com");
     await page.screenshot({ path: "/tmp/example.png" });
-    
+
     await synthetics.close();
 };
 
@@ -26,7 +26,7 @@ export const testWithBrowserContext = async () => {
     const browser: Browser = await synthetics.launch();
     const context: BrowserContext = await browser.newContext();
     const page: Page = await synthetics.newPage(context);
-    
+
     await page.goto("https://example.com");
     await synthetics.close();
 };
@@ -34,7 +34,7 @@ export const testWithBrowserContext = async () => {
 export const testExecuteStepWithConfig = async () => {
     const browser: Browser = await synthetics.launch();
     const page: Page = await synthetics.newPage(browser);
-    
+
     await synthetics.executeStep(
         "test step",
         async () => {
@@ -47,8 +47,8 @@ export const testExecuteStepWithConfig = async () => {
             screenshotOnStepSuccess: false,
             screenshotOnStepFailure: true,
         },
-        page
+        page,
     );
-    
+
     await synthetics.close();
 };
