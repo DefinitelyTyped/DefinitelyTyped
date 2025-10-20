@@ -12,12 +12,6 @@ export interface StepConfig {
   readonly stepSuccessMetric?: boolean | undefined;
 }
 
-declare enum WebBrowserType {
-  CHROME = 0,
-  FIREFOX = 1,
-  WEBKIT = 2
-}
-
 export interface SyntheticsType {
   readonly close: () => Promise<void>;
   readonly executeStep: <T>(stepName: string, func: () => Promise<T>, stepConfig?: StepConfig, page?: Page) => Promise<T>;
@@ -25,7 +19,6 @@ export interface SyntheticsType {
   readonly getPage: (browser: Browser | BrowserContext) => Promise<Page>;
   readonly launch: BrowserType["launch"];
   readonly newPage: (browser: Browser | BrowserContext) => Promise<Page>;
-  readonly setupHarRecording: (browser: Browser | BrowserContext, browserType: WebBrowserType) => Promise<void>;
 }
 
 export const synthetics: SyntheticsType;
