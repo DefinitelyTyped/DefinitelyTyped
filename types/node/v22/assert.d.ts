@@ -11,6 +11,7 @@ declare module "assert" {
      * @param value The input that is checked for being truthy.
      */
     function assert(value: unknown, message?: string | Error): asserts value;
+    const kOptions: unique symbol;
     namespace assert {
         type AssertMethodNames =
             | "deepEqual"
@@ -31,10 +32,100 @@ declare module "assert" {
             | "rejects"
             | "strictEqual"
             | "throws";
+        interface AssertOptions {
+            /**
+             * If set to `'full'`, shows the full diff in assertion errors.
+             * @default 'simple'
+             */
+            diff?: "simple" | "full" | undefined;
+            /**
+             * If set to `true`, non-strict methods behave like their
+             * corresponding strict methods.
+             * @default true
+             */
+            strict?: boolean | undefined;
+        }
+        interface Assert extends Pick<typeof assert, AssertMethodNames> {
+            readonly [kOptions]: AssertOptions & { strict: false };
+        }
+        interface AssertStrict extends Pick<typeof strict, AssertMethodNames> {
+            readonly [kOptions]: AssertOptions & { strict: true };
+        }
+        /**
+         * The `Assert` class allows creating independent assertion instances with custom options.
+         * @since v22.19.0
+         */
+        var Assert: {
+            /**
+             * Creates a new assertion instance. The `diff` option controls the verbosity of diffs in assertion error messages.
+             *
+             * ```js
+             * const { Assert } = require('node:assert');
+             * const assertInstance = new Assert({ diff: 'full' });
+             * assertInstance.deepStrictEqual({ a: 1 }, { a: 2 });
+             * // Shows a full diff in the error message.
+             * ```
+             *
+             * **Important**: When destructuring assertion methods from an `Assert` instance,
+             * the methods lose their connection to the instance's configuration options (such as `diff` and `strict` settings).
+             * The destructured methods will fall back to default behavior instead.
+             *
+             * ```js
+             * const myAssert = new Assert({ diff: 'full' });
+             *
+             * // This works as expected - uses 'full' diff
+             * myAssert.strictEqual({ a: 1 }, { b: { c: 1 } });
+             *
+             * // This loses the 'full' diff setting - falls back to default 'simple' diff
+             * const { strictEqual } = myAssert;
+             * strictEqual({ a: 1 }, { b: { c: 1 } });
+             * ```
+             *
+             * When destructured, methods lose access to the instance's `this` context and revert to default assertion behavior
+             * (diff: 'simple', non-strict mode).
+             * To maintain custom options when using destructured methods, avoid
+             * destructuring and call methods directly on the instance.
+             * @since v22.19.0
+             */
+            new(
+                options?: AssertOptions & { strict?: true },
+            ): AssertStrict;
+            new(
+                options: AssertOptions,
+            ): Assert;
+        };
+        interface AssertionErrorOptions {
+            /**
+             * If provided, the error message is set to this value.
+             */
+            message?: string | undefined;
+            /**
+             * The `actual` property on the error instance.
+             */
+            actual?: unknown;
+            /**
+             * The `expected` property on the error instance.
+             */
+            expected?: unknown;
+            /**
+             * The `operator` property on the error instance.
+             */
+            operator?: string | undefined;
+            /**
+             * If provided, the generated stack trace omits frames before this function.
+             */
+            stackStartFn?: Function | undefined;
+            /**
+             * If set to `'full'`, shows the full diff in assertion errors.
+             * @default 'simple'
+             */
+            diff?: "simple" | "full" | undefined;
+        }
         /**
          * Indicates the failure of an assertion. All errors thrown by the `node:assert` module will be instances of the `AssertionError` class.
          */
         class AssertionError extends Error {
+            constructor(options: AssertionErrorOptions);
             /**
              * Set to the `actual` argument for methods such as {@link assert.strictEqual()}.
              */
@@ -44,10 +135,6 @@ declare module "assert" {
              */
             expected: unknown;
             /**
-             * Set to the passed in operator value.
-             */
-            operator: string;
-            /**
              * Indicates if the message was auto-generated (`true`) or not.
              */
             generatedMessage: boolean;
@@ -55,19 +142,10 @@ declare module "assert" {
              * Value is always `ERR_ASSERTION` to show that the error is an assertion error.
              */
             code: "ERR_ASSERTION";
-            constructor(options?: {
-                /** If provided, the error message is set to this value. */
-                message?: string | undefined;
-                /** The `actual` property on the error instance. */
-                actual?: unknown | undefined;
-                /** The `expected` property on the error instance. */
-                expected?: unknown | undefined;
-                /** The `operator` property on the error instance. */
-                operator?: string | undefined;
-                /** If provided, the generated stack trace omits frames before this function. */
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-                stackStartFn?: Function | undefined;
-            });
+            /**
+             * Set to the passed in operator value.
+             */
+            operator: string;
         }
         /**
          * This feature is deprecated and will be removed in a future version.

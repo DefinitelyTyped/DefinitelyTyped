@@ -7,24 +7,20 @@ import strict = require("node:assert/strict");
 }
 
 {
-    const { message } = new assert.AssertionError({
+    const assertionError = new assert.AssertionError({
         actual: 1,
         expected: 2,
         operator: "strictEqual",
+        diff: "full",
     });
 
-    try {
-        assert.strictEqual(1, 2);
-    } catch (err) {
-        assert(err instanceof assert.AssertionError);
-        assert.strictEqual(err.message, message);
-        assert.strictEqual(err.name, "AssertionError");
-        assert.strictEqual(err.actual, 1);
-        assert.strictEqual(err.expected, 2);
-        assert.strictEqual(err.code, "ERR_ASSERTION");
-        assert.strictEqual(err.operator, "strictEqual");
-        assert.strictEqual(err.generatedMessage, true);
-    }
+    // Assertion errors are native errors
+    const nativeError: Error = assertionError;
+
+    assertionError.message; // $ExpectType string
+    assertionError.code; // $ExpectType "ERR_ASSERTION"
+    assertionError.operator; // $ExpectType string
+    assertionError.generatedMessage; // $ExpectType boolean
 }
 
 {
@@ -171,4 +167,38 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     let g!: unknown;
     strict.deepEqual(g, { n: 2 as const });
     g; // $ExpectType { n: 2; }
+}
+
+{
+    let n!: number;
+    let _1: 1;
+
+    const legacyCustomAssert: assert.Assert = new assert.Assert({
+        strict: false,
+    });
+    legacyCustomAssert.equal(n, 1);
+    // @ts-expect-error non-strict assert.equal is not an assert predicate
+    _1 = n;
+
+    // The type annotation is mandatory here to avoid TS2775
+    const strictCustomAssert: assert.AssertStrict = new assert.Assert({
+        diff: "full",
+    });
+    strictCustomAssert.equal(n, 1);
+    _1 = n;
+
+    // @ts-expect-error legacy Assert instances should not be assignable to AssertStrict
+    const invalidAssignment: assert.AssertStrict = new assert.Assert({
+        strict: false,
+    });
+
+    // Verify that all assertion methods are present on the Assert interfaces
+    const legacyKeys: keyof assert.Assert = {} as Exclude<
+        keyof typeof assert,
+        "Assert" | "AssertionError" | "CallTracker" | "strict"
+    >;
+    const strictKeys: keyof assert.AssertStrict = {} as Exclude<
+        keyof typeof strict,
+        "Assert" | "AssertionError" | "CallTracker" | "strict"
+    >;
 }

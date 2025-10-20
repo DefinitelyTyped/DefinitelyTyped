@@ -1004,7 +1004,7 @@ const invalidSuiteContext = new SuiteContext();
 test("check all assertion functions are re-exported", t => {
     type AssertModuleExports = keyof typeof import("assert");
     const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
-        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+        {} as Exclude<AssertModuleExports, "Assert" | "AssertionError" | "CallTracker" | "strict">;
 });
 
 test("planning with streams", (t: TestContext, done) => {
