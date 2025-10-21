@@ -57,7 +57,7 @@
 declare module "node:worker_threads" {
     import { EventEmitter, NodeEventTarget } from "node:events";
     import { FileHandle } from "node:fs/promises";
-    import { EventLoopUtilityFunction } from "node:perf_hooks";
+    import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
@@ -91,9 +91,7 @@ declare module "node:worker_threads" {
         readonly port1: MessagePort;
         readonly port2: MessagePort;
     }
-    interface WorkerPerformance {
-        eventLoopUtilization: EventLoopUtilityFunction;
-    }
+    interface WorkerPerformance extends Pick<Performance, "eventLoopUtilization"> {}
     type Transferable =
         | ArrayBuffer
         | MessagePort
