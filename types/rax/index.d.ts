@@ -2556,7 +2556,7 @@ declare namespace Rax {
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
     interface StyleMedia {
-        type:string;
+        type: string;
         matchMedium(mediaquery: string): boolean;
     }
 
