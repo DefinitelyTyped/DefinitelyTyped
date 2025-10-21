@@ -42,6 +42,7 @@
 /// <reference path="../globals.d.ts" />
 /// <reference path="../web-globals/abortcontroller.d.ts" />
 /// <reference path="../web-globals/blob.d.ts" />
+/// <reference path="../web-globals/console.d.ts" />
 /// <reference path="../web-globals/crypto.d.ts" />
 /// <reference path="../web-globals/domexception.d.ts" />
 /// <reference path="../web-globals/events.d.ts" />
