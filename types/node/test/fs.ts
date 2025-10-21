@@ -13,7 +13,7 @@ import {
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
-import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
+import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "node:fs";
 
 {
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);

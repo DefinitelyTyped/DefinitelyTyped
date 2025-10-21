@@ -1,4 +1,4 @@
-declare module "process" {
+declare module "node:process" {
     import { Control, MessageOptions } from "node:child_process";
     import { PathLike } from "node:fs";
     import * as tty from "node:tty";
@@ -104,8 +104,6 @@ declare module "process" {
         "node:url": typeof import("node:url");
         "util": typeof import("util");
         "node:util": typeof import("node:util");
-        "sys": typeof import("util");
-        "node:sys": typeof import("node:util");
         "util/types": typeof import("util/types");
         "node:util/types": typeof import("node:util/types");
         "v8": typeof import("v8");
@@ -2039,7 +2037,7 @@ declare module "process" {
     }
     export = process;
 }
-declare module "node:process" {
-    import process = require("process");
+declare module "process" {
+    import process = require("node:process");
     export = process;
 }
