@@ -194,6 +194,8 @@ function StringConv(): void {
     stringToUTF16(s, p, 42);
     stringToUTF32(s, p);
     stringToUTF32(s, p, 42);
+    p = stringToNewUTF8(s);
+    Module._free(p);
     p = allocateUTF8(s);
     Module._free(p);
 }
@@ -202,7 +204,8 @@ function StringConv(): void {
 function StackAlloc() {
     const stack = stackSave();
     const ptr = stackAlloc(42);
-    const strPtr = allocateUTF8OnStack("testString");
+    const strPtr = stringToUTF8OnStack("testString");
+    const legacyStrPtr = allocateUTF8OnStack("testString");
     stackRestore(stack);
 }
 
