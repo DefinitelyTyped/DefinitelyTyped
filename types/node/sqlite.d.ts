@@ -43,10 +43,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
+    import { PathLike } from "node:fs";
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
-    type SQLOutputValue = null | number | bigint | string | Uint8Array;
-    /** @deprecated Use `SQLInputValue` or `SQLOutputValue` instead. */
-    type SupportedValueType = SQLOutputValue;
+    type SQLOutputValue = null | number | bigint | string | NodeJS.NonSharedUint8Array;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -240,7 +239,7 @@ declare module "node:sqlite" {
          * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        constructor(path: PathLike, options?: DatabaseSyncOptions);
         /**
          * Registers a new aggregate function with the SQLite database. This method is a wrapper around
          * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
@@ -451,7 +450,7 @@ declare module "node:sqlite" {
          * @returns Binary changeset that can be applied to other databases.
          * @since v22.12.0
          */
-        changeset(): Uint8Array;
+        changeset(): NodeJS.NonSharedUint8Array;
         /**
          * Similar to the method above, but generates a more compact patchset. See
          * [Changesets and Patchsets](https://www.sqlite.org/sessionintro.html#changesets_and_patchsets)
@@ -461,7 +460,7 @@ declare module "node:sqlite" {
          * @returns Binary patchset that can be applied to other databases.
          * @since v22.12.0
          */
-        patchset(): Uint8Array;
+        patchset(): NodeJS.NonSharedUint8Array;
         /**
          * Closes the session. An exception is thrown if the database or the session is not open. This method is a
          * wrapper around
@@ -787,7 +786,7 @@ declare module "node:sqlite" {
      * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
      * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<number>;
+    function backup(sourceDb: DatabaseSync, path: PathLike, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */
