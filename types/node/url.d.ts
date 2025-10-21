@@ -8,7 +8,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/url.js)
  */
 declare module "url" {
-    import { Blob as NodeBlob } from "node:buffer";
+    import { Blob as NodeBlob, NonSharedBuffer } from "node:buffer";
     import { ClientRequestArgs } from "node:http";
     import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
@@ -325,7 +325,7 @@ declare module "url" {
      * @returns The fully-resolved platform-specific Node.js file path
      * as a `Buffer`.
      */
-    function fileURLToPathBuffer(url: string | URL, options?: FileUrlToPathOptions): Buffer;
+    function fileURLToPathBuffer(url: string | URL, options?: FileUrlToPathOptions): NonSharedBuffer;
     /**
      * This function ensures that `path` is resolved absolutely, and that the URL
      * control characters are correctly encoded when converting into a File URL.
