@@ -1,4 +1,4 @@
-declare module "buffer" {
+declare module "node:buffer" {
     global {
         interface BufferConstructor {
             // see ../buffer.d.ts for implementation shared with all TypeScript versions

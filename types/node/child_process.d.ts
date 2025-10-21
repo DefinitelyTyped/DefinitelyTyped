@@ -65,10 +65,10 @@
  * stalling the event loop while spawned processes complete.
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/child_process.js)
  */
-declare module "child_process" {
+declare module "node:child_process" {
     import { NonSharedBuffer } from "node:buffer";
-    import { Abortable, EventEmitter } from "node:events";
     import * as dgram from "node:dgram";
+    import { Abortable, EventEmitter } from "node:events";
     import * as net from "node:net";
     import { Readable, Stream, Writable } from "node:stream";
     import { URL } from "node:url";
@@ -1471,6 +1471,6 @@ declare module "child_process" {
         options?: ExecFileSyncOptions,
     ): string | NonSharedBuffer;
 }
-declare module "node:child_process" {
-    export * from "child_process";
+declare module "child_process" {
+    export * from "node:child_process";
 }

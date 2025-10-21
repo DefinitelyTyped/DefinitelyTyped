@@ -835,11 +835,11 @@ test("mocks a property", (t) => {
 
 // @ts-expect-error
 dot();
-// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
+// $ExpectType AsyncIterator<string, undefined, any>
 dot("" as any);
 // @ts-expect-error
 tap();
-// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
+// $ExpectType AsyncIterator<string, undefined, any>
 tap("" as any);
 // $ExpectType SpecReporter
 new spec();
@@ -847,7 +847,7 @@ new spec();
 spec();
 // @ts-expect-error
 junit();
-// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
+// $ExpectType AsyncIterator<string, undefined, any>
 junit("" as any);
 // $ExpectType LcovReporter
 new lcov();

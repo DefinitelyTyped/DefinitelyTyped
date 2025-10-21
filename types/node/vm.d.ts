@@ -36,7 +36,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/vm.js)
  */
-declare module "vm" {
+declare module "node:vm" {
     import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
@@ -1175,6 +1175,6 @@ declare module "vm" {
         const DONT_CONTEXTIFY: number;
     }
 }
-declare module "node:vm" {
-    export * from "vm";
+declare module "vm" {
+    export * from "node:vm";
 }

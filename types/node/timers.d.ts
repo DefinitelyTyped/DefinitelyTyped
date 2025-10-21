@@ -8,7 +8,7 @@
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/timers.js)
  */
-declare module "timers" {
+declare module "node:timers" {
     import { Abortable } from "node:events";
     import * as promises from "node:timers/promises";
     export interface TimerOptions extends Abortable {
@@ -280,6 +280,6 @@ declare module "timers" {
     import setTimeout = globalThis.setTimeout;
     export { clearImmediate, clearInterval, clearTimeout, promises, setImmediate, setInterval, setTimeout };
 }
-declare module "node:timers" {
-    export * from "timers";
+declare module "timers" {
+    export * from "node:timers";
 }

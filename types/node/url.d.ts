@@ -7,8 +7,8 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/url.js)
  */
-declare module "url" {
-    import { Blob as NodeBlob, NonSharedBuffer } from "node:buffer";
+declare module "node:url" {
+    import { Blob, NonSharedBuffer } from "node:buffer";
     import { ClientRequestArgs } from "node:http";
     import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
@@ -456,7 +456,7 @@ declare module "url" {
          * to other workers or the main thread.
          * @since v16.7.0
          */
-        static createObjectURL(blob: NodeBlob): string;
+        static createObjectURL(blob: Blob): string;
         /**
          * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
          * ID that isn't registered will silently fail.
@@ -1052,6 +1052,6 @@ declare module "url" {
             : typeof _URLPattern;
     }
 }
-declare module "node:url" {
-    export * from "url";
+declare module "url" {
+    export * from "node:url";
 }

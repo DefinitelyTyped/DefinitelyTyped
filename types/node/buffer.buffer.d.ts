@@ -1,4 +1,4 @@
-declare module "buffer" {
+declare module "node:buffer" {
     type ImplicitArrayBuffer<T extends WithImplicitCoercion<ArrayBufferLike>> = T extends
         { valueOf(): infer V extends ArrayBufferLike } ? V : T;
     global {

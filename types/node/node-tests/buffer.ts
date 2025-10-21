@@ -15,7 +15,7 @@ import {
     TranscodeEncoding,
 } from "node:buffer";
 import { Readable, Writable } from "node:stream";
-import { ReadableStream } from "stream/web";
+import { ReadableStream } from "node:stream/web";
 
 const utf8Buffer = new Buffer("test");
 const base64Buffer = new Buffer("", "base64");

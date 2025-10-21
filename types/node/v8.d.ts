@@ -6,7 +6,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/v8.js)
  */
-declare module "v8" {
+declare module "node:v8" {
     import { NonSharedBuffer } from "node:buffer";
     import { Readable } from "node:stream";
     interface HeapSpaceInfo {
@@ -974,6 +974,6 @@ declare module "v8" {
         function isBuildingSnapshot(): boolean;
     }
 }
-declare module "node:v8" {
-    export * from "v8";
+declare module "v8" {
+    export * from "node:v8";
 }

@@ -56,10 +56,6 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/console.js)
  */
-declare module "console" {
-    import console = require("node:console");
-    export = console;
-}
 declare module "node:console" {
     import { InspectOptions } from "node:util";
     global {
@@ -450,4 +446,8 @@ declare module "node:console" {
         var console: Console;
     }
     export = globalThis.console;
+}
+declare module "console" {
+    import console = require("node:console");
+    export = console;
 }

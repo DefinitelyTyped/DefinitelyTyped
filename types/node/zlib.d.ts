@@ -91,7 +91,7 @@
  * @since v0.5.8
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/zlib.js)
  */
-declare module "zlib" {
+declare module "node:zlib" {
     import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     interface ZlibOptions {
@@ -676,6 +676,6 @@ declare module "zlib" {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
-declare module "node:zlib" {
-    export * from "zlib";
+declare module "zlib" {
+    export * from "node:zlib";
 }

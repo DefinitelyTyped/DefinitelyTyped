@@ -1,4 +1,4 @@
-declare module "stream/promises" {
+declare module "node:stream/promises" {
     import {
         FinishedOptions as _FinishedOptions,
         PipelineDestination,
@@ -85,6 +85,6 @@ declare module "stream/promises" {
         ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>
     ): Promise<void>;
 }
-declare module "node:stream/promises" {
-    export * from "stream/promises";
+declare module "stream/promises" {
+    export * from "node:stream/promises";
 }
