@@ -1,10 +1,10 @@
-import * as console2 from "node:console";
+import * as console from "node:console";
 import { createWriteStream } from "node:fs";
 
 {
     {
-        let _c: Console = console;
-        _c = console2;
+        let _c: Console = globalThis.console;
+        _c = console;
     }
     {
         const writeStream = createWriteStream("./index.d.ts");
@@ -12,15 +12,14 @@ import { createWriteStream } from "node:fs";
 
         consoleInstance = new console.Console(writeStream, writeStream);
         consoleInstance = new console.Console(writeStream, writeStream, true);
-        const opts: console2.ConsoleConstructorOptions = {
+        consoleInstance = new console.Console({
             stdout: writeStream,
             stderr: writeStream,
             colorMode: "auto",
             ignoreErrors: true,
             groupIndentation: 2,
             inspectOptions: { depth: 1 },
-        };
-        consoleInstance = new console.Console(opts);
+        });
         consoleInstance = new console.Console({
             stdout: writeStream,
             colorMode: false,
@@ -60,7 +59,7 @@ import { createWriteStream } from "node:fs";
         console.log("message", "foo", "bar");
         console.table({ foo: "bar" });
         console.table([{ foo: "bar" }]);
-        console.table([{ foo: "bar" }], ["foo"] as readonly string[]);
+        console.table([{ foo: "bar" }], ["foo"]);
         console.time();
         console.time("label");
         console.timeEnd();
