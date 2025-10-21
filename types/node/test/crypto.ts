@@ -1779,10 +1779,13 @@ import { promisify } from "node:util";
     crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
     crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array || Int16Array<ArrayBuffer>
-    crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array || Float32Array<ArrayBuffer>
     crypto.getRandomValues(new BigUint64Array(8)); // $ExpectType BigUint64Array || BigUint64Array<ArrayBuffer>
-    crypto.getRandomValues(new DataView(new ArrayBuffer(8))); // $ExpectType DataView || DataView<ArrayBuffer>
-    crypto.getRandomValues(new ArrayBuffer(8)); // $ExpectType ArrayBuffer
+    // @ts-expect-error
+    crypto.getRandomValues(new Float32Array(8));
+    // @ts-expect-error
+    crypto.getRandomValues(new DataView(new ArrayBuffer(8)));
+    // @ts-expect-error
+    crypto.getRandomValues(new ArrayBuffer(8));
 }
 
 {
