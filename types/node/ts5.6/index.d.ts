@@ -52,6 +52,7 @@
 /// <reference path="../web-globals/performance.d.ts" />
 /// <reference path="../web-globals/storage.d.ts" />
 /// <reference path="../web-globals/streams.d.ts" />
+/// <reference path="../web-globals/timers.d.ts" />
 /// <reference path="../assert.d.ts" />
 /// <reference path="../assert/strict.d.ts" />
 /// <reference path="../async_hooks.d.ts" />
