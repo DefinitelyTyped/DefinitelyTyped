@@ -1,3 +1,5 @@
-export { Events } from "./bull.events";
-export { Factory } from "./bull.factory";
-export { View } from "./bull.view";
+import Events from "./bull.events";
+import Factory from "./bull.factory";
+import View from "./bull.view";
+
+export { Events, Factory, View };

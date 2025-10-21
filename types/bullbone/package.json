@@ -15,8 +15,16 @@
     },
     "owners": [
         {
-            "name": "toneSingleton",
-            "githubUsername": "tonesingleton"
+            "name": "leonbahley",
+            "githubUsername": "leonbahley"
+        },
+        {
+            "name": "TarasOP",
+            "githubUsername": "TarasOP"
+        },
+        {
+            "name": "malikalimoekhamedov",
+            "githubUsername": "malikalimoekhamedov"
         }
     ]
 }

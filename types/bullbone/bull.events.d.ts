@@ -38,4 +38,4 @@ declare class Events {
     trigger(name: string, ...parameters: Array<any>): this;
 }
 
-export { Events };
+export default Events;

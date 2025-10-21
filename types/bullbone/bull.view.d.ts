@@ -375,4 +375,5 @@ declare class View {
     trigger(name: string, ...parameters: Array<any>): any;
 }
 
-export { type BullViewOptions, View };
+export { type BullViewOptions };
+export default View;

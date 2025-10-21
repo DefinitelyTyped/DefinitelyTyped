@@ -35,4 +35,4 @@ declare class Factory {
     prepare(view: View, callback?: (view: View) => void): void;
 }
 
-export { Factory };
+export default Factory;
