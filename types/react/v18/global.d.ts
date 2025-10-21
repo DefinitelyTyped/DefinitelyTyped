@@ -27,7 +27,6 @@ interface EventTarget {}
 interface Document {}
 interface DataTransfer {}
 
-
 interface Element {}
 interface DocumentFragment {}
 
