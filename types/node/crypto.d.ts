@@ -4557,7 +4557,12 @@ declare module "node:crypto" {
      * @since v17.4.0
      * @return Returns `typedArray`.
      */
-    function getRandomValues<T extends webcrypto.BufferSource>(typedArray: T): T;
+    function getRandomValues<
+        T extends Exclude<
+            NodeJS.NonSharedTypedArray,
+            NodeJS.NonSharedFloat16Array | NodeJS.NonSharedFloat32Array | NodeJS.NonSharedFloat64Array
+        >,
+    >(typedArray: T): T;
     type Argon2Algorithm = "argon2d" | "argon2i" | "argon2id";
     interface Argon2Parameters {
         /**
@@ -4695,47 +4700,39 @@ declare module "node:crypto" {
      */
     const webcrypto: webcrypto.Crypto;
     namespace webcrypto {
-        type BufferSource = ArrayBufferView | ArrayBuffer;
+        type AlgorithmIdentifier = Algorithm | string;
+        type BigInteger = NodeJS.NonSharedUint8Array;
         type KeyFormat = "jwk" | "pkcs8" | "raw" | "raw-public" | "raw-secret" | "raw-seed" | "spki";
         type KeyType = "private" | "public" | "secret";
         type KeyUsage =
-            | "encrypt"
-            | "decrypt"
-            | "sign"
-            | "verify"
-            | "deriveKey"
-            | "deriveBits"
-            | "encapsulateBits"
             | "decapsulateBits"
-            | "encapsulateKey"
             | "decapsulateKey"
-            | "wrapKey"
-            | "unwrapKey";
-        type AlgorithmIdentifier = Algorithm | string;
+            | "decrypt"
+            | "deriveBits"
+            | "deriveKey"
+            | "encapsulateBits"
+            | "encapsulateKey"
+            | "encrypt"
+            | "sign"
+            | "unwrapKey"
+            | "verify"
+            | "wrapKey";
         type HashAlgorithmIdentifier = AlgorithmIdentifier;
         type NamedCurve = string;
-        type BigInteger = Uint8Array;
         interface AeadParams extends Algorithm {
-            additionalData?: BufferSource;
-            iv: BufferSource;
+            additionalData?: NodeJS.BufferSource;
+            iv: NodeJS.BufferSource;
             tagLength: number;
         }
         interface AesCbcParams extends Algorithm {
-            iv: BufferSource;
+            iv: NodeJS.BufferSource;
         }
         interface AesCtrParams extends Algorithm {
-            counter: BufferSource;
+            counter: NodeJS.BufferSource;
             length: number;
         }
         interface AesDerivedKeyParams extends Algorithm {
             length: number;
-        }
-        // TODO: remove in next major
-        /** @deprecated Replaced by `AeadParams`. */
-        interface AesGcmParams extends Algorithm {
-            additionalData?: BufferSource;
-            iv: BufferSource;
-            tagLength?: number;
         }
         interface AesKeyAlgorithm extends KeyAlgorithm {
             length: number;
@@ -4747,21 +4744,21 @@ declare module "node:crypto" {
             name: string;
         }
         interface Argon2Params extends Algorithm {
-            associatedData?: BufferSource;
+            associatedData?: NodeJS.BufferSource;
             memory: number;
-            nonce: BufferSource;
+            nonce: NodeJS.BufferSource;
             parallelism: number;
             passes: number;
-            secretValue?: BufferSource;
+            secretValue?: NodeJS.BufferSource;
             version?: number;
         }
         interface CShakeParams extends Algorithm {
-            customization?: BufferSource;
-            functionName?: BufferSource;
+            customization?: NodeJS.BufferSource;
+            functionName?: NodeJS.BufferSource;
             length: number;
         }
         interface ContextParams extends Algorithm {
-            context?: BufferSource;
+            context?: NodeJS.BufferSource;
         }
         interface EcKeyAlgorithm extends KeyAlgorithm {
             namedCurve: NamedCurve;
@@ -4780,8 +4777,8 @@ declare module "node:crypto" {
         }
         interface HkdfParams extends Algorithm {
             hash: HashAlgorithmIdentifier;
-            info: BufferSource;
-            salt: BufferSource;
+            info: NodeJS.BufferSource;
+            salt: NodeJS.BufferSource;
         }
         interface HmacImportParams extends Algorithm {
             hash: HashAlgorithmIdentifier;
@@ -4828,13 +4825,13 @@ declare module "node:crypto" {
             length?: number;
         }
         interface KmacParams extends Algorithm {
-            customization?: BufferSource;
+            customization?: NodeJS.BufferSource;
             length: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
             iterations: number;
-            salt: BufferSource;
+            salt: NodeJS.BufferSource;
         }
         interface RsaHashedImportParams extends Algorithm {
             hash: HashAlgorithmIdentifier;
@@ -4854,7 +4851,7 @@ declare module "node:crypto" {
             publicExponent: BigInteger;
         }
         interface RsaOaepParams extends Algorithm {
-            label?: BufferSource;
+            label?: NodeJS.BufferSource;
         }
         interface RsaOtherPrimesInfo {
             d?: string;
@@ -4864,87 +4861,26 @@ declare module "node:crypto" {
         interface RsaPssParams extends Algorithm {
             saltLength: number;
         }
-        /**
-         * Importing the `webcrypto` object (`import { webcrypto } from 'node:crypto'`) gives an instance of the `Crypto` class.
-         * `Crypto` is a singleton that provides access to the remainder of the crypto API.
-         * @since v15.0.0
-         */
         interface Crypto {
-            /**
-             * Provides access to the `SubtleCrypto` API.
-             * @since v15.0.0
-             */
             readonly subtle: SubtleCrypto;
-            /**
-             * Generates cryptographically strong random values.
-             * The given `typedArray` is filled with random values, and a reference to `typedArray` is returned.
-             *
-             * The given `typedArray` must be an integer-based instance of {@link NodeJS.TypedArray}, i.e. `Float32Array` and `Float64Array` are not accepted.
-             *
-             * An error will be thrown if the given `typedArray` is larger than 65,536 bytes.
-             * @since v15.0.0
-             */
-            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float16Array | Float32Array | Float64Array>>(
+            getRandomValues<
+                T extends Exclude<
+                    NodeJS.NonSharedTypedArray,
+                    NodeJS.NonSharedFloat16Array | NodeJS.NonSharedFloat32Array | NodeJS.NonSharedFloat64Array
+                >,
+            >(
                 typedArray: T,
             ): T;
-            /**
-             * Generates a random {@link https://www.rfc-editor.org/rfc/rfc4122.txt RFC 4122} version 4 UUID.
-             * The UUID is generated using a cryptographic pseudorandom number generator.
-             * @since v16.7.0
-             */
             randomUUID(): UUID;
         }
-        /**
-         * @since v15.0.0
-         */
         interface CryptoKey {
-            /**
-             * An object detailing the algorithm for which the key can be used along with additional algorithm-specific parameters.
-             * @since v15.0.0
-             */
             readonly algorithm: KeyAlgorithm;
-            /**
-             * When `true`, the {@link CryptoKey} can be extracted using either `subtleCrypto.exportKey()` or `subtleCrypto.wrapKey()`.
-             * @since v15.0.0
-             */
             readonly extractable: boolean;
-            /**
-             * A string identifying whether the key is a symmetric (`'secret'`) or asymmetric (`'private'` or `'public'`) key.
-             * @since v15.0.0
-             */
             readonly type: KeyType;
-            /**
-             * An array of strings identifying the operations for which the key may be used.
-             *
-             * The possible usages are:
-             * - `'encrypt'` - The key may be used to encrypt data.
-             * - `'decrypt'` - The key may be used to decrypt data.
-             * - `'sign'` - The key may be used to generate digital signatures.
-             * - `'verify'` - The key may be used to verify digital signatures.
-             * - `'deriveKey'` - The key may be used to derive a new key.
-             * - `'deriveBits'` - The key may be used to derive bits.
-             * - `'wrapKey'` - The key may be used to wrap another key.
-             * - `'unwrapKey'` - The key may be used to unwrap another key.
-             *
-             * Valid key usages depend on the key algorithm (identified by `cryptokey.algorithm.name`).
-             * @since v15.0.0
-             */
             readonly usages: KeyUsage[];
         }
-        /**
-         * The `CryptoKeyPair` is a simple dictionary object with `publicKey` and `privateKey` properties, representing an asymmetric key pair.
-         * @since v15.0.0
-         */
         interface CryptoKeyPair {
-            /**
-             * A {@link CryptoKey} whose type will be `'private'`.
-             * @since v15.0.0
-             */
             privateKey: CryptoKey;
-            /**
-             * A {@link CryptoKey} whose type will be `'public'`.
-             * @since v15.0.0
-             */
             publicKey: CryptoKey;
         }
         interface EncapsulatedBits {
@@ -4955,293 +4891,73 @@ declare module "node:crypto" {
             sharedKey: CryptoKey;
             ciphertext: ArrayBuffer;
         }
-        /**
-         * @since v15.0.0
-         */
         interface SubtleCrypto {
-            /**
-             * A message recipient uses their asymmetric private key to decrypt an
-             * "encapsulated key" (ciphertext), thereby recovering a temporary symmetric
-             * key (represented as `ArrayBuffer`) which is then used to decrypt a message.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * @since v24.7.0
-             * @returns Fulfills with `ArrayBuffer` upon success.
-             */
             decapsulateBits(
                 decapsulationAlgorithm: AlgorithmIdentifier,
                 decapsulationKey: CryptoKey,
-                ciphertext: BufferSource,
+                ciphertext: NodeJS.BufferSource,
             ): Promise<ArrayBuffer>;
-            /**
-             * A message recipient uses their asymmetric private key to decrypt an
-             * "encapsulated key" (ciphertext), thereby recovering a temporary symmetric
-             * key (represented as `CryptoKey`) which is then used to decrypt a message.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * @since v24.7.0
-             * @param usages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
-             * @returns Fulfills with `CryptoKey` upon success.
-             */
             decapsulateKey(
                 decapsulationAlgorithm: AlgorithmIdentifier,
                 decapsulationKey: CryptoKey,
-                ciphertext: BufferSource,
+                ciphertext: NodeJS.BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
                 usages: KeyUsage[],
             ): Promise<CryptoKey>;
-            /**
-             * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
-             * this method attempts to decipher the provided `data`. If successful,
-             * the returned promise will be resolved with an `<ArrayBuffer>` containing the plaintext result.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'RSA-OAEP'`
-             * @since v15.0.0
-             */
             decrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
-                data: BufferSource,
+                data: NodeJS.BufferSource,
             ): Promise<ArrayBuffer>;
-            /**
-             * Using the method and parameters specified in `algorithm` and the keying material provided by `baseKey`,
-             * this method attempts to generate `length` bits.
-             * The Node.js implementation requires that when `length` is a number it must be multiple of `8`.
-             * When `length` is `null` the maximum number of bits for a given algorithm is generated. This is allowed
-             * for the `'ECDH'`, `'X25519'`, and `'X448'` algorithms.
-             * If successful, the returned promise will be resolved with an `<ArrayBuffer>` containing the generated data.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'Argon2d'`
-             * * `'Argon2i'`
-             * * `'Argon2id'`
-             * * `'ECDH'`
-             * * `'HKDF'`
-             * * `'PBKDF2'`
-             * * `'X25519'`
-             * * `'X448'`
-             * @since v15.0.0
-             */
             deriveBits(
-                algorithm: EcdhKeyDeriveParams,
+                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
                 baseKey: CryptoKey,
                 length?: number | null,
             ): Promise<ArrayBuffer>;
-            deriveBits(
-                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
-                baseKey: CryptoKey,
-                length: number,
-            ): Promise<ArrayBuffer>;
-            /**
-             * Using the method and parameters specified in `algorithm`, and the keying material provided by `baseKey`,
-             * this method attempts to generate a new <CryptoKey>` based on the method and parameters in `derivedKeyAlgorithm`.
-             *
-             * Calling `subtle.deriveKey()` is equivalent to calling `subtle.deriveBits()` to generate raw keying material,
-             * then passing the result into the `subtle.importKey()` method using the `deriveKeyAlgorithm`, `extractable`, and `keyUsages` parameters as input.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'Argon2d'`
-             * * `'Argon2i'`
-             * * `'Argon2id'`
-             * * `'ECDH'`
-             * * `'HKDF'`
-             * * `'PBKDF2'`
-             * * `'X25519'`
-             * * `'X448'`
-             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
-             * @since v15.0.0
-             */
             deriveKey(
-                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
+                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
+                derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | KmacImportParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            /**
-             * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
-             * If successful, the returned promise is resolved with an `<ArrayBuffer>` containing the computed digest.
-             *
-             * If `algorithm` is provided as a `<string>`, it must be one of:
-             *
-             * * `'cSHAKE128'`
-             * * `'cSHAKE256'`
-             * * `'SHA-1'`
-             * * `'SHA-256'`
-             * * `'SHA-384'`
-             * * `'SHA-512'`
-             * * `'SHA3-256'`
-             * * `'SHA3-384'`
-             * * `'SHA3-512'`
-             *
-             * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
-             * @since v15.0.0
-             */
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: BufferSource): Promise<ArrayBuffer>;
-            /**
-             * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
-             * This encrypted key is the "encapsulated key" represented as `EncapsulatedBits`.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * @since v24.7.0
-             * @returns Fulfills with `EncapsulatedBits` upon success.
-             */
+            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
             ): Promise<EncapsulatedBits>;
-            /**
-             * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
-             * This encrypted key is the "encapsulated key" represented as `EncapsulatedKey`.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * @since v24.7.0
-             * @param usages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
-             * @returns Fulfills with `EncapsulatedKey` upon success.
-             */
             encapsulateKey(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
-                sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
+                sharedKeyAlgorithm: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | KmacImportParams,
                 extractable: boolean,
                 usages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
-            /**
-             * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
-             * this method attempts to encipher `data`. If successful,
-             * the returned promise is resolved with an `<ArrayBuffer>` containing the encrypted result.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'RSA-OAEP'`
-             * @since v15.0.0
-             */
             encrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
-                data: BufferSource,
+                data: NodeJS.BufferSource,
             ): Promise<ArrayBuffer>;
-            /**
-             * Exports the given key into the specified format, if supported.
-             *
-             * If the `<CryptoKey>` is not extractable, the returned promise will reject.
-             *
-             * When `format` is either `'pkcs8'` or `'spki'` and the export is successful,
-             * the returned promise will be resolved with an `<ArrayBuffer>` containing the exported key data.
-             *
-             * When `format` is `'jwk'` and the export is successful, the returned promise will be resolved with a
-             * JavaScript object conforming to the {@link https://tools.ietf.org/html/rfc7517 JSON Web Key} specification.
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
-             * `'raw-public'`, or `'raw-seed'`.
-             * @returns `<Promise>` containing `<ArrayBuffer>`.
-             * @since v15.0.0
-             */
             exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
             exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
-            /**
-             * Using the parameters provided in `algorithm`, this method
-             * attempts to generate new keying material. Depending on the algorithm used
-             * either a single `CryptoKey` or a `CryptoKeyPair` is generated.
-             *
-             * The `CryptoKeyPair` (public and private key) generating algorithms supported
-             * include:
-             *
-             * * `'ECDH'`
-             * * `'ECDSA'`
-             * * `'Ed25519'`
-             * * `'Ed448'`
-             * * `'ML-DSA-44'`
-             * * `'ML-DSA-65'`
-             * * `'ML-DSA-87'`
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * * `'RSA-OAEP'`
-             * * `'RSA-PSS'`
-             * * `'RSASSA-PKCS1-v1_5'`
-             * * `'X25519'`
-             * * `'X448'`
-             *
-             * The `CryptoKey` (secret key) generating algorithms supported include:
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-KW'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'HMAC'`
-             * * `'KMAC128'`
-             * * `'KMAC256'`
-             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
-             * @since v15.0.0
-             */
+            exportKey(format: KeyFormat, key: CryptoKey): Promise<ArrayBuffer | JsonWebKey>;
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: readonly KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params | KmacKeyGenParams,
                 extractable: boolean,
-                keyUsages: readonly KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKeyPair | CryptoKey>;
-            /**
-             * Derives the public key from a given private key.
-             * @since v24.7.0
-             * @param key A private key from which to derive the corresponding public key.
-             * @param keyUsages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
-             * @returns Fulfills with a `CryptoKey` upon success.
-             */
             getPublicKey(key: CryptoKey, keyUsages: KeyUsage[]): Promise<CryptoKey>;
-            /**
-             * This method attempts to interpret the provided `keyData`
-             * as the given `format` to create a `CryptoKey` instance using the provided
-             * `algorithm`, `extractable`, and `keyUsages` arguments. If the import is
-             * successful, the returned promise will be resolved with a {CryptoKey}
-             * representation of the key material.
-             *
-             * If importing KDF algorithm keys, `extractable` must be `false`.
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
-             * `'raw-public'`, or `'raw-seed'`.
-             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
-             * @since v15.0.0
-             */
             importKey(
                 format: "jwk",
                 keyData: JsonWebKey,
@@ -5253,11 +4969,11 @@ declare module "node:crypto" {
                     | AesKeyAlgorithm
                     | KmacImportParams,
                 extractable: boolean,
-                keyUsages: readonly KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,
-                keyData: BufferSource,
+                keyData: NodeJS.BufferSource,
                 algorithm:
                     | AlgorithmIdentifier
                     | RsaHashedImportParams
@@ -5268,82 +4984,14 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
-            /**
-             * Using the method and parameters given by `algorithm` and the keying material provided by `key`,
-             * this method attempts to generate a cryptographic signature of `data`. If successful,
-             * the returned promise is resolved with an `<ArrayBuffer>` containing the generated signature.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ECDSA'`
-             * * `'Ed25519'`
-             * * `'Ed448'`
-             * * `'HMAC'`
-             * * `'KMAC128'`
-             * * `'KMAC256'`
-             * * `'ML-DSA-44'`
-             * * `'ML-DSA-65'`
-             * * `'ML-DSA-87'`
-             * * `'RSA-PSS'`
-             * * `'RSASSA-PKCS1-v1_5'`
-             * @since v15.0.0
-             */
             sign(
                 algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
-                data: BufferSource,
+                data: NodeJS.BufferSource,
             ): Promise<ArrayBuffer>;
-            /**
-             * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
-             * This method attempts to decrypt a wrapped key and create a `<CryptoKey>` instance.
-             * It is equivalent to calling `subtle.decrypt()` first on the encrypted key data (using the `wrappedKey`, `unwrapAlgo`, and `unwrappingKey` arguments as input)
-             * then passing the results in to the `subtle.importKey()` method using the `unwrappedKeyAlgo`, `extractable`, and `keyUsages` arguments as inputs.
-             * If successful, the returned promise is resolved with a `<CryptoKey>` object.
-             *
-             * The wrapping algorithms currently supported include:
-             *
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-KW'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'RSA-OAEP'`
-             *
-             * The unwrapped key algorithms supported include:
-             *
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-KW'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'ECDH'`
-             * * `'ECDSA'`
-             * * `'Ed25519'`
-             * * `'Ed448'`
-             * * `'HMAC'`
-             * * `'KMAC128'`
-             * * `'KMAC256'`
-             * * `'ML-DSA-44'`
-             * * `'ML-DSA-65'`
-             * * `'ML-DSA-87'`
-             * * `'ML-KEM-512'`
-             * * `'ML-KEM-768'`
-             * * `'ML-KEM-1024'`
-             * * `'RSA-OAEP'`
-             * * `'RSA-PSS'`
-             * * `'RSASSA-PKCS1-v1_5'`
-             * * `'X25519'`
-             * * `'X448'`
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
-             * `'raw-public'`, or `'raw-seed'`.
-             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
-             * @since v15.0.0
-             */
             unwrapKey(
                 format: KeyFormat,
-                wrappedKey: BufferSource,
+                wrappedKey: NodeJS.BufferSource,
                 unwrappingKey: CryptoKey,
                 unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 unwrappedKeyAlgorithm:
@@ -5356,53 +5004,12 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
-            /**
-             * Using the method and parameters given in `algorithm` and the keying material provided by `key`,
-             * This method attempts to verify that `signature` is a valid cryptographic signature of `data`.
-             * The returned promise is resolved with either `true` or `false`.
-             *
-             * The algorithms currently supported include:
-             *
-             * * `'ECDSA'`
-             * * `'Ed25519'`
-             * * `'Ed448'`
-             * * `'HMAC'`
-             * * `'KMAC128'`
-             * * `'KMAC256'`
-             * * `'ML-DSA-44'`
-             * * `'ML-DSA-65'`
-             * * `'ML-DSA-87'`
-             * * `'RSA-PSS'`
-             * * `'RSASSA-PKCS1-v1_5'`
-             * @since v15.0.0
-             */
             verify(
                 algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
-                signature: BufferSource,
-                data: BufferSource,
+                signature: NodeJS.BufferSource,
+                data: NodeJS.BufferSource,
             ): Promise<boolean>;
-            /**
-             * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
-             * This method exports the keying material into the format identified by `format`,
-             * then encrypts it using the method and parameters specified by `wrapAlgo` and the keying material provided by `wrappingKey`.
-             * It is the equivalent to calling `subtle.exportKey()` using `format` and `key` as the arguments,
-             * then passing the result to the `subtle.encrypt()` method using `wrappingKey` and `wrapAlgo` as inputs.
-             * If successful, the returned promise will be resolved with an `<ArrayBuffer>` containing the encrypted key data.
-             *
-             * The wrapping algorithms currently supported include:
-             *
-             * * `'AES-CBC'`
-             * * `'AES-CTR'`
-             * * `'AES-GCM'`
-             * * `'AES-KW'`
-             * * `'AES-OCB'`
-             * * `'ChaCha20-Poly1305'`
-             * * `'RSA-OAEP'`
-             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, `'jwk'`, `'raw-secret'`,
-             * `'raw-public'`, or `'raw-seed'`.
-             * @since v15.0.0
-             */
             wrapKey(
                 format: KeyFormat,
                 key: CryptoKey,
