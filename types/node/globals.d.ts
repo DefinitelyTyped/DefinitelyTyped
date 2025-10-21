@@ -1,7 +1,6 @@
 declare var global: typeof globalThis;
 
 declare var process: NodeJS.Process;
-declare var console: Console;
 
 interface ErrorConstructor {
     /**
