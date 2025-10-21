@@ -1,9 +1,7 @@
 declare module "process" {
-    import { Control, MessageOptions } from "node:child_process";
+    import { Control, MessageOptions, SendHandle } from "node:child_process";
     import * as tty from "node:tty";
-    import * as net from "node:net";
     import { Worker } from "node:worker_threads";
-    type SendHandle = net.Socket | net.Server | undefined;
 
     interface BuiltInModule {
         "assert": typeof import("assert");

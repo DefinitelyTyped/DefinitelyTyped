@@ -1,7 +1,8 @@
 import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
-import { Server, Socket } from "node:net";
+import * as dgram from "node:dgram";
+import * as net from "node:net";
 import { constants } from "node:os";
 import { dlopen } from "node:process";
 import { fileURLToPath } from "node:url";
@@ -17,7 +18,7 @@ import { fileURLToPath } from "node:url";
     assert.ok(process.argv[0] === process.argv0);
 }
 {
-    process.on("message", (message: unknown, sendHandle: Server | Socket | undefined) => {});
+    process.on("message", (message: unknown, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {});
     process.addListener("beforeExit", (code: number) => {});
     process.once("disconnect", () => {});
     process.prependListener("exit", (code: number) => {});
@@ -26,7 +27,10 @@ import { fileURLToPath } from "node:url";
     process.once("uncaughtExceptionMonitor", (error: Error) => {});
     process.addListener("unhandledRejection", (reason: unknown, promise: Promise<unknown>) => {});
     process.once("warning", (warning: Error) => {});
-    process.prependListener("message", (message: any, sendHandle: Server | Socket | undefined) => {});
+    process.prependListener(
+        "message",
+        (message: any, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {},
+    );
     process.prependOnceListener("SIGBREAK", () => {});
     process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
@@ -74,12 +78,15 @@ import { fileURLToPath } from "node:url";
     }
     if (process.send) {
         let r: boolean = process.send("aMessage");
-        r = process.send({ msg: "foo" }, new Server());
-        r = process.send({ msg: "foo" }, new Socket());
-        r = process.send({ msg: "foo" }, new Server(), { keepOpen: true });
-        r = process.send({ msg: "foo" }, new Socket(), { keepOpen: true });
-        r = process.send({ msg: "foo" }, new Server(), { keepOpen: true }, (err: Error | null) => {});
-        r = process.send({ msg: "foo" }, new Socket(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new net.Server());
+        r = process.send({ msg: "foo" }, new net.Socket());
+        r = process.send({ msg: "foo" }, new dgram.Socket());
+        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
