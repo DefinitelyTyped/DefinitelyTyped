@@ -46,6 +46,7 @@
 /// <reference path="web-globals/events.d.ts" />
 /// <reference path="web-globals/fetch.d.ts" />
 /// <reference path="web-globals/navigator.d.ts" />
+/// <reference path="web-globals/performance.d.ts" />
 /// <reference path="web-globals/storage.d.ts" />
 /// <reference path="web-globals/streams.d.ts" />
 /// <reference path="assert.d.ts" />
