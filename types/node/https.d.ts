@@ -3,11 +3,11 @@
  * separate module.
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/https.js)
  */
-declare module "https" {
+declare module "node:https" {
     import { NonSharedBuffer } from "node:buffer";
+    import * as http from "node:http";
     import { Duplex } from "node:stream";
     import * as tls from "node:tls";
-    import * as http from "node:http";
     import { URL } from "node:url";
     interface ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
@@ -574,6 +574,6 @@ declare module "https" {
     ): http.ClientRequest;
     let globalAgent: Agent;
 }
-declare module "node:https" {
-    export * from "https";
+declare module "https" {
+    export * from "node:https";
 }

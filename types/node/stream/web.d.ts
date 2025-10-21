@@ -31,7 +31,7 @@ type _WritableStreamDefaultController = typeof globalThis extends { onmessage: a
 type _WritableStreamDefaultWriter<W = any> = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").WritableStreamDefaultWriter<W>;
 
-declare module "stream/web" {
+declare module "node:stream/web" {
     // stub module, pending copy&paste from .d.ts or manual impl
     // copy from lib.dom.d.ts
     interface ReadableWritablePair<R = any, W = any> {
@@ -568,6 +568,6 @@ declare module "stream/web" {
             : typeof import("stream/web").WritableStreamDefaultWriter;
     }
 }
-declare module "node:stream/web" {
-    export * from "stream/web";
+declare module "stream/web" {
+    export * from "node:stream/web";
 }

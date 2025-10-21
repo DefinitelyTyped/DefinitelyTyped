@@ -39,13 +39,13 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/http.js)
  */
-declare module "http" {
+declare module "node:http" {
     import { NonSharedBuffer } from "node:buffer";
-    import * as stream from "node:stream";
-    import { URL } from "node:url";
     import { LookupOptions } from "node:dns";
     import { EventEmitter } from "node:events";
     import { LookupFunction, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
+    import * as stream from "node:stream";
+    import { URL } from "node:url";
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -2129,6 +2129,6 @@ declare module "http" {
      */
     const MessageEvent: typeof import("undici-types").MessageEvent;
 }
-declare module "node:http" {
-    export * from "http";
+declare module "http" {
+    export * from "node:http";
 }

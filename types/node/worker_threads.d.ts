@@ -54,15 +54,15 @@
  * specifically `argv` and `execArgv` options.
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
  */
-declare module "worker_threads" {
-    import { Context } from "node:vm";
+declare module "node:worker_threads" {
     import { EventEmitter, NodeEventTarget } from "node:events";
-    import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
+    import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
     import { CPUProfileHandle, HeapInfo, HeapProfileHandle } from "node:v8";
+    import { Context } from "node:vm";
     import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
@@ -891,6 +891,6 @@ declare module "worker_threads" {
             : typeof _MessagePort;
     }
 }
-declare module "node:worker_threads" {
-    export * from "worker_threads";
+declare module "worker_threads" {
+    export * from "node:worker_threads";
 }

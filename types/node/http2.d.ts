@@ -8,9 +8,9 @@
  * @since v8.4.0
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/http2.js)
  */
-declare module "http2" {
+declare module "node:http2" {
     import { NonSharedBuffer } from "node:buffer";
-    import EventEmitter = require("node:events");
+    import { EventEmitter } from "node:events";
     import * as fs from "node:fs";
     import * as net from "node:net";
     import * as stream from "node:stream";
@@ -22,18 +22,17 @@ declare module "http2" {
         OutgoingHttpHeaders,
         ServerResponse,
     } from "node:http";
-    export { OutgoingHttpHeaders } from "node:http";
-    export interface IncomingHttpStatusHeader {
+    interface IncomingHttpStatusHeader {
         ":status"?: number | undefined;
     }
-    export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
+    interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
         ":path"?: string | undefined;
         ":method"?: string | undefined;
         ":authority"?: string | undefined;
         ":scheme"?: string | undefined;
     }
     // Http2Stream
-    export interface StreamState {
+    interface StreamState {
         localWindowSize?: number | undefined;
         state?: number | undefined;
         localClose?: number | undefined;
@@ -43,15 +42,15 @@ declare module "http2" {
         /** @deprecated */
         weight?: number | undefined;
     }
-    export interface ServerStreamResponseOptions {
+    interface ServerStreamResponseOptions {
         endStream?: boolean | undefined;
         waitForTrailers?: boolean | undefined;
     }
-    export interface StatOptions {
+    interface StatOptions {
         offset: number;
         length: number;
     }
-    export interface ServerStreamFileResponseOptions {
+    interface ServerStreamFileResponseOptions {
         statCheck?:
             | ((stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void)
             | undefined;
@@ -59,10 +58,10 @@ declare module "http2" {
         offset?: number | undefined;
         length?: number | undefined;
     }
-    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+    interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
         onError?: ((err: NodeJS.ErrnoException) => void) | undefined;
     }
-    export interface Http2Stream extends stream.Duplex {
+    interface Http2Stream extends stream.Duplex {
         /**
          * Set to `true` if the `Http2Stream` instance was aborted abnormally. When set,
          * the `'aborted'` event will have been emitted.
@@ -281,7 +280,7 @@ declare module "http2" {
         prependOnceListener(event: "wantTrailers", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export interface ClientHttp2Stream extends Http2Stream {
+    interface ClientHttp2Stream extends Http2Stream {
         addListener(event: "continue", listener: () => {}): this;
         addListener(
             event: "headers",
@@ -393,7 +392,7 @@ declare module "http2" {
         ): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export interface ServerHttp2Stream extends Http2Stream {
+    interface ServerHttp2Stream extends Http2Stream {
         /**
          * True if headers were sent, false otherwise (read-only).
          * @since v8.4.0
@@ -663,7 +662,7 @@ declare module "http2" {
         ): void;
     }
     // Http2Session
-    export interface Settings {
+    interface Settings {
         headerTableSize?: number | undefined;
         enablePush?: boolean | undefined;
         initialWindowSize?: number | undefined;
@@ -672,14 +671,14 @@ declare module "http2" {
         maxHeaderListSize?: number | undefined;
         enableConnectProtocol?: boolean | undefined;
     }
-    export interface ClientSessionRequestOptions {
+    interface ClientSessionRequestOptions {
         endStream?: boolean | undefined;
         exclusive?: boolean | undefined;
         parent?: number | undefined;
         waitForTrailers?: boolean | undefined;
         signal?: AbortSignal | undefined;
     }
-    export interface SessionState {
+    interface SessionState {
         effectiveLocalWindowSize?: number | undefined;
         effectiveRecvDataLength?: number | undefined;
         nextStreamID?: number | undefined;
@@ -690,7 +689,7 @@ declare module "http2" {
         deflateDynamicTableSize?: number | undefined;
         inflateDynamicTableSize?: number | undefined;
     }
-    export interface Http2Session extends EventEmitter {
+    interface Http2Session extends EventEmitter {
         /**
          * Value will be `undefined` if the `Http2Session` is not yet connected to a
          * socket, `h2c` if the `Http2Session` is not connected to a `TLSSocket`, or
@@ -971,7 +970,7 @@ declare module "http2" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export interface ClientHttp2Session extends Http2Session {
+    interface ClientHttp2Session extends Http2Session {
         /**
          * For HTTP/2 Client `Http2Session` instances only, the `http2session.request()` creates and returns an `Http2Stream` instance that can be used to send an
          * HTTP/2 request to the connected server.
@@ -1110,10 +1109,10 @@ declare module "http2" {
         ): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export interface AlternativeServiceOptions {
+    interface AlternativeServiceOptions {
         origin: number | string | url.URL;
     }
-    export interface ServerHttp2Session<
+    interface ServerHttp2Session<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -1314,7 +1313,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     // Http2Server
-    export interface SessionOptions {
+    interface SessionOptions {
         /**
          * Sets the maximum dynamic table size for deflating header fields.
          * @default 4Kib
@@ -1392,7 +1391,7 @@ declare module "http2" {
          */
         strictFieldWhitespaceValidation?: boolean | undefined;
     }
-    export interface ClientSessionOptions extends SessionOptions {
+    interface ClientSessionOptions extends SessionOptions {
         /**
          * Sets the maximum number of reserved push streams the client will accept at any given time.
          * Once the current number of currently reserved push streams exceeds reaches this limit,
@@ -1414,7 +1413,7 @@ declare module "http2" {
          */
         protocol?: "http:" | "https:" | undefined;
     }
-    export interface ServerSessionOptions<
+    interface ServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -1427,20 +1426,20 @@ declare module "http2" {
         Http2ServerRequest?: Http2Request | undefined;
         Http2ServerResponse?: Http2Response | undefined;
     }
-    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
-    export interface SecureServerSessionOptions<
+    interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
+    interface SecureServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response>, tls.TlsOptions {}
-    export interface ServerOptions<
+    interface ServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {}
-    export interface SecureServerOptions<
+    interface SecureServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -1457,7 +1456,7 @@ declare module "http2" {
          */
         updateSettings(settings: Settings): void;
     }
-    export interface Http2Server<
+    interface Http2Server<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -1604,7 +1603,7 @@ declare module "http2" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export interface Http2SecureServer<
+    interface Http2SecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -1732,7 +1731,7 @@ declare module "http2" {
      * data.
      * @since v8.4.0
      */
-    export class Http2ServerRequest extends stream.Readable {
+    class Http2ServerRequest extends stream.Readable {
         constructor(
             stream: ServerHttp2Stream,
             headers: IncomingHttpHeaders,
@@ -1972,7 +1971,7 @@ declare module "http2" {
      * passed as the second parameter to the `'request'` event.
      * @since v8.4.0
      */
-    export class Http2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest> extends stream.Writable {
+    class Http2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest> extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
         /**
          * See `response.socket`.
@@ -2379,7 +2378,7 @@ declare module "http2" {
         prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
-    export namespace constants {
+    namespace constants {
         const NGHTTP2_SESSION_SERVER: number;
         const NGHTTP2_SESSION_CLIENT: number;
         const NGHTTP2_STREAM_STATE_IDLE: number;
@@ -2599,13 +2598,13 @@ declare module "http2" {
      * This symbol can be set as a property on the HTTP/2 headers object with
      * an array value in order to provide a list of headers considered sensitive.
      */
-    export const sensitiveHeaders: symbol;
+    const sensitiveHeaders: symbol;
     /**
      * Returns an object containing the default settings for an `Http2Session` instance. This method returns a new object instance every time it is called
      * so instances returned may be safely modified for use.
      * @since v8.4.0
      */
-    export function getDefaultSettings(): Settings;
+    function getDefaultSettings(): Settings;
     /**
      * Returns a `Buffer` instance containing serialized representation of the given
      * HTTP/2 settings as specified in the [HTTP/2](https://tools.ietf.org/html/rfc7540) specification. This is intended
@@ -2621,14 +2620,14 @@ declare module "http2" {
      * ```
      * @since v8.4.0
      */
-    export function getPackedSettings(settings: Settings): NonSharedBuffer;
+    function getPackedSettings(settings: Settings): NonSharedBuffer;
     /**
      * Returns a `HTTP/2 Settings Object` containing the deserialized settings from
      * the given `Buffer` as generated by `http2.getPackedSettings()`.
      * @since v8.4.0
      * @param buf The packed settings.
      */
-    export function getUnpackedSettings(buf: Uint8Array): Settings;
+    function getUnpackedSettings(buf: Uint8Array): Settings;
     /**
      * Returns a `net.Server` instance that creates and manages `Http2Session` instances.
      *
@@ -2658,10 +2657,10 @@ declare module "http2" {
      * @since v8.4.0
      * @param onRequestHandler See `Compatibility API`
      */
-    export function createServer(
+    function createServer(
         onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void,
     ): Http2Server;
-    export function createServer<
+    function createServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -2698,10 +2697,10 @@ declare module "http2" {
      * @since v8.4.0
      * @param onRequestHandler See `Compatibility API`
      */
-    export function createSecureServer(
+    function createSecureServer(
         onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void,
     ): Http2SecureServer;
-    export function createSecureServer<
+    function createSecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -2726,11 +2725,11 @@ declare module "http2" {
      * is used). Userinfo (user ID and password), path, querystring, and fragment details in the URL will be ignored.
      * @param listener Will be registered as a one-time listener of the {@link 'connect'} event.
      */
-    export function connect(
+    function connect(
         authority: string | url.URL,
         listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void,
     ): ClientHttp2Session;
-    export function connect(
+    function connect(
         authority: string | url.URL,
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void,
@@ -2741,7 +2740,7 @@ declare module "http2" {
      * @param options Any `{@link createServer}` options can be provided.
      * @since v20.12.0
      */
-    export function performServerHandshake<
+    function performServerHandshake<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
@@ -2752,5 +2751,8 @@ declare module "http2" {
     ): ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>;
 }
 declare module "node:http2" {
-    export * from "http2";
+    export { OutgoingHttpHeaders } from "node:http";
+}
+declare module "http2" {
+    export * from "node:http2";
 }

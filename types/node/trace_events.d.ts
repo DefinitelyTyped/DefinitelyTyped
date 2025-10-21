@@ -92,7 +92,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/trace_events.js)
  */
-declare module "trace_events" {
+declare module "node:trace_events" {
     /**
      * The `Tracing` object is used to enable or disable tracing for sets of
      * categories. Instances are created using the
@@ -192,6 +192,6 @@ declare module "trace_events" {
      */
     function getEnabledCategories(): string | undefined;
 }
-declare module "node:trace_events" {
-    export * from "trace_events";
+declare module "trace_events" {
+    export * from "node:trace_events";
 }

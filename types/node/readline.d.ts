@@ -33,11 +33,9 @@
  * received on the `input` stream.
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/readline.js)
  */
-declare module "readline" {
+declare module "node:readline" {
     import { Abortable, EventEmitter } from "node:events";
-    import * as promises from "node:readline/promises";
-    export { promises };
-    export interface Key {
+    interface Key {
         sequence?: string | undefined;
         name?: string | undefined;
         ctrl?: boolean | undefined;
@@ -51,7 +49,7 @@ declare module "readline" {
      * and is read from, the `input` stream.
      * @since v0.1.104
      */
-    export class Interface extends EventEmitter implements Disposable {
+    class Interface extends EventEmitter implements Disposable {
         readonly terminal: boolean;
         /**
          * The current input data being processed by node.
@@ -311,14 +309,14 @@ declare module "readline" {
         prependOnceListener(event: "history", listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<string>;
     }
-    export type ReadLine = Interface; // type forwarded for backwards compatibility
-    export type Completer = (line: string) => CompleterResult;
-    export type AsyncCompleter = (
+    type ReadLine = Interface; // type forwarded for backwards compatibility
+    type Completer = (line: string) => CompleterResult;
+    type AsyncCompleter = (
         line: string,
         callback: (err?: null | Error, result?: CompleterResult) => void,
     ) => void;
-    export type CompleterResult = [string[], string];
-    export interface ReadLineOptions {
+    type CompleterResult = [string[], string];
+    interface ReadLineOptions {
         /**
          * The [`Readable`](https://nodejs.org/docs/latest-v25.x/api/stream.html#readable-streams) stream to listen to
          */
@@ -422,13 +420,13 @@ declare module "readline" {
      * waiting for user input, call `process.stdin.unref()`.
      * @since v0.1.98
      */
-    export function createInterface(
+    function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
         completer?: Completer | AsyncCompleter,
         terminal?: boolean,
     ): Interface;
-    export function createInterface(options: ReadLineOptions): Interface;
+    function createInterface(options: ReadLineOptions): Interface;
     /**
      * The `readline.emitKeypressEvents()` method causes the given `Readable` stream to begin emitting `'keypress'` events corresponding to received input.
      *
@@ -550,9 +548,9 @@ declare module "readline" {
      * ```
      * @since v0.7.7
      */
-    export function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
-    export type Direction = -1 | 0 | 1;
-    export interface CursorPos {
+    function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
+    type Direction = -1 | 0 | 1;
+    interface CursorPos {
         rows: number;
         cols: number;
     }
@@ -563,7 +561,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
+    function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
     /**
      * The `readline.clearScreenDown()` method clears the given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) stream from
      * the current position of the cursor down.
@@ -571,7 +569,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
+    function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
      * given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) `stream`.
@@ -579,7 +577,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
+    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
      * position in a given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) `stream`.
@@ -587,8 +585,11 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+    function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
 declare module "node:readline" {
-    export * from "readline";
+    export * as promises from "node:readline/promises";
+}
+declare module "readline" {
+    export * from "node:readline";
 }

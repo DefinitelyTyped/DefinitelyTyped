@@ -8,10 +8,10 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/repl.js)
  */
-declare module "repl" {
+declare module "node:repl" {
     import { AsyncCompleter, Completer, Interface } from "node:readline";
-    import { Context } from "node:vm";
     import { InspectOptions } from "node:util";
+    import { Context } from "node:vm";
     interface ReplOptions {
         /**
          * The input prompt to display.
@@ -433,6 +433,6 @@ declare module "repl" {
         constructor(err: Error);
     }
 }
-declare module "node:repl" {
-    export * from "repl";
+declare module "repl" {
+    export * from "node:repl";
 }

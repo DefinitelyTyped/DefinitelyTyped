@@ -25,11 +25,11 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/dgram.js)
  */
-declare module "dgram" {
+declare module "node:dgram" {
     import { NonSharedBuffer } from "node:buffer";
-    import { AddressInfo, BlockList } from "node:net";
     import * as dns from "node:dns";
     import { Abortable, EventEmitter } from "node:events";
+    import { AddressInfo, BlockList } from "node:net";
     interface RemoteInfo {
         address: string;
         family: "IPv4" | "IPv6";
@@ -595,6 +595,6 @@ declare module "dgram" {
         [Symbol.asyncDispose](): Promise<void>;
     }
 }
-declare module "node:dgram" {
-    export * from "dgram";
+declare module "dgram" {
+    export * from "node:dgram";
 }

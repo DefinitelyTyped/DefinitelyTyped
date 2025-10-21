@@ -48,7 +48,7 @@ type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : impo
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/buffer.js)
  */
-declare module "buffer" {
+declare module "node:buffer" {
     import { BinaryLike } from "node:crypto";
     import { ReadableStream as WebReadableStream } from "node:stream/web";
     /**
@@ -1929,6 +1929,6 @@ declare module "buffer" {
             : typeof import("buffer").File;
     }
 }
-declare module "node:buffer" {
-    export * from "buffer";
+declare module "buffer" {
+    export * from "node:buffer";
 }

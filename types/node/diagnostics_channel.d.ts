@@ -22,7 +22,7 @@
  * @since v15.1.0, v14.17.0
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/diagnostics_channel.js)
  */
-declare module "diagnostics_channel" {
+declare module "node:diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
     /**
      * Check if there are active subscribers to the named channel. This is helpful if
@@ -571,6 +571,6 @@ declare module "diagnostics_channel" {
         readonly hasSubscribers: boolean;
     }
 }
-declare module "node:diagnostics_channel" {
-    export * from "diagnostics_channel";
+declare module "diagnostics_channel" {
+    export * from "node:diagnostics_channel";
 }

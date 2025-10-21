@@ -14,8 +14,8 @@
  * @deprecated Since v1.4.2 - Deprecated
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/domain.js)
  */
-declare module "domain" {
-    import EventEmitter = require("node:events");
+declare module "node:domain" {
+    import { EventEmitter } from "node:events";
     /**
      * The `Domain` class encapsulates the functionality of routing errors and
      * uncaught exceptions to the active `Domain` object.
@@ -161,6 +161,6 @@ declare module "domain" {
     }
     function create(): Domain;
 }
-declare module "node:domain" {
-    export * from "domain";
+declare module "domain" {
+    export * from "node:domain";
 }

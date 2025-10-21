@@ -29,7 +29,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/perf_hooks.js)
  */
-declare module "perf_hooks" {
+declare module "node:perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
     type EntryType =
         | "dns" // Node.js only
@@ -981,6 +981,6 @@ declare module "perf_hooks" {
             : typeof _performance;
     }
 }
-declare module "node:perf_hooks" {
-    export * from "perf_hooks";
+declare module "perf_hooks" {
+    export * from "node:perf_hooks";
 }

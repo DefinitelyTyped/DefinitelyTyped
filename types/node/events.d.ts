@@ -34,7 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/events.js)
  */
-declare module "events" {
+declare module "node:events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
     interface EventEmitterOptions {
         /**
@@ -970,7 +970,7 @@ declare module "events" {
     }
     export = EventEmitter;
 }
-declare module "node:events" {
-    import events = require("events");
+declare module "events" {
+    import events = require("node:events");
     export = events;
 }

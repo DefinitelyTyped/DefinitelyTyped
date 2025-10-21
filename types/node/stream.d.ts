@@ -17,11 +17,11 @@
  * It is usually not necessary to use the `node:stream` module to consume streams.
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/stream.js)
  */
-declare module "stream" {
+declare module "node:stream" {
+    import { Blob } from "node:buffer";
     import { Abortable, EventEmitter } from "node:events";
-    import { Blob as NodeBlob } from "node:buffer";
-    import * as streamPromises from "node:stream/promises";
-    import * as streamWeb from "node:stream/web";
+    import * as promises from "node:stream/promises";
+    import * as web from "node:stream/web";
 
     type ComposeFnParam = (source: any) => void;
 
@@ -38,7 +38,7 @@ declare module "stream" {
         ): T;
     }
     namespace Stream {
-        export { Stream, streamPromises as promises };
+        export { promises, Stream };
     }
     namespace Stream {
         interface StreamOptions<T extends Stream> extends Abortable {
@@ -78,7 +78,7 @@ declare module "stream" {
              * @since v17.0.0
              */
             static fromWeb(
-                readableStream: streamWeb.ReadableStream,
+                readableStream: web.ReadableStream,
                 options?: Pick<ReadableOptions, "encoding" | "highWaterMark" | "objectMode" | "signal">,
             ): Readable;
             /**
@@ -88,9 +88,9 @@ declare module "stream" {
             static toWeb(
                 streamReadable: Readable,
                 options?: {
-                    strategy?: streamWeb.QueuingStrategy | undefined;
+                    strategy?: web.QueuingStrategy | undefined;
                 },
-            ): streamWeb.ReadableStream;
+            ): web.ReadableStream;
             /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
@@ -726,14 +726,14 @@ declare module "stream" {
              * @since v17.0.0
              */
             static fromWeb(
-                writableStream: streamWeb.WritableStream,
+                writableStream: web.WritableStream,
                 options?: Pick<WritableOptions, "decodeStrings" | "highWaterMark" | "objectMode" | "signal">,
             ): Writable;
             /**
              * A utility method for creating a web `WritableStream` from a `Writable`.
              * @since v17.0.0
              */
-            static toWeb(streamWritable: Writable): streamWeb.WritableStream;
+            static toWeb(streamWritable: Writable): web.WritableStream;
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored, or ended.
@@ -1086,7 +1086,7 @@ declare module "stream" {
             static from(
                 src:
                     | Stream
-                    | NodeBlob
+                    | Blob
                     | ArrayBuffer
                     | string
                     | Iterable<any>
@@ -1100,8 +1100,8 @@ declare module "stream" {
              * @since v17.0.0
              */
             static toWeb(streamDuplex: Duplex): {
-                readable: streamWeb.ReadableStream;
-                writable: streamWeb.WritableStream;
+                readable: web.ReadableStream;
+                writable: web.WritableStream;
             };
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
@@ -1109,8 +1109,8 @@ declare module "stream" {
              */
             static fromWeb(
                 duplexStream: {
-                    readable: streamWeb.ReadableStream;
-                    writable: streamWeb.WritableStream;
+                    readable: web.ReadableStream;
+                    writable: web.WritableStream;
                 },
                 options?: Pick<
                     DuplexOptions,
@@ -1677,7 +1677,7 @@ declare module "stream" {
     }
     export = Stream;
 }
-declare module "node:stream" {
-    import stream = require("stream");
+declare module "stream" {
+    import stream = require("node:stream");
     export = stream;
 }

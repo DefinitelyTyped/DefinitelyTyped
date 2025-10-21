@@ -12,11 +12,11 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/net.js)
  */
-declare module "net" {
+declare module "node:net" {
     import { NonSharedBuffer } from "node:buffer";
-    import * as stream from "node:stream";
-    import { Abortable, EventEmitter } from "node:events";
     import * as dns from "node:dns";
+    import { Abortable, EventEmitter } from "node:events";
+    import * as stream from "node:stream";
     type LookupFunction = (
         hostname: string,
         options: dns.LookupOptions,
@@ -1049,6 +1049,6 @@ declare module "net" {
         static parse(input: string): SocketAddress | undefined;
     }
 }
-declare module "node:net" {
-    export * from "net";
+declare module "net" {
+    export * from "node:net";
 }
