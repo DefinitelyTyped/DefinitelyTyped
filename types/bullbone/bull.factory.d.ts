@@ -1,4 +1,4 @@
-import type { BullViewOptions, View } from "./bull.view";
+import View, { type BullViewOptions } from "./bull.view";
 
 declare class Factory {
     defaultViewName: string;

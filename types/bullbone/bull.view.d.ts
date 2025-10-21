@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-import { Events } from "./bull.events";
+import Events from "./bull.events";
 
 /**
  * Nested view definitions.
