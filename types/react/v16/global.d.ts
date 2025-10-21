@@ -25,7 +25,7 @@ interface WheelEvent extends Event {}
 interface EventTarget {}
 interface Document {}
 interface DataTransfer {}
-interface StyleMedia {}
+
 
 interface Element {}
 interface DocumentFragment {}
