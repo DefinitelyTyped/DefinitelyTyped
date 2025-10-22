@@ -49,6 +49,7 @@
 /// <reference path="../web-globals/events.d.ts" />
 /// <reference path="../web-globals/fetch.d.ts" />
 /// <reference path="../web-globals/importmeta.d.ts" />
+/// <reference path="../web-globals/messaging.d.ts" />
 /// <reference path="../web-globals/navigator.d.ts" />
 /// <reference path="../web-globals/performance.d.ts" />
 /// <reference path="../web-globals/storage.d.ts" />
