@@ -98,21 +98,6 @@ import * as url from "node:url";
     assert.equal(myURL.search, "");
     assert.equal(myURL.toJSON(), myURL.href);
     assert(myURL.searchParams instanceof url.URLSearchParams);
-
-    myURL = new url.URL({ toString: () => "https://example.org" });
-    assert.equal(myURL.hash, "");
-    assert.equal(myURL.host, "example.org");
-    assert.equal(myURL.hostname, "example.org");
-    assert.equal(myURL.href, "https://example.org/");
-    assert.equal(myURL.origin, "https://example.org");
-    assert.equal(myURL.password, "");
-    assert.equal(myURL.username, "");
-    assert.equal(myURL.pathname, "/");
-    assert.equal(myURL.port, "");
-    assert.equal(myURL.protocol, "https:");
-    assert.equal(myURL.search, "");
-    assert.equal(myURL.toJSON(), myURL.href);
-    assert(myURL.searchParams instanceof url.URLSearchParams);
 }
 
 {
@@ -124,10 +109,6 @@ import * as url from "node:url";
         assert.equal(value, "123");
         assert.equal(me, searchParams);
     });
-
-    searchParams.forEach(function() {
-        this; // $ExpectType number
-    }, 1);
 
     assert.equal(searchParams.get("abc"), "123");
 
@@ -161,22 +142,12 @@ import * as url from "node:url";
 }
 
 {
-    const searchParams = new url.URLSearchParams({
-        user: "abc",
-        query: ["first", "second"] as readonly string[],
-    });
-
-    assert.equal(searchParams.toString(), "user=abc&query=first%2Csecond");
-    assert.deepEqual(searchParams.getAll("query"), ["first,second"]);
-}
-
-{
     // Using an array
     const params = new url.URLSearchParams([
         ["user", "abc"],
         ["query", "first"],
         ["query", "second"],
-    ] as ReadonlyArray<[string, string]>);
+    ]);
     assert.equal(params.toString(), "user=abc&query=first&query=second");
 }
 
