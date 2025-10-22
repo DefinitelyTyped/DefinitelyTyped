@@ -37,6 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
  */
 declare module "vm" {
+    import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
@@ -66,7 +67,7 @@ declare module "vm" {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
@@ -367,7 +368,7 @@ declare module "vm" {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
         cachedDataProduced?: boolean;
         /**
@@ -377,7 +378,7 @@ declare module "vm" {
          * @since v5.7.0
          */
         cachedDataRejected?: boolean;
-        cachedData?: Buffer;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.
@@ -962,6 +963,26 @@ declare module "vm" {
          * @deprecated Use `sourceTextModule.moduleRequests` instead.
          */
         readonly dependencySpecifiers: readonly string[];
+        /**
+         * Iterates over the dependency graph and returns `true` if any module in its
+         * dependencies or this module itself contains top-level `await` expressions,
+         * otherwise returns `false`.
+         *
+         * The search may be slow if the graph is big enough.
+         *
+         * This requires the module to be instantiated first. If the module is not
+         * instantiated yet, an error will be thrown.
+         * @since v24.9.0
+         */
+        hasAsyncGraph(): boolean;
+        /**
+         * Returns whether the module itself contains any top-level `await` expressions.
+         *
+         * This corresponds to the field `[[HasTLA]]` in [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) in the
+         * ECMAScript specification.
+         * @since v24.9.0
+         */
+        hasTopLevelAwait(): boolean;
         /**
          * Instantiate the module with the linked requested modules.
          *

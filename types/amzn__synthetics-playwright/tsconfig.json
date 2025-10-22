@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
-            "es6",
-            "DOM"
+            "es2018"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "gimloader-tests.ts"
+        "amzn__synthetics-playwright-tests.ts"
     ]
 }
