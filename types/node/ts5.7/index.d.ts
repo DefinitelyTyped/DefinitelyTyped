@@ -45,6 +45,7 @@
 /// <reference path="../web-globals/console.d.ts" />
 /// <reference path="../web-globals/crypto.d.ts" />
 /// <reference path="../web-globals/domexception.d.ts" />
+/// <reference path="../web-globals/encoding.d.ts" />
 /// <reference path="../web-globals/events.d.ts" />
 /// <reference path="../web-globals/fetch.d.ts" />
 /// <reference path="../web-globals/importmeta.d.ts" />

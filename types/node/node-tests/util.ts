@@ -253,8 +253,8 @@ td.decode(new Float32Array(1));
 td.decode(new Float64Array(1));
 td.decode(new DataView(new Int8Array(1).buffer));
 td.decode(new ArrayBuffer(1));
-td.decode(null);
-td.decode(null, { stream: true });
+td.decode(undefined);
+td.decode(undefined, { stream: true });
 td.decode(new Int8Array(1), { stream: true });
 const decode: string = td.decode(new Int8Array(1));
 
@@ -266,7 +266,7 @@ const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 // Test global alias
 const te2 = new TextEncoder();
 
-const encIntoRes: util.EncodeIntoResult = te.encodeInto("asdf", new Uint8Array(16));
+const encIntoRes: util.TextEncoderEncodeIntoResult = te.encodeInto("asdf", new Uint8Array(16));
 
 const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 
