@@ -10,11 +10,11 @@ export type UserInfo = {
     new_visit?: number;
     _viewts?: number;
     _idts?: number;
-    res?: number;
+    res?: `${number}x${number}`;
     h?: number;
     m?: number;
     s?: number;
-    cookie?: number;
+    cookie?: 0 | 1;
     uadata?: object;
 } & Partial<Record<`dimension${number}`, string>>;
 
