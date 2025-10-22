@@ -55,3 +55,7 @@ useMatomo().trackSiteSearch({
         dimension2: "else",
     },
 });
+// $ExpectType void
+useMatomo().updateUserInfo({ uid: "" });
+// $ExpectType void
+useMatomo().removeUserInfo();
