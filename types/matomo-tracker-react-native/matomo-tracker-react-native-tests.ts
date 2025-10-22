@@ -15,11 +15,17 @@ instance.trackDownload({ download: "" });
 // $ExpectType Promise<Response>
 instance.trackEvent({ category: "", action: "" });
 // $ExpectType Promise<Response>
+instance.trackContent({ name: "" });
+// $ExpectType Promise<Response>
 instance.trackLink({ link: "" });
 // $ExpectType Promise<Response>
 instance.trackScreenView({ name: "" });
 // $ExpectType Promise<Response>
 instance.trackSiteSearch({ keyword: "" });
+// $ExpectType void
+instance.updateUserInfo({ uid: "" });
+// $ExpectType void
+instance.removeUserInfo();
 
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackAction({ name: "" });
@@ -29,6 +35,8 @@ useMatomo().trackAppStart({});
 useMatomo().trackDownload({ download: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackEvent({ category: "", action: "" });
+// $ExpectType Promise<Response> | undefined
+useMatomo().trackContent({ name: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackLink({ link: "" });
 // $ExpectType Promise<Response> | undefined
