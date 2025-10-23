@@ -1,7 +1,5 @@
-import moment from "moment";
-import { Moment } from "moment";
-import React from "react";
-import { useState } from "react";
+import moment, { Moment } from "moment";
+import React, { useState } from "react";
 import Timeline, {
     CustomHeader,
     DateHeader,
