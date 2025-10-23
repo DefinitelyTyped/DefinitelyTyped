@@ -2,7 +2,7 @@
 // https://github.com/sivy/node-statsd/blob/master/lib/statsd.js
 /// <reference types="node" />
 
-import dgram = require("dgram");
+import * as dgram from "dgram";
 
 export interface StatsDConfig {
     host?: string | undefined;

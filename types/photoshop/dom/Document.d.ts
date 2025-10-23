@@ -7,7 +7,7 @@ import { HistoryStates } from "./collections/HistoryStates";
 import { LayerComps } from "./collections/LayerComps";
 import { Layers } from "./collections/Layers";
 import { PathItems } from "./collections/PathItems";
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { ExecutionContext } from "./CoreModules";
 import { HistoryState } from "./HistoryState";
 import { Layer } from "./Layer";

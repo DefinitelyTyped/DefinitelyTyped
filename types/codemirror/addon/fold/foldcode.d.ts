@@ -1,6 +1,6 @@
 // See docs https://codemirror.net/doc/manual.html#addon_foldcode
 
-import CodeMirror = require("../../");
+import * as CodeMirror from "../../";
 
 export type FoldRangeFinder = (cm: CodeMirror.Editor, pos: CodeMirror.Position) => CodeMirror.FoldRange | undefined;
 

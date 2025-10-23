@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 // String constants:
 export const MODE_IDLE = "idle";

@@ -1,4 +1,4 @@
-import RAPIER = require("@dimforge/rapier3d-compat");
+import * as RAPIER from "@dimforge/rapier3d-compat";
 import { LineSegments } from "three";
 
 declare class RapierHelper extends LineSegments {

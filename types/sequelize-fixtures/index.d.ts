@@ -1,4 +1,4 @@
-import Sequelize = require("sequelize");
+import * as Sequelize from "sequelize";
 
 declare namespace SequelizeFixtures {
     interface Options {

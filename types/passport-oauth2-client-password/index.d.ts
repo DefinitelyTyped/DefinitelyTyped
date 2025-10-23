@@ -1,8 +1,8 @@
 /// <reference types="passport"/>
 /// <reference types="express"/>
 
-import express = require("express");
-import passport = require("passport");
+import * as express from "express";
+import * as passport from "passport";
 
 interface StrategyOptionsWithRequestInterface {
     passReqToCallback: boolean;

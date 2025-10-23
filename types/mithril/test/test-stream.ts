@@ -1,4 +1,4 @@
-import Stream = require("mithril/stream");
+import * as Stream from "mithril/stream";
 
 {
     const s = Stream(1);

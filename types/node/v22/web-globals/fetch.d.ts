@@ -1,6 +1,6 @@
 export {};
 
-import undici = require("undici-types");
+import * as undici from "undici-types";
 
 type _EventSource = typeof globalThis extends { onmessage: any } ? {} : undici.EventSource;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : undici.FormData;

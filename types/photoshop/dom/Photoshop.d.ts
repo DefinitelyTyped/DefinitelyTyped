@@ -2,7 +2,7 @@ import { Action, ActionSet } from "./Actions";
 import { Documents } from "./collections/Documents";
 import { TextFonts } from "./collections/TextFonts";
 import { ColorSampler } from "./ColorSampler";
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Guide } from "./Guide";
 import { Layer } from "./Layer";

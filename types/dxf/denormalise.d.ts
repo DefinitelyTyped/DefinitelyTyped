@@ -1,4 +1,4 @@
-import Entities = require("./handlers/entities");
-import Information = require("./Information");
+import * as Entities from "./handlers/entities";
+import * as Information from "./Information";
 
 export default function denormalise(parsed: Information.FileInfo): Entities.Entity[];

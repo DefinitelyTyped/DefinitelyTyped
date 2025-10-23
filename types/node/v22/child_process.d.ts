@@ -68,8 +68,8 @@
 declare module "child_process" {
     import { NonSharedBuffer } from "node:buffer";
     import { Abortable, EventEmitter } from "node:events";
-    import dgram = require("node:dgram");
-    import net = require("node:net");
+    import * as dgram from "node:dgram";
+    import * as net from "node:net";
     import { Readable, Stream, Writable } from "node:stream";
     import { URL } from "node:url";
     type Serializable = string | object | number | boolean | bigint;

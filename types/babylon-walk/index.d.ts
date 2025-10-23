@@ -1,4 +1,4 @@
-import babelTypes = require("babel-types");
+import * as babelTypes from "babel-types";
 
 export type coreTypes =
     | babelTypes.ArrayExpression

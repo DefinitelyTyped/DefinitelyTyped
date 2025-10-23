@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
-import express = require("express");
-import SwaggerExpressMiddleware = require("swagger-express-middleware");
+import * as express from "express";
+import * as SwaggerExpressMiddleware from "swagger-express-middleware";
 
 let app = express();
 

@@ -1,8 +1,8 @@
-import chokidar = require("chokidar");
-import fs = require("fs");
+import * as chokidar from "chokidar";
+import * as fs from "fs";
 import { Duplex } from "stream";
-import Undertaker = require("undertaker");
-import vfs = require("vinyl-fs");
+import * as Undertaker from "undertaker";
+import * as vfs from "vinyl-fs";
 
 declare namespace GulpClient {
     type Globs = string | string[];

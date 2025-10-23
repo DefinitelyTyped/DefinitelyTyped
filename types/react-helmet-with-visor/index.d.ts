@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;

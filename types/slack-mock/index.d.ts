@@ -1,7 +1,7 @@
 import { IncomingHttpHeaders } from "http";
-import nock = require("nock");
+import * as nock from "nock";
 import { Url } from "url";
-import WebSocket = require("ws");
+import * as WebSocket from "ws";
 
 export = SlackMock;
 

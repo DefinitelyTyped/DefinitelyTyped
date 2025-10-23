@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: descriptor.proto
 
-import jspb = require("../../index");
+import * as jspb from "../../index";
 
 export class FileDescriptorSet extends jspb.Message {
     clearFileList(): FileDescriptorSet;

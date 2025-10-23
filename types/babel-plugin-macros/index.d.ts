@@ -1,4 +1,4 @@
-import Babel = require("@babel/core");
+import * as Babel from "@babel/core";
 
 export = babelPluginMacros;
 

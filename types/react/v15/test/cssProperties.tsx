@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 const initialStyle: React.CSSProperties = { fontWeight: "initial" };
 const initialStyleTest = <div style={initialStyle} />;

@@ -1,5 +1,5 @@
 import { ChildProcess, ForkOptions } from "child_process";
-import webpack = require("webpack");
+import * as webpack from "webpack";
 
 declare class hard_source_webpack_plugin {
     constructor(options?: Options);

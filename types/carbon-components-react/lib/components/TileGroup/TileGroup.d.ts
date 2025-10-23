@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { RadioTileChangeEvent } from "../RadioTile";
 
 export interface TileGroupProps {

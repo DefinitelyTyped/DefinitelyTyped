@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import Redux = require("redux");
+import * as Redux from "redux";
 
 export interface uiParams<UIStateShape> {
     // optional key which is used to determine the UI path in which state will

@@ -1,6 +1,6 @@
 import HTMLParser from "./htmlparser";
 import Reporter from "./reporter";
-import HTMLRules = require("./rules");
+import * as HTMLRules from "./rules";
 import { Hint, Rule, Ruleset } from "./types";
 
 export as namespace HTMLHint;

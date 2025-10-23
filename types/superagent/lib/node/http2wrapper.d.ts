@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import http2 = require("http2");
-import net = require("net");
+import * as http2 from "http2";
+import * as net from "net";
 import { Stream } from "stream";
-import tls = require("tls");
+import * as tls from "tls";
 
 export {};
 

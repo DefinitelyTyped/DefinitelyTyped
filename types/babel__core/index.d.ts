@@ -2,7 +2,7 @@ import { GeneratorOptions } from "@babel/generator";
 import { ParserOptions } from "@babel/parser";
 import template from "@babel/template";
 import traverse, { Hub, NodePath, Scope, Visitor } from "@babel/traverse";
-import t = require("@babel/types");
+import * as t from "@babel/types";
 
 export { GeneratorOptions, NodePath, ParserOptions, t as types, template, traverse, Visitor };
 

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { TextStyle } from "react-native";
 
 export interface PercentageCircleProps {

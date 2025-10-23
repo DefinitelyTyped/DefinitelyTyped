@@ -1,4 +1,4 @@
-import pacote = require("pacote");
+import * as pacote from "pacote";
 
 declare namespace libnpmdiff {
     /**

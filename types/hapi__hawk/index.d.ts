@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import sntp = require("@hapi/sntp");
-import client = require("./lib/client");
-import crypto = require("./lib/crypto");
-import plugin = require("./lib/plugin");
-import server = require("./lib/server");
-import utils = require("./lib/utils");
+import * as sntp from "@hapi/sntp";
+import * as client from "./lib/client";
+import * as crypto from "./lib/crypto";
+import * as plugin from "./lib/plugin";
+import * as server from "./lib/server";
+import * as utils from "./lib/utils";
 
 export namespace uri {
     const authenticate: typeof server.authenticateBewit;

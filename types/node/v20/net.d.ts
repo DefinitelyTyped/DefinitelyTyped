@@ -14,9 +14,9 @@
  */
 declare module "net" {
     import { NonSharedBuffer } from "node:buffer";
-    import stream = require("node:stream");
+    import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
-    import dns = require("node:dns");
+    import * as dns from "node:dns";
     type LookupFunction = (
         hostname: string,
         options: dns.LookupOptions,

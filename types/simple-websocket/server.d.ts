@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import http = require("http");
-import net = require("net");
+import * as http from "http";
+import * as net from "net";
 import WebSocket = require("ws");
 
 import Socket = require(".");

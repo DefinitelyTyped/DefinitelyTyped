@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type Axis = "both" | "x" | "y" | "none";
 export type ResizeHandle = "s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne";

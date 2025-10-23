@@ -1,5 +1,5 @@
-import L18N = require("./localizer");
-import Theming = require("./theming");
+import * as L18N from "./localizer";
+import * as Theming from "./theming";
 
 export type HexString = string;
 

@@ -1,10 +1,10 @@
-import dns = require("node:dns");
-import http = require("node:http");
-import https = require("node:https");
-import net = require("node:net");
-import stream = require("node:stream");
-import tls = require("node:tls");
-import url = require("node:url");
+import * as dns from "node:dns";
+import * as http from "node:http";
+import * as https from "node:https";
+import * as net from "node:net";
+import * as stream from "node:stream";
+import * as tls from "node:tls";
+import * as url from "node:url";
 
 // https tests
 {

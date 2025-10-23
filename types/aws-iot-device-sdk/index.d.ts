@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import mqtt = require("mqtt");
-import WebSocket = require("ws");
+import * as mqtt from "mqtt";
+import * as WebSocket from "ws";
 
 export interface DeviceOptions extends mqtt.IClientOptions {
     /** the AWS IoT region you will operate in (default "us-east-1") */

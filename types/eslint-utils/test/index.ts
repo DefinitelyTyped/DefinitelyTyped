@@ -1,6 +1,6 @@
 import { AST, Scope, SourceCode } from "eslint";
-import utils = require("eslint-utils");
-import ESTree = require("estree");
+import * as utils from "eslint-utils";
+import * as ESTree from "estree";
 
 declare const commentOrToken: ESTree.Comment | AST.Token;
 declare const identifier: ESTree.Identifier;

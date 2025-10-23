@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/merge/merge";
 
 const mergeView = new CodeMirror.MergeView(document.body, {

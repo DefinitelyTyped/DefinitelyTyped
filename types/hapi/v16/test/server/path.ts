@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverpathrelativeto
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 var register: Hapi.PluginFunction<{}> = function(server, options, next) {
     // Assuming the Inert plugin was registered previously

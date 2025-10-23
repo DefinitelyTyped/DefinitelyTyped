@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import http = require("http");
-import tls = require("tls");
+import * as http from "http";
+import * as tls from "tls";
 
 export type StubbyMethod = "GET" | "PUT" | "POST" | "HEAD" | "PATCH" | "TRACE" | "DELETE" | "CONNECT" | "OPTIONS";
 

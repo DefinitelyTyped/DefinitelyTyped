@@ -1,5 +1,5 @@
-import React = require("react");
-import ReactNative = require("react-native");
+import * as React from "react";
+import * as ReactNative from "react-native";
 
 export interface KeyboardSpacerProps {
     topSpacing?: number | undefined;

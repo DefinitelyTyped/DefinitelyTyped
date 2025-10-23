@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import stream = require("stream");
+import * as stream from "stream";
 
 export interface MapStream extends stream.Stream {
     writable: boolean;

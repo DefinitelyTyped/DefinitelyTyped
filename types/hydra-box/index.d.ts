@@ -3,7 +3,7 @@
 
 import { Readable } from "stream";
 import express = require("express");
-import RDF = require("@rdfjs/types");
+import * as RDF from "@rdfjs/types";
 import { GraphPointer } from "clownface";
 import DatasetExt from "rdf-ext/lib/Dataset";
 import middleware = require("./middleware");

@@ -1,4 +1,4 @@
-import s = require("sinon");
+import * as s from "sinon";
 
 declare module "sinon" {
     export interface SinonStub {

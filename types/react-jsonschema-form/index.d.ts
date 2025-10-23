@@ -1,5 +1,5 @@
 declare module "react-jsonschema-form" {
-    import React = require("react");
+    import * as React from "react";
     import { JSONSchema6 } from "json-schema";
 
     type ErrorSchema = {

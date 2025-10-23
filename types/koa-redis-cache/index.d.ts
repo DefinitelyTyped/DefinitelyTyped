@@ -1,5 +1,5 @@
-import Koa = require("koa");
-import Redis = require("redis");
+import * as Koa from "koa";
+import * as Redis from "redis";
 
 type onErrorCallback = (error: Error) => void;
 

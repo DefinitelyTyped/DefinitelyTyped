@@ -1,4 +1,4 @@
-import request = require("superagent");
+import * as request from "superagent";
 
 declare const plugin: request.Plugin;
 

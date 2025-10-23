@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type Dirty<T extends object> = Record<keyof T, boolean>;
 

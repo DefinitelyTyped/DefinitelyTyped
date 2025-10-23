@@ -1,8 +1,8 @@
 /// <reference path="./my-meteor.d.ts" />
 
-import Promise = require("bluebird");
+import * as Promise from "bluebird";
 import { EventEmitter } from "events";
-import Mysql = require("mysql");
+import * as Mysql from "mysql";
 
 declare var EQUAL_TO_PROPERTY_SYMBOL: string;
 declare var TABLE_RULES_PROPERTY: string;

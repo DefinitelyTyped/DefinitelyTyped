@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import sax = require("sax");
+import * as sax from "sax";
 import { Transform } from "stream";
 
 declare namespace muxml {

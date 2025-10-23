@@ -1,5 +1,5 @@
 import { Howl, HowlCallback, HowlErrorCallback, HowlOptions } from "howler";
-import React = require("react");
+import * as React from "react";
 
 declare enum HOWLER_STATE {
     UNLOADED = "unloaded",

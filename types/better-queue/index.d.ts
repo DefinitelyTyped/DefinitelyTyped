@@ -1,5 +1,5 @@
 /* =================== USAGE ===================
-    import Queue = require("better-queue");
+    import * as Queue from "better-queue";
     var queue = new Queue(...);
  =============================================== */
 

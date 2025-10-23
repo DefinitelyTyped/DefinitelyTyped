@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type FormValue = any;
 export type FormError = string | undefined;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 export interface LoadingOverlayProps {
     /** default: ``true`` - whether the loader is visible. */
     active?: boolean;

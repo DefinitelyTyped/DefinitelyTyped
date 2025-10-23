@@ -1,6 +1,6 @@
 /// <reference types="knockout" />
 
-import _ = require("underscore");
+import * as _ from "underscore";
 
 interface KnockoutObservableArrayFunctions<T> {
     /* **

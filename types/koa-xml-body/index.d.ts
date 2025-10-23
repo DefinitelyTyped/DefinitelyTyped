@@ -12,7 +12,7 @@
 
  =============================================== */
 
-import Koa = require("koa");
+import * as Koa from "koa";
 
 import { ParserOptions as Xml2jsOptions } from "xml2js";
 

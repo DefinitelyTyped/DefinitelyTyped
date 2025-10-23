@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import bunyan = require("bunyan");
+import * as bunyan from "bunyan";
 
 declare namespace BrowserBunyan {
     interface ConsoleFormattedStreamLevelStyle {

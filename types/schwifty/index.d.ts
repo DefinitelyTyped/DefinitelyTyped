@@ -2,9 +2,9 @@
 // They are dynamic types extended from SchwiftyModel.
 
 import { Plugin, Request, ResponseToolkit, Server } from "@hapi/hapi";
-import Joi = require("joi");
-import Knex = require("knex");
-import Objection = require("objection");
+import * as Joi from "joi";
+import * as Knex from "knex";
+import * as Objection from "objection";
 
 export type ModelClass = typeof Model | typeof Objection.Model;
 

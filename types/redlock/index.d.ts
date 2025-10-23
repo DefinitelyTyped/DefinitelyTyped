@@ -1,4 +1,4 @@
-import Promise = require("bluebird");
+import * as Promise from "bluebird";
 import { EventEmitter } from "events";
 
 export = Redlock;

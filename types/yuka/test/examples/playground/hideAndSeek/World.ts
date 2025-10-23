@@ -2,7 +2,7 @@
  * @author Mugen87 / https://github.com/Mugen87
  */
 
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 
 import { Bullet } from "./Bullet";
 import { CustomObstacle } from "./CustomObstacle";

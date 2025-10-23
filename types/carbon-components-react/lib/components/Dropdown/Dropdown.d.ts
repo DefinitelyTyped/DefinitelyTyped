@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { FCReturn, ForwardRefProps, InternationalProps, ReactDivAttr } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";

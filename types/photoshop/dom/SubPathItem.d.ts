@@ -1,5 +1,5 @@
 import { PathPoints } from "./collections/PathPoints";
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { PathItem } from "./PathItem";
 /**
  * Represents a subpath; a collection of subpaths make up a [[PathItem]].

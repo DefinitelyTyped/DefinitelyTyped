@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactAnchorAttr, ReactAttr } from "../../../typings/shared";
 
 export interface ButtonSkeletonProps extends ReactAttr {

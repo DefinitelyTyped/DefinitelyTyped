@@ -1,6 +1,6 @@
 // tslint:disable:no-empty-interface
 
-import Utils = require("./common/utils");
+import * as Utils from "./common/utils";
 import Renderer = require("./renderer");
 import Ruler = require("./ruler");
 

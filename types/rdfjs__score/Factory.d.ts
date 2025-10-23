@@ -1,4 +1,4 @@
-import score = require("./index.js");
+import * as score from "./index.js";
 
 export interface ScoreFactory {
     score: typeof score;

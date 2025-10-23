@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import leveldown = require("leveldown");
+import * as leveldown from "leveldown";
 
 export = levelup;
 

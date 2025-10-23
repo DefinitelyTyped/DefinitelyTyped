@@ -1,6 +1,6 @@
-import dgram = require("node:dgram");
-import dns = require("node:dns");
-import net = require("node:net");
+import * as dgram from "node:dgram";
+import * as dns from "node:dns";
+import * as net from "node:net";
 
 {
     let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import stream = require("stream");
+import * as stream from "stream";
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */

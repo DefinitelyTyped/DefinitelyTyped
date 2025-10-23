@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
 // NOTE: The index does not export * on this file because non-default export of RadioButton clashs with RadioButton at the top-level index.

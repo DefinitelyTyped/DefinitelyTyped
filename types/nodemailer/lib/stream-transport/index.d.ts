@@ -5,7 +5,7 @@ import { Readable } from "stream";
 
 import { Transport, TransportOptions } from "../..";
 
-import shared = require("../shared");
+import * as shared from "../shared";
 
 import Mail = require("../mailer");
 import MailMessage = require("../mailer/mail-message");

@@ -1,15 +1,15 @@
-import WorkboxBackgroundSync = require("workbox-background-sync");
-import WorkboxBroadcastUpdate = require("workbox-broadcast-update");
-import WorkboxCacheableResponse = require("workbox-cacheable-response");
-import WorkboxCore = require("workbox-core");
-import WorkboxExpiration = require("workbox-expiration");
-import WorkboxGoogleAnalytics = require("workbox-google-analytics");
-import WorkboxNavigationPreload = require("workbox-navigation-preload");
-import WorkboxPrecaching = require("workbox-precaching");
-import WorkboxRangeRequests = require("workbox-range-requests");
-import WorkboxRouting = require("workbox-routing");
-import WorkboxStrategies = require("workbox-strategies");
-import WorkboxStreams = require("workbox-streams");
+import * as WorkboxBackgroundSync from "workbox-background-sync";
+import * as WorkboxBroadcastUpdate from "workbox-broadcast-update";
+import * as WorkboxCacheableResponse from "workbox-cacheable-response";
+import * as WorkboxCore from "workbox-core";
+import * as WorkboxExpiration from "workbox-expiration";
+import * as WorkboxGoogleAnalytics from "workbox-google-analytics";
+import * as WorkboxNavigationPreload from "workbox-navigation-preload";
+import * as WorkboxPrecaching from "workbox-precaching";
+import * as WorkboxRangeRequests from "workbox-range-requests";
+import * as WorkboxRouting from "workbox-routing";
+import * as WorkboxStrategies from "workbox-strategies";
+import * as WorkboxStreams from "workbox-streams";
 
 declare global {
     namespace workbox {

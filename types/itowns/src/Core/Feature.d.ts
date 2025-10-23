@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import Layer from "../Layer/Layer";
 import Coordinates from "./Geographic/Coordinates";
 import Extent from "./Geographic/Extent";

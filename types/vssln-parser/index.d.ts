@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import fs = require("fs");
+import * as fs from "fs";
 
 declare function parse(input: fs.ReadStream | string, callback: (solution: parse.VsSolutionFile) => void): void;
 

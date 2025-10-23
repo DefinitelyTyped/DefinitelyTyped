@@ -1,4 +1,4 @@
-import acorn = require("acorn");
+import * as acorn from "acorn";
 
 /**
  * Check the source code string 'src' for syntax errors. Optionally you can specify a filename

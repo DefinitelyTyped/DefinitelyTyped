@@ -1,4 +1,4 @@
-import PromiseBluebird = require("bluebird");
+import * as PromiseBluebird from "bluebird";
 import supertest = require("supertest");
 import { Server } from "tls";
 

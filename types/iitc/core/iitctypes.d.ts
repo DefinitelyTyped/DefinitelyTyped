@@ -1,6 +1,6 @@
-import L = require("leaflet");
+import * as L from "leaflet";
 import "../leafletExtentions";
-import jQuery = require("jquery");
+import * as jQuery from "jquery";
 
 export type PortalGUID = string;
 export type LinkGUID = string;

@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import fs = require("fs");
-import m = require("mime");
-import stream = require("stream");
+import * as fs from "fs";
+import * as m from "mime";
+import * as stream from "stream";
 
 /**
  * Create a new SendStream for the given path to send to a res.

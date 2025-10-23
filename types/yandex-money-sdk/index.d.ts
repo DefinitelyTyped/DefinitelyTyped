@@ -262,7 +262,7 @@ declare namespace YandexMoneySDK {
 }
 
 declare module "yandex-money-sdk" {
-    import http = require("http");
+    import * as http from "http";
 
     export interface ResponseCallback<TBody> {
         (err: any, body: TBody, response: http.IncomingMessage): any;

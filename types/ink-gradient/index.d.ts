@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 // This needs to be updated when TypeScript enhances their support for mutual
 // exclusivity in properties. This edit I made will now throw errors when

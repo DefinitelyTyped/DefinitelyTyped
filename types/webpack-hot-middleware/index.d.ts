@@ -1,5 +1,5 @@
 import { NextHandleFunction } from "connect";
-import webpack = require("webpack");
+import * as webpack from "webpack";
 
 export = WebpackHotMiddleware;
 

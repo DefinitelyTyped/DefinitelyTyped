@@ -1,5 +1,5 @@
 import { SubPathItems } from "./collections/SubPathItems";
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Layer } from "./Layer";
 import { SolidColor } from "./objects/SolidColor";

@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverrealm
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 var registerFunction: Hapi.PluginFunction<{}> = function(server, options, next) {
     console.log(server.realm.modifiers.route.prefix);

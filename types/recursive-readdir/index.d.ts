@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import fs = require("fs");
+import * as fs from "fs";
 declare namespace RecursiveReaddir {
     type IgnoreFunction = (file: string, stats: fs.Stats) => boolean;
     type Ignores = ReadonlyArray<string | IgnoreFunction>;

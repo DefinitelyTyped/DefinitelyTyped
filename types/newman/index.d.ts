@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import http = require("http");
+import * as http from "http";
 import {
     Collection,
     CollectionDefinition,

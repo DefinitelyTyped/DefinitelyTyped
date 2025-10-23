@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactScrollLinkProps } from "../components/Link";
 import { Scroller } from "./scroller";
 

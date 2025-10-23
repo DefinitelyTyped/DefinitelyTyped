@@ -18,7 +18,7 @@ import { Blob } from "node:buffer";
 import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
-import consumers = require("node:stream/consumers");
+import * as consumers from "node:stream/consumers";
 import { finished as finishedPromise, pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, ReadableStreamBYOBReader, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every, setTimeout as wait } from "node:timers/promises";

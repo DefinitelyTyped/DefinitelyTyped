@@ -1,5 +1,5 @@
 import { LocationDescriptor } from "history";
-import React = require("react");
+import * as React from "react";
 
 declare module "react-breadcrumbs" {
     interface Crumbs {}

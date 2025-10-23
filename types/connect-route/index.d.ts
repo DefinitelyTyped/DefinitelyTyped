@@ -1,5 +1,5 @@
 import { type NextFunction, type NextHandleFunction } from "connect";
-import connect = require("connect");
+import * as connect from "connect";
 import { type ServerResponse } from "http";
 
 declare class IncomingMessage extends connect.IncomingMessage {

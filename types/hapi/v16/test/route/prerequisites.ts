@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#route-prerequisites
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 

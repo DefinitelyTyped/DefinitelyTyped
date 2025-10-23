@@ -1,4 +1,4 @@
-import t = require("@babel/types");
+import * as t from "@babel/types";
 export import Node = t.Node;
 export import RemovePropertiesOptions = t.RemovePropertiesOptions;
 

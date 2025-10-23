@@ -1,4 +1,4 @@
-import Immutable = require("immutable");
+import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
 export interface Data extends Immutable.Map<any, any> {}

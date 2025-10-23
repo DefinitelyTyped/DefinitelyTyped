@@ -1,6 +1,6 @@
-import CLS = require("cls-hooked");
-import Express = require("express");
-import Koa = require("koa");
+import * as CLS from "cls-hooked";
+import * as Express from "express";
+import * as Koa from "koa";
 
 declare class ContextFactory {
     private _namespace: CLS.Namespace;

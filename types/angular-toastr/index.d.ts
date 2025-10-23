@@ -1,6 +1,6 @@
 /// <reference types="angular" />
 
-import angular = require("angular");
+import * as angular from "angular";
 
 export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
 export type IToastContainerConfig = angular.toastr.IToastContainerConfig;

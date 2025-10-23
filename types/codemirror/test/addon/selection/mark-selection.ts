@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/selection/mark-selection";
 
 const cm1: CodeMirror.Editor = CodeMirror(document.body, {

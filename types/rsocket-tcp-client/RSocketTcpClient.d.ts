@@ -10,10 +10,10 @@ import {
     ISubscription,
 } from "rsocket-types";
 
-import net = require("net");
+import * as net from "net";
 import { createBuffer, deserializeFrames, Encoders, serializeFrameWithLength } from "rsocket-core";
 import { Flowable } from "rsocket-flowable";
-import tls = require("tls");
+import * as tls from "tls";
 
 /**
  * A TCP transport client for use in node environments.

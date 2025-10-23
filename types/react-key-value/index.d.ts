@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export class KeyValue extends React.Component<KeyValueProps> {
     handleKeyItemChange(index: bigint, value: any): any;

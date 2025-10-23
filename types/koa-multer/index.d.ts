@@ -23,7 +23,7 @@
  */
 
 import { IncomingMessage } from "http";
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare namespace multer {
     interface File {

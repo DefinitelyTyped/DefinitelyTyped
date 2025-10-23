@@ -4,7 +4,7 @@
 
 /// <reference path="global.d.ts" />
 
-import CSS = require("csstype");
+import * as CSS from "csstype";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;

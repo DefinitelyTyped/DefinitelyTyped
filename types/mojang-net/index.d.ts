@@ -15,7 +15,7 @@
  * }
  * ```
  */
-import mojangminecraftserveradmin = require("mojang-minecraft-server-admin");
+import * as mojangminecraftserveradmin from "mojang-minecraft-server-admin";
 export enum HttpRequestMethod {
     /**
      * Represents the method for an HTTP PUT request. GET requests

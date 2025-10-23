@@ -1,7 +1,7 @@
 /// <reference types="angular" />
 /// <reference types="jqueryui" />
 
-import ng = require("angular");
+import * as ng from "angular";
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
 type Omit<T, K extends keyof T> = Pick<

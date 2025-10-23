@@ -1,5 +1,5 @@
-import EventEmitter3 = require("eventemitter3");
-import React = require("react");
+import * as EventEmitter3 from "eventemitter3";
+import * as React from "react";
 
 declare namespace Fluxxor {
     class Dispatcher {

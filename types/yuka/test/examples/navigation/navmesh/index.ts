@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 
 let navMesh: YUKA.NavMesh;
 

@@ -1,4 +1,4 @@
-import dropin = require("braintree-web-drop-in");
+import * as dropin from "braintree-web-drop-in";
 
 dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
     if (error) {

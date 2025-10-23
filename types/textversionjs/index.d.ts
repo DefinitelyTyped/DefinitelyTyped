@@ -1,5 +1,5 @@
 /* =================== USAGE ===================
-    import textVersion = require("textversionjs");
+    import * as textVersion from "textversionjs";
  =============================================== */
 
 declare function textversionjs(html: string, styleConfig?: textversionjs.styleConfig): string;

@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import events = require("events");
-import http = require("http");
-import https = require("https");
-import net = require("net");
-import stream = require("stream");
-import url = require("url");
+import * as events from "events";
+import * as http from "http";
+import * as https from "https";
+import * as net from "net";
+import * as stream from "stream";
+import * as url from "url";
 
 interface ProxyTargetDetailed {
     host: string;

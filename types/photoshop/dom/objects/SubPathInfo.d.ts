@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { PathPointInfo } from "./PathPointInfo";
 /**
  * An array of [[PathPointInfo]] objects that describes a straight or curved segment of a path, used to create

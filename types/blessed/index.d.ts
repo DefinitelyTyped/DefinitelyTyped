@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import child_process = require("child_process");
+import * as child_process from "child_process";
 import { EventEmitter } from "events";
 import { Readable, Writable } from "stream";
 

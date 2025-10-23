@@ -1,4 +1,4 @@
-import Babel = require("@babel/core");
+import * as Babel from "@babel/core";
 
 /**
  * List of precompiled CoffeeScript file extensions.

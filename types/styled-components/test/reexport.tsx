@@ -1,4 +1,4 @@
-import styledComponents = require("styled-components");
+import * as styledComponents from "styled-components";
 
 interface MyTheme {
     color: string;

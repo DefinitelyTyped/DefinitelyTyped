@@ -1,3 +1,3 @@
-import ConventionalChangelogConfigSpec = require("./versions/2.2.0/schema.json");
+import * as ConventionalChangelogConfigSpec from "./versions/2.2.0/schema.json";
 
 export = ConventionalChangelogConfigSpec;

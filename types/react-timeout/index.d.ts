@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import React = require("react");
+import * as React from "react";
 
 export = ReactTimeout;
 

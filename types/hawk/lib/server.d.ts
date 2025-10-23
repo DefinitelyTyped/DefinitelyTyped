@@ -1,7 +1,7 @@
-import http = require("http");
+import * as http from "http";
 
 import { Message } from "./client";
-import Crypto = require("./crypto");
+import * as Crypto from "./crypto";
 
 export type CredentialsFunc = (id: string) => Promise<Credentials> | Credentials;
 export type NonceFunc = (key: string, nonce: string, ts: string) => Promise<void> | void;

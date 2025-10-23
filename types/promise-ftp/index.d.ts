@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import Promise = require("bluebird");
-import FtpClient = require("ftp");
-import PromiseFtpCommon = require("promise-ftp-common");
+import * as Promise from "bluebird";
+import * as FtpClient from "ftp";
+import * as PromiseFtpCommon from "promise-ftp-common";
 
 declare namespace PromiseFtp {
     interface ERROR_CODES {

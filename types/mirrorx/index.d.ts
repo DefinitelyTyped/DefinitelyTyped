@@ -1,6 +1,6 @@
-import H = require("history");
+import * as H from "history";
 
-import React = require("react");
+import * as React from "react";
 
 import { Connect } from "react-redux";
 import { match } from "react-router";

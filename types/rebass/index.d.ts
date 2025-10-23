@@ -1,7 +1,7 @@
 import { ResponsiveStyleValue, SystemStyleObject } from "@styled-system/css";
-import React = require("react");
-import StyledComponents = require("styled-components");
-import StyledSystem = require("styled-system");
+import * as React from "react";
+import * as StyledComponents from "styled-components";
+import * as StyledSystem from "styled-system";
 
 export {};
 

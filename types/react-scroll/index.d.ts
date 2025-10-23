@@ -1,2 +1,2 @@
-import ReactScroll = require("./modules/index");
+import * as ReactScroll from "./modules/index";
 export = ReactScroll;

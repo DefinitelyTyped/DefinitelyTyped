@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 declare const a11yWarningIcon: (prefix: string, notificationType: string) => React.ReactElement;
 

@@ -1,9 +1,9 @@
-import webdriver = require("selenium-webdriver");
-import chrome = require("selenium-webdriver/chrome");
-import executors = require("selenium-webdriver/executors");
-import firefox = require("selenium-webdriver/firefox");
-import remote = require("selenium-webdriver/remote");
-import testing = require("selenium-webdriver/testing");
+import * as webdriver from "selenium-webdriver";
+import * as chrome from "selenium-webdriver/chrome";
+import * as executors from "selenium-webdriver/executors";
+import * as firefox from "selenium-webdriver/firefox";
+import * as remote from "selenium-webdriver/remote";
+import * as testing from "selenium-webdriver/testing";
 
 function TestExecutors() {
     let exec: webdriver.Executor = executors.createExecutor("url");

@@ -1,6 +1,6 @@
-import webdriver = require("selenium-webdriver");
-import ie = require("selenium-webdriver/ie");
-import remote = require("selenium-webdriver/remote");
+import * as webdriver from "selenium-webdriver";
+import * as ie from "selenium-webdriver/ie";
+import * as remote from "selenium-webdriver/remote";
 
 function TestIeDriver() {
     let driver: ie.Driver;

@@ -1,7 +1,7 @@
 /* =================== USAGE ===================
 
-import SwaggerHapi = require("swagger-hapi");
-import Hapi = require("hapi");
+import * as SwaggerHapi from "swagger-hapi";
+import * as Hapi from "hapi";
 
 var app = new Hapi.Server();
 let config: SwaggerHapi.Config = {

@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { Three } from "../../../../core/three";
 /**
  * Simple class that stores the particle's "target" or "next" state.

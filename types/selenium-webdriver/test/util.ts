@@ -1,4 +1,4 @@
-import util = require("selenium-webdriver/lib/util");
+import * as util from "selenium-webdriver/lib/util";
 
 function TestUtil() {
     let isObject: boolean = util.isObject(Object);

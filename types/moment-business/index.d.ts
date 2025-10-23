@@ -1,4 +1,4 @@
-import moment = require("moment");
+import * as moment from "moment";
 
 /**
  * Calculate the number of week days between `startMoment` and `endMoment`. Week days are Monday through Friday.

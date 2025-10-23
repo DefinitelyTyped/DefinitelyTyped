@@ -1,4 +1,4 @@
-import os = require("node:os");
+import * as os from "node:os";
 {
     let result: string;
 

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import FormData = require("form-data");
+import * as FormData from "form-data";
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;

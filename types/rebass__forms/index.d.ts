@@ -1,6 +1,6 @@
-import React = require("react");
-import Rebass = require("rebass");
-import StyledSystem = require("styled-system");
+import * as React from "react";
+import * as Rebass from "rebass";
+import * as StyledSystem from "styled-system";
 
 export {};
 

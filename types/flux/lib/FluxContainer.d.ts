@@ -1,6 +1,6 @@
-import React = require("react");
-import Dispatcher = require("./Dispatcher");
-import FluxStore = require("./FluxStore");
+import * as React from "react";
+import * as Dispatcher from "./Dispatcher";
+import * as FluxStore from "./FluxStore";
 
 /**
  * A FluxContainer is used to subscribe a react component to multiple stores.

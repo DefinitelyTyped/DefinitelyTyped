@@ -1,4 +1,4 @@
-import async = require("async");
+import * as async from "async";
 
 async function* collectionGenerator<T>(): AsyncIterable<T> {}
 

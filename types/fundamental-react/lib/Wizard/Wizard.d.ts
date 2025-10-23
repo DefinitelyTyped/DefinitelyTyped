@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import WizardContainer from "./WizardContainer";
 import WizardContent from "./WizardContent";
 import WizardFooter from "./WizardFooter";

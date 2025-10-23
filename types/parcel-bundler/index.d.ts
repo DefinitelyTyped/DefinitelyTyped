@@ -1,6 +1,6 @@
-import express = require("express-serve-static-core");
-import http = require("http");
-import https = require("https");
+import * as express from "express-serve-static-core";
+import * as http from "http";
+import * as https from "https";
 
 declare namespace ParcelBundler {
     interface HttpsOptions {

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import fs = require("fs");
+import * as fs from "fs";
 import Stats = fs.Stats;
 
 export * from "fs";

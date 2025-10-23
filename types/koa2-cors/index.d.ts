@@ -1,4 +1,4 @@
-import Koa = require("koa");
+import * as Koa from "koa";
 declare namespace cors {
     interface Options {
         origin?: string | ((ctx: Koa.Context) => boolean | string) | undefined;

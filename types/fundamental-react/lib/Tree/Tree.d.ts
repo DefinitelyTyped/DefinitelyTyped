@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface TreeProps {
     /** React nodes to render within. Nest TreeNodes to create multiple levels in the Tree. */

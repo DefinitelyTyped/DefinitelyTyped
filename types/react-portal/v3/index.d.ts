@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 interface CallBackProps extends React.RefAttributes<any> {
     children?: React.ReactNode;

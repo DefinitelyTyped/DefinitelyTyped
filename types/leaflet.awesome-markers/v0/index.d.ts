@@ -1,4 +1,4 @@
-import Leaflet = require("leaflet");
+import * as Leaflet from "leaflet";
 
 declare global {
     namespace L {

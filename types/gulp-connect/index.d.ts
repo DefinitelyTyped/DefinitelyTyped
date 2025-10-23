@@ -1,6 +1,6 @@
-import connectModule = require("connect");
-import http = require("http");
-import https = require("https");
+import * as connectModule from "connect";
+import * as http from "http";
+import * as https from "https";
 
 export interface LiveReloadOptions {
     /** Port to run live reload server on. Defauls to 35729. */

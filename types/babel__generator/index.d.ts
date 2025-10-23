@@ -1,4 +1,4 @@
-import t = require("@babel/types");
+import * as t from "@babel/types";
 
 export interface GeneratorOptions {
     /**

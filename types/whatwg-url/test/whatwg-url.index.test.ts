@@ -1,4 +1,4 @@
-import whatwgUrl = require("whatwg-url");
+import * as whatwgUrl from "whatwg-url";
 
 // test type exports
 type URLRecord = whatwgUrl.URLRecord;

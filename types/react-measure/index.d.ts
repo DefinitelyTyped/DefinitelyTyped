@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type MeasurementType = "client" | "offset" | "scroll" | "bounds" | "margin";
 

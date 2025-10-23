@@ -2,7 +2,7 @@
 
 import { Busboy, BusboyConfig } from "busboy";
 import { RequestHandler } from "express";
-import http = require("http");
+import * as http from "http";
 
 declare function connectBusboy(options?: connectBusboy.ConnectBusboyOptions): RequestHandler;
 

@@ -10,7 +10,7 @@
  */
 declare module "timers" {
     import { Abortable } from "node:events";
-    import promises = require("node:timers/promises");
+    import * as promises from "node:timers/promises";
     export interface TimerOptions extends Abortable {
         /**
          * Set to `false` to indicate that the scheduled `Timeout`

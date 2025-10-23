@@ -1,4 +1,4 @@
-import Backbone = require("backbone");
+import * as Backbone from "backbone";
 
 export as namespace Backgrid;
 export = Backgrid;

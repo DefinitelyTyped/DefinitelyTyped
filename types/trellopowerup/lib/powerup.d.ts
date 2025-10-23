@@ -1,11 +1,11 @@
-import Base = require("./base");
-import Callback = require("./callback");
-import Context = require("./context");
-import HostHandlers = require("./hosthandlers");
-import L18N = require("./localizer");
-import RestApi = require("./restapi");
-import Theming = require("./theming");
-import Util = require("./util");
+import * as Base from "./base";
+import * as Callback from "./callback";
+import * as Context from "./context";
+import * as HostHandlers from "./hosthandlers";
+import * as L18N from "./localizer";
+import * as RestApi from "./restapi";
+import * as Theming from "./theming";
+import * as Util from "./util";
 
 export * from "./context";
 export * from "./hosthandlers";

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 // Hooks
 // Documentation: https://github.com/tannerlinsley/react-form/blob/a4c951622b623edbe95884eb277fae5f637fd481/docs/api.md

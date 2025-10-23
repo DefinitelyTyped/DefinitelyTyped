@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import GCProfiler = require("gc-profiler");
+import * as GCProfiler from "gc-profiler";
 
 export = memoryUsage;
 

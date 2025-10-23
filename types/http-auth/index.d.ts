@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import http = require("http");
+import * as http from "http";
 
 type Qop = "auth" | "none";
 type Algorithm = "MD5" | "MD5-sess";

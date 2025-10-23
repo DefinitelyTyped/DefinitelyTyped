@@ -1,7 +1,7 @@
 /// <reference types="node"/>
 
 declare module "restler" {
-    import http = require("http");
+    import * as http from "http";
 
     /**
      * Interface for resler class.

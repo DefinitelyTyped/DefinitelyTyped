@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import Coordinates from "../Core/Geographic/Coordinates";
 
 declare namespace _default {

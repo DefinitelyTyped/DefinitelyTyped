@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import http = require("http");
-import https = require("https");
+import * as http from "http";
+import * as https from "https";
 
 declare namespace core {
     interface NeedleResponse extends http.IncomingMessage {

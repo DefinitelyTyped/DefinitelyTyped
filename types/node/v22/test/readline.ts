@@ -1,6 +1,6 @@
-import readline = require("node:readline");
-import readlinePromises = require("node:readline/promises");
-import stream = require("node:stream");
+import * as readline from "node:readline";
+import * as readlinePromises from "node:readline/promises";
+import * as stream from "node:stream";
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 

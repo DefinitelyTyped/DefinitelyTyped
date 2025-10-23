@@ -4,7 +4,7 @@
 //   https://github.com/ChadKillingsworth/closure-compiler-npm/issues/21
 // Be careful to read the code when choosing types.
 
-import child_process = require("child_process");
+import * as child_process from "child_process";
 
 // The "json_streams" compiler flag lets the compiler accept/produce
 // arrays of JSON objects in this shape for input/output.

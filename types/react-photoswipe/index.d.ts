@@ -1,5 +1,5 @@
 import { Item, Options } from "photoswipe";
-import React = require("react");
+import * as React from "react";
 
 export interface PhotoSwipeProps {
     /**

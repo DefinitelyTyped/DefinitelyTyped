@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/search/searchcursor";
 
 const cm = CodeMirror(document.body);

@@ -1,6 +1,6 @@
 /// <reference types="react"/>
 
-import React = require("react");
+import * as React from "react";
 import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 

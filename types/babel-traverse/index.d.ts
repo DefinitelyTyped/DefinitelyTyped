@@ -1,4 +1,4 @@
-import t = require("babel-types");
+import * as t from "babel-types";
 export type Node = t.Node;
 
 export default function traverse<S>(

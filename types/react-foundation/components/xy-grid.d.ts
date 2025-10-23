@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import React = require("react");
+import * as React from "react";
 import { ExtendedBreakpoints, GutterTypes } from "../enums";
 import { FlexboxPropTypes } from "../utils";
 /**

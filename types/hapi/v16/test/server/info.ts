@@ -1,7 +1,7 @@
 // From https://hapijs.com/api/16.1.1#serverinfo
 
 import assert = require("assert");
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 var options: Hapi.ServerConnectionOptions = { port: 80 };
 server.connection(options);

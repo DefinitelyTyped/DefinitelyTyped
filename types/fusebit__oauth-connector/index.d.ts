@@ -1,5 +1,5 @@
 import { FusebitContext } from "@fusebit/add-on-sdk";
-import express = require("express");
+import * as express from "express";
 
 /**
  * Model for persisted user data.

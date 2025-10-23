@@ -1,6 +1,6 @@
 // The definition file for supplemental module.
 
-import cldr = require("cldrjs");
+import * as cldr from "cldrjs";
 
 declare module "cldrjs" {
     interface TimeDataStatic {

@@ -1,6 +1,6 @@
-import http = require("http");
-import http2 = require("http2");
-import https = require("https");
+import * as http from "http";
+import * as http2 from "http2";
+import * as https from "https";
 import { Stream } from "stream";
 import methods = require("methods");
 

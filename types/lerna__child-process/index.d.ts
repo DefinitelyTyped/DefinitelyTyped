@@ -1,5 +1,5 @@
 import { Package } from "@lerna/package";
-import execa = require("execa");
+import * as execa from "execa";
 
 export type ExecutionError = execa.ExecaError & { exitCode: number; pkg?: Package };
 export type ExecutionResult = execa.ExecaChildProcess & { pkg?: Package };

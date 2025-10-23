@@ -1,5 +1,5 @@
 import { Property } from "../../Information";
-import Common = require("./common");
+import * as Common from "./common";
 
 export const TYPE: string;
 

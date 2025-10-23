@@ -1,5 +1,5 @@
-import Cookies = require("cookies");
-import Koa = require("koa");
+import * as Cookies from "cookies";
+import * as Koa from "koa";
 
 declare namespace koaSession {
     interface Session {

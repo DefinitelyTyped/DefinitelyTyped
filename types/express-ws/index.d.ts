@@ -1,8 +1,8 @@
-import express = require("express");
-import core = require("express-serve-static-core");
-import http = require("http");
-import https = require("https");
-import ws = require("ws");
+import * as express from "express";
+import * as core from "express-serve-static-core";
+import * as http from "http";
+import * as https from "https";
+import * as ws from "ws";
 
 declare module "express" {
     function Router(options?: RouterOptions): expressWs.Router;

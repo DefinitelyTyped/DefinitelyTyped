@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 import { FirstPersonControls } from "./FirstPersonControls";
 import { Player } from "./Player";
 

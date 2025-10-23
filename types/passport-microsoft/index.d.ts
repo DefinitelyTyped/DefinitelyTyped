@@ -1,4 +1,4 @@
-import oauth2 = require("passport-oauth2");
+import * as oauth2 from "passport-oauth2";
 
 // Disable automatic exporting
 export {};

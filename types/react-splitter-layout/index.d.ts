@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 declare class SplitterLayout extends React.PureComponent<SplitterLayout.SplitterLayoutProps> {}
 

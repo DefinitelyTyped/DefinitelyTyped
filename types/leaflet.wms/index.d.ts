@@ -1,6 +1,6 @@
 //// <reference types="leaflet" />
 
-import L = require("leaflet");
+import * as L from "leaflet";
 
 export interface WmsParamsOptions extends L.WMSParams {
     crs?: string;

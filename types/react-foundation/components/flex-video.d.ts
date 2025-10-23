@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import React = require("react");
+import * as React from "react";
 import { FlexboxPropTypes } from "../utils";
 export interface FlexVideoProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
     isWidescreen?: boolean | undefined;

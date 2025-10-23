@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import DockerModem = require("docker-modem");
-import events = require("events");
+import * as DockerModem from "docker-modem";
+import * as events from "events";
 import { ConnectConfig } from "ssh2";
-import stream = require("stream");
+import * as stream from "stream";
 
 declare namespace Dockerode {
     class Container {

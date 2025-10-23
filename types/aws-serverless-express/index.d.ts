@@ -1,6 +1,6 @@
 /// <reference types="node"/>
-import lambda = require("aws-lambda");
-import http = require("http");
+import * as lambda from "aws-lambda";
+import * as http from "http";
 
 export interface Response {
     statusCode: number;

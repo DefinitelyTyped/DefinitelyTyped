@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverhandlername-method
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 server.connection({ host: "localhost", port: 8000 });
 

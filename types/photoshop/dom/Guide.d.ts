@@ -1,4 +1,4 @@
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 /**
  * Represents a single guide in the document.

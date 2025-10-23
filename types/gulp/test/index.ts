@@ -1,5 +1,5 @@
-import gulp = require("gulp");
-import registry = require("undertaker-registry");
+import * as gulp from "gulp";
+import * as registry from "undertaker-registry";
 
 const minify: () => any = () => {};
 const jade: () => any = () => {};

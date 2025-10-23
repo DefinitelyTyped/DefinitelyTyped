@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface MulePreviewDiffUrlProps {
     readonly contentUrls: readonly [string?, string?];

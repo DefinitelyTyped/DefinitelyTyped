@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ViewProps } from "react-native";
 
 export interface GoogleSigninButtonProps extends ViewProps {

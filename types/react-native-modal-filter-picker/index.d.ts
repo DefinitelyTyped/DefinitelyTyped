@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { FlatListProps, KeyboardAvoidingView, ModalProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface ModalFilterPickerOption {

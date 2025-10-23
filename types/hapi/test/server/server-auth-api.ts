@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi
-import Boom = require("boom");
+import * as Boom from "boom";
 import { Server, ServerAuthScheme } from "hapi";
 
 declare module "hapi" {

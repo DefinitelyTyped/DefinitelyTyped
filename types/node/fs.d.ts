@@ -20,10 +20,10 @@
  */
 declare module "fs" {
     import { NonSharedBuffer } from "node:buffer";
-    import stream = require("node:stream");
+    import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import { URL } from "node:url";
-    import promises = require("node:fs/promises");
+    import * as promises from "node:fs/promises";
     export { promises };
     /**
      * Valid types for path values in "fs".

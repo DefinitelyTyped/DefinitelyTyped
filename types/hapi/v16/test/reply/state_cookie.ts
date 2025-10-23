@@ -1,6 +1,6 @@
 // from https://hapijs.com/tutorials/cookies?lang=en_US
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 const server = new Hapi.Server();
 server.connection({ port: 80 });

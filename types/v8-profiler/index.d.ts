@@ -1,12 +1,12 @@
 /* =================== USAGE ===================
-    import profiler = require("v8-profiler");
+    import * as profiler from "v8-profiler";
     profiler.startProfiling();
  =============================================== */
 
 /// <reference types="node" />
 
 declare module "v8-profiler" {
-    import fs = require("fs");
+    import * as fs from "fs";
 
     namespace V8Profiler {
         type Profiler = {

@@ -7,7 +7,7 @@ export { default as Events } from "./mixins/scroll-events";
 export { default as ScrollLink, ScrollLinkProps } from "./mixins/scroll-link";
 export { default as scrollSpy } from "./mixins/scroll-spy";
 
-import animateScroll = require("./mixins/animate-scroll");
-import scroller = require("./mixins/scroller");
+import * as animateScroll from "./mixins/animate-scroll";
+import * as scroller from "./mixins/scroller";
 
 export { animateScroll, scroller };

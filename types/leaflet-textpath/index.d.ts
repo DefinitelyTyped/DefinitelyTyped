@@ -1,8 +1,8 @@
 // Needed to access the leaflet module, to extend it.
-import Leaflet = require("leaflet");
+import * as Leaflet from "leaflet";
 
 // Needed to access JSX.IntrinsicElements.
-import React = require("react");
+import * as React from "react";
 
 /*
  * Add new properties to existing types in the leaflet module.

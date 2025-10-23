@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import net = require("net");
+import * as net from "net";
 
 export type FEED_CONTROL_TYPE = "LF" | "GLF" | "FF" | "CR" | "HT" | "VT";
 export type BITMAP_FORMAT_TYPE = "S8" | "D8" | "S24" | "D24";

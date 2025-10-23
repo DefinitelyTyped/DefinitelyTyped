@@ -1,4 +1,4 @@
-import OpenTimestamps = require("opentimestamps");
+import * as OpenTimestamps from "opentimestamps";
 const file = Buffer.from(
     "5468697320646f63756d656e742069732074696d657374616d706564206f6e20626f7468204c697465636f696e20616e6420426974636f696e20626c6f636b636861696e73",
     "hex",

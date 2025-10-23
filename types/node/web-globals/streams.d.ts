@@ -1,6 +1,6 @@
 export {};
 
-import webstreams = require("stream/web");
+import * as webstreams from "stream/web";
 
 type _CompressionStream = typeof globalThis extends { onmessage: any } ? {} : webstreams.CompressionStream;
 type _DecompressionStream = typeof globalThis extends { onmessage: any } ? {} : webstreams.DecompressionStream;

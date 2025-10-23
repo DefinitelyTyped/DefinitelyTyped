@@ -2,7 +2,7 @@
 
 export = esprima;
 export as namespace esprima;
-import ESTree = require("estree");
+import * as ESTree from "estree";
 
 declare namespace esprima {
     const version: string;

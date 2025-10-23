@@ -1,4 +1,4 @@
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare namespace proxy {
     type RequestOptionFunc = (request: Koa.Request, opts: any) => any;

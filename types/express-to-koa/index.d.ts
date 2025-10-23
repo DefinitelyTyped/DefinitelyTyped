@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import Koa = require("koa");
+import * as Koa from "koa";
 
 export = expressToKoa;
 

@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/display/rulers";
 
 const cm1 = CodeMirror(document.body, {

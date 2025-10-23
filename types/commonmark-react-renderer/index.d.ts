@@ -1,5 +1,5 @@
 import { Node } from "commonmark";
-import React = require("react");
+import * as React from "react";
 
 declare namespace ReactRenderer {
     interface CommonProps {

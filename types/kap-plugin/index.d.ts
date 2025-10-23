@@ -1,5 +1,5 @@
 import ElectronStore = require("electron-store");
-import got = require("got");
+import * as got from "got";
 import { JSONSchema7 } from "json-schema";
 
 export interface KapContext<T extends Record<string, any>> {

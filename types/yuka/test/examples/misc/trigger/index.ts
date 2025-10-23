@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 import { CustomTrigger } from "./CustomTrigger.js";
 
 const entityMesh = { matrix: new YUKA.Matrix4() };

@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#requestgetlogtags-internal
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 declare const request: Hapi.Request;
 

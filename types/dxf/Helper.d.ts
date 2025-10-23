@@ -1,5 +1,5 @@
-import Entities = require("./handlers/entities");
-import Information = require("./Information");
+import * as Entities from "./handlers/entities";
+import * as Information from "./Information";
 import { PolylineExport } from "./toPolylines";
 
 export default class Helper {

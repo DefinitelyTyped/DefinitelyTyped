@@ -1,6 +1,6 @@
 /// <reference path="mocks.d.ts" />
 
-import angular = require("angular");
+import * as angular from "angular";
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)

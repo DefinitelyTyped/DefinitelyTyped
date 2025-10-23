@@ -1,7 +1,7 @@
 import { Encoders, TransportServer } from "rsocket-core";
 import { Flowable } from "rsocket-flowable";
 import { DuplexConnection } from "rsocket-types";
-import ws = require("ws");
+import * as ws from "ws";
 
 /**
  * A WebSocket transport server.

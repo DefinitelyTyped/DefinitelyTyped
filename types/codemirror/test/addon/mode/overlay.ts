@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/mode/overlay";
 
 // From the demo at https://codemirror.net/demo/mustache.html

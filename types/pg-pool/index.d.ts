@@ -1,4 +1,4 @@
-import pg = require("pg");
+import * as pg from "pg";
 
 declare class Pool<T extends pg.Client> extends pg.Pool {
     readonly Client: Pool.ClientLikeCtr<T>;

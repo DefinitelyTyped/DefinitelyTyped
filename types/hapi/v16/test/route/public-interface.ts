@@ -1,6 +1,6 @@
 "use strict";
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 var route = {} as Hapi.RoutePublicInterface;
 

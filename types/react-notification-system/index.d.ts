@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 declare namespace NotificationSystem {
     export type CallBackFunction = (notification: Notification) => void;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ScaledSize, ViewStyle } from "react-native";
 
 export interface NestedViewStyles {

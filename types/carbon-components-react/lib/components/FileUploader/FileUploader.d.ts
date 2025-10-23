@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 import { ButtonKind } from "../Button";
 import { FileUploaderButtonProps } from "./FileUploaderButton";

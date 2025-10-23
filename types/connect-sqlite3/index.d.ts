@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import express = require("express");
+import * as express from "express";
 
 declare namespace connect {
     interface SQLiteStoreOptions {

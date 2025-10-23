@@ -1,5 +1,5 @@
-import express = require("express");
-import session = require("express-session");
+import * as express from "express";
+import * as session from "express-session";
 
 export = f;
 

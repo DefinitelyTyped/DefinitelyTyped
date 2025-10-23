@@ -1,7 +1,7 @@
 // eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "styled-components/native" {
-    import ReactNative = require("react-native");
-    import React = require("react");
+    import * as ReactNative from "react-native";
+    import * as React from "react";
 
     export {
         css,

@@ -1,15 +1,15 @@
-import webdriver = require("selenium-webdriver");
-import chrome = require("selenium-webdriver/chrome");
+import * as webdriver from "selenium-webdriver";
+import * as chrome from "selenium-webdriver/chrome";
 import { HttpResponse } from "selenium-webdriver/devtools/networkinterceptor";
-import edge = require("selenium-webdriver/edge");
-import firefox = require("selenium-webdriver/firefox");
-import http = require("selenium-webdriver/http");
-import ie = require("selenium-webdriver/ie");
+import * as edge from "selenium-webdriver/edge";
+import * as firefox from "selenium-webdriver/firefox";
+import * as http from "selenium-webdriver/http";
+import * as ie from "selenium-webdriver/ie";
 import { PageLoadStrategy, Platform, UserPromptHandler } from "selenium-webdriver/lib/capabilities";
 import { Command } from "selenium-webdriver/lib/command";
 import Symbols from "selenium-webdriver/lib/symbols";
 import { ShadowRoot, ShadowRootPromise } from "selenium-webdriver/lib/webdriver";
-import safari = require("selenium-webdriver/safari");
+import * as safari from "selenium-webdriver/safari";
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();

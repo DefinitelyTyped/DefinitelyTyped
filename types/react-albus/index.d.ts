@@ -1,5 +1,5 @@
 import { History } from "history";
-import React = require("react");
+import * as React from "react";
 
 export interface StepObject {
     id: string;

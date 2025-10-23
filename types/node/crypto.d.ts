@@ -18,7 +18,7 @@
  */
 declare module "crypto" {
     import { NonSharedBuffer } from "node:buffer";
-    import stream = require("node:stream");
+    import * as stream from "node:stream";
     import { PeerCertificate } from "node:tls";
     /**
      * SPKAC is a Certificate Signing Request mechanism originally implemented by

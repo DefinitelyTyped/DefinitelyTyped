@@ -1,4 +1,4 @@
-import Popper = require("@popperjs/core");
+import * as Popper from "@popperjs/core";
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 import Tooltip from "./tooltip";
 

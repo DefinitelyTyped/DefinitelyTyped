@@ -1,7 +1,7 @@
-import webdriver = require("selenium-webdriver");
-import firefox = require("selenium-webdriver/firefox");
-import http = require("selenium-webdriver/http");
-import remote = require("selenium-webdriver/remote");
+import * as webdriver from "selenium-webdriver";
+import * as firefox from "selenium-webdriver/firefox";
+import * as http from "selenium-webdriver/http";
+import * as remote from "selenium-webdriver/remote";
 
 function TestBinary() {
     let binary: firefox.Binary = new firefox.Binary();

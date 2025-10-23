@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 import StatefulToolTip from "./lib/StatefulToolTip";
 import ToolTip from "./lib/ToolTip";

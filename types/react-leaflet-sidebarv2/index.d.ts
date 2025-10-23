@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 type Icon = string | React.ReactElement;
 type Anchor = "top" | "bottom";

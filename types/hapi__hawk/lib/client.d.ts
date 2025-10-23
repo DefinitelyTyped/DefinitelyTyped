@@ -1,6 +1,6 @@
-import http = require("http");
-import request = require("request");
-import Crypto = require("./crypto");
+import * as http from "http";
+import * as request from "request";
+import * as Crypto from "./crypto";
 
 export interface Credentials {
     algorithm: "sha1" | "sha256";

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface GLViewNativeProps {
     onContextCreate?: ((gl: WebGLRenderingContext) => void) | undefined;

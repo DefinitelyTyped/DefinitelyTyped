@@ -1,4 +1,4 @@
-import webpack = require("webpack");
+import * as webpack from "webpack";
 
 export = WorkerPlugin;
 

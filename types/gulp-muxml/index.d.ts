@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import muxml = require("muxml");
+import * as muxml from "muxml";
 import { Transform } from "stream";
 
 declare function gulpMuxml(opts: muxml.Options): Transform;

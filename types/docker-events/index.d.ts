@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import Dockerode = require("dockerode");
-import events = require("events");
+import * as Dockerode from "dockerode";
+import * as events from "events";
 
 declare namespace DockerEvents {
     interface DockerEventsOptions {

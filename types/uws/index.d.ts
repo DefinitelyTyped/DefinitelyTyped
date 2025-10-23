@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import events = require("events");
-import http = require("http");
-import https = require("https");
-import net = require("net");
+import * as events from "events";
+import * as http from "http";
+import * as https from "https";
+import * as net from "net";
 
 declare class WebSocket extends events.EventEmitter {
     static CONNECTING: number;

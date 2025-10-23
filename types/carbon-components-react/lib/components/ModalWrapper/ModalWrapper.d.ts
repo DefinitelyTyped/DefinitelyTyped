@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ButtonKind, ButtonProps } from "../Button";
 import { ModalProps } from "../Modal";
 

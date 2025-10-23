@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { POOL_MAX } from "../constants";
 import { Emitter } from "../emitter";
 import EventDispatcher from "../events/EventDispatcher";

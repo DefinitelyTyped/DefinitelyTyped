@@ -1242,7 +1242,7 @@ declare namespace jest {
      * @example
      *
      *  jest.mock("../api");
-     *  import api = require("../api");
+     *  import * as api from "../api";
      *
      *  const mockApi = api as jest.Mocked<typeof api>;
      *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");

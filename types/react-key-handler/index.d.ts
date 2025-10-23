@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 type _KEYDOWN = "keydown";
 type _KEYPRESS = "keypress";

@@ -1,4 +1,4 @@
-import OpenTimestamps = require("opentimestamps");
+import * as OpenTimestamps from "opentimestamps";
 
 go_async();
 

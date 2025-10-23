@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type imageSize = "s" | "m" | "l";
 export type imageType = "circle";

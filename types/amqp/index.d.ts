@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import events = require("events");
-import net = require("net");
+import * as events from "events";
+import * as net from "net";
 
 export type Callback<T> = (value: T) => void;
 export interface AMQPClient extends net.Socket {

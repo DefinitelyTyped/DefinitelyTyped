@@ -1,4 +1,4 @@
-import inspector = require("node:inspector");
+import * as inspector from "node:inspector";
 import { Session as promiseSession } from "node:inspector/promises";
 
 const b: inspector.Console.ConsoleMessage = { source: "test", text: "test", level: "error" };

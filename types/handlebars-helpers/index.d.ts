@@ -1,4 +1,4 @@
-import Handlebars = require("handlebars");
+import * as Handlebars from "handlebars";
 
 declare function helpers(
     groups?: helpers.Options | string | string[],

@@ -1,7 +1,7 @@
 // Turn off automatic exporting
 export {};
 
-import React = require("react");
+import * as React from "react";
 
 type Callback = () => void;
 

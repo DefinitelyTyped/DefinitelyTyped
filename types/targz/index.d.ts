@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import tar = require("tar-fs");
-import zlib = require("zlib");
+import * as tar from "tar-fs";
+import * as zlib from "zlib";
 
 export interface CompressOptions {
     src: string;

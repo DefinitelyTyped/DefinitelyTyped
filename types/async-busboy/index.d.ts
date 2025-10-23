@@ -1,5 +1,5 @@
-import fs = require("fs");
-import http = require("http");
+import * as fs from "fs";
+import * as http from "http";
 import busboy = require("busboy");
 
 export = asyncBusboy;

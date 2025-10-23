@@ -3,42 +3,42 @@
 import Rsvp from "rsvp";
 
 import { Registry as ControllerRegistry } from "@ember/controller";
-import EmberStringNs = require("@ember/string");
-import EmberTemplateNs = require("@ember/template");
-import EmberTemplateHandlebarsNs = require("@ember/template/-private/handlebars");
+import * as EmberStringNs from "@ember/string";
+import * as EmberTemplateNs from "@ember/template";
+import * as EmberTemplateHandlebarsNs from "@ember/template/-private/handlebars";
 // eslint-disable-next-line no-duplicate-imports
-import EmberObjectNs = require("@ember/object");
-import EmberObjectComputedNs = require("@ember/object/computed");
-import EmberObjectEventedNs = require("@ember/object/evented");
-import EmberObjectEventsNs = require("@ember/object/events");
-import EmberObjectInternalsNs = require("@ember/object/internals");
-import EmberObjectObserversNs = require("@ember/object/observers");
-import EmberObjectPromiseProxyNs = require("@ember/object/promise-proxy-mixin");
-import EmberObjectProxyNs = require("@ember/object/proxy");
-import EmberPolyfillsNs = require("@ember/polyfills");
-import EmberRunloopNs = require("@ember/runloop");
-import EmberServiceNs = require("@ember/service");
-import EmberUtilsNs = require("@ember/utils");
+import * as EmberObjectNs from "@ember/object";
+import * as EmberObjectComputedNs from "@ember/object/computed";
+import * as EmberObjectEventedNs from "@ember/object/evented";
+import * as EmberObjectEventsNs from "@ember/object/events";
+import * as EmberObjectInternalsNs from "@ember/object/internals";
+import * as EmberObjectObserversNs from "@ember/object/observers";
+import * as EmberObjectPromiseProxyNs from "@ember/object/promise-proxy-mixin";
+import * as EmberObjectProxyNs from "@ember/object/proxy";
+import * as EmberPolyfillsNs from "@ember/polyfills";
+import * as EmberRunloopNs from "@ember/runloop";
+import * as EmberServiceNs from "@ember/service";
+import * as EmberUtilsNs from "@ember/utils";
 // @ember/debug
-import EmberDebugNs = require("@ember/debug");
+import * as EmberDebugNs from "@ember/debug";
 import _ContainerDebugAdapter from "@ember/debug/container-debug-adapter";
 import EmberDataAdapter from "@ember/debug/data-adapter";
 // @ember/engine
-import EmberApplicationNs = require("@ember/application");
-import EmberApplicationInstanceNs = require("@ember/application/instance");
-import EmberEngineNs = require("@ember/engine");
+import * as EmberApplicationNs from "@ember/application";
+import * as EmberApplicationInstanceNs from "@ember/application/instance";
+import * as EmberEngineNs from "@ember/engine";
 import _ContainerProxyMixin from "@ember/engine/-private/container-proxy-mixin";
 import _RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
-import EmberEngineInstanceNs = require("@ember/engine/instance");
+import * as EmberEngineInstanceNs from "@ember/engine/instance";
 import EmberCoreObject from "@ember/object/core";
-import EmberTestNs = require("@ember/test");
+import * as EmberTestNs from "@ember/test";
 // eslint-disable-next-line no-duplicate-imports
-import EmberControllerNs = require("@ember/controller");
+import * as EmberControllerNs from "@ember/controller";
 // eslint-disable-next-line no-duplicate-imports
 import EmberMixin from "@ember/object/mixin";
 import EmberObservable from "@ember/object/observable";
 // @ember/array
-import EmberArrayNs = require("@ember/array");
+import * as EmberArrayNs from "@ember/array";
 import EmberEnumerable from "@ember/array/-private/enumerable";
 import EmberMutableEnumerable from "@ember/array/-private/mutable-enumerable";
 import EmberNativeArray from "@ember/array/-private/native-array";

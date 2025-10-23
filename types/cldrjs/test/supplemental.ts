@@ -1,4 +1,4 @@
-import Cldr = require("cldrjs");
+import * as Cldr from "cldrjs";
 import "cldrjs/cldr/supplemental";
 
 const myCldr = new Cldr("en");

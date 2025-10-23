@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import http = require("http");
-import https = require("https");
-import net = require("net");
-import tls = require("tls");
+import * as http from "http";
+import * as https from "https";
+import * as net from "net";
+import * as tls from "tls";
 
 // Thrift re-exports node-int64 and Q
 import Int64 = require("node-int64");

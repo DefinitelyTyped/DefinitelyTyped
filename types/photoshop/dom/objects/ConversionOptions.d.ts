@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 /**
  * Options for converting an image to bitmap mode, using [[Document.changeMode]] with `ChangeMode.BITMAP`.
  *

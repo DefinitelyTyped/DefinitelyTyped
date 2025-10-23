@@ -1,6 +1,6 @@
 import CryptoJS = require("crypto-js");
-import Client = require("./client");
-import Crypto = require("./crypto");
+import * as Client from "./client";
+import * as Crypto from "./crypto";
 
 declare namespace hawk {
     namespace client {

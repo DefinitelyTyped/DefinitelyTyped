@@ -1,4 +1,4 @@
-import utils = require("eslint-utils");
+import * as utils from "eslint-utils";
 
 new utils.PatternMatcher(/.*/, {});
 new utils.PatternMatcher(/.*/, { escaped: true });

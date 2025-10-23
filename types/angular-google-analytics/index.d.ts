@@ -1,5 +1,5 @@
 /// <reference types="angular" />
-import angular = require("angular");
+import * as angular from "angular";
 
 declare module "angular" {
     export namespace google.analytics {

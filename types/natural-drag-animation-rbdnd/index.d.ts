@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { DraggableStateSnapshot, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 
 declare namespace NaturalDragAnimation {

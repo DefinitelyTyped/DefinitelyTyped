@@ -3,7 +3,7 @@
 /// <reference types="node" />
 
 import { ReadStream } from "fs";
-import tarStream = require("tar-stream");
+import * as tarStream from "tar-stream";
 
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;

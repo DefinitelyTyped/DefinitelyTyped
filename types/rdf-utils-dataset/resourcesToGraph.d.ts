@@ -1,4 +1,4 @@
-import RDF = require("@rdfjs/types");
+import * as RDF from "@rdfjs/types";
 import DatasetExt from "rdf-ext/lib/Dataset";
 import QuadExt from "rdf-ext/lib/Quad";
 

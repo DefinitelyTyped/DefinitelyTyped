@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import "codemirror/addon/comment/continuecomment";
 
 const cm1 = CodeMirror(document.body, {

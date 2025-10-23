@@ -1,4 +1,4 @@
-import app = require("fitbit-weather/app");
+import * as app from "fitbit-weather/app";
 
 app.fetch(60)
     .then(result => {

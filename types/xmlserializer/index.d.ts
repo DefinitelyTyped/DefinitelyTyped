@@ -1,4 +1,4 @@
-import parse5 = require("parse5");
+import * as parse5 from "parse5";
 
 export as namespace xmlserializer;
 

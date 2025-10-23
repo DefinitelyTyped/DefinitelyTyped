@@ -46,7 +46,7 @@ export { default as UniformNode } from "./core/UniformNode.js";
 export { default as VarNode } from "./core/VarNode.js";
 export { default as VaryingNode } from "./core/VaryingNode.js";
 
-import NodeUtils = require("./core/NodeUtils.js");
+import * as NodeUtils from "./core/NodeUtils.js";
 export { NodeUtils };
 
 // utils

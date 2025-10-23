@@ -1,5 +1,5 @@
-import Immutable = require("immutable");
-import React = require("react");
+import * as Immutable from "immutable";
+import * as React from "react";
 
 type SyntheticClipboardEvent = React.ClipboardEvent<{}>;
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;

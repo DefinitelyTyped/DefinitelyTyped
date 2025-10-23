@@ -13,7 +13,7 @@ import {
     SFCElement,
 } from "react";
 
-import ReactTestUtils = require(".");
+import * as ReactTestUtils from ".";
 
 export {};
 export interface OptionalEventProperties {

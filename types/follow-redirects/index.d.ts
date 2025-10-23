@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import coreHttp = require("http");
-import coreHttps = require("https");
+import * as coreHttp from "http";
+import * as coreHttps from "https";
 import { Writable } from "stream";
 import { URL } from "url";
 

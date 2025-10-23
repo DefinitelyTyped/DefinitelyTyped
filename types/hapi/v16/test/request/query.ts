@@ -1,6 +1,6 @@
 // Added test in addition to docs, for request.query
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 interface GetThingQuery {
     name: string;

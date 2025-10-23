@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactDivAttr, ReactInputAttr } from "../../../typings/shared";
 
 export interface SliderOnChangeArg {

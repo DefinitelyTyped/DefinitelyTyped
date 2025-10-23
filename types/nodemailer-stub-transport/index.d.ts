@@ -1,4 +1,4 @@
-import nodemailer = require("nodemailer");
+import * as nodemailer from "nodemailer";
 
 declare namespace StubTransportStatic {
     /**

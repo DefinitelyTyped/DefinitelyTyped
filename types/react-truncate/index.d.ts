@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface TruncateProps extends React.HTMLProps<Truncate> {
     lines?: number | false | undefined;

@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
-import SwaggerRestify = require("swagger-restify-mw");
-import restify = require("restify");
+import * as SwaggerRestify from "swagger-restify-mw";
+import * as restify from "restify";
 
 let app = restify.createServer();
 

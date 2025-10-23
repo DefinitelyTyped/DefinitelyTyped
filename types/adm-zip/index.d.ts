@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import FS = require("fs");
+import * as FS from "fs";
 import { Constants } from "./util";
 
 declare class AdmZip {

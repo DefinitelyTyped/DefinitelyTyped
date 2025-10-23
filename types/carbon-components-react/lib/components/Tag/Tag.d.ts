@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { FCProps, FCReturn, ReactAttr, ReactDivAttr } from "../../../typings/shared";
 
 export type TagTypeName =

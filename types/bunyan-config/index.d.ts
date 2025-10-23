@@ -1,7 +1,7 @@
 /// <reference types="bunyan"/>
 
 declare module "bunyan-config" {
-    import bunyan = require("bunyan");
+    import * as bunyan from "bunyan";
     interface StreamConfiguration {
         name: string;
         params?: {

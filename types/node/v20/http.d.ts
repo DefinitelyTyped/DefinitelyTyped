@@ -41,7 +41,7 @@
  */
 declare module "http" {
     import { NonSharedBuffer } from "node:buffer";
-    import stream = require("node:stream");
+    import * as stream from "node:stream";
     import { URL } from "node:url";
     import { LookupOptions } from "node:dns";
     import { EventEmitter } from "node:events";

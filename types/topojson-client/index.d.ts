@@ -1,4 +1,4 @@
-import GeoJSON = require("geojson");
+import * as GeoJSON from "geojson";
 import {
     GeometryCollection,
     GeometryObject,

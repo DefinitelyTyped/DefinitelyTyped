@@ -1,7 +1,7 @@
 /// <reference types="chai" />
 /// <reference types="sinon" />
 
-import Sinon = require("sinon");
+import * as Sinon from "sinon";
 
 declare global {
     export namespace Chai {

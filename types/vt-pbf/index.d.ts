@@ -1,4 +1,4 @@
-import GJ = require("geojson");
+import * as GJ from "geojson";
 import geojsonvt = require("geojson-vt");
 
 type RawGeometry = number | RawGeometry[];

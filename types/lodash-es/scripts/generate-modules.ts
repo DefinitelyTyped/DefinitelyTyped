@@ -2,11 +2,11 @@
 
 /// <reference types="node" />
 
-import cp = require("child_process");
-import fs = require("fs");
+import * as cp from "child_process";
+import * as fs from "fs";
 import { STATUS_CODES } from "http";
 import { get } from "https";
-import path = require("path");
+import * as path from "path";
 
 const GROUP_WITH_DEFAULTS = [
     "array",

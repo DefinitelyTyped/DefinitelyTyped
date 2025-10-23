@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import dgram = require("node:dgram");
+import * as dgram from "node:dgram";
 import EventEmitter = require("node:events");
 
 export = Client;

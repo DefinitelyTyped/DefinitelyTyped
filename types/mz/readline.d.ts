@@ -1,7 +1,7 @@
 // Modified from the node.js definitions.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/readline.d.ts
 
-import readline = require("readline");
+import * as readline from "readline";
 export * from "readline";
 export { Completer as SyncCompleter } from "readline";
 

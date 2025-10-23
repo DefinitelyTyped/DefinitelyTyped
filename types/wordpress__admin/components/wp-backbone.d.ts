@@ -1,5 +1,5 @@
-import Backbone = require("backbone");
-import _ = require("lodash");
+import * as Backbone from "backbone";
+import * as _ from "lodash";
 
 export type WpBackboneViewList = WpBackBoneView[] | { [key: string]: WpBackBoneView[] };
 

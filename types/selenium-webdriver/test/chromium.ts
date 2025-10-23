@@ -1,5 +1,5 @@
-import webdriver = require("selenium-webdriver");
-import chromium = require("selenium-webdriver/chromium");
+import * as webdriver from "selenium-webdriver";
+import * as chromium from "selenium-webdriver/chromium";
 
 async function TestChromoiumDriver() {
     let driver: chromium.ChromiumWebDriver = chromium.ChromiumWebDriver.createSession();

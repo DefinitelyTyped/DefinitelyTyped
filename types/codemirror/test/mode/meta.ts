@@ -1,4 +1,4 @@
-import CodeMirror = require("codemirror");
+import * as CodeMirror from "codemirror";
 import { ModeInfo } from "codemirror/mode/meta";
 
 let info: ModeInfo | undefined = CodeMirror.findModeByName("html");

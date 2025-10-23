@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import PlanarView from "../Core/Prefab/PlanarView";
 
 // TODO: Define public API

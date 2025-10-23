@@ -1,9 +1,9 @@
-import Common = require("./Common");
-import Blocks = require("./handlers/blocks");
-import Entities = require("./handlers/entities");
-import Headers = require("./handlers/header");
-import Tables = require("./handlers/tables");
-import Utils = require("./Utils");
+import * as Common from "./Common";
+import * as Blocks from "./handlers/blocks";
+import * as Entities from "./handlers/entities";
+import * as Headers from "./handlers/header";
+import * as Tables from "./handlers/tables";
+import * as Utils from "./Utils";
 
 export interface FileInfo {
     header: Headers.Header;

@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
 // https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
-import Crypto = require("crypto");
+import * as Crypto from "crypto";
 import { Lifecycle, Request, Server, ServerOptions, ServerRoute } from "hapi";
 
 const options: ServerOptions = {

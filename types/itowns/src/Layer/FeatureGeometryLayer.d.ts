@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import Style from "../Core/Style";
 import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 

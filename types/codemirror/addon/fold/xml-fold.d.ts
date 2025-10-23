@@ -1,4 +1,4 @@
-import CodeMirror = require("../../");
+import * as CodeMirror from "../../";
 import "./foldcode";
 
 export interface XmlTag {

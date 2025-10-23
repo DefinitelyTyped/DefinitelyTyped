@@ -1,4 +1,4 @@
-import lib = require("trusted-types/lib");
+import * as lib from "trusted-types/lib";
 
 // $ExpectType TrustedTypesWindow
 const ttWindow = window as lib.TrustedTypesWindow;

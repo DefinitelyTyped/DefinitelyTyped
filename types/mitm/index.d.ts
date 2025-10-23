@@ -1,8 +1,8 @@
 /// <reference types="node"/>
 
 declare module "mitm" {
-    import http = require("http");
-    import net = require("net");
+    import * as http from "http";
+    import * as net from "net";
 
     function mitm(): mitm.Mitm;
 

@@ -1,6 +1,6 @@
 /// <reference types="geojson" />
 
-import ArcGis = require("arcgis-rest-api");
+import * as ArcGis from "arcgis-rest-api";
 
 /**
  * Converts an ArcGIS geometry into a GeoJSON geometry.

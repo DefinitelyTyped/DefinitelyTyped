@@ -1,4 +1,4 @@
-import ws = require("ws");
+import * as ws from "ws";
 
 export function createServer<TConnection extends Connection>(): Server<TConnection>;
 export function createClient<TConnection extends Connection>(): Client<TConnection>;

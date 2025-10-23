@@ -1,4 +1,4 @@
-import Q = require("q");
+import * as Q from "q";
 
 declare global {
     namespace Sdk {

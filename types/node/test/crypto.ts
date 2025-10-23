@@ -1,4 +1,4 @@
-import crypto = require("node:crypto");
+import * as crypto from "node:crypto";
 import assert = require("node:assert");
 import { promisify } from "node:util";
 

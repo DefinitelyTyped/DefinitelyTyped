@@ -1,6 +1,6 @@
 // Added in addition to code from https://hapijs.com/api/16.1.1#route-options > plugins
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 // In the plugin code
 declare module "hapi" {

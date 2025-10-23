@@ -1,4 +1,4 @@
-import itowns = require("itowns");
+import * as itowns from "itowns";
 
 // # Planar view with one single layer of vector tile
 

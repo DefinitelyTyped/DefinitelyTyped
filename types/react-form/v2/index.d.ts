@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 // Helper Types
 export type FormValue = any;

@@ -1,4 +1,4 @@
-import L = require("leaflet");
+import * as L from "leaflet";
 import "leaflet.markercluster";
 
 declare module "leaflet" {

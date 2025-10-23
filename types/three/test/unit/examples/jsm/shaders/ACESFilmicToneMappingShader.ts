@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { ACESFilmicToneMappingShader } from "three/addons/shaders/ACESFilmicToneMappingShader.js";

@@ -39,7 +39,7 @@ declare namespace i18nextNodeFsBackEnd {
 }
 
 declare module "i18next-node-fs-backend" {
-    import i18next = require("i18next");
+    import * as i18next from "i18next";
 
     class Backend implements i18next.BackendModule<i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions> {
         type: "backend";

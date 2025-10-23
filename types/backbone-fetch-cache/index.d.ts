@@ -1,4 +1,4 @@
-import Backbone = require("backbone");
+import * as Backbone from "backbone";
 
 interface SuperMethods {
     modelFetch(options?: Backbone.ModelFetchOptions): JQueryXHR;

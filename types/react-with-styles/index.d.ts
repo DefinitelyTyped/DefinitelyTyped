@@ -1,6 +1,6 @@
 import { CSSProperties } from "aphrodite";
-import PropTypes = require("prop-types");
-import React = require("react");
+import * as PropTypes from "prop-types";
+import * as React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Theme {}

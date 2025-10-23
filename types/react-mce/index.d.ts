@@ -1,5 +1,5 @@
-import React = require("react");
-import ActualTinyMCE = require("tinymce");
+import * as React from "react";
+import * as ActualTinyMCE from "tinymce";
 
 type EventHandler = (event: any, editor: ActualTinyMCE.Editor) => void;
 

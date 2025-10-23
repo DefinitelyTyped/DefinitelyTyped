@@ -1,5 +1,5 @@
 import { Alert } from "bootstrap";
-import $ from "jquery";
+import * as $ from "jquery";
 
 const element = new Element();
 

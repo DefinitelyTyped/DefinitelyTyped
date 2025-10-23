@@ -1,4 +1,4 @@
-import materialize = require("materialize-css");
+import * as materialize from "materialize-css";
 
 const elem = document.querySelector(".whatever")!;
 

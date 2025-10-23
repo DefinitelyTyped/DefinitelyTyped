@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import WebSocket = require("ws");
+import * as WebSocket from "ws";
 import { READY_STATE, Wire } from "./wire";
 export default class WebSocketTransport extends EventEmitter implements Wire {
     protected wire: WebSocket;

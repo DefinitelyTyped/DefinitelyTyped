@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { ChildProcess } from "child_process";
-import StreamNS = require("stream");
+import * as StreamNS from "stream";
 
 interface Data {
     file: string;

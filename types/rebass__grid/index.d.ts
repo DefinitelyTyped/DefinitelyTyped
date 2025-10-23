@@ -1,5 +1,5 @@
-import React = require("react");
-import StyledSystem = require("styled-system");
+import * as React from "react";
+import * as StyledSystem from "styled-system";
 
 export {};
 

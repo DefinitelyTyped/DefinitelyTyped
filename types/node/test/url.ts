@@ -1,7 +1,7 @@
 import { Blob as NodeBlob } from "node:buffer";
 import assert = require("node:assert");
 import { RequestOptions } from "node:http";
-import url = require("node:url");
+import * as url from "node:url";
 
 {
     url.format(url.parse("http://www.example.com/xyz"));

@@ -1,4 +1,4 @@
-import Backbone = require("backbone");
+import * as Backbone from "backbone";
 import { MemoizedFunction } from "lodash";
 
 export interface AttachmentOptions {

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 // Re-add this after fixing react-native types, and update it to ref's below
 // import { GLView as EXGLView } from 'expo';
 

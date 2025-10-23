@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import Eris = require("eris");
+import * as Eris from "eris";
 import { EventEmitter } from "events";
 
 export interface Cluster {

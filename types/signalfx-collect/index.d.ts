@@ -11,8 +11,8 @@
 
  =============================================== */
 
-import express = require("express");
-import koa = require("koa");
+import * as express from "express";
+import * as koa from "koa";
 import { SignalClient } from "signalfx";
 
 declare class SignalFxCollect {

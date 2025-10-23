@@ -4,7 +4,7 @@
  *                                               *
  ************************************************/
 
-import loopback = require("loopback");
+import * as loopback from "loopback";
 
 /**
  * Use this API in the app.js file of your server-side Node.js application.

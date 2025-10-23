@@ -1,7 +1,7 @@
 /// <reference types="express" />
 
 declare module "istanbul-middleware" {
-    import express = require("express");
+    import * as express from "express";
 
     type Matcher = (file: string) => boolean;
     type PostLoadHookFn = (file: any) => {};

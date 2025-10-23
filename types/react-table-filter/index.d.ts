@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface TabfilterProps {
     rows: string | string[] | { [name: string]: boolean };

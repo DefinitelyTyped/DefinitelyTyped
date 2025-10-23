@@ -1,7 +1,7 @@
 /// <reference types="node"/>
 
-import http = require("http");
-import qs = require("qs");
+import * as http from "http";
+import * as qs from "qs";
 
 declare namespace CoBody {
     type Context = http.IncomingMessage | { req: http.IncomingMessage };

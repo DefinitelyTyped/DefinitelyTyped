@@ -1,5 +1,5 @@
 import { FluxibleContext } from "fluxible";
-import React = require("react");
+import * as React from "react";
 import BaseStore = require("fluxible/addons/BaseStore");
 
 export class NavLink extends React.Component<NavLinkProps, any> {}

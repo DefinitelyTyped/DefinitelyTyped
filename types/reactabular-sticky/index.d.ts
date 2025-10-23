@@ -1,5 +1,5 @@
-import React = require("react");
-import Table = require("reactabular-table");
+import * as React from "react";
+import * as Table from "reactabular-table";
 
 export interface StickyHeaderProps {
     tableBody: HTMLElement | null;

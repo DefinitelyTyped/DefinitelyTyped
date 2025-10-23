@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type Vec2 = [number, number];
 export type Vec4 = [number, number, number, number];

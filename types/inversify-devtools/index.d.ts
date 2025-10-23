@@ -1,4 +1,4 @@
-import inversify = require("inversify");
+import * as inversify from "inversify";
 
 interface ConnectKernel extends Function {
     (kernel: inversify.interfaces.Kernel): void;

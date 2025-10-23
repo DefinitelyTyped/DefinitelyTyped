@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#servermethods
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 
 const add = function(a: number, b: number, next: (err: Error | null, result: number) => void) {

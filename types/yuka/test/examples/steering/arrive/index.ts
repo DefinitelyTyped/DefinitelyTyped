@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 
 const entityManager = new YUKA.EntityManager();
 const time = new YUKA.Time();

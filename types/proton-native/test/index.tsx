@@ -14,7 +14,7 @@ import {
     Text,
     Window,
 } from "proton-native";
-import React = require("react");
+import * as React from "react";
 
 class ExampleApp extends React.Component {
     render() {

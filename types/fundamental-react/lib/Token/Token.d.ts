@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type TokenProps = {
     /** A localized string to be used as aria-label for the token's button */

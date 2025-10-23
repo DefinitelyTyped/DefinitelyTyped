@@ -1,5 +1,5 @@
 import * as React from "react";
-import Sticky from "react-stickynode";
+import * as Sticky from "react-stickynode";
 
 const StickyAllOptions: React.JSX.Element = (
     <Sticky

@@ -1,4 +1,4 @@
-import Immutable = require("immutable");
+import * as Immutable from "immutable";
 import { Requireable, ValidationMap, Validator } from "prop-types";
 
 export function listOf<V>(type: Validator<V>): Requireable<Immutable.List<V>>;

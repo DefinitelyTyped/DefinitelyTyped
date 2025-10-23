@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import stream = require("stream");
+import * as stream from "stream";
 
 export = Stringify;
 

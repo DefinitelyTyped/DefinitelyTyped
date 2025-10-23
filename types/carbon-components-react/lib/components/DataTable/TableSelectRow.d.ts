@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { InlineCheckboxProps } from "../InlineCheckbox";
 import { RadioButtonProps } from "../RadioButton";
 

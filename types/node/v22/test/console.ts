@@ -1,4 +1,4 @@
-import console2 = require("node:console");
+import * as console2 from "node:console";
 import { createWriteStream } from "node:fs";
 
 {

@@ -1,5 +1,5 @@
 import { ClientOptions, PickerFileMetadata, PickerOptions, PickerResponse } from "filestack-js";
-import React = require("react");
+import * as React from "react";
 
 export * as client from "filestack-js";
 

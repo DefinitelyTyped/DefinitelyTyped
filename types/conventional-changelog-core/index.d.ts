@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import Stream = require("stream");
+import * as Stream from "stream";
 
 import { Context as BaseContext, Options as BaseWriterOptions } from "conventional-changelog-writer";
 import { Commit, Options as BaseParserOptions } from "conventional-commits-parser";

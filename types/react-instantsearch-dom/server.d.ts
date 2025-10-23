@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { InstantSearchProps } from "react-instantsearch-core";
 
 export function findResultsState<

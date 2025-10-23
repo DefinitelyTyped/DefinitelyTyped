@@ -4,7 +4,7 @@ import { EventEmitter } from "events";
 import { Duplex } from "stream";
 import Agent = require("./lib/agent");
 import { Connection } from "./lib/client";
-import ShareDB = require("./lib/sharedb");
+import * as ShareDB from "./lib/sharedb";
 
 interface PubSubOptions {
     prefix?: string;

@@ -1,4 +1,4 @@
-import bser = require("bser");
+import * as bser from "bser";
 import net from "net";
 
 const obj = "sample data";

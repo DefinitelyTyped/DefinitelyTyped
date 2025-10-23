@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#replyredirecturi
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const handler: Hapi.RouteHandler = function(request, reply) {
     return reply.redirect("http://example.com");
 };

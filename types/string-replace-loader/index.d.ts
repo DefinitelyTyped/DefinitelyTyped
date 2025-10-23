@@ -1,4 +1,4 @@
-import Webpack = require("webpack");
+import * as Webpack from "webpack";
 
 declare const loader: Webpack.loader.Loader;
 

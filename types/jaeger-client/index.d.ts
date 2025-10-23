@@ -3,8 +3,8 @@
 
 // opentracing requires typescript version ^2.1
 import { SocketOptions, SocketType } from "dgram";
-import opentracing = require("opentracing");
-import prometheus = require("prom-client");
+import * as opentracing from "opentracing";
+import * as prometheus from "prom-client";
 
 export { opentracing };
 // Counter tracks the number of times an event has occurred

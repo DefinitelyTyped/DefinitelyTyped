@@ -1,5 +1,5 @@
 import { PropInjector } from "@material-ui/types";
-import React = require("react");
+import * as React from "react";
 import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from "react-swipeable-views";
 
 export interface WithIndex {

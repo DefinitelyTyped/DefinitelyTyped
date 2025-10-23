@@ -1,4 +1,4 @@
-import Synaptic = require("synaptic"); // Need this to refer to Synaptic from within the `declare global`
+import * as Synaptic from "synaptic"; // Need this to refer to Synaptic from within the `declare global`
 
 declare global {
     var Neuron: typeof Synaptic.Neuron;

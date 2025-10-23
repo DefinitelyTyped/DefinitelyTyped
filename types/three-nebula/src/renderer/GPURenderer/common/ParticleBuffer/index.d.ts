@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { Three } from "../../../../core/three";
 import { DEFAULT_MAX_PARTICLES } from "./constants";
 /**

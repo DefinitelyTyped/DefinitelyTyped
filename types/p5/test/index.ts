@@ -1,4 +1,4 @@
-import p5 = require("p5");
+import * as p5 from "p5";
 
 function s(
   sketch: p5

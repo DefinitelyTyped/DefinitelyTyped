@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 /**
  * Record a user's voice and display as an oscillation (or frequency bars).

@@ -1,6 +1,6 @@
-import geojson = require("geojson");
-import geojsonvt = require("geojson-vt");
-import L = require("leaflet");
+import * as geojson from "geojson";
+import * as geojsonvt from "geojson-vt";
+import * as L from "leaflet";
 
 declare module "leaflet" {
     interface TileProps {

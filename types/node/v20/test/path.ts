@@ -1,6 +1,6 @@
-import path = require("node:path");
-import posixPath = require("node:path/posix");
-import win32Path = require("node:path/win32");
+import * as path from "node:path";
+import * as posixPath from "node:path/posix";
+import * as win32Path from "node:path/win32";
 
 path.normalize("/foo/bar//baz/asdf/quux/..");
 

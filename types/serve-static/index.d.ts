@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import http = require("http");
+import * as http from "http";
 import { HttpError } from "http-errors";
 import send = require("send");
 

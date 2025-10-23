@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export class LiveAnnouncer extends React.Component {
     announcePolite(message: string, id?: string): void;

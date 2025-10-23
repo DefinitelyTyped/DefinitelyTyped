@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 // part of the code is taken from https://github.com/mrdoob/three.js/pull/22846
 

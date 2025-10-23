@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { Stats as FileStats } from "fs";
 import { Server as HttpServer } from "http";
 import { Readable as ReadableStream } from "stream";
-import VinylFile = require("vinyl");
+import * as VinylFile from "vinyl";
 
 export namespace fractal {
     namespace core {

@@ -1,5 +1,5 @@
-import Ejs = require("ejs");
-import Koa = require("koa");
+import * as Ejs from "ejs";
+import * as Koa from "koa";
 
 declare module "koa" {
     interface ExtendableContext {

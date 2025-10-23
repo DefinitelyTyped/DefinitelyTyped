@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Constructor, NativeMethodsMixin, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 export interface PositionStyle {

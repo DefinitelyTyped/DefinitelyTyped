@@ -1,4 +1,4 @@
-import fullClient = require("./index");
+import * as fullClient from "./index";
 
 export function client(...args: Parameters<typeof fullClient.client>): Client;
 export type Options = fullClient.Options;

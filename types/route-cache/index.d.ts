@@ -1,4 +1,4 @@
-import express = require("express");
+import * as express from "express";
 
 export function config(options: ConfigOptions): RouteCache;
 export function cacheSeconds(secondsTTL: number, cacheKey?: string | CacheKeyFunc): express.RequestHandler;

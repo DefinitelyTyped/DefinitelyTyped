@@ -1,5 +1,5 @@
-import webdriver = require("./index");
-import remote = require("./remote");
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Creates {@link remote.DriverService} instances that manages an

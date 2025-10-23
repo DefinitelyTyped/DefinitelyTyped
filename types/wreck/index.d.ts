@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import Boom = require("boom");
-import events = require("events");
-import http = require("http");
-import stream = require("stream");
-import Url = require("url");
+import * as Boom from "boom";
+import * as events from "events";
+import * as http from "http";
+import * as stream from "stream";
+import * as Url from "url";
 
 interface RequestOptions {
     baseUrl?: string | undefined;

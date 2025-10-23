@@ -1,6 +1,6 @@
-import webdriver = require("selenium-webdriver");
-import chrome = require("selenium-webdriver/chrome");
-import remote = require("selenium-webdriver/remote");
+import * as webdriver from "selenium-webdriver";
+import * as chrome from "selenium-webdriver/chrome";
+import * as remote from "selenium-webdriver/remote";
 
 function TestChromeDriver() {
     let driver: chrome.Driver = chrome.Driver.createSession();

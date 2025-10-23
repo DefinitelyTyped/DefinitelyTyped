@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface FrameComponentProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
     head?: React.ReactNode | undefined;

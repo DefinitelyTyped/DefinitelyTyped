@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { CarbonInputSize, ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "className" | "id" | "size";

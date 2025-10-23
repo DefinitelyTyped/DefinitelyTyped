@@ -1,6 +1,6 @@
 import { create } from "express-handlebars";
 import { SentMessageInfo, Transporter } from "nodemailer";
-import Mail = require("nodemailer/lib/mailer");
+import * as Mail from "nodemailer/lib/mailer";
 
 declare function hbs(options: hbs.NodemailerExpressHandlebarsOptions): Mail.PluginFunction;
 

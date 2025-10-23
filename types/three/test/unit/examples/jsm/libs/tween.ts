@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import TWEEN from "three/addons/libs/tween.module.js";
 import { CSS3DObject, CSS3DRenderer } from "three/addons/renderers/CSS3DRenderer.js";
 

@@ -1,8 +1,8 @@
 import Config from "./config";
-import modules = require("./modules");
-import taglibFinder = require("./taglib-finder");
-import taglibLoader = require("./taglib-loader");
-import taglibLookup = require("./taglib-lookup");
+import * as modules from "./modules";
+import * as taglibFinder from "./taglib-finder";
+import * as taglibLoader from "./taglib-loader";
+import * as taglibLookup from "./taglib-lookup";
 
 export const isVDOMSupported: true;
 export const builder: any;

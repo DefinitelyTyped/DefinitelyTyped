@@ -1,4 +1,4 @@
-import querystring = require("node:querystring");
+import * as querystring from "node:querystring";
 
 interface SampleObject {
     [key: string]: string;

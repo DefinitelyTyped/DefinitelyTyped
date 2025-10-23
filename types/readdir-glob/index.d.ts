@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import fs = require("fs");
+import * as fs from "fs";
 
 declare function readdirGlob(root: string, options: readdirGlob.Options): readdirGlob.ReaddirGlob;
 

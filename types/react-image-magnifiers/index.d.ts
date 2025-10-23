@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type MouseActivation = "click" | "doubleClick";
 export type TouchActivation = "tap" | "doubleTap" | "longTouch";

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { PivotTableProps } from "./PivotTable";
 import { TSorterFn } from "./Utilities";
 

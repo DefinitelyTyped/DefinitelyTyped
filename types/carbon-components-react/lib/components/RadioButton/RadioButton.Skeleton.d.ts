@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
 export interface RadioButtonSkeletonProps extends ReactDivAttr {}

@@ -1,7 +1,7 @@
 // From https://hapijs.com/api/16.1.1#serverencoderencoding-encoder
 
-import Hapi = require("hapi");
-import Zlib = require("zlib");
+import * as Hapi from "hapi";
+import * as Zlib from "zlib";
 const server = new Hapi.Server();
 server.connection({ port: 80, routes: { compression: { special: { chunkSize: 16 * 1024 } } } });
 

@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import net = require("net");
+import * as net from "net";
 import { Readable } from "stream";
-import tls = require("tls");
+import * as tls from "tls";
 
-import shared = require("../shared");
+import * as shared from "../shared";
 
 import MimeNode = require("../mime-node");
 import XOAuth2 = require("../xoauth2");

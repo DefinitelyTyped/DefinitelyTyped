@@ -1,4 +1,4 @@
-import Dockerode = require("dockerode");
+import * as Dockerode from "dockerode";
 
 declare namespace DockerodeCompose {
     interface ComposeDownOptions {

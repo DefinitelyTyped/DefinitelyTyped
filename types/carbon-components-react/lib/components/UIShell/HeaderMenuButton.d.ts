@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactButtonAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "title" | "type";

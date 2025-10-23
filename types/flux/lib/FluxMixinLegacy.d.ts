@@ -1,4 +1,4 @@
-import FluxStore = require("./FluxStore");
+import * as FluxStore from "./FluxStore";
 
 declare namespace FluxMixinLegacy {
     interface Options {

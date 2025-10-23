@@ -1,5 +1,5 @@
-import express = require("express");
-import passport = require("passport");
+import * as express from "express";
+import * as passport from "passport";
 
 declare namespace PassportFacebookToken {
     interface StrategyStatic {

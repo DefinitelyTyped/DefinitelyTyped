@@ -1,6 +1,6 @@
 // Minimum TypeScript Version: 4.0
 
-import React = require("react");
+import * as React from "react";
 
 export type UpdateHandler = () => void;
 

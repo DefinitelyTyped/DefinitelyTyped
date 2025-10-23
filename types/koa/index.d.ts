@@ -9,20 +9,20 @@
 
  =============================================== */
 /// <reference types="node" />
-import accepts = require("accepts");
+import * as accepts from "accepts";
 import { AsyncLocalStorage } from "async_hooks";
-import Cookies = require("cookies");
+import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
 import httpAssert = require("http-assert");
-import contentDisposition = require("content-disposition");
-import HttpErrors = require("http-errors");
-import Keygrip = require("keygrip");
-import compose = require("koa-compose");
+import * as contentDisposition from "content-disposition";
+import * as HttpErrors from "http-errors";
+import * as Keygrip from "keygrip";
+import * as compose from "koa-compose";
 import { ListenOptions, Socket } from "net";
 import { ParsedUrlQuery } from "querystring";
-import url = require("url");
+import * as url from "url";
 import type httpErrors = require("http-errors");
 
 declare interface ContextDelegatedRequest {

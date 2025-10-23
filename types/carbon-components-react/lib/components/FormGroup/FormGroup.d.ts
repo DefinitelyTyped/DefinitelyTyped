@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface FormGroupProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
     hasMargin?: boolean | undefined;

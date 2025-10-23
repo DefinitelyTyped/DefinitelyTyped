@@ -3,7 +3,7 @@ export interface Projection<T> {
     NonKeyAttributes?: Array<keyof T>;
 }
 
-import stream = require("stream");
+import * as stream from "stream";
 
 export type DynamoDB = any;
 

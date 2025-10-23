@@ -3,7 +3,7 @@
 declare var _: string;
 export = _;
 
-import angular = require("angular");
+import * as angular from "angular";
 
 declare module "angular" {
     export namespace loadingBar {

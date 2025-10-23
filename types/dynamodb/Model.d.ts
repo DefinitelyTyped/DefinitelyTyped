@@ -1,4 +1,4 @@
-import bunyan = require("bunyan");
+import * as bunyan from "bunyan";
 import { DynamoDB } from "./DynamoDB";
 
 import { EventEmitter } from "events";

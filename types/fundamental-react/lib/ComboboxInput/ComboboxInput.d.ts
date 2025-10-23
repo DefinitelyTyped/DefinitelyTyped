@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { MenuProps } from "../Menu/Menu";
 
 export type ComboboxInputProps = {

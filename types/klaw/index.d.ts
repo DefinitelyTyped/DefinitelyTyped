@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 declare module "klaw" {
-    import fs = require("fs");
+    import * as fs from "fs";
     import { Readable, ReadableOptions } from "stream";
 
     // forward-compatible iterator type for TS <5.6

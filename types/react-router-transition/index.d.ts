@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { OpaqueConfig, SpringHelperConfig, TransitionStyle } from "react-motion";
 import { RouteProps } from "react-router-dom";
 

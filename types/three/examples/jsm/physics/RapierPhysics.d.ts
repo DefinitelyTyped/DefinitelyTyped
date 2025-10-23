@@ -1,4 +1,4 @@
-import RAPIER = require("@dimforge/rapier3d-compat");
+import * as RAPIER from "@dimforge/rapier3d-compat";
 import { Mesh, Object3D } from "three";
 
 type Vector = { x: number; y: number; z: number };

@@ -342,7 +342,7 @@ export interface HeatmapData<T> {
 
 // -- Leaflet plugin --
 
-import Leaflet = require("leaflet");
+import * as Leaflet from "leaflet";
 
 declare global {
     /**

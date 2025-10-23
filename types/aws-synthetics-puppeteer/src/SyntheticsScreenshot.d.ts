@@ -31,6 +31,6 @@ declare module "SyntheticsScreenshot" {
          */
         getScreenshotResult(stepName: any): ScreenshotResult[];
     }
-    import ScreenshotResult_1 = require("SyntheticsReport");
+    import * as ScreenshotResult_1 from "SyntheticsReport";
     import ScreenshotResult = ScreenshotResult_1.ScreenshotResult;
 }

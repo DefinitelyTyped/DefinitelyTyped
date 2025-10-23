@@ -1,6 +1,6 @@
 /// <reference types="swipe" />
 
-import React = require("react");
+import * as React from "react";
 
 declare class ReactSwipe extends React.Component<ReactSwipe.Props> {
     prev(): void;

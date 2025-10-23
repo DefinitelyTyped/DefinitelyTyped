@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import stream = require("stream");
+import * as stream from "stream";
 
 /**
  * Return a new through stream that should get written module-deps objects and will output sorted objects.

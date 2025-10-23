@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
 /**
  * File handling preferences. Mostly about file saving options, file compatibility and recent files

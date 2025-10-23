@@ -1,4 +1,4 @@
-import itowns = require("itowns");
+import * as itowns from "itowns";
 
 // # Orthographic viewer
 

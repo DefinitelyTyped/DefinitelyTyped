@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 import GlobeControls, { GlobeControlsOptions } from "../../Controls/GlobeControls";
 import Layer from "../../Layer/Layer";

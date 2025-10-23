@@ -1,11 +1,11 @@
 /* =================== USAGE ===================
 
-    import Router = require("koa-router");
+    import * as Router from "koa-router";
     var router = new Router();
 
  =============================================== */
 
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare namespace Router {
     export interface IRouterOptions {

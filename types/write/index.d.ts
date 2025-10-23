@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import fs = require("fs");
+import * as fs from "fs";
 
 type Data = string | Buffer | Uint8Array;
 

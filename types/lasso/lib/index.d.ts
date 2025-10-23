@@ -1,6 +1,6 @@
 import Lasso, { LassoConfig, LassoPage, LassoResource } from "./Lasso";
 import LassoContext from "./LassoContext";
-import _writers = require("./writers");
+import * as _writers from "./writers";
 
 export namespace transforms {
     function createTransformer(

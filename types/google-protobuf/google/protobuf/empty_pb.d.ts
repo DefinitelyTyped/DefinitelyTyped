@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: empty.proto
 
-import jspb = require("../../index");
+import * as jspb from "../../index";
 
 export class Empty extends jspb.Message {
     serializeBinary(): Uint8Array;

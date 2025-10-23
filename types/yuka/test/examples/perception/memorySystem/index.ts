@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 import { Obstacle } from "../common/Obstacle";
 import { CustomEntity } from "./CustomEntity";
 

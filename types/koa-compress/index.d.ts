@@ -10,8 +10,8 @@
 /// <reference types="node" />
 /// <reference types="koa" />
 
-import Koa = require("koa");
-import zlib = require("zlib");
+import * as Koa from "koa";
+import * as zlib from "zlib";
 
 /**
  * Compress middleware for Koa

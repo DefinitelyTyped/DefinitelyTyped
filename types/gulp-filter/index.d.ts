@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import File = require("vinyl");
-import Minimatch = require("minimatch");
+import * as Minimatch from "minimatch";
 
 declare namespace filter {
     interface FileFunction {

@@ -8,7 +8,7 @@
 
  =============================================== */
 
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare function json(opts?: {
     /**

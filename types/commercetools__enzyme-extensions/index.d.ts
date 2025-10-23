@@ -1,4 +1,4 @@
-import enzyme = require("enzyme");
+import * as enzyme from "enzyme";
 
 declare module "enzyme" {
     interface UntilOptions {

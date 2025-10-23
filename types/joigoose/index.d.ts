@@ -1,5 +1,5 @@
-import Joi = require("joi");
-import Mongoose = require("mongoose");
+import * as Joi from "joi";
+import * as Mongoose from "mongoose";
 
 declare namespace Joigoose {
     interface Joigoose {

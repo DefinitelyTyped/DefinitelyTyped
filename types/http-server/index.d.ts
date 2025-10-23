@@ -1,6 +1,6 @@
 import { HandleFunction } from "connect";
-import http = require("http");
-import https = require("https");
+import * as http from "http";
+import * as https from "https";
 
 export function createServer(options?: Options): http.Server | https.Server;
 

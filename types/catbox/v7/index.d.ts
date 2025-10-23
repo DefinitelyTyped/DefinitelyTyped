@@ -1,4 +1,4 @@
-import Boom = require("boom");
+import * as Boom from "boom";
 
 export type CallBackNoResult = (err?: Boom.BoomError) => void;
 export type CallBackWithResult<T> = (err: Boom.BoomError | null | undefined, result: T) => void;

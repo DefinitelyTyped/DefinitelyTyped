@@ -1,5 +1,5 @@
 import CipherState = require("./cipher");
-import curve = require("./dh");
+import * as curve from "./dh";
 
 export = SymmetricState;
 

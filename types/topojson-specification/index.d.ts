@@ -1,6 +1,6 @@
 // Last revision validated against: commit 90ed973 (2017-08-02)
 
-import GeoJSON = require("geojson");
+import * as GeoJSON from "geojson";
 
 export as namespace TopoJSON;
 

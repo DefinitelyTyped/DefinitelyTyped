@@ -1,4 +1,4 @@
-import RDF = require("@rdfjs/types");
+import * as RDF from "@rdfjs/types";
 
 export const defaultGraphInstance: RDF.DefaultGraph;
 export function namedNode(value: string): RDF.NamedNode;

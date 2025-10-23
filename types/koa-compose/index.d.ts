@@ -1,4 +1,4 @@
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare function compose<T1, U1, T2, U2>(
     middleware: [Koa.Middleware<T1, U1>, Koa.Middleware<T2, U2>],

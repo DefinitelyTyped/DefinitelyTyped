@@ -1,4 +1,4 @@
-import angular = require("angular");
+import * as angular from "angular";
 
 declare module "angular" {
     namespace blockUI {

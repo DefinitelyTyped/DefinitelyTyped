@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "id" | "onChange" | "onClick" | "type";

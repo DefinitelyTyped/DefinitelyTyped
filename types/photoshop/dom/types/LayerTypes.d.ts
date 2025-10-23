@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { Layer } from "../Layer";
 import { SolidColor } from "../objects/SolidColor";
 interface LayerCreateOptionsBase {

@@ -1,8 +1,8 @@
 import { EventEmitter } from "events";
 import { Expression as JsonataExpression } from "jsonata";
 
-import registry = require("@node-red/registry");
-import runtime = require("@node-red/runtime");
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
 
 declare const util: util.UtilModule;
 

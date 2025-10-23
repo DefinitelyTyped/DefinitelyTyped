@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { HyphenationProperties, JustificationProperties } from "../types/TextTypes";
 /**
  * The Class that stores properties related to the Paragraph panel in the Photoshop UI.

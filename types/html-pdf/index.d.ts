@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 declare module "html-pdf" {
-    import fs = require("fs");
+    import * as fs from "fs";
 
     export interface CreateOptions {
         // Export options

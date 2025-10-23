@@ -1,5 +1,5 @@
 import JSONEditor, { JSONEditorOptions } from "jsoneditor";
-import React = require("react");
+import * as React from "react";
 
 export interface ReactJsonEditorProps {
     values: {};

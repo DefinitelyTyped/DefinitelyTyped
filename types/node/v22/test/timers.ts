@@ -1,4 +1,4 @@
-import timers = require("node:timers");
+import * as timers from "node:timers";
 import { promisify } from "node:util";
 
 {

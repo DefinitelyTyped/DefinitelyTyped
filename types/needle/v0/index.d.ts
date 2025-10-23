@@ -2,8 +2,8 @@
 
 /* eslint-disable @definitelytyped/no-declare-current-package */
 declare module "needle" {
-    import http = require("http");
-    import Buffer = require("buffer");
+    import * as http from "http";
+    import * as Buffer from "buffer";
     namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;

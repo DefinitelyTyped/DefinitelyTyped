@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Options } from "./index";
 
 export interface LinkifyProps {

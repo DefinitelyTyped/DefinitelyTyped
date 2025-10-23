@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { Particle, Pool, System } from "../../../core";
 import { Three } from "../../../core/three";
 import BaseRenderer from "../../BaseRenderer";

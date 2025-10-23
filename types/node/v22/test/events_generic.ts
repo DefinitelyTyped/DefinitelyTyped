@@ -1,4 +1,4 @@
-import events = require("node:events");
+import * as events from "node:events";
 
 interface T {
     event1: [string, number];

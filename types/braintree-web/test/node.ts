@@ -1,4 +1,4 @@
-import braintree = require("braintree-web");
+import * as braintree from "braintree-web";
 
 const version: string = braintree.VERSION;
 

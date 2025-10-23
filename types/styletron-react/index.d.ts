@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { driver, StandardEngine, StyleObject } from "styletron-standard";
 
 export { StandardEngine, StyleObject };

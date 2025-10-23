@@ -1,6 +1,6 @@
 /// <reference types="angular-ui-router" />
 
-import angular = require("angular");
+import * as angular from "angular";
 
 declare var _: string;
 export = _;

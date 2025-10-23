@@ -1,4 +1,4 @@
-import Common = require("./Common");
+import * as Common from "./Common";
 
 export interface ParsedContent {
     box2: Box;

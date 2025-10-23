@@ -1,5 +1,5 @@
-import jsonpBody = require("jsonp-body");
-import Koa = require("koa");
+import * as jsonpBody from "jsonp-body";
+import * as Koa from "koa";
 
 declare namespace jsonp {
     interface Options extends jsonpBody.Options {

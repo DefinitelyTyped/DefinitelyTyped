@@ -1,4 +1,4 @@
-import _moment = require("moment");
+import * as _moment from "moment";
 
 declare module "moment" {
     interface Moment {

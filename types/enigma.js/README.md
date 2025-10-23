@@ -11,8 +11,8 @@ This package contains type definitions for enigma.js (https://github.com/qlik-os
 `npm install --save bluebird`
 
 ```js
-import enigma = require("enigma.js");
-import blubird = require("bluebird");
+import * as enigma from "enigma.js";
+import * as blubird from "bluebird";
 
 let qixSchema = require("./node_modules/enigma.js/schemas/12.20.0.json");
 

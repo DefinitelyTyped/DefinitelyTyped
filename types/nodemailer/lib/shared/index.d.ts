@@ -2,7 +2,7 @@
 
 import SMTPConnection = require("../smtp-connection");
 
-import stream = require("stream");
+import * as stream from "stream";
 
 export type LoggerLevel = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 

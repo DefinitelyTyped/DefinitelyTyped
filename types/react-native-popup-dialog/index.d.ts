@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export type AlignTypes = "left" | "right" | "center";

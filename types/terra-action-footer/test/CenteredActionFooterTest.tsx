@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import CenteredActionFooter from "terra-action-footer/lib/CenteredActionFooter";
 
 const AllProps = <CenteredActionFooter center={<div />} />;

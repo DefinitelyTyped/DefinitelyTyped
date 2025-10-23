@@ -1,6 +1,6 @@
 // Last module patch version validated against: 1.12.1
 
-import GeoJSON = require("geojson");
+import * as GeoJSON from "geojson";
 
 // ----------------------------------------------------------------------
 // Shared Interfaces and Types

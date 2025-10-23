@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import child_process = require("child_process");
-import fs = require("fs");
-import shipit = require("./index"); // Used for `typeof shipit`
+import * as child_process from "child_process";
+import * as fs from "fs";
+import * as shipit from "./index"; // Used for `typeof shipit`
 
 export type LocalOrRemoteCommand = (
     command: string,

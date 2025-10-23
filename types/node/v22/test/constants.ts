@@ -1,4 +1,4 @@
-import constants = require("node:constants");
+import * as constants from "node:constants";
 
 const dlopen: typeof import("node:os").constants.dlopen = constants;
 const errno: typeof import("node:os").constants.errno = constants;

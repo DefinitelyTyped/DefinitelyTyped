@@ -1,4 +1,4 @@
-import assert = require("node:assert");
+import * as assert from "node:assert";
 import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,

@@ -1,8 +1,8 @@
-import crypto = require("node:crypto");
-import dns = require("node:dns");
-import http = require("node:http");
-import http2 = require("node:http2");
-import https = require("node:https");
+import * as crypto from "node:crypto";
+import * as dns from "node:dns";
+import * as http from "node:http";
+import * as http2 from "node:http2";
+import * as https from "node:https";
 
 import KeyGrip = require("keygrip");
 import Koa = require("koa");

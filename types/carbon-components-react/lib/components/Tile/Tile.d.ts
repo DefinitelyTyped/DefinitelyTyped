@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactAnchorAttr, ReactButtonAttr, ReactDivAttr, ReactLabelAttr } from "../../../typings/shared";
 import { LinkProps } from "../Link";
 

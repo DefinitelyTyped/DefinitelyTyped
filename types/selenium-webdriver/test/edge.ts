@@ -1,5 +1,5 @@
-import webdriver = require("selenium-webdriver");
-import edge = require("selenium-webdriver/edge");
+import * as webdriver from "selenium-webdriver";
+import * as edge from "selenium-webdriver/edge";
 
 function TestEdgeDriver() {
     let driver: edge.Driver = edge.Driver.createSession();

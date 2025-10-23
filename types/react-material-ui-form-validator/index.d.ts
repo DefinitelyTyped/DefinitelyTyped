@@ -1,5 +1,5 @@
 import { SelectFieldProps, TextFieldProps } from "material-ui";
-import React = require("react");
+import * as React from "react";
 
 export interface ValidatorFormProps {
     className?: string | undefined;

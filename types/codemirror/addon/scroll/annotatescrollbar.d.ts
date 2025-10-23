@@ -1,4 +1,4 @@
-import CodeMirror = require("../..");
+import * as CodeMirror from "../..";
 import "./searchcursor";
 
 export interface Annotation {

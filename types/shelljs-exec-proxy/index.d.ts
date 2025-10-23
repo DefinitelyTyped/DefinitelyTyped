@@ -1,4 +1,4 @@
-import shelljs = require("shelljs");
+import * as shelljs from "shelljs";
 
 interface Exec {
     (...command: string[]): shelljs.ExecOutputReturnValue;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export function defineHold(config?: HoldConfig): HoldableConfig;
 

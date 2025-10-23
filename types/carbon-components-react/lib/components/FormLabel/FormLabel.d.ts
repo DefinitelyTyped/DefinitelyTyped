@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactLabelAttr } from "../../../typings/shared";
 
 export interface FormLabelProps extends ReactLabelAttr {}

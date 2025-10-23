@@ -1,5 +1,5 @@
-import fs = require("node:fs");
-import stream = require("node:stream");
+import * as fs from "node:fs";
+import * as stream from "node:stream";
 import {
     connect,
     ConnectionOptions,

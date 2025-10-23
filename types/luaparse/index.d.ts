@@ -1,4 +1,4 @@
-import ast = require("./lib/ast");
+import * as ast from "./lib/ast";
 export * from "./lib/ast";
 
 export interface Options {

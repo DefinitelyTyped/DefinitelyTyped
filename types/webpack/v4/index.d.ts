@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import anymatch = require("anymatch");
+import * as anymatch from "anymatch";
 import { Hash as CryptoHash } from "crypto";
 import { RawSourceMap } from "source-map";
 import {
@@ -16,7 +16,7 @@ import {
     SyncWaterfallHook,
     Tapable,
 } from "tapable";
-import UglifyJS = require("uglify-js");
+import * as UglifyJS from "uglify-js";
 import { ConcatSource, Source } from "webpack-sources";
 
 export = webpack;

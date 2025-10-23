@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type TokenCallback = (errorDesc: string | null, token: string | null, error: any) => void;
 

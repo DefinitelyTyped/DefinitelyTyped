@@ -1,5 +1,5 @@
-import ESTree = require("estree");
-import ESTreeJSX = require("estree-jsx");
+import * as ESTree from "estree";
+import * as ESTreeJSX from "estree-jsx";
 
 export interface GetPropOptions {
     /**

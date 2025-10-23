@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import aws = require("@aws-sdk/client-sesv2");
+import * as aws from "@aws-sdk/client-sesv2";
 import { EventEmitter } from "node:events";
 
 import { Transport, TransportOptions } from "../..";
 
-import shared = require("../shared");
+import * as shared from "../shared";
 
 import Mail = require("../mailer");
 import MailMessage = require("../mailer/mail-message");

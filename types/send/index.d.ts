@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import fs = require("fs");
-import stream = require("stream");
+import * as fs from "fs";
+import * as stream from "stream";
 
 /**
  * Create a new SendStream for the given path to send to a res.

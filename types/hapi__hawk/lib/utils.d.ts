@@ -1,6 +1,6 @@
-import Boom = require("@hapi/boom");
-import http = require("http");
-import https = require("https");
+import * as Boom from "@hapi/boom";
+import * as http from "http";
+import * as https from "https";
 
 export interface Host {
     name: string;

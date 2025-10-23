@@ -1,4 +1,4 @@
-import amqplib = require("amqplib");
+import * as amqplib from "amqplib";
 
 export = jackrabbit;
 declare function jackrabbit(url: string): jackrabbit.JackRabbit;

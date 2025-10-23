@@ -3,10 +3,10 @@
 
 /// <reference types="node"/>
 
-import child_process = require("./child_process");
-import crypto = require("./crypto");
-import dns = require("./dns");
-import fs = require("./fs");
-import readline = require("./readline");
-import zlib = require("./zlib");
+import * as child_process from "./child_process";
+import * as crypto from "./crypto";
+import * as dns from "./dns";
+import * as fs from "./fs";
+import * as readline from "./readline";
+import * as zlib from "./zlib";
 export { child_process, crypto, dns, fs, readline, zlib };

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { OptionsOfJSONResponseBody, OptionsOfTextResponseBody, OptionsOfUnknownResponseBody, Response } from "got";
-import events = require("node:events");
+import * as events from "node:events";
 import { CookieJar } from "tough-cookie";
 
 export type ActionFn<

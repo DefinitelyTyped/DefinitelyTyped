@@ -6,8 +6,8 @@
 declare module "https" {
     import { NonSharedBuffer } from "node:buffer";
     import { Duplex } from "node:stream";
-    import tls = require("node:tls");
-    import http = require("node:http");
+    import * as tls from "node:tls";
+    import * as http from "node:http";
     import { URL } from "node:url";
     interface ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,

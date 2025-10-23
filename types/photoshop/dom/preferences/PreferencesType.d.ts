@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
 /**
  * Preferences related to the text and mostly text layers

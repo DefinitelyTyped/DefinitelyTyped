@@ -1,8 +1,8 @@
 /// <reference types="js-data" />
 /// <reference types="angular" />
 
-import ng = require("angular");
-import JSData = require("js-data");
+import * as ng from "angular";
+import * as JSData from "js-data";
 
 declare module "js-data" {
     interface DSProvider {

@@ -1,4 +1,4 @@
-import itowns = require("itowns");
+import * as itowns from "itowns";
 import { IgnMNTHighres } from "./jsonLayers";
 
 // ---------- CREATE A GlobeView FOR SUPPORTING DATA VISUALIZATION : ----------

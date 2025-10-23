@@ -1,4 +1,4 @@
-import UglifyJS = require("uglify-js");
+import * as UglifyJS from "uglify-js";
 import GulpUglify = require(".");
 
 interface Composer {

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { RequiresChildrenProps, SideNavSizingProps } from "../../../typings/shared";
 
 export interface SideNavItemProps extends RequiresChildrenProps, SideNavSizingProps {

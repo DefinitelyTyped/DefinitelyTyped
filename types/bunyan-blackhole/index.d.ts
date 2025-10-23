@@ -1,4 +1,4 @@
-import Logger = require("bunyan");
+import * as Logger from "bunyan";
 
 /**
  * Constructor.

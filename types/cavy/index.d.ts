@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 // Turn off automatic exporting by exporting {}.
 export {};

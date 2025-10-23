@@ -1,4 +1,4 @@
-import ProgressBar = require("progress");
+import * as ProgressBar from "progress";
 import { Plugin } from "webpack";
 
 export = ProgressBarPlugin;

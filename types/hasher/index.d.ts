@@ -1,6 +1,6 @@
 /// <reference types="signals" />
 
-import signal = require("signals");
+import * as signal from "signals";
 
 declare namespace HasherJs {
     export interface HasherStatic {

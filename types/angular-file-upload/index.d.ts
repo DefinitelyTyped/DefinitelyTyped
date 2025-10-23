@@ -1,4 +1,4 @@
-import angular = require("angular");
+import * as angular from "angular";
 
 export interface FileUploaderFactory {
     new(options?: Partial<FileUploaderOptions>): FileUploader;

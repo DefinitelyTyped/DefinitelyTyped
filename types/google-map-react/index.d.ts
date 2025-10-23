@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 declare class googleMapReact extends React.Component<googleMapReact.Props> {}
 

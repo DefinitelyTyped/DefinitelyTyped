@@ -1,4 +1,4 @@
-import p = require("node:process");
+import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
 import { constants } from "node:os";

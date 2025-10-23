@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, TooltipAlignment, TooltipPosition } from "../../../typings/shared";
 import { TextInputSharedProps } from "./props";
 

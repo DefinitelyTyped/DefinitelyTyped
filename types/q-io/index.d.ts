@@ -232,7 +232,7 @@ interface QioBufferStream {
 }
 
 declare module "q-io/http" {
-    import Q = require("q");
+    import * as Q from "q";
     export = QioHTTP;
 }
 declare module "q-io/fs" {

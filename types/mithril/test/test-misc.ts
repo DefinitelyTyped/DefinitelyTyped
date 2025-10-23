@@ -1,5 +1,5 @@
 import { buildQueryString, censor, parseQueryString, trust } from "mithril";
-import h = require("mithril/hyperscript");
+import * as h from "mithril/hyperscript";
 import { redraw } from "mithril/redraw";
 import { render } from "mithril/render";
 

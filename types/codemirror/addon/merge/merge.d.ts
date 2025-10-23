@@ -1,4 +1,4 @@
-import CodeMirror = require("../../");
+import * as CodeMirror from "../../";
 
 /**
  * Tracks changes in chunks from original to new.

@@ -1,5 +1,5 @@
 import { FluentBundle } from "fluent";
-import React = require("react");
+import * as React from "react";
 
 export interface Node {
     TEXT_NODE: 3;

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import passport = require("passport");
+import * as passport from "passport";
 import { IBaseStrategyOption, ITokenPayload, VerifyCallback } from "./common";
 
 export type VerifyBearerFunction = (token: ITokenPayload, done: VerifyCallback) => void;

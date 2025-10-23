@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ImageSourcePropType, ImageStyle, StyleProp } from "react-native";
 
 export interface ScaledImageProps {

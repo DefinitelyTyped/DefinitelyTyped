@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactButtonAttr, ReactDivAttr } from "../../../typings/shared";
 
 export interface TabsProps extends Omit<ReactDivAttr, "onScroll"> {

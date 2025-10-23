@@ -1,4 +1,4 @@
-import CSS = require("csstype");
+import * as CSS from "csstype";
 
 declare namespace cxs {
     type CSSProperties = CSS.Properties<string | number>;

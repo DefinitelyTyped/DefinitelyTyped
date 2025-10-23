@@ -11,11 +11,11 @@
 declare module "http2" {
     import { NonSharedBuffer } from "node:buffer";
     import EventEmitter = require("node:events");
-    import fs = require("node:fs");
-    import net = require("node:net");
-    import stream = require("node:stream");
-    import tls = require("node:tls");
-    import url = require("node:url");
+    import * as fs from "node:fs";
+    import * as net from "node:net";
+    import * as stream from "node:stream";
+    import * as tls from "node:tls";
+    import * as url from "node:url";
     import {
         IncomingHttpHeaders as Http1IncomingHttpHeaders,
         IncomingMessage,

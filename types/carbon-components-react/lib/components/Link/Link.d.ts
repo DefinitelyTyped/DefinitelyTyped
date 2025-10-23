@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, ReactAnchorAttr } from "../../../typings/shared";
 
 export interface LinkProps extends ReactAnchorAttr {

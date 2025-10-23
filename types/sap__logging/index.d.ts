@@ -1,5 +1,5 @@
-import express = require("express-serve-static-core");
-import http = require("http");
+import * as express from "express-serve-static-core";
+import * as http from "http";
 
 export interface AppContextOptions {
     /**

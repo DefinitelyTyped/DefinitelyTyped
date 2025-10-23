@@ -1,5 +1,5 @@
-import hapi = require("hapi");
-import Joi = require("joi");
+import * as hapi from "hapi";
+import * as Joi from "joi";
 interface ControllerStatic {
     new(...args: any[]): Controller;
 }

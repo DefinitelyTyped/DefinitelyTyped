@@ -26,15 +26,15 @@ import url = require("url");
 import zlib = require("zlib");
 import domain = require("domain");
 
-import Boom = require("boom");
+import * as Boom from "boom";
 import { Schema as JoiSchema, SchemaMap as JoiSchemaMap, ValidationOptions as JoiValidationOptions } from "joi";
 // TODO check JoiValidationObject is correct for "a Joi validation object"
 type JoiValidationObject = JoiSchema | JoiSchemaMap | Array<JoiSchema | JoiSchemaMap>;
 
-import Catbox = require("catbox");
+import * as Catbox from "catbox";
 import { MimosOptions } from "mimos";
 import Podium = require("podium");
-import Shot = require("shot");
+import * as Shot from "shot";
 
 export interface Dictionary<T> {
     [key: string]: T;

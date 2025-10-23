@@ -1,4 +1,4 @@
-import Guacamole = require("guacamole-client");
+import * as Guacamole from "guacamole-client";
 
 declare const srcLayer: Guacamole.Layer;
 declare const srcx: number;

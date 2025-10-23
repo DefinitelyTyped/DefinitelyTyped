@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: any.proto
 
-import jspb = require("../../index");
+import * as jspb from "../../index";
 
 export class Any extends jspb.Message {
     getTypeUrl(): string;

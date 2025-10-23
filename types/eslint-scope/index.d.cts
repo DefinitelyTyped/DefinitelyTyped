@@ -1,7 +1,7 @@
-import eslint = require("eslint");
+import * as eslint from "eslint";
 import { VisitorKeys } from "eslint-visitor-keys";
 import { Visitor, VisitorOptions } from "esrecurse";
-import ESTree = require("estree");
+import * as ESTree from "estree";
 
 /**
  * Options for scope analysis.

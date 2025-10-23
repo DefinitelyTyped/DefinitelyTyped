@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import HTMLMinifier = require("html-minifier");
+import * as HTMLMinifier from "html-minifier";
 
 declare namespace htmlmin {
 }

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import Stream = require("stream");
+import * as Stream from "stream";
 
 /**
  * Please check the available options at http://git-scm.com/docs/git-log.

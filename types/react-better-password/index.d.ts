@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 export interface PasswordProps {
     className?: string | undefined;
     mask?: "•" | string | undefined;

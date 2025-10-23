@@ -2,7 +2,7 @@
 
 import Tapable = require("tapable");
 import { RawSourceMap } from "source-map";
-import UglifyJS = require("uglify-js");
+import * as UglifyJS from "uglify-js";
 
 export = webpack;
 

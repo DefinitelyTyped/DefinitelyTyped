@@ -1,4 +1,4 @@
-import a = require("angular");
+import * as a from "angular";
 
 declare module "angular" {
     interface IPromise<T> {

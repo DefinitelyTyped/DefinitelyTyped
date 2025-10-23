@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import ajv = require("ajv");
+import * as ajv from "ajv";
 
 declare global {
     namespace jest {

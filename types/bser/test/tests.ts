@@ -1,5 +1,5 @@
-import assert = require("assert");
-import bser = require("bser");
+import * as assert from "assert";
+import * as bser from "bser";
 import Int64 from "node-int64";
 
 // This is a hard-coded template representation from the C test suite

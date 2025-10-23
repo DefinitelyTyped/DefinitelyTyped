@@ -1,5 +1,5 @@
-import Headless = require("@af-utils/react-virtual-headless");
-import React = require("react");
+import * as Headless from "@af-utils/react-virtual-headless";
+import * as React from "react";
 
 export interface ChildProps {
     key: string;

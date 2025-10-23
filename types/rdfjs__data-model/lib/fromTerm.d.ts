@@ -1,4 +1,4 @@
-import RDF = require("@rdfjs/types");
+import * as RDF from "@rdfjs/types";
 
 export interface FromTerm<T extends RDF.Term, D extends RDF.DataFactory> {
     (factory: D, original: T): T extends RDF.Literal ? ReturnType<D["literal"]>

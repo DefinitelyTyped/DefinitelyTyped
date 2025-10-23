@@ -1,4 +1,4 @@
-import angular = require("angular");
+import * as angular from "angular";
 
 declare const exportedString: "ui.router";
 export default exportedString;

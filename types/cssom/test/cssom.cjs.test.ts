@@ -1,4 +1,4 @@
-import CSSOM = require("cssom");
+import * as CSSOM from "cssom";
 
 let styleSheet: CSSOM.CSSStyleSheet;
 

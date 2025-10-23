@@ -1,5 +1,5 @@
 import { BaseOptions, DateOption, Hook } from "flatpickr/dist/types/options";
-import React = require("react");
+import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
 export interface DatePickerProps extends Omit<ReactDivAttr, "onChange"> {

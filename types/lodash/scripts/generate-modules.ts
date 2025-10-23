@@ -2,9 +2,9 @@
 
 /// <reference types="node" />
 
-import fs = require("fs");
+import * as fs from "fs";
 import { get, STATUS_CODES } from "http";
-import path = require("path");
+import * as path from "path";
 
 main().catch(console.error);
 

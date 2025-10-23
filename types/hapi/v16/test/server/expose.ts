@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverexposekey-value
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 var register: Hapi.PluginFunction<{}> = function(server, options, next) {
     server.expose("util", function() {
         console.log("something");

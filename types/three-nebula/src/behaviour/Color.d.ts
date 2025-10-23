@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import Particle from "../core/Particle";
 import { EasingFunction } from "../ease";
 import { JSONObject } from "../initializer/Rate";

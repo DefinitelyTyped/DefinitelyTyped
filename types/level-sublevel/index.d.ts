@@ -1,4 +1,4 @@
-import levelup = require("levelup");
+import * as levelup from "levelup";
 
 export = sublevel;
 

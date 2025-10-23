@@ -1,4 +1,4 @@
-import xmljs = require("libxmljs");
+import * as xmljs from "libxmljs";
 import { Stylesheet } from "./index";
 
 export type ApplyCallback = (err: Error | null, result: string | xmljs.Document) => void;

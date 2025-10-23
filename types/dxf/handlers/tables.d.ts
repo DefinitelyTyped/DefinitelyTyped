@@ -1,5 +1,5 @@
-import Layers = require("../Layers");
-import Styles = require("../Styles");
+import * as Layers from "../Layers";
+import * as Styles from "../Styles";
 
 export interface DXFTable {
     layers: Layers.Layer[];

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import EventEmitter = require("events");
-import net = require("net");
+import * as EventEmitter from "events";
+import * as net from "net";
 import { Encoders, TransportServer } from "rsocket-core";
 import { Flowable } from "rsocket-flowable";
 import { DuplexConnection } from "rsocket-types";

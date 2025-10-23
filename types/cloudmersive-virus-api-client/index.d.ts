@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import http = require("http");
+import * as http from "http";
 export enum CollectionFormatEnum {
     /**
      * Comma-separated values. Value: <code>csv</code>

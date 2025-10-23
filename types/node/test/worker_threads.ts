@@ -1,6 +1,6 @@
-import workerThreads = require("node:worker_threads");
+import * as workerThreads from "node:worker_threads";
 import assert = require("node:assert");
-import fs = require("node:fs");
+import * as fs from "node:fs";
 import { EventLoopUtilization } from "node:perf_hooks";
 import { Readable } from "node:stream";
 import { createContext } from "node:vm";

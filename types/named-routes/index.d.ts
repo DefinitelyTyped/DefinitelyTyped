@@ -1,4 +1,4 @@
-import express = require("express");
+import * as express from "express";
 
 declare module "express-serve-static-core" {
     interface Application {

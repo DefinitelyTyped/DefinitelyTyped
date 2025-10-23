@@ -1,4 +1,4 @@
-import koaCompose = require("koa-compose");
+import * as koaCompose from "koa-compose";
 import Connection = require("@xmpp/connection");
 import { Element } from "@xmpp/xml";
 import IncomingCtx = require("./lib/IncomingContext");

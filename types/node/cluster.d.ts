@@ -53,9 +53,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/cluster.js)
  */
 declare module "cluster" {
-    import child = require("node:child_process");
+    import * as child from "node:child_process";
     import EventEmitter = require("node:events");
-    import net = require("node:net");
+    import * as net from "node:net";
     type SerializationType = "json" | "advanced";
     export interface ClusterSettings {
         /**

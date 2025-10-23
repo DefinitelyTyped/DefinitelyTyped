@@ -1,4 +1,4 @@
-import ssh2 = require("ssh2");
+import * as ssh2 from "ssh2";
 
 export = sftp;
 

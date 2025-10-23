@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-import moment = require("moment");
+import * as moment from "moment";
 
 export as namespace BootstrapV3DatetimePicker;
 

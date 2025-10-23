@@ -1,8 +1,8 @@
 import Koa = require("koa");
 import compose = require("koa-compose");
-import http = require("http");
-import https = require("https");
-import ws = require("ws");
+import * as http from "http";
+import * as https from "https";
+import * as ws from "ws";
 
 declare module "koa" {
     interface Context {

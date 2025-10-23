@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { TextProps } from "react-native";
 
 export interface HighlighterProps extends TextProps {

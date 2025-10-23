@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import {
     _FragmentRefs,
     _RefType,
@@ -15,7 +15,7 @@ import {
 } from "relay-runtime";
 
 // These are not exposed. This is just to satisfy the DefinitelyTyped build process.
-import hooks = require("./hooks");
+import * as hooks from "./hooks";
 
 // ./ReactRelayTypes
 export interface RelayProp {

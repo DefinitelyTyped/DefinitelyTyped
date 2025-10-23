@@ -20,7 +20,7 @@ import {
     Unit,
 } from "date-arithmetic";
 import { Validator } from "prop-types";
-import React = require("react");
+import * as React from "react";
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 

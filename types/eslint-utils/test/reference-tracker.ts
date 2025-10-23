@@ -1,5 +1,5 @@
 import { Scope } from "eslint";
-import utils = require("eslint-utils");
+import * as utils from "eslint-utils";
 
 declare const scope: Scope.Scope;
 

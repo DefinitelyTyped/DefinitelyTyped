@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: source_context.proto
 
-import jspb = require("../../index");
+import * as jspb from "../../index";
 
 export class SourceContext extends jspb.Message {
     getFileName(): string;

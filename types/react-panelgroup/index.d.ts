@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 /**
  * Interface used to define a number of options for a panel.

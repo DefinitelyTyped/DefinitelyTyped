@@ -1,4 +1,4 @@
-import ESTree = require("estree");
+import * as ESTree from "estree";
 import globalize = require("globalize");
 
 interface CompileTemplateOptions {

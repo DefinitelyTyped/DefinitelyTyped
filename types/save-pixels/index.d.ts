@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { NdArray } from "ndarray";
-import Stream = require("stream");
+import * as Stream from "stream";
 
 // Function overloads. Most types return a Stream, except 'canvas'. Quality option only available for
 // JPEG format. See https://www.npmjs.com/package/save-pixels#requiresave-pixelsarray-type-options.

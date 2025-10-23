@@ -1,5 +1,5 @@
 import { Moment } from "moment";
-import React = require("react");
+import * as React from "react";
 
 declare module "react-calendar-timeline" {
     type Id = number | string;

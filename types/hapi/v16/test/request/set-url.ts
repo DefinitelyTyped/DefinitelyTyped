@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#requestseturlurl-striptrailingslash
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 
@@ -14,7 +14,7 @@ server.ext("onRequest", onRequest);
 
 // Example 2
 
-import Url = require("url");
+import * as Url from "url";
 
 onRequest = function(request, reply) {
     const uri = request.raw.req.url;

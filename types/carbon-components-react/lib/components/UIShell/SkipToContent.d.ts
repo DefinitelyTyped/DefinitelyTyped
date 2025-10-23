@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ReactAnchorAttr } from "../../../typings/shared";
 
 export interface SkipToContentProps extends Omit<ReactAnchorAttr, "children"> {

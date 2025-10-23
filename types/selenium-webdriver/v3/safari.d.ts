@@ -1,4 +1,4 @@
-import webdriver = require("./index");
+import * as webdriver from "./index";
 
 export class Server {}
 

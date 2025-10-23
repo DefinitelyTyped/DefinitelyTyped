@@ -3,7 +3,7 @@
 import { RequestHandler } from "express";
 import { Params, ParamsDictionary, Query } from "express-serve-static-core";
 import { IncomingMessage, Server, ServerResponse } from "http";
-import Trouter = require("trouter");
+import * as Trouter from "trouter";
 import { Url } from "url";
 
 declare namespace polka {

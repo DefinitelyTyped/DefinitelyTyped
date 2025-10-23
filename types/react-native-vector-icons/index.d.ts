@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { TextProps } from "react-native";
 import { Icon } from "./Icon";
 

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { SelectProps } from "../../Select";
 
 export interface PageSelectorProps extends SelectProps {

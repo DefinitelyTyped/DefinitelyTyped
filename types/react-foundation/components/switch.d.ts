@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import React = require("react");
+import * as React from "react";
 import { SwitchInputTypes, SwitchSizes } from "../enums";
 import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
 /**

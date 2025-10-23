@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import ActionFooter from "terra-action-footer";
 
 const AllProps = <ActionFooter start={<div />} end={"end"} />;

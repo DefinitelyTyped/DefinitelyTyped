@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import http = require("http");
+import * as http from "http";
 import { ParsedUrlQuery } from "querystring";
 import { Stream } from "stream";
 

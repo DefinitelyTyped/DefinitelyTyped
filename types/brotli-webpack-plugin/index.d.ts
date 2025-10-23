@@ -1,4 +1,4 @@
-import webpack = require("webpack");
+import * as webpack from "webpack";
 
 declare class BrotliWebpackPlugin extends webpack.Plugin {
     constructor(options?: BrotliWebpackPlugin.Options);

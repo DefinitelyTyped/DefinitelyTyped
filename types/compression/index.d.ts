@@ -1,5 +1,5 @@
 import express = require("express");
-import zlib = require("zlib");
+import * as zlib from "zlib";
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.
 

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, InternationalProps, ReactButtonAttr } from "../../../typings/shared";
 import { DataTableSortState, DataTableSortStates } from "./state/sorting";
 

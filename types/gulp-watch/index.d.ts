@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import File = require("vinyl");
+import * as File from "vinyl";
 import { SrcOptions } from "vinyl-fs";
 
 interface IOptions extends SrcOptions {

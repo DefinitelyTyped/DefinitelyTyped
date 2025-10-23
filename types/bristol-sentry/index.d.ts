@@ -1,4 +1,4 @@
-import raven = require("raven");
+import * as raven from "raven";
 
 interface FormattedLog {
     message: string;

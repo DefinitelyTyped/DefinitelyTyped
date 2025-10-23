@@ -1,4 +1,4 @@
-import PropTypes = require("./ListBoxPropTypes");
+import * as PropTypes from "./ListBoxPropTypes";
 
 export * from "./ListBox";
 export { PropTypes };

@@ -5,8 +5,8 @@
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
 
-import React = require("react");
-import Redux = require("redux");
+import * as React from "react";
+import * as Redux from "redux";
 
 type ComponentClass<P> = React.ComponentClass<P>;
 type FunctionComponent<P> = React.FunctionComponent<P>;

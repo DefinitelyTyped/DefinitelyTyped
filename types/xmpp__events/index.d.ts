@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import events = require("events");
+import * as events from "events";
 
 export const EventEmitter: typeof events.EventEmitter;
 export type EventEmitter = events.EventEmitter;

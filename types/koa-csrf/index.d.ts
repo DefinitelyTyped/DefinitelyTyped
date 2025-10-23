@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
-import CSRF = require("koa-csrf");
-import Koa = require("koa");
+import * as CSRF from "koa-csrf";
+import * as Koa from "koa";
 const app = new Koa();
 
 app.use(new CSRF({

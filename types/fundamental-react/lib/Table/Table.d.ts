@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type TableProps = {
     headers: Array<string | React.ReactNode>;

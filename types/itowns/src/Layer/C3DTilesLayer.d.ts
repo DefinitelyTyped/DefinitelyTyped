@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import type C3DTBatchTable from "../Core/3DTiles/C3DTBatchTable";
 import C3DTExtensions from "../Core/3DTiles/C3DTExtensions";
 import type C3DTFeature from "../Core/3DTiles/C3DTFeature";

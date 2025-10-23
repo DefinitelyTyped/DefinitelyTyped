@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { SolidColor } from "./SolidColor";
 /**
  * Options for saving a document in BMP format using the [[Document.saveAs]] method

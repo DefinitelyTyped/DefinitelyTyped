@@ -1,8 +1,8 @@
-import dns = require("node:dns");
-import http = require("node:http");
-import net = require("node:net");
-import stream = require("node:stream");
-import url = require("node:url");
+import * as dns from "node:dns";
+import * as http from "node:http";
+import * as net from "node:net";
+import * as stream from "node:stream";
+import * as url from "node:url";
 
 // http Server
 {

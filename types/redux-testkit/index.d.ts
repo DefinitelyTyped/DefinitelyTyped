@@ -1,4 +1,4 @@
-import Redux = require("redux");
+import * as Redux from "redux";
 import { ThunkAction } from "redux-thunk";
 
 export interface ReducerTestkit {

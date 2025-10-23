@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverbindcontext
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 interface HandlerThis {
     message: string;

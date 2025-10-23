@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import Loadable = require("react-loadable");
 
 class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {

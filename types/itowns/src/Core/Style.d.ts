@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 // export const cacheStyle = new Cache();
 // export function readExpression(property, ctx);

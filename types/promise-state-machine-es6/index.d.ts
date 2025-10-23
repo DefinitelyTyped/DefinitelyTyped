@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import events = require("events");
+import * as events from "events";
 
 interface DotNode<State, Transitions> {
     from: State;

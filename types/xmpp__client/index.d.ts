@@ -8,7 +8,7 @@ import { Resource } from "@xmpp/resource-binding";
 import { Credentials, SASL } from "@xmpp/sasl";
 import { StreamFeatures } from "@xmpp/stream-features";
 import { StreamManagement } from "@xmpp/stream-management";
-import koaCompose = require("koa-compose");
+import * as koaCompose from "koa-compose";
 
 /**
  * An XMPP client is an entity that connects to an XMPP server.

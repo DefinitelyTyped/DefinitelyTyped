@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
 export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Partial<

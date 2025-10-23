@@ -1,4 +1,4 @@
-import superagent from "superagent";
+import * as superagent from "superagent";
 import wrapSuperagent = require("superagent-retry-delay");
 
 // $ExpectType EnhancedSuperAgentStatic

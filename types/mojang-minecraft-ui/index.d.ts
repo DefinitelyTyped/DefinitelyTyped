@@ -42,7 +42,7 @@
  * }
  * ```
  */
-import mojangminecraft = require("mojang-minecraft");
+import * as mojangminecraft from "mojang-minecraft";
 /**
  * Builds a simple player form with buttons that let the player
  * take action.

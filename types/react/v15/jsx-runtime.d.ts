@@ -1,5 +1,5 @@
 // Expose `JSX` namespace in `global` namespace
-import React = require("./");
+import * as React from "./";
 
 /**
  * Create a React element.

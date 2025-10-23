@@ -1,4 +1,4 @@
-import Koa = require("koa");
+import * as Koa from "koa";
 
 declare function auth(opts: {
     name: string;

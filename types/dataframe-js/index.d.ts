@@ -1,13 +1,13 @@
 import DataFrame from "./dataframe";
-import Errors = require("./errors");
+import * as Errors from "./errors";
 import { GroupedDataFrame } from "./group";
-import Io = require("./io");
+import * as Io from "./io";
 import Matrix from "./modules/matrix";
 import SQL from "./modules/sql";
 import sqlParser from "./modules/sql/sqlEngine";
 import Stat from "./modules/stat";
-import Reusables = require("./reusables");
+import * as Reusables from "./reusables";
 import Row from "./row";
-import Symbol = require("./symbol");
+import * as Symbol from "./symbol";
 export { DataFrame, Errors, GroupedDataFrame, Io, Matrix, Reusables, Row, SQL, sqlParser, Stat, Symbol };
 export default DataFrame;

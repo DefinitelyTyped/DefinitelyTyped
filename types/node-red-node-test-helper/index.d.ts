@@ -2,7 +2,7 @@ import { LocalSettings } from "@node-red/runtime";
 import { EventEmitter } from "events";
 import { Node, NodeCredentials, NodeDef, NodeInitializer } from "node-red";
 import { SinonSpy } from "sinon";
-import supertest = require("supertest");
+import * as supertest from "supertest";
 
 declare class NodeTestHelper extends EventEmitter {
     init(nodeRedRuntime: string, userSettings?: LocalSettings): void;

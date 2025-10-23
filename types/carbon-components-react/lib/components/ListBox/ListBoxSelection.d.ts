@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { InternationalProps } from "../../../typings/shared";
 
 export type ListBoxSelectionTranslationKey = "clear.all" | "clear.selection";

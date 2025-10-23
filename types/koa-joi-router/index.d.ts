@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
 import { BusboyConfig } from "busboy";
-import CoBody = require("co-body");
-import http = require("http");
-import Joi = require("joi");
-import Koa = require("koa");
-import KoaRouter = require("koa-router");
+import * as CoBody from "co-body";
+import * as http from "http";
+import * as Joi from "joi";
+import * as Koa from "koa";
+import * as KoaRouter from "koa-router";
 
 declare module "koa" {
     interface Request {

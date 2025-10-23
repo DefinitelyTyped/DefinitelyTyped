@@ -1,19 +1,19 @@
 import config from "./config";
 import denormalise from "./denormalise";
 import groupEntitiesByLayer from "./groupEntitiesByLayer";
-import Blocks = require("./handlers/blocks");
-import Entities = require("./handlers/entities");
-import Header = require("./handlers/header");
-import Tables = require("./handlers/tables");
+import * as Blocks from "./handlers/blocks";
+import * as Entities from "./handlers/entities";
+import * as Header from "./handlers/header";
+import * as Tables from "./handlers/tables";
 import Helper from "./Helper";
-import Information = require("./Information");
-import Layers = require("./Layers");
+import * as Information from "./Information";
+import * as Layers from "./Layers";
 import parseString from "./parseString";
-import Styles = require("./Styles");
+import * as Styles from "./Styles";
 import toPolylines from "./toPolylines";
 import toSVG from "./toSVG";
 import colors from "./util/colors";
-import Utils = require("./Utils");
+import * as Utils from "./Utils";
 
 export { colors, config, denormalise, groupEntitiesByLayer, Helper, parseString, toPolylines, toSVG };
 

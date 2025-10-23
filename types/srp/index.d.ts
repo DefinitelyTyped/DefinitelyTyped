@@ -1,7 +1,7 @@
 /// <reference types="bignum" />
 /// <reference types="node" />
 
-import BigNum = require("bignum");
+import * as BigNum from "bignum";
 
 export = SRP;
 

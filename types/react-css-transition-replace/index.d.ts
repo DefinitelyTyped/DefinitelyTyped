@@ -1,5 +1,5 @@
 /// <reference types="react-addons-css-transition-group" />
-import React = require("react");
+import * as React from "react";
 
 declare namespace CSSTransitionReplace {
     interface Props extends React.CSSTransitionGroupProps {

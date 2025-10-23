@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions
-import catbox = require("catbox");
+import * as catbox from "catbox";
 import { Server } from "hapi";
 
 const server = new Server({

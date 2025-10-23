@@ -2,7 +2,7 @@
  * inspired by @types/redux-actions, thanks.
  */
 
-import Redux = require("redux");
+import * as Redux from "redux";
 
 export as namespace ReduxAction;
 

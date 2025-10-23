@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import fs = require("fs");
+import * as fs from "fs";
 
 declare namespace ncp {
     interface File {

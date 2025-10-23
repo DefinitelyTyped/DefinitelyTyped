@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 import { RENDERER_TYPE_GPU_DESKTOP, RENDERER_TYPE_GPU_MOBILE } from "../../../types";
 /**
  * Dynamic texture atlas for performant support of systems with multiple emitters and textures.

@@ -1,6 +1,6 @@
 /// <reference types="angular"/>
 
-import ng = require("angular");
+import * as ng from "angular";
 
 declare module "angular" {
     export namespace localStorage {

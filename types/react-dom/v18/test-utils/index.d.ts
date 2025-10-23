@@ -13,7 +13,7 @@ import {
     ReactInstance,
 } from "react";
 
-import ReactTestUtils = require(".");
+import * as ReactTestUtils from ".";
 
 export {};
 

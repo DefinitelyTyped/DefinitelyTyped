@@ -1,4 +1,4 @@
-import Backbone = require("backbone");
+import * as Backbone from "backbone";
 
 declare module "backbone" {
     export namespace Associations {

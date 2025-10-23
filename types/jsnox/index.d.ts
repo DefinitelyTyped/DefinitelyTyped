@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 /*
  * JSnoX requires an object with a createElement method.

@@ -1,4 +1,4 @@
-import TSL = require("./nodes/TSL.js");
+import * as TSL from "./nodes/TSL.js";
 
 export const BRDF_GGX: typeof TSL.BRDF_GGX;
 export const BRDF_Lambert: typeof TSL.BRDF_Lambert;

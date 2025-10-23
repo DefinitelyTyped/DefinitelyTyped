@@ -2,8 +2,8 @@
 
 /// <reference types="mithril" />
 
-import mithril = require("mithril");
-import stream = require("mithril/stream");
+import * as mithril from "mithril";
+import * as stream from "mithril/stream";
 
 declare namespace MithrilGlobal {
     export type CommonAttributes<A, S> = mithril.CommonAttributes<A, S>;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ViewStyle } from "react-native";
 
 declare namespace MultiSlider {

@@ -1,7 +1,7 @@
 // From https://hapijs.com/api/16.1.1#serverauthapi
 
-import Boom = require("boom");
-import Hapi = require("hapi");
+import * as Boom from "boom";
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { OptimizeOptions } from "svgo";
 import { Plugin } from "vite";
 

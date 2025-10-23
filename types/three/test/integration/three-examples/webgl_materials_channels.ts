@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";

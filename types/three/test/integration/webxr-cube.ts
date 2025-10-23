@@ -1,6 +1,6 @@
 // A simple WebXR VR example that just shows a cube.
 
-import THREE = require("three");
+import * as THREE from "three";
 
 const container = document.createElement("div");
 

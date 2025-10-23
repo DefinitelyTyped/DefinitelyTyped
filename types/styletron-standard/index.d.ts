@@ -1,4 +1,4 @@
-import CSS = require("csstype");
+import * as CSS from "csstype";
 
 export type Properties = CSS.Properties<string | number>;
 export type FontFace = CSS.AtRule.FontFace;

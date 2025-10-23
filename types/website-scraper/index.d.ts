@@ -1,6 +1,6 @@
 /// <reference types="request" />
 
-import request = require("request");
+import * as request from "request";
 
 declare namespace websiteScraper {
     interface Url {

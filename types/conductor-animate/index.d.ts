@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 interface Animations {
     [K: string]: React.ComponentClass<any> | React.FunctionComponent<any>;

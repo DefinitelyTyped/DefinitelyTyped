@@ -1,7 +1,7 @@
 //
 /// <reference types="google.maps" />
 
-import React = require("react");
+import * as React from "react";
 
 export interface formattedSuggestionType {
     mainText: string;

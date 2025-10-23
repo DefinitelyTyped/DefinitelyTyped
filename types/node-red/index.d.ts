@@ -4,11 +4,11 @@ import { EventEmitter } from "events";
 import { Express } from "express";
 import { Server as HttpServer } from "http";
 
-import editorAPI = require("@node-red/editor-api");
-import editorClient = require("@node-red/editor-client");
-import registry = require("@node-red/registry");
-import runtime = require("@node-red/runtime");
-import util = require("@node-red/util");
+import * as editorAPI from "@node-red/editor-api";
+import * as editorClient from "@node-red/editor-client";
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
+import * as util from "@node-red/util";
 
 declare const nodeRed: nodeRed.NodeRedApp;
 

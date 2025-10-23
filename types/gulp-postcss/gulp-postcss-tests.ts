@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import Vinyl from "vinyl";
+import * as Vinyl from "vinyl";
 import postcss = require("gulp-postcss");
 
 const postCssPlugins: any[] = [];

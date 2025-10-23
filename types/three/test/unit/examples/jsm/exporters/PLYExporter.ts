@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 import { PLYExporter } from "three/addons/exporters/PLYExporter.js";
 

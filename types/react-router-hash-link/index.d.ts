@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { LinkProps, NavLinkProps } from "react-router-dom";
 
 export interface HashLinkProps extends LinkProps {

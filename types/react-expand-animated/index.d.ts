@@ -1,5 +1,5 @@
-import CSS = require("csstype");
-import React = require("react");
+import * as CSS from "csstype";
+import * as React from "react";
 
 export interface ExpandProps {
     /**

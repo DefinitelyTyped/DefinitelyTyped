@@ -1,6 +1,6 @@
-import Unit = require("../util/unit");
+import * as Unit from "../util/unit";
 import { Layers } from "./collections/Layers";
-import Constants = require("./Constants");
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Bounds } from "./objects/Bounds";
 import { TextItem } from "./TextItem";

@@ -1,7 +1,7 @@
 import { Entity, IncomingContext, Middleware } from "@xmpp/middleware";
 import { Element } from "@xmpp/xml";
-import Koa = require("koa");
-import koaCompose = require("koa-compose");
+import * as Koa from "koa";
+import * as koaCompose from "koa-compose";
 
 export = streamFeatures;
 

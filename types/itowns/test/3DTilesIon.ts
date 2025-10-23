@@ -1,5 +1,5 @@
-import itowns = require("itowns");
-import THREE = require("three");
+import * as itowns from "itowns";
+import * as THREE from "three";
 import { IgnMNTHighres, OpenSM, WorldDTM } from "./jsonLayers";
 
 // ---------- CREATE A GlobeView FOR SUPPORTING DATA VISUALIZATION : ----------

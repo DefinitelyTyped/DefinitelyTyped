@@ -1,4 +1,4 @@
-import fs = require("node:fs");
+import * as fs from "node:fs";
 import {
     access,
     constants,
@@ -10,7 +10,7 @@ import {
     writeFile as writeFileAsync,
 } from "node:fs/promises";
 import { URL } from "node:url";
-import util = require("node:util");
+import * as util from "node:util";
 import assert = require("node:assert");
 import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
 

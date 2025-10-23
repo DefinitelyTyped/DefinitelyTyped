@@ -1,4 +1,4 @@
-import YUKA = require("yuka");
+import * as YUKA from "yuka";
 import { CustomVehicle } from "./CustomVehicle";
 import { PathPlanner } from "./PathPlanner";
 

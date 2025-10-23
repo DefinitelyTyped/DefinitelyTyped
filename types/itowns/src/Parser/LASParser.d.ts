@@ -1,4 +1,4 @@
-import THREE = require("three");
+import * as THREE from "three";
 
 declare namespace _default {
     interface ParsingOptions {

@@ -189,7 +189,7 @@ declare module "jquery-easy-loading" {
      * itself if you use this not in the browser env.
      *
      * <pre>
-     * import factory = require("jquery-easy-loading");
+     * import * as factory from "jquery-easy-loading";
      * const $: JQueryStatic = factory(window);
      * </pre>
      */

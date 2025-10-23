@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import CleanCSS = require("clean-css");
+import * as CleanCSS from "clean-css";
 
 declare function minifyCSS(options?: CleanCSS.Options): NodeJS.ReadWriteStream;
 

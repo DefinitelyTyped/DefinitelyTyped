@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import stylelint = require("stylelint");
+import * as stylelint from "stylelint";
 
 interface GulpStylelint {
     (options?: gulpStylelint.Options): NodeJS.ReadWriteStream;

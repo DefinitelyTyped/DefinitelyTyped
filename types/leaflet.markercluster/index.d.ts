@@ -1,4 +1,4 @@
-import L = require("leaflet");
+import * as L from "leaflet";
 
 declare module "leaflet" {
     class MarkerCluster extends Marker {

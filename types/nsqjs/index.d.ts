@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import events = require("events");
+import * as events from "events";
 
 export class Message extends events.EventEmitter {
     static BACKOFF: string;

@@ -1,4 +1,4 @@
-import CSS = require("csstype");
+import * as CSS from "csstype";
 
 export {};
 

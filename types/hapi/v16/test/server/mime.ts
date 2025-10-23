@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#servermime
 
-import Hapi = require("hapi");
+import * as Hapi from "hapi";
 
 const options: Hapi.ServerOptions = {
     mime: {

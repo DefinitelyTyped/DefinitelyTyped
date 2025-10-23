@@ -1,7 +1,7 @@
 /// <reference path="global.d.ts" />
 
-import CSS = require("csstype");
-import PropTypes = require("prop-types");
+import * as CSS from "csstype";
+import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
 type NativeAnimationEvent = AnimationEvent;

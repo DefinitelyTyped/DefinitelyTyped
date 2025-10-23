@@ -20,8 +20,8 @@
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
     import { Blob as NodeBlob } from "node:buffer";
-    import streamPromises = require("node:stream/promises");
-    import streamWeb = require("node:stream/web");
+    import * as streamPromises from "node:stream/promises";
+    import * as streamWeb from "node:stream/web";
 
     type ComposeFnParam = (source: any) => void;
 

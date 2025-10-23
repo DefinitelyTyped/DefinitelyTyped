@@ -1,4 +1,4 @@
-import Q = require("q");
+import * as Q from "q";
 
 export interface IOptions {
     dropDatabase?: boolean | undefined;

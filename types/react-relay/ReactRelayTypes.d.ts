@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 import { _FragmentRefs, _RefType, Disposable, Environment, Observer, Variables } from "relay-runtime";
 

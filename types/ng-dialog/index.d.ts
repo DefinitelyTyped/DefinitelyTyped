@@ -1,6 +1,6 @@
 /// <reference types="angular" />
 
-import angular = require("angular");
+import * as angular from "angular";
 
 export type IDialogService = angular.dialog.IDialogService;
 export type IDialogOpenResult = angular.dialog.IDialogOpenResult;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 
 export interface SideNavDividerProps {
     className?: string | undefined;

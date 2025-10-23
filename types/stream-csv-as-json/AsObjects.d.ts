@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { Transform, TransformOptions } from "stream";
-import Chain = require("stream-chain");
+import * as Chain from "stream-chain";
 
 export = AsObjects;
 

@@ -14,6 +14,6 @@ declare namespace ParseMockDB {
 }
 
 declare module "parse-mockdb" {
-    import Parse = require("parse");
+    import * as Parse from "parse";
     export = ParseMockDB;
 }

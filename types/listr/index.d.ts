@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { Observable } from "rxjs";
-import stream = require("stream");
+import * as stream from "stream";
 
 declare namespace Listr {
     type ListrContext = any;

@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { ForwardRefReturn, ReactAttr } from "../../../typings/shared";
 
 export interface BreadcrumbProps extends ReactAttr {

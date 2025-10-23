@@ -1,4 +1,4 @@
-import e = require("express");
+import * as e from "express";
 
 export as namespace NodeSpriteGenerator;
 export = NodeSpriteGenerator;

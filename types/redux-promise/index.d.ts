@@ -1,4 +1,4 @@
-import Redux = require("redux");
+import * as Redux from "redux";
 
 declare const promise: ReduxPromise.Promise;
 export = promise;

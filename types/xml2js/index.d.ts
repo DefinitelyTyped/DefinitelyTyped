@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 import { EventEmitter } from "events";
-import processors = require("./lib/processors");
+import * as processors from "./lib/processors";
 
 export function parseString(str: convertableToString, callback: (err: Error | null, result: any) => void): void;
 export function parseString(

@@ -1,4 +1,4 @@
-import lib = require("./lib");
+import * as lib from "./lib";
 
 // Re-export the type definitions globally.
 declare global {

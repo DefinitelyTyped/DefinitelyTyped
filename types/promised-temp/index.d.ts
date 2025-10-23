@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import fs = require("fs");
+import * as fs from "fs";
 import { AffixOptions, AffixOptions as _A, OpenFile, OpenFile as _O, Stats, Stats as _S } from "temp";
 
 interface TempStatic {

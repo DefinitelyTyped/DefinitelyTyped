@@ -1,4 +1,4 @@
-import Constants = require("../Constants");
+import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
 /**
  * All preferences related to history logging
