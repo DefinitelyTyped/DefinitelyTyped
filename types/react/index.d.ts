@@ -3005,6 +3005,20 @@ declare namespace React {
         name?: string | undefined;
         type?: "submit" | "reset" | "button" | undefined;
         value?: string | readonly string[] | number | undefined;
+
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement/command}
+         */
+        command?:
+            | "show-modal"
+            | "close"
+            | "request-close"
+            | "show-popover"
+            | "hide-popover"
+            | "toggle-popover"
+            | `--${string}`
+            | undefined;
+        commandfor?: string | undefined;
     }
 
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
