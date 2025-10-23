@@ -1,4 +1,4 @@
-import * as HashRing from "hashring";
+import HashRing from "hashring";
 
 const ring = new HashRing(
     [

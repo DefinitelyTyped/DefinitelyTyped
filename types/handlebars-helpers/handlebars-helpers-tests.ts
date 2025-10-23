@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import * as helpers from "handlebars-helpers";
+import helpers from "handlebars-helpers";
 
 const handlebars = Handlebars.create();
 

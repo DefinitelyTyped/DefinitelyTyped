@@ -10,7 +10,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "types": []
+        "types": [],
+        "esModuleInterop": true
     },
     "files": [
         "connect-mongodb-session-tests.ts",

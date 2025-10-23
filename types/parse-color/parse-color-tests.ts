@@ -1,4 +1,4 @@
-import * as parseColor from "parse-color";
+import parseColor from "parse-color";
 
 const color = parseColor("lime");
 

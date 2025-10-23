@@ -1,4 +1,4 @@
-import * as dht from "pigpio-dht";
+import dht from "pigpio-dht";
 
 const dhtReadPin = 2;
 const sensor: dht.Dht = dht(dhtReadPin, 11);

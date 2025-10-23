@@ -7,7 +7,6 @@
         ],
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "esModuleInterop": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "types": [],

@@ -1,4 +1,4 @@
-import * as events from "node:events";
+import events from "node:events";
 
 interface T {
     event1: [string, number];

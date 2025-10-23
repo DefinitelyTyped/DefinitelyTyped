@@ -32,7 +32,7 @@ function test_commands() {
         .loading("toggle");
 }
 
-import * as factory from "jquery-easy-loading";
+import factory from "jquery-easy-loading";
 
 function test_factory() {
     const $loading: JQueryStatic = factory(window, jQuery);
