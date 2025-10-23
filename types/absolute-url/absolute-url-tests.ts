@@ -1,5 +1,5 @@
 import express = require("express");
-import * as absoluteUrl from "absolute-url";
+import absoluteUrl from "absolute-url";
 
 const app = express();
 

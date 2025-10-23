@@ -1,6 +1,6 @@
 /// <reference lib="DOM" />
 import URI = require("urijs");
-import * as URITemplate from "urijs/src/URITemplate";
+import URITemplate from "urijs/src/URITemplate";
 declare var $: (arg?: any) => JQuery;
 
 // Scope it so doesn't name conflict with other tests.

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Table from "reactabular-table";
+import Table from "reactabular-table";
 
 export interface Props {
     columns: Table.Column[];
