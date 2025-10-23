@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions
 //      https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme
-import * as Boom from "boom";
+import Boom = require("boom");
 import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOptions } from "hapi";
 
 declare module "hapi" {

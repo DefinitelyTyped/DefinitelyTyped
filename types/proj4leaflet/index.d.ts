@@ -1,5 +1,5 @@
-import * as geojson from "geojson";
-import * as L from "leaflet";
+import geojson = require("geojson");
+import L = require("leaflet");
 import { Converter } from "proj4/dist/lib/core";
 
 declare module "leaflet" {

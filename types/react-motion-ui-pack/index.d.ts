@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as motion from "react-motion";
+import React = require("react");
+import motion = require("react-motion");
 
 declare namespace Transition {
     interface TransitionProps {

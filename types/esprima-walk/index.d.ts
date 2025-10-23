@@ -1,4 +1,4 @@
-import * as ESTree from "estree";
+import ESTree = require("estree");
 
 type NodeWithParent = ESTree.Node & { parent?: ESTree.Node | undefined };
 

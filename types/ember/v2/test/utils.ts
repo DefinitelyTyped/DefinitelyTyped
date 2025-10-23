@@ -1,4 +1,4 @@
-import * as utils from "@ember/utils";
+import utils = require("@ember/utils");
 import Ember from "ember";
 import { assertType } from "./lib/assert";
 

@@ -1,6 +1,6 @@
 /// <reference types="esprima" />
 
-import * as ESTree from "estree";
+import ESTree = require("estree");
 
 /**
  * Evaluates the given ESTree.Expression, with the given named variables in place.

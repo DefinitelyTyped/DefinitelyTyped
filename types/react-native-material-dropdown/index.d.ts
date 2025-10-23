@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { LayoutChangeEvent, StyleProp, TextStyle, TouchableWithoutFeedbackProps, ViewStyle } from "react-native";
 
 /**

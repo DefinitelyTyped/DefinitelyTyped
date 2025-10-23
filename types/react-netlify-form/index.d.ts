@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import Recaptcha, { ReCAPTCHAProps } from "react-google-recaptcha";
 
 export interface NetlifyFormState {

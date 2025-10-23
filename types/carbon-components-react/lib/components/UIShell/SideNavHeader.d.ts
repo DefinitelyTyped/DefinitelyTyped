@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { SideNavSharedProps } from "../../../typings/shared";
 
 export interface SideNavHeaderProps extends SideNavSharedProps {

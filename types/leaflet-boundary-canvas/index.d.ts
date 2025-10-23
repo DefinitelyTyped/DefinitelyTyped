@@ -1,5 +1,5 @@
 import type { FeatureCollection } from "geojson";
-import * as L from "leaflet";
+import L = require("leaflet");
 
 declare module "leaflet" {
     namespace TileLayer {

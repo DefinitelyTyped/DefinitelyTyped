@@ -1,4 +1,4 @@
-import * as Rx from "rx";
+import Rx = require("rx");
 
 declare module "rx" {
     namespace DOM {

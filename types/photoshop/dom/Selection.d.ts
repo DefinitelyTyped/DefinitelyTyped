@@ -1,5 +1,5 @@
 import { Channel } from "./Channel";
-import * as Constants from "./Constants";
+import Constants = require("./Constants");
 import { Document } from "./Document";
 import { Layer } from "./Layer";
 import { Bounds } from "./objects/Bounds";

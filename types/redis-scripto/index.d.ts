@@ -1,4 +1,4 @@
-import * as redis from "redis";
+import redis = require("redis");
 
 declare class Scripto {
     constructor(redisClient: redis.RedisClient);

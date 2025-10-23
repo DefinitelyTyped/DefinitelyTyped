@@ -1,5 +1,5 @@
-import * as fbEmitter from "fbemitter";
-import * as Dispatcher from "./Dispatcher";
+import fbEmitter = require("fbemitter");
+import Dispatcher = require("./Dispatcher");
 
 declare namespace FluxStore {}
 

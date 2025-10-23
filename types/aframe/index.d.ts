@@ -2,8 +2,8 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-import * as anime from "animejs";
-import * as three from "three";
+import anime = require("animejs");
+import three = require("three");
 
 export type ThreeLib = typeof three;
 export type AnimeLib = typeof anime;

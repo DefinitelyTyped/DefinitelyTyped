@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 import ActionHeader from "terra-action-header";
 

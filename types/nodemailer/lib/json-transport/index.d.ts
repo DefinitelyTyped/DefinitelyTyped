@@ -4,7 +4,7 @@ import { EventEmitter } from "events";
 
 import { Transport, TransportOptions } from "../..";
 
-import * as shared from "../shared";
+import shared = require("../shared");
 
 import Mail = require("../mailer");
 import MailMessage = require("../mailer/mail-message");

@@ -1,4 +1,4 @@
-import * as xmljs from "libxmljs";
+import xmljs = require("libxmljs");
 
 import { ApplyCallback, ApplyDocumentCallback, ApplyStringCallback, ParseCallback } from "./internal-types";
 export const libxmljs: typeof xmljs;

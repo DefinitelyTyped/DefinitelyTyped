@@ -1,6 +1,6 @@
 import { Executor } from "./http";
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import webdriver = require("./index");
+import remote = require("./remote");
 
 /**
  * Creates {@link selenium-webdriver/remote.DriverService} instances that manage

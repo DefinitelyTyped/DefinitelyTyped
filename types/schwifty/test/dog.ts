@@ -1,5 +1,5 @@
-import * as Joi from "joi";
-import * as Schwifty from "schwifty";
+import Joi = require("joi");
+import Schwifty = require("schwifty");
 
 declare module "schwifty" {
     interface RegisteredModels {

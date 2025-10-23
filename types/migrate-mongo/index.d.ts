@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as mongo from "mongodb";
+import mongo = require("mongodb");
 
 export function init(): Promise<void>;
 export function create(description: string): Promise<string>;

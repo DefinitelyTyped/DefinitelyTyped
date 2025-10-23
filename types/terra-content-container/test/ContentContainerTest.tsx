@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import ContentContainer from "terra-content-container";
 
 const AllProps = (

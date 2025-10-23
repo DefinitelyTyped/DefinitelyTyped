@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactLabelAttr } from "../../../typings/shared";
 import { ButtonKind } from "../Button";
 import { FileUploaderSize } from "./shared";

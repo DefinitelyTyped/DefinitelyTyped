@@ -1,4 +1,4 @@
-import * as Entities from "./entities";
+import Entities = require("./entities");
 
 export interface Block {
     xref?: any;

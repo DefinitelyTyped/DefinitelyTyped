@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import d3 = require("d3");
 
 declare module "d3" {
     export function box(): Box;

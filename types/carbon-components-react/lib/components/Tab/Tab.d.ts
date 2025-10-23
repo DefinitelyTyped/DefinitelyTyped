@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactLIAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-controls" | "aria-selected" | "aria-disabled" | "role" | "tabIndex";

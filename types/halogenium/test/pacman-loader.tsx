@@ -1,5 +1,5 @@
-import * as Halogenium from "halogenium";
-import * as React from "react";
+import Halogenium = require("halogenium");
+import React = require("react");
 
 class HalogenTests_PacmanLoader_withNoProps extends React.Component {
     render() {

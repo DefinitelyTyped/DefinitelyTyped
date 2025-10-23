@@ -1,5 +1,5 @@
-import * as moment from "moment";
-import * as React from "react";
+import moment = require("moment");
+import React = require("react");
 
 export type AnyDate = string | moment.Moment;
 export type DateFunc = (now: moment.Moment) => AnyDate;

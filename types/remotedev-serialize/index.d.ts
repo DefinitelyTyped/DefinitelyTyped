@@ -1,6 +1,6 @@
 // TypeScript Version: 2.1
 
-import * as Immutable from "immutable";
+import Immutable = require("immutable");
 
 export type Options = Record<string, boolean>;
 

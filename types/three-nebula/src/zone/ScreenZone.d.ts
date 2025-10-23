@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import type Particle from "../core/Particle";
 import type Zone from "./Zone";
 

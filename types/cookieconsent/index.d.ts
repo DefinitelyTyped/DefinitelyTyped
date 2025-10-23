@@ -1,4 +1,4 @@
-import * as CSS from "csstype";
+import CSS = require("csstype");
 
 export type Status = "deny" | "allow" | "dismiss";
 

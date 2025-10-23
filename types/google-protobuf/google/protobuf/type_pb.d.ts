@@ -1,9 +1,9 @@
 // package: google.protobuf
 // file: type.proto
 
-import * as jspb from "../../index";
-import * as google_protobuf_any_pb from "./any_pb";
-import * as google_protobuf_source_context_pb from "./source_context_pb";
+import jspb = require("../../index");
+import google_protobuf_any_pb = require("./any_pb");
+import google_protobuf_source_context_pb = require("./source_context_pb");
 
 export class Type extends jspb.Message {
     getName(): string;

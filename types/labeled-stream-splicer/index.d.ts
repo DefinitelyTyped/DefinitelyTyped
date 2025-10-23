@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as stream from "stream";
+import stream = require("stream");
 
 type Stream = NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream;
 type Index = number | string;

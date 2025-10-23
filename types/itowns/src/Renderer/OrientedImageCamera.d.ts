@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 declare class Distortion {
     size: THREE.Vector2;

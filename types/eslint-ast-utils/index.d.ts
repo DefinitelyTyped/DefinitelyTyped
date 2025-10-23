@@ -1,5 +1,5 @@
-import * as ESLint from "eslint";
-import * as ESTree from "estree";
+import ESLint = require("eslint");
+import ESTree = require("estree");
 
 /**
  * Get the value of an expression that can be statically computed, i.e. without

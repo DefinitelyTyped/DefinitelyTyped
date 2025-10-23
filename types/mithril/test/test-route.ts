@@ -1,4 +1,4 @@
-import * as m from "mithril";
+import m = require("mithril");
 
 const component1 = {
     view() {

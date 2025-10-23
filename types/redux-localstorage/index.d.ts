@@ -1,4 +1,4 @@
-import * as Redux from "redux";
+import Redux = require("redux");
 
 export interface ActionTypes {
     INIT: string;

@@ -1,5 +1,5 @@
 import Cleave = require("../");
-import * as React from "react";
+import React = require("react");
 import { CleaveOptions } from "../options";
 
 export type ReactInstanceWithCleave = React.ReactInstance & Omit<Cleave, "destroy">;

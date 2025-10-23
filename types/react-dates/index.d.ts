@@ -1,7 +1,7 @@
-import * as moment from "moment";
-import * as React from "react";
+import moment = require("moment");
+import React = require("react");
 import { Props as ReactOutsideClickHandlerProps } from "react-outside-click-handler";
-import * as constants from "./constants";
+import constants = require("./constants");
 
 // UTILITY TYPES
 export type RenderMonthProps =

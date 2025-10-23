@@ -1,4 +1,4 @@
-import * as braintree from "braintree-web";
+import braintree = require("braintree-web");
 import { ApplePayError } from "braintree-web/apple-pay";
 import { HostedFieldsBinPayload } from "braintree-web/hosted-fields";
 

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import View from "./View";
 
 export const RENDERING_PAUSED: 0;

@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import * as ldap from "ldapjs";
+import ldap = require("ldapjs");
 
 declare class Client extends EventEmitter {
     constructor({ url }: { url: string });

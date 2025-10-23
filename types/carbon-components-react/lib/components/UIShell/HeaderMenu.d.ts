@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCReturn, ReactLIAttr } from "../../../typings/shared";
 
 interface HeaderMenuProps<RP = {}> extends ReactLIAttr {

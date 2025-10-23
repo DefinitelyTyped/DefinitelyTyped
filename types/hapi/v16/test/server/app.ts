@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverapp
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 var server = new Hapi.Server();
 server.app.key = "value";
 

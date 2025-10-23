@@ -1,4 +1,4 @@
-import * as itowns from "itowns";
+import itowns = require("itowns");
 
 // 2.5D map example
 // https://github.com/iTowns/itowns/blob/master/examples/view_25d_map.html

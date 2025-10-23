@@ -1,4 +1,4 @@
-import * as webdriver from "selenium-webdriver";
+import webdriver = require("selenium-webdriver");
 
 declare namespace mock {
     interface ProtractorHttpMock {

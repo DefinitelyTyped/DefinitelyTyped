@@ -1,6 +1,6 @@
 /// <reference types="source-map" />
 
-import * as MOZ_SourceMap from "source-map";
+import MOZ_SourceMap = require("source-map");
 
 declare namespace UglifyJS {
     interface Tokenizer {

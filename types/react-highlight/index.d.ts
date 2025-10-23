@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 /**
  * Props for a Highlight component.

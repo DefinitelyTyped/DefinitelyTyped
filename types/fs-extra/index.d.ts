@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as fs from "fs";
-import * as jsonfile from "jsonfile";
+import fs = require("fs");
+import jsonfile = require("jsonfile");
 import { StringifyOptions } from "jsonfile/utils";
 
 export * from "fs";

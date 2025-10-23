@@ -1,4 +1,4 @@
-import * as Table from "reactabular-table";
+import Table = require("reactabular-table");
 
 import { JSX } from "react";
 

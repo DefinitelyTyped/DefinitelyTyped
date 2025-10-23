@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Observable } from "rxjs/Observable";
 
 export function render(

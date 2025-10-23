@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type TouchAction = "auto" | "none" | "pan-x" | "pan-y" | "manipulation";
 

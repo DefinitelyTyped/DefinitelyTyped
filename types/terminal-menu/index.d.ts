@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 declare module "terminal-menu" {
-    import * as stream from "stream";
+    import stream = require("stream");
 
     /**
      * Creates a TerminalMenu with default settings.

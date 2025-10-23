@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: field_mask.proto
 
-import * as jspb from "../../index";
+import jspb = require("../../index");
 
 export class FieldMask extends jspb.Message {
     clearPathsList(): FieldMask;

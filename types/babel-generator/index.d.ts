@@ -1,4 +1,4 @@
-import * as t from "babel-types";
+import t = require("babel-types");
 
 /**
  * Turns an AST into code, maintaining sourcemaps, user preferences, and valid output.

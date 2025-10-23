@@ -1,6 +1,6 @@
 export = xml;
 
-import * as ltx from "ltx";
+import ltx = require("ltx");
 
 declare function xml(...args: Parameters<typeof ltx.createElement>): ReturnType<typeof ltx.createElement>;
 

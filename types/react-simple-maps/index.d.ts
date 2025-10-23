@@ -1,7 +1,7 @@
 import { GeoPath, GeoProjection } from "d3-geo";
 import { D3ZoomEvent } from "d3-zoom";
 import { Feature } from "geojson";
-import * as React from "react";
+import React = require("react");
 
 export type Point = [number, number];
 

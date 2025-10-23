@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import Button, { ButtonTypes, ButtonVariants } from "terra-button";
 
 const buttonMouseEventHandler: React.MouseEventHandler<HTMLButtonElement> = () => {};

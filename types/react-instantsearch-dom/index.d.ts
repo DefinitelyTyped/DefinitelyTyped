@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 import { BasicDoc, DynamicWidgetsExposed, Hit } from "react-instantsearch-core";
 

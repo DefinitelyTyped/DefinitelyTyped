@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Epic } from "redux-observable";
 import { Observable } from "rxjs/Observable";
 

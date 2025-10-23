@@ -1,5 +1,5 @@
-import * as PropTypes from "prop-types";
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 
 export const themeContextShape: PropTypes.Requireable<
     PropTypes.InferProps<{

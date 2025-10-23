@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Animated, TouchableWithoutFeedback, ViewProps } from "react-native";
 
 export type RippleProps =

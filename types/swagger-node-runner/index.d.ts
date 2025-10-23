@@ -1,7 +1,7 @@
 /* =================== USAGE ===================
 
-import * as SwaggerNodeRunner from "swagger-node-runner";
-import * as express from "express";
+import SwaggerNodeRunner = require("swagger-node-runner");
+import express = require("express");
 
 let app = express();
 let config = {
@@ -27,9 +27,9 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 
 import { EventEmitter } from "events";
 import { Express, NextFunction } from "express";
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 import { OutgoingHttpHeaders } from "http";
-import * as Restify from "restify";
+import Restify = require("restify");
 import { Spec } from "swagger-schema-official";
 
 /**

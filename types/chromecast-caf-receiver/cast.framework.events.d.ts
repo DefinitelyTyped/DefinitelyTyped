@@ -1,4 +1,4 @@
-import * as category from "./cast.framework.events.category";
+import category = require("./cast.framework.events.category");
 import {
     ErrorReason,
     LiveSeekableRange,

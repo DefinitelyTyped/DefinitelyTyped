@@ -1,4 +1,4 @@
-import * as pg from "pg";
+import pg = require("pg");
 import DbMigrateBase = require("db-migrate-base");
 import Promise = require("bluebird");
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Editor, EditorProps } from "react-draft-wysiwyg";
 
 const RenderWithHandleKeyCommand = () => {

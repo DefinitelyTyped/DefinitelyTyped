@@ -13,7 +13,7 @@
  *
  * @example
  * import htmlEncodingSniffer = require("html-encoding-sniffer");
- * import * as fs from "fs";
+ * import fs = require("fs");
  *
  * const htmlBytes = fs.readFileSync("./html-page.html");
  * const sniffedEncoding = htmlEncodingSniffer(htmlBytes);

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import PointCloudLayer, { PointCloudLayerOptions } from "./PointCloudLayer";
 // import PotreeNode from "../Core/PotreeNode";
 import Extent from "../Core/Geographic/Extent";

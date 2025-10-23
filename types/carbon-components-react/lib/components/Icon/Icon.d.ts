@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export function findIcon<T extends { name?: string | undefined }>(name: string, iconsObj?: readonly T[]): false | T;
 export function setIconsList<T extends { name?: string | undefined }>(list: readonly T[]): void;

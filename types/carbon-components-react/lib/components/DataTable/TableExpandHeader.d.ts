@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface TableExpandHeaderProps extends React.ThHTMLAttributes<HTMLTableHeaderCellElement> {
     ariaLabel?: string | undefined;

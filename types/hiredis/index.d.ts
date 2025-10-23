@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as net from "net";
+import net = require("net");
 
 export interface Config {
     return_buffers: boolean;

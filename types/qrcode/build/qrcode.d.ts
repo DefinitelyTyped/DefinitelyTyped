@@ -1,4 +1,4 @@
-import * as QRCodeLib from "../index";
+import QRCodeLib = require("../index");
 
 declare global {
     namespace QRCode {

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as Passport from "passport";
+import Passport = require("passport");
 
 declare class SteamStrategy<T extends SteamStrategy.SteamStrategyOptions> extends Passport.Strategy {
     constructor(options: T, validate: ValidateFn<T>);

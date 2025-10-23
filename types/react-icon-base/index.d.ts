@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
     size?: string | number | undefined;

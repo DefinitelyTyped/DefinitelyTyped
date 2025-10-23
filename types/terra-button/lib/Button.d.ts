@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import ThemeContext from "terra-theme-context";
 
 export {};

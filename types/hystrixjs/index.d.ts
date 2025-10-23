@@ -1,4 +1,4 @@
-import * as RX from "rx";
+import RX = require("rx");
 
 export as namespace hystrixjs;
 export as namespace HystrixJS;

@@ -1,5 +1,5 @@
 import { ColorModel } from "../Constants";
-import * as Colors from "./Colors";
+import Colors = require("./Colors");
 /**
  * Represents a color, and allows for mapping into all available Photoshop color models.
  * Import SolidColor from the Photoshop's app object:

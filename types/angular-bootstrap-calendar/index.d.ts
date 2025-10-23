@@ -1,5 +1,5 @@
-import * as angular from "angular";
-import * as moment from "moment";
+import angular = require("angular");
+import moment = require("moment");
 
 declare module "angular" {
     export namespace bootstrap.calendar {

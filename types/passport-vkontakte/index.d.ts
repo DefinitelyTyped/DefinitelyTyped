@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as passport from "passport";
+import express = require("express");
+import passport = require("passport");
 
 export interface Profile extends passport.Profile {
     gender?: string | undefined;

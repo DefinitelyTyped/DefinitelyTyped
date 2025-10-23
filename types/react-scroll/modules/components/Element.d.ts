@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface ElementProps extends React.HTMLProps<HTMLDivElement> {
     name: string;

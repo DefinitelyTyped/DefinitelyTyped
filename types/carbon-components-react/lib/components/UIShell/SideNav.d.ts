@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, InternationalProps, ReactAttr } from "../../../typings/shared";
 
 export type SideNavTranslationKey = "carbon.sidenav.state.closed" | "carbon.sidenav.state.open";

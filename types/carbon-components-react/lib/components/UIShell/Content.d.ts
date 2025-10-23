@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCProps, FCReturn, JSXIntrinsicElementProps, ReactAttr } from "../../../typings/shared";
 
 interface ContentBaseProps {

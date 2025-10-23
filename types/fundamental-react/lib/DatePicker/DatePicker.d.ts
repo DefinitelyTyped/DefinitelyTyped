@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { CalendarBaseProps } from "../Calendar/Calendar";
 
 export type DatePickerProps = CalendarBaseProps & {

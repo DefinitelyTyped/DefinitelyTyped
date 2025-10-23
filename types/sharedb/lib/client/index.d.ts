@@ -1,5 +1,5 @@
 /// <reference path="../sharedb.d.ts" />
-import * as ShareDB from "../sharedb";
+import ShareDB = require("../sharedb");
 import Agent = require("../agent");
 
 export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {

@@ -1,6 +1,6 @@
 declare module "react-redux-i18n" {
-    import * as react from "react";
-    import * as redux from "redux";
+    import react = require("react");
+    import redux = require("redux");
 
     /**
      * Helper methods

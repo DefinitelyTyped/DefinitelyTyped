@@ -1,4 +1,4 @@
-import * as _Immutable from "immutable";
+import _Immutable = require("immutable");
 
 // Disable automatic exports.
 export {};

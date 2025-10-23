@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 declare module "node-dogstatsd" {
-    import * as dgram from "dgram";
+    import dgram = require("dgram");
 
     export interface StatsDOptions {
         global_tags?: string[] | undefined;

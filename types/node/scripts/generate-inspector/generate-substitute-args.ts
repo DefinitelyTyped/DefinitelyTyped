@@ -1,4 +1,4 @@
-import * as schema from "./devtools-protocol-schema";
+import schema = require("./devtools-protocol-schema");
 import { createListeners } from "./event-emitter";
 import { capitalize, createDocs, filterNull, hasElements, isObjectReference } from "./utils";
 

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as net from "net";
+import net = require("net");
 
 declare module "net" {
     interface Server {

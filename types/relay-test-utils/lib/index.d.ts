@@ -1,4 +1,4 @@
-import * as MockPayloadGenerator from "./RelayMockPayloadGenerator";
+import MockPayloadGenerator = require("./RelayMockPayloadGenerator");
 export { DefaultMockResolvers, MockResolver, MockResolvers } from "./RelayMockPayloadGenerator";
 export { RelayMockEnvironment as MockEnvironment } from "./RelayModernMockEnvironment";
 export { MockPayloadGenerator };

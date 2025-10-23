@@ -1,4 +1,4 @@
-import * as p from "node:process";
+import p = require("node:process");
 import { finalization } from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");

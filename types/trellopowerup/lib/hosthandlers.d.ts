@@ -1,6 +1,6 @@
-import * as Base from "./base";
-import * as Context from "./context";
-import * as Theming from "./theming";
+import Base = require("./base");
+import Context = require("./context");
+import Theming = require("./theming");
 
 export type Model = "board" | "card" | "organization";
 export type Scope = Model | "member";

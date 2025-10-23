@@ -1,6 +1,6 @@
 import { Dispatcher } from "flux";
 import { Container, ReduceStore } from "flux/utils";
-import * as React from "react";
+import React = require("react");
 
 interface Payload {
     type: string;

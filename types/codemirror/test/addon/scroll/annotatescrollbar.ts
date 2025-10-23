@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/scroll/annotatescrollbar";
 
 const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {

@@ -1,6 +1,6 @@
 /// <reference types="react"/>
 
-import * as React from "react";
+import React = require("react");
 
 export = FixedDataTable;
 export as namespace FixedDataTable;

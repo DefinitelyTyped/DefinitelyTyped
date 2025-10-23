@@ -1,4 +1,4 @@
-import * as photoshopConstants from "./dom/Constants";
+import photoshopConstants = require("./dom/Constants");
 import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import { imaging as photoshopImaging } from "./dom/ImagingModule";
 /**

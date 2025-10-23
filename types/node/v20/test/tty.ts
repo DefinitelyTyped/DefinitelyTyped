@@ -1,5 +1,5 @@
 import { Readable } from "node:stream";
-import * as tty from "node:tty";
+import tty = require("node:tty");
 
 const rs: tty.ReadStream = new tty.ReadStream(0);
 const ws: tty.WriteStream = new tty.WriteStream(1);

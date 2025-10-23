@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import ToolTip, { TooltipProps } from "./ToolTip";
 
 declare class StatefulToolTip extends React.Component<StatefulToolTipProps> {}

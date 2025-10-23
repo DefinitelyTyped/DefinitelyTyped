@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as passport from "passport";
-import * as oauth2 from "passport-oauth2";
+import express = require("express");
+import passport = require("passport");
+import oauth2 = require("passport-oauth2");
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,

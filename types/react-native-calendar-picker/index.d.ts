@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export default class CalendarPicker extends React.Component<CalendarPickerProps> {

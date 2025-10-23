@@ -1,4 +1,4 @@
-import * as nodemailer from "nodemailer";
+import nodemailer = require("nodemailer");
 import Mail = require("nodemailer/lib/mailer");
 import MailMessage = require("nodemailer/lib/mailer/mail-message");
 

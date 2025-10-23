@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Props } from "./props";
 
 declare var Cleave: React.ComponentClass<Props>;

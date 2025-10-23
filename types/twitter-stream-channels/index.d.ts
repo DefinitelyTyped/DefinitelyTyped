@@ -2,7 +2,7 @@
 /// <reference types="twit" />
 
 declare module "twitter-stream-channels" {
-    import * as Twit from "twit";
+    import Twit = require("twit");
     import { EventEmitter } from "events";
 
     namespace TwitterStreamChannels {

@@ -1,14 +1,14 @@
-import * as PropTypes from "prop-types";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
+import PropTypes = require("prop-types");
+import React = require("react");
+import ReactDOM = require("react-dom");
+import ReactDOMServer = require("react-dom/server");
 import createFragment = require("react-addons-create-fragment");
-import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as PureRenderMixin from "react-addons-pure-render-mixin";
+import LinkedStateMixin = require("react-addons-linked-state-mixin");
+import PureRenderMixin = require("react-addons-pure-render-mixin");
 import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
-import * as DOM from "react-dom-factories";
+import DOM = require("react-dom-factories");
 import "trusted-types";
 
 // NOTE: forward declarations for tests

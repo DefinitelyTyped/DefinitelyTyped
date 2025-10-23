@@ -1,4 +1,4 @@
-import * as itowns from "itowns";
+import itowns = require("itowns");
 import { OpenSM } from "./jsonLayers";
 
 // Note: The following positions and camera parameters have been

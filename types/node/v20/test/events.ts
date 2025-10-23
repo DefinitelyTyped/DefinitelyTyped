@@ -1,4 +1,4 @@
-import * as events from "node:events";
+import events = require("node:events");
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;

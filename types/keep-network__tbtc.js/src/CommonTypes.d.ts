@@ -2,7 +2,7 @@
 import type { BitcoinNetworkType, FoundTransaction } from "./BitcoinHelpers";
 import type { Config as ElectrumConfig } from "./lib/ElectrumClient";
 import BN = require("bn.js");
-import * as net from "net";
+import net = require("net");
 export class Web3 {
     constructor(provider: any, net?: net.Socket);
 

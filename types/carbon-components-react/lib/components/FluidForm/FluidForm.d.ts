@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FormProps } from "../Form";
 
 export interface FluidFormProps extends FormProps {}

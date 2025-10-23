@@ -1,4 +1,4 @@
-import * as bser from "bser";
+import bser = require("bser");
 
 const bunser = new bser.BunserBuf();
 

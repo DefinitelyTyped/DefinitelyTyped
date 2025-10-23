@@ -1,8 +1,8 @@
-import * as breaks from "./cast.framework.breaks";
-import * as events from "./cast.framework.events";
-import * as messages from "./cast.framework.messages";
-import * as system from "./cast.framework.system";
-import * as ui from "./cast.framework.ui";
+import breaks = require("./cast.framework.breaks");
+import events = require("./cast.framework.events");
+import messages = require("./cast.framework.messages");
+import system = require("./cast.framework.system");
+import ui = require("./cast.framework.ui");
 
 export import breaks = breaks;
 export import events = events;

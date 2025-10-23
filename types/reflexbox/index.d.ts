@@ -1,6 +1,6 @@
 import { StyledComponent } from "@emotion/styled/types/index";
-import * as React from "react";
-import * as StyledSystem from "styled-system";
+import React = require("react");
+import StyledSystem = require("styled-system");
 
 export interface BoxProps
     extends

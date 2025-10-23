@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 export interface LoadingIndicatorColor {
     red: number; // value between 0 and 255, inclusive
     green: number; // value between 0 and 255, inclusive

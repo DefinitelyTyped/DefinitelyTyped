@@ -1,5 +1,5 @@
 // Expose `JSX` namespace in `global` namespace
-import * as React from "./";
+import React = require("./");
 
 export interface JSXSource {
     /**

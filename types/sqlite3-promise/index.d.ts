@@ -1,4 +1,4 @@
-import * as sqlite3 from "sqlite3";
+import sqlite3 = require("sqlite3");
 export * from "sqlite3";
 
 declare module "sqlite3" {

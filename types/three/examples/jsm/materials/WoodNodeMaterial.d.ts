@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 export type WoodGenus =
     | "teak"

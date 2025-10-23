@@ -1,4 +1,4 @@
-import * as CSS from "csstype";
+import CSS = require("csstype");
 import { PureComponent, ReactNode } from "react";
 
 export type FlagIconSize = "lg" | "2x" | "3x" | "4x" | "5x";

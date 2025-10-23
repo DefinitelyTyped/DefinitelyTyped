@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/tern/tern";
 
 const cm = CodeMirror(document.body);

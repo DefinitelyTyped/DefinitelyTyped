@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 export function enableDracoLoader(path: string, config?: object): void;
 export function enableKtx2Loader(path: string, renderer: THREE.WebGLRenderer): void;

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 declare namespace _default {
     function isLogDepthBufferSupported(): boolean;

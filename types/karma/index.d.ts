@@ -4,7 +4,7 @@
 import https = require("https");
 import { EventEmitter } from "events";
 import { Appender } from "log4js";
-import * as constants from "./lib/constants";
+import constants = require("./lib/constants");
 
 export { constants };
 

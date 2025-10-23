@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
 
-    import * as Koa from "koa";
+    import Koa = require("koa");
     import session = require("koa-session-minimal");
 
     const app = new Koa();
@@ -8,8 +8,8 @@
 
  =============================================== */
 
-import * as cookies from "cookies";
-import * as Koa from "koa";
+import cookies = require("cookies");
+import Koa = require("koa");
 
 declare module "koa" {
     interface Context {

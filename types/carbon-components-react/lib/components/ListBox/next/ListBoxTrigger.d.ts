@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { InternationalProps, ReactButtonAttr } from "../../../../typings/shared";
 import { ListBoxMenuIconTranslationKey } from "../ListBoxMenuIcon";
 

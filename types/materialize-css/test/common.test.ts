@@ -1,6 +1,6 @@
 import cash from "cash-dom";
-import * as jQuery from "jquery";
-import * as M from "materialize-css";
+import jQuery = require("jquery");
+import M = require("materialize-css");
 
 // Test Component Initialization
 

@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
-import * as zlib from "zlib";
+import zlib = require("zlib");
 type FilterFunction = (req: Request, res: Response) => boolean;
 
 type Options = Partial<{

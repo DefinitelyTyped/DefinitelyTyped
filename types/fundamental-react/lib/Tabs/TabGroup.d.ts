@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type TabGroupProps = {
     className?: string | undefined;

@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as OAuth2Server from "oauth2-server";
+import express = require("express");
+import OAuth2Server = require("oauth2-server");
 
 declare namespace ExpressOAuthServer {
     interface Options extends OAuth2Server.ServerOptions {

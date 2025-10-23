@@ -1,4 +1,4 @@
-import * as zdog from "zdog";
+import zdog = require("zdog");
 
 export as namespace Zfont;
 

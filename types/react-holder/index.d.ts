@@ -1,6 +1,6 @@
 /// <reference types="react"/>
 
-import * as React from "react";
+import React = require("react");
 
 interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
     width: string | number;

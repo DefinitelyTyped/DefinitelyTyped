@@ -3,10 +3,10 @@
 /// <reference types="redis" />
 
 declare module "connect-redis" {
-    import * as express from "express";
-    import * as session from "express-session";
-    import * as ioRedis from "ioredis";
-    import * as redis from "redis";
+    import express = require("express");
+    import session = require("express-session");
+    import ioRedis = require("ioredis");
+    import redis = require("redis");
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 

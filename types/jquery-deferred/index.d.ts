@@ -1,3 +1,3 @@
-import * as jquery from "./lib";
+import jquery = require("./lib");
 
 export default jquery;

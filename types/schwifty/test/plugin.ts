@@ -1,5 +1,5 @@
-import * as Hapi from "@hapi/hapi";
-import * as Schwifty from "schwifty";
+import Hapi = require("@hapi/hapi");
+import Schwifty = require("schwifty");
 import DogModel from "./dog";
 
 exports.plugin = {

@@ -1,5 +1,5 @@
 declare module "react-motion-slider" {
-    import * as React from "react";
+    import React = require("react");
     import { OpaqueConfig } from "react-motion";
 
     export interface SliderProps {

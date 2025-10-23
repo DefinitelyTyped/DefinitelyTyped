@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import SymmetricState = require("./symmetric-state");
-import * as curve from "./dh";
+import curve = require("./dh");
 
 export = NoiseState;
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCReturn, JSXIntrinsicElementProps, ReactComponentConstructor, ReactDivAttr } from "../../../typings/shared";
 
 export type AspectRatioValue = "16x9" | "9x16" | "2x1" | "1x2" | "4x3" | "3x4" | "1x1";

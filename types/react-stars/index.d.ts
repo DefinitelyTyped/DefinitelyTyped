@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 interface ReactStarsProps {
     /** Name of parent class */

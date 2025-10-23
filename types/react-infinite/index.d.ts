@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-import * as React from "react";
+import React = require("react");
 
 export = Infinite;
 export as namespace Infinite;

@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as ldapjs from "ldapjs";
-import * as passport from "passport";
+import express = require("express");
+import ldapjs = require("ldapjs");
+import passport = require("passport");
 import { TlsOptions } from "tls";
 
 declare namespace windowsauth {

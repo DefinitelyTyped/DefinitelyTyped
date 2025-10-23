@@ -1,10 +1,10 @@
 /// <reference types="node" />
 /// <reference types="serve-static" />
 
-import * as chokidar from "chokidar";
-import * as fs from "fs";
-import * as http from "http";
-import * as mm from "micromatch";
+import chokidar = require("chokidar");
+import fs = require("fs");
+import http = require("http");
+import mm = require("micromatch");
 import { ServeStaticOptions } from "serve-static";
 
 declare namespace browserSync {

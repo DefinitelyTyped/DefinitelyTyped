@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverconnections
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 var server = new Hapi.Server();
 server.connection({ port: 80, labels: "a" });
 server.connection({ port: 8080, labels: "b" });

@@ -1,5 +1,5 @@
 /* =================== USAGE ===================
-    import * as PriorityQueue from "js-priority-queue";
+    import PriorityQueue = require("js-priority-queue");
     var queue = new PriorityQueue<number>({ comparator: (a, b) => b - a });
     queue.queue(5);
  =============================================== */

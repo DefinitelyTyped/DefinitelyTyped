@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 interface SimpleTooltipProps extends React.PropsWithChildren<any> {
     arrow?: number; // 8

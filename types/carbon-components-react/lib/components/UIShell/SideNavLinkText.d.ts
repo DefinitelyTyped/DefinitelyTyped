@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr, RequiresChildrenProps } from "../../../typings/shared";
 
 export interface SideNavLinkTextProps extends Omit<ReactAttr<HTMLSpanElement>, "children">, RequiresChildrenProps {}

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 import WEBGL from "three/addons/capabilities/WebGL.js";
 import { unzipSync } from "three/addons/libs/fflate.module.js";

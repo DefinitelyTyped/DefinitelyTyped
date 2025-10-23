@@ -1,4 +1,4 @@
-import * as Sinon from "sinon";
+import Sinon = require("sinon");
 
 interface Configuration {
     injectIntoThis?: boolean | undefined;

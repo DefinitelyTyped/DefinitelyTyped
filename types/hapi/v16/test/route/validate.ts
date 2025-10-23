@@ -1,7 +1,7 @@
 // Added from: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/16065#issuecomment-302216131
 
-import * as Hapi from "hapi";
-import * as Joi from "joi";
+import Hapi = require("hapi");
+import Joi = require("joi");
 
 const validate: Hapi.RouteValidationConfigurationObject = {
     headers: true,

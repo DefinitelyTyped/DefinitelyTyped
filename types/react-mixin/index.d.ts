@@ -1,7 +1,7 @@
 /// <reference types="react" />
 
 import { Mixin } from "create-react-class";
-import * as React from "react";
+import React = require("react");
 
 declare namespace reactMixin {
     export interface ClassDecorator {

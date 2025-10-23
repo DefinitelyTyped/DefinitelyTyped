@@ -1,6 +1,6 @@
 /// <reference types="angular-ui-router" />
 
-import * as angular from "angular";
+import angular = require("angular");
 
 declare module "angular" {
     namespace ui {

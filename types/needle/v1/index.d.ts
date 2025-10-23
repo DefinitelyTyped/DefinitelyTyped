@@ -2,9 +2,9 @@
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "needle" {
-    import * as http from "http";
-    import * as Buffer from "buffer";
-    import * as https from "https";
+    import http = require("http");
+    import Buffer = require("buffer");
+    import https = require("https");
     namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;

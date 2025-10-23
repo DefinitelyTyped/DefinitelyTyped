@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 // TODO: Document public API
 

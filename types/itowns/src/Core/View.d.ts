@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Coordinates from "../Core/Geographic/Coordinates";
 import type Layer from "../Layer/Layer";
 import Camera, { CameraOptions } from "../Renderer/Camera";

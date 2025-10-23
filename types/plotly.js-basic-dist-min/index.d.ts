@@ -1,3 +1,3 @@
-import * as Plotly from "plotly.js";
+import Plotly = require("plotly.js");
 
 export = Plotly;

@@ -1,5 +1,5 @@
-import * as moment from "moment";
-import * as React from "react";
+import moment = require("moment");
+import React = require("react");
 
 export default class Scheduler extends React.Component<SchedulerProps, any> {}
 

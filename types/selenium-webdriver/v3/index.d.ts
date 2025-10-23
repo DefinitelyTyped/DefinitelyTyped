@@ -1,9 +1,9 @@
-import * as chrome from "./chrome";
-import * as edge from "./edge";
-import * as firefox from "./firefox";
-import * as ie from "./ie";
-import * as opera from "./opera";
-import * as safari from "./safari";
+import chrome = require("./chrome");
+import edge = require("./edge");
+import firefox = require("./firefox");
+import ie = require("./ie");
+import opera = require("./opera");
+import safari = require("./safari");
 
 export namespace error {
     class IError extends Error {

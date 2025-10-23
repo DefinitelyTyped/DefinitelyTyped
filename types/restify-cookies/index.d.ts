@@ -1,4 +1,4 @@
-import * as restify from "restify";
+import restify = require("restify");
 
 declare module "restify" {
     interface CookieOptions {

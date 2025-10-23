@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Emitter from "./Emitter";
 
 export default class FollowEmitter extends Emitter {

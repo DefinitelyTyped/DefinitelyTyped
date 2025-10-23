@@ -1,6 +1,6 @@
 import { Socket } from "node:dgram";
 import { LookupAddress, LookupOptions } from "node:dns";
-import * as net from "node:net";
+import net = require("node:net");
 
 {
     const abort = new AbortController();

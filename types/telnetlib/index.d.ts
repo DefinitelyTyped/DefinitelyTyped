@@ -1,5 +1,5 @@
-import * as events from "events";
-import * as net from "net";
+import events = require("events");
+import net = require("net");
 
 export as namespace telnetlib;
 

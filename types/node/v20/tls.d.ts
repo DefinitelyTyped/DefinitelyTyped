@@ -11,8 +11,8 @@
 declare module "tls" {
     import { NonSharedBuffer } from "node:buffer";
     import { X509Certificate } from "node:crypto";
-    import * as net from "node:net";
-    import * as stream from "stream";
+    import net = require("node:net");
+    import stream = require("stream");
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
     interface Certificate {

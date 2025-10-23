@@ -1,4 +1,4 @@
-import * as util from "../src/util";
+import util = require("../src/util");
 import Observer from "../src/util/observer";
 import { XHROptions } from "./xhr";
 

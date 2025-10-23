@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/display/panel";
 
 const cm: CodeMirror.Editor = CodeMirror(document.body);

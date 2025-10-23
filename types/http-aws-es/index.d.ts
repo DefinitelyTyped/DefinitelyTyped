@@ -1,5 +1,5 @@
-import * as AWS from "aws-sdk2-types";
-import * as e from "elasticsearch";
+import AWS = require("aws-sdk2-types");
+import e = require("elasticsearch");
 
 declare module "elasticsearch" {
     interface ConfigOptions {

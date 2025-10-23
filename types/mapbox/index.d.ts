@@ -1,4 +1,4 @@
-import * as Leaflet from "leaflet";
+import Leaflet = require("leaflet");
 
 declare global {
     namespace L.mapbox {

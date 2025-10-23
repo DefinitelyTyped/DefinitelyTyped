@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import d3 = require("d3");
 
 export = dc;
 declare var dc: dc.Base;

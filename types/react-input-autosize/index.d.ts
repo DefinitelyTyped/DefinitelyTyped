@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface AutosizeInputProps
     extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement>

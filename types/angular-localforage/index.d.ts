@@ -1,7 +1,7 @@
 /// <reference types="localforage" />
 /// <reference types="angular" />
 
-import * as angular from "angular";
+import angular = require("angular");
 
 declare module "angular" {
     export namespace localForage {

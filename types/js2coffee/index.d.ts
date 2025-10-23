@@ -1,5 +1,5 @@
-import * as estree from "estree";
-import * as sourceMap from "source-map";
+import estree = require("estree");
+import sourceMap = require("source-map");
 
 /**
  * JS2Coffee API.

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactButtonAttr } from "../../../typings/shared";
 
 export interface SwitchOnKeyDownData {

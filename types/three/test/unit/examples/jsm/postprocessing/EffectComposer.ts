@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { EffectComposer, FullScreenQuad, Pass } from "three/addons/postprocessing/EffectComposer.js";
 
 class FooPass extends Pass {

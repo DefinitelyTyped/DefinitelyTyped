@@ -1,7 +1,7 @@
 import { Application, Paginated } from "@feathersjs/feathers";
 import { Request } from "express";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import * as self from "@feathersjs/authentication-oauth1";
+import self = require("@feathersjs/authentication-oauth1");
 
 declare const feathersAuthenticationOAuth1:
     & ((options?: FeathersAuthenticationOAuth1Options) => () => void)

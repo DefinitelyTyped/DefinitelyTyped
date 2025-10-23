@@ -1,5 +1,5 @@
 import { AnalyticsInstance } from "analytics";
-import * as React from "react";
+import React = require("react");
 
 export function useAnalytics(): AnalyticsInstance;
 

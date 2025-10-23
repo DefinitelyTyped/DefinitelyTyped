@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { NextHandleFunction } from "connect";
-import * as http from "http";
+import http = require("http");
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
 

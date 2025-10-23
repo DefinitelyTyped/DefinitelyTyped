@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { CalendarProps, Components, Event, stringOrDate } from "../../index";
 
 export type DragAction = "resize" | "move";

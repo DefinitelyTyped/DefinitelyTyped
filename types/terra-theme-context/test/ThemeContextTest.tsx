@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import ThemeProviderContext from "terra-theme-context";
 
 const contextValue = React.useContext(ThemeProviderContext);

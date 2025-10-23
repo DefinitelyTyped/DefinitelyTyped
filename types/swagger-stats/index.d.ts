@@ -6,7 +6,7 @@ import { Server } from "@hapi/hapi";
 import { RequestHandler } from "express";
 import { FastifyInstance } from "fastify";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, ServerResponse } from "http";
-import * as PromClient from "prom-client";
+import PromClient = require("prom-client");
 
 export type SWStats = Partial<{
     /**

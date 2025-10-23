@@ -1,4 +1,4 @@
-import * as L from "leaflet";
+import L = require("leaflet");
 import { IITC } from "./iitctypes";
 import { Intel } from "./inteltypes";
 

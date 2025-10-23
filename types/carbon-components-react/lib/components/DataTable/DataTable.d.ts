@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { InternationalProps, ReactAttr, ReactDivAttr, ShapeOf } from "../../../typings/shared";
 import { DataTableSortState, DataTableSortStates } from "./state/sorting";
 import Table, { TableCarbonProps } from "./Table";

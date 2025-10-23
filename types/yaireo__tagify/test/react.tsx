@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import Tagify = require("@yaireo/tagify");
 import { BaseTagData, ChangeEventData, EventData, TagifySettings } from "@yaireo/tagify";
 import Tags = require("@yaireo/tagify/react");

@@ -1,7 +1,7 @@
 /// <reference types="gapi" />
 /// <reference types="google.picker" />
 
-import * as React from "react";
+import React = require("react");
 
 export interface GooglePickerProps {
     clientId: string;

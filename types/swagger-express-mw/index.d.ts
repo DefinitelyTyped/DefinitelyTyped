@@ -1,7 +1,7 @@
 /* =================== USAGE ===================
 
-import * as SwaggerExpress from "swagger-express-mw";
-import * as express from "express";
+import SwaggerExpress = require("swagger-express-mw");
+import express = require("express");
 
 let app = express();
 let config: SwaggerExpress.Config = {

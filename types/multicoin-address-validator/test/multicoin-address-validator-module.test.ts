@@ -1,4 +1,4 @@
-import * as WAValidator from "multicoin-address-validator";
+import WAValidator = require("multicoin-address-validator");
 
 /* validate */
 // $ExpectType boolean

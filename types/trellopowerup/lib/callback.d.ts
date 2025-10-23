@@ -1,4 +1,4 @@
-import * as PowerUp from "./powerup";
+import PowerUp = require("./powerup");
 
 export type CacheAction = "run" | "retain" | "release";
 export type SerializeResult = (value: unknown, key?: string) => unknown | SerializeOutput;

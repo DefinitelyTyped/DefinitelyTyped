@@ -14,7 +14,7 @@
  * }
  * ```
  */
-import * as mojangminecraft from "mojang-minecraft";
+import mojangminecraft = require("mojang-minecraft");
 /**
  * Returns information about whether this fence is connected to
  * other fences in several directions.

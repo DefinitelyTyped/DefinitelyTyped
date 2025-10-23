@@ -1,4 +1,4 @@
-import * as acorn from "acorn";
+import acorn = require("acorn");
 
 /**
  * Find all calls to require() by walking the AST

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 import { STLExporter } from "three/addons/exporters/STLExporter.js";
 

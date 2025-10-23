@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 import { PreferencesBase } from "./PreferencesBase";
 /**
  * Options for size and style of tool cursors.

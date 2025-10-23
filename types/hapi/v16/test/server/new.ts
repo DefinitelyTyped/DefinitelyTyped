@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 
 new Hapi.Server();
 new Hapi.Server({

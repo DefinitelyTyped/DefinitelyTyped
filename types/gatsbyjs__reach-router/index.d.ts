@@ -1,5 +1,5 @@
 import { WindowLocation } from "@reach/router";
-import * as React from "react";
+import React = require("react");
 
 export {
     AnchorProps,

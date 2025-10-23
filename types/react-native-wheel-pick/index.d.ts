@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { StyleProp, ViewProps, ViewStyle } from "react-native";
 
 export interface DatePickerIOSProps extends ViewProps {

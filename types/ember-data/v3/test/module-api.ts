@@ -31,7 +31,7 @@ import Transform from "ember-data/transforms/transform";
 import Store from "ember-data/store";
 
 // Errors
-import * as EDErrors from "ember-data/adapters/errors";
+import EDErrors = require("ember-data/adapters/errors");
 
 import { assertType } from "./lib/assert";
 

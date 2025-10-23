@@ -1,5 +1,5 @@
-import * as moment from "moment";
-import * as React from "react";
+import moment = require("moment");
+import React = require("react");
 import { ImageStyle, ImageURISource, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface DatePickerCustomStylesProps {

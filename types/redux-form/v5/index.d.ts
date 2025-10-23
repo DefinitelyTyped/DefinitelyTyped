@@ -1,6 +1,6 @@
 // Based on work by: Daniel Lytkin <https://github.com/aikoven>
 
-import * as React from "react";
+import React = require("react");
 import { Dispatch, Reducer } from "redux";
 
 //

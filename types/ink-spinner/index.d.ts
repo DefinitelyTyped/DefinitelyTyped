@@ -1,4 +1,4 @@
-import * as cliSpinners from "cli-spinners";
+import cliSpinners = require("cli-spinners");
 import { Component } from "react";
 
 interface SpinnerProps {

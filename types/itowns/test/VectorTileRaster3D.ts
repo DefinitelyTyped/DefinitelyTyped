@@ -1,5 +1,5 @@
-import * as itowns from "itowns";
-import * as THREE from "three";
+import itowns = require("itowns");
+import THREE = require("three");
 
 // # Simple Globe viewer + a vector tile layer
 

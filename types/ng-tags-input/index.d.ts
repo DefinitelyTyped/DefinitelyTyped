@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import angular = require("angular");
 
 export type ITagsInputParams = angular.ngTagsInput.TagsInputParams;
 export type IAutocompleteParams = angular.ngTagsInput.AutocompleteParams;

@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import winston = require("winston");
 import { TransportInstance } from "winston";
 export interface DynamoDBTransportOptions {
     useEnvironment?: boolean | undefined;

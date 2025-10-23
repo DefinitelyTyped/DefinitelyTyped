@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 declare class KeepAwake extends React.Component<{ children?: React.JSX.Element | undefined }> {
     static activate(): void;
     static deactivate(): void;

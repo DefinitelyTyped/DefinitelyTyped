@@ -1,7 +1,7 @@
 import { Express, NextFunction, Request, Response } from "express";
 import { Server as HttpsServer } from "https";
 
-import * as runtime from "@node-red/runtime";
+import runtime = require("@node-red/runtime");
 
 declare const editorAPI: editorAPI.EditorAPIModule;
 

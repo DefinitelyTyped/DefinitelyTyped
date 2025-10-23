@@ -1,4 +1,4 @@
-import * as ng from "angular";
+import ng = require("angular");
 
 export type HotkeysProvider = ng.hotkeys.HotkeysProvider;
 export type HotkeysProviderChained = ng.hotkeys.HotkeysProviderChained;

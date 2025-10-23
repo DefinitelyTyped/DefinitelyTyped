@@ -1,5 +1,5 @@
 import { Collection } from "immutable";
-import * as Redux from "redux";
+import Redux = require("redux");
 
 export declare function combineReducers<S, T>(
     reducers: Redux.ReducersMapObject,

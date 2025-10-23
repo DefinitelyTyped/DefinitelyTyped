@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Direction, ReactButtonAttr, TooltipAlignment } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-describedby" | "children" | "type";

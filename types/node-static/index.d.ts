@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as events from "events";
-import * as fs from "fs";
-import * as http from "http";
-import * as mime from "mime";
+import events = require("events");
+import fs = require("fs");
+import http = require("http");
+import mime = require("mime");
 
 export interface Headers {
     [k: string]: any;

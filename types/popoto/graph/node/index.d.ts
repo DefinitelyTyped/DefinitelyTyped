@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import d3 = require("d3");
 
 export interface Node {
     // ID of the g element in SVG graph containing all the link elements.

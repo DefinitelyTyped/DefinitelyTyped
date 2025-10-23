@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import * as Promise from "bluebird";
-import * as fs from "fs";
-import * as PromiseFtpCommon from "promise-ftp-common";
-import * as ssh2 from "ssh2";
-import * as ssh2Streams from "ssh2-streams";
+import Promise = require("bluebird");
+import fs = require("fs");
+import PromiseFtpCommon = require("promise-ftp-common");
+import ssh2 = require("ssh2");
+import ssh2Streams = require("ssh2-streams");
 
 declare namespace PromiseSftp {
     enum ERROR_CODES {

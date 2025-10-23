@@ -1,6 +1,6 @@
 /// <reference types="jquery"/>
 
-import * as Popper from "popper.js";
+import Popper = require("popper.js");
 
 export as namespace Bootstrap;
 

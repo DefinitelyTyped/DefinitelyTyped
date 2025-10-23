@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt = require("jsonwebtoken");
 
 export type JWTPackage = typeof jwt;
 

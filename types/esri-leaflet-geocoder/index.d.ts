@@ -1,4 +1,4 @@
-import * as L from "leaflet";
+import L = require("leaflet");
 import "esri-leaflet";
 
 declare module "leaflet" {

@@ -1,4 +1,4 @@
-import * as YUKA from "yuka";
+import YUKA = require("yuka");
 
 const points: YUKA.Vector3[] = [];
 

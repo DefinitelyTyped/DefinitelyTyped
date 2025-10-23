@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: duration.proto
 
-import * as jspb from "../../index";
+import jspb = require("../../index");
 
 export class Duration extends jspb.Message {
     getSeconds(): number;

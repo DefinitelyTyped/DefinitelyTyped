@@ -1,4 +1,4 @@
-import * as RDF from "@rdfjs/types";
+import RDF = require("@rdfjs/types");
 
 interface DatasetCore<Q extends RDF.BaseQuad = RDF.Quad> extends RDF.DatasetCore<Q> {
 }

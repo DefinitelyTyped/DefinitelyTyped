@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import GeometryLayer from "./GeometryLayer";
 import Layer from "./Layer";
 // import { InfoTiledGeometryLayer } from "./InfoLayer";

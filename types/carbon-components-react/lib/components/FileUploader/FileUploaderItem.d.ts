@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr } from "../../../typings/shared";
 import { FileStatus, FileUploaderSize } from "./shared";
 

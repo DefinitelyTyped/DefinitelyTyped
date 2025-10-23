@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 /**
  * Used to create a [[PathPoint]], which represents the anchor and control-handle endpoints for a path segment.
  * Each point (the anchor point, left-direction point, and right-direction point) is an array containing X and Y

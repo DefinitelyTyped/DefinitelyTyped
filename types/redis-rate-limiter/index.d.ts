@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as redis from "redis";
+import express = require("express");
+import redis = require("redis");
 
 declare class RedisRateLimiter {
     public static create(

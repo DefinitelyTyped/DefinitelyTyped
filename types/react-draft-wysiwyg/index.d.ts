@@ -1,5 +1,5 @@
-import * as Draft from "draft-js";
-import * as React from "react";
+import Draft = require("draft-js");
+import React = require("react");
 
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;

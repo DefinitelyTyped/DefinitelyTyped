@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-invalid" | "id" | "ref" | "size";

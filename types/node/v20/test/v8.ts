@@ -1,7 +1,7 @@
-import * as assert from "node:assert";
+import assert = require("node:assert");
 import { Readable } from "node:stream";
-import * as v8 from "node:v8";
-import * as zlib from "node:zlib";
+import v8 = require("node:v8");
+import zlib = require("node:zlib");
 
 const heapStats = v8.getHeapStatistics();
 const numOfDetached = heapStats.number_of_detached_contexts;

@@ -1,8 +1,8 @@
 /// <reference types="node" />
-import * as dgram from "dgram";
-import * as glossy from "glossy";
-import * as net from "net";
-import * as Transport from "winston-transport";
+import dgram = require("dgram");
+import glossy = require("glossy");
+import net = require("net");
+import Transport = require("winston-transport");
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
     host?: string | undefined;

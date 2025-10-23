@@ -1,4 +1,4 @@
-import * as Backbone from "backbone";
+import Backbone = require("backbone");
 import { TemplateExecutor } from "lodash";
 import { WpBackboneSubviews, WpBackBoneView, WpBackboneViewList } from "./wp-backbone";
 

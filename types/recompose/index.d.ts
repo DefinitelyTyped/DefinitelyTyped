@@ -2,7 +2,7 @@
 
 declare module "recompose" {
     import type * as PropTypes from "prop-types";
-    import * as React from "react";
+    import React = require("react");
     import { ComponentClass, ComponentType as Component, FunctionComponent } from "react";
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;

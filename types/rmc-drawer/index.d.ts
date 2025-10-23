@@ -1,5 +1,5 @@
-import * as moment from "moment";
-import * as React from "react";
+import moment = require("moment");
+import React = require("react");
 
 interface DrawerProps {
     className?: string | undefined;

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Layer from "../../../Layer/Layer";
 
 export type PlanarLayerOptions = any;

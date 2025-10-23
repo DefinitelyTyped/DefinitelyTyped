@@ -1,4 +1,4 @@
-import * as Common from "../../Common";
+import Common = require("../../Common");
 import { EntityType } from "../entities";
 
 export interface CommonEntityData {

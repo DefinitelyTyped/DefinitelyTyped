@@ -8,7 +8,7 @@
 
 import { Middleware } from "koa";
 
-import * as passport from "passport";
+import passport = require("passport");
 
 declare module "koa" {
     interface ExtendableContext {

@@ -1,4 +1,4 @@
-import * as Redux from "redux";
+import Redux = require("redux");
 
 export interface MockStore<S = any, A extends Redux.Action = Redux.AnyAction> extends Redux.Store<S, A> {
     getActions(): any[];

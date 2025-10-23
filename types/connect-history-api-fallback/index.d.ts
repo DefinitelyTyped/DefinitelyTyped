@@ -2,7 +2,7 @@
 
 import { Url } from "url";
 
-import * as core from "express-serve-static-core";
+import core = require("express-serve-static-core");
 
 export = historyApiFallback;
 

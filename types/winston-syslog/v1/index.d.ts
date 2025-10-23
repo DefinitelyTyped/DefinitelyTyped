@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import winston = require("winston");
 export interface SyslogTransportOptions extends winston.GenericTextTransportOptions {
     host?: string | undefined;
     port?: number | undefined;

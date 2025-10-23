@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import angular = require("angular");
 
 export = angulartics; // AMD/Require module support
 export as namespace angulartics; // UMD module support

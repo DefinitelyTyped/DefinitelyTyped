@@ -1,5 +1,5 @@
-import * as History from "history";
-import * as Redux from "redux";
+import History = require("history");
+import Redux = require("redux");
 
 export const TRANSITION: string;
 export const UPDATE_LOCATION: string;

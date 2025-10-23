@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCReturn, ForwardRefProps, RequiresChildrenProps } from "../../../typings/shared";
 import { OverflowMenuItemAnchorProps, OverflowMenuItemButtonProps } from "../OverflowMenuItem";
 

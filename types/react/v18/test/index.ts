@@ -1,5 +1,5 @@
-import * as PropTypes from "prop-types";
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 import "trusted-types";
 
 // NOTE: forward declarations for tests

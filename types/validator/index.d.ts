@@ -1,12 +1,12 @@
-import * as _isBoolean from "./lib/isBoolean";
-import * as _isEmail from "./lib/isEmail";
-import * as _isFQDN from "./lib/isFQDN";
-import * as _isIBAN from "./lib/isIBAN";
-import * as _isISO31661Alpha2 from "./lib/isISO31661Alpha2";
-import * as _isISO4217 from "./lib/isISO4217";
-import * as _isISO6391 from "./lib/isISO6391";
-import * as _isTaxID from "./lib/isTaxID";
-import * as _isURL from "./lib/isURL";
+import _isBoolean = require("./lib/isBoolean");
+import _isEmail = require("./lib/isEmail");
+import _isFQDN = require("./lib/isFQDN");
+import _isIBAN = require("./lib/isIBAN");
+import _isISO31661Alpha2 = require("./lib/isISO31661Alpha2");
+import _isISO4217 = require("./lib/isISO4217");
+import _isISO6391 = require("./lib/isISO6391");
+import _isTaxID = require("./lib/isTaxID");
+import _isURL = require("./lib/isURL");
 
 declare namespace validator {
     export const version: string;

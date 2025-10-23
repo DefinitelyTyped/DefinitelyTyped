@@ -1,6 +1,6 @@
 // @ts-ignore - This package does not have type definitions and should not be
 // declared with a .d.ts file since it would be included in the final package
-import * as tmicon from "@trendmicro/tmicon";
+import tmicon = require("@trendmicro/tmicon");
 import fs from "fs";
 import path from "path";
 

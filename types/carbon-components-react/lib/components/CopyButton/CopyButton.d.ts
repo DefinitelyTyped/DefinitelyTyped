@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { CopyProps } from "../Copy";
 
 export interface CopyButtonProps extends CopyProps {

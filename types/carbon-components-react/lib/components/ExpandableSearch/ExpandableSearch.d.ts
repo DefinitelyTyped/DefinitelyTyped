@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { SearchProps } from "../Search";
 
 type ExcludedPropKeys = "onBlur" | "onFocus" | "ref";

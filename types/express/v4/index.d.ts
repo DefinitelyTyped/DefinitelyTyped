@@ -8,10 +8,10 @@
 /// <reference types="express-serve-static-core" />
 /// <reference types="serve-static" />
 
-import * as bodyParser from "body-parser";
-import * as core from "express-serve-static-core";
-import * as qs from "qs";
-import * as serveStatic from "serve-static";
+import bodyParser = require("body-parser");
+import core = require("express-serve-static-core");
+import qs = require("qs");
+import serveStatic = require("serve-static");
 
 /**
  * Creates an Express application. The express() function is a top-level function exported by the express module.

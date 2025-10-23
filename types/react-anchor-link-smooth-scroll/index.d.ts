@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface AnchorLinkProps extends React.HTMLProps<HTMLAnchorElement> {
     offset?: string | number | (() => number) | undefined;

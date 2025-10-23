@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactReconciler from "react-reconciler";
+import React = require("react");
+import ReactReconciler = require("react-reconciler");
 
 //
 // Hippy Event

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, InternationalProps, ReactInputAttr } from "../../../typings/shared";
 
 export type NumberInputTranslationKey = "decrement.number" | "increment.number";

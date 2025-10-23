@@ -1,5 +1,5 @@
-import * as Boom from "boom";
-import * as Hapi from "hapi";
+import Boom = require("boom");
+import Hapi = require("hapi");
 
 // Assignment of a typical function to ContinuationValueFunction is possible
 const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null, value?: any) => {

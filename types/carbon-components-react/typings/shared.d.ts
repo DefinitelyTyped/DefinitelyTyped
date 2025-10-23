@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface ReactAttr<T = HTMLElement> extends React.HTMLAttributes<T> {}
 export interface ReactAnchorAttr<T = HTMLAnchorElement> extends React.AnchorHTMLAttributes<T> {}

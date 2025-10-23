@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 /**
  * Model is the base for all models.

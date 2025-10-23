@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface TextfitProps extends React.HTMLAttributes<HTMLDivElement> {
     mode?: "single" | "multi";

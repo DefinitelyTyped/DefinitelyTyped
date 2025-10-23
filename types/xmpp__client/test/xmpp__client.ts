@@ -1,8 +1,8 @@
 import { Client, client, jid, Options, xml } from "@xmpp/client";
-import * as browser from "@xmpp/client/browser";
-import * as browserBundle from "@xmpp/client/dist/xmpp";
-import * as browserBundleMin from "@xmpp/client/dist/xmpp.min";
-import * as rn from "@xmpp/client/react-native";
+import browser = require("@xmpp/client/browser");
+import browserBundle = require("@xmpp/client/dist/xmpp");
+import browserBundleMin = require("@xmpp/client/dist/xmpp.min");
+import rn = require("@xmpp/client/react-native");
 import getDomain = require("@xmpp/client/lib/getDomain");
 import { Client as ClientCore } from "@xmpp/client-core";
 import { Element } from "@xmpp/xml";

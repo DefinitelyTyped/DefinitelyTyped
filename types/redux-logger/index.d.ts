@@ -1,6 +1,6 @@
 export as namespace ReduxLogger;
 
-import * as Redux from "redux";
+import Redux = require("redux");
 
 export const logger: Redux.Middleware;
 

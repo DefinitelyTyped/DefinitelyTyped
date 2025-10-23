@@ -1,4 +1,4 @@
-import * as t from "babel-types";
+import t = require("babel-types");
 import { BabylonOptions } from "babylon";
 type Node = t.Node;
 

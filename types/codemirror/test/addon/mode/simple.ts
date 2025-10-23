@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/mode/simple";
 
 const value = /([^&!|*><~:=*()\\/\x00]|\\[0-9a-f]{2})+/;

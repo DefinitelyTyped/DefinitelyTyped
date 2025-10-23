@@ -1,7 +1,7 @@
-import * as express from "express";
+import express = require("express");
 import { OutgoingHttpHeaders } from "http";
-import * as passport from "passport";
-import * as oauth2 from "passport-oauth2";
+import passport = require("passport");
+import oauth2 = require("passport-oauth2");
 
 export interface Profile extends passport.Profile {
     id: string;

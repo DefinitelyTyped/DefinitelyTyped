@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { MenuOptionProps } from "./MenuOption";
 
 export interface MenuItemProps extends MenuOptionProps {}

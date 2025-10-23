@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export class Commerce7AdminUI extends React.Component<{
     mode?: "light" | "dark" | undefined;

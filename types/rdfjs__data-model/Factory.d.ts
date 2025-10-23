@@ -1,4 +1,4 @@
-import * as RDF from "@rdfjs/types";
+import RDF = require("@rdfjs/types");
 
 interface DataFactory extends Required<RDF.DataFactory<RDF.Quad, RDF.BaseQuad>> {
     quad<Q extends RDF.BaseQuad = RDF.Quad>(

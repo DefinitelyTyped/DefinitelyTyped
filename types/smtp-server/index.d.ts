@@ -2,10 +2,10 @@
 /// <reference types="nodemailer" />
 
 import { EventEmitter } from "events";
-import * as net from "net";
-import * as shared from "nodemailer/lib/shared";
+import net = require("net");
+import shared = require("nodemailer/lib/shared");
 import { PassThrough } from "stream";
-import * as tls from "tls";
+import tls = require("tls");
 
 export type ms = number;
 

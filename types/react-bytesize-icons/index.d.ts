@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
 export type StrokeLinecap = "round" | "butt" | "square" | "inherit";

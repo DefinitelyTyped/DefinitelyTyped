@@ -1,4 +1,4 @@
-import * as YUKA from "yuka";
+import YUKA = require("yuka");
 
 const targetMesh = { matrix: new YUKA.Matrix4() };
 const entityMesh = { matrix: new YUKA.Matrix4() };

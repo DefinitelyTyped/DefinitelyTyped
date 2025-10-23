@@ -1,4 +1,4 @@
-import * as eventStream from "event-stream";
+import eventStream = require("event-stream");
 
 export = GulpChange;
 

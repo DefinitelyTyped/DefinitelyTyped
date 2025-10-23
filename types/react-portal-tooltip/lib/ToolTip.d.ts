@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import Card from "./Card";
 
 declare class Tooltip extends React.Component<TooltipProps> {}

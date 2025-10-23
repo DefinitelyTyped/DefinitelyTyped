@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactDivAttr } from "../../../typings/shared";
 
 export interface ListBoxMenuItemProps extends ReactDivAttr {

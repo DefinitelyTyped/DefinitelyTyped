@@ -2,7 +2,7 @@
  * @author Mugen87 / https://github.com/Mugen87
  */
 
-import * as YUKA from "yuka";
+import YUKA = require("yuka");
 import { Bullet } from "./Bullet";
 import { FirstPersonControls } from "./FirstPersonControls";
 import { Ground } from "./Ground";

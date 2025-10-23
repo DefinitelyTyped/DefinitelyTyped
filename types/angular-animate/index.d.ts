@@ -1,7 +1,7 @@
 declare var _: string;
 export = _;
 
-import * as angular from "angular";
+import angular = require("angular");
 
 declare module "angular" {
     /**

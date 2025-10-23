@@ -1,4 +1,4 @@
-import * as RDF from "@rdfjs/types";
+import RDF = require("@rdfjs/types");
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Literal extends RDF.Literal {}

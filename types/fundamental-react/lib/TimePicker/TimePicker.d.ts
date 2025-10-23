@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { TimeBaseProps } from "../Time/Time";
 
 export type TimePickerProps = TimeBaseProps & {

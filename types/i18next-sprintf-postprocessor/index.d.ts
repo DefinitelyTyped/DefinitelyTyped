@@ -1,5 +1,5 @@
 declare module "i18next-sprintf-postprocessor" {
-    import * as i18next from "i18next";
+    import i18next = require("i18next");
 
     module "i18next" {
         interface TFunction {

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as Gulp from "gulp";
+import Gulp = require("gulp");
 
 declare namespace nodemon {
     interface Nodemon {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCReturn, ForwardRefProps, Overwrite, ReactAnchorAttr, SideNavSharedProps } from "../../../typings/shared";
 
 type InnerElementProps<P> = Omit<P, "element">;

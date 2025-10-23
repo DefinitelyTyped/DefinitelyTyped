@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
+import google_protobuf_timestamp_pb = require("google-protobuf/google/protobuf/timestamp_pb");
 
 export namespace v1 {
     type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

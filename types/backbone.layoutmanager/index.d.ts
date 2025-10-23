@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import * as Backbone from "backbone";
+import Backbone = require("backbone");
 
 declare module "backbone" {
     interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as crypto from "crypto";
+import crypto = require("crypto");
 
 export interface DKIMSignOptions {
     /** Header fields to sign (ie: 'from:to:cc:subject') */

@@ -1,4 +1,4 @@
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 
 declare module "hapi" {
     interface Server {

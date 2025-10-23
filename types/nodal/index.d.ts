@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import * as fxn from "fxn";
+import fxn = require("fxn");
 
 export class APIConstructor {
     format(obj: any, arrInterface?: string[]): {

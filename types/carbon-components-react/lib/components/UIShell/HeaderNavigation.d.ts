@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr } from "../../../typings/shared";
 
 export interface HeaderNavigationProps extends ReactAttr {}

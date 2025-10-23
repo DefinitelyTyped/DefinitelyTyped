@@ -1,4 +1,4 @@
-import * as Backbone from "backbone";
+import Backbone = require("backbone");
 
 declare global {
     const Store: typeof Backbone.LocalStorage;

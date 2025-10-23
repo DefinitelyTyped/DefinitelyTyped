@@ -1,4 +1,4 @@
-import * as Theming from "./theming";
+import Theming = require("./theming");
 
 export type MemberType = "admin" | "normal" | "observer";
 

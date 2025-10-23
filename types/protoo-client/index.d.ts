@@ -1,6 +1,6 @@
-import * as http from "http";
-import * as retry from "retry";
-import * as websocket from "websocket";
+import http = require("http");
+import retry = require("retry");
+import websocket = require("websocket");
 
 export interface ProtooRequest {
     request: true;

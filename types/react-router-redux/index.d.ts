@@ -1,5 +1,5 @@
 import { History, Location, LocationDescriptor, LocationState, Path } from "history";
-import * as React from "react";
+import React = require("react");
 import { match } from "react-router";
 import { Action, Dispatch, Middleware, Reducer, Store } from "redux";
 

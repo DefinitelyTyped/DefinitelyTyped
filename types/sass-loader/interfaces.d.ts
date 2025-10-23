@@ -1,6 +1,6 @@
-import * as NodeSass from "node-sass";
-import * as Sass from "sass";
-import * as Webpack from "webpack";
+import NodeSass = require("node-sass");
+import Sass = require("sass");
+import Webpack = require("webpack");
 
 export interface LoaderOptions {
     /**

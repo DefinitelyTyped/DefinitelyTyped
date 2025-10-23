@@ -1,7 +1,7 @@
 /// <reference types="angular" />
 /// <reference types="facebook-js-sdk" />
 
-import * as angular from "angular";
+import angular = require("angular");
 
 declare module "angular" {
     export namespace ngFacebook {

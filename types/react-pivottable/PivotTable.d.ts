@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { PlotParams } from "react-plotly.js";
 import { TableRenderers } from "./TableRenderers";
 import { Pivot, PivotData } from "./Utilities";

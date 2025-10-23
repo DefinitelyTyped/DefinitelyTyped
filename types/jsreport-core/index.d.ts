@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as fs from "fs";
+import fs = require("fs");
 
 declare namespace JsReport {
     type Helpers = string | { [fun: string]: (...args: any[]) => any };

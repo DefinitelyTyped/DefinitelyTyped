@@ -1,5 +1,5 @@
 import { promise } from "./index";
-import * as Testing from "./testing";
+import Testing = require("./testing");
 
 export const describe: {
     /**

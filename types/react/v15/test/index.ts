@@ -1,11 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
+import React = require("react");
+import ReactDOM = require("react-dom");
+import ReactDOMServer = require("react-dom/server");
 import createFragment = require("react-addons-create-fragment");
-import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as PureRenderMixin from "react-addons-pure-render-mixin";
+import LinkedStateMixin = require("react-addons-linked-state-mixin");
+import PureRenderMixin = require("react-addons-pure-render-mixin");
 import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
+import TestUtils = require("react-addons-test-utils");
 import update = require("react-addons-update");
 
 // NOTE: forward declarations for tests

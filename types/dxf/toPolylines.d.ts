@@ -1,4 +1,4 @@
-import * as Information from "./Information";
+import Information = require("./Information");
 import { Box } from "./Utils";
 
 export interface PolylineExport {

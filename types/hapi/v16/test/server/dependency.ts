@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serverdependencydependencies-after
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 
 const after: Hapi.AfterDependencyLoadCallback = function(server, next) {
     // Additional plugin registration logic

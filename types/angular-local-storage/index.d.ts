@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import angular = require("angular");
 
 export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
 export type ILocalStorageService = angular.local.storage.ILocalStorageService;

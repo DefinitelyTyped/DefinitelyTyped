@@ -3,8 +3,8 @@
 import { OptionsJson, OptionsText, OptionsUrlencoded } from "body-parser";
 import { Options as CreateCertOptions } from "create-cert";
 import { Express } from "express";
-import * as http from "http";
-import * as https from "https";
+import http = require("http");
+import https = require("https");
 
 type Server = createTestServer.TestServer & Omit<Express, "listen"> & {
     get: (url: string, response: string | (() => string)) => void;

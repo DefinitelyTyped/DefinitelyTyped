@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 export namespace HookRouter {
     type InterceptedPath = string | null;
     interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {

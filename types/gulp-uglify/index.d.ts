@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import * as UglifyJS from "uglify-js";
+import UglifyJS = require("uglify-js");
 
 declare namespace GulpUglify {
     interface Options {

@@ -1,5 +1,5 @@
-import * as Halogen from "halogen";
-import * as React from "react";
+import Halogen = require("halogen");
+import React = require("react");
 
 class HalogenTests_FadeLoader_withNoProps extends React.Component {
     render() {

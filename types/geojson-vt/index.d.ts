@@ -1,4 +1,4 @@
-import * as GJ from "geojson";
+import GJ = require("geojson");
 
 declare namespace geojsonvt {
     interface Options {

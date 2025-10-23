@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-self-import
-import * as self from "@feathersjs/authentication-oauth2";
+import self = require("@feathersjs/authentication-oauth2");
 import { Application, Paginated, Service } from "@feathersjs/feathers";
 import { Request, RequestHandler } from "express";
 import { Profile, Strategy } from "passport";

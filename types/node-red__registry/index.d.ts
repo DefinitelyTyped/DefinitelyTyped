@@ -1,5 +1,5 @@
 import { LocalSettings } from "@node-red/runtime";
-import * as util from "@node-red/util";
+import util = require("@node-red/util");
 import { EventEmitter } from "events";
 import { Express, NextFunction, Request, Response } from "express";
 import { Server as HttpsServer } from "https";

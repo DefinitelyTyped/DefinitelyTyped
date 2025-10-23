@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as StreamManager from "./stream-manager";
+import StreamManager = require("./stream-manager");
 
 export interface PublishParams {
     topic: string;

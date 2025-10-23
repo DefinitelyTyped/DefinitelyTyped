@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { RequiresChildrenProps } from "../../../typings/shared";
 import { OverflowMenuProps } from "../OverflowMenu";
 

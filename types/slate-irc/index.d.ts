@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as net from "net";
+import net = require("net");
 
 declare function IRC(socket: net.Socket): IRC.Client;
 

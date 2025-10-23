@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as fs from "fs";
+import fs = require("fs");
 declare namespace RecursiveReaddir {
     interface readdir {
         (path: string, callback: (error: Error, files: string[]) => any): void;

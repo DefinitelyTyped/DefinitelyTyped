@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export default function useCombinedReducers<T, A>(
     combinedReducers: Record<keyof T, [T[keyof T], React.Dispatch<A>]>,

@@ -6,7 +6,7 @@
  * Original document is [here](https://www.npmjs.com/package/firebird).
  */
 declare module "firebird" {
-    import * as stream from "stream";
+    import stream = require("stream");
 
     /**
      * @see createConnection() method will create Firebird Connection object for you

@@ -1,5 +1,5 @@
 import { Location } from "history";
-import * as React from "react";
+import React = require("react");
 import { match, RouteComponentProps, SwitchProps } from "react-router";
 
 export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?: string } = {}>

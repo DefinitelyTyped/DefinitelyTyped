@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 
 // different methods
 var routeConfig: Hapi.RouteConfiguration = {

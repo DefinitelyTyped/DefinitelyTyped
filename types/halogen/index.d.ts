@@ -1,4 +1,4 @@
-import * as react from "react";
+import react = require("react");
 
 export type VerticalAlign =
     | "baseline"

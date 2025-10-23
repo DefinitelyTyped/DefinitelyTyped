@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as http from "http";
+import http = require("http");
 import { Readable } from "node:stream";
 
 declare class Printer {

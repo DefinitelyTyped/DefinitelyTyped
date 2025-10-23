@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as fs from "fs";
+import fs = require("fs");
 
 export interface SetupOptions {
     EV_KEY: any[];

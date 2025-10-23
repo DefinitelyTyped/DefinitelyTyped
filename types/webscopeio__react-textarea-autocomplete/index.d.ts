@@ -1,7 +1,7 @@
 export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;
 
-import * as React from "react";
+import React = require("react");
 
 type Component<P extends {}> = React.FunctionComponent<P> | React.ComponentClass<P>;
 

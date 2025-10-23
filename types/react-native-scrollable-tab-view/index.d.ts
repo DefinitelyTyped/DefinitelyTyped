@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Animated, LayoutChangeEvent, ScrollViewProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface ScrollableTabViewProperties extends React.RefAttributes<ScrollableTabView> {

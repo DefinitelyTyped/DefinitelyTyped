@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-label" | "className" | "id" | "onChange" | "ref" | "type";

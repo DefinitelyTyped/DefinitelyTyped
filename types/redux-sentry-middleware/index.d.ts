@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser";
+import Sentry = require("@sentry/browser");
 import { Action, Middleware } from "redux";
 
 declare namespace createSentryMiddleware {

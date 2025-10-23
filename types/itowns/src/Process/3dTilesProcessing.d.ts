@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Camera from "../Renderer/Camera";
 
 export function $3dTilesCulling(

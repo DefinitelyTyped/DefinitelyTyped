@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 export import AWS = require("aws-sdk2-types");
-import * as joi from "joi";
+import joi = require("joi");
 import stream = require("stream");
 
 // Dynogels Data Members

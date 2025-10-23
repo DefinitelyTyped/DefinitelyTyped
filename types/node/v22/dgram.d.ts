@@ -28,7 +28,7 @@
 declare module "dgram" {
     import { NonSharedBuffer } from "node:buffer";
     import { AddressInfo, BlockList } from "node:net";
-    import * as dns from "node:dns";
+    import dns = require("node:dns");
     import { Abortable, EventEmitter } from "node:events";
     interface RemoteInfo {
         address: string;

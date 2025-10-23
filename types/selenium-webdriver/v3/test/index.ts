@@ -1,11 +1,11 @@
-import * as webdriver from "selenium-webdriver";
-import * as chrome from "selenium-webdriver/chrome";
-import * as edge from "selenium-webdriver/edge";
-import * as firefox from "selenium-webdriver/firefox";
-import * as http from "selenium-webdriver/http";
-import * as remote from "selenium-webdriver/remote";
-import * as safari from "selenium-webdriver/safari";
-import * as testing from "selenium-webdriver/testing";
+import webdriver = require("selenium-webdriver");
+import chrome = require("selenium-webdriver/chrome");
+import edge = require("selenium-webdriver/edge");
+import firefox = require("selenium-webdriver/firefox");
+import http = require("selenium-webdriver/http");
+import remote = require("selenium-webdriver/remote");
+import safari = require("selenium-webdriver/safari");
+import testing = require("selenium-webdriver/testing");
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();

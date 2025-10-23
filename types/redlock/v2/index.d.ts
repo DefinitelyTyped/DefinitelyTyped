@@ -1,5 +1,5 @@
-import * as Promise from "bluebird";
-import * as redis from "redis";
+import Promise = require("bluebird");
+import redis = require("redis");
 
 export = Redlock;
 

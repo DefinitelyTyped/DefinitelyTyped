@@ -1,5 +1,5 @@
 import type { Driver } from "marv";
-import * as pg from "pg";
+import pg = require("pg");
 
 declare function MarvPgDriver(options: {
     connection: pg.ClientConfig;

@@ -322,7 +322,7 @@ export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from ".";
+import Pg = require(".");
 
 export const native: typeof Pg | null;
 

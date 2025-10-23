@@ -1,6 +1,6 @@
 /// <reference types="jasmine"/>
 
-import * as React from "react";
+import React = require("react");
 
 declare global {
     namespace jasmine {

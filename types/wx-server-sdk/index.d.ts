@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as fs from "fs";
+import fs = require("fs");
 
 declare function init(options?: InitOptions): void;
 declare function updateConfig(options: InitOptions): void;

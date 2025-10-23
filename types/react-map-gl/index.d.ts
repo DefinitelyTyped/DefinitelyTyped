@@ -1,8 +1,8 @@
 /// <reference lib='dom' />
 
-import * as GeoJSON from "geojson";
-import * as MapboxGL from "mapbox-gl";
-import * as React from "react";
+import GeoJSON = require("geojson");
+import MapboxGL = require("mapbox-gl");
+import React = require("react");
 import WebMercatorViewport from "viewport-mercator-project";
 
 export { WebMercatorViewport } from "viewport-mercator-project";

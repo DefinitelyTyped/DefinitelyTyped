@@ -1,6 +1,6 @@
 import { ComponentsOverrides, ComponentsProps, ComponentsVariants } from "@mui/material";
 
-import * as React from "react";
+import React = require("react");
 
 export type Display = boolean | "true" | "false" | "excluded";
 export type FilterType = "dropdown" | "checkbox" | "multiselect" | "textField" | "custom";

@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#serveremitcriteria-data-callback
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 

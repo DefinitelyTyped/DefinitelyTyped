@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as child_process from "child_process";
+import child_process = require("child_process");
 
 declare namespace spawn {
     /**

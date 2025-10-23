@@ -1,6 +1,6 @@
 //
 /// <reference types="google.maps" />
-import * as React from "react";
+import React = require("react");
 
 export type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 

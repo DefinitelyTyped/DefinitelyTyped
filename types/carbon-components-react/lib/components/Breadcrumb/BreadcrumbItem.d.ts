@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactLIAttr } from "../../../typings/shared";
 import { LinkProps } from "../Link";
 

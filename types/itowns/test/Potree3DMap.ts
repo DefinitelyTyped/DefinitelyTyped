@@ -1,4 +1,4 @@
-import * as itowns from "itowns";
+import itowns = require("itowns");
 
 const viewerDiv = document.getElementById("viewerDiv") as HTMLDivElement;
 viewerDiv.style.display = "block";

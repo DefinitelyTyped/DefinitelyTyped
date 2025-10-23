@@ -1,7 +1,7 @@
 // See docs https://codemirror.net/doc/manual.html#addon_tern and https://codemirror.net/addon/tern/tern.js (comments in the beginning of the file)
 // Docs for tern itself might also be helpful: http://ternjs.net/doc/manual.html
 
-import * as Tern from "tern";
+import Tern = require("tern");
 import "../../";
 
 declare module "../../" {

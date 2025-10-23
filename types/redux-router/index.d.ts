@@ -1,7 +1,7 @@
-import * as H from "history";
-import * as React from "react";
-import * as ReactRouter from "react-router";
-import * as Redux from "redux";
+import H = require("history");
+import React = require("react");
+import ReactRouter = require("react-router");
+import Redux = require("redux");
 
 import {
     go,

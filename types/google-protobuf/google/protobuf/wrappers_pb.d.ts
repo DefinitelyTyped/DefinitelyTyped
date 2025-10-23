@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: wrappers.proto
 
-import * as jspb from "../../index";
+import jspb = require("../../index");
 
 export class DoubleValue extends jspb.Message {
     getValue(): number;

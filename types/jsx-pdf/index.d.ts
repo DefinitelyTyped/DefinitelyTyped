@@ -1,4 +1,4 @@
-import * as PDFMake from "pdfmake/interfaces";
+import PDFMake = require("pdfmake/interfaces");
 
 export function renderPdf(jsx: JSX.Element): PDFMake.TDocumentDefinitions;
 

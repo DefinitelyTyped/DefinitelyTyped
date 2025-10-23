@@ -54,7 +54,7 @@ export function parseFtpEntries(listing: string | readonly string[], callback: P
  * @param callback Callback function with error or result.
  *
  * @example
- * import * as Parser from "parse-listing";
+ * import Parser = require("parse-listing");
  *
  * // Yeah yeah, multiline strings would make Crockford mad, I know.
  * const str = "drwxr-xr-x    5 1001     1001         4096 Jan 09 11:52 .\r\n\

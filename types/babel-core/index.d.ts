@@ -1,4 +1,4 @@
-import * as t from "babel-types";
+import t = require("babel-types");
 export { t as types };
 export type Node = t.Node;
 export import template = require("babel-template");

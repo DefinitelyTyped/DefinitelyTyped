@@ -11,7 +11,7 @@
  * this updated script with your custom domain.
  *
  * @example
- * import * as chmln from "@chamaeleonidae/chmln";
+ * import chmln = require("@chamaeleonidae/chmln");
  * chmln.init('YOUR_TOKEN', { fastUrl: 'https://fast.chameleon.io/' });
  */
 export function init(token: string, options?: { fastUrl?: string; forceOverride?: boolean }): void;

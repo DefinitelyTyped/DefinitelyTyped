@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { InternationalProps } from "../../../typings/shared";
 import { SearchProps, SearchSpreadElement } from "../Search";
 

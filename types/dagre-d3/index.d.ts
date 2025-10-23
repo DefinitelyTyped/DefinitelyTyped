@@ -1,6 +1,6 @@
 import { BaseType, Selection, SelectionOrTransition, ValueFn } from "d3";
-import * as dagre from "dagre";
-import * as graphlib from "graphlib";
+import dagre = require("dagre");
+import graphlib = require("graphlib");
 
 export as namespace dagreD3;
 

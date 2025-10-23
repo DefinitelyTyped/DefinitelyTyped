@@ -1,4 +1,4 @@
-import * as qs from "qs";
+import qs = require("qs");
 
 interface UrlAssembler {
     template(template: string): UrlAssembler;

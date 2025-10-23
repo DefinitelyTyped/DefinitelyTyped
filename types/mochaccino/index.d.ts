@@ -1,4 +1,4 @@
-import * as Sinon from "sinon";
+import Sinon = require("sinon");
 export interface Expect {
     not: Expect;
     toBe(arg: any): void;

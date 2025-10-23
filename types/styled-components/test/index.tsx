@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOMServer from "react-dom/server";
+import React = require("react");
+import ReactDOMServer = require("react-dom/server");
 
 import styled, {
     createGlobalStyle,

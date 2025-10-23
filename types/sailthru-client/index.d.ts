@@ -1,5 +1,5 @@
-import * as http from "http";
-import * as Restler from "restler";
+import http = require("http");
+import Restler = require("restler");
 
 export {};
 

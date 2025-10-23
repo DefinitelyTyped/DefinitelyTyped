@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Coordinates from "../Core/Geographic/Coordinates";
 
 // TODO: Document and type public API

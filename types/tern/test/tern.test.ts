@@ -1,4 +1,4 @@
-import * as tern from "tern";
+import tern = require("tern");
 
 const server: tern.Server = null as any;
 

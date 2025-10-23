@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import * as http from "http";
-import * as https from "https";
+import http = require("http");
+import https = require("https");
 
 declare namespace stoppable {
     // Left for backwards compatibility

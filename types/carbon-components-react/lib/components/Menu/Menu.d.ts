@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import MenuDivider from "./MenuDivider";
 import MenuGroup from "./MenuGroup";
 import MenuItem from "./MenuItem";

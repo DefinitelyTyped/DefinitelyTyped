@@ -3,7 +3,7 @@ import { Display } from "./Display";
 import { Mimetype } from "./GuacCommon";
 import { InputStream } from "./InputStream";
 import { Mouse } from "./Mouse";
-import * as Guacamole from "./Object";
+import Guacamole = require("./Object");
 import { OutputStream } from "./OutputStream";
 import { Status } from "./Status";
 import { Touch } from "./Touch";

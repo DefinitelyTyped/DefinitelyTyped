@@ -1,4 +1,4 @@
-import * as GeoJSON from "geojson";
+import GeoJSON = require("geojson");
 
 interface PolygonConfig {
     earthRadius?: number;

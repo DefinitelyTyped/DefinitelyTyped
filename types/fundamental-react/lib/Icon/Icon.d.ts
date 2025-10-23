@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type IconSize = "s" | "m" | "l" | "xl";
 

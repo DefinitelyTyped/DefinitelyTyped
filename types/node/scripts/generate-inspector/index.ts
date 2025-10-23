@@ -4,9 +4,9 @@
 
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import * as https from "node:https";
+import https = require("node:https");
 
-import * as schema from "./devtools-protocol-schema";
+import schema = require("./devtools-protocol-schema");
 import { generateSubstituteArgs } from "./generate-substitute-args";
 import { substitute, trimRight } from "./utils";
 

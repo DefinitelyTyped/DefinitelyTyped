@@ -1,4 +1,4 @@
-import * as webdriver from "./index";
+import webdriver = require("./index");
 
 /**
  * Creates a command executor that uses WebDriver's JSON wire protocol.

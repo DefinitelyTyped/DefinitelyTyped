@@ -1,6 +1,6 @@
-import * as http from "./http";
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import http = require("./http");
+import webdriver = require("./index");
+import remote = require("./remote");
 
 /**
  * Manages a Firefox subprocess configured for use with WebDriver.

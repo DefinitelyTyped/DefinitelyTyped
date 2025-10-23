@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-label" | "id" | "onChange" | "onKeyUp" | "onToggle" | "ref" | "type";

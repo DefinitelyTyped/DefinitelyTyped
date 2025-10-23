@@ -1,4 +1,4 @@
-import * as URL from "./lib/URL";
-import * as URLSearchParams from "./lib/URLSearchParams";
+import URL = require("./lib/URL");
+import URLSearchParams = require("./lib/URLSearchParams");
 
 export { URL, URLSearchParams };

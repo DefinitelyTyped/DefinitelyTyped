@@ -3,7 +3,7 @@
 /// <reference types="jquery"/>
 /// <reference types="moment" />
 
-import * as moment from "moment";
+import moment = require("moment");
 
 export as namespace LivestampGlobal;
 

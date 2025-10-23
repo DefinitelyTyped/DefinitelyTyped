@@ -1,5 +1,5 @@
 import { Message, MessageStreamDefinition, MessageStreamInfo, ReadMessagesOptions } from "./data";
-import * as util from "./util";
+import util = require("./util");
 
 export * from "./data";
 export * from "./exceptions";

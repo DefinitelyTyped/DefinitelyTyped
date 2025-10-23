@@ -1,4 +1,4 @@
-import * as whatwgUrl from "whatwg-url";
+import whatwgUrl = require("whatwg-url");
 import { URL, URLSearchParams } from "whatwg-url/webidl2js-wrapper";
 
 declare const unknown: unknown;

@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 import { SolidColor } from "../objects/SolidColor";
 /**
  * The Class that stores properties related to the Character panel in the Photoshop UI.

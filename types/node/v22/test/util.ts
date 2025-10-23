@@ -1,4 +1,4 @@
-import * as util from "node:util";
+import util = require("node:util");
 import assert = require("node:assert");
 import { access, readFile } from "node:fs";
 

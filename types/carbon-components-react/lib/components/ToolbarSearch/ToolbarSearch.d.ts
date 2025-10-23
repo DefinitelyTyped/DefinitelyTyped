@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr, ReactInputAttr, SizingProps } from "../../../typings/shared";
 
 interface InheritedProps extends Omit<ReactInputAttr, "placeholder">, SizingProps {}

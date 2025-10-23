@@ -1,5 +1,5 @@
-import * as Plotly from "plotly.js";
-import * as React from "react";
+import Plotly = require("plotly.js");
+import React = require("react");
 
 export interface Figure {
     data: Plotly.Data[];

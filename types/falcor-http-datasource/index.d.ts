@@ -1,6 +1,6 @@
 /// <reference types="falcor" />
 
-import * as FalcorModel from "falcor";
+import FalcorModel = require("falcor");
 
 declare namespace FalcorHttpDataSource {
     /**

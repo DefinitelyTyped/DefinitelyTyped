@@ -1,4 +1,4 @@
-import * as React from "./";
+import React = require("./");
 export { Fragment } from "./";
 
 export namespace JSX {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { TextIntrinsicProps } from "./Text";
 
 export * from "./Text";

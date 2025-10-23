@@ -1,6 +1,6 @@
 // From https://hapijs.com/api/16.1.1#requestlogtags-data-timestamp
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 const server = new Hapi.Server();
 server.connection({ port: 80, routes: { log: true, security: false } });
 

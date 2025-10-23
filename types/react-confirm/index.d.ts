@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export function confirmable<P>(component: React.ComponentType<ReactConfirmProps & P>): React.ComponentType<P>;
 export function createConfirmation(

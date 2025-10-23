@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import angular = require("angular");
 
 declare module "angular" {
     export namespace mgoAngularWizard {

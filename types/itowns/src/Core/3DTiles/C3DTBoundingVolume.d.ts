@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Camera from "../../Renderer/Camera";
 import OBB from "../../Renderer/OBB";
 import C3DTExtensions from "./C3DTExtensions";

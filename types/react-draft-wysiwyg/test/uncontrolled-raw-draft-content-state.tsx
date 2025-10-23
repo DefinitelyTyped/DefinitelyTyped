@@ -1,6 +1,6 @@
 // From https://github.com/jpuri/react-draft-wysiwyg/blob/master/docs/src/components/Docs/Props/EditorStateProp/index.js#L125
 
-import * as React from "react";
+import React = require("react");
 import { Editor, RawDraftContentState } from "react-draft-wysiwyg";
 
 class UncontrolledEditor extends React.Component<

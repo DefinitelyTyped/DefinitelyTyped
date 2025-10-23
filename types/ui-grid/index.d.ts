@@ -12,7 +12,7 @@
 /// <reference types="jquery" />
 /// <reference types="angular" />
 
-import * as ng from "angular";
+import ng = require("angular");
 
 export = uiGrid;
 export as namespace uiGrid;

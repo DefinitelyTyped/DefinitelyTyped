@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import * as opentracing from "opentracing";
+import opentracing = require("opentracing");
 
 export as namespace Tracer;
 export = Tracer;

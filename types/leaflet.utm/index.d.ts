@@ -1,4 +1,4 @@
-import * as L from "leaflet";
+import L = require("leaflet");
 
 declare module "leaflet" {
     function utm(params: { x: number; y: number; zone: number; band: string; southHemi: boolean }): Utm;

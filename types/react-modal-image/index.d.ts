@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface ModalImageProps {
     /** Optional. `class` for the small preview image. */

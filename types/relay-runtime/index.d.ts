@@ -192,7 +192,7 @@ export { RelayDefaultHandlerProvider as DefaultHandlerProvider };
 
 import getDefaultMissingFieldHandlers from "./lib/handlers/getRelayDefaultMissingFieldHandlers";
 export { getDefaultMissingFieldHandlers };
-import * as ConnectionHandler from "./lib/handlers/connection/ConnectionHandler";
+import ConnectionHandler = require("./lib/handlers/connection/ConnectionHandler");
 export { ConnectionHandler };
 export { MutationHandlers } from "./lib/handlers/connection/MutationHandlers";
 export { VIEWER_ID, VIEWER_TYPE } from "./lib/store/ViewerPattern";
@@ -232,10 +232,10 @@ export { default as isScalarAndEqual } from "./lib/util/isScalarAndEqual";
 export { default as recycleNodesInto } from "./lib/util/recycleNodesInto";
 export { default as stableCopy } from "./lib/util/stableCopy";
 
-import * as fetchQueryInternal from "./lib/query/fetchQueryInternal";
+import fetchQueryInternal = require("./lib/query/fetchQueryInternal");
 import withProvidedVariables from "./lib/util/withProvidedVariables";
 
-import * as RelayResolverFragments from "./lib/store/ResolverFragments";
+import RelayResolverFragments = require("./lib/store/ResolverFragments");
 
 interface Internal {
     fetchQuery: typeof fetchQueryInternal.fetchQuery;

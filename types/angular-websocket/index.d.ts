@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import angular = require("angular");
 
 export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
 export type IWebSocketProvider = angular.websocket.IWebSocketProvider;

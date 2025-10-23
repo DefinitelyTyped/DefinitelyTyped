@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 // Test for legacy usage
 const eveDisForAnyEvent = new THREE.EventDispatcher<Record<string, { [key: string]: unknown }>>();

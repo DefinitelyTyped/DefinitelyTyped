@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as Handlebars from "handlebars";
+import Handlebars = require("handlebars");
 
 declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = "woff2" | "woff" | "eot">(
     options: WebfontsGenerator.WebfontsGeneratorOptions<T>,

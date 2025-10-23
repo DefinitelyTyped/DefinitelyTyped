@@ -1,4 +1,4 @@
-import * as L from "leaflet";
+import L = require("leaflet");
 
 // geodesic
 declare module "leaflet" {

@@ -1,4 +1,4 @@
-import * as OpenTimestamps from "opentimestamps";
+import OpenTimestamps = require("opentimestamps");
 
 const { DetachedTimestampFile, Ops } = OpenTimestamps;
 

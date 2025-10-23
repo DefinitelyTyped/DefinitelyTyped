@@ -6,7 +6,7 @@ import { Readable } from "stream";
 import { Url } from "url";
 
 import { Transport, TransportOptions } from "../..";
-import * as shared from "../shared";
+import shared = require("../shared");
 
 import DKIM = require("../dkim");
 import MailMessage = require("./mail-message");

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface Props {
     innerRef: React.RefCallback<HTMLElement>;

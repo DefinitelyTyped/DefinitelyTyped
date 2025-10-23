@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as http from "http";
+import http = require("http");
 import { Readable, Stream } from "stream";
 
-import * as shared from "../shared";
+import shared = require("../shared");
 
 type ms = number;
 type s = number;

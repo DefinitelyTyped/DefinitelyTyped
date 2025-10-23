@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 import { ViewHelper } from "three/addons/helpers/ViewHelper.js";
 

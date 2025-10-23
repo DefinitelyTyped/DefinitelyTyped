@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as parse5 from "parse5";
-import * as stream from "stream";
+import parse5 = require("parse5");
+import stream = require("stream");
 
 /**
  * Streaming AST node to an HTML serializer.

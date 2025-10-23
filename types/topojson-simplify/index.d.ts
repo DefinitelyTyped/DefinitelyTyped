@@ -1,4 +1,4 @@
-import * as GeoJSON from "geojson";
+import GeoJSON = require("geojson");
 import { Objects, OrNull, Topology } from "topojson-specification";
 
 export type Triangle = [[number, number], [number, number], [number, number]];

@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import * as amplify from "amplify";
+import amplify = require("amplify");
 
 declare module "amplify" {
     interface Request {

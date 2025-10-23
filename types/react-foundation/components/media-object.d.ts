@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import * as React from "react";
+import React = require("react");
 import { HorizontalAlignments } from "../enums";
 import { FlexboxPropTypes } from "../utils";
 /**

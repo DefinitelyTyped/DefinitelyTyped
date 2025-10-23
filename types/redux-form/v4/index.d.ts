@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ActionCreator, Dispatch, Reducer } from "redux";
 
 export const actionTypes: { [actionName: string]: string };

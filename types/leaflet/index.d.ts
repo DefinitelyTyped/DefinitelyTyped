@@ -1,6 +1,6 @@
 export as namespace L;
 
-import * as geojson from "geojson";
+import geojson = require("geojson");
 
 /** A constant that represents the Leaflet version in use. */
 export const version: string;

@@ -1,5 +1,5 @@
 import { GeneratorOptions } from "babel-generator";
-import * as babelTypes from "babel-types";
+import babelTypes = require("babel-types");
 import { FileCoverage, FileCoverageData, Range } from "istanbul-lib-coverage";
 import { RawSourceMap } from "source-map";
 

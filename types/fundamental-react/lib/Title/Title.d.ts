@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type TitleProps = {
     level: 1 | 2 | 3 | 4 | 5 | 6;

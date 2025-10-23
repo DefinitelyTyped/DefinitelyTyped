@@ -198,7 +198,7 @@ declare module "@mapbox/mapbox-sdk/lib/classes/mapi-error" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/datasets" {
-    import * as GeoJSON from "geojson";
+    import GeoJSON = require("geojson");
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -316,7 +316,7 @@ declare module "@mapbox/mapbox-sdk/services/datasets" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/directions" {
-    import * as GeoJSON from "geojson";
+    import GeoJSON = require("geojson");
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -1257,7 +1257,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/isochrone" {
-    import * as GeoJSON from "geojson";
+    import GeoJSON = require("geojson");
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -1845,7 +1845,7 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/static" {
-    import * as GeoJSON from "geojson";
+    import GeoJSON = require("geojson");
     import { AnyLayer, LngLatBoundsLike, LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
@@ -2109,7 +2109,7 @@ declare module "@mapbox/mapbox-sdk/services/styles" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/tilequery" {
-    import * as GeoJSON from "geojson";
+    import GeoJSON = require("geojson");
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import

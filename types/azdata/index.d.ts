@@ -10,7 +10,7 @@
  */
 
 declare module "azdata" {
-    import * as vscode from "vscode";
+    import vscode = require("vscode");
 
     /**
      * The version of the application.

@@ -1,6 +1,6 @@
 /// <reference types="falcor" />
-import * as FalcorModel from "falcor";
-import * as FalcorJsonGraph from "falcor-json-graph";
+import FalcorModel = require("falcor");
+import FalcorJsonGraph = require("falcor-json-graph");
 import DataSource = FalcorModel.DataSource;
 import { Observable } from "rx";
 

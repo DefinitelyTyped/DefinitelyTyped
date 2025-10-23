@@ -1,4 +1,4 @@
-import * as npm from "npm";
+import npm = require("npm");
 
 interface GlobalNPM {
     GLOBAL_NPM_PATH: string;

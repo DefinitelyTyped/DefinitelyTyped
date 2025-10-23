@@ -1,7 +1,7 @@
 import CAC from "cac/types/CAC";
 import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
 import { Configuration as WebpackConfig, ICompiler } from "webpack";
-import * as WebpackChainConfig from "webpack-chain";
+import WebpackChainConfig = require("webpack-chain");
 import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
 
 /**

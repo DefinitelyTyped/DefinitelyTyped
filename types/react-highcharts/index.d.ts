@@ -1,5 +1,5 @@
-import * as Highcharts from "highcharts";
-import * as React from "react";
+import Highcharts = require("highcharts");
+import React = require("react");
 
 declare namespace ReactHighcharts {
     /**

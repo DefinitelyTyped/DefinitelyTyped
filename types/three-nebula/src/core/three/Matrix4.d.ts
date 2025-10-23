@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { Euler } from "./Euler.js";
 import { Quaternion } from "./Quaternion.js";
 import { Vector3 } from "./Vector3.js";

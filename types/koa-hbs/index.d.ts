@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
 
-    import * as Koa from "koa";
+    import Koa = require("koa");
 ....import hbs = require("koa-hbs");
 
     var app = new Koa();
@@ -19,8 +19,8 @@
 
 /// <reference types="koa" />
 
-import * as Handlebars from "handlebars";
-import * as Koa from "koa";
+import Handlebars = require("handlebars");
+import Koa = require("koa");
 
 declare namespace Hbs {
     export interface Middleware {

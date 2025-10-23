@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { MeshGouraudMaterial } from "three/addons/materials/MeshGouraudMaterial.js";
 
 const scene = new THREE.Scene();

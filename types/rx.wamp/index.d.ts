@@ -1,5 +1,5 @@
 import autobahn = require("autobahn");
-import * as Rx from "rx";
+import Rx = require("rx");
 
 interface IWampEvent {
     args?: any[] | undefined;

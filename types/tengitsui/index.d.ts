@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 export type voidFunc = () => void;
 export type onChange = (value: any) => void;
 export interface BaseOpts {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 declare class Autosuggest<T = any, T2 = any> extends React.Component<
     Autosuggest.AutosuggestProps<T, T2>,

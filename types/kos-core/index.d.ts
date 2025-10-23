@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 type ReactComponent<P = any, S = any> = React.ComponentClass<P, S>;
 

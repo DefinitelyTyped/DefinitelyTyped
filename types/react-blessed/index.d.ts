@@ -1,5 +1,5 @@
-import * as Blessed from "blessed";
-import * as React from "react";
+import Blessed = require("blessed");
+import React = require("react");
 
 export {};
 

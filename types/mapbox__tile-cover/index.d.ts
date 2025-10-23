@@ -1,4 +1,4 @@
-import * as GeoJSON from "geojson";
+import GeoJSON = require("geojson");
 
 /**
  * Given a geometry, create cells and return them in a format easily readable

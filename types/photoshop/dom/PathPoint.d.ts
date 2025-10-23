@@ -1,4 +1,4 @@
-import * as Constants from "./Constants";
+import Constants = require("./Constants");
 import { SubPathItem } from "./SubPathItem";
 /**
  * Represents the anchor and control-handle endpoints for a path segment. Each point (the anchor point, left-direction

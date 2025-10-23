@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 import { SolidColor } from "../objects/SolidColor";
 /**
  * An object literal can be constructed with any of the following properties

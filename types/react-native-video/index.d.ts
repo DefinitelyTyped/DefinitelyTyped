@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ViewProps } from "react-native";
 
 export interface OnLoadData {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface WizardFooterProps {
     /** Nodes to render as extra content before the Cancel button */

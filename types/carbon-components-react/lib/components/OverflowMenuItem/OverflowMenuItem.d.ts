@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAnchorAttr, ReactButtonAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "disabled" | "href" | "ref" | "tabIndex";

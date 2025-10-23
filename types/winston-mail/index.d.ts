@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import winston = require("winston");
 
 export as namespace winstonMail;
 

@@ -1,7 +1,7 @@
 /// <reference types="node"/>
 
-import * as Http from "http";
-import * as Request from "request";
+import Http = require("http");
+import Request = require("request");
 
 declare class SparkPost {
     /** Specifying an inbound domain enables you to customize the address to which inbound messages are sent. */

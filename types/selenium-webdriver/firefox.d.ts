@@ -1,7 +1,7 @@
-import * as http from "./http";
-import * as webdriver from "./index";
+import http = require("./http");
+import webdriver = require("./index");
 import Symbols from "./lib/symbols";
-import * as remote from "./remote";
+import remote = require("./remote");
 export {};
 
 declare class Profile {

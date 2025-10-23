@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { BlockProperties, Leaf, Mark, Node as SlateNode, Value, ValueJSON } from "slate";
 
 export interface Rule {

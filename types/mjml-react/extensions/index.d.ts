@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export class MjmlComment extends React.Component<{ children: string }> {}
 export class MjmlConditionalComment extends React.Component<{ children: string; condition: string }> {}

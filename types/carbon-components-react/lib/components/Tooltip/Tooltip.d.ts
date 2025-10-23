@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { Direction, ForwardRefReturn, MenuOffsetData, ReactDivAttr, TooltipAlignment } from "../../../typings/shared";
 
 // NOTE: The index does not export * on this file because non-default export of Tooltip clashs with Tooltip at the top-level index.

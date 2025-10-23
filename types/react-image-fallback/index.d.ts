@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export default class ReactImageFallback extends React.Component<
     & ReactImageFallbackProps

@@ -1,4 +1,4 @@
-import * as webdriver from "selenium-webdriver";
+import webdriver = require("selenium-webdriver");
 import Entry = webdriver.logging.Entry;
 import { ProtractorBrowser } from "protractor/built";
 

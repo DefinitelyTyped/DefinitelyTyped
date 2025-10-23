@@ -1,6 +1,6 @@
 // from https://hapijs.com/tutorials/validation?lang=en_US
 import { Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute } from "hapi";
-import * as Joi from "joi";
+import Joi = require("joi");
 
 const options: ServerOptions = {
     port: 8000,

@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import * as aws from "@aws-sdk/client-ses";
+import aws = require("@aws-sdk/client-ses");
 import { EventEmitter } from "node:events";
 
 import { Transport, TransportOptions } from "../..";
-import * as shared from "../shared";
+import shared = require("../shared");
 import Mail = require("../mailer");
 import MailMessage = require("../mailer/mail-message");
 import MimeNode = require("../mime-node");

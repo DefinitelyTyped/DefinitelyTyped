@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { TextProps, ViewStyle } from "react-native";
 
 export interface NavigationBarButton {

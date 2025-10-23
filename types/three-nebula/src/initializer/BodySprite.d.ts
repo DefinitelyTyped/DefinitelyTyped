@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Particle from "../core/Particle";
 import Initializer from "./Initializer";
 import { JSONObject } from "./Rate";

@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as client from "./lib/client";
-import * as crypto from "./lib/crypto";
-import * as server from "./lib/server";
-import * as utils from "./lib/utils";
+import client = require("./lib/client");
+import crypto = require("./lib/crypto");
+import server = require("./lib/server");
+import utils = require("./lib/utils");
 
 export namespace uri {
     const authenticate: typeof server.authenticateBewit;

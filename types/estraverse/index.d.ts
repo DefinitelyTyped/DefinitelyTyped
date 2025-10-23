@@ -1,4 +1,4 @@
-import * as ESTree from "estree";
+import ESTree = require("estree");
 
 declare namespace ESTraverse {
     const Syntax: Syntax;

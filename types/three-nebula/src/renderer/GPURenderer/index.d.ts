@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { Three } from "../../core/three";
 import BaseRenderer from "../BaseRenderer";
 import { DEFAULT_RENDERER_OPTIONS } from "./common/constants";

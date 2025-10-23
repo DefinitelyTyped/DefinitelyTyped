@@ -1,7 +1,7 @@
 // From https://hapijs.com/api/16.1.1#serverstartcallback
 
-import * as Hapi from "hapi";
-import * as Hoek from "hoek";
+import Hapi = require("hapi");
+import Hoek = require("hoek");
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 

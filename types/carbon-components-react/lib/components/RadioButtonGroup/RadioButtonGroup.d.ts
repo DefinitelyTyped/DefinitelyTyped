@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { RadioButtonValue } from "../RadioButton";
 
 export interface RadioButtonGroupProps {

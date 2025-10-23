@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface MarqueeProps extends React.HTMLProps<HTMLTextAreaElement> {
     text: string;

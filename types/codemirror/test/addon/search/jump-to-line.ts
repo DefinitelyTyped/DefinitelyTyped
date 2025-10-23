@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/search/jump-to-line";
 
 const editor = CodeMirror(document.body, {

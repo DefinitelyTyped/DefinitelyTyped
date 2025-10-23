@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FileStatus } from "./shared";
 
 export interface FilenameIconProps extends React.HTMLAttributes<HTMLElement> {

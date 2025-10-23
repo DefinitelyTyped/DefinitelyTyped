@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type SupportedImage = "image/png" | "image/jpeg" | "image/bmp" | "image/webp" | "image/ico";
 export type ValidQuality = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0;

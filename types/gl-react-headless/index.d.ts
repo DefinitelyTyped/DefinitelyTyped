@@ -1,4 +1,4 @@
-import * as glReact from "gl-react";
+import glReact = require("gl-react");
 import { GLViewHeadless, GLViewHeadlessProps } from "./GLViewHeadless";
 
 export interface SurfaceProps extends glReact.SurfaceProps, GLViewHeadlessProps {}

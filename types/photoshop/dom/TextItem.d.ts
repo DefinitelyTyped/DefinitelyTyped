@@ -1,4 +1,4 @@
-import * as Constants from "./Constants";
+import Constants = require("./Constants");
 import { Layer } from "./Layer";
 import { CharacterStyle } from "./text/CharacterStyle";
 import { ParagraphStyle } from "./text/ParagraphStyle";

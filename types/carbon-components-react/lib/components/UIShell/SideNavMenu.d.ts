@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, RenderIconProps, SideNavSharedProps, SideNavSizingProps } from "../../../typings/shared";
 
 export interface SideNavMenuProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {

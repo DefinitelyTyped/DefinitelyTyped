@@ -1,4 +1,4 @@
-import * as nodemailer from "nodemailer";
+import nodemailer = require("nodemailer");
 
 declare namespace directTransport {
     export interface AuthOptions {

@@ -1,5 +1,5 @@
 import "leaflet";
-import * as geojson from "geojson";
+import geojson = require("geojson");
 
 declare module "leaflet" {
     interface FreeHandShapesOptions {

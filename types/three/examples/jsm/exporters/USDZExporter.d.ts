@@ -1,6 +1,6 @@
 import { Object3D } from "three";
-import * as WebGLTextureUtils from "../utils/WebGLTextureUtils.js";
-import * as WebGPUTextureUtils from "../utils/WebGPUTextureUtils.js";
+import WebGLTextureUtils = require("../utils/WebGLTextureUtils.js");
+import WebGPUTextureUtils = require("../utils/WebGPUTextureUtils.js");
 
 export interface USDZExporterOptions {
     ar?: { anchoring: { type: "plane" }; planeAnchoring: { alignment: "horizontal" | "vertical" | "any" } } | undefined;

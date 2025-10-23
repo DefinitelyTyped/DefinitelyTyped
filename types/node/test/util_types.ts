@@ -1,4 +1,4 @@
-import * as types from "node:util/types";
+import types = require("node:util/types");
 
 import { createPublicKey, KeyObject, webcrypto } from "node:crypto";
 

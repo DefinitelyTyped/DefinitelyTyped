@@ -1,6 +1,6 @@
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import { ServerResponse } from "http";
-import * as Restler from "restler";
+import Restler = require("restler");
 
 /**
  * Create a DELETE request.

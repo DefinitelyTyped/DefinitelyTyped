@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import hoistNonReactStatics = require("hoist-non-react-statics");
 
 interface Options {

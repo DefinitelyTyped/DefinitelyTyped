@@ -5,7 +5,7 @@
  ************************************************/
 
 import { NextFunction, RequestHandler } from "express";
-import * as core from "express-serve-static-core";
+import core = require("express-serve-static-core");
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {

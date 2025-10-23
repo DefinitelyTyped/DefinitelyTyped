@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Extent from "../Core/Geographic/Extent";
 
 declare class OBB extends THREE.Object3D {

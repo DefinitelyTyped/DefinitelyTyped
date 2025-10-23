@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Particle from "../core/Particle";
 import { Emitter } from "../emitter";
 import Initializer from "./Initializer";

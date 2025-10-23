@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface CollapseCallbackArgs {
     /** `true` only when Collapse reached final height */

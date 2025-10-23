@@ -1,4 +1,4 @@
-import * as PropTypes from "prop-types";
+import PropTypes = require("prop-types");
 import {
     Breakpoints,
     ExtendedBreakpoints,

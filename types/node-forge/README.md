@@ -11,7 +11,7 @@ npm install --save node-forge
 
 example:
 ```ts
-import * as forge from "node-forge";
+import forge = require("node-forge");
 
 Buffer.isBuffer(forge.pki.ed25519.generateKeyPair().publicKey) // true
 ```

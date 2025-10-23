@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { PNTS_MODE } from "../Renderer/PointsMaterial";
 import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 

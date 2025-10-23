@@ -1,4 +1,4 @@
-import * as GeoJSON from "geojson";
+import GeoJSON = require("geojson");
 
 export const MercatorCRS: { type: string; properties: { href: string; type: string } };
 export const GeographicCRS: { type: string; properties: { href: string; type: string } };

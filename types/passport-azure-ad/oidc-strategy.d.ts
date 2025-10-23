@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as passport from "passport";
+import passport = require("passport");
 import { IBaseStrategyOption, VerifyCallback } from "./common";
 
 export interface IOIDCStrategyOption extends IBaseStrategyOption {

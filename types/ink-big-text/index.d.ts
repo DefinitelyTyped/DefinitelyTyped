@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 // note: BigTextProps.colors are based on cfonts (https://github.com/dominikwilkowski/cfonts). I will have commented out
 // some of the accepted inputs. Becuase it also allows for hex colors, I decided to not narrow it down

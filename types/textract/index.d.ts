@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import * as ChildProc from "child_process";
+import ChildProc = require("child_process");
 import { URL } from "url";
 
 export interface extractorExecOpts {

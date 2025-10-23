@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface WizardNavigationProps {
     /** Wizard.Step nodes to render as steps */

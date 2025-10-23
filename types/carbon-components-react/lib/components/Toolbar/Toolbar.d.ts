@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactAttr, ReactDivAttr } from "../../../typings/shared";
 
 // Toolbar

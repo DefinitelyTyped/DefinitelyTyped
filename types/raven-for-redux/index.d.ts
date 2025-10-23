@@ -1,4 +1,4 @@
-import * as Raven from "raven-js";
+import Raven = require("raven-js");
 import { Action, Middleware } from "redux";
 
 export = createRavenMiddleware;

@@ -1,4 +1,4 @@
-import * as webdriver from "selenium-webdriver";
+import webdriver = require("selenium-webdriver");
 import LogInspector = require("selenium-webdriver/bidi/logInspector");
 
 const testText = "hello!";

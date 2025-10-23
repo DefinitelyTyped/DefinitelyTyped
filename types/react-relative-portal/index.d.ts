@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 declare class RelativePortal extends React.Component<RelativePortal.Props> {}
 

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { ChildProcess, SpawnOptions } from "child_process";
-import * as http from "http";
+import http = require("http");
 import { URL } from "url";
 
 export function install(opts?: InstallOpts): Promise<void>;

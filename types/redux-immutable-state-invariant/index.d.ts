@@ -1,4 +1,4 @@
-import * as Redux from "redux";
+import Redux = require("redux");
 
 interface immutableStateInvariantMiddlewareOptions {
     isImmutable?: ((value: any) => boolean) | undefined;

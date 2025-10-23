@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export type SlideFromTypes = "top" | "bottom" | "left" | "right";

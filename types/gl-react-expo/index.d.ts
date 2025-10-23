@@ -1,4 +1,4 @@
-import * as glReact from "gl-react";
+import glReact = require("gl-react");
 import { GLViewNative, GLViewNativeProps } from "./GLViewNative";
 
 export interface SurfaceProps extends glReact.SurfaceProps, GLViewNativeProps {}

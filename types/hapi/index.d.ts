@@ -10,13 +10,13 @@
 
 /// <reference types='node' />
 
-import * as Boom from "boom";
-import * as http from "http";
-import * as https from "https";
-import * as Shot from "shot";
-import * as stream from "stream";
-import * as url from "url";
-import * as zlib from "zlib";
+import Boom = require("boom");
+import http = require("http");
+import https = require("https");
+import Shot = require("shot");
+import stream = require("stream");
+import url = require("url");
+import zlib = require("zlib");
 
 import { SealOptions, SealOptionsSub } from "iron";
 import { Schema, SchemaMap, ValidationOptions } from "joi";

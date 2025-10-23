@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as fs from "fs";
+import fs = require("fs");
 
 /**
  * Watch globs and execute a function upon change, with intelligent defaults for debouncing and queueing.

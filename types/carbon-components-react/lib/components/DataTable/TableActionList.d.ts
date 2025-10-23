@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactDivAttr } from "../../../typings/shared";
 
 export interface TableActionListProps extends ReactDivAttr {}

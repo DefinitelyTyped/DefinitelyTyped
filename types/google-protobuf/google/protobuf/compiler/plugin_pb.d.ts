@@ -1,8 +1,8 @@
 // package: google.protobuf.compiler
 // file: compiler/plugin.proto
 
-import * as jspb from "../../../index";
-import * as google_protobuf_descriptor_pb from "../descriptor_pb";
+import jspb = require("../../../index");
+import google_protobuf_descriptor_pb = require("../descriptor_pb");
 
 export class Version extends jspb.Message {
     hasMajor(): boolean;

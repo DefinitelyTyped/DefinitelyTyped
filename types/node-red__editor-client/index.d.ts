@@ -2,7 +2,7 @@
 /// <reference types="ace" />
 /// <reference types="jquery" />
 
-import * as registry from "@node-red/registry";
+import registry = require("@node-red/registry");
 import { LocalSettings as RuntimeLocalSettings } from "@node-red/runtime";
 import { I18nTFunction } from "@node-red/util";
 

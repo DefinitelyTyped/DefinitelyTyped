@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ForwardRefReturn, ReactButtonAttr, ReactDivAttr } from "../../../../typings/shared";
 
 export interface ContentSwitcherNextProps {

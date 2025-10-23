@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as http from "http";
-import * as https from "https";
+import http = require("http");
+import https = require("https");
 
 // lib/spdy/agent.js
 export namespace agent {

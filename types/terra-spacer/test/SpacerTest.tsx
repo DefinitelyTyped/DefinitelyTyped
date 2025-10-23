@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import Spacer from "terra-spacer";
 import { SpacerProps } from "terra-spacer/lib/Spacer";
 

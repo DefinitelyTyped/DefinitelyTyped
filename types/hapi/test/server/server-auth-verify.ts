@@ -1,4 +1,4 @@
-import * as Boom from "boom";
+import Boom = require("boom");
 import { Request, RequestAuth, Server } from "hapi";
 
 const server = new Server({

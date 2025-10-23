@@ -1,7 +1,7 @@
-import * as childProcess from "node:child_process";
-import * as dgram from "node:dgram";
-import * as fs from "node:fs";
-import * as net from "node:net";
+import childProcess = require("node:child_process");
+import dgram = require("node:dgram");
+import fs = require("node:fs");
+import net = require("node:net");
 import assert = require("node:assert");
 import { Pipe, Readable, Writable } from "node:stream";
 import { URL } from "node:url";

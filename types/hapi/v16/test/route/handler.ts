@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Hapi from "hapi";
+import Hapi = require("hapi");
 
 var handler: Hapi.RouteHandler = function(request, reply) {
     reply("success");

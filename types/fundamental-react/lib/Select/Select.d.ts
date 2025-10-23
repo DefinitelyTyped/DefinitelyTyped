@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface Option<T extends string = string> {
     key: T;

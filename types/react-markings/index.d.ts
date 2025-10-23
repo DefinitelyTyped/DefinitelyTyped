@@ -1,5 +1,5 @@
-import * as CommonmarkReactRenderer from "commonmark-react-renderer";
-import * as React from "react";
+import CommonmarkReactRenderer = require("commonmark-react-renderer");
+import React = require("react");
 
 declare namespace md {
     type CommonProps = CommonmarkReactRenderer.CommonProps;

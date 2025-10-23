@@ -2,8 +2,8 @@
 /// <reference types="passport" />
 
 declare module "samlp" {
-    import * as express from "express";
-    import * as passport from "passport";
+    import express = require("express");
+    import passport = require("passport");
 
     export function auth(options: IdPOptions): express.Handler;
     export function logout(options: IdPOptions): express.Handler;

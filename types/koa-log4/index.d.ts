@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as Log4js from "log4js";
+import Koa = require("koa");
+import Log4js = require("log4js");
 
 export function koaLogger(logger4js: Log4js.Logger, optionsOrFormat?: Options | string): Koa.Middleware;
 

@@ -1,4 +1,4 @@
-import * as YUKA from "yuka";
+import YUKA = require("yuka");
 import { CustomEntity } from "./CustomEntity";
 import { CustomVehicle } from "./CustomVehicle";
 

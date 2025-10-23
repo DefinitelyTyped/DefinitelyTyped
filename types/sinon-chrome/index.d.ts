@@ -10,7 +10,7 @@
  * chrome.storage.onChanged.trigger(...);
  */
 
-import * as Sinon from "sinon";
+import Sinon = require("sinon");
 export = SinonChrome;
 export as namespace SinonChrome;
 

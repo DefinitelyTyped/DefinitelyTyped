@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactButtonAttr } from "../../../../typings/shared";
 import { ListBoxSelectionProps } from "../ListBoxSelection";
 

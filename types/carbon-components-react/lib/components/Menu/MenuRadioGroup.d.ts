@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { MenuGroupProps } from "./MenuGroup";
 import { MenuRadioGroupOptionsProps } from "./MenuRadioGroupOptions";
 

@@ -1,5 +1,5 @@
 import { Locale } from "date-fns";
-import * as React from "react";
+import React = require("react");
 import { Optional } from "./_util";
 
 // =============================================================================

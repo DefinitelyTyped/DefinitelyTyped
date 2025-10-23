@@ -2,7 +2,7 @@
 
 import { EventEmitter } from "events";
 import { NextFunction, Response } from "express";
-import * as http from "http";
+import http = require("http");
 
 type WeMiddleware = (req: any, res: Response | http.ServerResponse, next: NextFunction) => any;
 

@@ -1,5 +1,5 @@
-import * as AWS from "aws-sdk2-types";
-import * as nodemailer from "nodemailer";
+import AWS = require("aws-sdk2-types");
+import nodemailer = require("nodemailer");
 
 declare namespace sesTransport {
     interface SesOptions {

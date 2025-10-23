@@ -1,5 +1,5 @@
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import webdriver = require("./index");
+import remote = require("./remote");
 
 /**
  * Creates a new WebDriver client for Chrome.

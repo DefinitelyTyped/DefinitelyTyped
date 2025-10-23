@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface SelectItemProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "value"> {
     text: string;

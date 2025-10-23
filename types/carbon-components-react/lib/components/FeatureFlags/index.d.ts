@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 // TODO: import FeatureFlagScope related things from @types/carbon__feature-flags when available
 export type FeatureFlagRecord = Record<string, boolean>;

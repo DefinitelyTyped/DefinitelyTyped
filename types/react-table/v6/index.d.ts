@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type ReactTableFunction = (value?: any) => void;
 export type AccessorFunction<D = any> = (row: D) => any;

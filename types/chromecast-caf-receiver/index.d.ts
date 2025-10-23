@@ -6,8 +6,8 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
-import * as debugNs from "./cast.debug";
-import * as frameworkNs from "./cast.framework";
+import debugNs = require("./cast.debug");
+import frameworkNs = require("./cast.framework");
 import {
     BitrateChangedEvent,
     BreaksEvent,

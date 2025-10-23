@@ -8,9 +8,9 @@ declare global {
     interface ShadowRoot {}
 }
 
-import * as CSS from "csstype";
-import * as hoistNonReactStatics from "hoist-non-react-statics";
-import * as React from "react";
+import CSS = require("csstype");
+import hoistNonReactStatics = require("hoist-non-react-statics");
+import React = require("react");
 
 export type CSSProperties = CSS.Properties<string | number>;
 

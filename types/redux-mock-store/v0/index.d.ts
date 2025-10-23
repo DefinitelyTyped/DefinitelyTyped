@@ -1,4 +1,4 @@
-import * as Redux from "redux";
+import Redux = require("redux");
 
 declare namespace reduxMockStore {
     type MockStore<T> = Redux.Store<T>;

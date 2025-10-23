@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../../typings/shared";
 
 // StructuredListWrapper

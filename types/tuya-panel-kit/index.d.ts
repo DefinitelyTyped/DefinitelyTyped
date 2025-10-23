@@ -1,7 +1,7 @@
 import { NavigationContainerProps, NavigationContainerRef, ParamListBase, RouteProp } from "@react-navigation/native";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { TransitionPreset } from "@react-navigation/stack/lib/typescript/src/types";
-import * as React from "react";
+import React = require("react");
 import {
     FlatListProps,
     GestureResponderEvent,

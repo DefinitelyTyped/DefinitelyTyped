@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as Rebass from "rebass";
+import React = require("react");
+import Rebass = require("rebass");
 
 export interface TilesProps extends Rebass.BoxProps {
     width?: Array<number | string | null> | undefined;

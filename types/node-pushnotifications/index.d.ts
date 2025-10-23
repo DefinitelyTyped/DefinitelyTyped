@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { Credential, ServiceAccount } from "firebase-admin/app";
-import * as webPush from "web-push";
+import webPush = require("web-push");
 export = PushNotifications;
 
 declare class PushNotifications {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 declare namespace FsLightbox {
     type SourceType = "image" | "video" | "youtube" | null;

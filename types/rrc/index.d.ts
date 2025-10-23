@@ -1,5 +1,5 @@
-import * as H from "history";
-import * as React from "react";
+import H = require("history");
+import React = require("react");
 import { match as MatchObject, RouteComponentProps, RouteProps } from "react-router-dom";
 
 export interface ScrollIntoViewProps {

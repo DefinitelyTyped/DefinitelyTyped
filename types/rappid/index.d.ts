@@ -1,5 +1,5 @@
-import * as Backbone from "backbone";
-import * as joint from "jointjs";
+import Backbone = require("backbone");
+import joint = require("jointjs");
 
 export as namespace joint;
 

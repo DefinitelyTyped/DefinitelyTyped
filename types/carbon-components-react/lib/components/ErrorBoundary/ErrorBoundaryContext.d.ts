@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export interface ErrorBoundaryContextValue {
     log: React.ComponentLifecycle<unknown, unknown>["componentDidCatch"];

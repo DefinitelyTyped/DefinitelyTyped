@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import { FeatureCollection } from "../Core/Feature";
 import Style from "../Core/Style";
 

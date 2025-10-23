@@ -3,7 +3,7 @@
 import { EventEmitter } from "events";
 
 import MailMessage = require("../mailer/mail-message");
-import * as shared from "../shared";
+import shared = require("../shared");
 
 import SMTPPool = require(".");
 

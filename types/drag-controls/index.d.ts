@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 
 declare class DragControls extends THREE.EventDispatcher {
     static install(library: { THREE: typeof THREE }): void;

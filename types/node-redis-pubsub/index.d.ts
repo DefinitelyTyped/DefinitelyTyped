@@ -1,4 +1,4 @@
-import * as redis from "redis";
+import redis = require("redis");
 
 declare function NRP(options: object): NRP.NodeRedisPubSub;
 declare namespace NRP {

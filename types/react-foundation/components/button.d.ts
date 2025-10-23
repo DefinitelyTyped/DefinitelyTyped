@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import * as React from "react";
+import React = require("react");
 import { ButtonColors, ButtonSizes } from "../enums";
 import { FlexboxPropTypes } from "../utils";
 export interface ButtonPropsCommon extends FlexboxPropTypes {

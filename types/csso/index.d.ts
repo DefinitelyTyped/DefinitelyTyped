@@ -1,4 +1,4 @@
-import * as csstree from "css-tree";
+import csstree = require("css-tree");
 
 export as namespace csso;
 export const version: string;

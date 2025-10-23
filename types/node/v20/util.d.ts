@@ -9,7 +9,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/util.js)
  */
 declare module "util" {
-    import * as types from "node:util/types";
+    import types = require("node:util/types");
     export interface InspectOptions {
         /**
          * If `true`, object's non-enumerable symbols and properties are included in the formatted result.

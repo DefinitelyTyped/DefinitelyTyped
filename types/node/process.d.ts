@@ -1,7 +1,7 @@
 declare module "process" {
     import { Control, MessageOptions } from "node:child_process";
     import { PathLike } from "node:fs";
-    import * as tty from "node:tty";
+    import tty = require("node:tty");
     import { Worker } from "node:worker_threads";
 
     interface BuiltInModule {

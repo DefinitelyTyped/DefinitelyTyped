@@ -1,17 +1,17 @@
 import LogInspector = require("./bidi/logInspector");
 import BrowsingContext = require("./bidi/browsingContext");
-import * as chrome from "./chrome";
-import * as edge from "./edge";
-import * as firefox from "./firefox";
-import * as http from "./http";
-import * as ie from "./ie";
+import chrome = require("./chrome");
+import edge = require("./edge");
+import firefox = require("./firefox");
+import http = require("./http");
+import ie = require("./ie");
 import { By, ByHash, RelativeBy } from "./lib/by";
 import { Browser, Capabilities } from "./lib/capabilities";
 import { FileDetector, Key } from "./lib/input";
-import * as logging from "./lib/logging";
-import * as until from "./lib/until";
+import logging = require("./lib/logging");
+import until = require("./lib/until");
 import { ShadowRootPromise, WebDriver } from "./lib/webdriver";
-import * as safari from "./safari";
+import safari = require("./safari");
 
 export * as chromium from "./chromium";
 export * from "./lib/by";

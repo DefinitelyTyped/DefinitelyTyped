@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Extent from "../Core/Geographic/Extent";
 import Style from "../Core/Style";
 import Source from "../Source/Source";

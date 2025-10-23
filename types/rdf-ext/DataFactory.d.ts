@@ -1,4 +1,4 @@
-import * as RDF from "@rdfjs/types";
+import RDF = require("@rdfjs/types");
 import { BlankNodeExt } from "./lib/BlankNode.js";
 import { DefaultGraphExt } from "./lib/DefaultGraph.js";
 import { LiteralExt } from "./lib/Literal.js";

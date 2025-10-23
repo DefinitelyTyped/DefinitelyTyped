@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 import { PreferencesBase } from "./PreferencesBase";
 /**
  * Preferences how guides, grids and slices will be shown

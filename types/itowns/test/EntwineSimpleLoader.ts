@@ -1,5 +1,5 @@
-import * as itowns from "itowns";
-import * as THREE from "three";
+import itowns = require("itowns");
+import THREE = require("three");
 
 const viewerDiv = document.getElementById("viewerDiv") as HTMLDivElement;
 viewerDiv.style.display = "block";

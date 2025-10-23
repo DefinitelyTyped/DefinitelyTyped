@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 // Core
 export { createConnector } from "react-instantsearch-core";

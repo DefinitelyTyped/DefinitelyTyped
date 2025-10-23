@@ -13,7 +13,7 @@ import {
     SFCElement,
 } from "react";
 
-import * as ReactTestUtils from ".";
+import ReactTestUtils = require(".");
 
 export interface OptionalEventProperties {
     bubbles?: boolean | undefined;

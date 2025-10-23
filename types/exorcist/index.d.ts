@@ -20,8 +20,8 @@ export = exorcist;
  *
  * @example
  * import browserify = require("browserify");
- * import * as path from "path";
- * import * as fs from "fs";
+ * import path = require("path");
+ * import fs = require("fs");
  * import exorcist = require("exorcist");
  *
  * const mapfile = path.join(__dirname, "bundle.js.map");

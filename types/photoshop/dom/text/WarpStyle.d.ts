@@ -1,4 +1,4 @@
-import * as Constants from "../Constants";
+import Constants = require("../Constants");
 /**
  * The Class that stores properties related to the Warp Text dialog.
  * @minVersion 24.1

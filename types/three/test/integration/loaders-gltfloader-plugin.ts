@@ -1,6 +1,6 @@
 // An example that uses plugin system in GLTFLoader.
 
-import * as THREE from "three";
+import THREE = require("three");
 import { GLTF, GLTFLoader, GLTFLoaderPlugin, GLTFParser } from "three/addons/loaders/GLTFLoader.js";
 
 // Assuming we are using duck.gltf

@@ -1,7 +1,7 @@
 // package: google.protobuf
 // file: struct.proto
 
-import * as jspb from "../../index";
+import jspb = require("../../index");
 
 export class Struct extends jspb.Message {
     getFieldsMap(): jspb.Map<string, Value>;

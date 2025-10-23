@@ -1,8 +1,8 @@
-import * as express from "express";
-import * as _ from "lodash";
-import * as ral from "node-ral";
-import * as yogBigpipe from "yog-bigpipe";
-import * as log from "yog-log";
+import express = require("express");
+import _ = require("lodash");
+import ral = require("node-ral");
+import yogBigpipe = require("yog-bigpipe");
+import log = require("yog-log");
 
 export as namespace yog;
 declare namespace yog {

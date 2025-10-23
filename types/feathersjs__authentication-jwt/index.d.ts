@@ -1,7 +1,7 @@
 import { Application } from "@feathersjs/feathers";
 import { Request } from "express";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import * as self from "@feathersjs/authentication-jwt";
+import self = require("@feathersjs/authentication-jwt");
 
 declare const feathersAuthenticationJwt:
     & ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void)

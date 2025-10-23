@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import "codemirror/addon/fold/foldcode";
 import "codemirror/addon/fold/xml-fold";
 

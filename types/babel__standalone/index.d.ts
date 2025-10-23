@@ -29,10 +29,10 @@ export function disableScriptTags(): void;
 
 export as namespace babel;
 
-import * as generator from "@babel/generator";
+import generator = require("@babel/generator");
 import parser from "@babel/parser";
-import * as template from "@babel/template";
-import * as traverse from "@babel/traverse";
+import template = require("@babel/template");
+import traverse = require("@babel/traverse");
 import type t from "@babel/types";
 export const packages: {
     generator: typeof generator;

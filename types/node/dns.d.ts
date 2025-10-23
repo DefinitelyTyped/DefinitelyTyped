@@ -45,7 +45,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/dns.js)
  */
 declare module "dns" {
-    import * as dnsPromises from "node:dns/promises";
+    import dnsPromises = require("node:dns/promises");
     // Supported getaddrinfo flags.
     /**
      * Limits returned address types to the types of non-loopback addresses configured on the system. For example, IPv4 addresses are

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import SmoothScrollbar from "smooth-scrollbar";
 import { ScrollbarOptions, ScrollStatus } from "smooth-scrollbar/interfaces";
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactScrollLinkProps } from "./Link";
 
 export type ButtonProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;

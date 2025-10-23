@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import ThemeContextProvider from "terra-theme-context/lib/ThemeContextProvider";
 
 const AllProps = (

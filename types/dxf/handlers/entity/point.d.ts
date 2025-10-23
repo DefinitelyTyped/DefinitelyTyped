@@ -1,4 +1,4 @@
-import * as Common from "../../Common";
+import Common = require("../../Common");
 import { Property } from "../../Information";
 import common, { CommonEntityData } from "./common";
 

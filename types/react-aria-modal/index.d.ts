@@ -1,5 +1,5 @@
 import { type Options as FocusTrapOptions } from "focus-trap";
-import * as React from "react";
+import React = require("react");
 
 declare namespace AriaModal {
     interface AriaModalProps {

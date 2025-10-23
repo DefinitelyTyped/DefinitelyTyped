@@ -93,7 +93,7 @@
  */
 declare module "zlib" {
     import { NonSharedBuffer } from "node:buffer";
-    import * as stream from "node:stream";
+    import stream = require("node:stream");
     interface ZlibOptions {
         /**
          * @default constants.Z_NO_FLUSH

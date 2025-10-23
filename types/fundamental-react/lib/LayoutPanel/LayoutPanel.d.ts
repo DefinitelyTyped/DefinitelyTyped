@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 export type LayoutPanelHeadProps = {
     headingLevel?: 2 | 3 | 4 | 5 | 6 | undefined;

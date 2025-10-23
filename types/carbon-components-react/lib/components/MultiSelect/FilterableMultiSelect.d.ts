@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { DownshiftTypedProps, ListBoxBaseItemType } from "../../../typings/shared";
 import { MultiSelectProps } from "./MultiSelect";
 

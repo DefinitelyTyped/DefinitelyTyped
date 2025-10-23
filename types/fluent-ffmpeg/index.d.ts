@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as events from "events";
-import * as stream from "stream";
+import events = require("events");
+import stream = require("stream");
 
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {

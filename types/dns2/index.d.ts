@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import * as udp from "dgram";
+import udp = require("dgram");
 import { EventEmitter } from "events";
-import * as net from "net";
+import net = require("net");
 
 declare class Packet {
     static TYPE: {

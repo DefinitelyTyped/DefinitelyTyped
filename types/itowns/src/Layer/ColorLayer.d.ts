@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Style from "../Core/Style";
 import { Extent, FeatureCollection } from "../Main";
 import Layer, { LayerOptions } from "./Layer";

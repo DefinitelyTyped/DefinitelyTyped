@@ -1,5 +1,5 @@
 /// <reference types="node"/>
-import * as http from "http";
+import http = require("http");
 
 declare namespace stickyCluster {
     type InitializeFn = (callback: Callback) => void;

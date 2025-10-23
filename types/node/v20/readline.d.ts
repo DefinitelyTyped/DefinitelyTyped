@@ -35,7 +35,7 @@
  */
 declare module "readline" {
     import { Abortable, EventEmitter } from "node:events";
-    import * as promises from "node:readline/promises";
+    import promises = require("node:readline/promises");
     export { promises };
     export interface Key {
         sequence?: string | undefined;

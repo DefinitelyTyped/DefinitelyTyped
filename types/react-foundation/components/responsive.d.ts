@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as PropTypes from "prop-types";
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 import { Component } from "react";
 import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
 import { TopBarProps } from "./top-bar";

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE = require("three");
 import Particle from "../core/Particle";
 import type { EasingFunction } from "../ease";
 import { Emitter } from "../emitter";

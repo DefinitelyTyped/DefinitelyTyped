@@ -1,5 +1,5 @@
 import { AST, Scope, SourceCode } from "eslint";
-import * as ESTree from "estree";
+import ESTree = require("estree");
 
 type CommentOrToken = ESTree.Comment | AST.Token;
 

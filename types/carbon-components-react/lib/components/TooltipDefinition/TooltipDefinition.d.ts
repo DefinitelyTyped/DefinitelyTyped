@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ReactAttr, ReactDivAttr, TooltipAlignment, VerticalDirection } from "../../../typings/shared";
 
 type ExcludedPropsKeys = "onBlur" | "onFocus";

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { ConnectDragPreview, ConnectDragSource, ConnectDropTarget } from "react-dnd";
 import { Index, ListProps } from "react-virtualized";
 

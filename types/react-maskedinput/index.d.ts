@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 
 declare namespace MaskedInput {
     interface FormatCharacter {

@@ -2,8 +2,8 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-import * as express from "express";
-import * as passport from "passport";
+import express = require("express");
+import passport = require("passport");
 
 /*~ If there are types, properties, or methods inside dotted names
  *~ of the module, declare them inside a 'namespace'.

@@ -1,4 +1,4 @@
-import * as hapi from "hapi";
+import hapi = require("hapi");
 
 declare namespace inert {
     export interface ReplyFileHandlerOptions {

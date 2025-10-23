@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import { FCProps, FCReturn, ReactComponentConstructor } from "../../../typings/shared";
 import { ButtonAnchorProps, ButtonCustomComponentProps, ButtonDefaultProps, ButtonIntrinsicProps } from "../Button";
 

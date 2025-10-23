@@ -1,5 +1,5 @@
-import * as L from "leaflet";
-import * as PIXI from "pixi.js";
+import L = require("leaflet");
+import PIXI = require("pixi.js");
 
 declare module "leaflet" {
     interface PixiOverlayOptions {

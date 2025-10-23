@@ -4,8 +4,8 @@
 
 /// <reference path="global.d.ts" />
 
-import * as CSS from "csstype";
-import * as PropTypes from "prop-types";
+import CSS = require("csstype");
+import PropTypes = require("prop-types");
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;

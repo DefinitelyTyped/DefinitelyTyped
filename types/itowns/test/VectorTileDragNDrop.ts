@@ -1,4 +1,4 @@
-import * as itowns from "itowns";
+import itowns = require("itowns");
 
 const placement = {
     coord: new itowns.Coordinates("EPSG:4326", 2.475, 48.807),
