@@ -1,5 +1,4 @@
-import m from "mithril";
-import { ClosureComponent, Component, FactoryComponent } from "mithril";
+import m, { ClosureComponent, Component, FactoryComponent } from "mithril";
 
 ///////////////////////////////////////////////////////////
 // 0.
