@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as BluebirdPromise from "bluebird";
+import BluebirdPromise = require("bluebird");
 
 /**
  * Split file into number of parts

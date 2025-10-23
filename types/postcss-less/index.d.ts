@@ -1,4 +1,4 @@
-import * as postcss from "postcss";
+import postcss = require("postcss");
 
 export = postcssLess;
 

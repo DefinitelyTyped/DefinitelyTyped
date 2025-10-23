@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import _ = require("lodash");
 
 declare module "lodash" {
     interface LoDashStatic {

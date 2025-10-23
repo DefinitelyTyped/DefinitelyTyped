@@ -1,4 +1,4 @@
-import * as koa from "koa";
+import koa = require("koa");
 
 declare function koaConditionalGet(): koa.Middleware;
 

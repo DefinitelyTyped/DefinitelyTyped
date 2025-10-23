@@ -1,4 +1,4 @@
-import * as clc from "cli-color";
+import clc = require("cli-color");
 
 export interface LineBufferOptions {
     x?: number | undefined;

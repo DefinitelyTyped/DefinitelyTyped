@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 
 declare namespace apiErrorHandler {
     // Body response: the JSON returned by api-error-handler

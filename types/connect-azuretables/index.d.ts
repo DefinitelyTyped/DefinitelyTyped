@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as session from "express-session";
+import express = require("express");
+import session = require("express-session");
 
 declare function connectAzureTable(
     session: (options?: session.SessionOptions) => express.RequestHandler,

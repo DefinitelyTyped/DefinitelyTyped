@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import * as IORedis from "ioredis";
+import IORedis = require("ioredis");
 
 declare class CrimsonQClient {
     constructor(ConnectionSettings: IORedis.RedisOptions);

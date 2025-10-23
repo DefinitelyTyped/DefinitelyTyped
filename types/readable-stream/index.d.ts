@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import type * as NodeStream from "stream";
+import NodeStream = require("stream");
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
