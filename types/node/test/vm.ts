@@ -77,7 +77,7 @@ import {
     });
 
     fn satisfies Function;
-    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    // $ExpectType NonSharedBuffer | undefined
     fn.cachedData;
     // $ExpectType boolean | undefined
     fn.cachedDataProduced;
@@ -215,6 +215,9 @@ import {
 
     resolveAndLinkDependencies(rootModule);
     rootModule.instantiate();
+
+    rootModule.hasAsyncGraph(); // $ExpectType boolean
+    rootModule.hasTopLevelAwait(); // $ExpectType boolean
 
     await rootModule.evaluate();
 });

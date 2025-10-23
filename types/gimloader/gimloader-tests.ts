@@ -44,3 +44,35 @@ api.patcher.before({}, "foo", () => true);
 GL.net.gamemode; // $ExpectType string
 api.net.gamemode; // $ExpectType string
 api.net.onLoad((type, gamemode) => {});
+
+GL.stores.phaser; // $ExpectType Phaser
+window.stores.phaser; // $ExpectType Phaser
+let worldManagerInstance!: Gimloader.Stores.WorldManager;
+worldManagerInstance; // $ExpectType WorldManager
+
+api.stores.me.movementSpeed; // $ExpectType number
+api.stores.loading.percentageAssetsLoaded; // $ExpectType number
+api.stores.worldOptions.terrainOptions[0].name; // $ExpectType string
+
+api.stores.phaser.scene.add; // $ExpectType GameObjectFactory
+api.stores.phaser.mainCharacter.input; // $ExpectType CharacterInput
+api.stores.phaser.mainCharacter.physics.getBody().rigidBody.translation(); // $ExpectType Vector
+
+const { actionManager, characterManager, inputManager, tileManager, worldManager } = api.stores.phaser.scene;
+actionManager; // $ExpectType ActionManager
+characterManager; // $ExpectType CharacterManager
+inputManager; // $ExpectType InputManager
+tileManager; // $ExpectType TileManager
+worldManager; // $ExpectType WorldManager
+
+let character = characterManager.characters.get("...")!; // $ExpectType Character
+character.setIsMain(true);
+inputManager.getMouseWorldXY(); // $ExpectType Vector
+tileManager.layerManager.getActualLayerDepth("..."); // $ExpectType number
+let device = worldManager.devices.getDeviceById("...")!; // $ExpectType Device
+device.colliders.list; // $ExpectType ColliderEntry[]
+device.colliders.list[0].options.r1; // $ExpectType number | undefined
+device.state; // $ExpectType Record<string, any>
+worldManager.physics.bodies.staticBodies; // $ExpectType Set<string>
+worldManager.devices.interactives.findClosestInteractiveDevice([], 0, 0); // $ExpectType Device | undefined
+worldManager.inGameTerrainBuilder.clearPreviewLayer();
