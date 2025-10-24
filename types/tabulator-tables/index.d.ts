@@ -1556,7 +1556,9 @@ export type GroupValuesArg = any[][];
 
 export type TextDirection = "auto" | "ltr" | "rtl";
 
-export type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: () => void) => string);
+export type GlobalTooltipOption =
+    | boolean
+    | ((event: MouseEvent, cell: CellComponent, onRender: () => void) => string | HTMLElement);
 
 export type CustomMutator = (
     value: any,
