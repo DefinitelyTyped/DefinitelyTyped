@@ -311,10 +311,10 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<{ plans: Plan[] }>;
-        create(request: PlanCreateRequest): Promise<Plan>;
+        all(): Promise<Plan[]>;
         find(planId: string): Promise<Plan>;
-        update(planId: string, updates: PlanCreateRequest): Promise<Plan>;
+        create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
+        update(planId: string, updates: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -1292,7 +1292,7 @@ declare namespace braintree {
             update?: DiscountUpdateRequest[];
         }[];
         id?: string;
-        modificationTokens?: string
+        modificationTokens?: string;
         neverExpires?: boolean | string;
         numberOfBillingCycles?: number | string;
         price: string | number;
@@ -2338,24 +2338,24 @@ declare namespace braintree {
      * Errors
      */
 
-    type ErrorType = 
-        | 'authenticationError'
-        | 'authorizationError' 
-        | 'gatewayTimeoutError'
-        | 'invalidChallengeError'
-        | 'invalidKeysError'
-        | 'invalidSignatureError'
-        | 'notFoundError'
-        | 'requestTimeoutError'
-        | 'serverError'
-        | 'serviceUnavailableError'
-        | 'testOperationPerformedInProductionError'
-        | 'tooManyRequestsError'
-        | 'unexpectedError'
-        | 'upgradeRequired';
+    type ErrorType =
+        | "authenticationError"
+        | "authorizationError"
+        | "gatewayTimeoutError"
+        | "invalidChallengeError"
+        | "invalidKeysError"
+        | "invalidSignatureError"
+        | "notFoundError"
+        | "requestTimeoutError"
+        | "serverError"
+        | "serviceUnavailableError"
+        | "testOperationPerformedInProductionError"
+        | "tooManyRequestsError"
+        | "unexpectedError"
+        | "upgradeRequired";
 
     export type BraintreeError = Error & { type: ErrorType };
-    
+
     /**
      * Validation errors
      */
