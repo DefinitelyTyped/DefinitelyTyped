@@ -246,7 +246,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
 // Plan Gateway
 (async () => {
-    // $ExpectType { plans: Plan[]; }
+    // $ExpectType Plan[];
     await gateway.plan.all();
 })();
 
