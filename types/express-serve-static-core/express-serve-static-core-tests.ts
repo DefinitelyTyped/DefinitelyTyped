@@ -167,7 +167,7 @@ app.post("/", (req, res) => {
     // @ts-expect-error
     req.params[0];
 
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
     res.send("ok"); // $ExpectType Response<any, Record<string, any>, number>
 });
 
@@ -176,7 +176,7 @@ app.route("/").post((req, res) => {
     // @ts-expect-error
     req.params[0];
 
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
     res.send("ok"); // $ExpectType Response<any, Record<string, any>, number>
 });
 
@@ -184,7 +184,7 @@ app.route("/").post((req, res) => {
 app.post("/" as string, (req, res) => {
     req.params[0]; // $ExpectType string
 
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
     res.send("ok"); // $ExpectType Response<any, Record<string, any>, number>
 });
 
@@ -192,7 +192,7 @@ app.post("/" as string, (req, res) => {
 app.route("/" as string).post((req, res) => {
     req.params[0]; // $ExpectType string
 
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
     res.send("ok"); // $ExpectType Response<any, Record<string, any>, number>
 });
 
@@ -202,7 +202,7 @@ app.get<never, { foo: string }>("/", (req, res) => {
     req.params.baz;
 
     res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
 });
 
 // No params, only response body type - under route
@@ -211,7 +211,7 @@ app.route("/").get<never, { foo: string }>((req, res) => {
     req.params.baz;
 
     res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
-    req.body; // $ExpectType any
+    req.body; // $ExpectType unknown
 });
 
 // No params, request body type and response body type

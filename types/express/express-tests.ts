@@ -51,7 +51,7 @@ namespace express_tests {
         }),
     );
     app.post("/search", express.urlencoded(), (req, res) => {
-        res.json(Object.keys(req.body));
+        res.json(Object.keys(req.body ?? {}));
     });
 
     const router = express.Router({ caseSensitive: true, mergeParams: true, strict: true });
