@@ -3,7 +3,7 @@
 
 import { Plugin, Request, ResponseToolkit, Server } from "@hapi/hapi";
 import * as Joi from "joi";
-import * as Knex from "knex";
+import Knex = require("knex");
 import * as Objection from "objection";
 
 export type ModelClass = typeof Model | typeof Objection.Model;

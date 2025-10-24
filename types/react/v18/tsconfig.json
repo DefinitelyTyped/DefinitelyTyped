@@ -30,6 +30,7 @@
             "react": [
                 "./index.d.ts"
             ]
-        }
+        },
+        "esModuleInterop": true
     }
 }

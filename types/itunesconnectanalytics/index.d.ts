@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 
 export class Itunes {
     constructor(username: string, password: string, options: ItunesOptions);

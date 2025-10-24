@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import * as http from "http";
 import { HttpError } from "http-errors";
-import * as send from "send";
+import send = require("send");
 
 /**
  * Create a new middleware function to serve files from within a given root directory.

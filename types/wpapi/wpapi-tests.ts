@@ -1,5 +1,5 @@
 // Initialize the client
-import * as WPAPI from "wpapi";
+import WPAPI from "wpapi";
 
 const wp = new WPAPI({ endpoint: "http://src.wordpress-develop.dev/wp-json" });
 

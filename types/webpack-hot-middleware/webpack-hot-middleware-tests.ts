@@ -13,7 +13,7 @@ webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
     heartbeat: 2000,
 });
 
-const multiCompiler = webpack([webpack.config.getNormalizedWebpackOptions({})])!;
+const multiCompiler = webpack([])!;
 
 webpackHotMiddlewareInstance = webpackHotMiddleware(multiCompiler);
 

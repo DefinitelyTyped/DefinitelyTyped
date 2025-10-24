@@ -1,5 +1,5 @@
-import * as Lightpick from "lightpick";
-import * as moment from "moment";
+import Lightpick from "lightpick";
+import moment from "moment";
 
 const inputField = new HTMLInputElement();
 const inputDate = moment();

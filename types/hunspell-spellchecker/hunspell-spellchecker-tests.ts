@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import * as Spellchecker from "hunspell-spellchecker";
+import Spellchecker from "hunspell-spellchecker";
 
 const spellchecker = new Spellchecker();
 

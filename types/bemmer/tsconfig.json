@@ -11,8 +11,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",

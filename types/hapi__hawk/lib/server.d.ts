@@ -1,5 +1,5 @@
 import * as http from "http";
-import * as request from "request";
+import request = require("request");
 
 import { Message } from "./client";
 import * as Crypto from "./crypto";

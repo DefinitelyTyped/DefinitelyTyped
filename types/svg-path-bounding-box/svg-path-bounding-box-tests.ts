@@ -1,4 +1,4 @@
-import * as svgPathBoundingBox from "svg-path-bounding-box";
+import svgPathBoundingBox from "svg-path-bounding-box";
 
 const bbox = svgPathBoundingBox("M300,200 h-150 a150,150 0 1,0 150,-150 z");
 

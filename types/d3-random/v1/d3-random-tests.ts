@@ -7,7 +7,7 @@
  */
 
 import * as d3Random from "d3-random";
-import * as seedrandom from "seedrandom";
+import seedrandom from "seedrandom";
 
 // ------------------------------------------------------------
 // Preparatory Steps

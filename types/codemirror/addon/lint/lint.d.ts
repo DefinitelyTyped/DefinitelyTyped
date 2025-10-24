@@ -1,4 +1,4 @@
-import * as CodeMirror from "../../";
+import CodeMirror = require("../../");
 
 export interface BaseLintStateOptions<T> {
     /** debounce delay before linting onChange */

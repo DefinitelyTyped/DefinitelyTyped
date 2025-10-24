@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "module": "node16",
-        "esModuleInterop": true,
         "lib": [
             "es6",
             "dom"

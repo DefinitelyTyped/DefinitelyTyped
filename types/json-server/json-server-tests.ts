@@ -1,6 +1,6 @@
 import * as jsonServer from "json-server";
-import * as lowdb from "lowdb";
-import * as FileSync from "lowdb/adapters/FileSync";
+import lowdb from "lowdb";
+import FileSync from "lowdb/adapters/FileSync";
 
 const server = jsonServer.create();
 

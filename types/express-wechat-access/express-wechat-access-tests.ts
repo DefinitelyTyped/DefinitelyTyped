@@ -1,5 +1,5 @@
 import express = require("express");
-import * as weAccessMiddleware from "express-wechat-access";
+import weAccessMiddleware from "express-wechat-access";
 
 const app: express.Application = express();
 
