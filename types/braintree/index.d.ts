@@ -120,6 +120,10 @@ declare namespace braintree {
         voidedAt: RangeFieldSearchFn<Date>;
     }) => void;
 
+    export type DisputeSearchFn = (search: {
+        status: MultiValueSearchFn<DisputeStatus>;
+    }) => void;
+
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
 
     export class Environment {
@@ -262,7 +266,7 @@ declare namespace braintree {
         finalize(disputeId: string): Promise<ValidatedResponse<Dispute>>;
         find(disputeId: string): Promise<Dispute>;
         removeEvidence(disputeId: string, evidenceId: string): Promise<ValidatedResponse<Dispute>>;
-        search(searchFn: any): stream.Readable;
+        search(searchFn: DisputeSearchFn): stream.Readable;
     }
 
     interface MerchantAccountGateway {
@@ -308,6 +312,9 @@ declare namespace braintree {
 
     interface PlanGateway {
         all(): Promise<{ plans: Plan[] }>;
+        create(request: PlanCreateRequest): Promise<Plan>;
+        find(planId: string): Promise<Plan>;
+        update(planId: string, updates: PlanCreateRequest): Promise<Plan>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -318,14 +325,14 @@ declare namespace braintree {
     }
 
     interface SubscriptionGateway {
-        cancel(subscriptionId: string): Promise<void>;
+        cancel(subscriptionId: string): Promise<Subscription>;
         create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
             amount?: string,
             submitForSettlement?: boolean,
-        ): Promise<ValidatedResponse<Subscription>>;
+        ): Promise<ValidatedResponse<Transaction>>;
         search(searchFn: any): stream.Readable;
         update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
     }
@@ -1267,6 +1274,31 @@ declare namespace braintree {
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
         updatedAt: string;
+    }
+
+    export interface PlanCreateRequest {
+        addOns?: {
+            add?: AddOnAddRequest[];
+            remove?: string[];
+            update?: AddOnUpdateRequest[];
+        }[];
+        billingDayOfMonth?: number | string;
+        billingFrequency?: number | string;
+        currencyIsoCode?: string;
+        description?: string;
+        discounts?: {
+            add?: DiscountAddRequest[];
+            remove?: string[];
+            update?: DiscountUpdateRequest[];
+        }[];
+        id?: string;
+        modificationTokens?: string
+        neverExpires?: boolean | string;
+        numberOfBillingCycles?: number | string;
+        price: string | number;
+        trialDuration?: number;
+        trialDurationUnit?: string;
+        trialPeriod?: boolean;
     }
 
     /**
@@ -2306,21 +2338,24 @@ declare namespace braintree {
      * Errors
      */
 
-    export interface AuthenticationError extends Error {}
-    export interface AuthorizationError extends Error {}
-    export interface GatewayTimeoutError extends Error {}
-    export interface InvalidChallengeError extends Error {}
-    export interface InvalidKeysError extends Error {}
-    export interface InvalidSignatureError extends Error {}
-    export interface NotFoundError extends Error {}
-    export interface RequestTimeoutError extends Error {}
-    export interface ServerError extends Error {}
-    export interface ServiceUnavailableError extends Error {}
-    export interface TestOperationPerformedInProductionError extends Error {}
-    export interface TooManyRequestsError extends Error {}
-    export interface UnexpectedError extends Error {}
-    export interface UpgradeRequired extends Error {}
+    type ErrorType = 
+        | 'authenticationError'
+        | 'authorizationError' 
+        | 'gatewayTimeoutError'
+        | 'invalidChallengeError'
+        | 'invalidKeysError'
+        | 'invalidSignatureError'
+        | 'notFoundError'
+        | 'requestTimeoutError'
+        | 'serverError'
+        | 'serviceUnavailableError'
+        | 'testOperationPerformedInProductionError'
+        | 'tooManyRequestsError'
+        | 'unexpectedError'
+        | 'upgradeRequired';
 
+    export type BraintreeError = Error & { type: ErrorType };
+    
     /**
      * Validation errors
      */
