@@ -49,7 +49,7 @@ declare namespace TurndownService {
 
         add(key: Filter, rule: Rule): void;
         forEach(callback: (rule: Rule, index: number) => any): void;
-        forNode(node: Node): Rule;
+        forNode(node: HTMLElement): Rule;
         keep(filter: Filter): void;
         remove(filter: Filter): void;
     }
@@ -62,7 +62,7 @@ declare namespace TurndownService {
 
     type ReplacementFunction = (
         content: string,
-        node: Node,
+        node: HTMLElement,
         options: Options,
     ) => string;
 
