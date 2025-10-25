@@ -88,9 +88,13 @@ export interface WebApp {
      * isStateStable=true, which will allow you to track when the stable state
      * of the height of the visible area changes.
      */
+    isFullscreen: boolean;
+    /**
+    * Allows you to open a mini-application in full screen mode.
+    */
     viewportStableHeight: number;
     /**
-     * Current header color in the #RRGGBB format.
+     * Constant viewport height without taking keyboard appearance into account.
      */
     headerColor: string;
     /**
@@ -215,26 +219,10 @@ export interface WebApp {
      * A method that sets the app event handler. Check the list of available
      * events.
      */
-    onEvent(eventType: "activated", eventHandler: ActivatedCallback): void;
-    onEvent(eventType: "deactivated", eventHandler: DeactivatedCallback): void;
-    onEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
-    onEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
-    onEvent(eventType: "safeAreaChanged", eventHandler: SafeAreaChangedChangedCallback): void;
-    onEvent(eventType: "contentSafeAreaChanged", eventHandler: ContentSafeAreaChangedCallback): void;
-    onEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
-    onEvent(eventType: "secondaryButtonClicked", eventHandler: SecondaryButtonClickedCallback): void;
-    onEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
-    onEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
-    onEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
-    onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
-    onEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
-    onEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
-    onEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
-    onEvent(eventType: "writeAccessRequested", eventHandler: WriteAccessRequestedCallback): void;
-    onEvent(eventType: "contactRequested", eventHandler: ContactRequestedCallback): void;
-    onEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
-    onEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
-    onEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    onEvent(eventType: "fullscreenChanged", eventHandler:): void;
+    onEvent(eventType: "fullscreenFailed", eventHandler: FullscreenFailedCallback): void;
+    onEvent(eventType: "homeScreenAdded", eventHandler: HomeScreenAddedCallback): void;
+    onEvent(eventType: "homeScreenChecked", eventHandler: HomeScreenCheckedCallback): void;
     onEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
     onEvent(eventType: "fullscreenFailed", eventHandler: FullscreenFailedCallback): void;
     onEvent(eventType: "homeScreenAdded", eventHandler: HomeScreenAddedCallback): void;
@@ -258,29 +246,9 @@ export interface WebApp {
     onEvent(eventType: "emojiStatusSet", eventHandler: EmojiStatusSetCallback): void;
     onEvent(eventType: "emojiStatusFailed", eventHandler: EmojiStatusFailedCallback): void;
     onEvent(eventType: "emojiStatusAccessRequested", eventHandler: EmojiStatusAccessRequestedCallback): void;
-    onEvent(eventType: "fileDownloadRequested", eventHandler: FileDownloadRequestedCallback): void;
+    onEvent(eventType: "fileDownloadRequested", eventHandler: FileDownloadRequestedCallback): void
 
     /** A method that deletes a previously set event handler. */
-    offEvent(eventType: "activated", eventHandler: ActivatedCallback): void;
-    offEvent(eventType: "deactivated", eventHandler: DeactivatedCallback): void;
-    offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
-    offEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
-    offEvent(eventType: "safeAreaChanged", eventHandler: SafeAreaChangedChangedCallback): void;
-    offEvent(eventType: "contentSafeAreaChanged", eventHandler: ContentSafeAreaChangedCallback): void;
-    offEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
-    offEvent(eventType: "secondaryButtonClicked", eventHandler: SecondaryButtonClickedCallback): void;
-    offEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
-    offEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
-    offEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
-    offEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
-    offEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
-    offEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
-    offEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
-    offEvent(eventType: "writeAccessRequested", eventHandler: WriteAccessRequestedCallback): void;
-    offEvent(eventType: "contactRequested", eventHandler: ContactRequestedCallback): void;
-    offEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
-    offEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
-    offEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
     offEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
     offEvent(eventType: "fullscreenFailed", eventHandler: FullscreenFailedCallback): void;
     offEvent(eventType: "homeScreenAdded", eventHandler: HomeScreenAddedCallback): void;
@@ -476,6 +444,9 @@ export interface WebApp {
      * the method is not called, the placeholder will be hidden only when the
      * page is fully loaded.
      */
+    requestFullscreen(): void;
+  /** A method is used to enable fullscreen mode inside Telegram WebApp. */
+
     ready(): void;
     /**
      * A method that expands the Web App to the maximum available height. To
@@ -584,7 +555,7 @@ export type BiometricAuthRequestedCallback = (eventData: {
     biometricToken?: string;
 }) => void;
 export type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
-export type FullscreenChangedCallback = () => void;
+export type FullscreenChangedCallback = (eventData: { isFullscreen: boolean }) => void;
 export type FullscreenFailedCallback = (eventData: {
     error: "UNSUPPORTED" | "ALREADY_FULLSCREEN";
 }) => void;
@@ -626,6 +597,7 @@ export type EmojiStatusAccessRequestedCallback = (eventData: {
 export type FileDownloadRequestedCallback = (eventData: {
     status: "downloading" | "cancelled";
 }) => void;
+export type FullscreenChangedCallback = (eventData: { is_fullscreen: boolean }) => void;
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram
