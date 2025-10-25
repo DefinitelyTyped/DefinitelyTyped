@@ -1,12 +1,39 @@
 declare var fbq: facebook.Pixel.Event;
 
 declare namespace facebook.Pixel {
+    declare enum EventTypeEnum {
+        INIT = 'init',
+        TRACK = 'track',
+        TRACK_CUSTOM = 'trackCustom',
+        TRACK_SINGLE = 'trackSingle'
+    }
+
+    declare enum EventNameEnum {
+        AddPaymentInfo = 'AddPaymentInfo',
+        AddToCart = 'AddToCart',
+        AddToWishlist = 'AddToWishlist',
+        CompleteRegistration = 'CompleteRegistration',
+        Contact = 'Contact',
+        CustomizeProduct = 'CustomizeProduct',
+        Donate = 'Donate',
+        FindLocation = 'FindLocation',
+        InitiateCheckout = 'InitiateCheckout',
+        Lead = 'Lead',
+        Purchase = 'Purchase',
+        Schedule = 'Schedule',
+        Search = 'Search',
+        StartTrial = 'StartTrial',
+        SubmitApplication = 'SubmitApplication',
+        Subscribe = 'Subscribe',
+        ViewContent = 'ViewContent'
+    }
+    
     interface Event {
-        (eventType: string, InitialAppId: string): void;
+        (eventType: EventTypeEnum.INIT, InitialAppId: string): void;
         (
-            eventType: string,
+            eventType: EventTypeEnum,
             InitialAppId: string,
-            eventName: string,
+            eventName: EventNameEnum,
             parameters:
                 | facebook.Pixel.ViewContentParameters
                 | ViewContentParameters
@@ -22,44 +49,44 @@ declare namespace facebook.Pixel {
             option?: EventIDOptions,
         ): void;
 
-        (eventType: string, eventName: string): void;
+        (eventType: EventTypeEnum, eventName: EventNameEnum): void;
         (
-            eventType: string,
-            eventName: string,
+            eventType: EventTypeEnum,
+            eventName: EventNameEnum.ViewContent,
             parameters: facebook.Pixel.ViewContentParameters,
             option?: EventIDOptions,
         ): void;
-        (eventType: string, eventName: string, parameters: ViewContentParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: SearchParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: AddToCartParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: AddToWishlistParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: InitiateCheckoutParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: AddPaymentInfoParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: PurchaseParameters, option?: EventIDOptions): void;
-        (eventType: string, eventName: string, parameters: LeadParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.ViewContent, parameters: ViewContentParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.Search, parameters: SearchParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.AddToCart, parameters: AddToCartParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.AddToWishlist, parameters: AddToWishlistParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.InitiateCheckout, parameters: InitiateCheckoutParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.AddPaymentInfo, parameters: AddPaymentInfoParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.Purchase, parameters: PurchaseParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum.TRACK, eventName: EventNameEnum.Lead, parameters: LeadParameters, option?: EventIDOptions): void;
         (
-            eventType: string,
-            eventName: string,
+            eventType: EventTypeEnum.TRACK,
+            eventName: EventNameEnum.CompleteRegistration,
             parameters: CompleteRegistrationParameters,
             option?: EventIDOptions,
         ): void;
-        (eventType: string, eventName: string, parameters: CustomParameters, option?: EventIDOptions): void;
+        (eventType: EventTypeEnum, eventName: string, parameters: CustomParameters, option?: EventIDOptions): void;
 
         (
-            eventType: string,
-            eventName: string,
+            eventType: EventTypeEnum.TRACK,
+            eventName: EventNameEnum.AddToCart,
             parameters: facebook.Pixel.DPA.AddToCartParameters,
             option?: EventIDOptions,
         ): void;
         (
-            eventType: string,
-            eventName: string,
+            eventType: EventTypeEnum.TRACK,
+            eventName: EventNameEnum.Purchase,
             parameters: facebook.Pixel.DPA.PurchaseParameters,
             option?: EventIDOptions,
         ): void;
         (
-            eventType: string,
-            eventName: string,
+            eventType: EventTypeEnum.TRACK,
+            eventName: EventNameEnum.ViewContent,
             parameters: facebook.Pixel.DPA.ViewContentParameters,
             option?: EventIDOptions,
         ): void;
