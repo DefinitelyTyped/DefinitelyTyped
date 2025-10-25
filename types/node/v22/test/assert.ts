@@ -1,28 +1,26 @@
 import assert = require("node:assert");
+import strict = require("node:assert/strict");
 
 {
-    const { stack } = new assert.AssertionError({});
+    // Assert that all assert exports are present in assert/strict
+    const keys: keyof typeof strict = {} as keyof typeof assert;
 }
 
 {
-    const { message } = new assert.AssertionError({
+    const assertionError = new assert.AssertionError({
         actual: 1,
         expected: 2,
         operator: "strictEqual",
+        diff: "full",
     });
 
-    try {
-        assert.strictEqual(1, 2);
-    } catch (err) {
-        assert(err instanceof assert.AssertionError);
-        assert.strictEqual(err.message, message);
-        assert.strictEqual(err.name, "AssertionError");
-        assert.strictEqual(err.actual, 1);
-        assert.strictEqual(err.expected, 2);
-        assert.strictEqual(err.code, "ERR_ASSERTION");
-        assert.strictEqual(err.operator, "strictEqual");
-        assert.strictEqual(err.generatedMessage, true);
-    }
+    // Assertion errors are native errors
+    const nativeError: Error = assertionError;
+
+    assertionError.message; // $ExpectType string
+    assertionError.code; // $ExpectType "ERR_ASSERTION"
+    assertionError.operator; // $ExpectType string
+    assertionError.generatedMessage; // $ExpectType boolean
 }
 
 {
@@ -109,9 +107,6 @@ assert.strict.strict.strict(1);
 assert.strict.strict(1);
 assert.strict(1);
 
-const strictAssertionError: assert.strict.AssertionError = new assert.strict.AssertionError();
-assert(1);
-
 assert.match("test", /test/, new Error("yeet"));
 assert.match("test", /test/, "yeet");
 
@@ -143,50 +138,67 @@ assert["fail"](true, true, "works like a charm");
 
 assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
+// Test assert predicates
 {
-    const a = null as any;
+    let a!: Error | null;
     assert.ifError(a);
-    a; // $ExpectType null | undefined
+    a; // $ExpectType null
+
+    let b!: boolean;
+    assert(b);
+    b; // $ExpectType true
+
+    let c!: boolean;
+    assert.ok(c);
+    c; // $ExpectType true
+
+    let d!: unknown;
+    assert.strictEqual(d, "test");
+    d; // $ExpectType "test"
+
+    let e!: unknown;
+    strict.equal(e, "test");
+    e; // $ExpectType "test"
+
+    let f!: unknown;
+    assert.deepStrictEqual(f, { n: 2 as const });
+    f; // $ExpectType { n: 2; }
+
+    let g!: unknown;
+    strict.deepEqual(g, { n: 2 as const });
+    g; // $ExpectType { n: 2; }
 }
 
 {
-    const a = true as boolean;
-    assert(a);
-    a; // $ExpectType true
-}
+    let n!: number;
+    let _1: 1;
 
-{
-    const a = 13 as number | null | undefined;
-    assert(a);
-    a; // $ExpectType number
-}
+    const legacyCustomAssert: assert.Assert = new assert.Assert({
+        strict: false,
+    });
+    legacyCustomAssert.equal(n, 1);
+    // @ts-expect-error non-strict assert.equal is not an assert predicate
+    _1 = n;
 
-{
-    const a = true as boolean;
-    assert.ok(a);
-    a; // $ExpectType true
-}
+    // The type annotation is mandatory here to avoid TS2775
+    const strictCustomAssert: assert.AssertStrict = new assert.Assert({
+        diff: "full",
+    });
+    strictCustomAssert.equal(n, 1);
+    _1 = n;
 
-{
-    const a = 13 as number | null | undefined;
-    assert.ok(a);
-    a; // $ExpectType number
-}
+    // @ts-expect-error legacy Assert instances should not be assignable to AssertStrict
+    const invalidAssignment: assert.AssertStrict = new assert.Assert({
+        strict: false,
+    });
 
-{
-    const a = "test" as any;
-    assert.strictEqual(a, "test");
-    a; // $ExpectType string || "test"
+    // Verify that all assertion methods are present on the Assert interfaces
+    const legacyKeys: keyof assert.Assert = {} as Exclude<
+        keyof typeof assert,
+        "Assert" | "AssertionError" | "CallTracker" | "strict"
+    >;
+    const strictKeys: keyof assert.AssertStrict = {} as Exclude<
+        keyof typeof strict,
+        "Assert" | "AssertionError" | "CallTracker" | "strict"
+    >;
 }
-
-{
-    const a = { b: 2 } as any;
-    assert.deepStrictEqual(a, { b: 2 });
-    a; // $ExpectType { b: number; }
-}
-
-// This is a regression test for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/71889.
-// Due to the nature of the bug this can't be switched to `import strict from "node:assert/strict";`
-// or to `import strict = require("node:assert/strict");`
-import { AssertionError } from "node:assert/strict";
-new AssertionError({ message: "some message" });

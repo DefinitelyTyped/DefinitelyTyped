@@ -257,7 +257,7 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
     });
     resolver.cancel();
 
-    resolver = new Resolver({ timeout: -1, tries: 3 });
+    resolver = new Resolver({ timeout: -1, tries: 3, maxTimeout: 0 });
 }
 
 {

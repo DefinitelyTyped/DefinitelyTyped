@@ -16,6 +16,7 @@ import {
     rootCertificates,
     SecureContext,
     Server,
+    setDefaultCACertificates,
     TlsOptions,
     TLSSocket,
 } from "node:tls";
@@ -66,6 +67,7 @@ import {
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;
     const cyphers: string = DEFAULT_CIPHERS;
+    setDefaultCACertificates(caCertificates);
 
     const buf: Buffer = tlsSocket.exportKeyingMaterial(123, "test", Buffer.from("nope"));
 
