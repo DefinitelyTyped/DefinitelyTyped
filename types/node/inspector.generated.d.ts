@@ -3,12 +3,11 @@
 // See scripts/generate-inspector/README.md for information on how to update the protocol definitions.
 // Changes to the module itself should be added to the generator template (scripts/generate-inspector/inspector.d.ts.template).
 
-declare module "inspector" {
+declare module "node:inspector" {
     interface InspectorNotification<T> {
         method: string;
         params: T;
     }
-
     namespace Schema {
         /**
          * Description of the protocol domain.
@@ -2033,7 +2032,6 @@ declare module "inspector" {
             eof: boolean;
         }
     }
-
     interface Session {
         /**
          * Posts a message to the inspector back-end. `callback` will be notified when
@@ -2428,7 +2426,6 @@ declare module "inspector" {
         post(method: "IO.read", callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
         post(method: "IO.close", params?: IO.CloseParameterType, callback?: (err: Error | null) => void): void;
         post(method: "IO.close", callback?: (err: Error | null) => void): void;
-
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3145,8 +3142,7 @@ declare module "inspector" {
         prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
     }
 }
-
-declare module "inspector/promises" {
+declare module "node:inspector/promises" {
     export {
         Schema,
         Runtime,
@@ -3162,8 +3158,7 @@ declare module "inspector/promises" {
         IO,
     } from 'inspector';
 }
-
-declare module "inspector/promises" {
+declare module "node:inspector/promises" {
     import {
         InspectorNotification,
         Schema,
@@ -3179,7 +3174,6 @@ declare module "inspector/promises" {
         Target,
         IO,
     } from "inspector";
-
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
      * back-end and receiving message responses and notifications.
@@ -3514,7 +3508,6 @@ declare module "inspector/promises" {
          */
         post(method: "IO.read", params?: IO.ReadParameterType): Promise<IO.ReadReturnType>;
         post(method: "IO.close", params?: IO.CloseParameterType): Promise<void>;
-
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.

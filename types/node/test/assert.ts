@@ -23,68 +23,6 @@ import strict = require("node:assert/strict");
     assertionError.generatedMessage; // $ExpectType boolean
 }
 
-{
-    const tracker = new assert.CallTracker();
-    const callsFunc = tracker.calls((a: number) => a, 2);
-    const res = callsFunc(42);
-    const report = tracker.report();
-
-    const calls = tracker.getCalls(callsFunc);
-    calls[0].thisArg;
-    calls[0].arguments;
-
-    tracker.reset();
-    tracker.reset(callsFunc);
-
-    try {
-        tracker.verify();
-    } catch (err) {
-        assert(err instanceof assert.AssertionError);
-    }
-}
-
-{
-    const tracker = new assert.CallTracker();
-
-    let exact: number | undefined;
-
-    // $ExpectType () => void
-    tracker.calls();
-    // $ExpectType () => void
-    tracker.calls(7);
-    // $ExpectType () => void
-    tracker.calls(exact);
-
-    // $ExpectType () => void
-    tracker.calls(undefined);
-    // $ExpectType () => void
-    tracker.calls(undefined, undefined);
-    // $ExpectType () => void
-    tracker.calls(undefined, 7);
-    // $ExpectType () => void
-    tracker.calls(undefined, exact);
-
-    let f1: (a: number) => number = () => 3;
-    // $ExpectType (a: number) => number
-    tracker.calls(f1);
-    // $ExpectType (a: number) => number
-    tracker.calls(f1, undefined);
-    // $ExpectType (a: number) => number
-    tracker.calls(f1, 42);
-    // $ExpectType (a: number) => number
-    tracker.calls(f1, exact);
-
-    let f2: ((a: number) => number) | undefined;
-    // $ExpectType ((a: number) => number) | (() => void)
-    tracker.calls(f2);
-    // $ExpectType ((a: number) => number) | (() => void)
-    tracker.calls(f2, undefined);
-    // $ExpectType ((a: number) => number) | (() => void)
-    tracker.calls(f2, 42);
-    // $ExpectType ((a: number) => number) | (() => void)
-    tracker.calls(f2, exact);
-}
-
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
 assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
@@ -156,14 +94,6 @@ assert.match("test", /test/, "yeet");
     assert.fail("stuff broke"); // $ExpectType never
 });
 
-(() => {
-    assert.fail("actual", "expected", "message"); // $ExpectType never
-});
-
-(() => {
-    assert.fail(1, 2, undefined, ">"); // $ExpectType never
-});
-
 assert(true, "it's working");
 
 assert.ok(true, "inner functions work as well");
@@ -175,8 +105,6 @@ assert.throws(
     () => {},
     "works wonderfully",
 );
-
-assert["fail"](true, true, "works like a charm");
 
 assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
@@ -238,10 +166,10 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     // Verify that all assertion methods are present on the Assert interfaces
     const legacyKeys: keyof assert.Assert = {} as Exclude<
         keyof typeof assert,
-        "Assert" | "AssertionError" | "CallTracker" | "strict"
+        "Assert" | "AssertionError" | "strict"
     >;
     const strictKeys: keyof assert.AssertStrict = {} as Exclude<
         keyof typeof strict,
-        "Assert" | "AssertionError" | "CallTracker" | "strict"
+        "Assert" | "AssertionError" | "strict"
     >;
 }

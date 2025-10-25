@@ -4,7 +4,7 @@
  * to the `constants` property exposed by the relevant module. For instance,
  * `require('node:fs').constants` and `require('node:os').constants`.
  */
-declare module "constants" {
+declare module "node:constants" {
     const constants:
         & typeof import("node:os").constants.dlopen
         & typeof import("node:os").constants.errno
@@ -14,8 +14,7 @@ declare module "constants" {
         & typeof import("node:crypto").constants;
     export = constants;
 }
-
-declare module "node:constants" {
-    import constants = require("constants");
+declare module "constants" {
+    import constants = require("node:constants");
     export = constants;
 }

@@ -44,7 +44,7 @@
  * @since v15.0.0
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/assert/strict.js)
  */
-declare module "assert/strict" {
+declare module "node:assert/strict" {
     import {
         Assert,
         AssertionError,
@@ -52,9 +52,6 @@ declare module "assert/strict" {
         AssertOptions,
         AssertPredicate,
         AssertStrict,
-        CallTracker,
-        CallTrackerCall,
-        CallTrackerReportInformation,
         deepStrictEqual,
         doesNotMatch,
         doesNotReject,
@@ -79,9 +76,6 @@ declare module "assert/strict" {
             AssertOptions,
             AssertPredicate,
             AssertStrict,
-            CallTracker,
-            CallTrackerCall,
-            CallTrackerReportInformation,
             deepStrictEqual,
             deepStrictEqual as deepEqual,
             doesNotMatch,
@@ -105,7 +99,7 @@ declare module "assert/strict" {
     }
     export = strict;
 }
-declare module "node:assert/strict" {
-    import strict = require("assert/strict");
+declare module "assert/strict" {
+    import strict = require("node:assert/strict");
     export = strict;
 }
