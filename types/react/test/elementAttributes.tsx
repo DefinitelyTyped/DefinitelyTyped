@@ -168,6 +168,34 @@ const testCases = [
             Hide
         </button>
     </>,
+    // Invoker Commands API
+    <>
+        <dialog id="my-dialog">Dialog content</dialog>
+        <div id="my-popover" popover="auto">Popover content</div>
+
+        {/* Dialog commands */}
+        <button commandfor="my-dialog" command="show-modal">Open Dialog</button>
+        <button commandfor="my-dialog" command="close">Close Dialog</button>
+        <button commandfor="my-dialog" command="request-close">Request Close Dialog</button>
+
+        {/* Popover commands */}
+        <button commandfor="my-popover" command="toggle-popover">Toggle Popover</button>
+        <button commandfor="my-popover" command="show-popover">Show Popover</button>
+        <button commandfor="my-popover" command="hide-popover">Hide Popover</button>
+
+        {/* Custom commands starting with "--" */}
+        <button commandfor="my-element" command="--custom-action">Custom Action</button>
+        <button commandfor="my-element" command="--my-command">My Command</button>
+
+        {/* Invalid command value should error (doesn't start with "--" and not a built-in) */}
+        <button
+            commandfor="my-dialog"
+            // @ts-expect-error
+            command="invalid-command"
+        >
+            Bad Command
+        </button>
+    </>,
     <>
         <template>
             <div part="base" />
