@@ -152,6 +152,8 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = requestContext.identity.user;
     strOrNull = requestContext.identity.userAgent;
     strOrNull = requestContext.identity.userArn;
+    strOrNull = requestContext.identity.vpcId;
+    strOrNull = requestContext.identity.vpceId;
     strOrUndefined = requestContext.messageDirection;
     strOrUndefinedOrNull = requestContext.messageId;
     str = requestContext.path;
