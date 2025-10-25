@@ -1,5 +1,3 @@
-// For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
-
 /**
  * @deprecated Use {@link jasmine.ImplementationCallback} instead.
  */
@@ -1044,7 +1042,7 @@ declare namespace jasmine {
         duration: number | null;
 
         /**
-         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         * User-supplied properties, if any, that were set using {@link Env.setSuiteProperty}
          */
         properties: { [key: string]: unknown } | null;
     }
@@ -1061,6 +1059,11 @@ declare namespace jasmine {
         pendingReason: string;
 
         debugLogs: DebugLogEntry[] | null;
+
+        /**
+         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         */
+        properties: { [key: string]: unknown } | null;
     }
 
     interface DebugLogEntry {
