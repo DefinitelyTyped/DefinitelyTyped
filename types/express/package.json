@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/body-parser": "*",
         "@types/express-serve-static-core": "^5.0.0",
-        "@types/serve-static": "*"
+        "@types/serve-static": "^1"
     },
     "devDependencies": {
         "@types/express": "workspace:.",

@@ -9,7 +9,7 @@
         "@types/body-parser": "*",
         "@types/express-serve-static-core": "^4.17.33",
         "@types/qs": "*",
-        "@types/serve-static": "*"
+        "@types/serve-static": "^1"
     },
     "devDependencies": {
         "@types/express": "workspace:.",
