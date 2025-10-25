@@ -13787,7 +13787,7 @@ declare namespace chrome {
             requestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
-             * List of {@link tabs.Tab.id} which the rule should not match.
+             * List of {@link tabs.Tab.id} which the rule should match.
              * An ID of {@link tabs.TAB_ID_NONE} matches requests which don't originate from a tab.
              * An empty list is not allowed. Only supported for session-scoped rules.
              * @since Chrome 92
