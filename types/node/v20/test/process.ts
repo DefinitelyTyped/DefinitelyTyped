@@ -32,6 +32,7 @@ import { fileURLToPath } from "node:url";
     process.once("removeListener", (event: string | symbol, listener: Function) => {});
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => {});
+    process.on("workerMessage", (value: any, source: number) => {});
     process.on("worker", w => {
         w; // $ExpectType Worker
     });
