@@ -6,6 +6,14 @@ export interface ChannelNameWithParams {
 }
 
 /**
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/adapters.js
+ */
+export const adapters: {
+    logger: Console;
+    WebSocket: typeof WebSocket;
+};
+
+/**
  * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/consumer.js
  */
 export class Consumer {
