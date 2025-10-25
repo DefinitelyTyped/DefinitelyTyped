@@ -3733,6 +3733,12 @@ innerAudioContext.onError((res) => {
         fetchedData: string;
         /** 客户端拿到缓存数据的时间戳 */
         timeStamp: number;
+        /** 小程序页面路径 */
+        path: string;
+        /** 传给页面的 query 参数 */
+        query: string;
+        /** 进入小程序的场景值 */
+        scene: number;
     }
     interface OnBeaconServiceChangeCallbackResult {
         /** 服务目前是否可用 */
