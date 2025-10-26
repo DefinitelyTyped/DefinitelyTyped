@@ -53,6 +53,7 @@ consumer.disconnect(); // $ExpectType void
     subscription.away();
     subscription.perform("action"); // $ExpectType boolean
     subscription.perform("action", {}); // $ExpectType boolean
+    subscription.send({ hello: "world" }); // $ExpectType boolean
     subscription.unsubscribe();
 
     // @ts-expect-error (typo)

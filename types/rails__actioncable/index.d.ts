@@ -41,6 +41,7 @@ export class Subscription<M extends BaseMixin = BaseMixin> {
 
     constructor(consumer: Consumer, params: ChannelNameWithParams, mixin: M);
     perform(action: string, data?: object): boolean;
+    send(data: any): boolean;
     unsubscribe(): this;
 }
 
