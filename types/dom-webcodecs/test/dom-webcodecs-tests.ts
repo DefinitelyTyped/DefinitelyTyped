@@ -431,7 +431,7 @@ videoDecoder.configure({ description: new Uint8Array(0) });
 // $ExpectType void
 videoDecoder.configure(videoDecoderConfig);
 
-// $ExpectType void  
+// $ExpectType void
 videoDecoder.configure(videoDecoderConfigWithRotationAndFlip);
 
 // additional properties are allowed
