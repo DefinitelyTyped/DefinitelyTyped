@@ -1,4 +1,7 @@
-import { createConsumer, logger } from "@rails/actioncable";
+import { adapters, createConsumer, logger } from "@rails/actioncable";
+
+adapters.logger = window.console;
+adapters.WebSocket = window.WebSocket;
 
 logger.enabled = true;
 
