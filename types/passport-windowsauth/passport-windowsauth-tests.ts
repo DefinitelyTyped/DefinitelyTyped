@@ -1,5 +1,5 @@
 import * as passport from "passport";
-import * as WindowsStrategy from "passport-windowsauth";
+import WindowsStrategy from "passport-windowsauth";
 
 const auth = new passport.Authenticator();
 auth.use(

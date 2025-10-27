@@ -9,7 +9,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "types": [],
-        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

@@ -1,4 +1,4 @@
-import * as harmonBinary from "harmon";
+import harmonBinary from "harmon";
 type Select = harmonBinary.Select;
 
 const select1: Select = { func: () => {}, query: "query1" };

@@ -13,6 +13,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/net.js)
  */
 declare module "net" {
+    import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import * as dns from "node:dns";
@@ -380,7 +381,7 @@ declare module "net" {
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        addListener(event: "data", listener: (data: Buffer) => void): this;
+        addListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         addListener(event: "drain", listener: () => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -396,7 +397,7 @@ declare module "net" {
         emit(event: "connectionAttempt", ip: string, port: number, family: number): boolean;
         emit(event: "connectionAttemptFailed", ip: string, port: number, family: number, error: Error): boolean;
         emit(event: "connectionAttemptTimeout", ip: string, port: number, family: number): boolean;
-        emit(event: "data", data: Buffer): boolean;
+        emit(event: "data", data: NonSharedBuffer): boolean;
         emit(event: "drain"): boolean;
         emit(event: "end"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -412,7 +413,7 @@ declare module "net" {
             listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         on(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
-        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "data", listener: (data: NonSharedBuffer) => void): this;
         on(event: "drain", listener: () => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
@@ -431,7 +432,7 @@ declare module "net" {
         ): this;
         once(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
         once(event: "connect", listener: () => void): this;
-        once(event: "data", listener: (data: Buffer) => void): this;
+        once(event: "data", listener: (data: NonSharedBuffer) => void): this;
         once(event: "drain", listener: () => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
@@ -453,7 +454,7 @@ declare module "net" {
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        prependListener(event: "data", listener: (data: Buffer) => void): this;
+        prependListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         prependListener(event: "drain", listener: () => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
@@ -478,7 +479,7 @@ declare module "net" {
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         prependOnceListener(event: "drain", listener: () => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;

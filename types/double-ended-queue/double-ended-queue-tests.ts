@@ -1,4 +1,4 @@
-import * as Deque from "double-ended-queue";
+import Deque from "double-ended-queue";
 
 const a = new Deque<number>(); // $ExpectType Deque<number>
 const b = new Deque<string>(6); // $ExpectType Deque<string>

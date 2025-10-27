@@ -167,6 +167,7 @@
 /types/amqp/                                            @seikho @jonnysparkplugs
 /types/amqp-rpc/                                        @wokim
 /types/amqplib/                                         @mnahkies @abreits @nfantone @nickzelei @XVincentX @seonggwonyoon
+/types/amzn__synthetics-playwright/                     @kovacsandor
 /types/analog-clock/                                    @ihatecsv
 /types/analytics-node/                                  @fongandrew @thomasthiebaud
 /types/anchor-js/                                       @xt0rted
@@ -1913,7 +1914,7 @@
 /types/exit/                                            @Bartvds
 /types/exorcist/                                        @TeamworkGuy2 @BendingBender
 /types/expand-tilde/                                    @carnesen
-/types/expect-cookies/                                  @dmurvihill
+/types/expect-cookies/                                  @dmurvihill @gregl83
 /types/expect-puppeteer/                                @tkrotoff @jfm710
 /types/expect.js/                                       @teppeis
 /types/expectations/                                    @vvakame
@@ -3540,7 +3541,7 @@
 /types/jalaali-js/                                      @alitaheri
 /types/japanese-characters/                             @peterblazejewicz
 /types/japanese-holidays/                               @syamatoo @peterblazejewicz
-/types/jasmine/                                         @borisyankov @theodorejb @lukas-zech-software @Engineer2B @cyungmann @Roaders @devoto13 @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
+/types/jasmine/                                         @borisyankov @theodorejb @lukas-zech-software @Engineer2B @cyungmann @Roaders @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
 /types/jasmine/v1/                                      @borisyankov
 /types/jasmine/v2/                                      @borisyankov @theodorejb @davidparsson @gmoothart @lukas-zech-software @Engineer2B @cyungmann @devoto13 @fdim
 /types/jasmine/v3/                                      @borisyankov @theodorejb @davidparsson @lukas-zech-software @Engineer2B @cyungmann @Roaders @devoto13 @fdim @kolodny @stephenfarrar @djungowski @chivesrs @kirjs @Semigradsky
@@ -4762,7 +4763,7 @@
 /types/mcping-js/                                       @Inrixia
 /types/mcrypt/                                          @pluma
 /types/mcustomscrollbar/                                @flurg
-/types/md5/                                             @arcdev1 @jprogrammer @peterblazejewicz @DethAriel
+/types/md5/                                             @arcdev1 @peterblazejewicz @DethAriel
 /types/mdast/                                           @ChristianMurphy @lujun2 @remcohaszing @wooorm @remcohaszing
 /types/mdast/v3/                                        @ChristianMurphy @lujun2 @remcohaszing @wooorm
 /types/mdns/                                            @reppners
@@ -5443,7 +5444,7 @@
 /types/optimist/                                        @soywiz @chbrown
 /types/optimize-css-assets-webpack-plugin/              @odnamrataizem @skovy
 /types/oracle__oraclejet/                               @nolakara @jingxwu
-/types/oracledb/                                        @connorjayfitzgerald @dannyb648 @jacobwheale @hjamil-24 @sharadraju
+/types/oracledb/                                        @connorjayfitzgerald @dannyb648 @jacobwheale @sudarshan12s @sharadraju
 /types/oracledb/v3/                                     @Bigous @connorjayfitzgerald
 /types/orchestrator/                                    @tkQubo @TeamworkGuy2
 /types/orientjs/                                        @saeedtabrizi @aleksey-rezvov
@@ -6016,7 +6017,7 @@
 /types/radix64/                                         @huan086
 /types/raf/                                             @BenLorantfy
 /types/raf-schd/                                        @adambrgmn
-/types/rails__actioncable/                              @martin-badin
+/types/rails__actioncable/                              @martin-badin @shunichi
 /types/rails__activestorage/                            @imustafin @cbothner
 /types/rails__request.js/                               @alexandergitter
 /types/rails__ujs/                                      @fsubal @abcang
@@ -7700,7 +7701,7 @@
 /types/tabulator-tables/                                @jojoshua @mike-lischke
 /types/tadashi__koa-jwt-authz/                          @Shqrp
 /types/tail/                                            @spacejack @devindavies
-/types/tampermonkey/                                    @silverwzw @nikolay-borzov @taozhiyu @double-beep
+/types/tampermonkey/                                    @silverwzw @nikolay-borzov @taozhiyu @double-beep @ziuchen
 /types/tapable/                                         @e-cloud @johnnyreilly
 /types/tapable/v0/                                      @e-cloud
 /types/tapable/v1/                                      @e-cloud @johnnyreilly
@@ -8436,7 +8437,7 @@
 /types/wordfilter/                                      @mlc
 /types/wordpress-hash-node/                             @glennreyes
 /types/wordpress__admin/                                @oblakstudio
-/types/wordpress__block-editor/                         @dsifford @sirreal @dmsnell
+/types/wordpress__block-editor/                         @dsifford @sirreal @dmsnell @joshualip-plaudit
 /types/wordpress__block-library/                        @dsifford
 /types/wordpress__block-serialization-spec-parser/      @dsifford
 /types/wordpress__blocks/                               @dsifford @sirreal @dmsnell @tomasztunik @sunyatasattva @bastolen

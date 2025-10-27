@@ -1,7 +1,7 @@
 // Port of https://github.com/cpancake/steam-login/blob/master/example.js
 
-import * as express from "express";
-import * as session from "express-session";
+import express from "express";
+import session from "express-session";
 import * as steam from "steam-login";
 
 const app = express();

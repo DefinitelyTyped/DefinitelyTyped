@@ -1,4 +1,4 @@
-import * as Mark from "mark.js";
+import Mark from "mark.js";
 
 /* test instance */
 const mark = new Mark(document.querySelectorAll("div"));

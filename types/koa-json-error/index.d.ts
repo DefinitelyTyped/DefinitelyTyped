@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 
 type JSONError = Error & { status: number };
 

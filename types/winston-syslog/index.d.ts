@@ -2,7 +2,7 @@
 import * as dgram from "dgram";
 import * as glossy from "glossy";
 import * as net from "net";
-import * as Transport from "winston-transport";
+import Transport = require("winston-transport");
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
     host?: string | undefined;

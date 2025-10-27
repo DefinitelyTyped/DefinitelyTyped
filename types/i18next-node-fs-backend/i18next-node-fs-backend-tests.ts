@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import * as Backend from "i18next-node-fs-backend";
+import Backend from "i18next-node-fs-backend";
 
 var options = {
     backend: {

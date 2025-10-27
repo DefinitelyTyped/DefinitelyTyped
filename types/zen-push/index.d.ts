@@ -1,4 +1,4 @@
-import * as Observable from "zen-observable";
+import Observable = require("zen-observable");
 
 declare class PushStream<T> {
     readonly observable: Observable<T>;

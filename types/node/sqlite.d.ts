@@ -43,10 +43,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
+    import { PathLike } from "node:fs";
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
-    type SQLOutputValue = null | number | bigint | string | Uint8Array;
-    /** @deprecated Use `SQLInputValue` or `SQLOutputValue` instead. */
-    type SupportedValueType = SQLOutputValue;
+    type SQLOutputValue = null | number | bigint | string | NodeJS.NonSharedUint8Array;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -240,7 +239,7 @@ declare module "node:sqlite" {
          * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        constructor(path: PathLike, options?: DatabaseSyncOptions);
         /**
          * Registers a new aggregate function with the SQLite database. This method is a wrapper around
          * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
@@ -356,6 +355,47 @@ declare module "node:sqlite" {
          */
         prepare(sql: string): StatementSync;
         /**
+         * Creates a new `SQLTagStore`, which is an LRU (Least Recently Used) cache for
+         * storing prepared statements. This allows for the efficient reuse of prepared
+         * statements by tagging them with a unique identifier.
+         *
+         * When a tagged SQL literal is executed, the `SQLTagStore` checks if a prepared
+         * statement for that specific SQL string already exists in the cache. If it does,
+         * the cached statement is used. If not, a new prepared statement is created,
+         * executed, and then stored in the cache for future use. This mechanism helps to
+         * avoid the overhead of repeatedly parsing and preparing the same SQL statements.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * const sql = db.createSQLTagStore();
+         *
+         * db.exec('CREATE TABLE users (id INT, name TEXT)');
+         *
+         * // Using the 'run' method to insert data.
+         * // The tagged literal is used to identify the prepared statement.
+         * sql.run`INSERT INTO users VALUES (1, 'Alice')`;
+         * sql.run`INSERT INTO users VALUES (2, 'Bob')`;
+         *
+         * // Using the 'get' method to retrieve a single row.
+         * const id = 1;
+         * const user = sql.get`SELECT * FROM users WHERE id = ${id}`;
+         * console.log(user); // { id: 1, name: 'Alice' }
+         *
+         * // Using the 'all' method to retrieve all rows.
+         * const allUsers = sql.all`SELECT * FROM users ORDER BY id`;
+         * console.log(allUsers);
+         * // [
+         * //   { id: 1, name: 'Alice' },
+         * //   { id: 2, name: 'Bob' }
+         * // ]
+         * ```
+         * @since v24.9.0
+         * @returns A new SQL tag store for caching prepared statements.
+         */
+        createTagStore(maxSize?: number): SQLTagStore;
+        /**
          * Creates and attaches a session to the database. This method is a wrapper around
          * [`sqlite3session_create()`](https://www.sqlite.org/session/sqlite3session_create.html) and
          * [`sqlite3session_attach()`](https://www.sqlite.org/session/sqlite3session_attach.html).
@@ -410,7 +450,7 @@ declare module "node:sqlite" {
          * @returns Binary changeset that can be applied to other databases.
          * @since v22.12.0
          */
-        changeset(): Uint8Array;
+        changeset(): NodeJS.NonSharedUint8Array;
         /**
          * Similar to the method above, but generates a more compact patchset. See
          * [Changesets and Patchsets](https://www.sqlite.org/sessionintro.html#changesets_and_patchsets)
@@ -420,13 +460,80 @@ declare module "node:sqlite" {
          * @returns Binary patchset that can be applied to other databases.
          * @since v22.12.0
          */
-        patchset(): Uint8Array;
+        patchset(): NodeJS.NonSharedUint8Array;
         /**
          * Closes the session. An exception is thrown if the database or the session is not open. This method is a
          * wrapper around
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+    }
+    /**
+     * This class represents a single LRU (Least Recently Used) cache for storing
+     * prepared statements.
+     *
+     * Instances of this class are created via the database.createSQLTagStore() method,
+     * not by using a constructor. The store caches prepared statements based on the
+     * provided SQL query string. When the same query is seen again, the store
+     * retrieves the cached statement and safely applies the new values through
+     * parameter binding, thereby preventing attacks like SQL injection.
+     *
+     * The cache has a maxSize that defaults to 1000 statements, but a custom size can
+     * be provided (e.g., database.createSQLTagStore(100)). All APIs exposed by this
+     * class execute synchronously.
+     * @since v24.9.0
+     */
+    interface SQLTagStore {
+        /**
+         * Executes the given SQL query and returns all resulting rows as an array of objects.
+         * @since v24.9.0
+         */
+        all(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue>[];
+        /**
+         * Executes the given SQL query and returns the first resulting row as an object.
+         * @since v24.9.0
+         */
+        get(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue> | undefined;
+        /**
+         * Executes the given SQL query and returns an iterator over the resulting rows.
+         * @since v24.9.0
+         */
+        iterate(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
+        /**
+         * Executes the given SQL query, which is expected to not return any rows (e.g., INSERT, UPDATE, DELETE).
+         * @since v24.9.0
+         */
+        run(stringElements: TemplateStringsArray, ...boundParameters: SQLInputValue[]): StatementResultingChanges;
+        /**
+         * A read-only property that returns the number of prepared statements currently in the cache.
+         * @since v24.9.0
+         * @returns The maximum number of prepared statements the cache can hold.
+         */
+        size(): number;
+        /**
+         * A read-only property that returns the maximum number of prepared statements the cache can hold.
+         * @since v24.9.0
+         */
+        readonly capacity: number;
+        /**
+         * A read-only property that returns the `DatabaseSync` object associated with this `SQLTagStore`.
+         * @since v24.9.0
+         */
+        readonly db: DatabaseSync;
+        /**
+         * Resets the LRU cache, clearing all stored prepared statements.
+         * @since v24.9.0
+         */
+        clear(): void;
     }
     interface StatementColumnMetadata {
         /**
@@ -679,7 +786,7 @@ declare module "node:sqlite" {
      * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
      * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<number>;
+    function backup(sourceDb: DatabaseSync, path: PathLike, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */

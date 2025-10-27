@@ -1,14 +1,14 @@
-import * as store from "store";
-import * as allPlugin from "store/plugins/all";
-import * as defaultsPlugin from "store/plugins/defaults";
-import * as dumpPlugin from "store/plugins/dump";
-import * as eventsPlugin from "store/plugins/events";
-import * as expirePlugin from "store/plugins/expire";
-import * as observePlugin from "store/plugins/observe";
-import * as operationsPlugin from "store/plugins/operations";
-import * as updatePlugin from "store/plugins/update";
-import * as v1BackcompatPlugin from "store/plugins/v1-backcompat";
-import * as engine from "store/src/store-engine";
+import store from "store";
+import allPlugin from "store/plugins/all";
+import defaultsPlugin from "store/plugins/defaults";
+import dumpPlugin from "store/plugins/dump";
+import eventsPlugin from "store/plugins/events";
+import expirePlugin from "store/plugins/expire";
+import observePlugin from "store/plugins/observe";
+import operationsPlugin from "store/plugins/operations";
+import updatePlugin from "store/plugins/update";
+import v1BackcompatPlugin from "store/plugins/v1-backcompat";
+import engine from "store/src/store-engine";
 
 // https://github.com/marcuswestin/store.js/blob/master/README-More.md#storeenabled-flag
 console.log("storage is supported: ", store.enabled === true);

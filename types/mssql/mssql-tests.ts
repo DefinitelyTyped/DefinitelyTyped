@@ -1,5 +1,5 @@
 import * as sql from "mssql";
-import * as msnodesqlv8 from "mssql/msnodesqlv8";
+import msnodesqlv8 from "mssql/msnodesqlv8";
 import { Readable } from "stream";
 
 interface Entity {

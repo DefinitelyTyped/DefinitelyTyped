@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import * as express from "express";
-import * as hostValidation from "host-validation";
+import express from "express";
+import hostValidation from "host-validation";
 
 const app = express();
 

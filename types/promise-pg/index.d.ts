@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
 import * as pg from "pg";
-import * as Q from "q";
-import * as stream from "stream";
+import Q = require("q");
+import stream = require("stream");
 
 export { pg as raw };
 
