@@ -76,6 +76,12 @@ import { createContext } from "node:vm";
     w.getHeapStatistics().then(statistics => {
         statistics; // $ExpectType HeapInfo
     });
+    w.startCpuProfile().then(handle => {
+        handle.stop().then(JSON.parse);
+    });
+    w.startHeapProfile().then(handle => {
+        handle.stop().then(JSON.parse);
+    });
     w.terminate().then(() => {
         // woot
     });

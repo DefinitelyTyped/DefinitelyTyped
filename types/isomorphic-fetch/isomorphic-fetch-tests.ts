@@ -1,5 +1,5 @@
 import fetchImportedViaCommonJS = require("isomorphic-fetch");
-import * as fetchImportedViaES6Module from "isomorphic-fetch";
+import fetchImportedViaES6Module from "isomorphic-fetch";
 
 function test_isomorphicFetchTestCases_ambient() {
     expectSuccess(fetch("http://localhost:3000/good"), "Good response");

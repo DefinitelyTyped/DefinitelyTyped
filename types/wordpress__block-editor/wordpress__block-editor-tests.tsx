@@ -1,4 +1,4 @@
-import * as be from "@wordpress/block-editor";
+import be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
 import { BlockInstance, createBlock } from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
@@ -565,6 +565,12 @@ select("core/block-editor").getAdjacentBlockClientId();
 select("core/block-editor").getAdjacentBlockClientId("foo");
 select("core/block-editor").getAdjacentBlockClientId("foo", -1);
 select("core/block-editor").getAdjacentBlockClientId("foo", 1);
+
+// $ExpectType string[]
+select("core/block-editor").getBlockParents("foo");
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
+select("core/block-editor").getBlockParents("foo", true);
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
 
 {
     const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();

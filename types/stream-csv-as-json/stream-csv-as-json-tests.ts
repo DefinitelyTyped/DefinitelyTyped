@@ -1,7 +1,7 @@
-import * as make from "stream-csv-as-json";
-import * as AsObjects from "stream-csv-as-json/AsObjects";
-import * as Parser from "stream-csv-as-json/Parser";
-import * as Stringer from "stream-csv-as-json/Stringer";
+import make from "stream-csv-as-json";
+import AsObjects from "stream-csv-as-json/AsObjects";
+import Parser from "stream-csv-as-json/Parser";
+import Stringer from "stream-csv-as-json/Stringer";
 
 const used = (array: any[]) => array.forEach(value => console.log(!!value));
 

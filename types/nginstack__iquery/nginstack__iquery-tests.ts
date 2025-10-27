@@ -1,5 +1,5 @@
-import * as IClauseSelect from "@nginstack/iquery/lib/IClauseSelect";
-import * as IQuery from "@nginstack/iquery/lib/IQuery";
+import IClauseSelect from "@nginstack/iquery/lib/IClauseSelect";
+import IQuery from "@nginstack/iquery/lib/IQuery";
 
 const iquery = new IQuery();
 const clauseSelect = new IClauseSelect(iquery);

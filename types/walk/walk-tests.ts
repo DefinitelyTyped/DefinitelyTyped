@@ -1,4 +1,4 @@
-import * as walk from "walk";
+import walk from "walk";
 
 const options: walk.WalkOptions = {
     followLinks: true,

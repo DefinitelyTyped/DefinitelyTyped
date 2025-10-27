@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import * as stream from "stream";
+import stream = require("stream");
 
 /**
  * encode from JS Object to MessagePack

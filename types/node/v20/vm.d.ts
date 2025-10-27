@@ -37,6 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/vm.js)
  */
 declare module "vm" {
+    import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
@@ -65,7 +66,7 @@ declare module "vm" {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
@@ -97,28 +98,22 @@ declare module "vm" {
          */
         breakOnSigint?: boolean | undefined;
     }
-    interface RunningScriptInNewContextOptions extends RunningScriptOptions {
+    interface RunningScriptInNewContextOptions
+        extends RunningScriptOptions, Pick<CreateContextOptions, "microtaskMode">
+    {
         /**
          * Human-readable name of the newly created context.
          */
-        contextName?: CreateContextOptions["name"];
+        contextName?: CreateContextOptions["name"] | undefined;
         /**
          * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
          * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
          * Most notably, this string should omit the trailing slash, as that denotes a path.
          */
-        contextOrigin?: CreateContextOptions["origin"];
-        contextCodeGeneration?: CreateContextOptions["codeGeneration"];
-        /**
-         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
-         */
-        microtaskMode?: CreateContextOptions["microtaskMode"];
+        contextOrigin?: CreateContextOptions["origin"] | undefined;
+        contextCodeGeneration?: CreateContextOptions["codeGeneration"] | undefined;
     }
-    interface RunningCodeOptions extends RunningScriptOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
+    interface RunningCodeOptions extends RunningScriptOptions, Pick<ScriptOptions, "cachedData"> {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
@@ -129,11 +124,9 @@ declare module "vm" {
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
-    interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
+    interface RunningCodeInNewContextOptions
+        extends RunningScriptInNewContextOptions, Pick<ScriptOptions, "cachedData">
+    {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
@@ -144,16 +137,7 @@ declare module "vm" {
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
-    interface CompileFunctionOptions extends BaseOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
-        /**
-         * Specifies whether to produce new cache data.
-         * @default false
-         */
-        produceCachedData?: boolean | undefined;
+    interface CompileFunctionOptions extends BaseOptions, Pick<ScriptOptions, "cachedData" | "produceCachedData"> {
         /**
          * The sandbox/context in which the said function should be compiled in.
          */
@@ -378,17 +362,17 @@ declare module "vm" {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
-        cachedDataProduced?: boolean | undefined;
+        cachedDataProduced?: boolean;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
          * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
-        cachedDataRejected?: boolean | undefined;
-        cachedData?: Buffer | undefined;
+        cachedDataRejected?: boolean;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.
@@ -406,7 +390,7 @@ declare module "vm" {
          * ```
          * @since v19.1.0, v18.13.0
          */
-        sourceMapURL?: string | undefined;
+        sourceMapURL: string | undefined;
     }
     /**
      * If the given `contextObject` is an object, the `vm.createContext()` method will
@@ -615,11 +599,7 @@ declare module "vm" {
         code: string,
         params?: readonly string[],
         options?: CompileFunctionOptions,
-    ): Function & {
-        cachedData?: Script["cachedData"] | undefined;
-        cachedDataProduced?: Script["cachedDataProduced"] | undefined;
-        cachedDataRejected?: Script["cachedDataRejected"] | undefined;
-    };
+    ): Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">;
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.
@@ -676,10 +656,7 @@ declare module "vm" {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
-    interface ModuleEvaluateOptions {
-        timeout?: RunningScriptOptions["timeout"] | undefined;
-        breakOnSigint?: RunningScriptOptions["breakOnSigint"] | undefined;
-    }
+    interface ModuleEvaluateOptions extends Pick<RunningScriptOptions, "breakOnSigint" | "timeout"> {}
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
@@ -888,19 +865,13 @@ declare module "vm" {
          */
         link(linker: ModuleLinker): Promise<void>;
     }
-    interface SourceTextModuleOptions {
+    interface SourceTextModuleOptions extends Pick<ScriptOptions, "cachedData" | "columnOffset" | "lineOffset"> {
         /**
          * String used in stack traces.
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
-        lineOffset?: BaseOptions["lineOffset"] | undefined;
-        columnOffset?: BaseOptions["columnOffset"] | undefined;
         /**
          * Called during evaluation of this module to initialize the `import.meta`.
          */

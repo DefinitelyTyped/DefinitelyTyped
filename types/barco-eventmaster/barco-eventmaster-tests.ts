@@ -1,4 +1,4 @@
-import * as EventMaster from "barco-eventmaster";
+import EventMaster from "barco-eventmaster";
 
 const e2 = new EventMaster("10.0.0.1");
 

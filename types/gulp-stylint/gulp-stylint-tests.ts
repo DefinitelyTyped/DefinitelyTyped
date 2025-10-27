@@ -1,5 +1,5 @@
 import gulp = require("gulp");
-import * as gulpStylint from "gulp-stylint";
+import gulpStylint from "gulp-stylint";
 
 gulp.task("default", () => {
     return gulp.src("src/*.styl")

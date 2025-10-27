@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import * as gm from "gm";
+import gm = require("gm");
 import { Options as RenameOptions, ParsedPath } from "gulp-rename";
-import * as stream from "stream";
+import stream = require("stream");
 
 export = GulpResponsiveImage;
 

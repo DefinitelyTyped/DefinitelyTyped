@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as session from "koa-session";
+import Koa from "koa";
+import session from "koa-session";
 import RedisStore = require("koa2-session-redis");
 
 const app = new Koa();

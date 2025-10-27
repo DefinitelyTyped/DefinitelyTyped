@@ -66,6 +66,7 @@ run({
     lineCoverage: 70,
     branchCoverage: 50,
     functionCoverage: 80,
+    rerunFailuresFilePath: "/path/to/file.json",
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -163,6 +164,8 @@ test(undefined, undefined, t => {
     t.signal;
     // $ExpectType MockTracker
     t.mock;
+    // $ExpectType number
+    t.attempt;
 });
 
 // Test the subtest approach.

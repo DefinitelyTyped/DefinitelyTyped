@@ -1,4 +1,4 @@
-import * as Spectrogram from "spectrogram";
+import Spectrogram from "spectrogram";
 
 // XHR
 const canvas1 = document.createElement("canvas");

@@ -1,4 +1,4 @@
-import * as File from "vinyl";
+import File = require("vinyl");
 
 export = gulp_flatmap;
 

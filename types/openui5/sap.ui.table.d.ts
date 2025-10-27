@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -619,9 +619,11 @@ declare module "sap/ui/table/AnalyticalTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * Table that handles analytical OData back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
+   * Table that handles analytical OData V2 back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
    * and correctly annotated OData services. Please check out the functionality of analytical binding and
-   * the SAP Annotations for OData Version 2.0 documentation for further details.
+   * the SAP Annotations for OData Version 2.0 documentation for further details. For an analytical-table-like
+   * behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control with the {@link sap.ui.table.plugins.ODataV4Aggregation ODataV4Aggregation }
+   * plugin.
    */
   export default class AnalyticalTable extends Table {
     /**
@@ -632,6 +634,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -649,6 +652,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -3584,6 +3588,10 @@ declare module "sap/ui/table/plugins/ODataV4Aggregation" {
    *
    * For details about data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
    *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.AnalyticalTable AnalyticalTable} offers for OData
+   * V2.
+   *
    * @since 1.140
    */
   export default class ODataV4Aggregation extends UI5Element {
@@ -3747,6 +3755,9 @@ declare module "sap/ui/table/plugins/ODataV4Hierarchy" {
    * {@link sap.ui.model.odata.v4.ODataModel}.
    *
    * For details about hierarchies, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
+   *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.TreeTable TreeTable} offers for other models.
    *
    * @since 1.140
    */
@@ -11231,7 +11242,10 @@ declare module "sap/ui/table/TreeTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * The TreeTable control provides a comprehensive set of features to display hierarchical data.
+   * The TreeTable control provides a comprehensive set of features to display hierarchical data. The control
+   * can be used in combination with {@link sap.ui.model.json.JSONModel JSONModel} and {@link sap.ui.model.odata.v2.ODataModel ODataModel V2}.
+   * For a tree-table-like behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control
+   * with the {@link sap.ui.table.plugins.ODataV4Hierarchy ODataV4Hierarchy} plugin.
    */
   export default class TreeTable extends Table {
     /**

@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/apollo-upload-client",
-    "version": "18.0.9999",
+    "version": "19.0.9999",
     "projects": [
         "https://github.com/jaydenseric/apollo-upload-client#readme"
     ],
     "exports": {
-        "./createUploadLink.mjs": {
-            "types": "./createUploadLink.d.mts"
+        "./UploadHttpLink.mjs": {
+            "types": "./UploadHttpLink.d.mts"
         },
         "./formDataAppendFile.mjs": {
             "types": "./formDataAppendFile.d.mts"
@@ -18,7 +18,7 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@apollo/client": "^3.8.0",
+        "@apollo/client": "^4.0.0",
         "@types/extract-files": "*",
         "graphql": "14 - 16"
     },

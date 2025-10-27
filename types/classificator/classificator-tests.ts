@@ -1,4 +1,4 @@
-import * as classificator from "classificator";
+import classificator from "classificator";
 
 // $ExpectType NaiveBayes
 classificator();

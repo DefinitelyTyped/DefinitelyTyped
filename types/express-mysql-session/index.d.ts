@@ -1,4 +1,4 @@
-import * as expressSession from "express-session";
+import expressSession = require("express-session");
 import { Connection, Pool, PoolOptions } from "mysql2";
 
 export = MySQLStore;

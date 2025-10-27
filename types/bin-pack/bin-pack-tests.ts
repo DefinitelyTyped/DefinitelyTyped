@@ -1,4 +1,4 @@
-import * as pack from "bin-pack";
+import pack from "bin-pack";
 
 // $ExpectType PackResult<{ width: number; height: number; }>
 const packResult = pack([

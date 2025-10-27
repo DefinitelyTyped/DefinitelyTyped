@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as _ from "lodash";
-import * as stream from "stream";
+import _ = require("lodash");
+import stream = require("stream");
 
 declare function gulpTemplate(data: any, options: _.TemplateOptions): stream.Transform;
 

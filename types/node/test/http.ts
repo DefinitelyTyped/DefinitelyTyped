@@ -40,6 +40,10 @@ import * as url from "node:url";
         headersTimeout: 50000,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
+        shouldUpgradeCallback(request) {
+            request; // $ExpectType IncomingMessage
+            return true;
+        },
     }, reqListener);
 
     server.close();
@@ -351,6 +355,7 @@ import * as url from "node:url";
     let agent: http.Agent = new http.Agent({
         keepAlive: true,
         keepAliveMsecs: 10000,
+        agentKeepAliveTimeoutBuffer: 1000,
         maxSockets: Infinity,
         maxTotalSockets: Infinity,
         maxFreeSockets: 256,

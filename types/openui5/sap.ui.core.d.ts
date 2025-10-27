@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/base/assert" {
   /**
@@ -787,7 +787,7 @@ declare module "sap/base/i18n/Formatting" {
      */
     setLanguageTag(
       /**
-       * the new BCP47 compliant language tag; case doesn't matter and underscores can be used instead of dashes
+       * the new BCP47 compliant language tag; case doesn't matter and underscores can be used instead of hyphens
        * to separate components (compatibility with Java Locale IDs)
        */
       vLanguageTag: string | LanguageTag | null
@@ -1090,15 +1090,15 @@ declare module "sap/base/i18n/LanguageTag" {
     /**
      * Get the extension as a single string or `null`.
      *
-     * The extension always consists of a singleton character (not 'x'), a dash '-' and one or more extension
-     * token, each separated again with a dash.
+     * The extension always consists of a singleton character (not 'x'), a hyphen '-' and one or more extension
+     * token, each separated again with a hyphen.
      */
     extension: string | null;
 
     /**
      * Get the extensions as an array of tokens.
      *
-     * The leading singleton and the separating dashes are not part of the result. If there is no extensions
+     * The leading singleton and the separating hyphens are not part of the result. If there is no extensions
      * section in the language tag, an empty array is returned.
      */
     extensionSubtags: string[];
@@ -1130,14 +1130,14 @@ declare module "sap/base/i18n/LanguageTag" {
     /**
      * Get the variants as a single string or `null`.
      *
-     * Multiple variants are separated by a dash '-'.
+     * Multiple variants are separated by a hyphen '-'.
      */
     variant: string | null;
 
     /**
      * Get the variants as an array of individual variants.
      *
-     * The separating dashes are not part of the result. If there is no variant section in the language tag,
+     * The separating hyphens are not part of the result. If there is no variant section in the language tag,
      * an empty array is returned.
      */
     variantSubtags: string[];
@@ -1189,8 +1189,8 @@ declare module "sap/base/i18n/Localization" {
      * The value returned by config method in most cases corresponds to the exact value that has been configured
      * by the user or application or that has been determined from the user agent settings. It has not been
      * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt BCP47},
-     * allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters into
-     * account.
+     * allowing underscores ('_') instead of the suggested hyphens ('-') and not taking the case of letters
+     * into account.
      *
      * The exceptions mentioned above affect languages that have been specified via the URL parameter `sap-language`.
      * That parameter by definition represents an SAP logon language code ('ABAP language'). Most but not all
@@ -1308,7 +1308,7 @@ declare module "sap/base/i18n/Localization" {
     setLanguage(
       /**
        * the new language as a BCP47 compliant language tag; case doesn't matter and underscores can be used instead
-       * of dashes to separate components (compatibility with Java Locale IDs)
+       * of hyphens to separate components (compatibility with Java Locale IDs)
        */
       sLanguage: string,
       /**
@@ -2355,7 +2355,7 @@ declare module "sap/base/security/encodeURL" {
   /**
    * Encode the string for inclusion into a URL parameter.
    *
-   * Unescaped characters: alphabetic, decimal digits, -_. (dash, underscore, point)
+   * Unescaped characters: alphabetic, decimal digits, -_. (hyphen, underscore, dot)
    *
    * @since 1.58
    *
@@ -3918,7 +3918,7 @@ declare module "sap/ui/core/ComponentSupport" {
    * instance of the {@link sap.ui.core.ComponentContainer ComponentContainer} in the JavaScript code.
    *
    * As HTML is case-insensitive, in order to define a property with upper-case characters, you have to "escape"
-   * them with a dash character, similar to CSS attributes. The following code gives an example:
+   * them with a hyphen character, similar to CSS attributes. The following code gives an example:
    *
    *
    * ```javascript
@@ -6643,6 +6643,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
            * property has to be an integer type
            */
           hierarchyNodeDescendantCountFor?: string;
+          /**
+           * The property name in the same type holding the preorder rank for the node; the type of the referenced
+           * property has to be an integer type
+           */
+          hierarchyPreorderRankFor?: string;
         };
         /**
          * The number of levels that are auto-expanded initially. Setting this property might lead to multiple back-end
@@ -6687,6 +6692,18 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used.
          */
         treeState?: any;
+        /**
+         * This parameter is experimental as of version 1.141.0.
+         *
+         * Whether the tree state is restored on hierarchy maintenance, such as adding, removing, or deleting a
+         * node. This is only supported if the following conditions are met:
+         * 	 - The binding has to use {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server}
+         * 	 - The `"hierarchy-node-descendant-count-for"` annotation must be present in the service metadata or
+         *     provided via `treeAnnotationProperties.hierarchyNodeDescendantCountFor`
+         * 	 - The `"hierarchy-preorder-rank-for"` annotation must be present in the service metadata or provided
+         *     via `treeAnnotationProperties.hierarchyPreorderRankFor`
+         */
+        restoreTreeStateAfterChange?: boolean;
         /**
          * Defines the count mode of this binding; if not specified, the default count mode of the binding's model
          * is applied. The resulting count mode must not be {@link sap.ui.model.odata.CountMode.None}.
@@ -16817,7 +16834,7 @@ declare module "sap/ui/core/library" {
   /**
    * A string type representing an ID or a name.
    *
-   * Allowed is a sequence of characters (capital/lowercase), digits, underscores, dashes, points and/or colons.
+   * Allowed is a sequence of characters (capital/lowercase), digits, underscores, hyphens, dots and/or colons.
    * It may start with a character or underscore only.
    */
   export type ID = string;
@@ -19449,7 +19466,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * Gets current value of property {@link #getAutoPrefixId autoPrefixId}.
      *
      * Flag, whether to auto-prefix the ID of the nested Component or not. If this property is set to true the
-     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single dash.
+     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single hyphen.
      * This property can only be applied initially.
      *
      * Default value is `false`.
@@ -19602,7 +19619,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * Sets a new value for property {@link #getAutoPrefixId autoPrefixId}.
      *
      * Flag, whether to auto-prefix the ID of the nested Component or not. If this property is set to true the
-     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single dash.
+     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single hyphen.
      * This property can only be applied initially.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -19884,7 +19901,7 @@ declare module "sap/ui/core/ComponentContainer" {
 
     /**
      * Flag, whether to auto-prefix the ID of the nested Component or not. If this property is set to true the
-     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single dash.
+     * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single hyphen.
      * This property can only be applied initially.
      */
     autoPrefixId?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -20543,8 +20560,8 @@ declare module "sap/ui/core/Configuration" {
      * The value returned by config method in most cases corresponds to the exact value that has been configured
      * by the user or application or that has been determined from the user agent settings. It has not been
      * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt BCP47},
-     * allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters into
-     * account.
+     * allowing underscores ('_') instead of the suggested hyphens ('-') and not taking the case of letters
+     * into account.
      *
      * The exceptions mentioned above affect languages that have been specified via the URL parameter `sap-language`.
      * That parameter by definition represents an SAP logon language code ('ABAP language'). Most but not all
@@ -20813,7 +20830,7 @@ declare module "sap/ui/core/Configuration" {
     setFormatLocale(
       /**
        * the new format locale as a BCP47 compliant language tag; case doesn't matter and underscores can be used
-       * instead of dashes to separate components (compatibility with Java Locale IDs)
+       * instead of hyphens to separate components (compatibility with Java Locale IDs)
        */
       sFormatLocale: string | null
     ): this;
@@ -20870,7 +20887,7 @@ declare module "sap/ui/core/Configuration" {
     setLanguage(
       /**
        * the new language as a BCP47 compliant language tag; case doesn't matter and underscores can be used instead
-       * of dashes to separate components (compatibility with Java Locale IDs)
+       * of hyphens to separate components (compatibility with Java Locale IDs)
        */
       sLanguage: string,
       /**
@@ -27171,8 +27188,8 @@ declare module "sap/ui/core/Element" {
      * returned by {@link sap.ui.core.Element#getDomRef} is wrapped and returned.
      *
      * If an ID suffix is given, the ID of this Element is concatenated with the suffix (separated by a single
-     * dash) and the DOM node with that compound ID will be wrapped by jQuery. This matches the UI5 naming convention
-     * for named inner DOM nodes of a control.
+     * hyphen) and the DOM node with that compound ID will be wrapped by jQuery. This matches the UI5 naming
+     * convention for named inner DOM nodes of a control.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -27606,7 +27623,7 @@ declare module "sap/ui/core/Element" {
      * their current state (e.g. an initial, not yet rendered control).
      *
      * If an ID suffix is given, the ID of this Element is concatenated with the suffix (separated by a single
-     * dash) and the DOM node with that compound ID will be returned. This matches the UI5 naming convention
+     * hyphen) and the DOM node with that compound ID will be returned. This matches the UI5 naming convention
      * for named inner DOM nodes of a control.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -34212,8 +34229,8 @@ declare module "sap/ui/core/Locale" {
     /**
      * Get the locale extension as a single string or `null`.
      *
-     * The extension always consists of a singleton character (not 'x'), a dash '-' and one or more extension
-     * token, each separated again with a dash.
+     * The extension always consists of a singleton character (not 'x'), a hyphen '-' and one or more extension
+     * token, each separated again with a hyphen.
      *
      * Use {@link #getExtensions} to get the individual extension tokens as an array.
      *
@@ -34224,7 +34241,7 @@ declare module "sap/ui/core/Locale" {
     /**
      * Get the locale extensions as an array of tokens.
      *
-     * The leading singleton and the separating dashes are not part of the result. If there is no extensions
+     * The leading singleton and the separating hyphens are not part of the result. If there is no extensions
      * section in the locale tag, an empty array is returned.
      *
      *
@@ -34251,7 +34268,7 @@ declare module "sap/ui/core/Locale" {
     /**
      * Get the locale private use section as an array of tokens.
      *
-     * The leading singleton and the separating dashes are not part of the result. If there is no private use
+     * The leading singleton and the separating hyphens are not part of the result. If there is no private use
      * section in the locale tag, an empty array is returned.
      *
      *
@@ -34303,7 +34320,7 @@ declare module "sap/ui/core/Locale" {
     /**
      * Get the locale variants as a single string or `null`.
      *
-     * Multiple variants are separated by a dash '-'.
+     * Multiple variants are separated by a hyphen '-'.
      *
      *
      * @returns the variant or `null`
@@ -34312,8 +34329,8 @@ declare module "sap/ui/core/Locale" {
     /**
      * Get the locale variants as an array of individual variants.
      *
-     * The separating dashes are not part of the result. If there is no variant section in the locale tag, an
-     * empty array is returned.
+     * The separating hyphens are not part of the result. If there is no variant section in the locale tag,
+     * an empty array is returned.
      *
      *
      * @returns the individual variant sections
@@ -43159,10 +43176,15 @@ declare module "sap/ui/core/routing/History" {
      */
     static getInstance(): History;
     /**
-     * Determines what the navigation direction for a newly given hash would be It will say Unknown if there
-     * is a history foo - bar (current history) - foo If you now ask for the direction of the hash "foo" you
-     * get Unknown because it might be backwards or forwards. For hash replacements, the history stack will
-     * be replaced at this position for the history.
+     * Determines what the navigation direction for a newly given hash would be.
+     *
+     * Returns the direction as {@link sap.ui.core.routing.HistoryDirection} (for example: Forwards, Backwards,
+     * NewEntry). If no navigation has occurred yet, returns `undefined`. In cases where the direction cannot
+     * be determined (if the same hash appears in multiple places), returns {@link sap.ui.core.routing.HistoryDirection.Unknown}.
+     * For hash replacements, the history stack is updated at the current position.
+     *
+     * Example: It will say "Unknown" if there is a history "foo" - "bar" (current history) - "foo". If you
+     * now ask for the direction of the hash "foo" you get "Unknown" because it might be backwards or forwards.
      *
      *
      * @returns Direction for the given hash or `undefined`, if no navigation has taken place yet.
@@ -49330,11 +49352,21 @@ declare module "sap/ui/core/UIComponent" {
     /**
      * Initializes the component instance after creation.
      *
-     * Applications must not call this hook method directly, it is called by the framework while the constructor
-     * of a Component is executed.
+     * The primary responsibility of this method is to create the root control of the component and manage its
+     * aggregation in the "rootControl" aggregation. This is performed internally by invoking the {@link sap.ui.core.UIComponent#createContent }
+     * method.
      *
-     * Subclasses of `UIComponent` should override this hook to implement any necessary initialization. **When
-     * overriding this function make sure to invoke the `init` function of the `UIComponent` as well!**
+     * Depending on the class metadata (e.g., if the "sap.ui.core.IAsyncContentCreation" interface is implemented),
+     * the root control may be created synchronously or asynchronously.
+     *
+     * Additionally, this method is responsible for creating the router and targets instances.
+     *
+     * **Note:** Applications must not call this hook method directly; it is invoked by the framework during
+     * the execution of the Component constructor.
+     *
+     * Subclasses of `UIComponent` should override this hook to implement any required initialization logic.
+     * **When overriding this method, ensure that you always invoke the `init` method of the `UIComponent` base
+     * class.**
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
@@ -71294,7 +71326,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      *
      * Annotations on an Operation or a Parameter: Since 1.71.0, for annotations on an operation or a parameter,
      * the binding parameter's name is stripped off any dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression
-     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0 this does not apply to annotations
+     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply to annotations
      * on a parameter. In the former case, we assume that the resulting data binding is relative to the parent
      * context of the operation binding, that is, to the context representing the binding parameter itself.
      * In the latter case, we assume that the resulting data binding is relative to the parameter context of
@@ -71615,7 +71647,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      *
      * Annotations on an Operation or a Parameter: Since 1.71.0, for annotations on an operation or a parameter,
      * the binding parameter's name is stripped off any dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression
-     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0 this does not apply to annotations
+     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply to annotations
      * on a parameter. In the former case, we assume that the resulting data binding is relative to the parent
      * context of the operation binding, that is, to the context representing the binding parameter itself.
      * In the latter case, we assume that the resulting data binding is relative to the parameter context of
@@ -71730,6 +71762,11 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          * apply to annotations on a parameter (since 1.76.0).
          */
         overload?: object;
+        /**
+         * Optional prefix to be added to each dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression edm:PropertyPath";
+         * is either an empty string or a path ending with a "/" (since 1.141.0)
+         */
+        prefix?: string;
       }
     ): string;
   }
@@ -71853,7 +71890,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * as a binding context. Exceptions hold for status APIs like {@link #isDeleted}, {@link #isKeepAlive},
      * {@link #hasPendingChanges}, {@link #resetChanges}, or {@link #isSelected} (returns `false` since 1.114.0).
      *
-     * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
+     * Since 1.105, such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
      * for the context, the binding containing it, and the model. The `resetChanges` method called on the context,
      * the binding, or the model cancels the deletion and restores the context.
      *
@@ -71897,7 +71934,7 @@ declare module "sap/ui/model/odata/v4/Context" {
        * binding is used, see {@link #getUpdateGroupId}. Since 1.81, if this context is transient (see {@link #isTransient}),
        * no group ID needs to be specified. Since 1.98.0, you can use `null` to prevent the DELETE request in
        * case of a kept-alive context that is not in the collection and of which you know that it does not exist
-       * on the server anymore (for example, a draft after activation). Since 1.108.0 the usage of a group ID
+       * on the server anymore (for example, a draft after activation). Since 1.108.0, the usage of a group ID
        * with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible. Since 1.121.0, you can use the '$single'
        * group ID to send a DELETE request as fast as possible; it will be wrapped in a batch request as for a
        * '$auto' group.
@@ -72217,8 +72254,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       oParameters: {
         /**
-         * Whether the node should be copied instead of moved (@experimental as of version 1.135.0). The returned
-         * promise resolves with the index for the copied node.
+         * Whether the node should be copied instead of moved. The returned promise resolves with the index for
+         * the copied node. Supported since 1.141.0.
          */
         copy?: boolean;
         /**
@@ -72332,7 +72369,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     requestParent(): Promise<Context | null>;
     /**
      * Returns a promise on the property value for the given path relative to this context. The path is expected
-     * to point to a structural property with primitive type. Since 1.81.1 it is possible to request more than
+     * to point to a structural property with primitive type. Since 1.81.1, it is possible to request more than
      * one property. Property values that are not cached yet are requested from the back end.
      * See:
      * 	sap.ui.model.odata.v4.ODataMetaModel#requestUI5Type
@@ -72431,7 +72468,7 @@ declare module "sap/ui/model/odata/v4/Context" {
        * (unless listed explicitly), for example `[{$PropertyPath : "*"}, {$NavigationPropertyPath : "EMPLOYEE_2_MANAGER"}]`
        * or `[{$PropertyPath : "EMPLOYEE_2_MANAGER/*"}]`.
        *
-       * Since 1.82.0 absolute paths are supported. Absolute paths must start with the entity container (example
+       * Since 1.82.0, absolute paths are supported. Absolute paths must start with the entity container (example
        * "/com.sap.gateway.default.iwbep.tea_busi.v0001.Container/TEAMS") of the service. All (navigation) properties
        * in the complete model matching such an absolute path are updated. Since 1.85.0, "14.4.11 Expression edm:String"
        * is accepted as well.
@@ -72508,7 +72545,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Sets a new value for the property identified by the given path. The path is relative to this context
      * and is expected to point to a structural property with primitive type or, since 1.85.0, to an instance
-     * annotation. Since 1.122.0 the client-side annotation "@$ui5.context.isSelected" can be given as a path.
+     * annotation. Since 1.122.0, the client-side annotation "@$ui5.context.isSelected" can be given as a path.
      * Note: Writing to a client-side annotation never initiates a PATCH request, even if `sGroupId` is given.
      * Thus, reverting the value of this annotation cannot be done via {@link #resetChanges}.
      * See:
@@ -72976,11 +73013,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * messages will be related to the return value context only. Such a message can only be connected to a
      * corresponding control if the control's property bindings use the return value context as binding context.
      *
-     *  A return value context may also be provided if the parent context's path contains a maximum of one navigation
-     * property. In addition to the existing preconditions for a return value context, the metadata has to specify
-     * a partner attribute for the navigation property and the partner relationship has to be bi-directional.
-     * Also the navigation property binding has to be available in the entity set of the first segment in the
-     * parent context's path (@experimental as of version 1.119.0).
+     *  Since 1.141.0, a return value context may also be provided if the parent context's path contains a maximum
+     * of one navigation property. In addition to the existing preconditions for a return value context, the
+     * metadata has to specify a partner attribute for the navigation property and the partner relationship
+     * has to be bi-directional. Also a navigation property binding has to be available for the entity set of
+     * the first segment in the parent context's path. **Note:** Ensure your service implementation returns
+     * all selected key properties; otherwise, no return value context is provided.
      */
     invoke(
       /**
@@ -73142,7 +73180,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive }
      * context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts
-     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link sap.ui.model.odata.v4.Context#delete deleted }
+     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0, {@link sap.ui.model.odata.v4.Context#delete deleted }
      * contexts do not count as pending changes.
      * See:
      * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
@@ -73516,11 +73554,14 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * set `bSkipRefresh` to `true`. To avoid errors you must skip this refresh when using {@link sap.ui.model.odata.v4.Context#requestSideEffects }
      * in the same $batch to refresh the complete collection containing the newly created entity.
      *
-     * Since 1.115.0 it is possible to create nested entities in a collection-valued navigation property together
+     * Since 1.115.0, it is possible to create nested entities in a collection-valued navigation property together
      * with the entity (so-called "deep create"), for example a list of items for an order. For this purpose,
      * bind the list relative to a transient context. Calling this method then adds a transient entity to the
      * parent's navigation property, which is sent with the payload of the parent entity. Such a nested context
      * cannot be inactive.
+     *
+     * **Caution:** Only a single list must be bound to the same collection-valued navigation property relative
+     * to a transient context. Created data cannot be shared between list bindings.
      *
      * **Note:** After a successful creation of the main entity the context returned for a nested entity is
      * no longer valid. Do not use the {@link sap.ui.model.odata.v4.Context#created created} promise of such
@@ -73529,7 +73570,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * the `created` promises of all nested contexts are always rejected with an instance of `Error`, even if
      * the deep create succeeds. This error always has the property `canceled` with the value `true`.
      *
-     * Since 1.118.0 deep create also supports single-valued navigation properties; no API call is required
+     * Since 1.118.0, deep create also supports single-valued navigation properties; no API call is required
      * in this case. Simply bind properties of the related entity relative to a transient context. An update
      * to the property adds it to the POST request of the parent entity, and by this the create becomes deep.
      *
@@ -73581,7 +73622,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        */
       bSkipRefresh?: boolean,
       /**
-       * Whether the entity is inserted at the end of the list. Supported since 1.66.0. Since 1.99.0 the first
+       * Whether the entity is inserted at the end of the list. Supported since 1.66.0. Since 1.99.0, the first
        * insertion determines the overall position of created contexts within the binding's context list. Every
        * succeeding insertion is relative to the created contexts within this list.
        */
@@ -73937,7 +73978,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     getHeaderContext(): Context | null;
     /**
      * Calls {@link sap.ui.model.odata.v4.Context#setKeepAlive} at the context for the given path and returns
-     * it. Since 1.100.0 the function always returns such a context. If none exists yet, it is created without
+     * it. Since 1.100.0, the function always returns such a context. If none exists yet, it is created without
      * data and a request for its entity is sent.
      * See:
      * 	sap.ui.model.odata.v4.ODataModel#getKeepAliveContext
@@ -74378,7 +74419,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive }
      * context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts
-     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link sap.ui.model.odata.v4.Context#delete deleted }
+     * of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0, {@link sap.ui.model.odata.v4.Context#delete deleted }
      * contexts do not count as pending changes.
      * See:
      * 	{@link https://ui5.sap.com/#/topic/b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
@@ -75179,9 +75220,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * results either in a simple name like "EMPLOYEES" or maybe in a path like "some.other.EntityContainer/SomeEntitySet".
      *  The path must not continue after "@sapui.name".
      *
-     * If the current object is a string value, that string value is treated as a relative path and followed
-     * step-by-step before the next segment is processed. Except for this, a path must not continue if it comes
-     * across a non-object value. Such a string value can be a qualified name (example path "/$EntityContainer/..."),
+     * If the current object is a string value, that string value is treated as an absolute or relative path
+     * and followed step-by-step before the next segment is processed. Except for this, a path must not continue
+     * if it comes across a non-object value. Such a string value can be a qualified name (example path "/$EntityContainer/..."),
      * a simple identifier (example path "/TEAMS/$NavigationPropertyBinding/TEAM_2_EMPLOYEES/...") including
      * the special name "$ReturnType" (since 1.71.0), or even a path according to "14.5.12 Expression edm:Path"
      * etc. (example path "/TEAMS/@com.sap.vocabularies.UI.v1.LineItem/0/Value/$Path/...".
@@ -75333,7 +75374,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
         /**
          * Scope for lookup of aliases for computed annotations (since 1.43.0) as a map from alias to a module (like
          * `{AH : AnnotationHelper}`) or function (like `{format : AnnotationHelper.format}`); the alias must not
-         * contain a dot. Since 1.120.3 looking up a computed annotation via its global name is **deprecated**;
+         * contain a dot. Since 1.120.3, looking up a computed annotation via its global name is **deprecated**;
          * always use this scope instead.
          */
         scope?: Record<string, object | Function>;
@@ -76324,8 +76365,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Returns a context with the given path belonging to a matching list binding that has been marked with
      * `$$getKeepAliveContext` (see {@link #bindList}). If such a matching binding can be found, a context is
      * returned and kept alive (see {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext}). Since
-     * 1.100.0 a temporary binding is used if no such binding could be found. If such a binding is created or
-     * resolved later, the context and its data are transferred to it, and the temporary binding is destroyed
+     * 1.100.0, a temporary binding is used if no such binding could be found. If such a binding is created
+     * or resolved later, the context and its data are transferred to it, and the temporary binding is destroyed
      * again.
      *
      * A `$$getKeepAliveContext` binding matches if its resolved binding path is the collection path of the
@@ -76568,6 +76609,28 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        * since 1.67.0.
        */
       sGroupId?: string
+    ): void;
+    /**
+     * Sets the "odata.continue-on-error" preference for the **current** batch request associated with the given
+     * group ID. This method can be called early on, when the batch queue is still empty, or even synchronously
+     * after {@link #submitBatch} - just as long as the $batch request is not already being sent to the server.
+     * It needs to be called again for future batch requests with the same group ID. It is safe to call it multiple
+     * times for the same batch request.
+     *
+     * **Caution:** Make sure that no user input is lost due to a side-effects GET being applied even after
+     * a failed PATCH. It's safe to use this method if, for example, only actions are invoked or when {@link sap.ui.model.odata.v4.Context#setProperty }
+     * is used without `bRetry` for mass updates.
+     *
+     * @since 1.141.0
+     */
+    setContinueOnError(
+      /**
+       * A valid group ID as specified in {@link sap.ui.model.odata.v4.ODataModel}. Avoid '$auto' to control which
+       * requests are affected by this preference. Using a {@link module:sap/base/util/uid UID} may be one way
+       * to achieve this, but take care to replace hyphens with underscores: `"$auto." + uid().replaceAll("-",
+       * "_")`
+       */
+      sGroupId: string
     ): void;
     /**
      * Method not supported
@@ -77075,7 +77138,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Sets the new current value and updates the cache. If the value cannot be accepted or cannot be updated
      * on the server, an error is logged to the console and added to the message manager as a technical message.
      * Unless preconditions fail synchronously, a {@link sap.ui.model.odata.v4.ODataModel#event:propertyChange 'propertyChange' }
-     * event is fired and provides a promise on the outcome of the asynchronous operation. Since 1.122.0 this
+     * event is fired and provides a promise on the outcome of the asynchronous operation. Since 1.122.0, this
      * method allows updates to the client-side annotation "@$ui5.context.isSelected". Note: Changing the value
      * of a client-side annotation never initiates a PATCH request, no matter which `sGroupId` is given. Thus,
      * it cannot be reverted via {@link #resetChanges}.
@@ -81605,7 +81668,7 @@ declare module "sap/ui/test/gherkin/dataTableUtils" {
      *
      *
      * 	 - Trim spaces off the string on both sides. For example: `" hello "` becomes `"hello"`.
-     * 	 - Assume that dashes and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
+     * 	 - Assume that hyphens and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
      *     to party"` are equivalent, and would both convert to the camelCase `"soldToParty"`.
      * 	 - Trim multiple spaces between words. For example: `"hello____world"` becomes `"hello world"`.
      * 	 - Remove any characters that are not alphanumeric or whitespace. For example: `"(hello)"` becomes `"hello"`.
@@ -81704,7 +81767,7 @@ declare module "sap/ui/test/gherkin/dataTableUtils" {
    *
    *
    * 	 - Trim spaces off the string on both sides. For example: `" hello "` becomes `"hello"`.
-   * 	 - Assume that dashes and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
+   * 	 - Assume that hyphens and underscores are analogs for a space. For example: `"sold-to party"` and `"sold
    *     to party"` are equivalent, and would both convert to the camelCase `"soldToParty"`.
    * 	 - Trim multiple spaces between words. For example: `"hello____world"` becomes `"hello world"`.
    * 	 - Remove any characters that are not alphanumeric or whitespace. For example: `"(hello)"` becomes `"hello"`.

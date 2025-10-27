@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.141.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1953,9 +1953,9 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
      * If an update is not possible, it rebinds the table.
      *
      * Compares the current and previous state of the table to detect whether rebinding is necessary. The diffing
-     * is done for the sorters, filters, aggregation, parameters. Other {@link sap.ui.base.ManagedObject.AggregationBindingInfo binding info }
-     * keys, such as `path`, `events`, or `model`, must be provided in `updateBindingInfo`, and those keys must
-     * not be changed conditionally.
+     * is done for the sorters, filters, aggregation, parameters, and the path of the binding. Other {@link sap.ui.base.ManagedObject.AggregationBindingInfo binding info }
+     * keys, such as `events` or `model`, must be provided in `updateBindingInfo`, and those keys must not be
+     * changed conditionally.
      *
      * **Note:** To remove a binding info parameter, the value must be set to `undefined` in `updateBindingInfo`.
      * For more information, see {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters}.

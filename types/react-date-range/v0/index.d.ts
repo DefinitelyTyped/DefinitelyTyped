@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as React from "react";
 
 export type AnyDate = string | moment.Moment;

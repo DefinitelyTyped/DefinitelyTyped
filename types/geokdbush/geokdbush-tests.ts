@@ -1,5 +1,5 @@
 import * as geokdbush from "geokdbush";
-import * as kdbush from "kdbush";
+import kdbush from "kdbush";
 
 const points = [
     { lon: 0, lat: 0 },

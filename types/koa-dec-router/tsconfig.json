@@ -11,8 +11,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
-        "esModuleInterop": true
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",

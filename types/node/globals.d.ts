@@ -143,6 +143,8 @@ declare namespace NodeJS {
         readonly [key: string]: T | undefined;
     }
 
+    type PartialOptions<T> = { [K in keyof T]?: T[K] | undefined };
+
     interface GCFunction {
         (minor?: boolean): void;
         (options: NodeJS.GCOptions & { execution: "async" }): Promise<void>;

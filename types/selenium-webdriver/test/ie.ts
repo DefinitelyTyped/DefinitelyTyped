@@ -1,5 +1,5 @@
 import * as webdriver from "selenium-webdriver";
-import * as ie from "selenium-webdriver/ie";
+import ie from "selenium-webdriver/ie";
 import * as remote from "selenium-webdriver/remote";
 
 function TestIeDriver() {

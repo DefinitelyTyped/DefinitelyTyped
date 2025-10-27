@@ -2,7 +2,7 @@
 
 import * as RDF from "@rdfjs/types";
 import { EventEmitter } from "events";
-import * as stream from "stream";
+import stream = require("stream");
 
 export interface Prefixes<I = RDF.NamedNode> {
     [key: string]: I;

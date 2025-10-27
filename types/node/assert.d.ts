@@ -44,6 +44,13 @@ declare module "assert" {
              * @default true
              */
             strict?: boolean | undefined;
+            /**
+             * If set to `true`, skips prototype and constructor
+             * comparison in deep equality checks.
+             * @since v24.9.0
+             * @default false
+             */
+            skipPrototype?: boolean | undefined;
         }
         interface Assert extends Pick<typeof assert, AssertMethodNames> {
             readonly [kOptions]: AssertOptions & { strict: false };
@@ -67,7 +74,8 @@ declare module "assert" {
              * ```
              *
              * **Important**: When destructuring assertion methods from an `Assert` instance,
-             * the methods lose their connection to the instance's configuration options (such as `diff` and `strict` settings).
+             * the methods lose their connection to the instance's configuration options (such
+             * as `diff`, `strict`, and `skipPrototype` settings).
              * The destructured methods will fall back to default behavior instead.
              *
              * ```js
@@ -81,6 +89,33 @@ declare module "assert" {
              * strictEqual({ a: 1 }, { b: { c: 1 } });
              * ```
              *
+             * The `skipPrototype` option affects all deep equality methods:
+             *
+             * ```js
+             * class Foo {
+             *   constructor(a) {
+             *     this.a = a;
+             *   }
+             * }
+             *
+             * class Bar {
+             *   constructor(a) {
+             *     this.a = a;
+             *   }
+             * }
+             *
+             * const foo = new Foo(1);
+             * const bar = new Bar(1);
+             *
+             * // Default behavior - fails due to different constructors
+             * const assert1 = new Assert();
+             * assert1.deepStrictEqual(foo, bar); // AssertionError
+             *
+             * // Skip prototype comparison - passes if properties are equal
+             * const assert2 = new Assert({ skipPrototype: true });
+             * assert2.deepStrictEqual(foo, bar); // OK
+             * ```
+             *
              * When destructured, methods lose access to the instance's `this` context and revert to default assertion behavior
              * (diff: 'simple', non-strict mode).
              * To maintain custom options when using destructured methods, avoid
@@ -88,7 +123,7 @@ declare module "assert" {
              * @since v24.6.0
              */
             new(
-                options?: AssertOptions & { strict?: true },
+                options?: AssertOptions & { strict?: true | undefined },
             ): AssertStrict;
             new(
                 options: AssertOptions,
