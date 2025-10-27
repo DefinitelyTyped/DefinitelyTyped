@@ -185,15 +185,13 @@ function testWebNavigation() {
     ) => {
         const filters: chrome.webNavigation.WebNavigationEventFilter = {
             url: [{ hostContains: "example" }],
-        }
+        };
 
         event.addListener(callback, filters); // $ExpectType void
         event.removeListener(callback); // $ExpectType void
         event.hasListener(callback); // $ExpectType boolean
         event.hasListeners(); // $ExpectType boolean
     };
-
-
 
     chrome.webNavigation.TransitionQualifier.CLIENT_REDIRECT === "client_redirect";
     chrome.webNavigation.TransitionQualifier.FORWARD_BACK === "forward_back";
@@ -214,17 +212,17 @@ function testWebNavigation() {
 
     const getAllFramesDetails: chrome.webNavigation.GetAllFrameDetails = {
         tabId: 0,
-    }
+    };
 
     chrome.webNavigation.getAllFrames(getAllFramesDetails); // $ExpectType Promise<GetAllFrameResultDetails[] | null>
     chrome.webNavigation.getAllFrames(getAllFramesDetails, (frames) => { // $ExpectType void
         frames; // $ExpectType GetAllFrameResultDetails[] | null
-        if (!frames?.[0]) return
+        if (!frames?.[0]) return;
         frames[0].documentId; // $ExpectType string
         frames[0].documentLifecycle; // $ExpectType DocumentLifecycle
         frames[0].errorOccurred; // $ExpectType boolean
         frames[0].frameId; // $ExpectType number
-        frames[0].frameType;  // $ExpectType FrameType
+        frames[0].frameType; // $ExpectType FrameType
         frames[0].parentDocumentId; // $ExpectType string | undefined
         frames[0].parentFrameId; // $ExpectType number
         frames[0].processId; // $ExpectType number
@@ -236,14 +234,13 @@ function testWebNavigation() {
     const getFrameDetails: chrome.webNavigation.GetFrameDetails = {
         documentId: "documentId",
         processId: 0,
-    }
+    };
 
     const getFrameDetails2: chrome.webNavigation.GetFrameDetails = {
         frameId: 0,
         tabId: 0,
         processId: 0,
-    }
-
+    };
 
     chrome.webNavigation.getFrame(getFrameDetails); // $ExpectType Promise<GetFrameResultDetails | null>
     chrome.webNavigation.getFrame(getFrameDetails2); // $ExpectType Promise<GetFrameResultDetails | null>
@@ -252,11 +249,11 @@ function testWebNavigation() {
     });
     chrome.webNavigation.getFrame(getFrameDetails2, (frame) => { // $ExpectType void
         frame; // $ExpectType GetFrameResultDetails | null
-        if (!frame) return
+        if (!frame) return;
         frame.documentId; // $ExpectType string
         frame.documentLifecycle; // $ExpectType DocumentLifecycle
         frame.errorOccurred; // $ExpectType boolean
-        frame.frameType;  // $ExpectType FrameType
+        frame.frameType; // $ExpectType FrameType
         frame.parentDocumentId; // $ExpectType string | undefined
         frame.parentFrameId; // $ExpectType number
         frame.url; // $ExpectType string
@@ -266,7 +263,7 @@ function testWebNavigation() {
 
     checkWebNavigationEvent(chrome.webNavigation.onBeforeNavigate, (details) => {
         // @ts-expect-error
-        details.documentId
+        details.documentId;
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -340,7 +337,7 @@ function testWebNavigation() {
         details.tabId; // $ExpectType number
         details.timeStamp; // $ExpectType number
         details.url; // $ExpectType string
-    })
+    });
 
     checkWebNavigationEvent(chrome.webNavigation.onHistoryStateUpdated, (details) => {
         details.documentId; // $ExpectType string
@@ -370,13 +367,13 @@ function testWebNavigation() {
         details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
         details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
         details.url; // $ExpectType string
-    })
+    });
 
     checkChromeEvent(chrome.webNavigation.onTabReplaced, (details) => {
         details.replacedTabId; // $ExpectType number
         details.tabId; // $ExpectType number
         details.timeStamp; // $ExpectType number
-    })
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
