@@ -725,11 +725,11 @@ const any: any = null;
     };
 
     const isEmailOptionsWithBlacklistedHosts: validator.IsEmailOptions = {
-        host_blacklist: ["domain"],
+        host_blacklist: ["domain", /^([a-z0-9\-]+[.])*example[.]com$/],
     };
 
     const isEmailOptionsWithWhitelistedHosts: validator.IsEmailOptions = {
-        host_whitelist: ["domain"],
+        host_whitelist: ["domain", /^([a-z0-9\-]+[.])*example[.]com$/],
     };
 
     const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
