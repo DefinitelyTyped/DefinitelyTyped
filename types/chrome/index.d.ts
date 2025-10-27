@@ -246,7 +246,7 @@ declare namespace chrome {
         ): void;
 
         /**
-         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermissions declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
+         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermission declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
          *
          * Can return its result via Promise.
          */
@@ -7667,7 +7667,7 @@ declare namespace chrome {
             /** The list of host permissions, including those specified in the `optional_permissions` or `permissions` keys in the manifest, and those associated with [Content Scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts). */
             origins?: string[];
             /** List of named permissions (does not include hosts or origins). */
-            permissions?: chrome.runtime.ManifestPermissions[];
+            permissions?: chrome.runtime.ManifestPermission[];
         }
 
         export interface AddHostAccessRequest {
@@ -8973,7 +8973,7 @@ declare namespace chrome {
         }
 
         /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
-        export type ManifestPermissions =
+        export type ManifestPermission =
             | "accessibilityFeatures.modify"
             | "accessibilityFeatures.read"
             | "activeTab"
@@ -9057,9 +9057,14 @@ declare namespace chrome {
             | "webRequestBlocking"
             | "webRequestAuthProvider";
 
+        /**
+         * @deprecated Use `ManifestPermission` instead.
+         */
+        export type ManifestPermissions = ManifestPermission;
+
         /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
-        export type ManifestOptionalPermissions = Exclude<
-            ManifestPermissions,
+        export type ManifestOptionalPermission = Exclude<
+            ManifestPermission,
             | "debugger"
             | "declarativeNetRequest"
             | "devtools"
@@ -9073,6 +9078,11 @@ declare namespace chrome {
             | "wallpaper"
             | "webAuthenticationProxy"
         >;
+
+        /**
+         * @deprecated Use `ManifestOptionalPermission` instead.
+         */
+        export type ManifestOptionalPermissions = ManifestOptionalPermission;
 
         export interface SearchProvider {
             name?: string | undefined;
@@ -9293,8 +9303,8 @@ declare namespace chrome {
                 }
                 | undefined;
             content_security_policy?: string | undefined;
-            optional_permissions?: ManifestOptionalPermissions[] | string[] | undefined;
-            permissions?: ManifestPermissions[] | string[] | undefined;
+            optional_permissions?: (ManifestOptionalPermission | string)[] | undefined;
+            permissions?: (ManifestPermission | string)[] | undefined;
             web_accessible_resources?: string[] | undefined;
         }
 
@@ -9329,9 +9339,9 @@ declare namespace chrome {
                 sandbox?: string;
             };
             host_permissions?: string[] | undefined;
-            optional_permissions?: ManifestOptionalPermissions[] | undefined;
+            optional_permissions?: ManifestOptionalPermission[] | undefined;
             optional_host_permissions?: string[] | undefined;
-            permissions?: ManifestPermissions[] | undefined;
+            permissions?: ManifestPermission[] | undefined;
             web_accessible_resources?:
                 | Array<
                     & {
