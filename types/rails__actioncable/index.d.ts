@@ -18,11 +18,13 @@ export const adapters: {
  */
 export class Consumer {
     readonly subscriptions: Subscriptions;
+    readonly subprotocols: string[];
 
     constructor(url: string);
     get url(): string;
     connect(): boolean;
     disconnect(): void;
+    addSubProtocol(protocol: string): void;
 }
 
 export interface BaseMixin {

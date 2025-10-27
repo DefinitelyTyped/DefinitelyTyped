@@ -9,9 +9,11 @@ const consumer = createConsumer("url"); // $ExpectType Consumer
 createConsumer(() => "url"); // $ExpectType Consumer
 
 consumer.url; // $ExpectType string
+consumer.subprotocols; // $ExpectType string[]
 
 consumer.connect(); // $ExpectType boolean
 consumer.disconnect(); // $ExpectType void
+consumer.addSubProtocol("custom-protocol"); // $ExpectType void
 
 {
     const subscription = consumer.subscriptions.create(
