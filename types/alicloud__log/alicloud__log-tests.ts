@@ -7,6 +7,7 @@ const credentials: Client.Credentials = {
     securityToken: "test-security-token",
 };
 
+// Test credentials object without token.
 const credentialsWithoutToken: Client.Credentials = {
     accessKeyId: "test-access-key-id",
     accessKeySecret: "test-access-key-secret",
@@ -22,6 +23,7 @@ class TestCredentialsProvider implements Client.CredentialsProvider {
     }
 }
 
+// Instantiate TestCredentialsProvider
 const credentialsProvider = new TestCredentialsProvider();
 
 // Test ClientConfig interface
@@ -35,8 +37,26 @@ const clientConfig: Client.ClientConfig = {
     endpoint: "https://test.log.aliyuncs.com",
 };
 
+// Minimal ClientConfig interface
 const minimalClientConfig: Client.ClientConfig = {
     region: "cn-hangzhou",
+};
+
+// Additional ClientConfig variations
+const clientConfigWithNet: Client.ClientConfig = {
+    region: "cn-hangzhou",
+    net: "ipv6",
+};
+
+const clientConfigWithCredentials: Client.ClientConfig = {
+    region: "cn-hangzhou",
+    accessKeyId: "test-key",
+    accessKeySecret: "test-secret",
+};
+
+const clientConfigWithProviderOnly: Client.ClientConfig = {
+    region: "cn-hangzhou",
+    credentialsProvider,
 };
 
 // Test RequestOptions interface
@@ -49,9 +69,58 @@ const requestOptions: Client.RequestOptions = {
     customProperty: "custom-value",
 };
 
+// Additional RequestOptions variations
+const minimalRequestOptions: Client.RequestOptions = {};
+const requestOptionsTimeout: Client.RequestOptions = {
+    timeout: 10000,
+};
+
 // Test ProjectData interface
 const projectData: Client.ProjectData = {
     description: "Test project description",
+};
+
+// Test ProjectQuota interface
+const projectQuota: Client.ProjectQuota = {
+    logstore: 200,
+    shard: 400,
+    config: 200,
+    machineGroup: 200,
+    dashboard: 100,
+    chart: 200,
+    savedsearch: 100,
+    ETL: 100,
+    domain: 1,
+    export: 100,
+    ingestion: 100,
+    alert: 100,
+    report: 100,
+    scheduledSQL: 100,
+    storeView: 10,
+    storeViewStore: 50,
+    materializedView: 30,
+    ingestProcessor: 100,
+    consumeProcessor: 100,
+    writeSizePerMin: 100000000000,
+    writeQpsPerMin: 600000,
+    readQpsPerMin: 600000,
+};
+
+// Test ProjectResponse interface
+const projectResponse: Client.GetProjectResponse = {
+    projectName: 'ykerp',
+    status: 'Normal',
+    owner: '1015810200442489',
+    description: 'Yike ERP Project',
+    createTime: '2025-07-04 15:05:32',
+    lastModifyTime: '2025-07-04 15:05:32',
+    region: 'cn-hangzhou',
+    location: 'cn-hangzhou',
+    resourceGroupId: 'rg-acfmvpxejaibm6i',
+    dataRedundancyType: 'LRS',
+    transferAcceleration: 'Disabled',
+    recycleBinEnabled: false,
+    quota: projectQuota,
 };
 
 // Test ProjectLogsQuery interface
@@ -69,18 +138,62 @@ const listLogStoreQuery: Client.ListLogStoreQuery = {
     size: 100,
 };
 
+// Partial ListLogStoreQuery interface
 const partialListLogStoreQuery: Client.ListLogStoreQuery = {
     offset: 10,
 };
 
-// Test LogStoreData interface
+// Test ListLogStoresResponse interface
+const listLogStoresResponse: Client.ListLogStoresResponse = {
+    total: 2,
+    count: 2,
+    logstores: ["test-1", "test-2"],
+};
+
+// Test LogStoreResourceQuota interface
 const logStoreData: Client.LogStoreData = {
     ttl: 30,
     shardCount: 2,
 };
 
+// Partial LogStoreData interface
 const partialLogStoreData: Client.LogStoreData = {
     ttl: 7,
+};
+
+// Additional LogStoreData variations
+const logStoreDataShard: Client.LogStoreData = {
+    shardCount: 4,
+};
+
+const logStoreDataTtl: Client.LogStoreData = {
+    ttl: 365,
+};
+
+// Test LogStoreResourceQuota interface
+const logStoreResourceQuota: Client.LogStoreResourceQuota = {
+    storage: {
+        preserved: -1,
+        used: 0,
+    },
+};
+
+// Test LogStoreResponse interface
+const logStoreResponse: Client.GetLogStoreResponse = {
+    logstoreName: "resources-operations",
+    ttl: 3650,
+    shardCount: 2,
+    enable_tracking: false,
+    autoSplit: false,
+    maxSplitShard: 0,
+    createTime: 1751613373,
+    lastModifyTime: 1760179655,
+    archiveSeconds: 0,
+    appendMeta: false,
+    telemetryType: "",
+    mode: "standard",
+    productType: "",
+    resourceQuota: logStoreResourceQuota,
 };
 
 // Test IndexConfig interface
@@ -120,6 +233,47 @@ const indexConfig: Client.IndexConfig = {
             ],
         },
     },
+};
+
+// Test GetIndexConfigResponse interface
+const getIndexConfigResponse: Client.GetIndexConfigResponse = {
+    ttl: 30,
+    max_text_len: 2048,
+    log_reduce_white_list: ["a"],
+    log_reduce_black_list: ["b"],
+    line: {
+        chn: false,
+        caseSensitive: false,
+        token: [","],
+        include_keys: ["includeField"],
+        exclude_keys: ["excludeField"],
+    },
+    keys: {
+        key: {
+            chn: true,
+            caseSensitive: true,
+            token: ["|"],
+            alias: "myAlias",
+            type: "text",
+            doc_value: true,
+            index_all: true,
+            max_depth: 0,
+            json_keys: {
+                subkey: {
+                    chn: true,
+                    caseSensitive: true,
+                    token: ["|"],
+                    alias: "myAlias",
+                    type: "text",
+                    doc_value: true,
+                },
+            },
+        },
+    },
+    log_reduce: false,
+    lastModifyTime: 1524155379,
+    index_mode: "v2",
+    storage: "pg",
 };
 
 // Test LogContent interface
@@ -163,6 +317,12 @@ const minimalPostLogStoreLogsData: Client.PostLogStoreLogsData = {
     logs: [minimalLogEntry],
 };
 
+// Additional PostLogStoreLogsData variations
+const postLogStoreLogsDataNoTags: Client.PostLogStoreLogsData = {
+    logs: [logEntry],
+    topic: "topic",
+};
+
 // Test GetLogsQuery interface
 const getLogsQuery: Client.GetLogsQuery = {
     query: "level: ERROR",
@@ -177,6 +337,11 @@ const partialGetLogsQuery: Client.GetLogsQuery = {
     query: "level: INFO",
 };
 
+// Additional GetLogsQuery variations
+const getLogsQueryMinimal: Client.GetLogsQuery = {
+    query: "test",
+};
+
 // Test GetHistogramsQuery interface
 const getHistogramsQuery: Client.GetHistogramsQuery = {
     query: "level: *",
@@ -186,12 +351,74 @@ const getHistogramsQuery: Client.GetHistogramsQuery = {
 
 const minimalGetHistogramsQuery: Client.GetHistogramsQuery = {};
 
+// Additional GetHistogramsQuery variations
+const getHistogramsQueryWithTopic: Client.GetHistogramsQuery = {
+    topic: "test-topic",
+};
+
+// Test GetHistogramsResponse type
+const getHistogramsResponse: Client.GetHistogramsResponse = [
+    {
+        from: 1409529600,
+        to: 1409569200,
+        count: 2,
+        progress: "Complete",
+    },
+];
+
+// Test GetProjectLogsResponse type
+const getProjectLogsResponse: Client.GetProjectLogsResponse = [
+    {
+        key: [
+            {
+                "__time__": 1409529660,
+                "__source__": "192.168.1.100",
+                "Key1": "error",
+                "Key2": "Value2",
+            },
+            {
+                "__time__": 1409529680,
+                "__source__": "192.168.1.100",
+                "Key3": "error",
+                "Key4": "Value4",
+            },
+        ],
+    },
+];
+
+// Test GetLogsResponse type
+const getLogsResponse: Client.GetLogsResponse = [
+    {
+        __time__: 1409529660,
+        __source__: "192.168.1.100",
+        level: "INFO",
+        message: "Test log message",
+        timestamp: "2022-01-01T00:00:00Z",
+        source: "test-source",
+    },
+    {
+        __time__: 1409529680,
+        __source__: "192.168.1.100",
+        level: "ERROR",
+        message: "Error log message",
+        timestamp: "2022-01-01T00:01:00Z",
+        source: "test-source",
+    },
+];
+
 // Test ApiResponse interface
 const apiResponse: Client.ApiResponse = {
     count: 100,
     logs: [logEntry],
     progress: "Complete",
     requestId: "test-request-id",
+};
+
+// Additional ApiResponse variations
+const apiResponseMinimal: Client.ApiResponse = {};
+const apiResponseWithError: Client.ApiResponse = {
+    error: "test error",
+    code: 500,
 };
 
 // Test Client class constructor
@@ -210,13 +437,13 @@ const endpoint: string = client.endpoint;
 // Test Client class methods - Project operations
 async function testProjectOperations() {
     // getProject
-    const project: Client.ApiResponse = await client.getProject("test-project");
-    const projectWithOptions: Client.ApiResponse = await client.getProject("test-project", requestOptions);
+    const project: Client.GetProjectResponse = await client.getProject("test-project");
+    const projectWithOptions: Client.GetProjectResponse = await client.getProject("test-project", requestOptions);
 
     // getProjectLogs
-    const projectLogs: Client.ApiResponse = await client.getProjectLogs("test-project");
-    const projectLogsWithData: Client.ApiResponse = await client.getProjectLogs("test-project", projectLogsQuery);
-    const projectLogsWithOptions: Client.ApiResponse = await client.getProjectLogs(
+    const projectLogs: Client.GetProjectLogsResponse = await client.getProjectLogs("test-project");
+    const projectLogsWithData: Client.GetProjectLogsResponse = await client.getProjectLogs("test-project", projectLogsQuery);
+    const projectLogsWithOptions: Client.GetProjectLogsResponse = await client.getProjectLogs(
         "test-project",
         projectLogsQuery,
         requestOptions,
@@ -238,9 +465,9 @@ async function testProjectOperations() {
 // Test Client class methods - LogStore operations
 async function testLogStoreOperations() {
     // listLogStore
-    const logStores: Client.ApiResponse = await client.listLogStore("test-project");
-    const logStoresWithData: Client.ApiResponse = await client.listLogStore("test-project", listLogStoreQuery);
-    const logStoresWithOptions: Client.ApiResponse = await client.listLogStore(
+    const logStores: Client.ListLogStoresResponse = await client.listLogStore("test-project");
+    const logStoresWithData: Client.ListLogStoresResponse = await client.listLogStore("test-project", listLogStoreQuery);
+    const logStoresWithOptions: Client.ListLogStoresResponse = await client.listLogStore(
         "test-project",
         listLogStoreQuery,
         requestOptions,
@@ -283,8 +510,8 @@ async function testLogStoreOperations() {
     );
 
     // getLogStore
-    const logStore: Client.ApiResponse = await client.getLogStore("test-project", "test-logstore");
-    const logStoreWithOptions: Client.ApiResponse = await client.getLogStore(
+    const logStore: Client.GetLogStoreResponse = await client.getLogStore("test-project", "test-logstore");
+    const logStoreWithOptions: Client.GetLogStoreResponse = await client.getLogStore(
         "test-project",
         "test-logstore",
         requestOptions,
@@ -294,8 +521,8 @@ async function testLogStoreOperations() {
 // Test Client class methods - Index operations
 async function testIndexOperations() {
     // getIndexConfig
-    const indexConfigResult: Client.ApiResponse = await client.getIndexConfig("test-project", "test-logstore");
-    const indexConfigWithOptions: Client.ApiResponse = await client.getIndexConfig(
+    const indexConfigResult: Client.GetIndexConfigResponse = await client.getIndexConfig("test-project", "test-logstore");
+    const indexConfigWithOptions: Client.GetIndexConfigResponse = await client.getIndexConfig(
         "test-project",
         "test-logstore",
         requestOptions,
@@ -334,15 +561,15 @@ async function testLogOperations() {
     const toDate = new Date("2022-01-01T23:59:59Z");
 
     // getLogs
-    const logs: Client.ApiResponse = await client.getLogs("test-project", "test-logstore", fromDate, toDate);
-    const logsWithQuery: Client.ApiResponse = await client.getLogs(
+    const logs: Client.GetLogsResponse = await client.getLogs("test-project", "test-logstore", fromDate, toDate);
+    const logsWithQuery: Client.GetLogsResponse = await client.getLogs(
         "test-project",
         "test-logstore",
         fromDate,
         toDate,
         getLogsQuery,
     );
-    const logsWithOptions: Client.ApiResponse = await client.getLogs(
+    const logsWithOptions: Client.GetLogsResponse = await client.getLogs(
         "test-project",
         "test-logstore",
         fromDate,
@@ -352,20 +579,20 @@ async function testLogOperations() {
     );
 
     // getHistograms
-    const histograms: Client.ApiResponse = await client.getHistograms(
+    const histograms: Client.GetHistogramsResponse = await client.getHistograms(
         "test-project",
         "test-logstore",
         fromDate,
         toDate,
     );
-    const histogramsWithQuery: Client.ApiResponse = await client.getHistograms(
+    const histogramsWithQuery: Client.GetHistogramsResponse = await client.getHistograms(
         "test-project",
         "test-logstore",
         fromDate,
         toDate,
         getHistogramsQuery,
     );
-    const histogramsWithOptions: Client.ApiResponse = await client.getHistograms(
+    const histogramsWithOptions: Client.GetHistogramsResponse = await client.getHistograms(
         "test-project",
         "test-logstore",
         fromDate,
