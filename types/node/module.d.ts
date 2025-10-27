@@ -1,7 +1,7 @@
 /**
  * @since v0.3.7
  */
-declare module "module" {
+declare module "node:module" {
     import { URL } from "node:url";
     class Module {
         constructor(id: string, parent?: Module);
@@ -62,6 +62,24 @@ declare module "module" {
                 const DISABLED: number;
             }
         }
+        interface EnableCompileCacheOptions {
+            /**
+             * Optional. Directory to store the compile cache. If not specified,
+             * the directory specified by the `NODE_COMPILE_CACHE=dir` environment variable
+             * will be used if it's set, or `path.join(os.tmpdir(), 'node-compile-cache')`
+             * otherwise.
+             * @since v25.0.0
+             */
+            directory?: string | undefined;
+            /**
+             * Optional. If `true`, enables portable compile cache so that
+             * the cache can be reused even if the project directory is moved. This is a best-effort
+             * feature. If not specified, it will depend on whether the environment variable
+             * `NODE_COMPILE_CACHE_PORTABLE=1` is set.
+             * @since v25.0.0
+             */
+            portable?: boolean | undefined;
+        }
         interface EnableCompileCacheResult {
             /**
              * One of the {@link constants.compileCacheStatus}
@@ -84,20 +102,16 @@ declare module "module" {
          * Enable [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache)
          * in the current Node.js instance.
          *
-         * If `cacheDir` is not specified, Node.js will either use the directory specified by the
-         * `NODE_COMPILE_CACHE=dir` environment variable if it's set, or use
-         * `path.join(os.tmpdir(), 'node-compile-cache')` otherwise. For general use cases, it's
-         * recommended to call `module.enableCompileCache()` without specifying the `cacheDir`,
-         * so that the directory can be overridden by the `NODE_COMPILE_CACHE` environment
-         * variable when necessary.
+         * For general use cases, it's recommended to call `module.enableCompileCache()` without
+         * specifying the `options.directory`, so that the directory can be overridden by the
+         * `NODE_COMPILE_CACHE` environment variable when necessary.
          *
-         * Since compile cache is supposed to be a quiet optimization that is not required for the
-         * application to be functional, this method is designed to not throw any exception when the
-         * compile cache cannot be enabled. Instead, it will return an object containing an error
-         * message in the `message` field to aid debugging.
-         * If compile cache is enabled successfully, the `directory` field in the returned object
-         * contains the path to the directory where the compile cache is stored. The `status`
-         * field in the returned object would be one of the `module.constants.compileCacheStatus`
+         * Since compile cache is supposed to be a optimization that is not mission critical, this
+         * method is designed to not throw any exception when the compile cache cannot be enabled.
+         * Instead, it will return an object containing an error message in the `message` field to
+         * aid debugging. If compile cache is enabled successfully, the `directory` field in the
+         * returned object contains the path to the directory where the compile cache is stored. The
+         * `status` field in the returned object would be one of the `module.constants.compileCacheStatus`
          * values to indicate the result of the attempt to enable the
          * [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache).
          *
@@ -107,10 +121,9 @@ declare module "module" {
          * be inherited into the child workers. The directory can be obtained either from the
          * `directory` field returned by this method, or with {@link getCompileCacheDir}.
          * @since v22.8.0
-         * @param cacheDir Optional path to specify the directory where the compile cache
-         * will be stored/retrieved.
+         * @param options Optional. If a string is passed, it is considered to be `options.directory`.
          */
-        function enableCompileCache(cacheDir?: string): EnableCompileCacheResult;
+        function enableCompileCache(options?: string | EnableCompileCacheOptions): EnableCompileCacheResult;
         /**
          * Flush the [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache)
          * accumulated from modules already loaded
@@ -623,94 +636,6 @@ declare module "module" {
         function wrap(script: string): string;
     }
     global {
-        interface ImportMeta {
-            /**
-             * The directory name of the current module.
-             *
-             * This is the same as the `path.dirname()` of the `import.meta.filename`.
-             *
-             * > **Caveat**: only present on `file:` modules.
-             * @since v21.2.0, v20.11.0
-             */
-            dirname: string;
-            /**
-             * The full absolute path and filename of the current module, with
-             * symlinks resolved.
-             *
-             * This is the same as the `url.fileURLToPath()` of the `import.meta.url`.
-             *
-             * > **Caveat** only local modules support this property. Modules not using the
-             * > `file:` protocol will not provide it.
-             * @since v21.2.0, v20.11.0
-             */
-            filename: string;
-            /**
-             * The absolute `file:` URL of the module.
-             *
-             * This is defined exactly the same as it is in browsers providing the URL of the
-             * current module file.
-             *
-             * This enables useful patterns such as relative file loading:
-             *
-             * ```js
-             * import { readFileSync } from 'node:fs';
-             * const buffer = readFileSync(new URL('./data.proto', import.meta.url));
-             * ```
-             */
-            url: string;
-            /**
-             * `import.meta.resolve` is a module-relative resolution function scoped to
-             * each module, returning the URL string.
-             *
-             * ```js
-             * const dependencyAsset = import.meta.resolve('component-lib/asset.css');
-             * // file:///app/node_modules/component-lib/asset.css
-             * import.meta.resolve('./dep.js');
-             * // file:///app/dep.js
-             * ```
-             *
-             * All features of the Node.js module resolution are supported. Dependency
-             * resolutions are subject to the permitted exports resolutions within the package.
-             *
-             * **Caveats**:
-             *
-             * * This can result in synchronous file-system operations, which
-             *   can impact performance similarly to `require.resolve`.
-             * * This feature is not available within custom loaders (it would
-             *   create a deadlock).
-             * @since v13.9.0, v12.16.0
-             * @param specifier The module specifier to resolve relative to the
-             * current module.
-             * @param parent An optional absolute parent module URL to resolve from.
-             * **Default:** `import.meta.url`
-             * @returns The absolute URL string that the specifier would resolve to.
-             */
-            resolve(specifier: string, parent?: string | URL): string;
-            /**
-             * `true` when the current module is the entry point of the current process; `false` otherwise.
-             *
-             * Equivalent to `require.main === module` in CommonJS.
-             *
-             * Analogous to Python's `__name__ == "__main__"`.
-             *
-             * ```js
-             * export function foo() {
-             *   return 'Hello, world';
-             * }
-             *
-             * function main() {
-             *   const message = foo();
-             *   console.log(message);
-             * }
-             *
-             * if (import.meta.main) main();
-             * // `foo` can be imported from another module without possible side-effects from `main`
-             * ```
-             * @since v24.2.0
-             * @experimental
-             */
-            main: boolean;
-        }
         namespace NodeJS {
             interface Module {
                 /**
@@ -888,7 +813,7 @@ declare module "module" {
     }
     export = Module;
 }
-declare module "node:module" {
-    import module = require("module");
+declare module "module" {
+    import module = require("node:module");
     export = module;
 }

@@ -1,7 +1,6 @@
 declare var global: typeof globalThis;
 
 declare var process: NodeJS.Process;
-declare var console: Console;
 
 interface ErrorConstructor {
     /**
@@ -167,4 +166,10 @@ declare namespace NodeJS {
     interface AsyncIterator<T, TReturn = undefined, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
     }
+    
+    /** The [`BufferSource`](https://webidl.spec.whatwg.org/#BufferSource) type from the Web IDL specification. */
+    type BufferSource = NonSharedArrayBufferView | ArrayBuffer;
+
+    /** The [`AllowSharedBufferSource`](https://webidl.spec.whatwg.org/#AllowSharedBufferSource) type from the Web IDL specification. */
+    type AllowSharedBufferSource = ArrayBufferView | ArrayBufferLike;
 }
