@@ -5821,14 +5821,15 @@ function testIdle() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/topSites/
+// https://developer.chrome.com/docs/extensions/reference/api/topSites
 function testTopSites() {
-    chrome.topSites.get(() => {});
-}
-
-// https://developer.chrome.com/docs/extensions/reference/topSites/
-async function testTopSitesForPromise() {
-    await chrome.topSites.get();
+    chrome.topSites.get(); // $ExpectType Promise<MostVisitedURL[]>
+    chrome.topSites.get(([result]) => { // $ExpectType void
+        result.title; // $ExpectType string
+        result.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.topSites.get(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/offscreen
