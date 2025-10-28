@@ -387,9 +387,10 @@ const getProjectLogsResponse: Client.GetProjectLogsResponse = [
 ];
 
 // Test GetLogsResponse type
-const getLogsResponse: Client.GetLogsResponse = [
+const getLogsResponse: Client.GetLogsResponse[] = [
     {
-        __time__: 1409529660,
+        __time__: "1409529660",
+        __topic__: "test-topic",
         __source__: "192.168.1.100",
         level: "INFO",
         message: "Test log message",
@@ -397,7 +398,8 @@ const getLogsResponse: Client.GetLogsResponse = [
         source: "test-source",
     },
     {
-        __time__: 1409529680,
+        __time__: "1409529680",
+        __topic__: "test-topic",
         __source__: "192.168.1.100",
         level: "ERROR",
         message: "Error log message",
@@ -570,15 +572,15 @@ async function testLogOperations() {
     const toDate = new Date("2022-01-01T23:59:59Z");
 
     // getLogs
-    const logs: Client.GetLogsResponse = await client.getLogs("test-project", "test-logstore", fromDate, toDate);
-    const logsWithQuery: Client.GetLogsResponse = await client.getLogs(
+    const logs: Client.GetLogsResponse[] = await client.getLogs("test-project", "test-logstore", fromDate, toDate);
+    const logsWithQuery: Client.GetLogsResponse[] = await client.getLogs(
         "test-project",
         "test-logstore",
         fromDate,
         toDate,
         getLogsQuery,
     );
-    const logsWithOptions: Client.GetLogsResponse = await client.getLogs(
+    const logsWithOptions: Client.GetLogsResponse[] = await client.getLogs(
         "test-project",
         "test-logstore",
         fromDate,
