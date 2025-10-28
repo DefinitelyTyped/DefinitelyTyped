@@ -234,7 +234,7 @@ const customAnnotation: Annotation = new mapkit.Annotation(
 const markerOptions: MarkerAnnotationConstructorOptions = {
     color: "#FF3B30",
     glyphColor: "#FFFFFF",
-    glyphText: "<�",
+    glyphText: "📍",
     title: "Marker Annotation",
     subtitle: "A marker annotation example",
     titleVisibility: "adaptive",
