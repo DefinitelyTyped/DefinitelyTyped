@@ -11,6 +11,7 @@ const fakeDate: Date = new timers.Date();
 timers.clearTimeout(fakeTimeout);
 timers.clearInterval(fakeInterval);
 timers.clearImmediate(fakeImmediate);
+timers.queueMicrotask(() => {});
 
 let browserClock: FakeTimers.BrowserClock = FakeTimers.createClock() as FakeTimers.BrowserClock;
 let nodeClock: FakeTimers.NodeClock = FakeTimers.createClock() as FakeTimers.NodeClock;
@@ -110,6 +111,7 @@ nodeClock.runAll();
 browserClock.runAllAsync().then(val => val.toExponential());
 nodeClock.runAllAsync().then(val => val.toExponential());
 
+browserClock.runMicrotasks();
 nodeClock.runMicrotasks();
 
 browserClock.runToFrame();
@@ -120,6 +122,9 @@ nodeClock.runToLast();
 
 browserClock.runToLastAsync().then(val => val.toExponential());
 nodeClock.runToLastAsync().then(val => val.toExponential());
+
+browserClock.queueMicrotask(() => {});
+nodeClock.queueMicrotask(() => {});
 
 browserClock.jump(7);
 browserClock.jump("08:03");
@@ -140,7 +145,6 @@ nodeClock.setTickMode({ mode: "nextAsync" });
 nodeClock.setTickMode({ mode: "interval", delta: 200 });
 
 nodeClock.nextTick(() => undefined);
-nodeClock.queueMicrotask(() => {});
 
 const browserTimersCount: number = browserClock.countTimers();
 const nodeTimersCount: number = nodeClock.countTimers();

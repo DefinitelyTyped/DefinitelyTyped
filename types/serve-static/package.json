@@ -1,14 +1,13 @@
 {
     "private": true,
     "name": "@types/serve-static",
-    "version": "1.15.9999",
+    "version": "2.2.9999",
     "projects": [
         "https://github.com/expressjs/serve-static"
     ],
     "dependencies": {
         "@types/http-errors": "*",
-        "@types/node": "*",
-        "@types/send": "<1"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/express": "*",
