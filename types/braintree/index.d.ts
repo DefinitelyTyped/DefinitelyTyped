@@ -2,7 +2,7 @@
 
 export = braintree;
 export as namespace braintree;
-import * as stream from "stream";
+import stream = require("stream");
 
 declare namespace braintree {
     /**

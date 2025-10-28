@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as Tar from "tar-js";
+import Tar from "tar-js";
 
 const tar = new Tar();
 console.log(tar.written === 0);

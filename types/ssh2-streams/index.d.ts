@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as stream from "stream";
+import stream = require("stream");
 
 export class SSH2Stream extends stream.Transform {
     /**

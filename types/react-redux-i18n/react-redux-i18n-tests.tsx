@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as I18n from "react-redux-i18n";
+import I18n from "react-redux-i18n";
 
 class ReactReduxI18nTests_Translate1 extends React.Component {
     render() {

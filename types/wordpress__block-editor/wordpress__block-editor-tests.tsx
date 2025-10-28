@@ -1,4 +1,4 @@
-import * as be from "@wordpress/block-editor";
+import be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
 import { BlockInstance, createBlock } from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";

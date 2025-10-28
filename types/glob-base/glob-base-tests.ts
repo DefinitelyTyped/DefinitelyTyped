@@ -1,4 +1,4 @@
-import * as globBase from "glob-base";
+import globBase from "glob-base";
 
 const result = globBase("**/*.ts");
 

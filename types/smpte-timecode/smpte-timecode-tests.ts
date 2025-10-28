@@ -1,4 +1,4 @@
-import * as Timecode from "smpte-timecode";
+import Timecode from "smpte-timecode";
 
 let t: Timecode.TimecodeInstance;
 let t2: Timecode.TimecodeInstance;

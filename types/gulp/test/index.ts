@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as registry from "undertaker-registry";
+import registry from "undertaker-registry";
 
 const minify: () => any = () => {};
 const jade: () => any = () => {};

@@ -1,4 +1,4 @@
-import * as Readmore from "readmore-js";
+import Readmore from "readmore-js";
 
 const options: Readmore.Options = {
     speed: 100,

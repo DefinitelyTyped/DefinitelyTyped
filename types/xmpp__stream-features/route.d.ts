@@ -1,5 +1,5 @@
 import { Entity, IncomingContext } from "@xmpp/middleware";
-import * as Koa from "koa";
+import Koa = require("koa");
 
 export = route;
 

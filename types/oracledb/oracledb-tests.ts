@@ -64,6 +64,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         info.metaData[0],
         {
             name: "1",
+            dbColumnName: "1",
             fetchType: 2002,
             dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
@@ -846,4 +847,30 @@ export const version6_9Tests = async (): Promise<void> => {
     q.enqOne("test");
     const msg = await q.deqOne();
     console.log(msg.enqTime);
+};
+
+export const version6_10Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+    const queue = await connection.getQueue("test", {
+        payloadType: "test",
+    });
+
+    const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
+
+    const {
+        condition,
+        consumerName,
+        correlation,
+        deliveryMode,
+        mode,
+        msgId,
+        navigation,
+        transformation,
+        visibility,
+        wait,
+    } = deqOptions;
+
+    const messages = await queue.deqMany(5);
 };

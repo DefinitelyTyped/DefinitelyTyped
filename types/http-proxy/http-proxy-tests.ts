@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as http from "http";
-import * as HttpProxy from "http-proxy";
+import HttpProxy from "http-proxy";
 
 const proxy = new HttpProxy({
     changeOrigin: true,

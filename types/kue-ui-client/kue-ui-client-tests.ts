@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import * as kueUiClient from "kue-ui-client";
 
 const app = express();

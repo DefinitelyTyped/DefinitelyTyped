@@ -1,5 +1,5 @@
-import * as Grid from "@nginstack/web-framework/lib/grid/Grid";
-import * as GridField from "@nginstack/web-framework/lib/grid/GridField";
+import Grid from "@nginstack/web-framework/lib/grid/Grid";
+import GridField from "@nginstack/web-framework/lib/grid/GridField";
 
 const grid = new Grid("*", "name"); // $ExpectType Grid
 const gridField = new GridField("name", "type", null); // $ExpectType GridField

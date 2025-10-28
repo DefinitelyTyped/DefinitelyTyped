@@ -1,6 +1,6 @@
 import { scaleTime } from "d3-scale";
 import { curveNatural } from "d3-shape";
-import * as React from "react";
+import React from "react";
 import { View } from "react-native";
 import { LinearGradientProps, Stop } from "react-native-svg";
 import { BarChart, Decorators, Grid, StackedAreaChart, StackedBarChart, XAxis } from "react-native-svg-charts";

@@ -5,7 +5,7 @@
             "esnext",
             "dom"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "types": [],
         "strictFunctionTypes": true,
         "strictNullChecks": true,

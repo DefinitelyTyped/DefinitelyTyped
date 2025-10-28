@@ -1,8 +1,8 @@
-import * as variablesPlugin from "@mertasan/tailwindcss-variables";
+import variablesPlugin from "@mertasan/tailwindcss-variables";
 import * as variablesApi from "@mertasan/tailwindcss-variables/api";
 import colorVariable = require("@mertasan/tailwindcss-variables/colorVariable");
 import type { Config } from "tailwindcss";
-import * as plugin from "tailwindcss/plugin";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
     content: [],

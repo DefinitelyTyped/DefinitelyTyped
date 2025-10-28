@@ -1,5 +1,5 @@
 import { ChildProcess, ForkOptions } from "child_process";
-import * as HardSourceWebpackPlugin from "hard-source-webpack-plugin";
+import HardSourceWebpackPlugin from "hard-source-webpack-plugin";
 import * as webpack from "webpack";
 
 new HardSourceWebpackPlugin({

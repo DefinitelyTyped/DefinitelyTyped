@@ -1,4 +1,4 @@
-import * as DataFormatter from "excel-style-dataformatter";
+import DataFormatter from "excel-style-dataformatter";
 import * as enLocales from "excel-style-dataformatter/lib/locales/en-US";
 import * as ruLocales from "excel-style-dataformatter/lib/locales/ru";
 

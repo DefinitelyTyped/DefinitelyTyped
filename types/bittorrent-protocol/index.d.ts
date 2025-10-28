@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as stream from "stream";
+import stream = require("stream");
 
 declare const BittorrentProtocol: BittorrentProtocol.BittorrentProtocol;
 

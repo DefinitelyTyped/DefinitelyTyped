@@ -1,5 +1,5 @@
-import * as Box from "ink-box";
-import * as Gradient from "ink-gradient";
+import Box from "ink-box";
+import Gradient from "ink-gradient";
 import * as React from "react";
 
 function test() {

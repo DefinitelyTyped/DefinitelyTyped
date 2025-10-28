@@ -1,4 +1,4 @@
-import * as Globalize from "./number";
+import Globalize = require("./number");
 
 declare module "../globalize" {
     interface DateFormatterOptions {

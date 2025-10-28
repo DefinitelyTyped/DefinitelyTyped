@@ -10,7 +10,7 @@
 /// <reference types="node" />
 /// <reference types="koa" />
 
-import * as Koa from "koa";
+import Koa = require("koa");
 import * as zlib from "zlib";
 
 /**

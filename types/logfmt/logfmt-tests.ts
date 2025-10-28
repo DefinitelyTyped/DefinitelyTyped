@@ -1,7 +1,7 @@
-import * as express from "express";
+import express from "express";
 import * as http from "http";
-import * as logfmt from "logfmt";
-import * as through from "through";
+import logfmt from "logfmt";
+import through from "through";
 
 // Examples taken from project README
 
@@ -69,10 +69,6 @@ logfmt.log({ foo: "bar", a: 14, baz: "hello kitty" });
 logfmt.log({ foo: "bar", a: 14, baz: "hello kitty" });
 logfmt.log({ foo: "bar", a: 14, baz: "hello kitty" }, process.stderr);
 
-// logfmt's trick of copying the prototype onto itself seems to trip up
-// TypeScript on module-level member assignment, so this should work but doesn't
-//
-// @ts-expect-error
 logfmt.stream = process.stderr;
 logfmt.log({ foo: "bar", a: 14, baz: "hello kitty" });
 

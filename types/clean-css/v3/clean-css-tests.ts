@@ -1,4 +1,4 @@
-import * as CleanCSS from "clean-css";
+import CleanCSS from "clean-css";
 
 var source = "a{font-weight:bold;}";
 var minified = new CleanCSS().minify(source).styles;

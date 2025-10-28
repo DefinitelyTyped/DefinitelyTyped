@@ -1,4 +1,4 @@
-import * as ascii2mathml from "ascii2mathml";
+import ascii2mathml from "ascii2mathml";
 
 const fn = ascii2mathml({}); // $ExpectType ascii2mathml
 fn(""); // $ExpectType string

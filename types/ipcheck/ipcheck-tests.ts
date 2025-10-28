@@ -1,4 +1,4 @@
-import * as ipcheck from "ipcheck";
+import ipcheck from "ipcheck";
 
 // @ts-expect-error
 ipcheck.match(1, 1);
