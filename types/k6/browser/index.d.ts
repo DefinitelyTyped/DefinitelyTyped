@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /**
  * Represents event-specific properties. Refer to the events documentation for
  * the lists of initial properties:
@@ -12,6 +14,7 @@
 export type EvaluationArgument = object;
 
 export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
+export type PageFunctionOn<On, Arg2, R> = string | ((on: On, arg2: Unboxed<Arg2>) => R);
 
 export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>]
     : Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
@@ -2996,6 +2999,27 @@ export interface Locator {
      * @param options Options to use.
      */
     dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
+
+    /**
+     * Evaluates the page function and returns its return value.
+     * This method passes this locator's matching element as the first argument to the page function.
+     *
+     * @param pageFunction Function to be evaluated in the page context.
+     * @param arg Optional argument to pass to `pageFunction`.
+     * @returns Return value of `pageFunction`.
+     */
+    evaluate<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<R>;
+
+    /**
+     * Evaluates the page function and returns its return value as a [JSHandle].
+     * This method passes this locator's matching element as the first argument to the page function.
+     * Unlike `evaluate`, `evaluateHandle` returns the value as a `JSHandle`
+     *
+     * @param pageFunction Function to be evaluated in the page context.
+     * @param arg Optional argument to pass to `pageFunction`.
+     * @returns JSHandle of the return value of `pageFunction`.
+     */
+    evaluateHandle<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
 
     /**
      * Use this method to select an `input type="checkbox"`.
