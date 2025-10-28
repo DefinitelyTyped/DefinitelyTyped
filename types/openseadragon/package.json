@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/openseadragon",
-    "version": "5.0.99991",
+    "version": "5.0.9999",
     "projects": [
         "https://openseadragon.github.io/"
     ],
