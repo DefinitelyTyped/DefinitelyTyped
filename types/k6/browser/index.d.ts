@@ -5425,6 +5425,16 @@ export interface Page {
     ): Promise<void>;
 
     /**
+     * Removes all existing routes for the `url`.
+     */
+    unroute(url: string | RegExp): Promise<void>;
+
+    /**
+     * Removes all routes created with page.route().
+     */
+    unrouteAll(): Promise<void>;
+
+    /**
      * Returns the page's URL.
      */
     url(): string;

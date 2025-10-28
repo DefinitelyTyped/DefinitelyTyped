@@ -1080,6 +1080,31 @@ async function test() {
     // $ExpectType Promise<ElementHandle[]>
     page.$$(selector);
 
+    // $ExpectType Promise<void>
+    page.route("https://example.com/logo.png", () => {});
+    // $ExpectType Promise<void>
+    page.route(/.*\/logo.png/i, () => {});
+    // @ts-expect-error
+    page.route();
+    // @ts-expect-error
+    page.route(123, () => {});
+    // @ts-expect-error
+    page.route("https://example.com/logo.png");
+
+    // $ExpectType Promise<void>
+    page.unroute("https://example.com/logo.png");
+    // $ExpectType Promise<void>
+    page.unroute(/.*\/logo.png/i);
+    // @ts-expect-error
+    page.unroute();
+    // @ts-expect-error
+    page.unroute(123);
+
+    // $ExpectType Promise<void>
+    page.unrouteAll();
+    // @ts-expect-error
+    page.unrouteAll("https://example.com/logo.png");
+
     //
     // Keyboard
     //
