@@ -815,7 +815,7 @@ declare class Client {
         to: Date,
         data?: Client.GetLogsQuery,
         options?: Client.RequestOptions,
-    ): Promise<Client.GetLogsResponse>;
+    ): Promise<Client.GetLogsResponse[]>;
 
     /**
      * Retrieves histograms from a log store.
