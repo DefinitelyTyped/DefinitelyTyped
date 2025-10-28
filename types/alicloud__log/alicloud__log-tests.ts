@@ -108,17 +108,17 @@ const projectQuota: Client.ProjectQuota = {
 
 // Test ProjectResponse interface
 const projectResponse: Client.GetProjectResponse = {
-    projectName: 'ykerp',
-    status: 'Normal',
-    owner: '1015810200442489',
-    description: 'Yike ERP Project',
-    createTime: '2025-07-04 15:05:32',
-    lastModifyTime: '2025-07-04 15:05:32',
-    region: 'cn-hangzhou',
-    location: 'cn-hangzhou',
-    resourceGroupId: 'rg-acfmvpxejaibm6i',
-    dataRedundancyType: 'LRS',
-    transferAcceleration: 'Disabled',
+    projectName: "ykerp",
+    status: "Normal",
+    owner: "1015810200442489",
+    description: "Yike ERP Project",
+    createTime: "2025-07-04 15:05:32",
+    lastModifyTime: "2025-07-04 15:05:32",
+    region: "cn-hangzhou",
+    location: "cn-hangzhou",
+    resourceGroupId: "rg-acfmvpxejaibm6i",
+    dataRedundancyType: "LRS",
+    transferAcceleration: "Disabled",
     recycleBinEnabled: false,
     quota: projectQuota,
 };
@@ -442,7 +442,10 @@ async function testProjectOperations() {
 
     // getProjectLogs
     const projectLogs: Client.GetProjectLogsResponse = await client.getProjectLogs("test-project");
-    const projectLogsWithData: Client.GetProjectLogsResponse = await client.getProjectLogs("test-project", projectLogsQuery);
+    const projectLogsWithData: Client.GetProjectLogsResponse = await client.getProjectLogs(
+        "test-project",
+        projectLogsQuery,
+    );
     const projectLogsWithOptions: Client.GetProjectLogsResponse = await client.getProjectLogs(
         "test-project",
         projectLogsQuery,
@@ -466,7 +469,10 @@ async function testProjectOperations() {
 async function testLogStoreOperations() {
     // listLogStore
     const logStores: Client.ListLogStoresResponse = await client.listLogStore("test-project");
-    const logStoresWithData: Client.ListLogStoresResponse = await client.listLogStore("test-project", listLogStoreQuery);
+    const logStoresWithData: Client.ListLogStoresResponse = await client.listLogStore(
+        "test-project",
+        listLogStoreQuery,
+    );
     const logStoresWithOptions: Client.ListLogStoresResponse = await client.listLogStore(
         "test-project",
         listLogStoreQuery,
@@ -521,7 +527,10 @@ async function testLogStoreOperations() {
 // Test Client class methods - Index operations
 async function testIndexOperations() {
     // getIndexConfig
-    const indexConfigResult: Client.GetIndexConfigResponse = await client.getIndexConfig("test-project", "test-logstore");
+    const indexConfigResult: Client.GetIndexConfigResponse = await client.getIndexConfig(
+        "test-project",
+        "test-logstore",
+    );
     const indexConfigWithOptions: Client.GetIndexConfigResponse = await client.getIndexConfig(
         "test-project",
         "test-logstore",
