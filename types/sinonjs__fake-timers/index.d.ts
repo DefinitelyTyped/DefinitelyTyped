@@ -77,6 +77,11 @@ export interface GlobalTimers<TTimerId extends TimerId> {
      * Implements the Date object but using this clock to provide the correct time.
      */
     Date: typeof Date;
+
+    /**
+     * Mimics process.nextTick() explicitly dropping additional arguments.
+     */
+    queueMicrotask: (callback: () => void) => void;
 }
 
 /**
@@ -288,6 +293,11 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * @param tickModeConfig The new configuration for how the clock should tick.
      */
     setTickMode: (tickModeConfig: TimerTickMode) => void;
+
+    /**
+     * Run all pending microtasks scheduled with `queueMicrotask`.
+     */
+    runMicrotasks: () => void;
 }
 
 /**
@@ -308,19 +318,9 @@ export type NodeClock = FakeClock<NodeTimer> & {
     hrtime(prevTime?: [number, number]): [number, number];
 
     /**
-     * Mimics process.nextTick() explicitly dropping additional arguments.
-     */
-    queueMicrotask: (callback: () => void) => void;
-
-    /**
      * Simulates process.nextTick().
      */
     nextTick: (callback: (...args: any[]) => void, ...args: any[]) => void;
-
-    /**
-     * Run all pending microtasks scheduled with nextTick.
-     */
-    runMicrotasks: () => void;
 };
 
 /**

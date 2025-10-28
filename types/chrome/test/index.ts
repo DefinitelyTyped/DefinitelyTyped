@@ -172,59 +172,208 @@ function printPage() {
     });
 }
 
-// webNavigation.onBeforeNavigate.addListener example
-function beforeRedditNavigation() {
-    chrome.webNavigation.onBeforeNavigate.addListener(
-        function(requestDetails) {
-            console.log("URL we want to redirect to: " + requestDetails.url);
-            // NOTE: This will search for top level frames with the value -1.
-            if (requestDetails.parentFrameId != -1) {
-                return;
-            }
+// https://developer.chrome.com/docs/extensions/reference/api/webNavigation
+function testWebNavigation() {
+    /**
+     * Check all listeners for a webNavigation event with filters.
+     * @param event - The event to check.
+     * @param callback - The callback to check.
+     */
+    const checkWebNavigationEvent = <T extends chrome.webNavigation.WebNavigationEvent<(...args: any) => unknown>>(
+        event: T,
+        callback: Parameters<T["addListener"]>[0],
+    ) => {
+        const filters: chrome.webNavigation.WebNavigationEventFilter = {
+            url: [{ hostContains: "example" }],
+        };
 
-            alert("Were you trying to go on reddit, during working hours? :(");
-        },
-        {
-            url: [{ hostSuffix: ".reddit.com" }],
-        },
-    );
-}
+        event.addListener(callback, filters); // $ExpectType void
+        event.removeListener(callback); // $ExpectType void
+        event.hasListener(callback); // $ExpectType boolean
+        event.hasListeners(); // $ExpectType boolean
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
-async function getFrame() {
-    const testTabId = 0;
-    const testFrameId = 0;
+    chrome.webNavigation.TransitionQualifier.CLIENT_REDIRECT === "client_redirect";
+    chrome.webNavigation.TransitionQualifier.FORWARD_BACK === "forward_back";
+    chrome.webNavigation.TransitionQualifier.FROM_ADDRESS_BAR === "from_address_bar";
+    chrome.webNavigation.TransitionQualifier.SERVER_REDIRECT === "server_redirect";
 
-    chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
-    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
-        console.log("Frame (in-callback): ", frame);
+    chrome.webNavigation.TransitionType.AUTO_BOOKMARK === "auto_bookmark";
+    chrome.webNavigation.TransitionType.AUTO_SUBFRAME === "auto_subframe";
+    chrome.webNavigation.TransitionType.FORM_SUBMIT === "form_submit";
+    chrome.webNavigation.TransitionType.GENERATED === "generated";
+    chrome.webNavigation.TransitionType.KEYWORD === "keyword";
+    chrome.webNavigation.TransitionType.KEYWORD_GENERATED === "keyword_generated";
+    chrome.webNavigation.TransitionType.LINK === "link";
+    chrome.webNavigation.TransitionType.MANUAL_SUBFRAME === "manual_subframe";
+    chrome.webNavigation.TransitionType.RELOAD === "reload";
+    chrome.webNavigation.TransitionType.START_PAGE === "start_page";
+    chrome.webNavigation.TransitionType.TYPED === "typed";
+
+    const getAllFramesDetails: chrome.webNavigation.GetAllFrameDetails = {
+        tabId: 0,
+    };
+
+    chrome.webNavigation.getAllFrames(getAllFramesDetails); // $ExpectType Promise<GetAllFrameResultDetails[] | null>
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, (frames) => { // $ExpectType void
+        frames; // $ExpectType GetAllFrameResultDetails[] | null
+        if (!frames?.[0]) return;
+        frames[0].documentId; // $ExpectType string
+        frames[0].documentLifecycle; // $ExpectType DocumentLifecycle
+        frames[0].errorOccurred; // $ExpectType boolean
+        frames[0].frameId; // $ExpectType number
+        frames[0].frameType; // $ExpectType FrameType
+        frames[0].parentDocumentId; // $ExpectType string | undefined
+        frames[0].parentFrameId; // $ExpectType number
+        frames[0].processId; // $ExpectType number
+        frames[0].url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, () => {}).then(() => {});
+
+    const getFrameDetails: chrome.webNavigation.GetFrameDetails = {
+        documentId: "documentId",
+        processId: 0,
+    };
+
+    const getFrameDetails2: chrome.webNavigation.GetFrameDetails = {
+        frameId: 0,
+        tabId: 0,
+        processId: 0,
+    };
+
+    chrome.webNavigation.getFrame(getFrameDetails); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails2); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails, (frame) => { // $ExpectType void;
+        frame; // $ExpectType GetFrameResultDetails | null
+    });
+    chrome.webNavigation.getFrame(getFrameDetails2, (frame) => { // $ExpectType void
+        frame; // $ExpectType GetFrameResultDetails | null
+        if (!frame) return;
+        frame.documentId; // $ExpectType string
+        frame.documentLifecycle; // $ExpectType DocumentLifecycle
+        frame.errorOccurred; // $ExpectType boolean
+        frame.frameType; // $ExpectType FrameType
+        frame.parentDocumentId; // $ExpectType string | undefined
+        frame.parentFrameId; // $ExpectType number
+        frame.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.webNavigation.getFrame(getFrameDetails, () => {}).then(() => {});
+
+    checkWebNavigationEvent(chrome.webNavigation.onBeforeNavigate, (details) => {
+        // @ts-expect-error
+        details.documentId;
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
     });
 
-    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
+    checkWebNavigationEvent(chrome.webNavigation.onCommitted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
     });
 
-    console.log("Frame (promise resolved):", frame);
-}
-
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
-async function getAllFrames() {
-    const testTabId = 0;
-
-    chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
-        console.log("All frames (in-callback): ", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onCompleted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
     });
 
-    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }) || [];
+    checkWebNavigationEvent(chrome.webNavigation.onCreatedNavigationTarget, (details) => {
+        details.sourceFrameId; // $ExpectType number
+        details.sourceProcessId; // $ExpectType number
+        details.sourceTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
 
-    console.log("All frames (promise resolved):", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onDOMContentLoaded, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onErrorOccurred, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.error; // $ExpectType string
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onHistoryStateUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onReferenceFragmentUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.webNavigation.onTabReplaced, (details) => {
+        details.replacedTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
@@ -1435,6 +1584,95 @@ function testTtsEngine() {
         requestor; // $ExpectType TtsClient
         lang; // $ExpectType string
         uninstallOptions; // $ExpectType LanguageUninstallOptions
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/vpnProvider
+function testVpnProvider() {
+    chrome.vpnProvider.PlatformMessage.CONNECTED === "connected";
+    chrome.vpnProvider.PlatformMessage.DISCONNECTED === "disconnected";
+    chrome.vpnProvider.PlatformMessage.ERROR === "error";
+    chrome.vpnProvider.PlatformMessage.LINK_CHANGED === "linkChanged";
+    chrome.vpnProvider.PlatformMessage.LINK_DOWN === "linkDown";
+    chrome.vpnProvider.PlatformMessage.LINK_UP === "linkUp";
+    chrome.vpnProvider.PlatformMessage.RESUME === "resume";
+    chrome.vpnProvider.PlatformMessage.SUSPEND === "suspend";
+
+    chrome.vpnProvider.UIEvent.SHOW_ADD_DIALOG === "showAddDialog";
+    chrome.vpnProvider.UIEvent.SHOW_CONFIGURE_DIALOG === "showConfigureDialog";
+
+    chrome.vpnProvider.VpnConnectionState.CONNECTED === "connected";
+    chrome.vpnProvider.VpnConnectionState.FAILURE === "failure";
+
+    const name = "My VPN";
+
+    chrome.vpnProvider.createConfig(name); // $ExpectType Promise<string>
+    chrome.vpnProvider.createConfig(name, (id) => { // $ExpectType void
+        id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.vpnProvider.createConfig(name, () => {}).then(() => {});
+
+    const id = "config-id";
+
+    chrome.vpnProvider.destroyConfig(id); // $ExpectType Promise<void>
+    chrome.vpnProvider.destroyConfig(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.destroyConfig(id, () => {}).then(() => {});
+
+    const state = "connected";
+
+    chrome.vpnProvider.notifyConnectionStateChanged(state); // $ExpectType Promise<void>
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => {}).then(() => {});
+
+    const data: ArrayBuffer = new ArrayBuffer(8);
+
+    chrome.vpnProvider.sendPacket(data); // $ExpectType Promise<void>
+    chrome.vpnProvider.sendPacket(data, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.sendPacket(data, () => {}).then(() => {});
+
+    const parameters: chrome.vpnProvider.Parameters = {
+        address: "255.255.255.255",
+        broadcastAddress: "255.255.255.255",
+        dnsServers: ["255.255.255.255"],
+        domainSearch: ["example.com"],
+        exclusionList: ["255.255.255.255"],
+        inclusionList: ["255.255.255.255"],
+        mtu: "1500",
+        reconnect: "linkUp",
+    };
+
+    chrome.vpnProvider.setParameters(parameters); // $ExpectType Promise<void>
+    chrome.vpnProvider.setParameters(parameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.setParameters(parameters, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.vpnProvider.onConfigCreated, (id, name, data) => {
+        id; // $ExpectType string
+        name; // $ExpectType string
+        data; // $ExpectType { [key: string]: unknown }
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onConfigRemoved, (id) => {
+        id; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPacketReceived, (data) => {
+        data; // $ExpectType ArrayBuffer
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPlatformMessage, (id, message, error) => {
+        id; // $ExpectType string
+        message; // $ExpectType "connected" | "disconnected" | "error" | "linkChanged" | "linkDown" | "linkUp" | "resume" | "suspend"
+        error; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onUIEvent, (event, id) => {
+        event; // $ExpectType "showAddDialog" | "showConfigureDialog"
+        id; // $ExpectType string | undefined
     });
 }
 
@@ -5583,14 +5821,15 @@ function testIdle() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/topSites/
+// https://developer.chrome.com/docs/extensions/reference/api/topSites
 function testTopSites() {
-    chrome.topSites.get(() => {});
-}
-
-// https://developer.chrome.com/docs/extensions/reference/topSites/
-async function testTopSitesForPromise() {
-    await chrome.topSites.get();
+    chrome.topSites.get(); // $ExpectType Promise<MostVisitedURL[]>
+    chrome.topSites.get(([result]) => { // $ExpectType void
+        result.title; // $ExpectType string
+        result.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.topSites.get(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/offscreen
@@ -6137,57 +6376,70 @@ function testLoginState() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/userScripts
 function testUserScripts() {
+    chrome.userScripts.ExecutionWorld.MAIN === "MAIN";
+    chrome.userScripts.ExecutionWorld.USER_SCRIPT === "USER_SCRIPT";
+
     const worldProperties: chrome.userScripts.WorldProperties = {
         csp: "script-src 'self'",
         messaging: true,
         worldId: "customId",
     };
+
     chrome.userScripts.configureWorld(worldProperties); // $ExpectType Promise<void>
     chrome.userScripts.configureWorld(worldProperties, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.userScripts.configureWorld(worldProperties, () => {}).then(() => {});
 
-    const userScriptFilter = { ids: ["scriptId1", "scriptId2"] };
-    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
-    chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
-
-    const badScripts = [
-        {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
-        },
-    ];
-    const scripts = [
-        {
-            id: "scriptId1",
-            js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
-            matches: ["*://example.com/*"],
-        },
-        {
-            id: "scriptId2",
-            js: [{ code: "console.log(\"Hello from scriptId2!\");" }],
-            matches: ["*://example.org/*"],
-        },
-    ];
-    const jsInjections: chrome.userScripts.ScriptSource[] = [
-        {
-            file: "./the/script.js",
-        },
-        {
-            code: "console.log(\"Wow the script works!\");",
-        },
-    ];
-    const injectionTarget: chrome.userScripts.InjectionTarget = {
-        tabId: 46,
-        allFrames: true,
-    };
-
-    const badExeOptions = {};
-    const exeOptions: chrome.userScripts.UserScriptInjection = {
+    const injection: chrome.userScripts.UserScriptInjection = {
         injectImmediately: true,
-        js: jsInjections,
-        target: injectionTarget,
-        worldId: "USER_SCRIPT",
+        js: [{ code: "console.log('Hello, world!');" }, { file: "script.js" }],
+        target: {
+            tabId: 123,
+            allFrames: true,
+            frameIds: undefined,
+            documentIds: undefined,
+        },
+        world: "MAIN",
+        worldId: "customId",
     };
+
+    chrome.userScripts.execute(injection); // $ExpectType Promise<InjectionResult<unknown>[]>
+    chrome.userScripts.execute(injection, ([result]) => { // $ExpectType void
+        result.documentId; // $ExpectType string
+        result.error; // $ExpectType string | undefined
+        result.frameId; // $ExpectType number
+        result.result; // $ExpectType unknown
+        if (result.error !== undefined) {
+            result.error; // $ExpectType string
+            result.result; // $ExpectType undefined
+        } else {
+            result.error; // $ExpectType undefined
+            result.result; // $ExpectType unknown
+        }
+    });
+    chrome.userScripts.execute<string>(injection, ([result]) => { // $ExpectType void
+        result.result; // $ExpectType string | undefined
+        if (result.error !== undefined) {
+            result.result; // $ExpectType undefined
+        } else {
+            result.result; // $ExpectType string
+        }
+    });
+    // @ts-expect-error
+    chrome.userScripts.execute(injection, () => {}).then(() => {});
+
+    const userScriptFilter: chrome.userScripts.UserScriptFilter = {
+        ids: ["scriptId1", "scriptId2"],
+    };
+
+    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
+    chrome.userScripts.getScripts(userScriptFilter, (results) => { // $ExpectType void
+        results; // $ExpectType RegisteredUserScript[]
+    });
+    // @ts-expect-error
+    chrome.userScripts.getScripts(userScriptFilter, () => {}).then(() => {});
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -6198,32 +6450,43 @@ function testUserScripts() {
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
 
-    // @ts-expect-error
-    chrome.userScripts.execute(badExeOptions);
-    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
-    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
-        result; // $ExpectType InjectionResult[]
-    });
+    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+        {
+            allFrames: true,
+            excludeGlobs: ["*://*.example.com/exclude*"],
+            id: "scriptId1",
+            includeGlobs: ["*://*.example.com/include*"],
+            js: [],
+            matches: ["*://example.com/*"],
+            runAt: "document_end",
+            world: "MAIN",
+            worldId: "customId",
+        },
+    ];
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.register(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.register(scripts, () => {}).then(() => {});
+
+    const worldId = "customId";
 
     chrome.userScripts.resetWorldConfiguration(); // $ExpectType Promise<void>
-    chrome.userScripts.resetWorldConfiguration("scriptId1"); // $ExpectType Promise<void>
+    chrome.userScripts.resetWorldConfiguration(worldId); // $ExpectType Promise<void>
     chrome.userScripts.resetWorldConfiguration(() => {}); // $ExpectType void
-    chrome.userScripts.resetWorldConfiguration("scriptId1", () => {}); // $ExpectType void
+    chrome.userScripts.resetWorldConfiguration(worldId, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.userScripts.resetWorldConfiguration(() => {}).then(() => {});
 
+    chrome.userScripts.unregister(); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
+    chrome.userScripts.unregister(() => void 0); // $ExpectType void
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
 
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.update(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.update(scripts, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
@@ -7815,4 +8078,26 @@ function testDesktopCapture() {
         streamId; // $ExpectType string
         options; // $ExpectType StreamOptions
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/wallpaper
+function testWallpaper() {
+    chrome.wallpaper.WallpaperLayout.CENTER === "CENTER";
+    chrome.wallpaper.WallpaperLayout.CENTER_CROPPED === "CENTER_CROPPED";
+    chrome.wallpaper.WallpaperLayout.STRETCH === "STRETCH";
+
+    const details: chrome.wallpaper.WallpaperDetails = {
+        data: new ArrayBuffer(10),
+        filename: "filename",
+        layout: "CENTER",
+        thumbnail: true,
+        url: "https://example.com/wallpaper.png",
+    };
+
+    chrome.wallpaper.setWallpaper(details); // $ExpectType Promise<ArrayBuffer | undefined>
+    chrome.wallpaper.setWallpaper(details, (thumbnail) => { // $ExpectType void
+        thumbnail; // $ExpectType ArrayBuffer | undefined
+    });
+    // @ts-expect-error
+    chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
 }
