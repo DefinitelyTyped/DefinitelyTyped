@@ -1,5 +1,5 @@
 import placeholder = require("@cloudfour/simple-svg-placeholder");
-import * as placeholderByImportFrom from "@cloudfour/simple-svg-placeholder";
+import placeholderByImportFrom from "@cloudfour/simple-svg-placeholder";
 
 // $ExpectType string
 placeholder();

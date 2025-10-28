@@ -1,11 +1,13 @@
 import { RemoteValue } from "selenium-webdriver/bidi/remoteValue";
-import { Message, Source, source as SourceClass } from "selenium-webdriver/bidi/scriptTypes";
+import { Message, ScriptSource, Source } from "selenium-webdriver/bidi/scriptTypes";
 
 function testMessageClass() {
-    const source: Source = {
+    const scriptSource: ScriptSource = {
         realm: "testRealm",
         context: "testContext",
     };
+
+    const source = new Source(scriptSource);
 
     const remoteValue: RemoteValue = {
         type: "string",
@@ -14,45 +16,24 @@ function testMessageClass() {
 
     const message = new Message("testChannel", remoteValue, source);
 
-    if (message.channel !== "testChannel") {
-        console.error("Failed: Message channel does not match expected value");
-    } else {
-        console.log("Passed: Message channel matches expected value");
-    }
-
-    if (message.data !== remoteValue) {
-        console.error("Failed: Message data does not match expected value");
-    } else {
-        console.log("Passed: Message data matches expected value");
-    }
-
-    if (message.source !== source) {
-        console.error("Failed: Message source does not match expected value");
-    } else {
-        console.log("Passed: Message source matches expected value");
-    }
+    // $ExpectType string
+    message.channel;
+    // $ExpectType RemoteValue
+    message.data;
+    // $ExpectType Source
+    message.source;
 }
 
 function testSourceClass() {
-    const sourceInstance: Source = {
+    const scriptSource: ScriptSource = {
         realm: "testRealm",
         context: "testContext",
     };
 
-    const sourceObj = new SourceClass(sourceInstance);
+    const source = new Source(scriptSource);
 
-    if (sourceObj.browsingContextId !== null) {
-        console.error("Failed: browsingContextId should be null");
-    } else {
-        console.log("Passed: browsingContextId is null as expected");
-    }
-
-    if (sourceObj.realmId !== "testRealm") {
-        console.error("Failed: realmId does not match expected value");
-    } else {
-        console.log("Passed: realmId matches expected value");
-    }
+    // $ExpectType string | null
+    source.browsingContextId;
+    // $ExpectType string
+    source.realmId;
 }
-
-testSourceClass();
-testMessageClass();

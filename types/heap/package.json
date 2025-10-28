@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/heap": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
 }

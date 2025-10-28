@@ -1,4 +1,4 @@
-import * as Q from "q";
+import Q = require("q");
 
 export interface IErrorCustomMessage {
     (config: any, args: any): string;

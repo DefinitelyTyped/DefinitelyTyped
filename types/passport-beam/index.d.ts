@@ -1,7 +1,7 @@
 /// <reference types="passport"/>
 /// <reference types="express"/>
 
-import * as express from "express";
+import express = require("express");
 import * as passport from "passport";
 
 export class Strategy extends passport.Strategy {

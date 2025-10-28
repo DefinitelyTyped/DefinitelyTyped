@@ -1,6 +1,6 @@
 /// <reference types="q-retry" />
 
-import * as Q from "q";
+import Q = require("q");
 /**
  * interface for the final result.
  */

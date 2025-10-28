@@ -1,5 +1,5 @@
-import * as DataSet from '@nginstack/engine/lib/dataset/DataSet';
-import * as Database from '@nginstack/engine/lib/database/Database';
+import DataSet from "@nginstack/engine/lib/dataset/DataSet";
+import Database from "@nginstack/engine/lib/database/Database";
 
 const values = ['test1', 'test_memo1', 1, true, new Date()];
 

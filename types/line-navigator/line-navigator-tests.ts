@@ -1,4 +1,4 @@
-import * as LineNavigator from "line-navigator";
+import LineNavigator from "line-navigator";
 
 const file = new File(["test"], "test.txt");
 

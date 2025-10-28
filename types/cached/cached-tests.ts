@@ -1,4 +1,4 @@
-import * as cached from "cached";
+import cached from "cached";
 
 const userCache = cached<number>("usr", { backend: { type: "memory" } });
 const uuid = "user_1";

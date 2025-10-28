@@ -1,4 +1,4 @@
-import * as BeanstalkdWorker from "beanstalkd-worker";
+import BeanstalkdWorker from "beanstalkd-worker";
 
 const host = "127.0.0.1";
 const port = 11300;

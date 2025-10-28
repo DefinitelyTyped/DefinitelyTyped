@@ -1,6 +1,6 @@
 // https://github.com/SBRK/react-gamepad/blob/master/README.md
 
-import * as React from "react";
+import React from "react";
 import Gamepad, { Axis, Button, layouts } from "react-gamepad";
 
 // Usage example

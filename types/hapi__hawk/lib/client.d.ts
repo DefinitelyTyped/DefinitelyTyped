@@ -1,5 +1,5 @@
 import * as http from "http";
-import * as request from "request";
+import request = require("request");
 import * as Crypto from "./crypto";
 
 export interface Credentials {

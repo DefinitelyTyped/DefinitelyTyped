@@ -41,6 +41,7 @@ archiver.append(readStream, { name: "buffer.txt", mode: 1 });
 archiver.append(readStream, { name: "buffer.txt", mode: 1, stats: ({} as fs.Stats) });
 archiver.append("Some content", { name: "filename", store: true });
 archiver.append(readStream, { name: "archiver.d.ts" }).append(readStream, { name: "archiver.d.ts" });
+archiver.append(Readable.from(["test"]), { name: "buffer.txt", date: new Date() });
 
 archiver.directory("./path", "./someOtherPath");
 archiver.directory("./", "", {});

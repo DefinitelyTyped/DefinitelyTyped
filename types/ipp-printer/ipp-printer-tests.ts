@@ -1,4 +1,4 @@
-import * as Printer from "ipp-printer";
+import Printer from "ipp-printer";
 import * as fs from "node:fs";
 
 const printer = new Printer({

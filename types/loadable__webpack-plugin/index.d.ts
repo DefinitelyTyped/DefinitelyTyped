@@ -1,4 +1,4 @@
-import * as webpack from "webpack";
+import webpack = require("webpack");
 
 declare namespace LoadablePlugin {
     interface PluginOptions {

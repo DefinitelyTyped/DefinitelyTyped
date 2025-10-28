@@ -28,7 +28,7 @@ import LeWindows = require("nodemailer/lib/sendmail-transport/le-windows");
 import LeUnix = require("nodemailer/lib/sendmail-transport/le-unix");
 
 import * as fs from "fs";
-import * as stream from "stream";
+import stream from "stream";
 
 // mock aws-sdk
 const aws = {

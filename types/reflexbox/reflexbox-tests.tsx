@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Flex } from "reflexbox";
-import * as Styled from "reflexbox/styled-components";
+import Styled from "reflexbox/styled-components";
 
 const test = () => (
     <div>

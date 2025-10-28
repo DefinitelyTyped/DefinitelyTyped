@@ -1,5 +1,5 @@
 import * as GJ from "geojson";
-import * as geojsonvt from "geojson-vt";
+import geojsonvt from "geojson-vt";
 
 const GeoJSONData: GJ.FeatureCollection = {
     type: "FeatureCollection",

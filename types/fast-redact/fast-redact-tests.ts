@@ -1,4 +1,4 @@
-import * as FastRedact from "fast-redact";
+import FastRedact from "fast-redact";
 
 // should return redactFn
 FastRedact(); // $ExpectType redactFn

@@ -467,8 +467,12 @@ declare function AsciiToString(ptr: number): string;
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;
+/** @deprecated - Use `stringToNewUTF8` instead */
 declare function allocateUTF8(str: string): number;
+/** @deprecated - Use `stringToUTF8OnStack` instead */
 declare function allocateUTF8OnStack(str: string): number;
+declare function stringToNewUTF8(str: string): number;
+declare function stringToUTF8OnStack(str: string): number;
 declare function UTF16ToString(ptr: number): string;
 declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF16(str: string): number;

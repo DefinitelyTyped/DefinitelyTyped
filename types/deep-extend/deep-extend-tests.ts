@@ -1,4 +1,4 @@
-import * as deepExtend from "deep-extend";
+import deepExtend from "deep-extend";
 const obj1 = {
     a: 1,
     b: 2,

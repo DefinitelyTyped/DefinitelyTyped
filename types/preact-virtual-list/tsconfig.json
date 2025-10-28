@@ -13,8 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "jsxFactory": "h",
-        "esModuleInterop": true
+        "jsxFactory": "h"
     },
     "files": [
         "index.d.ts",

@@ -1,4 +1,4 @@
-import * as Halogenium from "halogenium";
+import Halogenium from "halogenium";
 import * as React from "react";
 
 class HalogenTests_FadeLoader_withNoProps extends React.Component {

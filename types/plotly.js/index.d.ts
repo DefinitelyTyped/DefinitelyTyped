@@ -669,6 +669,7 @@ export interface Layout {
     "yaxis.title": Partial<DataTitle>;
     ternary: {}; // TODO
     geo: {}; // TODO
+    map: Partial<Mapbox>;
     mapbox: Partial<Mapbox>;
     subplot: string;
     radialaxis: Partial<Axis>;
@@ -1275,8 +1276,11 @@ export type ModeBarDefaultButtons =
     | "toImage"
     | "resetViews"
     | "toggleSpikelines"
+    | "zoomInMap"
     | "zoomInMapbox"
+    | "zoomOutMap"
     | "zoomOutMapbox"
+    | "resetViewMap"
     | "resetViewMapbox"
     | "togglespikelines"
     | "togglehover"
@@ -1448,10 +1452,12 @@ export type PlotType =
     | "candlestick"
     | "carpet"
     | "choropleth"
+    | "choroplethmap"
     | "choroplethmapbox"
     | "cone"
     | "contour"
     | "contourcarpet"
+    | "densitymap"
     | "densitymapbox"
     | "funnel"
     | "funnelarea"
@@ -1473,6 +1479,7 @@ export type PlotType =
     | "scattercarpet"
     | "scattergeo"
     | "scattergl"
+    | "scattermap"
     | "scattermapbox"
     | "scatterpolar"
     | "scatterpolargl"

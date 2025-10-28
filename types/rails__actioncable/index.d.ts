@@ -6,15 +6,25 @@ export interface ChannelNameWithParams {
 }
 
 /**
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/adapters.js
+ */
+export const adapters: {
+    logger: Console;
+    WebSocket: typeof WebSocket;
+};
+
+/**
  * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/consumer.js
  */
 export class Consumer {
     readonly subscriptions: Subscriptions;
+    readonly subprotocols: string[];
 
     constructor(url: string);
     get url(): string;
     connect(): boolean;
     disconnect(): void;
+    addSubProtocol(protocol: string): void;
 }
 
 export interface BaseMixin {
@@ -33,6 +43,7 @@ export class Subscription<M extends BaseMixin = BaseMixin> {
 
     constructor(consumer: Consumer, params: ChannelNameWithParams, mixin: M);
     perform(action: string, data?: object): boolean;
+    send(data: any): boolean;
     unsubscribe(): this;
 }
 

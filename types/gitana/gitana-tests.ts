@@ -1,4 +1,4 @@
-import * as Gitana from "gitana";
+import Gitana from "gitana";
 
 Gitana.connect("", e => {}); // $ExpectType AppHelper
 

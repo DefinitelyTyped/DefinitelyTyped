@@ -1,4 +1,4 @@
-import * as Namespace from "namespace-js";
+import Namespace from "namespace-js";
 
 interface UserObject1 {
     foo: () => string;

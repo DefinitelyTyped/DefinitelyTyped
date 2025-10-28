@@ -1,4 +1,4 @@
-import * as isGlob from "is-glob";
+import isGlob from "is-glob";
 
 // $ExpectType boolean
 isGlob();
