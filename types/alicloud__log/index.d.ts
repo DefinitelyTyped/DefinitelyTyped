@@ -542,7 +542,16 @@ declare namespace Client {
     type GetProjectLogsResponse = ProjectLogResult[];
 
     /** Response from getLogs API call. */
-    type GetLogsResponse = Array<Record<string, any>>;
+    interface GetLogsResponse {
+        /** Log timestamp (10 digits) */
+        __time__: string;
+        /** Log topic */
+        __topic__: string;
+        /** Log source */
+        __source__: string;
+        /** Log content */
+        [key: string]: string;
+    }
 
     /** Content of a log entry. */
     interface LogContent {
