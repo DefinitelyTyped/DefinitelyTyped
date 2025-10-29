@@ -14385,6 +14385,16 @@ declare namespace chrome {
             openPanelOnActionClick?: boolean | undefined;
         }
 
+        /** @since Chrome 142 */
+        export interface PanelClosedInfo {
+            /** The path of the local resource within the extension package whose content is displayed in the panel. */
+            path: string;
+            /** The optional ID of the tab where the side panel was closed. This is provided only when the panel is tab-specific. */
+            tabId?: number;
+            /** The ID of the window where the side panel was closed. This is available for both global and tab-specific panels. */
+            windowId: number;
+        }
+
         /** @since Chrome 140 */
         export interface PanelLayout {
             side: `${Side}`;
