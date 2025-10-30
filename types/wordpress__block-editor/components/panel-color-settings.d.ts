@@ -3,9 +3,16 @@ import type { ComponentProps, ComponentType, ReactNode } from "react";
 
 declare namespace PanelColorSettings {
     interface ColorSetting {
+        /** The current color of the setting. */
         value: string;
+        /** Callback on change of the setting. */
         onChange: (value: string | undefined) => void;
+        /** Label of the setting. */
         label: string;
+        /** Whether to disable custom colors for this specific setting. */
+        disableCustomColors?: boolean;
+        /** Whether to disable custom gradients for this specific setting. */
+        disableCustomGradients?: boolean;
     }
     interface Props {
         /** A user-provided set of color settings. */

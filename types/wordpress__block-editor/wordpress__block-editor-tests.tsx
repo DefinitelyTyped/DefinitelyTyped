@@ -306,6 +306,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                 color && console.log(color);
             },
             label: "Background Color",
+            disableCustomColors: false
         },
     ]}
     disableCustomColors={true}
