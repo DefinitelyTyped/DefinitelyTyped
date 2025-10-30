@@ -1332,13 +1332,10 @@ declare namespace Sinon {
          * Since sinon@2.0.0
          * You can also pass in a Date object, and its getTime() will be used for the starting timestamp.
          * * Config : As above, but allows further configuration options, some of which are:
-         * * config.now - Number/Date - installs lolex with the specified unix epoch (default: 0)
-         * * config.toFake - String[ ] - an array with explicit function names to fake.
-         * By default lolex will automatically fake all methods except process.nextTick. You could, however, still fake nextTick by providing it explicitly
-         * * config.shouldAdvanceTime - Boolean - tells lolex to increment mocked time automatically based on the real system time shift (default: false)
-         * * Please visit the lolex.install documentation for the full feature set.
-         * * Important note: when faking nextTick, normal calls to process.nextTick() would not execute automatically as they would during normal event-loop phases.
-         * You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
+         * * config.now - Number/Date - installs 'fake-timers' with the specified unix epoch (default: 0)
+         * * config.toFake - String[ ] - an array with explicit function names to fake. By default `fake-timers` will automatically fake _all_ methods (changed in v19).
+         * * config.shouldAdvanceTime - Boolean - tells `fake-timers` to increment mocked time automatically based on the real system time shift (default: false). When used in conjunction with `config.toFake`, it will only work if `'setInterval'` is included in `config.toFake`.
+         * * Important note: when faking `nextTick`, normal calls to `process.nextTick()` will not execute automatically as they would during normal event-loop phases. You would have to call either `clock.next()`, `clock.tick()`, `clock.runAll()` or `clock.runToLast()` manually (see example below). You can easily work around this using the `config.toFake` option. Please refer to the [`fake-timers`](https://github.com/sinonjs/fake-timers) documentation for more information.
          * @param config
          */
         useFakeTimers(config?: number | Date | Partial<FakeTimers.FakeTimerInstallOpts>): SinonFakeTimers;
