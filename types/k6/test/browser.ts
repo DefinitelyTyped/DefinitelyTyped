@@ -1574,6 +1574,44 @@ async function test() {
     // @ts-expect-error
     locator.getByPlaceholder("name@example.com", { exact: "true" });
 
+    // @ts-expect-error
+    locator.evaluate();
+    // @ts-expect-error
+    locator.evaluate(1);
+    // @ExpectType Promise<void>
+    locator.evaluate("");
+    // @ExpectType Promise<void>
+    locator.evaluate(() => {});
+    // @ExpectType Promise<string>
+    locator.evaluate(() => {
+        "";
+    });
+    // @ExpectType Promise<string>
+    locator.evaluate((elem: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<string[]>
+    locator.evaluate((el: HTMLElement, a: string[]) => a, [""]);
+
+    // @ts-expect-error
+    locator.evaluateHandle();
+    // @ts-expect-error
+    locator.evaluateHandle(1);
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle("");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {});
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {
+        "";
+    });
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string[]) => a, [""]);
+
     //
     // JSHandle
     //
