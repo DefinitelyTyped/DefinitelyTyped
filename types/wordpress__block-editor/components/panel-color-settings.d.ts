@@ -9,6 +9,8 @@ declare namespace PanelColorSettings {
         onChange: (value: string | undefined) => void;
         /** Label of the setting. */
         label: string;
+        /** Colors palette for this specific setting. */
+        colors?: ComponentProps<typeof ColorPalette>["colors"];
         /** Whether to disable custom colors for this specific setting. */
         disableCustomColors?: boolean;
         /** Whether to disable custom gradients for this specific setting. */
