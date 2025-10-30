@@ -106,3 +106,35 @@ class InnerRefCallbackTest extends React.Component {
         return <ReactGridLayout innerRef={(_: HTMLDivElement | null) => {}} />;
     }
 }
+
+class ResizeHandleFunctionTest extends React.Component {
+    render() {
+        return (
+            <ReactGridLayout
+                resizeHandle={(resizeHandleAxis, ref) => (
+                    <div ref={ref as React.Ref<HTMLDivElement>} className={`custom-handle-${resizeHandleAxis}`}>
+                        {resizeHandleAxis}
+                    </div>
+                )}
+            />
+        );
+    }
+}
+
+class ResizeHandleElementTest extends React.Component {
+    render() {
+        return <ReactGridLayout resizeHandle={<div className="custom-handle" />} />;
+    }
+}
+
+class ResizeHandleResponsiveTest extends React.Component {
+    render() {
+        return (
+            <Responsive
+                resizeHandle={(axis, ref) => {
+                    return <span ref={ref} data-axis={axis} />;
+                }}
+            />
+        );
+    }
+}

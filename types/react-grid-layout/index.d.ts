@@ -247,7 +247,7 @@ declare namespace ReactGridLayout {
         /**
          * Defines custom component for resize handle
          */
-        resizeHandle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode) | undefined;
+        resizeHandle?: React.ReactNode | ((resizeHandleAxis: ResizeHandle, ref: React.Ref<HTMLElement>) => React.ReactNode) | undefined;
 
         /**
          * Calls when drag starts.
