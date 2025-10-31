@@ -1494,6 +1494,18 @@ declare module "process" {
                  */
                 readonly ppid: number;
                 /**
+                 * The `process.threadCpuUsage()` method returns the user and system CPU time usage of
+                 * the current worker thread, in an object with properties `user` and `system`, whose
+                 * values are microsecond values (millionth of a second).
+                 *
+                 * The result of a previous call to `process.threadCpuUsage()` can be passed as the
+                 * argument to the function, to get a diff reading.
+                 * @since v22.19.0
+                 * @param previousValue A previous return value from calling
+                 * `process.threadCpuUsage()`
+                 */
+                threadCpuUsage(previousValue?: CpuUsage): CpuUsage;
+                /**
                  * The `process.title` property returns the current process title (i.e. returns
                  * the current value of `ps`). Assigning a new value to `process.title` modifies
                  * the current value of `ps`.

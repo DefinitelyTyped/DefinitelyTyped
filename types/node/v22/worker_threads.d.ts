@@ -438,6 +438,13 @@ declare module "worker_threads" {
          */
         terminate(): Promise<number>;
         /**
+         * This method returns a `Promise` that will resolve to an object identical to `process.threadCpuUsage()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v22.19.0
+         */
+        cpuUsage(prev?: NodeJS.CpuUsage): Promise<NodeJS.CpuUsage>;
+        /**
          * Returns a readable stream for a V8 snapshot of the current state of the Worker.
          * See `v8.getHeapSnapshot()` for more details.
          *
