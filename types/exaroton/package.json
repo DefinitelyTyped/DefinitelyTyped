@@ -1,14 +1,15 @@
 {
     "private": true,
     "name": "@types/exaroton",
-    "version": "1.12.9999",
+    "type": "module",
+    "version": "2.0.9999",
     "projects": [
         "https://github.com/exaroton/node-exaroton-api"
     ],
     "dependencies": {
         "@types/node": "*",
         "@types/ws": "*",
-        "got": "^11.8.2"
+        "mc-server-management": "^3.1.0"
     },
     "devDependencies": {
         "@types/exaroton": "workspace:."

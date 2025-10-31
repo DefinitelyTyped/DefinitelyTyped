@@ -1,9 +1,9 @@
-import { Method, Options as GotOptions, ResponseType } from "got";
+import { Connection } from "mc-server-management";
 import { EventEmitter } from "node:events";
-import { ReadStream, WriteStream } from "node:fs";
+import { Readable, Writable } from "node:stream";
 import { WebSocket } from "ws";
 
-export { Client, ConfigOptionType, Pool, PoolMember, Request, Response, Server, ServerStatus, Software };
+export { Client, ConfigOptionType, Pool, PoolMember, Request, RequestError, Response, Server, ServerStatus, Software };
 
 declare enum ServerStatus {
     OFFLINE = 0,
@@ -83,22 +83,7 @@ declare class Client {
      * @param {Request} request
      * @throws {RequestError} if the request was unsuccessful
      */
-    request<T extends Request>(request: T): Promise<unknown>;
-
-    /**
-     * @param {string} url
-     * @param {GotOptions & {
-     isStream?: true | boolean;
-     }} gotOptions
-     * @param {stream.Writable} outputStream
-     */
-    streamResponse<T extends NodeJS.WritableStream>(
-        url: string,
-        gotOptions: GotOptions & {
-            isStream?: true | boolean;
-        },
-        outputStream: T,
-    ): Promise<void>;
+    request<T extends Request>(request: T): Promise<Response>;
 
     /**
      * Get a list of all servers
@@ -145,7 +130,7 @@ declare class Request {
     /**
      * Request method, e.g. "GET" or "POST"
      */
-    method: Method;
+    method: HttpMethod;
 
     /**
      * Endpoint URL, without base, version or starting /
@@ -189,7 +174,7 @@ declare class Request {
     /**
      * Optional stream to stream the response body to
      */
-    outputStream?: WriteStream | null;
+    outputStream?: Writable | null;
 
     /**
      * Optional path to read the request body from
@@ -199,7 +184,7 @@ declare class Request {
     /**
      * Optional stream to read the request body from
      */
-    inputStream?: ReadStream | null;
+    inputStream?: Readable | null;
 
     /**
      * Client that has executed this request
@@ -237,7 +222,7 @@ declare class Request {
     /**
      * Get body for request
      */
-    getBody(): string | ReadStream;
+    getBody(): BodyInit;
 
     /**
      * Create a response object for this request
@@ -255,7 +240,7 @@ declare class Request {
     /**
      * @return {null|WriteStream}
      */
-    getOutputStream(): WriteStream | null;
+    getOutputStream(): Writable | null;
 
     /**
      * @return {boolean}
@@ -265,7 +250,7 @@ declare class Request {
     /**
      * @return {null|ReadStream}
      */
-    getInputStream(): ReadStream | null;
+    getInputStream(): Readable | null;
 
     /**
      * @return {boolean}
@@ -302,7 +287,7 @@ declare class Request {
      * @param {ReadStream} inputStream
      * @return {this}
      */
-    setInputStream(inputStream: ReadStream): this;
+    setInputStream(inputStream: Readable): this;
 
     /**
      * Set a stream as output stream for the response body
@@ -310,7 +295,7 @@ declare class Request {
      * @param {WriteStream} outputStream
      * @return {this}
      */
-    setOutputStream(outputStream: WriteStream): this;
+    setOutputStream(outputStream: Writable): this;
 }
 
 declare class Response {
@@ -434,7 +419,7 @@ declare class File {
      * @param {WriteStream} outputStream
      * @return {Promise<Response>}
      */
-    downloadToStream(outputStream: WriteStream): Promise<Response>;
+    downloadToStream(outputStream: Writable): Promise<Response>;
 
     /**
      * Put the content of a file
@@ -462,7 +447,7 @@ declare class File {
      * @param {ReadStream} inputStream
      * @return {Promise<Response>}
      */
-    uploadFromStream(inputStream: ReadStream): Promise<Response>;
+    uploadFromStream(inputStream: Readable): Promise<Response>;
 
     /**
      * Delete the file
@@ -683,12 +668,27 @@ interface HeapData {
     usage: number;
 }
 
-export interface StreamTypes {
+interface ServerManagementData {
+    id: string;
+    method: string;
+    params: Record<string, string>;
+}
+
+export interface StreamTypesData {
+    management: [data: ServerManagementData];
     status: [server: Server];
     "console:line": [data: string];
     "tick:tick": [data: TickData];
     "stats:stats": [data: StatsData];
     "heap:heap": [data: HeapData];
+}
+
+export interface StreamTypes {
+    console: ConsoleStream;
+    tick: TickStream;
+    stats: StatsStream;
+    heap: HeapStream;
+    management: ServerManagementStream;
 }
 
 declare class Server extends EventEmitter {
@@ -960,9 +960,9 @@ declare class Server extends EventEmitter {
      */
     toJSON(): Record<string, any>;
 
-    on<StreamType extends keyof StreamTypes>(
+    on<StreamType extends keyof StreamTypesData>(
         stream: StreamType,
-        listener: (...args: StreamTypes[StreamType]) => void,
+        listener: (...args: StreamTypesData[StreamType]) => void,
     ): this;
 }
 
@@ -977,6 +977,35 @@ declare class Software {
 }
 
 // Internal types
+
+declare class RequestError extends Error {
+    statusCode: number;
+
+    /**
+     * Response object that caused the error (if any)
+     */
+    response: Response | null;
+
+    /**
+     * @param {Error|null} error
+     */
+    constructor(error: Error | null);
+
+    /**
+     * Set error and status code from response object
+     *
+     * Returns if an error message was found
+     *
+     * @param {Response} response fetch response object
+     * @param {any} data response data
+     */
+    setErrorFromResponseBody(response: globalThis.Response, data: any): void;
+}
+
+// all types used by the API, see: https://developers.exaroton.com
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+
+type ResponseType = "text" | "json" | "buffer";
 
 declare class Account {
     #client: Client;
@@ -1059,6 +1088,7 @@ declare class WebsocketClient extends EventEmitter {
         heap: HeapStream;
         stats: StatsStream;
         tick: TickStream;
+        management: ServerManagementStream;
     };
 
     constructor(server: Server);
@@ -1083,15 +1113,15 @@ declare class WebsocketClient extends EventEmitter {
 
     getServerStatus(): Promise<number>;
 
-    getStreams(stream: string): boolean | Stream;
+    getStream<StreamType extends keyof StreamTypes>(stream: StreamType): boolean | StreamTypes[StreamType];
 
-    hasStream(stream: string): boolean;
+    hasStream(stream: SubscriptionType): boolean;
 
     tryToStartStreams(): void;
 
-    removeStreams(stream: string): void;
+    removeStreams(stream: SubscriptionType): void;
 
-    send(stream: string, type: string, data: string): boolean;
+    send(stream: SubscriptionType, type: string, data: string): boolean;
 }
 
 declare class Stream extends EventEmitter {
@@ -1129,7 +1159,7 @@ declare class Stream extends EventEmitter {
     isStarted(): boolean;
 }
 
-type SubscriptionType = "tick" | "heap" | "stats" | "console";
+type SubscriptionType = "tick" | "heap" | "stats" | "console" | "management";
 
 type TickDataType = "start" | "stop" | "started" | "tick";
 
@@ -1168,4 +1198,26 @@ declare class ConsoleStream extends Stream {
     parseLine(line: string): string;
 
     sendCommand(command: string): void;
+}
+
+declare class ManagementProxyConnection extends Connection {
+    stream: ServerManagementStream;
+
+    protected callRaw(
+        method: string,
+        parameters: object | Array<unknown>,
+    ): Promise<{ success: true; data: unknown } | { success: false; error: unknown }>;
+
+    close(): void;
+}
+
+declare class ServerManagementStream extends Stream {
+    readonly name: string;
+    readonly startStatuses: StreamStatus[];
+
+    onDataMessage(type: string, message: Record<string, unknown>): void;
+
+    request(method: HttpMethod, params: any): Promise<void>;
+
+    getProxyConnection(): ManagementProxyConnection;
 }
