@@ -1455,7 +1455,7 @@ export namespace lists {
 
     interface MemberLocation {
         latitude: number;
-        logitude: number;
+        longitude: number;
     }
 
     interface FullMemberLocation extends MemberLocation {
