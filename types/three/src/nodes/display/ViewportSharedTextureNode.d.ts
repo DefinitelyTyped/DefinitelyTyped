@@ -1,6 +1,5 @@
 import { FramebufferTexture } from "../../textures/FramebufferTexture.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import ViewportTextureNode from "./ViewportTextureNode.js";
 
 declare class ViewportSharedTextureNode extends ViewportTextureNode {
@@ -14,4 +13,4 @@ export default ViewportSharedTextureNode;
 export const viewportSharedTexture: (
     uvNode?: Node,
     levelNode?: Node | null,
-) => ShaderNodeObject<ViewportSharedTextureNode>;
+) => ViewportSharedTextureNode;
