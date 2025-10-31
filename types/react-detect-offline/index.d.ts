@@ -1,17 +1,37 @@
 import { JSX } from "react";
 
 export interface PollingConfig {
+    /**
+     * URL to pool for connection status
+     */
     url: string;
+    /**
+     * Force polling on or off.
+     * Polling is only used as a fallback for browsers that don't support the `"online"` event.
+     * Currently these are Chrome on Windows, Firefox on Windows, and Chrome on Linux.
+     */
     enabled: boolean;
+    /**
+     * How often (in ms) to poll
+     */
     interval: number;
+    /**
+     * How long (in ms) before timeout
+     */
     timeout: number;
 }
 export interface BaseProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
+    /**
+     * Called when connection changes
+     */
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    onChange?: (online: boolean) => void | undefined;
-    wrapperType?: string;
-    polling?: boolean | PollingConfig;
+    onChange?: ((online: boolean) => void | undefined) | undefined;
+    wrapperType?: string | undefined;
+    /**
+     * Config for polling fallback
+     */
+    polling?: boolean | Partial<Omit<PollingConfig, "enabled">> | undefined;
 }
 export interface BaseState {
     online: boolean;
@@ -22,16 +42,11 @@ export const Base: React.ComponentClass<BaseProps, BaseState>;
 export interface DetectorProps extends BaseProps {
     render: ({ online }: { online: boolean }) => JSX.Element | null;
 }
-// tslint:disable-next-line
 export interface DetectorState extends BaseState {}
 export const Detector: React.ComponentClass<DetectorProps, DetectorState>;
-// tslint:disable-next-line
 export interface OnlineProps extends BaseProps {}
-// tslint:disable-next-line
 export interface OnlineState extends BaseState {}
 export const Online: React.ComponentClass<OnlineProps, OnlineState>;
-// tslint:disable-next-line
 export interface OfflineProps extends BaseProps {}
-// tslint:disable-next-line
 export interface OfflineState extends BaseState {}
 export const Offline: React.ComponentClass<OfflineProps, OfflineState>;
