@@ -546,6 +546,9 @@ function testContentSettings() {
     chrome.contentSettings.Scope.INCOGNITO_SESSION_ONLY === "incognito_session_only";
     chrome.contentSettings.Scope.REGULAR === "regular";
 
+    chrome.contentSettings.SoundContentSetting.ALLOW === "allow";
+    chrome.contentSettings.SoundContentSetting.BLOCK === "block";
+
     const contentSettingsGetParams: chrome.contentSettings.ContentSettingGetParams = {
         primaryUrl: "https://example.com",
         secondaryUrl: "https://example2.com",
@@ -6297,6 +6300,12 @@ function testSidePanel() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.sidePanel.onOpened, (info) => {
+        info.path; // $ExpectType string
+        info.tabId; // $ExpectType number | undefined
+        info.windowId; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/instanceID
@@ -6349,6 +6358,7 @@ function testInstanceID() {
 function testLoginState() {
     chrome.loginState.ProfileType.SIGNIN_PROFILE === "SIGNIN_PROFILE";
     chrome.loginState.ProfileType.USER_PROFILE === "USER_PROFILE";
+    chrome.loginState.ProfileType.LOCK_PROFILE === "LOCK_PROFILE";
 
     chrome.loginState.SessionState.IN_LOCK_SCREEN === "IN_LOCK_SCREEN";
     chrome.loginState.SessionState.IN_LOGIN_SCREEN === "IN_LOGIN_SCREEN";
@@ -6357,9 +6367,9 @@ function testLoginState() {
     chrome.loginState.SessionState.IN_SESSION === "IN_SESSION";
     chrome.loginState.SessionState.UNKNOWN === "UNKNOWN";
 
-    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE">
+    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE">
     chrome.loginState.getProfileType((result) => { // $ExpectType void
-        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE"
+        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE"
     });
     // @ts-expect-error
     chrome.loginState.getProfileType(() => {}).then(() => {});
