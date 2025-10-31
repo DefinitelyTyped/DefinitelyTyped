@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wmde__wikibase-rest-api",
+    "version": "1.4.9999",
+    "projects": [
+        "https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase"
+    ],
+    "devDependencies": {
+        "@types/wmde__wikibase-rest-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Srihari Thalla",
+            "githubUsername": "DaxServer"
+        }
+    ]
+}
