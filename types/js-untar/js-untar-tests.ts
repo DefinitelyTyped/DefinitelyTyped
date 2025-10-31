@@ -25,7 +25,7 @@ const arrayBuffer = createMinimalTarArrayBuffer();
 const promise = untar(arrayBuffer); // $ExpectType ProgressivePromise<TarFile[], TarFile>
 
 promise.progress((file) => {
-	file; // $ExpectType TarFile
+    file; // $ExpectType TarFile
     file.name; // $ExpectType string
     file.mode; // $ExpectType string
     file.uid; // $ExpectType number
@@ -53,7 +53,7 @@ promise.progress((file) => {
 promise.then((files) => {
     files; // $ExpectType TarFile[]
     files.forEach((file) => {
-        file // $ExpectType TarFile
+        file; // $ExpectType TarFile
         file.name; // $ExpectType string
         file.mode; // $ExpectType string
         file.uid; // $ExpectType number
