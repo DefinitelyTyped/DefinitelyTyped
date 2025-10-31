@@ -5,7 +5,6 @@ interface Configuration {
     injectInto?: any;
     properties?: Array<"spy" | "stub" | "mock" | "clock" | "server" | "requests"> | undefined;
     useFakeTimers?: boolean | undefined;
-    useFakeServer?: boolean | undefined;
 }
 
 declare function sinonTest(sinon: Sinon.SinonStatic, config?: Configuration): any;

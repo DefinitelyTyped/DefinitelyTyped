@@ -8,7 +8,6 @@ function testSandbox() {
         injectInto: obj,
         properties: ["spy", "stub"],
         useFakeTimers: true,
-        useFakeServer: true,
         assertOptions: {
             shouldLimitAssertionLogs: true,
             assertionLogLimit: 10,
@@ -25,7 +24,6 @@ function testSandbox() {
             now: 1000,
             shouldAdvanceTime: false,
         },
-        useFakeServer: sinon.fakeServer.create(),
     });
     sinon.createSandbox(sinon.defaultConfig);
 
@@ -48,18 +46,10 @@ function testSandbox() {
         shouldClearNativeTimers: true,
     });
 
-    const xhr = sb.useFakeXMLHttpRequest();
-    xhr.useFilters = true;
-    xhr.restore();
-
-    const server = sb.useFakeServer();
-    server.respondWith("foo");
-
     sb.restore();
     sb.reset();
     sb.resetHistory();
     sb.resetBehavior();
-    sb.usingPromise(Promise);
     sb.verify();
     sb.verifyAndRestore();
 
@@ -153,39 +143,6 @@ function testSandbox() {
 
     // @ts-expect-error
     sb.define(objToDefine, {}, 123);
-}
-
-function testFakeServer() {
-    let s = sinon.fakeServer.create();
-    s = sinon.fakeServerWithClock.create();
-
-    sinon.fakeServer.create({
-        autoRespond: true,
-        autoRespondAfter: 3,
-        fakeHTTPMethods: true,
-        respondImmediately: false,
-    });
-
-    sinon.fakeServer.create({
-        autoRespond: true,
-        autoRespondAfter: 3,
-    });
-}
-
-function testXHR() {
-    const xhr = new sinon.FakeXMLHttpRequest();
-    const headers = xhr.getAllResponseHeaders();
-    const header = xhr.getResponseHeader("foo");
-
-    xhr.setResponseHeaders({ "Content-Type": "text/html" });
-    xhr.setResponseBody("foo");
-    xhr.respond(200, { "Content-Type": "foo" }, "bar");
-    xhr.error();
-
-    sinon.FakeXMLHttpRequest.useFilters = true;
-    sinon.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
-    sinon.FakeXMLHttpRequest.onCreate = xhr => {};
-    sinon.FakeXMLHttpRequest.restore();
 }
 
 function testClock() {
@@ -793,7 +750,6 @@ function testStub() {
 
     stub.reset();
     stub.resetBehavior();
-    stub.usingPromise(Promise);
 
     stub.returns(true);
     stub.returns(5);
