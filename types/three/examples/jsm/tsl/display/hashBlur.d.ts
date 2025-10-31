@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node } from "three/webgpu";
 
 interface HashBlurOptions {
@@ -11,4 +10,4 @@ export const hashBlur: (
     textureNode: Node,
     bluramount?: Node | number,
     options?: HashBlurOptions,
-) => ShaderNodeObject<Node>;
+) => Node;

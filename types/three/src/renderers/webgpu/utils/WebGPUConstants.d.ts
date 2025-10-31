@@ -335,3 +335,8 @@ export enum GPUFeatureName {
     TextureFormatsTier1 = "texture-formats-tier1",
     TextureFormatsTier2 = "texture-formats-tier2",
 }
+
+export enum GPUFeatureMap {
+    "texture-compression-s3tc" = "texture-compression-bc",
+    "texture-compression-etc1" = "texture-compression-etc2",
+}

@@ -1,6 +1,5 @@
 import Node from "../../nodes/core/Node.js";
 import VolumetricLightingModel from "../../nodes/functions/VolumetricLightingModel.js";
-import { ShaderNodeObject } from "../../nodes/tsl/TSLCore.js";
 import { MapColorPropertiesToColorRepresentations, MaterialParameters, MaterialProperties } from "../Material.js";
 import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
@@ -23,7 +22,7 @@ export interface VolumeNodeMaterialNodeProperties extends NodeMaterialNodeProper
      *
      * @default null
      */
-    scatteringNode: (params: { positionRay: ShaderNodeObject<Node> }) => Node | null;
+    scatteringNode: (params: { positionRay: Node }) => Node | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

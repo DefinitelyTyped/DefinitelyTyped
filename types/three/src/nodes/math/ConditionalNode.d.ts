@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class ConditionalNode extends Node {
     condNode: Node;
@@ -15,10 +14,17 @@ export const select: (
     condNode: Node,
     ifNode: Node | number,
     elseNode?: Node | number | null,
-) => ShaderNodeObject<Node>;
+) => Node;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        select: typeof select;
+declare module "../Nodes.js" {
+    interface Node {
+        select: (
+            ifNode: Node | number,
+            elseNode?: Node | number | null,
+        ) => Node;
+        selectAssign: (
+            ifNode: Node | number,
+            elseNode?: Node | number | null,
+        ) => this;
     }
 }

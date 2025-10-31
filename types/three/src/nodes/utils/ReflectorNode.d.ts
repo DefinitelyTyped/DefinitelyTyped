@@ -3,7 +3,6 @@ import { Object3D } from "../../core/Object3D.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
 import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export interface ReflectorNodeParameters {
     target?: Object3D | undefined;
@@ -25,7 +24,7 @@ declare class ReflectorNode extends TextureNode {
 
     get target(): Object3D;
 
-    getDepthNode(): ShaderNodeObject<ReflectorNode>;
+    getDepthNode(): ReflectorNode;
 }
 
 declare class ReflectorBaseNode extends Node {
@@ -57,6 +56,6 @@ declare class ReflectorBaseNode extends Node {
     set resolution(value: number);
 }
 
-export const reflector: (parameters?: ReflectorNodeParameters) => ShaderNodeObject<ReflectorNode>;
+export const reflector: (parameters?: ReflectorNodeParameters) => ReflectorNode;
 
 export default ReflectorNode;
