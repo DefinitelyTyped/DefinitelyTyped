@@ -341,26 +341,26 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     /**
      * Returns the node comparison function which defaults to undefined.
      */
-    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined;
+    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined | null;
 
     /**
      * Set the node comparison function and return this Sankey layout generator.
      *
-     * @param compare Node comparison function.
+     * @param compare Node comparison function. If `null`, the order is fixed by the input.
      */
-    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number | undefined | null): this;
+    nodeSort(compare: ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined | null): this;
 
     /**
      * Returns the link comparison function which defaults to undefined.
      */
-    linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined;
+    linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined | null;
 
     /**
      * Set the link comparison function and return this Sankey layout generator.
      *
-     * @param compare Link comparison function.
+     * @param compare Link comparison function. If `null`, the order is fixed by the input.
      */
-    linkSort(compare: (a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number | undefined | null): this;
+    linkSort(compare: ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined | null): this;
 }
 
 /**
