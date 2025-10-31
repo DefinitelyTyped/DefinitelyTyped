@@ -935,6 +935,11 @@ declare module "pdfkit" {
     export = doc;
 }
 
+declare module "pdfkit/js/pdfkit.standalone" {
+    var doc: PDFKit.PDFDocument;
+    export = doc;
+}
+
 declare module "pdfkit/js/gradient" {
     var gradient: {
         PDFGradient: PDFKit.PDFGradient;
