@@ -1543,13 +1543,9 @@ async function mailcomposer_build_promise_test() {
 
 // addressparser
 
-function isAddress(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Address {
-    return (addressOrGroup as addressparser.Address).address !== undefined;
-}
+declare function isAddress(arg: unknown): arg is addressparser.Address;
 
-function isGroup(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Group {
-    return (addressOrGroup as addressparser.Group).group !== undefined;
-}
+declare function isGroup(arg: unknown): arg is addressparser.Group;
 
 function addressparser_test() {
     const input = "andris@tr.ee";
@@ -1559,7 +1555,7 @@ function addressparser_test() {
         const address: string = firstResult.address;
         const name: string = firstResult.name;
     } else if (isGroup(firstResult)) {
-        const group: addressparser.AddressOrGroup[] = firstResult.group;
+        const group: addressparser.Address[] = firstResult.group;
         const name: string = firstResult.name;
     }
 }
