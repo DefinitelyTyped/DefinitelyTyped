@@ -4912,6 +4912,67 @@ function testI18n() {
     chrome.i18n.getUILanguage(); // $ExpectType string
 }
 
+// https://developer.chrome.com/docs/extensions/mv2/reference/pageAction
+function testPageAction() {
+    const tabId = 1;
+    const getDetails: chrome.pageAction.TabDetails = { tabId };
+
+    chrome.pageAction.getPopup(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getPopup(getDetails);
+
+    chrome.pageAction.getTitle(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getTitle(getDetails);
+
+    chrome.pageAction.hide(tabId); // $ExpectType void
+    chrome.pageAction.hide(tabId, () => void 0); // $ExpectType void
+
+    const iconDetails: chrome.pageAction.IconDetails = {
+        tabId,
+        path: "path/to/icon.png",
+    };
+
+    const iconDetails2: chrome.pageAction.IconDetails = {
+        tabId,
+        imageData: new ImageData(16, 16),
+    };
+
+    chrome.pageAction.setIcon(iconDetails); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails, () => void 0); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2, () => void 0); // $ExpectType void
+    // @ts-expect-error Either the path or imageData property must be specified.
+    chrome.pageAction.setIcon({});
+
+    const popupDetails: chrome.pageAction.PopupDetails = {
+        popup: "popup.html",
+        tabId,
+    };
+
+    chrome.pageAction.setPopup(popupDetails); // $ExpectType void
+    chrome.pageAction.setPopup(popupDetails, () => void 0); // $ExpectType void
+
+    const titleDetails: chrome.pageAction.TitleDetails = {
+        title: "My Page Action",
+        tabId,
+    };
+
+    chrome.pageAction.setTitle(titleDetails); // $ExpectType void
+    chrome.pageAction.setTitle(titleDetails, () => void 0); // $ExpectType void
+
+    chrome.pageAction.show(tabId); // $ExpectType void
+    chrome.pageAction.show(tabId, () => void 0); // $ExpectType void
+
+    checkChromeEvent(chrome.pageAction.onClicked, (tab) => {
+        tab; // $ExpectType Tab
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/pageCapture
 function testPageCapture() {
     const details = { tabId: 0 };
