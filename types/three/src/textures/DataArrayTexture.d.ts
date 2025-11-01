@@ -1,5 +1,5 @@
 import { MagnificationTextureFilter, MinificationTextureFilter } from "../constants.js";
-import { Texture3DImageData } from "./Data3DTexture.js";
+import { TypedArray } from "../core/BufferAttribute.js";
 import { Texture } from "./Texture.js";
 
 /**
@@ -35,20 +35,13 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DataArrayTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DataArrayTexture.js | Source}
  */
-export class DataArrayTexture extends Texture {
+export class DataArrayTexture extends Texture<DataArrayTextureImageData> {
     /**
      * Read-only flag to check if a given object is of type {@link DataArrayTexture}.
      * @remarks This is a _constant_ value
      * @defaultValue `true`
      */
     readonly isDataArrayTexture: true;
-
-    /**
-     * Overridden with a record type holding data, width and height and depth.
-     * @override
-     */
-    get image(): Texture3DImageData;
-    set image(data: Texture3DImageData);
 
     /**
      * @override
@@ -107,7 +100,7 @@ export class DataArrayTexture extends Texture {
      * @param height Height of the texture. Default `1`.
      * @param depth Depth of the texture. Default `1`.
      */
-    constructor(data?: BufferSource | null, width?: number, height?: number, depth?: number);
+    constructor(data?: TypedArray | null, width?: number, height?: number, depth?: number);
 
     /**
      * Describes that a specific layer of the texture needs to be updated. Normally when {@link Texture.needsUpdate} is
@@ -120,4 +113,11 @@ export class DataArrayTexture extends Texture {
      * Resets the layer updates registry. See {@link DataArrayTexture.addLayerUpdate}.
      */
     clearLayoutUpdates(): void;
+}
+
+export interface DataArrayTextureImageData {
+    data: TypedArray | null;
+    width: number;
+    height: number;
+    depth: number;
 }

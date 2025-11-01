@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export const triplanarTextures: (
     textureXNode: Node,
@@ -8,7 +7,7 @@ export const triplanarTextures: (
     scaleNode?: Node,
     positionNode?: Node,
     normalNode?: Node,
-) => ShaderNodeObject<Node>;
+) => Node;
 
 export const triplanarTexture: (
     textureXNode: Node,
@@ -17,4 +16,4 @@ export const triplanarTexture: (
     scaleNode?: Node,
     positionNode?: Node,
     normalNode?: Node,
-) => ShaderNodeObject<Node>;
+) => Node;

@@ -1,5 +1,4 @@
 import { InterpolationSamplingMode, InterpolationSamplingType } from "../../constants.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 import NodeVarying from "./NodeVarying.js";
@@ -18,22 +17,25 @@ export default class VaryingNode extends Node {
     setupVarying(builder: NodeBuilder): NodeVarying;
 }
 
-export const varying: (node: Node, name?: string) => ShaderNodeObject<VaryingNode>;
+export const varying: (node: Node, name?: string) => VaryingNode;
 
-export const vertexStage: (node: Node) => ShaderNodeObject<VaryingNode>;
+export const vertexStage: (node: Node) => VaryingNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        toVarying: typeof varying;
-        toVertexStage: typeof vertexStage;
+declare module "../Nodes.js" {
+    interface Node {
+        toVarying: (name?: string) => VaryingNode;
+        toVaryingAssign: (name?: string) => this;
 
-        /**
-         * @deprecated .varying() has been renamed to .toVarying().
-         */
-        varying: typeof varying;
+        toVertexStage: () => VaryingNode;
+        toVertexStageAssign: () => this;
+
         /**
          * @deprecated .vertexStage() has been renamed to .toVertexStage().
          */
-        vertexStage: typeof vertexStage;
+        vertexStage: () => VaryingNode;
+        /**
+         * @deprecated .vertexStage() has been renamed to .toVertexStage().
+         */
+        vertexStageAssign: () => this;
     }
 }

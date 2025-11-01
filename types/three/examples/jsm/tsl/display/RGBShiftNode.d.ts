@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 export default class RGBShiftNode extends TempNode {
@@ -13,4 +12,4 @@ export default class RGBShiftNode extends TempNode {
     setSize(width: number, height: number): void;
 }
 
-export const rgbShift: (node: Node, amount?: number, angle?: number) => ShaderNodeObject<RGBShiftNode>;
+export const rgbShift: (node: Node, amount?: number, angle?: number) => RGBShiftNode;

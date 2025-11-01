@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode } from "three/webgpu";
 
 declare class DepthOfFieldNode extends TempNode {
@@ -26,4 +25,4 @@ export const dof: (
     focusDistance?: Node | number,
     focalLength?: Node | number,
     bokehScale?: Node | number,
-) => ShaderNodeObject<DepthOfFieldNode>;
+) => DepthOfFieldNode;

@@ -11,7 +11,7 @@ import {
 } from "three/webgpu";
 
 export interface WaterMeshOptions {
-    resolution?: number | undefined;
+    resolutionScale?: number | undefined;
     waterNormals: Texture;
     alpha?: number | undefined;
     size?: number | undefined;
@@ -24,7 +24,7 @@ export interface WaterMeshOptions {
 declare class WaterMesh extends Mesh<BufferGeometry, NodeMaterial> {
     readonly isWater: true;
 
-    resolution: number;
+    resolutionScale: number;
 
     waterNormals: TextureNode;
     alpha: UniformNode<number>;

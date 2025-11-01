@@ -103,7 +103,9 @@ viewer = OpenSeadragon({
 });
 
 declare const buttonElement: Element;
+declare const toolbarElement: Element;
 viewer = OpenSeadragon({
+    toolbar: "toolbar-id",
     zoomInButton: "zoomInButton-id",
     zoomOutButton: "zoomOutButton-id",
     homeButton: "homeButton-id",
@@ -114,6 +116,7 @@ viewer = OpenSeadragon({
     nextButton: "nextButton-id",
 });
 viewer = OpenSeadragon({
+    toolbar: toolbarElement,
     zoomInButton: buttonElement,
     zoomOutButton: buttonElement,
     homeButton: buttonElement,

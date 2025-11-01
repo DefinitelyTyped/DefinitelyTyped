@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import StructTypeNode, { MembersLayout } from "./StructTypeNode.js";
 
@@ -11,9 +10,9 @@ declare class StructNode extends Node {
 export default StructNode;
 
 export interface Struct {
-    (): ShaderNodeObject<StructNode>;
-    (values: Node[]): ShaderNodeObject<StructNode>;
-    (...values: Node[]): ShaderNodeObject<StructNode>;
+    (): StructNode;
+    (values: Node[]): StructNode;
+    (...values: Node[]): StructNode;
     layout: StructTypeNode;
     isStruct: true;
 }

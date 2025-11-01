@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class TransitionNode extends TempNode {
@@ -29,4 +28,4 @@ export const transition: (
     mixRatio: UniformNode<number>,
     threshold: UniformNode<number>,
     useTexture: UniformNode<number>,
-) => ShaderNodeObject<TransitionNode>;
+) => TransitionNode;
