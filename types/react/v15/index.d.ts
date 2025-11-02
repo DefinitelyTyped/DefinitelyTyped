@@ -3725,7 +3725,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface StyleMedia {}
-    
+
     interface AbstractView {
         styleMedia: StyleMedia;
         document: Document;
