@@ -62,9 +62,21 @@ declare namespace AWSCloudFrontFunction {
 
 declare module "cloudfront" {
     /**
-     * Retrieves a reference to a CloudFront Key-Value Store (KVS) by its ID.
-     * @param kvsId The identifier of the KVS to use.
-     * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-custom-methods.html
+     * Retrieves the current Function's associated KeyValueStore. See the
+     * {@link https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-custom-methods.html | CloudFront Developer Guide}.
+     * @returns An instance of the associated KeyValueStore.
+     * @throws If no KeyValueStore is associated with the Function.
+     */
+    function kvs(): KVStore;
+
+    /**
+     * Retrieves a reference to the current Function's associated KeyValueStore by its ID. Though not documented
+     * in the {@link https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-custom-methods.html | CloudFront Developer Guide},
+     * this overload has been proven to work in practice and is shown in the
+     * {@link https://aws.amazon.com/blogs/aws/introducing-amazon-cloudfront-keyvaluestore-a-low-latency-datastore-for-cloudfront-functions/ | AWS News Blog announcement}.
+     * @param kvsId The identifier of an associated KeyValueStore.
+     * @returns An instance of the KeyValueStore.
+     * @throws If KeyValueStore does not exist or is not associated with the Function.
      */
     function kvs(kvsId: string): KVStore;
 
