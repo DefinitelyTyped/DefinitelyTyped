@@ -1046,6 +1046,15 @@ async function test() {
     page.waitForResponse("https://example.com", { timeout: 10000 });
 
     // @ts-expect-error
+    page.waitForRequest();
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com");
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);
