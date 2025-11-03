@@ -280,7 +280,7 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isLength = validator.isLength;
     _isLength = isLengthFunc;
 
-    // $ExpectType { (str: string, locale: LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
+    // $ExpectType { (str: string, locale: "any" | LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
     let _isLicensePlate = validator.isLicensePlate;
     _isLicensePlate = isLicensePlateFunc;
 
@@ -864,8 +864,20 @@ const any: any = null;
     result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
 
-    const licensePlateLocale: validator.LicensePlateLocale = "any";
-    result = validator.isLicensePlate("sample", licensePlateLocale);
+    result = validator.isLicensePlate("sample", "cs-CZ" satisfies validator.LicensePlateLocale);
+    result = validator.isLicensePlate("sample", "de-DE");
+    result = validator.isLicensePlate("sample", "de-LI");
+    result = validator.isLicensePlate("sample", "en-IN");
+    result = validator.isLicensePlate("sample", "en-SG");
+    result = validator.isLicensePlate("sample", "es-AR");
+    result = validator.isLicensePlate("sample", "fi-FI");
+    result = validator.isLicensePlate("sample", "hu-HU");
+    result = validator.isLicensePlate("sample", "pt-BR");
+    result = validator.isLicensePlate("sample", "pt-PT");
+    result = validator.isLicensePlate("sample", "sq-AL");
+    result = validator.isLicensePlate("sample", "sv-SE");
+    result = validator.isLicensePlate("sample", "en-PK");
+    result = validator.isLicensePlate("sample", "any");
     // $ExpectType unknown
     validator.isLicensePlate("sample", "");
 
