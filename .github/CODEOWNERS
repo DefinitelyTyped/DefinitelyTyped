@@ -280,6 +280,7 @@
 /types/append-query/                                    @ffflorian
 /types/appframework/                                    @kyo-ago
 /types/appgeist__ensure-dir/                            @ChocolateLoverRaj
+/types/apple-mapkit/                                    @timdream @n1kk
 /types/apple-mapkit-js-browser/                         @kilghaz @wsmd @chrisdrackett @moritzsternemann @vinayakkulkarni
 /types/apple-music-api/                                 @nchase @useffc
 /types/apple-signin-api/                                @voidpumpkin @koenpunt
@@ -699,6 +700,7 @@
 /types/bufferstream/                                    @Bartvds
 /types/build-output-script/                             @BendingBender
 /types/bull-arena/                                      @levibostian @gtpan77
+/types/bullbone/                                        @leonbahley @TarasOP @malikalimoekhamedov
 /types/bumblebee-hotword/                               @sheunglaili
 /types/bump-regex/                                      @silkentrance
 /types/bun/                                             @Jarred-Sumner @robobun @dylan-conway @nektro @RiskyMH @alii
@@ -766,7 +768,6 @@
 /types/carbon__feature-flags/                           @metonym
 /types/carbon__layout/                                  @vpicone
 /types/carbon__motion/                                  @vpicone
-/types/carbon__pictograms-react/                        @metonym
 /types/carbon__themes/                                  @vpicone
 /types/carbon__type/                                    @vpicone
 /types/carbone/                                         @apatryda
@@ -863,7 +864,7 @@
 /types/chmodr/                                          @BendingBender
 /types/chosen-js/                                       @borisyankov @denisname
 /types/chownr/                                          @BendingBender
-/types/chroma-js/                                       @invliD @mpacholec @CharlieZhuo
+/types/chroma-js/                                       @invliD @CharlieZhuo
 /types/chroma-js/v0/                                    @invliD
 /types/chrome/                                          @matthewkimber @otiai10 @sreimer15 @MatCarlson @ekinsol @echoabstract @spasma @bdbai @JasonXian @usertim @idan315 @nicolas377 @idosal @fregante @erwanjugand
 /types/chrome-apps/                                     @niikoo @AdamLay @mzsm @RReverser @pyle @matthewkimber @otiai10 @rreverser @sreimer15
@@ -3153,6 +3154,7 @@
 /types/he/                                              @sedwards2009 @lokidokicoki
 /types/headroom/                                        @hakubo @juninhocruzg3
 /types/headroom.js/                                     @hakubo @juninhocruzg3 @peterblazejewicz @manoldonev
+/types/heap/                                            @MysteryBlokHed
 /types/heapdump/                                        @weekens
 /types/heatmap.js/                                      @lookuptable @rhys-vdw
 /types/heft-jest/                                       @octogonz @iclanton
@@ -4832,7 +4834,6 @@
 /types/mg-api-js/                                       @kadensharpin
 /types/micro-cors/                                      @CallumDenby @moonchanyong
 /types/micro-events/                                    @AlexanderSychev
-/types/microlight/                                      @ravenclaw900
 /types/micromatch/                                      @vemoo
 /types/micromatch/v2/                                   @glen-84
 /types/micromodal/                                      @wcarson
@@ -7145,7 +7146,6 @@
 /types/semver/                                          @Bartvds @BendingBender @LucianBuzzo @ajafff @ExE-Boss @peterblazejewicz
 /types/semver/v6/                                       @Bartvds @BendingBender @LucianBuzzo @ajafff @ExE-Boss
 /types/semver-compare/                                  @vincekovacs @LinusU
-/types/semver-compare-multi/                            @ravenclaw900
 /types/semver-sort/                                     @LogvinovLeon @qcz
 /types/semver-stable/                                   @JamieMagee
 /types/semver-utils/                                    @JamieMagee
@@ -7165,6 +7165,7 @@
 /types/serve-handler/                                   @simonhaenisch
 /types/serve-index/                                     @tkrotoff
 /types/serve-static/                                    @urossmolnik @LinusU @devanshj @bjohansebas
+/types/serve-static/v1/                                 @urossmolnik @LinusU @devanshj @bjohansebas
 /types/server/                                          @sant123 @iddan @DazSanchez
 /types/server-destroy/                                  @gyszalai
 /types/server-timing-header/                            @peterblazejewicz
