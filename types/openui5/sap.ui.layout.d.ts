@@ -1,4 +1,4 @@
-// For Library Version: 1.141.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -6212,11 +6212,11 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * So the last row of the {@link sap.ui.layout.form.Form Form} control will not be fully used.
    *
    * The default size of the {@link sap.ui.layout.form.FormContainer FormContainer} element can be overwritten
-   * by using {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} as `LayoutData`. If one {@link sap.ui.layout.form.FormContainer FormContainer }
-   * element has {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} set, the size calculation
-   * of the other {@link sap.ui.layout.form.FormContainer FormContainer} elements might not lead to the expected
-   * result. In this case, use {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} also for
-   * the other {@link sap.ui.layout.form.FormContainer FormContainer} elements.
+   * by using {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} as {@link sap.ui.core.Element#setLayoutData LayoutData}.
+   * If one {@link sap.ui.layout.form.FormContainer FormContainer} element has {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData }
+   * set, the size calculation of the other {@link sap.ui.layout.form.FormContainer FormContainer} elements
+   * might not lead to the expected result. In this case, use {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData }
+   * also for the other {@link sap.ui.layout.form.FormContainer FormContainer} elements.
    *
    * The {@link sap.ui.layout.form.FormElement FormElement} elements are spread out to the columns of a {@link sap.ui.layout.form.FormContainer FormContainer }
    * element arranged in a newspaper-like order. The position of the labels and fields depends on the size
@@ -6523,8 +6523,8 @@ declare module "sap/ui/layout/form/Form" {
    * UI requirements without changing the `Form` itself.
    *
    * For the content of a `Form`, {@link sap.ui.core.VariantLayoutData VariantLayoutData} are supported to
-   * allow simple switching of the `FormLayout`. `LayoutData` on the content can be used to overwrite the
-   * default layout of the `Form`.
+   * allow simple switching of the {@link sap.ui.layout.form.FormLayout FormLayout}. {@link sap.ui.core.Element#setLayoutData LayoutData }
+   * on the content can be used to overwrite the default layout of the `Form`.
    *
    * The `Form` (and its sub-controls) automatically add label and field assignment to enable screen reader
    * support. It also adds keyboard support to navigate between the fields and groups inside the form.
@@ -6533,10 +6533,10 @@ declare module "sap/ui/layout/form/Form" {
    * Views are also not supported. This could damage the visual layout, keyboard support and screen-reader
    * support.
    *
-   * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-   * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-   * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
-   * might occur.
+   * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+   * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+   * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+   * wrong screen reader announcements might occur.
    *
    * @since 1.16.0
    */
@@ -6672,7 +6672,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
@@ -6706,7 +6706,7 @@ declare module "sap/ui/layout/form/Form" {
      * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
      * of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -6719,9 +6719,9 @@ declare module "sap/ui/layout/form/Form" {
      *
      * Toolbar of the `Form`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -6817,7 +6817,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
@@ -6909,7 +6909,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
@@ -6934,7 +6934,7 @@ declare module "sap/ui/layout/form/Form" {
      * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
      * of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -6946,9 +6946,9 @@ declare module "sap/ui/layout/form/Form" {
     /**
      * Toolbar of the `Form`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -6964,7 +6964,7 @@ declare module "sap/ui/layout/form/Form" {
      * Association to controls / IDs that label this control (see WAI-ARIA attribute `aria-labelledby`).
      *
      * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
-     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * {@link #getTitle Title} is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
      * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.28.0
@@ -6992,8 +6992,9 @@ declare module "sap/ui/layout/form/FormContainer" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * A `FormContainer` represents a group inside a `Form`. It consists of `FormElements`. The rendering of
-   * the `FormContainer` is done by the `FormLayout` assigned to the `Form`.
+   * A `FormContainer` represents a group inside a {@link sap.ui.layout.form.Form Form}. It consists of {@link sap.ui.layout.form.FormElement FormElements}.
+   * The rendering of the `FormContainer` is done by the {@link sap.ui.layout.form.Form#getLayout FormLayout }
+   * assigned to the {@link sap.ui.layout.form.Form Form}.
    *
    * @since 1.16.0
    */
@@ -7134,7 +7135,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      *
      * Default value is `false`.
      *
@@ -7147,7 +7148,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      *
      * Default value is `true`.
      *
@@ -7167,7 +7168,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      * Title of the `FormContainer`. Can either be a `Title` element or a string. If a `Title` element is used,
      * the style of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -7180,9 +7181,9 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Toolbar of the `FormContainer`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -7286,7 +7287,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7306,7 +7307,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7372,14 +7373,14 @@ declare module "sap/ui/layout/form/FormContainer" {
     /**
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      */
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      */
     expandable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -7401,7 +7402,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      * Title of the `FormContainer`. Can either be a `Title` element or a string. If a `Title` element is used,
      * the style of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -7413,9 +7414,9 @@ declare module "sap/ui/layout/form/FormContainer" {
     /**
      * Toolbar of the `FormContainer`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -7428,8 +7429,8 @@ declare module "sap/ui/layout/form/FormContainer" {
      * used `FormLayout`.
      *
      * **Note:** If there is more than one `FormContainers`, every `FormContainer` needs to have some title
-     * or label (at least for screen reader support). If no `Title` is set, a label or title needs to be assigned
-     * using the `ariaLabelledBy` association.
+     * or label (at least for screen reader support). If no {@link #getTitle Title} is set, a label or title
+     * needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -7452,8 +7453,8 @@ declare module "sap/ui/layout/form/FormElement" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * A `FormElement` represents a row in a `FormContainer`. A `FormElement` is a combination of one label
-   * and different controls associated to this label.
+   * A `FormElement` represents a row in a {@link sap.ui.layout.form.FormContainer FormContainer}. A `FormElement`
+   * is a combination of one label and different controls associated to this label.
    *
    * @since 1.16.0
    */
@@ -7553,7 +7554,7 @@ declare module "sap/ui/layout/form/FormElement" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only form controls are allowed. Views are also not
-     * supported. Allowed controls implement the interface `sap.ui.core.IFormContent`.
+     * supported. Allowed controls implement the interface {@link sap.ui.core.IFormContent}.
      */
     getFields(): Control[];
     /**
@@ -7705,7 +7706,7 @@ declare module "sap/ui/layout/form/FormElement" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only form controls are allowed. Views are also not
-     * supported. Allowed controls implement the interface `sap.ui.core.IFormContent`.
+     * supported. Allowed controls implement the interface {@link sap.ui.core.IFormContent}.
      */
     fields?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
@@ -9540,8 +9541,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
    * 	 - A new `Label` control starts a new row (`{@link sap.ui.layout.form.FormElement FormElement}`) in
    *     the form.
    * 	 - All other controls will be assigned to the row (`{@link sap.ui.layout.form.FormElement FormElement}`)
-   *     that started with the last label.  Use `LayoutData` to influence the layout for special cases in
-   *     the Input/Display controls.
+   *     that started with the last label.  Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence
+   *     the layout for special cases in the Input/Display controls.
    *
    * **Note:** If a more complex form is needed, use the `{@link sap.ui.layout.form.Form Form}` control instead.
    *
@@ -9793,18 +9794,19 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * The content of the form is structured in the following way:
      * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
-     * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
+     * 	 - Add a {@link sap.m.Label Label} control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
      * 	 - Add controls as input fields, text fields or other as needed.
-     * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
-     *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
-     *     to them via the {@link #setLayoutData setLayoutData} method. Ensure that the sum of the weights in the
-     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12, as this is the total
-     *     width of the input control part of each form row.  Example for a row where the {@link sap.m.Input Input }
-     *     uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
-     *
+     * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
+     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
+     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
+     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
+     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
+     *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
+     *     as this is the total width of the input control part of each form row.  Example for a row where
+     *     the {@link sap.m.Input Input} uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -9817,10 +9819,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
      * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
      * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
-     * to them via the {@link #setLayoutData setLayoutData} method. If there are additional fields in the row
-     * they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input} controls
-     * where one uses four cells on small screens, one cell on medium screens and 2 cells on larger screens
-     * (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
+     * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
+     * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
+     * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
+     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -9831,12 +9833,12 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only labels, titles, toolbars and form controls are
-     * allowed. Views are also not supported. Allowed form controls implement the interface `sap.ui.core.IFormContent`.
+     * allowed. Views are also not supported. Allowed form controls implement the interface {@link sap.ui.core.IFormContent}.
      *
-     * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-     * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
-     * might occur.
+     * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+     * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+     * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+     * wrong screen reader announcements might occur.
      */
     getContent(): UI5Element[];
     /**
@@ -10078,7 +10080,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -10093,8 +10095,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Toolbar of the `SimpleForm`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -11002,18 +11005,19 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * The content of the form is structured in the following way:
      * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
-     * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
+     * 	 - Add a {@link sap.m.Label Label} control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
      * 	 - Add controls as input fields, text fields or other as needed.
-     * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
-     *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
-     *     to them via the {@link #setLayoutData setLayoutData} method. Ensure that the sum of the weights in the
-     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12, as this is the total
-     *     width of the input control part of each form row.  Example for a row where the {@link sap.m.Input Input }
-     *     uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
-     *
+     * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
+     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
+     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
+     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
+     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
+     *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
+     *     as this is the total width of the input control part of each form row.  Example for a row where
+     *     the {@link sap.m.Input Input} uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -11026,10 +11030,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
      * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
      * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
-     * to them via the {@link #setLayoutData setLayoutData} method. If there are additional fields in the row
-     * they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input} controls
-     * where one uses four cells on small screens, one cell on medium screens and 2 cells on larger screens
-     * (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
+     * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
+     * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
+     * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
+     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -11040,12 +11044,12 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only labels, titles, toolbars and form controls are
-     * allowed. Views are also not supported. Allowed form controls implement the interface `sap.ui.core.IFormContent`.
+     * allowed. Views are also not supported. Allowed form controls implement the interface {@link sap.ui.core.IFormContent}.
      *
-     * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-     * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls. In addition to that, wrong screen reader announcements
-     * might occur.
+     * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+     * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+     * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+     * wrong screen reader announcements might occur.
      */
     content?:
       | UI5Element[]
@@ -11056,7 +11060,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -11070,8 +11074,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Toolbar of the `SimpleForm`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -11081,8 +11086,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      *
      * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
-     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
-     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
+     * {@link #getTitle Title} is set, and the `SimpleForm` is not a child or a control with a title, such as
+     * {@link sap.m.Panel Panel} or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using
+     * the `ariaLabelledBy` association.
      *
      * @since 1.32.0
      */
