@@ -1,7 +1,6 @@
 import ContextNode from "../core/ContextNode.js";
 import LightingModel, { LightingModelReflectedLight } from "../core/LightingModel.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import LightsNode from "./LightsNode.js";
 
 export interface LightingContext {
@@ -32,4 +31,4 @@ export default class LightingContextNode extends ContextNode {
 export const lightingContext: (
     node: LightsNode,
     lightingModelNode?: LightingModel,
-) => ShaderNodeObject<LightingContextNode>;
+) => LightingContextNode;

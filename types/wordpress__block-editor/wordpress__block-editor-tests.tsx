@@ -299,7 +299,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 //
 <be.PanelColorSettings
     title="Color Settings"
-    initialOpen={false}
     colorSettings={[
         {
             value: "#ff0000",
@@ -307,7 +306,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                 color && console.log(color);
             },
             label: "Background Color",
-            disableCustomColors: true,
             colors: [
                 {
                     color: "#ff0000",
@@ -318,8 +316,12 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                     name: "Yellow",
                 },
             ],
+            disableCustomColors: false,
         },
     ]}
+    disableCustomColors={true}
+    showTitle={true}
+    enableAlpha={true}
 />;
 <be.PanelColorSettings
     colorSettings={[

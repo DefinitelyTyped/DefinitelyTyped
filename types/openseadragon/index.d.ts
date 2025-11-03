@@ -385,6 +385,7 @@ declare namespace OpenSeadragon {
         showSequenceControl?: boolean | undefined;
         sequenceControlAnchor?: ControlAnchor | undefined;
         navPrevNextWrap?: boolean | undefined;
+        toolbar?: string | Element | undefined;
         zoomInButton?: string | Element | undefined;
         zoomOutButton?: string | Element | undefined;
         homeButton?: string | Element | undefined;

@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class ViewportDepthNode extends Node {
     scope: ViewportDepthNodeScope;
@@ -33,6 +32,6 @@ export const viewZToLogarithmicDepth: (viewZ: Node, near: Node, far: Node) => No
 
 export const logarithmicDepthToViewZ: (depth: Node, near: Node, far: Node) => Node;
 
-export const depth: ShaderNodeObject<ViewportDepthNode>;
-export const linearDepth: (valueNode?: Node | null) => ShaderNodeObject<ViewportDepthNode>;
-export const viewportLinearDepth: ShaderNodeObject<ViewportDepthNode>;
+export const depth: ViewportDepthNode;
+export const linearDepth: (valueNode?: Node | null) => ViewportDepthNode;
+export const viewportLinearDepth: ViewportDepthNode;

@@ -104,6 +104,20 @@ export interface MeshMatcapMaterialProperties extends MaterialProperties {
      */
     alphaMap: Texture | null;
     /**
+     * Renders the geometry as a wireframe.
+     *
+     * @default false
+     */
+    wireframe: boolean;
+    /**
+     * Controls the thickness of the wireframe.
+     *
+     * Can only be used with {@link SVGRenderer}.
+     *
+     * @default 1
+     */
+    wireframeLinewidth: number;
+    /**
      * Whether the material is rendered with flat shading or not.
      *
      * @default false

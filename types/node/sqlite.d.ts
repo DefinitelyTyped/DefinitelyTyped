@@ -330,6 +330,64 @@ declare module "node:sqlite" {
         ): void;
         function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
+         * Sets an authorizer callback that SQLite will invoke whenever it attempts to
+         * access data or modify the database schema through prepared statements.
+         * This can be used to implement security policies, audit access, or restrict certain operations.
+         * This method is a wrapper around [`sqlite3_set_authorizer()`](https://sqlite.org/c3ref/set_authorizer.html).
+         *
+         * When invoked, the callback receives five arguments:
+         *
+         * * `actionCode` {number} The type of operation being performed (e.g.,
+         *   `SQLITE_INSERT`, `SQLITE_UPDATE`, `SQLITE_SELECT`).
+         * * `arg1` {string|null} The first argument (context-dependent, often a table name).
+         * * `arg2` {string|null} The second argument (context-dependent, often a column name).
+         * * `dbName` {string|null} The name of the database.
+         * * `triggerOrView` {string|null} The name of the trigger or view causing the access.
+         *
+         * The callback must return one of the following constants:
+         *
+         * * `SQLITE_OK` - Allow the operation.
+         * * `SQLITE_DENY` - Deny the operation (causes an error).
+         * * `SQLITE_IGNORE` - Ignore the operation (silently skip).
+         *
+         * ```js
+         * import { DatabaseSync, constants } from 'node:sqlite';
+         * const db = new DatabaseSync(':memory:');
+         *
+         * // Set up an authorizer that denies all table creation
+         * db.setAuthorizer((actionCode) => {
+         *   if (actionCode === constants.SQLITE_CREATE_TABLE) {
+         *     return constants.SQLITE_DENY;
+         *   }
+         *   return constants.SQLITE_OK;
+         * });
+         *
+         * // This will work
+         * db.prepare('SELECT 1').get();
+         *
+         * // This will throw an error due to authorization denial
+         * try {
+         *   db.exec('CREATE TABLE blocked (id INTEGER)');
+         * } catch (err) {
+         *   console.log('Operation blocked:', err.message);
+         * }
+         * ```
+         * @since v24.10.0
+         * @param callback The authorizer function to set, or `null` to
+         * clear the current authorizer.
+         */
+        setAuthorizer(
+            callback:
+                | ((
+                    actionCode: number,
+                    arg1: string | null,
+                    arg2: string | null,
+                    dbName: string | null,
+                    triggerOrView: string | null,
+                ) => number)
+                | null,
+        ): void;
+        /**
          * Whether the database is currently open or not.
          * @since v22.15.0
          */
@@ -826,5 +884,54 @@ declare module "node:sqlite" {
          * @since v22.12.0
          */
         const SQLITE_CHANGESET_ABORT: number;
+        /**
+         * Deny the operation and cause an error to be returned.
+         * @since v24.10.0
+         */
+        const SQLITE_DENY: number;
+        /**
+         * Ignore the operation and continue as if it had never been requested.
+         * @since 24.10.0
+         */
+        const SQLITE_IGNORE: number;
+        /**
+         * Allow the operation to proceed normally.
+         * @since v24.10.0
+         */
+        const SQLITE_OK: number;
+        const SQLITE_CREATE_INDEX: number;
+        const SQLITE_CREATE_TABLE: number;
+        const SQLITE_CREATE_TEMP_INDEX: number;
+        const SQLITE_CREATE_TEMP_TABLE: number;
+        const SQLITE_CREATE_TEMP_TRIGGER: number;
+        const SQLITE_CREATE_TEMP_VIEW: number;
+        const SQLITE_CREATE_TRIGGER: number;
+        const SQLITE_CREATE_VIEW: number;
+        const SQLITE_DELETE: number;
+        const SQLITE_DROP_INDEX: number;
+        const SQLITE_DROP_TABLE: number;
+        const SQLITE_DROP_TEMP_INDEX: number;
+        const SQLITE_DROP_TEMP_TABLE: number;
+        const SQLITE_DROP_TEMP_TRIGGER: number;
+        const SQLITE_DROP_TEMP_VIEW: number;
+        const SQLITE_DROP_TRIGGER: number;
+        const SQLITE_DROP_VIEW: number;
+        const SQLITE_INSERT: number;
+        const SQLITE_PRAGMA: number;
+        const SQLITE_READ: number;
+        const SQLITE_SELECT: number;
+        const SQLITE_TRANSACTION: number;
+        const SQLITE_UPDATE: number;
+        const SQLITE_ATTACH: number;
+        const SQLITE_DETACH: number;
+        const SQLITE_ALTER_TABLE: number;
+        const SQLITE_REINDEX: number;
+        const SQLITE_ANALYZE: number;
+        const SQLITE_CREATE_VTABLE: number;
+        const SQLITE_DROP_VTABLE: number;
+        const SQLITE_FUNCTION: number;
+        const SQLITE_SAVEPOINT: number;
+        const SQLITE_COPY: number;
+        const SQLITE_RECURSIVE: number;
     }
 }

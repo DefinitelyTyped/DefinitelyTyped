@@ -23,10 +23,13 @@ import Attributes from "./Attributes.js";
 import Backend from "./Backend.js";
 import Background from "./Background.js";
 import Bindings from "./Bindings.js";
+import CanvasTarget from "./CanvasTarget.js";
 import ClippingContext from "./ClippingContext.js";
 import Color4 from "./Color4.js";
 import Geometries from "./Geometries.js";
+import IndirectStorageBufferAttribute from "./IndirectStorageBufferAttribute.js";
 import Info from "./Info.js";
+import InspectorBase from "./InspectorBase.js";
 import Lighting from "./Lighting.js";
 import NodeLibrary from "./nodes/NodeLibrary.js";
 import Nodes from "./nodes/Nodes.js";
@@ -69,9 +72,7 @@ export interface RendererParameters {
  */
 declare class Renderer {
     readonly isRenderer: true;
-    domElement: HTMLCanvasElement;
     backend: Backend;
-    samples: number;
     autoClear: boolean;
     autoClearColor: boolean;
     autoClearDepth: boolean;
@@ -87,13 +88,10 @@ declare class Renderer {
     info: Info;
     library: NodeLibrary;
     lighting: Lighting;
+    _samples: number;
+    _canvasTarget: CanvasTarget;
+    _inspector: InspectorBase;
     _getFallback: ((error: unknown) => Backend) | null;
-    _pixelRatio: number;
-    _width: number;
-    _height: number;
-    _viewport: Vector4;
-    _scissor: Vector4;
-    _scissorTest: boolean;
     _attributes: Attributes | null;
     _geometries: Geometries | null;
     _nodes: Nodes | null;
@@ -216,6 +214,14 @@ declare class Renderer {
      */
     init(): Promise<this>;
     /**
+     * A reference to the canvas element the renderer is drawing to.
+     * This value of this property will automatically be created by
+     * the renderer.
+     *
+     * @type {HTMLCanvasElement|OffscreenCanvas}
+     */
+    get domElement(): HTMLCanvasElement;
+    /**
      * The coordinate system of the renderer. The value of this property
      * depends on the selected backend. Either `THREE.WebGLCoordinateSystem` or
      * `THREE.WebGPUCoordinateSystem`.
@@ -244,6 +250,7 @@ declare class Renderer {
      * Renders the scene in an async fashion.
      *
      * @async
+     * @deprecated
      * @param {Object3D} scene - The scene or 3D object to render.
      * @param {Camera} camera - The camera.
      * @return {Promise} A Promise that resolves when the render has been finished.
@@ -254,9 +261,17 @@ declare class Renderer {
      * the CPU waits for the GPU to complete its operation (e.g. a compute task).
      *
      * @async
+     * @deprecated
      * @return {Promise} A Promise that resolves when synchronization has been finished.
      */
     waitForGPU(): Promise<void>;
+    /**
+     * Sets the inspector instance. The inspector can be any class that extends from `InspectorBase`.
+     *
+     * @param {InspectorBase} value - The new inspector.
+     */
+    set inspector(value: InspectorBase);
+    get inspector(): InspectorBase;
     /**
      * Enables or disables high precision for model-view and normal-view matrices.
      * When enabled, will use CPU 64-bit precision for higher precision instead of GPU 32-bit for higher performance.
@@ -311,17 +326,27 @@ declare class Renderer {
     _renderBundle(bundle: Bundle, sceneRef: Scene, lightsNode: LightsNode): void;
     /**
      * Renders the scene or 3D object with the given camera. This method can only be called
-     * if the renderer has been initialized.
+     * if the renderer has been initialized. When using `render()` inside an animation loop,
+     * it's guaranteed the renderer will be initialized. The animation loop must be defined
+     * with {@link Renderer#setAnimationLoop} though.
+     *
+     * For all other use cases (like when using on-demand rendering), you must call
+     * {@link Renderer#init} before rendering.
      *
      * The target of the method is the default framebuffer (meaning the canvas)
      * or alternatively a render target when specified via `setRenderTarget()`.
      *
      * @param {Object3D} scene - The scene or 3D object to render.
      * @param {Camera} camera - The camera to render the scene with.
-     * @return {?Promise} A Promise that resolve when the scene has been rendered.
-     * Only returned when the renderer has not been initialized.
      */
-    render(scene: Object3D, camera: Camera): Promise<void> | undefined;
+    render(scene: Object3D, camera: Camera): void;
+    /**
+     * Returns whether the renderer has been initialized or not.
+     *
+     * @readonly
+     * @return {boolean} Whether the renderer has been initialized or not.
+     */
+    get initialized(): boolean;
     /**
      * Returns an internal render target which is used when computing the output tone mapping
      * and color space conversion. Unlike in `WebGLRenderer`, this is done in a separate render
@@ -330,7 +355,7 @@ declare class Renderer {
      * @private
      * @return {?RenderTarget} The render target. The method returns `null` if no output conversion should be applied.
      */
-    _getFrameBufferTarget(): RenderTarget<Texture> | null;
+    _getFrameBufferTarget(): RenderTarget<Texture<unknown>> | null;
     /**
      * Renders the scene or 3D object with the given camera.
      *
@@ -373,10 +398,16 @@ declare class Renderer {
      * for best compatibility.
      *
      * @async
-     * @param {?Function} callback - The application's animation loop.
+     * @param {?onAnimationCallback} callback - The application's animation loop.
      * @return {Promise} A Promise that resolves when the set has been executed.
      */
     setAnimationLoop(callback: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null): Promise<void>;
+    /**
+     * Returns the current animation loop callback.
+     *
+     * @return {?Function} The current animation loop callback.
+     */
+    getAnimationLoop(): ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     /**
      * Can be used to transfer buffer data from a storage buffer attribute
      * from the GPU to the CPU in context of compute shaders.
@@ -568,35 +599,25 @@ declare class Renderer {
      * @param {boolean} [color=true] - Whether the color buffer should be cleared or not.
      * @param {boolean} [depth=true] - Whether the depth buffer should be cleared or not.
      * @param {boolean} [stencil=true] - Whether the stencil buffer should be cleared or not.
-     * @return {Promise} A Promise that resolves when the clear operation has been executed.
-     * Only returned when the renderer has not been initialized.
      */
-    clear(color?: boolean, depth?: boolean, stencil?: boolean): Promise<void> | undefined;
+    clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
     /**
      * Performs a manual clear operation of the color buffer. This method ignores `autoClear` properties.
-     *
-     * @return {Promise} A Promise that resolves when the clear operation has been executed.
-     * Only returned when the renderer has not been initialized.
      */
-    clearColor(): Promise<void> | undefined;
+    clearColor(): void;
     /**
      * Performs a manual clear operation of the depth buffer. This method ignores `autoClear` properties.
-     *
-     * @return {Promise} A Promise that resolves when the clear operation has been executed.
-     * Only returned when the renderer has not been initialized.
      */
-    clearDepth(): Promise<void> | undefined;
+    clearDepth(): void;
     /**
      * Performs a manual clear operation of the stencil buffer. This method ignores `autoClear` properties.
-     *
-     * @return {Promise} A Promise that resolves when the clear operation has been executed.
-     * Only returned when the renderer has not been initialized.
      */
-    clearStencil(): Promise<void> | undefined;
+    clearStencil(): void;
     /**
      * Async version of {@link Renderer#clear}.
      *
      * @async
+     * @deprecated
      * @param {boolean} [color=true] - Whether the color buffer should be cleared or not.
      * @param {boolean} [depth=true] - Whether the depth buffer should be cleared or not.
      * @param {boolean} [stencil=true] - Whether the stencil buffer should be cleared or not.
@@ -607,6 +628,7 @@ declare class Renderer {
      * Async version of {@link Renderer#clearColor}.
      *
      * @async
+     * @deprecated
      * @return {Promise} A Promise that resolves when the clear operation has been executed.
      */
     clearColorAsync(): Promise<void>;
@@ -614,6 +636,7 @@ declare class Renderer {
      * Async version of {@link Renderer#clearDepth}.
      *
      * @async
+     * @deprecated
      * @return {Promise} A Promise that resolves when the clear operation has been executed.
      */
     clearDepthAsync(): Promise<void>;
@@ -621,9 +644,32 @@ declare class Renderer {
      * Async version of {@link Renderer#clearStencil}.
      *
      * @async
+     * @deprecated
      * @return {Promise} A Promise that resolves when the clear operation has been executed.
      */
     clearStencilAsync(): Promise<void>;
+    /**
+     * Returns `true` if a framebuffer target is needed to perform tone mapping or color space conversion.
+     * If this is the case, the renderer allocates an internal render target for that purpose.
+     */
+    get needsFrameBufferTarget(): boolean;
+    /**
+     * The number of samples used for multi-sample anti-aliasing (MSAA).
+     *
+     * @type {number}
+     * @default 0
+     */
+    get samples(): number;
+    /**
+     * The current number of samples used for multi-sample anti-aliasing (MSAA).
+     *
+     * When rendering to a custom render target, the number of samples of that render target is used.
+     * If the renderer needs an internal framebuffer target for tone mapping or color space conversion,
+     * the number of samples is set to 0.
+     *
+     * @type {number}
+     */
+    get currentSamples(): number;
     /**
      * The current tone mapping of the renderer. When not producing screen output,
      * the tone mapping is always `NoToneMapping`.
@@ -664,7 +710,7 @@ declare class Renderer {
      *
      * @return {?RenderTarget} The render target. Returns `null` if no render target is set.
      */
-    getRenderTarget(): RenderTarget<Texture> | null;
+    getRenderTarget(): RenderTarget<Texture<unknown>> | null;
     /**
      * Sets the output render target for the renderer.
      *
@@ -676,7 +722,20 @@ declare class Renderer {
      *
      * @return {?RenderTarget} The current output render target. Returns `null` if no output target is set.
      */
-    getOutputRenderTarget(): RenderTarget<Texture> | null;
+    getOutputRenderTarget(): RenderTarget<Texture<unknown>> | null;
+    /**
+     * Sets the canvas target. The canvas target manages the HTML canvas
+     * or the offscreen canvas the renderer draws into.
+     *
+     * @param {CanvasTarget} canvasTarget - The canvas target.
+     */
+    setCanvasTarget(canvasTarget: CanvasTarget): void;
+    /**
+     * Returns the current canvas target.
+     *
+     * @return {CanvasTarget} The current canvas target.
+     */
+    getCanvasTarget(): CanvasTarget;
     /**
      * Resets the renderer to the initial state before WebXR started.
      */
@@ -742,29 +801,36 @@ declare class Renderer {
      * if the renderer has been initialized.
      *
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
-     * @param {?(Array<number>|number)} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
+     * @param {number|Array<number>|IndirectStorageBufferAttribute} [dispatchSize=null]
+     * - A single number representing count, or
+     * - An array [x, y, z] representing dispatch size, or
+     * - A IndirectStorageBufferAttribute for indirect dispatch size.
      * @return {Promise|undefined} A Promise that resolve when the compute has finished. Only returned when the renderer has not been initialized.
      */
     compute(
         computeNodes: ComputeNode | ComputeNode[],
-        dispatchSizeOrCount?: number[] | number | null,
+        dispatchSize?: number[] | number | IndirectStorageBufferAttribute | null,
     ): Promise<void> | undefined;
     /**
      * Execute a single or an array of compute nodes.
      *
      * @async
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
-     * @param {?(Array<number>|number)} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
+     * @param {number|Array<number>|IndirectStorageBufferAttribute} [dispatchSize=null]
+     * - A single number representing count, or
+     * - An array [x, y, z] representing dispatch size, or
+     * - A IndirectStorageBufferAttribute for indirect dispatch size.
      * @return {Promise} A Promise that resolve when the compute has finished.
      */
     computeAsync(
         computeNodes: ComputeNode | ComputeNode[],
-        dispatchSizeOrCount?: number[] | number | null,
+        dispatchSize?: number[] | number | IndirectStorageBufferAttribute | null,
     ): Promise<void>;
     /**
      * Checks if the given feature is supported by the selected backend.
      *
      * @async
+     * @deprecated
      * @param {string} name - The feature's name.
      * @return {Promise<boolean>} A Promise that resolves with a bool that indicates whether the feature is supported or not.
      */
@@ -777,7 +843,7 @@ declare class Renderer {
      * @param {string} name - The feature's name.
      * @return {boolean} Whether the feature is supported or not.
      */
-    hasFeature(name: string): false | void;
+    hasFeature(name: string): void;
     /**
      * Returns `true` when the renderer has been initialized.
      *
@@ -789,6 +855,7 @@ declare class Renderer {
      * (which can cause noticeable lags due to decode and GPU upload overhead).
      *
      * @async
+     * @deprecated
      * @param {Texture} texture - The texture.
      * @return {Promise} A Promise that resolves when the texture has been initialized.
      */
@@ -910,6 +977,14 @@ declare class Renderer {
         passId?: string | null,
     ): void;
     /**
+     * Retrieves shadow nodes for the given material. This is used to setup shadow passes.
+     * The result is cached per material and updated when the material's version changes.
+     *
+     * @param {Material} material
+     * @returns {Object} - The shadow nodes for the material.
+     */
+    _getShadowNodes(material: Material): any;
+    /**
      * This method represents the default render object function that manages the render lifecycle
      * of the object.
      *
@@ -983,6 +1058,12 @@ declare class Renderer {
         passId?: string,
     ): void;
     /**
+     * Callback when the canvas has been resized.
+     *
+     * @private
+     */
+    _onCanvasTargetResize(): void;
+    /**
      * Alias for `compileAsync()`.
      *
      * @method
@@ -993,4 +1074,11 @@ declare class Renderer {
      */
     get compile(): (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<void>;
 }
+/**
+ * Animation loop parameter of `renderer.setAnimationLoop()`.
+ *
+ * @callback onAnimationCallback
+ * @param {DOMHighResTimeStamp} time - A timestamp indicating the end time of the previous frame's rendering.
+ * @param {XRFrame} [frame] - A reference to the current XR frame. Only relevant when using XR rendering.
+ */
 export default Renderer;
