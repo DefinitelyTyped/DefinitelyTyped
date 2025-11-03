@@ -297,8 +297,8 @@ declare module "@zerobounce/zero-bounce-sdk" {
   }
 
   export interface ValidateBatchResponse {
-    email_batch: ValidateEmailResponse[];
-    errors: { error: string }[];
+    email_batch: ReadonlyArray<ValidateEmailResponse>;
+    errors: ReadonlyArray<{ error: string }>;
   }
 
   /**
@@ -333,7 +333,7 @@ declare module "@zerobounce/zero-bounce-sdk" {
       ipAddress?: string,
     ): Promise<ValidateEmailResponse>;
     getApiUsage(startDate: string, endDate: string): Promise<ApiUsageResponse>;
-    validateBatch(emailBatch: EmailBatchItem[]): Promise<ValidateBatchResponse>;
+    validateBatch(emailBatch: ReadonlyArray<EmailBatchItem>): Promise<ValidateBatchResponse>;
     getEmailActivity(email: string): Promise<EmailActivityResponse>;
     sendFile(payload: SendFilePayload): Promise<SendFileResponse>;
     sendScoringFile(payload: SendFilePayload): Promise<SendFileResponse>;
