@@ -380,7 +380,6 @@ declare namespace ReactReconciler {
             type: Type,
             oldProps: Props,
             newProps: Props,
-            internalInstanceHandle: OpaqueHandle,
             keepChildren: boolean,
             recyclableInstance: null | Instance,
         ): Instance;
