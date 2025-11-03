@@ -67,6 +67,9 @@ import { createContext } from "node:vm";
 
 {
     const w = new workerThreads.Worker(__filename);
+    w.cpuUsage().then((usage: NodeJS.CpuUsage) => {
+        w.cpuUsage(usage); // $ExpectType Promise<CpuUsage>
+    });
     w.getHeapSnapshot().then((stream: Readable) => {
         //
     });
