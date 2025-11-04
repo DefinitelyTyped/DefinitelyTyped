@@ -52,6 +52,11 @@ export interface ResponsiveMasonryProps {
     columnsCountBreakPoints?: {
         [key: number]: number;
     };
+    /**
+     * A Object containing Keys as breakpoints in px and values as the gutter size
+     *
+     * Default Value = { 350: '10px', 750: '10px', 900: '10px' }
+     */
     gutterBreakPoints?: { 
         [key: number]: string;
     };
