@@ -52,6 +52,9 @@ export interface ResponsiveMasonryProps {
     columnsCountBreakPoints?: {
         [key: number]: number;
     };
+    gutterBreakPoints?: { 
+        [key: number]: string 
+    };
     className?: string;
     style?: CSSProperties;
 }
