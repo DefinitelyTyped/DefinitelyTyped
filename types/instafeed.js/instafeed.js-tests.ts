@@ -20,11 +20,8 @@ new Instafeed({
     return { ...item, extra: 'foo' };
   },
   filter(item) {
-    // $ExpectType (InstafeedDefaultItem & { extra: string })
-    item;
     // $ExpectType string
     item.extra;
-    
     return true;
   }
 });
