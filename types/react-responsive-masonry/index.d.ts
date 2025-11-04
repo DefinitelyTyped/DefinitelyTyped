@@ -53,7 +53,7 @@ export interface ResponsiveMasonryProps {
         [key: number]: number;
     };
     gutterBreakPoints?: { 
-        [key: number]: string 
+        [key: number]: string;
     };
     className?: string;
     style?: CSSProperties;
