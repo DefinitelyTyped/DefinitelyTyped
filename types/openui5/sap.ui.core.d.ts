@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.141.0
+// For Library Version: 1.142.0
 
 declare module "sap/base/assert" {
   /**
@@ -6702,6 +6702,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          *     provided via `treeAnnotationProperties.hierarchyNodeDescendantCountFor`
          * 	 - The `"hierarchy-preorder-rank-for"` annotation must be present in the service metadata or provided
          *     via `treeAnnotationProperties.hierarchyPreorderRankFor`
+         * 	 - The hierarchy maintenance is performed on the client side
          */
         restoreTreeStateAfterChange?: boolean;
         /**
@@ -8192,6 +8193,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * If the `changeBatchGroup` for the changed entity type is set to {@link #setDeferredGroups deferred},
      * changes could be submitted with {@link #submitChanges}. Otherwise the change will be submitted directly.
      *
+     * Consecutive calls of this method which update bindings ***synchronously*** may cause performance issues;
+     * see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loioadd47c3966dd40489e952bb4f5f74a7c Accessing Data from an OData Model }
+     * for details.
+     *
      *
      * @returns `true` if the value was set correctly and `false` if errors occurred like the entry was not
      * found or another entry was already updated.
@@ -8210,7 +8215,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       oContext?: Context,
       /**
-       * Whether to update other bindings dependent on this property asynchronously
+       * Whether to update bindings dependent on this property asynchronously
        */
       bAsyncUpdate?: boolean
     ): boolean;
@@ -10174,6 +10179,508 @@ declare module "sap/ui/test/opaQunit" {
      */
     async?: boolean
   ): void;
+}
+
+declare module "sap/ui/test/starter/config" {
+  import { URI } from "sap/ui/core/library";
+
+  /**
+   * Code coverage options.
+   *
+   * The qunit-coverage/qunit-coverage-istanbul module is always loaded after QUnit has been loaded to enable
+   * the coverage option. When the 'coverage' parameter is set in the URL (e.g. because the `coverage` checkbox
+   * has been clicked), then "blanket" (if Istanbul is not used instead) is loaded before qunit-coverage to
+   * avoid its synchronous loading. The `instrumenter` property identifies which tool for code coverage should
+   * be used. If "auto" is chosen, a check determines whether Istanbul and its middleware are available, and
+   * if so, they are loaded. Otherwise, "blanket" is used as a fallback.
+   *
+   * The following default coverage configuration is applied:
+   *
+   *
+   * ```javascript
+   *
+   * {
+   *   only: null,
+   *   never: null,
+   *   branchTracking: false,
+   *   instrumenter: "auto"
+   * }
+   * ```
+   */
+  export type CoverageConfiguration = {
+    /**
+     * List of modules or packages that should be instrumented. If not given, all modules are instrumented.
+     * Default is null
+     */
+    only?: string[];
+    /**
+     * List of modules or packages that never should be instrumented. Default is null
+     */
+    never?: string[];
+
+    branchTracking?: boolean;
+    /**
+     * "auto" checks for istanbul middleware and loads istanbul instrumentation, otherwise blanket is used.
+     * The other options set explicitly the desired instrumenter.
+     */
+    instrumenter?: "auto" | "blanket" | "istanbul";
+  };
+
+  /**
+   * Describes what versions of QUnit are known to the test starter, which one to use for a test, and how
+   * to configure it.
+   *
+   * Besides the documented properties, QUnit configuration options can be set as well. Currently supported
+   * are `altertitle`, `collapse`, `filter`, `fixture`, `hidepassed`, `maxDepth`, `module`, `moduleId`, `notrycatch`,
+   * `noglobals`, `seed`, `reorder`, `requireExpects`, `testId`, `testTimeout`, `scrolltop`.
+   *
+   * ## Default Configuration
+   *
+   * The following default QUnit configuration is applied:
+   *
+   *
+   * ```javascript
+   *
+   * {
+   *   versions: {
+   *     1: {
+   *       module: "sap/ui/thirdparty/qunit",
+   *       css: "sap/ui/thirdparty/qunit.css"
+   *     },
+   *     2: {
+   *       module: "sap/ui/thirdparty/qunit-2",
+   *       css: "sap/ui/thirdparty/qunit-2.css"
+   *     },
+   *     edge: 2,
+   *     "true": "edge"
+   *   },
+   *   version: "edge"
+   * }
+   * ```
+   */
+  export type QUnitConfiguration = {
+    /**
+     * Defines a set of available QUnit versions that the test starter can use.
+     *
+     * Allows for easier switch between different QUnit versions for tests by simply changing the `version`
+     * property in the test configuration. The test starter then uses the versions map to find the correct files
+     * for the requested version.
+     *
+     * The keys of this map can be used as values of the `version` property. The value can either be a `QUnitVersionInfo`
+     * that names a JavaScript module and a CSS stylesheet resource for a QUnit version or it can be a reference
+     * to another key (e.g. "edge" as an alias for a concrete version).
+     *
+     * By default, the map contains entries for the keys 1, 2, "edge" (same as 2) and "true" (same as "edge").
+     * All predefined entries can be overridden in a testsuite or test.
+     */
+    versions?: Record<string | number, string | number | QUnitVersionInfo>;
+    /**
+     * Version of QUnit that should be loaded.
+     *
+     * If set to a null, QUnit won't be loaded. If set to "edge", the newest available version of QUnit is used.
+     * If set to a number, the corresponding major version of QUnit is used if supported. Currently supported
+     * versions are 1 and 2. An error will be thrown for unsupported versions.
+     *
+     * Default is "edge"
+     */
+    version?: null | false | int | "edge" | string;
+    /**
+     * Any valid QUnit configuration property
+     */
+    [key: string]: any;
+  };
+
+  /**
+   * Describes the JavaScript and CSS resources of a certain QUnit version. Allows the test starter to start
+   * a custom QUnit version not provided by the framework.
+   */
+  export type QUnitVersionInfo = {
+    /**
+     * Module ID of the described QUnit version. Will be loaded with a sap.ui.require call when that QUnit version
+     * is selected.
+     */
+    module: string;
+    /**
+     * UI5 resource name of a CSS stylesheet that is loaded for the described QUnit version.
+     */
+    css: string;
+  };
+
+  /**
+   * Describes what versions of Sinon are known to the test starter, which one to use for a test, and how
+   * to configure it.
+   *
+   * For versions up to Sinon 4, further Sinon config options can be added and are copied into `sinon.config`.
+   * Newer Sinon versions don't support such a config anymore. In Sinon 4, supported options are `injectIntoThis`,
+   * `injectInto`, `properties`, `useFakeTimers`, `useFakeServer`
+   *
+   * The following default Sinon configuration is applied:
+   *
+   *
+   * ```javascript
+   *
+   * {
+   *   versions: {
+   *     1: {
+   *       module: "sap/ui/thirdparty/sinon",
+   *       bridge: "sap/ui/thirdparty/sinon-qunit"
+   *     },
+   *     4: {
+   *       module: "sap/ui/thirdparty/sinon-4",
+   *       bridge: "sap/ui/qunit/sinon-qunit-bridge"
+   *     },
+   *     edge: 4,
+   *     "true": "edge"
+   *   },
+   *   version: "edge",
+   *   qunitBridge: true,
+   *   useFakeTimers: false,
+   *   useFakeServer: false
+   * }
+   * ```
+   */
+  export type SinonConfiguration = {
+    /**
+     * Defines a set of available Sinon versions that the test starter can use.
+     *
+     * Allows for an easier switch between different Sinon versions for tests by simply changing the `version`
+     * property in the test configuration. The test starter then uses the versions map to find the correct files
+     * for the requested version.
+     *
+     * The keys of this map can be used as values of the `version` property. The value can either be a `SinonVersionInfo`
+     * that names the JavaScript module for a Sinon version or it can be a reference to another key (e.g. "edge"
+     * as an alias for a concrete version).
+     *
+     * By default, the map contains entries for the keys 1, 4, "edge" (same as 4) and "true" (same as "edge").
+     * All predefined entries can be overridden in a testsuite or test.
+     */
+    versions?: Record<string | number, string | number | SinonVersionInfo>;
+    /**
+     * Version of Sinon that should be loaded. Default: "edge"
+     *
+     * If set to null, Sinon won't be loaded. If set to "edge", the newest available version of Sinon is used.
+     * If set to a number, the corresponding version of Sinon is used if supported. By default, supported versions
+     * are 1 and 4. An error will be thrown for unsupported versions.
+     */
+    version?: null | false | int | string;
+    /**
+     * Whether one of the sinon-qunit bridges is loaded.
+     *
+     * When set to true, the sap/ui/thirdparty/sinon-qunit bridge is loaded for Sinon 1 and the sap/ui/qunit/sinon-qunit-bridge
+     * is loaded for newer versions of Sinon.
+     *
+     * The bridge is only loaded after both QUnit and Sinon have been loaded. If either QUnit or Sinon are not
+     * loaded, no bridge is loaded.
+     *
+     * If Sinon is not loaded, but QUnit, the bridge will not be loaded, but a shim with dependencies will be
+     * configured. This allows tests to load Sinon / the bridge on their own without taking care of the bridge
+     * dependencies.
+     */
+    qunitBridge?: boolean;
+    /**
+     * Any valid Sinon configuration property (up to Sinon version 4 at least)
+     */
+    [key: string]: any;
+  };
+
+  /**
+   * Describes the JavaScript resource of a certain Sinon version. Allows the test starter to start a custom
+   * Sinon version not provided by the framework.
+   */
+  export type SinonVersionInfo = {
+    /**
+     * Module ID of the described Sinon version. Will be loaded with a sap.ui.require call when that Sinon version
+     * is selected.
+     */
+    module: string;
+    /**
+     * Module ID of a "bridge" that can integrate the Sinon version with QUnit, wrapping each test in a Sinon
+     * sandbox. The bridge module will only be required by the test starter when the `qunitBridge` config option
+     * of the test is set to true.
+     */
+    bridge: string;
+  };
+
+  export type SuiteConfiguration = {
+    /**
+     * Name of the test suite.
+     *
+     * This name is used as the title of the index page / testsuite page.
+     */
+    name?: string;
+    /**
+     * An Object with default settings for all tests.
+     *
+     * The defaults and the test configuration are merged recursively in such a way that the merge contains
+     * properties from both the defaults and the test config. If a property is defined by both config objects,
+     * the value from the test config is used. There's no special handling for other types of values, e.g an
+     * array value in the defaults is replaced by an array value in the test config.
+     *
+     * The test starter applies the following complete default configuration structure:
+     *
+     *
+     * ```javascript
+     *
+     * {
+     *   name: null,
+     *   beforeBootstrap: null,
+     *   module: "./{name}.qunit",
+     *   page: "resources/sap/ui/test/starter/Test.qunit.html?testsuite={suite}&test={name}",
+     *   title: "QUnit tests '{name}' of suite '{suite}'",
+     *   qunit: "edge",
+     *   sinon: "edge",
+     *   coverage: {
+     *     only: null,
+     *     never: null,
+     *     branchTracking: false,
+     *     instrumenter: "auto"
+     *   },
+     *   ui5: {
+     *     bindingSyntax: "complex",
+     *     libs: []
+     *   },
+     *   bootCore: true,
+     *   autostart: true
+     * }
+     * ```
+     */
+    defaults?: TestConfiguration;
+    /**
+     * A map with the individual test configurations, keyed by a unique test name.
+     *
+     * There's no technical limitation for the length or the characters of the test names. The name is used
+     * only in the overview page showing all tests of your suite.
+     *
+     * By default, the name is also used to derive an ID for the module that contains the test cases. We therefore
+     * recommend using names which are valid module IDs (no blanks, no special chars other than "/" or ".").
+     * If you have multiple tests that execute the same module but with different configurations (e.g. different
+     * QUnit versions or different URL parameters), you have to make up unique names and manually configure
+     * the module IDs for them.
+     *
+     * The test starter applies the following complete default configuration structure:
+     *
+     *
+     * ```javascript
+     *
+     * {
+     *   name: null,
+     *   beforeBootstrap: null,
+     *   module: "./{name}.qunit",
+     *   page: "resources/sap/ui/test/starter/Test.qunit.html?testsuite={suite}&test={name}",
+     *   title: "QUnit tests '{name}' of suite '{suite}'",
+     *   qunit: "edge",
+     *   sinon: "edge",
+     *   coverage: {
+     *     only: null,
+     *     never: null,
+     *     branchTracking: false,
+     *     instrumenter: "auto"
+     *   },
+     *   ui5: {
+     *     bindingSyntax: "complex",
+     *     libs: []
+     *   },
+     *   bootCore: true,
+     *   autostart: true
+     * }
+     * ```
+     */
+    tests?: Record<string, TestConfiguration>;
+  };
+
+  /**
+   * Defines the configuration options for a single test in a testsuite. The same structure is also used for
+   * the defaults of a testsuite.
+   *
+   * Some of the properties in this structure support placeholders for the name of the test (written as `{name}`)
+   * and the module ID of the testsuite (written as {suite}>). These placeholders are substituted
+   * before the test configuration is evaluated.
+   *
+   * Properties that represent UI5 module IDs also support relative module IDs (starting with `./`). They
+   * are resolved relative to the package that contains the testsuite. This behaves the same as if the testsuite
+   * module would use these IDs in its `sap.ui.define` call.
+   *
+   * The test starter applies the following complete default configuration structure:
+   *
+   *
+   * ```javascript
+   *
+   * {
+   *   name: null, // Derived from test key
+   *   beforeBootstrap: null,
+   *   module: "./{name}.qunit",
+   *   page: "resources/sap/ui/test/starter/Test.qunit.html?testsuite={suite}&test={name}",
+   *   title: "QUnit tests '{name}' of suite '{suite}'",
+   *   qunit: "edge",
+   *   sinon: "edge",
+   *   coverage: {
+   *     only: null,
+   *     never: null,
+   *     branchTracking: false,
+   *     instrumenter: "auto"
+   *   },
+   *   ui5: {
+   *     bindingSyntax: "complex",
+   *     libs: []
+   *   },
+   *   bootCore: true,
+   *   autostart: true
+   * }
+   * ```
+   */
+  export type TestConfiguration = {
+    /**
+     * The name of a group to which the test belongs.
+     *
+     * This is an optional string by which all tests in a testsuite will be sorted and grouped when they are
+     * listed in a UI. The group name usually is shown as a prefix of the test name.
+     */
+    group?: string;
+    /**
+     * Whether the test starter should skip a test file. Such tests will remain in the overview list but won't
+     * be executed in the test suite.
+     */
+    skip?: boolean;
+    /**
+     * Name of the test. If omitted, it is derived from the corresponding key in the ´tests` object of the enclosing
+     * suite.
+     */
+    name?: string;
+    /**
+     * A module to be executed before the UI5 framework is bootstrapped.
+     *
+     * This can be useful for setting up global configurations or mocks that need to exist before any UI5 code
+     * runs.
+     *
+     * The value can be a relative module ID (e.g., `./mySetup.js`) and may use the placeholders `{name}` for
+     * the test name and `{suite}` for the suite name.
+     */
+    beforeBootstrap?: string;
+    /**
+     * ID(s) of the module(s) to load.
+     *
+     * Can either be a single string or an array of strings. Each given module ID can be a relative module ID
+     * (relative to the package that contains the testsuite) and may use the placeholders `{name}` and `{suite}`.
+     *
+     * By default, a single module with the same name as the test and in the same package as the testsuite is
+     * loaded.
+     */
+    module?: string | string[];
+    /**
+     * URL of the test page to start for this test.
+     *
+     * By default, all tests use the generic starter page, which reads the suite configuration, finds the tests,
+     * and starts the configured test components before it requires and executes the configured test module(s).
+     *
+     * The URL must either be relative to the application root or use the ui5:// protocol with a module name.
+     * The URL can use the following placeholders, enclosed in curly braces: {suite} - replaced by the name
+     * of the testsuite (configuration) {name} - replaced by the name of the current test
+     *
+     * By default, a generic test page uses the testsuite and test names as URL parameters `testsuite` and `test`,
+     * respectively.
+     */
+    page?: URI;
+    /**
+     * A map-like object with URL parameters that are appended to the `page` URL. Making this a separate property
+     * allows to use the same page URL for all tests but with different URL parameters per test.
+     *
+     * Keys in the object are parameter names, and their values represent the parameter values. If the value
+     * for a parameter is an array, the parameter will be added multiple times, once for each value in the array.
+     *
+     * Non-string values are not recommended and are cast to string (using the standard JavaScript `toString`
+     * functionality).
+     */
+    searchParams?: Record<string, string | string[]>;
+    /**
+     * A map-like object with URL parameters that are appended to the `page` URL. {@deprecated As of version
+     * 1.141.0, use `searchParams` instead.}
+     */
+    uriParams?: Record<string, string | string[]>;
+    /**
+     * Title of the test.
+     *
+     * The title can use the following placeholders, enclosed in curly braces: {suite} - replaced by the name
+     * of the testsuite (configuration) {name} - replaced by the name of the current test
+     *
+     * By default, a title is chosen which contains the names of the testsuite and the test. The exact text
+     * is not specified and may change.
+     *
+     * Default is "QUnit tests '{name}' of suite '{suite}'"
+     */
+    title?: string;
+    /**
+     * Whether QUnit should be started, what version of it should be used, and what configuration should be
+     * applied. Details are described in the {@link module:sap/ui/test/starter/config.QUnitConfiguration} type.
+     *
+     * The values `null`, `false`, `"edge"` as well as any numerical value are shortcut notations for `qunit:
+     * { version: <value> }`.
+     *
+     * Default is to use the "edge" version without any additional configuration.
+     */
+    qunit?: QUnitConfiguration | null | false | number | "edge";
+    /**
+     * Whether Sinon should be started, what version of it should be used, and what configuration should be
+     * applied. Details are described in the {@link module:sap/ui/test/starter/config.SinonConfiguration} type.
+     *
+     * The values `null`, `false`, `"edge"` as well as any numerical value are shortcut notations for `sinon:
+     * { version: <value> }`.
+     *
+     * Default is to use the "edge" version with a QUnit bridge, but without fake timers and fake servers.
+     */
+    sinon?: SinonConfiguration;
+    /**
+     * Code coverage options.
+     *
+     * The qunit-coverage/qunit-coverage-istanbul module is always loaded after QUnit has been loaded to enable
+     * the coverage option. When the 'coverage' parameter is set in the URL (e.g. because the `coverage` checkbox
+     * has been clicked), then "blanket" (if Istanbul is not used instead) will be loaded before qunit-coverage
+     * to avoid its synchronous loading.
+     *
+     * The `instrumenter` property identifies which tool for code coverage should be used. If "auto" is chosen,
+     * a check determines whether Istanbul and its middleware are available, and if so, they will be loaded.
+     * Otherwise, "blanket" is used as a fallback.
+     *
+     * The default is to automatically determine the instrumenter to use ("auto") and not to use branch tracking.
+     */
+    coverage?: CoverageConfiguration;
+    /**
+     * Configuration options for the ui5loader.
+     *
+     * The configured object value is given to the {@link sap.ui.loader.config} API and supports nearly all
+     * configuration options that are documented for that API. The only exception is the async flag, which is
+     * already set to true by the test starter. The ui5loader doesn't support switching back to sync mode (async:false).
+     */
+    loader?: Record<string, any>;
+    /**
+     * UI5 runtime configuration options.
+     *
+     * Any configured property is made available to the runtime as if it was given in the `window["sap-ui-config"]`
+     * config object. If a value is of a type not supported for window["sap-ui-config"], executing the UI5 core
+     * might fail. As the only current exception, the "libs" property can be an array of library names and not
+     * only a comma-separated string.
+     *
+     * To ease test development, the test starter applies the following defaults. Note that any default is only
+     * applied if the corresponding property has not been defined in the test-specific configuration.
+     * 	 - `bindingSyntax: "complex"`
+     */
+    ui5?: Record<string, any>;
+    /**
+     * Whether the UI5 core (sap/ui/core/Core.js) should be required and booted.
+     *
+     * When this option is true, the core is not only loaded and started, but loading and execution of the test
+     * module(s) is also delayed until a listener registered with sap.ui.getCore().attachInit() has been executed.
+     *
+     * {@deprecated As of version 1.120, it should not be used in new tests}
+     */
+    bootCore?: boolean;
+    /**
+     * Whether the test starter should call QUnit.start() after all prerequisites have been fulfilled (e.g.
+     * QUnit, Sinon, a bridge, have been loaded, coverage tooling has been loaded and configured, the Core has
+     * been booted, the test modules have been loaded and executed, any Promises returned by the test modules
+     * have been resolved).
+     */
+    autostart?: boolean;
+  };
 }
 
 declare module "sap/ui/test/utils/nextUIUpdate" {
@@ -28312,8 +28819,7 @@ declare module "sap/ui/core/Element" {
      *
      * UI5 currently does not provide a recommended implementation of `TooltipBase` as the use of content-rich
      * tooltips is discouraged by the Fiori Design Guidelines. Existing subclasses of `TooltipBase` therefore
-     * have been deprecated. However, apps can still subclass from `TooltipBase` and create their own implementation
-     * when needed (potentially taking the deprecated implementations as a starting point).
+     * have been deprecated.
      *
      * See the section {@link https://experience.sap.com/fiori-design-web/using-tooltips/ Using Tooltips} in
      * the Fiori Design Guideline.
@@ -33693,9 +34199,9 @@ declare module "sap/ui/core/Lib" {
      *
      * **Note:** Dependencies between libraries have to be modeled consistently in several places:
      * 	 - Both eager and lazy dependencies have to be modelled in the `.library` file.
-     * 	 - By default, UI5 Tooling generates a `manifest.json` file from the content of the `.library` file.
-     *     However, if the `manifest.json` file for the library is not generated but maintained manually, it must
-     *     be kept consistent with the `.library` file, especially regarding its listed library dependencies.
+     * 	 - By default, UI5 CLI generates a `manifest.json` file from the content of the `.library` file. However,
+     *     if the `manifest.json` file for the library is not generated but maintained manually, it must be kept
+     *     consistent with the `.library` file, especially regarding its listed library dependencies.
      * 	 - All eager library dependencies must be declared as AMD dependencies of the `library.js` module by
      *     referring to the corresponding `"some/lib/namespace/library"` module of each library dependency.
      *
@@ -42775,458 +43281,6 @@ declare module "sap/ui/core/routing/Target" {
   >;
 }
 
-declare module "sap/ui/core/routing/HashChanger" {
-  import HashChangerBase from "sap/ui/core/routing/HashChangerBase";
-
-  import Metadata from "sap/ui/base/Metadata";
-
-  import { routing } from "sap/ui/core/library";
-
-  import Event from "sap/ui/base/Event";
-
-  /**
-   * Class for manipulating and receiving changes of the browser hash with `hasher` framework.
-   *
-   * **IMPORTANT:** To set or replace the current browser hash, use {@link #setHash} or {@link #replaceHash }
-   * and do NOT interact with the `hasher` framework directly in order to have the navigation direction calculated
-   * as accurate as possible.
-   *
-   * Fires a `hashChanged` event if the browser hash changes.
-   */
-  export default class HashChanger extends HashChangerBase {
-    constructor();
-
-    /**
-     * Creates a new subclass of class sap.ui.core.routing.HashChanger with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.routing.HashChangerBase.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, HashChanger>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Gets a global singleton of the HashChanger. The singleton will get created when this function is invoked
-     * for the first time.
-     *
-     *
-     * @returns The global HashChanger
-     */
-    static getInstance(): HashChanger;
-    /**
-     * Returns a metadata object for class sap.ui.core.routing.HashChanger.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): Metadata;
-    /**
-     * Sets the hashChanger to a new instance, destroys the old one and copies all its event listeners to the
-     * new one
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    static replaceHashChanger(
-      /**
-       * the new instance for the global singleton
-       */
-      oHashChanger: HashChanger
-    ): void;
-    /**
-     * Cleans the event registration
-     * See:
-     * 	sap.ui.base.Object.prototype.destroy
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    destroy(): void;
-    /**
-     * Fires the `hashChanged` event, may be extended to modify the hash before firing the event
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    fireHashChanged(
-      /**
-       * the new hash of the browser
-       */
-      sNewHash: string,
-      /**
-       * the previous hash
-       */
-      sOldHash: string
-    ): void;
-    /**
-     * Gets the current hash
-     *
-     *
-     * @returns the current hash
-     */
-    getHash(): string;
-    /**
-     * Defines the events and its parameters which should be used for tracking the hash changes
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The array containing the events info
-     */
-    getRelevantEventsInfo(): HashChangerEventInfo[];
-    /**
-     * Will start listening to hash changes. This will also fire a `hashChanged` event with the initial hash.
-     *
-     *
-     * @returns false if it was initialized before, true if it was initialized the first time
-     */
-    init(): boolean;
-    /**
-     * Replaces the hash with a certain value. When using the replace function, no browser history entry is
-     * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
-     *
-     * The `sDirection` parameter can be used to provide direction information on the navigation which leads
-     * to this hash replacement. This is typically used when synchronizing the hashes between multiple frames
-     * to provide information to the frame where the hash is replaced with the navigation direction in the other
-     * frame where the navigation occurs.
-     */
-    replaceHash(
-      /**
-       * New hash
-       */
-      sHash: string,
-      /**
-       * The direction information for this hash replacement
-       */
-      sDirection:
-        | routing.HistoryDirection
-        | keyof typeof routing.HistoryDirection
-    ): void;
-    /**
-     * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
-     * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
-     */
-    setHash(
-      /**
-       * New hash
-       */
-      sHash: string
-    ): void;
-  }
-  /**
-   * The object containing the event info for the events that are forwarded to {@link sap.ui.core.routing.RouterHashChanger}.
-   *
-   * @since 1.82.0
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type HashChangerEventInfo = {
-    /**
-     * The name of the event that is fired by the HashChanger and should be forwarded to the RouterHashChanger
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    name: string;
-    /**
-     * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    paramMapping?: HashChangerEventParameterMapping;
-    /**
-     * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
-     * other routing classes, for example {@link sap.ui.core.routing.History}.
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    updateHashOnly: boolean;
-  };
-
-  /**
-   * The object containing the parameter mapping for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
-   *
-   * @since 1.82.0
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type HashChangerEventParameterMapping = {
-    /**
-     * The name of the parameter whose value is used as the `newHash` parameter in the event that is forwarded
-     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
-     * property `newHash`.
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    newHash?: string;
-    /**
-     * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
-     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
-     * property `oldHash`.
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    oldHash?: string;
-    /**
-     * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
-     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
-     * property `fullHash`.
-     *
-     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-     */
-    fullHash?: string;
-  };
-
-  /**
-   * Parameters of the HashChanger#hashSet event.
-   */
-  export interface HashChanger$HashSetEventParameters {
-    /**
-     * The relevant hash segment
-     */
-    hash?: string;
-  }
-
-  /**
-   * Event object of the HashChanger#hashSet event.
-   */
-  export type HashChanger$HashSetEvent = Event<
-    HashChanger$HashSetEventParameters,
-    HashChanger
-  >;
-}
-
-declare module "sap/ui/core/routing/HashChangerBase" {
-  import EventProvider from "sap/ui/base/EventProvider";
-
-  import Metadata from "sap/ui/base/Metadata";
-
-  import { routing } from "sap/ui/core/library";
-
-  import Event from "sap/ui/base/Event";
-
-  /**
-   * Base Class for manipulating and receiving changes of hash segment.
-   *
-   * Fires a `hashChanged` event if the relevant hash changes.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export default class HashChangerBase extends EventProvider {
-    /**
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    protected constructor();
-
-    /**
-     * Creates a new subclass of class sap.ui.core.routing.HashChangerBase with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.EventProvider.extend}.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, HashChangerBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.core.routing.HashChangerBase.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): Metadata;
-    /**
-     * Replaces the hash with a certain value. When using the replace function, no browser history entry is
-     * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
-     *
-     * The `sDirection` parameter can be used to provide direction information on the navigation which leads
-     * to this hash replacement. This is typically used when synchronizing the hashes between multiple frames
-     * to provide information to the frame where the hash is replaced with the navigation direction in the other
-     * frame where the navigation occurs.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    replaceHash(
-      /**
-       * New hash
-       */
-      sHash: string,
-      /**
-       * The direction information for this hash replacement
-       */
-      sDirection:
-        | routing.HistoryDirection
-        | keyof typeof routing.HistoryDirection
-    ): void;
-    /**
-     * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
-     * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    setHash(
-      /**
-       * New hash
-       */
-      sHash: string
-    ): void;
-  }
-  /**
-   * Parameters of the HashChangerBase#hashChanged event.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export interface HashChangerBase$HashChangedEventParameters {
-    /**
-     * The hash segment before it's changed
-     */
-    oldHash?: string;
-
-    /**
-     * The new hash segment
-     */
-    newHash?: object;
-
-    /**
-     * The full format of the hash if the newHash only contains part of the relevant hash
-     */
-    fullHash?: string;
-  }
-
-  /**
-   * Event object of the HashChangerBase#hashChanged event.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type HashChangerBase$HashChangedEvent = Event<
-    HashChangerBase$HashChangedEventParameters,
-    HashChangerBase
-  >;
-
-  /**
-   * Parameters of the HashChangerBase#hashReplaced event.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export interface HashChangerBase$HashReplacedEventParameters {
-    /**
-     * The relevant hash segment
-     */
-    hash?: string;
-  }
-
-  /**
-   * Event object of the HashChangerBase#hashReplaced event.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export type HashChangerBase$HashReplacedEvent = Event<
-    HashChangerBase$HashReplacedEventParameters,
-    HashChangerBase
-  >;
-}
-
-declare module "sap/ui/core/routing/History" {
-  import HashChanger from "sap/ui/core/routing/HashChanger";
-
-  import { routing } from "sap/ui/core/library";
-
-  export default class History {
-    /**
-     * Used to determine the {@link sap.ui.core.routing.HistoryDirection} of the current or a future navigation,
-     * done with a {@link sap.ui.core.routing.Router} or {@link sap.ui.core.routing.HashChanger}.
-     *
-     * **ATTENTION:** this class will not be accurate if someone does hash-replacement without the named classes
-     * above. If you are manipulating the hash directly, this class is not supported anymore.
-     */
-    constructor(
-      /**
-       * required, without a HashChanger this class cannot work. The class needs to be aware of the hash-changes.
-       */
-      oHashChanger: HashChanger
-    );
-
-    /**
-     *
-     * @returns a global singleton that gets created as soon as the sap.ui.core.routing.History is required
-     */
-    static getInstance(): History;
-    /**
-     * Determines what the navigation direction for a newly given hash would be.
-     *
-     * Returns the direction as {@link sap.ui.core.routing.HistoryDirection} (for example: Forwards, Backwards,
-     * NewEntry). If no navigation has occurred yet, returns `undefined`. In cases where the direction cannot
-     * be determined (if the same hash appears in multiple places), returns {@link sap.ui.core.routing.HistoryDirection.Unknown}.
-     * For hash replacements, the history stack is updated at the current position.
-     *
-     * Example: It will say "Unknown" if there is a history "foo" - "bar" (current history) - "foo". If you
-     * now ask for the direction of the hash "foo" you get "Unknown" because it might be backwards or forwards.
-     *
-     *
-     * @returns Direction for the given hash or `undefined`, if no navigation has taken place yet.
-     */
-    getDirection(
-      /**
-       * optional, if this parameter is not passed the last hashChange is taken.
-       */
-      sNewHash?: string
-    ): routing.HistoryDirection | undefined;
-    /**
-     * Returns the length difference between the history state stored in browser's pushState and the state maintained
-     * in this class.
-     *
-     * The function returns `undefined` when
-     * 	 - The current state in browser's history pushState isn't initialized, for example, between a new hash
-     *     is set or replaced and the "hashChange" event is processed by this class
-     * 	 - History pushState is already used before UI5 History is initialized, and UI5 can't maintain the hash
-     *     history by using the browser pushState
-     *
-     * Once the "hashChange" event is processed by this class, this method always returns 0. However, before
-     * a "hashChange" event reaches this class, it returns the offset between the new hash and the previous
-     * one within the history state.
-     *
-     * @since 1.70
-     *
-     * @returns The length difference or returns `undefined` when browser pushState can't be used at the moment
-     * when this function is called
-     */
-    getHistoryStateOffset(): int | undefined;
-    /**
-     * Gets the previous hash in the history.
-     *
-     * If the last direction was Unknown or there was no navigation yet, `undefined` will be returned.
-     *
-     *
-     * @returns Previous hash in the history or `undefined`
-     */
-    getPreviousHash(): string | undefined;
-  }
-}
-
 declare module "sap/ui/core/routing/Router" {
   import EventProvider from "sap/ui/base/EventProvider";
 
@@ -43254,6 +43308,21 @@ declare module "sap/ui/core/routing/Router" {
   import ComponentContainer from "sap/ui/core/ComponentContainer";
 
   import Control from "sap/ui/core/Control";
+
+  export type ComponentTargetParameters = {
+    /**
+     * The name of the route which should be matched after this navTo call.
+     */
+    route: string;
+    /**
+     * The parameters for the route
+     */
+    parameters?: Record<string, string | Record<string, string>>;
+    /**
+     * Information for deeper nested component targets
+     */
+    componentTargetInfo?: Record<string, ComponentTargetParameters>;
+  };
 
   export type RouteInfo = {
     /**
@@ -44224,45 +44293,23 @@ declare module "sap/ui/core/routing/Router" {
        * **Parameter:**
        * ```javascript
        *
-       * 				{
-       * 					parameterName1: "parameterValue1",
-       * 					parameterName2: "parameterValue2",
-       * 					"?queryParameterName": {
-       * 						queryParameterName1: "queryParameterValue1"
-       * 					}
-       * 				}
-       * 				```
+       *     {
+       *     	parameterName1: "parameterValue1",
+       *     	parameterName2: "parameterValue2",
+       *     	"?queryParameterName": {
+       *     		queryParameterName1: "queryParameterValue1"
+       *     	}
+       *     }
+       *     ```
        */
       oParameters?: object,
       /**
-       * Information for route name and parameters of the router in nested components. When any target of the
-       * route which is specified with the `sName` parameter loads a component and a route of this component whose
-       * pattern is different than an empty string should be matched directly with this navTo call, the route
-       * name and its parameters can be given by using this parameter. Information for deeper nested component
-       * target can be given within the `componentTargetInfo` property which contains the same properties as the
-       * top level.
+       * Defines routing information for nested component targets. For each nested component target, you can specify
+       * the route name and its parameters of the nested router. This allows matching a non-empty route pattern
+       * in the nested component directly during this `navTo` call. The same structure can be used recursively
+       * for deeper levels of nested component targets.
        */
-      oComponentTargetInfo?: {
-        /**
-         * The name of a target which loads a component. This target is used in the Route which is specified by
-         * `sName`.
-         */
-        anyName?: {
-          /**
-           * The name of the route which should be matched after this navTo call.
-           */
-          route?: string;
-          /**
-           * The parameters for the route. See the documentation of the `oParameters`.
-           */
-          parameters?: object;
-          /**
-           * The information for the targets within a nested component. This shares the same structure with the `oComponentTargetInfo`
-           * parameter.
-           */
-          componentTargetInfo?: object;
-        };
-      },
+      oComponentTargetInfo?: Record<string, ComponentTargetParameters>,
       /**
        * If set to `true`, the hash is replaced, and there will be no entry in the browser history. If set to
        * `false`, the hash is set and the entry is stored in the browser history.
@@ -44304,14 +44351,14 @@ declare module "sap/ui/core/routing/Router" {
        * **Parameter:**
        * ```javascript
        *
-       * 				{
-       * 					parameterName1: "parameterValue1",
-       * 					parameterName2: "parameterValue2",
-       * 					"?queryParameterName": {
-       * 						queryParameterName1: "queryParameterValue1"
-       * 					}
-       * 				}
-       * 				```
+       *     {
+       *     	parameterName1: "parameterValue1",
+       *     	parameterName2: "parameterValue2",
+       *     	"?queryParameterName": {
+       *     		queryParameterName1: "queryParameterValue1"
+       *     	}
+       *     }
+       *     ```
        */
       oParameters?: object,
       /**
@@ -44576,6 +44623,458 @@ declare module "sap/ui/core/routing/Router" {
     Router$TitleChangedEventParameters,
     Router
   >;
+}
+
+declare module "sap/ui/core/routing/HashChanger" {
+  import HashChangerBase from "sap/ui/core/routing/HashChangerBase";
+
+  import Metadata from "sap/ui/base/Metadata";
+
+  import { routing } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * Class for manipulating and receiving changes of the browser hash with `hasher` framework.
+   *
+   * **IMPORTANT:** To set or replace the current browser hash, use {@link #setHash} or {@link #replaceHash }
+   * and do NOT interact with the `hasher` framework directly in order to have the navigation direction calculated
+   * as accurate as possible.
+   *
+   * Fires a `hashChanged` event if the browser hash changes.
+   */
+  export default class HashChanger extends HashChangerBase {
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.core.routing.HashChanger with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.routing.HashChangerBase.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, HashChanger>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Gets a global singleton of the HashChanger. The singleton will get created when this function is invoked
+     * for the first time.
+     *
+     *
+     * @returns The global HashChanger
+     */
+    static getInstance(): HashChanger;
+    /**
+     * Returns a metadata object for class sap.ui.core.routing.HashChanger.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Sets the hashChanger to a new instance, destroys the old one and copies all its event listeners to the
+     * new one
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    static replaceHashChanger(
+      /**
+       * the new instance for the global singleton
+       */
+      oHashChanger: HashChanger
+    ): void;
+    /**
+     * Cleans the event registration
+     * See:
+     * 	sap.ui.base.Object.prototype.destroy
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    destroy(): void;
+    /**
+     * Fires the `hashChanged` event, may be extended to modify the hash before firing the event
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    fireHashChanged(
+      /**
+       * the new hash of the browser
+       */
+      sNewHash: string,
+      /**
+       * the previous hash
+       */
+      sOldHash: string
+    ): void;
+    /**
+     * Gets the current hash
+     *
+     *
+     * @returns the current hash
+     */
+    getHash(): string;
+    /**
+     * Defines the events and its parameters which should be used for tracking the hash changes
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The array containing the events info
+     */
+    getRelevantEventsInfo(): HashChangerEventInfo[];
+    /**
+     * Will start listening to hash changes. This will also fire a `hashChanged` event with the initial hash.
+     *
+     *
+     * @returns false if it was initialized before, true if it was initialized the first time
+     */
+    init(): boolean;
+    /**
+     * Replaces the hash with a certain value. When using the replace function, no browser history entry is
+     * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
+     *
+     * The `sDirection` parameter can be used to provide direction information on the navigation which leads
+     * to this hash replacement. This is typically used when synchronizing the hashes between multiple frames
+     * to provide information to the frame where the hash is replaced with the navigation direction in the other
+     * frame where the navigation occurs.
+     */
+    replaceHash(
+      /**
+       * New hash
+       */
+      sHash: string,
+      /**
+       * The direction information for this hash replacement
+       */
+      sDirection:
+        | routing.HistoryDirection
+        | keyof typeof routing.HistoryDirection
+    ): void;
+    /**
+     * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
+     * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
+     */
+    setHash(
+      /**
+       * New hash
+       */
+      sHash: string
+    ): void;
+  }
+  /**
+   * The object containing the event info for the events that are forwarded to {@link sap.ui.core.routing.RouterHashChanger}.
+   *
+   * @since 1.82.0
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type HashChangerEventInfo = {
+    /**
+     * The name of the event that is fired by the HashChanger and should be forwarded to the RouterHashChanger
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    name: string;
+    /**
+     * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    paramMapping?: HashChangerEventParameterMapping;
+    /**
+     * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
+     * other routing classes, for example {@link sap.ui.core.routing.History}.
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    updateHashOnly: boolean;
+  };
+
+  /**
+   * The object containing the parameter mapping for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
+   *
+   * @since 1.82.0
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type HashChangerEventParameterMapping = {
+    /**
+     * The name of the parameter whose value is used as the `newHash` parameter in the event that is forwarded
+     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
+     * property `newHash`.
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    newHash?: string;
+    /**
+     * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
+     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
+     * property `oldHash`.
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    oldHash?: string;
+    /**
+     * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
+     * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
+     * property `fullHash`.
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    fullHash?: string;
+  };
+
+  /**
+   * Parameters of the HashChanger#hashSet event.
+   */
+  export interface HashChanger$HashSetEventParameters {
+    /**
+     * The relevant hash segment
+     */
+    hash?: string;
+  }
+
+  /**
+   * Event object of the HashChanger#hashSet event.
+   */
+  export type HashChanger$HashSetEvent = Event<
+    HashChanger$HashSetEventParameters,
+    HashChanger
+  >;
+}
+
+declare module "sap/ui/core/routing/HashChangerBase" {
+  import EventProvider from "sap/ui/base/EventProvider";
+
+  import Metadata from "sap/ui/base/Metadata";
+
+  import { routing } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * Base Class for manipulating and receiving changes of hash segment.
+   *
+   * Fires a `hashChanged` event if the relevant hash changes.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export default class HashChangerBase extends EventProvider {
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    protected constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.core.routing.HashChangerBase with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.EventProvider.extend}.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, HashChangerBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.core.routing.HashChangerBase.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Replaces the hash with a certain value. When using the replace function, no browser history entry is
+     * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
+     *
+     * The `sDirection` parameter can be used to provide direction information on the navigation which leads
+     * to this hash replacement. This is typically used when synchronizing the hashes between multiple frames
+     * to provide information to the frame where the hash is replaced with the navigation direction in the other
+     * frame where the navigation occurs.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    replaceHash(
+      /**
+       * New hash
+       */
+      sHash: string,
+      /**
+       * The direction information for this hash replacement
+       */
+      sDirection:
+        | routing.HistoryDirection
+        | keyof typeof routing.HistoryDirection
+    ): void;
+    /**
+     * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
+     * do not want to have an entry in the browser history, please use the {@link #replaceHash} function.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    setHash(
+      /**
+       * New hash
+       */
+      sHash: string
+    ): void;
+  }
+  /**
+   * Parameters of the HashChangerBase#hashChanged event.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export interface HashChangerBase$HashChangedEventParameters {
+    /**
+     * The hash segment before it's changed
+     */
+    oldHash?: string;
+
+    /**
+     * The new hash segment
+     */
+    newHash?: object;
+
+    /**
+     * The full format of the hash if the newHash only contains part of the relevant hash
+     */
+    fullHash?: string;
+  }
+
+  /**
+   * Event object of the HashChangerBase#hashChanged event.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type HashChangerBase$HashChangedEvent = Event<
+    HashChangerBase$HashChangedEventParameters,
+    HashChangerBase
+  >;
+
+  /**
+   * Parameters of the HashChangerBase#hashReplaced event.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export interface HashChangerBase$HashReplacedEventParameters {
+    /**
+     * The relevant hash segment
+     */
+    hash?: string;
+  }
+
+  /**
+   * Event object of the HashChangerBase#hashReplaced event.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type HashChangerBase$HashReplacedEvent = Event<
+    HashChangerBase$HashReplacedEventParameters,
+    HashChangerBase
+  >;
+}
+
+declare module "sap/ui/core/routing/History" {
+  import HashChanger from "sap/ui/core/routing/HashChanger";
+
+  import { routing } from "sap/ui/core/library";
+
+  export default class History {
+    /**
+     * Used to determine the {@link sap.ui.core.routing.HistoryDirection} of the current or a future navigation,
+     * done with a {@link sap.ui.core.routing.Router} or {@link sap.ui.core.routing.HashChanger}.
+     *
+     * **ATTENTION:** this class will not be accurate if someone does hash-replacement without the named classes
+     * above. If you are manipulating the hash directly, this class is not supported anymore.
+     */
+    constructor(
+      /**
+       * required, without a HashChanger this class cannot work. The class needs to be aware of the hash-changes.
+       */
+      oHashChanger: HashChanger
+    );
+
+    /**
+     *
+     * @returns a global singleton that gets created as soon as the sap.ui.core.routing.History is required
+     */
+    static getInstance(): History;
+    /**
+     * Determines what the navigation direction for a newly given hash would be.
+     *
+     * Returns the direction as {@link sap.ui.core.routing.HistoryDirection} (for example: Forwards, Backwards,
+     * NewEntry). If no navigation has occurred yet, returns `undefined`. In cases where the direction cannot
+     * be determined (if the same hash appears in multiple places), returns {@link sap.ui.core.routing.HistoryDirection.Unknown}.
+     * For hash replacements, the history stack is updated at the current position.
+     *
+     * Example: It will say "Unknown" if there is a history "foo" - "bar" (current history) - "foo". If you
+     * now ask for the direction of the hash "foo" you get "Unknown" because it might be backwards or forwards.
+     *
+     *
+     * @returns Direction for the given hash or `undefined`, if no navigation has taken place yet.
+     */
+    getDirection(
+      /**
+       * optional, if this parameter is not passed the last hashChange is taken.
+       */
+      sNewHash?: string
+    ): routing.HistoryDirection | undefined;
+    /**
+     * Returns the length difference between the history state stored in browser's pushState and the state maintained
+     * in this class.
+     *
+     * The function returns `undefined` when
+     * 	 - The current state in browser's history pushState isn't initialized, for example, between a new hash
+     *     is set or replaced and the "hashChange" event is processed by this class
+     * 	 - History pushState is already used before UI5 History is initialized, and UI5 can't maintain the hash
+     *     history by using the browser pushState
+     *
+     * Once the "hashChange" event is processed by this class, this method always returns 0. However, before
+     * a "hashChange" event reaches this class, it returns the offset between the new hash and the previous
+     * one within the history state.
+     *
+     * @since 1.70
+     *
+     * @returns The length difference or returns `undefined` when browser pushState can't be used at the moment
+     * when this function is called
+     */
+    getHistoryStateOffset(): int | undefined;
+    /**
+     * Gets the previous hash in the history.
+     *
+     * If the last direction was Unknown or there was no navigation yet, `undefined` will be returned.
+     *
+     *
+     * @returns Previous hash in the history or `undefined`
+     */
+    getPreviousHash(): string | undefined;
+  }
 }
 
 declare module "sap/ui/core/routing/RouterHashChanger" {
@@ -59765,6 +60264,10 @@ declare module "sap/ui/model/json/JSONModel" {
      * Sets `oValue` as new value for the property defined by the given `sPath` and `oContext`. Once the new
      * model value has been set, all interested parties are informed.
      *
+     * Consecutive calls of this method which update bindings ***synchronously*** may cause performance issues;
+     * see {@link https://ui5.sap.com/#/topic/18a76b577b144bc2b9b424e39d379c06 Performance Impact of Model Updates }
+     * for details.
+     *
      *
      * @returns `true` if the value was set correctly, and `false` if errors occurred, for example if the entry
      * was not found.
@@ -59783,7 +60286,7 @@ declare module "sap/ui/model/json/JSONModel" {
        */
       oContext?: Context,
       /**
-       * Whether to update other bindings dependent on this property asynchronously
+       * Whether to update bindings dependent on this property asynchronously
        */
       bAsyncUpdate?: boolean
     ): boolean;
@@ -67402,7 +67905,7 @@ declare module "sap/ui/model/odata/type/Decimal" {
    * `Edm.Decimal`.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
-   * is represented as a `string`. It never uses exponential format ("1e-5").
+   * is represented as a `string`.
    *
    * @since 1.27.0
    */
@@ -67414,7 +67917,8 @@ declare module "sap/ui/model/odata/type/Decimal" {
       /**
        * Format options as defined in {@link sap.ui.core.format.NumberFormat.getFloatInstance}. In contrast to
        * NumberFormat `groupingEnabled` defaults to `true`. Note that `maxFractionDigits` and `minFractionDigits`
-       * are set to the value of the constraint `scale` unless it is "variable". They can however be overwritten.
+       * are set to the value of the constraint `scale` unless it is "variable" or "floating". They can however
+       * be overwritten.
        */
       oFormatOptions?: {
         /**
@@ -67457,15 +67961,26 @@ declare module "sap/ui/model/odata/type/Decimal" {
          */
         precision?: int | string;
         /**
-         * the maximum number of digits allowed to the right of the decimal point; the number must be less than
-         * or equal to `precision` (if given). As a special case, "variable" is supported.
+         * The maximum number of digits allowed to the right of the decimal point; the number must be less than
+         * or equal to `precision` (if given). The `Decimal` is then always displayed with exactly that number of
+         * digits to the right of the decimal point. If `scale` is equal to `precision`, a single zero has to precede
+         * the decimal point.
          *
-         * The number of digits to the right of the decimal point may vary from zero to `scale`, and the number
-         * of digits to the left of the decimal point may vary from one to `precision` minus `scale`. If `scale`
-         * is equal to `precision`, a single zero has to precede the decimal point.
+         * In addition, the `scale` values "variable" and (as of UI5 version 1.142.0) "floating" are supported.
          *
-         * The number is always displayed with exactly `scale` digits to the right of the decimal point (unless
-         * `scale` is "variable").
+         * 	 For `scale="variable"`, the number of digits to the right of the decimal point can vary from zero to
+         * `precision` minus the number of digits to the left of the decimal point.
+         *
+         * **Examples for `Decimal`s with precision=3 and scale="variable":**
+         * 	 - Valid values: 123, 1.23, 12.3, 0.12
+         * 	 - Invalid values: 1230, 1.234, 12.34, 0.123    For `scale="floating"`, the number of
+         *     significant digits, i.e. the number of digits excluding leading or trailing zeros, must be less than
+         *     or equal to `precision`. For more information on `scale="floating"`, see
+         *     OData Version 4.01 Common Schema Definition Language (CSDL) XML Representation - Scale .
+         *
+         * **Examples for `Decimal`s with precision=3 and scale="floating":**
+         * 	 - Valid values: 1230, 1.23, 12.3, 0.123
+         * 	 - Invalid values: 1234, 1.234, 12.34, 0.001234
          */
         scale?: int | string;
       }
@@ -71238,23 +71753,23 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      *
      *
      * Supported Expressions:
-     * 	 "14.4 Constant Expressions" for "edm:Bool", "edm:Date", "edm:DateTimeOffset", "edm:Decimal", "edm:Float",
-     * "edm:Guid", "edm:Int", "edm:TimeOfDay".  constant "14.4.11 Expression edm:String": This is turned
+     * 	 "14.3 Constant Expressions" for "edm:Bool", "edm:Date", "edm:DateTimeOffset", "edm:Decimal", "edm:Float",
+     * "edm:Guid", "edm:Int", "edm:TimeOfDay".  constant "14.3.11 Expression edm:String": This is turned
      * into a fixed text (for example `"Width"`). String constants that contain a simple binding `"{@i18n>...}"`
      * to the hard-coded model name "@i18n" with arbitrary path are not turned into a fixed text, but kept as
      * a data binding expression; this allows local annotation files to refer to a resource bundle for internationalization.
-     *  dynamic "14.5.1 Comparison and Logical Operators": These are turned into expression bindings to
-     * perform the operations at runtime.  dynamic "14.5.3 Expression edm:Apply":
-     * 	 "14.5.3.1.1 Function odata.concat": This is turned into a data binding expression relative to an entity.
-     *  "14.5.3.1.2 Function odata.fillUriTemplate": This is turned into an expression binding to fill the
-     * template at runtime.  "14.5.3.1.3 Function odata.uriEncode": This is turned into an expression binding
-     * to encode the parameter at runtime.  Apply functions may be nested arbitrarily.   dynamic
-     * "14.5.5 Expression edm:Collection": This is turned into an expression binding to be evaluated at runtime.
-     * Elements can be conditionally added to the collection when using dynamic "14.5.6 Expression edm:If" as
-     * a direct child.  dynamic "14.5.6 Expression edm:If": This is turned into an expression binding to
-     * be evaluated at runtime. The expression is a conditional expression like `"{=condition ? expression1
-     * : expression2}"`.  dynamic "14.5.10 Expression edm:Null": This is turned into a `null` value. It
-     * is ignored in `odata.concat`.  dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression edm:PropertyPath":
+     *  dynamic "14.4.2 Comparison and Logical Operators": These are turned into expression bindings to
+     * perform the operations at runtime.  dynamic "14.4.4 Expression edm:Apply":
+     * 	 "odata.concat" from "14.4.4.1 Canonical Functions": This is turned into a data binding expression relative
+     * to an entity.  "14.4.4.2 Function odata.fillUriTemplate": This is turned into an expression binding
+     * to fill the template at runtime.  "14.4.4.4 Function odata.uriEncode": This is turned into an expression
+     * binding to encode the parameter at runtime.  Apply functions may be nested arbitrarily.
+     * dynamic "14.4.6 Expression edm:Collection": This is turned into an expression binding to be evaluated
+     * at runtime. Elements can be conditionally added to the collection when using dynamic "14.4.7 Expression
+     * edm:If" as a direct child.  dynamic "14.4.7 Expression edm:If": This is turned into an expression
+     * binding to be evaluated at runtime. The expression is a conditional expression like `"{=condition ? expression1
+     * : expression2}"`.  dynamic "14.4.11 Expression edm:Null": This is turned into a `null` value. It
+     * is ignored in `odata.concat`.  dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6 Expression edm:PropertyPath":
      * These are turned into data bindings relative to an entity, including type information and constraints
      * as available from metadata, for example `"{path : 'Name', type : 'sap.ui.model.odata.type.String', constraints
      * : {'maxLength' : 255}, formatOptions : {'parseKeepsEmptyString' : true}}"`. Depending on the used type,
@@ -71270,11 +71785,11 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * note that in this case only constant expressions are supported to determine the annotation value. The
      * "parseKeepsEmptyString" format option is set.  Since 1.78.0, both "edm:Path" and "edm:PropertyPath"
      * are also supported if `vRawValue` is the path itself, and not the object wrapping it.  **Note: Import
-     * the `sap/ui/model/odata/ODataExpressionAddons` module when using 14.5.1 or 14.5.3**
+     * the `sap/ui/model/odata/ODataExpressionAddons` module when using 14.4.2 or 14.4.4**
      *
      * $AnnotationPath and $Path: If `oDetails.context.getPath()` contains a single "$AnnotationPath" or "$Path"
      * segment, the value corresponding to that segment is considered as a data binding path prefix whenever
-     * a dynamic "14.5.12 Expression edm:Path" or "14.5.13 Expression edm:PropertyPath" is turned into a data
+     * a dynamic "14.4.1.7 Expression edm:Path" or "14.4.1.6 Expression edm:PropertyPath" is turned into a data
      * binding. Use {@link sap.ui.model.odata.v4.AnnotationHelper.resolve$Path} to avoid these prefixes in cases
      * where they are not applicable.
      *
@@ -71325,12 +71840,12 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      *  `format` returns a binding with path "EQUIPMENT_2_PRODUCT/PRODUCT_2_SUPPLIER/Supplier_Name".
      *
      * Annotations on an Operation or a Parameter: Since 1.71.0, for annotations on an operation or a parameter,
-     * the binding parameter's name is stripped off any dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression
-     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply to annotations
-     * on a parameter. In the former case, we assume that the resulting data binding is relative to the parent
-     * context of the operation binding, that is, to the context representing the binding parameter itself.
-     * In the latter case, we assume that the resulting data binding is relative to the parameter context of
-     * the operation binding (see {@link sap.ui.model.odata.v4.ODataContextBinding#getParameterContext}).
+     * the binding parameter's name is stripped off any dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6
+     * Expression edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply
+     * to annotations on a parameter. In the former case, we assume that the resulting data binding is relative
+     * to the parent context of the operation binding, that is, to the context representing the binding parameter
+     * itself. In the latter case, we assume that the resulting data binding is relative to the parameter context
+     * of the operation binding (see {@link sap.ui.model.odata.v4.ODataContextBinding#getParameterContext}).
      *
      * Example:
      * ```javascript
@@ -71364,7 +71879,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * on.
      *
      * Operation Parameters: Since 1.73.0, this function can be used on action or function parameters and results
-     * in a relative data binding, just like a "14.5.12 Expression edm:Path".
+     * in a relative data binding, just like a "14.4.1.7 Expression edm:Path".
      *
      * Assume we have the following metadata for an unbound action "AcChangeTeamBudgetByID":
      * ```javascript
@@ -71400,7 +71915,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * in case no binding parameters are needed.
      *
      * Structural Properties: Since 1.78.0, this function can be used on a structural property and results in
-     * a relative data binding, just like a "14.5.12 Expression edm:Path". The usage
+     * a relative data binding, just like a "14.4.1.7 Expression edm:Path". The usage
      * ```javascript
      *
      * <Input value="{meta>/Department/Name@@sap.ui.model.odata.v4.AnnotationHelper.format}"/>
@@ -71440,7 +71955,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
         context: Context;
         /**
          * The single operation overload that was targeted by annotations on an operation or a parameter; needed
-         * to strip off the binding parameter's name from any dynamic "14.5.12 Expression edm:Path" and "14.5.13
+         * to strip off the binding parameter's name from any dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6
          * Expression edm:PropertyPath" where it might be used as a first segment (since 1.71.0). This does not
          * apply to annotations on a parameter (since 1.76.0).
          */
@@ -71465,10 +71980,10 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
     /**
      * A function that helps to interpret OData V4 annotations. It knows about the syntax of the path value
      * used by the following dynamic expressions:
-     * 	 "14.5.2 Expression edm:AnnotationPath"  "14.5.11 Expression edm:NavigationPropertyPath"  "14.5.12
-     * Expression edm:Path"  "14.5.13 Expression edm:PropertyPath"  It returns the path of structural
-     * and navigation properties from the given path value, but removes "$count", types casts, term casts, and
-     * annotations on navigation properties.
+     * 	 "14.4.1.3 Expression edm:AnnotationPath"  "14.4.1.5 Expression edm:NavigationPropertyPath"
+     * "14.4.1.7 Expression edm:Path"  "14.4.1.6 Expression edm:PropertyPath"  It returns the path
+     * of structural and navigation properties from the given path value, but removes "$count", types casts,
+     * term casts, and annotations on navigation properties.
      *
      * @since 1.43.0
      *
@@ -71516,10 +72031,10 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
     /**
      * A function that helps to interpret OData V4 annotations. It knows about the syntax of the path value
      * used by the following dynamic expressions:
-     * 	 "14.5.2 Expression edm:AnnotationPath"  "14.5.11 Expression edm:NavigationPropertyPath"  "14.5.12
-     * Expression edm:Path"  "14.5.13 Expression edm:PropertyPath"  It returns the information whether
-     * the given path ends with "$count" or with a multi-valued structural or navigation property. Term casts
-     * and annotations on navigation properties are ignored.
+     * 	 "14.4.1.3 Expression edm:AnnotationPath"  "14.4.1.5 Expression edm:NavigationPropertyPath"
+     * "14.4.1.7 Expression edm:Path"  "14.4.1.6 Expression edm:PropertyPath"  It returns the information
+     * whether the given path ends with "$count" or with a multi-valued structural or navigation property. Term
+     * casts and annotations on navigation properties are ignored.
      *
      * Example:
      * ```javascript
@@ -71625,33 +72140,33 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      *
      *
      * Supported Expressions:
-     * 	 "14.4 Constant Expressions" for "edm:Bool", "edm:Date", "edm:DateTimeOffset", "edm:Decimal", "edm:Float",
-     * "edm:Guid", "edm:Int", "edm:TimeOfDay".  constant "14.4.11 Expression edm:String": This is turned
+     * 	 "14.3 Constant Expressions" for "edm:Bool", "edm:Date", "edm:DateTimeOffset", "edm:Decimal", "edm:Float",
+     * "edm:Guid", "edm:Int", "edm:TimeOfDay".  constant "14.3.11 Expression edm:String": This is turned
      * into a fixed text (for example `"Width"`). String constants that contain a simple binding `"{@i18n>...}"`
      * to the hard-coded model name "@i18n" with arbitrary path are not turned into a fixed text, but kept as
      * a data binding expression; this allows local annotation files to refer to a resource bundle for internationalization.
-     *  dynamic "14.5.1 Comparison and Logical Operators": These are turned into expression bindings to
-     * perform the operations at runtime.  dynamic "14.5.3 Expression edm:Apply":
-     * 	 "14.5.3.1.1 Function odata.concat": This is turned into a data binding expression.  "14.5.3.1.2
-     * Function odata.fillUriTemplate": This is turned into an expression binding to fill the template at runtime.
-     *  "14.5.3.1.3 Function odata.uriEncode": This is turned into an expression binding to encode the parameter
-     * at runtime.  Apply functions may be nested arbitrarily.   dynamic "14.5.5 Expression edm:Collection":
-     * This is turned into an expression binding to be evaluated at runtime. Elements can be conditionally added
-     * to the collection when using dynamic "14.5.6 Expression edm:If" as a direct child.  dynamic "14.5.6
-     * Expression edm:If": This is turned into an expression binding to be evaluated at runtime. The expression
-     * is a conditional expression like `"{=condition ? expression1 : expression2}"`.  dynamic "14.5.10
-     * Expression edm:Null": This is turned into a `null` value. It is ignored in `odata.concat`.  dynamic
-     * "14.5.12 Expression edm:Path" and "14.5.13 Expression edm:PropertyPath": These are turned into simple
-     * data bindings, for example `"{Name}"`. Since 1.78.0, both are also supported if `vRawValue` is the path
-     * itself, and not the object wrapping it.
+     *  dynamic "14.4.2 Comparison and Logical Operators": These are turned into expression bindings to
+     * perform the operations at runtime.  dynamic "14.4.4 Expression edm:Apply":
+     * 	 "odata.concat" from "14.4.4.1 Canonical Functions": This is turned into a data binding expression.
+     *  "14.4.4.2 Function odata.fillUriTemplate": This is turned into an expression binding to fill the
+     * template at runtime.  "14.4.4.4 Function odata.uriEncode": This is turned into an expression binding
+     * to encode the parameter at runtime.  Apply functions may be nested arbitrarily.   dynamic
+     * "14.4.6 Expression edm:Collection": This is turned into an expression binding to be evaluated at runtime.
+     * Elements can be conditionally added to the collection when using dynamic "14.4.7 Expression edm:If" as
+     * a direct child.  dynamic "14.4.7 Expression edm:If": This is turned into an expression binding to
+     * be evaluated at runtime. The expression is a conditional expression like `"{=condition ? expression1
+     * : expression2}"`.  dynamic "14.4.11 Expression edm:Null": This is turned into a `null` value. It
+     * is ignored in `odata.concat`.  dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6 Expression edm:PropertyPath":
+     * These are turned into simple data bindings, for example `"{Name}"`. Since 1.78.0, both are also supported
+     * if `vRawValue` is the path itself, and not the object wrapping it.
      *
      * Annotations on an Operation or a Parameter: Since 1.71.0, for annotations on an operation or a parameter,
-     * the binding parameter's name is stripped off any dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression
-     * edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply to annotations
-     * on a parameter. In the former case, we assume that the resulting data binding is relative to the parent
-     * context of the operation binding, that is, to the context representing the binding parameter itself.
-     * In the latter case, we assume that the resulting data binding is relative to the parameter context of
-     * the operation binding (see {@link sap.ui.model.odata.v4.ODataContextBinding#getParameterContext}).
+     * the binding parameter's name is stripped off any dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6
+     * Expression edm:PropertyPath" where it might be used as a first segment. Since 1.76.0, this does not apply
+     * to annotations on a parameter. In the former case, we assume that the resulting data binding is relative
+     * to the parent context of the operation binding, that is, to the context representing the binding parameter
+     * itself. In the latter case, we assume that the resulting data binding is relative to the parameter context
+     * of the operation binding (see {@link sap.ui.model.odata.v4.ODataContextBinding#getParameterContext}).
      *
      * Example:
      * ```javascript
@@ -71685,7 +72200,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * on.
      *
      * Operation Parameters: Since 1.73.0, this function can be used on action or function parameters and results
-     * in a relative data binding, just like a "14.5.12 Expression edm:Path".
+     * in a relative data binding, just like a "14.4.1.7 Expression edm:Path".
      *
      * Assume we have the following metadata for an unbound action "AcChangeTeamBudgetByID":
      * ```javascript
@@ -71719,7 +72234,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * brackets must be replaced by `$(` and `$)` respectively.
      *
      * Structural Properties: Since 1.78.0, this function can be used on a structural property and results in
-     * a relative data binding, just like a "14.5.12 Expression edm:Path". The usage
+     * a relative data binding, just like a "14.4.1.7 Expression edm:Path". The usage
      * ```javascript
      *
      * <Input value="{meta>/Department/Name@@sap.ui.model.odata.v4.AnnotationHelper.value}"/>
@@ -71757,13 +72272,13 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
         context: Context;
         /**
          * The single operation overload that was targeted by annotations on an operation or a parameter; needed
-         * to strip off the binding parameter's name from any dynamic "14.5.12 Expression edm:Path" and "14.5.13
+         * to strip off the binding parameter's name from any dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6
          * Expression edm:PropertyPath" where it might be used as a first segment (since 1.72.0). This does not
          * apply to annotations on a parameter (since 1.76.0).
          */
         overload?: object;
         /**
-         * Optional prefix to be added to each dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression edm:PropertyPath";
+         * Optional prefix to be added to each dynamic "14.4.1.7 Expression edm:Path" and "14.4.1.6 Expression edm:PropertyPath";
          * is either an empty string or a path ending with a "/" (since 1.141.0)
          */
         prefix?: string;
@@ -71988,7 +72503,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     getBinding(): ODataContextBinding | ODataListBinding;
     /**
-     * Returns the "canonical path" of the entity for this context. According to "4.3.1 Canonical URL" of the specification "OData Version 4.0 Part 2: URL Conventions", this is
+     * Returns the "canonical path" of the entity for this context. According to "4.3.1 Canonical URL" of the specification "OData Version 4.01. Part 2: URL Conventions", this is
      * the "name of the entity set associated with the entity followed by the key predicate identifying the
      * entity within the collection". Use the canonical path in {@link sap.ui.core.Element#bindElement} to create
      * an element binding.
@@ -72038,7 +72553,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Returns the value for the given path relative to this context. The function allows access to the complete
      * data the context points to (if `sPath` is "") or any part thereof. The data is a JSON structure as described
-     * in  "OData JSON Format Version 4.0".
+     * in  "OData JSON Format Version 4.01".
      * Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}.
      *
      * Returns `undefined` if the data is not (yet) available; no request is initiated. Use {@link #requestObject }
@@ -72285,7 +72800,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        * If the context belongs to a list binding, the parameter allows the list binding to remove the context
        * from the list binding's collection because the entity does not match the binding's filter anymore, see
        * {@link sap.ui.model.odata.v4.ODataListBinding#filter}; a removed context is destroyed, see {@link #destroy}.
-       * If the context belongs to a context binding, the parameter must not be used. Supported since 1.55.0
+       * If the context belongs to a context binding or to a list binding with "$$aggregation", the parameter
+       * must not be used. Supported since 1.55.0
        *
        * Since 1.84.0, if this context is {@link #isKeepAlive kept alive}, it is only destroyed if the corresponding
        * entity does no longer exist in the back end. In this case, the `fnOnBeforeDestroy` callback passed with
@@ -72307,7 +72823,7 @@ declare module "sap/ui/model/odata/v4/Context" {
       oOtherContext: Context
     ): void;
     /**
-     * Returns a promise for the "canonical path" of the entity for this context. According to "4.3.1 Canonical URL" of the specification "OData Version 4.0 Part 2: URL Conventions", this is
+     * Returns a promise for the "canonical path" of the entity for this context. According to "4.3.1 Canonical URL" of the specification "OData Version 4.01. Part 2: URL Conventions", this is
      * the "name of the entity set associated with the entity followed by the key predicate identifying the
      * entity within the collection". Use the canonical path in {@link sap.ui.core.Element#bindElement} to create
      * an element binding.
@@ -72328,7 +72844,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Returns a promise on the value for the given path relative to this context. The function allows access
      * to the complete data the context points to (if `sPath` is "") or any part thereof. The data is a JSON
      * structure as described in  "OData
-     * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link #setProperty}.
+     * JSON Format Version 4.01". Note that the function clones the result. Modify values via {@link #setProperty}.
      *
      * The header context of a list binding only delivers `$count` and `@$ui5.context.isSelected` (wrapped in
      * an object if `sPath` is "").
@@ -72410,10 +72926,10 @@ declare module "sap/ui/model/odata/v4/Context" {
       bAllowRemoval?: boolean
     ): Promise<void>;
     /**
-     * Loads side effects for this context using the given "14.5.11 Expression edm:NavigationPropertyPath" or
-     * "14.5.13 Expression edm:PropertyPath" objects. Use this method to explicitly load side effects in case
-     * implicit loading is switched off via the binding-specific parameter `$$patchWithoutSideEffects`. The
-     * method can be called on
+     * Loads side effects for this context using the given "14.4.1.5 Expression edm:NavigationPropertyPath"
+     * or "14.4.1.6 Expression edm:PropertyPath" objects. Use this method to explicitly load side effects in
+     * case implicit loading is switched off via the binding-specific parameter `$$patchWithoutSideEffects`.
+     * The method can be called on
      * 	 the bound context of a context binding,  the return value context of an operation binding,
      * a context of a list binding representing a single entity,  the header context of a list binding;
      * side effects are loaded for the whole binding in this case.  Key predicates must be available in
@@ -72459,7 +72975,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     requestSideEffects(
       /**
-       * The "14.5.11 Expression edm:NavigationPropertyPath" or "14.5.13 Expression edm:PropertyPath" objects
+       * The "14.4.1.5 Expression edm:NavigationPropertyPath" or "14.4.1.6 Expression edm:PropertyPath" objects
        * describing which properties need to be loaded because they may have changed due to side effects of a
        * previous update, for example `[{$PropertyPath : "TEAM_ID"}, {$NavigationPropertyPath : "EMPLOYEE_2_MANAGER"},
        * {$PropertyPath : "EMPLOYEE_2_TEAM/Team_Id"}]`. An empty navigation property path means that the whole
@@ -72470,7 +72986,7 @@ declare module "sap/ui/model/odata/v4/Context" {
        *
        * Since 1.82.0, absolute paths are supported. Absolute paths must start with the entity container (example
        * "/com.sap.gateway.default.iwbep.tea_busi.v0001.Container/TEAMS") of the service. All (navigation) properties
-       * in the complete model matching such an absolute path are updated. Since 1.85.0, "14.4.11 Expression edm:String"
+       * in the complete model matching such an absolute path are updated. Since 1.85.0, "14.3.11 Expression edm:String"
        * is accepted as well.
        *
        * Since 1.108.8, a property path matching the "com.sap.vocabularies.Common.v1.Messages" annotation of a
@@ -73105,7 +73621,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Returns a promise on the value for the given path relative to this binding. The function allows access
      * to the complete data the binding points to (if `sPath` is "") or any part thereof. The data is a JSON
      * structure as described in  "OData
-     * JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
+     * JSON Format Version 4.01". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
      *
      * If you want {@link #requestObject} to read fresh data, call `oBinding.refresh()` first.
      * See:
@@ -74359,7 +74875,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         hierarchyQualifier?: string;
         /**
-         * Like the "5.1.7 System Query Option $search", but applied before data aggregation (since 1.93.0). Note that
+         * Like the "5.1.8 System Query Option $search", but applied before data aggregation (since 1.93.0). Note that
          * certain content will break the syntax of the system query option `$apply` and result in an invalid request.
          * If the OData service supports the proposal ODATA-1452,
          * then `ODataUtils.formatLiteral(sSearch, "Edm.String");` should be used to encapsulate the whole search
@@ -75189,12 +75705,12 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * ```
      *
      *
-     * The basic idea is that every path described in "14.2.1 Attribute Target" in specification "OData Version 4.0 Part 3: Common Schema Definition Language"
-     * is a valid absolute path within the metadata model if a leading slash is added; for example "/" + "MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavigationProperty".
-     * Also, every path described in "14.5.2 Expression edm:AnnotationPath", "14.5.11 Expression edm:NavigationPropertyPath",
-     * "14.5.12 Expression edm:Path", and "14.5.13 Expression edm:PropertyPath" is a valid relative path within
-     * the metadata model if a suitable prefix is added which addresses an entity container, entity set, singleton,
-     * complex type, entity type, or property; for example "/MySchema.MyEntityType/MyProperty" + "@vCard.Address#work/FullName".
+     * The basic idea is that every path described in "14.2.2 Target" in specification "OData Common Schema Definition Language (CSDL) XML Representation
+     * Version 4.01" is a valid absolute path within the metadata model if a leading slash is added; for example
+     * "/" + "MySchema.MyEntityContainer/MyEntitySet/MyComplexProperty/MyNavigationProperty". Also, every path
+     * described in "14.4.1.1 Path Syntax" is a valid relative path within the metadata model if a suitable
+     * prefix is added which addresses an entity container, entity set, singleton, complex type, entity type,
+     * or property; for example "/MySchema.MyEntityType/MyProperty" + "@vCard.Address#work/FullName".
      *
      * The absolute path is split into segments and followed step-by-step, starting at the global scope of all
      * known qualified OData names. There are two technical properties there: "$Version" (typically "4.0") and
@@ -75224,21 +75740,21 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * and followed step-by-step before the next segment is processed. Except for this, a path must not continue
      * if it comes across a non-object value. Such a string value can be a qualified name (example path "/$EntityContainer/..."),
      * a simple identifier (example path "/TEAMS/$NavigationPropertyBinding/TEAM_2_EMPLOYEES/...") including
-     * the special name "$ReturnType" (since 1.71.0), or even a path according to "14.5.12 Expression edm:Path"
-     * etc. (example path "/TEAMS/@com.sap.vocabularies.UI.v1.LineItem/0/Value/$Path/...".
+     * the special name "$ReturnType" (since 1.71.0), or even a path according to "14.4.1.1 Path Syntax" (example
+     * path "/TEAMS/@com.sap.vocabularies.UI.v1.LineItem/0/Value/$Path/...".
      *
      * Segments starting with an "@" character, for example "@com.sap.vocabularies.Common.v1.Label", address
      * annotations at the current object. As the first segment, they refer to the single entity container. For
-     * objects which can only be annotated inline (see "14.3 Element edm:Annotation" minus "14.2.1 Attribute
-     * Target"), the object already contains the annotations as a property. For objects which can (only or also)
-     * be annotated via external targeting, the object does not contain any annotation as a property. Such annotations
-     * MUST be accessed via a path. Such objects include operations (that is, actions and functions) and their
-     * parameters, which can be annotated for a single overload or for all overloads at the same time.
+     * objects which can only be annotated inline (see "14.2 Annotation" minus "14.2.2 Target"), the object
+     * already contains the annotations as a property. For objects which can (only or also) be annotated via
+     * external targeting, the object does not contain any annotation as a property. Such annotations MUST be
+     * accessed via a path. Such objects include operations (that is, actions and functions) and their parameters,
+     * which can be annotated for a single overload or for all overloads at the same time.
      *
      * Segments starting with an OData name followed by an "@" character, for example "/TEAMS@Org.OData.Capabilities.V1.TopSupported",
      * address annotations at an entity set, singleton, or property, not at the corresponding type. In contrast,
      * "/TEAMS/@com.sap.vocabularies.Common.v1.Deletable" (note the separating slash) addresses an annotation
-     * at the entity set's type. This is in line with the special rule of "14.5.12 Expression edm:Path" regarding
+     * at the entity set's type. This is in line with the special rule of "14.4.1.2 Path Evaluation" regarding
      * annotations at a navigation property itself.
      *
      * "@" can be used as a segment to address a map of all annotations of the current object. This is useful
@@ -75248,11 +75764,11 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * "@com.sap.vocabularies.Common.v1.Text@com.sap.vocabularies.Common.v1.TextArrangement". Each annotation
      * can have a qualifier, for example "@first#foo@second#bar". Note: If the first annotation's value is a
      * record, a separate segment addresses an annotation of that record, not an annotation of the first annotation
-     * itself. In a similar way, annotations of "7.2 Element edm:ReferentialConstraint", "7.3 Element edm:OnDelete",
-     * "10.2 Element edm:Member" and "14.5.14.2 Element edm:PropertyValue" are addressed by segments like "<7.2.1
-     * Attribute Property>@...", "$OnDelete@...", "<10.2.1 Attribute Name>@..." and "<14.5.14.2.1 Attribute
-     * Property>@..." (where angle brackets denote a variable part and sections refer to specification "OData Version 4.0 Part 3:
-     * Common Schema Definition Language").
+     * itself. In a similar way, annotations of "8.5 Element edm:ReferentialConstraint", "8.6 Element edm:OnDelete",
+     * "10.3 Element edm:Member" and "14.4.12 Element edm:PropertyValue" are addressed by segments like "<8.5
+     * Attribute Property>@...", "$OnDelete@...", "<10.3 Attribute Name>@..." and "<14.4.12 Attribute
+     * Property>@..." (where angle brackets denote a variable part and sections refer to specification "OData Common Schema
+     * Definition Language (CSDL) XML Representation Version 4.01").
      *
      * Annotations starting with "@@", for example "@@sap.ui.model.odata.v4.AnnotationHelper.isMultiple" or
      * "@@.AH.isMultiple" or "@@.isMultiple", represent computed annotations. Their name without the "@@" prefix
@@ -75497,7 +76013,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
        */
       bAutoExpandSelect?: boolean,
       /**
-       * Context to resolve "14.5.12 Expression edm:Path" references contained in a "com.sap.vocabularies.Common.v1.ValueListRelevantQualifiers"
+       * Context to resolve "14.4.1.7 Expression edm:Path" references contained in a "com.sap.vocabularies.Common.v1.ValueListRelevantQualifiers"
        * annotation. Supported since 1.84.0
        */
       oContext?: Context1
@@ -75578,9 +76094,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * This model is not prepared to be inherited from.
    *
-   * Every resource path (relative to the service root URL, no query options) according to "4 Resource Path" in specification "OData Version 4.0 Part 2: URL Conventions" is a valid data binding
-   * path within this model if a leading slash is added; for example "/" + "SalesOrderList('A%2FB%26C')" to
-   * access an entity instance with key "A/B&C". Note that appropriate URI encoding is necessary, see the
+   * Every resource path (relative to the service root URL, no query options) according to "4 Resource Path" in specification "OData Version 4.01. Part 2: URL Conventions" is a valid data
+   * binding path within this model if a leading slash is added; for example "/" + "SalesOrderList('A%2FB%26C')"
+   * to access an entity instance with key "A/B&C". Note that appropriate URI encoding is necessary, see the
    * example of {@link sap.ui.model.odata.v4.ODataUtils.formatLiteral}. "4.5.1 Addressing Actions" needs an
    * operation binding, see {@link sap.ui.model.odata.v4.ODataContextBinding}.
    *
@@ -75662,7 +76178,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         metadataUrlParams?: object;
         /**
-         * The version of the OData service. Supported values are "2.0" and "4.0".
+         * The version of the OData service. Supported values are "2.0", "4.0", and "4.01".
          */
         odataVersion?: string;
         /**
@@ -75676,7 +76192,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Root URL of the service to request data from. The path part of the URL must end with a forward slash
          * according to OData V4 specification ABNF, rule "serviceRoot". You may append OData custom query options
          * to the service root URL separated with a "?", for example "/MyService/?custom=foo". See specification
-         * "OData Version 4.0 Part 2: URL Conventions", "5.2 Custom Query Options". OData system query options
+         * "OData Version 4.01. Part 2: URL Conventions", "5.2 Custom Query Options". OData system query options
          * and OData parameter aliases lead to an error.
          */
         serviceUrl: string;
@@ -75812,7 +76328,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       oContext?: Context,
       /**
-       * Map of binding parameters which can be OData query options as specified in "OData Version 4.0 Part 2: URL Conventions" or the binding-specific parameters as specified below.
+       * Map of binding parameters which can be OData query options as specified in "OData Version 4.01. Part 2: URL Conventions" or the binding-specific parameters as specified below.
        * Note: The binding creates its own data service request if it is absolute or if it has any parameters
        * or if it is relative and has a context created via {@link #createBindingContext}. The following OData
        * query options are allowed:
@@ -75824,7 +76340,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       mParameters?: {
         /**
-         * The value for the "5.1.2 System Query Option $expand" or an object which determines that value. The object
+         * The value for the "5.1.3 System Query Option $expand" or an object which determines that value. The object
          * is a map from expand path to expand options, where the options are again maps of system query options,
          * typically with string values. $count can also be given as a `boolean` value, $expand can recursively
          * be given as a map, $levels can also be given as a `number` value, and $select can also be given as an
@@ -75832,9 +76348,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $expand?: string | object;
         /**
-         * A comma separated list or an array of items which determine the value for the "5.1.3 System Query Option
+         * A comma separated list or an array of items which determine the value for the "5.1.4 System Query Option
          * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link #constructor}),
-         * paths with navigation properties can be included and will contribute to the "5.1.2 System Query Option
+         * paths with navigation properties can be included and will contribute to the "5.1.3 System Query Option
          * $expand".
          */
         $select?: string | string[];
@@ -75908,10 +76424,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       vFilters?: Filter | Filter[],
       /**
-       * Map of binding parameters which can be OData query options as specified in "OData Version 4.0 Part 2: URL Conventions" or binding-specific parameters as specified below. Note:
-       * The binding creates its own data service request if it is absolute or if it has any parameters or if
-       * it is relative and has a context created via {@link #createBindingContext} or if it has sorters or filters.
-       * The following OData query options are allowed:
+       * Map of binding parameters which can be OData query options as specified in "OData Version 4.01. Part 2: URL Conventions" or binding-specific parameters as specified below.
+       * Note: The binding creates its own data service request if it is absolute or if it has any parameters
+       * or if it is relative and has a context created via {@link #createBindingContext} or if it has sorters
+       * or filters. The following OData query options are allowed:
        * 	 All "5.2 Custom Query Options" except for those with a name starting with "sap-" (unless starting with
        * "sap-valid-")  The $apply, $count, $expand, $filter, $levels, $orderby, $search, and $select "5.1
        * System Query Options"; OData V4 only allows $levels inside $expand.  All other query options lead
@@ -75924,11 +76440,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $apply?: string;
         /**
-         * The value for the "5.1.6 System Query Option $count", useful for creation at the end and {@link sap.ui.model.odata.v4.ODataListBinding#getCount}
+         * The value for the "5.1.7 System Query Option $count", useful for creation at the end and {@link sap.ui.model.odata.v4.ODataListBinding#getCount}
          */
         $count?: string | boolean;
         /**
-         * The value for the "5.1.2 System Query Option $expand" or an object which determines that value. The object
+         * The value for the "5.1.3 System Query Option $expand" or an object which determines that value. The object
          * is a map from expand path to expand options, where the options are again maps of system query options,
          * typically with string values. $count can also be given as a `boolean` value, $expand can recursively
          * be given as a map, $levels can also be given as a `number` value, and $select can also be given as an
@@ -75936,22 +76452,22 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $expand?: string | object;
         /**
-         * The value for the "5.1.1 System Query Option $filter" used in addition to `vFilters`
+         * The value for the "5.1.2 System Query Option $filter" used in addition to `vFilters`
          */
         $filter?: string;
         /**
-         * The value for the "5.1.4 System Query Option $orderby" used in addition to `vSorters`
+         * The value for the "5.1.5 System Query Option $orderby" used in addition to `vSorters`
          */
         $orderby?: string | number;
         /**
-         * The value for the "5.1.7 System Query Option $search"; see also `oAggregation.search` at {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation }
+         * The value for the "5.1.8 System Query Option $search"; see also `oAggregation.search` at {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation }
          * and the note there!
          */
         $search?: string;
         /**
-         * A comma separated list or an array of items which determine the value for the "5.1.3 System Query Option
+         * A comma separated list or an array of items which determine the value for the "5.1.4 System Query Option
          * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link #constructor}),
-         * paths with navigation properties can be included and will contribute to the "5.1.2 System Query Option
+         * paths with navigation properties can be included and will contribute to the "5.1.3 System Query Option
          * $expand".
          */
         $select?: string | string[];
@@ -76086,7 +76602,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       oContext?: Context1,
       /**
-       * Map of binding parameters which can be OData query options as specified in "OData Version 4.0 Part 2: URL Conventions" or the binding-specific parameters as specified below.
+       * Map of binding parameters which can be OData query options as specified in "OData Version 4.01. Part 2: URL Conventions" or the binding-specific parameters as specified below.
        * The following OData query options are allowed:
        * 	 All "5.2 Custom Query Options" except for those with a name starting with "sap-" (unless starting with
        * "sap-valid-")  The $apply, $filter, and $search "5.1 System Query Options" if the path ends with
@@ -76102,11 +76618,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $apply?: string;
         /**
-         * The value for the "5.1.1 System Query Option $filter", if the path ends with a "$count" segment
+         * The value for the "5.1.2 System Query Option $filter", if the path ends with a "$count" segment
          */
         $filter?: string;
         /**
-         * The value for the "5.1.7 System Query Option $search", if the path ends with a "$count" segment
+         * The value for the "5.1.8 System Query Option $search", if the path ends with a "$count" segment
          */
         $search?: string;
         /**
@@ -76164,10 +76680,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * requests within the batch. The headers are changed according to the given map of headers: Headers with
      * an `undefined` value are removed, the other headers are set, and missing headers remain unchanged. The
      * following headers must not be used:
-     * 	 OData V4 requests headers as specified in "8.1 Common Headers" and "8.2 Request Headers" of the specification "OData Version 4.0 Part 1: Protocol"
-     *  OData V2 request headers as specified in "2.2.5 HTTP Header Fields" of the specification "OData
-     * Version 2 v10.1"  The headers "Content-Id" and "Content-Transfer-Encoding"  The header "SAP-ContextId"
-     *  Note: The "X-CSRF-Token" header will not be used for metadata requests.
+     * 	 OData V4 requests headers as specified in "8.1 Common Headers" and "8.2 Request Headers" of the specification "OData Version 4.01. Part 1:
+     * Protocol"  OData V2 request headers as specified in "2.2.5 HTTP Header Fields" of the specification
+     * "OData Version 2 v10.1"  The headers "Content-Id" and "Content-Transfer-Encoding"  The header
+     * "SAP-ContextId"  Note: The "X-CSRF-Token" header will not be used for metadata requests.
      *
      * If not `undefined`, a header value must conform to the following rules:
      * 	 It must be a non-empty string.  It must be completely in the US-ASCII character set.  It must
@@ -76551,10 +77067,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       sGroupId?: string | boolean
     ): void;
     /**
-     * Returns a promise for the "canonical path" of the entity for the given context. According to "4.3.1 Canonical URL" of the specification "OData Version 4.0 Part 2: URL Conventions", this is
-     * the "name of the entity set associated with the entity followed by the key predicate identifying the
-     * entity within the collection". Use the canonical path in {@link sap.ui.core.Element#bindElement} to create
-     * an element binding.
+     * Returns a promise for the "canonical path" of the entity for the given context. According to "4.3.1
+     * Canonical URL" of the specification "OData Version 4.01. Part 2: URL Conventions", this is the "name
+     * of the entity set associated with the entity followed by the key predicate identifying the entity within
+     * the collection". Use the canonical path in {@link sap.ui.core.Element#bindElement} to create an element
+     * binding.
      *
      * @since 1.37.0
      * @deprecated As of version 1.39.0. Use {@link sap.ui.model.odata.v4.Context#requestCanonicalPath} instead.
@@ -77276,11 +77793,11 @@ declare module "sap/ui/model/odata/v4/ODataUtils" {
      *
      * @since 1.64.0
      *
-     * @returns The literal according to "OData Version 4.0 Part 2: URL Conventions" section "5.1.1.11.1 Primitive Literals"
+     * @returns The literal according to "OData Version 4.01. Part 2: URL Conventions" section "5.1.1.14.1 Primitive Literals"
      */
     formatLiteral(
       /**
-       * The value according to "OData JSON Format Version 4.0" section "7.1 Primitive Value"
+       * The value according to "OData JSON Format Version 4.01" section "7.1 Primitive Value"
        */
       vValue: any,
       /**
@@ -77367,7 +77884,7 @@ declare module "sap/ui/model/odata/v4/ts" {
   export default ts;
 
   /**
-   * An object representing a "14.5.11 Expression edm:NavigationPropertyPath". Its shape corresponds exactly
+   * An object representing a "14.4.1.5 Expression edm:NavigationPropertyPath". Its shape corresponds exactly
    * to the shape of such an expression in the {@link https://ui5.sap.com/#/topic/87aac894a40640f89920d7b2a414499b OData V4 Metadata JSON Format }
    * as returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject}.
    * See:
@@ -77383,7 +77900,7 @@ declare module "sap/ui/model/odata/v4/ts" {
   };
 
   /**
-   * An object representing a "14.5.13 Expression edm:PropertyPath". Its shape corresponds exactly to the
+   * An object representing a "14.4.1.6 Expression edm:PropertyPath". Its shape corresponds exactly to the
    * shape of such an expression in the {@link https://ui5.sap.com/#/topic/87aac894a40640f89920d7b2a414499b OData V4 Metadata JSON Format }
    * as returned by {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject}.
    * See:
@@ -89258,11 +89775,15 @@ declare namespace sap {
 
     "sap/ui/test/RecordReplay": undefined;
 
+    "sap/ui/test/starter/config": undefined;
+
     "sap/ui/test/utils/nextUIUpdate": undefined;
 
     "sap/ui/test/utils/waitForThemeApplied": undefined;
 
     "sap/ui/thirdparty/jquery": undefined;
+
+    "sap/ui/util/_URL": undefined;
 
     "sap/ui/util/ActivityDetection": undefined;
 
