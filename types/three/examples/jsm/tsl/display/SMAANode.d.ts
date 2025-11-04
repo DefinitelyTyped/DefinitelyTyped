@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode } from "three/webgpu";
 
 declare class SMAANode extends TempNode {
@@ -15,4 +14,4 @@ declare class SMAANode extends TempNode {
     getSearchTexture(): string;
 }
 
-export const smaa: (node: Node) => ShaderNodeObject<SMAANode>;
+export const smaa: (node: Node) => SMAANode;

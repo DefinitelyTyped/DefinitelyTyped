@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as path from "path";
+import path from "path";
 import expect = require("expect");
 const miss = require("mississippi");
 const cloneable = require("cloneable-readable");

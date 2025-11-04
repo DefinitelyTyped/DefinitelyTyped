@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import session = require("express-session");
 import connectMongo = require("connect-mongodb-session");
 

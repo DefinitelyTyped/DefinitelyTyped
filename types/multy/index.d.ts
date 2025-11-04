@@ -1,5 +1,5 @@
 import { BusboyConfig } from "busboy";
-import * as Koa from "koa";
+import Koa = require("koa");
 
 declare module "koa" {
     interface Request {

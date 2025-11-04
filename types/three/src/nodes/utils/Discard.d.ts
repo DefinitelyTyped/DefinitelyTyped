@@ -1,11 +1,11 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const Discard: (conditional?: Node) => ShaderNodeObject<Node>;
-export const Return: () => ShaderNodeObject<Node>;
+export const Discard: (conditional?: Node) => Node;
+export const Return: () => Node;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        discard: typeof Discard;
+declare module "../Nodes.js" {
+    interface Node {
+        discard: () => Node;
+        discardAssign: () => this;
     }
 }

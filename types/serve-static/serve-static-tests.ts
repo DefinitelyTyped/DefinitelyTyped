@@ -26,12 +26,6 @@ app.use(serveStatic("/4", {
     extensions: false,
 }));
 
-serveStatic.mime.define({
-    "application/babylon": ["babylon"],
-    "application/babylonmeshdata": ["babylonmeshdata"],
-    "application/fx": ["fx"],
-});
-
 serveStatic("/does-not-assume-express", {
     setHeaders: function(res) {
         // ServerResponse

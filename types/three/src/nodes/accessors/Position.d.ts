@@ -1,10 +1,9 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const positionGeometry: ShaderNodeObject<Node>;
-export const positionLocal: ShaderNodeObject<Node>;
-export const positionPrevious: ShaderNodeObject<Node>;
-export const positionWorld: ShaderNodeObject<Node>;
-export const positionWorldDirection: ShaderNodeObject<Node>;
-export const positionView: ShaderNodeObject<Node>;
-export const positionViewDirection: ShaderNodeObject<Node>;
+export const positionGeometry: Node;
+export const positionLocal: Node;
+export const positionPrevious: Node;
+export const positionWorld: Node;
+export const positionWorldDirection: Node;
+export const positionView: Node;
+export const positionViewDirection: Node;

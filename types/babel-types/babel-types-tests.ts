@@ -1,5 +1,5 @@
 import traverse from "babel-traverse";
-import * as t from "babel-types";
+import t from "babel-types";
 
 // Examples from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-types
 declare const ast: t.Node;

@@ -1,15 +1,14 @@
 import Node from "../../core/Node.js";
 import OperatorNode from "../../math/OperatorNode.js";
-import { ShaderNodeObject } from "../../tsl/TSLCore.js";
 
 declare const BRDF_GGX: (args: {
     lightDirection: Node;
     f0: Node;
     f90: Node;
     roughness: Node;
-    f?: Node;
-    USE_IRIDESCENCE?: Node;
-    USE_ANISOTROPY?: Node;
-}) => ShaderNodeObject<OperatorNode>;
+    f?: Node | undefined;
+    USE_IRIDESCENCE?: Node | undefined;
+    USE_ANISOTROPY?: Node | undefined;
+}) => OperatorNode;
 
 export default BRDF_GGX;

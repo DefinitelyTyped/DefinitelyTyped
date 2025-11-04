@@ -77,7 +77,7 @@ declare module "wasi" {
          * WASI command itself.
          * @default []
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.

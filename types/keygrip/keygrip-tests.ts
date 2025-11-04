@@ -1,4 +1,4 @@
-import * as Keygrip from "keygrip";
+import Keygrip from "keygrip";
 
 const keys = Keygrip(["123"]);
 

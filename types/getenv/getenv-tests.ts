@@ -1,4 +1,4 @@
-import * as getenv from "getenv";
+import getenv from "getenv";
 import { UrlWithStringQuery } from "url";
 
 getenv("FOO"); // $ExpectType string

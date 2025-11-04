@@ -484,7 +484,7 @@ declare module "events" {
              * directly rather than as a child class.
              * @default new.target.name if instantiated as a child class.
              */
-            name?: string;
+            name?: string | undefined;
         }
 
         /**

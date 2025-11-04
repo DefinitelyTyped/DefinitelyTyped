@@ -1,7 +1,7 @@
 import * as Backbone from "backbone";
 import * as Radio from "backbone.radio";
-import * as JQuery from "jquery";
-import * as _ from "underscore";
+import JQuery = require("jquery");
+import _ = require("underscore");
 
 export as namespace Marionette;
 

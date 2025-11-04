@@ -521,7 +521,7 @@ export interface TableCellProperties {
  * - Use empty objects (`{}`) as placeholders for cells that are covered by other cells
  *   spanning multiple rows or columns.
  */
-export type TableCell = {} | (Content & TableCellProperties);
+export type TableCell = Record<PropertyKey, never> | (Content & TableCellProperties);
 
 /**
  * A table.

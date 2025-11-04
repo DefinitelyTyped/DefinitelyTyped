@@ -6,7 +6,7 @@
         "https://github.com/iVis-at-Bilkent/cytoscape.js-context-menus"
     ],
     "dependencies": {
-        "@types/cytoscape": "*"
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/cytoscape-context-menus": "workspace:."

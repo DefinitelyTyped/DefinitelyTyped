@@ -213,7 +213,8 @@ util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead");
 util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead", "DEP0001");
 
 // util.isDeepStrictEqual
-util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" });
+util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" }); // $ExpectType boolean
+util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" }, { skipPrototype: true }); // $ExpectType boolean
 
 // util.TextDecoder()
 const td = new util.TextDecoder();
@@ -299,7 +300,7 @@ util.setTraceSigInt(true);
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string; bar?: boolean[]; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -362,7 +363,7 @@ util.setTraceSigInt(true);
     // util.parseArgs: config not inferred precisely
     const config = {};
 
-    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
+    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[]; }
     const result = util.parseArgs(config);
 }
 
@@ -376,7 +377,7 @@ util.setTraceSigInt(true);
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean | undefined; }
+    // $ExpectType { alpha?: boolean; }
     result.values;
 
     // $ExpectType boolean | undefined
@@ -395,7 +396,7 @@ util.setTraceSigInt(true);
         allowNegative: true,
     });
 
-    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    // $ExpectType { alpha: boolean; beta?: boolean; gamma?: boolean; }
     result.values;
 
     // $ExpectType boolean
@@ -416,7 +417,7 @@ util.setTraceSigInt(true);
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean[] | undefined; }
+    // $ExpectType { alpha?: boolean[]; }
     result.values;
 
     // $ExpectType boolean[] | undefined
@@ -433,7 +434,7 @@ util.setTraceSigInt(true);
         allowNegative: true,
     });
 
-    // $ExpectType { alpha?: boolean | undefined; }
+    // $ExpectType { alpha?: boolean; }
     result.values;
 
     // $ExpectType boolean | undefined

@@ -1,4 +1,4 @@
-import * as minimalRequestPromise from "minimal-request-promise";
+import minimalRequestPromise from "minimal-request-promise";
 
 // Default usage
 const options = {

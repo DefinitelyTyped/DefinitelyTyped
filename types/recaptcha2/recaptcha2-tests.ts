@@ -1,4 +1,4 @@
-import * as reCAPTCHA from "recaptcha2";
+import reCAPTCHA from "recaptcha2";
 
 const recaptcha = new reCAPTCHA({
     siteKey: "your-site-key",

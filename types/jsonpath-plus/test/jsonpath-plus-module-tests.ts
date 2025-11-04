@@ -1,4 +1,4 @@
-import * as JSONPath from "jsonpath-plus";
+import JSONPath from "jsonpath-plus";
 
 let path: JSONPath.pathType = ".";
 path = [".", "//"];

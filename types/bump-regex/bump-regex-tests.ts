@@ -1,4 +1,4 @@
-import * as bump from "bump-regex";
+import bump from "bump-regex";
 
 bump({}, (err, res) => {
     if (err) {}

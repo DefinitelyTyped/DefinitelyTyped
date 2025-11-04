@@ -77,7 +77,7 @@ import {
     });
 
     fn satisfies Function;
-    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    // $ExpectType NonSharedBuffer | undefined
     fn.cachedData;
     // $ExpectType boolean | undefined
     fn.cachedDataProduced;
@@ -147,10 +147,10 @@ import {
         if (specifier === "foo") {
             return new SourceTextModule(
                 `
-                // The "secret" variable refers to the global variable we added to
-                // "contextifiedObject" when creating the context.
-                export default secret;
-            `,
+                    // The "secret" variable refers to the global variable we added to
+                    // "contextifiedObject" when creating the context.
+                    export default secret;
+                `,
                 { context: referencingModule.context },
             );
         }
@@ -167,6 +167,59 @@ import {
         // $ExpectType ImportPhase
         request.phase;
     }
+});
+
+(async () => {
+    const contextifiedObject = createContext({
+        secret: 42,
+        print: console.log,
+    });
+
+    const rootModule = new SourceTextModule(
+        `
+            import s from 'foo';
+            s;
+            print(s);
+        `,
+        { context: contextifiedObject },
+    );
+
+    const moduleMap = new Map([
+        ["root", rootModule],
+    ]);
+
+    function resolveAndLinkDependencies(module: SourceTextModule) {
+        const requestedModules = module.moduleRequests.map((request) => {
+            const specifier = request.specifier;
+
+            let requestedModule = moduleMap.get(specifier);
+            if (requestedModule === undefined) {
+                requestedModule = new SourceTextModule(
+                    `
+                        // The "secret" variable refers to the global variable we added to
+                        // "contextifiedObject" when creating the context.
+                        export default secret;
+                    `,
+                    { context: rootModule.context },
+                );
+                moduleMap.set(specifier, requestedModule);
+
+                resolveAndLinkDependencies(requestedModule);
+            }
+
+            return requestedModule;
+        });
+
+        module.linkRequests(requestedModules);
+    }
+
+    resolveAndLinkDependencies(rootModule);
+    rootModule.instantiate();
+
+    rootModule.hasAsyncGraph(); // $ExpectType boolean
+    rootModule.hasTopLevelAwait(); // $ExpectType boolean
+
+    await rootModule.evaluate();
 });
 
 (async () => {
@@ -250,7 +303,7 @@ import {
     compileFunction(code, ["param"], {
         importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
-            referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
+            referrer; // $ExpectType Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">
             importAttributes; // $ExpectType ImportAttributes
             phase; // $ExpectType ImportPhase
 

@@ -1,4 +1,4 @@
-import * as database from "quick-store";
+import database from "quick-store";
 
 // valid database creations
 database(); // $ExpectType Database

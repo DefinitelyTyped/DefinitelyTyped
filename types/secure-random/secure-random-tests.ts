@@ -1,4 +1,4 @@
-import * as secureRandom from "secure-random";
+import secureRandom from "secure-random";
 
 const byteCount = 10;
 

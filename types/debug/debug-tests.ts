@@ -1,4 +1,4 @@
-import * as debug1 from "debug";
+import debug1 from "debug";
 /*eslint-disable-next-line no-duplicate-imports*/
 import debug2 from "debug";
 

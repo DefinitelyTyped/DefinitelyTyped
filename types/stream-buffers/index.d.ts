@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as stream from "stream";
+import stream = require("stream");
 
 export interface WritableStreamBufferOptions extends stream.WritableOptions {
     initialSize?: number | undefined;

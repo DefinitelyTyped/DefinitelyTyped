@@ -1,4 +1,4 @@
-import * as blocks from "@wordpress/blocks";
+import blocks from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
 
 // $ExpectType BlocksStoreDescriptor

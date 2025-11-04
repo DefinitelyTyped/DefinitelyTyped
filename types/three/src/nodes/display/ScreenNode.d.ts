@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type ScreenNodeScope =
     | typeof ScreenNode.COORDINATE
@@ -26,21 +25,21 @@ export default ScreenNode;
 
 // Screen
 
-export const screenDPR: ShaderNodeObject<ScreenNode>;
-export const screenUV: ShaderNodeObject<ScreenNode>;
-export const screenSize: ShaderNodeObject<ScreenNode>;
-export const screenCoordinate: ShaderNodeObject<ScreenNode>;
+export const screenDPR: ScreenNode;
+export const screenUV: ScreenNode;
+export const screenSize: ScreenNode;
+export const screenCoordinate: ScreenNode;
 
 // Viewport
 
-export const viewport: ShaderNodeObject<ScreenNode>;
-export const viewportSize: ShaderNodeObject<Node>;
-export const viewportCoordinate: ShaderNodeObject<Node>;
-export const viewportUV: ShaderNodeObject<Node>;
+export const viewport: ScreenNode;
+export const viewportSize: Node;
+export const viewportCoordinate: Node;
+export const viewportUV: Node;
 
 // Deprecated
 
 /**
  * @deprecated "viewportResolution" is deprecated. Use "screenSize" instead.
  */
-export const viewportResolution: ShaderNodeObject<ScreenNode>;
+export const viewportResolution: ScreenNode;

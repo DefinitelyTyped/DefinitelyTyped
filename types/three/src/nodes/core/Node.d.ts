@@ -57,6 +57,11 @@ interface NodeJSONOutputData {
     images?: unknown[];
     nodes?: NodeJSONOutputData[];
 }
+export interface NodeChild {
+    property: string;
+    index?: number | string;
+    childNode: Node;
+}
 /**
  * Base class for all nodes.
  *
@@ -72,6 +77,7 @@ declare class Node extends EventDispatcher<{
     updateAfterType: NodeUpdateType;
     uuid: string;
     version: number;
+    name: string | null;
     _cacheKey: number | null;
     _cacheKeyVersion: number;
     global: boolean;
@@ -181,12 +187,21 @@ declare class Node extends EventDispatcher<{
      */
     traverse(callback: (node: Node) => void): void;
     /**
+     * Returns the child nodes of this node.
+     *
+     * @private
+     * @param {Set<Node>} [ignores=new Set()] - A set of nodes to ignore during the search to avoid circular references.
+     * @returns {Array<Object>} An array of objects describing the child nodes.
+     */
+    _getChildren(ignores?: Set<Node>): NodeChild[];
+    /**
      * Returns the cache key for this node.
      *
      * @param {boolean} [force=false] - When set to `true`, a recomputation of the cache key is forced.
+     * @param {Set<Node>} [ignores=null] - A set of nodes to ignore during the computation of the cache key.
      * @return {number} The cache key of the node.
      */
-    getCacheKey(force?: boolean): number;
+    getCacheKey(force?: boolean, ignores?: Set<Node> | null): number;
     /**
      * Generate a custom cache key for this node.
      *
@@ -320,6 +335,7 @@ declare class Node extends EventDispatcher<{
      * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     update(frame: NodeFrame): void;
+    before(node: Node): this;
     /**
      * This method performs the build of a node. The behavior and return value depend on the current build stage:
      * - **setup**: Prepares the node and its children for the build process. This process can also create new nodes. Returns the node itself or a variant.
@@ -336,7 +352,7 @@ declare class Node extends EventDispatcher<{
      *
      * @return {Generator<Object>} An iterable list of serialized child objects as JSON.
      */
-    getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
+    getSerializeChildren(): NodeChild[];
     /**
      * Serializes the node to JSON.
      *

@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert from "assert";
 import * as oracledb from "oracledb";
 
 /*

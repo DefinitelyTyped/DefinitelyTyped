@@ -10,6 +10,9 @@ export default class QuadMesh extends Mesh {
 
     constructor(material?: Material | null);
 
+    /**
+     * @deprecated "renderAsync()" has been deprecated. Use "render()" and "await renderer.init();" when creating the renderer.
+     */
     renderAsync(renderer: Renderer): Promise<void>;
 
     render(renderer: Renderer): void;

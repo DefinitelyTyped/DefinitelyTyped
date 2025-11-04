@@ -1623,8 +1623,13 @@ declare namespace google.payments.api {
      *   [[TransactionInfo.totalPriceStatus|`TransactionInfo.totalPriceStatus`]]
      *   is set to [[TotalPriceStatus|`FINAL`]]. Otherwise,
      *   a payment data request will fail.
+     *
+     * - `CONTINUE_TO_REVIEW`:
+     *   Use the 'Continue to Review Order' button for a buy flow in the
+     *   payments sheet. Once loadPaymentData completes, the integrator should
+     *   show an order confirmation screen to finalize the purchase.
      */
-    type CheckoutOption = "DEFAULT" | "COMPLETE_IMMEDIATE_PURCHASE";
+    type CheckoutOption = "DEFAULT" | "COMPLETE_IMMEDIATE_PURCHASE" | "CONTINUE_TO_REVIEW";
 
     /**
      * Enum string of a display item.
