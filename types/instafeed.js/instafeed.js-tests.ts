@@ -15,9 +15,9 @@ new Instafeed();
 
 // test if transform return type is passed to other hooks
 new Instafeed({ 
-  accessToken: "aa";
+  accessToken: "aa",
   transform(item) { 
-    return { ...item, extra: 'foo' }
+    return { ...item, extra: 'foo' };
   },
   filter(item) {
     // $ExpectType (InstafeedDefaultItem & { extra: string })
@@ -35,7 +35,7 @@ interface CustomInstafeedItem extends InstafeedDefaultItem {
 
 // test if omiting expected extra field breaks compiler as expected
 new Instafeed<CustomInstafeedItem>({ 
-  accessToken: "aa";
+  accessToken: "aa",
   // @ts-expect-error
   transform(item) { 
     return item;
