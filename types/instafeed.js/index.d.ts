@@ -29,7 +29,7 @@ declare namespace Instafeed {
         target?: string | Element;
         template?: string;
         templateBoundaries?: string[];
-        transform?: (item: InstagramDataItem) => Record<string, unknown>;
+        transform?: (item: InstagramDataItem) => Record<string, any>;
     }
 
     interface InstafeedDefaultItem {
