@@ -450,6 +450,9 @@ export interface ParseMeta {
     /** Whether preview consumed all input */
     truncated: boolean;
     cursor: number;
+    /** Headers that are automatically renamed by the library to avoid duplication.
+     * {Column 1_1: 'Column 1'} the later header 'Column 1' was renamed to 'Column 1_1'}**/
+    renamedHeaders?: Record<string, string>;
 }
 
 /**
