@@ -20,7 +20,7 @@ declare namespace Instafeed {
         before?: () => void;
         debug?: boolean;
         error?: (err: unknown) => any;
-        filter?: (item: InstagramDataItem) => boolean;
+        filter?: (item: T) => boolean;
         limit?: number;
         mock?: boolean;
         render?: (item: T, options: Instafeed.InstafeedOptions) => string;
@@ -29,7 +29,7 @@ declare namespace Instafeed {
         target?: string | Element;
         template?: string;
         templateBoundaries?: string[];
-        transform?: (item: InstagramDataItem) => Record<string, any>;
+        transform?: (item: InstagramDataItem) => T;
     }
 
     interface InstafeedDefaultItem {
