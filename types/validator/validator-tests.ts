@@ -14,6 +14,7 @@ import isAfterFunc from "validator/lib/isAfter";
 import isAlphaFunc from "validator/lib/isAlpha";
 import isAlphanumericFunc from "validator/lib/isAlphanumeric";
 import isAsciiFunc from "validator/lib/isAscii";
+import isBase32Func from "validator/lib/isBase32";
 import isBase58Func from "validator/lib/isBase58";
 import isBase64Func from "validator/lib/isBase64";
 import isBeforeFunc from "validator/lib/isBefore";
@@ -132,6 +133,12 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _isAscii = validator.isAscii;
     _isAscii = isAsciiFunc;
+
+    let _isBase32 = validator.isBase32;
+    _isBase32 = isBase32Func;
+
+    let _isBase58 = validator.isBase58;
+    _isBase58 = isBase58Func;
 
     let _isBase64 = validator.isBase64;
     _isBase64 = isBase64Func;
@@ -417,6 +424,7 @@ import isAfterFuncEs from "validator/es/lib/isAfter";
 import isAlphaFuncEs from "validator/es/lib/isAlpha";
 import isAlphanumericFuncEs from "validator/es/lib/isAlphanumeric";
 import isAsciiFuncEs from "validator/es/lib/isAscii";
+import isBase32FuncEs from "validator/es/lib/isBase32";
 import isBase58FuncEs from "validator/es/lib/isBase58";
 import isBase64FuncEs from "validator/es/lib/isBase64";
 import isBeforeFuncEs from "validator/es/lib/isBefore";
@@ -640,7 +648,11 @@ const any: any = null;
 
     result = validator.isAscii("sample");
 
-    isBase58Func("sample"); // $ExpectType boolean
+    result = validator.isBase32("sample");
+    result = validator.isBase32("sample", {});
+    result = validator.isBase32("sample", { crockford: true });
+
+    result = validator.isBase58("sample");
 
     result = validator.isBase64("sample");
     result = validator.isBase64("sample", {});

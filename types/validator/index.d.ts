@@ -203,10 +203,19 @@ declare namespace validator {
      */
     export function isAscii(str: string): boolean;
 
+    export interface IsBase32Options {
+        /**
+         * If true, it tests the given base32 encoded string using [Crockford's base32 alternative](http://www.crockford.com/base32.html).
+         * @default false
+         */
+        crockford?: boolean | undefined;
+    }
+
     /**
      * Check if a string is base32 encoded.
      */
-    export function isBase32(str: string): boolean;
+    export function isBase32(str: string, options?: IsBase32Options): boolean;
+
     /**
      * check if a string is base58 encoded
      */
