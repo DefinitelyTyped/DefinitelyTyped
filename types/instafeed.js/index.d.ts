@@ -32,7 +32,7 @@ declare namespace Instafeed {
         transform?: (item: InstafeedDefaultItem) => T;
     }
 
-    type InstafeedDefaultItem = {
+    interface InstafeedDefaultItem {
         caption: string;
         id: string;
         image: string;
@@ -72,7 +72,7 @@ declare namespace Instafeed {
         previous?: string;
     }
 
-    type InstagramResponseData = {
+    interface InstagramResponseData {
         data: InstagramDataItem[];
         paging: InstagramPaging;
     }
