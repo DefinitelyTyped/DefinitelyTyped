@@ -32,7 +32,7 @@ declare namespace Instafeed {
         transform?: (item: InstafeedDefaultItem) => T;
     }
 
-    interface InstafeedDefaultItem {
+    type InstafeedDefaultItem = {
         caption: string;
         id: string;
         image: string;
@@ -44,12 +44,21 @@ declare namespace Instafeed {
         username: string;
     }
 
-    interface InstagramDataItem {
+    type InstagramDataItem = {
         caption: string;
         id: string;
-        media_type: string;
+        media_type: "CAROUSEL_ALBUM" | "IMAGE";
         media_url: string;
         permalink: string;
+        timestamp: string;
+        username: string;
+    } | {
+        caption: string;
+        id: string;
+        media_type: "VIDEO";
+        media_url: string;
+        permalink: string;
+        thumbnail_url: string
         timestamp: string;
         username: string;
     }
@@ -63,7 +72,7 @@ declare namespace Instafeed {
         previous?: string;
     }
 
-    interface InstagramResponseData {
+    type InstagramResponseData = {
         data: InstagramDataItem[];
         paging: InstagramPaging;
     }
