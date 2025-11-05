@@ -3008,6 +3008,7 @@ export interface Locator {
      * @param arg Optional argument to pass to `pageFunction`.
      * @returns Return value of `pageFunction`.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     evaluate<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<R>;
 
     /**
@@ -3019,6 +3020,7 @@ export interface Locator {
      * @param arg Optional argument to pass to `pageFunction`.
      * @returns JSHandle of the return value of `pageFunction`.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     evaluateHandle<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
 
     /**
