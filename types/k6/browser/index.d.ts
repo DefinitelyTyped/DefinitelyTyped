@@ -3009,7 +3009,10 @@ export interface Locator {
      * @returns Return value of `pageFunction`.
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    evaluate<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<R>;
+    evaluate<R, E extends SVGElement | HTMLElement, Arg>(
+        pageFunction: PageFunctionOn<E, Arg, R>,
+        arg?: Arg,
+    ): Promise<R>;
 
     /**
      * Evaluates the page function and returns its return value as a [JSHandle].
@@ -3021,7 +3024,10 @@ export interface Locator {
      * @returns JSHandle of the return value of `pageFunction`.
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    evaluateHandle<R, E extends SVGElement | HTMLElement, Arg>(pageFunction: PageFunctionOn<E, Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
+    evaluateHandle<R, E extends SVGElement | HTMLElement, Arg>(
+        pageFunction: PageFunctionOn<E, Arg, R>,
+        arg?: Arg,
+    ): Promise<JSHandle<R>>;
 
     /**
      * Use this method to select an `input type="checkbox"`.
