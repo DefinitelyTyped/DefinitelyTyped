@@ -1,4 +1,4 @@
-// For Library Version: 1.141.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -4541,6 +4541,9 @@ declare module "sap/ui/table/RowAction" {
    * more action items are available as the available space allows to display an overflow mechanism is provided.
    * This control must only be used in the context of the `sap.ui.table.Table` control to define row actions.
    *
+   * **Note**: The `RowActionItem` of type `Navigation` has a special role and is shown as the rightmost icon
+   * independent of the order in the `items` aggregation.
+   *
    * @since 1.45
    */
   export default class RowAction extends Control {
@@ -4938,7 +4941,7 @@ declare module "sap/ui/table/RowActionItem" {
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
-    /**
+    /*
      * Sets a new value for property {@link #getIcon icon}.
      *
      * The icon of the item.
@@ -8487,8 +8490,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Gets current value of property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * Default value is `0`.
      *
@@ -9476,8 +9480,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Sets a new value for property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -10169,8 +10174,9 @@ declare module "sap/ui/table/Table" {
     enableBusyIndicator?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * @since 1.45.0
      */

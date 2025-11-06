@@ -1,4 +1,4 @@
-// For Library Version: 1.141.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/dt/library" {
   export namespace designtime {
