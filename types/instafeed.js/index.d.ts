@@ -58,10 +58,10 @@ declare namespace Instafeed {
         media_type: "VIDEO";
         media_url: string;
         permalink: string;
-        thumbnail_url: string
+        thumbnail_url: string;
         timestamp: string;
         username: string;
-    }
+    };
 
     interface InstagramPaging {
         cursors: {
