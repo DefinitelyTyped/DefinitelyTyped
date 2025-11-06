@@ -284,7 +284,7 @@ declare namespace Dockerode {
         id: string;
 
         inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(): Promise<NetworkInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
