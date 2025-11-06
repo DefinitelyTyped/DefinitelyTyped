@@ -188,6 +188,7 @@ interface VideoFrameInit {
     duration?: number | undefined;
     timestamp?: number | undefined;
     visibleRect?: DOMRectInit | undefined;
+    rotation?: number;
 }
 
 interface AudioData {
