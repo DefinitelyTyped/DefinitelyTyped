@@ -240,6 +240,8 @@ declare namespace validator {
 
     export const isIBAN: typeof _isIBAN.default;
     export const ibanLocales: typeof _isIBAN.locales;
+    export type IBANLocale = _isIBAN.IBANLocale;
+    export type IsIBANOptions = _isIBAN.IsIBANOptions;
 
     /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
