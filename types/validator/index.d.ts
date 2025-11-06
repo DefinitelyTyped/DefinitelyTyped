@@ -685,12 +685,19 @@ declare namespace validator {
 
     export type IPVersion = "4" | "6" | 4 | 6;
 
+    export interface IsIPOptions {
+        /**
+         * Defines which IP version to compare to.
+         */
+        version?: IPVersion | undefined;
+    }
+
     /**
      * Check if the string is an IP (version 4 or 6).
      *
-     * @param [version] - IP Version
+     * @param [version] - Defines which IP version to compare to.
      */
-    export function isIP(str: string, version?: IPVersion): boolean;
+    export function isIP(str: string, versionOrOptions?: IPVersion | IsIPOptions): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 or 6).
