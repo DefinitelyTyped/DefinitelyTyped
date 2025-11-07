@@ -3,6 +3,8 @@ function test(testContext: webvis.ContextAPI, testViewer: webvis.ViewerAPI): voi
         color: [1, 0, 0, 1],
         width: 2,
         transform: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+        useWorldUnits: false,
+        sequence: [5, 10, 5, 10],
     });
 
     testViewer.changePolyline(polylineId, {
