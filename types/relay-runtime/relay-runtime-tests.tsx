@@ -15,7 +15,9 @@ import {
     getRefetchMetadata,
     getRequest,
     graphql,
+    isErrorResult,
     isPromise,
+    isValueResult,
     LiveState,
     Network,
     PreloadableConcreteRequest,
@@ -23,6 +25,7 @@ import {
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
+    readFragment,
     readInlineData,
     RecordProxy,
     RecordSource,
@@ -34,11 +37,14 @@ import {
     Store,
     suspenseSentinel,
     Variables,
-    isErrorResult,
-    isValueResult,
-    readFragment,
 } from "relay-runtime";
-import { IdOf, observeFragment, observeQuery, resolverDataInjector, waitForFragmentData } from "relay-runtime/experimental";
+import {
+    IdOf,
+    observeFragment,
+    observeQuery,
+    resolverDataInjector,
+    waitForFragmentData,
+} from "relay-runtime/experimental";
 
 import type { HandlerProvider } from "relay-runtime/lib/handlers/RelayDefaultHandlerProvider";
 import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
@@ -1069,26 +1075,26 @@ function observeQueryTest() {
 // ~~~~~~~~~~~~~~~~~~
 
 const MyResolverType__id_graphql: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "MyResolverType__id",
-  "selections": [
-    {
-      "kind": "ClientExtension",
-      "selections": [
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "MyResolverType__id",
+    "selections": [
         {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        }
-      ]
-    }
-  ],
-  "type": "MyResolverType",
-  "abstractKey": null
+            "kind": "ClientExtension",
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null,
+                },
+            ],
+        },
+    ],
+    "type": "MyResolverType",
+    "abstractKey": null,
 };
 
 interface MyResolverType {
@@ -1097,11 +1103,16 @@ interface MyResolverType {
 
 function myResolverTypeRelayModelInstanceResolver(id: DataID): MyResolverType {
     return {
-        id
+        id,
     };
 }
 
-export const resolverModule = resolverDataInjector(MyResolverType__id_graphql, myResolverTypeRelayModelInstanceResolver, 'id', true);
+export const resolverModule = resolverDataInjector(
+    MyResolverType__id_graphql,
+    myResolverTypeRelayModelInstanceResolver,
+    "id",
+    true,
+);
 
 // ~~~~~~~~~~~~~~~~~~
 // Client edge resolver
