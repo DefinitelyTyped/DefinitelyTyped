@@ -29,7 +29,8 @@ declare namespace LinkControl {
 		createSuggestion?: ((title: string) => Suggestion)|undefined;
 		createSuggestionButtonText?: string|((searchTerm: string|undefined) => ReactNode);
 		renderControlBottom?: (() => ReactNode);
-		handleEntities?: boolean
+		handleEntities?: boolean;
+		hasRichPreviews?: boolean;
 	}
 
 	interface Setting {
