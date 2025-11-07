@@ -154,6 +154,7 @@ export { RelayModernRecord as Record } from "./lib/store/RelayModernRecord";
 export { default as Store } from "./lib/store/RelayModernStore";
 export { RelayRecordSource as RecordSource } from "./lib/store/RelayRecordSource";
 
+export { type IdOf, isErrorResult, isValueResult, type Result } from "./experimental";
 export { createFragmentSpecResolver } from "./lib/store/createFragmentSpecResolver";
 export { readInlineData } from "./lib/store/readInlineData";
 export { createOperationDescriptor, createRequestDescriptor } from "./lib/store/RelayModernOperationDescriptor";
@@ -186,7 +187,6 @@ export {
     TYPENAME_KEY,
 } from "./lib/store/RelayStoreUtils";
 export { readFragment } from "./lib/store/ResolverFragments";
-export { isErrorResult, isValueResult, type IdOf, type Result } from "./experimental"
 
 // Extensions
 import RelayDefaultHandlerProvider from "./lib/handlers/RelayDefaultHandlerProvider";

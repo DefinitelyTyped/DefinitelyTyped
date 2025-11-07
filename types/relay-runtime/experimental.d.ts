@@ -1,9 +1,9 @@
 import { DataID } from "./lib/util/RelayRuntimeTypes";
 
+export { resolverDataInjector } from "./lib/store/live-resolvers/resolverDataInjector";
 export { observeFragment } from "./lib/store/observeFragmentExperimental";
 export { observeQuery } from "./lib/store/observeQueryExperimental";
 export { waitForFragmentData } from "./lib/store/waitForFragmentExperimental";
-export { resolverDataInjector } from "./lib/store/live-resolvers/resolverDataInjector";
 
 export type IdOf<_A extends string, Typename extends undefined | string = undefined> = Typename extends undefined
     ? { id: DataID }

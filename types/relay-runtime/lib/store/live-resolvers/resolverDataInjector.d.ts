@@ -1,8 +1,7 @@
 import type { GraphQLTaggedNode } from "../../query/RelayModernGraphQLTag";
-import type { FragmentType } from "../RelayStoreTypes"
+import type { FragmentType } from "../RelayStoreTypes";
 
 /**
- *
  * This a higher order function that returns a relay resolver that can read the data for
  * the fragment`.
  *
@@ -14,8 +13,8 @@ import type { FragmentType } from "../RelayStoreTypes"
  * The the compiler generates calls to this function, ensuring the correct set of arguments.
  */
 export function resolverDataInjector(
-  fragment: GraphQLTaggedNode,
-  _resolverFn: unknown,
-  fieldName?: string,
-  isRequiredField?: boolean,
-): (fragmentKey: FragmentType, args: unknown) => unknown
+    fragment: GraphQLTaggedNode,
+    _resolverFn: unknown,
+    fieldName?: string,
+    isRequiredField?: boolean,
+): (fragmentKey: FragmentType, args: unknown) => unknown;
