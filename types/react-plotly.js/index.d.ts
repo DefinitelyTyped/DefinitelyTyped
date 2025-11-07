@@ -92,4 +92,5 @@ export interface PlotParams {
 }
 
 export default class Plot extends React.PureComponent<PlotParams> {
+    render(): React.ReactNode;
 }
