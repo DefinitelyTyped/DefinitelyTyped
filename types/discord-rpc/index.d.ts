@@ -481,6 +481,9 @@ export interface Presence {
      * Tooltip for the smallImageKey
      */
     smallImageText?: string | undefined;
+    /**
+     * Whether or not the activity is an instanced game session
+     */
     instance?: boolean | undefined;
     /**
      * ID of the player's party, lobby, or group
@@ -494,14 +497,20 @@ export interface Presence {
      * Maximum size of the player's party, lobby, or group
      */
     partyMax?: number | undefined;
+    /**
+     * Secret for a specified instanced match
+     */
     matchSecret?: string | undefined;
+    /**
+     * Secret for spectating a game
+     */
     spectateSecret?: string | undefined;
     /**
      * Unique hashed string for chat invitations and Ask to Join
      */
     joinSecret?: string | undefined;
     /**
-     * Buttons and their URLs — can add up to two.
+     * Custom buttons shown in the Rich Presence (max 2)
      */
     buttons?: Array<{ label: string; url: string }> | undefined;
 }
