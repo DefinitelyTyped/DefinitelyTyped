@@ -1113,20 +1113,27 @@ const any: any = null;
     // $ExpectType boolean
     validator.isStrongPassword("sample23#@test");
     // $ExpectType boolean
+    validator.isStrongPassword("sample23#@test", {});
+    // $ExpectType boolean
     validator.isStrongPassword("sample23#@test", {
-        minLength: 10,
+        minLength: -1,
+        minLowercase: -1,
+        minUppercase: -1,
+        minNumbers: -1,
+        minSymbols: -1,
+        pointsPerUnique: -1,
+        pointsPerRepeat: -1,
+        pointsForContainingLower: -1,
+        pointsForContainingUpper: -1,
+        pointsForContainingNumber: -1,
+        pointsForContainingSymbol: -1,
     });
     // $ExpectType boolean
     validator.isStrongPassword("sample23#@test", { returnScore: false });
-    // $ExpectType boolean
-    validator.isStrongPassword("abc", {
-        minLength: 10,
-        returnScore: false,
-    });
     // $ExpectType number
     validator.isStrongPassword("sample23#@test", { returnScore: true });
-    // $ExpectType number
-    validator.isStrongPassword("sample23#@test", { minLength: 10, returnScore: true });
+    // $ExpectType boolean | number
+    validator.isStrongPassword("sample23#@test", { returnScore: Math.random() > 0.5 });
 }
 
 {

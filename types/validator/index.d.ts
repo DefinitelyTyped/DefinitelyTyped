@@ -1193,17 +1193,53 @@ declare namespace validator {
      */
 
     export interface StrongPasswordOptions {
+        /**
+         * @default 8
+         */
         minLength?: number | undefined;
+        /**
+         * @default 1
+         */
         minLowercase?: number | undefined;
+        /**
+         * @default 1
+         */
         minUppercase?: number | undefined;
+        /**
+         * @default 1
+         */
         minNumbers?: number | undefined;
+        /**
+         * @default 1
+         */
         minSymbols?: number | undefined;
+        /**
+         * @default false
+         */
         returnScore?: boolean | undefined;
+        /**
+         * @default 1
+         */
         pointsPerUnique?: number | undefined;
+        /**
+         * @default 0.5
+         */
         pointsPerRepeat?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingLower?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingUpper?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingNumber?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingSymbol?: number | undefined;
     }
 
@@ -1211,7 +1247,8 @@ declare namespace validator {
         str: string,
         options?: StrongPasswordOptions & { returnScore?: false | undefined },
     ): boolean;
-    export function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+    export function isStrongPassword(str: string, options?: StrongPasswordOptions & { returnScore: true }): number;
+    export function isStrongPassword(str: string, options?: StrongPasswordOptions): boolean | number;
 
     /**
      * Check if the string contains any surrogate pairs chars.
