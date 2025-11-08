@@ -1285,10 +1285,81 @@ declare namespace validator {
      */
     export function isVariableWidth(str: string): boolean;
 
+    export type VATCountryCode =
+        | "AT"
+        | "BE"
+        | "BG"
+        | "HR"
+        | "CY"
+        | "CZ"
+        | "DK"
+        | "EE"
+        | "FI"
+        | "FR"
+        | "DE"
+        | "EL"
+        | "HU"
+        | "IE"
+        | "IT"
+        | "LV"
+        | "LT"
+        | "LU"
+        | "MT"
+        | "NL"
+        | "PL"
+        | "PT"
+        | "RO"
+        | "SK"
+        | "SI"
+        | "ES"
+        | "SE"
+        | "AL"
+        | "MK"
+        | "AU"
+        | "BY"
+        | "CA"
+        | "IS"
+        | "IN"
+        | "ID"
+        | "IL"
+        | "KZ"
+        | "NZ"
+        | "NG"
+        | "NO"
+        | "PH"
+        | "RU"
+        | "SM"
+        | "SA"
+        | "RS"
+        | "CH"
+        | "TR"
+        | "UA"
+        | "GB"
+        | "UZ"
+        | "AR"
+        | "BO"
+        | "BR"
+        | "CL"
+        | "CO"
+        | "CR"
+        | "EC"
+        | "SV"
+        | "GT"
+        | "HN"
+        | "MX"
+        | "NI"
+        | "PA"
+        | "PY"
+        | "PE"
+        | "DO"
+        | "UY"
+        | "VE";
+
     /**
-     * Checks that the string is a [valid VAT number
+     * check if the string is a [valid VAT number](https://en.wikipedia.org/wiki/VAT_identification_number)
+     * if validation is available for the given country code
      */
-    export function isVAT(str: string, countryCode: string): boolean;
+    export function isVAT(str: string, countryCode: VATCountryCode): boolean;
 
     /**
      * Checks characters if they appear in the whitelist.
