@@ -83,7 +83,7 @@ import isSlugFunc from "validator/lib/isSlug";
 import isStrongPasswordFunc from "validator/lib/isStrongPassword";
 import isSurrogatePairFunc from "validator/lib/isSurrogatePair";
 import isTaxIDFunc from "validator/lib/isTaxID";
-import isTimeFunc from "validator/lib/isTime";
+import isTimeFunc, { IsTimeOptions } from "validator/lib/isTime";
 import isULIDFunc from "validator/lib/isULID";
 import isUppercaseFunc from "validator/lib/isUppercase";
 import isURLFunc from "validator/lib/isURL";
@@ -485,7 +485,7 @@ import isSlugFuncEs from "validator/es/lib/isSlug";
 import isStrongPasswordFuncEs from "validator/es/lib/isStrongPassword";
 import isSurrogatePairFuncEs from "validator/es/lib/isSurrogatePair";
 import isTaxIDFuncEs from "validator/es/lib/isTaxID";
-import isTimeFuncEs from "validator/es/lib/isTime";
+import isTimeFuncEs, { IsTimeOptions as IsTimeOptionsEs } from "validator/es/lib/isTime";
 import isULIDFuncEs from "validator/es/lib/isULID";
 import isUppercaseFuncEs from "validator/es/lib/isUppercase";
 import isURLFuncEs from "validator/es/lib/isURL";
@@ -1011,9 +1011,13 @@ const any: any = null;
 
     result = validator.isSurrogatePair("sample");
 
-    const isTimeOptions: validator.IsTimeOptions = {};
     result = validator.isTime("sample");
-    result = validator.isTime("sample", isTimeOptions);
+    result = validator.isTime("sample", {} satisfies IsTimeOptions);
+    result = validator.isTime("sample", { hourFormat: "hour12" });
+    result = validator.isTime("sample", { hourFormat: "hour24" });
+    result = validator.isTime("sample", { mode: "default" });
+    result = validator.isTime("sample", { mode: "withSeconds" });
+    result = validator.isTime("sample", { mode: "withOptionalSeconds" });
 
     result = validator.isULID("sample");
 
