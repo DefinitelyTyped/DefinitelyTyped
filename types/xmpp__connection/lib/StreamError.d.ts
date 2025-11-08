@@ -1,5 +1,5 @@
-import XMPPError = require("@xmpp/error");
+import XMPPError from "@xmpp/error";
 
-export = StreamError;
+export default StreamError;
 
 declare class StreamError extends XMPPError<"StreamError"> {}

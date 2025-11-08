@@ -1,19 +1,13 @@
 import { Client, client, jid, Options, xml } from "@xmpp/client";
-import * as browser from "@xmpp/client/browser";
-import * as browserBundle from "@xmpp/client/dist/xmpp";
-import * as browserBundleMin from "@xmpp/client/dist/xmpp.min";
-import * as rn from "@xmpp/client/react-native";
-import getDomain = require("@xmpp/client/lib/getDomain");
 import { Client as ClientCore } from "@xmpp/client-core";
+import * as browserBundle from "@xmpp/client/dist/xmpp.js";
+import * as browserBundleMin from "@xmpp/client/dist/xmpp.min.js";
+import getDomain from "@xmpp/client/lib/getDomain.js";
 import { Element } from "@xmpp/xml";
 
 // test type exports
 type Opts = Options;
 type Cl = Client;
-type Opts2 = rn.Options;
-type Cl2 = rn.Client;
-type Opts3 = browser.Options;
-type Cl3 = browser.Client;
 type Opts4 = browserBundle.Options;
 type Cl4 = browserBundle.Client;
 type Opts5 = browserBundleMin.Options;
@@ -32,8 +26,6 @@ client({ domain: "foo" }); // $ExpectType Client
 client({ service: "foo.bar" }); // $ExpectType Client
 client({ lang: "en" }); // $ExpectType Client
 
-const rnC = rn.client(); // $ExpectType Client
-const browserC = browser.client(); // $ExpectType Client
 const browserBundleC = browserBundle.client(); // $ExpectType Client
 const browserBundleMinC = browserBundleMin.client(); // $ExpectType Client
 
@@ -49,19 +41,13 @@ c.sasl; // $ExpectType SASL
 c.streamManagement; // $ExpectType StreamManagement
 c.mechanisms; // $ExpectType ({ scramsha1: undefined; } | { plain: undefined; } | { anonymous: undefined; })[]
 
-rnC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; })[]
-browserC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; })[]
-browserBundleC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; })[]
-browserBundleMinC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; })[]
+browserBundleC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; } | { scramsha1: undefined })[]
+browserBundleMinC.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; } | { scramsha1: undefined })[]
 
 getDomain("foo.bar"); // $ExpectType string
 
 jid("foo");
 jid(null, "foo", "bar");
-rn.jid("foo");
-rn.jid(null, "foo", "bar");
-browser.jid("foo");
-browser.jid(null, "foo", "bar");
 browserBundle.jid("foo");
 browserBundle.jid(null, "foo", "bar");
 browserBundleMin.jid("foo");
@@ -69,10 +55,6 @@ browserBundleMin.jid(null, "foo", "bar");
 
 xml("foo");
 xml("foo", { foo: "bar" }, "bar");
-rn.xml("foo");
-rn.xml("foo", { foo: "bar" }, "bar");
-browser.xml("foo");
-browser.xml("foo", { foo: "bar" }, "bar");
 browserBundle.xml("foo");
 browserBundle.xml("foo", { foo: "bar" }, "bar");
 browserBundleMin.xml("foo");

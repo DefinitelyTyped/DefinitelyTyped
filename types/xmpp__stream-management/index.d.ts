@@ -1,7 +1,8 @@
 import { Entity, Middleware } from "@xmpp/middleware";
 import { StreamFeatures } from "@xmpp/stream-features";
+import { Element } from "@xmpp/xml";
 
-export = streamManagement;
+export default streamManagement;
 
 /**
  * [Stream Management](https://xmpp.org/extensions/xep-0198.html) for `@xmpp/client`.
@@ -24,16 +25,21 @@ declare function streamManagement<TEntity extends Entity>({
     streamFeatures: StreamFeatures<TEntity>;
     entity: TEntity;
     middleware: Middleware<TEntity>;
-}): streamManagement.StreamManagement;
+}): StreamManagement;
 
-declare namespace streamManagement {
-    interface StreamManagement {
-        allowResume: boolean;
-        preferredMaximum: number | null;
-        enabled: boolean;
-        id: string;
-        outbound: number;
-        inbound: number;
-        max: number | null;
-    }
+export interface StreamManagement {
+    allowResume: boolean;
+    preferredMaximum: number | null;
+    enabled: boolean;
+    id: string;
+    outbound: number;
+    inbound: number;
+    max: number | null;
 }
+
+declare const NS: string;
+
+export function makeEnableElement(params: { sm: StreamManagement }): Element;
+export function makeResumeElement(params: { sm: StreamManagement }): Element;
+
+export { NS };

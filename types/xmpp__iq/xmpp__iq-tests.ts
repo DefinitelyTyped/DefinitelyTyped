@@ -1,14 +1,10 @@
-import Connection = require("@xmpp/connection");
-import iqCallee = require("@xmpp/iq/callee");
-import iqCaller = require("@xmpp/iq/caller");
-import middleware = require("@xmpp/middleware");
+import Connection from "@xmpp/connection";
+import iqCallee, { IQCallee } from "@xmpp/iq/callee.js";
+import iqCaller, { IQCaller } from "@xmpp/iq/caller.js";
+import middleware, { Entity } from "@xmpp/middleware";
 import { Element } from "@xmpp/xml";
 
-// test type exports
-type IQCallee<TEntity extends middleware.Entity> = iqCallee.IQCallee<TEntity>;
-type IQCaller<TEntity extends middleware.Entity> = iqCaller.IQCaller<TEntity>;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 

@@ -1,5 +1,5 @@
 import { Parser } from "@xmpp/xml";
 
-export = FramedParser;
+export default FramedParser;
 
 declare class FramedParser extends Parser {}

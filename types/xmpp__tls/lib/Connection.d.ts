@@ -1,21 +1,19 @@
-import Connection = require("@xmpp/connection");
-import ConnectionTCP = require("@xmpp/connection-tcp");
-import Socket = require("./Socket");
+import Connection from "@xmpp/connection";
+import ConnectionTCP, { SocketConstructor as ConnectionTCPSocketConstructor } from "@xmpp/connection-tcp";
+import Socket from "./Socket.js";
 
-export = ConnectionTLS;
+export default ConnectionTLS;
 
 declare class ConnectionTLS extends ConnectionTCP {
-    Socket: ConnectionTCP.SocketConstructor;
-    socketParameters(service: string): ConnectionTLS.SocketParameters | undefined;
+    Socket: ConnectionTCPSocketConstructor;
+    socketParameters(service: string): SocketParameters | undefined;
 }
 
-declare namespace ConnectionTLS {
-    interface SocketParameters {
-        port: number;
-        host: string;
-    }
+export interface SocketParameters {
+    port: number;
+    host: string;
+}
 
-    interface SocketConstructor extends Connection.SocketConstructor {
-        new(): Socket;
-    }
+export interface SocketConstructor extends ConnectionTCPSocketConstructor {
+    new(): Socket;
 }
