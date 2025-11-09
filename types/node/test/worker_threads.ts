@@ -67,11 +67,20 @@ import { createContext } from "node:vm";
 
 {
     const w = new workerThreads.Worker(__filename);
+    w.cpuUsage().then((usage: NodeJS.CpuUsage) => {
+        w.cpuUsage(usage); // $ExpectType Promise<CpuUsage>
+    });
     w.getHeapSnapshot().then((stream: Readable) => {
         //
     });
     w.getHeapStatistics().then(statistics => {
         statistics; // $ExpectType HeapInfo
+    });
+    w.startCpuProfile().then(handle => {
+        handle.stop().then(JSON.parse);
+    });
+    w.startHeapProfile().then(handle => {
+        handle.stop().then(JSON.parse);
     });
     w.terminate().then(() => {
         // woot
@@ -144,8 +153,12 @@ import { createContext } from "node:vm";
     bc.close();
     bc.ref();
     bc.unref();
-    bc.onmessage = (msg: unknown) => {};
-    bc.onmessageerror = (msg: unknown) => {};
+    bc.onmessage = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
+    bc.onmessageerror = (msg) => {
+        msg; // $ExpectType MessageEvent<any>
+    };
 
     // Test global alias
     const bc2 = new BroadcastChannel("test");
@@ -193,10 +206,11 @@ import { createContext } from "node:vm";
         // emit message event
         worker.postMessage({ port: port2 }, [port2]);
         port1.postMessage("From main to parent");
-        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
-        worker.postMessageToThread(10, { port: port2 }, [port2]);
-        worker.postMessageToThread(10, { x: 100 }, 1000);
-        worker.postMessageToThread(10, { x: 100 });
+
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        workerThreads.postMessageToThread(10, { port: port2 }, [port2]);
+        workerThreads.postMessageToThread(10, { x: 100 }, 1000);
+        workerThreads.postMessageToThread(10, { x: 100 });
 
         // close event
         setTimeout(() => {
@@ -239,4 +253,37 @@ import { createContext } from "node:vm";
 
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
+}
+
+// LockManager
+{
+    workerThreads.locks.query().then((snapshot) => {
+        snapshot.held; // $ExpectType LockInfo[]
+        snapshot.pending; // $ExpectType LockInfo[]
+    });
+
+    // $ExpectType Promise<void>
+    workerThreads.locks.request(
+        "lock",
+        {
+            ifAvailable: true,
+            mode: "exclusive",
+            signal: new AbortController().signal,
+            steal: false,
+        },
+        (lock) => {
+            lock; // $ExpectType Lock | null
+            lock!.mode; // $ExpectType LockMode
+            lock!.name; // $ExpectType string
+        },
+    );
+
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", async () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, () => 123);
+    // $ExpectType Promise<number>
+    workerThreads.locks.request("lock", {}, async () => 123);
 }

@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
 import * as https from "https";
-import * as koa from "koa";
+import koa = require("koa");
 import * as net from "net";
-import * as webpack from "webpack";
-import * as webpackDevMiddleware from "webpack-dev-middleware";
-import * as webpackHotClient from "webpack-hot-client";
+import webpack = require("webpack");
+import webpackDevMiddleware = require("webpack-dev-middleware");
+import webpackHotClient = require("webpack-hot-client");
 
 declare module "webpack" {
     interface Configuration {

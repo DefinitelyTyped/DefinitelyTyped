@@ -88,6 +88,19 @@ declare class Textures extends DataMap<{
      */
     updateTexture(texture: Texture, options?: TextureOptions): void;
     /**
+     * Updates the sampler for the given texture. This method has no effect
+     * for the WebGL backend since it has no concept of samplers. Texture
+     * parameters are configured with the `texParameter()` command for each
+     * texture.
+     *
+     * In WebGPU, samplers are objects like textures and it's possible to share
+     * them when the texture parameters match.
+     *
+     * @param {Texture} texture - The texture to update the sampler for.
+     * @return {string} The current sampler key.
+     */
+    updateSampler(texture: Texture): void;
+    /**
      * Computes the size of the given texture and writes the result
      * into the target vector. This vector is also returned by the
      * method.
@@ -110,12 +123,19 @@ declare class Textures extends DataMap<{
      */
     getMipLevels(texture: Texture, width: number, height: number): number;
     /**
-     * Returns `true` if the given texture requires mipmaps.
+     * Returns `true` if the given texture makes use of mipmapping.
      *
      * @param {Texture} texture - The texture.
      * @return {boolean} Whether mipmaps are required or not.
      */
     needsMipmaps(texture: Texture): boolean;
+    /**
+     * Frees internal resources when the given render target isn't
+     * required anymore.
+     *
+     * @param {RenderTarget} renderTarget - The render target to destroy.
+     */
+    _destroyRenderTarget(renderTarget: RenderTarget): void;
     /**
      * Frees internal resource when the given texture isn't
      * required anymore.

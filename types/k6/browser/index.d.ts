@@ -415,6 +415,139 @@ export interface ElementStateFilter {
 }
 
 /**
+ * The `devices` named export defines emulation settings for many end-user
+ * devices that can be used to simulate browser behavior on a mobile device.
+ *
+ * @example
+ * ```js
+ * import { browser, devices } from 'k6/browser';
+ * ... // redacted
+ *   const iphoneX = devices['iPhone X'];
+ *   const context = await browser.newContext(iphoneX);
+ * ... // redacted
+ * ```
+ */
+export const devices: Record<
+    | "Blackberry PlayBook"
+    | "Blackberry PlayBook landscape"
+    | "BlackBerry Z30"
+    | "BlackBerry Z30 landscape"
+    | "Galaxy Note 3"
+    | "Galaxy Note 3 landscape"
+    | "Galaxy Note II"
+    | "Galaxy Note II landscape"
+    | "Galaxy S III"
+    | "Galaxy S III landscape"
+    | "Galaxy S5"
+    | "Galaxy S5 landscape"
+    | "iPad"
+    | "iPad landscape"
+    | "iPad Mini"
+    | "iPad Mini landscape"
+    | "iPad Pro"
+    | "iPad Pro landscape"
+    | "iPhone 4"
+    | "iPhone 4 landscape"
+    | "iPhone 5"
+    | "iPhone 5 landscape"
+    | "iPhone 6"
+    | "iPhone 6 landscape"
+    | "iPhone 6 Plus"
+    | "iPhone 6 Plus landscape"
+    | "iPhone 7"
+    | "iPhone 7 landscape"
+    | "iPhone 7 Plus"
+    | "iPhone 7 Plus landscape"
+    | "iPhone 8"
+    | "iPhone 8 landscape"
+    | "iPhone 8 Plus"
+    | "iPhone 8 Plus landscape"
+    | "iPhone SE"
+    | "iPhone SE landscape"
+    | "iPhone X"
+    | "iPhone X landscape"
+    | "iPhone XR"
+    | "iPhone XR landscape"
+    | "JioPhone 2"
+    | "JioPhone 2 landscape"
+    | "Kindle Fire HDX"
+    | "Kindle Fire HDX landscape"
+    | "LG Optimus L70"
+    | "LG Optimus L70 landscape"
+    | "Microsoft Lumia 550"
+    | "Microsoft Lumia 950"
+    | "Microsoft Lumia 950 landscape"
+    | "Nexus 10"
+    | "Nexus 10 landscape"
+    | "Nexus 4"
+    | "Nexus 4 landscape"
+    | "Nexus 5"
+    | "Nexus 5 landscape"
+    | "Nexus 5X"
+    | "Nexus 5X landscape"
+    | "Nexus 6"
+    | "Nexus 6 landscape"
+    | "Nexus 6P"
+    | "Nexus 6P landscape"
+    | "Nexus 7"
+    | "Nexus 7 landscape"
+    | "Nokia Lumia 520"
+    | "Nokia Lumia 520 landscape"
+    | "Nokia N9"
+    | "Nokia N9 landscape"
+    | "Pixel 2"
+    | "Pixel 2 landscape"
+    | "Pixel 2 XL"
+    | "Pixel 2 XL landscape",
+    Device
+>;
+
+/**
+ * Device represents an end-user device (computer, tablet, phone etc.).
+ */
+export interface Device {
+    /**
+     * Name of the device.
+     */
+    name: string;
+
+    /**
+     * User agent of the device.
+     */
+    userAgent: string;
+
+    /**
+     * Viewport size of the device.
+     */
+    viewport: {
+        /**
+         * page width in pixels.
+         */
+        width: number;
+
+        /**
+         * page height in pixels.
+         */
+        height: number;
+    };
+
+    /**
+     * Device viewport scale factor.
+     */
+    deviceScaleFactor: number;
+
+    /**
+     * Indicates whether the device is a mobile device.
+     */
+    isMobile: boolean;
+
+    /**
+     * Indicates whether the device support touch events.
+     */
+    hasTouch: boolean;
+}
+
+/**
  * BrowserPermissions defines all the possible permissions that can be granted
  * to the browser application.
  */
@@ -1719,10 +1852,18 @@ export interface Frame {
 
     /**
      * Сreates and returns a new locator for this frame.
+     *
+     * @example
+     * ```js
+     * const frame = page.frames()[1];
+     * const submitButton = frame.locator('button', { hasText: 'Pizza, Please!' });
+     * ```
+     *
      * @param selector The selector to use.
+     * @param options Options to use for filtering.
      * @returns The new locator.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * Get the `innerHTML` attribute of the first element found that matches the selector.
@@ -1961,6 +2102,694 @@ export interface Frame {
      * @param timeout The timeout to wait for.
      */
     waitForTimeout(timeout: number): Promise<void>;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding role.
+     *
+     * @example
+     * ```js
+     * const locator = frame.getByRole('button', { name: 'Pizza, Please!' });
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param role The role of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding role.
+     */
+    getByRole(
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "meter"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
+        options?: {
+            /**
+             * Whether the accessible `options.name` should be checked exactly for equality.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+
+            /**
+             * Whether to include elements that are normally excluded from the accessibility tree.
+             *
+             * @defaultValue false
+             */
+            includeHidden?: boolean;
+
+            /**
+             * A number attribute that is traditionally used for headings h1-h6.
+             */
+            level?: number;
+
+            /**
+             * An accessible name for the element, such as a text in a button or a label for an input.
+             */
+            name?: string | RegExp;
+
+            /**
+             * A boolean attribute that can be used to indicate if a checkbox is checked or not.
+             */
+            checked?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is disabled or not.
+             */
+            disabled?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is expanded or not.
+             */
+            expanded?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is pressed or not.
+             */
+            pressed?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is selected or not.
+             */
+            selected?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding alt text.
+     *
+     * @example
+     * ```js
+     * const locator = frame.getByAltText('pizza');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param altText The alt text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding alt text.
+     */
+    getByAltText(
+        altText: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding label text.
+     *
+     * @example
+     * ```js
+     * const locator = frame.getByLabel('Password');
+     *
+     * await locator.fill('my-password');
+     * ```
+     *
+     * @param label The label text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding label text.
+     */
+    getByLabel(
+        label: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Allows locating elements by their text content. Returns {@link Locator}.
+     *
+     * Consider the following DOM structure:
+     *
+     * ```html
+     * <div>Hello <span>world</span></div>
+     * <div>Hello</div>
+     * ```
+     *
+     * You can locate by text substring, exact string, or a regular expression:
+     *
+     * @example
+     * ```js
+     * // Matches <span>
+     * frame.getByText('world');
+     *
+     * // Matches first <div>
+     * frame.getByText('Hello world');
+     *
+     * // Matches second <div>
+     * frame.getByText('Hello', { exact: true });
+     *
+     * // Matches both <div>s
+     * frame.getByText(/Hello/);
+     *
+     * // Matches second <div>
+     * frame.getByText(/^hello$/i);
+     * ```
+     *
+     * Matching by text always normalizes whitespace, even with exact match. For
+     * example, it turns multiple spaces into one, turns line breaks into spaces
+     * and ignores leading and trailing whitespace.
+     *
+     * Input elements of the type `button` and `submit` are matched by their
+     * `value` instead of the text content. For example, locating by text
+     * `"Log in"` matches `<input type=button value="Log in">`.
+     *
+     * @param text Text to locate the element by.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding text content.
+     */
+    getByText(
+        text: string | RegExp,
+        options?: {
+            /**
+             * Whether to find an exact match: case-sensitive and whole-string.
+             * Default to false. Ignored when locating by a regular expression.
+             * Note that exact match still trims whitespace.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding test ID.
+     * Note that this method only supports the `data-testid` attribute.
+     *
+     * @example
+     * HTML:
+     * ```html
+     * <button data-testid="submit-button">Submit</button>
+     * ```
+     *
+     * JavaScript:
+     * ```js
+     * const locator = frame.getByTestId('submit-button');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param testId The test ID of the element.
+     * @returns The locator to the element with the corresponding test ID.
+     */
+    getByTestId(testId: string | RegExp): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding placeholder text.
+     *
+     * @example
+     * ```js
+     * const locator = frame.getByPlaceholder('name@example.com');
+     *
+     * await locator.fill('my.name@example.com');
+     * ```
+     *
+     * @param placeholder The placeholder text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding placeholder text.
+     */
+    getByPlaceholder(
+        placeholder: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding title text.
+     *
+     * @example
+     * ```js
+     * const locator = frame.getByTitle('Information box');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param title The title text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding title text.
+     */
+    getByTitle(
+        title: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+}
+
+/**
+ * FrameLocator makes it easier to locate elements within an `iframe` on the
+ * page. `FrameLocator` are created by calling `page.locator(selector).contentFrame()`.
+ * It works in the same way as `Locator` instances.
+ */
+export interface FrameLocator {
+    /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const frame = page.frameLocator('iframe');
+     * const rows = frame.locator('table tr');
+     * const cell = rows.locator('.selected');
+     *
+     * // Use with options to filter by text
+     * const submitButton = frame.locator('button', { hasText: 'Submit' });
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
+     * @returns The new locator.
+     */
+    locator(selector: string, options?: LocatorOptions): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding role.
+     *
+     * @example
+     * ```js
+     * const locator = frameLocator.getByRole('button', { name: 'Pizza, Please!' });
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param role The role of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding role.
+     */
+    getByRole(
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "meter"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
+        options?: {
+            /**
+             * Whether the accessible `options.name` should be checked exactly for equality.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+
+            /**
+             * Whether to include elements that are normally excluded from the accessibility tree.
+             *
+             * @defaultValue false
+             */
+            includeHidden?: boolean;
+
+            /**
+             * A number attribute that is traditionally used for headings h1-h6.
+             */
+            level?: number;
+
+            /**
+             * An accessible name for the element, such as a text in a button or a label for an input.
+             */
+            name?: string | RegExp;
+
+            /**
+             * A boolean attribute that can be used to indicate if a checkbox is checked or not.
+             */
+            checked?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is disabled or not.
+             */
+            disabled?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is expanded or not.
+             */
+            expanded?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is pressed or not.
+             */
+            pressed?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is selected or not.
+             */
+            selected?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding alt text.
+     *
+     * @example
+     * ```js
+     * const locator = frameLocator.getByAltText('pizza');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param altText The alt text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding alt text.
+     */
+    getByAltText(
+        altText: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding label text.
+     *
+     * @example
+     * ```js
+     * const locator = frameLocator.getByLabel('Password');
+     *
+     * await locator.fill('my-password');
+     * ```
+     *
+     * @param label The label text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding label text.
+     */
+    getByLabel(
+        label: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Allows locating elements by their text content. Returns {@link Locator}.
+     *
+     * Consider the following DOM structure:
+     *
+     * ```html
+     * <div>Hello <span>world</span></div>
+     * <div>Hello</div>
+     * ```
+     *
+     * You can locate by text substring, exact string, or a regular expression:
+     *
+     * @example
+     * ```js
+     * // Matches <span>
+     * frameLocator.getByText('world');
+     *
+     * // Matches first <div>
+     * frameLocator.getByText('Hello world');
+     *
+     * // Matches second <div>
+     * frameLocator.getByText('Hello', { exact: true });
+     *
+     * // Matches both <div>s
+     * frameLocator.getByText(/Hello/);
+     *
+     * // Matches second <div>
+     * frameLocator.getByText(/^hello$/i);
+     * ```
+     *
+     * Matching by text always normalizes whitespace, even with exact match. For
+     * example, it turns multiple spaces into one, turns line breaks into spaces
+     * and ignores leading and trailing whitespace.
+     *
+     * Input elements of the type `button` and `submit` are matched by their
+     * `value` instead of the text content. For example, locating by text
+     * `"Log in"` matches `<input type=button value="Log in">`.
+     *
+     * @param text Text to locate the element by.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding text content.
+     */
+    getByText(
+        text: string | RegExp,
+        options?: {
+            /**
+             * Whether to find an exact match: case-sensitive and whole-string.
+             * Default to false. Ignored when locating by a regular expression.
+             * Note that exact match still trims whitespace.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding test ID.
+     * Note that this method only supports the `data-testid` attribute.
+     *
+     * @example
+     * HTML:
+     * ```html
+     * <button data-testid="submit-button">Submit</button>
+     * ```
+     *
+     * JavaScript:
+     * ```js
+     * const locator = frameLocator.getByTestId('submit-button');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param testId The test ID of the element.
+     * @returns The locator to the element with the corresponding test ID.
+     */
+    getByTestId(testId: string | RegExp): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding placeholder text.
+     *
+     * @example
+     * ```js
+     * const locator = frameLocator.getByPlaceholder('name@example.com');
+     *
+     * await locator.fill('my.name@example.com');
+     * ```
+     *
+     * @param placeholder The placeholder text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding placeholder text.
+     */
+    getByPlaceholder(
+        placeholder: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding title text.
+     *
+     * @example
+     * ```js
+     * const locator = frameLocator.getByTitle('Information box');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param title The title text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding title text.
+     */
+    getByTitle(
+        title: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
 }
 
 /**
@@ -2056,6 +2885,30 @@ export interface Keyboard {
     up(key: string): Promise<void>;
 }
 
+export interface LocatorOptions {
+    /**
+     * Matches only elements that contain the specified text. String or regular expression.
+     */
+    hasText?: string | RegExp;
+
+    /**
+     * Matches only elements that do not contain the specified text. String or regular expression.
+     */
+    hasNotText?: string | RegExp;
+}
+
+export interface LocatorFilterOptions {
+    /**
+     * Matches only elements that contain the specified text. String or regular expression.
+     */
+    hasText?: string | RegExp;
+
+    /**
+     * Matches only elements that do not contain the specified text. String or regular expression.
+     */
+    hasNotText?: string | RegExp;
+}
+
 /**
  * The Locator API makes it easier to work with dynamically changing elements.
  * Some of the benefits of using it over existing ways to locate an element
@@ -2083,6 +2936,21 @@ export interface Locator {
     all(): Promise<Locator[]>;
 
     /**
+     * Returns the bounding box of the element that this locator points to.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const locator = page.locator('#my-element');
+     * const boundingBox = await locator.boundingBox();
+     * ```
+     *
+     * @param options Options to use.
+     * @returns The bounding box of the element, or null if the element is not visible.
+     */
+    boundingBox(options?: TimeoutOptions): Promise<Rect | null>;
+
+    /**
      * Clears text boxes and input fields of any existing values.
      *
      * **Usage**
@@ -2102,6 +2970,13 @@ export interface Locator {
      * @returns Promise which resolves when the element is successfully clicked.
      */
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
+
+    /**
+     * Returns a `FrameLocator` that can be used to locate elements within an
+     * `iframe`.
+     * @returns A `FrameLocator`.
+     */
+    contentFrame(): FrameLocator;
 
     /**
      * Returns the number of elements matching the selector.
@@ -2250,6 +3125,26 @@ export interface Locator {
     last(): Locator;
 
     /**
+     * The method finds all elements matching the selector and creates a new
+     * locator that matches all of them. This method can be used to further
+     * refine the locator by chaining additional selectors.
+     *
+     * @example
+     * ```js
+     * const rows = page.locator('table tr');
+     * const cell = rows.locator('.selected');
+     *
+     * // Use with options to filter
+     * const orangeButton = fruitsSection.locator('button', { hasText: 'Add to Cart' });
+     * ```
+     *
+     * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
+     * @returns The new locator.
+     */
+    locator(selector: string, options?: LocatorOptions): Locator;
+
+    /**
      * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
      *
      * **Usage**
@@ -2336,6 +3231,359 @@ export interface Locator {
      * @param options Wait options.
      */
     waitFor(options?: { state?: ElementState } & TimeoutOptions): Promise<void>;
+
+    /**
+     * Returns a new Locator that matches only elements with the given options.
+     *
+     * @example
+     * ```js
+     * // Filter list items that contain "Product 2" text
+     * const product2Item = page
+     *   .locator('li')
+     *   .filter({ hasText: 'Product 2' })
+     *   .first();
+     *
+     * // Filter list items that do NOT contain "Product 2" using regex
+     * const product1Item = page
+     *   .locator('li')
+     *   .filter({ hasNotText: /Product 2/ })
+     *   .first();
+     * ```
+     *
+     * @param options Filter options.
+     * @returns A new filtered Locator that can be chained with other methods.
+     */
+    filter(options: LocatorFilterOptions): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding role.
+     *
+     * @example
+     * ```js
+     * const locator = locator.getByRole('button', { name: 'Pizza, Please!' });
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param role The role of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding role.
+     */
+    getByRole(
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "meter"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
+        options?: {
+            /**
+             * Whether the accessible `options.name` should be checked exactly for equality.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+
+            /**
+             * Whether to include elements that are normally excluded from the accessibility tree.
+             *
+             * @defaultValue false
+             */
+            includeHidden?: boolean;
+
+            /**
+             * A number attribute that is traditionally used for headings h1-h6.
+             */
+            level?: number;
+
+            /**
+             * An accessible name for the element, such as a text in a button or a label for an input.
+             */
+            name?: string | RegExp;
+
+            /**
+             * A boolean attribute that can be used to indicate if a checkbox is checked or not.
+             */
+            checked?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is disabled or not.
+             */
+            disabled?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is expanded or not.
+             */
+            expanded?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is pressed or not.
+             */
+            pressed?: boolean;
+
+            /**
+             * A boolean attribute that can be used to indicate if an element is selected or not.
+             */
+            selected?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding alt text.
+     *
+     * @example
+     * ```js
+     * const locator = locator.getByAltText('pizza');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param altText The alt text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding alt text.
+     */
+    getByAltText(
+        altText: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding label text.
+     *
+     * @example
+     * ```js
+     * const locator = locator.getByLabel('Password');
+     *
+     * await locator.fill('my-password');
+     * ```
+     *
+     * @param label The label text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding label text.
+     */
+    getByLabel(
+        label: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Allows locating elements by their text content. Returns {@link Locator}.
+     *
+     * Consider the following DOM structure:
+     *
+     * ```html
+     * <div>Hello <span>world</span></div>
+     * <div>Hello</div>
+     * ```
+     *
+     * You can locate by text substring, exact string, or a regular expression:
+     *
+     * @example
+     * ```js
+     * // Matches <span>
+     * locator.getByText('world');
+     *
+     * // Matches first <div>
+     * locator.getByText('Hello world');
+     *
+     * // Matches second <div>
+     * locator.getByText('Hello', { exact: true });
+     *
+     * // Matches both <div>s
+     * locator.getByText(/Hello/);
+     *
+     * // Matches second <div>
+     * locator.getByText(/^hello$/i);
+     * ```
+     *
+     * Matching by text always normalizes whitespace, even with exact match. For
+     * example, it turns multiple spaces into one, turns line breaks into spaces
+     * and ignores leading and trailing whitespace.
+     *
+     * Input elements of the type `button` and `submit` are matched by their
+     * `value` instead of the text content. For example, locating by text
+     * `"Log in"` matches `<input type=button value="Log in">`.
+     *
+     * @param text Text to locate the element by.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding text content.
+     */
+    getByText(
+        text: string | RegExp,
+        options?: {
+            /**
+             * Whether to find an exact match: case-sensitive and whole-string.
+             * Default to false. Ignored when locating by a regular expression.
+             * Note that exact match still trims whitespace.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding test ID.
+     * Note that this method only supports the `data-testid` attribute.
+     *
+     * @example
+     * HTML:
+     * ```html
+     * <button data-testid="submit-button">Submit</button>
+     * ```
+     *
+     * JavaScript:
+     * ```js
+     * const locator = locator.getByTestId('submit-button');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param testId The test ID of the element.
+     * @returns The locator to the element with the corresponding test ID.
+     */
+    getByTestId(testId: string | RegExp): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding placeholder text.
+     *
+     * @example
+     * ```js
+     * const locator = locator.getByPlaceholder('name@example.com');
+     *
+     * await locator.fill('my.name@example.com');
+     * ```
+     *
+     * @param placeholder The placeholder text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding placeholder text.
+     */
+    getByPlaceholder(
+        placeholder: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
+
+    /**
+     * Returns {@link Locator} to the element with the corresponding title text.
+     *
+     * @example
+     * ```js
+     * const locator = locator.getByTitle('Information box');
+     *
+     * await locator.click();
+     * ```
+     *
+     * @param title The title text of the element.
+     * @param options Options to use.
+     * @returns The locator to the element with the corresponding title text.
+     */
+    getByTitle(
+        title: string | RegExp,
+        options?: {
+            /**
+             * Whether the locator should be exact.
+             *
+             * @defaultValue false
+             */
+            exact?: boolean;
+        },
+    ): Locator;
 }
 
 /**
@@ -3487,9 +4735,18 @@ export interface Page {
      * when the action takes place, which means locators can span over navigations
      * where the underlying dom changes.
      *
+     * @example
+     * ```js
+     * const textbox = page.locator('#text1');
+     *
+     * // Create a locator with text filtering options
+     * const submitButton = page.locator('button', { hasText: 'Pizza, Please!' });
+     * ```
+     *
      * @param selector A selector to use when resolving DOM element.
+     * @param options Options to use for filtering.
      */
-    locator(selector: string): Locator;
+    locator(selector: string, options?: LocatorOptions): Locator;
 
     /**
      * The page's main frame. Page is made up of frames in a hierarchical. At the
@@ -4333,6 +5590,36 @@ export interface Page {
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
     ): Promise<void>;
+
+    /**
+     * Waits for the page to match against the URL for a Response object
+     *
+     * @example
+     * ```js
+     * const responsePromise = page.waitForResponse('https://example.com/resource');
+     * await page.goto('https://example.com/resource');
+     * const response = await responsePromise;
+     * ```
+     *
+     * @param response Request URL string or regex to match against Response object.
+     * @param options Options to use.
+     */
+    waitForResponse(
+        response: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+        },
+    ): Promise<Response | null>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based

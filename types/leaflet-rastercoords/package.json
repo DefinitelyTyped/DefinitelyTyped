@@ -6,7 +6,7 @@
         "https://github.com/commenthol/leaflet-rastercoords"
     ],
     "dependencies": {
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/leaflet-rastercoords": "workspace:."

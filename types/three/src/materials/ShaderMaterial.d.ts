@@ -130,7 +130,7 @@ export interface ShaderMaterialProperties extends MaterialProperties {
         uv1: [number, number];
     };
     /**
-     * If set, this calls [gl.bindAttribLocation]{@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bindAttribLocation}
+     * If set, this calls [gl.bindAttribLocation](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bindAttribLocation)
      * to bind a generic vertex index to an attribute variable.
      *
      * @default undefined
@@ -209,7 +209,7 @@ export interface ShaderMaterialJSON extends MaterialJSON {
  * - You can use the directive `#pragma unroll_loop_start` and `#pragma unroll_loop_end`
  * in order to unroll a `for` loop in GLSL by the shader preprocessor. The directive has
  * to be placed right above the loop. The loop formatting has to correspond to a defined standard.
- *   - The loop has to be [normalized]{@link https://en.wikipedia.org/wiki/Normalized_loop}.
+ *   - The loop has to be [normalized](https://en.wikipedia.org/wiki/Normalized_loop).
  *   - The loop variable has to be *i*.
  *   - The value `UNROLLED_LOOP_INDEX` will be replaced with the explicitly
  * value of *i* for the given iteration and can be used in preprocessor
@@ -217,12 +217,12 @@ export interface ShaderMaterialJSON extends MaterialJSON {
  *
  * ```js
  * const material = new THREE.ShaderMaterial( {
- * 	uniforms: {
- * 		time: { value: 1.0 },
- * 		resolution: { value: new THREE.Vector2() }
- * 	},
- * 	vertexShader: document.getElementById( 'vertexShader' ).textContent,
- * 	fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+ *    uniforms: {
+ *        time: { value: 1.0 },
+ *        resolution: { value: new THREE.Vector2() }
+ *    },
+ *    vertexShader: document.getElementById( 'vertexShader' ).textContent,
+ *    fragmentShader: document.getElementById( 'fragmentShader' ).textContent
  * } );
  * ```
  */
@@ -243,6 +243,7 @@ export class ShaderMaterial extends Material {
      * @default true
      */
     readonly isShaderMaterial: boolean;
+    setValues(values?: ShaderMaterialParameters): void;
     toJSON(meta?: JSONMeta): ShaderMaterialJSON;
 }
 

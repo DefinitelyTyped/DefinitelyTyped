@@ -226,6 +226,8 @@ mParticle.Rokt.setExtensionData({
     },
 });
 
+mParticle.Rokt.use("test-extension-name");
+
 mParticle.ready(() => {
     console.log("hi");
 });

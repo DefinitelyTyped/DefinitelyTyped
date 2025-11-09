@@ -554,6 +554,11 @@ declare namespace google.accounts {
             client_id: string;
 
             /**
+             * The color scheme applied to the One Tap prompt.
+             */
+            color_scheme?: "default" | "light" | "dark";
+
+            /**
              * Enables automatic selection.
              */
             auto_select?: boolean;

@@ -1,6 +1,5 @@
 import { Texture } from "../../textures/Texture.js";
 import { Node } from "../Nodes.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import OutputStructNode from "./OutputStructNode.js";
 
 export function getTextureIndex(textures: ReadonlyArray<Texture>, name: string): number;
@@ -14,11 +13,11 @@ declare class MRTNode extends OutputStructNode {
 
     has(name: string): boolean;
 
-    get(name: string): Node;
+    get: (name: string) => Node;
 
-    merge(mrtNode: MRTNode): ShaderNodeObject<MRTNode>;
+    merge(mrtNode: MRTNode): MRTNode;
 }
 
 export default MRTNode;
 
-export const mrt: (outputNodes: { [name: string]: Node }) => ShaderNodeObject<MRTNode>;
+export const mrt: (outputNodes: { [name: string]: Node }) => MRTNode;

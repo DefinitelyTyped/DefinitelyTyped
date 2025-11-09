@@ -179,3 +179,14 @@ function test_with_handlers_in_subclass() {
         console.log("Server closed");
     });
 }
+
+function test_newly_added_options() {
+    const smtpServerInstance = new SMTPServer({
+        hideSize: false,
+        size: 1024,
+        hideENHANCEDSTATUSCODES: false,
+        onSecure(socket, session, callback) {
+            callback();
+        },
+    });
+}

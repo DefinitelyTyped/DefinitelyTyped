@@ -33,6 +33,7 @@ declare class MeshBasicNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshBasicNodeMaterial: boolean;
+    setValues(values?: MeshBasicNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link BasicEnvironmentNode}
      * to implement the default environment mapping.

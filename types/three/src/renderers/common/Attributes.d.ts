@@ -30,7 +30,7 @@ declare class Attributes extends DataMap<{
      * Deletes the data for the given attribute.
      *
      * @param {BufferAttribute} attribute - The attribute.
-     * @return {Object|null} The deleted attribute data.
+     * @return {?Object} The deleted attribute data.
      */
     delete(attribute: BufferAttribute | InterleavedBufferAttribute): Data;
     /**

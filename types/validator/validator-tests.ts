@@ -641,9 +641,17 @@ const any: any = null;
     result = validator.isAscii("sample");
 
     isBase58Func("sample"); // $ExpectType boolean
-    const isBase64Options: validator.IsBase64Options = {};
+
     result = validator.isBase64("sample");
-    result = validator.isBase64("sample", isBase64Options);
+    result = validator.isBase64("sample", {});
+    result = validator.isBase64("sample", { urlSafe: false });
+    result = validator.isBase64("sample", { urlSafe: true });
+    result = validator.isBase64("sample", { padding: false });
+    result = validator.isBase64("sample", { padding: true });
+    result = validator.isBase64("sample", { urlSafe: false, padding: false });
+    result = validator.isBase64("sample", { urlSafe: false, padding: true });
+    result = validator.isBase64("sample", { urlSafe: true, padding: false });
+    result = validator.isBase64("sample", { urlSafe: true, padding: true });
 
     result = validator.isBefore("sample");
     result = validator.isBefore("sample", new Date().toString());
@@ -717,11 +725,11 @@ const any: any = null;
     };
 
     const isEmailOptionsWithBlacklistedHosts: validator.IsEmailOptions = {
-        host_blacklist: ["domain"],
+        host_blacklist: ["domain", /^([a-z0-9\-]+[.])*example[.]com$/],
     };
 
     const isEmailOptionsWithWhitelistedHosts: validator.IsEmailOptions = {
-        host_whitelist: ["domain"],
+        host_whitelist: ["domain", /^([a-z0-9\-]+[.])*example[.]com$/],
     };
 
     const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {

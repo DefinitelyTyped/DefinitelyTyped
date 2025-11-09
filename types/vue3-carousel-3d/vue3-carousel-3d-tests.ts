@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import { Carousel3d, Slide } from "vue3-carousel-3d";
-import "vue3-carousel-3d/dist/index.css";
 
 createApp({
     components: {

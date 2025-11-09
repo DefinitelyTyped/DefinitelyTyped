@@ -22,13 +22,42 @@ declare global {
 }
 
 import { ReactNode } from "react";
-import { ErrorInfo } from "./client";
+import { ErrorInfo, ReactFormState } from "./client";
+import { PostponedState, ResumeOptions } from "./static";
 
-export type BootstrapScriptDescriptor = {
+export interface BootstrapScriptDescriptor {
     src: string;
     integrity?: string | undefined;
     crossOrigin?: string | undefined;
-};
+}
+
+/**
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap Import maps}
+ */
+// TODO: Ideally TypeScripts standard library would include this type.
+// Until then we keep the prefixed one for future compatibility.
+export interface ReactImportMap {
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#imports `imports` reference}
+     */
+    imports?: {
+        [specifier: string]: string;
+    } | undefined;
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#integrity `integrity` reference}
+     */
+    integrity?: {
+        [moduleURL: string]: string;
+    } | undefined;
+    /**
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap#scopes `scopes` reference}
+     */
+    scopes?: {
+        [scope: string]: {
+            [specifier: string]: string;
+        };
+    } | undefined;
+}
 
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
@@ -37,11 +66,20 @@ export interface RenderToPipeableStreamOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
+    importMap?: ReactImportMap | undefined;
     progressiveChunkSize?: number;
+    onHeaders?: ((headers: Headers) => void) | undefined;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    formState?: ReactFormState | null;
 }
 
 export interface PipeableStream {
@@ -85,14 +123,23 @@ export function renderToStaticMarkup(element: ReactNode, options?: ServerOptions
 
 export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
+    importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
     nonce?: string;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
+    /**
+     * Maximum length of the header content in unicode code units i.e. string.length.
+     * Must be a positive integer if specified.
+     * @default 2000
+     */
+    headersLengthHint?: number | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    onHeaders?: ((headers: Headers) => void) | undefined;
+    formState?: ReactFormState | null;
 }
 
 export interface ReactDOMServerReadableStream extends ReadableStream {
@@ -108,6 +155,28 @@ export function renderToReadableStream(
     children: ReactNode,
     options?: RenderToReadableStreamOptions,
 ): Promise<ReactDOMServerReadableStream>;
+
+export { ResumeOptions };
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/server/resume `resume`` reference documentation}
+ * @version 19.2
+ */
+export function resume(
+    children: React.ReactNode,
+    postponedState: PostponedState,
+    options?: ResumeOptions,
+): Promise<ReactDOMServerReadableStream>;
+
+/**
+ * @see {@link https://react.dev/reference/react-dom/server/resumeToPipeableStream `resumeToPipeableStream`` reference documentation}
+ * @version 19.2
+ */
+export function resumeToPipeableStream(
+    children: React.ReactNode,
+    postponedState: PostponedState,
+    options?: ResumeOptions,
+): Promise<PipeableStream>;
 
 export const version: string;
 

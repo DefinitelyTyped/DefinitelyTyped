@@ -2557,6 +2557,12 @@ export class Break {
      */
     duration?: number | undefined;
     /**
+     * Indicates whether the break is expanded on the timeline. The duration of expanded
+     *  breaks is included in the total playback duration. A value of `true` indicates
+     *  that the break is expanded. When omitted, the value is assumed to be `false`.
+     */
+    expanded?: boolean;
+    /**
      * Unique id of break.
      */
     id: string;

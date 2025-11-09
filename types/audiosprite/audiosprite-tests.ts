@@ -1,4 +1,4 @@
-import * as audiosprite from "audiosprite";
+import audiosprite from "audiosprite";
 
 const files = ["file1.mp3", "file2.mp3"];
 const opts = { output: "result" };

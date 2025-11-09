@@ -33,6 +33,7 @@ declare class LineBasicNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isLineBasicNodeMaterial: boolean;
+    setValues(values?: LineBasicNodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

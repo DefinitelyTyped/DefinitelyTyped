@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -619,9 +619,11 @@ declare module "sap/ui/table/AnalyticalTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * Table that handles analytical OData back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
+   * Table that handles analytical OData V2 back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
    * and correctly annotated OData services. Please check out the functionality of analytical binding and
-   * the SAP Annotations for OData Version 2.0 documentation for further details.
+   * the SAP Annotations for OData Version 2.0 documentation for further details. For an analytical-table-like
+   * behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control with the {@link sap.ui.table.plugins.ODataV4Aggregation ODataV4Aggregation }
+   * plugin.
    */
   export default class AnalyticalTable extends Table {
     /**
@@ -632,6 +634,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -649,6 +652,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -3073,6 +3077,10 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
    * Select All, only work properly if the count is known. Make sure the model/binding is configured to request
    * the count from the service. For ease of use, client-side models and single selection are also supported.
    *
+   * With ODataV4, use the {@link sap.ui.table.plugins.ODataV4MultiSelection ODataV4MultiSelection} plugin
+   * or the {@link sap.ui.table.plugins.ODataV4SingleSelection ODataV4SingleSelection} plugin instead of this
+   * one.
+   *
    * @since 1.64
    */
   export default class MultiSelectionPlugin extends SelectionPlugin {
@@ -3564,6 +3572,568 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   >;
 }
 
+declare module "sap/ui/table/plugins/ODataV4Aggregation" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Table from "sap/ui/table/Table";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the information about the data structure of the {@link sap.ui.model.odata.v4.ODataListBinding }
+   * and the table. The table is enabled to visualize grouped data with summary rows. Works only in combination
+   * with a {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * For details about data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
+   *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.AnalyticalTable AnalyticalTable} offers for OData
+   * V2.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4Aggregation extends UI5Element {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/7d914317c0b64c23824bf932cc8a4ae1 OData V4: Data Aggregation and Recursive Hierarchy}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4Aggregation with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4Aggregation>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4Aggregation.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
+     *
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     *
+     *
+     * @returns Value of property `groupHeaderFormatter`
+     */
+    getGroupHeaderFormatter(): Function;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
+     *
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setGroupHeaderFormatter(
+      /**
+       * New value for property `groupHeaderFormatter`
+       */
+      fnGroupHeaderFormatter: Function
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4Aggregation constructor.
+   */
+  export interface $ODataV4AggregationSettings extends $ElementSettings {
+    /**
+     * Indicates whether this plugin is enabled.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     */
+    groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4Hierarchy" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Table from "sap/ui/table/Table";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the information about the data structure of the {@link sap.ui.model.odata.v4.ODataListBinding }
+   * and the table. The table is enabled to visualize hierarchical data. Works only in combination with a
+   * {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * For details about hierarchies, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
+   *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.TreeTable TreeTable} offers for other models.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4Hierarchy extends UI5Element {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/7d914317c0b64c23824bf932cc8a4ae1 OData V4: Data Aggregation and Recursive Hierarchy}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4Hierarchy with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4Hierarchy>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4Hierarchy.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4Hierarchy constructor.
+   */
+  export interface $ODataV4HierarchySettings extends $ElementSettings {
+    /**
+     * Indicates whether this plugin is enabled.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4MultiSelection" {
+  import {
+    default as SelectionPlugin,
+    $SelectionPluginSettings,
+  } from "sap/ui/table/plugins/SelectionPlugin";
+
+  import Table from "sap/ui/table/Table";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/odata/v4/Context";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the selection of the {@link sap.ui.model.odata.v4.ODataListBinding} and the table. Works only
+   * in combination with a {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * The selection of a context that is not selectable is not allowed. The following contexts are not selectable:
+   *
+   * 	 - Header context
+   * 	 - Contexts that represent group headers
+   * 	 - Contexts that contain totals
+   *
+   * All binding-related limitations also apply in the context of this plugin. For details, see {@link sap.ui.model.odata.v4.Context#setSelected }
+   * and {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4MultiSelection extends SelectionPlugin {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/ec55312f796f45e8883810af3b68b46c OData V4: Selection}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4MultiSelection with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4MultiSelection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4MultiSelection.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Clears the selection.
+     */
+    clearSelection(): void;
+    /**
+     * Gets current value of property {@link #getEnableNotification enableNotification}.
+     *
+     * Enables notifications that are displayed once a selection has been limited.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `enableNotification`
+     */
+    getEnableNotification(): boolean;
+    /**
+     * Gets current value of property {@link #getHideHeaderSelector hideHeaderSelector}.
+     *
+     * Hide the header selector.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `hideHeaderSelector`
+     */
+    getHideHeaderSelector(): boolean;
+    /**
+     * Returns the selected contexts.
+     *
+     *
+     * @returns The selected contexts
+     */
+    getSelectedContexts(): Context[];
+    /**
+     * Sets a new value for property {@link #getEnableNotification enableNotification}.
+     *
+     * Enables notifications that are displayed once a selection has been limited.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableNotification(
+      /**
+       * New value for property `enableNotification`
+       */
+      bEnableNotification?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHideHeaderSelector hideHeaderSelector}.
+     *
+     * Hide the header selector.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHideHeaderSelector(
+      /**
+       * New value for property `hideHeaderSelector`
+       */
+      bHideHeaderSelector?: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4MultiSelection constructor.
+   */
+  export interface $ODataV4MultiSelectionSettings
+    extends $SelectionPluginSettings {
+    /**
+     * Enables notifications that are displayed once a selection has been limited.
+     */
+    enableNotification?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Hide the header selector.
+     */
+    hideHeaderSelector?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4SingleSelection" {
+  import {
+    default as SelectionPlugin,
+    $SelectionPluginSettings,
+  } from "sap/ui/table/plugins/SelectionPlugin";
+
+  import Table from "sap/ui/table/Table";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/odata/v4/Context";
+
+  /**
+   * Integrates the selection of the {@link sap.ui.model.odata.v4.ODataListBinding} and the table. Works only
+   * in combination with a {@link sap.ui.model.odata.v4.ODataModel}. The selection of multiple contexts is
+   * not allowed. Only one context can be selected at a time.
+   *
+   * The selection of a context that is not selectable is not allowed. The following contexts are not selectable:
+   *
+   * 	 - Header context
+   * 	 - Contexts that represent group headers
+   * 	 - Contexts that contain totals
+   *
+   * All binding-related limitations also apply in the context of this plugin. For details, see {@link sap.ui.model.odata.v4.Context#setSelected }
+   * and {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4SingleSelection extends SelectionPlugin {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.table.plugins.SelectionPlugin#constructor sap.ui.table.plugins.SelectionPlugin }
+     * can be used.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/ec55312f796f45e8883810af3b68b46c OData V4: Selection}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4SingleSelection with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4SingleSelection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4SingleSelection.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Clears the selection.
+     */
+    clearSelection(): void;
+    /**
+     * Returns the selected context.
+     *
+     *
+     * @returns The selected context
+     */
+    getSelectedContext(): Context;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4SingleSelection constructor.
+   */
+  export interface $ODataV4SingleSelectionSettings
+    extends $SelectionPluginSettings {}
+}
+
 declare module "sap/ui/table/plugins/SelectionPlugin" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
@@ -3971,6 +4541,9 @@ declare module "sap/ui/table/RowAction" {
    * more action items are available as the available space allows to display an overflow mechanism is provided.
    * This control must only be used in the context of the `sap.ui.table.Table` control to define row actions.
    *
+   * **Note**: The `RowActionItem` of type `Navigation` has a special role and is shown as the rightmost icon
+   * independent of the order in the `items` aggregation.
+   *
    * @since 1.45
    */
   export default class RowAction extends Control {
@@ -4368,7 +4941,7 @@ declare module "sap/ui/table/RowActionItem" {
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
-    /**
+    /*
      * Sets a new value for property {@link #getIcon icon}.
      *
      * The icon of the item.
@@ -7917,8 +8490,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Gets current value of property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * Default value is `0`.
      *
@@ -8906,8 +9480,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Sets a new value for property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9599,8 +10174,9 @@ declare module "sap/ui/table/Table" {
     enableBusyIndicator?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * @since 1.45.0
      */
@@ -10672,7 +11248,10 @@ declare module "sap/ui/table/TreeTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * The TreeTable control provides a comprehensive set of features to display hierarchical data.
+   * The TreeTable control provides a comprehensive set of features to display hierarchical data. The control
+   * can be used in combination with {@link sap.ui.model.json.JSONModel JSONModel} and {@link sap.ui.model.odata.v2.ODataModel ODataModel V2}.
+   * For a tree-table-like behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control
+   * with the {@link sap.ui.table.plugins.ODataV4Hierarchy ODataV4Hierarchy} plugin.
    */
   export default class TreeTable extends Table {
     /**
@@ -11434,6 +12013,14 @@ declare namespace sap {
     "sap/ui/table/library": undefined;
 
     "sap/ui/table/plugins/MultiSelectionPlugin": undefined;
+
+    "sap/ui/table/plugins/ODataV4Aggregation": undefined;
+
+    "sap/ui/table/plugins/ODataV4Hierarchy": undefined;
+
+    "sap/ui/table/plugins/ODataV4MultiSelection": undefined;
+
+    "sap/ui/table/plugins/ODataV4SingleSelection": undefined;
 
     "sap/ui/table/plugins/SelectionPlugin": undefined;
 

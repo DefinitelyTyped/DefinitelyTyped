@@ -5,9 +5,9 @@ export * from "./core/constants.js";
 export * from "./core/AssignNode.js";
 export * from "./core/AttributeNode.js";
 export * from "./core/BypassNode.js";
-export * from "./core/CacheNode.js";
 export * from "./core/ContextNode.js";
 export * from "./core/IndexNode.js";
+export * from "./core/IsolateNode.js";
 export * from "./core/MRTNode.js";
 export * from "./core/OutputStructNode.js";
 export * from "./core/ParameterNode.js";
@@ -19,6 +19,7 @@ export * from "./core/UniformNode.js";
 export * from "./core/VaryingNode.js";
 
 // math
+export * from "./math/BitcastNode.js";
 export * from "./math/Hash.js";
 export * from "./math/MathUtils.js";
 export * from "./math/TriNoise3D.js";
@@ -55,6 +56,7 @@ export * from "./accessors/BatchNode.js";
 export * from "./accessors/Bitangent.js";
 export * from "./accessors/BufferAttributeNode.js";
 export * from "./accessors/BufferNode.js";
+export * from "./accessors/BuiltinNode.js";
 export * from "./accessors/Camera.js";
 export * from "./accessors/CubeTextureNode.js";
 export * from "./accessors/InstancedMeshNode.js";
@@ -128,6 +130,7 @@ export * from "./gpgpu/AtomicFunctionNode.js";
 export * from "./gpgpu/BarrierNode.js";
 export * from "./gpgpu/ComputeBuiltinNode.js";
 export * from "./gpgpu/ComputeNode.js";
+export * from "./gpgpu/SubgroupFunctionNode.js";
 export * from "./gpgpu/WorkgroupInfoNode.js";
 
 // lighting

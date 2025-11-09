@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, Node, TempNode, TextureNode } from "three/webgpu";
 
 declare class TRAANode extends TempNode {
@@ -19,4 +18,4 @@ export const traa: (
     depthNode: TextureNode,
     velocityNode: TextureNode,
     camera: Camera,
-) => ShaderNodeObject<TRAANode>;
+) => TRAANode;

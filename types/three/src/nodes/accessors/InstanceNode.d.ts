@@ -1,6 +1,5 @@
 import { InstancedBufferAttribute } from "../../core/InstancedBufferAttribute.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class InstanceNode extends Node {
     count: number;
@@ -21,4 +20,4 @@ export const instance: (
     count: number,
     instanceMatrix: InstancedBufferAttribute,
     instanceColor?: InstancedBufferAttribute | null,
-) => ShaderNodeObject<InstanceNode>;
+) => InstanceNode;

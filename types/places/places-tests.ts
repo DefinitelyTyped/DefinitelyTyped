@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import * as places from "places";
+import places from "places";
 
 const options: places.PlacesOptions = {
     appId: "your app Id",

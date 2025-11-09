@@ -339,6 +339,11 @@ declare module "util" {
      */
     export function getSystemErrorName(err: number): string;
     /**
+     * Enable or disable printing a stack trace on `SIGINT`. The API is only available on the main thread.
+     * @since 24.6.0
+     */
+    export function setTraceSigInt(enable: boolean): void;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -848,6 +853,15 @@ declare module "util" {
      * @return The deprecated function wrapped to emit a warning.
      */
     export function deprecate<T extends Function>(fn: T, msg: string, code?: string): T;
+    export interface IsDeepStrictEqualOptions {
+        /**
+         * If `true`, prototype and constructor
+         * comparison is skipped during deep strict equality check.
+         * @since v24.9.0
+         * @default false
+         */
+        skipPrototype?: boolean | undefined;
+    }
     /**
      * Returns `true` if there is deep strict equality between `val1` and `val2`.
      * Otherwise, returns `false`.
@@ -856,7 +870,7 @@ declare module "util" {
      * equality.
      * @since v9.0.0
      */
-    export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
+    export function isDeepStrictEqual(val1: unknown, val2: unknown, options?: IsDeepStrictEqualOptions): boolean;
     /**
      * Returns `str` with any ANSI escape codes removed.
      *
@@ -1327,7 +1341,7 @@ declare module "util" {
          * encoded bytes.
          * @param [input='an empty string'] The text to encode.
          */
-        encode(input?: string): Uint8Array;
+        encode(input?: string): NodeJS.NonSharedUint8Array;
         /**
          * UTF-8 encodes the `src` string to the `dest` Uint8Array and returns an object
          * containing the read Unicode code units and written UTF-8 bytes.
@@ -1420,10 +1434,12 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default value to
-         * be used if (and only if) the option does not appear in the arguments to be
-         * parsed. It must be of the same type as the `type` property. When `multiple`
-         * is `true`, it must be an array.
+         * The value to assign to
+         * the option if it does not appear in the arguments to be parsed. The value
+         * must match the type specified by the `type` property. If `multiple` is
+         * `true`, it must be an array. No default value is applied when the option
+         * does appear in the arguments to be parsed, even if the provided value
+         * is falsy.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;
@@ -1435,7 +1451,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */

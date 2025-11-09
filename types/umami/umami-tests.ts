@@ -16,3 +16,10 @@ umami.track(props => ({
         id: 123,
     },
 }));
+
+// identify
+umami.identify("123");
+
+umami.identify("123", { name: "test" });
+
+umami.identify({ name: "test" });

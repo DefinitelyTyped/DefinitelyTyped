@@ -43,10 +43,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
+    import { PathLike } from "node:fs";
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
-    type SQLOutputValue = null | number | bigint | string | Uint8Array;
-    /** @deprecated Use `SQLInputValue` or `SQLOutputValue` instead. */
-    type SupportedValueType = SQLOutputValue;
+    type SQLOutputValue = null | number | bigint | string | NodeJS.NonSharedUint8Array;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -89,6 +88,41 @@ declare module "node:sqlite" {
          * @default false
          */
         allowExtension?: boolean | undefined;
+        /**
+         * The [busy timeout](https://sqlite.org/c3ref/busy_timeout.html) in milliseconds. This is the maximum amount of
+         * time that SQLite will wait for a database lock to be released before
+         * returning an error.
+         * @since v22.16.0
+         * @default 0
+         */
+        timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v22.18.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v22.18.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v22.18.0
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v22.18.0
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -205,7 +239,7 @@ declare module "node:sqlite" {
          * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        constructor(path: PathLike, options?: DatabaseSyncOptions);
         /**
          * Registers a new aggregate function with the SQLite database. This method is a wrapper around
          * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
@@ -376,7 +410,7 @@ declare module "node:sqlite" {
          * @returns Binary changeset that can be applied to other databases.
          * @since v22.12.0
          */
-        changeset(): Uint8Array;
+        changeset(): NodeJS.NonSharedUint8Array;
         /**
          * Similar to the method above, but generates a more compact patchset. See
          * [Changesets and Patchsets](https://www.sqlite.org/sessionintro.html#changesets_and_patchsets)
@@ -386,7 +420,7 @@ declare module "node:sqlite" {
          * @returns Binary patchset that can be applied to other databases.
          * @since v22.12.0
          */
-        patchset(): Uint8Array;
+        patchset(): NodeJS.NonSharedUint8Array;
         /**
          * Closes the session. An exception is thrown if the database or the session is not open. This method is a
          * wrapper around
@@ -560,6 +594,13 @@ declare module "node:sqlite" {
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v22.16.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
@@ -636,7 +677,7 @@ declare module "node:sqlite" {
      * following properties are supported:
      * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
+    function backup(sourceDb: DatabaseSync, path: PathLike, options?: BackupOptions): Promise<void>;
     /**
      * @since v22.13.0
      */

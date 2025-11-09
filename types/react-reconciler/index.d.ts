@@ -373,14 +373,13 @@ declare namespace ReactReconciler {
         // -------------------
         // Persistence Methods
         //    (optional)
-        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
         cloneInstance?(
             instance: Instance,
             type: Type,
             oldProps: Props,
             newProps: Props,
-            internalInstanceHandle: OpaqueHandle,
             keepChildren: boolean,
             recyclableInstance: null | Instance,
         ): Instance;
@@ -401,7 +400,7 @@ declare namespace ReactReconciler {
         //    (optional)
         // You can optionally implement hydration to "attach" to the existing tree during the initial render instead of creating it from scratch. For example, the DOM renderer uses this to attach to an HTML markup.
         //
-        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
         supportsHydration: boolean;
 
@@ -926,6 +925,10 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
+    interface BaseErrorInfo {
+        componentStack?: string;
+    }
+
     interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
         createContainer(
             containerInfo: Container,
@@ -934,7 +937,10 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onRecoverableError: (error: Error) => void,
+            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
+            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
+            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
+            onDefaultTransitionIndicator: () => void,
             transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 

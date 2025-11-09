@@ -1,4 +1,4 @@
-import * as chaiThings from "chai-things";
+import chaiThings from "chai-things";
 import("chai").then(({ use }) => use(chaiThings));
 
 declare const expect: Chai.ExpectStatic;

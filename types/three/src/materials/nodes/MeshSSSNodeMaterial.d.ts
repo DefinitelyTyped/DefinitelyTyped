@@ -40,7 +40,7 @@ declare class SSSLightingModel extends PhysicalLightingModel {
     /**
      * Extends the default implementation with a SSS term.
      *
-     * Reference: [Approximating Translucency for a Fast, Cheap and Convincing Subsurface Scattering Look]{@link https://colinbarrebrisebois.com/2011/03/07/gdc-2011-approximating-translucency-for-a-fast-cheap-and-convincing-subsurface-scattering-look/}
+     * Reference: [Approximating Translucency for a Fast, Cheap and Convincing Subsurface Scattering Look](https://colinbarrebrisebois.com/2011/03/07/gdc-2011-approximating-translucency-for-a-fast-cheap-and-convincing-subsurface-scattering-look/)
      *
      * @param {Object} input - The input data.
      * @param {NodeBuilder} builder - The current node builder.
@@ -92,6 +92,7 @@ export interface MeshSSSNodeMaterialParameters
  */
 declare class MeshSSSNodeMaterial extends MeshPhysicalNodeMaterial {
     constructor(parameters?: MeshSSSNodeMaterialParameters);
+    setValues(values?: MeshSSSNodeMaterialParameters): void;
     /**
      * Whether the lighting model should use SSS or not.
      *

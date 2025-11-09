@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class ReferenceNode<T> extends Node {
     property: string;
@@ -20,10 +19,10 @@ declare class ReferenceNode<T> extends Node {
 
 export default ReferenceNode;
 
-export const reference: <T>(name: string, type: string, object: T) => ShaderNodeObject<ReferenceNode<T>>;
+export const reference: <T>(name: string, type: string, object: T) => ReferenceNode<T>;
 export const referenceBuffer: <T>(
     name: string,
     type: string,
     count: number,
     object: T,
-) => ShaderNodeObject<ReferenceNode<T>>;
+) => ReferenceNode<T>;

@@ -21,4 +21,6 @@ umami.track((props) => ({
     },
 }));
 
+umami.identify("test-id");
+umami.identify("test-id", { email: "test@example.com" });
 umami.identify({ email: "bob@aol.com" });

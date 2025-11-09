@@ -51,6 +51,13 @@ function ModuleTest(): void {
     Module.cwrap("my_function", null, ["number"]);
     Module.cwrap("my_function", "string", ["number", "boolean", "array"], { async: true });
     Module._free(buf);
+
+    // big int test case
+    const bigint_buf = Module._malloc(8); // size of i64 = 8
+    Module.setValue(bigint_buf, 1000000000000000000n, "i64");
+    const bigintX = Module.getValue(bigint_buf, "i64") + 100n;
+    Module._free(bigint_buf);
+
     Module.destroy({});
 }
 
@@ -64,11 +71,17 @@ function FSTest(): void {
     FS.init(null, null, null);
 
     FS.mkdir("/working");
+    FS.mkdirTree("/nested/directory/structure");
+    FS.mkdirTree("/another/path", parseInt("0755", 8));
     FS.mount(NODEFS, { root: "." }, "/working");
 
     function myAppStartup(): void {
         FS.mkdir("/data");
         FS.mount(IDBFS, {}, "/data");
+
+        // Test isMountpoint - checks if a node is a mount point
+        const testNode = FS.lookupPath("/data", {}).node;
+        const isMount: boolean = FS.isMountpoint(testNode);
 
         FS.syncfs(true, (err) => {
             // handle callback
@@ -85,10 +98,32 @@ function FSTest(): void {
     FS.registerDevice(id, {});
     FS.mkdev("/dummy", id);
 
+    // Test createDevice - creates a device with input/output functions
+    const inputDevice = FS.createDevice("/", "stdin", () => 65, undefined); // Returns 'A' (65)
+    const outputDevice = FS.createDevice("/", "stdout", undefined, (c: number) => console.log(String.fromCharCode(c)));
+    const bothDevice = FS.createDevice("/", "console", () => 66, (c: number) => console.log(c)); // Returns 'B' (66)
+    const simpleDevice = FS.createDevice("/", "null");
+
+    // Test createDevice.major property access
+    const majorNumber: number = FS.createDevice.major;
+    FS.createDevice.major = 128; // Test assignment
+    // $ExpectType number
+    FS.createDevice.major;
+
     FS.writeFile("file", "foobar");
     FS.symlink("file", "link");
 
     FS.writeFile("/foobar.txt", "Hello, world");
+
+    // Test writeFile with extended options
+    FS.writeFile("/test-with-mode.txt", "content", { mode: parseInt("0644", 8) });
+    FS.writeFile("/test-with-flags.txt", "content", { flags: "w+" });
+    FS.writeFile("/test-with-canown.txt", "content", { canOwn: true });
+    FS.writeFile("/test-with-all-opts.txt", "content", {
+        flags: "w",
+        mode: parseInt("0755", 8),
+        canOwn: false,
+    });
     FS.unlink("/foobar.txt");
 
     FS.writeFile("file", "foobar");
@@ -112,13 +147,27 @@ function FSTest(): void {
     const data = new Uint8Array(32);
     const wstream = FS.open("dummy1", "w+");
     FS.write(wstream, data, 0, data.length, 0);
-    FS.close(wstream);
+
+    // Test FS.open with numeric flags
+    const numericWriteStream = FS.open("numeric-write-stream-test", 1);
+    FS.write(numericWriteStream, data, 0, data.length, 0);
+    FS.close(numericWriteStream);
+
+    // Test getStream - gets stream by file descriptor
+    const streamFromFD = FS.getStream(wstream.fd!);
+    // $ExpectType FSStream
+    streamFromFD;
+
+    // Test closeStream - closes stream by file descriptor
+    FS.closeStream(wstream.fd!);
 
     FS.createDataFile("/", "dummy2", data, true, true, true);
 
     const lookup = FS.lookupPath("path", { parent: true, follow: false });
     // $ExpectType number
     lookup.node.mode;
+    // $ExpectType any
+    lookup.node.contents;
 
     const analyze = FS.analyzePath("path");
     // $ExpectType boolean
@@ -145,6 +194,8 @@ function StringConv(): void {
     stringToUTF16(s, p, 42);
     stringToUTF32(s, p);
     stringToUTF32(s, p, 42);
+    p = stringToNewUTF8(s);
+    Module._free(p);
     p = allocateUTF8(s);
     Module._free(p);
 }
@@ -153,7 +204,8 @@ function StringConv(): void {
 function StackAlloc() {
     const stack = stackSave();
     const ptr = stackAlloc(42);
-    const strPtr = allocateUTF8OnStack("testString");
+    const strPtr = stringToUTF8OnStack("testString");
+    const legacyStrPtr = allocateUTF8OnStack("testString");
     stackRestore(stack);
 }
 

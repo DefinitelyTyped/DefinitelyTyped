@@ -1,4 +1,4 @@
-import * as Divider from "ink-divider";
+import Divider from "ink-divider";
 import * as React from "react";
 
 const test1 = () => {

@@ -66,6 +66,7 @@ run({
     lineCoverage: 70,
     branchCoverage: 50,
     functionCoverage: 80,
+    rerunFailuresFilePath: "/path/to/file.json",
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -163,6 +164,8 @@ test(undefined, undefined, t => {
     t.signal;
     // $ExpectType MockTracker
     t.mock;
+    // $ExpectType number
+    t.attempt;
 });
 
 // Test the subtest approach.
@@ -1029,7 +1032,7 @@ const invalidSuiteContext = new SuiteContext();
 test("check all assertion functions are re-exported", t => {
     type AssertModuleExports = keyof typeof import("assert");
     const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
-        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+        {} as Exclude<AssertModuleExports, "Assert" | "AssertionError" | "CallTracker" | "strict">;
 });
 
 test("planning with streams", (t: TestContext, done) => {

@@ -8,6 +8,7 @@ import {
     ContentUnorderedList,
     CustomTableLayout,
     Table,
+    TableCell,
     TDocumentDefinitions,
 } from "pdfmake/interfaces";
 
@@ -292,6 +293,18 @@ const tableHeights: Table = {
     body: [],
     heights: [100, "auto"],
 };
+
+const tableCells: TableCell[] = [
+    {},
+    "test",
+    100,
+    { text: "test" },
+    { ol: [] },
+    // @ts-expect-error
+    { invalidContentProperty: "" },
+    // @ts-expect-error
+    Promise.resolve("test"),
+];
 
 // via https://pdfmake.github.io/docs/0.1/document-definition-object/patterns/
 const tilingPatterns: TDocumentDefinitions = {

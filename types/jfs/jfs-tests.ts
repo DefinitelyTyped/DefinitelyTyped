@@ -1,4 +1,4 @@
-import * as Store from "jfs";
+import Store from "jfs";
 
 interface TestStore {
     foo: string;

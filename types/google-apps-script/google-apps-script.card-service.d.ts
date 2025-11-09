@@ -14,12 +14,25 @@ declare namespace GoogleAppsScript {
          *             .setParameters({imageSrc: 'carImage'}));
          */
         interface Action {
+            addRequiredWidget(requiredWidget: string): Action;
+            setAllWidgetsAreRequired(allWidgetsAreRequired: boolean): Action;
             setFunctionName(functionName: string): Action;
+            setInteraction(interaction: Interaction): Action;
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
             setPersistValues(persistValues: boolean): Action;
         }
+
+        /**
+         * An enum type that specifies what to do in response to an interaction with a user,
+         * such as a user clicking a button in a card message.
+         */
+        enum Interaction {
+            INTERACTION_UNSPECIFIED,
+            OPEN_DIALOG,
+        }
+
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)
          * to perform one or more actions on the client. Some combinations of actions are not supported.
@@ -270,6 +283,8 @@ declare namespace GoogleAppsScript {
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
+            InputType: typeof InputType;
+            Interaction: typeof Interaction;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
@@ -317,6 +332,7 @@ declare namespace GoogleAppsScript {
             newImageCropStyle(): ImageCropStyle;
             newKeyValue(): KeyValue;
             newLinkPreview(): LinkPreview;
+            newMaterialIcon(): MaterialIcon;
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
@@ -335,6 +351,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
+            newValidation(): Validation;
         }
         /**
          * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -415,7 +432,7 @@ declare namespace GoogleAppsScript {
             VIDEO_PLAY,
         }
         /**
-         * A widget that shows an icon image.
+         * A predefined icon, a material design icon, or an icon from a URL with a customizable crop style.
          *
          *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
          */
@@ -424,6 +441,7 @@ declare namespace GoogleAppsScript {
             setIcon(icon: Icon): IconImage;
             setIconUrl(url: string): IconImage;
             setImageCropType(imageCropType: ImageCropType): IconImage;
+            setMaterialIcon(icon: MaterialIcon): IconImage;
         }
         /**
          * A widget that shows a single image.
@@ -454,6 +472,7 @@ declare namespace GoogleAppsScript {
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
             setIcon(icon: Icon): ImageButton;
             setIconUrl(url: string): ImageButton;
+            setMaterialIcon(icon: MaterialIcon): ImageButton;
             setOnClickAction(action: Action): ImageButton;
             setOnClickOpenLinkAction(action: Action): ImageButton;
             setOpenLink(openLink: OpenLink): ImageButton;
@@ -534,6 +553,25 @@ declare namespace GoogleAppsScript {
             SPINNER,
             NONE,
         }
+
+        /**
+         * An object that supports all Google Font Icons ({@link https://fonts.google.com/icons}).
+         *
+         * Available for Google Workspace add-ons and Google Chat apps.
+         *
+         * const materialIcon = CardService.newMaterialIcon()
+         *     .setName('search')
+         *     .setFill(true)
+         *     .setWeight(400)
+         *     .setGrade(0);
+         */
+        interface MaterialIcon {
+            setFill(fill: boolean): MaterialIcon;
+            setGrade(grade: Integer): MaterialIcon;
+            setName(name: string): MaterialIcon;
+            setWeight(weight: Integer): MaterialIcon;
+        }
+
         /**
          * A helper object that controls card navigation. See the card navigation guide for more details.
          */
@@ -618,27 +656,84 @@ declare namespace GoogleAppsScript {
         /**
          * An input field that allows choosing between a set of predefined options.
          *
-         *     var checkboxGroup = CardService.newSelectionInput()
-         *         .setType(CardService.SelectionInputType.CHECK_BOX)
-         *         .setTitle("A group of checkboxes. Multiple selections are allowed.")
-         *         .setFieldName("checkbox_field")
-         *         .addItem("checkbox one title", "checkbox_one_value", false)
-         *         .addItem("checkbox two title", "checkbox_two_value", true)
-         *         .addItem("checkbox three title", "checkbox_three_value", false)
-         *         .setOnChangeAction(CardService.newAction()
-         *             .setFunctionName("handleCheckboxChange"));
+         *  const checkboxGroup =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.CHECK_BOX)
+         *          .setTitle('A group of checkboxes. Multiple selections are allowed.')
+         *          .setFieldName('checkbox_field')
+         *          .addItem('checkbox one title', 'checkbox_one_value', false)
+         *          .addItem('checkbox two title', 'checkbox_two_value', true)
+         *          .addItem('checkbox three title', 'checkbox_three_value', true)
+         *          .setOnChangeAction(
+         *              CardService.newAction().setFunctionName('handleCheckboxChange'),
+         *          );
          *
-         *     var radioGroup = CardService.newSelectionInput()
-         *         .setType(CardService.SelectionInputType.RADIO_BUTTON)
-         *         .setTitle("A group of radio buttons. Only a single selection is allowed.")
-         *         .setFieldName("checkbox_field")
-         *         .addItem("radio button one title", "radio_one_value", true)
-         *         .addItem("radio button two title", "radio_two_value", true)
-         *         .addItem("radio button three title", "radio_three_value", false);
+         *  const radioGroup =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.RADIO_BUTTON)
+         *          .setTitle(
+         *              'A group of radio buttons. Only a single selection is allowed.')
+         *          .setFieldName('checkbox_field')
+         *          .addItem('radio button one title', 'radio_one_value', true)
+         *          .addItem('radio button two title', 'radio_two_value', false)
+         *          .addItem('radio button three title', 'radio_three_value', false);
+         *
+         *  const multiSelect =
+         *      CardService.newSelectionInput()
+         *          .setType(CardService.SelectionInputType.MULTI_SELECT)
+         *          .setFieldName('multiselect')
+         *          .setTitle('A multi select input example.')
+         *          .addMultiSelectItem(
+         *              'Contact 1',
+         *              'contact-1',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact one description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 2',
+         *              'contact-2',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact two description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 3',
+         *              'contact-3',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact three description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 4',
+         *              'contact-4',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact four description',
+         *              )
+         *          .addMultiSelectItem(
+         *              'Contact 5',
+         *              'contact-5',
+         *              false,
+         *              'https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png',
+         *              'Contact five description',
+         *              )
+         *          .setMultiSelectMaxSelectedItems(3)
+         *          .setMultiSelectMinQueryLength(1);
          */
         interface SelectionInput {
             addItem(text: any, value: any, selected: boolean): SelectionInput;
+            addMultiSelectItem(
+                text: string,
+                value: string,
+                selected: boolean,
+                startIconUri: string,
+                bottomText: string,
+            ): SelectionInput;
+            setExternalDataSource(action: Action): SelectionInput;
             setFieldName(fieldName: string): SelectionInput;
+            setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
+            setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
@@ -650,6 +745,8 @@ declare namespace GoogleAppsScript {
             CHECK_BOX,
             RADIO_BUTTON,
             DROPDOWN,
+            SWITCH,
+            MULTI_SELECT,
         }
         /**
          * Autocomplete suggestions to supplement a TextInput widget.
@@ -734,13 +831,19 @@ declare namespace GoogleAppsScript {
         /**
          * An enum that specifies the style for TextButton.
          *
-         * TEXT is the default; it renders a simple text button with clear background.
+         * OUTLINED is the default; it renders a simple text button with clear background.
          * FILLED buttons have a background color you can set with
          * TextButton.setBackgroundColor(backgroundColor).
+         *
+         * To call an enum, you call its parent class, name, and property.
+         * For example, CardService.TextButtonStyle.OUTLINED.
          */
         enum TextButtonStyle {
-            TEXT,
+            OUTLINED,
+            /** @deprecated DO NOT USE */ TEXT,
             FILLED,
+            FILLED_TONAL,
+            BORDERLESS,
         }
         /**
          * A input field widget that accepts text input.
@@ -758,6 +861,7 @@ declare namespace GoogleAppsScript {
             setSuggestions(suggestions: Suggestions): TextInput;
             setSuggestionsAction(suggestionsAction: Action): TextInput;
             setTitle(title: string): TextInput;
+            setValidation(validation: Validation): TextInput;
             setValue(value: string): TextInput;
         }
         /**
@@ -912,6 +1016,29 @@ declare namespace GoogleAppsScript {
         interface UpdateDraftToRecipientsAction {
             addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
         }
+
+        /**
+         * An object that defines the validation rule for the widget that it is attached to.
+         *
+         * const validation = CardService.newValidation()
+         *     .setCharacterLimit('10')
+         *     .setInputType(CardService.InputType.TEXT);
+         */
+        interface Validation {
+            setCharacterLimit(characterLimit: Integer): Validation;
+            setInputType(inputType: InputType): Validation;
+        }
+
+        /**
+         * An enum that defines the input type of the widget.
+         */
+        enum InputType {
+            TEXT,
+            INTEGER,
+            FLOAT,
+            EMAIL,
+        }
+
         /**
          * The fixed footer shown at the bottom of an add-on Card.
          */

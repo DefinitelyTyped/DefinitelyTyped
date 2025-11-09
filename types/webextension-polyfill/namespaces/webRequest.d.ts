@@ -15,7 +15,6 @@ export namespace WebRequest {
         | "script"
         | "image"
         | "object"
-        | "object_subrequest"
         | "xmlhttprequest"
         | "xslt"
         | "ping"
@@ -313,7 +312,9 @@ export namespace WebRequest {
         | "tracking_content"
         | "any_basic_tracking"
         | "any_strict_tracking"
-        | "any_social_tracking";
+        | "any_social_tracking"
+        | "consentmanager"
+        | "antifraud";
 
     /**
      * If the request has been classified this is an array of $(ref:UrlClassificationFlags).

@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as gulpCleanCSS from "gulp-clean-css";
+import gulpCleanCSS from "gulp-clean-css";
 
 // gulp
 gulp.src("/foo").pipe(gulpCleanCSS());

@@ -80,6 +80,7 @@ declare namespace GoogleAppsScript {
         interface CalendarApp {
             Color: typeof Color;
             EventColor: typeof EventColor;
+            EventTransparency: typeof EventTransparency;
             EventType: typeof EventType;
             GuestStatus: typeof GuestStatus;
             Month: typeof Base.Month;
@@ -195,6 +196,7 @@ declare namespace GoogleAppsScript {
             getStartTime(): Base.Date;
             getTag(key: string): string;
             getTitle(): string;
+            getTransparency(): EventTransparency;
             getVisibility(): Visibility;
             guestsCanInviteOthers(): boolean;
             guestsCanModify(): boolean;
@@ -208,7 +210,7 @@ declare namespace GoogleAppsScript {
             setAllDayDate(date: Base.Date): CalendarEvent;
             setAllDayDates(startDate: Base.Date, endDate: Base.Date): CalendarEvent;
             setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEvent;
-            setColor(color: string): CalendarEvent;
+            setColor(color: string | EventColor): CalendarEvent;
             setDescription(description: string): CalendarEvent;
             setGuestsCanInviteOthers(guestsCanInviteOthers: boolean): CalendarEvent;
             setGuestsCanModify(guestsCanModify: boolean): CalendarEvent;
@@ -218,6 +220,7 @@ declare namespace GoogleAppsScript {
             setTag(key: string, value: string): CalendarEvent;
             setTime(startTime: Base.Date, endTime: Base.Date): CalendarEvent;
             setTitle(title: string): CalendarEvent;
+            setTransparency(transparency: EventTransparency): CalendarEvent;
             setVisibility(visibility: Visibility): CalendarEvent;
         }
         /**
@@ -334,6 +337,13 @@ declare namespace GoogleAppsScript {
             getGuestStatus(): GuestStatus;
             getName(): string;
             /** @deprecated DO NOT USE */ getStatus(): string;
+        }
+        /**
+         * An enum representing the transparency of an event.
+         */
+        enum EventTransparency {
+            OPAQUE,
+            TRANSPARENT,
         }
         /**
          * Represents the recurrence settings for an event series.

@@ -93,29 +93,142 @@ declare namespace Layui {
         [index: string]: any;
     }
     interface BuiltinModules {
+        /**
+         * 用于标识的属性
+         * @internal
+         */
         all: any;
+        /**
+         * 轮播
+         * @see https://layui.dev/docs/2/carousel/
+         */
         carousel: Carousel;
+        /**
+         * 代码预览
+         * @see https://layui.dev/docs/2/code/
+         */
         code: Code;
+        /**
+         * 颜色选择器
+         * @see https://layui.dev/docs/2/colorpicker/
+         */
         colorpicker: ColorPicker;
+        /**
+         * 组件构建器
+         * @see https://layui.dev/docs/2/component/
+         * @since 2.10.0
+         */
+        component: ComponentBuilder;
+        /**
+         * 下拉菜单
+         * @see https://layui.dev/docs/2/dropdown/
+         */
         dropdown: Dropdown;
+        /**
+         * 元素操作
+         * @see https://layui.dev/docs/2/nav/ - 导航栏
+         * @see https://layui.dev/docs/2/tab/ - 选项卡
+         * @see https://layui.dev/docs/2/panel/ - 折叠面板
+         * @see https://layui.dev/docs/2/progress/ - 进度条
+         * @see https://layui.dev/docs/2/nav/#separator - 面包屑
+         */
         element: Element;
+        /**
+         * 流加载
+         * @see https://layui.dev/docs/2/flow/
+         */
         flow: Flow;
+        /**
+         * 表单
+         * @see https://layui.dev/docs/2/form/
+         */
         form: Form;
         jquery: JQueryStatic;
+        /**
+         * layui 内部使用的工具函数
+         *
+         * 请谨慎使用，不保证兼容性
+         * @internal
+         */
         lay: LayStatic;
+        /**
+         * 日期选择器
+         * @see https://layui.dev/docs/2/laydate/
+         */
         laydate: Laydate;
+        /**
+         * 富文本编辑器
+         * @deprecated 2.8.0 已移除
+         */
         layedit: Layedit;
+        /**
+         * 弹层
+         * @see https://layui.dev/docs/2/layer/
+         */
         layer: Layer;
+        /**
+         * 分页
+         * @see https://layui.dev/docs/2/laypage/
+         */
         laypage: Laypage;
+        /**
+         * 模板引擎
+         * @see https://layui.dev/docs/2/laytpl/
+         */
         laytpl: Laytpl;
+        /**
+         * 用于标识的属性
+         * @internal
+         */
         "layui.all": string;
+        /**
+         * 评分
+         * @see https://layui.dev/docs/2/rate/
+         * @since 2.11.0 后继承自 Component 组件
+         */
         rate: Rate;
+        /**
+         * 滑块
+         * @see https://layui.dev/docs/2/slider/
+         */
         slider: Slider;
+        /**
+         * 表格
+         * @see https://layui.dev/docs/2/table
+         */
         table: Table;
+        /**
+         * 标签页
+         * 该组件继承自 Component 组件
+         * @see https://layui.dev/docs/2/tabs/
+         * @since 2.10.0
+         */
+        tabs: Tabs;
+        /**
+         * 树形表格
+         * @since 2.8.0
+         * @see https://layui.dev/docs/2/treeTable/
+         */
         treeTable: TreeTable;
+        /**
+         * 穿梭框
+         * @see https://layui.dev/docs/2/transfer/
+         */
         transfer: Transfer;
+        /**
+         * 树
+         * @see https://layui.dev/docs/2/tree/
+         */
         tree: Tree;
+        /**
+         * 上传
+         * @see https://layui.dev/docs/2/upload/
+         */
         upload: Upload;
+        /**
+         * 工具集
+         * @see https://layui.dev/docs/2/util/
+         */
         util: Util;
     }
 
@@ -125,7 +238,11 @@ declare namespace Layui {
     interface UrlHash {
         hash: string;
         href?: string;
+        /**
+         * @deprecated 2.11.0 已废弃，使用 {@link UrlHash["pathname"]|pathname}
+         */
         path: string[];
+        pathname: string[];
         search: { [index: string]: string };
     }
 

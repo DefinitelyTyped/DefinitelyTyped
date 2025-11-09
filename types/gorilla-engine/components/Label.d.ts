@@ -1,6 +1,12 @@
 declare namespace GorillaEngine.UI {
     interface LabelProps extends Common, Bounds, Background, Font, Clickable, Margin, Keyable {
+        /**
+         * The initial text to display in the label. Doesn't update at runtime.
+         */
         value: any;
+        /**
+         * The text to display in the label. Updates at runtime.
+         */
         text: string | number;
         format: string;
         multiLine: boolean;

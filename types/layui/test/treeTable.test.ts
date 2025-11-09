@@ -74,6 +74,8 @@ function treeTableTest() {
         treeTable.expandNode("test", {
             index: 1,
             inherit: true,
+            done(tableId, trData, trExpand) {
+            },
         });
         treeTable.getNodeDataByIndex("test", 1);
         treeTable.getData("test", true);

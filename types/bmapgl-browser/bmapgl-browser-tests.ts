@@ -1,5 +1,3 @@
-import "bmapgl";
-
 class TestFixture {
     // document: http://lbsyun.baidu.com/index.php?title=jspopularGL
     createMap(container: string | HTMLElement) {

@@ -37,7 +37,8 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
  */
 declare module "vm" {
-    import { ImportAttributes } from "node:module";
+    import { NonSharedBuffer } from "node:buffer";
+    import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -60,13 +61,13 @@ declare module "vm" {
         specifier: string,
         referrer: T,
         importAttributes: ImportAttributes,
-        phase: "source" | "evaluation",
+        phase: ImportPhase,
     ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
@@ -99,28 +100,22 @@ declare module "vm" {
          */
         breakOnSigint?: boolean | undefined;
     }
-    interface RunningScriptInNewContextOptions extends RunningScriptOptions {
+    interface RunningScriptInNewContextOptions
+        extends RunningScriptOptions, Pick<CreateContextOptions, "microtaskMode">
+    {
         /**
          * Human-readable name of the newly created context.
          */
-        contextName?: CreateContextOptions["name"];
+        contextName?: CreateContextOptions["name"] | undefined;
         /**
          * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
          * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
          * Most notably, this string should omit the trailing slash, as that denotes a path.
          */
-        contextOrigin?: CreateContextOptions["origin"];
-        contextCodeGeneration?: CreateContextOptions["codeGeneration"];
-        /**
-         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
-         */
-        microtaskMode?: CreateContextOptions["microtaskMode"];
+        contextOrigin?: CreateContextOptions["origin"] | undefined;
+        contextCodeGeneration?: CreateContextOptions["codeGeneration"] | undefined;
     }
-    interface RunningCodeOptions extends RunningScriptOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
+    interface RunningCodeOptions extends RunningScriptOptions, Pick<ScriptOptions, "cachedData"> {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
@@ -132,11 +127,9 @@ declare module "vm" {
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
-    interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
+    interface RunningCodeInNewContextOptions
+        extends RunningScriptInNewContextOptions, Pick<ScriptOptions, "cachedData">
+    {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
@@ -148,16 +141,7 @@ declare module "vm" {
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
-    interface CompileFunctionOptions extends BaseOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
-        /**
-         * Specifies whether to produce new cache data.
-         * @default false
-         */
-        produceCachedData?: boolean | undefined;
+    interface CompileFunctionOptions extends BaseOptions, Pick<ScriptOptions, "cachedData" | "produceCachedData"> {
         /**
          * The sandbox/context in which the said function should be compiled in.
          */
@@ -384,17 +368,17 @@ declare module "vm" {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
-        cachedDataProduced?: boolean | undefined;
+        cachedDataProduced?: boolean;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
          * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
-        cachedDataRejected?: boolean | undefined;
-        cachedData?: Buffer | undefined;
+        cachedDataRejected?: boolean;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.
@@ -412,7 +396,7 @@ declare module "vm" {
          * ```
          * @since v19.1.0, v18.13.0
          */
-        sourceMapURL?: string | undefined;
+        sourceMapURL: string | undefined;
     }
     /**
      * If the given `contextObject` is an object, the `vm.createContext()` method will
@@ -622,11 +606,7 @@ declare module "vm" {
         code: string,
         params?: readonly string[],
         options?: CompileFunctionOptions,
-    ): Function & {
-        cachedData?: Script["cachedData"] | undefined;
-        cachedDataProduced?: Script["cachedDataProduced"] | undefined;
-        cachedDataRejected?: Script["cachedDataRejected"] | undefined;
-    };
+    ): Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">;
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.
@@ -683,10 +663,7 @@ declare module "vm" {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
-    interface ModuleEvaluateOptions {
-        timeout?: RunningScriptOptions["timeout"] | undefined;
-        breakOnSigint?: RunningScriptOptions["breakOnSigint"] | undefined;
-    }
+    interface ModuleEvaluateOptions extends Pick<RunningScriptOptions, "breakOnSigint" | "timeout"> {}
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
@@ -700,14 +677,12 @@ declare module "vm" {
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script` class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
-     * defined in the ECMAScript
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`
+     * class that closely mirrors [Module Record](https://tc39.es/ecma262/#sec-abstract-module-records)s as defined in the ECMAScript
      * specification.
      *
      * Unlike `vm.Script` however, every `vm.Module` object is bound to a context from
-     * its creation. Operations on `vm.Module` objects are intrinsically asynchronous,
-     * in contrast with the synchronous nature of `vm.Script` objects. The use of
-     * 'async' functions can help with manipulating `vm.Module` objects.
+     * its creation.
      *
      * Using a `vm.Module` object requires three distinct steps: creation/parsing,
      * linking, and evaluation. These three steps are illustrated in the following
@@ -735,7 +710,7 @@ declare module "vm" {
      * // Here, we attempt to obtain the default export from the module "foo", and
      * // put it into local binding "secret".
      *
-     * const bar = new vm.SourceTextModule(`
+     * const rootModule = new vm.SourceTextModule(`
      *   import s from 'foo';
      *   s;
      *   print(s);
@@ -745,39 +720,48 @@ declare module "vm" {
      * //
      * // "Link" the imported dependencies of this Module to it.
      * //
-     * // The provided linking callback (the "linker") accepts two arguments: the
-     * // parent module (`bar` in this case) and the string that is the specifier of
-     * // the imported module. The callback is expected to return a Module that
-     * // corresponds to the provided specifier, with certain requirements documented
-     * // in `module.link()`.
-     * //
-     * // If linking has not started for the returned Module, the same linker
-     * // callback will be called on the returned Module.
+     * // Obtain the requested dependencies of a SourceTextModule by
+     * // `sourceTextModule.moduleRequests` and resolve them.
      * //
      * // Even top-level Modules without dependencies must be explicitly linked. The
-     * // callback provided would never be called, however.
+     * // array passed to `sourceTextModule.linkRequests(modules)` can be
+     * // empty, however.
      * //
-     * // The link() method returns a Promise that will be resolved when all the
-     * // Promises returned by the linker resolve.
-     * //
-     * // Note: This is a contrived example in that the linker function creates a new
-     * // "foo" module every time it is called. In a full-fledged module system, a
-     * // cache would probably be used to avoid duplicated modules.
+     * // Note: This is a contrived example in that the resolveAndLinkDependencies
+     * // creates a new "foo" module every time it is called. In a full-fledged
+     * // module system, a cache would probably be used to avoid duplicated modules.
      *
-     * async function linker(specifier, referencingModule) {
-     *   if (specifier === 'foo') {
-     *     return new vm.SourceTextModule(`
-     *       // The "secret" variable refers to the global variable we added to
-     *       // "contextifiedObject" when creating the context.
-     *       export default secret;
-     *     `, { context: referencingModule.context });
+     * const moduleMap = new Map([
+     *   ['root', rootModule],
+     * ]);
      *
-     *     // Using `contextifiedObject` instead of `referencingModule.context`
-     *     // here would work as well.
-     *   }
-     *   throw new Error(`Unable to resolve dependency: ${specifier}`);
+     * function resolveAndLinkDependencies(module) {
+     *   const requestedModules = module.moduleRequests.map((request) => {
+     *     // In a full-fledged module system, the resolveAndLinkDependencies would
+     *     // resolve the module with the module cache key `[specifier, attributes]`.
+     *     // In this example, we just use the specifier as the key.
+     *     const specifier = request.specifier;
+     *
+     *     let requestedModule = moduleMap.get(specifier);
+     *     if (requestedModule === undefined) {
+     *       requestedModule = new vm.SourceTextModule(`
+     *         // The "secret" variable refers to the global variable we added to
+     *         // "contextifiedObject" when creating the context.
+     *         export default secret;
+     *       `, { context: referencingModule.context });
+     *       moduleMap.set(specifier, linkedModule);
+     *       // Resolve the dependencies of the new module as well.
+     *       resolveAndLinkDependencies(requestedModule);
+     *     }
+     *
+     *     return requestedModule;
+     *   });
+     *
+     *   module.linkRequests(requestedModules);
      * }
-     * await bar.link(linker);
+     *
+     * resolveAndLinkDependencies(rootModule);
+     * rootModule.instantiate();
      *
      * // Step 3
      * //
@@ -785,20 +769,12 @@ declare module "vm" {
      * // resolve after the module has finished evaluating.
      *
      * // Prints 42.
-     * await bar.evaluate();
+     * await rootModule.evaluate();
      * ```
      * @since v13.0.0, v12.16.0
      * @experimental
      */
     class Module {
-        /**
-         * The specifiers of all dependencies of this module. The returned array is frozen
-         * to disallow any changes to it.
-         *
-         * Corresponds to the `[[RequestedModules]]` field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in
-         * the ECMAScript specification.
-         */
-        dependencySpecifiers: readonly string[];
         /**
          * If the `module.status` is `'errored'`, this property contains the exception
          * thrown by the module during evaluation. If the status is anything else,
@@ -863,6 +839,10 @@ declare module "vm" {
          * Link module dependencies. This method must be called before evaluation, and
          * can only be called once per module.
          *
+         * Use `sourceTextModule.linkRequests(modules)` and
+         * `sourceTextModule.instantiate()` to link modules either synchronously or
+         * asynchronously.
+         *
          * The function is expected to return a `Module` object or a `Promise` that
          * eventually resolves to a `Module` object. The returned `Module` must satisfy the
          * following two invariants:
@@ -893,19 +873,13 @@ declare module "vm" {
          */
         link(linker: ModuleLinker): Promise<void>;
     }
-    interface SourceTextModuleOptions {
+    interface SourceTextModuleOptions extends Pick<ScriptOptions, "cachedData" | "columnOffset" | "lineOffset"> {
         /**
          * String used in stack traces.
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
-        lineOffset?: BaseOptions["lineOffset"] | undefined;
-        columnOffset?: BaseOptions["columnOffset"] | undefined;
         /**
          * Called during evaluation of this module to initialize the `import.meta`.
          */
@@ -919,6 +893,25 @@ declare module "vm" {
         importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
     /**
+     * A `ModuleRequest` represents the request to import a module with given import attributes and phase.
+     * @since 24.4.0
+     */
+    interface ModuleRequest {
+        /**
+         * The specifier of the requested module.
+         */
+        specifier: string;
+        /**
+         * The `"with"` value passed to the `WithClause` in a `ImportDeclaration`, or an empty object if no value was
+         * provided.
+         */
+        attributes: ImportAttributes;
+        /**
+         * The phase of the requested module (`"source"` or `"evaluation"`).
+         */
+        phase: ImportPhase;
+    }
+    /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
@@ -930,9 +923,163 @@ declare module "vm" {
     class SourceTextModule extends Module {
         /**
          * Creates a new `SourceTextModule` instance.
+         *
+         * Properties assigned to the `import.meta` object that are objects may
+         * allow the module to access information outside the specified `context`. Use
+         * `vm.runInContext()` to create objects in a specific context.
+         *
+         * ```js
+         * import vm from 'node:vm';
+         *
+         * const contextifiedObject = vm.createContext({ secret: 42 });
+         *
+         * const module = new vm.SourceTextModule(
+         *   'Object.getPrototypeOf(import.meta.prop).secret = secret;',
+         *   {
+         *     initializeImportMeta(meta) {
+         *       // Note: this object is created in the top context. As such,
+         *       // Object.getPrototypeOf(import.meta.prop) points to the
+         *       // Object.prototype in the top context rather than that in
+         *       // the contextified object.
+         *       meta.prop = {};
+         *     },
+         *   });
+         * // The module has an empty `moduleRequests` array.
+         * module.linkRequests([]);
+         * module.instantiate();
+         * await module.evaluate();
+         *
+         * // Now, Object.prototype.secret will be equal to 42.
+         * //
+         * // To fix this problem, replace
+         * //     meta.prop = {};
+         * // above with
+         * //     meta.prop = vm.runInContext('{}', contextifiedObject);
+         * ```
          * @param code JavaScript Module code to parse
          */
         constructor(code: string, options?: SourceTextModuleOptions);
+        /**
+         * @deprecated Use `sourceTextModule.moduleRequests` instead.
+         */
+        readonly dependencySpecifiers: readonly string[];
+        /**
+         * Iterates over the dependency graph and returns `true` if any module in its
+         * dependencies or this module itself contains top-level `await` expressions,
+         * otherwise returns `false`.
+         *
+         * The search may be slow if the graph is big enough.
+         *
+         * This requires the module to be instantiated first. If the module is not
+         * instantiated yet, an error will be thrown.
+         * @since v24.9.0
+         */
+        hasAsyncGraph(): boolean;
+        /**
+         * Returns whether the module itself contains any top-level `await` expressions.
+         *
+         * This corresponds to the field `[[HasTLA]]` in [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) in the
+         * ECMAScript specification.
+         * @since v24.9.0
+         */
+        hasTopLevelAwait(): boolean;
+        /**
+         * Instantiate the module with the linked requested modules.
+         *
+         * This resolves the imported bindings of the module, including re-exported
+         * binding names. When there are any bindings that cannot be resolved,
+         * an error would be thrown synchronously.
+         *
+         * If the requested modules include cyclic dependencies, the
+         * `sourceTextModule.linkRequests(modules)` method must be called on all
+         * modules in the cycle before calling this method.
+         * @since v24.8.0
+         */
+        instantiate(): void;
+        /**
+         * Link module dependencies. This method must be called before evaluation, and
+         * can only be called once per module.
+         *
+         * The order of the module instances in the `modules` array should correspond to the order of
+         * `sourceTextModule.moduleRequests` being resolved. If two module requests have the same
+         * specifier and import attributes, they must be resolved with the same module instance or an
+         * `ERR_MODULE_LINK_MISMATCH` would be thrown. For example, when linking requests for this
+         * module:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import source Foo from 'foo';
+         * ```
+         *
+         * The `modules` array must contain two references to the same instance, because the two
+         * module requests are identical but in two phases.
+         *
+         * If the module has no dependencies, the `modules` array can be empty.
+         *
+         * Users can use `sourceTextModule.moduleRequests` to implement the host-defined
+         * [HostLoadImportedModule](https://tc39.es/ecma262/#sec-HostLoadImportedModule) abstract operation in the ECMAScript specification,
+         * and using `sourceTextModule.linkRequests()` to invoke specification defined
+         * [FinishLoadingImportedModule](https://tc39.es/ecma262/#sec-FinishLoadingImportedModule), on the module with all dependencies in a batch.
+         *
+         * It's up to the creator of the `SourceTextModule` to determine if the resolution
+         * of the dependencies is synchronous or asynchronous.
+         *
+         * After each module in the `modules` array is linked, call
+         * `sourceTextModule.instantiate()`.
+         * @since v24.8.0
+         * @param modules Array of `vm.Module` objects that this module depends on.
+         * The order of the modules in the array is the order of
+         * `sourceTextModule.moduleRequests`.
+         */
+        linkRequests(modules: readonly Module[]): void;
+        /**
+         * The requested import dependencies of this module. The returned array is frozen
+         * to disallow any changes to it.
+         *
+         * For example, given a source text:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import fooAlias from 'foo';
+         * import bar from './bar.js';
+         * import withAttrs from '../with-attrs.ts' with { arbitraryAttr: 'attr-val' };
+         * import source Module from 'wasm-mod.wasm';
+         * ```
+         *
+         * The value of the `sourceTextModule.moduleRequests` will be:
+         *
+         * ```js
+         * [
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: './bar.js',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: '../with-attrs.ts',
+         *     attributes: { arbitraryAttr: 'attr-val' },
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'wasm-mod.wasm',
+         *     attributes: {},
+         *     phase: 'source',
+         *   },
+         * ];
+         * ```
+         * @since v24.4.0
+         */
+        readonly moduleRequests: readonly ModuleRequest[];
     }
     interface SyntheticModuleOptions {
         /**
@@ -980,9 +1127,7 @@ declare module "vm" {
             options?: SyntheticModuleOptions,
         );
         /**
-         * This method is used after the module is linked to set the values of exports. If
-         * it is called before the module is linked, an `ERR_VM_MODULE_STATUS` error
-         * will be thrown.
+         * This method sets the module export binding slots with the given value.
          *
          * ```js
          * import vm from 'node:vm';
@@ -991,7 +1136,6 @@ declare module "vm" {
          *   m.setExport('x', 1);
          * });
          *
-         * await m.link(() => {});
          * await m.evaluate();
          *
          * assert.strictEqual(m.namespace.x, 1);

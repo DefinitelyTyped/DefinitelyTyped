@@ -76,36 +76,6 @@ declare class DragControls extends Controls<DragControlsEventMap> {
      * @param domElement The HTML element used for event listeners. (optional)
      */
     constructor(objects: Object3D[], camera: Camera, domElement?: HTMLElement | null);
-
-    /**
-     * Returns the internal {@link Raycaster} instance that is used for intersection tests.
-     * @deprecated getRaycaster() has been deprecated. Use controls.raycaster instead.
-     */
-    getRaycaster(): Raycaster;
-
-    /**
-     * Sets an array of draggable objects by overwriting the existing one.
-     * @deprecated setObjects() has been deprecated. Use controls.objects instead.
-     */
-    setObjects(objects: readonly Object3D[]): void;
-
-    /**
-     * Returns the array of draggable objects.
-     * @deprecated getObjects() has been deprecated. Use controls.objects instead.
-     */
-    getObjects(): Object3D[];
-
-    /**
-     * Adds the event listeners of the controls.
-     * @deprecated activate() has been renamed to connect().
-     */
-    activate(): void;
-
-    /**
-     * Removes the event listeners of the controls.
-     * @deprecated deactivate() has been renamed to disconnect().
-     */
-    deactivate(): void;
 }
 
 export { DragControls };

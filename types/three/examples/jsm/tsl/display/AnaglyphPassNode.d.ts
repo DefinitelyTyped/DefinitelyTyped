@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, Scene } from "three/webgpu";
 import StereoCompositePassNode from "./StereoCompositePassNode.js";
 
@@ -10,4 +9,4 @@ declare class AnaglyphPassNode extends StereoCompositePassNode {
 
 export default AnaglyphPassNode;
 
-export const anaglyphPass: (scene: Scene, camera: Camera) => ShaderNodeObject<AnaglyphPassNode>;
+export const anaglyphPass: (scene: Scene, camera: Camera) => AnaglyphPassNode;

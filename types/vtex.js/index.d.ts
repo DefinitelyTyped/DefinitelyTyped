@@ -129,14 +129,14 @@ declare namespace vtexjs {
     }
 
     interface OrderFormMarketingData {
-        utmCampaign?: string;
-        utmMedium?: string;
-        utmSource?: string;
-        utmiCampaign?: string;
-        utmiPart?: string;
-        utmipage?: string;
-        marketingTags?: string;
-        coupon?: string;
+        utmCampaign: string | null;
+        utmMedium: string | null;
+        utmSource: string | null;
+        utmiCampaign: string | null;
+        utmiPart: string | null;
+        utmipage: string | null;
+        marketingTags: string[];
+        coupon: string | null;
     }
 
     interface CheckoutAddress {

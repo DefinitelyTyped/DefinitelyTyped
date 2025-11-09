@@ -80,5 +80,6 @@ declare class Geometries extends DataMap<{
      * @return {?BufferAttribute} The index. Returns `null` for non-indexed geometries.
      */
     getIndex(renderObject: RenderObject): BufferAttribute | null;
+    dispose(): void;
 }
 export default Geometries;

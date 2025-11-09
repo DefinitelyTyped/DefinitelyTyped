@@ -7,6 +7,14 @@
     "projects": [
         "https://wicg.github.io/speech-api/"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.9": {
+            "*": [
+                "ts5.9/*"
+            ]
+        }
+    },
     "devDependencies": {
         "@types/dom-speech-recognition": "workspace:."
     },

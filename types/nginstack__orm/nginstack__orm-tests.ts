@@ -1,5 +1,5 @@
-import * as DataSet from "@nginstack/engine/lib/dataset/DataSet";
-import * as Entity from "@nginstack/orm/lib/Entity";
+import DataSet from "@nginstack/engine/lib/dataset/DataSet";
+import Entity from "@nginstack/orm/lib/Entity";
 
 const entity = new Entity(1, new DataSet()); // $ExpectType Entity
 

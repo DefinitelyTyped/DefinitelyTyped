@@ -1,5 +1,5 @@
 import * as itowns from "itowns";
-import * as proj4 from "proj4";
+import proj4 from "proj4";
 import * as THREE from "three";
 
 // Define crs projection that we will use (taken from https://epsg.io/3946, Proj4js section)

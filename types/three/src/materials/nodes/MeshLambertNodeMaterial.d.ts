@@ -34,6 +34,7 @@ declare class MeshLambertNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshLambertNodeMaterial: boolean;
+    setValues(values?: MeshLambertNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link BasicEnvironmentNode}
      * to implement the default environment mapping.

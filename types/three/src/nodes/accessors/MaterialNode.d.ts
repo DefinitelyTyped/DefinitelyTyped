@@ -1,7 +1,6 @@
 import { Vector2 } from "../../math/Vector2.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type MaterialNodeScope =
     | typeof MaterialNode.ALPHA_TEST
@@ -87,43 +86,43 @@ export default class MaterialNode extends Node {
     constructor(scope?: MaterialNodeScope);
 }
 
-export const materialAlphaTest: ShaderNodeObject<MaterialNode>;
-export const materialColor: ShaderNodeObject<MaterialNode>;
-export const materialShininess: ShaderNodeObject<MaterialNode>;
-export const materialEmissive: ShaderNodeObject<MaterialNode>;
-export const materialOpacity: ShaderNodeObject<MaterialNode>;
-export const materialSpecular: ShaderNodeObject<MaterialNode>;
+export const materialAlphaTest: MaterialNode;
+export const materialColor: MaterialNode;
+export const materialShininess: MaterialNode;
+export const materialEmissive: MaterialNode;
+export const materialOpacity: MaterialNode;
+export const materialSpecular: MaterialNode;
 
-export const materialSpecularIntensity: ShaderNodeObject<MaterialNode>;
-export const materialSpecularColor: ShaderNodeObject<MaterialNode>;
+export const materialSpecularIntensity: MaterialNode;
+export const materialSpecularColor: MaterialNode;
 
-export const materialSpecularStrength: ShaderNodeObject<MaterialNode>;
-export const materialReflectivity: ShaderNodeObject<MaterialNode>;
-export const materialRoughness: ShaderNodeObject<MaterialNode>;
-export const materialMetalness: ShaderNodeObject<MaterialNode>;
-export const materialNormal: ShaderNodeObject<Node>;
-export const materialClearcoat: ShaderNodeObject<MaterialNode>;
-export const materialClearcoatRoughness: ShaderNodeObject<MaterialNode>;
-export const materialClearcoatNormal: ShaderNodeObject<Node>;
-export const materialRotation: ShaderNodeObject<MaterialNode>;
-export const materialSheen: ShaderNodeObject<MaterialNode>;
-export const materialSheenRoughness: ShaderNodeObject<MaterialNode>;
-export const materialAnisotropy: ShaderNodeObject<MaterialNode>;
-export const materialIridescence: ShaderNodeObject<MaterialNode>;
-export const materialIridescenceIOR: ShaderNodeObject<MaterialNode>;
-export const materialIridescenceThickness: ShaderNodeObject<MaterialNode>;
-export const materialTransmission: ShaderNodeObject<MaterialNode>;
-export const materialThickness: ShaderNodeObject<MaterialNode>;
-export const materialIOR: ShaderNodeObject<MaterialNode>;
-export const materialAttenuationDistance: ShaderNodeObject<MaterialNode>;
-export const materialAttenuationColor: ShaderNodeObject<MaterialNode>;
-export const materialLineScale: ShaderNodeObject<MaterialNode>;
-export const materialLineDashSize: ShaderNodeObject<MaterialNode>;
-export const materialLineGapSize: ShaderNodeObject<MaterialNode>;
-export const materialLineWidth: ShaderNodeObject<MaterialNode>;
-export const materialLineDashOffset: ShaderNodeObject<MaterialNode>;
-export const materialPointSize: ShaderNodeObject<MaterialNode>;
-export const materialDispersion: ShaderNodeObject<MaterialNode>;
-export const materialLightMap: ShaderNodeObject<MaterialNode>;
-export const materialAO: ShaderNodeObject<MaterialNode>;
-export const materialAnisotropyVector: ShaderNodeObject<UniformNode<Vector2>>;
+export const materialSpecularStrength: MaterialNode;
+export const materialReflectivity: MaterialNode;
+export const materialRoughness: MaterialNode;
+export const materialMetalness: MaterialNode;
+export const materialNormal: Node;
+export const materialClearcoat: MaterialNode;
+export const materialClearcoatRoughness: MaterialNode;
+export const materialClearcoatNormal: Node;
+export const materialRotation: MaterialNode;
+export const materialSheen: MaterialNode;
+export const materialSheenRoughness: MaterialNode;
+export const materialAnisotropy: MaterialNode;
+export const materialIridescence: MaterialNode;
+export const materialIridescenceIOR: MaterialNode;
+export const materialIridescenceThickness: MaterialNode;
+export const materialTransmission: MaterialNode;
+export const materialThickness: MaterialNode;
+export const materialIOR: MaterialNode;
+export const materialAttenuationDistance: MaterialNode;
+export const materialAttenuationColor: MaterialNode;
+export const materialLineScale: MaterialNode;
+export const materialLineDashSize: MaterialNode;
+export const materialLineGapSize: MaterialNode;
+export const materialLineWidth: MaterialNode;
+export const materialLineDashOffset: MaterialNode;
+export const materialPointSize: MaterialNode;
+export const materialDispersion: MaterialNode;
+export const materialLightMap: MaterialNode;
+export const materialAO: MaterialNode;
+export const materialAnisotropyVector: UniformNode<Vector2>;

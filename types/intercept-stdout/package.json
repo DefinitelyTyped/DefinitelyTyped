@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/sfarthin/intercept-stdout"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/intercept-stdout": "workspace:."
     },

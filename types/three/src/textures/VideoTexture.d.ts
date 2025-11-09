@@ -27,7 +27,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/VideoTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/VideoTexture.js | Source}
  */
-export class VideoTexture extends Texture {
+export class VideoTexture<TVideo = HTMLVideoElement> extends Texture<TVideo> {
     /**
      * Create a new instance of {@link VideoTexture}
      * @param video The video element to use as the texture.
@@ -41,7 +41,7 @@ export class VideoTexture extends Texture {
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      */
     constructor(
-        video: HTMLVideoElement,
+        video: TVideo,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,

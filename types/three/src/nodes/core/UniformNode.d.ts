@@ -27,7 +27,7 @@ declare class UniformNode<TValue> extends InputNode<TValue> {
      * @param {string} name - The name of the uniform.
      * @return {UniformNode} A reference to this node.
      */
-    setName(name: string): this;
+    setName: (name: string) => this;
     /**
      * Sets the {@link UniformNode#name} property.
      *
@@ -35,7 +35,7 @@ declare class UniformNode<TValue> extends InputNode<TValue> {
      * @param {string} name - The name of the uniform.
      * @return {UniformNode} A reference to this node.
      */
-    label(name: string): this;
+    label: (name: string) => this;
     /**
      * Sets the {@link UniformNode#groupNode} property.
      *
@@ -67,11 +67,8 @@ export default UniformNode;
  *
  * @tsl
  * @function
- * @param {any} arg1 - The value of this node. Usually a JS primitive or three.js object (vector, matrix, color, texture).
- * @param {string} [arg2] - The node type. If no explicit type is defined, the node tries to derive the type from its value.
+ * @param {any|string} value - The value of this uniform or your type. Usually a JS primitive or three.js object (vector, matrix, color, texture).
+ * @param {string} [type] - The node type. If no explicit type is defined, the node tries to derive the type from its value.
  * @returns {UniformNode}
  */
-export declare const uniform: <TValue>(
-    arg1: InputNode<TValue> | TValue,
-    arg2?: Node | string,
-) => import("../tsl/TSLCore.js").ShaderNodeObject<UniformNode<TValue>>;
+export declare const uniform: <TValue>(value: InputNode<TValue> | TValue, type?: Node | string) => UniformNode<TValue>;

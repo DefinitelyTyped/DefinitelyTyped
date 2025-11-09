@@ -103,7 +103,9 @@ viewer = OpenSeadragon({
 });
 
 declare const buttonElement: Element;
+declare const toolbarElement: Element;
 viewer = OpenSeadragon({
+    toolbar: "toolbar-id",
     zoomInButton: "zoomInButton-id",
     zoomOutButton: "zoomOutButton-id",
     homeButton: "homeButton-id",
@@ -114,6 +116,7 @@ viewer = OpenSeadragon({
     nextButton: "nextButton-id",
 });
 viewer = OpenSeadragon({
+    toolbar: toolbarElement,
     zoomInButton: buttonElement,
     zoomOutButton: buttonElement,
     homeButton: buttonElement,
@@ -196,3 +199,46 @@ viewer.addTiledImage({
     },
     flipped: true,
 });
+
+// Drawer as constructor
+const canvasDrawer = new OpenSeadragon.CanvasDrawer({
+    viewer,
+    viewport: viewer.viewport,
+    element: document.createElement("div"),
+    debugGridColor: 0xff0000,
+});
+
+// Using drawer array
+const viewer6 = new OpenSeadragon.Viewer({
+    drawer: ["webgl", OpenSeadragon.CanvasDrawer, "html"],
+});
+
+const viewer7 = new OpenSeadragon.Viewer({
+    // @ts-expect-error invalid drawer string
+    drawer: "invalid-drawer",
+});
+
+const viewer8 = new OpenSeadragon.Viewer({ id: "osd" });
+
+// Invalid drawer
+// @ts-expect-error
+viewer8.drawer = "invalid";
+
+// Old events still work
+viewer8.addHandler("open", e => {
+    console.log("Opened"); // e: {}
+});
+
+// New event added in typedef
+viewer8.addHandler("after-resize", e => {
+    console.log(e.newContainerSize.x, e.newContainerSize.y);
+});
+
+// @ts-expect-error invalid event name should fail
+viewer8.addHandler("non-existent-event", e => {});
+
+// removeHandler works with new event too
+viewer8.removeHandler("after-resize", e => {});
+
+// raiseEvent works too
+viewer8.raiseEvent("after-resize", { width: 800, height: 600 });

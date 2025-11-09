@@ -3,7 +3,7 @@
 // This file was auto-generated. Please do not edit it.
 
 /// <reference path="./lib/addons/p5.sound.d.ts" />
-import * as p5 from './index';
+import p5 = require("./index");
 declare global {
     /**
      *   Creates a screen reader accessible description for

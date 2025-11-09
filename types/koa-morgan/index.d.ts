@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
-import * as Koa from "koa";
-import * as originalMorgan from "morgan";
+import Koa = require("koa");
+import originalMorgan = require("morgan");
 
 declare namespace morgan {
     interface FormatFn {

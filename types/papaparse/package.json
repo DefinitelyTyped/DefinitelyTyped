@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/papaparse",
-    "version": "5.3.9999",
+    "version": "5.5.9999",
     "projects": [
         "https://github.com/mholt/PapaParse"
     ],

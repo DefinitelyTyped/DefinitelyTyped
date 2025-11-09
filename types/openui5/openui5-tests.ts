@@ -40,6 +40,8 @@ import ObjectMarker from "sap/m/ObjectMarker";
 import Theming from "sap/ui/core/Theming";
 import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
 import List from "sap/m/List";
+import FeedInput from "sap/m/FeedInput";
+import Engine from "sap/m/p13n/Engine";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -273,3 +275,12 @@ const caia = new ColumnAIAction();
 new List().attachItemActionPress((oEvent) => {
     oEvent.getParameters().listItem;
 });
+
+// 1.139.0
+new FeedInput().addAction(link);
+
+// 1.140.0
+const p13nEngine = new Engine();
+// version 1.141.0 added - tests are not required as the type definitions are generated and the generator is sufficiently tested
+
+// version 1.142.0 added - tests are not required as the type definitions are generated and the generator is sufficiently tested

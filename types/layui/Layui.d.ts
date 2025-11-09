@@ -210,6 +210,12 @@ interface Layui extends Layui.GlobalModules {
      */
     extend(options: { [index: string]: string }): Layui;
     /**
+     * 扩展任意外部模块
+     * @param options
+     * @since 2.11.0
+     */
+    extend(options: { [index: string]: { src: string; api: string } }): Layui;
+    /**
      * 用于获取模块对应的 define 回调函数
      * @param modName 模块名
      * @see https://layui.dev/docs/2/base.html#api
@@ -301,8 +307,14 @@ interface Layui extends Layui.GlobalModules {
      * 获得 `location.hash` 路由结构
      * @param hash  默认 location.hash
      * @see https://layui.dev/docs/2/base.html#api
+     * @deprecated 2.11.0 已废弃，使用 {@link Layui.hash|hash}
      */
     router(hash?: string): Layui.UrlHash;
+    /**
+     * @param hash 默认 location.hash
+     * @since 2.11.0
+     */
+    hash(hash?: string): Layui.UrlHash;
     /**
      *  将数组中的对象按某个成员重新对该数组排序
      * @param obj 有比较key的对象数组
@@ -325,7 +337,7 @@ interface Layui extends Layui.GlobalModules {
     url(href?: string): {
         hash: Layui.UrlHash;
         pathname: string[];
-        search: object;
+        search: Layui.PlainObject;
     };
     /**
      * 使用特定模块

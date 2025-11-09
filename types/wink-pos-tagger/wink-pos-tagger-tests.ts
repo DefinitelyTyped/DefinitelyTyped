@@ -1,5 +1,5 @@
-import * as Tagger from "wink-pos-tagger";
-import * as Tokenizer from "wink-tokenizer";
+import Tagger from "wink-pos-tagger";
+import Tokenizer from "wink-tokenizer";
 
 const myTagger = new Tagger();
 const myTokenizer = new Tokenizer();

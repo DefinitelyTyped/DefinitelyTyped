@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 
 declare namespace Base {
     interface CallbackFunction {

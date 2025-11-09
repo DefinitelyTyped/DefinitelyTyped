@@ -1,5 +1,5 @@
 import required = require("html-minifier-next");
-import imported, { MinifierOptions, minify } from "html-minifier-next";
+import imported, { type MinifierOptions, minify } from "html-minifier-next";
 import * as namespaced from "html-minifier-next";
 
 // $ExpectType Promise<string>
@@ -55,7 +55,6 @@ const options: MinifierOptions = {
     useShortDoctype: true,
 };
 
-const optionsImported: imported.MinifierOptions = options;
 const optionsRequired: required.MinifierOptions = options;
 const optionsNamespaced: namespaced.MinifierOptions = options;
 

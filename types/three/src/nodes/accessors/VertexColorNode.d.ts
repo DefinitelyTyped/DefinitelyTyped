@@ -1,5 +1,4 @@
 import AttributeNode from "../core/AttributeNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class VertexColorNode extends AttributeNode {
     readonly isVertexColorNode: true;
@@ -9,4 +8,4 @@ export default class VertexColorNode extends AttributeNode {
     constructor(index: number);
 }
 
-export const vertexColor: (index?: number) => ShaderNodeObject<VertexColorNode>;
+export const vertexColor: (index?: number) => VertexColorNode;

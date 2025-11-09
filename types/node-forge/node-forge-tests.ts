@@ -29,6 +29,7 @@ let privateKeyFromAsn1 = forge.pki.privateKeyFromAsn1(privateKeyAsn1);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
+// explicitly cast as PrivateKey to ensure expected typings are accepted
 cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 let certPem = forge.pki.certificateToPem(cert);

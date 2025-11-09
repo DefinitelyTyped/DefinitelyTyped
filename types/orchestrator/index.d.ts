@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import * as events from "events";
-import * as Q from "q";
-import * as stream from "stream";
+import events = require("events");
+import Q = require("q");
+import stream = require("stream");
 
 /** A module for sequencing and executing tasks and dependencies in maximum concurrency
  */

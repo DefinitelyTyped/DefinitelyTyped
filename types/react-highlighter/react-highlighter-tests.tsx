@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Highlight from "react-highlighter";
+import Highlight from "react-highlighter";
 
 export class ReactHolderTest extends React.Component {
     render() {

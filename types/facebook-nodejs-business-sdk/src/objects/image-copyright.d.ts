@@ -22,6 +22,7 @@ export default class ImageCopyright extends AbstractCrudObject {
         update_time: "update_time";
     }>;
     static get GeoOwnership(): Readonly<{
+        ac: "AC";
         ad: "AD";
         ae: "AE";
         af: "AF";

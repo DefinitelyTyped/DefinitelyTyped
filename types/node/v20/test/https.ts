@@ -19,6 +19,18 @@ import * as url from "node:url";
 
     agent = https.globalAgent;
 
+    class CustomAgent extends https.Agent {
+        createConnection(options: https.RequestOptions, callback?: (err: Error | null, socket: net.Socket) => void) {
+            const socket = new net.Socket(options);
+            callback?.(null, socket);
+            return socket;
+        }
+        getName(options: https.RequestOptions) {
+            return `${super.getName(options)}:${options?.ca}:${options?.cert}:${options?.key}`;
+        }
+    }
+    agent = new CustomAgent();
+
     let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
     sockets = agent.freeSockets;
 
@@ -308,7 +320,7 @@ import * as url from "node:url";
     let _buffer: Buffer = Buffer.from("");
     let _err = new Error();
     let _boolean = true;
-    let sessionCallback = (err: Error, resp: Buffer) => {};
+    let sessionCallback = (err: Error | null, resp: Buffer) => {};
     let ocspRequestCallback = (err: Error | null, resp: Buffer) => {};
 
     server = server.addListener("keylog", (ln, tlsSocket) => {

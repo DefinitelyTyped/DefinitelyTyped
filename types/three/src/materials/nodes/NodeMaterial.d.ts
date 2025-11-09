@@ -4,7 +4,6 @@ import MRTNode from "../../nodes/core/MRTNode.js";
 import Node from "../../nodes/core/Node.js";
 import NodeBuilder from "../../nodes/core/NodeBuilder.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
-import { ShaderNodeObject } from "../../nodes/tsl/TSLCore.js";
 import { MapColorPropertiesToColorRepresentations, Material, MaterialParameters } from "../Material.js";
 import NodeMaterialObserver from "./manager/NodeMaterialObserver.js";
 
@@ -105,7 +104,7 @@ export interface NodeMaterialNodeProperties {
      * and `alphaMap` properties. This node property allows to overwrite the default
      * and define the opacity with a node instead.
      *
-     * If you don't want to overwrite the normals but modify the existing
+     * If you don't want to overwrite the opacity but modify the existing
      * value instead, use {@link materialOpacity}.
      *
      * @default null
@@ -291,6 +290,7 @@ declare class NodeMaterial extends Material {
      * @default true
      */
     readonly isNodeMaterial: boolean;
+    setValues(values?: NodeMaterialParameters): void;
     /**
      * Builds this material with the given node builder.
      *
@@ -384,7 +384,7 @@ declare class NodeMaterial extends Material {
      *
      * @return {Node<vec3>} The normal node.
      */
-    setupNormal(): ShaderNodeObject<Node>;
+    setupNormal(): Node;
     /**
      * Setups the environment node from the material.
      *

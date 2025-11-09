@@ -11,7 +11,9 @@ export default class AdPromotedObject extends AbstractCrudObject {
         custom_conversion_id: "custom_conversion_id";
         custom_event_str: "custom_event_str";
         custom_event_type: "custom_event_type";
+        dataset_split_id: "dataset_split_id";
         event_id: "event_id";
+        full_funnel_objective: "full_funnel_objective";
         fundraiser_campaign_id: "fundraiser_campaign_id";
         lead_ads_custom_event_str: "lead_ads_custom_event_str";
         lead_ads_custom_event_type: "lead_ads_custom_event_type";
@@ -19,6 +21,7 @@ export default class AdPromotedObject extends AbstractCrudObject {
         lead_ads_offsite_conversion_type: "lead_ads_offsite_conversion_type";
         mcme_conversion_id: "mcme_conversion_id";
         object_store_url: "object_store_url";
+        object_store_urls: "object_store_urls";
         offer_id: "offer_id";
         offline_conversion_data_set_id: "offline_conversion_data_set_id";
         offsite_conversion_event_id: "offsite_conversion_event_id";
@@ -33,9 +36,11 @@ export default class AdPromotedObject extends AbstractCrudObject {
         product_item_id: "product_item_id";
         product_set: "product_set";
         product_set_id: "product_set_id";
+        product_set_optimization: "product_set_optimization";
         retention_days: "retention_days";
         value_semantic_type: "value_semantic_type";
         variation: "variation";
+        whats_app_business_phone_number_id: "whats_app_business_phone_number_id";
         whatsapp_phone_number: "whatsapp_phone_number";
     }>;
     static get CustomEventType(): Readonly<{
@@ -68,6 +73,29 @@ export default class AdPromotedObject extends AbstractCrudObject {
         submit_application: "SUBMIT_APPLICATION";
         subscribe: "SUBSCRIBE";
         tutorial_completion: "TUTORIAL_COMPLETION";
+    }>;
+    static get FullFunnelObjective(): Readonly<{
+        app_installs: "APP_INSTALLS";
+        brand_awareness: "BRAND_AWARENESS";
+        event_responses: "EVENT_RESPONSES";
+        lead_generation: "LEAD_GENERATION";
+        link_clicks: "LINK_CLICKS";
+        local_awareness: "LOCAL_AWARENESS";
+        messages: "MESSAGES";
+        offer_claims: "OFFER_CLAIMS";
+        outcome_app_promotion: "OUTCOME_APP_PROMOTION";
+        outcome_awareness: "OUTCOME_AWARENESS";
+        outcome_engagement: "OUTCOME_ENGAGEMENT";
+        outcome_leads: "OUTCOME_LEADS";
+        outcome_sales: "OUTCOME_SALES";
+        outcome_traffic: "OUTCOME_TRAFFIC";
+        page_likes: "PAGE_LIKES";
+        post_engagement: "POST_ENGAGEMENT";
+        product_catalog_sales: "PRODUCT_CATALOG_SALES";
+        reach: "REACH";
+        store_visits: "STORE_VISITS";
+        video_views: "VIDEO_VIEWS";
+        website_conversions: "WEBSITE_CONVERSIONS";
     }>;
     static get LeadAdsCustomEventType(): Readonly<{
         achievement_unlocked: "ACHIEVEMENT_UNLOCKED";

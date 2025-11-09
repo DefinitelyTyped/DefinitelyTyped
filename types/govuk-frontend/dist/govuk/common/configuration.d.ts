@@ -1,4 +1,5 @@
 import { Component } from "../component.js";
+import { type CompatibleClass, type Config, type CreateAllOptions, type OnErrorCallback } from "../init.js";
 
 /**
  * Normalise string
@@ -44,6 +45,25 @@ export function normaliseDataset<
     dataset: DOMStringMap,
 ): ObjectNested;
 
+/**
+ * Normalise options passed to `initAll` or `createAll`
+ *
+ * @internal
+ * @template {CompatibleClass} ComponentClass
+ * @param {Config | CreateAllOptions<ComponentClass> | OnErrorCallback<ComponentClass> | Element | Document | null} [scopeOrOptions] - Scope of the document to search within, initialisation options or error callback function
+ * @returns {CreateAllOptions<ComponentClass>} Normalised options
+ */
+export function normaliseOptions<
+    ComponentClass extends CompatibleClass,
+>(
+    scopeOrOptions?:
+        | Config
+        | CreateAllOptions<ComponentClass>
+        | OnErrorCallback<ComponentClass>
+        | Element
+        | Document
+        | null,
+): CreateAllOptions<ComponentClass>;
 /**
  * Config merging function
  *

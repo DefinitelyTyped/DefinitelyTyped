@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as passport from "passport";
-import * as PassportTwitterToken from "passport-twitter-token";
+import PassportTwitterToken from "passport-twitter-token";
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {

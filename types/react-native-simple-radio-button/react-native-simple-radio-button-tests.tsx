@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from "react-native-simple-radio-button";
 
 const data = [
