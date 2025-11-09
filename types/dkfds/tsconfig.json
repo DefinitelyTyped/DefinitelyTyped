@@ -3,9 +3,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "lib": ["es6", "dom"],
+        "module": "commonjs"
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "dkfds-tests.ts"
     ]
 }
