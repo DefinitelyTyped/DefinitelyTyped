@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Camera, Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class SSRNode extends TempNode {
@@ -30,9 +30,9 @@ declare class SSRNode extends TempNode {
 export default SSRNode;
 
 export const ssr: (
-    colorNode: NodeRepresentation,
-    depthNode: NodeRepresentation,
-    normalNode: NodeRepresentation,
-    metalnessNode: NodeRepresentation,
+    colorNode: Node,
+    depthNode: Node,
+    normalNode: Node,
+    metalnessNode: Node,
     camera: Camera,
 ) => ShaderNodeObject<SSRNode>;

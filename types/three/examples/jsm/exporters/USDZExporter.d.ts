@@ -5,6 +5,7 @@ import * as WebGPUTextureUtils from "../utils/WebGPUTextureUtils.js";
 export interface USDZExporterOptions {
     ar?: { anchoring: { type: "plane" }; planeAnchoring: { alignment: "horizontal" | "vertical" | "any" } } | undefined;
     includeAnchoringProperties?: boolean | undefined;
+    onlyVisible?: boolean | undefined;
     quickLookCompatible?: boolean | undefined;
     maxTextureSize?: number | undefined;
 }

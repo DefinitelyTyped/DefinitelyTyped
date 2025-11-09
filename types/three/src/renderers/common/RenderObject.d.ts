@@ -53,7 +53,14 @@ declare class RenderObject {
         count: number;
     } | null;
     attributes: Array<BufferAttribute | InterleavedBufferAttribute> | null;
+    attributesId: {
+        [attributeName: string]: number;
+    } | null;
     pipeline: RenderPipeline | null;
+    group: {
+        start: number;
+        count: number;
+    } | null;
     vertexBuffers: Array<BufferAttribute | InterleavedBuffer> | null;
     drawParams: {
         vertexCount: number;
@@ -64,14 +71,15 @@ declare class RenderObject {
     bundle: BundleGroup | null;
     clippingContext: ClippingContext | null;
     clippingContextCacheKey: string;
-    initialNodesCacheKey: string;
-    initialCacheKey: string;
+    initialNodesCacheKey: number;
+    initialCacheKey: number;
     _nodeBuilderState: NodeBuilderState | null;
     _bindings: BindGroup[] | null;
     _monitor: NodeMaterialObserver | null;
     onDispose: (() => void) | null;
     readonly isRenderObject: true;
     onMaterialDispose: () => void;
+    onGeometryDispose: () => void;
     /**
      * Constructs a new render object.
      *

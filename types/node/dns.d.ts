@@ -250,6 +250,9 @@ declare module "dns" {
         contactemail?: string | undefined;
         contactphone?: string | undefined;
     }
+    export interface AnyCaaRecord extends CaaRecord {
+        type: "CAA";
+    }
     export interface MxRecord {
         priority: number;
         exchange: string;
@@ -289,6 +292,15 @@ declare module "dns" {
     export interface AnySrvRecord extends SrvRecord {
         type: "SRV";
     }
+    export interface TlsaRecord {
+        certUsage: number;
+        selector: number;
+        match: number;
+        data: ArrayBuffer;
+    }
+    export interface AnyTlsaRecord extends TlsaRecord {
+        type: "TLSA";
+    }
     export interface AnyTxtRecord {
         type: "TXT";
         entries: string[];
@@ -308,6 +320,7 @@ declare module "dns" {
     export type AnyRecord =
         | AnyARecord
         | AnyAaaaRecord
+        | AnyCaaRecord
         | AnyCnameRecord
         | AnyMxRecord
         | AnyNaptrRecord
@@ -315,6 +328,7 @@ declare module "dns" {
         | AnyPtrRecord
         | AnySoaRecord
         | AnySrvRecord
+        | AnyTlsaRecord
         | AnyTxtRecord;
     /**
      * Uses the DNS protocol to resolve a host name (e.g. `'nodejs.org'`) into an array
@@ -335,12 +349,7 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "A",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "AAAA",
+        rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR",
         callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
@@ -350,8 +359,8 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "CNAME",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        rrtype: "CAA",
+        callback: (err: NodeJS.ErrnoException | null, address: CaaRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -365,16 +374,6 @@ declare module "dns" {
     ): void;
     export function resolve(
         hostname: string,
-        rrtype: "NS",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
-        rrtype: "PTR",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
-    ): void;
-    export function resolve(
-        hostname: string,
         rrtype: "SOA",
         callback: (err: NodeJS.ErrnoException | null, addresses: SoaRecord) => void,
     ): void;
@@ -382,6 +381,11 @@ declare module "dns" {
         hostname: string,
         rrtype: "SRV",
         callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void,
+    ): void;
+    export function resolve(
+        hostname: string,
+        rrtype: "TLSA",
+        callback: (err: NodeJS.ErrnoException | null, addresses: TlsaRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
@@ -393,21 +397,42 @@ declare module "dns" {
         rrtype: string,
         callback: (
             err: NodeJS.ErrnoException | null,
-            addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[],
+            addresses:
+                | string[]
+                | CaaRecord[]
+                | MxRecord[]
+                | NaptrRecord[]
+                | SoaRecord
+                | SrvRecord[]
+                | TlsaRecord[]
+                | string[][]
+                | AnyRecord[],
         ) => void,
     ): void;
     export namespace resolve {
         function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
         function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+        function __promisify__(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
         function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
         function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+        function __promisify__(hostname: string, rrtype: "TLSA"): Promise<TlsaRecord[]>;
         function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
         function __promisify__(
             hostname: string,
             rrtype: string,
-        ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+        ): Promise<
+            | string[]
+            | CaaRecord[]
+            | MxRecord[]
+            | NaptrRecord[]
+            | SoaRecord
+            | SrvRecord[]
+            | TlsaRecord[]
+            | string[][]
+            | AnyRecord[]
+        >;
     }
     /**
      * Uses the DNS protocol to resolve a IPv4 addresses (`A` records) for the `hostname`. The `addresses` argument passed to the `callback` function
@@ -608,6 +633,33 @@ declare module "dns" {
     ): void;
     export namespace resolveSrv {
         function __promisify__(hostname: string): Promise<SrvRecord[]>;
+    }
+    /**
+     * Uses the DNS protocol to resolve certificate associations (`TLSA` records) for
+     * the `hostname`. The `records` argument passed to the `callback` function is an
+     * array of objects with these properties:
+     *
+     * * `certUsage`
+     * * `selector`
+     * * `match`
+     * * `data`
+     *
+     * ```js
+     * {
+     *   certUsage: 3,
+     *   selector: 1,
+     *   match: 1,
+     *   data: [ArrayBuffer]
+     * }
+     * ```
+     * @since v23.9.0, v22.15.0
+     */
+    export function resolveTlsa(
+        hostname: string,
+        callback: (err: NodeJS.ErrnoException | null, addresses: TlsaRecord[]) => void,
+    ): void;
+    export namespace resolveTlsa {
+        function __promisify__(hostname: string): Promise<TlsaRecord[]>;
     }
     /**
      * Uses the DNS protocol to resolve text queries (`TXT` records) for the `hostname`. The `records` argument passed to the `callback` function is a
@@ -838,6 +890,7 @@ declare module "dns" {
         resolvePtr: typeof resolvePtr;
         resolveSoa: typeof resolveSoa;
         resolveSrv: typeof resolveSrv;
+        resolveTlsa: typeof resolveTlsa;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
         /**

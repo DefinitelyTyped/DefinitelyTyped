@@ -2,7 +2,7 @@
  * The tests are based on tests from types/fixed-data-table
  */
 
-import { Cell, CellProps, Column, ColumnGroup, Plugins, Table } from "fixed-data-table-2";
+import { AttributesGetterReturn, Cell, CellProps, Column, ColumnGroup, Plugins, Table } from "fixed-data-table-2";
 import * as React from "react";
 
 // create your Table
@@ -325,5 +325,32 @@ class MyTable7 extends React.Component {
                 />
             </Table>
         );
+    }
+}
+
+// Attribute getters
+class MyTable8 extends React.Component {
+    render() {
+        return (
+            <Table
+                rowsCount={100}
+                rowHeight={50}
+                headerHeight={50}
+                width={1000}
+                height={500}
+                gridAttributesGetter={this.gridAttributesGetter}
+                rowAttributesGetter={this.rowAttributesGetter}
+            >
+                // add columns
+            </Table>
+        );
+    }
+
+    gridAttributesGetter(): AttributesGetterReturn {
+        return { className: "my-grid-class-name" };
+    }
+
+    rowAttributesGetter(index: number): AttributesGetterReturn {
+        return { className: "my-row-class-name", "data-row-index": index.toString() };
     }
 }

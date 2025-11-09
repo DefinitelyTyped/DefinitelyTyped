@@ -1,10 +1,10 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Camera, Node, Object3D, Scene, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 export interface OutlineNodeParams {
     selectedObjects?: Object3D[] | undefined;
-    edgeThickness?: NodeRepresentation | undefined;
-    edgeGlow?: NodeRepresentation | undefined;
+    edgeThickness?: Node | undefined;
+    edgeGlow?: Node | undefined;
     downSampleRatio?: number | undefined;
 }
 

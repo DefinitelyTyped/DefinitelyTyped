@@ -61,7 +61,17 @@ export interface ToISOTimeDurationOptions {
 }
 
 export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
+    /**
+     * How to format the merged list.
+     * Corresponds to the `style` property of the options parameter of the native `Intl.ListFormat` constructor.
+     * @default 'narrow'
+     */
     listStyle?: "long" | "short" | "narrow" | undefined;
+    /**
+     * Show all units previously used by the duration even if they are zero.
+     * @default true
+     */
+    showZeros?: boolean | undefined;
 }
 
 /**
@@ -77,6 +87,19 @@ export type DurationInput = Duration | number | DurationLikeObject;
 export type DurationLike = Duration | DurationLikeObject | number;
 
 export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<Valid> | Duration<Invalid>) : Duration;
+
+export interface DurationFormatOptions {
+    /**
+     * Whether or not to floor numerical values.
+     * @default true
+     */
+    floor?: boolean | undefined;
+    /**
+     * How to handle signs
+     * @default 'negative'
+     */
+    signMode?: "negative" | "all" | "negativeLargestOnly" | undefined;
+}
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
@@ -218,18 +241,20 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * * Add padding by repeating the token, e.g. "yy" pads the years to two digits, "hhhh" pads the hours out to four digits
      * * The duration will be converted to the set of units in the format string using {@link Duration.shiftTo} and the Duration's conversion accuracy setting.
      *
-     * @param fmt - the format string
-     * @param opts - options
-     * @param opts.floor - floor numerical values. Defaults to true.
-     *
      * @example
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("y d s") //=> "1 6 2"
      * @example
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("yy dd sss") //=> "01 06 002"
      * @example
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
+     * @example
+     * Duration.fromObject({ days: 6, seconds: 2 }).toFormat("d s", { signMode: "all" }) //=> "+6 +2"
+     * @example
+     * Duration.fromObject({ days: -6, seconds: -2 }).toFormat("d s", { signMode: "all" }) //=> "-6 -2"
+     * @example
+     * Duration.fromObject({ days: -6, seconds: -2 }).toFormat("d s", { signMode: "negativeLargestOnly" }) //=> "-6 2"
      */
-    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): IfValid<string, "Invalid Duration", IsValid>;
+    toFormat(fmt: string, opts?: DurationFormatOptions): IfValid<string, "Invalid Duration", IsValid>;
 
     /**
      * Returns a string representation of a Duration with all units included
@@ -237,10 +262,11 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      *
      * @example
      * ```js
-     * var dur = Duration.fromObject({ days: 1, hours: 5, minutes: 6 })
-     * dur.toHuman() //=> '1 day, 5 hours, 6 minutes'
-     * dur.toHuman({ listStyle: "long" }) //=> '1 day, 5 hours, and 6 minutes'
-     * dur.toHuman({ unitDisplay: "short" }) //=> '1 day, 5 hr, 6 min'
+     * var dur = Duration.fromObject({ months: 1, weeks: 0, hours: 5, minutes: 6 })
+     * dur.toHuman() //=> '1 month, 0 weeks, 5 hours, 6 minutes'
+     * dur.toHuman({ listStyle: "long" }) //=> '1 month, 0 weeks, 5 hours, and 6 minutes'
+     * dur.toHuman({ unitDisplay: "short" }) //=> '1 mth, 0 wks, 5 hr, 6 min'
+     * dur.toHuman({ showZeros: false }) //=> '1 month, 5 hours, 6 minutes'
      * ```
      */
     toHuman(opts?: ToHumanDurationOptions): string;
@@ -424,6 +450,14 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * Duration.fromObject({ hours: 1, seconds: 30 }).negate().toObject() //=> { hours: -1, seconds: -30 }
      */
     negate(): this;
+
+    /**
+     * Removes all units with values equal to 0 from this Duration.
+     *
+     * @example
+     * Duration.fromObject({ years: 2, days: 0, hours: 0, minutes: 0 }).removeZeros().toObject() //=> { years: 2 }
+     */
+    removeZeros(): this;
 
     /**
      * Get the years.

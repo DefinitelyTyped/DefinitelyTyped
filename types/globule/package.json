@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/glob": "~7.2.0",
-        "@types/minimatch": "*"
+        "@types/minimatch": "<=5"
     },
     "devDependencies": {
         "@types/globule": "workspace:."

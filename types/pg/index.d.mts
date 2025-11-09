@@ -3,6 +3,8 @@ import * as pg from "./index.js";
 declare const PG: {
     defaults: typeof pg.defaults;
     Client: typeof pg.Client;
+    ClientBase: typeof pg.ClientBase;
+    Events: typeof pg.Events;
     Query: typeof pg.Query;
     Pool: typeof pg.Pool;
     Connection: typeof pg.Connection;
@@ -12,6 +14,7 @@ declare const PG: {
     escapeIdentifier: typeof pg.escapeIdentifier;
     escapeLiteral: typeof pg.escapeLiteral;
     Result: typeof pg.Result;
+    native: typeof pg.native;
 };
 
 declare namespace PG {

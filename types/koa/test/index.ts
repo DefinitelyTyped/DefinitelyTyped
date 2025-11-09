@@ -20,7 +20,15 @@ app.context.db = () => {};
 
 app.use(async ctx => {
     if (ctx.errors) {
-        ctx.throw(ctx.errors[0], 400);
+        ctx.throw(400, ctx.errors[0]);
+        ctx.throw(400);
+        ctx.throw(400, "name required");
+        ctx.throw(400, "name required", { user: { id: 7 } });
+        ctx.throw(403);
+        ctx.throw(400, "name required");
+        ctx.throw("something exploded");
+        ctx.throw(new Error("invalid"));
+        ctx.throw(400, new Error("invalid"));
     }
 });
 

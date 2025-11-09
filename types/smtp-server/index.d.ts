@@ -158,7 +158,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     banner?: string | undefined;
     /**
      * optional maximum allowed message size in bytes
-     * ([see details](https://github.com/andris9/smtp-server#using-size-extension))
+     * ([see details](https://nodemailer.com/extras/smtp-server#using-the-size-extension))
      */
     size?: number | undefined;
     /**
@@ -256,7 +256,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      */
     closeTimeout?: ms | undefined;
     /**
-     * The callback to handle authentications ([see details](https://github.com/andris9/smtp-server#handling-authentication))
+     * The callback to handle authentications ([see details](https://nodemailer.com/extras/smtp-server#handling-authentication-onauth))
      */
     onAuth?(
         auth: SMTPServerAuthentication,
@@ -264,19 +264,19 @@ export interface SMTPServerOptions extends tls.TlsOptions {
         callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
     ): void;
     /**
-     * The callback to handle the client connection. ([see details](https://github.com/andris9/smtp-server#validating-client-connection))
+     * The callback to handle the client connection. ([see details](https://nodemailer.com/extras/smtp-server#validating-client-connection-onconnect--onclose))
      */
     onConnect?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to validate MAIL FROM commands ([see details](https://github.com/andris9/smtp-server#validating-sender-addresses))
+     * the callback to validate MAIL FROM commands ([see details](https://nodemailer.com/extras/smtp-server#validating-sender-onmailfrom))
      */
     onMailFrom?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * The callback to validate RCPT TO commands ([see details](https://github.com/andris9/smtp-server#validating-recipient-addresses))
+     * The callback to validate RCPT TO commands ([see details](https://nodemailer.com/extras/smtp-server#validating-recipients-onrcptto))
      */
     onRcptTo?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to handle incoming messages ([see details](https://github.com/andris9/smtp-server#processing-incoming-message))
+     * the callback to handle incoming messages ([see details](https://nodemailer.com/extras/smtp-server#processing-incoming-messages-ondata))
      */
     onData?(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**

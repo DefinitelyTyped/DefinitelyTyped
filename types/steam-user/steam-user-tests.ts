@@ -22,7 +22,7 @@ user.on("error", err => {
     console.log(err.eresult);
 });
 
-user.chat.on("chatMessage", message => {
+user.chat.on("chatMessage", (message: SteamUser.SteamChatRoomClient.IncomingChatMessage) => {
     console.log("Got new message!");
     console.log(message.message_no_bbcode);
 });
@@ -64,7 +64,7 @@ user.finalizeTwoFactor("iwpergjawhirgos", "active")
     .catch(err => console.error(err));
 
 user.getSteamGuardDetails()
-    .then(response => {
+    .then((response: SteamUser.SteamGuardDetails) => {
         // do something with response
     })
     .catch(err => console.error(err));
@@ -81,35 +81,43 @@ user.getPlayerCount(730)
 user.serverQuery({
     app_id: 730,
 })
-    .then(response => {
+    .then((response: SteamUser.ServerQueryResponse) => {
         // do something with response
     })
     .catch(err => console.error(err));
 
 user.getProductChanges(2)
-    .then(response => {
+    .then((response: SteamUser.ProductChanges) => {
         // do something with response
     })
     .catch(err => console.error(err));
 
 user.getProductInfo([730], [420])
-    .then(response => {
+    .then((response: SteamUser.ProductInfo) => {
         // do something with response
     })
     .catch(err => console.error(err));
 
 user.getProductChanges(0)
-    .then(response => {
+    .then((response: SteamUser.ProductChanges) => {
         void response.currentChangeNumber;
         void response.appChanges.length;
         void response.packageChanges.length;
     })
     .catch(err => console.error(err));
 
-user.getProductChanges(0, (err, currentChangeNumber, appChanges, packageChanges) => {
-    void appChanges.length;
-    void packageChanges.length;
-});
+user.getProductChanges(
+    0,
+    (
+        err: Error | null,
+        currentChangeNumber: number,
+        appChanges: SteamUser.AppChanges[],
+        packageChanges: SteamUser.PackageChanges[],
+    ) => {
+        void appChanges.length;
+        void packageChanges.length;
+    },
+);
 
 const owned = user.getOwnedApps();
 console.log(owned);
@@ -118,25 +126,26 @@ console.log(user.ownsApp(730));
 
 user.getStoreTagNames("spanish", [1])
     .then(response => {
-        // do something with response
+        // $ExpectType StoreTagNames
+        response.tags;
     })
     .catch(err => console.error(err));
 
 user.addFriend("76561197960287930")
     .then(response => {
-        // do something with response
+        console.log(`${response.personaName} added as a friend.`);
     })
     .catch(err => console.error(err));
 user.removeFriend("76561197960287930");
 
 user.createQuickInviteLink()
-    .then(response => {
+    .then((response: SteamUser.QuickInviteLink) => {
         // do something with response
     })
     .catch(err => console.error(err));
 
 user.listQuickInviteLinks()
-    .then(response => {
+    .then((response: SteamUser.QuickInviteLink[]) => {
         // do something with response
     })
     .catch(err => console.error(err));
@@ -147,7 +156,7 @@ user.redeemQuickInviteLink("www.steamcommunity.com/quickinvite/123456780").catch
 
 user.getPersonas(["76561197960287930"])
     .then(response => {
-        // do something with response
+        void response.personas;
     })
     .catch(err => console.error(err));
 
@@ -164,28 +173,30 @@ user.getAliases(["76561197960287930"])
     .catch(err => console.error(err));
 
 user.getTradeURL()
-    .then(response => {
+    .then((response: SteamUser.TradeURL) => {
         // do something with response
     })
     .catch(err => console.error(err));
 
 user.getEmoticonList()
     .then(response => {
-        // do something with response
+        void response.emoticons;
     })
     .catch(err => console.error(err));
 
 user.chat
     .getFriendMessageHistory("76561197960287930")
     .then(response => {
-        // do something with response
+        // $ExpectType FriendMessage[]
+        response.messages;
+        void response.more_available;
     })
     .catch(err => console.error(err));
 
 user.getFriendsThatPlay(730).then(response => {
-    // do something with response
+    console.log(response.friends);
 });
-user.chat.on("chatRoomGroupRoomsChange", details => {
+user.chat.on("chatRoomGroupRoomsChange", (details: SteamUser.SteamChatRoomClient.groupRoomsStateChangeDetails) => {
     console.log(details.chat_group_id);
     console.log(details.default_chat_id);
     console.log(details.chat_rooms);
@@ -210,43 +221,75 @@ user.chat
     .setGroupUserRoleState("groupId", new SteamID("76561197960287931"), "roleId", true)
     .catch(err => console.error);
 
-user.chat.on("chatRoomGroupSelfStateChange", details => {
+user.chat.on("chatRoomGroupSelfStateChange", (details: SteamUser.SteamChatRoomClient.groupSelfStateChangeDetails) => {
     console.log(details.chat_group_id);
     console.log(details.user_action);
     console.log(details.user_chat_group_state);
     console.log(details.group_summary);
 });
 
-user.chat.on("chatRoomGroupMemberStateChange", details => {
-    console.log(details.chat_group_id);
-    console.log(details.member);
-    console.log(details.change);
-});
+user.chat.on(
+    "chatRoomGroupMemberStateChange",
+    (details: SteamUser.SteamChatRoomClient.groupMemberStateChangeDetails) => {
+        console.log(details.chat_group_id);
+        console.log(details.member);
+        console.log(details.change);
+    },
+);
 
-user.chat.on("chatRoomGroupHeaderStateChange", details => {
-    console.log(details.chat_group_id);
-    console.log(details.header_state);
-});
+user.chat.on(
+    "chatRoomGroupHeaderStateChange",
+    (details: SteamUser.SteamChatRoomClient.groupHeaderStateChangeDetails) => {
+        console.log(details.chat_group_id);
+        console.log(details.header_state);
+    },
+);
 
 // ADDED / MODIFIED in v4.22.0
-user.getOwnedApps(element => {
+user.getOwnedApps((element: SteamUser.Proto_CMsgClientLicenseList_License) => {
     return element.package_id === 123;
 });
-user.ownsApp(456, (element, index) => {
+user.ownsApp(456, (element: SteamUser.Proto_CMsgClientLicenseList_License, index: number) => {
     return element.package_id === 123 && index > 4;
 });
-user.getOwnedDepots((element, index, array) => {
-    return array.length > 4;
-});
-user.ownsDepot(2, (element, index, array) => {
-    return array.length > 4;
-});
-user.getOwnedPackages((element, index, array) => {
-    return array.length > 4;
-});
-user.ownsPackage(4, (element, index, array) => {
-    return array.length > 4;
-});
+user.getOwnedDepots(
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.ownsDepot(
+    2,
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.getOwnedPackages(
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
+user.ownsPackage(
+    4,
+    (
+        element: SteamUser.Proto_CMsgClientLicenseList_License,
+        index: number,
+        array: SteamUser.Proto_CMsgClientLicenseList_License[],
+    ) => {
+        return array.length > 4;
+    },
+);
 user.getOwnedApps({ excludeFree: true });
 user.ownsApp(456, { excludeExpiring: true });
 user.getOwnedDepots({ excludeShared: true });
@@ -300,12 +343,12 @@ user.activateAuthSessionTickets(730, Buffer.alloc(44));
 // $ExpectType Promise<UserOwnedApps>
 user.getUserOwnedApps(new SteamID("76561197960287930"));
 
-user.on("appUpdate", (appid, data) => {
+user.on("appUpdate", (appid: number, data: SteamUser.AppInfo) => {
     // $ExpectType AppInfo
     data;
 });
 
-user.on("packageUpdate", (packageid, data) => {
+user.on("packageUpdate", (packageid: number, data: SteamUser.PackageInfo) => {
     // $ExpectType PackageInfo
     data;
 });

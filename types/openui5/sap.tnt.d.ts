@@ -1,4 +1,4 @@
-// For Library Version: 1.136.0
+// For Library Version: 1.138.0
 
 declare module "sap/tnt/library" {
   /**
@@ -925,16 +925,19 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Fires event {@link #event:itemPress itemPress} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     fireItemPress(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: NavigationList$ItemPressEventParameters
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -1214,6 +1217,28 @@ declare module "sap/tnt/NavigationList" {
      * The pressed item.
      */
     item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
   }
 
   /**
@@ -1679,7 +1704,7 @@ declare module "sap/tnt/NavigationListItem" {
      * a single side navigation.
      *
      * **Guidelines:**
-     * 	 - External links should not be selectable.
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
      * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * Default value is `true`.
@@ -1697,8 +1722,12 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      *
      *
      * @returns Value of property `target`
@@ -1855,7 +1884,7 @@ declare module "sap/tnt/NavigationListItem" {
      * a single side navigation.
      *
      * **Guidelines:**
-     * 	 - External links should not be selectable.
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
      * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -1880,8 +1909,12 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1941,7 +1974,7 @@ declare module "sap/tnt/NavigationListItem" {
      * a single side navigation.
      *
      * **Guidelines:**
-     * 	 - External links should not be selectable.
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
      * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * @since 1.116
@@ -1960,8 +1993,12 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      */
     target?: string | PropertyBindingInfo;
 
@@ -2170,17 +2207,20 @@ declare module "sap/tnt/NavigationListItemBase" {
     /**
      * Fires event {@link #event:press press} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @since 1.133
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     firePress(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: NavigationListItemBase$PressEventParameters
-    ): this;
+    ): boolean;
     /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
@@ -2320,6 +2360,28 @@ declare module "sap/tnt/NavigationListItemBase" {
      * The pressed item.
      */
     item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
   }
 
   /**
@@ -2598,16 +2660,19 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Fires event {@link #event:itemPress itemPress} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     fireItemPress(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: SideNavigation$ItemPressEventParameters
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -2936,6 +3001,28 @@ declare module "sap/tnt/SideNavigation" {
      * The pressed item.
      */
     item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
   }
 
   /**

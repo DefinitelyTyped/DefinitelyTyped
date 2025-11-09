@@ -1,12 +1,13 @@
 {
     "private": true,
     "name": "@types/nodemailer",
-    "version": "6.4.9999",
+    "version": "7.0.9999",
     "projects": [
         "https://github.com/nodemailer/nodemailer",
         "https://nodemailer.com"
     ],
     "dependencies": {
+        "@aws-sdk/client-sesv2": "^3.839.0",
         "@types/node": "*"
     },
     "devDependencies": {

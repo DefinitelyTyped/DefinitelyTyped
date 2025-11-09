@@ -369,6 +369,7 @@ export interface ConfirmExchangeTradeRequest {
     trade: ExchangeTrade;
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
+    approvalFlow?: boolean; // approval flow
     extraField?: string | undefined; // XRP destination tag, XMR label id, ...
     returnUrl?: string; // URL where to return after the trade is done
 }
@@ -612,6 +613,7 @@ export interface CreateTradeSignatureRequestSell {
     /** ID of the trade - `paymentId` for sell */
     id: string;
     nonce: string;
+    sendSlip44: number;
     outputs: PaymentRequestOutput[];
     memoText: string;
 }
@@ -621,6 +623,8 @@ export interface CreateTradeSignatureRequestExchange {
     /** ID of the trade - `orderId` for exchange */
     id: string;
     nonce: string;
+    sendSlip44: number;
+    receiveSlip44: number;
     outputs: PaymentRequestOutput[];
 }
 

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html2pdf.js",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/eKoopmans/html2pdf.js"
+    ],
+    "devDependencies": {
+        "@types/html2pdf.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cedric Mutesa",
+            "githubUsername": "Mutesa-Cedric"
+        }
+    ]
+}

@@ -7,7 +7,7 @@ var parser = new Parser();
 parser.push(manifest);
 parser.end();
 
-const parsedManifest = parser.manifest.playlists?.[0].contentProtection?.["com.apple.fps.1_0"]?.attributes.resoltion;
+const parsedManifest = parser.manifest.playlists?.[0].contentProtection?.["com.apple.fps.1_0"]?.attributes.resolution;
 
 const parser2 = new Parser({
     uri: "https://exmaple.com/video.m3u8?param_a=34&param_b=abc",

@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type AtomicMethod =
     | typeof AtomicFunctionNode.ATOMIC_LOAD
@@ -33,50 +33,50 @@ declare class AtomicFunctionNode extends Node {
 
 export const atomicFunc: (
     method: AtomicMethod,
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicLoad: (
-    pointerNode: NodeRepresentation,
+    pointerNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicStore: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node | number,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicAdd: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node | number,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicSub: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node | number,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicMax: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicMin: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicAnd: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicOr: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicXor: (
-    pointerNode: NodeRepresentation,
-    valueNode: NodeRepresentation,
+    pointerNode: Node,
+    valueNode: Node,
 ) => ShaderNodeObject<AtomicFunctionNode>;

@@ -54,7 +54,7 @@ declare class sftp {
 
     downloadDir(srcDir: string, destDir: string, options?: sftp.DownloadDirOptions): Promise<string>;
 
-    end(): Promise<void>;
+    end(): Promise<boolean>;
 
     on(event: string, callback: (...args: any[]) => void): void;
 

@@ -94,6 +94,11 @@ describe("Included matchers:", () => {
 
             expect(value).toBe(12);
         });
+
+        it("should not consider strings as array-like", () => {
+            // @ts-expect-error
+            expect("abc").toEqual(["a", "b", "c"]);
+        });
     });
 
     describe("The 'toEqual' matcher", () => {

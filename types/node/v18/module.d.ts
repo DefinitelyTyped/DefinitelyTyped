@@ -316,15 +316,10 @@ declare module "module" {
         function runMain(main?: string): void;
         function wrap(code: string): string;
     }
-    type ImportMetaDOMCompat = typeof globalThis extends { onmessage: any } ? {
-            resolve(specifier: string): string;
-        }
-        : {
-            resolve?(specifier: string, parent?: string | URL): Promise<string>;
-        };
     global {
-        interface ImportMeta extends ImportMetaDOMCompat {
+        interface ImportMeta {
             url: string;
+            resolve(specifier: string, parent?: string | URL): string;
         }
         namespace NodeJS {
             interface Module {

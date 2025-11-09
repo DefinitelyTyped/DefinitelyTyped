@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/imagemin-svgo",
-    "version": "10.0.9999",
+    "version": "11.0.9999",
     "projects": [
         "https://github.com/imagemin/imagemin-svgo#readme"
     ],
     "dependencies": {
         "@types/imagemin": "*",
-        "@types/svgo": "2"
+        "svgo": "3"
     },
     "devDependencies": {
         "@types/imagemin-svgo": "workspace:."

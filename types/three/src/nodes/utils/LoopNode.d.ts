@@ -4,12 +4,12 @@ import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 interface LoopNodeObjectParameter {
     // TODO Expand to other types and update loop function types appropriately
-    type?: "int" | "uint";
+    type?: "int" | "uint" | "float";
     // TODO The variable name should affect the type of the loop function
     // name?: string;
     start: number | Node;
     end: number | Node;
-    condition: string;
+    condition?: string;
 }
 
 type LoopNodeParameter = Node | number | LoopNodeObjectParameter;
@@ -36,8 +36,3 @@ interface Loop {
 export const Loop: Loop;
 export const Continue: () => ShaderNodeObject<Node>;
 export const Break: () => ShaderNodeObject<Node>;
-
-/**
- * @deprecated loop() has been renamed to Loop()
- */
-export const loop: (...params: unknown[]) => ShaderNodeObject<Node>;

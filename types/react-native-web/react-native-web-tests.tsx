@@ -335,6 +335,10 @@ const sectionList = <SectionList sections={[]} renderItem={() => null} keyExtrac
 const statusBar = <StatusBar />;
 const switchComponent = <Switch value={true} onValueChange={() => console.log("Switch changed")} />;
 const textComponent = <Text style={{ fontSize: 16 }} />;
+const textComponentWithButtonRole = <Text role="button" />;
+const textComponentWithLabelRole = <Text role="label" />;
+const textComponentWithParagraphRole = <Text role="paragraph" />;
+const textComponentWithCodeRole = <Text role="code" />;
 const textInput = <TextInput placeholder="Enter text" onChangeText={(text) => console.log("TextInput value:", text)} />;
 const touchableHighlight = (
     <TouchableHighlight

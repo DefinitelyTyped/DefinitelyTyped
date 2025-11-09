@@ -67,6 +67,7 @@ MyTelegramBot.sendMessage(1234, "test-ReplyKeyboardMarkup-no-placeholder", {
         ],
     },
 });
+MyTelegramBot.sendMessage(1234, "test-text", { reply_parameters: { message_id: 4321 } });
 MyTelegramBot.sendMessage(1234, "test-text", { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: "1",
@@ -501,3 +502,6 @@ MyTelegramBot.addStickerToSet(1234, "custom_sticker", "sticker_path", "emoji", "
 MyTelegramBot.setStickerPositionInSet("sticker_on_position_one", 2);
 MyTelegramBot.deleteStickerFromSet("sticker_on_position_one");
 MyTelegramBot.setStickerSetThumb(1234, "my_set_thumb", "thumb_file");
+MyTelegramBot.setMessageReaction(1234, 1234, {
+    reaction: [{ type: "emoji", emoji: "👍" }],
+});

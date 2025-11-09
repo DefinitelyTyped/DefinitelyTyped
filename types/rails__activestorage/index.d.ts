@@ -6,6 +6,7 @@ export class DirectUpload {
     id: number;
     file: File;
     url: string;
+    delegate?: DirectUploadDelegate;
 
     constructor(file: File, url: string, delegate?: DirectUploadDelegate, customHeaders?: Record<string, string>);
 

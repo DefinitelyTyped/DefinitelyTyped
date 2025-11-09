@@ -184,7 +184,7 @@ export namespace Poool {
          *
          * @returns Promise<void>
          */
-        destroy: () => void;
+        destroy: () => Promise<void>;
     }
 
     interface EngageTexts {
@@ -296,7 +296,7 @@ export namespace Poool {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/methods#createelement
          */
-        createElement(slug: string, target: string | Element): Promise<EngageElement>;
+        createElement(slug: string, target: string | Element, opts?: { filters?: string[] }): Promise<EngageElement>;
 
         /**
          * Creates all elements matching multiple conditions like device, country, custom filters, etc.

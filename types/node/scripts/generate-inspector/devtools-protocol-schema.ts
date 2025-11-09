@@ -30,7 +30,7 @@ export interface ObjectReference {
 }
 
 export type TypeDefinition =
-    | BaseType<"any" | "integer" | "number" | "boolean">
+    | BaseType<"any" | "integer" | "number" | "boolean" | "binary">
     | StringType
     | ArrayType
     | ObjectDefinition;

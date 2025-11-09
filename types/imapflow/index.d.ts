@@ -527,7 +527,7 @@ export interface ImapFlowOptions {
      * This may expose the connection to a downgrade attack.
      * @default undefined
      */
-    doSTARTTTLS?: boolean;
+    doSTARTTLS?: boolean;
 }
 
 export interface AppendResponseObject {

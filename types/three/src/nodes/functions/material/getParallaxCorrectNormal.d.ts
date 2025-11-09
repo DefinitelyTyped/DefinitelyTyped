@@ -1,10 +1,10 @@
 import Node from "../../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../../tsl/TSLCore.js";
 
 declare const getParallaxCorrectNormal: (
-    normal: NodeRepresentation,
-    cubeSize: NodeRepresentation,
-    cubePos: NodeRepresentation,
+    normal: Node,
+    cubeSize: Node,
+    cubePos: Node,
 ) => ShaderNodeObject<Node>;
 
 export default getParallaxCorrectNormal;

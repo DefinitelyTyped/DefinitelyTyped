@@ -14,8 +14,6 @@ export default class CacheNode extends Node {
 
 export const cache: (node: Node, cache?: NodeCache) => ShaderNodeObject<CacheNode>;
 
-export const namespace: (node: Node, namespace: string) => ShaderNodeObject<ContextNode>;
-
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         cache: typeof cache;

@@ -92,8 +92,17 @@ Module.Module === Module;
     // $ExpectType SourceOrigin | {}
     sourceMap.findOrigin(1, 1);
 
+    // $ExpectType SourceMapsSupport
+    Module.getSourceMapsSupport();
+
     // $ExpectType SourceMap | undefined
     Module.findSourceMap("/path/to/file.js");
+
+    Module.setSourceMapsSupport(true);
+    Module.setSourceMapsSupport(true, {
+        generatedCode: true,
+        nodeModules: true,
+    });
 }
 
 // import.meta

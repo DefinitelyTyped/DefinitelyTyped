@@ -264,6 +264,7 @@ import * as url from "node:url";
 
     // writeProcessing
     res.writeProcessing();
+    res.writeProcessing(() => {});
 
     // write string
     res.write("Part of my res.");
@@ -365,6 +366,29 @@ import * as url from "node:url";
     agent.on("free", () => {});
     agent.once("free", () => {});
     agent.emit("free");
+
+    agent.createConnection({ port: 1234 });
+    agent.keepSocketAlive(new stream.Duplex());
+    agent.reuseSocket(new stream.Duplex(), new http.ClientRequest(""));
+
+    // test custom overrides
+    class CustomAgent extends http.Agent {
+        createConnection(options: http.ClientRequestArgs): net.Socket {
+            return new net.Socket(options);
+        }
+        keepSocketAlive(socket: net.Socket): boolean {
+            socket.setKeepAlive(true);
+            socket.unref();
+            return true;
+        }
+        reuseSocket(socket: net.Socket, request: http.ClientRequest): void {
+            request.reusedSocket = true;
+            socket.ref();
+        }
+        getName(options: http.ClientRequestArgs): string {
+            return `${options.host ?? "?"}:${options.port ?? "?"}:${options.localPort ?? "?"}`;
+        }
+    }
 }
 
 {

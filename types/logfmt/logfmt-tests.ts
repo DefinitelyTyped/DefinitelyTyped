@@ -44,15 +44,14 @@ const app = express();
 app.use(logfmt.bodyParserStream());
 app.post("/logs", (req, res) => {
     if (!req.body) {
-        res.send("OK");
-        return;
+        return res.send("OK");
     }
 
     req.body.pipe(through((line) => {
         console.dir(line);
     }));
 
-    res.send("OK");
+    return res.send("OK");
 });
 
 const app2 = express();

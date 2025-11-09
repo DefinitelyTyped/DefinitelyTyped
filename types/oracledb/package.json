@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/oracledb",
-    "version": "6.6.9999",
+    "version": "6.9.9999",
     "projects": [
         "https://github.com/oracle/node-oracledb"
     ],
@@ -23,6 +23,14 @@
         {
             "name": "Jacob Wheale",
             "githubUsername": "jacobwheale"
+        },
+        {
+            "name": "Hasan Jamil",
+            "githubUsername": "hjamil-24"
+        },
+        {
+            "name": "Sharad Chandran R",
+            "githubUsername": "sharadraju"
         }
     ]
 }

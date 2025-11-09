@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-xss-sanitizer",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/AhmedAdelFahim/express-xss-sanitizer#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/express-xss-sanitizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felipe Fernandes",
+            "githubUsername": "WolfganG1st"
+        }
+    ]
+}

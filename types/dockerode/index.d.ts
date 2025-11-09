@@ -483,7 +483,7 @@ declare namespace Dockerode {
         Attachable?: boolean | undefined;
         Ingress?: boolean | undefined;
         ConfigOnly?: boolean | undefined;
-        ConfigFrom?: { Network?: string } | undefined;
+        ConfigFrom?: { Network: string } | undefined;
         Options?: { [option: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
 

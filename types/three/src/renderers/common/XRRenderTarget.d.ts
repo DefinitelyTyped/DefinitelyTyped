@@ -8,8 +8,9 @@ import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
  */
 declare class XRRenderTarget extends RenderTarget {
     readonly isXRRenderTarget: true;
-    hasExternalTextures: boolean;
-    autoAllocateDepthBuffer: boolean;
+    _hasExternalTextures: boolean;
+    _autoAllocateDepthBuffer: boolean;
+    _isOpaqueFramebuffer: boolean;
     /**
      * Constructs a new XR render target.
      *

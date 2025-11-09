@@ -79,6 +79,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
     _xrRenderTarget: XRRenderTarget | null;
     _layers: XRLayerObject[];
     _supportsLayers: boolean;
+    _supportsGlBinding: boolean;
     _frameBufferTargets:
         | WeakMap<XRRenderTarget, {
             frameBufferTarget: RenderTarget | null;

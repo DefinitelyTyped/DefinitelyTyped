@@ -70,6 +70,9 @@ import { createContext } from "node:vm";
     w.getHeapSnapshot().then((stream: Readable) => {
         //
     });
+    w.getHeapStatistics().then(statistics => {
+        statistics; // $ExpectType HeapInfo
+    });
     w.terminate().then(() => {
         // woot
     });

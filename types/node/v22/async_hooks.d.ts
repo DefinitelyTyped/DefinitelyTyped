@@ -358,8 +358,8 @@ declare module "async_hooks" {
      * http.get('http://localhost:8080');
      * // Prints:
      * //   0: start
-     * //   1: start
      * //   0: finish
+     * //   1: start
      * //   1: finish
      * ```
      *

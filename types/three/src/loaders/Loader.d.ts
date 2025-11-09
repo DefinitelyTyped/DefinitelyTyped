@@ -45,6 +45,7 @@ export class Loader<TData = unknown, TUrl = string> {
     setPath(path: string): this;
     setResourcePath(resourcePath: string): this;
     setRequestHeader(requestHeader: { [header: string]: string }): this;
+    abort(): this;
 
     static DEFAULT_MATERIAL_NAME: string;
 }

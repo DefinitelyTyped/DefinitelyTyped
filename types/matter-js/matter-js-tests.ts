@@ -137,6 +137,9 @@ var constraint1 = Constraint.create({
 
 World.addConstraint(engine.world, constraint1);
 
+// $ExpectType number
+Constraint.currentLength(constraint1);
+
 // $ExpectType Body | null
 var bodyA = constraint1.bodyA;
 // $ExpectType Body | null
@@ -234,6 +237,8 @@ Events.on(composite1, "afterRemove", (e) => {});
 
 // $ExpectType (e: IEventTimestamped<Engine>) => void
 Events.on(engine, "beforeUpdate", (e) => {});
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "beforeSolve", (e) => {});
 // $ExpectType (e: IEventTimestamped<Engine>) => void
 Events.on(engine, "afterUpdate", (e) => {});
 // $ExpectType (e: IEventCollision<Engine>) => void

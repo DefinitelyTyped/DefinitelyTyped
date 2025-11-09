@@ -433,7 +433,6 @@ declare module "util" {
      * });
      * ```
      * @since v19.7.0
-     * @experimental
      * @param resource Any non-null object tied to the abortable operation and held weakly.
      * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
      * allowing Node.js to stop tracking it.
@@ -445,8 +444,8 @@ declare module "util" {
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
      * passed that alter the result.
-     * `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
-     * an identifiable tag for an inspected value.
+     * `util.inspect()` will use the constructor's name and/or `Symbol.toStringTag`
+     * property to make an identifiable tag for an inspected value.
      *
      * ```js
      * class Foo {
@@ -1462,6 +1461,7 @@ declare module "util" {
         | "hidden"
         | "inverse"
         | "italic"
+        | "none"
         | "overlined"
         | "reset"
         | "strikethrough"
@@ -1481,7 +1481,7 @@ declare module "util" {
     /**
      * This function returns a formatted text considering the `format` passed
      * for printing in a terminal. It is aware of the terminal's capabilities
-     * and acts according to the configuration set via `NO_COLORS`,
+     * and acts according to the configuration set via `NO_COLOR`,
      * `NODE_DISABLE_COLORS` and `FORCE_COLOR` environment variables.
      *
      * ```js
@@ -1517,6 +1517,8 @@ declare module "util" {
      *   util.styleText(['red', 'green'], 'text'), // green
      * );
      * ```
+     *
+     * The special format value `none` applies no additional styling to the text.
      *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v22.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
@@ -2226,6 +2228,19 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isExternal(object: unknown): boolean;
+    /**
+     * Returns `true` if the value is a built-in `Float16Array` instance.
+     *
+     * ```js
+     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
+     * util.types.isFloat16Array(new Float16Array());  // Returns true
+     * util.types.isFloat16Array(new Float32Array());  // Returns false
+     * ```
+     * @since v22.16.0
+     */
+    // This does NOT return a type predicate in v22.x.
+    // The Float16Array feature does not yet exist in this version of Node.js.
+    function isFloat16Array(object: unknown): boolean;
     /**
      * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
      *

@@ -38,6 +38,9 @@ if (types.isDataView(object)) {
 if (types.isDate(object)) {
     object; // $ExpectType Date
 }
+if (types.isFloat16Array(object)) {
+    object; // $ExpectType unknown
+}
 if (types.isFloat32Array(object)) {
     object; // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
 }

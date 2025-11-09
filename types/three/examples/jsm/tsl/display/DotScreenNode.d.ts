@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, UniformNode, Vector2 } from "three/webgpu";
 
 declare class DotScreenNode extends TempNode {
@@ -13,7 +13,7 @@ declare class DotScreenNode extends TempNode {
 export default DotScreenNode;
 
 export const dotScreen: (
-    node: NodeRepresentation,
+    node: Node,
     center?: Vector2,
     angle?: number,
     scale?: number,

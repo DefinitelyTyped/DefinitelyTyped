@@ -18,6 +18,28 @@ clevertap.event.push("Product viewed", {
     Price: 59.99,
     Date: new Date(),
 });
+clevertap.event.push("Charged", {
+    "Amount": 300,
+    "Payment mode": "Credit Card",
+    "Charged ID": 24052013,
+    "Items": [
+        {
+            "Category": "Books",
+            "Book name": "The Millionaire next door",
+            "Quantity": 1,
+        },
+        {
+            "Category": "Books",
+            "Book name": "Achieving inner zen",
+            "Quantity": 1,
+        },
+        {
+            "Category": "Books",
+            "Book name": "Chuck it, let's do it",
+            "Quantity": 5,
+        },
+    ],
+});
 const productViewedDetails = clevertap.event.getDetails("Product viewed");
 // each of the below mentioned fields are optional
 // if set, these populate demographic information in the Dashboard
@@ -81,20 +103,17 @@ clevertap.notifications.push({
     askAgainTimeInSeconds: 5,
     serviceWorkerPath: "/foo/my_sw.js", // path to your custom service worker file
 });
-clevertap.notifications.enable({
-    swPath: "/foo/my_sw.js", // path to your custom service worker file
-});
 clevertap.renderNotificationClicked({
     msgId: "232",
-    kv: 1212,
-    msgCTkv: "sdsdsa",
+    kv: { "shop": "test" },
+    msgCTkv: { "slide_no": 2 },
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
 clevertap.renderNotificationViewed({
     msgId: "232",
-    kv: 1212,
-    msgCTkv: "sdsdsa",
+    kv: { "shop": "test" },
+    msgCTkv: { "slide_no": 2 },
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
@@ -162,3 +181,24 @@ const callback = () => {
 
 // Call the addOneTimeVariablesChangedCallback method
 clevertap.addOneTimeVariablesChangedCallback(callback);
+
+// Get the clevertap SDK version
+clevertap.getSDKVersion();
+
+// Enable/Disable local storage encryption
+clevertap.enableLocalStorageEncryption(true);
+
+// Check if the local storage encryption is enabled
+clevertap.isLocalStorageEncryptionEnabled();
+
+// Define file type variable
+clevertap.defineFileVariable("promo_shoes");
+
+// Get the defined variables
+clevertap.getVariables();
+
+// Get the value of particular variable
+clevertap.getVariableValue("promo_shoes");
+
+// Get the details of all the qualified campaigns
+clevertap.getAllQualifiedCampaignDetails();

@@ -172,6 +172,9 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
 // $ExpectType Module
 Process.mainModule;
 
+// $ExpectType string | null
+Process.mainModule.version;
+
 const art = Process.getModuleByName("libart.so");
 // $ExpectType NativePointer
 art.getSymbolByName("ExecuteNterpImpl");

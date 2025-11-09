@@ -21,6 +21,8 @@ import {
     PreTokenGenerationTriggerHandler,
     PreTokenGenerationV2TriggerEvent,
     PreTokenGenerationV2TriggerHandler,
+    PreTokenGenerationV3TriggerEvent,
+    PreTokenGenerationV3TriggerHandler,
     UserMigrationTriggerEvent,
     UserMigrationTriggerHandler,
     VerifyAuthChallengeResponseTriggerEvent,
@@ -37,6 +39,7 @@ type CognitoTriggerEvent =
     | VerifyAuthChallengeResponseTriggerEvent
     | PreTokenGenerationTriggerEvent
     | PreTokenGenerationV2TriggerEvent
+    | PreTokenGenerationV3TriggerEvent
     | UserMigrationTriggerEvent
     | CustomMessageTriggerEvent
     | CustomEmailSenderTriggerEvent;
@@ -269,6 +272,42 @@ const preTokenGenerationv2: PreTokenGenerationV2TriggerHandler = async (event, _
     triggerSource === "TokenGeneration_HostedAuth";
     triggerSource === "TokenGeneration_NewPasswordChallenge";
     triggerSource === "TokenGeneration_RefreshTokens";
+
+    objectOrUndefined = request.clientMetadata;
+};
+
+const preTokenGenerationv3: PreTokenGenerationV3TriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    obj = request.userAttributes;
+    str = request.userAttributes.email;
+    obj = request.groupConfiguration;
+    strArrayOrUndefined = request.groupConfiguration.groupsToOverride;
+    strArrayOrUndefined = request.groupConfiguration.iamRolesToOverride;
+    strOrUndefined = request.groupConfiguration.preferredRole;
+
+    strArrayOrUndefined = request.scopes;
+
+    obj = response.claimsAndScopeOverrideDetails;
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.idTokenGeneration;
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration;
+
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.idTokenGeneration;
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.idTokenGeneration?.claimsToAddOrOverride;
+    strArrayOrUndefined = response.claimsAndScopeOverrideDetails.idTokenGeneration?.claimsToSuppress;
+
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration;
+    objectOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration?.claimsToAddOrOverride;
+    strArrayOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration?.claimsToSuppress;
+    strArrayOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration?.scopesToAdd;
+    strArrayOrUndefined = response.claimsAndScopeOverrideDetails.accessTokenGeneration?.scopesToSuppress;
+
+    const groupOverrideDetails = response.claimsAndScopeOverrideDetails.groupOverrideDetails!;
+    strArrayOrUndefined = groupOverrideDetails.groupsToOverride;
+    strArrayOrUndefined = groupOverrideDetails.iamRolesToOverride;
+    strOrUndefined = groupOverrideDetails.preferredRole;
+
+    triggerSource === "TokenGeneration_ClientCredentials";
 
     objectOrUndefined = request.clientMetadata;
 };

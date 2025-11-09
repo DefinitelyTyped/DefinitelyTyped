@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/openui5",
-    "version": "1.136.9999",
+    "version": "1.138.9999",
     "nonNpm": true,
     "nonNpmDescription": "openui5",
     "projects": [

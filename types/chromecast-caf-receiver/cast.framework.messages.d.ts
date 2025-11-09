@@ -6,7 +6,7 @@ export as namespace messages;
  * Possible caption mimetype of text track.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.CaptionMimeType}
  */
-export enum CaptionMimeType {
+export const enum CaptionMimeType {
     CEA608 = "text/cea608",
     TTML = "application/ttml+xml",
     TTML_MP4 = "application/mp4",
@@ -17,7 +17,7 @@ export enum CaptionMimeType {
  * Commands supported by {@link framework.messages.MediaStatus.supportedMediaCommands}.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.Command}
  */
-export enum Command {
+export const enum Command {
     PAUSE = 1,
     SEEK = 2,
     STREAM_VOLUME = 4,
@@ -43,7 +43,7 @@ export enum Command {
  * Possible types of container metadata.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ContainerType}
  */
-export enum ContainerType {
+export const enum ContainerType {
     GENERIC_CONTAINER = 0,
     AUDIOBOOK_CONTAINER = 1,
 }
@@ -52,7 +52,7 @@ export enum ContainerType {
  * Provides content filtering mode.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ContentFilteringMode}
  */
-export enum ContentFilteringMode {
+export const enum ContentFilteringMode {
     FILTER_EXPLICIT = "FILTER_EXPLICIT",
 }
 
@@ -60,7 +60,7 @@ export enum ContentFilteringMode {
  * Represents media error message reasons.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorReason}
  */
-export enum ErrorReason {
+export const enum ErrorReason {
     APP_ERROR = "APP_ERROR",
     AUTHENTICATION_EXPIRED = "AUTHENTICATION_EXPIRED",
     CONCURRENT_STREAM_LIMIT = "CONCURRENT_STREAM_LIMIT",
@@ -86,7 +86,7 @@ export enum ErrorReason {
  * Represents media error message types.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorType}
  */
-export enum ErrorType {
+export const enum ErrorType {
     ERROR = "ERROR",
     INVALID_PLAYER_STATE = "INVALID_PLAYER_STATE",
     INVALID_REQUEST = "INVALID_REQUEST",
@@ -98,7 +98,7 @@ export enum ErrorType {
  * Extended player state information.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ExtendedPlayerState}
  */
-export enum ExtendedPlayerState {
+export const enum ExtendedPlayerState {
     LOADING = "LOADING",
 }
 
@@ -106,7 +106,7 @@ export enum ExtendedPlayerState {
  * Focus states.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.FocusState}
  */
-export enum FocusState {
+export const enum FocusState {
     IN_FOCUS = "IN_FOCUS",
     NOT_IN_FOCUS = "NOT_IN_FOCUS",
 }
@@ -115,7 +115,7 @@ export enum FocusState {
  * The Get Status flag options determine the amount of data that must be included in the media status response.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.GetStatusOptions}
  */
-export enum GetStatusOptions {
+export const enum GetStatusOptions {
     NO_METADATA = 1,
     NO_QUEUE_ITEMS = 2,
 }
@@ -124,7 +124,7 @@ export enum GetStatusOptions {
  * Represents video High Dynamic Range (HDR) types.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HdrType}
  */
-export enum HdrType {
+export const enum HdrType {
     DV = "dv",
     HDR = "hdr",
     SDR = "sdr",
@@ -134,7 +134,7 @@ export enum HdrType {
  * Format of an HLS audio segment.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.HlsSegmentFormat}
  */
-export enum HlsSegmentFormat {
+export const enum HlsSegmentFormat {
     AAC = "aac",
     AC3 = "ac3",
     E_AC3 = "e_ac3",
@@ -149,7 +149,7 @@ export enum HlsSegmentFormat {
  * Format of an HLS audio segment.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HlsSegmentFormat}
  */
-export enum HlsVideoSegmentFormat {
+export const enum HlsVideoSegmentFormat {
     FMP4 = "fmp4",
     MPEG2_TS = "mpeg2_ts",
 }
@@ -158,7 +158,7 @@ export enum HlsVideoSegmentFormat {
  * The reason for the player to be in IDLE state.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.IdleReason}
  */
-export enum IdleReason {
+export const enum IdleReason {
     CANCELLED = "CANCELLED",
     ERROR = "ERROR",
     FINISHED = "FINISHED",
@@ -169,7 +169,7 @@ export enum IdleReason {
  * The media category.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MediaCategory}
  */
-export enum MediaCategory {
+export const enum MediaCategory {
     AUDIO = "AUDIO",
     IMAGE = "IMAGE",
     VIDEO = "VIDEO",
@@ -179,7 +179,7 @@ export enum MediaCategory {
  * Represents media message types.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MessageType}
  */
-export enum MessageType {
+export const enum MessageType {
     CLOUD_STATUS = "CLOUD_STATUS",
     CUSTOM_COMMAND = "CUSTOM_COMMAND",
     CUSTOM_STATE = "CUSTOM_STATE",
@@ -230,7 +230,7 @@ export enum MessageType {
  * Possible types of media metadata.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MetadataType}
  */
-export enum MetadataType {
+export const enum MetadataType {
     GENERIC = 0,
     MOVIE = 1,
     TV_SHOW = 2,
@@ -243,7 +243,7 @@ export enum MetadataType {
  * String IDs used by {@link framework.PlayerManager#playString}
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.PlayStringId
  */
-export enum PlayStringId {
+export const enum PlayStringId {
     FREE_TRIAL_ABOUT_TO_EXPIRE = "FREE_TRIAL_ABOUT_TO_EXPIRE",
     PLAYING_ALTERNATE_MIX = "PLAYING_ALTERNATE_MIX",
     STREAM_HIJACKED = "STREAM_HIJACKED",
@@ -254,7 +254,7 @@ export enum PlayStringId {
  * Represents the player state.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.PlayerState}
  */
-export enum PlayerState {
+export const enum PlayerState {
     BUFFERING = "BUFFERING",
     IDLE = "IDLE",
     PAUSED = "PAUSED",
@@ -265,7 +265,7 @@ export enum PlayerState {
  * Queue change types used by QUEUE_CHANGE outgoing message.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueChangeType}
  */
-export enum QueueChangeType {
+export const enum QueueChangeType {
     INSERT = "INSERT",
     ITEMS_CHANGE = "ITEMS_CHANGE",
     NO_CHANGE = "NO_CHANGE",
@@ -277,7 +277,7 @@ export enum QueueChangeType {
  * Types of media container/queue.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueType}
  */
-export enum QueueType {
+export const enum QueueType {
     ALBUM = "ALBUM",
     AUDIOBOOK = "AUDIOBOOK",
     LIVE_TV = "LIVE_TV",
@@ -293,7 +293,7 @@ export enum QueueType {
  * Behavior of the queue when all items have been played.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.RepeatMode}
  */
-export enum RepeatMode {
+export const enum RepeatMode {
     REPEAT_ALL = "REPEAT_ALL",
     REPEAT_ALL_AND_SHUFFLE = "REPEAT_ALL_AND_SHUFFLE",
     REPEAT_OFF = "REPEAT_OFF",
@@ -304,7 +304,7 @@ export enum RepeatMode {
  * Represents the playback state after a SEEK request.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.SeekResumeState}
  */
-export enum SeekResumeState {
+export const enum SeekResumeState {
     PLAYBACK_PAUSE = "PLAYBACK_PAUSE",
     PLAYBACK_START = "PLAYBACK_START",
 }
@@ -313,7 +313,7 @@ export enum SeekResumeState {
  * The streaming protocol types.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.StreamingProtocolType}
  */
-export enum StreamingProtocolType {
+export const enum StreamingProtocolType {
     UNKNOWN = 0,
     MPEG_DASH = 1,
     HLS = 2,
@@ -324,7 +324,7 @@ export enum StreamingProtocolType {
  * Represents the stream types.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.StreamType}
  */
-export enum StreamType {
+export const enum StreamType {
     BUFFERED = "BUFFERED",
     LIVE = "LIVE",
     NONE = "NONE",
@@ -334,7 +334,7 @@ export enum StreamType {
  * Possible text track edge type.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackEdgeType}
  */
-export enum TextTrackEdgeType {
+export const enum TextTrackEdgeType {
     DEPRESSED = "DEPRESSED",
     DROP_SHADOW = "DROP_SHADOW",
     NONE = "NONE",
@@ -346,7 +346,7 @@ export enum TextTrackEdgeType {
  * Text track font generic family.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontGenericFamily}
  */
-export enum TextTrackFontGenericFamily {
+export const enum TextTrackFontGenericFamily {
     CASUAL = "CASUAL",
     CURSIVE = "CURSIVE",
     MONOSPACED_SANS_SERIF = "MONOSPACED_SANS_SERIF",
@@ -360,7 +360,7 @@ export enum TextTrackFontGenericFamily {
  * Possible text track font style.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontStyle}
  */
-export enum TextTrackFontStyle {
+export const enum TextTrackFontStyle {
     BOLD = "BOLD",
     BOLD_ITALIC = "BOLD_ITALIC",
     ITALIC = "ITALIC",
@@ -371,7 +371,7 @@ export enum TextTrackFontStyle {
  * Possible text track type (follows the HTML5 text track type definitions).
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackType}
  */
-export enum TextTrackType {
+export const enum TextTrackType {
     CAPTIONS = "CAPTIONS",
     CHAPTERS = "CHAPTERS",
     DESCRIPTIONS = "DESCRIPTIONS",
@@ -383,7 +383,7 @@ export enum TextTrackType {
  * Text track window type.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackWindowType}
  */
-export enum TextTrackWindowType {
+export const enum TextTrackWindowType {
     NONE = "NONE",
     NORMAL = "NORMAL",
     ROUNDED_CORNERS = "ROUNDED_CORNERS",
@@ -393,7 +393,7 @@ export enum TextTrackWindowType {
  * Possible media track type.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TrackType}
  */
-export enum TrackType {
+export const enum TrackType {
     AUDIO = "AUDIO",
     TEXT = "TEXT",
     VIDEO = "VIDEO",
@@ -403,7 +403,7 @@ export enum TrackType {
  * User actions.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserAction}
  */
-export enum UserAction {
+export const enum UserAction {
     DISLIKE = "DISLIKE",
     FLAG = "FLAG",
     FOLLOW = "FOLLOW",
@@ -416,7 +416,7 @@ export enum UserAction {
  * Context information for the user action.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserActionContext}
  */
-export enum UserActionContext {
+export const enum UserActionContext {
     ALBUM = "ALBUM",
     ARTIST = "ARTIST",
     CHANNEL = "CHANNEL",

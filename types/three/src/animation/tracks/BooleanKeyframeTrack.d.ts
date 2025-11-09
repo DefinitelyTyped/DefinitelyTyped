@@ -12,7 +12,7 @@ export class BooleanKeyframeTrack extends KeyframeTrack {
      *
      * @param {string} name - The keyframe track's name.
      * @param {Array<number>} times - A list of keyframe times.
-     * @param {Array<number>} values - A list of keyframe values.
+     * @param {Array<boolean>} values - A list of keyframe values.
      */
-    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<number>);
+    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<boolean>);
 }

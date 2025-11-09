@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.136.0
+// For Library Version: 1.138.0
 
 declare module "sap/base/assert" {
   /**
@@ -42670,7 +42670,10 @@ declare module "sap/ui/core/routing/Target" {
       oListener?: object
     ): this;
     /**
-     * Creates a view and puts it in an aggregation of a control that has been defined in the {@link sap.ui.core.routing.Target#constructor}.
+     * Creates a view and puts it in an aggregation of a control that has been defined in the {@link #constructor}.
+     *
+     * This method can be used to display a target without changing the browser hash. If the browser hash should
+     * be changed, the {@link sap.ui.core.routing.Router#navTo} method should be used instead
      *
      *
      * @returns resolves with {name: *, view: *, control: *} if the target can be successfully displayed otherwise
@@ -44591,6 +44594,27 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
      */
     static getMetadata(): Metadata;
     /**
+     * Returns a managed instance of {@link sap.ui.core.routing.RouterHashChanger} associated with the current
+     * instance.
+     *
+     * This sub-instance handles a specific part of the URL hash. When the sub-instance modifies the hash, it
+     * notifies the parent instance, which then updates the browser’s hash accordingly. Likewise, when the relevant
+     * part of the hash changes externally, the parent instance notifies the sub-instance.
+     *
+     * The provided `sKey` is used as an identifier for caching the sub-instance. If this method is called again
+     * with the same key, the previously created instance is returned.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The corresponding sub RouterHashChanger instance.
+     */
+    createSubHashChanger(
+      /**
+       * A unique key used as the prefix for the sub RouterHashChanger.
+       */
+      sKey: string
+    ): RouterHashChanger;
+    /**
      * Save the given hash and potentially fires a "hashChanged" event; may be extended to modify the hash before
      * firing the event.
      *
@@ -44705,10 +44729,6 @@ declare module "sap/ui/core/routing/Targets" {
     $TargetSettings,
     default as Target,
   } from "sap/ui/core/routing/Target";
-
-  import View from "sap/ui/core/mvc/View";
-
-  import Control from "sap/ui/core/Control";
 
   import Metadata from "sap/ui/base/Metadata";
 
@@ -45030,37 +45050,29 @@ declare module "sap/ui/core/routing/Targets" {
      * Creates a view and puts it in an aggregation of the specified control.
      *
      *
-     * @returns this pointer for chaining or a Promise
+     * @returns resolving with {{name: *, view: *, control: *}|undefined} for every vTargets, object for single,
+     * array for multiple
      */
     display(
       /**
-       * Either the target name or a target info object. To display multiple targets you may also pass an array
-       * of target names or target info objects.
+       * the key of the target as specified in the {@link #constructor}. To display multiple targets you may also
+       * pass an array of keys. If the target(s) represents a sap.ui.core.UIComponent, a prefix for its Router
+       * is needed. You can set this parameter with an object which has the 'name' property set with the key of
+       * the target and the 'prefix' property set with the prefix for the UIComponent's router. To display multiple
+       * component targets, you man also pass an array of objects.
        */
-      vTargets: string | string[] | TargetInfo | TargetInfo[],
+      vTargets: string | string[] | object | object[],
       /**
        * an object that will be passed to the display event in the data property. If the target has parents, the
        * data will also be passed to them.
        */
-      oData?: object,
+      vData?: object,
       /**
        * the name of the target from which the title option is taken for firing the {@link sap.ui.core.routing.Targets#event:titleChanged titleChanged }
        * event
        */
       sTitleTarget?: string
-    ):
-      | this
-      | Promise<
-          Array<{
-            name: string;
-
-            view: View;
-
-            control: Control;
-
-            targetInfo: TargetInfo;
-          }>
-        >;
+    ): Promise<any>;
     /**
      * Fires event {@link #event:created created} to attached listeners.
      *
@@ -51741,8 +51753,7 @@ declare module "sap/ui/core/webc/WebComponent" {
    * properties, the aggregations and the events. It also ensures to render the control and put the aggregated
    * controls in the dedicated slots of the Web Component.
    *
-   * @since 1.118.0
-   * @experimental As of version 1.118.0. The API might change. It is not intended for productive usage yet!
+   * @since 1.138.0
    */
   export default class WebComponent extends Control {
     /**
@@ -51889,8 +51900,6 @@ declare module "sap/ui/core/webc/WebComponent" {
 
   /**
    * Describes the settings that can be provided to the WebComponent constructor.
-   *
-   * @experimental As of version 1.118.0. The API might change. It is not intended for productive usage yet!
    */
   export interface $WebComponentSettings extends $ControlSettings {}
 
@@ -51990,8 +51999,7 @@ declare module "sap/ui/core/webc/WebComponentMetadata" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @since 1.118.0
-   * @experimental As of version 1.118.0. The API might change. It is not intended for productive usage yet!
+   * @since 1.138.0
    */
   export default class WebComponentMetadata extends ElementMetadata {
     /**
@@ -53825,7 +53833,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
    * to OData requests. If a binding count mode is set to `Request` or `Both`, a warning is logged to remind
    * the application that the OData requests generated by the AnalyticalBinding include a $inlinecount.
    *
-   * @experimental This module is only for experimental use!
+   * @deprecated As of version 1.138.0. will be replaced by OData V4 data aggregation, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1 Extension for Data Aggregation}
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export default class AnalyticalBinding extends TreeBinding {
@@ -54421,6 +54429,10 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 }
 
 declare module "sap/ui/model/analytics/AnalyticalTreeBindingAdapter" {
+  /**
+   * @deprecated As of version 1.138.0. will be replaced by OData V4 data aggregation, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1 Extension for Data Aggregation}
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
   export default class AnalyticalTreeBindingAdapter {
     /**
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
@@ -54569,7 +54581,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
    *
    * Lazy initialization of attributes will cause unexpected values when you access object attributes directly.
    *
-   * @experimental This module is only for experimental use!
+   * @deprecated As of version 1.138.0. will be replaced by OData V4 data aggregation, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1 Extension for Data Aggregation}
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   interface odata4analytics {
@@ -54596,6 +54608,9 @@ declare module "sap/ui/model/analytics/odata4analytics" {
     ): void;
   }
   const odata4analytics: odata4analytics;
+  /**
+   * @deprecated As of version 1.138.0. will be replaced by OData V4 data aggregation, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1 Extension for Data Aggregation}
+   */
   export default odata4analytics;
 
   /**
@@ -61380,7 +61395,7 @@ declare module "sap/ui/model/odata/ODataTreeBindingAdapter" {
    * controls. Only usable with the sap.ui.table.TreeTable control. The functions defined here are only available
    * when you are using a TreeTable and an ODataModel.
    *
-   * @experimental This module is only for experimental and internal use!
+   * @deprecated As of version 1.138.0. will be replaced by OData V4 hierarchy functionality, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1/section_RCH Recursive Hierarchy}
    */
   export default function ODataTreeBindingAdapter(): void;
 }
@@ -68325,7 +68340,7 @@ declare module "sap/ui/model/odata/type/Stream" {
      */
     constructor(
       /**
-       * Must be `undefined`
+       * Must be `undefined` or `null`
        */
       oFormatOptions?: object,
       /**
@@ -74275,8 +74290,6 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   /**
    * Parameters of the ODataListBinding#separateReceived event.
-   *
-   * @experimental As of version 1.131.0.
    */
   export interface ODataListBinding$SeparateReceivedEventParameters {
     /**
@@ -74295,15 +74308,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     length?: number;
 
     /**
-     * A UI5 message of type {@link module:sap/ui/core/message/MessageType MessageType.Error}
+     * An array of UI5 messages if the request failed; `undefined` otherwise
      */
-    errorMessage?: Message;
+    messagesOnError?: Message[];
   }
 
   /**
    * Event object of the ODataListBinding#separateReceived event.
-   *
-   * @experimental As of version 1.131.0.
    */
   export type ODataListBinding$SeparateReceivedEvent = Event<
     ODataListBinding$SeparateReceivedEventParameters,
@@ -74904,7 +74915,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * is not an OData simple identifier, it can be used as a placeholder for one. In this way, "/EMPLOYEES/"
      * addresses the same entity type as "/EMPLOYEES/$Type/". That entity type in turn is a map of all its OData
      * children (that is, structural and navigation properties) and determines the set of possible child names
-     * that might be used after the trailing slash.
+     * that might be used after the trailing slash. Since 1.137.0, open (complex or entity) types are supported
+     * as follows: A simple identifier that does not refer to an OData child is valid and treated as a dynamic
+     * property of type "Edm.Untyped".
      *
      * "$" can be used as the last segment to continue a path and thus force scope lookup, but no OData simple
      * identifier preparations. In this way, it serves as a placeholder for a technical property. The path must
@@ -75571,12 +75584,12 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $$ownRequest?: boolean;
         /**
-         * An array of navigation property names which are omitted from the main list request and loaded in a separate
-         * request instead (@experimental as of version 1.129.0). This results in the main list becoming available
-         * faster, while the separate properties are merged as soon as the data is received. Note that the separate
-         * properties must be single valued and part of the '$expand' system query option, either automatically
-         * via the "autoExpandSelect" model parameter (see {@link #constructor}) or manually. The `$$separate` parameter
-         * must not be combined with `$$aggregation`.
+         * An array of navigation property names which are omitted from the main list request (since 1.137.0). Instead,
+         * each of them is loaded in a separate request. This results in the main list becoming available faster,
+         * while the separate properties are merged as soon as the data is received. Note that the separate properties
+         * must be single valued and part of the '$expand' system query option, either automatically via the "autoExpandSelect"
+         * model parameter (see {@link #constructor}) or manually. The `$$separate` parameter must not be combined
+         * with `$$aggregation`.
          */
         $$separate?: string[];
         /**
@@ -84526,11 +84539,11 @@ declare module "sap/ui/test/Opa5" {
      * whether a function is used as arrangement or action. Each function typically contains one or multiple
      * `waitFor` statements.
      */
-    actions?: Record<string, () => void> | Function;
+    actions?: Record<string, Function> | Function;
     /**
      * A map or a class of functions that can be used as assertions in Opa tests.
      */
-    assertions?: Record<string, () => void> | Function;
+    assertions?: Record<string, Function> | Function;
   };
 }
 
@@ -87827,7 +87840,7 @@ declare namespace sap {
         /**
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
          *
-         * @experimental This module is only for experimental use!
+         * @deprecated As of version 1.138.0. will be replaced by OData V4 data aggregation, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1 Extension for Data Aggregation}
          * @ui5-protected Do not call from applications (only from related classes in the framework)
          */
         function ODataModelAdapter(): void;

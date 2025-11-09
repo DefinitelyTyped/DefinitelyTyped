@@ -41,7 +41,7 @@ proxy("www.google.com", {
 
 proxy("www.google.com", {
     proxyReqOptDecorator(proxyReqOpts, srcReq) {
-        console.log(proxyReqOpts.headers, proxyReqOpts.method);
+        console.log(proxyReqOpts.headers, proxyReqOpts.method, proxyReqOpts.headers["user-agent"]);
         console.log(srcReq.url, srcReq.cookies);
         return proxyReqOpts;
     },

@@ -1,4 +1,4 @@
-// For Library Version: 1.136.0
+// For Library Version: 1.138.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -18904,6 +18904,10 @@ declare module "sap/ui/unified/MenuItem" {
      * Defines the content that is displayed at the end of a menu item. This aggregation allows for the addition
      * of custom elements, such as icons and buttons.
      *
+     * **Note:** Application developers are responsible for ensuring that interactive `endContent` controls
+     * have the correct accessibility behaviour, including their enabled or disabled states. The Menu
+     * does not manage these aspects when the menu item state changes.
+     *
      * @since 1.131
      */
     getEndContent(): Control[];
@@ -19135,6 +19139,10 @@ declare module "sap/ui/unified/MenuItem" {
     /**
      * Defines the content that is displayed at the end of a menu item. This aggregation allows for the addition
      * of custom elements, such as icons and buttons.
+     *
+     * **Note:** Application developers are responsible for ensuring that interactive `endContent` controls
+     * have the correct accessibility behaviour, including their enabled or disabled states. The Menu
+     * does not manage these aspects when the menu item state changes.
      *
      * @since 1.131
      */

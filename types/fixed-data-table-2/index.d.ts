@@ -29,6 +29,14 @@ export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => stri
 export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
 /**
+ * Represents the return type for a function that provides HTML attributes for
+ * a component.
+ */
+export type AttributesGetterReturn =
+    & React.HTMLAttributes<HTMLElement>
+    & { [key: `data-${string}`]: string | undefined };
+
+/**
  * Data grid component with fixed or scrollable header and columns.
  *
  * The layout of the data table is as follows:
@@ -204,6 +212,12 @@ export interface TableProps extends React.ClassAttributes<Table> {
     rowExpanded?: ElementOrFunc<RowProps> | undefined;
 
     /**
+     * Callback that returns an object of html attributes to add to each row
+     * element.
+     */
+    rowAttributesGetter?: ((index: number) => AttributesGetterReturn) | undefined;
+
+    /**
      * To get any additional CSS classes that should be added to a row,
      * `rowClassNameGetter(index)` is called.
      */
@@ -214,6 +228,12 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * returned value overrides `key` for the particular row.
      */
     rowKeyGetter?: ((index: number) => string) | undefined;
+
+    /**
+     * Callback that returns an object of html attributes to add to the grid
+     * element.
+     */
+    gridAttributesGetter?: (() => AttributesGetterReturn) | undefined;
 
     /**
      * Pixel height of the column group header.

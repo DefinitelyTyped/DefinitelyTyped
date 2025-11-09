@@ -1,4 +1,5 @@
 import type {
+    AriaRole,
     ComponentClass,
     ComponentType,
     createElement,
@@ -1075,7 +1076,9 @@ export interface TextProps extends ViewPropsWithoutStyle {
         | "link"
         | "listitem"
         | "none"
-        | "text";
+        | "text"
+        | "paragraph"
+        | AriaRole;
     style?: StyleProp<TextStyle>;
     testID?: string;
     // @deprecated
@@ -1372,7 +1375,29 @@ declare module "react-native" {
         dir?: "auto" | "ltr" | "rtl";
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface TextProps extends WebTextProps {}
+    interface TextProps extends WebTextProps {
+        role?:
+            | "button"
+            | "header"
+            | "heading"
+            | "label"
+            | "link"
+            | "listitem"
+            | "none"
+            | "text"
+            | "paragraph"
+            | AriaRole;
+        // @deprecated
+        accessibilityRole?:
+            | "button"
+            | "header"
+            | "heading"
+            | "label"
+            | "link"
+            | "listitem"
+            | "none"
+            | "text";
+    }
 
     /**
      * TextInput

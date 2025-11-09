@@ -14,10 +14,5 @@
     "devDependencies": {
         "@types/ember-modal-service": "workspace:."
     },
-    "owners": [
-        {
-            "name": "golovkoe",
-            "githubUsername": "elenagolovko"
-        }
-    ]
+    "owners": []
 }

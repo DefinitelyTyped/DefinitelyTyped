@@ -8,7 +8,9 @@
     ],
     "dependencies": {
         "@types/eslint": "*",
-        "@types/estree": "*"
+        "@types/esrecurse": "*",
+        "@types/estree": "*",
+        "eslint-visitor-keys": "*"
     },
     "devDependencies": {
         "@types/eslint-scope": "workspace:.",

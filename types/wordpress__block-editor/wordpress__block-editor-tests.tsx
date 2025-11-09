@@ -639,3 +639,12 @@ be.useCachedTruthy("HELLO");
 
 // $ExpectType 42
 be.useCachedTruthy(42);
+
+// $ExpectType any[]
+be.useSettings("test");
+
+// $ExpectType { updateBlockBindings(bindings: { [binding: string]: { source: string; args?: { [key: string]: unknown; } | undefined; } | undefined; }): void; removeAllBlockBindings(): void; }
+be.useBlockBindingsUtils();
+
+// $ExpectType { name: string; isSelected?: boolean | undefined; clientId: string; layout: unknown; }
+be.useBlockEditContext();

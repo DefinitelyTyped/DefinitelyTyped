@@ -2,9 +2,12 @@
     "private": true,
     "name": "@types/elm",
     "version": "0.19.9999",
+    "type": "module",
     "projects": [
         "http://elm-lang.org"
     ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "These types are for the compiled output of the Elm compiler. See the documentation at https://guide.elm-lang.org/interop/",
     "devDependencies": {
         "@types/elm": "workspace:."
     },
@@ -16,6 +19,10 @@
         {
             "name": "Renan Vaz ",
             "githubUsername": "renanpvaz"
+        },
+        {
+            "name": "Eli D.",
+            "githubUsername": "lishaduck"
         }
     ]
 }

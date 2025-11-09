@@ -6,9 +6,9 @@ import { ProxiedObject, ProxiedTuple, ShaderNodeObject } from "../tsl/TSLCore.js
 import CodeNode, { CodeNodeInclude } from "./CodeNode.js";
 import FunctionCallNode from "./FunctionCallNode.js";
 
-export type FunctionNodeArguments = Node[] | { [name: string]: Node };
+export type FunctionNodeArguments = Array<Node | number> | { [name: string]: Node | number };
 
-export default class FunctionNode<P extends Node[] | { [name: string]: Node }> extends CodeNode {
+export default class FunctionNode<P extends Array<Node | number> | { [name: string]: Node | number }> extends CodeNode {
     constructor(code?: string, includes?: CodeNodeInclude[], language?: string);
 
     getInputs(builder: NodeBuilder): NodeFunctionInput[];

@@ -268,7 +268,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            auxData?: {} | undefined;
+            auxData?: object | undefined;
         }
         /**
          * Detailed information about exception (or error) that was thrown during script compilation or execution.
@@ -701,7 +701,7 @@ declare module 'inspector' {
         }
         interface InspectRequestedEventDataType {
             object: RemoteObject;
-            hints: {};
+            hints: object;
         }
     }
     namespace Debugger {
@@ -1173,7 +1173,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {} | undefined;
+            executionContextAuxData?: object | undefined;
             /**
              * True, if this script is generated as a result of the live edit operation.
              * @experimental
@@ -1237,7 +1237,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {} | undefined;
+            executionContextAuxData?: object | undefined;
             /**
              * URL of source map associated with script (if any).
              */
@@ -1282,7 +1282,7 @@ declare module 'inspector' {
             /**
              * Object containing break-specific auxiliary properties.
              */
-            data?: {} | undefined;
+            data?: object | undefined;
             /**
              * Hit breakpoints IDs
              */
@@ -1649,7 +1649,7 @@ declare module 'inspector' {
             categories: string[];
         }
         interface DataCollectedEventDataType {
-            value: Array<{}>;
+            value: object[];
         }
     }
     namespace NodeWorker {
@@ -1759,6 +1759,7 @@ declare module 'inspector' {
             url: string;
             method: string;
             headers: Headers;
+            hasPostData: boolean;
         }
         /**
          * HTTP response data.
@@ -1768,11 +1769,53 @@ declare module 'inspector' {
             status: number;
             statusText: string;
             headers: Headers;
+            mimeType: string;
+            charset: string;
         }
         /**
          * Request / response headers as keys / values of JSON object.
          */
         interface Headers {
+        }
+        interface GetRequestPostDataParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
+        interface GetResponseBodyParameterType {
+            /**
+             * Identifier of the network request to get content for.
+             */
+            requestId: RequestId;
+        }
+        interface StreamResourceContentParameterType {
+            /**
+             * Identifier of the request to stream.
+             */
+            requestId: RequestId;
+        }
+        interface GetRequestPostDataReturnType {
+            /**
+             * Request body string, omitting files from multipart requests
+             */
+            postData: string;
+        }
+        interface GetResponseBodyReturnType {
+            /**
+             * Response body.
+             */
+            body: string;
+            /**
+             * True, if content was sent as base64.
+             */
+            base64Encoded: boolean;
+        }
+        interface StreamResourceContentReturnType {
+            /**
+             * Data that has been buffered until streaming is enabled.
+             */
+            bufferedData: string;
         }
         interface RequestWillBeSentEventDataType {
             /**
@@ -1842,10 +1885,57 @@ declare module 'inspector' {
              */
             timestamp: MonotonicTime;
         }
+        interface DataReceivedEventDataType {
+            /**
+             * Request identifier.
+             */
+            requestId: RequestId;
+            /**
+             * Timestamp.
+             */
+            timestamp: MonotonicTime;
+            /**
+             * Data chunk length.
+             */
+            dataLength: number;
+            /**
+             * Actual bytes received (might be less than dataLength for compressed encodings).
+             */
+            encodedDataLength: number;
+            /**
+             * Data that was received.
+             * @experimental
+             */
+            data?: string | undefined;
+        }
     }
     namespace NodeRuntime {
         interface NotifyWhenWaitingForDisconnectParameterType {
             enabled: boolean;
+        }
+    }
+    namespace Target {
+        type SessionID = string;
+        type TargetID = string;
+        interface TargetInfo {
+            targetId: TargetID;
+            type: string;
+            title: string;
+            url: string;
+            attached: boolean;
+            canAccessOpener: boolean;
+        }
+        interface SetAutoAttachParameterType {
+            autoAttach: boolean;
+            waitForDebuggerOnStart: boolean;
+        }
+        interface TargetCreatedEventDataType {
+            targetInfo: TargetInfo;
+        }
+        interface AttachedToTargetEventDataType {
+            sessionId: SessionID;
+            targetInfo: TargetInfo;
+            waitingForDebugger: boolean;
         }
     }
 
@@ -2225,6 +2315,27 @@ declare module 'inspector' {
          */
         post(method: 'Network.enable', callback?: (err: Error | null) => void): void;
         /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType, callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        post(method: 'Network.getRequestPostData', callback?: (err: Error | null, params: Network.GetRequestPostDataReturnType) => void): void;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType, callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        post(method: 'Network.getResponseBody', callback?: (err: Error | null, params: Network.GetResponseBodyReturnType) => void): void;
+        /**
+         * Enables streaming of the response for the given requestId.
+         * If enabled, the dataReceived event contains the data that was received during streaming.
+         * @experimental
+         */
+        post(
+            method: 'Network.streamResourceContent',
+            params?: Network.StreamResourceContentParameterType,
+            callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void
+        ): void;
+        post(method: 'Network.streamResourceContent', callback?: (err: Error | null, params: Network.StreamResourceContentReturnType) => void): void;
+        /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
         post(method: 'NodeRuntime.enable', callback?: (err: Error | null) => void): void;
@@ -2237,6 +2348,8 @@ declare module 'inspector' {
          */
         post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType, callback?: (err: Error | null) => void): void;
         post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', callback?: (err: Error | null) => void): void;
+        post(method: 'Target.setAutoAttach', params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
+        post(method: 'Target.setAutoAttach', callback?: (err: Error | null) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
@@ -2344,6 +2457,10 @@ declare module 'inspector' {
         addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        addListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -2355,6 +2472,8 @@ declare module 'inspector' {
          * example, when inspector.waitingForDebugger is called
          */
         addListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        addListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        addListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: 'inspectorNotification', message: InspectorNotification<object>): boolean;
         emit(event: 'Runtime.executionContextCreated', message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -2386,8 +2505,11 @@ declare module 'inspector' {
         emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
         emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
         emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
+        emit(event: 'Network.dataReceived', message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
         emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
         emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
+        emit(event: 'Target.targetCreated', message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
+        emit(event: 'Target.attachedToTarget', message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2494,6 +2616,10 @@ declare module 'inspector' {
         on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        on(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -2505,6 +2631,8 @@ declare module 'inspector' {
          * example, when inspector.waitingForDebugger is called
          */
         on(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        on(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        on(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2611,6 +2739,10 @@ declare module 'inspector' {
         once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        once(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -2622,6 +2754,8 @@ declare module 'inspector' {
          * example, when inspector.waitingForDebugger is called
          */
         once(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        once(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        once(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2728,6 +2862,10 @@ declare module 'inspector' {
         prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        prependListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -2739,6 +2877,8 @@ declare module 'inspector' {
          * example, when inspector.waitingForDebugger is called
          */
         prependListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        prependListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2845,6 +2985,10 @@ declare module 'inspector' {
         prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        prependOnceListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -2856,6 +3000,8 @@ declare module 'inspector' {
          * example, when inspector.waitingForDebugger is called
          */
         prependOnceListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        prependOnceListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependOnceListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
     }
 
     /**
@@ -2953,6 +3099,23 @@ declare module 'inspector' {
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
+         * Broadcasts the `Network.dataReceived` event to connected frontends, or buffers the data if
+         * `Network.streamResourceContent` command was not invoked for the given request yet.
+         *
+         * Also enables `Network.getResponseBody` command to retrieve the response data.
+         * @since v24.2.0
+         */
+        function dataReceived(params: DataReceivedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Enables `Network.getRequestPostData` command to retrieve the request data.
+         * @since v24.3.0
+         */
+        function dataSent(params: unknown): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
          * Broadcasts the `Network.responseReceived` event to connected frontends. This event indicates that
          * HTTP response is available.
          * @since v22.6.0
@@ -3010,6 +3173,7 @@ declare module 'inspector/promises' {
         NodeWorker,
         Network,
         NodeRuntime,
+        Target,
     } from 'inspector';
 
     /**
@@ -3335,6 +3499,20 @@ declare module 'inspector/promises' {
          */
         post(method: 'Network.enable'): Promise<void>;
         /**
+         * Returns post data sent with the request. Returns an error when no data was sent with the request.
+         */
+        post(method: 'Network.getRequestPostData', params?: Network.GetRequestPostDataParameterType): Promise<Network.GetRequestPostDataReturnType>;
+        /**
+         * Returns content served for the given request.
+         */
+        post(method: 'Network.getResponseBody', params?: Network.GetResponseBodyParameterType): Promise<Network.GetResponseBodyReturnType>;
+        /**
+         * Enables streaming of the response for the given requestId.
+         * If enabled, the dataReceived event contains the data that was received during streaming.
+         * @experimental
+         */
+        post(method: 'Network.streamResourceContent', params?: Network.StreamResourceContentParameterType): Promise<Network.StreamResourceContentReturnType>;
+        /**
          * Enable the NodeRuntime events except by `NodeRuntime.waitingForDisconnect`.
          */
         post(method: 'NodeRuntime.enable'): Promise<void>;
@@ -3346,6 +3524,7 @@ declare module 'inspector/promises' {
          * Enable the `NodeRuntime.waitingForDisconnect`.
          */
         post(method: 'NodeRuntime.notifyWhenWaitingForDisconnect', params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType): Promise<void>;
+        post(method: 'Target.setAutoAttach', params?: Target.SetAutoAttachParameterType): Promise<void>;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
@@ -3453,6 +3632,10 @@ declare module 'inspector/promises' {
         addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        addListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -3464,6 +3647,8 @@ declare module 'inspector/promises' {
          * example, when inspector.waitingForDebugger is called
          */
         addListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        addListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        addListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: 'inspectorNotification', message: InspectorNotification<object>): boolean;
         emit(event: 'Runtime.executionContextCreated', message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -3495,8 +3680,11 @@ declare module 'inspector/promises' {
         emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
         emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
         emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
+        emit(event: 'Network.dataReceived', message: InspectorNotification<Network.DataReceivedEventDataType>): boolean;
         emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
         emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
+        emit(event: 'Target.targetCreated', message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
+        emit(event: 'Target.attachedToTarget', message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3603,6 +3791,10 @@ declare module 'inspector/promises' {
         on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        on(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -3614,6 +3806,8 @@ declare module 'inspector/promises' {
          * example, when inspector.waitingForDebugger is called
          */
         on(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        on(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        on(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3720,6 +3914,10 @@ declare module 'inspector/promises' {
         once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        once(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -3731,6 +3929,8 @@ declare module 'inspector/promises' {
          * example, when inspector.waitingForDebugger is called
          */
         once(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        once(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        once(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3837,6 +4037,10 @@ declare module 'inspector/promises' {
         prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        prependListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -3848,6 +4052,8 @@ declare module 'inspector/promises' {
          * example, when inspector.waitingForDebugger is called
          */
         prependListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        prependListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3954,6 +4160,10 @@ declare module 'inspector/promises' {
         prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
+         * Fired when data chunk was received over the network.
+         */
+        prependOnceListener(event: 'Network.dataReceived', listener: (message: InspectorNotification<Network.DataReceivedEventDataType>) => void): this;
+        /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
          * enabled.
          * It is fired when the Node process finished all code execution and is
@@ -3965,6 +4175,8 @@ declare module 'inspector/promises' {
          * example, when inspector.waitingForDebugger is called
          */
         prependOnceListener(event: 'NodeRuntime.waitingForDebugger', listener: () => void): this;
+        prependOnceListener(event: 'Target.targetCreated', listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
+        prependOnceListener(event: 'Target.attachedToTarget', listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
     }
 
     export {
@@ -3985,6 +4197,7 @@ declare module 'inspector/promises' {
         NodeWorker,
         Network,
         NodeRuntime,
+        Target,
     };
 }
 

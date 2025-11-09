@@ -5,6 +5,8 @@ Alpine.plugin(morphPlugin);
 
 const originalNode = document.createElement("div");
 
+Alpine.morph(originalNode, "<div></div>");
+
 Alpine.morph(originalNode, "<div></div>", {
     updating(from, to, childrenOnly, skip) {
         // $ExpectType Node

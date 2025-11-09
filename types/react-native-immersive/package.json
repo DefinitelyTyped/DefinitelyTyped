@@ -1,0 +1,17 @@
+{
+    "name": "@types/react-native-immersive",
+    "private": true,
+    "version": "1.0.9999",
+    "devDependencies": {
+        "@types/react-native-immersive": "workspace:."
+    },
+    "projects": [
+        "https://github.com/d0whc3r/react-native-immersive"
+    ],
+    "owners": [
+        {
+            "name": "Kurisani",
+            "githubUsername": "CheFu-code"
+        }
+    ]
+}

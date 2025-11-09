@@ -3771,7 +3771,23 @@ declare module "crypto" {
          */
         checkIP(ip: string): string | undefined;
         /**
-         * Checks whether this certificate was issued by the given `otherCert`.
+         * Checks whether this certificate was potentially issued by the given `otherCert`
+         * by comparing the certificate metadata.
+         *
+         * This is useful for pruning a list of possible issuer certificates which have been
+         * selected using a more rudimentary filtering routine, i.e. just based on subject
+         * and issuer names.
+         *
+         * Finally, to verify that this certificate's signature was produced by a private key
+         * corresponding to `otherCert`'s public key use `x509.verify(publicKey)`
+         * with `otherCert`'s public key represented as a `KeyObject`
+         * like so
+         *
+         * ```js
+         * if (!x509.verify(otherCert.publicKey)) {
+         *   throw new Error('otherCert did not issue x509');
+         * }
+         * ```
          * @since v15.6.0
          */
         checkIssued(otherCert: X509Certificate): boolean;

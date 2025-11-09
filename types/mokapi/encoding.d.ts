@@ -24,5 +24,3 @@ export interface Base64Encoding {
 }
 
 export const base64: Base64Encoding;
-
-

@@ -39,6 +39,7 @@ import BaseObject from "sap/ui/base/Object";
 import ObjectMarker from "sap/m/ObjectMarker";
 import Theming from "sap/ui/core/Theming";
 import ColumnAIAction from "sap/m/plugins/ColumnAIAction";
+import List from "sap/m/List";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -267,3 +268,8 @@ const theming = Theming.setFavicon("favicon.ico");
 
 // 1.136
 const caia = new ColumnAIAction();
+
+// 1.138
+new List().attachItemActionPress((oEvent) => {
+    oEvent.getParameters().listItem;
+});

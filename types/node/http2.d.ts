@@ -32,18 +32,14 @@ declare module "http2" {
         ":scheme"?: string | undefined;
     }
     // Http2Stream
-    export interface StreamPriorityOptions {
-        exclusive?: boolean | undefined;
-        parent?: number | undefined;
-        weight?: number | undefined;
-        silent?: boolean | undefined;
-    }
     export interface StreamState {
         localWindowSize?: number | undefined;
         state?: number | undefined;
         localClose?: number | undefined;
         remoteClose?: number | undefined;
+        /** @deprecated */
         sumDependencyWeight?: number | undefined;
+        /** @deprecated */
         weight?: number | undefined;
     }
     export interface ServerStreamResponseOptions {
@@ -151,10 +147,9 @@ declare module "http2" {
          */
         close(code?: number, callback?: () => void): void;
         /**
-         * Updates the priority for this `Http2Stream` instance.
-         * @since v8.4.0
+         * @deprecated Priority signaling is no longer supported in Node.js.
          */
-        priority(options: StreamPriorityOptions): void;
+        priority(options: unknown): void;
         /**
          * ```js
          * import http2 from 'node:http2';
@@ -395,7 +390,7 @@ declare module "http2" {
         ): void;
         pushStream(
             headers: OutgoingHttpHeaders,
-            options?: StreamPriorityOptions,
+            options?: Pick<ClientSessionRequestOptions, "exclusive" | "parent">,
             callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void,
         ): void;
         /**
@@ -629,7 +624,6 @@ declare module "http2" {
         endStream?: boolean | undefined;
         exclusive?: boolean | undefined;
         parent?: number | undefined;
-        weight?: number | undefined;
         waitForTrailers?: boolean | undefined;
         signal?: AbortSignal | undefined;
     }
@@ -1294,6 +1288,14 @@ declare module "http2" {
          * @default 100000
          */
         unknownProtocolTimeout?: number | undefined;
+        /**
+         * If `true`, it turns on strict leading
+         * and trailing whitespace validation for HTTP/2 header field names and values
+         * as per [RFC-9113](https://www.rfc-editor.org/rfc/rfc9113.html#section-8.2.1).
+         * @since v24.2.0
+         * @default true
+         */
+        strictFieldWhitespaceValidation?: boolean | undefined;
     }
     export interface ClientSessionOptions extends SessionOptions {
         /**

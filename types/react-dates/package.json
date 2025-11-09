@@ -7,8 +7,10 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-outside-click-handler": "*",
-        "moment": "^2.26.0"
+        "@types/react-outside-click-handler": "*"
+    },
+    "peerDependencies": {
+        "moment": ">=2"
     },
     "devDependencies": {
         "@types/react-dates": "workspace:."

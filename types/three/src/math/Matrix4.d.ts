@@ -246,6 +246,7 @@ export class Matrix4 {
         near: number,
         far: number,
         coordinateSystem?: CoordinateSystem,
+        reversedDepth?: boolean,
     ): this;
 
     /**
@@ -259,6 +260,7 @@ export class Matrix4 {
         near: number,
         far: number,
         coordinateSystem?: CoordinateSystem,
+        reversedDepth?: boolean,
     ): this;
 
     equals(matrix: Matrix4): boolean;

@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/ember-task-scheduler": "workspace:."
     },
-    "owners": [
-        {
-            "name": "golovkoe",
-            "githubUsername": "elenagolovko"
-        }
-    ]
+    "owners": []
 }

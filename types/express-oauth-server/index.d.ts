@@ -17,19 +17,19 @@ declare class ExpressOAuthServer {
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.Token>;
 
     authorize(options?: OAuth2Server.AuthorizeOptions): (
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.AuthorizationCode>;
 
     token(options?: OAuth2Server.TokenOptions): (
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.Token>;
 }
 
 export = ExpressOAuthServer;

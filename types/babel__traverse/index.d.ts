@@ -877,6 +877,7 @@ export class NodePath<T = Node> {
     isFunction(opts?: object): this is NodePath<t.Function>;
     isFunctionDeclaration(opts?: object): this is NodePath<t.FunctionDeclaration>;
     isFunctionExpression(opts?: object): this is NodePath<t.FunctionExpression>;
+    isFunctionParameter(opts?: object): this is NodePath<t.FunctionParameter>;
     isFunctionParent(opts?: object): this is NodePath<t.FunctionParent>;
     isFunctionTypeAnnotation(opts?: object): this is NodePath<t.FunctionTypeAnnotation>;
     isFunctionTypeParam(opts?: object): this is NodePath<t.FunctionTypeParam>;
@@ -887,8 +888,10 @@ export class NodePath<T = Node> {
     isImport(opts?: object): this is NodePath<t.Import>;
     isImportAttribute(opts?: object): this is NodePath<t.ImportAttribute>;
     isImportDeclaration(opts?: object): this is NodePath<t.ImportDeclaration>;
+    isImportExpression(opts?: object): this is NodePath<t.ImportExpression>;
     isImportDefaultSpecifier(opts?: object): this is NodePath<t.ImportDefaultSpecifier>;
     isImportNamespaceSpecifier(opts?: object): this is NodePath<t.ImportNamespaceSpecifier>;
+    isImportOrExportDeclaration(opts?: object): this is NodePath<t.ImportOrExportDeclaration>;
     isImportSpecifier(opts?: object): this is NodePath<t.ImportSpecifier>;
     isIndexedAccessType(opts?: object): this is NodePath<t.IndexedAccessType>;
     isInferredPredicate(opts?: object): this is NodePath<t.InferredPredicate>;
@@ -1004,6 +1007,7 @@ export class NodePath<T = Node> {
     isTSDeclareFunction(opts?: object): this is NodePath<t.TSDeclareFunction>;
     isTSDeclareMethod(opts?: object): this is NodePath<t.TSDeclareMethod>;
     isTSEntityName(opts?: object): this is NodePath<t.TSEntityName>;
+    isTSEnumBody(opts?: object): this is NodePath<t.TSEnumBody>;
     isTSEnumDeclaration(opts?: object): this is NodePath<t.TSEnumDeclaration>;
     isTSEnumMember(opts?: object): this is NodePath<t.TSEnumMember>;
     isTSExportAssignment(opts?: object): this is NodePath<t.TSExportAssignment>;
@@ -1041,6 +1045,7 @@ export class NodePath<T = Node> {
     isTSSatisfiesExpression(opts?: object): this is NodePath<t.TSSatisfiesExpression>;
     isTSStringKeyword(opts?: object): this is NodePath<t.TSStringKeyword>;
     isTSSymbolKeyword(opts?: object): this is NodePath<t.TSSymbolKeyword>;
+    isTSTemplateLiteralType(opts?: object): this is NodePath<t.TSTemplateLiteralType>;
     isTSThisType(opts?: object): this is NodePath<t.TSThisType>;
     isTSTupleType(opts?: object): this is NodePath<t.TSTupleType>;
     isTSType(opts?: object): this is NodePath<t.TSType>;
@@ -1088,6 +1093,7 @@ export class NodePath<T = Node> {
     isVariableDeclaration(opts?: object): this is NodePath<t.VariableDeclaration>;
     isVariableDeclarator(opts?: object): this is NodePath<t.VariableDeclarator>;
     isVariance(opts?: object): this is NodePath<t.Variance>;
+    isVoidPattern(opts?: object): this is NodePath<t.VoidPattern>;
     isVoidTypeAnnotation(opts?: object): this is NodePath<t.VoidTypeAnnotation>;
     isWhile(opts?: object): this is NodePath<t.While>;
     isWhileStatement(opts?: object): this is NodePath<t.WhileStatement>;
@@ -1208,6 +1214,7 @@ export class NodePath<T = Node> {
     assertFunction(opts?: object): asserts this is NodePath<t.Function>;
     assertFunctionDeclaration(opts?: object): asserts this is NodePath<t.FunctionDeclaration>;
     assertFunctionExpression(opts?: object): asserts this is NodePath<t.FunctionExpression>;
+    assertFunctionParameter(opts?: object): asserts this is NodePath<t.FunctionParameter>;
     assertFunctionParent(opts?: object): asserts this is NodePath<t.FunctionParent>;
     assertFunctionTypeAnnotation(opts?: object): asserts this is NodePath<t.FunctionTypeAnnotation>;
     assertFunctionTypeParam(opts?: object): asserts this is NodePath<t.FunctionTypeParam>;
@@ -1218,8 +1225,10 @@ export class NodePath<T = Node> {
     assertImport(opts?: object): asserts this is NodePath<t.Import>;
     assertImportAttribute(opts?: object): asserts this is NodePath<t.ImportAttribute>;
     assertImportDeclaration(opts?: object): asserts this is NodePath<t.ImportDeclaration>;
+    assertImportExpression(opts?: object): asserts this is NodePath<t.ImportExpression>;
     assertImportDefaultSpecifier(opts?: object): asserts this is NodePath<t.ImportDefaultSpecifier>;
     assertImportNamespaceSpecifier(opts?: object): asserts this is NodePath<t.ImportNamespaceSpecifier>;
+    assertImportOrExportDeclaration(opts?: object): asserts this is NodePath<t.ImportOrExportDeclaration>;
     assertImportSpecifier(opts?: object): asserts this is NodePath<t.ImportSpecifier>;
     assertIndexedAccessType(opts?: object): asserts this is NodePath<t.IndexedAccessType>;
     assertInferredPredicate(opts?: object): asserts this is NodePath<t.InferredPredicate>;
@@ -1335,6 +1344,7 @@ export class NodePath<T = Node> {
     assertTSDeclareFunction(opts?: object): asserts this is NodePath<t.TSDeclareFunction>;
     assertTSDeclareMethod(opts?: object): asserts this is NodePath<t.TSDeclareMethod>;
     assertTSEntityName(opts?: object): asserts this is NodePath<t.TSEntityName>;
+    assertTSEnumBody(opts?: object): asserts this is NodePath<t.TSEnumBody>;
     assertTSEnumDeclaration(opts?: object): asserts this is NodePath<t.TSEnumDeclaration>;
     assertTSEnumMember(opts?: object): asserts this is NodePath<t.TSEnumMember>;
     assertTSExportAssignment(opts?: object): asserts this is NodePath<t.TSExportAssignment>;
@@ -1372,6 +1382,7 @@ export class NodePath<T = Node> {
     assertTSSatisfiesExpression(opts?: object): asserts this is NodePath<t.TSSatisfiesExpression>;
     assertTSStringKeyword(opts?: object): asserts this is NodePath<t.TSStringKeyword>;
     assertTSSymbolKeyword(opts?: object): asserts this is NodePath<t.TSSymbolKeyword>;
+    assertTSTemplateLiteralType(opts?: object): asserts this is NodePath<t.TSTemplateLiteralType>;
     assertTSThisType(opts?: object): asserts this is NodePath<t.TSThisType>;
     assertTSTupleType(opts?: object): asserts this is NodePath<t.TSTupleType>;
     assertTSType(opts?: object): asserts this is NodePath<t.TSType>;
@@ -1419,6 +1430,7 @@ export class NodePath<T = Node> {
     assertVariableDeclaration(opts?: object): asserts this is NodePath<t.VariableDeclaration>;
     assertVariableDeclarator(opts?: object): asserts this is NodePath<t.VariableDeclarator>;
     assertVariance(opts?: object): asserts this is NodePath<t.Variance>;
+    assertVoidPattern(opts?: object): asserts this is NodePath<t.VoidPattern>;
     assertVoidTypeAnnotation(opts?: object): asserts this is NodePath<t.VoidTypeAnnotation>;
     assertWhile(opts?: object): asserts this is NodePath<t.While>;
     assertWhileStatement(opts?: object): asserts this is NodePath<t.WhileStatement>;

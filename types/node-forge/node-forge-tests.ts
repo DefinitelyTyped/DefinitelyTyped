@@ -73,6 +73,9 @@ csr.getAttribute({ name: "challengePassword" });
 csr.getAttribute({ name: "extensionRequest" }).extensions;
 forge.pki.certificationRequestFromPem(forge.pki.certificationRequestToPem(csr));
 forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
+forge.pki.distinguishedNameToAsn1(cert.issuer);
+forge.pki.distinguishedNameToAsn1(cert.subject);
+forge.pki.distinguishedNameToAsn1({ attributes: cert.issuer.attributes });
 
 // From https://github.com/digitalbazaar/forge#rsakem
 {

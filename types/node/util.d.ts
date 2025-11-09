@@ -431,8 +431,8 @@ declare module "util" {
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
      * passed that alter the result.
-     * `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
-     * an identifiable tag for an inspected value.
+     * `util.inspect()` will use the constructor's name and/or `Symbol.toStringTag`
+     * property to make an identifiable tag for an inspected value.
      *
      * ```js
      * class Foo {
@@ -1172,6 +1172,7 @@ declare module "util" {
         | "hidden"
         | "inverse"
         | "italic"
+        | "none"
         | "overlined"
         | "reset"
         | "strikethrough"
@@ -1227,6 +1228,8 @@ declare module "util" {
      *   util.styleText(['red', 'green'], 'text'), // green
      * );
      * ```
+     *
+     * The special format value `none` applies no additional styling to the text.
      *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
@@ -2108,6 +2111,7 @@ declare module "util/types" {
      * console.log(myError instanceof Error); // true
      * ```
      * @since v10.0.0
+     * @deprecated The `util.types.isNativeError` API is deprecated. Please use `Error.isError` instead.
      */
     function isNativeError(object: unknown): object is Error;
     /**

@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class SpriteSheetUVNode extends Node {
     countNode: Node;
@@ -10,7 +10,7 @@ export default class SpriteSheetUVNode extends Node {
 }
 
 export const spritesheetUV: (
-    countNode: NodeRepresentation,
-    uvNode: NodeRepresentation | null,
-    frameNode: NodeRepresentation | null,
+    countNode: Node,
+    uvNode: Node | null,
+    frameNode: Node | null,
 ) => ShaderNodeObject<SpriteSheetUVNode>;

@@ -1,13 +1,14 @@
 {
     "private": true,
     "name": "@types/node-pushnotifications",
-    "version": "1.0.9999",
+    "version": "3.1.9999",
     "projects": [
         "https://github.com/appfeel/node-pushnotifications"
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/web-push": "*"
+        "@types/web-push": "*",
+        "firebase-admin": "^11.5.0"
     },
     "devDependencies": {
         "@types/node-pushnotifications": "workspace:."

@@ -27,9 +27,7 @@ app.use(swaggerize({
         "api": {
             "v1": {
                 "version": {
-                    "$get": (req: express.Request, res: express.Response) => {
-                        res.send("v1");
-                    },
+                    "$get": (req: express.Request, res: express.Response) => res.send("v1"),
                 },
             },
         },

@@ -17,7 +17,7 @@ export as namespace events;
  * Player event types for @see{@link framework.PlayerManager}.
  * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
  */
-export enum EventType {
+export const enum EventType {
     ALL = "*",
     ABORT = "ABORT",
     CAN_PLAY = "CAN_PLAY",
@@ -97,7 +97,7 @@ export enum EventType {
     TRACKS_CHANGED = "TRACKS_CHANGED",
 }
 
-export enum DetailedErrorCode {
+export const enum DetailedErrorCode {
     MEDIA_UNKNOWN = 100,
     MEDIA_ABORTED = 101,
     MEDIA_DECODE = 102,
@@ -144,7 +144,7 @@ export enum DetailedErrorCode {
  * The error severity. Follows the same naming scheme and numbering as Shaka Player.
  * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
  */
-export enum ErrorSeverity {
+export const enum ErrorSeverity {
     RECOVERABLE = 1,
     CRITICAL = 2,
 }

@@ -316,6 +316,17 @@ declare module "url" {
      */
     function fileURLToPath(url: string | URL, options?: FileUrlToPathOptions): string;
     /**
+     * Like `url.fileURLToPath(...)` except that instead of returning a string
+     * representation of the path, a `Buffer` is returned. This conversion is
+     * helpful when the input URL contains percent-encoded segments that are
+     * not valid UTF-8 / Unicode sequences.
+     * @since v24.3.0
+     * @param url The file URL string or URL object to convert to a path.
+     * @returns The fully-resolved platform-specific Node.js file path
+     * as a `Buffer`.
+     */
+    function fileURLToPathBuffer(url: string | URL, options?: FileUrlToPathOptions): Buffer;
+    /**
      * This function ensures that `path` is resolved absolutely, and that the URL
      * control characters are correctly encoded when converting into a File URL.
      *
@@ -874,7 +885,7 @@ declare module "url" {
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array` is the `name`, the second item of the `Array` is the `value`.
          *
-         * Alias for `urlSearchParams[@@iterator]()`.
+         * Alias for `urlSearchParams[Symbol.iterator]()`.
          */
         entries(): URLSearchParamsIterator<[string, string]>;
         /**

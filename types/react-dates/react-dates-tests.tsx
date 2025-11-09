@@ -23,6 +23,8 @@ import {
     toMomentObject,
 } from "react-dates";
 
+import * as constants from "react-dates/constants";
+
 const onlyRenderText: RenderMonthProps = {
     renderMonthText: month => month.format("MMMM"),
 };
@@ -742,3 +744,31 @@ const toLocalizedDateStringResultFromDate: string | null = toLocalizedDateString
 const toMomentObjectResult: moment.Moment | null = toMomentObject(moment());
 const toMomentObjectResultFromString: moment.Moment | null = toMomentObject("January 1, 2020", "dd.mm.yyyy");
 const toMomentObjectResultFromDate: moment.Moment | null = toMomentObject(new Date(), "dd.mm.yyyy");
+
+const constantsDisplayFormat: string = constants.DISPLAY_FORMAT;
+const constantsISOFormat: string = constants.ISO_FORMAT;
+const constantsISOFormatMonth: string = constants.ISO_MONTH_FORMAT;
+const constantsStartDate: string = constants.START_DATE;
+const constantsEndDate: string = constants.END_DATE;
+const constantsHorizontalOrientation: string = constants.HORIZONTAL_ORIENTATION;
+const constantsVerticalOrientation: string = constants.VERTICAL_ORIENTATION;
+const constantsVerticalScrollable: string = constants.VERTICAL_SCROLLABLE;
+const constantsNavPositionBottom: string = constants.NAV_POSITION_BOTTOM;
+const constantsNavPositionTop: string = constants.NAV_POSITION_TOP;
+const constantsIconBeforePosition: string = constants.ICON_BEFORE_POSITION;
+const constantsIconAfterPosition: string = constants.ICON_AFTER_POSITION;
+const constantsInfoPositionTop: string = constants.INFO_POSITION_TOP;
+const constantsInfoPositionBottom: string = constants.INFO_POSITION_BOTTOM;
+const constantsInfoPositionBefore: string = constants.INFO_POSITION_BEFORE;
+const constantsInfoPositionAfter: string = constants.INFO_POSITION_AFTER;
+const constantsAnchorLeft: string = constants.ANCHOR_LEFT;
+const constantsAnchorRight: string = constants.ANCHOR_RIGHT;
+const constantsOpenDown: string = constants.OPEN_DOWN;
+const constantsOpenUp: string = constants.OPEN_UP;
+const constantsDaySize: number = constants.DAY_SIZE;
+const constantsBlockedModifier: string = constants.BLOCKED_MODIFIER;
+const constantsWeekdays: number[] = constants.WEEKDAYS;
+const constantsFangWidthPx: number = constants.FANG_WIDTH_PX;
+const constantsFangHeightPx: number = constants.FANG_HEIGHT_PX;
+const constantsDefaultVerticalSpacing: number = constants.DEFAULT_VERTICAL_SPACING;
+const constantsModifierKeyNames: Set<string> = constants.MODIFIER_KEY_NAMES;

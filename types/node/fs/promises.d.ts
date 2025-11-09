@@ -40,7 +40,7 @@ declare module "fs/promises" {
         StatsFs,
         TimeLike,
         WatchEventType,
-        WatchOptions,
+        WatchOptions as _WatchOptions,
         WriteStream,
         WriteVResult,
     } from "node:fs";
@@ -87,6 +87,9 @@ declare module "fs/promises" {
         start?: number | undefined;
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
+    }
+    interface ReadableWebStreamOptions {
+        autoClose?: boolean | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -261,7 +264,7 @@ declare module "fs/promises" {
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -474,8 +477,9 @@ declare module "fs/promises" {
          */
         close(): Promise<void>;
         /**
-         * An alias for {@link FileHandle.close()}.
-         * @since v20.4.0
+         * Calls `filehandle.close()` and returns a promise that fulfills when the
+         * filehandle is closed.
+         * @since v20.4.0, v18.8.0
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
@@ -1178,6 +1182,16 @@ declare module "fs/promises" {
      * @return Fulfills with an {fs.Dir}.
      */
     function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
+    interface WatchOptions extends _WatchOptions {
+        maxQueue?: number | undefined;
+        overflow?: "ignore" | "throw" | undefined;
+    }
+    interface WatchOptionsWithBufferEncoding extends WatchOptions {
+        encoding: "buffer";
+    }
+    interface WatchOptionsWithStringEncoding extends WatchOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     /**
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
@@ -1210,33 +1224,16 @@ declare module "fs/promises" {
      */
     function watch(
         filename: PathLike,
-        options:
-            | (WatchOptions & {
-                encoding: "buffer";
-            })
-            | "buffer",
-    ): AsyncIterable<FileChangeInfo<Buffer>>;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
-    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo<string>>;
-    /**
-     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
-     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
-     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `persistent` is not supplied, the default of `true` is used.
-     * If `recursive` is not supplied, the default of `false` is used.
-     */
+        options?: WatchOptionsWithStringEncoding | BufferEncoding,
+    ): NodeJS.AsyncIterator<FileChangeInfo<string>>;
     function watch(
         filename: PathLike,
-        options: WatchOptions | string,
-    ): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
+        options: WatchOptionsWithBufferEncoding | "buffer",
+    ): NodeJS.AsyncIterator<FileChangeInfo<Buffer>>;
+    function watch(
+        filename: PathLike,
+        options: WatchOptions | BufferEncoding | "buffer",
+    ): NodeJS.AsyncIterator<FileChangeInfo<string | Buffer>>;
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.

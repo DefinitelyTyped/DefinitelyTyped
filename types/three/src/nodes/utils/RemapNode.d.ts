@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class RemapNode extends Node {
     node: Node;
@@ -15,17 +15,17 @@ export default class RemapNode extends Node {
 
 export const remap: (
     node: Node,
-    inLowNode: NodeRepresentation,
-    inHighNode: NodeRepresentation,
-    outLowNode?: NodeRepresentation,
-    outHighNode?: NodeRepresentation,
+    inLowNode: Node | number,
+    inHighNode: Node | number,
+    outLowNode?: Node | number,
+    outHighNode?: Node | number,
 ) => ShaderNodeObject<RemapNode>;
 export const remapClamp: (
     node: Node,
-    inLowNode: NodeRepresentation,
-    inHighNode: NodeRepresentation,
-    outLowNode?: NodeRepresentation,
-    outHighNode?: NodeRepresentation,
+    inLowNode: Node | number,
+    inHighNode: Node | number,
+    outLowNode?: Node | number,
+    outHighNode?: Node | number,
 ) => ShaderNodeObject<RemapNode>;
 
 declare module "../tsl/TSLCore.js" {

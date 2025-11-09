@@ -169,6 +169,23 @@ declare module 'inspector' {
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
          *
+         * Broadcasts the `Network.dataReceived` event to connected frontends, or buffers the data if
+         * `Network.streamResourceContent` command was not invoked for the given request yet.
+         *
+         * Also enables `Network.getResponseBody` command to retrieve the response data.
+         * @since v24.2.0
+         */
+        function dataReceived(params: DataReceivedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Enables `Network.getRequestPostData` command to retrieve the request data.
+         * @since v24.3.0
+         */
+        function dataSent(params: unknown): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
          * Broadcasts the `Network.responseReceived` event to connected frontends. This event indicates that
          * HTTP response is available.
          * @since v22.6.0

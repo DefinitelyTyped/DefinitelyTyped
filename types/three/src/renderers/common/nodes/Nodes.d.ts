@@ -106,7 +106,7 @@ declare class Nodes extends DataMap<{
      * @param {RenderObject} renderObject - The render object.
      * @return {number} The cache key.
      */
-    getForRenderCacheKey(renderObject: RenderObject): string;
+    getForRenderCacheKey(renderObject: RenderObject): number;
     /**
      * Returns a node builder state for the given render object.
      *

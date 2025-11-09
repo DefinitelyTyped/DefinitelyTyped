@@ -6,7 +6,7 @@
         "https://github.com/robrich/gulp-match"
     ],
     "dependencies": {
-        "@types/minimatch": "*",
+        "@types/minimatch": "<=5",
         "@types/vinyl": "*"
     },
     "devDependencies": {

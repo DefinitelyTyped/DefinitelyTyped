@@ -226,6 +226,11 @@ declare module "." {
             | "hidden"
             | "visible"
             | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
         children: ReactNode;
     }
 

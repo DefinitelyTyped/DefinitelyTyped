@@ -239,7 +239,7 @@ declare class Renderer {
      * @param {?Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
      * @return {Promise<Array|undefined>} A Promise that resolves when the compile has been finished.
      */
-    compileAsync(scene: Object3D, camera: Camera, targetScene?: Object3D | null): Promise<void>;
+    compileAsync(scene: Object3D, camera: Camera, targetScene?: Scene | null): Promise<void>;
     /**
      * Renders the scene in an async fashion.
      *
@@ -248,7 +248,7 @@ declare class Renderer {
      * @param {Camera} camera - The camera.
      * @return {Promise} A Promise that resolves when the render has been finished.
      */
-    renderAsync(scene: Scene, camera: Camera): Promise<void>;
+    renderAsync(scene: Object3D, camera: Camera): Promise<void>;
     /**
      * Can be used to synchronize CPU operations with GPU tasks. So when this method is called,
      * the CPU waits for the GPU to complete its operation (e.g. a compute task).
@@ -321,7 +321,7 @@ declare class Renderer {
      * @return {?Promise} A Promise that resolve when the scene has been rendered.
      * Only returned when the renderer has not been initialized.
      */
-    render(scene: Scene, camera: Camera): Promise<void> | undefined;
+    render(scene: Object3D, camera: Camera): Promise<void> | undefined;
     /**
      * Returns an internal render target which is used when computing the output tone mapping
      * and color space conversion. Unlike in `WebGLRenderer`, this is done in a separate render
@@ -340,7 +340,7 @@ declare class Renderer {
      * @param {boolean} [useFrameBufferTarget=true] - Whether to use a framebuffer target or not.
      * @return {RenderContext} The current render context.
      */
-    _renderScene(scene: Scene, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
+    _renderScene(scene: Object3D, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
     _setXRLayerSize(width: number, height: number): void;
     /**
      * The output pass performs tone mapping and color space conversion.
@@ -625,15 +625,15 @@ declare class Renderer {
      */
     clearStencilAsync(): Promise<void>;
     /**
-     * The current output tone mapping of the renderer. When a render target is set,
-     * the output tone mapping is always `NoToneMapping`.
+     * The current tone mapping of the renderer. When not producing screen output,
+     * the tone mapping is always `NoToneMapping`.
      *
      * @type {number}
      */
     get currentToneMapping(): ToneMapping;
     /**
-     * The current output color space of the renderer. When a render target is set,
-     * the output color space is always `LinearSRGBColorSpace`.
+     * The current color space of the renderer. When not producing screen output,
+     * the color space is always the working color space.
      *
      * @type {string}
      */
@@ -742,17 +742,25 @@ declare class Renderer {
      * if the renderer has been initialized.
      *
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
+     * @param {Array<number>|number} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
      * @return {Promise|undefined} A Promise that resolve when the compute has finished. Only returned when the renderer has not been initialized.
      */
-    compute(computeNodes: ComputeNode | ComputeNode[]): Promise<void> | undefined;
+    compute(
+        computeNodes: ComputeNode | ComputeNode[],
+        dispatchSizeOrCount?: number[] | number | null,
+    ): Promise<void> | undefined;
     /**
      * Execute a single or an array of compute nodes.
      *
      * @async
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
+     * @param {Array<number>|number} [dispatchSizeOrCount=null] - Array with [ x, y, z ] values for dispatch or a single number for the count.
      * @return {Promise} A Promise that resolve when the compute has finished.
      */
-    computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
+    computeAsync(
+        computeNodes: ComputeNode | ComputeNode[],
+        dispatchSizeOrCount?: number[] | number | null,
+    ): Promise<void>;
     /**
      * Checks if the given feature is supported by the selected backend.
      *
@@ -938,7 +946,7 @@ declare class Renderer {
      * @param {LightsNode} lightsNode - The current lights node.
      * @param {?{start: number, count: number}} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
      * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {?string} [passId=null] - An optional ID for identifying the pass.
+     * @param {string} [passId] - An optional ID for identifying the pass.
      */
     _renderObjectDirect(
         object: Object3D,
@@ -962,7 +970,7 @@ declare class Renderer {
      * @param {LightsNode} lightsNode - The current lights node.
      * @param {?{start: number, count: number}} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
      * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {?string} [passId=null] - An optional ID for identifying the pass.
+     * @param {string} [passId] - An optional ID for identifying the pass.
      */
     _createObjectPipeline(
         object: Object3D,
@@ -983,6 +991,6 @@ declare class Renderer {
      * @param {Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
      * @return {function(Object3D, Camera, ?Scene): Promise|undefined} A Promise that resolves when the compile has been finished.
      */
-    get compile(): (scene: Object3D, camera: Camera, targetScene?: Object3D | null) => Promise<void>;
+    get compile(): (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<void>;
 }
 export default Renderer;

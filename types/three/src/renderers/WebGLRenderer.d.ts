@@ -463,7 +463,7 @@ export class WebGLRenderer {
      * position. The `depthTexture` and `texture` property of 3D render targets are supported as well.
      *
      * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
-     * intitialized e.g. via {@link .initRenderTarget}().
+     * initialized e.g. via {@link .initRenderTarget}().
      *
      * @param srcTexture Specifies the source texture.
      * @param dstTexture Specifies the destination texture.

@@ -1,77 +1,85 @@
 import * as eslint from "eslint";
 import { VisitorKeys } from "eslint-visitor-keys";
+import { Visitor, VisitorOptions } from "esrecurse";
 import * as ESTree from "estree";
 
-declare namespace EslintScope {
+/**
+ * Options for scope analysis.
+ */
+export interface AnalyzeOptions {
     /**
-     * Options for scope analysis.
+     * Whether to ignore eval() calls, which normally create scopes.
+     * @default false
      */
-    interface AnalyzeOptions {
-        /**
-         * Whether to ignore eval() calls, which normally create scopes.
-         * @default false
-         */
-        ignoreEval?: boolean;
+    ignoreEval?: boolean;
 
-        /**
-         * Whether to create a top-level function scope for CommonJS evaluation.
-         * @default false
-         */
-        nodejsScope?: boolean;
+    /**
+     * Whether to create a top-level function scope for CommonJS evaluation.
+     * @default false
+     */
+    nodejsScope?: boolean;
 
-        /**
-         * Whether to evaluate code in strict mode even outside modules or without "use strict".
-         * @default false
-         */
-        impliedStrict?: boolean;
+    /**
+     * Whether to evaluate code in strict mode even outside modules or without "use strict".
+     * @default false
+     */
+    impliedStrict?: boolean;
 
-        /**
-         * The ECMAScript version to use for evaluation (e.g., 5, 2015, 2022).
-         * @default 5
-         */
-        ecmaVersion?: number;
+    /**
+     * The ECMAScript version to use for evaluation (e.g., 5, 2015, 2022).
+     * @default 5
+     */
+    ecmaVersion?: number;
 
-        /**
-         * The type of JavaScript file to evaluate.
-         * @default "script"
-         */
-        sourceType?: "script" | "module" | "commonjs";
+    /**
+     * The type of JavaScript file to evaluate.
+     * @default "script"
+     */
+    sourceType?: "script" | "module" | "commonjs";
 
-        /**
-         * Visitor key information for performance enhancement.
-         * @default null
-         */
-        childVisitorKeys?: VisitorKeys | null;
+    /**
+     * Visitor key information for performance enhancement.
+     * @default null
+     */
+    childVisitorKeys?: VisitorKeys | null;
 
-        /**
-         * Strategy to use when childVisitorKeys is not specified.
-         * @default "iteration"
-         */
-        fallback?: "iteration" | ((node: ESTree.Node) => string[]);
+    /**
+     * Strategy to use when childVisitorKeys is not specified.
+     * @default "iteration"
+     */
+    fallback?: "iteration" | ((node: ESTree.Node) => string[]);
 
-        /**
-         * Whether to enable optimistic scope analysis.
-         * @default false
-         */
-        optimistic?: boolean;
+    /**
+     * Whether to enable optimistic scope analysis.
+     * @default false
+     */
+    optimistic?: boolean;
 
-        /**
-         * Enables the tracking of JSX components as variable references.
-         * @default false
-         */
-        jsx?: boolean;
-    }
+    /**
+     * Enables the tracking of JSX components as variable references.
+     * @default false
+     */
+    jsx?: boolean;
 }
+
+export type PatternVisitorCallback = (
+    pattern: ESTree.Identifier,
+    misc: {
+        topLevel: boolean;
+        rest: boolean;
+        assignments: ESTree.AssignmentPattern[];
+    },
+) => void;
 
 /**
  * Manages the scope hierarchy of an AST.
  */
-declare class ScopeManager implements eslint.Scope.ScopeManager {
+export class ScopeManager implements eslint.Scope.ScopeManager {
     /**
      * Creates a new ScopeManager instance.
      * @param options Options for scope analysis.
      */
-    constructor(options: EslintScope.AnalyzeOptions);
+    constructor(options: AnalyzeOptions);
 
     /**
      * The global scope.
@@ -93,7 +101,6 @@ declare class ScopeManager implements eslint.Scope.ScopeManager {
 
     /**
      * acquire all scopes from node.
-     * @function ScopeManager#acquireAll
      * @param node node for the acquired scope.
      * @returns Scope array
      */
@@ -125,9 +132,9 @@ declare class ScopeManager implements eslint.Scope.ScopeManager {
 }
 
 /**
- * Base class for all scopes.
+ * Base export class for all scopes.
  */
-declare class Scope<TVariable extends Variable = Variable, TReference extends Reference = Reference>
+export class Scope<TVariable extends Variable = Variable, TReference extends Reference = Reference>
     implements eslint.Scope.Scope
 {
     /**
@@ -254,7 +261,7 @@ declare class Scope<TVariable extends Variable = Variable, TReference extends Re
 /**
  * Global scope.
  */
-declare class GlobalScope extends Scope {
+export class GlobalScope extends Scope {
     /**
      * Creates a new GlobalScope instance.
      * @param scopeManager The scope manager this scope belongs to.
@@ -268,7 +275,7 @@ declare class GlobalScope extends Scope {
 /**
  * Module scope.
  */
-declare class ModuleScope extends Scope {
+export class ModuleScope extends Scope {
     /**
      * Creates a new ModuleScope instance.
      * @param scopeManager The scope manager this scope belongs to.
@@ -283,7 +290,7 @@ declare class ModuleScope extends Scope {
 /**
  * Function scope.
  */
-declare class FunctionScope extends Scope {
+export class FunctionScope extends Scope {
     /**
      * Creates a new FunctionScope instance.
      * @param scopeManager The scope manager this scope belongs to.
@@ -308,7 +315,7 @@ declare class FunctionScope extends Scope {
 /**
  * Block scope.
  */
-declare class BlockScope extends Scope {
+export class BlockScope extends Scope {
     /**
      * Creates a new BlockScope instance.
      * @param scopeManager The scope manager this scope belongs to.
@@ -323,7 +330,7 @@ declare class BlockScope extends Scope {
 /**
  * Represents a variable in a scope.
  */
-declare class Variable<TReference extends Reference = Reference> implements eslint.Scope.Variable {
+export class Variable<TReference extends Reference = Reference> implements eslint.Scope.Variable {
     /**
      * Creates a new Variable instance.
      * @param name The name of the variable.
@@ -370,7 +377,7 @@ declare class Variable<TReference extends Reference = Reference> implements esli
 /**
  * Represents a reference to a variable.
  */
-declare class Reference implements eslint.Scope.Reference {
+export class Reference implements eslint.Scope.Reference {
     /**
      * Creates a new Reference instance.
      * @param identifier The identifier node of the reference.
@@ -465,7 +472,7 @@ declare class Reference implements eslint.Scope.Reference {
  * Represents a variable definition.
  * @todo extends eslint.Scope.Definition for this class
  */
-declare class Definition {
+export class Definition {
     /**
      * Creates a new Definition instance.
      * @param type The type of definition (e.g., 'Variable', 'Parameter').
@@ -516,24 +523,58 @@ declare class Definition {
 }
 
 /**
+ * Visitor for destructuring patterns.
+ */
+export class PatternVisitor extends Visitor {
+    static isPattern(node: ESTree.Node): node is
+        | ESTree.Identifier
+        | ESTree.ObjectPattern
+        | ESTree.ArrayPattern
+        | ESTree.SpreadElement
+        | ESTree.RestElement
+        | ESTree.AssignmentPattern;
+
+    constructor(
+        options: VisitorOptions | null | undefined,
+        rootPattern: ESTree.Pattern,
+        callback: PatternVisitorCallback,
+    );
+
+    rootPattern: ESTree.Pattern;
+
+    callback: PatternVisitorCallback;
+
+    assignments: ESTree.AssignmentPattern[];
+
+    rightHandNodes: ESTree.Expression[];
+
+    restElements: ESTree.RestElement[];
+
+    Identifier(pattern: ESTree.Identifier): void;
+
+    Property(pattern: ESTree.Property): void;
+
+    ArrayPattern(pattern: ESTree.ArrayPattern): void;
+
+    AssignmentPattern(pattern: ESTree.AssignmentPattern): void;
+
+    RestElement(pattern: ESTree.RestElement): void;
+
+    MemberExpression(pattern: ESTree.MemberExpression): void;
+
+    SpreadElement(pattern: ESTree.SpreadElement): void;
+
+    ArrayExpression(pattern: ESTree.SpreadElement): void;
+
+    AssignmentExpression(pattern: ESTree.AssignmentExpression): void;
+
+    CallExpression(pattern: ESTree.CallExpression): void;
+}
+
+/**
  * Analyzes the scope of an AST.
  * @param ast The ESTree-compliant AST to analyze.
  * @param options Options for scope analysis.
  * @returns The scope manager for the analyzed AST.
  */
-declare function analyze(ast: ESTree.Program, options?: EslintScope.AnalyzeOptions): ScopeManager;
-
-declare const EslintScope: {
-    analyze: typeof analyze;
-    BlockScope: typeof BlockScope;
-    Definition: typeof Definition;
-    FunctionScope: typeof FunctionScope;
-    GlobalScope: typeof GlobalScope;
-    ModuleScope: typeof ModuleScope;
-    Reference: typeof Reference;
-    Scope: typeof Scope;
-    ScopeManager: typeof ScopeManager;
-    Variable: typeof Variable;
-};
-
-export = EslintScope;
+export function analyze(ast: ESTree.Program, options?: AnalyzeOptions): ScopeManager;
