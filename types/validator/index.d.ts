@@ -803,10 +803,17 @@ declare namespace validator {
      */
     export function isRFC3339(str: string): boolean;
 
+    export interface IsJSONOptions {
+        /**
+         * If true, the primitives 'true', 'false' and 'null' are accepted as valid JSON values.
+         * @default false
+         */
+        allow_primitives?: boolean | undefined;
+    }
     /**
      * Check if the string is valid JSON (note: uses `JSON.parse`).
      */
-    export function isJSON(str: string): boolean;
+    export function isJSON(str: string, options?: IsJSONOptions): boolean;
 
     /**
      * Check if the string is valid JWT token.
