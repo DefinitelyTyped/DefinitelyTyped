@@ -67,9 +67,9 @@ const providerInfo: BuyProviderInfo = {
     tradedFiatCurrencies: [],
     supportedCountries: [],
     paymentMethods: [],
-    statusUrl: 'https://test-finance.invity.io/#status/{{paymentId}}',
-    supportUrl: '',
-    termsUrl: 'https://invity.io/terms-of-use-invity-finance',
+    statusUrl: "https://test-finance.invity.io/#status/{{paymentId}}",
+    supportUrl: "",
+    termsUrl: "https://invity.io/terms-of-use-invity-finance",
 };
 
 const infoResponse: InfoResponse = {
