@@ -37,7 +37,7 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/http.js)
  */
 declare module "http" {
     import { NonSharedBuffer } from "node:buffer";
@@ -1524,7 +1524,7 @@ declare module "http" {
         scheduling?: "fifo" | "lifo" | undefined;
         /**
          * Environment variables for proxy configuration. See
-         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v24.x/api/http.html#built-in-proxy-support) for details.
+         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v25.x/api/http.html#built-in-proxy-support) for details.
          * @since v24.5.0
          */
         proxyEnv?: ProxyEnv | undefined;
@@ -1593,7 +1593,7 @@ declare module "http" {
      * });
      * ```
      *
-     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v24.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
+     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v25.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
      *
      * To configure any of them, a custom {@link Agent} instance must be created.
      *

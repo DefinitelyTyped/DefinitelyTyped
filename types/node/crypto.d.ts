@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/crypto.js)
  */
 declare module "crypto" {
     import { NonSharedBuffer } from "node:buffer";
@@ -97,7 +97,7 @@ declare module "crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v24.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v25.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -593,7 +593,7 @@ declare module "crypto" {
         static from(key: webcrypto.CryptoKey): KeyObject;
         /**
          * For asymmetric keys, this property represents the type of the key. See the
-         * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
+         * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
          *
          * This property is `undefined` for unrecognized `KeyObject` types and symmetric
          * keys.
@@ -2748,7 +2748,7 @@ declare module "crypto" {
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPairSync(
         type: "rsa",
@@ -3044,7 +3044,7 @@ declare module "crypto" {
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPair(
         type: "rsa",
@@ -4611,7 +4611,7 @@ declare module "crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v24.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * The `callback` function is called with two arguments: `err` and `derivedKey`.
      * `err` is an exception object when key derivation fails, otherwise `err` is
@@ -4655,7 +4655,7 @@ declare module "crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v24.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * An exception is thrown when key derivation fails, otherwise the derived key is
      * returned as a `Buffer`.
@@ -4988,7 +4988,7 @@ declare module "crypto" {
              * * `'ML-KEM-768'`
              * * `'ML-KEM-1024'`
              * @since v24.7.0
-             * @param usages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @param usages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
              * @returns Fulfills with `CryptoKey` upon success.
              */
             decapsulateKey(
@@ -5122,7 +5122,7 @@ declare module "crypto" {
              * * `'ML-KEM-768'`
              * * `'ML-KEM-1024'`
              * @since v24.7.0
-             * @param usages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @param usages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
              * @returns Fulfills with `EncapsulatedKey` upon success.
              */
             encapsulateKey(
@@ -5225,7 +5225,7 @@ declare module "crypto" {
              * Derives the public key from a given private key.
              * @since v24.7.0
              * @param key A private key from which to derive the corresponding public key.
-             * @param keyUsages See [Key usages](https://nodejs.org/docs/latest-v24.x/api/webcrypto.html#cryptokeyusages).
+             * @param keyUsages See [Key usages](https://nodejs.org/docs/latest-v25.x/api/webcrypto.html#cryptokeyusages).
              * @returns Fulfills with a `CryptoKey` upon success.
              */
             getPublicKey(key: CryptoKey, keyUsages: KeyUsage[]): Promise<CryptoKey>;

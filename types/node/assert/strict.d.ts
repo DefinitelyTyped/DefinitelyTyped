@@ -40,9 +40,9 @@
  * To deactivate the colors, use the `NO_COLOR` or `NODE_DISABLE_COLORS`
  * environment variables. This will also deactivate the colors in the REPL. For
  * more on color support in terminal environments, read the tty
- * [`getColorDepth()`](https://nodejs.org/docs/latest-v24.x/api/tty.html#writestreamgetcolordepthenv) documentation.
+ * [`getColorDepth()`](https://nodejs.org/docs/latest-v25.x/api/tty.html#writestreamgetcolordepthenv) documentation.
  * @since v15.0.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/assert/strict.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/assert/strict.js)
  */
 declare module "assert/strict" {
     import {

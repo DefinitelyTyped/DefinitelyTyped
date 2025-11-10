@@ -52,7 +52,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
  */
 declare module "worker_threads" {
     import { Context } from "node:vm";
