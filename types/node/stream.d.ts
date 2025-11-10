@@ -1649,13 +1649,6 @@ declare module "node:stream" {
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>
             ): Promise<void>;
         }
-        // TODO: this interface never existed; remove in next major
-        interface Pipe {
-            close(): void;
-            hasRef(): boolean;
-            ref(): void;
-            unref(): void;
-        }
         // TODO: these should all take webstream arguments
         /**
          * Returns whether the stream has encountered an error.
