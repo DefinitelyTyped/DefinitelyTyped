@@ -3,7 +3,7 @@ import * as dgram from "node:dgram";
 import * as fs from "node:fs";
 import * as net from "node:net";
 import assert = require("node:assert");
-import { Pipe, Readable, Writable } from "node:stream";
+import { Readable, Writable } from "node:stream";
 import { URL } from "node:url";
 import { promisify } from "node:util";
 

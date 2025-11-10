@@ -612,69 +612,6 @@ declare module "node:zlib" {
         const Z_SYNC_FLUSH: number;
         const Z_VERSION_ERROR: number;
     }
-    // Allowed flush values.
-    /** @deprecated Use `constants.Z_NO_FLUSH` */
-    const Z_NO_FLUSH: number;
-    /** @deprecated Use `constants.Z_PARTIAL_FLUSH` */
-    const Z_PARTIAL_FLUSH: number;
-    /** @deprecated Use `constants.Z_SYNC_FLUSH` */
-    const Z_SYNC_FLUSH: number;
-    /** @deprecated Use `constants.Z_FULL_FLUSH` */
-    const Z_FULL_FLUSH: number;
-    /** @deprecated Use `constants.Z_FINISH` */
-    const Z_FINISH: number;
-    /** @deprecated Use `constants.Z_BLOCK` */
-    const Z_BLOCK: number;
-    // Return codes for the compression/decompression functions.
-    // Negative values are errors, positive values are used for special but normal events.
-    /** @deprecated Use `constants.Z_OK` */
-    const Z_OK: number;
-    /** @deprecated Use `constants.Z_STREAM_END` */
-    const Z_STREAM_END: number;
-    /** @deprecated Use `constants.Z_NEED_DICT` */
-    const Z_NEED_DICT: number;
-    /** @deprecated Use `constants.Z_ERRNO` */
-    const Z_ERRNO: number;
-    /** @deprecated Use `constants.Z_STREAM_ERROR` */
-    const Z_STREAM_ERROR: number;
-    /** @deprecated Use `constants.Z_DATA_ERROR` */
-    const Z_DATA_ERROR: number;
-    /** @deprecated Use `constants.Z_MEM_ERROR` */
-    const Z_MEM_ERROR: number;
-    /** @deprecated Use `constants.Z_BUF_ERROR` */
-    const Z_BUF_ERROR: number;
-    /** @deprecated Use `constants.Z_VERSION_ERROR` */
-    const Z_VERSION_ERROR: number;
-    // Compression levels.
-    /** @deprecated Use `constants.Z_NO_COMPRESSION` */
-    const Z_NO_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_BEST_SPEED` */
-    const Z_BEST_SPEED: number;
-    /** @deprecated Use `constants.Z_BEST_COMPRESSION` */
-    const Z_BEST_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_DEFAULT_COMPRESSION` */
-    const Z_DEFAULT_COMPRESSION: number;
-    // Compression strategy.
-    /** @deprecated Use `constants.Z_FILTERED` */
-    const Z_FILTERED: number;
-    /** @deprecated Use `constants.Z_HUFFMAN_ONLY` */
-    const Z_HUFFMAN_ONLY: number;
-    /** @deprecated Use `constants.Z_RLE` */
-    const Z_RLE: number;
-    /** @deprecated Use `constants.Z_FIXED` */
-    const Z_FIXED: number;
-    /** @deprecated Use `constants.Z_DEFAULT_STRATEGY` */
-    const Z_DEFAULT_STRATEGY: number;
-    /** @deprecated */
-    const Z_BINARY: number;
-    /** @deprecated */
-    const Z_TEXT: number;
-    /** @deprecated */
-    const Z_ASCII: number;
-    /** @deprecated  */
-    const Z_UNKNOWN: number;
-    /** @deprecated */
-    const Z_DEFLATED: number;
 }
 declare module "zlib" {
     export * from "node:zlib";

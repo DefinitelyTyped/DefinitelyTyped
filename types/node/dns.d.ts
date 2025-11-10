@@ -233,8 +233,6 @@ declare module "node:dns" {
         address: string;
         ttl: number;
     }
-    /** @deprecated Use `AnyARecord` or `AnyAaaaRecord` instead. */
-    type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
     interface AnyARecord extends RecordWithTtl {
         type: "A";
     }
