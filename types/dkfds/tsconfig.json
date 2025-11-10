@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true,
         "types": [],
-        "lib": ["es6", "dom"],
-        "module": "commonjs"
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

@@ -1,17 +1,17 @@
 {
-  "private": true,
-  "name": "@types/dkfds",
-  "version": "11.1.9999",
-  "projects": [
-    "https://github.com/detfaellesdesignsystem/dkfds-components"
-  ],
-  "devDependencies": {
-    "@types/dkfds": "workspace:."
-  },
-  "owners": [
-    {
-      "name": "Christian Pilegaard Cederquist",
-      "githubUsername": "chcederquist"
-    }
-  ]
+    "private": true,
+    "name": "@types/dkfds",
+    "version": "11.1.9999",
+    "projects": [
+        "https://designsystem.dk/"
+    ],
+    "devDependencies": {
+        "@types/dkfds": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Pilegaard Cederquist",
+            "githubUsername": "chcederquist"
+        }
+    ]
 }
