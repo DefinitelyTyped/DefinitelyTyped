@@ -24,10 +24,9 @@ declare module "domain" {
      */
     class Domain extends EventEmitter {
         /**
-         * An array of timers and event emitters that have been explicitly added
-         * to the domain.
+         * An array of event emitters that have been explicitly added to the domain.
          */
-        members: Array<EventEmitter | NodeJS.Timer>;
+        members: EventEmitter[];
         /**
          * The `enter()` method is plumbing used by the `run()`, `bind()`, and `intercept()` methods to set the active domain. It sets `domain.active` and `process.domain` to the domain, and implicitly
          * pushes the domain onto the domain
@@ -91,20 +90,17 @@ declare module "domain" {
          * will be routed to the domain's `'error'` event, just like with implicit
          * binding.
          *
-         * This also works with timers that are returned from `setInterval()` and `setTimeout()`. If their callback function throws, it will be caught by
-         * the domain `'error'` handler.
-         *
-         * If the Timer or `EventEmitter` was already bound to a domain, it is removed
-         * from that one, and bound to this one instead.
-         * @param emitter emitter or timer to be added to the domain
+         * If the `EventEmitter` was already bound to a domain, it is removed from that
+         * one, and bound to this one instead.
+         * @param emitter emitter to be added to the domain
          */
-        add(emitter: EventEmitter | NodeJS.Timer): void;
+        add(emitter: EventEmitter): void;
         /**
          * The opposite of {@link add}. Removes domain handling from the
          * specified emitter.
-         * @param emitter emitter or timer to be removed from the domain
+         * @param emitter emitter to be removed from the domain
          */
-        remove(emitter: EventEmitter | NodeJS.Timer): void;
+        remove(emitter: EventEmitter): void;
         /**
          * The returned function will be a wrapper around the supplied callback
          * function. When the returned function is called, any errors that are
