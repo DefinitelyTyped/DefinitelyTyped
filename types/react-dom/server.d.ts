@@ -94,7 +94,7 @@ export interface ServerOptions {
 /**
  * Only available in the environments with [Node.js Streams](https://nodejs.dev/learn/nodejs-streams).
  *
- * @see [API](https://reactjs.org/docs/react-dom-server.html#rendertopipeablestream)
+ * @see [API](https://react.dev/reference/react-dom/server/renderToPipeableStream)
  *
  * @param children
  * @param options
@@ -149,7 +149,7 @@ export interface ReactDOMServerReadableStream extends ReadableStream {
 /**
  * Only available in the environments with [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) (this includes browsers, Deno, and some modern edge runtimes).
  *
- * @see [API](https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream)
+ * @see [API](https://react.dev/reference/react-dom/server/renderToReadableStream)
  */
 export function renderToReadableStream(
     children: ReactNode,
