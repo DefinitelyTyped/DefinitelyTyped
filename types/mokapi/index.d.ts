@@ -133,7 +133,7 @@ export interface HttpRequest {
     /**
      * Request method.
      * @example GET
-     * */
+     */
     readonly method: string;
 
     /** Represents a parsed URL. */
@@ -543,7 +543,7 @@ export interface SharedMemory {
      * @param key The key to retrieve.
      * @returns The stored value, or `undefined` if not found.
      */
-    get(key: string): any
+    get(key: string): any;
 
     /**
      * Sets a value for the given key.
@@ -551,7 +551,7 @@ export interface SharedMemory {
      * @param key The key to store the value under.
      * @param value The value to store.
      */
-    set(key: string, value: any): void
+    set(key: string, value: any): void;
 
     /**
      * Updates a value atomically using an updater function.
@@ -567,32 +567,32 @@ export interface SharedMemory {
      * @param updater Function that receives the current value and returns the new value.
      * @returns The new value after update.
      */
-    update<T = any>(key: string, updater: (value: T | undefined) => T): T
+    update<T = any>(key: string, updater: (value: T | undefined) => T): T;
 
     /**
      * Checks if the given key exists in shared memory.
      * @param key The key to check.
      * @returns `true` if the key exists, otherwise `false`.
      */
-    has(key: string): boolean
+    has(key: string): boolean;
 
     /**
      * Removes the specified key and its value from shared memory.
      * @param key The key to remove.
      */
-    delete(key: string): void
+    delete(key: string): void;
 
     /**
      * Removes all stored entries from shared memory.
      * Use with caution — this clears all shared state.
      */
-    clear(): void
+    clear(): void;
 
     /**
      * Returns a list of all stored keys.
      * @returns An array of key names.
      */
-    keys(): string[]
+    keys(): string[];
 
     /**
      * Creates or returns a namespaced shared memory store.
@@ -607,7 +607,7 @@ export interface SharedMemory {
      * @param name The namespace identifier.
      * @returns A `SharedMemory` object scoped to the given namespace.
      */
-    namespace(name: string): SharedMemory
+    namespace(name: string): SharedMemory;
 }
 
 /**
@@ -631,4 +631,4 @@ export interface SharedMemory {
  * mokapi.log(`Current counter: ${count}`)
  * ```
  */
-export const shared: SharedMemory
+export const shared: SharedMemory;

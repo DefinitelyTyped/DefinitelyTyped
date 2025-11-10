@@ -1,4 +1,4 @@
-import { del, get, head, options, patch, post, put, fetch } from "mokapi/http";
+import { del, fetch, get, head, options, patch, post, put } from "mokapi/http";
 
 // @ts-expect-error
 get();

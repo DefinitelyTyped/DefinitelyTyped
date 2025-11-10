@@ -14,10 +14,10 @@ import {
     LdapSearchResponse,
     on,
     patch,
+    shared,
     sleep,
     SmtpEventHandler,
     SmtpEventMessage,
-    shared
 } from "mokapi";
 
 const handler = () => {};
@@ -47,7 +47,9 @@ on("http", handler, {});
 on("http", handler, { tags: { foo: "bar" } });
 on("http", handler, { track: true });
 on("http", async () => {});
-on("http", (request) => { request.querystring });
+on("http", (request) => {
+    request.querystring;
+});
 
 // @ts-expect-error
 every(12, () => {});
@@ -318,6 +320,6 @@ let s: string | undefined = shared.get("foo");
 let n: number | undefined = shared.get("foo");
 let b: boolean = shared.has("foo");
 let keys: string[] = shared.keys();
-shared.namespace("foo").set("bar", 123)
+shared.namespace("foo").set("bar", 123);
 shared.update("foo", (v) => v ?? "new value");
 shared.clear();

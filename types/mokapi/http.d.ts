@@ -113,7 +113,7 @@ export function options(url: string, body?: JSONValue, args?: Args): Response;
  *   maxRedirects: 2
  * });
  */
-export function fetch(url: string, opts?: FetchOptions): Promise<Response>
+export function fetch(url: string, opts?: FetchOptions): Promise<Response>;
 
 /**
  * Request arguments.
@@ -125,8 +125,8 @@ export interface Args {
     /**
      * The number of redirects to follow for this request.
      * @default 5
-     **/
-    maxRedirects?: number
+     */
+    maxRedirects?: number;
     /**
      * Maximum time to wait for the request to complete. Default
      * timeout is 60 seconds ("60s"). The type can also be a number, in which
@@ -134,7 +134,7 @@ export interface Args {
      * @example
      * const res = get(url, { timeout: '5m' })
      */
-    timeout?: number | string
+    timeout?: number | string;
 }
 
 /**
@@ -147,14 +147,14 @@ export interface FetchOptions {
      * @example
      * const res = await fetch(url, { method: 'POST' });
      */
-    method?: string
+    method?: string;
 
     /**
      * The body of the request, such as a string or object.
      * @example
      * const res = await fetch(url, { body: JSON.stringify({ name: 'Alice' }) });
      */
-    body?: any
+    body?: any;
 
     /**
      * Request headers.
@@ -170,8 +170,8 @@ export interface FetchOptions {
      * @default 5
      * @example
      * const res = await fetch(url, { maxRedirects: 1 });
-     **/
-    maxRedirects?: number
+     */
+    maxRedirects?: number;
 
     /**
      * Maximum time to wait for the request to complete. Default
@@ -184,7 +184,7 @@ export interface FetchOptions {
      * // Timeout as milliseconds
      * const res = await fetch(url, { timeout: 3000 });
      */
-    timeout?: number | string
+    timeout?: number | string;
 }
 
 /**
