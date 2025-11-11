@@ -15,7 +15,7 @@ function suspenseTest() {
 
     function FlameChart() {
         return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+            <React.Suspense fallback="computing..." defer>
                 <DisplayData />
             </React.Suspense>
         );
