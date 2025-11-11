@@ -883,18 +883,18 @@ declare namespace validator {
         | "en-IN"
         | "en-SG"
         | "es-AR"
+        | "fi-FI"
         | "hu-HU"
         | "pt-BR"
         | "pt-PT"
         | "sq-AL"
         | "sv-SE"
-        | "en-PK"
-        | "any";
+        | "en-PK";
 
     /**
      * Check if the string matches the format of a country's license plate.
      */
-    export function isLicensePlate(str: string, locale: LicensePlateLocale): boolean;
+    export function isLicensePlate(str: string, locale: LicensePlateLocale | "any"): boolean;
     export function isLicensePlate(str: string, locale: string): unknown;
 
     /**
