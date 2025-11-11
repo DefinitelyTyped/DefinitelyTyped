@@ -1036,8 +1036,13 @@ function testGetManifest() {
         manifest.content_security_policy; // $ExpectType string | undefined
 
         manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
+        manifest.optional_permissions; // $ExpectType string[] | undefined
+        manifest.permissions; // $ExpectType string[] | undefined
+        // Verify that string permissions can be added.
+        if (manifest.optional_permissions && manifest.permissions) {
+            manifest.optional_permissions.push("*://developer.mozilla.org/*");
+            manifest.permissions.push("*://developer.mozilla.org/*");
+        }
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
@@ -1051,9 +1056,9 @@ function testGetManifest() {
         };
 
         manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermission[] | undefined
 
         manifest.web_accessible_resources = [{
             resources: ["resource.js"],
