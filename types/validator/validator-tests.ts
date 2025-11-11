@@ -57,7 +57,7 @@ import isISO6391Func from "validator/lib/isISO6391";
 import isISO8601Func from "validator/lib/isISO8601";
 import isISRCFunc from "validator/lib/isISRC";
 import isISSNFunc from "validator/lib/isISSN";
-import isJSONFunc from "validator/lib/isJSON";
+import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
 import isLatLongFunc from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
@@ -459,7 +459,7 @@ import isISO6391FuncEs from "validator/es/lib/isISO6391";
 import isISO8601FuncEs from "validator/es/lib/isISO8601";
 import isISRCFuncEs from "validator/es/lib/isISRC";
 import isISSNFuncEs from "validator/es/lib/isISSN";
-import isJSONFuncEs from "validator/es/lib/isJSON";
+import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
 import isLatLongFuncEs from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
@@ -857,6 +857,8 @@ const any: any = null;
     result = validator.isInt("sample", isIntOptions);
 
     result = validator.isJSON("sample");
+    result = validator.isJSON("sample", {});
+    result = validator.isJSON("sample", { allow_primitives: true });
 
     result = validator.isLatLong("sample");
 
