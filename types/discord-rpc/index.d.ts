@@ -449,20 +449,68 @@ export interface VoiceSettings {
 }
 
 export interface Presence {
+    /**
+     * The user's current party status
+     */
     state?: string | undefined;
+    /**
+     * What the user is currently doing
+     */
     details?: string | undefined;
+    /**
+     * Epoch seconds for game start — including will show time as "elapsed"
+     */
     startTimestamp?: number | Date | undefined;
+    /**
+     * Epoch seconds for game end — including will show time as "remaining"
+     */
     endTimestamp?: number | Date | undefined;
+    /**
+     * Key of the uploaded image for the large profile artwork
+     */
     largeImageKey?: string | undefined;
+    /**
+     * Tooltip for the largeImageKey
+     */
     largeImageText?: string | undefined;
+    /**
+     * Key of the uploaded image for the small profile artwork
+     */
     smallImageKey?: string | undefined;
+    /**
+     * Tooltip for the smallImageKey
+     */
     smallImageText?: string | undefined;
+    /**
+     * Whether or not the activity is an instanced game session
+     */
     instance?: boolean | undefined;
+    /**
+     * ID of the player's party, lobby, or group
+     */
     partyId?: string | undefined;
+    /**
+     * Current size of the player's party, lobby, or group
+     */
     partySize?: number | undefined;
+    /**
+     * Maximum size of the player's party, lobby, or group
+     */
     partyMax?: number | undefined;
+    /**
+     * Secret for a specified instanced match
+     */
     matchSecret?: string | undefined;
+    /**
+     * Secret for spectating a game
+     */
     spectateSecret?: string | undefined;
+    /**
+     * Unique hashed string for chat invitations and Ask to Join
+     */
     joinSecret?: string | undefined;
+    /**
+     * Custom buttons shown in the Rich Presence (max 2)
+     */
     buttons?: Array<{ label: string; url: string }> | undefined;
 }
