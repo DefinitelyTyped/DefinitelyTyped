@@ -1,7 +1,7 @@
-import * as fs from "fs";
-import * as http from "http";
-import * as auth from "http-auth";
-import * as httpProxy from "http-proxy";
+import fs from "fs";
+import http from "http";
+import auth from "http-auth";
+import httpProxy from "http-proxy";
 
 const basic = auth.basic({
     realm: "Simon Area.",

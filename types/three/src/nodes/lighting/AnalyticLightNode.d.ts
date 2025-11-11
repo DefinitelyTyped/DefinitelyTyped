@@ -1,7 +1,6 @@
 import { Light } from "../../lights/Light.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import LightingNode from "./LightingNode.js";
 import { DirectLightData, DirectRectAreaLightData } from "./LightsNode.js";
 import ShadowNode from "./ShadowNode.js";
@@ -23,7 +22,7 @@ declare class AnalyticLightNode<T extends Light> extends LightingNode {
 
     setupDirectRectArea(builder: NodeBuilder): DirectRectAreaLightData | undefined;
 
-    setupShadowNode(): ShaderNodeObject<ShadowNode>;
+    setupShadowNode(): ShadowNode;
 
     setupShadow(builder: NodeBuilder): void;
 }

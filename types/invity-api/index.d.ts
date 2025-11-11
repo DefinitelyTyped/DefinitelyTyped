@@ -69,6 +69,31 @@ export type FiatCurrencyCode =
 
 export type FiatCurrenciesProps = Record<FiatCurrencyCode, number>;
 
+export interface ClientVersion {
+    client: string;
+    version: string;
+}
+
+export interface ProviderMetadata {
+    name: string; // unique internal name, e.g. "changenow"
+    companyName: string; // name visible to clients, e.g. "ChangeNow"
+    logo: string; // logo image filename, e.g. "changenow-icon.jpg"
+    isActive: boolean;
+    isDisabled?: boolean;
+    disabledCurrencies?: string[]; // ['BTC', 'USD']
+    supportedCountries?: string[]; // ['CZ', 'NL']
+    disabledCountries?: string[];
+    supportUrl?: string; // https://www.simplex.com/support/
+    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
+    termsUrl?: string; // https://www.simplex.com/terms-of-use/payment-terms
+    disabledClientVersions?: ClientVersion[];
+}
+
+export interface BuySellProviderMetadata extends ProviderMetadata {
+    supportedCountries: string[]; // ['AT', 'BE']
+    tradedCoins: CryptoId[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH', 'bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+}
+
 // buy types
 
 export type BuyTradeFinalStatus =
@@ -119,22 +144,12 @@ export type BuyTradeTag =
     | "widget"
     | "noExternalAddress";
 
-export interface BuyProviderInfo {
-    name: string; // simplex
-    companyName: string; // UAB Invity Finance
-    brandName?: string; // Invity
-    logo: string; // simplex-icon.jpg
-    isActive: boolean;
-    isDisabled?: boolean;
-    tradedCoins: CryptoId[]; // ['bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+export interface BuyProviderInfo extends BuySellProviderMetadata {
     tradedFiatCurrencies: string[]; // ['EUR', 'USD']
-    disabledCurrencies?: string[];
-    supportedCountries: string[]; // ['CZ', 'NL']
-    disabledCountries?: string[];
     paymentMethods: BuyCryptoPaymentMethod[];
-    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
-    supportUrl?: string; // https://www.simplex.com/support/
-    pendingTimeoutSeconds?: number; // Time until a SUBMITTED transaction automatically changes to APPROVAL_PENDING. Null means it does not change.
+    disabledPaymentMethods?: BuyCryptoPaymentMethod[];
+    brandName?: string; // Invity
+    pendingTimeoutSeconds?: number; // time until a SUBMITTED transaction automatically changes to APPROVAL_PENDING, null means it does not change
 }
 
 export interface BuyListResponse {
@@ -250,23 +265,18 @@ export type ExchangeMaximum =
 export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget" | "noExternalAddress";
 export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
-export interface ExchangeProviderInfo {
-    name: string; // changenow
-    companyName: string; // ChangeNow
-    logo: string; // changenow-icon.jpg
-    isActive: boolean;
+export interface ExchangeProviderInfo extends ProviderMetadata {
     isFixedRate: boolean;
     isDex: boolean;
     buyTickers: CryptoId[];
     sellTickers: CryptoId[];
-    addressFormats: StringMap; // specification of formats required by selected exchange
-    statusUrl: string; // https://changenow.io/exchange/txs/{{orderId}}
+    addressFormats: StringMap;
     kycUrl?: string; // https://changenow.io/faq#kyc
     supportUrl: string; // https://support.changenow.io
     // TODO region of operation
-    kycPolicy?: string | undefined;
+    kycPolicy?: string;
     kycPolicyType: ExchangeKYCType;
-    isRefundRequired?: boolean | undefined;
+    isRefundRequired?: boolean;
 }
 
 export type ExchangeListResponse = ExchangeProviderInfo[];
@@ -463,25 +473,16 @@ export type SellProviderType = "Fiat" | "Voucher";
 
 export type SellFiatFlowType = "BANK_ACCOUNT" | "PAYMENT_GATE" | "N/A";
 
-export interface SellProviderInfo {
-    name: string; // simplex
-    companyName: string; // Simplex
-    logo: string; // simplex-icon.jpg
+export interface SellProviderInfo extends BuySellProviderMetadata {
     type: SellProviderType;
-    isActive: boolean;
-    tradedCoins: CryptoId[]; // ['bitcoin', 'bitcoin-cash', 'litecoin']
-    tradedFiatCurrencies?: string[] | undefined; // ['EUR', 'USD']
-    supportedCountries: string[]; // ['AT', 'BE']
-    statusUrl?: string | undefined; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
-    supportUrl?: string | undefined; // https://www.simplex.com/support/
-    quoteInfo?: string | undefined; // some info text shown on quote
-    voucherSiteOrigin?: string | undefined;
-    paymentMethods?: SellCryptoPaymentMethod[] | undefined;
-    flow?: SellFiatFlowType | undefined;
-    isRefundAddressRequired?: boolean | undefined;
-    pendingTimeout?: number | undefined; // Time until a SUBMITTED transaction automatically changes to PENDING. Null means it does not change.
-    /** Should be used when it's necessary to have the exact amount match between the trade and the transaction */
-    lockSendAmount?: boolean;
+    tradedFiatCurrencies?: string[]; // ['EUR', 'USD']
+    quoteInfo?: string; // some info text shown on quote
+    paymentMethods?: SellCryptoPaymentMethod[];
+    disabledPaymentMethods?: SellCryptoPaymentMethod[];
+    flow?: SellFiatFlowType;
+    isRefundAddressRequired?: boolean;
+    pendingTimeout?: number; // time until a SUBMITTED transaction automatically changes to PENDING, null means it does not change
+    lockSendAmount?: boolean; // should be used when it's necessary to have the exact amount match between the trade and the transaction */
 }
 
 export interface SellListResponse {

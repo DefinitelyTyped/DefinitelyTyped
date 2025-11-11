@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/selection/selection-pointer";
 
 const cm1: CodeMirror.Editor = CodeMirror(document.body, {

@@ -1,4 +1,4 @@
-import * as envToObject from "env-to-object";
+import envToObject from "env-to-object";
 
 const map = {
     NODE_ENV: {

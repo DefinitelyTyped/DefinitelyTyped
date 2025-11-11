@@ -1,5 +1,5 @@
 import { Server } from "@hapi/hapi";
-import * as express from "express";
+import express from "express";
 import fastify from "fastify";
 import {
     getCoreStats,

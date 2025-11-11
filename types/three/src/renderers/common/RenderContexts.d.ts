@@ -39,7 +39,9 @@ declare class RenderContexts {
      * @param {string} attachmentState - The attachment state.
      * @return {ChainMap} The chain map.
      */
-    _getChainMap(attachmentState: string): ChainMap<readonly [Scene, Camera], RenderContext>;
+    _getChainMap(
+        attachmentState: string,
+    ): ChainMap<readonly [Scene<import("../../Three.Core.js").Object3DEventMap>, Camera], RenderContext>;
     /**
      * Frees internal resources.
      */

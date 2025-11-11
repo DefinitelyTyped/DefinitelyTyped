@@ -1,6 +1,5 @@
 import MathNode from "../../math/MathNode.js";
-import { ShaderNodeObject } from "../../tsl/TSLCore.js";
 
-declare const getGeometryRoughness: () => ShaderNodeObject<MathNode>;
+declare const getGeometryRoughness: () => MathNode;
 
 export default getGeometryRoughness;

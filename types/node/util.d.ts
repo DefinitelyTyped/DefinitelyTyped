@@ -853,6 +853,15 @@ declare module "util" {
      * @return The deprecated function wrapped to emit a warning.
      */
     export function deprecate<T extends Function>(fn: T, msg: string, code?: string): T;
+    export interface IsDeepStrictEqualOptions {
+        /**
+         * If `true`, prototype and constructor
+         * comparison is skipped during deep strict equality check.
+         * @since v24.9.0
+         * @default false
+         */
+        skipPrototype?: boolean | undefined;
+    }
     /**
      * Returns `true` if there is deep strict equality between `val1` and `val2`.
      * Otherwise, returns `false`.
@@ -861,7 +870,7 @@ declare module "util" {
      * equality.
      * @since v9.0.0
      */
-    export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
+    export function isDeepStrictEqual(val1: unknown, val2: unknown, options?: IsDeepStrictEqualOptions): boolean;
     /**
      * Returns `str` with any ANSI escape codes removed.
      *
@@ -1332,7 +1341,7 @@ declare module "util" {
          * encoded bytes.
          * @param [input='an empty string'] The text to encode.
          */
-        encode(input?: string): Uint8Array;
+        encode(input?: string): NodeJS.NonSharedUint8Array;
         /**
          * UTF-8 encodes the `src` string to the `dest` Uint8Array and returns an object
          * containing the read Unicode code units and written UTF-8 bytes.
@@ -1442,7 +1451,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */

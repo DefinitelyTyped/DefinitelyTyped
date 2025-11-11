@@ -1,4 +1,4 @@
-import * as request from "request";
+import request = require("request");
 
 declare class Slack {
     token: string;

@@ -1,5 +1,5 @@
 import { Material } from "../../materials/Material.js";
-import { NodeOrType, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { NodeOrType } from "../tsl/TSLCore.js";
 import ReferenceNode from "./ReferenceNode.js";
 
 export default class MaterialReferenceNode extends ReferenceNode<Material | null> {
@@ -12,4 +12,4 @@ export const materialReference: (
     name: string,
     nodeOrType: NodeOrType,
     material?: Material | null,
-) => ShaderNodeObject<MaterialReferenceNode>;
+) => MaterialReferenceNode;

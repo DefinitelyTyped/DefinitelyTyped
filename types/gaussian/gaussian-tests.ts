@@ -1,4 +1,4 @@
-import * as gaussian from "gaussian";
+import gaussian from "gaussian";
 
 const d = gaussian(0, 1);
 const a = d.mean !== d.variance;

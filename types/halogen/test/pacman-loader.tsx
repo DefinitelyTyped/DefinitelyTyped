@@ -1,4 +1,4 @@
-import * as Halogen from "halogen";
+import Halogen from "halogen";
 import * as React from "react";
 
 class HalogenTests_PacmanLoader_withNoProps extends React.Component {

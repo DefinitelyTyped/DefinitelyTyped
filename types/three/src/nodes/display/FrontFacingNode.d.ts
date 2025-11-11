@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class FrontFacingNode extends Node {
     isFrontFacingNode: true;
@@ -8,6 +7,6 @@ declare class FrontFacingNode extends Node {
 
 export default FrontFacingNode;
 
-export const frontFacing: ShaderNodeObject<FrontFacingNode>;
-export const faceDirection: ShaderNodeObject<Node>;
-export const directionToFaceDirection: (direction: Node) => ShaderNodeObject<Node>;
+export const frontFacing: FrontFacingNode;
+export const faceDirection: Node;
+export const directionToFaceDirection: (direction: Node) => Node;

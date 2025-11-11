@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import ReferenceNode from "./ReferenceNode.js";
 
 export type NodeUserData = Record<string, any>;
@@ -12,4 +11,4 @@ export const userData: (
     name: string,
     inputType: string,
     userData?: NodeUserData,
-) => ShaderNodeObject<UserDataNode>;
+) => UserDataNode;

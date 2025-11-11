@@ -1,6 +1,5 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type SubgroupFunctionNodeMethod0 = typeof SubgroupFunctionNode.SUBGROUP_ELECT;
 
@@ -71,30 +70,30 @@ declare class SubgroupFunctionNode extends TempNode {
 
 export default SubgroupFunctionNode;
 
-export const subgroupElect: () => ShaderNodeObject<Node>;
+export const subgroupElect: () => Node;
 
-export const subgroupBallot: (pred: Node) => ShaderNodeObject<Node>;
-export const subgroupAdd: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupInclusiveAdd: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupExclusiveAdd: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupMul: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupInclusiveMul: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupExclusiveMul: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupAnd: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupOr: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupXor: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupMin: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupMax: (e: Node) => ShaderNodeObject<Node>;
-export const subgroupAll: () => ShaderNodeObject<Node>;
-export const subgroupAny: () => ShaderNodeObject<Node>;
-export const subgroupBroadcastFirst: (e: Node, id: Node) => ShaderNodeObject<Node>;
-export const quadSwapX: (e: Node) => ShaderNodeObject<Node>;
-export const quadSwapY: (e: Node) => ShaderNodeObject<Node>;
-export const quadSwapDiagonal: (e: Node) => ShaderNodeObject<Node>;
+export const subgroupBallot: (pred: Node) => Node;
+export const subgroupAdd: (e: Node) => Node;
+export const subgroupInclusiveAdd: (e: Node) => Node;
+export const subgroupExclusiveAdd: (e: Node) => Node;
+export const subgroupMul: (e: Node) => Node;
+export const subgroupInclusiveMul: (e: Node) => Node;
+export const subgroupExclusiveMul: (e: Node) => Node;
+export const subgroupAnd: (e: Node) => Node;
+export const subgroupOr: (e: Node) => Node;
+export const subgroupXor: (e: Node) => Node;
+export const subgroupMin: (e: Node) => Node;
+export const subgroupMax: (e: Node) => Node;
+export const subgroupAll: () => Node;
+export const subgroupAny: () => Node;
+export const subgroupBroadcastFirst: (e: Node, id: Node) => Node;
+export const quadSwapX: (e: Node) => Node;
+export const quadSwapY: (e: Node) => Node;
+export const quadSwapDiagonal: (e: Node) => Node;
 
-export const subgroupBroadcast: (e: Node, id: Node) => ShaderNodeObject<Node>;
-export const subgroupShuffle: (v: Node, id: Node) => ShaderNodeObject<Node>;
-export const subgroupShuffleXor: (v: Node, mask: Node) => ShaderNodeObject<Node>;
-export const subgroupShuffleUp: (v: Node, delta: Node) => ShaderNodeObject<Node>;
-export const subgroupShuffleDown: (v: Node, delta: Node) => ShaderNodeObject<Node>;
-export const quadBroadcast: (e: Node) => ShaderNodeObject<Node>;
+export const subgroupBroadcast: (e: Node, id: Node) => Node;
+export const subgroupShuffle: (v: Node, id: Node) => Node;
+export const subgroupShuffleXor: (v: Node, mask: Node) => Node;
+export const subgroupShuffleUp: (v: Node, delta: Node) => Node;
+export const subgroupShuffleDown: (v: Node, delta: Node) => Node;
+export const quadBroadcast: (e: Node) => Node;

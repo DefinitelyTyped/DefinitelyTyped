@@ -1,5 +1,6 @@
 declare module "process" {
-    import { Control, MessageOptions } from "node:child_process";
+    import { Control, MessageOptions, SendHandle } from "node:child_process";
+    import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
 
@@ -333,7 +334,7 @@ declare module "process" {
              */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: unknown, sendHandle: unknown) => void;
+            type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
             type SignalsListener = (signal: Signals) => void;
             type MultipleResolveListener = (
                 type: MultipleResolveType,
@@ -1468,7 +1469,7 @@ declare module "process" {
                  * @since v20.12.0
                  * @param path The path to the .env file
                  */
-                loadEnvFile(path?: string | URL | Buffer): void;
+                loadEnvFile(path?: PathLike): void;
                 /**
                  * The `process.pid` property returns the PID of the process.
                  *
@@ -1492,6 +1493,18 @@ declare module "process" {
                  * @since v9.2.0, v8.10.0, v6.13.0
                  */
                 readonly ppid: number;
+                /**
+                 * The `process.threadCpuUsage()` method returns the user and system CPU time usage of
+                 * the current worker thread, in an object with properties `user` and `system`, whose
+                 * values are microsecond values (millionth of a second).
+                 *
+                 * The result of a previous call to `process.threadCpuUsage()` can be passed as the
+                 * argument to the function, to get a diff reading.
+                 * @since v22.19.0
+                 * @param previousValue A previous return value from calling
+                 * `process.threadCpuUsage()`
+                 */
+                threadCpuUsage(previousValue?: CpuUsage): CpuUsage;
                 /**
                  * The `process.title` property returns the current process title (i.e. returns
                  * the current value of `ps`). Assigning a new value to `process.title` modifies
@@ -1764,7 +1777,7 @@ declare module "process" {
                  */
                 send?(
                     message: any,
-                    sendHandle?: any,
+                    sendHandle?: SendHandle,
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
@@ -1968,7 +1981,7 @@ declare module "process" {
                 emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
                 emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: unknown, sendHandle: unknown): this;
+                emit(event: "message", message: unknown, sendHandle: SendHandle): this;
                 emit(event: Signals, signal?: Signals): boolean;
                 emit(
                     event: "multipleResolves",

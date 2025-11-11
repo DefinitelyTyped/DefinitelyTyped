@@ -4,7 +4,7 @@
 import * as chokidar from "chokidar";
 import * as fs from "fs";
 import * as http from "http";
-import * as mm from "micromatch";
+import mm = require("micromatch");
 import { ServeStaticOptions } from "serve-static";
 
 declare namespace browserSync {

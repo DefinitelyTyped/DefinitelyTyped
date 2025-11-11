@@ -1,6 +1,5 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class RotateNode extends TempNode {
     positionNode: Node;
@@ -12,4 +11,4 @@ export default class RotateNode extends TempNode {
 export const rotate: (
     positionNode: Node,
     rotationNode: Node | number,
-) => ShaderNodeObject<RotateNode>;
+) => RotateNode;

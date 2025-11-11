@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type AtomicMethod =
     | typeof AtomicFunctionNode.ATOMIC_LOAD
@@ -35,48 +34,48 @@ export const atomicFunc: (
     method: AtomicMethod,
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicLoad: (
     pointerNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicStore: (
     pointerNode: Node,
     valueNode: Node | number,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicAdd: (
     pointerNode: Node,
     valueNode: Node | number,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicSub: (
     pointerNode: Node,
     valueNode: Node | number,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicMax: (
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicMin: (
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicAnd: (
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicOr: (
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;
 
 export const atomicXor: (
     pointerNode: Node,
     valueNode: Node,
-) => ShaderNodeObject<AtomicFunctionNode>;
+) => AtomicFunctionNode;

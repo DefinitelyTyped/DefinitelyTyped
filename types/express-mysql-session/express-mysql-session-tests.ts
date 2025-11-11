@@ -1,5 +1,5 @@
-import * as mysqlSession from "express-mysql-session";
-import * as session from "express-session";
+import mysqlSession from "express-mysql-session";
+import session from "express-session";
 
 // $ExpectType typeof MySQLStoreClass
 const MySQLStore = mysqlSession(session);

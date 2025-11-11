@@ -62,7 +62,7 @@ declare module "worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { HeapInfo } from "node:v8";
+    import { CPUProfileHandle, HeapInfo, HeapProfileHandle } from "node:v8";
     import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
     const isMainThread: boolean;
@@ -469,6 +469,81 @@ declare module "worker_threads" {
          * @since v24.0.0
          */
         getHeapStatistics(): Promise<HeapInfo>;
+        /**
+         * Starting a CPU profile then return a Promise that fulfills with an error
+         * or an `CPUProfileHandle` object. This API supports `await using` syntax.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const worker = new Worker(`
+         *   const { parentPort } = require('worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * worker.on('online', async () => {
+         *   const handle = await worker.startCpuProfile();
+         *   const profile = await handle.stop();
+         *   console.log(profile);
+         *   worker.terminate();
+         * });
+         * ```
+         *
+         * `await using` example.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const w = new Worker(`
+         *   const { parentPort } = require('node:worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * w.on('online', async () => {
+         *   // Stop profile automatically when return and profile will be discarded
+         *   await using handle = await w.startCpuProfile();
+         * });
+         * ```
+         * @since v24.8.0
+         */
+        startCpuProfile(): Promise<CPUProfileHandle>;
+        /**
+         * Starting a Heap profile then return a Promise that fulfills with an error
+         * or an `HeapProfileHandle` object. This API supports `await using` syntax.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const worker = new Worker(`
+         *   const { parentPort } = require('worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * worker.on('online', async () => {
+         *   const handle = await worker.startHeapProfile();
+         *   const profile = await handle.stop();
+         *   console.log(profile);
+         *   worker.terminate();
+         * });
+         * ```
+         *
+         * `await using` example.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const w = new Worker(`
+         *   const { parentPort } = require('node:worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * w.on('online', async () => {
+         *   // Stop profile automatically when return and profile will be discarded
+         *   await using handle = await w.startHeapProfile();
+         * });
+         * ```
+         */
+        startHeapProfile(): Promise<HeapProfileHandle>;
         /**
          * Calls `worker.terminate()` when the dispose scope is exited.
          *

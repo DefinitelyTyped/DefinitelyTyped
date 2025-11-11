@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import * as dgram from "dgram";
-import * as events from "events";
+import events = require("events");
 
 export interface SsdpHeaders {
     /**

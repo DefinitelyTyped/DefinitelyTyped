@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as favicon from "serve-favicon";
+import express from "express";
+import favicon from "serve-favicon";
 
 const app = express();
 

@@ -1,5 +1,4 @@
 // open
-// @ts-expect-error
 open();
 // @ts-expect-error
 open(5);
@@ -8,7 +7,6 @@ const text: string = open("file.txt");
 open(5, "b");
 // @ts-expect-error
 open("file.bin", 5);
-// @ts-expect-error
 open("file.bin", "notamode");
 const arrayBuffer: ArrayBuffer = open("file.bin", "b");
 // @ts-expect-error
