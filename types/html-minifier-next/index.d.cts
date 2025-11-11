@@ -1,5 +1,5 @@
-import type * as CleanCSS from "clean-css";
-import type * as RelateUrl from "relateurl";
+import CleanCSS = require("clean-css");
+import RelateUrl = require("relateurl");
 import type * as Terser from "terser" with { "resolution-mode": "import" };
 
 /**

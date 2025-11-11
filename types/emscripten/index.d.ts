@@ -163,6 +163,8 @@ declare namespace FS {
         parent: FSNode;
         mount: Mount;
         mounted?: Mount;
+        // Supported in MEMFS
+        contents?: any;
         id: number;
         name: string;
         mode: number;
@@ -268,12 +270,16 @@ declare namespace FS {
     function makedev(ma: number, mi: number): number;
     function registerDevice(dev: number, ops: Partial<StreamOps>): void;
     function getDevice(dev: number): { stream_ops: StreamOps };
-    function createDevice(
-        parent: string | FSNode,
-        name: string,
-        input?: () => number | null | undefined,
-        output?: (c: number) => any,
-    ): FSNode;
+    var createDevice:
+        & ((
+            parent: string | FSNode,
+            name: string,
+            input?: (() => number | null | undefined) | null,
+            output?: ((code: number) => void) | null,
+        ) => FSNode)
+        & {
+            major: number;
+        };
 
     //
     // core
@@ -461,8 +467,12 @@ declare function AsciiToString(ptr: number): string;
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;
+/** @deprecated - Use `stringToNewUTF8` instead */
 declare function allocateUTF8(str: string): number;
+/** @deprecated - Use `stringToUTF8OnStack` instead */
 declare function allocateUTF8OnStack(str: string): number;
+declare function stringToNewUTF8(str: string): number;
+declare function stringToUTF8OnStack(str: string): number;
 declare function UTF16ToString(ptr: number): string;
 declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF16(str: string): number;

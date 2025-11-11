@@ -1,5 +1,6 @@
 declare module "process" {
-    import { Control, MessageOptions } from "node:child_process";
+    import { Control, MessageOptions, SendHandle } from "node:child_process";
+    import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
 
@@ -331,7 +332,7 @@ declare module "process" {
              */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: unknown, sendHandle: unknown) => void;
+            type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
             type SignalsListener = (signal: Signals) => void;
             type MultipleResolveListener = (
                 type: MultipleResolveType,
@@ -1466,7 +1467,7 @@ declare module "process" {
                  * @since v20.12.0
                  * @param path The path to the .env file
                  */
-                loadEnvFile(path?: string | URL | Buffer): void;
+                loadEnvFile(path?: PathLike): void;
                 /**
                  * The `process.pid` property returns the PID of the process.
                  *
@@ -1775,7 +1776,7 @@ declare module "process" {
                  */
                 send?(
                     message: any,
-                    sendHandle?: any,
+                    sendHandle?: SendHandle,
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
@@ -1979,7 +1980,7 @@ declare module "process" {
                 emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
                 emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: unknown, sendHandle: unknown): this;
+                emit(event: "message", message: unknown, sendHandle: SendHandle): this;
                 emit(event: Signals, signal?: Signals): boolean;
                 emit(
                     event: "multipleResolves",

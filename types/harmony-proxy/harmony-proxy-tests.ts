@@ -1,4 +1,4 @@
-import * as Proxy from "harmony-proxy";
+import Proxy from "harmony-proxy";
 
 interface IKatana {
     use: () => void;

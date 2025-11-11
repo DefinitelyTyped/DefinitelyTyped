@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as React from "react";
 import { ImageStyle, ImageURISource, StyleProp, TextStyle, ViewStyle } from "react-native";
 

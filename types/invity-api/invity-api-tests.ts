@@ -67,6 +67,9 @@ const providerInfo: BuyProviderInfo = {
     tradedFiatCurrencies: [],
     supportedCountries: [],
     paymentMethods: [],
+    statusUrl: "https://test-finance.invity.io/#status/{{paymentId}}",
+    supportUrl: "",
+    termsUrl: "https://invity.io/terms-of-use-invity-finance",
 };
 
 const infoResponse: InfoResponse = {
@@ -105,7 +108,8 @@ const exchangeProviderInfo: ExchangeProviderInfo = {
     },
     statusUrl: "https://example.com/txs/{{orderId}}",
     kycUrl: "https://example.com/faq#kyc",
-    supportUrl: " https://support.example.com",
+    supportUrl: "https://support.example.com",
+    termsUrl: "https://example.com/legal/terms-of-use",
     kycPolicy: "KYC is required...",
     kycPolicyType: "KYC-norefund",
     isRefundRequired: false,
@@ -122,6 +126,7 @@ const sellProviderInfo: SellProviderInfo = {
     supportedCountries: ["US"],
     statusUrl: "https://example.com/txs/{{orderId}}",
     supportUrl: " https://support.example.com",
+    termsUrl: "https://example.com/legal/terms-of-use",
     flow: "PAYMENT_GATE",
     isRefundAddressRequired: false,
     lockSendAmount: false,

@@ -1,4 +1,4 @@
-import * as zip from "cross-zip";
+import zip from "cross-zip";
 
 const inPath = "myFolder";
 const outPath = "myFile.zip";

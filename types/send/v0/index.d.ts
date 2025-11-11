@@ -2,7 +2,7 @@
 
 import * as fs from "fs";
 import * as m from "mime";
-import * as stream from "stream";
+import stream = require("stream");
 
 /**
  * Create a new SendStream for the given path to send to a res.

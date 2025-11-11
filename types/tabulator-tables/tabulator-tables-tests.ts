@@ -440,6 +440,23 @@ colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback:
     return cell.getValue();
 };
 
+// Additional tests for tooltip signature / return values
+// boolean values
+colDef.tooltip = false;
+colDef.tooltip = true;
+
+// function returning a string
+colDef.tooltip = (e: MouseEvent, cell: CellComponent) => {
+    return "Tooltip";
+};
+
+// function returning an HTMLElement
+colDef.tooltip = (e: MouseEvent, cell: CellComponent) => {
+    const el = document.createElement("div");
+    el.innerText = "Tooltip";
+    return el;
+};
+
 // Cell Component
 
 let cell = <CellComponent> {};

@@ -1,6 +1,6 @@
-import * as e from "express";
-import * as passport from "passport";
-import * as PassportOauth2 from "passport-oauth2";
+import e = require("express");
+import passport = require("passport");
+import PassportOauth2 = require("passport-oauth2");
 
 export class Strategy extends PassportOauth2 {
     // Disabling this tslint rule as unifying the signatures makes the callback function default to inferring the

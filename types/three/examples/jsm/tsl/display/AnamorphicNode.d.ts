@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, Vector2 } from "three/webgpu";
 
 export default class AnamorphicNode extends TempNode {
@@ -29,4 +28,4 @@ export const anamorphic: (
     threshold?: Node,
     scale?: Node,
     samples?: Node | number,
-) => ShaderNodeObject<AnamorphicNode>;
+) => AnamorphicNode;

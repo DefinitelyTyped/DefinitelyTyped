@@ -1,221 +1,65 @@
 export as namespace ActionCable;
 
-export enum MessageTypes {
-    confirmation = "confirm_subscription",
-    disconnect = "disconnect",
-    ping = "ping",
-    rejection = "reject_subscription",
-    welcome = "welcome",
-}
-
-export enum DisconnectReasons {
-    invalid_request = "invalid_request",
-    server_restart = "server_restart",
-    unauthorized = "unauthorized",
-}
-
-export interface Mixin {
-    appear?(): void;
-    away?(): void;
-    connected?(): void;
-    disconnected?(): void;
-    initialized?(): void;
-    install?(): void;
-    rejected?(): void;
-    uninstall?(): void;
-    update?(): void;
-
-    received?(data: any): void;
-
-    readonly documentIsActive?: boolean | undefined;
-    readonly appearingOn?: string | null | undefined;
-
-    [key: string]: any;
-}
-
 export interface ChannelNameWithParams {
     channel: string;
     [key: string]: any;
 }
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/internal.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/adapters.js
  */
-export const INTERNAL: {
-    default_mount_path: "/cable";
-    disconnect_reasons: typeof DisconnectReasons;
-    message_types: typeof MessageTypes;
-    protocols: ["actioncable-v1-json", "actioncable-unsupported"];
+export const adapters: {
+    logger: Console;
+    WebSocket: typeof WebSocket;
 };
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/connection.js
- */
-export class Connection<C = Consumer> {
-    constructor(consumer: C);
-
-    readonly consumer: C;
-
-    readonly subscriptions: Subscriptions<C>;
-
-    readonly monitor: ConnectionMonitor<C>;
-
-    readonly disconnected: boolean;
-
-    send(data: object): boolean;
-
-    open(this: Connection<C>): boolean;
-
-    close(options?: { allowReconnect: boolean }): any;
-
-    reopen(): void;
-
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    getProtocol(): void | string;
-
-    isOpen(): boolean;
-
-    isActive(): boolean;
-
-    static readonly reopenDelay: number;
-
-    static readonly events: {
-        message(event: {
-            data: {
-                identifier: string;
-                message: string;
-                reason: DisconnectReasons;
-                reconnect: boolean;
-                type: MessageTypes;
-            };
-        }): any;
-
-        open(): void;
-
-        close(): void;
-
-        error(): void;
-    };
-}
-
-/**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/connection_monitor.js
- */
-export class ConnectionMonitor<C = Consumer> {
-    constructor(connection: C);
-
-    readonly connection: C;
-
-    readonly reconnectAttempts: number;
-
-    start(): void;
-
-    stop(): void;
-
-    isRunning(): boolean;
-
-    recordPing(): void;
-
-    recordConnect(): void;
-
-    recordDisconnect(): void;
-
-    visibilityDidChange(this: ConnectionMonitor<C>): void;
-
-    static readonly staleThreshold: number;
-
-    static readonly reconnectionBackoffRate: number;
-}
-
-/**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/consumer.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/consumer.js
  */
 export class Consumer {
+    readonly subscriptions: Subscriptions;
+    readonly subprotocols: string[];
+
     constructor(url: string);
-
-    readonly subscriptions: Subscriptions<this>;
-
-    readonly connection: Connection<this>;
-
     get url(): string;
-
-    send(data: object): boolean;
-
     connect(): boolean;
+    disconnect(): void;
+    addSubProtocol(protocol: string): void;
+}
 
-    disconnect(): any;
-
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    ensureActiveConnection(): void | boolean;
+export interface BaseMixin {
+    connected?(arg: { reconnected: boolean }): void;
+    disconnected?(arg: { willAttemptReconnect: boolean | undefined }): void;
+    initialized?(): void;
+    rejected?(): void;
+    received?(data: any): void;
 }
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/subscription.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/subscription.js
  */
-export class Subscription<C = Consumer> {
-    constructor(consumer: C, params?: object, mixin?: Mixin);
-
-    readonly consumer: C;
-
+export class Subscription<M extends BaseMixin = BaseMixin> {
     readonly identifier: string;
 
+    constructor(consumer: Consumer, params: ChannelNameWithParams, mixin: M);
     perform(action: string, data?: object): boolean;
-
-    send(data: object): boolean;
-
+    send(data: any): boolean;
     unsubscribe(): this;
 }
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/subscriptions.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/subscriptions.js
  */
-export class Subscriptions<C = Consumer> {
-    constructor(consumer: C);
-
-    readonly consumer: C;
-
-    readonly subscriptions: Array<Subscription<C>>;
-
-    create<M>(channelName: string | ChannelNameWithParams, mixin?: Mixin & M): Subscription<C> & Mixin & M;
-
-    private add<T extends Subscription>(subscription: T): T;
-
-    private remove<T extends Subscription>(subscription: T): T;
-
-    private reject(identifier: string): Subscription[];
-
-    private forget<T extends Subscription>(subscription: T): T;
-
-    private findAll(identifier: string): Subscription[];
-
-    private reload(): Subscription[];
-
-    private notifyAll(callbackName: string, ...args: any): Subscription[];
-
-    private notify(subscription: Subscription, callbackName: string, ...args: any): Subscription[];
-
-    private subscribe(subscription: Subscription): void;
-
-    private confirmSubscription(identifier: string): void;
-
-    private sendCommand(subscription: Subscription, command: any): boolean;
+export class Subscriptions {
+    constructor(consumer: Consumer);
+    create<M extends BaseMixin = {}>(
+        channelName: string | ChannelNameWithParams,
+        mixin?: M & ThisType<Subscription & M>,
+    ): Subscription & M;
 }
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/adapters.js
- */
-export const adapters: {
-    logger: Console;
-    WebSocket: WebSocket;
-};
-
-/**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/consumer.js
- */
-export function createWebSocketURL(url: string): string;
-
-/**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/logger.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/logger.js
  */
 export const logger: {
     log(...messages: any[]): void;
@@ -223,8 +67,6 @@ export const logger: {
 };
 
 /**
- * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/index.js
+ * @see https://github.com/rails/rails/blob/8-0-stable/actioncable/app/javascript/action_cable/index.js
  */
 export function createConsumer(url?: string | (() => string)): Consumer;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export function getConfig(name: string): string | void;

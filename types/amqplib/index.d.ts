@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
 import { ConsumeMessage, GetMessage, Message, Options, Replies, ServerProperties } from "./properties";
 export * from "./properties";
 

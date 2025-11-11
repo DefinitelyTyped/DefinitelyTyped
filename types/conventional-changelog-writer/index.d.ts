@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as Stream from "stream";
+import Stream = require("stream");
 
 import { Commit } from "conventional-commits-parser";
 

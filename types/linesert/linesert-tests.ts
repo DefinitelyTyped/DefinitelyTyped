@@ -1,4 +1,4 @@
-import * as linesert from "linesert";
+import linesert from "linesert";
 
 // file.txt
 // => 1.

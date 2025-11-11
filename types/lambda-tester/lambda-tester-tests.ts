@@ -8,7 +8,7 @@ import {
     Context,
     Handler,
 } from "aws-lambda";
-import * as lambdaTester from "lambda-tester";
+import lambdaTester from "lambda-tester";
 
 interface TResult {
     data: string;

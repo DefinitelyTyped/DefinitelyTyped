@@ -69,6 +69,7 @@ const d = new Dygraph(new HTMLDivElement(), "data", {
     labelsSeparateLines: true,
     legend: "always",
     rangeSelectorForegroundStrokeColor: "white",
+    resizable: "both",
     rollPeriod: 14,
     series: {
         y: {
@@ -232,6 +233,10 @@ d.setAnnotations([
             // $ExpectType MouseEvent
             event;
         },
+    },
+    {
+        series: "sine wave",
+        xval: 20700,
     },
 ]);
 

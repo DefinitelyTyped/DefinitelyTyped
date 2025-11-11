@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, Scene } from "three/webgpu";
 import StereoCompositePassNode from "./StereoCompositePassNode.js";
 
@@ -10,4 +9,4 @@ declare class ParallaxBarrierPassNode extends StereoCompositePassNode {
 
 export default ParallaxBarrierPassNode;
 
-export const parallaxBarrierPass: (scene: Scene, camera: Camera) => ShaderNodeObject<ParallaxBarrierPassNode>;
+export const parallaxBarrierPass: (scene: Scene, camera: Camera) => ParallaxBarrierPassNode;

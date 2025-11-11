@@ -1,7 +1,6 @@
 import { Light } from "../../lights/Light.js";
 import Node from "../core/Node.js";
 import { NodeBuilder } from "../Nodes.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import LightingNode from "./LightingNode.js";
 
 export interface DirectLightData {
@@ -44,4 +43,4 @@ declare class LightsNode extends Node {
 
 export default LightsNode;
 
-export const lights: (lights?: Light[]) => ShaderNodeObject<LightsNode>;
+export const lights: (lights?: Light[]) => LightsNode;

@@ -225,6 +225,7 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     // The type annotation is mandatory here to avoid TS2775
     const strictCustomAssert: assert.AssertStrict = new assert.Assert({
         diff: "full",
+        skipPrototype: true,
     });
     strictCustomAssert.equal(n, 1);
     _1 = n;

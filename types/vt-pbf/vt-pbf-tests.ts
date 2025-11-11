@@ -1,5 +1,5 @@
 import { GeoJSON } from "geojson";
-import * as geojsonvt from "geojson-vt";
+import geojsonvt from "geojson-vt";
 import { fromGeojsonVt, fromVectorTileJs, GeoJSONWrapper } from "vt-pbf";
 
 const geojson = {

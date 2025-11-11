@@ -1,4 +1,4 @@
-import * as TokenGenerator from "tokgen";
+import TokenGenerator from "tokgen";
 
 const generator1 = new TokenGenerator();
 const generator2 = new TokenGenerator("0-9a-f");

@@ -1,5 +1,5 @@
 import postcss from "postcss";
-import * as url from "postcss-url";
+import url from "postcss-url";
 
 postcss().use(url());
 

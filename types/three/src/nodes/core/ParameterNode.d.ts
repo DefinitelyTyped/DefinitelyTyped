@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import PropertyNode from "./PropertyNode.js";
 
 declare class ParameterNode extends PropertyNode {
@@ -9,4 +8,4 @@ declare class ParameterNode extends PropertyNode {
 
 export default ParameterNode;
 
-export const parameter: (type: string, name?: string | null) => ShaderNodeObject<ParameterNode>;
+export const parameter: (type: string, name?: string | null) => ParameterNode;

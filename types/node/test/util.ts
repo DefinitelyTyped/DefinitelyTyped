@@ -213,7 +213,8 @@ util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead");
 util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead", "DEP0001");
 
 // util.isDeepStrictEqual
-util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" });
+util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" }); // $ExpectType boolean
+util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" }, { skipPrototype: true }); // $ExpectType boolean
 
 // util.TextDecoder()
 const td = new util.TextDecoder();

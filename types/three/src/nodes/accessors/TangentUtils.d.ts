@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 /**
  * Tangent vector in view space, computed dynamically from geometry and UV derivatives.
@@ -9,7 +8,7 @@ import { ShaderNodeObject } from "../tsl/TSLCore.js";
  *
  * @tsl
  */
-export const tangentViewFrame: ShaderNodeObject<Node>;
+export const tangentViewFrame: Node;
 
 /**
  * Bitangent vector in view space, computed dynamically from geometry and UV derivatives.
@@ -19,4 +18,4 @@ export const tangentViewFrame: ShaderNodeObject<Node>;
  *
  * @tsl
  */
-export const bitangentViewFrame: ShaderNodeObject<Node>;
+export const bitangentViewFrame: Node;

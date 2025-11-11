@@ -1,4 +1,4 @@
-import * as AVS from "alexa-voice-service";
+import AVS from "alexa-voice-service";
 
 const options = {
     debug: true,

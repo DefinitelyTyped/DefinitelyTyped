@@ -9,7 +9,7 @@ const { describe, it, before, after, beforeEach, afterEach } = null as any as {
     };
 };
 
-import * as createError from "create-error";
+import createError from "create-error";
 
 // Example taken from https://github.com/tgriesser/create-error/blob/0.3.1/README.md#use
 

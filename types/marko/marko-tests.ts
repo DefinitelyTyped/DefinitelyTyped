@@ -1,10 +1,10 @@
 import * as asyncWriter from "async-writer";
-import * as express from "express";
+import express from "express";
 import { createWriteStream } from "fs";
 import { createServer } from "http";
 
 import { load } from "marko";
-import * as markoExpress from "marko/express";
+import markoExpress from "marko/express";
 import { buildTaglibLookup, taglibFinder } from "marko/src/compiler";
 import { Component } from "marko/src/components";
 import { AsyncStream, createWriter, RenderResult, Template } from "marko/src/runtime/html";

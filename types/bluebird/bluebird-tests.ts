@@ -5,7 +5,7 @@
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
 
-import * as Bluebird from "bluebird";
+import Bluebird from "bluebird";
 
 let obj: object = {};
 let bool = false;

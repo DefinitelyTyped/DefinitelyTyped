@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Radio, RadioGroup } from "react-radio-group";
 
 const DefaultComponent: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children, ...rest }) => {

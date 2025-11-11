@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/gimloader",
-    "version": "1.8.9999",
+    "version": "1.9.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Types for the Gimloader global variables",
     "projects": [
@@ -9,7 +9,10 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-dom": "*"
+        "@types/react-dom": "*",
+        "phaser": "~3.90.0",
+        "@dimforge/rapier2d-compat": "~0.17.2",
+        "eventemitter2": "~6.4.9"
     },
     "devDependencies": {
         "@types/gimloader": "workspace:."
