@@ -45,12 +45,20 @@ declare namespace validator {
      */
     export function isAbaRouting(str: string): boolean;
 
+    export interface IsAfterOptions {
+        /**
+         * Date to compare to.
+         * @default Date().toString()
+         */
+        comparisonDate?: string | undefined;
+    }
+
     /**
      * Check if the string is a date that's after the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    export function isAfter(str: string, date?: string): boolean;
+    export function isAfter(str: string, dateStringOrOptions?: string | IsAfterOptions): boolean;
 
     export type AlphaLocale =
         | "en-US"
@@ -240,12 +248,20 @@ declare namespace validator {
      */
     export function isBase64(str: string, options?: IsBase64Options): boolean;
 
+    export interface IsBeforeOptions {
+        /**
+         * Date to compare to.
+         * @default Date().toString()
+         */
+        comparisonDate?: string | undefined;
+    }
+
     /**
      * Check if the string is a date that's before the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    export function isBefore(str: string, date?: string): boolean;
+    export function isBefore(str: string, dateStringOrOptions?: string | IsBeforeOptions): boolean;
 
     export const isIBAN: typeof _isIBAN.default;
     export const ibanLocales: typeof _isIBAN.locales;
