@@ -14,7 +14,7 @@ declare class Watchpack extends EventEmitter {
     aggregatedChanges: Set<string>;
     aggregatedRemovals: Set<string>;
 
-    aggregateTimeout: NodeJS.Timer;
+    aggregateTimeout: number;
     dirWatchers: Watcher[];
     fileWatchers: Watcher[];
     /** Last modified times for files by path */

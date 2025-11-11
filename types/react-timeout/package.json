@@ -6,7 +6,6 @@
         "https://github.com/plougsgaard/react-timeout"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/react": "*"
     },
     "devDependencies": {

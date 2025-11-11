@@ -99,7 +99,7 @@ declare class MySQLStoreClass extends expressSession.Store {
 
     options: MySQLStore.Options;
 
-    private _expirationInterval?: NodeJS.Timer | null;
+    private _expirationInterval?: NodeJS.Timeout | null;
 
     onReady(): Promise<void>;
 
