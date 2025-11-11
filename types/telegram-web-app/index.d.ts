@@ -351,6 +351,13 @@ export interface WebApp {
      */
     openInvoice(url: string, callback: (status: "paid" | "cancelled" | "failed" | "pending") => void): void;
     /**
+     * Bot API 9.1+
+     *
+     * A method that hides the on-screen keyboard, if it is currently visible.
+     * Does nothing if the keyboard is not active.
+     */
+    hideKeyboard(): void;
+    /**
      * A method that shows a native popup described by the params argument of
      * the type PopupParams. The Web App will receive the event popupClosed when
      * the popup is closed. If an optional callback parameter was passed, the
