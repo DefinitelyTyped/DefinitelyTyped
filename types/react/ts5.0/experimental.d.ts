@@ -69,17 +69,19 @@ declare module "." {
         children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
+         * @default "forwards"
          */
-        revealOrder: "forwards" | "backwards" | "unstable_legacy-backwards";
+        revealOrder?: "forwards" | "backwards" | "unstable_legacy-backwards" | undefined;
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
-         * - By default, `SuspenseList` will show all fallbacks in the list.
          * - `collapsed` shows only the next fallback in the list.
          * - `hidden` doesn't show any unloaded items.
          * - `visible` shows all fallbacks in the list.
+         *
+         * @default "hidden"
          */
-        tail: SuspenseListTailMode;
+        tail?: SuspenseListTailMode | undefined;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
@@ -87,7 +89,7 @@ declare module "." {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
+        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]>;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
