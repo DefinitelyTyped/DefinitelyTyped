@@ -189,11 +189,8 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isEmpty = validator.isEmpty;
     _isEmpty = isEmptyFunc;
 
-    validator.isFQDN; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
-    isFQDNFunc; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
-    const isFQDNOptions: IsFQDNOptions = {
-        allow_numeric_tld: true,
-    };
+    let _isFQDN = validator.isFQDN;
+    _isFQDN = isFQDNFunc;
 
     let _isFloat = validator.isFloat;
     _isFloat = isFloatFunc;
@@ -443,7 +440,7 @@ import isEmailFuncEs from "validator/es/lib/isEmail";
 import isEmptyFuncEs from "validator/es/lib/isEmpty";
 import isEthereumAddressFuncEs from "validator/es/lib/isEthereumAddress";
 import isFloatFuncEs from "validator/es/lib/isFloat";
-import isFQDNFuncEs from "validator/es/lib/isFQDN";
+import isFQDNFuncEs, { IsFQDNOptions as IsFQDNOptionsEs } from "validator/es/lib/isFQDN";
 import isFullWidthFuncEs from "validator/es/lib/isFullWidth";
 import isHalfWidthFuncEs from "validator/es/lib/isHalfWidth";
 import isHashFuncEs from "validator/es/lib/isHash";
@@ -771,11 +768,19 @@ const any: any = null;
     result = validator.isEmpty("sample");
     result = validator.isEmpty("sample", isEmptyOptions);
 
-    const isFQDNOptions: validator.IsFQDNOptions = {
-        allow_wildcard: true,
-    };
     result = validator.isFQDN("sample");
-    result = validator.isFQDN("sample", isFQDNOptions);
+    result = validator.isFQDN("sample", {});
+    result = validator.isFQDN(
+        "sample",
+        {
+            require_tld: true,
+            allow_underscores: true,
+            allow_trailing_dot: true,
+            allow_numeric_tld: true,
+            allow_wildcard: true,
+            ignore_max_length: true,
+        } satisfies IsFQDNOptions,
+    );
 
     const isFloatOptions: validator.IsFloatOptions = {};
     result = validator.isFloat("sample");
