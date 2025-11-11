@@ -2,7 +2,7 @@
 /// <reference types="jquery" />
 
 import * as angular from "angular";
-import * as ng from "angular";
+import ng from "angular";
 // code from http://sptypescript.codeplex.com/
 // BasicTasksJSOM.ts
 // Website tasks

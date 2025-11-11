@@ -6,6 +6,8 @@ declare class Sampler extends Binding {
 
     generation: number | null;
 
+    samplerKey: string;
+
     readonly isSampler: true;
 
     constructor(name: string, texture: Texture | null);

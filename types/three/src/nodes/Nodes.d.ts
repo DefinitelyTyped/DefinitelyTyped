@@ -6,10 +6,10 @@ export { default as ArrayNode } from "./core/ArrayNode.js";
 export { default as AssignNode } from "./core/AssignNode.js";
 export { default as AttributeNode } from "./core/AttributeNode.js";
 export { default as BypassNode } from "./core/BypassNode.js";
-export { default as CacheNode } from "./core/CacheNode.js";
 export { default as ConstNode } from "./core/ConstNode.js";
 export { default as ContextNode } from "./core/ContextNode.js";
 export { default as IndexNode, IndexNodeScope } from "./core/IndexNode.js";
+export { default as IsolateNode } from "./core/IsolateNode.js";
 export {
     default as LightingModel,
     LightingModelDirectInput,

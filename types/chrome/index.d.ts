@@ -11869,7 +11869,7 @@ declare namespace chrome {
      * Permissions: "topSites"
      */
     export namespace topSites {
-        /** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
+        /** An object encapsulating a most visited URL, such as the default shortcuts on the new tab page. */
         export interface MostVisitedURL {
             /** The most visited URL. */
             url: string;
@@ -11877,14 +11877,13 @@ declare namespace chrome {
             title: string;
         }
 
-        /** Gets a list of top sites. */
-        export function get(callback: (data: MostVisitedURL[]) => void): void;
-
         /**
          * Gets a list of top sites.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function get(): Promise<MostVisitedURL[]>;
+        export function get(callback: (data: MostVisitedURL[]) => void): void;
     }
 
     ////////////////////
@@ -12247,16 +12246,16 @@ declare namespace chrome {
              */
             value: T;
             /** Where to set the setting (default: regular). */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         /** Which setting to consider. */
         export interface ChromeSettingGetDetails {
             /** Whether to return the value that applies to the incognito session (default false). */
-            incognito?: boolean;
+            incognito?: boolean | undefined;
         }
 
-        /** Details of the currently effective value */
+        /** Details of the currently effective value. */
         export interface ChromeSettingGetResult<T> {
             /** The level of control of the setting. */
             levelOfControl: LevelOfControl;
@@ -12264,7 +12263,7 @@ declare namespace chrome {
             value: T;
             /**
              * Whether the effective value is specific to the incognito session.
-             * This property will only be present if the incognito property in the details parameter of get() was true.
+             * This property will only be present if the `incognito` property in the `details` parameter of `get()` was true.
              */
             incognitoSpecific?: boolean;
         }
@@ -12272,17 +12271,14 @@ declare namespace chrome {
         /** Which setting to clear. */
         export interface ChromeSettingClearDetails {
             /** Where to clear the setting (default: regular). */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         /** Details of the currently effective value. */
         export interface ChromeSettingOnChangeDetails<T> {
-            /**
-             * Whether the effective value is specific to the incognito session. T
-             * his property will only be present if the incognito property in the details parameter of get() was true.
-             */
+            /** Whether the value that has changed is specific to the incognito session. This property will only be present if the user has enabled the extension in incognito mode. */
             incognitoSpecific?: boolean;
-            /** The value of the setting. */
+            /** The value of the setting after the change. */
             value: T;
             /** The level of control of the setting. */
             levelOfControl: LevelOfControl;
@@ -12295,27 +12291,30 @@ declare namespace chrome {
         export interface ChromeSetting<T> {
             /**
              * Sets the value of a setting.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            set(details: ChromeSettingSetDetails<T>, callback: () => void): void;
             set(details: ChromeSettingSetDetails<T>): Promise<void>;
+            set(details: ChromeSettingSetDetails<T>, callback: () => void): void;
 
             /**
              * Gets the value of a setting.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            get(details: ChromeSettingGetDetails, callback: (details: ChromeSettingGetResult<T>) => void): void;
             get(details: ChromeSettingGetDetails): Promise<ChromeSettingGetResult<T>>;
+            get(details: ChromeSettingGetDetails, callback: (details: ChromeSettingGetResult<T>) => void): void;
 
             /**
              * Clears the setting, restoring any default value.
+             *
              * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            clear(details: ChromeSettingClearDetails, callback: () => void): void;
             clear(details: ChromeSettingClearDetails): Promise<void>;
+            clear(details: ChromeSettingClearDetails, callback: () => void): void;
 
             /** Fired after the setting changes. */
-            onChange: chrome.events.Event<(details: ChromeSettingOnChangeDetails<T>) => void>;
+            onChange: events.Event<(details: ChromeSettingOnChangeDetails<T>) => void>;
         }
     }
 
@@ -12330,85 +12329,134 @@ declare namespace chrome {
      * @since Chrome 43
      */
     export namespace vpnProvider {
-        export interface VpnSessionParameters {
+        export interface Parameters {
             /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
             address: string;
-            /** Optional. Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
+            /** Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
             broadcastAddress?: string | undefined;
-            /** Optional. MTU setting for the VPN interface. (default: 1500 bytes) */
+            /** MTU setting for the VPN interface. (default: 1500 bytes) */
             mtu?: string | undefined;
-            /**
-             * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
-             */
+            /** Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined. */
             exclusionList: string[];
-            /**
-             * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
-             */
+            /** Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined. */
             inclusionList: string[];
-            /** Optional. A list of search domains. (default: no search domain) */
+            /** A list of search domains. (default: no search domain) */
             domainSearch?: string[] | undefined;
             /** A list of IPs for the DNS servers. */
-            dnsServer: string[];
+            dnsServers: string[];
+            /**
+             * Whether or not the VPN extension implements auto-reconnection.
+             *
+             * If true, the `linkDown`, `linkUp`, `linkChanged`, `suspend`, and `resume` platform messages will be used to signal the respective events. If false, the system will forcibly disconnect the VPN if the network topology changes, and the user will need to reconnect manually. (default: false)
+             *
+             * This property is new in Chrome 51; it will generate an exception in earlier versions. try/catch can be used to conditionally enable the feature based on browser support.
+             * @since Chrome 51
+             */
+            reconnect?: string | undefined;
         }
 
-        export interface VpnPlatformMessageEvent
-            extends chrome.events.Event<(id: string, message: string, error: string) => void>
-        {}
+        /** @deprecated Use {@link Parameters} instead */
+        interface VpnSessionParameters extends Parameters {}
 
-        export interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> {}
+        /** The enum is used by the platform to notify the client of the VPN session status. */
+        export enum PlatformMessage {
+            /** Indicates that the VPN configuration connected. */
+            CONNECTED = "connected",
+            /** Indicates that the VPN configuration disconnected. */
+            DISCONNECTED = "disconnected",
+            /** Indicates that an error occurred in VPN connection, for example a timeout. A description of the error is given as the error argument to onPlatformMessage. */
+            ERROR = "error",
+            /** Indicates that the default physical network connection is down. */
+            LINK_DOWN = "linkDown",
+            /** Indicates that the default physical network connection is back up. */
+            LINK_UP = "linkUp",
+            /** Indicates that the default physical network connection changed, e.g. wifi->mobile. */
+            LINK_CHANGED = "linkChanged",
+            /** Indicates that the OS is preparing to suspend, so the VPN should drop its connection. The extension is not guaranteed to receive this event prior to suspending. */
+            SUSPEND = "suspend",
+            /** Indicates that the OS has resumed and the user has logged back in, so the VPN should try to reconnect. */
+            RESUME = "resume",
+        }
 
-        export interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> {}
+        /** The enum is used by the platform to indicate the event that triggered {@link onUIEvent}. */
+        export enum UIEvent {
+            /** Requests that the VPN client show the add configuration dialog box to the user. */
+            SHOW_ADD_DIALOG = "showAddDialog",
+            /** Requests that the VPN client show the configuration settings dialog box to the user. */
+            SHOW_CONFIGURE_DIALOG = "showConfigureDialog",
+        }
 
-        export interface VpnConfigCreationEvent
-            extends chrome.events.Event<(id: string, name: string, data: { [key: string]: unknown }) => void>
-        {}
-
-        export interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> {}
+        /** The enum is used by the VPN client to inform the platform of its current state. This helps provide meaningful messages to the user. */
+        export enum VpnConnectionState {
+            /** Specifies that VPN connection was successful. */
+            CONNECTED = "connected",
+            /** Specifies that VPN connection has failed. */
+            FAILURE = "failure",
+        }
 
         /**
          * Creates a new VPN configuration that persists across multiple login sessions of the user.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param name The name of the VPN configuration.
-         * @param callback Called when the configuration is created or if there is an error.
-         * Parameter id: A unique ID for the created configuration, empty string on failure.
          */
+        export function createConfig(name: string): Promise<string>;
         export function createConfig(name: string, callback: (id: string) => void): void;
+
         /**
          * Destroys a VPN configuration created by the extension.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param id ID of the VPN configuration to destroy.
-         * @param callback Optional. Called when the configuration is destroyed or if there is an error.
          */
-        export function destroyConfig(id: string, callback?: () => void): void;
+        export function destroyConfig(id: string): Promise<void>;
+        export function destroyConfig(id: string, callback: () => void): void;
+
         /**
-         * Sets the parameters for the VPN session. This should be called immediately after "connected" is received from the platform. This will succeed only when the VPN session is owned by the extension.
+         * Sets the parameters for the VPN session. This should be called immediately after `"connected"` is received from the platform. This will succeed only when the VPN session is owned by the extension.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param parameters The parameters for the VPN session.
-         * @param callback Called when the parameters are set or if there is an error.
          */
-        export function setParameters(parameters: VpnSessionParameters, callback?: () => void): void;
+        export function setParameters(parameters: Parameters): Promise<void>;
+        export function setParameters(parameters: Parameters, callback: () => void): void;
+
         /**
          * Sends an IP packet through the tunnel created for the VPN session. This will succeed only when the VPN session is owned by the extension.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param data The IP packet to be sent to the platform.
-         * @param callback Optional. Called when the packet is sent or if there is an error.
          */
-        export function sendPacket(data: ArrayBuffer, callback?: () => void): void;
+        export function sendPacket(data: ArrayBuffer): Promise<void>;
+        export function sendPacket(data: ArrayBuffer, callback: () => void): void;
+
         /**
          * Notifies the VPN session state to the platform. This will succeed only when the VPN session is owned by the extension.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param state The VPN session state of the VPN client.
-         * connected: VPN connection was successful.
-         * failure: VPN connection failed.
-         * @param callback Optional. Called when the notification is complete or if there is an error.
          */
-        export function notifyConnectionStateChanged(state: string, callback?: () => void): void;
+        export function notifyConnectionStateChanged(state: `${VpnConnectionState}`): Promise<void>;
+        export function notifyConnectionStateChanged(state: `${VpnConnectionState}`, callback: () => void): void;
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
-        export var onPlatformMessage: VpnPlatformMessageEvent;
+        export const onPlatformMessage: events.Event<
+            (id: string, message: `${PlatformMessage}`, error: string) => void
+        >;
+
         /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
-        export var onPacketReceived: VpnPacketReceptionEvent;
+        export const onPacketReceived: events.Event<(data: ArrayBuffer) => void>;
+
         /** Triggered when a configuration created by the extension is removed by the platform. */
-        export var onConfigRemoved: VpnConfigRemovalEvent;
-        /** Triggered when a configuration is created by the platform for the extension. */
-        export var onConfigCreated: VpnConfigCreationEvent;
+        export const onConfigRemoved: events.Event<(id: string) => void>;
+
+        // /** Triggered when a configuration is created by the platform for the extension. */
+        export const onConfigCreated: events.Event<
+            (id: string, name: string, data: { [key: string]: unknown }) => void
+        >;
+
         /** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
-        export var onUIEvent: VpnUiEvent;
+        export const onUIEvent: events.Event<(event: `${UIEvent}`, id?: string) => void>;
     }
 
     ////////////////////
@@ -12422,27 +12470,35 @@ declare namespace chrome {
      * @since Chrome 43
      */
     export namespace wallpaper {
+        /**
+         * The supported wallpaper layouts.
+         * @since Chrome 44
+         */
+        export enum WallpaperLayout {
+            STRETCH = "STRETCH",
+            CENTER = "CENTER",
+            CENTER_CROPPED = "CENTER_CROPPED",
+        }
+
         export interface WallpaperDetails {
-            /** Optional. The jpeg or png encoded wallpaper image. */
+            /** The jpeg or png encoded wallpaper image as an ArrayBuffer. */
             data?: ArrayBuffer | undefined;
-            /** Optional. The URL of the wallpaper to be set. */
+            /** The URL of the wallpaper to be set (can be relative). */
             url?: string | undefined;
-            /**
-             * The supported wallpaper layouts.
-             * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
-             */
-            layout: "STRETCH" | "CENTER" | "CENTER_CROPPED";
+            /** The supported wallpaper layouts. */
+            layout: `${WallpaperLayout}`;
             /** The file name of the saved wallpaper. */
             filename: string;
-            /** Optional. True if a 128x60 thumbnail should be generated. */
+            /** True if a 128x60 thumbnail should be generated. Layout and ratio are not supported yet. */
             thumbnail?: boolean | undefined;
         }
 
         /**
          * Sets wallpaper to the image at url or wallpaperData with the specified layout
-         * @param callback
-         * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
+        export function setWallpaper(details: WallpaperDetails): Promise<ArrayBuffer | undefined>;
         export function setWallpaper(details: WallpaperDetails, callback: (thumbnail?: ArrayBuffer) => void): void;
     }
 
@@ -12572,33 +12628,84 @@ declare namespace chrome {
      * Permissions: "webNavigation"
      */
     export namespace webNavigation {
-        export interface GetFrameDetails {
-            /**
-             * The ID of the process runs the renderer for this tab.
-             * @since Chrome 22
-             * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
-             */
-            processId?: number | undefined;
-            /** The ID of the tab in which the frame is. */
-            tabId: number;
-            /** The ID of the frame in the given tab. */
-            frameId: number;
+        /** @since Chrome 44 */
+        export enum TransitionQualifier {
+            CLIENT_REDIRECT = "client_redirect",
+            SERVER_REDIRECT = "server_redirect",
+            FORWARD_BACK = "forward_back",
+            FROM_ADDRESS_BAR = "from_address_bar",
         }
+
+        /**
+         * Cause of the navigation. The same transition types as defined in the history API are used. These are the same transition types as defined in the history API except with `"start_page"` in place of `"auto_toplevel"` (for backwards compatibility).
+         * @since Chrome 44
+         */
+        export enum TransitionType {
+            LINK = "link",
+            TYPED = "typed",
+            AUTO_BOOKMARK = "auto_bookmark",
+            AUTO_SUBFRAME = "auto_subframe",
+            MANUAL_SUBFRAME = "manual_subframe",
+            GENERATED = "generated",
+            START_PAGE = "start_page",
+            FORM_SUBMIT = "form_submit",
+            RELOAD = "reload",
+            KEYWORD = "keyword",
+            KEYWORD_GENERATED = "keyword_generated",
+        }
+
+        export type GetFrameDetails =
+            & ({
+                /**
+                 * The ID of the process that runs the renderer for this tab.
+                 * @deprecated since Chrome 49. Frames are now uniquely identified by their tab ID and frame ID; the process ID is no longer needed and therefore ignored.
+                 */
+                processId?: number | undefined;
+            })
+            & (
+                {
+                    /** The ID of the tab in which the frame is. */
+                    tabId?: number | undefined;
+                    /** The ID of the frame in the given tab. */
+                    frameId?: number | undefined;
+                    /**
+                     * The UUID of the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID.
+                     * @since Chrome 106
+                     */
+                    documentId: string;
+                } | {
+                    /** The ID of the tab in which the frame is. */
+                    tabId: number;
+                    /** The ID of the frame in the given tab. */
+                    frameId: number;
+                    /**
+                     * The UUID of the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID.
+                     * @since Chrome 106
+                     */
+                    documentId?: string | undefined;
+                }
+            );
 
         export interface GetFrameResultDetails {
             /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
             url: string;
             /** A UUID of the document loaded. */
             documentId: string;
-            /** The lifecycle the document is in. */
+            /**
+             * The lifecycle the document is in.
+             * @since Chrome 106
+             */
             documentLifecycle: extensionTypes.DocumentLifecycle;
             /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
             errorOccurred: boolean;
             /** The type of frame the navigation occurred in. */
             frameType: extensionTypes.FrameType;
-            /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+            /**
+             * A UUID of the parent document owning this frame. This is not set if there is no parent.
+             * @since Chrome 106
+             */
             parentDocumentId?: string | undefined;
-            /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
+            /** The ID of the parent frame, or `-1` if this is the main frame. */
             parentFrameId: number;
         }
 
@@ -12607,83 +12714,86 @@ declare namespace chrome {
             tabId: number;
         }
 
+        /** A list of frames in the given tab, null if the specified tab ID is invalid. */
         export interface GetAllFrameResultDetails extends GetFrameResultDetails {
-            /** The ID of the process runs the renderer for this tab. */
+            /** The ID of the process that runs the renderer for this frame. */
             processId: number;
             /** The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a subframe. */
             frameId: number;
         }
 
-        export interface WebNavigationCallbackDetails {
-            /** The ID of the tab in which the navigation is about to occur. */
+        export interface WebNavigationReplacementCallbackDetails {
+            /** The ID of the tab that was replaced. */
+            replacedTabId: number;
+            /** The ID of the tab that replaced the old tab. */
             tabId: number;
-            /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
+            /** The time when the replacement happened, in milliseconds since the epoch. */
             timeStamp: number;
         }
 
-        export interface WebNavigationUrlCallbackDetails extends WebNavigationCallbackDetails {
-            url: string;
-        }
-
-        export interface WebNavigationReplacementCallbackDetails extends WebNavigationCallbackDetails {
-            /** The ID of the tab that was replaced. */
-            replacedTabId: number;
-        }
-
-        export interface WebNavigationFramedCallbackDetails extends WebNavigationUrlCallbackDetails {
-            /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
+        export interface WebNavigationBaseCallbackDetails {
+            /** The lifecycle the document is in. */
+            documentLifecycle: extensionTypes.DocumentLifecycle;
+            /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab. */
             frameId: number;
             /** The type of frame the navigation occurred in. */
             frameType: extensionTypes.FrameType;
-            /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
-            documentId?: string | undefined;
-            /** The lifecycle the document is in. */
-            documentLifecycle: extensionTypes.DocumentLifecycle;
             /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
-            parentDocumentId?: string | undefined;
-            /**
-             * The ID of the process runs the renderer for this tab.
-             * @since Chrome 22
-             */
+            parentDocumentId?: string;
+            /** The ID of the parent frame, or `-1` if this is the main frame. */
+            parentFrameId: number;
+            /** The ID of the process that runs the renderer for this frame. */
             processId: number;
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            /** The time when the browser was about to start the navigation, in milliseconds since the epoch */
+            timeStamp: number;
+            url: string;
         }
 
-        export interface WebNavigationFramedErrorCallbackDetails extends WebNavigationFramedCallbackDetails {
+        export interface WebNavigationFramedCallbackDetails extends WebNavigationBaseCallbackDetails {
+            /**
+             * A UUID of the document loaded.
+             * @since Chrome 106
+             */
+            documentId: string;
+        }
+
+        export interface WebNavigationFramedErrorCallbackDetails extends WebNavigationBaseCallbackDetails {
+            /**
+             * A UUID of the document loaded.
+             * @since Chrome 106
+             */
+            documentId: string;
             /** The error description. */
             error: string;
         }
 
-        export interface WebNavigationSourceCallbackDetails extends WebNavigationUrlCallbackDetails {
-            /** The ID of the tab in which the navigation is triggered. */
-            sourceTabId: number;
-            /**
-             * The ID of the process runs the renderer for the source tab.
-             * @since Chrome 22
-             */
-            sourceProcessId: number;
+        export interface WebNavigationSourceCallbackDetails {
             /** The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame. */
             sourceFrameId: number;
+            /** The ID of the process that runs the renderer for the source frame. */
+            sourceProcessId: number;
+            /** The ID of the tab in which the navigation is triggered. */
+            sourceTabId: number;
+            /** The ID of the tab in which the url is opened */
+            tabId: number;
+            /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** The URL to be opened in the new window. */
+            url: string;
         }
 
-        export interface WebNavigationParentedCallbackDetails extends WebNavigationFramedCallbackDetails {
+        export interface WebNavigationTransitionCallbackDetails extends WebNavigationBaseCallbackDetails {
             /**
-             * ID of frame that wraps the frame. Set to -1 of no parent frame exists.
-             * @since Chrome 24
+             * A UUID of the document loaded.
+             * @since Chrome 106
              */
-            parentFrameId: number;
-        }
-
-        export interface WebNavigationTransitionCallbackDetails extends WebNavigationFramedCallbackDetails {
-            /**
-             * Cause of the navigation.
-             * One of: "link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", or "keyword_generated"
-             */
-            transitionType: string;
-            /**
-             * A list of transition qualifiers.
-             * Each element one of: "client_redirect", "server_redirect", "forward_back", or "from_address_bar"
-             */
-            transitionQualifiers: string[];
+            documentId: string;
+            /** Cause of the navigation. */
+            transitionType: `${TransitionType}`;
+            /** A list of transition qualifiers.*/
+            transitionQualifiers: `${TransitionQualifier}`[];
         }
 
         export interface WebNavigationEventFilter {
@@ -12691,89 +12801,72 @@ declare namespace chrome {
             url: chrome.events.UrlFilter[];
         }
 
-        export interface WebNavigationEvent<T extends WebNavigationCallbackDetails>
-            extends chrome.events.Event<(details: T) => void>
+        interface WebNavigationEvent<T extends (...args: any) => void>
+            extends Omit<chrome.events.Event<T>, "addListener">
         {
-            addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
+            addListener(callback: T, filters?: WebNavigationEventFilter): void;
         }
-
-        export interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> {}
-
-        export interface WebNavigationFramedErrorEvent
-            extends WebNavigationEvent<WebNavigationFramedErrorCallbackDetails>
-        {}
-
-        export interface WebNavigationSourceEvent extends WebNavigationEvent<WebNavigationSourceCallbackDetails> {}
-
-        export interface WebNavigationParentedEvent extends WebNavigationEvent<WebNavigationParentedCallbackDetails> {}
-
-        export interface WebNavigationTransitionalEvent
-            extends WebNavigationEvent<WebNavigationTransitionCallbackDetails>
-        {}
-
-        export interface WebNavigationReplacementEvent
-            extends WebNavigationEvent<WebNavigationReplacementCallbackDetails>
-        {}
 
         /**
          * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 93.
          * @param details Information about the frame to retrieve information about.
-         * @param callback
-         * Optional parameter details: Information about the requested frame, null if the specified frame ID and/or tab ID are invalid.
          */
+        export function getFrame(
+            details: GetFrameDetails,
+        ): Promise<GetFrameResultDetails | null>;
         export function getFrame(
             details: GetFrameDetails,
             callback: (details: GetFrameResultDetails | null) => void,
         ): void;
-        /**
-         * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
-         * @param details Information about the frame to retrieve information about.
-         * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
-         */
-        export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
 
         /**
          * Retrieves information about all frames of a given tab.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 93.
          * @param details Information about the tab to retrieve all frames from.
-         * @param callback
-         * Optional parameter details: A list of frames in the given tab, null if the specified tab ID is invalid.
-         */
-        export function getAllFrames(
-            details: GetAllFrameDetails,
-            callback: (details: GetAllFrameResultDetails[] | null) => void,
-        ): void;
-        /**
-         * Retrieves information about all frames of a given tab.
-         * @param details Information about the tab to retrieve all frames from.
-         * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
          */
         export function getAllFrames(
             details: GetAllFrameDetails,
         ): Promise<GetAllFrameResultDetails[] | null>;
+        export function getAllFrames(
+            details: GetAllFrameDetails,
+            callback: (details: GetAllFrameResultDetails[] | null) => void,
+        ): void;
+
         /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
-        export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
+        export const onReferenceFragmentUpdated: WebNavigationEvent<
+            (details: WebNavigationTransitionCallbackDetails) => void
+        >;
+
         /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
-        export var onCompleted: WebNavigationFramedEvent;
-        /**
-         * Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL.
-         * @since Chrome 22
-         */
-        export var onHistoryStateUpdated: WebNavigationTransitionalEvent;
+        export const onCompleted: WebNavigationEvent<(details: WebNavigationFramedCallbackDetails) => void>;
+
+        // /** Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL. */
+        export const onHistoryStateUpdated: WebNavigationEvent<
+            (details: WebNavigationTransitionCallbackDetails) => void
+        >;
+
         /** Fired when a new window, or a new tab in an existing window, is created to host a navigation. */
-        export var onCreatedNavigationTarget: WebNavigationSourceEvent;
-        /**
-         * Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab.
-         * @since Chrome 22
-         */
-        export var onTabReplaced: WebNavigationReplacementEvent;
+        export const onCreatedNavigationTarget: WebNavigationEvent<
+            (details: WebNavigationSourceCallbackDetails) => void
+        >;
+
+        /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab*/
+        export const onTabReplaced: events.Event<(details: WebNavigationReplacementCallbackDetails) => void>;
+
         /** Fired when a navigation is about to occur. */
-        export var onBeforeNavigate: WebNavigationParentedEvent;
+        export const onBeforeNavigate: WebNavigationEvent<(details: WebNavigationBaseCallbackDetails) => void>;
+
         /** Fired when a navigation is committed. The document (and the resources it refers to, such as images and subframes) might still be downloading, but at least part of the document has been received from the server and the browser has decided to switch to the new document. */
-        export var onCommitted: WebNavigationTransitionalEvent;
+        export const onCommitted: WebNavigationEvent<(details: WebNavigationTransitionCallbackDetails) => void>;
+
         /** Fired when the page's DOM is fully constructed, but the referenced resources may not finish loading. */
-        export var onDOMContentLoaded: WebNavigationFramedEvent;
+        export const onDOMContentLoaded: WebNavigationEvent<(details: WebNavigationFramedCallbackDetails) => void>;
+
         /** Fired when an error occurs and the navigation is aborted. This can happen if either a network error occurred, or the user aborted the navigation. */
-        export var onErrorOccurred: WebNavigationFramedErrorEvent;
+        export const onErrorOccurred: WebNavigationEvent<(details: WebNavigationFramedErrorCallbackDetails) => void>;
     }
 
     ////////////////////
@@ -14356,133 +14449,165 @@ declare namespace chrome {
      * @since Chrome 120, MV3
      */
     export namespace userScripts {
-        /**
-         * Execution environment for a user script.
-         */
-        export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
+        /** The JavaScript world for a user script to execute within. */
+        export enum ExecutionWorld {
+            /** Specifies the execution environment of the DOM, which is the execution environment shared with the host page's JavaScript. */
+            MAIN = "MAIN",
+            /** Specifies the execution environment that is specific to user scripts and is exempt from the page's CSP. */
+            USER_SCRIPT = "USER_SCRIPT",
+        }
 
         /** @since Chrome 135 */
-        export interface InjectionResult {
-            /** The document associated with the injection. */
-            documentId: string;
-            /** The error, if any. `error` and `result` are mutually exclusive. */
-            error?: string;
-            /** The frame associated with the injection. */
-            frameId: number;
-            /** The result of the script execution. */
-            result: any;
-        }
+        export type InjectionResult<T = unknown> =
+            & {
+                /** The document associated with the injection. */
+                documentId: string;
+                /** The frame associated with the injection. */
+                frameId: number;
+            }
+            & (
+                | {
+                    /** The error, if any */
+                    error?: never;
+                    /** The result of the script execution. */
+                    result: T;
+                }
+                | {
+                    /** The error, if any */
+                    error: string;
+                    /** The result of the script execution. */
+                    result?: never;
+                }
+            );
 
         export interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
-            csp?: string;
-            /** Specifies whether messaging APIs are exposed. The default is false.*/
-            messaging?: boolean;
+            csp?: string | undefined;
+            /** Specifies whether messaging APIs are exposed. The default is `false`.*/
+            messaging?: boolean | undefined;
             /**
              * Specifies the ID of the specific user script world to update. If not provided, updates the properties of the default user script world. Values with leading underscores (`_`) are reserved.
              * @since Chrome 133
              */
-            worldId?: string;
+            worldId?: string | undefined;
         }
 
         export interface UserScriptFilter {
-            ids?: string[];
+            /** {@link getScripts} only returns scripts with the IDs specified in this list. */
+            ids?: string[] | undefined;
         }
 
-        /** @since Chrome 135 */
-        export interface InjectionTarget {
-            /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` is specified. */
-            allFrames?: boolean;
-            /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
-            documentIds?: string[];
-            /** The IDs of specific frames to inject into. */
-            frameIds?: number[];
-            /** The ID of the tab into which to inject. */
-            tabId: number;
-        }
+        // /** @since Chrome 135 */
+        export type InjectionTarget =
+            & {
+                /** The ID of the tab into which to inject. */
+                tabId: number;
+            }
+            & (
+                | {
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    allFrames?: boolean | undefined;
+                    /** The IDs of specific documentIds to inject into. */
+                    documentIds?: never;
+                    /** The IDs of specific frames to inject into. */
+                    frameIds?: never;
+                }
+                | {
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    allFrames?: false | undefined;
+                    /** The IDs of specific documentIds to inject into. */
+                    documentIds?: never;
+                    /** The IDs of specific frames to inject into. */
+                    frameIds: number[] | undefined;
+                }
+                | {
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    allFrames?: false | undefined;
+                    /** The IDs of specific documentIds to inject into. */
+                    documentIds?: string[] | undefined;
+                    /** The IDs of specific frames to inject into. */
+                    frameIds?: never;
+                }
+            );
 
         export interface RegisteredUserScript {
             /** If true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched. */
-            allFrames?: boolean;
+            allFrames?: boolean | undefined;
             /** Specifies wildcard patterns for pages this user script will NOT be injected into. */
-            excludeGlobs?: string[];
+            excludeGlobs?: string[] | undefined;
             /**Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
-            excludeMatches?: string[];
+            excludeMatches?: string[] | undefined;
             /** The ID of the user script specified in the API call. This property must not start with a '_' as it's reserved as a prefix for generated script IDs. */
             id: string;
             /** Specifies wildcard patterns for pages this user script will be injected into. */
-            includeGlobs?: string[];
+            includeGlobs?: string[] | undefined;
             /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array.*/
             js: ScriptSource[];
-            /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for ${ref:register}. */
-            matches?: string[];
-            /** Specifies when JavaScript files are injected into the web page. The preferred and default value is document_idle */
-            runAt?: extensionTypes.RunAt;
+            /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for {@link register}. */
+            matches?: string[] | undefined;
+            /** Specifies when JavaScript files are injected into the web page. The preferred and default value is `document_idle` */
+            runAt?: extensionTypes.RunAt | undefined;
             /** The JavaScript execution environment to run the script in. The default is `USER_SCRIPT` */
-            world?: ExecutionWorld;
+            world?: `${ExecutionWorld}` | undefined;
             /**
              * Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
              * @since Chrome 133
              */
-            worldId?: string;
+            worldId?: string | undefined;
         }
 
         /** @since Chrome 135 */
         export interface UserScriptInjection {
             /** Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
-            injectImmediately?: boolean;
+            injectImmediately?: boolean | undefined;
             /** The list of ScriptSource objects defining sources of scripts to be injected into the target. */
-            js: ScriptSource[];
+            js: [ScriptSource, ...ScriptSource[]];
             /** Details specifying the target into which to inject the script. */
             target: InjectionTarget;
             /** The JavaScript "world" to run the script in. The default is `USER_SCRIPT`. */
-            world?: ExecutionWorld;
+            world?: `${ExecutionWorld}` | undefined;
             /** Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved. */
-            worldId?: string;
+            worldId?: string | undefined;
         }
 
-        /**
-         * Properties for a script source.
-         */
-        export interface ScriptSource {
-            /** A string containing the JavaScript code to inject. Exactly one of file or code must be specified. */
-            code?: string;
-            /** The path of the JavaScript file to inject relative to the extension's root directory. Exactly one of file or code must be specified. */
-            file?: string;
-        }
+        export type ScriptSource = {
+            /** A string containing the JavaScript code to inject. */
+            code: string;
+            /** The path of the JavaScript file to inject relative to the extension's root directory. */
+            file?: undefined;
+        } | {
+            /** A string containing the JavaScript code to inject. */
+            code?: undefined;
+            /** The path of the JavaScript file to inject relative to the extension's root directory. */
+            file: string;
+        };
 
         /**
          * Configures the `USER_SCRIPT` execution environment.
          *
-         * @param properties - Contains the user script world configuration.
-         * @returns A Promise that resolves with the same type that is passed to the callback.
+         * Can return its result via Promise.
+         * @param properties Contains the user script world configuration.
          */
         export function configureWorld(properties: WorldProperties): Promise<void>;
-        /**
-         * Configures the `USER_SCRIPT` execution environment.
-         *
-         * @param properties - Contains the user script world configuration.
-         * @param callback - Callback function to be executed after configuring the world.
-         */
         export function configureWorld(properties: WorldProperties, callback: () => void): void;
 
         /**
          * Returns all dynamically-registered user scripts for this extension.
          *
-         * @param filter - If specified, this method returns only the user scripts that match it.
-         * @returns A Promise that resolves with the same type that is passed to the callback.
+         * Can return its result via Promise.
+         * @param filter If specified, this method returns only the user scripts that match it.
          */
         export function getScripts(filter?: UserScriptFilter): Promise<RegisteredUserScript[]>;
-        /**
-         * Returns all dynamically-registered user scripts for this extension.
-         *
-         * @param filter - If specified, this method returns only the user scripts that match it.
-         * @param callback - Callback function to be executed after getting user scripts.
-         */
-        export function getScripts(filter: UserScriptFilter, callback: (scripts: RegisteredUserScript[]) => void): void;
+        export function getScripts(callback: (scripts: RegisteredUserScript[]) => void): void;
+        export function getScripts(
+            filter: UserScriptFilter | undefined,
+            callback: (scripts: RegisteredUserScript[]) => void,
+        ): void;
 
         /**
          * Retrieves all registered world configurations.
+         *
+         * Can return its result via Promise.
          * @since Chrome 133
          */
         export function getWorldConfigurations(): Promise<WorldProperties[]>;
@@ -14490,24 +14615,23 @@ declare namespace chrome {
 
         /**
          * Injects a script into a target context. By default, the script will be run at `document_idle`, or immediately if the page has already loaded. If the `injectImmediately` property is set, the script will inject without waiting, even if the page has not finished loading. If the script evaluates to a promise, the browser will wait for the promise to settle and return the resulting value.
+         *
+         * Can return its result via Promise.
          * @since Chrome 135
          */
-        export function execute(injection: UserScriptInjection): Promise<InjectionResult[]>;
-        export function execute(injection: UserScriptInjection, callback: (result: InjectionResult[]) => void): void;
+        export function execute<T>(injection: UserScriptInjection): Promise<InjectionResult<T>[]>;
+        export function execute<T>(
+            injection: UserScriptInjection,
+            callback: (result: InjectionResult<T>[]) => void,
+        ): void;
 
         /**
          * Registers one or more user scripts for this extension.
          *
+         * Can return its result via Promise.
          * @param scripts - Contains a list of user scripts to be registered.
-         * @returns A Promise that resolves with the same type that is passed to the callback.
          */
         export function register(scripts: RegisteredUserScript[]): Promise<void>;
-        /**
-         * Registers one or more user scripts for this extension.
-         *
-         * @param scripts - Contains a list of user scripts to be registered.
-         * @param callback - Callback function to be executed after registering user scripts.
-         */
         export function register(scripts: RegisteredUserScript[], callback: () => void): void;
 
         /**
@@ -14515,41 +14639,26 @@ declare namespace chrome {
          * @param worldId The ID of the user script world to reset. If omitted, resets the default world's configuration.
          */
         export function resetWorldConfiguration(worldId?: string): Promise<void>;
-        export function resetWorldConfiguration(worldId: string, callback: () => void): void;
         export function resetWorldConfiguration(callback: () => void): void;
+        export function resetWorldConfiguration(worldId: string | undefined, callback: () => void): void;
 
         /**
          * Unregisters all dynamically-registered user scripts for this extension.
          *
-         * @param filter - If specified, this method unregisters only the user scripts that match it.
-         * @returns A Promise that resolves with the same type that is passed to the callback.
+         * Can return its result via Promise.
+         * @param filter If specified, this method unregisters only the user scripts that match it.
          */
         export function unregister(filter?: UserScriptFilter): Promise<void>;
-        /**
-         * Unregisters all dynamically-registered user scripts for this extension.
-         *
-         * @param filter - If specified, this method unregisters only the user scripts that match it.
-         * @param callback - Callback function to be executed after unregistering user scripts.
-         */
-        export function unregister(filter: UserScriptFilter, callback: () => void): void;
+        export function unregister(callback: () => void): void;
+        export function unregister(filter: UserScriptFilter | undefined, callback: () => void): void;
 
         /**
          * Updates one or more user scripts for this extension.
          *
-         * @param scripts - Contains a list of user scripts to be updated. A property is only updated for the existing script
-         *                  if it is specified in this object. If there are errors during script parsing/file validation, or if
-         *                  the IDs specified do not correspond to a fully registered script, then no scripts are updated.
-         * @returns A Promise that resolves with the same type that is passed to the callback.
+         * Can return its result via Promise.
+         * @param scripts Contains a list of user scripts to be updated. A property is only updated for the existing script if it is specified in this object. If there are errors during script parsing/file validation, or if the IDs specified do not correspond to a fully registered script, then no scripts are updated.
          */
         export function update(scripts: RegisteredUserScript[]): Promise<void>;
-        /**
-         * Updates one or more user scripts for this extension.
-         *
-         * @param scripts - Contains a list of user scripts to be updated. A property is only updated for the existing script
-         *                  if it is specified in this object. If there are errors during script parsing/file validation, or if
-         *                  the IDs specified do not correspond to a fully registered script, then no scripts are updated.
-         * @param callback - Callback function to be executed after updating user scripts.
-         */
         export function update(scripts: RegisteredUserScript[], callback: () => void): void;
     }
 }

@@ -1,4 +1,4 @@
-import * as Hammer from "hammerjs";
+import Hammer = require("hammerjs");
 import * as React from "react";
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

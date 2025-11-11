@@ -642,6 +642,15 @@ export interface Layout {
     hovermode: "closest" | "x" | "y" | "x unified" | "y unified" | false;
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
+    /**
+     * Determines expansion of hover effects to other subplots.
+     * If "single" just the axis pair of the primary point is included without overlaying subplots.
+     * If "overlaying" all subplots using the main axis and occupying the same space are included.
+     * If "axis", also include stacked subplots using the same axis
+     * when `hovermode` is set to "x", "x unified", "y" or "y unified".
+     * @default "overlaying"
+     */
+    hoversubplots: "single" | "overlaying" | "axis";
     calendar: Calendar;
     "xaxis.range": [Datum, Datum];
     "xaxis.range[0]": Datum;
@@ -657,6 +666,7 @@ export interface Layout {
     "yaxis.title": string;
     ternary: {}; // TODO
     geo: {}; // TODO
+    map: Partial<Mapbox>;
     mapbox: Partial<Mapbox>;
     subplot: string;
     radialaxis: Partial<Axis>;
@@ -1269,8 +1279,11 @@ export type ModeBarDefaultButtons =
     | "toImage"
     | "resetViews"
     | "toggleSpikelines"
+    | "zoomInMap"
     | "zoomInMapbox"
+    | "zoomOutMap"
     | "zoomOutMapbox"
+    | "resetViewMap"
     | "resetViewMapbox"
     | "togglespikelines"
     | "togglehover"
@@ -1443,10 +1456,12 @@ export type PlotType =
     | "candlestick"
     | "carpet"
     | "choropleth"
+    | "choroplethmap"
     | "choroplethmapbox"
     | "cone"
     | "contour"
     | "contourcarpet"
+    | "densitymap"
     | "densitymapbox"
     | "funnel"
     | "funnelarea"
@@ -1470,6 +1485,7 @@ export type PlotType =
     | "scattercarpet"
     | "scattergeo"
     | "scattergl"
+    | "scattermap"
     | "scattermapbox"
     | "scatterpolar"
     | "scatterpolargl"

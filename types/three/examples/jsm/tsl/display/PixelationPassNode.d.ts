@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, PassNode, Scene, UniformNode } from "three/webgpu";
 
 declare class PixelationPassNode extends PassNode {
@@ -23,6 +22,6 @@ export const pixelationPass: (
     pixelSize: UniformNode<number>,
     normalEdgeStrength: UniformNode<number>,
     depthEdgeStrength: UniformNode<number>,
-) => ShaderNodeObject<PixelationPassNode>;
+) => PixelationPassNode;
 
 export default PixelationPassNode;

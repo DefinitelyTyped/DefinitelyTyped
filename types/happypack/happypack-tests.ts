@@ -1,4 +1,4 @@
-import * as happyPack from "happypack";
+import happyPack from "happypack";
 
 const ref: happyPack = new happyPack({
     id: "1",

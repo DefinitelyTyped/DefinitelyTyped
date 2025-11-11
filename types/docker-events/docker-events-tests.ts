@@ -1,5 +1,5 @@
-import * as DockerEvents from "docker-events";
-import * as Dockerode from "dockerode";
+import DockerEvents from "docker-events";
+import Dockerode from "dockerode";
 
 const emitter = new DockerEvents({
     docker: new Dockerode(),

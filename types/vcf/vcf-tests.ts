@@ -1,4 +1,4 @@
-import * as vCard from "vcf";
+import vCard from "vcf";
 
 const card = new vCard();
 

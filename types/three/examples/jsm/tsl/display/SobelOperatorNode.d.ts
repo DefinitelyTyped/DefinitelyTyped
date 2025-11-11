@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode } from "three/webgpu";
 
 declare class SobelOperatorNode extends TempNode {
@@ -9,4 +8,4 @@ declare class SobelOperatorNode extends TempNode {
 
 export default SobelOperatorNode;
 
-export const sobel: (node: Node) => ShaderNodeObject<SobelOperatorNode>;
+export const sobel: (node: Node) => SobelOperatorNode;

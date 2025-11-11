@@ -1,4 +1,4 @@
-import * as Uploadcare from "uploadcare";
+import Uploadcare from "uploadcare";
 
 const uploadcare = Uploadcare("", "");
 

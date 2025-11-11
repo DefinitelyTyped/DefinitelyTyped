@@ -195,7 +195,7 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
     specularColorMap: Texture | null;
     set anisotropy(value: number);
     /**
-     * The anisotropy strength.
+     * The anisotropy strength, from `0.0` to `1.0`.
      *
      * @default 0
      */

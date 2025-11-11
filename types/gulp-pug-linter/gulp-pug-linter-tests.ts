@@ -1,5 +1,5 @@
 import gulp = require("gulp");
-import * as gulpPugLinter from "gulp-pug-linter";
+import gulpPugLinter from "gulp-pug-linter";
 
 gulp.task("lint:template__default", () => (
     gulp

@@ -22,3 +22,10 @@ const styled = L.gridLayer
 styled.addGoogleLayer("TrafficLayer").then(nativeTrafficLayer => {
     styled.removeGoogleLayer("TrafficLayer");
 });
+
+const withMapId = L.gridLayer
+    .googleMutant({
+        type: "roadmap",
+        mapId: "mapId",
+    })
+    .addTo(map);

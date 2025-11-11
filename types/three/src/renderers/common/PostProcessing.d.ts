@@ -15,6 +15,9 @@ declare class PostProcessing {
 
     dispose(): void;
 
+    /**
+     * @deprecated "renderAsync()" has been deprecated. Use "render()" and "await renderer.init();" when creating the renderer.
+     */
     renderAsync(): Promise<void>;
 }
 

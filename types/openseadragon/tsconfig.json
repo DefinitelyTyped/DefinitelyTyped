@@ -12,7 +12,6 @@
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "types": [],
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

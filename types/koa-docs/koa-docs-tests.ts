@@ -1,6 +1,6 @@
-import * as Koa from "koa";
+import Koa from "koa";
 import * as docs from "koa-docs";
-import * as Router from "koa-joi-router";
+import Router from "koa-joi-router";
 
 const Joi = Router.Joi;
 const app = new Koa();

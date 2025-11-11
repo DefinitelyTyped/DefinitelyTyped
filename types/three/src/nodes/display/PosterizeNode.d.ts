@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class PosterizeNode extends Node {
     sourceNode: Node;
@@ -11,4 +10,4 @@ export default class PosterizeNode extends Node {
 export const posterize: (
     sourceNode: Node,
     stepsNode: Node | number,
-) => ShaderNodeObject<PosterizeNode>;
+) => PosterizeNode;

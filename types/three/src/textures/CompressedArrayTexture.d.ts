@@ -1,5 +1,5 @@
 import { CompressedPixelFormat, TextureDataType, Wrapping } from "../constants.js";
-import { CompressedTexture, CompressedTextureMipmap } from "./CompressedTexture.js";
+import { CompressedTexture, CompressedTextureImageData, CompressedTextureMipmap } from "./CompressedTexture.js";
 
 /**
  * Creates an texture 2D array based on data in compressed form, for example from a
@@ -8,20 +8,13 @@ import { CompressedTexture, CompressedTextureMipmap } from "./CompressedTexture.
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/CompressedArrayTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/CompressedArrayTexture.js | Source}
  */
-export class CompressedArrayTexture extends CompressedTexture {
+export class CompressedArrayTexture extends CompressedTexture<CompressedArrayTextureImageData> {
     /**
      * Read-only flag to check if a given object is of type {@link CompressedArrayTexture}.
      * @remarks This is a _constant_ value
      * @defaultValue `true`
      */
     readonly isCompressedArrayTexture: true;
-
-    /**
-     * Overridden with a object containing width and height.
-     * @override
-     */
-    get image(): { width: number; height: number; depth: number };
-    set image(value: { width: number; height: number; depth: number });
 
     /**
      * This defines how the texture is wrapped in the depth direction.
@@ -65,4 +58,8 @@ export class CompressedArrayTexture extends CompressedTexture {
      * Resets the layer updates registry. See {@link CompressedArrayTexture.addLayerUpdate}.
      */
     clearLayoutUpdates(): void;
+}
+
+export interface CompressedArrayTextureImageData extends CompressedTextureImageData {
+    depth: number;
 }

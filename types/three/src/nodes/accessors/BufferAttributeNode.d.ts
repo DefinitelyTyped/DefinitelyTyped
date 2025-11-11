@@ -4,8 +4,6 @@ import { InterleavedBuffer } from "../../core/InterleavedBuffer.js";
 import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribute.js";
 import InputNode from "../core/InputNode.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
-import BufferNode from "./BufferNode.js";
 /**
  * In earlier `three.js` versions it was only possible to define attribute data
  * on geometry level. With `BufferAttributeNode`, it is also possible to do this
@@ -121,7 +119,7 @@ export declare const bufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => ShaderNodeObject<BufferAttributeNode>;
+) => BufferAttributeNode;
 /**
  * TSL function for creating a buffer attribute node but with dynamic draw usage.
  * Use this function if attribute data are updated per frame.
@@ -139,7 +137,7 @@ export declare const dynamicBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => ShaderNodeObject<BufferAttributeNode>;
+) => BufferAttributeNode;
 /**
  * TSL function for creating a buffer attribute node but with enabled instancing
  *
@@ -156,7 +154,7 @@ export declare const instancedBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => ShaderNodeObject<BufferAttributeNode>;
+) => BufferAttributeNode;
 /**
  * TSL function for creating a buffer attribute node but with dynamic draw usage and enabled instancing
  *
@@ -173,9 +171,10 @@ export declare const instancedDynamicBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => ShaderNodeObject<BufferAttributeNode>;
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        toAttribute: <TValue>(bufferNode: BufferNode<TValue>) => ShaderNodeObject<BufferAttributeNode>;
+) => BufferAttributeNode;
+declare module "../Nodes.js" {
+    interface BufferNode<TValue> {
+        toAttribute: () => BufferAttributeNode;
+        toAttributeAssign: () => this;
     }
 }

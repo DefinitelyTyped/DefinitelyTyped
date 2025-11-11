@@ -1,5 +1,5 @@
 import * as http from 'http';
-import * as connect from 'connect';
+import connect = require("connect");
 declare interface StaticFiles {
     [key: string]: {
         content?: string | undefined;

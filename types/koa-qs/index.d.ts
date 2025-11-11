@@ -1,4 +1,4 @@
-import * as koa from "koa";
+import koa = require("koa");
 
 declare namespace koaQs {
     type ParseMode = "extended" | "strict" | "first";

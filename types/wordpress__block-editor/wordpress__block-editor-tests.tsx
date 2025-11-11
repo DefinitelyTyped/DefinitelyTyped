@@ -1,4 +1,4 @@
-import * as be from "@wordpress/block-editor";
+import be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
 import { BlockInstance, createBlock } from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
@@ -247,6 +247,15 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InspectorControls.Slot />;
 
 //
+// link-control
+//
+<be.LinkControl
+    onChange={item => console.log(item)}
+    onRemove={() => console.log("removed")}
+    settings={be.LinkControl.DEFAULT_LINK_SETTINGS}
+/>;
+
+//
 // media-placeholder
 //
 <be.MediaPlaceholder
@@ -299,7 +308,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 //
 <be.PanelColorSettings
     title="Color Settings"
-    initialOpen={false}
     colorSettings={[
         {
             value: "#ff0000",
@@ -307,7 +315,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                 color && console.log(color);
             },
             label: "Background Color",
-            disableCustomColors: true,
             colors: [
                 {
                     color: "#ff0000",
@@ -318,8 +325,12 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                     name: "Yellow",
                 },
             ],
+            disableCustomColors: false,
         },
     ]}
+    disableCustomColors={true}
+    showTitle={true}
+    enableAlpha={true}
 />;
 <be.PanelColorSettings
     colorSettings={[
@@ -565,6 +576,12 @@ select("core/block-editor").getAdjacentBlockClientId();
 select("core/block-editor").getAdjacentBlockClientId("foo");
 select("core/block-editor").getAdjacentBlockClientId("foo", -1);
 select("core/block-editor").getAdjacentBlockClientId("foo", 1);
+
+// $ExpectType string[]
+select("core/block-editor").getBlockParents("foo");
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
+select("core/block-editor").getBlockParents("foo", true);
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
 
 {
     const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();

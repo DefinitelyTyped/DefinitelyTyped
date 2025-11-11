@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import Template from "./src/runtime/html/Template";
 
 declare module "express-serve-static-core" {

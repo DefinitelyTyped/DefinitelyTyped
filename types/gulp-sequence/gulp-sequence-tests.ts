@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as seq from "gulp-sequence";
+import seq from "gulp-sequence";
 
 seq.use(gulp).use(gulp).use(gulp);
 

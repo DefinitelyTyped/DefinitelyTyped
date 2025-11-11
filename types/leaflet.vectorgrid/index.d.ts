@@ -1,5 +1,5 @@
 import * as geojson from "geojson";
-import * as geojsonvt from "geojson-vt";
+import geojsonvt = require("geojson-vt");
 import * as L from "leaflet";
 
 declare module "leaflet" {

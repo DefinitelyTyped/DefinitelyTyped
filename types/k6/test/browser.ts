@@ -1046,6 +1046,15 @@ async function test() {
     page.waitForResponse("https://example.com", { timeout: 10000 });
 
     // @ts-expect-error
+    page.waitForRequest();
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com");
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);
@@ -1079,6 +1088,31 @@ async function test() {
     page.$$();
     // $ExpectType Promise<ElementHandle[]>
     page.$$(selector);
+
+    // $ExpectType Promise<void>
+    page.route("https://example.com/logo.png", () => {});
+    // $ExpectType Promise<void>
+    page.route(/.*\/logo.png/i, () => {});
+    // @ts-expect-error
+    page.route();
+    // @ts-expect-error
+    page.route(123, () => {});
+    // @ts-expect-error
+    page.route("https://example.com/logo.png");
+
+    // $ExpectType Promise<void>
+    page.unroute("https://example.com/logo.png");
+    // $ExpectType Promise<void>
+    page.unroute(/.*\/logo.png/i);
+    // @ts-expect-error
+    page.unroute();
+    // @ts-expect-error
+    page.unroute(123);
+
+    // $ExpectType Promise<void>
+    page.unrouteAll();
+    // @ts-expect-error
+    page.unrouteAll("https://example.com/logo.png");
 
     //
     // Keyboard
@@ -1548,6 +1582,44 @@ async function test() {
     locator.getByPlaceholder("name@example.com", { exact: true });
     // @ts-expect-error
     locator.getByPlaceholder("name@example.com", { exact: "true" });
+
+    // @ts-expect-error
+    locator.evaluate();
+    // @ts-expect-error
+    locator.evaluate(1);
+    // @ExpectType Promise<void>
+    locator.evaluate("");
+    // @ExpectType Promise<void>
+    locator.evaluate(() => {});
+    // @ExpectType Promise<string>
+    locator.evaluate(() => {
+        "";
+    });
+    // @ExpectType Promise<string>
+    locator.evaluate((elem: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<string[]>
+    locator.evaluate((el: HTMLElement, a: string[]) => a, [""]);
+
+    // @ts-expect-error
+    locator.evaluateHandle();
+    // @ts-expect-error
+    locator.evaluateHandle(1);
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle("");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {});
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {
+        "";
+    });
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string[]) => a, [""]);
 
     //
     // JSHandle

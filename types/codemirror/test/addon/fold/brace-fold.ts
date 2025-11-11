@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/fold/brace-fold";
 import "codemirror/addon/fold/foldcode";
 

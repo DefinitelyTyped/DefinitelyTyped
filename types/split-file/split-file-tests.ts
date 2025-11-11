@@ -1,4 +1,4 @@
-import * as splitFile from "split-file";
+import splitFile from "split-file";
 
 // Example code from official documentation
 // https://github.com/tomvlk/node-split-file#readme

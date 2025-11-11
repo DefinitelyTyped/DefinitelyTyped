@@ -5,7 +5,7 @@ import type { GlobbyOptions } from "globby";
 import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from "http-proxy-middleware";
 import { SecureServerOptions as Http2SecureServerOptions, ServerOptions as Http2ServerOptions } from "http2";
 import { ServerOptions as HttpsServerOptions } from "https";
-import * as Koa from "koa";
+import Koa = require("koa");
 import { CompressOptions } from "koa-compress";
 import { Options as KoaStaticOptions } from "koa-static";
 
