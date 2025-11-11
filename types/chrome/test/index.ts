@@ -4149,6 +4149,32 @@ async function testDeclarativeNetRequest() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
+function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+
+    checkChromeEvent(chrome.declarativeWebRequest.onMessage, (details) => {
+        details.documentId; // $ExpectType string | undefined
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.message; // $ExpectType string
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.stage; // $ExpectType "onBeforeRequest" | "onBeforeSendHeaders" | "onHeadersReceived" | "onAuthRequired"
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "object" | "other" | "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle"
+        details.url; // $ExpectType string
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
