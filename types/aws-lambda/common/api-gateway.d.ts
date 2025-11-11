@@ -80,4 +80,6 @@ export interface APIGatewayEventIdentity {
     user: string | null;
     userAgent: string | null;
     userArn: string | null;
+    vpcId: string | null;
+    vpceId: string | null;
 }

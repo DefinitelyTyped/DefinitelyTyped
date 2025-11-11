@@ -1,8 +1,12 @@
-declare class FilterBy {
-    constructor(level: string);
+export class FilterBy {
+    constructor(level?: FilterByLevel);
 
-    static logLevel(level: string | undefined): FilterBy;
-    getLevel(): string;
+    static logLevel(level?: FilterByLevel): FilterBy;
+    getLevel(): FilterByLevel;
 }
 
-export { FilterBy };
+export type FilterByLevel =
+    | "debug"
+    | "error"
+    | "info"
+    | "warning";

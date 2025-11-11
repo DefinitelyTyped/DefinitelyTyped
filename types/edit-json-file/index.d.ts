@@ -1,7 +1,7 @@
 /// <reference types= "node" />
 
 import { NoParamCallback } from "fs";
-import * as set from "set-value";
+import set = require("set-value");
 
 declare namespace editJsonFile {
     /** JSON file editor options. */

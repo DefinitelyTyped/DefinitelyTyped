@@ -1,7 +1,7 @@
 // Original by Tanguy Krotoff <https://github.com/tkrotoff>
 // Updated by Andrew Potter <https://github.com/GolaWaya>
 
-import * as CleanCSS from "clean-css";
+import CleanCSS from "clean-css";
 
 let source = "a{font-weight:bold;}";
 console.log(new CleanCSS().minify(source).styles);

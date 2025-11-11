@@ -1,4 +1,4 @@
-import * as yesql from "yesql";
+import yesql from "yesql";
 
 yesql(""); // $ExpectType string
 yesql("", { pg: true }); // $ExpectType string

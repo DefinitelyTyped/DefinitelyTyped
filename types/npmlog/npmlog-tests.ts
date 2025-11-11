@@ -1,4 +1,4 @@
-import * as npmlog from "npmlog";
+import npmlog from "npmlog";
 
 const prefix = "str";
 const message = "otherStr";

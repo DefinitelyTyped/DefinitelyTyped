@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as fs from "fs";
 import { CopyFilter, CopyOptions, MoveOptions, ReadOptions, WriteOptions } from "fs-extra";
-import * as stream from "stream";
+import stream = require("stream");
 import Stats = fs.Stats;
 
 export * from "fs-extra";

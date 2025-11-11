@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node } from "three/webgpu";
 
 export interface BoxBlurOptions {
@@ -8,4 +7,4 @@ export interface BoxBlurOptions {
     premultipliedAlpha?: boolean | undefined;
 }
 
-export const boxBlur: (textureNode: Node, options?: BoxBlurOptions) => ShaderNodeObject<Node>;
+export const boxBlur: (textureNode: Node, options?: BoxBlurOptions) => Node;

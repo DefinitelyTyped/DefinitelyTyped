@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as stream from "stream";
+import stream = require("stream");
 
 export interface PezOptions extends stream.WritableOptions {
     boundary: string;

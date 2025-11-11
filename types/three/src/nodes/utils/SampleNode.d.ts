@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class SampleNode extends Node {
     callback: (uv: Node) => Node;
@@ -14,4 +13,4 @@ declare class SampleNode extends Node {
 
 export default SampleNode;
 
-export const sample: (callback: (uv: Node) => Node, uv?: Node | null) => ShaderNodeObject<SampleNode>;
+export const sample: (callback: (uv: Node) => Node, uv?: Node | null) => SampleNode;

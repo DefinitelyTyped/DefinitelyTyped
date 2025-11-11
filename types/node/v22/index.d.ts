@@ -62,6 +62,7 @@
 /// <reference path="http.d.ts" />
 /// <reference path="http2.d.ts" />
 /// <reference path="https.d.ts" />
+/// <reference path="inspector.d.ts" />
 /// <reference path="inspector.generated.d.ts" />
 /// <reference path="module.d.ts" />
 /// <reference path="net.d.ts" />

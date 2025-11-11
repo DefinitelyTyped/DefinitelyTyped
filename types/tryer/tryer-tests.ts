@@ -1,4 +1,4 @@
-import * as tryer from "tryer";
+import tryer from "tryer";
 
 // @ts-expect-error
 tryer();

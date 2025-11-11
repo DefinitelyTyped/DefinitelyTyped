@@ -1,4 +1,7 @@
-import { createConsumer, logger } from "@rails/actioncable";
+import { adapters, createConsumer, logger } from "@rails/actioncable";
+
+adapters.logger = window.console;
+adapters.WebSocket = window.WebSocket;
 
 logger.enabled = true;
 
@@ -6,9 +9,11 @@ const consumer = createConsumer("url"); // $ExpectType Consumer
 createConsumer(() => "url"); // $ExpectType Consumer
 
 consumer.url; // $ExpectType string
+consumer.subprotocols; // $ExpectType string[]
 
 consumer.connect(); // $ExpectType boolean
 consumer.disconnect(); // $ExpectType void
+consumer.addSubProtocol("custom-protocol"); // $ExpectType void
 
 {
     const subscription = consumer.subscriptions.create(
@@ -50,6 +55,7 @@ consumer.disconnect(); // $ExpectType void
     subscription.away();
     subscription.perform("action"); // $ExpectType boolean
     subscription.perform("action", {}); // $ExpectType boolean
+    subscription.send({ hello: "world" }); // $ExpectType boolean
     subscription.unsubscribe();
 
     // @ts-expect-error (typo)

@@ -1,7 +1,6 @@
 import { SpotLight } from "../../lights/SpotLight.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import AnalyticLightNode from "./AnalyticLightNode.js";
 
 declare class SpotLightNode extends AnalyticLightNode<SpotLight> {
@@ -17,7 +16,7 @@ declare class SpotLightNode extends AnalyticLightNode<SpotLight> {
 
     constructor(light?: SpotLight | null);
 
-    getLightCoord(builder: NodeBuilder): ShaderNodeObject<Node>;
+    getLightCoord(builder: NodeBuilder): Node;
 }
 
 declare module "three" {

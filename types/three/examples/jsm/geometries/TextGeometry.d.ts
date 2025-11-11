@@ -59,6 +59,8 @@ export interface TextGeometryParameters extends ExtrudeGeometryOptions {
      * @defaultValue `3`
      */
     bevelSegments?: number | undefined;
+
+    direction?: "ltr" | "rtl" | "tb" | undefined;
 }
 
 /**

@@ -8,7 +8,7 @@ import {
 } from "../constants.js";
 import { VideoTexture } from "./VideoTexture.js";
 
-declare class VideoFrameTexture extends VideoTexture {
+declare class VideoFrameTexture extends VideoTexture<VideoFrame | {}> {
     constructor(
         mapping?: Mapping,
         wrapS?: Wrapping,

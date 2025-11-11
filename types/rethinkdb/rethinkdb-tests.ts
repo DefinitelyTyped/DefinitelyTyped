@@ -1,4 +1,4 @@
-import * as r from "rethinkdb";
+import r from "rethinkdb";
 
 function errorAndCursorCallback(err: Error, cursor: r.Cursor): void {}
 function cursorCallback(cursor: r.Cursor): void {}

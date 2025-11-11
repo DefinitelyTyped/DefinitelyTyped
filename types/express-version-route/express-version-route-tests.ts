@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import * as versionRouter from "express-version-route";
 
 const app = express();
