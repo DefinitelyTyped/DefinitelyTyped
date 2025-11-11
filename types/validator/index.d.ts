@@ -1347,16 +1347,19 @@ declare namespace validator {
 
     export interface IsTimeOptions {
         /**
-         * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
+         * `'hour24'` will validate hours in 24 format,
+         * `'hour12'` will validate hours in 12 format.
          * @default 'hour24'
          */
-        hourFormat?: "hour12" | "hour24";
+        hourFormat?: "hour12" | "hour24" | undefined;
         /**
-         * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
+         * `'default'` will validate `HH:MM` format,
+         * `'withSeconds'` will validate the `HH:MM:SS` format,
+         * `'withOptionalSeconds'` will validate `'HH:MM'` and `'HH:MM:SS'` formats.
          *
          * @default 'default'
          */
-        mode?: "default" | "withSeconds";
+        mode?: "default" | "withSeconds" | "withOptionalSeconds" | undefined;
     }
 
     /**
