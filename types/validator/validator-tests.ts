@@ -60,7 +60,7 @@ import isISRCFunc from "validator/lib/isISRC";
 import isISSNFunc from "validator/lib/isISSN";
 import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
-import isLatLongFunc from "validator/lib/isLatLong";
+import isLatLongFunc, { IsLatLongOptions } from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
 import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
@@ -470,7 +470,7 @@ import isISRCFuncEs from "validator/es/lib/isISRC";
 import isISSNFuncEs from "validator/es/lib/isISSN";
 import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
-import isLatLongFuncEs from "validator/es/lib/isLatLong";
+import isLatLongFuncEs, { IsLatLongOptions as IsLatLongOptionsEs } from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
 import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
@@ -966,6 +966,8 @@ const any: any = null;
     result = validator.isJSON("sample", { allow_primitives: true });
 
     result = validator.isLatLong("sample");
+    result = validator.isLatLong("sample", {});
+    result = validator.isLatLong("sample", { checkDMS: true } satisfies IsLatLongOptions);
 
     const isLengthOptions: validator.IsLengthOptions = {};
     result = validator.isLength("sample", isLengthOptions);

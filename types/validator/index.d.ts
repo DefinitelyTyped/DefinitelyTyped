@@ -847,12 +847,19 @@ declare namespace validator {
      */
     export function isJWT(str: string): boolean;
 
+    export interface IsLatLongOptions {
+        /**
+         * Pass `checkDMS` as true to validate DMS(degrees, minutes, and seconds) latitude-longitude format.
+         * @default false
+         */
+        checkDMS?: boolean | undefined;
+    }
     /**
      * Check if the string is a valid latitude-longitude coordinate in the format:
      *
      * `lat,long` or `lat, long`.
      */
-    export function isLatLong(str: string): boolean;
+    export function isLatLong(str: string, options?: IsLatLongOptions): boolean;
 
     export interface IsLengthOptions {
         /**
