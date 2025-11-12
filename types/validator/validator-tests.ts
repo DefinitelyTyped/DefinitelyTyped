@@ -21,7 +21,7 @@ import isBeforeFunc, { IsBeforeOptions } from "validator/lib/isBefore";
 import isBICFunc from "validator/lib/isBIC";
 import isBooleanFunc from "validator/lib/isBoolean";
 import isBtcAddressFunc from "validator/lib/isBtcAddress";
-import isByteLengthFunc from "validator/lib/isByteLength";
+import isByteLengthFunc, { IsByteLengthOptions } from "validator/lib/isByteLength";
 import isCreditCardFunc from "validator/lib/isCreditCard";
 import isCurrencyFunc from "validator/lib/isCurrency";
 import isDataURIFunc from "validator/lib/isDataURI";
@@ -428,7 +428,7 @@ import isBeforeFuncEs, { IsBeforeOptions as IsBeforeOptionsEs } from "validator/
 import isBICFuncEs from "validator/es/lib/isBIC";
 import isBooleanFuncEs from "validator/es/lib/isBoolean";
 import isBtcAddressFuncEs from "validator/es/lib/isBtcAddress";
-import isByteLengthFuncEs from "validator/es/lib/isByteLength";
+import isByteLengthFuncEs, { IsByteLengthOptions as IsByteLengthOptionsEs } from "validator/es/lib/isByteLength";
 import isCreditCardFuncEs from "validator/es/lib/isCreditCard";
 import isCurrencyFuncEs from "validator/es/lib/isCurrency";
 import isDataURIFuncEs from "validator/es/lib/isDataURI";
@@ -762,8 +762,17 @@ const any: any = null;
 
     result = validator.isBoolean("sample");
 
-    const isByteLengthOptions: validator.IsByteLengthOptions = {};
-    result = validator.isByteLength("sample", isByteLengthOptions);
+    result = validator.isByteLength("sample");
+    result = validator.isByteLength("sample", {});
+    result = validator.isByteLength("sample", { min: 16, max: 64 } satisfies IsByteLengthOptions);
+    result = validator.isByteLength("sample", 16);
+    result = validator.isByteLength("sample", 16, 64);
+    // Both overloads happen to allow using exactly two argument, [str, number] & [str, object]
+    // Hence if 2nd arg is of union type `number | object`, typechecking can pass.
+    result = validator.isByteLength("sample", result ? 16 : { min: 16 });
+    // @ts-expect-error
+    // Using 3rd arg here is problematic, without first ensuring that the 2nd argument is a number.
+    result = validator.isByteLength("sample", result ? 16 : { min: 16 }, 64);
 
     const isCreditCardOptions: validator.IsCreditCardOptions = {};
     result = validator.isCreditCard("sample"); // $ExpectType boolean

@@ -289,9 +289,11 @@ declare namespace validator {
     /**
      * Check if the string's length (in UTF-8 bytes) falls in a range.
      *
-     * @param [options] - Options
+     * @param [optionsOrMin] - Options, or the minimum byte length allowed.
+     * @param [max] - The maximum byte length allowed.
      */
-    export function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
+    export function isByteLength(str: string, optionsOrMin?: number | IsByteLengthOptions): boolean;
+    export function isByteLength(str: string, min: number, max: number): boolean;
 
     export interface IsCreditCardOptions {
         /**
