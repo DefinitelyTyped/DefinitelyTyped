@@ -929,16 +929,16 @@ export function handleResult<T, E>(result: Result<T, E>) {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-export function handleValueResult<T>(result: Result<T, Error>) {
+export function handleValueResult<T, E>(result: Result<T, E>) {
     if (isValueResult(result)) {
         const value: T = result.value;
     }
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-export function handleErrorResult<T>(result: Result<T, Error>) {
+export function handleErrorResult<T, E>(result: Result<T, E>) {
     if (isErrorResult(result)) {
-        const errors: readonly Error[] = result.errors;
+        const errors: readonly E[] = result.errors;
     }
 }
 

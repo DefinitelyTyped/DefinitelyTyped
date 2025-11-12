@@ -9,9 +9,9 @@ export type IdOf<_A extends string, Typename extends undefined | string = undefi
     ? { id: DataID }
     : { id: DataID; __typename: Typename };
 
-interface ErrorResult<Error> {
+interface ErrorResult<E> {
     ok: false;
-    errors: readonly Error[];
+    errors: readonly E[];
 }
 
 interface OkayResult<T> {
@@ -20,8 +20,8 @@ interface OkayResult<T> {
 }
 
 // The type returned by fields annotated with `@catch`
-export type Result<T, Error> = OkayResult<T> | ErrorResult<Error>;
+export type Result<T, E> = OkayResult<T> | ErrorResult<E>;
 
-export function isValueResult<T = unknown>(input: Result<T, Error>): input is OkayResult<T>;
+export function isValueResult<T = unknown>(input: Result<T, unknown>): input is OkayResult<T>;
 
-export function isErrorResult(input: Result<unknown, Error>): input is ErrorResult<Error>;
+export function isErrorResult<E = unknown>(input: Result<unknown, E>): input is ErrorResult<E>;
