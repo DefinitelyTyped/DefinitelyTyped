@@ -1363,7 +1363,7 @@ function testStorage() {
     // @ts-expect-error
     const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
 
-    const StorageArea = ["sync", "managed", "local", "session"] as const satisfies chrome.storage.AreaName[];
+    const StorageArea = ["sync", "managed", "local", "session"] as const;
 
     StorageArea.forEach((area) => {
         chrome.storage[area].clear(); // $ExpectType Promise<void>
