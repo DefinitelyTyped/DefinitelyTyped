@@ -319,7 +319,7 @@ interface ToastParams {
     /**
      * The type of the toast
      */
-    type: "info" | "error" | "danger" | "success";
+    type: "info" | "warning" | "danger" | "success";
 
     /**
      * The time in milliseconds after which the toast should be closed
