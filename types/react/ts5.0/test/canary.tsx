@@ -26,32 +26,117 @@ function useCacheTest() {
     }
 }
 
-function cacheSignalTest() {
-    const cacheSignal = React.cacheSignal;
+function viewTransitionTests() {
+    const ViewTransition = React.ViewTransition;
+    const addTransitionType = React.addTransitionType;
 
-    const signal = cacheSignal();
-    if (signal !== null) {
-        // $ExpectType CacheSignal
-        signal;
-        // @ts-expect-error -- implemented by renderer
-        signal.aborted;
+    <ViewTransition />;
+    <ViewTransition
+        default="enter-slide-in exit-fade-out update-cross-fade"
+        enter="slide-from-left"
+        exit="slide-to-right"
+        update="none"
+        share="cross-fade"
+    />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    <ViewTransition
+        // autocomplete should display "auto"
+        name=""
+        // autocomplete should display "auto" | "none"
+        default=""
+    />;
+    <ViewTransition
+        // @ts-expect-error -- Either a string or an object with at least one property.
+        default={{}}
+    />;
+    <ViewTransition
+        // autocomplete should display "default" for keys, "auto" | "none" for values
+        default={{ default: "default" }}
+    />;
+
+    <ViewTransition
+        onEnter={(instance, types) => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+            // $ExpectType string[]
+            types;
+        }}
+        onExit={(instance, types) => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+            // $ExpectType string[]
+            types;
+        }}
+        onShare={(instance, types) => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+            // $ExpectType string[]
+            types;
+        }}
+        onUpdate={(instance, types) => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+            // $ExpectType string[]
+            types;
+        }}
+    />;
+
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
+
+    function Component() {
+        function handleNavigation() {
+            React.startTransition(() => {
+                // @ts-expect-error
+                addTransitionType();
+                // @ts-expect-error
+                addTransitionType(undefined);
+                addTransitionType("navigation");
+            });
+        }
     }
 }
 
-// @enableActivity
-function activityTest() {
-    const Activity = React.Activity;
+// @enableFragmentRefs
+function fragmentRefTest() {
+    <React.Fragment
+        ref={maybeInstance => {
+            // $ExpectType FragmentInstance | null
+            maybeInstance;
 
-    <Activity children="peekaboo" />;
-    <Activity children="peekaboo" mode={undefined} />;
-    <Activity children="peekaboo" mode="visible" />;
-    <Activity children="peekaboo" mode="hidden" />;
-    // @ts-expect-error -- Forgot children
-    <Activity />;
-    <Activity
-        children="peekaboo"
-        // @ts-expect-error -- Unknown mode
-        mode="not-a-mode"
-    />;
-    <Activity children="peekaboo" name="/" />;
+            // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/69022/commits/57825689c7abb50a79395d1266226cfa1b31a4e1
+            const instance = maybeInstance!;
+
+            // @ts-expect-error -- Not implemented by isomorphic renderer but react-dom.
+            instance.focus;
+
+            return () => {};
+        }}
+    >
+        <div />
+        <div />
+    </React.Fragment>;
 }

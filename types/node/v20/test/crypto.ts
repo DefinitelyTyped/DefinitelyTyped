@@ -246,7 +246,7 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
@@ -263,12 +263,12 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
     const decipher = crypto.createDecipheriv("aes-192-cbc", key, nonce);
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
 }
@@ -287,7 +287,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -304,7 +304,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -320,7 +320,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -337,7 +337,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -373,7 +373,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -390,7 +390,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -406,7 +406,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -423,7 +423,7 @@ import { promisify } from "node:util";
             },
         });
         cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
-        // $ExpectType Buffer<ArrayBufferLike>
+        // $ExpectType NonSharedBuffer
         cipher.getAuthTag();
     }
 
@@ -1636,7 +1636,7 @@ import { promisify } from "node:util";
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
-    cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    cert.raw; // $ExpectType NonSharedBuffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
@@ -1813,7 +1813,7 @@ import { promisify } from "node:util";
 
     alice.generateKeys();
 
-    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType NonSharedBuffer
     alicePublicKey = alice.getPublicKey(null);
     alicePublicKey = alice.getPublicKey(null, "compressed");
     alicePublicKey = alice.getPublicKey(undefined, "hybrid");
@@ -1821,7 +1821,7 @@ import { promisify } from "node:util";
     let bobPublicKey = bob.getPublicKey("hex"); // $ExpectType string
     bobPublicKey = bob.getPublicKey("hex", "compressed");
 
-    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType NonSharedBuffer
     aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, "hex"));
 
     let bobSecret = bob.computeSecret(alicePublicKey, "hex"); // $ExpectType string

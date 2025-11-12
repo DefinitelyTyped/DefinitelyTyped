@@ -29,7 +29,7 @@ export interface ConnectContactFlowEvent {
     Name: "ContactFlowEvent";
 }
 
-export type ConnectContactFlowChannel = "VOICE" | "CHAT";
+export type ConnectContactFlowChannel = "VOICE" | "CHAT" | "EMAIL";
 
 export type ConnectContactFlowInitiationMethod = "INBOUND" | "OUTBOUND" | "TRANSFER" | "CALLBACK" | "API";
 

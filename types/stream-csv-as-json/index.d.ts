@@ -1,6 +1,4 @@
-import * as AsObjects from "./AsObjects";
-import * as Parser from "./Parser";
-import * as Stringer from "./Stringer";
+import Parser = require("./Parser");
 
 export = make;
 

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as duplexify from "duplexify";
+import duplexify = require("duplexify");
 import { Duplex, Readable, Stream, Writable } from "stream";
 
 declare class Pumpify extends Duplex implements duplexify.Duplexify {

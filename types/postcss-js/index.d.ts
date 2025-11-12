@@ -4,12 +4,16 @@ import NoWorkResult = require("postcss/lib/no-work-result");
 /** CSS-in-JS object */
 export type CssInJs = Record<string, any>;
 
+export interface ObjectifyOptions {
+    stringifyImportant?: boolean | undefined;
+}
+
 /**
  * Convert a PostCSS `Root` into a CSS-in-JS object
  * @param root The root to convert
  * @returns CSS-in-JS object
  */
-export function objectify(root: Root): CssInJs;
+export function objectify(root: Root, options?: ObjectifyOptions): CssInJs;
 
 /**
  * Parse a CSS-in-JS object into a PostCSS `Root`

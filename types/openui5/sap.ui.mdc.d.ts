@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1442,6 +1442,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
      * Items can be removed, updated, or added. Use the binding information of the `MultiValueField` control
      * to update the data in the related model.
      *
+     * @deprecated As of version 1.142. replaced by {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItemsFromConditions updateItemsFromConditions}.
      * @experimental
      */
     updateItems(
@@ -1458,6 +1459,26 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
        * model
        */
       oMultiValueField: MultiValueField
+    ): void;
+    /**
+     * Implements the model-specific logic to update items after conditions have been updated.
+     *
+     * Items can be removed, updated, or added. Use the binding information of the `MultiValueField` control
+     * to update the data in the related model.
+     *
+     * @since 1.142
+     * @experimental
+     */
+    updateItemsFromConditions(
+      /**
+       * Current `MultiValueField` control to determine binding information to update the values of the related
+       * model
+       */
+      oMultiValueField: MultiValueField,
+      /**
+       * Current conditions of the `MultiValueField` control
+       */
+      aConditions: ConditionObject[]
     ): void;
   }
   const MultiValueFieldDelegate: MultiValueFieldDelegate;
@@ -1652,6 +1673,330 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
   }
   const FilterBarDelegate: FilterBarDelegate;
   export default FilterBarDelegate;
+}
+
+declare module "sap/ui/mdc/GeomapDelegate" {
+  import AggregationBaseDelegate from "sap/ui/mdc/AggregationBaseDelegate";
+
+  import Geomap from "sap/ui/mdc/Geomap";
+
+  import Control from "sap/ui/core/Control";
+
+  import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import { URI } from "sap/ui/core/library";
+
+  /**
+   * Base Delegate for {@link sap.ui.mdc.Geomap Geomap}. Extend this object in your project to use all functionalities
+   * of the {@link sap.ui.mdc.GeoMap GeoMap}.
+   *  This class provides method calls, that are called by the `geomap` for specific operations and overwrite
+   * the internal behavior.
+   *
+   * @experimental As of version 1.142.
+   */
+  interface GeomapDelegate extends AggregationBaseDelegate {
+    /**
+     * Returns the instance of the inner geomap.
+     *
+     *
+     * @returns Instance of the inner geomap
+     */
+    _getInnerGeomap(
+      /**
+       * Reference to the MDC geomap
+       */
+      oGeomap: Geomap
+    ): Control;
+    /**
+     * Creates a new geomap item for a given property name and updates the inner geomap.
+     *  **Note:** This does **not** add the geomap item to the `Items` aggregation of the geomap. Called and
+     * used by `p13n`.
+     *
+     *
+     * @returns `Promise` that resolves with new geomap `Item` as parameter
+     */
+    addItem(
+      /**
+       * Reference to the MDC geomap to add the property to
+       */
+      oGeomap: Geomap,
+      /**
+       * The name of the property added
+       */
+      sPropertyName: string,
+      /**
+       * The property bag containing useful information about the change
+       */
+      mPropertyBag: object,
+      /**
+       * New role for given item
+       */
+      sRole?: string
+    ): Promise<object>;
+    /**
+     * Creates the initial content for the geomap before the metadata is retrieved.
+     *  This can be used by geomap libraries that can already show some information without the actual data
+     * (for example, axis labels, legend, ...).
+     */
+    createInitialGeomapContent(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): void;
+    /**
+     * Binds the inner geomap to the back-end data and creates the inner geomap content.
+     */
+    createInnerGeomapContent(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap,
+      /**
+       * Callback function when data is loaded
+       */
+      fnCallbackDataLoaded: Function
+    ): void;
+    /**
+     * Returns the relevant property info based on the metadata used with the geomap instance.
+     *
+     * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
+     * Any changes of the returned values might result in undesired effects.
+     *
+     * **Note**: Existing properties (set via `sap.ui.mdc.GeoMap#setPropertyInfo`) must not be removed and their
+     * attributes must not be changed during the {@link module:sap/ui/mdc/GeoMapDelegate.fetchProperties fetchProperties }
+     * callback. Otherwise validation errors might occur whenever personalization-related control features (such
+     * as the opening of any personalization dialog) are activated.
+     *
+     *
+     * @returns Array of the property infos that is used within the geomap
+     */
+    fetchProperties(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): Promise</* was: sap.ui.mdc.GeoMap.PropertyInfo */ any[]>;
+    /**
+     * Returns the binding info for given geomap.
+     *
+     *
+     * @returns BindingInfo object
+     */
+    getBindingInfo(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): AggregationBindingInfo;
+    /**
+     * Returns the information for control positions on the map.
+     *
+     *
+     * @returns with defined control positions
+     */
+    getControlPositions(): object;
+    /**
+     * Gets the information whether the inner geomap is currently bound.
+     *
+     *
+     * @returns `true` if inner geomap is bound; `false` if not
+     */
+    getGeomapBound(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): boolean;
+    /**
+     * Returns the current geomap type.
+     *
+     *
+     * @returns Information about the current geomap type
+     */
+    getGeomapTypeInfo(
+      /**
+       * Reference to the MDC geomap
+       */
+      oGeomap: Geomap
+    ): /* was: sap.ui.mdc.GeoMap.GeomapTypeObject */ any[];
+    /**
+     * Gets the current zooming information for the geomap.
+     *
+     *
+     * @returns Current `zoom` level of the inner geomap
+     */
+    getZoomLevel(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): float;
+    /**
+     * Loads the required libraries and creates the inner geomap.
+     *  By default, the method returns `Promise.reject()`.
+     *
+     *
+     * @returns Resolved once the inner geomap has been initialized
+     */
+    initializeGeomap(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): Promise<any>;
+    /**
+     * Inserts a geomap item (spot / circle for `sap.geomap.geomap`) into the inner geomap.
+     *  This function is called by the geomap for a change of the `Items` aggregation.
+     *  **Note:** Do not call this yourself, as it would not be synced with the geomap, but insert the item
+     * into the geomap instead.
+     */
+    insertItemToGeomap(
+      /**
+       * geomap into which the item is insert
+       */
+      oGeomap: Geomap,
+      /**
+       * geomap item (spot, container, circle & etc. )that is inserted into the inner geomap
+       */
+      oGeomapItem: object,
+      /**
+       * The index into which the geomap item is inserted
+       */
+      iIndex: int,
+      /**
+       * the type of item which should be added to the geomap
+       */
+      sType: string
+    ): void;
+    /**
+     * Checks the binding of the geomap and rebinds it if required.
+     */
+    rebind(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap,
+      /**
+       * BindingInfo of the geomap
+       */
+      oBindingInfo: AggregationBindingInfo
+    ): void;
+    /**
+     * Removes an existing geomap item for a given property name and updates the inner geomap..
+     *
+     *
+     * @returns `Promise` containing information whether the item was deleted
+     */
+    removeItem(
+      /**
+       * Reference to the MDC geomap from which property is removed
+       */
+      oGeomap: Geomap,
+      /**
+       * The `item` that is removed from the geomap
+       */
+      oItem: object,
+      /**
+       * The property bag containing useful information about the change
+       */
+      mPropertyBag: object
+    ): Promise<boolean>;
+    /**
+     * Removes a geomap item (spot / circle for `sap.geomap.geomap`) from the inner geomap.
+     *  This function is called by the geomap for a change of the `Items` aggregation.
+     *  **Note:** Do not call this yourself, as it would not be synced with the geomap, but remove the item
+     * from the geomap instead.
+     */
+    removeItemFromGeomap(
+      /**
+       * geomap from which the item is removed
+       */
+      oGeoap: Geomap,
+      /**
+       * geomap item that is removed from the geomap
+       */
+      oGeomapItem: object,
+      /**
+       * geomap item type that should be removed from the geomap
+       */
+      sType: string
+    ): void;
+    /**
+     * Updates the binding info with the relevant information.
+     *  By default, this method updates a given {@link sap.ui.base.ManagedObject.AggregationBindingInfo AggregationBindingInfo}.
+     */
+    updateBindingInfo(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap,
+      /**
+       * Binding info of the geomap
+       */
+      oBindingInfo: AggregationBindingInfo
+    ): void;
+    /**
+     * Notifies the inner geomap to zoom in.
+     */
+    zoomIn(
+      /**
+       * Reference to the geomap
+       */
+      oGeomap: Geomap
+    ): void;
+    /**
+     * Notifies the inner geomap to zoom out.
+     */
+    zoomOut(
+      /**
+       * Reference to the geomap
+       */
+      oGeoMap: /* was: sap.ui.mdc.GeoMap */ any
+    ): void;
+  }
+  const GeomapDelegate: GeomapDelegate;
+  export default GeomapDelegate;
+
+  /**
+   * Geomap `GeomapTypeObject` type.
+   *
+   * @experimental As of version 1.142.
+   */
+  export type GeomapTypeObject = {
+    /**
+     * Unique key of the geomap type
+     */
+    key: string;
+    /**
+     * URI for the icon for the current geomap type
+     */
+    icon: URI;
+    /**
+     * Name of the current geomap type
+     */
+    text: string;
+    /**
+     * Whether the geomap type is the one currently used
+     */
+    selected: boolean;
+  };
+
+  /**
+   * geomap `ZoomState` type.
+   *
+   * @experimental As of version 1.142.
+   */
+  export type ZoomState = {
+    /**
+     * Zooming is enabled if set to `true`
+     */
+    enabled: boolean;
+    /**
+     * Current zoom level of the geomap in percent (between 0 and 1)
+     */
+    currentZoomLevel: number;
+  };
 }
 
 declare module "sap/ui/mdc/LinkDelegate" {
@@ -1953,9 +2298,9 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
      * If an update is not possible, it rebinds the table.
      *
      * Compares the current and previous state of the table to detect whether rebinding is necessary. The diffing
-     * is done for the sorters, filters, aggregation, parameters. Other {@link sap.ui.base.ManagedObject.AggregationBindingInfo binding info }
-     * keys, such as `path`, `events`, or `model`, must be provided in `updateBindingInfo`, and those keys must
-     * not be changed conditionally.
+     * is done for the sorters, filters, aggregation, parameters, and the path of the binding. Other {@link sap.ui.base.ManagedObject.AggregationBindingInfo binding info }
+     * keys, such as `events` or `model`, must be provided in `updateBindingInfo`, and those keys must not be
+     * changed conditionally.
      *
      * **Note:** To remove a binding info parameter, the value must be set to `undefined` in `updateBindingInfo`.
      * For more information, see {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters}.
@@ -2989,9 +3334,8 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
     /**
      * Returns filters that are used when updating the binding of the `ValueHelp`.
      * By default, this method returns a set of {@link sap.ui.model.Filter Filters} originating from an available
-     * {@link sap.ui.mdc.FilterBar FilterBar}, the delegate's own {@link module:sap/ui/mdc/ValueHelpDelegate.getFilterConditions getFilterConditions},
-     * and/or the {@link sap.ui.mdc.valuehelp.base.FilterableListContent#getFilterFields filterFields} configuration
-     * of the given {@link sap.ui.mdc.valuehelp.base.FilterableListContent FilterableListContent}.
+     * {@link sap.ui.mdc.FilterBar FilterBar} or the delegate's own {@link module:sap/ui/mdc/ValueHelpDelegate.getFilterConditions getFilterConditions }
+     * implementation.
      *
      * @since 1.121
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -7744,6 +8088,16 @@ declare module "sap/ui/mdc/enums/FilterBarValidationStatus" {
   export default FilterBarValidationStatus;
 }
 
+declare module "sap/ui/mdc/enums/GeomapControlPosition" {
+  /**
+   * Enumeration of the `position` property of the Geomap controls
+   *
+   * @experimental As of version 1.142.
+   */
+  enum GeomapControlPosition {}
+  export default GeomapControlPosition;
+}
+
 declare module "sap/ui/mdc/enums/LinkType" {
   /**
    * Defines the behavior of the {@link sap.ui.mdc.Link}.
@@ -8994,6 +9348,9 @@ declare module "sap/ui/mdc/Field" {
      * To display the key and the description in one field, the description must be set on the `additionalValue`
      * property.
      *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
+     *
      *
      * @returns Value of property `additionalValue`
      */
@@ -9058,6 +9415,9 @@ declare module "sap/ui/mdc/Field" {
      *
      * To display the key and the description in one field, the key must be set on the `value` property.
      *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
+     *
      *
      * @returns Value of property `value`
      */
@@ -9069,6 +9429,9 @@ declare module "sap/ui/mdc/Field" {
      *
      * To display the key and the description in one field, the description must be set on the `additionalValue`
      * property.
+     *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9174,6 +9537,9 @@ declare module "sap/ui/mdc/Field" {
      *
      * To display the key and the description in one field, the key must be set on the `value` property.
      *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      *
@@ -9219,6 +9585,9 @@ declare module "sap/ui/mdc/Field" {
      * The value of the field.
      *
      * To display the key and the description in one field, the key must be set on the `value` property.
+     *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
      */
     value?: any | PropertyBindingInfo | `{${string}}`;
 
@@ -9227,6 +9596,9 @@ declare module "sap/ui/mdc/Field" {
      *
      * To display the key and the description in one field, the description must be set on the `additionalValue`
      * property.
+     *
+     * **Warning:** Don't use a `Formatter` in the binding of this property since this only allows one-way binding.
+     * Therefore, no parsing of user input and no model updates are possible.
      */
     additionalValue?: any | PropertyBindingInfo | `{${string}}`;
 
@@ -11563,6 +11935,23 @@ declare module "sap/ui/mdc/field/FieldBase" {
       sWidth?: CSSSize
     ): this;
     /**
+     * Checks if a condition update needs to fire a `ValidationSuccess` event.
+     *
+     * This is required in {@link sap.ui.mdc.field.Field Field} if the condition update doesn't lead to an update
+     * of the {@link sap.ui.mdc.field.Field#setValue value} property. (If only description or payload is changed.)
+     *
+     * @since 1.142.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns `true` if the `ValidationSuccess` event is fired
+     */
+    shouldFireValidationSuccessOnConditionUpdate(
+      /**
+       * Current conditions
+       */
+      aConditions: ConditionObject[]
+    ): boolean;
+    /**
      * Triggers a check if all relevant properties are set to create the internal content control.
      *
      * To be sure that the check is not called multiple times, it needs to be checked if there is a pending
@@ -12695,6 +13084,8 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
 
   import { IFilterSource, IFilter, IxState, State } from "sap/ui/mdc/library";
 
+  import InvisibleText from "sap/ui/core/InvisibleText";
+
   import FilterBarValidationStatus from "sap/ui/mdc/enums/FilterBarValidationStatus";
 
   import FilterField from "sap/ui/mdc/FilterField";
@@ -12788,6 +13179,18 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Adds an `InvisibleText` to the `FilterBar` that can be used for accessibility purposes.
+     *
+     * @since 1.142
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    addInvisibleText(
+      /**
+       * The invisible text to be added
+       */
+      oInvisibleText: InvisibleText
+    ): void;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:filtersChanged filtersChanged} event of this
      * `sap.ui.mdc.filterbar.FilterBarBase`.
@@ -13051,6 +13454,20 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * Also, the `conditions` property of `filterItems` is managed by the control.
      */
     getFilterItems(): FilterField[];
+    /**
+     * Retrieves an `InvisibleText` by ID.
+     *
+     * @since 1.142
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The invisible text with the given ID
+     */
+    getInvisibleText(
+      /**
+       * ID of the invisible text to be retrieved
+       */
+      sId: string
+    ): InvisibleText;
     /**
      * Gets current value of property {@link #getLiveMode liveMode}.
      *
@@ -14192,6 +14609,917 @@ declare module "sap/ui/mdc/FilterField" {
   >;
 }
 
+declare module "sap/ui/mdc/Geomap" {
+  import { default as Control, $ControlSettings } from "sap/ui/mdc/Control";
+
+  import { IFilterSource, IxState } from "sap/ui/mdc/library";
+
+  import Event from "sap/ui/base/Event";
+
+  import { CSSSize } from "sap/ui/core/library";
+
+  import Item from "sap/ui/mdc/geomap/Item";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyInfo as PropertyInfo1 } from "sap/ui/mdc/util/PropertyHelper";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The `Geomap` control creates a geomap based on metadata and the configuration specified.
+   *  **Note:** The geomap needs to be created inside the `GeomapDelegate`.
+   *
+   * @experimental As of version 1.142.
+   */
+  export default class Geomap
+    extends Control
+    implements IFilterSource, IxState
+  {
+    __implements__sap_ui_mdc_IFilterSource: boolean;
+    __implements__sap_ui_mdc_IxState: boolean;
+    /**
+     * Constructor for a new GeoMap.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $GeomapSettings
+    );
+    /**
+     * Constructor for a new GeoMap.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $GeomapSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.Geomap with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.Control.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Geomap>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.Geomap.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:zoomChange zoomChange} event of this `sap.ui.mdc.Geomap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.Geomap` itself.
+     *
+     * This event is fired when zooming is performed on the map.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachZoomChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.Geomap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:zoomChange zoomChange} event of this `sap.ui.mdc.Geomap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.Geomap` itself.
+     *
+     * This event is fired when zooming is performed on the map.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachZoomChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.Geomap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyItems(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:zoomChange zoomChange} event of this `sap.ui.mdc.Geomap`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachZoomChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:zoomChange zoomChange} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireZoomChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Gets current value of property {@link #getCenterLat centerLat}.
+     *
+     * Latitude of the point where the map is centered
+     *
+     *
+     * @returns Value of property `centerLat`
+     */
+    getCenterLat(): float;
+    /**
+     * Gets current value of property {@link #getCenterLng centerLng}.
+     *
+     * Longitude of the point where the map is centered
+     *
+     *
+     * @returns Value of property `centerLng`
+     */
+    getCenterLng(): float;
+    /**
+     * Gets current value of property {@link #getDelegate delegate}.
+     *
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     *
+     * Default value is `...see text or source`.
+     *
+     * @experimental
+     *
+     * @returns Value of property `delegate`
+     */
+    getDelegate(): object;
+    /**
+     * Gets current value of property {@link #getEnableCopyrightControl enableCopyrightControl}.
+     *
+     * Enables the copyright control for the map
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `enableCopyrightControl`
+     */
+    getEnableCopyrightControl(): boolean;
+    /**
+     * Gets current value of property {@link #getEnableFullscreenControl enableFullscreenControl}.
+     *
+     * Enables the full screen control for the map
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enableFullscreenControl`
+     */
+    getEnableFullscreenControl(): boolean;
+    /**
+     * Gets current value of property {@link #getEnableNavigationControl enableNavigationControl}.
+     *
+     * Enables the navigation & compas control for the map
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enableNavigationControl`
+     */
+    getEnableNavigationControl(): boolean;
+    /**
+     * Gets current value of property {@link #getEnableScaleControl enableScaleControl}.
+     *
+     * Enables the scale control for the map
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enableScaleControl`
+     */
+    getEnableScaleControl(): boolean;
+    /**
+     * Gets current value of property {@link #getEnableSelectionControl enableSelectionControl}.
+     *
+     * Enables the selection control for the map
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `enableSelectionControl`
+     */
+    getEnableSelectionControl(): boolean;
+    /**
+     * Gets current value of property {@link #getHeader header}.
+     *
+     * Header text that appears in the geomap
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Value of property `header`
+     */
+    getHeader(): string;
+    /**
+     * Gets current value of property {@link #getHeight height}.
+     *
+     * Defines the height of the geomap.
+     *
+     * Default value is `"700px"`.
+     *
+     *
+     * @returns Value of property `height`
+     */
+    getHeight(): CSSSize;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * Aggregates the items to be displayed in the geomap. Note: As items are custom elements defined as part
+     * of the webc library the type here could not be strictly defined or used a generic one so supported types
+     * are limited to those supported by the webc library.
+     */
+    getItems(): Item[];
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the geomap.
+     *
+     * Default value is `"700px"`.
+     *
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Gets current value of property {@link #getZoom zoom}.
+     *
+     * Zoom level of the map - the bigger, the more the map is zoomed
+     *
+     *
+     * @returns Value of property `zoom`
+     */
+    getZoom(): float;
+    /**
+     * Checks for the provided `sap.ui.mdc.geomap.Item` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: Item
+    ): int;
+    /**
+     * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertItem(
+      /**
+       * The item to insert; if empty, nothing is inserted
+       */
+      oItem: Item,
+      /**
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Executes a rebind considering the provided external and inbuilt filtering.
+     *
+     * @since 1.98
+     *
+     * @returns A `Promise` that resolves after rebind is executed, and rejects if rebind cannot be executed,
+     * for example because there are invalid filters.
+     */
+    rebind(): Promise<any>;
+    /**
+     * Sets a new value for property {@link #getCenterLat centerLat}.
+     *
+     * Latitude of the point where the map is centered
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCenterLat(
+      /**
+       * New value for property `centerLat`
+       */
+      fCenterLat: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getCenterLng centerLng}.
+     *
+     * Longitude of the point where the map is centered
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCenterLng(
+      /**
+       * New value for property `centerLng`
+       */
+      fCenterLng: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDelegate delegate}.
+     *
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `...see text or source`.
+     *
+     * @experimental
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDelegate(
+      /**
+       * New value for property `delegate`
+       */
+      oDelegate?: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnableCopyrightControl enableCopyrightControl}.
+     *
+     * Enables the copyright control for the map
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableCopyrightControl(
+      /**
+       * New value for property `enableCopyrightControl`
+       */
+      bEnableCopyrightControl?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnableFullscreenControl enableFullscreenControl}.
+     *
+     * Enables the full screen control for the map
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableFullscreenControl(
+      /**
+       * New value for property `enableFullscreenControl`
+       */
+      bEnableFullscreenControl?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnableNavigationControl enableNavigationControl}.
+     *
+     * Enables the navigation & compas control for the map
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableNavigationControl(
+      /**
+       * New value for property `enableNavigationControl`
+       */
+      bEnableNavigationControl?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnableScaleControl enableScaleControl}.
+     *
+     * Enables the scale control for the map
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableScaleControl(
+      /**
+       * New value for property `enableScaleControl`
+       */
+      bEnableScaleControl?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnableSelectionControl enableSelectionControl}.
+     *
+     * Enables the selection control for the map
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableSelectionControl(
+      /**
+       * New value for property `enableSelectionControl`
+       */
+      bEnableSelectionControl?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeader header}.
+     *
+     * Header text that appears in the geomap
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeader(
+      /**
+       * New value for property `header`
+       */
+      sHeader?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeight height}.
+     *
+     * Defines the height of the geomap.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"700px"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeight(
+      /**
+       * New value for property `height`
+       */
+      sHeight?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the geomap.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"700px"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getZoom zoom}.
+     *
+     * Zoom level of the map - the bigger, the more the map is zoomed
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setZoom(
+      /**
+       * New value for property `zoom`
+       */
+      fZoom: float
+    ): this;
+  }
+  /**
+   * An object literal describing a data property in the context of a {@link sap.ui.mdc.GeoMap}.
+   *
+   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.GeoMap#getPropertyInfo propertyInfo }
+   * property, the following attributes need to be specified:
+   * 	 - `key`
+   * 	 - `label`
+   * 	 - `visible`
+   * 	 - `path`
+   * 	 - `dataType`
+   * 	 - `formatOptions`
+   * 	 - `constraints`
+   *
+   * @experimental As of version 1.142.
+   */
+  export type PropertyInfo = PropertyInfo1 & {
+    /**
+     * Defines the key that the property is related to
+     */
+    key?: string;
+    /**
+     * Defines the label of the property associated with the key.
+     */
+    label?: string;
+    /**
+     * Defines the visibility of the property.
+     */
+    visible?: boolean;
+    /**
+     * The path of the property in the data source.
+     */
+    path?: string;
+    /**
+     * Defines the data type associated to the property.
+     */
+    dataType?: string;
+    /**
+     * Defines if any format options are applied to the property.
+     */
+    formatOptions?: object;
+    /**
+     * Defines if any constraints are applied to the property.
+     */
+    constraints?: object;
+  };
+
+  /**
+   * Describes the settings that can be provided to the Geomap constructor.
+   *
+   * @experimental As of version 1.142.
+   */
+  export interface $GeomapSettings extends $ControlSettings {
+    /**
+     * Defines the width of the geomap.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the height of the geomap.
+     */
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Header text that appears in the geomap
+     */
+    header?: string | PropertyBindingInfo;
+
+    /**
+     * Latitude of the point where the map is centered
+     */
+    centerLat?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Longitude of the point where the map is centered
+     */
+    centerLng?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Zoom level of the map - the bigger, the more the map is zoomed
+     */
+    zoom?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Enables the selection control for the map
+     */
+    enableSelectionControl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Enables the navigation & compas control for the map
+     */
+    enableNavigationControl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Enables the full screen control for the map
+     */
+    enableFullscreenControl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Enables the scale control for the map
+     */
+    enableScaleControl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Enables the copyright control for the map
+     */
+    enableCopyrightControl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     *
+     * @experimental
+     */
+    delegate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies the geomap metadata.
+     *  **Note:** This property must not be bound.
+     *  **Note:** This property is exclusively used for handling SAPUI5 flexibility changes. Do not use it otherwise.
+     *  **Note**: Existing properties (set via `sap.ui.mdc.Geomap#setPropertyInfo`) must not be removed and
+     * their attributes must not be changed during the {@link module:sap/ui/mdc/GeoMapDelegate.fetchProperties fetchProperties }
+     * callback. Otherwise validation errors might occur whenever personalization-related control features (such
+     * as the opening of any personalization dialog) are activated.
+     *
+     * **Note**: For more information about the supported inner elements, see {@link sap.ui.mdc.geomap.PropertyInfo PropertyInfo}.
+     */
+    propertyInfo?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Aggregates the items to be displayed in the geomap. Note: As items are custom elements defined as part
+     * of the webc library the type here could not be strictly defined or used a generic one so supported types
+     * are limited to those supported by the webc library.
+     */
+    items?: Item[] | Item | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * This event is fired when zooming is performed on the map.
+     */
+    zoomChange?: (oEvent: Event) => void;
+  }
+
+  /**
+   * Parameters of the Geomap#zoomChange event.
+   */
+  export interface Geomap$ZoomChangeEventParameters {}
+
+  /**
+   * Event object of the Geomap#zoomChange event.
+   */
+  export type Geomap$ZoomChangeEvent = Event<
+    Geomap$ZoomChangeEventParameters,
+    Geomap
+  >;
+}
+
+declare module "sap/ui/mdc/geomap/Item" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The `Item` element for the geomap/property metadata used within MDC Geomap.
+   *
+   * @experimental As of version 1.142.
+   */
+  export default class Item extends UI5Element {
+    /**
+     * Constructor for a new `Item`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new element
+       */
+      mSettings?: $ItemSettings
+    );
+    /**
+     * Constructor for a new `Item`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new element
+       */
+      mSettings?: $ItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.geomap.Item with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Item>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.geomap.Item.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getLabel label}.
+     *
+     * Label for the item, either as a string literal or by a pointer, using the binding to some property containing
+     * the label.
+     *
+     *
+     * @returns Value of property `label`
+     */
+    getLabel(): string;
+    /**
+     * Gets current value of property {@link #getPropertyKey propertyKey}.
+     *
+     * The unique identifier of the geomap item that reflects the name of property in the PropertyInfo.
+     *
+     * @since 1.142
+     *
+     * @returns Value of property `propertyKey`
+     */
+    getPropertyKey(): string;
+    /**
+     * Sets a new value for property {@link #getLabel label}.
+     *
+     * Label for the item, either as a string literal or by a pointer, using the binding to some property containing
+     * the label.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setLabel(
+      /**
+       * New value for property `label`
+       */
+      sLabel: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getPropertyKey propertyKey}.
+     *
+     * The unique identifier of the geomap item that reflects the name of property in the PropertyInfo.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.142
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPropertyKey(
+      /**
+       * New value for property `propertyKey`
+       */
+      sPropertyKey: string
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the Item constructor.
+   *
+   * @experimental As of version 1.142.
+   */
+  export interface $ItemSettings extends $ElementSettings {
+    /**
+     * The unique identifier of the geomap item that reflects the name of property in the PropertyInfo.
+     *
+     * @since 1.142
+     */
+    propertyKey?: string | PropertyBindingInfo;
+
+    /**
+     * Label for the item, either as a string literal or by a pointer, using the binding to some property containing
+     * the label.
+     */
+    label?: string | PropertyBindingInfo;
+  }
+}
+
 declare module "sap/ui/mdc/Link" {
   import {
     default as FieldInfoBase,
@@ -15181,7 +16509,7 @@ declare module "sap/ui/mdc/MultiValueField" {
      * Items of the `MultiValueField` control.
      *
      * The items are not updated by user input or value help selection automatically. That's because an aggregation
-     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItems MultiValueFieldDelegate.updateItems }
+     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItemsFromConditions MultiValueFieldDelegate.updateItemsFromConditions }
      * function needs to be implemented to update the items after a user interaction.
      */
     getItems(): MultiValueFieldItem[];
@@ -15422,7 +16750,7 @@ declare module "sap/ui/mdc/MultiValueField" {
      * Items of the `MultiValueField` control.
      *
      * The items are not updated by user input or value help selection automatically. That's because an aggregation
-     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItems MultiValueFieldDelegate.updateItems }
+     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItemsFromConditions MultiValueFieldDelegate.updateItemsFromConditions }
      * function needs to be implemented to update the items after a user interaction.
      */
     items?:
@@ -15569,7 +16897,7 @@ declare module "sap/ui/mdc/p13n/StateUtil" {
      * Retrieves the externalized state for a given control instance. The retrieved state is equivalent to the
      * `getCurrentState` API for the given control, after all necessary changes have been applied (for example,
      * variant appliance and `p13n, StateUtil` changes). After the returned `Promise` has been resolved, the
-     * returned state is in sync with the according state object of the MDC control (for example, `filterConditions`
+     * returned state is in sync with the corresponding state object of the MDC control (for example, `filterConditions`
      * for the `FilterBar` control).
      *
      *
@@ -25918,6 +27246,8 @@ declare namespace sap {
 
     "sap/ui/mdc/enums/FilterBarValidationStatus": undefined;
 
+    "sap/ui/mdc/enums/GeomapControlPosition": undefined;
+
     "sap/ui/mdc/enums/LinkType": undefined;
 
     "sap/ui/mdc/enums/OperatorName": undefined;
@@ -26018,6 +27348,12 @@ declare namespace sap {
 
     "sap/ui/mdc/FilterField": undefined;
 
+    "sap/ui/mdc/Geomap": undefined;
+
+    "sap/ui/mdc/geomap/Item": undefined;
+
+    "sap/ui/mdc/GeomapDelegate": undefined;
+
     "sap/ui/mdc/library": undefined;
 
     "sap/ui/mdc/Link": undefined;
@@ -26043,6 +27379,8 @@ declare namespace sap {
     "sap/ui/mdc/odata/TypeUtil": undefined;
 
     "sap/ui/mdc/odata/v4/ChartDelegate": undefined;
+
+    "sap/ui/mdc/odata/v4/GeomapDelegate": undefined;
 
     "sap/ui/mdc/odata/v4/TableDelegate": undefined;
 

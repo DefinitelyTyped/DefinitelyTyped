@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import TempNode from "./TempNode.js";
 
@@ -13,14 +12,15 @@ declare class ArrayNode extends TempNode {
 export default ArrayNode;
 
 interface ArrayFunction {
-    (values: Node[]): ShaderNodeObject<ArrayNode>;
-    (nodeType: string, count: number): ShaderNodeObject<ArrayNode>;
+    (values: Node[]): ArrayNode;
+    (nodeType: string, count: number): ArrayNode;
 }
 
 export const array: ArrayFunction;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        toArray: typeof array;
+declare module "../Nodes.js" {
+    interface Node {
+        toArray: (count: number) => ArrayNode;
+        toArrayAssign: (count: number) => this;
     }
 }

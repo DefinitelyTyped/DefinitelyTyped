@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import * as SqlString from "sqlstring";
+import SqlString from "sqlstring";
 
 // Code samples taken from:
 // https://github.com/mysqljs/sqlstring/blob/master/README.md

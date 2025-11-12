@@ -1,5 +1,5 @@
 import SSE = require("sse");
-import * as express from "express";
+import express from "express";
 import { createServer } from "http";
 
 const expressApp = express();

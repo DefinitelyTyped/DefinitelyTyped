@@ -4,7 +4,6 @@ import { Material } from "../../../materials/Material.js";
 import NodeMaterial from "../../../materials/nodes/NodeMaterial.js";
 import Node from "../../../nodes/core/Node.js";
 import AnalyticLightNode from "../../../nodes/lighting/AnalyticLightNode.js";
-import { ShaderNodeObject } from "../../../nodes/tsl/TSLCore.js";
 /**
  * The purpose of a node library is to assign node implementations
  * to existing library features. In `WebGPURenderer` lights, materials
@@ -22,7 +21,7 @@ declare class NodeLibrary {
     materialNodes: Map<string, {
         new(): NodeMaterial;
     }>;
-    toneMappingNodes: Map<ToneMapping, (color: Node, exposure: Node) => ShaderNodeObject<Node>>;
+    toneMappingNodes: Map<ToneMapping, (color: Node, exposure: Node) => Node>;
     /**
      * Constructs a new node library.
      */
@@ -44,17 +43,14 @@ declare class NodeLibrary {
      * @param {Function} toneMappingNode - The tone mapping node function.
      * @param {number} toneMapping - The tone mapping.
      */
-    addToneMapping(
-        toneMappingNode: (color: Node, exposure: Node) => ShaderNodeObject<Node>,
-        toneMapping: ToneMapping,
-    ): void;
+    addToneMapping(toneMappingNode: (color: Node, exposure: Node) => Node, toneMapping: ToneMapping): void;
     /**
      * Returns a tone mapping node function for a tone mapping technique (constant).
      *
      * @param {number} toneMapping - The tone mapping.
      * @return {?Function} The tone mapping node function. Returns `null` if no node function is found.
      */
-    getToneMappingFunction(toneMapping: ToneMapping): ((color: Node, exposure: Node) => ShaderNodeObject<Node>) | null;
+    getToneMappingFunction(toneMapping: ToneMapping): ((color: Node, exposure: Node) => Node) | null;
     /**
      * Returns a node material class definition for a material type.
      *

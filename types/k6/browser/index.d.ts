@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /**
  * Represents event-specific properties. Refer to the events documentation for
  * the lists of initial properties:
@@ -12,6 +14,7 @@
 export type EvaluationArgument = object;
 
 export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
+export type PageFunctionOn<On, Arg2, R> = string | ((on: On, arg2: Unboxed<Arg2>) => R);
 
 export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>]
     : Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
@@ -412,6 +415,139 @@ export interface ElementStateFilter {
      * @default 'visible'
      */
     state?: ElementState;
+}
+
+/**
+ * The `devices` named export defines emulation settings for many end-user
+ * devices that can be used to simulate browser behavior on a mobile device.
+ *
+ * @example
+ * ```js
+ * import { browser, devices } from 'k6/browser';
+ * ... // redacted
+ *   const iphoneX = devices['iPhone X'];
+ *   const context = await browser.newContext(iphoneX);
+ * ... // redacted
+ * ```
+ */
+export const devices: Record<
+    | "Blackberry PlayBook"
+    | "Blackberry PlayBook landscape"
+    | "BlackBerry Z30"
+    | "BlackBerry Z30 landscape"
+    | "Galaxy Note 3"
+    | "Galaxy Note 3 landscape"
+    | "Galaxy Note II"
+    | "Galaxy Note II landscape"
+    | "Galaxy S III"
+    | "Galaxy S III landscape"
+    | "Galaxy S5"
+    | "Galaxy S5 landscape"
+    | "iPad"
+    | "iPad landscape"
+    | "iPad Mini"
+    | "iPad Mini landscape"
+    | "iPad Pro"
+    | "iPad Pro landscape"
+    | "iPhone 4"
+    | "iPhone 4 landscape"
+    | "iPhone 5"
+    | "iPhone 5 landscape"
+    | "iPhone 6"
+    | "iPhone 6 landscape"
+    | "iPhone 6 Plus"
+    | "iPhone 6 Plus landscape"
+    | "iPhone 7"
+    | "iPhone 7 landscape"
+    | "iPhone 7 Plus"
+    | "iPhone 7 Plus landscape"
+    | "iPhone 8"
+    | "iPhone 8 landscape"
+    | "iPhone 8 Plus"
+    | "iPhone 8 Plus landscape"
+    | "iPhone SE"
+    | "iPhone SE landscape"
+    | "iPhone X"
+    | "iPhone X landscape"
+    | "iPhone XR"
+    | "iPhone XR landscape"
+    | "JioPhone 2"
+    | "JioPhone 2 landscape"
+    | "Kindle Fire HDX"
+    | "Kindle Fire HDX landscape"
+    | "LG Optimus L70"
+    | "LG Optimus L70 landscape"
+    | "Microsoft Lumia 550"
+    | "Microsoft Lumia 950"
+    | "Microsoft Lumia 950 landscape"
+    | "Nexus 10"
+    | "Nexus 10 landscape"
+    | "Nexus 4"
+    | "Nexus 4 landscape"
+    | "Nexus 5"
+    | "Nexus 5 landscape"
+    | "Nexus 5X"
+    | "Nexus 5X landscape"
+    | "Nexus 6"
+    | "Nexus 6 landscape"
+    | "Nexus 6P"
+    | "Nexus 6P landscape"
+    | "Nexus 7"
+    | "Nexus 7 landscape"
+    | "Nokia Lumia 520"
+    | "Nokia Lumia 520 landscape"
+    | "Nokia N9"
+    | "Nokia N9 landscape"
+    | "Pixel 2"
+    | "Pixel 2 landscape"
+    | "Pixel 2 XL"
+    | "Pixel 2 XL landscape",
+    Device
+>;
+
+/**
+ * Device represents an end-user device (computer, tablet, phone etc.).
+ */
+export interface Device {
+    /**
+     * Name of the device.
+     */
+    name: string;
+
+    /**
+     * User agent of the device.
+     */
+    userAgent: string;
+
+    /**
+     * Viewport size of the device.
+     */
+    viewport: {
+        /**
+         * page width in pixels.
+         */
+        width: number;
+
+        /**
+         * page height in pixels.
+         */
+        height: number;
+    };
+
+    /**
+     * Device viewport scale factor.
+     */
+    deviceScaleFactor: number;
+
+    /**
+     * Indicates whether the device is a mobile device.
+     */
+    isMobile: boolean;
+
+    /**
+     * Indicates whether the device support touch events.
+     */
+    hasTouch: boolean;
 }
 
 /**
@@ -2865,6 +3001,35 @@ export interface Locator {
     dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
+     * Evaluates the page function and returns its return value.
+     * This method passes this locator's matching element as the first argument to the page function.
+     *
+     * @param pageFunction Function to be evaluated in the page context.
+     * @param arg Optional argument to pass to `pageFunction`.
+     * @returns Return value of `pageFunction`.
+     */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    evaluate<R, E extends SVGElement | HTMLElement, Arg>(
+        pageFunction: PageFunctionOn<E, Arg, R>,
+        arg?: Arg,
+    ): Promise<R>;
+
+    /**
+     * Evaluates the page function and returns its return value as a [JSHandle].
+     * This method passes this locator's matching element as the first argument to the page function.
+     * Unlike `evaluate`, `evaluateHandle` returns the value as a `JSHandle`
+     *
+     * @param pageFunction Function to be evaluated in the page context.
+     * @param arg Optional argument to pass to `pageFunction`.
+     * @returns JSHandle of the return value of `pageFunction`.
+     */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    evaluateHandle<R, E extends SVGElement | HTMLElement, Arg>(
+        pageFunction: PageFunctionOn<E, Arg, R>,
+        arg?: Arg,
+    ): Promise<JSHandle<R>>;
+
+    /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
      */
@@ -5292,6 +5457,16 @@ export interface Page {
     ): Promise<void>;
 
     /**
+     * Removes all existing routes for the `url`.
+     */
+    unroute(url: string | RegExp): Promise<void>;
+
+    /**
+     * Removes all routes created with page.route().
+     */
+    unrouteAll(): Promise<void>;
+
+    /**
      * Returns the page's URL.
      */
     url(): string;
@@ -5487,6 +5662,36 @@ export interface Page {
             timeout?: number;
         },
     ): Promise<Response | null>;
+
+    /**
+     * Waits for the page to match against the URL for a Request object
+     *
+     * @example
+     * ```js
+     * const requestPromise = page.waitForRequest('https://example.com/resource');
+     * await page.goto('https://example.com/resource');
+     * const request = await requestPromise;
+     * ```
+     *
+     * @param request Request URL string or regex to match against Request object.
+     * @param options Options to use.
+     */
+    waitForRequest(
+        request: string | RegExp,
+        options?: {
+            /**
+             * Maximum operation time in milliseconds. Defaults to `30` seconds.
+             * The default value can be changed via the
+             * browserContext.setDefaultNavigationTimeout(timeout),
+             * browserContext.setDefaultTimeout(timeout),
+             * page.setDefaultNavigationTimeout(timeout) or
+             * page.setDefaultTimeout(timeout) methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+        },
+    ): Promise<Request | null>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based

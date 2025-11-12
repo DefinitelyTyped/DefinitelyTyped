@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as vsslnparse from "vssln-parser";
+import vsslnparse from "vssln-parser";
 
 vsslnparse("", solution => {
     solution.visualStudioVersion; // $ExpectType string | undefined

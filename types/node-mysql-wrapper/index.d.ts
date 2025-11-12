@@ -1,6 +1,6 @@
 /// <reference path="./my-meteor.d.ts" />
 
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import { EventEmitter } from "events";
 import * as Mysql from "mysql";
 

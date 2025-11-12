@@ -1,31 +1,31 @@
 import { Transform, TransformOptions } from "stream";
 
-import * as make from "stream-json";
+import make from "stream-json";
 
-import * as Assembler from "stream-json/Assembler";
-import * as Disassembler from "stream-json/Disassembler";
-import * as Emitter from "stream-json/Emitter";
-import * as Parser from "stream-json/Parser";
-import * as Stringer from "stream-json/Stringer";
+import Assembler from "stream-json/Assembler";
+import Disassembler from "stream-json/Disassembler";
+import Emitter from "stream-json/Emitter";
+import Parser from "stream-json/Parser";
+import Stringer from "stream-json/Stringer";
 
-import * as JsonlParser from "stream-json/jsonl/Parser";
-import * as JsonlStringer from "stream-json/jsonl/Stringer";
+import JsonlParser from "stream-json/jsonl/Parser";
+import JsonlStringer from "stream-json/jsonl/Stringer";
 
-import * as Filter from "stream-json/filters/Filter";
+import Filter from "stream-json/filters/Filter";
 import * as FilterBase from "stream-json/filters/FilterBase";
-import * as Ignore from "stream-json/filters/Ignore";
-import * as Pick from "stream-json/filters/Pick";
-import * as Replace from "stream-json/filters/Replace";
+import Ignore from "stream-json/filters/Ignore";
+import Pick from "stream-json/filters/Pick";
+import Replace from "stream-json/filters/Replace";
 
-import * as StreamArray from "stream-json/streamers/StreamArray";
-import * as StreamObject from "stream-json/streamers/StreamObject";
-import * as StreamValues from "stream-json/streamers/StreamValues";
+import StreamArray from "stream-json/streamers/StreamArray";
+import StreamObject from "stream-json/streamers/StreamObject";
+import StreamValues from "stream-json/streamers/StreamValues";
 
-import * as Batch from "stream-json/utils/Batch";
-import * as emit from "stream-json/utils/emit";
-import * as Utf8Stream from "stream-json/utils/Utf8Stream";
-import * as Verifier from "stream-json/utils/Verifier";
-import * as withParser from "stream-json/utils/withParser";
+import Batch from "stream-json/utils/Batch";
+import emit from "stream-json/utils/emit";
+import Utf8Stream from "stream-json/utils/Utf8Stream";
+import Verifier from "stream-json/utils/Verifier";
+import withParser from "stream-json/utils/withParser";
 
 const used = (array: any[]) => array.forEach(value => console.log(!!value));
 

@@ -9,17 +9,17 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
+import accepts = require("accepts");
 import { AsyncLocalStorage } from "async_hooks";
-import * as Cookies from "cookies";
+import Cookies = require("cookies");
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
 import httpAssert = require("http-assert");
-import * as contentDisposition from "content-disposition";
-import * as HttpErrors from "http-errors";
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
+import contentDisposition = require("content-disposition");
+import HttpErrors = require("http-errors");
+import Keygrip = require("keygrip");
+import compose = require("koa-compose");
 import { ListenOptions, Socket } from "net";
 import { ParsedUrlQuery } from "querystring";
 import * as url from "url";

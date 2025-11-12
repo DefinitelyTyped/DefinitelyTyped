@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import * as stream from "stream";
+import stream = require("stream");
 
 import { Transport, TransportOptions } from "../..";
 import * as shared from "../shared";

@@ -219,6 +219,45 @@ export interface AppCommonManager {
         onsuccess?: SuccessCallback,
         onerror?: ErrorCallback,
     ) => void;
+
+    /**
+     * Provides a Universally Unique Identifier (UUID) for the device.
+     * The value is unique per application, meaning the same device
+     * will yield different UUIDs across different apps.
+     *
+     * This identifier is not intended for advertising use. Any handling
+     * of the UUID must comply with privacy and data protection regulations,
+     * including obtaining user consent when required.
+     *
+     * If your app also makes use of the Tizen Identifier for Advertising (TIFA),
+     * you must transmit the UUID separately from TIFA data. Both identifiers
+     * should remain logically independent throughout collection, transmission,
+     * storage, processing, and deletion on your servers.
+     *
+     * @returns {string} A UUID specific to this application on the device.
+     *
+     * @throws {WebAPIException} SecurityError if the caller lacks the required privilege.
+     * @throws {Error} An undefined error if the method is not supported by the firmware.
+     *
+     * @since 2.4
+     * @version 1.0
+     * @see https://developer.samsung.com/smarttv/develop/api-references/samsung-product-api-references/appcommon-api.html (for related platform info, optional)
+     * @example
+     * ```ts
+     * try {
+     * const id = tizen.systeminfo.getUuid();
+     * console.log(id); // "550e8400-e29b-41d4-a716-446655440000"
+     * } catch (e) {
+     *   if (e.message.indexOf('undefined')) {
+     *      console.error('getUuid() is not supported in this firmware version or device model. Consider a legacy method',e);
+     *   }
+     *   else {
+     *    console.log('SecurityError: Application does not have the privilege to call this method.',e);
+     *   }
+     * }
+     * ```
+     */
+    getUuid: () => string;
 }
 /**
  * This interface defines the digital mode

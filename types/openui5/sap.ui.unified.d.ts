@@ -1,4 +1,4 @@
-// For Library Version: 1.140.0
+// For Library Version: 1.142.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -7657,9 +7657,9 @@ declare module "sap/ui/unified/CalendarAppointment" {
     $DateTypeRangeSettings,
   } from "sap/ui/unified/DateTypeRange";
 
-  import Control from "sap/ui/core/Control";
+  import { ID, CSSColor, URI } from "sap/ui/core/library";
 
-  import { CSSColor, URI } from "sap/ui/core/library";
+  import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -7740,6 +7740,18 @@ declare module "sap/ui/unified/CalendarAppointment" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Adds some customContent to the aggregation {@link #getCustomContent customContent}.
      *
      * @since 1.93.0
@@ -7760,6 +7772,10 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomContent(): this;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * Gets current value of property {@link #getColor color}.
      *
@@ -7784,6 +7800,12 @@ declare module "sap/ui/unified/CalendarAppointment" {
      *     the height of the content conforms with the height provided by the appointment.
      * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
      *     and may lead to unpredictable results.
+     *
+     * **Note:** When using the `customContent` aggregation, it is the application developer's responsibility
+     * to add appropriate labels to the `ariaLabelledBy` association to provide accessible information about
+     * this appointment as the standard properties (`title`, `text`, `description`, and `icon`) are ignored,
+     * which means screen readers will have no information about the appointment unless proper ARIA labeling
+     * is implemented.
      *
      * @since 1.93.0
      */
@@ -7892,6 +7914,13 @@ declare module "sap/ui/unified/CalendarAppointment" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getCustomContent customContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -7901,6 +7930,18 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllCustomContent(): Control[];
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
     /**
      * Removes a customContent from the aggregation {@link #getCustomContent customContent}.
      *
@@ -8115,6 +8156,12 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
      *     and may lead to unpredictable results.
      *
+     * **Note:** When using the `customContent` aggregation, it is the application developer's responsibility
+     * to add appropriate labels to the `ariaLabelledBy` association to provide accessible information about
+     * this appointment as the standard properties (`title`, `text`, `description`, and `icon`) are ignored,
+     * which means screen readers will have no information about the appointment unless proper ARIA labeling
+     * is implemented.
+     *
      * @since 1.93.0
      */
     customContent?:
@@ -8122,6 +8169,11 @@ declare module "sap/ui/unified/CalendarAppointment" {
       | Control
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledBy).
+     */
+    ariaLabelledBy?: Array<Control | string>;
   }
 }
 
@@ -15172,8 +15224,7 @@ declare module "sap/ui/unified/FileUploader" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
      *
-     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
-     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     * Event is fired when the size of a file is above the `maximumFileSize` property.
      *
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15200,8 +15251,7 @@ declare module "sap/ui/unified/FileUploader" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
      *
-     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
-     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     * Event is fired when the size of a file is above the `maximumFileSize` property.
      *
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15271,8 +15321,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Event is fired after the current upload has been aborted.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      *
@@ -15301,8 +15350,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Event is fired after the current upload has been aborted.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      *
@@ -15387,8 +15435,7 @@ declare module "sap/ui/unified/FileUploader" {
      * It contains progress information related to the running upload. Depending on file size, band width and
      * used browser the event is fired once or multiple times.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      *
@@ -15421,8 +15468,7 @@ declare module "sap/ui/unified/FileUploader" {
      * It contains progress information related to the running upload. Depending on file size, band width and
      * used browser the event is fired once or multiple times.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      *
@@ -15988,8 +16034,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * The chosen files will be checked against an array of file types.
      *
-     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
-     * property is not supported by Microsoft Edge.
+     * If at least one file does not fit the file type restriction, the upload is prevented.
      *
      * Example: `["jpg", "png", "bmp"]`.
      *
@@ -16000,8 +16045,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Gets content of aggregation {@link #getHeaderParameters headerParameters}.
      *
-     * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
-     * are not supported by Internet Explorer 9.
+     * The header parameters for the `FileUploader` which are only submitted with XHR requests.
      */
     getHeaderParameters(): FileUploaderParameter[];
     /**
@@ -16101,8 +16145,6 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
      *
-     * This property is not supported by Internet Explorer 9.
-     *
      *
      * @returns Value of property `maximumFileSize`
      */
@@ -16114,11 +16156,10 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If at least one file does not fit the MIME type restriction, the upload is prevented.
      *
-     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
-     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
-     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
-     * The file upload is not prevented and the validation based on file type is left to the receiving backend
-     * side.
+     * **Note:** This property is only reliable for common file types like images, audio, video, plain text
+     * and HTML documents. File types that are not recognized by the browser result in `file.type` to be returned
+     * as an empty string. In this case the verification could not be performed. The file upload is not prevented
+     * and the validation based on file type is left to the receiving backend side.
      *
      * Example: `["image/png", "image/jpeg"]`.
      *
@@ -16130,8 +16171,6 @@ declare module "sap/ui/unified/FileUploader" {
      * Gets current value of property {@link #getMultiple multiple}.
      *
      * Allows multiple files to be chosen and uploaded from the same folder.
-     *
-     * This property is not supported by Internet Explorer 9.
      *
      * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
      * the property so that fewer upload functions may be available in some cases.
@@ -16208,8 +16247,6 @@ declare module "sap/ui/unified/FileUploader" {
      * Gets current value of property {@link #getSendXHR sendXHR}.
      *
      * If set to "true", the request will be sent as XHR request instead of a form submit.
-     *
-     * This property is not supported by Internet Explorer 9.
      *
      * Default value is `false`.
      *
@@ -16563,8 +16600,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * The chosen files will be checked against an array of file types.
      *
-     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
-     * property is not supported by Microsoft Edge.
+     * If at least one file does not fit the file type restriction, the upload is prevented.
      *
      * Example: `["jpg", "png", "bmp"]`.
      *
@@ -16725,8 +16761,6 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
      *
-     * This property is not supported by Internet Explorer 9.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      *
@@ -16745,11 +16779,10 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If at least one file does not fit the MIME type restriction, the upload is prevented.
      *
-     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
-     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
-     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
-     * The file upload is not prevented and the validation based on file type is left to the receiving backend
-     * side.
+     * **Note:** This property is only reliable for common file types like images, audio, video, plain text
+     * and HTML documents. File types that are not recognized by the browser result in `file.type` to be returned
+     * as an empty string. In this case the verification could not be performed. The file upload is not prevented
+     * and the validation based on file type is left to the receiving backend side.
      *
      * Example: `["image/png", "image/jpeg"]`.
      *
@@ -16768,8 +16801,6 @@ declare module "sap/ui/unified/FileUploader" {
      * Sets a new value for property {@link #getMultiple multiple}.
      *
      * Allows multiple files to be chosen and uploaded from the same folder.
-     *
-     * This property is not supported by Internet Explorer 9.
      *
      * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
      * the property so that fewer upload functions may be available in some cases.
@@ -16845,8 +16876,6 @@ declare module "sap/ui/unified/FileUploader" {
      * Sets a new value for property {@link #getSendXHR sendXHR}.
      *
      * If set to "true", the request will be sent as XHR request instead of a form submit.
-     *
-     * This property is not supported by Internet Explorer 9.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -17098,8 +17127,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * The chosen files will be checked against an array of file types.
      *
-     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
-     * property is not supported by Microsoft Edge.
+     * If at least one file does not fit the file type restriction, the upload is prevented.
      *
      * Example: `["jpg", "png", "bmp"]`.
      */
@@ -17108,8 +17136,6 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Allows multiple files to be chosen and uploaded from the same folder.
      *
-     * This property is not supported by Internet Explorer 9.
-     *
      * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
      * the property so that fewer upload functions may be available in some cases.
      */
@@ -17117,8 +17143,6 @@ declare module "sap/ui/unified/FileUploader" {
 
     /**
      * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
-     *
-     * This property is not supported by Internet Explorer 9.
      */
     maximumFileSize?: float | PropertyBindingInfo | `{${string}}`;
 
@@ -17127,11 +17151,10 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If at least one file does not fit the MIME type restriction, the upload is prevented.
      *
-     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
-     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
-     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
-     * The file upload is not prevented and the validation based on file type is left to the receiving backend
-     * side.
+     * **Note:** This property is only reliable for common file types like images, audio, video, plain text
+     * and HTML documents. File types that are not recognized by the browser result in `file.type` to be returned
+     * as an empty string. In this case the verification could not be performed. The file upload is not prevented
+     * and the validation based on file type is left to the receiving backend side.
      *
      * Example: `["image/png", "image/jpeg"]`.
      */
@@ -17139,8 +17162,6 @@ declare module "sap/ui/unified/FileUploader" {
 
     /**
      * If set to "true", the request will be sent as XHR request instead of a form submit.
-     *
-     * This property is not supported by Internet Explorer 9.
      */
     sendXHR?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -17271,8 +17292,7 @@ declare module "sap/ui/unified/FileUploader" {
       | `{${string}}`;
 
     /**
-     * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
-     * are not supported by Internet Explorer 9.
+     * The header parameters for the `FileUploader` which are only submitted with XHR requests.
      */
     headerParameters?:
       | FileUploaderParameter[]
@@ -17321,8 +17341,7 @@ declare module "sap/ui/unified/FileUploader" {
     typeMissmatch?: (oEvent: FileUploader$TypeMissmatchEvent) => void;
 
     /**
-     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
-     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     * Event is fired when the size of a file is above the `maximumFileSize` property.
      */
     fileSizeExceed?: (oEvent: FileUploader$FileSizeExceedEvent) => void;
 
@@ -17342,8 +17361,7 @@ declare module "sap/ui/unified/FileUploader" {
      * It contains progress information related to the running upload. Depending on file size, band width and
      * used browser the event is fired once or multiple times.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      */
@@ -17352,8 +17370,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Event is fired after the current upload has been aborted.
      *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
+     * This event is only supported with property `sendXHR` set to true.
      *
      * @since 1.24.0
      */
@@ -17552,8 +17569,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Http-Request-Headers.
      *
-     * Required for receiving `requestHeader` is to set the property `sendXHR` to true. This property is not
-     * supported by Internet Explorer 9.
+     * Required for receiving `requestHeader` is to set the property `sendXHR` to true.
      */
     requestHeaders?: object[];
   }
@@ -17587,16 +17603,14 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * ReadyState of the XHR request.
      *
-     * Required for receiving a `readyStateXHR` is to set the property `sendXHR` to true. This property is not
-     * supported by Internet Explorer 9.
+     * Required for receiving a `readyStateXHR` is to set the property `sendXHR` to true.
      */
     readyStateXHR?: string;
 
     /**
      * Status of the XHR request.
      *
-     * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
-     * by Internet Explorer 9.
+     * Required for receiving a `status` is to set the property `sendXHR` to true.
      */
     status?: int;
 
@@ -17604,8 +17618,6 @@ declare module "sap/ui/unified/FileUploader" {
      * Http-Response which comes from the server.
      *
      * Required for receiving `responseRaw` is to set the property `sendXHR` to true.
-     *
-     * This property is not supported by Internet Explorer 9.
      */
     responseRaw?: string;
 
@@ -17615,16 +17627,14 @@ declare module "sap/ui/unified/FileUploader" {
      * Provided as a JSON-map, i.e. each header-field is reflected by a property in the `headers` object, with
      * the property value reflecting the header-field's content.
      *
-     * Required for receiving `headers` is to set the property `sendXHR` to true. This property is not supported
-     * by Internet Explorer 9.
+     * Required for receiving `headers` is to set the property `sendXHR` to true.
      */
     headers?: object;
 
     /**
      * Http-Request-Headers.
      *
-     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
-     * supported by Internet Explorer 9.
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true.
      */
     requestHeaders?: object[];
   }
@@ -17664,8 +17674,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Http-Request-Headers.
      *
-     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
-     * supported by Internet Explorer 9.
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true.
      */
     requestHeaders?: object[];
   }
@@ -17690,8 +17699,7 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Http-Request-Headers.
      *
-     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
-     * supported by Internet Explorer 9.
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true.
      */
     requestHeaders?: object[];
   }

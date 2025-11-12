@@ -153,82 +153,224 @@ function testBookmarks() {
     });
 }
 
-// https://developer.chrome.com/extensions/examples/api/browserAction/make_page_red/background.js
-function pageRedder() {
-    chrome.browserAction.onClicked.addListener(function(tab) {
-        // No tabs or host permissions needed!
-        console.log("Turning " + tab.url + " red!");
-        chrome.tabs.executeScript({
-            code: "document.body.style.backgroundColor=\"red\"",
-        });
+// https://developer.chrome.com/docs/extensions/reference/api/webNavigation
+function testWebNavigation() {
+    /**
+     * Check all listeners for a webNavigation event with filters.
+     * @param event - The event to check.
+     * @param callback - The callback to check.
+     */
+    const checkWebNavigationEvent = <T extends chrome.webNavigation.WebNavigationEvent<(...args: any) => unknown>>(
+        event: T,
+        callback: Parameters<T["addListener"]>[0],
+    ) => {
+        const filters: chrome.webNavigation.WebNavigationEventFilter = {
+            url: [{ hostContains: "example" }],
+        };
+
+        event.addListener(callback, filters); // $ExpectType void
+        event.removeListener(callback); // $ExpectType void
+        event.hasListener(callback); // $ExpectType boolean
+        event.hasListeners(); // $ExpectType boolean
+    };
+
+    chrome.webNavigation.TransitionQualifier.CLIENT_REDIRECT === "client_redirect";
+    chrome.webNavigation.TransitionQualifier.FORWARD_BACK === "forward_back";
+    chrome.webNavigation.TransitionQualifier.FROM_ADDRESS_BAR === "from_address_bar";
+    chrome.webNavigation.TransitionQualifier.SERVER_REDIRECT === "server_redirect";
+
+    chrome.webNavigation.TransitionType.AUTO_BOOKMARK === "auto_bookmark";
+    chrome.webNavigation.TransitionType.AUTO_SUBFRAME === "auto_subframe";
+    chrome.webNavigation.TransitionType.FORM_SUBMIT === "form_submit";
+    chrome.webNavigation.TransitionType.GENERATED === "generated";
+    chrome.webNavigation.TransitionType.KEYWORD === "keyword";
+    chrome.webNavigation.TransitionType.KEYWORD_GENERATED === "keyword_generated";
+    chrome.webNavigation.TransitionType.LINK === "link";
+    chrome.webNavigation.TransitionType.MANUAL_SUBFRAME === "manual_subframe";
+    chrome.webNavigation.TransitionType.RELOAD === "reload";
+    chrome.webNavigation.TransitionType.START_PAGE === "start_page";
+    chrome.webNavigation.TransitionType.TYPED === "typed";
+
+    const getAllFramesDetails: chrome.webNavigation.GetAllFrameDetails = {
+        tabId: 0,
+    };
+
+    chrome.webNavigation.getAllFrames(getAllFramesDetails); // $ExpectType Promise<GetAllFrameResultDetails[] | null>
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, (frames) => { // $ExpectType void
+        frames; // $ExpectType GetAllFrameResultDetails[] | null
+        if (!frames?.[0]) return;
+        frames[0].documentId; // $ExpectType string
+        frames[0].documentLifecycle; // $ExpectType DocumentLifecycle
+        frames[0].errorOccurred; // $ExpectType boolean
+        frames[0].frameId; // $ExpectType number
+        frames[0].frameType; // $ExpectType FrameType
+        frames[0].parentDocumentId; // $ExpectType string | undefined
+        frames[0].parentFrameId; // $ExpectType number
+        frames[0].processId; // $ExpectType number
+        frames[0].url; // $ExpectType string
     });
-}
+    // @ts-expect-error
+    chrome.webNavigation.getAllFrames(getAllFramesDetails, () => {}).then(() => {});
 
-// https://developer.chrome.com/extensions/examples/api/browserAction/print/background.js
-function printPage() {
-    chrome.browserAction.onClicked.addListener(function(tab) {
-        var action_url = "javascript:window.print();";
-        chrome.tabs.update(tab.id!, { url: action_url });
+    const getFrameDetails: chrome.webNavigation.GetFrameDetails = {
+        documentId: "documentId",
+        processId: 0,
+    };
+
+    const getFrameDetails2: chrome.webNavigation.GetFrameDetails = {
+        frameId: 0,
+        tabId: 0,
+        processId: 0,
+    };
+
+    chrome.webNavigation.getFrame(getFrameDetails); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails2); // $ExpectType Promise<GetFrameResultDetails | null>
+    chrome.webNavigation.getFrame(getFrameDetails, (frame) => { // $ExpectType void;
+        frame; // $ExpectType GetFrameResultDetails | null
     });
-}
-
-// webNavigation.onBeforeNavigate.addListener example
-function beforeRedditNavigation() {
-    chrome.webNavigation.onBeforeNavigate.addListener(
-        function(requestDetails) {
-            console.log("URL we want to redirect to: " + requestDetails.url);
-            // NOTE: This will search for top level frames with the value -1.
-            if (requestDetails.parentFrameId != -1) {
-                return;
-            }
-
-            alert("Were you trying to go on reddit, during working hours? :(");
-        },
-        {
-            url: [{ hostSuffix: ".reddit.com" }],
-        },
-    );
-}
-
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
-async function getFrame() {
-    const testTabId = 0;
-    const testFrameId = 0;
-
-    chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
-    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
-        console.log("Frame (in-callback): ", frame);
+    chrome.webNavigation.getFrame(getFrameDetails2, (frame) => { // $ExpectType void
+        frame; // $ExpectType GetFrameResultDetails | null
+        if (!frame) return;
+        frame.documentId; // $ExpectType string
+        frame.documentLifecycle; // $ExpectType DocumentLifecycle
+        frame.errorOccurred; // $ExpectType boolean
+        frame.frameType; // $ExpectType FrameType
+        frame.parentDocumentId; // $ExpectType string | undefined
+        frame.parentFrameId; // $ExpectType number
+        frame.url; // $ExpectType string
     });
+    // @ts-expect-error
+    chrome.webNavigation.getFrame(getFrameDetails, () => {}).then(() => {});
 
-    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
-        tabId: testTabId,
-        frameId: testFrameId,
-    });
-
-    console.log("Frame (promise resolved):", frame);
-}
-
-// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
-async function getAllFrames() {
-    const testTabId = 0;
-
-    chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
-        console.log("All frames (in-callback): ", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onBeforeNavigate, (details) => {
+        // @ts-expect-error
+        details.documentId;
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
     });
 
-    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
-        tabId: testTabId,
-    }) || [];
+    checkWebNavigationEvent(chrome.webNavigation.onCommitted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
 
-    console.log("All frames (promise resolved):", frames);
+    checkWebNavigationEvent(chrome.webNavigation.onCompleted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onCreatedNavigationTarget, (details) => {
+        details.sourceFrameId; // $ExpectType number
+        details.sourceProcessId; // $ExpectType number
+        details.sourceTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onDOMContentLoaded, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onErrorOccurred, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.error; // $ExpectType string
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onHistoryStateUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
+
+    checkWebNavigationEvent(chrome.webNavigation.onReferenceFragmentUpdated, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.processId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.transitionQualifiers; // $ExpectType ("client_redirect" | "server_redirect" | "forward_back" | "from_address_bar")[]
+        details.transitionType; // $ExpectType "link" | "typed" | "auto_bookmark" | "auto_subframe" | "manual_subframe" | "generated" | "start_page" | "form_submit" | "reload" | "keyword" | "keyword_generated"
+        details.url; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.webNavigation.onTabReplaced, (details) => {
+        details.replacedTabId; // $ExpectType number
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
-function proxySettings() {
+function testProxy() {
+    chrome.proxy.Mode.AUTO_DETECT === "auto_detect";
+    chrome.proxy.Mode.DIRECT === "direct";
+    chrome.proxy.Mode.FIXED_SERVERS === "fixed_servers";
+    chrome.proxy.Mode.PAC_SCRIPT === "pac_script";
+    chrome.proxy.Mode.SYSTEM === "system";
+
+    chrome.proxy.Scheme.HTTP === "http";
+    chrome.proxy.Scheme.HTTPS === "https";
+    chrome.proxy.Scheme.QUIC === "quic";
+    chrome.proxy.Scheme.SOCKS4 === "socks4";
+    chrome.proxy.Scheme.SOCKS5 === "socks5";
+
     chrome.proxy.settings.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<ProxyConfig>>
     chrome.proxy.settings.get({ incognito: false }, (details) => { // $ExpectType void
         details; // $ExpectType ChromeSettingGetResult<ProxyConfig>
@@ -236,18 +378,26 @@ function proxySettings() {
     // @ts-expect-error
     chrome.proxy.settings.get({}, () => {}).then(() => {});
 
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }); // $ExpectType Promise<void>
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}); // $ExpectType void
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }, () => void 0); // $ExpectType void
     // @ts-expect-error
-    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}).then(() => {});
+    chrome.proxy.settings.set({ value: { mode: "direct" }, scope: "regular" }, () => {}).then(() => {});
 
     chrome.proxy.settings.clear({ scope: "regular" }); // $ExpectType Promise<void>
-    chrome.proxy.settings.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    chrome.proxy.settings.clear({ scope: "regular" }, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.proxy.settings.clear({ scope: "regular" }, () => {}).then(() => {});
 
     checkChromeEvent(chrome.proxy.settings.onChange, (details) => {
-        details; // $ExpectType ChromeSettingOnChangeDetails<ProxyConfig>
+        details.incognitoSpecific; // $ExpectType boolean | undefined
+        details.levelOfControl; // $ExpectType LevelOfControl
+        details.value; // $ExpectType ProxyConfig
+    });
+
+    checkChromeEvent(chrome.proxy.onProxyError, (details) => {
+        details.details; // $ExpectType string
+        details.error; // $ExpectType string
+        details.fatal; // $ExpectType boolean
     });
 }
 
@@ -376,6 +526,9 @@ function testContentSettings() {
 
     chrome.contentSettings.Scope.INCOGNITO_SESSION_ONLY === "incognito_session_only";
     chrome.contentSettings.Scope.REGULAR === "regular";
+
+    chrome.contentSettings.SoundContentSetting.ALLOW === "allow";
+    chrome.contentSettings.SoundContentSetting.BLOCK === "block";
 
     const contentSettingsGetParams: chrome.contentSettings.ContentSettingGetParams = {
         primaryUrl: "https://example.com",
@@ -883,8 +1036,13 @@ function testGetManifest() {
         manifest.content_security_policy; // $ExpectType string | undefined
 
         manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
+        manifest.optional_permissions; // $ExpectType string[] | undefined
+        manifest.permissions; // $ExpectType string[] | undefined
+        // Verify that string permissions can be added.
+        if (manifest.optional_permissions && manifest.permissions) {
+            manifest.optional_permissions.push("*://developer.mozilla.org/*");
+            manifest.permissions.push("*://developer.mozilla.org/*");
+        }
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
@@ -898,11 +1056,28 @@ function testGetManifest() {
         };
 
         manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermission[] | undefined
 
-        manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            use_dynamic_url: true,
+            matches: ["https://*/*"],
+            extension_ids: ["*"],
+        }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            matches: ["https://*/*"],
+        }];
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+            extension_ids: ["*"],
+        }];
+        // @ts-expect-error
+        manifest.web_accessible_resources = [{
+            resources: ["resource.js"],
+        }];
         // @ts-expect-error
         manifest.web_accessible_resources = ["script.js"];
 
@@ -971,43 +1146,65 @@ function testGetManifest() {
             {
                 matches: ["https://*/*"],
                 resources: ["some-script.js"],
+                extension_ids: ["*"],
+                use_dynamic_url: true,
             },
         ],
     };
 }
 
-// https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
-function testTabCaptureOptions() {
-    // Constraints based on:
-    // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Chrome-Extensions/tabCapture/tab-capturing.js
+// https://developer.chrome.com/docs/extensions/reference/api/tabCapture
+function testTabCapture() {
+    chrome.tabCapture.TabCaptureState.ACTIVE === "active";
+    chrome.tabCapture.TabCaptureState.ERROR === "error";
+    chrome.tabCapture.TabCaptureState.PENDING === "pending";
+    chrome.tabCapture.TabCaptureState.STOPPED === "stopped";
 
-    const resolutions = {
-        maxWidth: 1920,
-        maxHeight: 1080,
-    };
-
-    const constraints: chrome.tabCapture.CaptureOptions = {
+    const captureOptions: chrome.tabCapture.CaptureOptions = {
         audio: true,
-        video: true,
         audioConstraints: {
-            mandatory: {
-                chromeMediaSource: "tab",
-                echoCancellation: true,
-            },
+            mandatory: {},
+            optional: {},
         },
+        video: true,
         videoConstraints: {
-            mandatory: {
-                chromeMediaSource: "tab",
-                maxWidth: resolutions.maxWidth,
-                maxHeight: resolutions.maxHeight,
-                minFrameRate: 30,
-                minAspectRatio: 1.77,
-            },
+            mandatory: {},
+            optional: {},
         },
     };
 
-    let constraints2: chrome.tabCapture.CaptureOptions;
-    constraints2 = constraints;
+    chrome.tabCapture.capture(captureOptions, (stream) => { // $ExpectType void
+        stream; // $ExpectType MediaStream | null
+    });
+
+    chrome.tabCapture.getCapturedTabs(); // $ExpectType Promise<CaptureInfo[]>
+    chrome.tabCapture.getCapturedTabs((result) => { // $ExpectType void
+        result; // $ExpectType CaptureInfo[]
+    });
+    // @ts-expect-error
+    chrome.tabCapture.getCapturedTabs(() => {}).then(() => {});
+
+    const mediaStreamOptions: chrome.tabCapture.GetMediaStreamOptions = {
+        consumerTabId: 123,
+        targetTabId: 456,
+    };
+
+    chrome.tabCapture.getMediaStreamId(); // $ExpectType Promise<string>
+    chrome.tabCapture.getMediaStreamId(mediaStreamOptions); // $ExpectType Promise<string>
+    chrome.tabCapture.getMediaStreamId((streamId) => { // $ExpectType void
+        streamId; // $ExpectType string
+    });
+    chrome.tabCapture.getMediaStreamId(mediaStreamOptions, (streamId) => { // $ExpectType void
+        streamId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.tabCapture.getMediaStreamId(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.tabCapture.onStatusChanged, (info) => {
+        info.fullscreen; // $ExpectType boolean
+        info.status; // $ExpectType "active" | "error" | "pending" | "stopped"
+        info.tabId; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/debugger
@@ -1379,6 +1576,95 @@ function testTtsEngine() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/vpnProvider
+function testVpnProvider() {
+    chrome.vpnProvider.PlatformMessage.CONNECTED === "connected";
+    chrome.vpnProvider.PlatformMessage.DISCONNECTED === "disconnected";
+    chrome.vpnProvider.PlatformMessage.ERROR === "error";
+    chrome.vpnProvider.PlatformMessage.LINK_CHANGED === "linkChanged";
+    chrome.vpnProvider.PlatformMessage.LINK_DOWN === "linkDown";
+    chrome.vpnProvider.PlatformMessage.LINK_UP === "linkUp";
+    chrome.vpnProvider.PlatformMessage.RESUME === "resume";
+    chrome.vpnProvider.PlatformMessage.SUSPEND === "suspend";
+
+    chrome.vpnProvider.UIEvent.SHOW_ADD_DIALOG === "showAddDialog";
+    chrome.vpnProvider.UIEvent.SHOW_CONFIGURE_DIALOG === "showConfigureDialog";
+
+    chrome.vpnProvider.VpnConnectionState.CONNECTED === "connected";
+    chrome.vpnProvider.VpnConnectionState.FAILURE === "failure";
+
+    const name = "My VPN";
+
+    chrome.vpnProvider.createConfig(name); // $ExpectType Promise<string>
+    chrome.vpnProvider.createConfig(name, (id) => { // $ExpectType void
+        id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.vpnProvider.createConfig(name, () => {}).then(() => {});
+
+    const id = "config-id";
+
+    chrome.vpnProvider.destroyConfig(id); // $ExpectType Promise<void>
+    chrome.vpnProvider.destroyConfig(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.destroyConfig(id, () => {}).then(() => {});
+
+    const state = "connected";
+
+    chrome.vpnProvider.notifyConnectionStateChanged(state); // $ExpectType Promise<void>
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.notifyConnectionStateChanged(state, () => {}).then(() => {});
+
+    const data: ArrayBuffer = new ArrayBuffer(8);
+
+    chrome.vpnProvider.sendPacket(data); // $ExpectType Promise<void>
+    chrome.vpnProvider.sendPacket(data, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.sendPacket(data, () => {}).then(() => {});
+
+    const parameters: chrome.vpnProvider.Parameters = {
+        address: "255.255.255.255",
+        broadcastAddress: "255.255.255.255",
+        dnsServers: ["255.255.255.255"],
+        domainSearch: ["example.com"],
+        exclusionList: ["255.255.255.255"],
+        inclusionList: ["255.255.255.255"],
+        mtu: "1500",
+        reconnect: "linkUp",
+    };
+
+    chrome.vpnProvider.setParameters(parameters); // $ExpectType Promise<void>
+    chrome.vpnProvider.setParameters(parameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.vpnProvider.setParameters(parameters, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.vpnProvider.onConfigCreated, (id, name, data) => {
+        id; // $ExpectType string
+        name; // $ExpectType string
+        data; // $ExpectType { [key: string]: unknown }
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onConfigRemoved, (id) => {
+        id; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPacketReceived, (data) => {
+        data; // $ExpectType ArrayBuffer
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onPlatformMessage, (id, message, error) => {
+        id; // $ExpectType string
+        message; // $ExpectType "connected" | "disconnected" | "error" | "linkChanged" | "linkDown" | "linkUp" | "resume" | "suspend"
+        error; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.vpnProvider.onUIEvent, (event, id) => {
+        event; // $ExpectType "showAddDialog" | "showConfigureDialog"
+        id; // $ExpectType string | undefined
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/recorder
 function testDevtoolsRecorder() {
     const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
@@ -1419,7 +1705,11 @@ function testDevtoolsPanels() {
 
     chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
-        panel; // $ExpectType ExtensionPanel
+        checkChromeEvent(panel.onHidden, () => void 0);
+        checkChromeEvent(panel.onSearch, () => void 0);
+        checkChromeEvent(panel.onShown, () => void 0);
+        panel.createStatusBarButton("iconPath", "tooltipText", true); // $ExpectType Button
+        panel.show(); // $ExpectType void
     });
 
     const url = "url";
@@ -1511,296 +1801,491 @@ function testDevtoolsNetwork() {
     });
 }
 
-function testAssistiveWindow() {
-    chrome.input.ime.setAssistiveWindowProperties({
-        contextID: 0,
+// https://developer.chrome.com/docs/extensions/reference/api/input/ime
+function testInputIme() {
+    chrome.input.ime.AssistiveWindowButton.ADD_TO_DICTIONARY === "addToDictionary";
+    chrome.input.ime.AssistiveWindowButton.UNDO === "undo";
+
+    chrome.input.ime.AssistiveWindowType.UNDO === "undo";
+
+    chrome.input.ime.AutoCapitalizeType.CHARACTERS === "characters";
+    chrome.input.ime.AutoCapitalizeType.SENTENCES === "sentences";
+    chrome.input.ime.AutoCapitalizeType.WORDS === "words";
+
+    chrome.input.ime.InputContextType.EMAIL === "email";
+    chrome.input.ime.InputContextType.NULL === "null";
+    chrome.input.ime.InputContextType.NUMBER === "number";
+    chrome.input.ime.InputContextType.PASSWORD === "password";
+    chrome.input.ime.InputContextType.SEARCH === "search";
+    chrome.input.ime.InputContextType.TEL === "tel";
+    chrome.input.ime.InputContextType.TEXT === "text";
+    chrome.input.ime.InputContextType.URL === "url";
+
+    chrome.input.ime.KeyboardEventType.KEYDOWN === "keydown";
+    chrome.input.ime.KeyboardEventType.KEYUP === "keyup";
+
+    chrome.input.ime.MenuItemStyle.CHECK === "check";
+    chrome.input.ime.MenuItemStyle.RADIO === "radio";
+    chrome.input.ime.MenuItemStyle.SEPARATOR === "separator";
+
+    chrome.input.ime.MouseButton.LEFT === "left";
+    chrome.input.ime.MouseButton.MIDDLE === "middle";
+    chrome.input.ime.MouseButton.RIGHT === "right";
+
+    chrome.input.ime.ScreenType.LOCK === "lock";
+    chrome.input.ime.ScreenType.LOGIN === "login";
+    chrome.input.ime.ScreenType.NORMAL === "normal";
+    chrome.input.ime.ScreenType.SECONDARY_LOGIN === "secondary-login";
+
+    chrome.input.ime.UnderlineStyle.DOUBLE_UNDERLINE === "doubleUnderline";
+    chrome.input.ime.UnderlineStyle.NO_UNDERLINE === "noUnderline";
+    chrome.input.ime.UnderlineStyle.UNDERLINE === "underline";
+
+    chrome.input.ime.WindowPosition.COMPOSITION === "composition";
+    chrome.input.ime.WindowPosition.CURSOR === "cursor";
+
+    const contextID = 0;
+
+    const clearCompositionParameters: chrome.input.ime.ClearCompositionParameters = {
+        contextID,
+    };
+
+    chrome.input.ime.clearComposition(clearCompositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.clearComposition(clearCompositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.clearComposition(clearCompositionParameters, () => {}).then(() => {});
+
+    const commitTextParameters: chrome.input.ime.CommitTextParameters = {
+        contextID,
+        text: "text",
+    };
+
+    chrome.input.ime.commitText(commitTextParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.commitText(commitTextParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.commitText(commitTextParameters, () => {}).then(() => {});
+
+    const deleteSurroundingTextParameters: chrome.input.ime.DeleteSurroundingTextParameters = {
+        contextID,
+        engineID: "engineID",
+        length: 1,
+        offset: 1,
+    };
+
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters); // $ExpectType Promise<void>
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.deleteSurroundingText(deleteSurroundingTextParameters, () => {}).then(() => {});
+
+    chrome.input.ime.hideInputView(); // $ExpectType void
+
+    chrome.input.ime.keyEventHandled("requestId", true); // $ExpectType void
+
+    const sendKeyEventsParameters: chrome.input.ime.SendKeyEventParameters = {
+        contextID,
+        keyData: [
+            {
+                altKey: false,
+                altgrKey: false,
+                capsLock: false,
+                code: "KeyA",
+                ctrlKey: false,
+                extensionId: "extensionId",
+                key: "a",
+                keyCode: 65,
+                requestId: "requestId",
+                shiftKey: false,
+                type: "keyup",
+            },
+        ],
+    };
+
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters); // $ExpectType Promise<void>
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.sendKeyEvents(sendKeyEventsParameters, () => {}).then(() => {});
+
+    const setAssistiveWindowButtonHighlightedParameters: chrome.input.ime.AssistiveWindowButtonHighlightedParameters = {
+        announceString: "announceString",
+        contextID,
+        buttonID: "undo",
+        highlighted: true,
+        windowType: "undo",
+    };
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters); // $ExpectType Promise<void>
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.setAssistiveWindowButtonHighlighted(setAssistiveWindowButtonHighlightedParameters, () => {}).then(
+        () => {},
+    );
+
+    const setAssistiveWindowPropertiesParameters: chrome.input.ime.AssistiveWindowPropertiesParameters = {
+        contextID,
         properties: {
+            announceString: "announceString",
             type: "undo",
             visible: true,
         },
-    });
+    };
 
-    chrome.input.ime.setAssistiveWindowButtonHighlighted({
-        contextID: 0,
-        buttonID: "undo",
-        windowType: "undo",
-        announceString: "Undo button highlighted",
-        highlighted: true,
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
     });
+    // @ts-expect-error
+    chrome.input.ime.setAssistiveWindowProperties(setAssistiveWindowPropertiesParameters, () => {}).then(() => {});
 
-    chrome.input.ime.setAssistiveWindowButtonHighlighted({
-        contextID: 0,
-        buttonID: "undo",
-        windowType: "undo",
-        highlighted: false,
+    const setCandidatesParameters: chrome.input.ime.CandidatesParameters = {
+        contextID,
+        candidates: [
+            {
+                annotation: "annotation",
+                candidate: "candidate",
+                id: 0,
+                label: "label",
+                parentId: 0,
+                usage: {
+                    body: "body",
+                    title: "title",
+                },
+            },
+        ],
+    };
+
+    chrome.input.ime.setCandidates(setCandidatesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCandidates(setCandidatesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
     });
+    // @ts-expect-error
+    chrome.input.ime.setCandidates(setCandidatesParameters, () => {}).then(() => {});
 
-    chrome.input.ime.onAssistiveWindowButtonClicked.addListener(
-        (details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
-            details;
-            console.log(`${details.buttonID} button in ${details.windowType} window clicked`);
+    const setCandidateWindowPropertiesParameters: chrome.input.ime.CandidateWindowParameter = {
+        engineID: "engineID",
+        properties: {
+            auxiliaryText: "auxiliaryText",
+            auxiliaryTextVisible: true,
+            currentCandidateIndex: 0,
+            cursorVisible: true,
+            pageSize: 5,
+            totalCandidates: 10,
+            vertical: true,
+            visible: true,
+            windowPosition: "composition",
         },
-    );
-}
-
-// https://developer.chrome.com/extensions/omnibox#types
-function testOmnibox() {
-    const suggestion: chrome.omnibox.Suggestion = { description: "description" };
-    chrome.omnibox.setDefaultSuggestion(suggestion);
-
-    function onInputEnteredCallback(text: string, disposition: chrome.omnibox.OnInputEnteredDisposition) {
-        if (disposition === "currentTab") {
-        }
-        if (disposition === "newForegroundTab") {
-        }
-        if (disposition === "newBackgroundTab") {
-        }
-    }
-    chrome.omnibox.onInputEntered.addListener(onInputEnteredCallback);
-
-    const suggestResult1: chrome.omnibox.SuggestResult = {
-        content: "content",
-        description: "description",
     };
-    const suggestResult2: chrome.omnibox.SuggestResult = {
-        content: "content",
-        description: "description",
-        deletable: true,
+
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setCandidateWindowProperties(setCandidateWindowPropertiesParameters, () => {}).then(() => {});
+
+    const setCompositionParameters: chrome.input.ime.CompositionParameters = {
+        contextID,
+        cursor: 1,
+        segments: [{
+            end: 1,
+            start: 2,
+            style: "underline",
+        }],
+        selectionEnd: 2,
+        selectionStart: 1,
+        text: "text",
     };
-    function onInputChangedCallback(text: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
-        suggest([suggestResult1, suggestResult2]);
-    }
-    chrome.omnibox.onInputChanged.addListener(onInputChangedCallback);
 
-    chrome.omnibox.onInputStarted.addListener(() => {});
+    chrome.input.ime.setComposition(setCompositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setComposition(setCompositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setComposition(setCompositionParameters, () => {}).then(() => {});
 
-    chrome.omnibox.onInputCancelled.addListener(() => {});
+    const setCursorPositionParameters: chrome.input.ime.CursorPositionParameters = {
+        candidateID: 1,
+        contextID,
+    };
 
-    chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
-}
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters); // $ExpectType Promise<boolean>
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters, (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.input.ime.setCursorPosition(setCursorPositionParameters, () => {}).then(() => {});
 
-function testSearch() {
-    function getCallback() {}
+    const menuParameters: chrome.input.ime.MenuParameters = {
+        engineID: "engineID",
+        items: [{
+            checked: true,
+            enabled: true,
+            id: "id",
+            label: "label",
+            style: "check",
+            visible: true,
+        }],
+    };
 
-    const DISPOSITIONS: chrome.search.Disposition[] = ["CURRENT_TAB", "NEW_TAB", "NEW_WINDOW"];
+    chrome.input.ime.setMenuItems(menuParameters); // $ExpectType Promise<void>
+    chrome.input.ime.setMenuItems(menuParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.setMenuItems(menuParameters, () => {}).then(() => {});
 
-    DISPOSITIONS.forEach(disposition => {
-        chrome.search.query(
-            {
-                disposition,
-                tabId: 1,
-                text: "text",
-            },
-            getCallback,
-        );
+    chrome.input.ime.updateMenuItems(menuParameters); // $ExpectType Promise<void>
+    chrome.input.ime.updateMenuItems(menuParameters, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.input.ime.updateMenuItems(menuParameters, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.input.ime.onActivate, (engineID, screen) => {
+        engineID; // $ExpectType string
+        screen; // $ExpectType "normal" | "login" | "lock" | "secondary-login"
+    });
+
+    checkChromeEvent(chrome.input.ime.onAssistiveWindowButtonClicked, (details) => {
+        details.buttonID; // $ExpectType "undo" | "addToDictionary"
+        details.windowType; // $ExpectType "undo"
+    });
+
+    checkChromeEvent(chrome.input.ime.onBlur, (contextID) => {
+        contextID; // $ExpectType number
+    });
+
+    checkChromeEvent(chrome.input.ime.onCandidateClicked, (engineID, candidateID, button) => {
+        engineID; // $ExpectType string
+        candidateID; // $ExpectType number
+        button; // $ExpectType "left" | "middle" | "right"
+    });
+
+    checkChromeEvent(chrome.input.ime.onDeactivated, (engineID) => {
+        engineID; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onFocus, (context) => {
+        context.autoCapitalize; // $ExpectType "characters" | "words" | "sentences"
+        context.autoComplete; // $ExpectType boolean
+        context.autoCorrect; // $ExpectType boolean
+        context.contextID; // $ExpectType number
+        context.shouldDoLearning; // $ExpectType boolean
+        context.spellCheck; // $ExpectType boolean
+        context.type; // $ExpectType "text" | "search" | "tel" | "url" | "email" | "number" | "password" | "null"
+    });
+
+    checkChromeEvent(chrome.input.ime.onInputContextUpdate, (context) => {
+        context.autoCapitalize; // $ExpectType "characters" | "words" | "sentences"
+        context.autoComplete; // $ExpectType boolean
+        context.autoCorrect; // $ExpectType boolean
+        context.contextID; // $ExpectType number
+        context.shouldDoLearning; // $ExpectType boolean
+        context.spellCheck; // $ExpectType boolean
+        context.type; // $ExpectType "text" | "search" | "tel" | "url" | "email" | "number" | "password" | "null"
+    });
+
+    checkChromeEvent(chrome.input.ime.onKeyEvent, (engineID, keyData, requestId) => {
+        engineID; // $ExpectType string
+        keyData.altKey; // $ExpectType boolean | undefined
+        keyData.altgrKey; // $ExpectType boolean | undefined
+        keyData.capsLock; // $ExpectType boolean | undefined
+        keyData.code; // $ExpectType string
+        keyData.ctrlKey; // $ExpectType boolean | undefined
+        keyData.extensionId; // $ExpectType string | undefined
+        keyData.key; // $ExpectType string
+        keyData.keyCode; // $ExpectType number | undefined
+        keyData.shiftKey; // $ExpectType boolean | undefined
+        keyData.type; // $ExpectType "keydown" | "keyup"
+        requestId; // $ExpectType string
+        return true;
+    });
+
+    checkChromeEvent(chrome.input.ime.onMenuItemActivated, (engineID, name) => {
+        engineID; // $ExpectType string
+        name; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onReset, (engineID) => {
+        engineID; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.input.ime.onSurroundingTextChanged, (engineID, surroundingInfo) => {
+        engineID; // $ExpectType string
+        surroundingInfo.anchor; // $ExpectType number
+        surroundingInfo.focus; // $ExpectType number
+        surroundingInfo.offset; // $ExpectType number
+        surroundingInfo.text; // $ExpectType string
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/search/
-async function testSearchForPromise() {
-    const DISPOSITIONS: chrome.search.Disposition[] = ["CURRENT_TAB", "NEW_TAB", "NEW_WINDOW"];
+// https://developer.chrome.com/docs/extensions/reference/api/omnibox
+function testOmnibox() {
+    chrome.omnibox.DescriptionStyleType.DIM === "dim";
+    chrome.omnibox.DescriptionStyleType.MATCH === "match";
+    chrome.omnibox.DescriptionStyleType.URL === "url";
 
-    for (const disposition of DISPOSITIONS) {
-        await chrome.search.query(
-            {
-                disposition,
-                tabId: 1,
-                text: "text",
-            },
-        );
-    }
+    chrome.omnibox.OnInputEnteredDisposition.CURRENT_TAB === "currentTab";
+    chrome.omnibox.OnInputEnteredDisposition.NEW_BACKGROUND_TAB === "newBackgroundTab";
+    chrome.omnibox.OnInputEnteredDisposition.NEW_FOREGROUND_TAB === "newForegroundTab";
+
+    checkChromeEvent(chrome.omnibox.onDeleteSuggestion, (text) => {
+        text; // $ExpectType string
+    });
+
+    checkChromeEvent(chrome.omnibox.onInputCancelled, () => void 0);
+
+    const suggestResult: chrome.omnibox.SuggestResult = {
+        content: "content",
+        deletable: true,
+        description: "description",
+    };
+
+    checkChromeEvent(chrome.omnibox.onInputChanged, (text, suggest) => {
+        text; // $ExpectType string
+        suggest([suggestResult]); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.omnibox.onInputEntered, (text, disposition) => {
+        text; // $ExpectType string
+        disposition; // $ExpectType "currentTab" | "newForegroundTab" | "newBackgroundTab"
+    });
+
+    checkChromeEvent(chrome.omnibox.onInputStarted, () => void 0);
+
+    const suggestion: chrome.omnibox.DefaultSuggestResult = { description: "description" };
+
+    chrome.omnibox.setDefaultSuggestion(suggestion); // $ExpectType Promise<void>
+    chrome.omnibox.setDefaultSuggestion(suggestion, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.omnibox.setDefaultSuggestion(suggestion, () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
-function testBrowserAcionEnable() {
-    chrome.browserAction.enable();
-    chrome.browserAction.enable(console.log);
-    chrome.browserAction.enable(0);
-    chrome.browserAction.enable(0, console.log);
-    chrome.browserAction.enable(null);
-    chrome.browserAction.enable(null, console.log);
-    chrome.browserAction.enable(undefined);
-    chrome.browserAction.enable(undefined, console.log);
+// https://developer.chrome.com/docs/extensions/reference/api/search
+function testSearch() {
+    chrome.search.Disposition.CURRENT_TAB === "CURRENT_TAB";
+    chrome.search.Disposition.NEW_TAB === "NEW_TAB";
+    chrome.search.Disposition.NEW_WINDOW === "NEW_WINDOW";
+
+    const queryInfo1: chrome.search.QueryInfo = {
+        disposition: "CURRENT_TAB",
+        text: "text",
+    };
+
+    const queryInfo2: chrome.search.QueryInfo = {
+        tabId: 1,
+        text: "text",
+    };
+
+    // @ts-expect-error Cannot set both 'disposition' and 'tabId'.
+    const queryInfoBad: chrome.search.QueryInfo = {
+        disposition: "CURRENT_TAB",
+        tabId: 1,
+        text: "text",
+    };
+
+    chrome.search.query(queryInfo1); // $ExpectType Promise<void>
+    chrome.search.query(queryInfo1, () => {}); // $ExpectType void
+    chrome.search.query(queryInfo2); // $ExpectType Promise<void>
+    chrome.search.query(queryInfo2, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.search.query(queryInfo1, () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-disable
-function testBrowserAcionDisable() {
-    chrome.browserAction.disable();
-    chrome.browserAction.disable(console.log);
-    chrome.browserAction.disable(0);
-    chrome.browserAction.disable(0, console.log);
-    chrome.browserAction.disable(null);
-    chrome.browserAction.disable(null, console.log);
-    chrome.browserAction.disable(undefined);
-    chrome.browserAction.disable(undefined, console.log);
-}
+// https://developer.chrome.com/docs/extensions/mv2/reference/browserAction
+function testBrowserAction() {
+    const tabId = 0;
+    chrome.browserAction.disable(); // $ExpectType void
+    chrome.browserAction.disable(() => void 0); // $ExpectType void
+    chrome.browserAction.disable(tabId); // $ExpectType void
+    chrome.browserAction.disable(tabId, () => void 0); // $ExpectType void
+    chrome.browserAction.disable(null); // $ExpectType void
+    chrome.browserAction.disable(null, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeBackgroundColor
-function testBrowserAcionGetBadgeBackgroundColor() {
-    chrome.browserAction.getBadgeBackgroundColor({}, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: 0 }, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: null }, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: undefined }, console.log);
+    chrome.browserAction.enable(); // $ExpectType void
+    chrome.browserAction.enable(() => void 0); // $ExpectType void
+    chrome.browserAction.enable(tabId); // $ExpectType void
+    chrome.browserAction.enable(tabId, () => void 0); // $ExpectType void
+    chrome.browserAction.enable(null); // $ExpectType void
+    chrome.browserAction.enable(null, () => void 0); // $ExpectType void
 
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor();
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor(null);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor(undefined);
-}
+    const getDetails: chrome.browserAction.TabDetails = { tabId };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
-function testBrowserAcionGetBadgeText() {
-    chrome.browserAction.getBadgeText({}, console.log);
-    chrome.browserAction.getBadgeText({ tabId: 0 }, console.log);
-    chrome.browserAction.getBadgeText({ tabId: null }, console.log);
-    chrome.browserAction.getBadgeText({ tabId: undefined }, console.log);
+    chrome.browserAction.getBadgeBackgroundColor(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType ColorArray
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getBadgeBackgroundColor(getDetails);
 
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText();
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(null);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(console.log);
-}
+    chrome.browserAction.getBadgeText(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getBadgeText(getDetails);
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
-function testBrowserAcionGetPopup() {
-    chrome.browserAction.getPopup({});
-    chrome.browserAction.getPopup({}, console.log);
-    chrome.browserAction.getPopup({ tabId: 0 });
-    chrome.browserAction.getPopup({ tabId: 0 }, console.log);
-    chrome.browserAction.getPopup({ tabId: null });
-    chrome.browserAction.getPopup({ tabId: null }, console.log);
-    chrome.browserAction.getPopup({ tabId: undefined });
-    chrome.browserAction.getPopup({ tabId: undefined }, console.log);
+    chrome.browserAction.getPopup(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getPopup(getDetails);
 
-    // @ts-expect-error
-    chrome.browserAction.getPopup();
-    // @ts-expect-error
-    chrome.browserAction.getPopup(null);
-    // @ts-expect-error
-    chrome.browserAction.getPopup(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getPopup(console.log);
-}
+    chrome.browserAction.getTitle(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getTitle(getDetails);
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
-function testBrowserAcionGetTitle() {
-    chrome.browserAction.getTitle({});
-    chrome.browserAction.getTitle({}, console.log);
-    chrome.browserAction.getTitle({ tabId: 0 });
-    chrome.browserAction.getTitle({ tabId: 0 }, console.log);
-    chrome.browserAction.getTitle({ tabId: null });
-    chrome.browserAction.getTitle({ tabId: null }, console.log);
-    chrome.browserAction.getTitle({ tabId: undefined });
-    chrome.browserAction.getTitle({ tabId: undefined }, console.log);
+    const badgeBackgroundColorDetails: chrome.browserAction.BadgeBackgroundColorDetails = {
+        color: [255, 0, 0, 255],
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.getTitle();
-    // @ts-expect-error
-    chrome.browserAction.getTitle(null);
-    // @ts-expect-error
-    chrome.browserAction.getTitle(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getTitle(console.log);
-}
+    chrome.browserAction.setBadgeBackgroundColor(badgeBackgroundColorDetails); // $ExpectType void
+    chrome.browserAction.setBadgeBackgroundColor(badgeBackgroundColorDetails, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
-function testBrowserAcionSetBadgeBackgroundColor() {
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red" });
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red" }, console.log);
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red", tabId: 0 });
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red", tabId: 0 }, console.log);
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 });
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 }, console.log);
+    const badgeTextDetails: chrome.browserAction.BadgeTextDetails = {
+        text: "text",
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor();
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({});
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({ tabId: 0 });
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3] }, console.log);
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(null);
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(undefined);
-}
+    chrome.browserAction.setBadgeText(badgeTextDetails); // $ExpectType void
+    chrome.browserAction.setBadgeText(badgeTextDetails, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
-function testBrowserActionSetBrowserBadgeText() {
-    chrome.browserAction.setBadgeText({});
-    chrome.browserAction.setBadgeText({ text: "test" });
-    chrome.browserAction.setBadgeText({ text: null });
-    chrome.browserAction.setBadgeText({ text: undefined });
-    chrome.browserAction.setBadgeText({ tabId: 123 });
-    chrome.browserAction.setBadgeText({ text: "test", tabId: 123 });
-    chrome.browserAction.setBadgeText({}, () => {});
+    const iconDetails: chrome.browserAction.TabIconDetails = {
+        imageData: { 16: new ImageData(16, 16) },
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.setBadgeText();
-    // @ts-expect-error
-    chrome.browserAction.setBadgeText(undefined);
-}
+    const iconDetails2: chrome.browserAction.TabIconDetails = {
+        path: "path/to/icon.png",
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
-function testBrowserAcionSetIcon() {
-    chrome.browserAction.setIcon({ path: "/icon.png" });
-    chrome.browserAction.setIcon({ path: "/icon.png" }, console.log);
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" } });
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" } }, console.log);
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" }, tabId: 0 });
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" }, tabId: 0 }, console.log);
+    chrome.browserAction.setIcon(iconDetails); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails2); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails, () => void 0); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails2, () => void 0); // $ExpectType void
+    // @ts-expect-error Either the path or imageData property must be specified.
+    chrome.browserAction.setIcon({});
 
-    // @ts-expect-error
-    chrome.browserAction.setIcon();
-    // @ts-expect-error
-    chrome.browserAction.setIcon(null);
-    // @ts-expect-error
-    chrome.browserAction.setIcon(undefined);
-}
+    const popupDetails: chrome.browserAction.PopupDetails = {
+        popup: "popup.html",
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setPopup
-function testBrowserAcionSetPopup() {
-    chrome.browserAction.setPopup({ popup: "index.html" });
-    chrome.browserAction.setPopup({ popup: "index.html" }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: 0 });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: 0 }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: null });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: null }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: undefined });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: undefined }, console.log);
+    chrome.browserAction.setPopup(popupDetails); // $ExpectType void
+    chrome.browserAction.setPopup(popupDetails, () => void 0); // $ExpectType void
 
-    // @ts-expect-error
-    chrome.browserAction.setPopup();
-    // @ts-expect-error
-    chrome.browserAction.setPopup(null);
-    // @ts-expect-error
-    chrome.browserAction.setPopup(undefined);
-}
+    const titleDetails: chrome.browserAction.TitleDetails = {
+        title: "title",
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setTitle
-function testBrowserAcionSetTitle() {
-    chrome.browserAction.setTitle({ title: "Title" });
-    chrome.browserAction.setTitle({ title: "Title" }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: 0 });
-    chrome.browserAction.setTitle({ title: "Title", tabId: 0 }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: null });
-    chrome.browserAction.setTitle({ title: "Title", tabId: null }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: undefined });
-    chrome.browserAction.setTitle({ title: "Title", tabId: undefined }, console.log);
+    chrome.browserAction.setTitle(titleDetails); // $ExpectType void
+    chrome.browserAction.setTitle(titleDetails, () => void 0); // $ExpectType void
 
-    // @ts-expect-error
-    chrome.browserAction.setTitle();
-    // @ts-expect-error
-    chrome.browserAction.setTitle(null);
-    // @ts-expect-error
-    chrome.browserAction.setTitle(undefined);
+    checkChromeEvent(chrome.browserAction.onClicked, (tab) => {
+        tab; // $ExpectType Tab
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/action
@@ -2091,20 +2576,6 @@ async function testBookmarksForPromise() {
     await chrome.bookmarks.removeTree("id1");
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction
-async function testBrowserActionForPromise() {
-    await chrome.browserAction.enable(0);
-    await chrome.browserAction.setBadgeBackgroundColor({ color: "color1" });
-    await chrome.browserAction.setBadgeText({});
-    await chrome.browserAction.setTitle({ title: "title1" });
-    await chrome.browserAction.getBadgeText({});
-    await chrome.browserAction.setPopup({ popup: "popup1" });
-    await chrome.browserAction.disable(0);
-    await chrome.browserAction.getTitle({});
-    await chrome.browserAction.getBadgeBackgroundColor({});
-    await chrome.browserAction.getPopup({});
-}
-
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
 async function testCookie() {
     chrome.cookies.OnChangedCause.EVICTED === "evicted";
@@ -2211,22 +2682,161 @@ async function testCookie() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/management
-async function testManagementForPromise() {
-    await chrome.management.setEnabled("id1", true);
-    await chrome.management.getPermissionWarningsById("id1");
-    await chrome.management.get("id1");
-    await chrome.management.getAll();
-    await chrome.management.getPermissionWarningsByManifest("manifestStr1");
-    await chrome.management.launchApp("id1");
-    await chrome.management.uninstall("id1");
-    await chrome.management.uninstall("id1", {});
-    await chrome.management.getSelf();
-    await chrome.management.uninstallSelf({});
-    await chrome.management.uninstallSelf();
-    await chrome.management.createAppShortcut("id1");
-    await chrome.management.setLaunchType("id1", "launchType1");
-    await chrome.management.generateAppForLink("url1", "title1");
+// https://developer.chrome.com/docs/extensions/reference/api/management
+async function testManagement() {
+    chrome.management.ExtensionDisabledReason.PERMISSIONS_INCREASE === "permissions_increase";
+    chrome.management.ExtensionDisabledReason.UNKNOWN === "unknown";
+
+    chrome.management.ExtensionInstallType.ADMIN === "admin";
+    chrome.management.ExtensionInstallType.DEVELOPMENT === "development";
+    chrome.management.ExtensionInstallType.NORMAL === "normal";
+    chrome.management.ExtensionInstallType.OTHER === "other";
+    chrome.management.ExtensionInstallType.SIDELOAD === "sideload";
+
+    chrome.management.ExtensionType.EXTENSION === "extension";
+    chrome.management.ExtensionType.HOSTED_APP === "hosted_app";
+    chrome.management.ExtensionType.LEGACY_PACKAGED_APP === "legacy_packaged_app";
+    chrome.management.ExtensionType.LOGIN_SCREEN_EXTENSION === "login_screen_extension";
+    chrome.management.ExtensionType.PACKAGE_APP === "package_app";
+    chrome.management.ExtensionType.THEME === "theme";
+
+    chrome.management.LaunchType.OPEN_AS_PINNED_TAB === "OPEN_AS_PINNED_TAB";
+    chrome.management.LaunchType.OPEN_AS_REGULAR_TAB === "OPEN_AS_REGULAR_TAB";
+    chrome.management.LaunchType.OPEN_AS_WINDOW === "OPEN_AS_WINDOW";
+    chrome.management.LaunchType.OPEN_FULL_SCREEN === "OPEN_FULL_SCREEN";
+
+    const id = "id";
+    const title = "title";
+    const url = "https://example.com";
+
+    chrome.management.createAppShortcut(id); // $ExpectType Promise<void>
+    chrome.management.createAppShortcut(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.createAppShortcut(id, () => {}).then(() => {});
+
+    chrome.management.generateAppForLink(url, title); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.generateAppForLink(url, title, (result) => { // $ExpectType void
+        result.appLaunchUrl; // $ExpectType string | undefined
+        result.availableLaunchTypes; // $ExpectType ("OPEN_AS_PINNED_TAB" | "OPEN_AS_REGULAR_TAB" | "OPEN_AS_WINDOW" | "OPEN_FULL_SCREEN")[] | undefined
+        result.description; // $ExpectType string
+        result.disabledReason; // $ExpectType "unknown" | "permissions_increase" | undefined
+        result.enabled; // $ExpectType boolean
+        result.homepageUrl; // $ExpectType string | undefined
+        result.hostPermissions; // $ExpectType string[]
+        result.icons; // $ExpectType IconInfo[] | undefined
+        result.icons![0].size; // $ExpectType number
+        result.icons![0].url; // $ExpectType string
+        result.id; // $ExpectType string
+        result.installType; // $ExpectType "admin" | "development" | "normal" | "other" | "sideload"
+        result.isApp; // $ExpectType boolean
+        result.launchType; // $ExpectType "OPEN_AS_PINNED_TAB" | "OPEN_AS_REGULAR_TAB" | "OPEN_AS_WINDOW" | "OPEN_FULL_SCREEN" | undefined
+        result.mayDisable; // $ExpectType boolean
+        result.mayEnable; // $ExpectType boolean | undefined
+        result.name; // $ExpectType string
+        result.offlineEnabled; // $ExpectType boolean
+        result.optionsUrl; // $ExpectType string
+        result.permissions; // $ExpectType string[]
+        result.shortName; // $ExpectType string
+        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "package_app" | "theme"
+        result.updateUrl; // $ExpectType string | undefined
+        result.version; // $ExpectType string
+        result.versionName; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.management.generateAppForLink(url, title, () => {}).then(() => {});
+
+    chrome.management.get(id); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.get(id, (result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo
+    });
+    // @ts-expect-error
+    chrome.management.get(id, () => {}).then(() => {});
+
+    chrome.management.getAll(); // $ExpectType Promise<ExtensionInfo[]>
+    chrome.management.getAll((result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo[]
+    });
+    // @ts-expect-error
+    chrome.management.getAll(() => {}).then(() => {});
+
+    chrome.management.getPermissionWarningsById(id); // $ExpectType Promise<string[]>
+    chrome.management.getPermissionWarningsById(id, (permissionWarnings) => { // $ExpectType void
+        permissionWarnings; // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.management.getPermissionWarningsById(id, () => {}).then(() => {});
+
+    const manifestStr = "{}";
+
+    chrome.management.getPermissionWarningsByManifest(manifestStr); // $ExpectType Promise<string[]>
+    chrome.management.getPermissionWarningsByManifest(manifestStr, (permissionWarnings) => { // $ExpectType void
+        permissionWarnings; // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.management.getPermissionWarningsByManifest(manifestStr, () => {}).then(() => {});
+
+    chrome.management.getSelf(); // $ExpectType Promise<ExtensionInfo>
+    chrome.management.getSelf((result) => { // $ExpectType void
+        result; // $ExpectType ExtensionInfo
+    });
+    // @ts-expect-error
+    chrome.management.getSelf(() => {}).then(() => {});
+
+    chrome.management.installReplacementWebApp(); // $ExpectType Promise<void>
+    chrome.management.installReplacementWebApp(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.installReplacementWebApp(() => {}).then(() => {});
+
+    chrome.management.launchApp(id); // $ExpectType Promise<void>
+    chrome.management.launchApp(id, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.launchApp(id, () => {}).then(() => {});
+
+    chrome.management.setEnabled(id, true); // $ExpectType Promise<void>
+    chrome.management.setEnabled(id, true, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.setEnabled(id, true, () => {}).then(() => {});
+
+    const launchType = "OPEN_AS_PINNED_TAB";
+
+    chrome.management.setLaunchType(id, launchType); // $ExpectType Promise<void>
+    chrome.management.setLaunchType(id, launchType, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.setLaunchType(id, launchType, () => {}).then(() => {});
+
+    const options: chrome.management.UninstallOptions = {
+        showConfirmDialog: true,
+    };
+
+    chrome.management.uninstall(id); // $ExpectType Promise<void>
+    chrome.management.uninstall(id, options); // $ExpectType Promise<void>
+    chrome.management.uninstall(id, () => void 0); // $ExpectType void
+    chrome.management.uninstall(id, options, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.uninstall(id, () => {}).then(() => {});
+
+    chrome.management.uninstallSelf(); // $ExpectType Promise<void>
+    chrome.management.uninstallSelf(options); // $ExpectType Promise<void>
+    chrome.management.uninstallSelf(() => void 0); // $ExpectType void
+    chrome.management.uninstallSelf(options, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.management.uninstallSelf(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.management.onDisabled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onEnabled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onInstalled, (info) => {
+        info; // $ExpectType ExtensionInfo
+    });
+
+    checkChromeEvent(chrome.management.onUninstalled, (id) => {
+        id; // $ExpectType string
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/scripting
@@ -2370,16 +2980,70 @@ async function testScripting() {
     chrome.scripting.updateContentScripts([], () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/system_cpu
-async function testSystemCpuForPromise() {
-    await chrome.system.cpu.getInfo();
+// https://developer.chrome.com/docs/extensions/reference/api/system/cpu
+async function testSystemCpu() {
+    chrome.system.cpu.getInfo(); // $ExpectType Promise<CpuInfo>
+    chrome.system.cpu.getInfo((info) => { // $ExpectType void
+        info.archName; // $ExpectType string
+        info.features; // $ExpectType string[]
+        info.modelName; // $ExpectType string
+        info.numOfProcessors; // $ExpectType number
+        info.processors; // $ExpectType ProcessorInfo[]
+        info.processors[0].usage; // $ExpectType CpuTime
+        info.processors[0].usage.idle; // $ExpectType number
+        info.processors[0].usage.kernel; // $ExpectType number
+        info.processors[0].usage.total; // $ExpectType number
+        info.processors[0].usage.user; // $ExpectType number
+        info.temperatures; // $ExpectType number[]
+    });
+    // @ts-expect-error
+    chrome.system.cpu.getInfo(() => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/system_storage
-async function testSystemStorageForPromise() {
-    await chrome.system.storage.getInfo();
-    await chrome.system.storage.ejectDevice("id1");
-    await chrome.system.storage.getAvailableCapacity("id1");
+// https://developer.chrome.com/docs/extensions/reference/api/system/storage
+async function testSystemStorage() {
+    chrome.system.storage.EjectDeviceResultCode.FAILURE === "failure";
+    chrome.system.storage.EjectDeviceResultCode.IN_USE === "in_use";
+    chrome.system.storage.EjectDeviceResultCode.NO_SUCH_DEVICE === "no_such_device";
+    chrome.system.storage.EjectDeviceResultCode.SUCCESS === "success";
+
+    chrome.system.storage.StorageUnitType.FIXED === "fixed";
+    chrome.system.storage.StorageUnitType.REMOVABLE === "removable";
+    chrome.system.storage.StorageUnitType.UNKNOWN === "unknown";
+
+    const id = "id";
+    chrome.system.storage.ejectDevice(id); // $ExpectType Promise<"success" | "in_use" | "no_such_device" | "failure">
+    chrome.system.storage.ejectDevice(id, (result) => { // $ExpectType void
+        result; // $ExpectType "success" | "in_use" | "no_such_device" | "failure"
+    });
+    // @ts-expect-error
+    chrome.system.storage.ejectDevice(id, () => {}).then(() => {});
+
+    chrome.system.storage.getAvailableCapacity(id); // $ExpectType Promise<StorageAvailableCapacityInfo>
+    chrome.system.storage.getAvailableCapacity(id, (info) => { // $ExpectType void
+        info.availableCapacity; // $ExpectType number
+        info.id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.system.storage.getAvailableCapacity(id, () => {}).then(() => {});
+
+    chrome.system.storage.getInfo(); // $ExpectType Promise<StorageUnitInfo[]>
+    chrome.system.storage.getInfo((units) => { // $ExpectType void
+        units; // $ExpectType StorageUnitInfo[]
+    });
+    // @ts-expect-error
+    chrome.system.storage.getInfo(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.system.storage.onAttached, (info) => {
+        info.capacity; // $ExpectType number
+        info.id; // $ExpectType string
+        info.name; // $ExpectType string
+        info.type; // $ExpectType "fixed" | "removable" | "unknown"
+    });
+
+    checkChromeEvent(chrome.system.storage.onDetached, (id) => {
+        id; // $ExpectType string
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/system/display
@@ -2484,6 +3148,17 @@ async function testSystemDisplay() {
     chrome.system.display.startCustomTouchCalibration("id"); // $ExpectType void
 
     checkChromeEvent(chrome.system.display.onDisplayChanged, () => void 0);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/system/memory
+function testSystemMemory() {
+    chrome.system.memory.getInfo(); // $ExpectType Promise<MemoryInfo>
+    chrome.system.memory.getInfo((info) => { // $ExpectType void
+        info.availableCapacity; // $ExpectType number
+        info.capacity; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.system.memory.getInfo(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/systemLog
@@ -2715,6 +3390,7 @@ async function testTabs() {
         lastFocusedWindow: true,
         muted: true,
         pinned: true,
+        splitViewId: 1,
         status: "complete",
         title: "title",
         url: "url",
@@ -2879,6 +3555,7 @@ async function testTabs() {
         changeInfo.groupId; // $ExpectType number | undefined
         changeInfo.mutedInfo; // $ExpectType MutedInfo | undefined
         changeInfo.pinned; // $ExpectType boolean | undefined
+        changeInfo.splitViewId; // $ExpectType number | undefined
         changeInfo.status; // $ExpectType "unloaded" | "loading" | "complete" | undefined
         changeInfo.title; // $ExpectType string | undefined
         changeInfo.url; // $ExpectType string | undefined
@@ -3319,6 +3996,21 @@ async function testDeclarativeNetRequest() {
     // @ts-expect-error
     chrome.declarativeNetRequest.getAvailableStaticRuleCount(() => {}).then(() => {});
 
+    const getDisabledRuleIdsOptions: chrome.declarativeNetRequest.GetDisabledRuleIdsOptions = {
+        rulesetId: "rulesetId",
+    };
+
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions); // $ExpectType Promise<number[]>
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions, ([disabledRuleId]) => { // $ExpectType void
+        disabledRuleId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getDisabledRuleIds(getDisabledRuleIdsOptions, () => {}).then(() => {});
+
+    const getRulesFilters: chrome.declarativeNetRequest.GetRulesFilter = {
+        ruleIds: [1, 2, 3],
+    };
+
     chrome.declarativeNetRequest.getDynamicRules(); // $ExpectType Promise<Rule[]>
     chrome.declarativeNetRequest.getDynamicRules(([rule]) => { // $ExpectType void
         rule.action; // $ExpectType RuleAction
@@ -3328,12 +4020,16 @@ async function testDeclarativeNetRequest() {
         rule.condition.excludedResponseHeaders; // $ExpectType HeaderInfo[] | undefined
         rule.condition.responseHeaders; // $ExpectType HeaderInfo[] | undefined
     });
+    chrome.declarativeNetRequest.getDynamicRules(getRulesFilters); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getDynamicRules(getRulesFilters, ([rule]) => { // $ExpectType void
+        rule; // $ExpectType Rule
+    });
     // @ts-expect-error
     chrome.declarativeNetRequest.getDynamicRules(() => {}).then(() => {});
 
     chrome.declarativeNetRequest.getEnabledRulesets(); // $ExpectType Promise<string[]>
-    chrome.declarativeNetRequest.getEnabledRulesets((rulesetIds) => { // $ExpectType void
-        rulesetIds; // $ExpectType string[]
+    chrome.declarativeNetRequest.getEnabledRulesets(([rulesetId]) => { // $ExpectType void
+        rulesetId; // $ExpectType string
     });
     // @ts-expect-error
     chrome.declarativeNetRequest.getEnabledRulesets(() => {}).then(() => {});
@@ -3346,16 +4042,20 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.getMatchedRules(); // $ExpectType Promise<RulesMatchedDetails>
     chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter); // $ExpectType Promise<RulesMatchedDetails>
     chrome.declarativeNetRequest.getMatchedRules((details) => { // $ExpectType void
-        details; // $ExpectType RulesMatchedDetails
+        details.rulesMatchedInfo; // $ExpectType MatchedRuleInfo[]
     });
     chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter, (details) => { // $ExpectType void
-        details; // $ExpectType RulesMatchedDetails
+        details.rulesMatchedInfo; // $ExpectType MatchedRuleInfo[]
     });
     // @ts-expect-error
     chrome.declarativeNetRequest.getMatchedRules(() => {}).then(() => {});
 
     chrome.declarativeNetRequest.getSessionRules(); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getSessionRules(getRulesFilters); // $ExpectType Promise<Rule[]>
     chrome.declarativeNetRequest.getSessionRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+    chrome.declarativeNetRequest.getSessionRules(getRulesFilters, (rules) => { // $ExpectType void
         rules; // $ExpectType Rule[]
     });
     // @ts-expect-error
@@ -3369,10 +4069,11 @@ async function testDeclarativeNetRequest() {
 
     chrome.declarativeNetRequest.isRegexSupported(regexOptions); // $ExpectType Promise<IsRegexSupportedResult>
     chrome.declarativeNetRequest.isRegexSupported(regexOptions, (result) => { // $ExpectType void
-        result; // $ExpectType IsRegexSupportedResult
+        result.isSupported; // $ExpectType boolean
+        result.reason; // $ExpectType "memoryLimitExceeded" | "syntaxError" | undefined
     });
     // @ts-expect-error
-    chrome.declarativeNetRequest.isRegexSupported(() => {}).then(() => {});
+    chrome.declarativeNetRequest.isRegexSupported(regexOptions, () => {}).then(() => {});
 
     const extensionActionOptions: chrome.declarativeNetRequest.ExtensionActionOptions = {
         displayActionCountAsBadgeText: true,
@@ -3451,7 +4152,34 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.updateStaticRules(updateStaticRulesOptions, () => {}).then(() => {});
 
     checkChromeEvent(chrome.declarativeNetRequest.onRuleMatchedDebug, (info) => {
-        info; // $ExpectType MatchedRuleInfoDebug
+        info.request; // $ExpectType RequestDetails
+        info.rule; // $ExpectType MatchedRule
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
+function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+
+    checkChromeEvent(chrome.declarativeWebRequest.onMessage, (details) => {
+        details.documentId; // $ExpectType string | undefined
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.message; // $ExpectType string
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.stage; // $ExpectType "onBeforeRequest" | "onBeforeSendHeaders" | "onHeadersReceived" | "onAuthRequired"
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "object" | "other" | "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle"
+        details.url; // $ExpectType string
     });
 }
 
@@ -4090,9 +4818,77 @@ function testI18n() {
     chrome.i18n.getUILanguage(); // $ExpectType string
 }
 
-async function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
-    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
+// https://developer.chrome.com/docs/extensions/mv2/reference/pageAction
+function testPageAction() {
+    const tabId = 1;
+    const getDetails: chrome.pageAction.TabDetails = { tabId };
+
+    chrome.pageAction.getPopup(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getPopup(getDetails);
+
+    chrome.pageAction.getTitle(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getTitle(getDetails);
+
+    chrome.pageAction.hide(tabId); // $ExpectType void
+    chrome.pageAction.hide(tabId, () => void 0); // $ExpectType void
+
+    const iconDetails: chrome.pageAction.IconDetails = {
+        tabId,
+        path: "path/to/icon.png",
+    };
+
+    const iconDetails2: chrome.pageAction.IconDetails = {
+        tabId,
+        imageData: new ImageData(16, 16),
+    };
+
+    chrome.pageAction.setIcon(iconDetails); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails, () => void 0); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2, () => void 0); // $ExpectType void
+    // @ts-expect-error Either the path or imageData property must be specified.
+    chrome.pageAction.setIcon({});
+
+    const popupDetails: chrome.pageAction.PopupDetails = {
+        popup: "popup.html",
+        tabId,
+    };
+
+    chrome.pageAction.setPopup(popupDetails); // $ExpectType void
+    chrome.pageAction.setPopup(popupDetails, () => void 0); // $ExpectType void
+
+    const titleDetails: chrome.pageAction.TitleDetails = {
+        title: "My Page Action",
+        tabId,
+    };
+
+    chrome.pageAction.setTitle(titleDetails); // $ExpectType void
+    chrome.pageAction.setTitle(titleDetails, () => void 0); // $ExpectType void
+
+    chrome.pageAction.show(tabId); // $ExpectType void
+    chrome.pageAction.show(tabId, () => void 0); // $ExpectType void
+
+    checkChromeEvent(chrome.pageAction.onClicked, (tab) => {
+        tab; // $ExpectType Tab
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/pageCapture
+function testPageCapture() {
+    const details = { tabId: 0 };
+
+    chrome.pageCapture.saveAsMHTML(details); // $ExpectType Promise<Blob | undefined>
+    chrome.pageCapture.saveAsMHTML(details, (data) => { // $ExpectType void
+        data; // $ExpectType Blob | undefined
+    });
+    // @ts-expect-error
+    chrome.pageCapture.saveAsMHTML(details, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/downloads
@@ -4992,28 +5788,60 @@ function testIdle() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/topSites/
+// https://developer.chrome.com/docs/extensions/reference/api/topSites
 function testTopSites() {
-    chrome.topSites.get(() => {});
+    chrome.topSites.get(); // $ExpectType Promise<MostVisitedURL[]>
+    chrome.topSites.get(([result]) => { // $ExpectType void
+        result.title; // $ExpectType string
+        result.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.topSites.get(() => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/topSites/
-async function testTopSitesForPromise() {
-    await chrome.topSites.get();
-}
+// https://developer.chrome.com/docs/extensions/reference/api/offscreen
+async function testOffscreen() {
+    chrome.offscreen.Reason.AUDIO_PLAYBACK === "AUDIO_PLAYBACK";
+    chrome.offscreen.Reason.BATTERY_STATUS === "BATTERY_STATUS";
+    chrome.offscreen.Reason.BLOBS === "BLOBS";
+    chrome.offscreen.Reason.CLIPBOARD === "CLIPBOARD";
+    chrome.offscreen.Reason.DISPLAY_MEDIA === "DISPLAY_MEDIA";
+    chrome.offscreen.Reason.DOM_PARSER === "DOM_PARSER";
+    chrome.offscreen.Reason.DOM_SCRAPING === "DOM_SCRAPING";
+    chrome.offscreen.Reason.GEOLOCATION === "GEOLOCATION";
+    chrome.offscreen.Reason.IFRAME_SCRIPTING === "IFRAME_SCRIPTING";
+    chrome.offscreen.Reason.LOCAL_STORAGE === "LOCAL_STORAGE";
+    chrome.offscreen.Reason.MATCH_MEDIA === "MATCH_MEDIA";
+    chrome.offscreen.Reason.TESTING === "TESTING";
+    chrome.offscreen.Reason.USER_MEDIA === "USER_MEDIA";
+    chrome.offscreen.Reason.WEB_RTC === "WEB_RTC";
+    chrome.offscreen.Reason.WORKERS === "WORKERS";
 
-// https://developer.chrome.com/docs/extensions/reference/offscreen/
-async function testOffscreenDocument() {
-    await chrome.offscreen.createDocument({
+    chrome.offscreen.closeDocument(); // $ExpectType Promise<void>
+    chrome.offscreen.closeDocument(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.offscreen.closeDocument(() => {}).then(() => {});
+
+    const createDetails: chrome.offscreen.CreateParameters = {
         reasons: [
             chrome.offscreen.Reason.CLIPBOARD,
-            "AUDIO_PLAYBACK", // Accept both enum values and strings
+            "AUDIO_PLAYBACK",
         ],
         url: "https://example.com",
         justification: "Example",
+    };
+
+    chrome.offscreen.createDocument(createDetails); // $ExpectType Promise<void>
+    chrome.offscreen.createDocument(createDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.offscreen.createDocument(createDetails, () => {}).then(() => {});
+
+    chrome.offscreen.hasDocument(); // $ExpectType Promise<boolean>
+    chrome.offscreen.hasDocument((hasDocument) => { // $ExpectType void
+        hasDocument; // $ExpectType boolean
     });
-    await chrome.offscreen.hasDocument();
-    await chrome.offscreen.closeDocument();
+    // @ts-expect-error
+    chrome.offscreen.hasDocument(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/fileBrowserHandler
@@ -5321,196 +6149,271 @@ function testFileSystemProvider() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/sessions/
+// https://developer.chrome.com/docs/extensions/reference/api/sessions
 function testSessions() {
-    const myMax = { maxResults: 1 };
-    chrome.sessions.getDevices(devices => {});
-    chrome.sessions.getDevices({}, devices => {});
-    chrome.sessions.getDevices(myMax, devices => {});
-    chrome.sessions.getRecentlyClosed(sessions => {});
-    chrome.sessions.getRecentlyClosed({}, sessions => {});
-    chrome.sessions.getRecentlyClosed(myMax, sessions => {});
-    chrome.sessions.restore(restoredSession => {});
-    chrome.sessions.restore("myString", restoredSession => {});
-    chrome.sessions.onChanged.addListener(() => {});
+    chrome.sessions.MAX_SESSION_RESULTS === 25;
+
+    const filter: chrome.sessions.Filter = { maxResults: 1 };
+
+    chrome.sessions.getDevices(); // $ExpectType Promise<Device[]>
+    chrome.sessions.getDevices(filter); // $ExpectType Promise<Device[]>
+    chrome.sessions.getDevices(([device]) => { // $ExpectType void
+        device.deviceName; // $ExpectType string
+        device.sessions; // $ExpectType Session[]
+    });
+    chrome.sessions.getDevices(filter, devices => { // $ExpectType void
+        devices; // $ExpectType Device[]
+    });
+    // @ts-expect-error
+    chrome.sessions.getDevices(() => {}).then(() => {});
+
+    chrome.sessions.getRecentlyClosed(); // $ExpectType Promise<Session[]>
+    chrome.sessions.getRecentlyClosed(filter); // $ExpectType Promise<Session[]>
+    chrome.sessions.getRecentlyClosed((sessions) => { // $ExpectType void
+        sessions; // $ExpectType Session[]
+    });
+    chrome.sessions.getRecentlyClosed(filter, sessions => { // $ExpectType void
+        sessions; // $ExpectType Session[]
+    });
+    // @ts-expect-error
+    chrome.sessions.getRecentlyClosed(() => {}).then(() => {});
+
+    const sessionId = "id";
+    chrome.sessions.restore(); // $ExpectType Promise<Session>
+    chrome.sessions.restore(sessionId); // $ExpectType Promise<Session>
+    chrome.sessions.restore((restoredSession) => { // $ExpectType void
+        restoredSession.lastModified; // $ExpectType number
+        restoredSession.tab; // $ExpectType Tab | undefined
+        restoredSession.window; // $ExpectType Window | undefined
+    });
+    chrome.sessions.restore(sessionId, (restoredSession) => { // $ExpectType void
+        restoredSession; // $ExpectType Session
+    });
+
+    checkChromeEvent(chrome.sessions.onChanged, () => void 0);
 }
 
-// https://developer.chrome.com/docs/extensions/reference/sessions/
-async function testSessionsForPromise() {
-    const myMax = { maxResults: 1 };
-    await chrome.sessions.getDevices();
-    await chrome.sessions.getDevices({});
-    await chrome.sessions.getDevices(myMax);
-    await chrome.sessions.getRecentlyClosed();
-    await chrome.sessions.getRecentlyClosed({});
-    await chrome.sessions.getRecentlyClosed(myMax);
-    await chrome.sessions.restore();
-    await chrome.sessions.restore("myString");
-}
+// https://developer.chrome.com/docs/extensions/reference/api/sidePanel
+function testSidePanel() {
+    chrome.sidePanel.Side.LEFT === "left";
+    chrome.sidePanel.Side.RIGHT === "right";
 
-// Test for chrome.sidePanel API
-function testSidePanelAPI() {
-    let getPanelOptions: chrome.sidePanel.GetPanelOptions = {
+    chrome.sidePanel.getLayout(); // $ExpectType Promise<PanelLayout>
+    chrome.sidePanel.getLayout((layout) => { // $ExpectType void
+        layout.side; // $ExpectType "left" | "right"
+    });
+    // @ts-expect-error
+    chrome.sidePanel.getLayout(() => {}).then(() => {});
+
+    const getPanelOptions: chrome.sidePanel.GetPanelOptions = {
         tabId: 123,
     };
 
-    chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
-        console.log("Using callback:");
-        console.log(options.enabled);
-        console.log(options.path);
-        console.log(options.tabId);
+    chrome.sidePanel.getOptions(getPanelOptions); // $ExpectType Promise<PanelOptions>
+    chrome.sidePanel.getOptions(getPanelOptions, (options) => { // $ExpectType void
+        options.enabled; // $ExpectType boolean | undefined
+        options.path; // $ExpectType string | undefined
+        options.tabId; // $ExpectType number | undefined
     });
+    // @ts-expect-error
+    chrome.sidePanel.getOptions(getPanelOptions, () => {}).then(() => {});
 
-    chrome.sidePanel.getOptions(getPanelOptions).then((options: chrome.sidePanel.PanelOptions) => {
-        console.log("Using promise:");
-        console.log(options.enabled);
-        console.log(options.path);
-        console.log(options.tabId);
+    chrome.sidePanel.getPanelBehavior(); // $ExpectType Promise<PanelBehavior>
+    chrome.sidePanel.getPanelBehavior((behavior) => { // $ExpectType void
+        behavior.openPanelOnActionClick; // $ExpectType boolean | undefined
     });
+    // @ts-expect-error
+    chrome.sidePanel.getPanelBehavior(() => {}).then(() => {});
 
-    chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
-        console.log("Using callback:", behavior.openPanelOnActionClick);
-    });
-
-    chrome.sidePanel.getPanelBehavior().then((behavior) => {
-        console.log("Using promise:", behavior.openPanelOnActionClick);
-    });
-
-    let openOptionsTab: chrome.sidePanel.OpenOptions = {
+    const openOptionsTab: chrome.sidePanel.OpenOptions = {
         tabId: 1234567890,
     };
 
-    let openOptionsWindow: chrome.sidePanel.OpenOptions = {
+    const openOptionsWindow: chrome.sidePanel.OpenOptions = {
         windowId: 9876543210,
     };
 
-    let openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
+    const openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
         tabId: 1234567890,
         windowId: 9876543210,
     };
 
-    chrome.sidePanel.open(openOptionsTab, () => {
-        console.log("Side panel opened in tab using callback");
-    });
+    chrome.sidePanel.open(openOptionsTab); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsWindow); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsTabAndWindow); // $ExpectType Promise<void>
+    chrome.sidePanel.open(openOptionsTab, () => void 0); // $ExpectType void
+    chrome.sidePanel.open(openOptionsWindow, () => void 0); // $ExpectType void
+    chrome.sidePanel.open(openOptionsTabAndWindow, () => void 0); // $ExpectType void
 
-    chrome.sidePanel.open(openOptionsTab).then(() => {
-        console.log("Side panel opened in tab using promise");
-    });
-
-    chrome.sidePanel.open(openOptionsWindow, () => {
-        console.log("Side panel opened in window using callback");
-    });
-
-    chrome.sidePanel.open(openOptionsWindow).then(() => {
-        console.log("Side panel opened in window using promise");
-    });
-
-    chrome.sidePanel.open(openOptionsTabAndWindow, () => {
-        console.log("Side panel opened in tab in window using callback");
-    });
-
-    chrome.sidePanel.open(openOptionsTabAndWindow).then(() => {
-        console.log("Side panel opened in tab in window using promise");
-    });
-
-    let setPanelOptions: chrome.sidePanel.PanelOptions = {
+    const setPanelOptions: chrome.sidePanel.PanelOptions = {
         enabled: true,
         path: "path/to/sidePanel.html",
         tabId: 123,
     };
 
-    chrome.sidePanel.setOptions(setPanelOptions, () => {
-        console.log("Options set successfully using callback.");
-    });
+    chrome.sidePanel.setOptions(setPanelOptions); // $ExpectType Promise<void>
+    chrome.sidePanel.setOptions(setPanelOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.sidePanel.setOptions(setPanelOptions, () => {}).then(() => {});
 
-    chrome.sidePanel.setOptions(setPanelOptions).then(() => {
-        console.log("Options set successfully using promise.");
-    });
-
-    let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
+    const setPanelBehavior: chrome.sidePanel.PanelBehavior = {
         openPanelOnActionClick: true,
     };
 
-    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
-        console.log("Behavior set successfully using callback.");
-    });
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior); // $ExpectType Promise<void>
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {}).then(() => {});
 
-    chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
-        console.log("Behavior set successfully using promise.");
+    checkChromeEvent(chrome.sidePanel.onOpened, (info) => {
+        info.path; // $ExpectType string
+        info.tabId; // $ExpectType number | undefined
+        info.windowId; // $ExpectType number
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/instanceID
 function testInstanceID() {
     chrome.instanceID.deleteID(); // $ExpectType Promise<void>
     chrome.instanceID.deleteID(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.instanceID.deleteID(() => {}).then(() => {});
 
-    const deleteTokenParams = { authorizedEntity: "", scope: "" };
+    const deleteTokenParams: chrome.instanceID.DeleteTokenParams = {
+        authorizedEntity: "",
+        scope: "",
+    };
     chrome.instanceID.deleteToken(deleteTokenParams); // $ExpectType Promise<void>
     chrome.instanceID.deleteToken(deleteTokenParams, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.instanceID.deleteToken(deleteTokenParams, () => {}).then(() => {});
 
     chrome.instanceID.getCreationTime(); // $ExpectType Promise<number>
-    chrome.instanceID.getCreationTime((creationTime: number) => void 0); // $ExpectType void
+    chrome.instanceID.getCreationTime((creationTime) => { // $ExpectType void
+        creationTime; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.instanceID.getCreationTime(() => {}).then(() => {});
 
     chrome.instanceID.getID(); // $ExpectType Promise<string>
-    chrome.instanceID.getID((id: string) => void 0); // $ExpectType void
+    chrome.instanceID.getID((instanceID) => { // $ExpectType void
+        instanceID; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.instanceID.getID(() => {}).then(() => {});
 
-    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }); // $ExpectType Promise<string>
-    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }, (token: string) => void 0); // $ExpectType void
+    const getTokenParams: chrome.instanceID.GetTokenParams = {
+        authorizedEntity: "",
+        scope: "",
+        options: {},
+    };
 
-    chrome.instanceID.onTokenRefresh.addListener(() => void 0);
+    chrome.instanceID.getToken(getTokenParams); // $ExpectType Promise<string>
+    chrome.instanceID.getToken(getTokenParams, (token) => { // $ExpectType void
+        token; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.instanceID.getToken(getTokenParams, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.instanceID.onTokenRefresh, () => void 0);
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/loginState
+function testLoginState() {
+    chrome.loginState.ProfileType.SIGNIN_PROFILE === "SIGNIN_PROFILE";
+    chrome.loginState.ProfileType.USER_PROFILE === "USER_PROFILE";
+    chrome.loginState.ProfileType.LOCK_PROFILE === "LOCK_PROFILE";
+
+    chrome.loginState.SessionState.IN_LOCK_SCREEN === "IN_LOCK_SCREEN";
+    chrome.loginState.SessionState.IN_LOGIN_SCREEN === "IN_LOGIN_SCREEN";
+    chrome.loginState.SessionState.IN_OOBE_SCREEN === "IN_OOBE_SCREEN";
+    chrome.loginState.SessionState.IN_RMA_SCREEN === "IN_RMA_SCREEN";
+    chrome.loginState.SessionState.IN_SESSION === "IN_SESSION";
+    chrome.loginState.SessionState.UNKNOWN === "UNKNOWN";
+
+    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE">
+    chrome.loginState.getProfileType((result) => { // $ExpectType void
+        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE"
+    });
+    // @ts-expect-error
+    chrome.loginState.getProfileType(() => {}).then(() => {});
+
+    chrome.loginState.getSessionState(); // $ExpectType Promise<"IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN">
+    chrome.loginState.getSessionState((result) => { // $ExpectType void
+        result; // $ExpectType "IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN"
+    });
+    // @ts-expect-error
+    chrome.loginState.getSessionState(() => {}).then(() => {});
+
+    checkChromeEvent(chrome.loginState.onSessionStateChanged, (sessionState) => {
+        sessionState; // $ExpectType "IN_LOCK_SCREEN" | "IN_LOGIN_SCREEN" | "IN_OOBE_SCREEN" | "IN_RMA_SCREEN" | "IN_SESSION" | "UNKNOWN"
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/userScripts
 function testUserScripts() {
+    chrome.userScripts.ExecutionWorld.MAIN === "MAIN";
+    chrome.userScripts.ExecutionWorld.USER_SCRIPT === "USER_SCRIPT";
+
     const worldProperties: chrome.userScripts.WorldProperties = {
         csp: "script-src 'self'",
         messaging: true,
         worldId: "customId",
     };
+
     chrome.userScripts.configureWorld(worldProperties); // $ExpectType Promise<void>
     chrome.userScripts.configureWorld(worldProperties, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.userScripts.configureWorld(worldProperties, () => {}).then(() => {});
 
-    const userScriptFilter = { ids: ["scriptId1", "scriptId2"] };
-    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
-    chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
-
-    const badScripts = [
-        {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
-        },
-    ];
-    const scripts = [
-        {
-            id: "scriptId1",
-            js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
-            matches: ["*://example.com/*"],
-        },
-        {
-            id: "scriptId2",
-            js: [{ code: "console.log(\"Hello from scriptId2!\");" }],
-            matches: ["*://example.org/*"],
-        },
-    ];
-    const jsInjections: chrome.userScripts.ScriptSource[] = [
-        {
-            file: "./the/script.js",
-        },
-        {
-            code: "console.log(\"Wow the script works!\");",
-        },
-    ];
-    const injectionTarget: chrome.userScripts.InjectionTarget = {
-        tabId: 46,
-        allFrames: true,
-    };
-
-    const badExeOptions = {};
-    const exeOptions: chrome.userScripts.UserScriptInjection = {
+    const injection: chrome.userScripts.UserScriptInjection = {
         injectImmediately: true,
-        js: jsInjections,
-        target: injectionTarget,
-        worldId: "USER_SCRIPT",
+        js: [{ code: "console.log('Hello, world!');" }, { file: "script.js" }],
+        target: {
+            tabId: 123,
+            allFrames: true,
+            frameIds: undefined,
+            documentIds: undefined,
+        },
+        world: "MAIN",
+        worldId: "customId",
     };
+
+    chrome.userScripts.execute(injection); // $ExpectType Promise<InjectionResult<unknown>[]>
+    chrome.userScripts.execute(injection, ([result]) => { // $ExpectType void
+        result.documentId; // $ExpectType string
+        result.error; // $ExpectType string | undefined
+        result.frameId; // $ExpectType number
+        result.result; // $ExpectType unknown
+        if (result.error !== undefined) {
+            result.error; // $ExpectType string
+            result.result; // $ExpectType undefined
+        } else {
+            result.error; // $ExpectType undefined
+            result.result; // $ExpectType unknown
+        }
+    });
+    chrome.userScripts.execute<string>(injection, ([result]) => { // $ExpectType void
+        result.result; // $ExpectType string | undefined
+        if (result.error !== undefined) {
+            result.result; // $ExpectType undefined
+        } else {
+            result.result; // $ExpectType string
+        }
+    });
+    // @ts-expect-error
+    chrome.userScripts.execute(injection, () => {}).then(() => {});
+
+    const userScriptFilter: chrome.userScripts.UserScriptFilter = {
+        ids: ["scriptId1", "scriptId2"],
+    };
+
+    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
+    chrome.userScripts.getScripts(userScriptFilter, (results) => { // $ExpectType void
+        results; // $ExpectType RegisteredUserScript[]
+    });
+    // @ts-expect-error
+    chrome.userScripts.getScripts(userScriptFilter, () => {}).then(() => {});
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -5521,32 +6424,43 @@ function testUserScripts() {
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
 
-    // @ts-expect-error
-    chrome.userScripts.execute(badExeOptions);
-    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
-    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
-        result; // $ExpectType InjectionResult[]
-    });
+    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+        {
+            allFrames: true,
+            excludeGlobs: ["*://*.example.com/exclude*"],
+            id: "scriptId1",
+            includeGlobs: ["*://*.example.com/include*"],
+            js: [],
+            matches: ["*://example.com/*"],
+            runAt: "document_end",
+            world: "MAIN",
+            worldId: "customId",
+        },
+    ];
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.register(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.register(scripts, () => {}).then(() => {});
+
+    const worldId = "customId";
 
     chrome.userScripts.resetWorldConfiguration(); // $ExpectType Promise<void>
-    chrome.userScripts.resetWorldConfiguration("scriptId1"); // $ExpectType Promise<void>
+    chrome.userScripts.resetWorldConfiguration(worldId); // $ExpectType Promise<void>
     chrome.userScripts.resetWorldConfiguration(() => {}); // $ExpectType void
-    chrome.userScripts.resetWorldConfiguration("scriptId1", () => {}); // $ExpectType void
+    chrome.userScripts.resetWorldConfiguration(worldId, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.userScripts.resetWorldConfiguration(() => {}).then(() => {});
 
+    chrome.userScripts.unregister(); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
+    chrome.userScripts.unregister(() => void 0); // $ExpectType void
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
 
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
-    // @ts-expect-error Missing required property 'js'.
-    chrome.userScripts.update(badScripts);
+    // @ts-expect-error
+    chrome.userScripts.update(scripts, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
@@ -5622,6 +6536,49 @@ function testPower() {
     chrome.power.reportActivity(); // $ExpectType Promise<void>
     // @ts-expect-error
     chrome.power.reportActivity(() => {}).then(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/printerProvider
+function testPrinterProvider() {
+    chrome.printerProvider.PrintError.FAILED === "FAILED";
+    chrome.printerProvider.PrintError.INVALID_DATA === "INVALID_DATA";
+    chrome.printerProvider.PrintError.INVALID_TICKET === "INVALID_TICKET";
+    chrome.printerProvider.PrintError.OK === "OK";
+
+    const printInfo: chrome.printerProvider.PrinterInfo = {
+        description: "description",
+        id: "id",
+        name: "name",
+    };
+
+    checkChromeEvent(chrome.printerProvider.onGetCapabilityRequested, (printerId, resultCallback) => {
+        printerId; // $ExpectType string
+        resultCallback({ capabilities: {} }); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetPrintersRequested, (resultCallback) => {
+        resultCallback([printInfo]); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onGetUsbPrinterInfoRequested, (device, resultCallback) => {
+        device.device; // $ExpectType number
+        device.manufacturerName; // $ExpectType string
+        device.productId; // $ExpectType number
+        device.productName; // $ExpectType string
+        device.serialNumber; // $ExpectType string
+        device.vendorId; // $ExpectType number
+        device.version; // $ExpectType number
+        resultCallback(printInfo); // $ExpectType void
+    });
+
+    checkChromeEvent(chrome.printerProvider.onPrintRequested, (printJob, resultCallback) => {
+        printJob.contentType; // $ExpectType string
+        printJob.document; // $ExpectType Blob
+        printJob.printerId; // $ExpectType string
+        printJob.ticket; // $ExpectType { [key: string]: unknown; }
+        printJob.title; // $ExpectType string
+        resultCallback("OK"); // $ExpectType void
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/platformKeys
@@ -6995,111 +7952,64 @@ function testPrivacy() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/readingList
 function testReadingList() {
-    const {
-        addEntry,
-        query,
-        removeEntry,
-        updateEntry,
-        onEntryAdded,
-        onEntryRemoved,
-        onEntryUpdated,
-    } = chrome.readingList;
-
-    const testAddEntry = () => {
-        const entry = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
-
-        // @ts-expect-error
-        addEntry();
-
-        // @ts-expect-error
-        addEntry({});
-        addEntry(entry); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        addEntry({}, () => {});
-        addEntry(entry, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        addEntry(entry, () => {}).then(() => {});
+    const entry: chrome.readingList.AddEntryOptions = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    const testQuery = () => {
-        const info = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
+    chrome.readingList.addEntry(entry); // $ExpectType Promise<void>
+    chrome.readingList.addEntry(entry, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.addEntry(entry, () => {}).then(() => {});
 
-        // @ts-expect-error
-        query();
-
-        query({}); // $ExpectType Promise<ReadingListEntry[]>
-        query(info); // $ExpectType Promise<ReadingListEntry[]>
-
-        query({}, () => {}); // $ExpectType void
-        query(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        query(info, () => {}).then(() => {});
+    const queryInfo: chrome.readingList.QueryInfo = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    const testRemoveEntry = () => {
-        const info = {
-            url: "url",
-        };
+    chrome.readingList.query(queryInfo); // $ExpectType Promise<ReadingListEntry[]>
+    chrome.readingList.query(queryInfo, ([entry]) => { // $ExpectType void
+        entry; // $ExpectType ReadingListEntry
+        entry.creationTime; // $ExpectType number
+        entry.hasBeenRead; // $ExpectType boolean
+        entry.lastUpdateTime; // $ExpectType number
+        entry.title; // $ExpectType string
+        entry.url; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.readingList.query(queryInfo, () => {}).then(() => {});
 
-        // @ts-expect-error
-        removeEntry();
-
-        // @ts-expect-error
-        removeEntry({});
-        removeEntry(info); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        removeEntry({}, () => {});
-        removeEntry(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        removeEntry(info, () => {}).then(() => {});
+    const removeInfo: chrome.readingList.RemoveOptions = {
+        url: "url",
     };
 
-    const testUpdateEntry = () => {
-        const info = {
-            hasBeenRead: true,
-            title: "title",
-            url: "url",
-        };
+    chrome.readingList.removeEntry(removeInfo); // $ExpectType Promise<void>
+    chrome.readingList.removeEntry(removeInfo, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.removeEntry(removeInfo, () => {}).then(() => {});
 
-        // @ts-expect-error
-        updateEntry();
-
-        // @ts-expect-error
-        updateEntry({});
-        updateEntry({ url: "url" }); // $ExpectType Promise<void>
-        updateEntry(info); // $ExpectType Promise<void>
-
-        // @ts-expect-error
-        updateEntry({}, () => {});
-        updateEntry({ url: "url" }, () => {}); // $ExpectType void
-        updateEntry(info, () => {}); // $ExpectType void
-
-        // @ts-expect-error
-        updateEntry(info, () => {}).then(() => {});
+    const updateInfo: chrome.readingList.UpdateEntryOptions = {
+        hasBeenRead: true,
+        title: "title",
+        url: "url",
     };
 
-    checkChromeEvent(onEntryAdded, (entry) => {
+    chrome.readingList.updateEntry(updateInfo); // $ExpectType Promise<void>
+    chrome.readingList.updateEntry(updateInfo, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.readingList.updateEntry(updateInfo, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.readingList.onEntryAdded, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 
-    checkChromeEvent(onEntryRemoved, (entry) => {
+    checkChromeEvent(chrome.readingList.onEntryRemoved, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 
-    checkChromeEvent(onEntryUpdated, (entry) => {
+    checkChromeEvent(chrome.readingList.onEntryUpdated, (entry) => {
         entry; // $ExpectType ReadingListEntry
     });
 }
@@ -7142,4 +8052,26 @@ function testDesktopCapture() {
         streamId; // $ExpectType string
         options; // $ExpectType StreamOptions
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/wallpaper
+function testWallpaper() {
+    chrome.wallpaper.WallpaperLayout.CENTER === "CENTER";
+    chrome.wallpaper.WallpaperLayout.CENTER_CROPPED === "CENTER_CROPPED";
+    chrome.wallpaper.WallpaperLayout.STRETCH === "STRETCH";
+
+    const details: chrome.wallpaper.WallpaperDetails = {
+        data: new ArrayBuffer(10),
+        filename: "filename",
+        layout: "CENTER",
+        thumbnail: true,
+        url: "https://example.com/wallpaper.png",
+    };
+
+    chrome.wallpaper.setWallpaper(details); // $ExpectType Promise<ArrayBuffer | undefined>
+    chrome.wallpaper.setWallpaper(details, (thumbnail) => { // $ExpectType void
+        thumbnail; // $ExpectType ArrayBuffer | undefined
+    });
+    // @ts-expect-error
+    chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
 }

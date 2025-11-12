@@ -1,4 +1,4 @@
-export const locales: Array<
+export type IBANLocale =
     | "AD"
     | "AE"
     | "AL"
@@ -17,6 +17,7 @@ export const locales: Array<
     | "DE"
     | "DK"
     | "DO"
+    | "DZ"
     | "EE"
     | "EG"
     | "ES"
@@ -46,6 +47,7 @@ export const locales: Array<
     | "LT"
     | "LU"
     | "LV"
+    | "MA"
     | "MC"
     | "MD"
     | "ME"
@@ -76,18 +78,19 @@ export const locales: Array<
     | "UA"
     | "VA"
     | "VG"
-    | "XK"
->;
+    | "XK";
+
+export const locales: IBANLocale[];
 
 export interface IsIBANOptions {
     /**
      * @default undefined
      */
-    whitelist?: typeof locales | undefined;
+    whitelist?: IBANLocale[] | undefined;
     /**
      * @default undefined
      */
-    blacklist?: typeof locales | undefined;
+    blacklist?: IBANLocale[] | undefined;
 }
 
 /**

@@ -472,21 +472,21 @@ async function testPromisify() {
     fs.writev(
         1,
         [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
-        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: readonly NodeJS.ArrayBufferView[]) => {
         },
     );
     fs.writev(
         1,
         [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
         123,
-        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: readonly NodeJS.ArrayBufferView[]) => {
         },
     );
     fs.writev(
         1,
         [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
         null,
-        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: readonly NodeJS.ArrayBufferView[]) => {
         },
     );
     const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
@@ -625,7 +625,7 @@ async function testPromisify() {
 
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
-    (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    (await handle.read()).buffer; // $ExpectType NonSharedBuffer
     (await handle.read({
         buffer: new Uint32Array(),
         offset: 1,
@@ -701,14 +701,14 @@ async function testPromisify() {
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
-        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: readonly NodeJS.ArrayBufferView[]) => {
         },
     );
     fs.readv(
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         null,
-        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: readonly NodeJS.ArrayBufferView[]) => {
         },
     );
 }
@@ -942,9 +942,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 {
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
     watchAsync("y33t");
-    // $ExpectType AsyncIterator<FileChangeInfo<Buffer>, undefined, any> || AsyncIterator<FileChangeInfo<Buffer<ArrayBufferLike>>, undefined, any>
+    // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
     watchAsync("y33t", "buffer");
-    // $ExpectType AsyncIterator<FileChangeInfo<Buffer>, undefined, any> || AsyncIterator<FileChangeInfo<Buffer<ArrayBufferLike>>, undefined, any>
+    // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
     watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
@@ -1153,3 +1153,19 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     // @ts-expect-error
     fd.readFile({ encoding: "utf-8", flag: "r" });
 });
+
+{
+    const u8s = new fs.Utf8Stream({
+        dest: "/tmp/out",
+        append: false,
+        contentMode: "utf8",
+        retryEAGAIN: () => true,
+        sync: true,
+    });
+    u8s.on("write", (n) => {
+        n; // $ExpectType number
+    });
+    u8s.write("the quick brown fox jumped over the lazy dog");
+    u8s.flushSync();
+    u8s.end();
+}

@@ -15,9 +15,12 @@
     },
     "files": [
         "index.d.ts",
+        "test/bidi/browsingContextTypes.ts",
+        "test/bidi/clientWindowInfo.ts",
         "test/bidi/filterBy.ts",
         "test/bidi/logEntries.ts",
         "test/bidi/logInspector.ts",
+        "test/bidi/networkTypes.ts",
         "test/ie.ts",
         "test/index.ts",
         "test/chrome.ts",

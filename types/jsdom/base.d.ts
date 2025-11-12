@@ -67,7 +67,7 @@ declare module "jsdom" {
         on<K extends keyof Console>(method: K, callback: Console[K]): this;
         on(event: "jsdomError", callback: (e: Error) => void): this;
 
-        sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
+        forwardTo(console: Console, options?: VirtualConsoleForwardToOptions): this;
     }
 
     type BinaryData = ArrayBufferLike | NodeJS.ArrayBufferView;
@@ -163,8 +163,14 @@ declare module "jsdom" {
         | "text/xml"
         | "image/svg+xml";
 
-    interface VirtualConsoleSendToOptions {
-        omitJSDOMErrors: boolean;
+    type JSDOMError =
+        | "css-parsing"
+        | "not-implemented"
+        | "resource-loading"
+        | "unhandled-exception";
+
+    interface VirtualConsoleForwardToOptions {
+        jsdomErrors?: JSDOMError[] | "none" | undefined;
     }
 
     interface ReconfigureSettings {

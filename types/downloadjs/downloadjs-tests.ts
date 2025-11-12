@@ -1,4 +1,4 @@
-import * as download from "downloadjs";
+import download from "downloadjs";
 
 download("hello world", "dlText.txt", "text/plain");
 download("data:text/plain,hello%20world", "dlDataUrlText.txt", "text/plain");

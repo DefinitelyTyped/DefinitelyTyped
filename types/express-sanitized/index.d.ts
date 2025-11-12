@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 
 type e = () => (req: express.Request, res: express.Response, next: express.NextFunction) => void;
 

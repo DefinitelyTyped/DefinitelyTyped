@@ -1,7 +1,6 @@
 import { Matrix4 } from "../../math/Matrix4.js";
 import Node from "../core/Node.js";
 import { UniformNode } from "../Nodes.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Object3DNode from "./Object3DNode.js";
 
 /**
@@ -11,23 +10,23 @@ export default class ModelNode extends Object3DNode {
     constructor(scope: string);
 }
 
-export const modelDirection: ShaderNodeObject<ModelNode>;
-export const modelWorldMatrix: ShaderNodeObject<ModelNode>;
-export const modelPosition: ShaderNodeObject<ModelNode>;
-export const modelScale: ShaderNodeObject<ModelNode>;
-export const modelViewPosition: ShaderNodeObject<ModelNode>;
-export const modelRadius: ShaderNodeObject<ModelNode>;
-export const modelNormalMatrix: ShaderNodeObject<Node>;
-export const modelWorldMatrixInverse: ShaderNodeObject<UniformNode<Matrix4>>;
+export const modelDirection: ModelNode;
+export const modelWorldMatrix: ModelNode;
+export const modelPosition: ModelNode;
+export const modelScale: ModelNode;
+export const modelViewPosition: ModelNode;
+export const modelRadius: ModelNode;
+export const modelNormalMatrix: Node;
+export const modelWorldMatrixInverse: UniformNode<Matrix4>;
 
-export const modelViewMatrix: ShaderNodeObject<ModelNode>;
+export const modelViewMatrix: ModelNode;
 
 // GPU Precision
 
-export const mediumpModelViewMatrix: ShaderNodeObject<Node>;
+export const mediumpModelViewMatrix: Node;
 
 // CPU Precision
 
-export const highpModelViewMatrix: ShaderNodeObject<Node>;
+export const highpModelViewMatrix: Node;
 
-export const highpModelNormalViewMatrix: ShaderNodeObject<Node>;
+export const highpModelNormalViewMatrix: Node;

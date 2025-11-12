@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as fs from "fs";
 import * as PromiseFtpCommon from "promise-ftp-common";
 import * as ssh2 from "ssh2";

@@ -79,20 +79,22 @@ declare namespace OneLine {
 
     interface SocialConsents {
         vendors: {
+            art19: boolean;
+            dailymotion: boolean;
+            facebook: boolean;
+            flourish: boolean;
+            google_maps: boolean;
+            instagram: boolean;
+            jwplayer: boolean;
+            liveblog: boolean;
+            omny: boolean;
+            roninmedia: boolean;
+            sporcle: boolean;
+            spotify: boolean;
             tiktok: boolean;
             twitter: boolean;
-            youtube: boolean;
-            instagram: boolean;
-            facebook: boolean;
-            google_maps: boolean;
-            spotify: boolean;
-            jwplayer: boolean;
-            dailymotion: boolean;
-            omny: boolean;
             vimeo: boolean;
-            liveblog: boolean;
-            art19: boolean;
-            roninmedia: boolean;
+            youtube: boolean;
         };
     }
 

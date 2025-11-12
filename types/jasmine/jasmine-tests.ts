@@ -14,6 +14,7 @@ import JasmineClass from "jasmine";
     jasmineClass.addMatchingHelperFiles(["dir/**/*.js"]);
 
     jasmineClass.env.configure({
+        forbidDuplicateNames: true,
         random: true,
         failSpecWithNoExpectations: true,
         hideDisabled: true,

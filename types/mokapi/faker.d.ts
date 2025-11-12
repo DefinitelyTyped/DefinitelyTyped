@@ -13,9 +13,13 @@
 export function fake(schema: Schema | JSONSchema): any;
 
 /**
- * Retrieves a node from the faker tree by its name.
+ * Retrieves a node from the faker tree by its name or path.
  *
- * @param name name - The name of the node to find.
+ * A node can be referenced either by its simple name (e.g. `"name"`) or by a path
+ * that describes its location in the tree (e.g. `"/person/name"` for an absolute
+ * path from the root, or `"middle/name"` for a relative path).
+ *
+ * @param name name - The name or path of the node to find.
  * @returns The matching {@link Node} from the faker tree.
  *
  * @example

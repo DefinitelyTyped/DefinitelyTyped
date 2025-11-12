@@ -158,6 +158,11 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => "¡hola!",
 );
 
+cast.framework.CastReceiverContext.getInstance().addCustomMessageListener(
+    "urn:x-cast:com.custom.app",
+    (event) => [event.data, event.type, event.senderId],
+);
+
 // send custom message to specific sender
 cast.framework.CastReceiverContext.getInstance().sendCustomMessage("custom-namespace", "sender-id", {});
 

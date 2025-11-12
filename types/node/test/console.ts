@@ -18,11 +18,13 @@ import { createWriteStream } from "node:fs";
             colorMode: "auto",
             ignoreErrors: true,
             groupIndentation: 2,
+            inspectOptions: { depth: 1 },
         };
         consoleInstance = new console.Console(opts);
         consoleInstance = new console.Console({
             stdout: writeStream,
             colorMode: false,
+            inspectOptions: new Map([[writeStream, { depth: 1 }]]),
         });
         consoleInstance = new console.Console({
             stdout: writeStream,

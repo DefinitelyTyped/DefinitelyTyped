@@ -1,6 +1,6 @@
 import * as Hawk from "@hapi/hawk";
 import * as Http from "http";
-import * as request from "request";
+import request from "request";
 
 const credentialsFunc = (): Hawk.server.Credentials => {
     const credentials: Hawk.server.Credentials = {

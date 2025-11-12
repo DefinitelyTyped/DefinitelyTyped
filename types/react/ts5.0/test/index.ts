@@ -1036,3 +1036,15 @@ function ownerStacks() {
     // $ExpectType string | null
     const ownerStack = React.captureOwnerStack();
 }
+
+function cacheSignalTest() {
+    const cacheSignal = React.cacheSignal;
+
+    const signal = cacheSignal();
+    if (signal !== null) {
+        // $ExpectType CacheSignal
+        signal;
+        // @ts-expect-error -- implemented by renderer
+        signal.aborted;
+    }
+}

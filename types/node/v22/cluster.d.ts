@@ -72,7 +72,7 @@ declare module "cluster" {
          * String arguments passed to worker.
          * @default process.argv.slice(2)
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Whether or not to send output to parent's stdio.
          * @default false
@@ -481,7 +481,7 @@ declare module "cluster" {
          * ```
          * @since v0.7.0
          */
-        readonly worker?: Worker | undefined;
+        readonly worker?: Worker;
         /**
          * A hash that stores the active worker objects, keyed by `id` field. This makes it easy to loop through all the workers. It is only available in the primary process.
          *
@@ -497,7 +497,7 @@ declare module "cluster" {
          * ```
          * @since v0.7.0
          */
-        readonly workers?: NodeJS.Dict<Worker> | undefined;
+        readonly workers?: NodeJS.Dict<Worker>;
         readonly SCHED_NONE: number;
         readonly SCHED_RR: number;
         /**
@@ -550,10 +550,9 @@ declare module "cluster" {
         prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         prependListener(event: "fork", listener: (worker: Worker) => void): this;
         prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        // the handle is a net.Socket or net.Server object, or undefined.
         prependListener(
             event: "message",
-            listener: (worker: Worker, message: any, handle?: net.Socket | net.Server) => void,
+            listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
         ): this;
         prependListener(event: "online", listener: (worker: Worker) => void): this;
         prependListener(event: "setup", listener: (settings: ClusterSettings) => void): this;

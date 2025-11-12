@@ -13,7 +13,7 @@
     headers.append("Accept", "application/json");
     fetch("https://example.com", { body: fd });
     fetch(new URL("https://example.com"), {
-        dispatcher: undefined,
+        dispatcher: {} as import("undici-types").Dispatcher,
     });
 
     const reqinit: RequestInit = {};
@@ -37,6 +37,8 @@
             out.usages; // $ExpectType KeyUsage[]
         },
     );
+
+    SubtleCrypto.supports("sign", "ML-DSA-44"); // $ExpectType boolean
 }
 
 {

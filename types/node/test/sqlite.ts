@@ -7,6 +7,9 @@ import { TextEncoder } from "node:util";
     database.isOpen; // $ExpectType boolean
     database.isTransaction; // $ExpectType boolean
 
+    database.createTagStore(); // $ExpectType SQLTagStore
+    database.createTagStore(100); // $ExpectType SQLTagStore
+
     database.exec(`
     CREATE TABLE data(
         key INTEGER PRIMARY KEY,
@@ -130,7 +133,7 @@ import { TextEncoder } from "node:util";
 {
     const db = new DatabaseSync(":memory:");
 
-    // $ExpectType Promise<void>
+    // $ExpectType Promise<number>
     backup(
         db,
         "/var/lib/sqlite/backup",
@@ -141,4 +144,33 @@ import { TextEncoder } from "node:util";
             progress: (progressInfo) => console.log(`${progressInfo.remainingPages}/${progressInfo.totalPages}`),
         },
     );
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+    const tagStore = db.createTagStore();
+
+    const id = 12345;
+    const name = "Alice";
+
+    tagStore.all`SELECT * FROM users ORDER BY id`; // $ExpectType Record<string, SQLOutputValue>[]
+    tagStore.get`SELECT * FROM users WHERE id = ${id}`; // $ExpectType Record<string, SQLOutputValue> | undefined
+    tagStore.iterate`SELECT * FROM users WHERE id = ${id}`; // $ExpectType Iterator<Record<string, SQLOutputValue>, undefined, any>
+    tagStore.run`INSERT INTO users VALUES (${id}, ${name})`; // $ExpectType StatementResultingChanges
+
+    tagStore.size(); // $ExpectType number
+    tagStore.capacity; // $ExpectType number
+    tagStore.db; // $ExpectType DatabaseSync
+    tagStore.clear();
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+
+    db.setAuthorizer((actionCode) => {
+        if (actionCode === constants.SQLITE_CREATE_TABLE) {
+            return constants.SQLITE_DENY;
+        }
+        return constants.SQLITE_OK;
+    });
 }

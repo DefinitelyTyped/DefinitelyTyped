@@ -36,9 +36,14 @@ import * as url from "node:url";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        keepAliveTimeoutBuffer: 200,
         headersTimeout: 50000,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
+        shouldUpgradeCallback(request) {
+            request; // $ExpectType IncomingMessage
+            return true;
+        },
     }, reqListener);
 
     server.close();
@@ -51,6 +56,7 @@ import * as url from "node:url";
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
+    const keepAliveTimeoutBuffer: number = server.keepAliveTimeoutBuffer;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000);
     server.setTimeout((socket) => {
@@ -349,6 +355,7 @@ import * as url from "node:url";
     let agent: http.Agent = new http.Agent({
         keepAlive: true,
         keepAliveMsecs: 10000,
+        agentKeepAliveTimeoutBuffer: 1000,
         maxSockets: Infinity,
         maxTotalSockets: Infinity,
         maxFreeSockets: 256,

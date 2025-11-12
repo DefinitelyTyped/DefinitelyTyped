@@ -1,7 +1,6 @@
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class PMREMNode extends TempNode {
     uvNode: Node | null;
@@ -19,4 +18,4 @@ export const pmremTexture: (
     value: Texture,
     uvNode?: Node,
     levelNode?: Node,
-) => ShaderNodeObject<PMREMNode>;
+) => PMREMNode;

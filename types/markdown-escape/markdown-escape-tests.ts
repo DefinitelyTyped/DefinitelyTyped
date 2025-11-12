@@ -1,4 +1,4 @@
-import * as markdownEscape from "markdown-escape";
+import markdownEscape from "markdown-escape";
 
 // $ExpectType string
 markdownEscape("#1! We're #1!");

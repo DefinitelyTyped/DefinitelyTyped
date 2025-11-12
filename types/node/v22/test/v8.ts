@@ -1,4 +1,4 @@
-import * as assert from "node:assert";
+import assert from "node:assert";
 import { Readable } from "node:stream";
 import * as v8 from "node:v8";
 import * as zlib from "node:zlib";

@@ -30,6 +30,13 @@ const cloudFrontFunctionResponseCookie: AWSCloudFrontFunction.ResponseCookie = {
     },
 };
 
+const responseBodyString: string = "Hello, World!";
+
+const responseBodyObject: AWSCloudFrontFunction.ResponseBody = {
+    data: "Hello",
+    encoding: "text",
+};
+
 const cloudFrontFunctionRequest: AWSCloudFrontFunction.Request = {
     method: "GET",
     uri: "/test",
@@ -43,6 +50,22 @@ const cloudFrontResponse: AWSCloudFrontFunction.Response = {
     statusDescription: "OK",
     headers: cloudFrontFunctionValue,
     cookies: cloudFrontFunctionResponseCookie,
+};
+
+const cloudFrontResponse2: AWSCloudFrontFunction.Response = {
+    statusCode: 200,
+    statusDescription: "OK",
+    headers: cloudFrontFunctionValue,
+    cookies: cloudFrontFunctionResponseCookie,
+    body: responseBodyString,
+};
+
+const cloudFrontResponse3: AWSCloudFrontFunction.Response = {
+    statusCode: 200,
+    statusDescription: "OK",
+    headers: cloudFrontFunctionValue,
+    cookies: cloudFrontFunctionResponseCookie,
+    body: responseBodyObject,
 };
 
 const cloudFrontFunctionViewer: AWSCloudFrontFunction.Viewer = {

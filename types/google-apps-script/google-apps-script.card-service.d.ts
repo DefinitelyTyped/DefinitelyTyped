@@ -14,12 +14,25 @@ declare namespace GoogleAppsScript {
          *             .setParameters({imageSrc: 'carImage'}));
          */
         interface Action {
+            addRequiredWidget(requiredWidget: string): Action;
+            setAllWidgetsAreRequired(allWidgetsAreRequired: boolean): Action;
             setFunctionName(functionName: string): Action;
+            setInteraction(interaction: Interaction): Action;
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
             setPersistValues(persistValues: boolean): Action;
         }
+
+        /**
+         * An enum type that specifies what to do in response to an interaction with a user,
+         * such as a user clicking a button in a card message.
+         */
+        enum Interaction {
+            INTERACTION_UNSPECIFIED,
+            OPEN_DIALOG,
+        }
+
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)
          * to perform one or more actions on the client. Some combinations of actions are not supported.
@@ -270,6 +283,8 @@ declare namespace GoogleAppsScript {
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
+            InputType: typeof InputType;
+            Interaction: typeof Interaction;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
@@ -336,6 +351,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
+            newValidation(): Validation;
         }
         /**
          * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -815,13 +831,19 @@ declare namespace GoogleAppsScript {
         /**
          * An enum that specifies the style for TextButton.
          *
-         * TEXT is the default; it renders a simple text button with clear background.
+         * OUTLINED is the default; it renders a simple text button with clear background.
          * FILLED buttons have a background color you can set with
          * TextButton.setBackgroundColor(backgroundColor).
+         *
+         * To call an enum, you call its parent class, name, and property.
+         * For example, CardService.TextButtonStyle.OUTLINED.
          */
         enum TextButtonStyle {
-            TEXT,
+            OUTLINED,
+            /** @deprecated DO NOT USE */ TEXT,
             FILLED,
+            FILLED_TONAL,
+            BORDERLESS,
         }
         /**
          * A input field widget that accepts text input.
@@ -839,6 +861,7 @@ declare namespace GoogleAppsScript {
             setSuggestions(suggestions: Suggestions): TextInput;
             setSuggestionsAction(suggestionsAction: Action): TextInput;
             setTitle(title: string): TextInput;
+            setValidation(validation: Validation): TextInput;
             setValue(value: string): TextInput;
         }
         /**
@@ -993,6 +1016,29 @@ declare namespace GoogleAppsScript {
         interface UpdateDraftToRecipientsAction {
             addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
         }
+
+        /**
+         * An object that defines the validation rule for the widget that it is attached to.
+         *
+         * const validation = CardService.newValidation()
+         *     .setCharacterLimit('10')
+         *     .setInputType(CardService.InputType.TEXT);
+         */
+        interface Validation {
+            setCharacterLimit(characterLimit: Integer): Validation;
+            setInputType(inputType: InputType): Validation;
+        }
+
+        /**
+         * An enum that defines the input type of the widget.
+         */
+        enum InputType {
+            TEXT,
+            INTEGER,
+            FLOAT,
+            EMAIL,
+        }
+
         /**
          * The fixed footer shown at the bottom of an add-on Card.
          */

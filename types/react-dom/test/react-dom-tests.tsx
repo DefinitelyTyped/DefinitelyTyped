@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMClient from "react-dom/client";
 import * as ReactDOMServer from "react-dom/server";
@@ -45,29 +45,76 @@ describe("ReactDOM", () => {
     });
 });
 
+const importMap: ReactDOMStatic.ReactImportMap = {
+    imports: {
+        "moduleA": "/modules/moduleA.v1.0.0.js",
+    },
+    scopes: {
+        "/modules/": {
+            "moduleB": "/modules/moduleB.v1.0.0.js",
+        },
+    },
+};
+
 describe("ReactDOMServer", () => {
     it("renderToString", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
-        ReactDOMServer.renderToString(React.createElement("div"), { identifierPrefix: "react-18-app" });
+        ReactDOMServer.renderToString(React.createElement("div"), {
+            identifierPrefix: "react-18-app",
+        });
     });
 
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
-        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
+        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), {
+            identifierPrefix: "react-18-app",
+        });
     });
 });
 
+declare const children: React.ReactNode;
 describe("ReactDOMStatic", () => {
     it("prerender", async () => {
-        const prelude: ReadableStream<Uint8Array> =
-            (await ReactDOMStatic.prerender(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerender(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
+        const prerenderController = new AbortController();
+        setTimeout(prerenderController.abort, 1);
+        const { prelude, postponed } = await ReactDOMStatic.prerender(children, { signal: prerenderController.signal });
+
+        let stream: ReadableStream<Uint8Array>;
+        if (postponed !== null) {
+            const resumeController = new AbortController();
+            const reactStream = await ReactDOMServer.resume(children, postponed, {
+                nonce: "nonce",
+                signal: resumeController.signal,
+                onError(error) {
+                    return (error as { digest?: string | undefined }).digest;
+                },
+            });
+            await reactStream.allReady;
+            // In a real app you'd also have to flush the prelude first
+            stream = reactStream;
+        } else {
+            stream = prelude;
+        }
+
+        await ReactDOMServer.resume(
+            children,
+            // @ts-expect-error Requires the opaque postponed state
+            {},
+        );
     });
 
     it("prerenderToNodeStream", async () => {
         const prelude: NodeJS.ReadableStream =
             (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
-        ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
+        ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), {
+            bootstrapScripts: ["./my-script.js"],
+            headersLengthHint: 4000,
+            importMap,
+            onHeaders(headers) {
+                // $ExpectType Headers
+                headers;
+            },
+        });
     });
 });
 
@@ -207,6 +254,12 @@ function pipeableStreamDocumentedExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ["/main.js"],
+        headersLengthHint: 4000,
+        importMap,
+        onHeaders(headers) {
+            // $ExpectType Headers
+            headers;
+        },
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -254,6 +307,12 @@ function pipeableStreamDocumentedStringExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
         bootstrapScripts: ["/main.js"],
+        headersLengthHint: 4000,
+        importMap,
+        onHeaders(headers) {
+            // $ExpectType Headers
+            headers;
+        },
         onShellReady() {
             response.statusCode = didError ? 500 : 200;
             response.setHeader("content-type", "text/html");
@@ -284,7 +343,7 @@ function pipeableStreamDocumentedStringExample() {
 }
 
 /**
- * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ * source: https://react.dev/reference/react-dom/server/renderToReadableStream
  */
 async function readableStreamDocumentedExample() {
     const controller = new AbortController();
@@ -295,10 +354,16 @@ async function readableStreamDocumentedExample() {
                 <body>Success</body>
             </html>,
             {
+                headersLengthHint: 4000,
+                importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
                     console.error(error);
+                },
+                onHeaders(headers) {
+                    // $ExpectType Headers
+                    headers;
                 },
             },
         );
@@ -318,7 +383,7 @@ async function readableStreamDocumentedExample() {
 }
 
 /**
- * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ * source: https://react.dev/reference/react-dom/server/renderToReadableStream
  */
 async function readableStreamDocumentedStringExample() {
     const controller = new AbortController();
@@ -327,10 +392,16 @@ async function readableStreamDocumentedStringExample() {
         const stream = await ReactDOMServer.renderToReadableStream(
             "app",
             {
+                headersLengthHint: 4000,
+                importMap,
                 signal: controller.signal,
                 onError(error) {
                     didError = true;
                     console.error(error);
+                },
+                onHeaders(headers) {
+                    // $ExpectType Headers
+                    headers;
                 },
             },
         );
@@ -615,4 +686,17 @@ function requestFormResetTest(form: HTMLFormElement, button: HTMLButtonElement) 
     ReactDOM.requestFormReset(button);
     // @ts-expect-error
     ReactDOM.requestFormReset(null);
+}
+
+function cacheSignalTest() {
+    const cacheSignal = React.cacheSignal;
+
+    const signal = cacheSignal();
+    if (signal !== null) {
+        // $ExpectType CacheSignal
+        signal;
+        if (signal.aborted) {
+            console.error(signal.reason);
+        }
+    }
 }

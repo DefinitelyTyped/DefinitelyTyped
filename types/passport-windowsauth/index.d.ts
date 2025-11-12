@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import * as ldapjs from "ldapjs";
 import * as passport from "passport";
 import { TlsOptions } from "tls";

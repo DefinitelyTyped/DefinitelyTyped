@@ -1,4 +1,4 @@
-import * as bunyan from "bunyan";
+import bunyan = require("bunyan");
 import { AnySchema, ArraySchema, SchemaMap, StringSchema } from "joi";
 
 import { Callback } from "./Callback";

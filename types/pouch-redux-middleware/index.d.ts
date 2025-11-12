@@ -1,4 +1,4 @@
-import * as PouchDB from "pouchdb";
+import PouchDB = require("pouchdb");
 import { AnyAction, Dispatch, Middleware } from "redux";
 
 export type Document<T = { [field: string]: any }> = PouchDB.Core.IdMeta & T;

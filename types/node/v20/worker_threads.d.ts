@@ -53,7 +53,7 @@
  */
 declare module "worker_threads" {
     import { Context } from "node:vm";
-    import { EventEmitter } from "node:events";
+    import { EventEmitter, NodeEventTarget } from "node:events";
     import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
     import { Readable, Writable } from "node:stream";
@@ -106,7 +106,7 @@ declare module "worker_threads" {
      * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
      */
-    class MessagePort extends EventEmitter {
+    class MessagePort implements EventTarget {
         /**
          * Disables further sending of messages on either side of the connection.
          * This method can be called when no further communication will happen over this `MessagePort`.
@@ -214,42 +214,32 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         start(): void;
-        addListener(event: "close", listener: () => void): this;
+        addListener(event: "close", listener: (ev: Event) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
         addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "close"): boolean;
+        addListener(event: string, listener: (arg: any) => void): this;
+        emit(event: "close", ev: Event): boolean;
         emit(event: "message", value: any): boolean;
         emit(event: "messageerror", error: Error): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "close", listener: () => void): this;
+        emit(event: string, arg: any): boolean;
+        off(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        off(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        off(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        off(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+        on(event: "close", listener: (ev: Event) => void): this;
         on(event: "message", listener: (value: any) => void): this;
         on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
+        on(event: string, listener: (arg: any) => void): this;
+        once(event: "close", listener: (ev: Event) => void): this;
         once(event: "message", listener: (value: any) => void): this;
         once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: "close", listener: () => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: string | symbol, listener: (...args: any[]) => void): this;
-        addEventListener: EventTarget["addEventListener"];
-        dispatchEvent: EventTarget["dispatchEvent"];
-        removeEventListener: EventTarget["removeEventListener"];
+        once(event: string, listener: (arg: any) => void): this;
+        removeListener(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        removeListener(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        removeListener(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        removeListener(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
     }
+    interface MessagePort extends NodeEventTarget {}
     interface WorkerOptions {
         /**
          * List of arguments which would be stringified and appended to
@@ -418,24 +408,6 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         postMessage(value: any, transferList?: readonly Transferable[]): void;
-        /**
-         * Sends a value to another worker, identified by its thread ID.
-         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
-         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
-         * @param value The value to send.
-         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
-         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
-         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
-         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
-         * @since v20.19.0
-         */
-        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
-        postMessageToThread(
-            threadId: number,
-            value: any,
-            transferList: readonly Transferable[],
-            timeout?: number,
-        ): Promise<void>;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has

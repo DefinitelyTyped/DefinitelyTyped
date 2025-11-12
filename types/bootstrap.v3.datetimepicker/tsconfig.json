@@ -4,7 +4,7 @@
         "bootstrap.v3.datetimepicker-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"

@@ -4,17 +4,163 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/assert.js)
  */
 declare module "assert" {
+    import strict = require("assert/strict");
     /**
-     * An alias of {@link ok}.
+     * An alias of {@link assert.ok}.
      * @since v0.5.9
      * @param value The input that is checked for being truthy.
      */
     function assert(value: unknown, message?: string | Error): asserts value;
+    const kOptions: unique symbol;
     namespace assert {
+        type AssertMethodNames =
+            | "deepEqual"
+            | "deepStrictEqual"
+            | "doesNotMatch"
+            | "doesNotReject"
+            | "doesNotThrow"
+            | "equal"
+            | "fail"
+            | "ifError"
+            | "match"
+            | "notDeepEqual"
+            | "notDeepStrictEqual"
+            | "notEqual"
+            | "notStrictEqual"
+            | "ok"
+            | "partialDeepStrictEqual"
+            | "rejects"
+            | "strictEqual"
+            | "throws";
+        interface AssertOptions {
+            /**
+             * If set to `'full'`, shows the full diff in assertion errors.
+             * @default 'simple'
+             */
+            diff?: "simple" | "full" | undefined;
+            /**
+             * If set to `true`, non-strict methods behave like their
+             * corresponding strict methods.
+             * @default true
+             */
+            strict?: boolean | undefined;
+            /**
+             * If set to `true`, skips prototype and constructor
+             * comparison in deep equality checks.
+             * @since v24.9.0
+             * @default false
+             */
+            skipPrototype?: boolean | undefined;
+        }
+        interface Assert extends Pick<typeof assert, AssertMethodNames> {
+            readonly [kOptions]: AssertOptions & { strict: false };
+        }
+        interface AssertStrict extends Pick<typeof strict, AssertMethodNames> {
+            readonly [kOptions]: AssertOptions & { strict: true };
+        }
+        /**
+         * The `Assert` class allows creating independent assertion instances with custom options.
+         * @since v24.6.0
+         */
+        var Assert: {
+            /**
+             * Creates a new assertion instance. The `diff` option controls the verbosity of diffs in assertion error messages.
+             *
+             * ```js
+             * const { Assert } = require('node:assert');
+             * const assertInstance = new Assert({ diff: 'full' });
+             * assertInstance.deepStrictEqual({ a: 1 }, { a: 2 });
+             * // Shows a full diff in the error message.
+             * ```
+             *
+             * **Important**: When destructuring assertion methods from an `Assert` instance,
+             * the methods lose their connection to the instance's configuration options (such
+             * as `diff`, `strict`, and `skipPrototype` settings).
+             * The destructured methods will fall back to default behavior instead.
+             *
+             * ```js
+             * const myAssert = new Assert({ diff: 'full' });
+             *
+             * // This works as expected - uses 'full' diff
+             * myAssert.strictEqual({ a: 1 }, { b: { c: 1 } });
+             *
+             * // This loses the 'full' diff setting - falls back to default 'simple' diff
+             * const { strictEqual } = myAssert;
+             * strictEqual({ a: 1 }, { b: { c: 1 } });
+             * ```
+             *
+             * The `skipPrototype` option affects all deep equality methods:
+             *
+             * ```js
+             * class Foo {
+             *   constructor(a) {
+             *     this.a = a;
+             *   }
+             * }
+             *
+             * class Bar {
+             *   constructor(a) {
+             *     this.a = a;
+             *   }
+             * }
+             *
+             * const foo = new Foo(1);
+             * const bar = new Bar(1);
+             *
+             * // Default behavior - fails due to different constructors
+             * const assert1 = new Assert();
+             * assert1.deepStrictEqual(foo, bar); // AssertionError
+             *
+             * // Skip prototype comparison - passes if properties are equal
+             * const assert2 = new Assert({ skipPrototype: true });
+             * assert2.deepStrictEqual(foo, bar); // OK
+             * ```
+             *
+             * When destructured, methods lose access to the instance's `this` context and revert to default assertion behavior
+             * (diff: 'simple', non-strict mode).
+             * To maintain custom options when using destructured methods, avoid
+             * destructuring and call methods directly on the instance.
+             * @since v24.6.0
+             */
+            new(
+                options?: AssertOptions & { strict?: true | undefined },
+            ): AssertStrict;
+            new(
+                options: AssertOptions,
+            ): Assert;
+        };
+        interface AssertionErrorOptions {
+            /**
+             * If provided, the error message is set to this value.
+             */
+            message?: string | undefined;
+            /**
+             * The `actual` property on the error instance.
+             */
+            actual?: unknown;
+            /**
+             * The `expected` property on the error instance.
+             */
+            expected?: unknown;
+            /**
+             * The `operator` property on the error instance.
+             */
+            operator?: string | undefined;
+            /**
+             * If provided, the generated stack trace omits frames before this function.
+             */
+            stackStartFn?: Function | undefined;
+            /**
+             * If set to `'full'`, shows the full diff in assertion errors.
+             * @default 'simple'
+             */
+            diff?: "simple" | "full" | undefined;
+        }
         /**
          * Indicates the failure of an assertion. All errors thrown by the `node:assert` module will be instances of the `AssertionError` class.
          */
         class AssertionError extends Error {
+            constructor(options: AssertionErrorOptions);
             /**
              * Set to the `actual` argument for methods such as {@link assert.strictEqual()}.
              */
@@ -24,10 +170,6 @@ declare module "assert" {
              */
             expected: unknown;
             /**
-             * Set to the passed in operator value.
-             */
-            operator: string;
-            /**
              * Indicates if the message was auto-generated (`true`) or not.
              */
             generatedMessage: boolean;
@@ -35,19 +177,10 @@ declare module "assert" {
              * Value is always `ERR_ASSERTION` to show that the error is an assertion error.
              */
             code: "ERR_ASSERTION";
-            constructor(options?: {
-                /** If provided, the error message is set to this value. */
-                message?: string | undefined;
-                /** The `actual` property on the error instance. */
-                actual?: unknown | undefined;
-                /** The `expected` property on the error instance. */
-                expected?: unknown | undefined;
-                /** The `operator` property on the error instance. */
-                operator?: string | undefined;
-                /** If provided, the generated stack trace omits frames before this function. */
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-                stackStartFn?: Function | undefined;
-            });
+            /**
+             * Set to the passed in operator value.
+             */
+            operator: string;
         }
         /**
          * This feature is deprecated and will be removed in a future version.
@@ -970,83 +1103,9 @@ declare module "assert" {
          * @since v22.13.0
          */
         function partialDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
-        /**
-         * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
-         * {@link deepEqual} will behave like {@link deepStrictEqual}.
-         *
-         * In strict assertion mode, error messages for objects display a diff. In legacy assertion mode, error
-         * messages for objects display the objects, often truncated.
-         *
-         * To use strict assertion mode:
-         *
-         * ```js
-         * import { strict as assert } from 'node:assert';
-         * import assert from 'node:assert/strict';
-         * ```
-         *
-         * Example error diff:
-         *
-         * ```js
-         * import { strict as assert } from 'node:assert';
-         *
-         * assert.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
-         * // AssertionError: Expected inputs to be strictly deep-equal:
-         * // + actual - expected ... Lines skipped
-         * //
-         * //   [
-         * //     [
-         * // ...
-         * //       2,
-         * // +     3
-         * // -     '3'
-         * //     ],
-         * // ...
-         * //     5
-         * //   ]
-         * ```
-         *
-         * To deactivate the colors, use the `NO_COLOR` or `NODE_DISABLE_COLORS` environment variables. This will also
-         * deactivate the colors in the REPL. For more on color support in terminal environments, read the tty
-         * `getColorDepth()` documentation.
-         *
-         * @since v15.0.0, v13.9.0, v12.16.2, v9.9.0
-         */
-        namespace strict {
-            type AssertionError = assert.AssertionError;
-            type AssertPredicate = assert.AssertPredicate;
-            type CallTrackerCall = assert.CallTrackerCall;
-            type CallTrackerReportInformation = assert.CallTrackerReportInformation;
-        }
-        const strict:
-            & Omit<
-                typeof assert,
-                | "equal"
-                | "notEqual"
-                | "deepEqual"
-                | "notDeepEqual"
-                | "ok"
-                | "strictEqual"
-                | "deepStrictEqual"
-                | "ifError"
-                | "strict"
-                | "AssertionError"
-            >
-            & {
-                (value: unknown, message?: string | Error): asserts value;
-                equal: typeof strictEqual;
-                notEqual: typeof notStrictEqual;
-                deepEqual: typeof deepStrictEqual;
-                notDeepEqual: typeof notDeepStrictEqual;
-                // Mapped types and assertion functions are incompatible?
-                // TS2775: Assertions require every name in the call target
-                // to be declared with an explicit type annotation.
-                ok: typeof ok;
-                strictEqual: typeof strictEqual;
-                deepStrictEqual: typeof deepStrictEqual;
-                ifError: typeof ifError;
-                strict: typeof strict;
-                AssertionError: typeof AssertionError;
-            };
+    }
+    namespace assert {
+        export { strict };
     }
     export = assert;
 }

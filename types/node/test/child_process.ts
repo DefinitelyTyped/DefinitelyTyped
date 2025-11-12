@@ -25,15 +25,15 @@ import { promisify } from "node:util";
     childProcess.spawnSync("echo test", { encoding: "buffer" });
     childProcess.spawnSync("echo test", { cwd: new URL("file://aaaaaaaa") });
 
-    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test").output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", {}).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (NonSharedBuffer | null)[]
     childProcess.spawnSync("echo test", { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (NonSharedBuffer | null)[]
     childProcess.spawnSync("echo test", ["test"], { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[] || (string | Buffer<ArrayBufferLike> | null)[]
+    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | NonSharedBuffer | null)[]
 }
 
 {
@@ -117,13 +117,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecException | null
             error;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stdout;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: Buffer<ArrayBufferLike>; stderr: Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
     promisifiedExec(cmd, { encoding: boolFlag ? "buffer" : null });
 
     // with known encoding
@@ -151,13 +151,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExec(cmd, { encoding: "unknown" });
 
     // with nullish encoding
@@ -168,22 +168,22 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExec(cmd, boolFlag ? { encoding: "unknown" } : null);
 }
 
 {
-    childProcess.execSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execSync("echo test"); // $ExpectType NonSharedBuffer
+    childProcess.execSync("echo test", {}); // $ExpectType NonSharedBuffer
+    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execSync("echo test", { encoding: "utf-8" }); // $ExpectType string
-    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
+    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | NonSharedBuffer
     childProcess.execSync("git status", { // $ExpectType string
         cwd: "test",
         input: "test",
@@ -346,13 +346,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stdout;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: Buffer<ArrayBufferLike>; stderr: Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
     promisifiedExecFile(cmd, { encoding: boolFlag ? "buffer" : null });
     // $ExpectType ChildProcess
     childProcess.execFile(
@@ -362,13 +362,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stdout;
-            // $ExpectType Buffer<ArrayBufferLike>
+            // $ExpectType NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: Buffer<ArrayBufferLike>; stderr: Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
     promisifiedExecFile(cmd, args, { encoding: boolFlag ? "buffer" : null });
 
     // with known encoding
@@ -413,13 +413,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExecFile(cmd, { encoding: "unknown" });
     // $ExpectType ChildProcess
     childProcess.execFile(
@@ -429,13 +429,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExecFile(cmd, args, { encoding: "unknown" });
 
     // with nullish encoding
@@ -446,13 +446,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExecFile(cmd, boolFlag ? { encoding: "unknown" } : null);
     // $ExpectType ChildProcess
     childProcess.execFile(
@@ -462,13 +462,13 @@ import { promisify } from "node:util";
         (error, stdout, stderr) => {
             // $ExpectType ExecFileException | null
             error;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stdout;
-            // $ExpectType string | Buffer<ArrayBufferLike>
+            // $ExpectType string | NonSharedBuffer
             stderr;
         },
     );
-    // $ExpectType PromiseWithChild<{ stdout: string | Buffer<ArrayBufferLike>; stderr: string | Buffer<ArrayBufferLike>; }>
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
     promisifiedExecFile(cmd, args, boolFlag ? { encoding: "unknown" } : null);
 }
 
@@ -481,15 +481,15 @@ import { promisify } from "node:util";
     childProcess.execFileSync("echo test", { input: new Uint8Array([]) });
     childProcess.execFileSync("echo test", { input: new DataView(new ArrayBuffer(1)) });
 
-    childProcess.execFileSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test"); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", {}); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execFileSync("echo test", { encoding: "utf8" }); // $ExpectType string
-    childProcess.execFileSync("echo test", ["test"]); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", ["test"]); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execFileSync("echo test", ["test"], { encoding: "utf8" }); // $ExpectType string
-    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
+    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | NonSharedBuffer
 }
 
 {
@@ -503,11 +503,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {
@@ -521,11 +519,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {

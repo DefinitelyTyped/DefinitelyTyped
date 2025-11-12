@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import * as fs from "node:fs";
 import { promisify } from "node:util";
 
-import * as CircuitBreaker from "opossum";
+import CircuitBreaker from "opossum";
 
 let breaker: CircuitBreaker;
 const callbackNoArgs = async () => console.log("foo");

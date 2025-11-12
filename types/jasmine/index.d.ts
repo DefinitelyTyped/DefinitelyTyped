@@ -307,6 +307,14 @@ declare namespace jasmine {
          */
         stopOnSpecFailure?: boolean | undefined;
         /**
+         * Whether to forbid duplicate spec or suite names. If set to true, using
+         * the same name multiple times in the same immediate parent suite is an
+         * error.
+         * @since 5.5.0
+         * @default false
+         */
+        forbidDuplicateNames?: boolean | undefined;
+        /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
          * to true will report such spec as a failure.
@@ -556,7 +564,7 @@ declare namespace jasmine {
         clearReporters(): void;
         configuration(): Configuration;
         configure(configuration: Configuration): void;
-        execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
+        execute(runnablesToRun?: Suite[]): Promise<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
          * Sets a user-defined property that will be provided to reporters as

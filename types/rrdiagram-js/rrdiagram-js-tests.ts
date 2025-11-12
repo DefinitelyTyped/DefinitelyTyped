@@ -1,4 +1,4 @@
-import * as RRDiagram from "rrdiagram-js";
+import RRDiagram from "rrdiagram-js";
 
 const bnfDisplay = new RRDiagram.bnfdisplay.BNFDisplay();
 bnfDisplay.replaceBNF("oldClassName", "newClassName"); // $ExpectType void

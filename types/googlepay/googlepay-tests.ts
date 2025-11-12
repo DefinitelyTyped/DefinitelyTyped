@@ -26,6 +26,12 @@ const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecifi
     },
 });
 
+const checkoutOptions = new Array<google.payments.api.CheckoutOption>(
+    "DEFAULT",
+    "COMPLETE_IMMEDIATE_PURCHASE",
+    "CONTINUE_TO_REVIEW",
+);
+
 // @ts-expect-error
 allowedPaymentMethods[0].tokenizationSpecification = {
     type: "DIRECT",
