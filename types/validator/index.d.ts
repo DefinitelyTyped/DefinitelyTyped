@@ -1503,13 +1503,7 @@ declare namespace validator {
      *
      * @param pattern - `/foo/i`
      */
-    export function matches(str: string, pattern: RegExp): boolean;
-    /**
-     * Check if string matches the pattern.
-     *
-     * @param pattern - `'foo'`
-     * @param [modifiers] - `'i'`
-     */
+    export function matches(str: string, pattern: RegExp | string): boolean;
     export function matches(str: string, pattern: string, modifiers?: string): boolean;
 
     /**
