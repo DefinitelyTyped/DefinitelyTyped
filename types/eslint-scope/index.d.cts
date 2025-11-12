@@ -92,6 +92,13 @@ export class ScopeManager implements eslint.Scope.ScopeManager {
     scopes: Scope[];
 
     /**
+     * Adds variables to the global scope and resolves references to them.
+     * @param names An array of strings, the names of variables to add to the global scope.
+     * @returns void
+     */
+    addGlobals(names: ReadonlyArray<string>): void;
+
+    /**
      * Acquires the scope for a given node.
      * @param node The AST node to get the scope for.
      * @param inner Whether to get the innermost scope.
@@ -201,7 +208,7 @@ export class Scope<TVariable extends Variable = Variable, TReference extends Ref
     /**
      * Implicit references (e.g., 'arguments' in functions).
      */
-    implicit: { left: TReference[]; set: Map<string, Variable> };
+    implicit: { left: TReference[]; set: Map<string, Variable>; variables: Variable[] };
 
     /**
      * Map of variable names to variables.

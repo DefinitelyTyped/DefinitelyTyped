@@ -1,13 +1,12 @@
 {
     "private": true,
     "name": "@types/eslint-scope",
-    "version": "8.3.9999",
+    "version": "9.0.9999",
     "type": "module",
     "projects": [
         "https://github.com/eslint/eslint-scope"
     ],
     "dependencies": {
-        "@types/eslint": "*",
         "@types/esrecurse": "*",
         "@types/estree": "*",
         "eslint-visitor-keys": "*"
@@ -15,6 +14,9 @@
     "devDependencies": {
         "@types/eslint-scope": "workspace:.",
         "@types/espree": "*"
+    },
+    "peerDependencies": {
+        "eslint": "*"
     },
     "exports": {
         ".": {

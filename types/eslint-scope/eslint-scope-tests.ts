@@ -38,8 +38,21 @@ const scope = scopeManager.acquire(ast);
 scopeManager.release(ast);
 
 if (scope) {
-    // $ExpectType "function" | "module" | "block" | "catch" | "class" | "for" | "function-expression-name" | "global" | "switch" | "with" | "TDZ"
-    scope.type;
+    ((
+        type:
+            | "function"
+            | "module"
+            | "block"
+            | "catch"
+            | "class"
+            | "class-field-initializer"
+            | "class-static-block"
+            | "for"
+            | "function-expression-name"
+            | "global"
+            | "switch"
+            | "with",
+    ) => type satisfies typeof scope.type);
     // $ExpectType boolean
     scope.isStrict;
     // $ExpectType Scope<Variable<Reference>, Reference> | null
@@ -58,6 +71,10 @@ if (scope) {
     scope.functionExpressionScope;
     // $ExpectType Reference[]
     scope.implicit.left;
+    // $ExpectType Map<string, Variable<Reference>>
+    scope.implicit.set;
+    // $ExpectType Variable<Reference>[]
+    scope.implicit.variables;
     // $ExpectType  Map<string, Variable>
     scope.set;
     // $ExpectType Reference[]
@@ -94,8 +111,16 @@ if (reference) {
 
 const definition = variable?.defs[0];
 if (definition) {
-    // $ExpectType "CatchClause" | "TDZ" | "ClassName" | "FunctionName" | "ImplicitGlobalVariable" | "ImportBinding" | "Parameter" | "Variable"
-    definition.type;
+    ((
+        type:
+            | "CatchClause"
+            | "ClassName"
+            | "FunctionName"
+            | "ImplicitGlobalVariable"
+            | "ImportBinding"
+            | "Parameter"
+            | "Variable",
+    ) => type satisfies typeof definition.type);
     // $ExpectType Identifier
     definition.name;
     // $ExpectType ImportDeclaration | VariableDeclaration | null
@@ -126,8 +151,16 @@ const definition2 = new eslintScope.Definition(
     null,
     "let",
 );
-// $ExpectType "CatchClause" | "TDZ" | "ClassName" | "FunctionName" | "ImplicitGlobalVariable" | "ImportBinding" | "Parameter" | "Variable"
-definition2.type;
+((
+    type:
+        | "CatchClause"
+        | "ClassName"
+        | "FunctionName"
+        | "ImplicitGlobalVariable"
+        | "ImportBinding"
+        | "Parameter"
+        | "Variable",
+) => type satisfies typeof definition2.type);
 // $ExpectType Identifier
 definition2.name;
 
@@ -178,8 +211,21 @@ const scopeInstance = new eslintScope.Scope(
     ast,
     false,
 );
-// $ExpectType "function" | "module" | "block" | "catch" | "class" | "for" | "function-expression-name" | "global" | "switch" | "with" | "TDZ"
-scopeInstance.type;
+((
+    type:
+        | "function"
+        | "module"
+        | "block"
+        | "catch"
+        | "class"
+        | "class-field-initializer"
+        | "class-static-block"
+        | "for"
+        | "function-expression-name"
+        | "global"
+        | "switch"
+        | "with",
+) => type satisfies typeof scopeInstance.type);
 // $ExpectType boolean
 scopeInstance.isStrict;
 // $ExpectType Scope<Variable<Reference>, Reference> | null
@@ -196,7 +242,7 @@ scopeInstance.childScopes;
 scopeInstance.block;
 // $ExpectType boolean
 scopeInstance.functionExpressionScope;
-// $ExpectType { left: Reference[]; set: Map<string, Variable<Reference>>; }
+// $ExpectType { left: Reference[]; set: Map<string, Variable<Reference>>; variables: Variable<Reference>[]; }
 scopeInstance.implicit;
 // $ExpectType Map<string, Variable>
 scopeInstance.set;
@@ -229,6 +275,8 @@ const scopeManagerInstance = new eslintScope.ScopeManager({
 scopeManagerInstance.globalScope;
 // $ExpectType Scope<Variable<Reference>, Reference>[]
 scopeManagerInstance.scopes;
+// $ExpectType void
+scopeManagerInstance.addGlobals(["window", "self"]);
 // $ExpectType Scope<Variable<Reference>, Reference> | null
 scopeManagerInstance.acquire(ast);
 // $ExpectType Scope<Variable<Reference>, Reference>[] | null
