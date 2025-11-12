@@ -31,14 +31,6 @@ Liferay.Util.openToast({
     autoClose: 5000,
 });
 
-// $ExpectType void
-Liferay.Util.openToast({
-    title: "title",
-    message: "message",
-    type: "warning",
-    autoClose: 5000,
-});
-
 Liferay.Service("/user/get-current-user-id"); // $ExpectType Promise<unknown>
 Liferay.Loader.require("some-module"); // $ExpectType void
 
