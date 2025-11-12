@@ -7,7 +7,6 @@ function testConfigure() {
         injectInto: true,
         properties: ["spy", "stub", "mock", "clock", "server", "requests"],
         useFakeTimers: true,
-        useFakeServer: true,
     });
 }
 
