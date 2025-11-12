@@ -343,7 +343,7 @@ function pipeableStreamDocumentedStringExample() {
 }
 
 /**
- * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ * source: https://react.dev/reference/react-dom/server/renderToReadableStream
  */
 async function readableStreamDocumentedExample() {
     const controller = new AbortController();
@@ -383,7 +383,7 @@ async function readableStreamDocumentedExample() {
 }
 
 /**
- * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ * source: https://react.dev/reference/react-dom/server/renderToReadableStream
  */
 async function readableStreamDocumentedStringExample() {
     const controller = new AbortController();

@@ -43,12 +43,13 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
     export interface SuspenseProps {
+        // @enableCPUSuspense
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
          * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
          * @see {@link https://github.com/facebook/react/pull/19936}
          */
-        unstable_expectedLoadTime?: number | undefined;
+        defer?: boolean | undefined;
     }
 
     export type SuspenseListRevealOrder = "forwards" | "backwards" | "together" | "independent";

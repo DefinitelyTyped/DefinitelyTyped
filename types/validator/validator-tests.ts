@@ -10,13 +10,14 @@ import containsFunc from "validator/lib/contains";
 import equalsFunc from "validator/lib/equals";
 import escapeFunc from "validator/lib/escape";
 import isAbaRoutingFunc from "validator/lib/isAbaRouting";
-import isAfterFunc from "validator/lib/isAfter";
+import isAfterFunc, { IsAfterOptions } from "validator/lib/isAfter";
 import isAlphaFunc from "validator/lib/isAlpha";
 import isAlphanumericFunc from "validator/lib/isAlphanumeric";
 import isAsciiFunc from "validator/lib/isAscii";
+import isBase32Func from "validator/lib/isBase32";
 import isBase58Func from "validator/lib/isBase58";
 import isBase64Func from "validator/lib/isBase64";
-import isBeforeFunc from "validator/lib/isBefore";
+import isBeforeFunc, { IsBeforeOptions } from "validator/lib/isBefore";
 import isBICFunc from "validator/lib/isBIC";
 import isBooleanFunc from "validator/lib/isBoolean";
 import isBtcAddressFunc from "validator/lib/isBtcAddress";
@@ -39,7 +40,7 @@ import isHashFunc from "validator/lib/isHash";
 import isHexadecimalFunc from "validator/lib/isHexadecimal";
 import isHexColorFunc from "validator/lib/isHexColor";
 import isHSLFunc from "validator/lib/isHSL";
-import isIBANFunc, { locales } from "validator/lib/isIBAN";
+import isIBANFunc, { IBANLocale, IsIBANOptions, locales as isIBANLocales } from "validator/lib/isIBAN";
 import isIMEIFunc from "validator/lib/isIMEI";
 import isInFunc from "validator/lib/isIn";
 import isIntFunc from "validator/lib/isInt";
@@ -57,7 +58,7 @@ import isISO6391Func from "validator/lib/isISO6391";
 import isISO8601Func from "validator/lib/isISO8601";
 import isISRCFunc from "validator/lib/isISRC";
 import isISSNFunc from "validator/lib/isISSN";
-import isJSONFunc from "validator/lib/isJSON";
+import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
 import isLatLongFunc from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
@@ -69,27 +70,27 @@ import isMACAddressFunc from "validator/lib/isMACAddress";
 import isMailtoURIFunc from "validator/lib/isMailtoURI";
 import isMD5Func from "validator/lib/isMD5";
 import isMimeTypeFunc from "validator/lib/isMimeType";
-import isMobilePhoneFunc from "validator/lib/isMobilePhone";
+import isMobilePhoneFunc, { locales as isMobilePhoneLocales } from "validator/lib/isMobilePhone";
 import isMongoIdFunc from "validator/lib/isMongoId";
 import isMultibyteFunc from "validator/lib/isMultibyte";
 import isNumericFunc from "validator/lib/isNumeric";
 import isOctalFunc from "validator/lib/isOctal";
 import isPassportNumberFunc from "validator/lib/isPassportNumber";
 import isPortFunc from "validator/lib/isPort";
-import isPostalCodeFunc from "validator/lib/isPostalCode";
+import isPostalCodeFunc, { locales as isPostalCodeLocales } from "validator/lib/isPostalCode";
 import isRgbColorFunc from "validator/lib/isRgbColor";
 import isSemVerFunc from "validator/lib/isSemVer";
 import isSlugFunc from "validator/lib/isSlug";
 import isStrongPasswordFunc from "validator/lib/isStrongPassword";
 import isSurrogatePairFunc from "validator/lib/isSurrogatePair";
 import isTaxIDFunc from "validator/lib/isTaxID";
-import isTimeFunc from "validator/lib/isTime";
+import isTimeFunc, { IsTimeOptions } from "validator/lib/isTime";
 import isULIDFunc from "validator/lib/isULID";
 import isUppercaseFunc from "validator/lib/isUppercase";
 import isURLFunc from "validator/lib/isURL";
 import isUUIDFunc from "validator/lib/isUUID";
 import isVariableWidthFunc from "validator/lib/isVariableWidth";
-import isVatFunc from "validator/lib/isVAT";
+import isVatFunc, { VATCountryCode } from "validator/lib/isVAT";
 import isWhitelistedFunc from "validator/lib/isWhitelisted";
 import ltrimFunc from "validator/lib/ltrim";
 import matchesFunc from "validator/lib/matches";
@@ -132,6 +133,12 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _isAscii = validator.isAscii;
     _isAscii = isAsciiFunc;
+
+    let _isBase32 = validator.isBase32;
+    _isBase32 = isBase32Func;
+
+    let _isBase58 = validator.isBase58;
+    _isBase58 = isBase58Func;
 
     let _isBase64 = validator.isBase64;
     _isBase64 = isBase64Func;
@@ -182,11 +189,8 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isEmpty = validator.isEmpty;
     _isEmpty = isEmptyFunc;
 
-    validator.isFQDN; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
-    isFQDNFunc; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
-    const isFQDNOptions: IsFQDNOptions = {
-        allow_numeric_tld: true,
-    };
+    let _isFQDN = validator.isFQDN;
+    _isFQDN = isFQDNFunc;
 
     let _isFloat = validator.isFloat;
     _isFloat = isFloatFunc;
@@ -280,7 +284,7 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isLength = validator.isLength;
     _isLength = isLengthFunc;
 
-    // $ExpectType { (str: string, locale: LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
+    // $ExpectType { (str: string, locale: "any" | LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
     let _isLicensePlate = validator.isLicensePlate;
     _isLicensePlate = isLicensePlateFunc;
 
@@ -413,13 +417,14 @@ import containsFuncEs from "validator/es/lib/contains";
 import equalsFuncEs from "validator/es/lib/equals";
 import escapeFuncEs from "validator/es/lib/escape";
 import isAbaRoutingFuncEs from "validator/es/lib/isAbaRouting";
-import isAfterFuncEs from "validator/es/lib/isAfter";
+import isAfterFuncEs, { IsAfterOptions as IsAfterOptionsEs } from "validator/es/lib/isAfter";
 import isAlphaFuncEs from "validator/es/lib/isAlpha";
 import isAlphanumericFuncEs from "validator/es/lib/isAlphanumeric";
 import isAsciiFuncEs from "validator/es/lib/isAscii";
+import isBase32FuncEs from "validator/es/lib/isBase32";
 import isBase58FuncEs from "validator/es/lib/isBase58";
 import isBase64FuncEs from "validator/es/lib/isBase64";
-import isBeforeFuncEs from "validator/es/lib/isBefore";
+import isBeforeFuncEs, { IsBeforeOptions as IsBeforeOptionsEs } from "validator/es/lib/isBefore";
 import isBICFuncEs from "validator/es/lib/isBIC";
 import isBooleanFuncEs from "validator/es/lib/isBoolean";
 import isBtcAddressFuncEs from "validator/es/lib/isBtcAddress";
@@ -435,14 +440,18 @@ import isEmailFuncEs from "validator/es/lib/isEmail";
 import isEmptyFuncEs from "validator/es/lib/isEmpty";
 import isEthereumAddressFuncEs from "validator/es/lib/isEthereumAddress";
 import isFloatFuncEs from "validator/es/lib/isFloat";
-import isFQDNFuncEs from "validator/es/lib/isFQDN";
+import isFQDNFuncEs, { IsFQDNOptions as IsFQDNOptionsEs } from "validator/es/lib/isFQDN";
 import isFullWidthFuncEs from "validator/es/lib/isFullWidth";
 import isHalfWidthFuncEs from "validator/es/lib/isHalfWidth";
 import isHashFuncEs from "validator/es/lib/isHash";
 import isHexadecimalFuncEs from "validator/es/lib/isHexadecimal";
 import isHexColorFuncEs from "validator/es/lib/isHexColor";
 import isHSLFuncEs from "validator/es/lib/isHSL";
-import isIBANFuncEs from "validator/es/lib/isIBAN";
+import isIBANFuncEs, {
+    IBANLocale as IBANLocaleEs,
+    IsIBANOptions as IsIBANOptionsEs,
+    locales as isIBANLocalesEs,
+} from "validator/es/lib/isIBAN";
 import isInFuncEs from "validator/es/lib/isIn";
 import isIntFuncEs from "validator/es/lib/isInt";
 import isIPFuncEs from "validator/es/lib/isIP";
@@ -459,7 +468,7 @@ import isISO6391FuncEs from "validator/es/lib/isISO6391";
 import isISO8601FuncEs from "validator/es/lib/isISO8601";
 import isISRCFuncEs from "validator/es/lib/isISRC";
 import isISSNFuncEs from "validator/es/lib/isISSN";
-import isJSONFuncEs from "validator/es/lib/isJSON";
+import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
 import isLatLongFuncEs from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
@@ -471,27 +480,27 @@ import isMACAddressFuncEs from "validator/es/lib/isMACAddress";
 import isMailtoURIFuncEs from "validator/es/lib/isMailtoURI";
 import isMD5FuncEs from "validator/es/lib/isMD5";
 import isMimeTypeFuncEs from "validator/es/lib/isMimeType";
-import isMobilePhoneFuncEs from "validator/es/lib/isMobilePhone";
+import isMobilePhoneFuncEs, { locales as isMobilePhoneLocalesEs } from "validator/es/lib/isMobilePhone";
 import isMongoIdFuncEs from "validator/es/lib/isMongoId";
 import isMultibyteFuncEs from "validator/es/lib/isMultibyte";
 import isNumericFuncEs from "validator/es/lib/isNumeric";
 import isOctalFuncEs from "validator/es/lib/isOctal";
 import isPassportNumberFuncEs from "validator/es/lib/isPassportNumber";
 import isPortFuncEs from "validator/es/lib/isPort";
-import isPostalCodeFuncEs from "validator/es/lib/isPostalCode";
+import isPostalCodeFuncEs, { locales as isPostalCodeLocalesEs } from "validator/es/lib/isPostalCode";
 import isRgbColorFuncEs from "validator/es/lib/isRgbColor";
 import isSemVerFuncEs from "validator/es/lib/isSemVer";
 import isSlugFuncEs from "validator/es/lib/isSlug";
 import isStrongPasswordFuncEs from "validator/es/lib/isStrongPassword";
 import isSurrogatePairFuncEs from "validator/es/lib/isSurrogatePair";
 import isTaxIDFuncEs from "validator/es/lib/isTaxID";
-import isTimeFuncEs from "validator/es/lib/isTime";
+import isTimeFuncEs, { IsTimeOptions as IsTimeOptionsEs } from "validator/es/lib/isTime";
 import isULIDFuncEs from "validator/es/lib/isULID";
 import isUppercaseFuncEs from "validator/es/lib/isUppercase";
 import isURLFuncEs from "validator/es/lib/isURL";
 import isUUIDFuncEs from "validator/es/lib/isUUID";
 import isVariableWidthFuncEs from "validator/es/lib/isVariableWidth";
-import isVATFuncEs from "validator/es/lib/isVAT";
+import isVATFuncEs, { VATCountryCode as VATCountryCodeEs } from "validator/es/lib/isVAT";
 import isWhitelistedFuncEs from "validator/es/lib/isWhitelisted";
 import ltrimFuncEs from "validator/es/lib/ltrim";
 import matchesFuncEs from "validator/es/lib/matches";
@@ -531,6 +540,9 @@ const any: any = null;
 
     result = validator.isAfter("sample");
     result = validator.isAfter("sample", new Date().toString());
+    result = validator.isAfter("sample", {} satisfies IsAfterOptions);
+    result = validator.isAfter("sample", { comparisonDate: undefined });
+    result = validator.isAfter("sample", { comparisonDate: new Date().toString() });
 
     result = validator.isAlpha("sample");
     result = validator.isAlpha("sample", "ar");
@@ -640,7 +652,11 @@ const any: any = null;
 
     result = validator.isAscii("sample");
 
-    isBase58Func("sample"); // $ExpectType boolean
+    result = validator.isBase32("sample");
+    result = validator.isBase32("sample", {});
+    result = validator.isBase32("sample", { crockford: true });
+
+    result = validator.isBase58("sample");
 
     result = validator.isBase64("sample");
     result = validator.isBase64("sample", {});
@@ -655,11 +671,92 @@ const any: any = null;
 
     result = validator.isBefore("sample");
     result = validator.isBefore("sample", new Date().toString());
+    result = validator.isBefore("sample", {} satisfies IsBeforeOptions);
+    result = validator.isBefore("sample", { comparisonDate: undefined });
+    result = validator.isBefore("sample", { comparisonDate: new Date().toString() });
 
     result = validator.isIBAN("sample");
-    result = validator.isIBAN("sample", { whitelist: ["GB", "BR"] });
-    result = validator.isIBAN("sample", { blacklist: ["LT", "GL"] });
-    result = validator.isIBAN("sample", { whitelist: ["GB", "BR"], blacklist: ["DK"] });
+    result = validator.isIBAN("sample", {});
+    result = validator.isIBAN("sample", { whitelist: ["AD"], blacklist: ["AD"] });
+    result = validator.isIBAN("sample", { whitelist: ["AE"], blacklist: ["AE"] });
+    result = validator.isIBAN("sample", { whitelist: ["AL"], blacklist: ["AL"] });
+    result = validator.isIBAN("sample", { whitelist: ["AT"], blacklist: ["AT"] });
+    result = validator.isIBAN("sample", { whitelist: ["AZ"], blacklist: ["AZ"] });
+    result = validator.isIBAN("sample", { whitelist: ["BA"], blacklist: ["BA"] });
+    result = validator.isIBAN("sample", { whitelist: ["BE"], blacklist: ["BE"] });
+    result = validator.isIBAN("sample", { whitelist: ["BG"], blacklist: ["BG"] });
+    result = validator.isIBAN("sample", { whitelist: ["BH"], blacklist: ["BH"] });
+    result = validator.isIBAN("sample", { whitelist: ["BR"], blacklist: ["BR"] });
+    result = validator.isIBAN("sample", { whitelist: ["BY"], blacklist: ["BY"] });
+    result = validator.isIBAN("sample", { whitelist: ["CH"], blacklist: ["CH"] });
+    result = validator.isIBAN("sample", { whitelist: ["CR"], blacklist: ["CR"] });
+    result = validator.isIBAN("sample", { whitelist: ["CY"], blacklist: ["CY"] });
+    result = validator.isIBAN("sample", { whitelist: ["CZ"], blacklist: ["CZ"] });
+    result = validator.isIBAN("sample", { whitelist: ["DE"], blacklist: ["DE"] });
+    result = validator.isIBAN("sample", { whitelist: ["DK"], blacklist: ["DK"] });
+    result = validator.isIBAN("sample", { whitelist: ["DO"], blacklist: ["DO"] });
+    result = validator.isIBAN("sample", { whitelist: ["DZ"], blacklist: ["DZ"] });
+    result = validator.isIBAN("sample", { whitelist: ["EE"], blacklist: ["EE"] });
+    result = validator.isIBAN("sample", { whitelist: ["EG"], blacklist: ["EG"] });
+    result = validator.isIBAN("sample", { whitelist: ["ES"], blacklist: ["ES"] });
+    result = validator.isIBAN("sample", { whitelist: ["FI"], blacklist: ["FI"] });
+    result = validator.isIBAN("sample", { whitelist: ["FO"], blacklist: ["FO"] });
+    result = validator.isIBAN("sample", { whitelist: ["FR"], blacklist: ["FR"] });
+    result = validator.isIBAN("sample", { whitelist: ["GB"], blacklist: ["GB"] });
+    result = validator.isIBAN("sample", { whitelist: ["GE"], blacklist: ["GE"] });
+    result = validator.isIBAN("sample", { whitelist: ["GI"], blacklist: ["GI"] });
+    result = validator.isIBAN("sample", { whitelist: ["GL"], blacklist: ["GL"] });
+    result = validator.isIBAN("sample", { whitelist: ["GR"], blacklist: ["GR"] });
+    result = validator.isIBAN("sample", { whitelist: ["GT"], blacklist: ["GT"] });
+    result = validator.isIBAN("sample", { whitelist: ["HR"], blacklist: ["HR"] });
+    result = validator.isIBAN("sample", { whitelist: ["HU"], blacklist: ["HU"] });
+    result = validator.isIBAN("sample", { whitelist: ["IE"], blacklist: ["IE"] });
+    result = validator.isIBAN("sample", { whitelist: ["IL"], blacklist: ["IL"] });
+    result = validator.isIBAN("sample", { whitelist: ["IQ"], blacklist: ["IQ"] });
+    result = validator.isIBAN("sample", { whitelist: ["IR"], blacklist: ["IR"] });
+    result = validator.isIBAN("sample", { whitelist: ["IS"], blacklist: ["IS"] });
+    result = validator.isIBAN("sample", { whitelist: ["IT"], blacklist: ["IT"] });
+    result = validator.isIBAN("sample", { whitelist: ["JO"], blacklist: ["JO"] });
+    result = validator.isIBAN("sample", { whitelist: ["KW"], blacklist: ["KW"] });
+    result = validator.isIBAN("sample", { whitelist: ["KZ"], blacklist: ["KZ"] });
+    result = validator.isIBAN("sample", { whitelist: ["LB"], blacklist: ["LB"] });
+    result = validator.isIBAN("sample", { whitelist: ["LC"], blacklist: ["LC"] });
+    result = validator.isIBAN("sample", { whitelist: ["LI"], blacklist: ["LI"] });
+    result = validator.isIBAN("sample", { whitelist: ["LT"], blacklist: ["LT"] });
+    result = validator.isIBAN("sample", { whitelist: ["LU"], blacklist: ["LU"] });
+    result = validator.isIBAN("sample", { whitelist: ["LV"], blacklist: ["LV"] });
+    result = validator.isIBAN("sample", { whitelist: ["MA"], blacklist: ["MA"] });
+    result = validator.isIBAN("sample", { whitelist: ["MC"], blacklist: ["MC"] });
+    result = validator.isIBAN("sample", { whitelist: ["MD"], blacklist: ["MD"] });
+    result = validator.isIBAN("sample", { whitelist: ["ME"], blacklist: ["ME"] });
+    result = validator.isIBAN("sample", { whitelist: ["MK"], blacklist: ["MK"] });
+    result = validator.isIBAN("sample", { whitelist: ["MR"], blacklist: ["MR"] });
+    result = validator.isIBAN("sample", { whitelist: ["MT"], blacklist: ["MT"] });
+    result = validator.isIBAN("sample", { whitelist: ["MU"], blacklist: ["MU"] });
+    result = validator.isIBAN("sample", { whitelist: ["MZ"], blacklist: ["MZ"] });
+    result = validator.isIBAN("sample", { whitelist: ["NL"], blacklist: ["NL"] });
+    result = validator.isIBAN("sample", { whitelist: ["NO"], blacklist: ["NO"] });
+    result = validator.isIBAN("sample", { whitelist: ["PK"], blacklist: ["PK"] });
+    result = validator.isIBAN("sample", { whitelist: ["PL"], blacklist: ["PL"] });
+    result = validator.isIBAN("sample", { whitelist: ["PS"], blacklist: ["PS"] });
+    result = validator.isIBAN("sample", { whitelist: ["PT"], blacklist: ["PT"] });
+    result = validator.isIBAN("sample", { whitelist: ["QA"], blacklist: ["QA"] });
+    result = validator.isIBAN("sample", { whitelist: ["RO"], blacklist: ["RO"] });
+    result = validator.isIBAN("sample", { whitelist: ["RS"], blacklist: ["RS"] });
+    result = validator.isIBAN("sample", { whitelist: ["SA"], blacklist: ["SA"] });
+    result = validator.isIBAN("sample", { whitelist: ["SC"], blacklist: ["SC"] });
+    result = validator.isIBAN("sample", { whitelist: ["SE"], blacklist: ["SE"] });
+    result = validator.isIBAN("sample", { whitelist: ["SI"], blacklist: ["SI"] });
+    result = validator.isIBAN("sample", { whitelist: ["SK"], blacklist: ["SK"] });
+    result = validator.isIBAN("sample", { whitelist: ["SM"], blacklist: ["SM"] });
+    result = validator.isIBAN("sample", { whitelist: ["SV"], blacklist: ["SV"] });
+    result = validator.isIBAN("sample", { whitelist: ["TL"], blacklist: ["TL"] });
+    result = validator.isIBAN("sample", { whitelist: ["TN"], blacklist: ["TN"] });
+    result = validator.isIBAN("sample", { whitelist: ["TR"], blacklist: ["TR"] });
+    result = validator.isIBAN("sample", { whitelist: ["UA"], blacklist: ["UA"] });
+    result = validator.isIBAN("sample", { whitelist: ["VA"], blacklist: ["VA"] });
+    result = validator.isIBAN("sample", { whitelist: ["VG"], blacklist: ["VG"] });
+    result = validator.isIBAN("sample", { whitelist: ["XK"], blacklist: ["XK"] });
 
     result = validator.isBIC("SBICKEN1345");
 
@@ -753,11 +850,19 @@ const any: any = null;
     result = validator.isEmpty("sample");
     result = validator.isEmpty("sample", isEmptyOptions);
 
-    const isFQDNOptions: validator.IsFQDNOptions = {
-        allow_wildcard: true,
-    };
     result = validator.isFQDN("sample");
-    result = validator.isFQDN("sample", isFQDNOptions);
+    result = validator.isFQDN("sample", {});
+    result = validator.isFQDN(
+        "sample",
+        {
+            require_tld: true,
+            allow_underscores: true,
+            allow_trailing_dot: true,
+            allow_numeric_tld: true,
+            allow_wildcard: true,
+            ignore_max_length: true,
+        } satisfies IsFQDNOptions,
+    );
 
     const isFloatOptions: validator.IsFloatOptions = {};
     result = validator.isFloat("sample");
@@ -857,6 +962,8 @@ const any: any = null;
     result = validator.isInt("sample", isIntOptions);
 
     result = validator.isJSON("sample");
+    result = validator.isJSON("sample", {});
+    result = validator.isJSON("sample", { allow_primitives: true });
 
     result = validator.isLatLong("sample");
 
@@ -864,8 +971,20 @@ const any: any = null;
     result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
 
-    const licensePlateLocale: validator.LicensePlateLocale = "any";
-    result = validator.isLicensePlate("sample", licensePlateLocale);
+    result = validator.isLicensePlate("sample", "cs-CZ" satisfies validator.LicensePlateLocale);
+    result = validator.isLicensePlate("sample", "de-DE");
+    result = validator.isLicensePlate("sample", "de-LI");
+    result = validator.isLicensePlate("sample", "en-IN");
+    result = validator.isLicensePlate("sample", "en-SG");
+    result = validator.isLicensePlate("sample", "es-AR");
+    result = validator.isLicensePlate("sample", "fi-FI");
+    result = validator.isLicensePlate("sample", "hu-HU");
+    result = validator.isLicensePlate("sample", "pt-BR");
+    result = validator.isLicensePlate("sample", "pt-PT");
+    result = validator.isLicensePlate("sample", "sq-AL");
+    result = validator.isLicensePlate("sample", "sv-SE");
+    result = validator.isLicensePlate("sample", "en-PK");
+    result = validator.isLicensePlate("sample", "any");
     // $ExpectType unknown
     validator.isLicensePlate("sample", "");
 
@@ -889,66 +1008,174 @@ const any: any = null;
         strictMode: true,
     };
     result = validator.isMobilePhone("sample", "any", isMobilePhoneOptions);
+    result = validator.isMobilePhone("sample", "am-AM");
     result = validator.isMobilePhone("sample", "ar-AE");
+    result = validator.isMobilePhone("sample", "ar-BH");
     result = validator.isMobilePhone("sample", "ar-DZ");
+    result = validator.isMobilePhone("sample", "ar-LB");
     result = validator.isMobilePhone("sample", "ar-EG");
+    result = validator.isMobilePhone("sample", "ar-IQ");
     result = validator.isMobilePhone("sample", "ar-JO");
+    result = validator.isMobilePhone("sample", "ar-KW");
+    result = validator.isMobilePhone("sample", "ar-LY");
+    result = validator.isMobilePhone("sample", "ar-MA");
+    result = validator.isMobilePhone("sample", "ar-OM");
+    result = validator.isMobilePhone("sample", "ar-PS");
     result = validator.isMobilePhone("sample", "ar-SA");
+    result = validator.isMobilePhone("sample", "ar-SD");
     result = validator.isMobilePhone("sample", "ar-SY");
+    result = validator.isMobilePhone("sample", "ar-TN");
+    result = validator.isMobilePhone("sample", "az-AZ");
+    result = validator.isMobilePhone("sample", "ar-QA");
+    result = validator.isMobilePhone("sample", "bs-BA");
     result = validator.isMobilePhone("sample", "be-BY");
     result = validator.isMobilePhone("sample", "bg-BG");
+    result = validator.isMobilePhone("sample", "bn-BD");
+    result = validator.isMobilePhone("sample", "ca-AD");
     result = validator.isMobilePhone("sample", "cs-CZ");
-    result = validator.isMobilePhone("sample", "de-DE");
     result = validator.isMobilePhone("sample", "da-DK");
+    result = validator.isMobilePhone("sample", "de-DE");
+    result = validator.isMobilePhone("sample", "de-AT");
+    result = validator.isMobilePhone("sample", "de-CH");
+    result = validator.isMobilePhone("sample", "de-LU");
+    result = validator.isMobilePhone("sample", "dv-MV");
     result = validator.isMobilePhone("sample", "el-GR");
+    result = validator.isMobilePhone("sample", "el-CY");
+    result = validator.isMobilePhone("sample", "en-AI");
     result = validator.isMobilePhone("sample", "en-AU");
+    result = validator.isMobilePhone("sample", "en-AG");
+    result = validator.isMobilePhone("sample", "en-BM");
+    result = validator.isMobilePhone("sample", "en-BS");
     result = validator.isMobilePhone("sample", "en-GB");
+    result = validator.isMobilePhone("sample", "en-GG");
+    result = validator.isMobilePhone("sample", "en-GH");
+    result = validator.isMobilePhone("sample", "en-GY");
     result = validator.isMobilePhone("sample", "en-HK");
+    result = validator.isMobilePhone("sample", "en-MO");
+    result = validator.isMobilePhone("sample", "en-IE");
     result = validator.isMobilePhone("sample", "en-IN");
+    result = validator.isMobilePhone("sample", "en-JM");
     result = validator.isMobilePhone("sample", "en-KE");
+    result = validator.isMobilePhone("sample", "fr-CF");
+    result = validator.isMobilePhone("sample", "en-SS");
+    result = validator.isMobilePhone("sample", "en-KI");
+    result = validator.isMobilePhone("sample", "en-KN");
+    result = validator.isMobilePhone("sample", "en-LS");
+    result = validator.isMobilePhone("sample", "en-MT");
+    result = validator.isMobilePhone("sample", "en-MU");
+    result = validator.isMobilePhone("sample", "en-MW");
+    result = validator.isMobilePhone("sample", "en-NA");
     result = validator.isMobilePhone("sample", "en-NG");
     result = validator.isMobilePhone("sample", "en-NZ");
-    result = validator.isMobilePhone("sample", "en-UG");
+    result = validator.isMobilePhone("sample", "en-PG");
+    result = validator.isMobilePhone("sample", "en-PK");
+    result = validator.isMobilePhone("sample", "en-PH");
     result = validator.isMobilePhone("sample", "en-RW");
     result = validator.isMobilePhone("sample", "en-SG");
+    result = validator.isMobilePhone("sample", "en-SL");
     result = validator.isMobilePhone("sample", "en-TZ");
-    result = validator.isMobilePhone("sample", "en-PK");
+    result = validator.isMobilePhone("sample", "en-UG");
     result = validator.isMobilePhone("sample", "en-US");
-    result = validator.isMobilePhone("sample", "en-CA");
     result = validator.isMobilePhone("sample", "en-ZA");
     result = validator.isMobilePhone("sample", "en-ZM");
+    result = validator.isMobilePhone("sample", "en-ZW");
+    result = validator.isMobilePhone("sample", "en-BW");
+    result = validator.isMobilePhone("sample", "es-AR");
+    result = validator.isMobilePhone("sample", "es-BO");
+    result = validator.isMobilePhone("sample", "es-CO");
+    result = validator.isMobilePhone("sample", "es-CL");
+    result = validator.isMobilePhone("sample", "es-CR");
+    result = validator.isMobilePhone("sample", "es-CU");
+    result = validator.isMobilePhone("sample", "es-DO");
+    result = validator.isMobilePhone("sample", "es-HN");
+    result = validator.isMobilePhone("sample", "es-EC");
     result = validator.isMobilePhone("sample", "es-ES");
     result = validator.isMobilePhone("sample", "es-GT");
+    result = validator.isMobilePhone("sample", "es-PE");
+    result = validator.isMobilePhone("sample", "es-MX");
+    result = validator.isMobilePhone("sample", "es-NI");
+    result = validator.isMobilePhone("sample", "es-PA");
+    result = validator.isMobilePhone("sample", "es-PY");
+    result = validator.isMobilePhone("sample", "es-SV");
+    result = validator.isMobilePhone("sample", "es-UY");
+    result = validator.isMobilePhone("sample", "es-VE");
+    result = validator.isMobilePhone("sample", "et-EE");
     result = validator.isMobilePhone("sample", "fa-IR");
     result = validator.isMobilePhone("sample", "fi-FI");
+    result = validator.isMobilePhone("sample", "fj-FJ");
     result = validator.isMobilePhone("sample", "fo-FO");
+    result = validator.isMobilePhone("sample", "fr-BF");
+    result = validator.isMobilePhone("sample", "fr-BJ");
+    result = validator.isMobilePhone("sample", "fr-CD");
+    result = validator.isMobilePhone("sample", "fr-CM");
     result = validator.isMobilePhone("sample", "fr-FR");
+    result = validator.isMobilePhone("sample", "fr-GF");
+    result = validator.isMobilePhone("sample", "fr-GP");
+    result = validator.isMobilePhone("sample", "fr-MQ");
+    result = validator.isMobilePhone("sample", "fr-PF");
+    result = validator.isMobilePhone("sample", "fr-RE");
+    result = validator.isMobilePhone("sample", "fr-WF");
     result = validator.isMobilePhone("sample", "he-IL");
     result = validator.isMobilePhone("sample", "hu-HU");
     result = validator.isMobilePhone("sample", "id-ID");
+    result = validator.isMobilePhone("sample", "ir-IR");
     result = validator.isMobilePhone("sample", "it-IT");
+    result = validator.isMobilePhone("sample", "it-SM");
     result = validator.isMobilePhone("sample", "ja-JP");
+    result = validator.isMobilePhone("sample", "ka-GE");
     result = validator.isMobilePhone("sample", "kk-KZ");
     result = validator.isMobilePhone("sample", "kl-GL");
     result = validator.isMobilePhone("sample", "ko-KR");
+    result = validator.isMobilePhone("sample", "ky-KG");
     result = validator.isMobilePhone("sample", "lt-LT");
-    result = validator.isMobilePhone("sample", "mk-MK");
+    result = validator.isMobilePhone("sample", "lv-LV");
+    result = validator.isMobilePhone("sample", "mg-MG");
+    result = validator.isMobilePhone("sample", "mn-MN");
+    result = validator.isMobilePhone("sample", "my-MM");
     result = validator.isMobilePhone("sample", "ms-MY");
+    result = validator.isMobilePhone("sample", "mz-MZ");
     result = validator.isMobilePhone("sample", "nb-NO");
+    result = validator.isMobilePhone("sample", "ne-NP");
+    result = validator.isMobilePhone("sample", "nl-BE");
+    result = validator.isMobilePhone("sample", "nl-NL");
+    result = validator.isMobilePhone("sample", "nl-AW");
     result = validator.isMobilePhone("sample", "nn-NO");
     result = validator.isMobilePhone("sample", "pl-PL");
+    result = validator.isMobilePhone("sample", "pt-BR");
     result = validator.isMobilePhone("sample", "pt-PT");
+    result = validator.isMobilePhone("sample", "pt-AO");
+    result = validator.isMobilePhone("sample", "ro-MD");
     result = validator.isMobilePhone("sample", "ro-RO");
     result = validator.isMobilePhone("sample", "ru-RU");
-    result = validator.isMobilePhone("sample", "sr-RS");
+    result = validator.isMobilePhone("sample", "si-LK");
+    result = validator.isMobilePhone("sample", "sl-SI");
     result = validator.isMobilePhone("sample", "sk-SK");
+    result = validator.isMobilePhone("sample", "so-SO");
+    result = validator.isMobilePhone("sample", "sq-AL");
+    result = validator.isMobilePhone("sample", "sr-RS");
+    result = validator.isMobilePhone("sample", "sv-SE");
+    result = validator.isMobilePhone("sample", "tg-TJ");
     result = validator.isMobilePhone("sample", "th-TH");
     result = validator.isMobilePhone("sample", "tr-TR");
+    result = validator.isMobilePhone("sample", "tk-TM");
     result = validator.isMobilePhone("sample", "uk-UA");
+    result = validator.isMobilePhone("sample", "uz-UZ");
     result = validator.isMobilePhone("sample", "vi-VN");
     result = validator.isMobilePhone("sample", "zh-CN");
-    result = validator.isMobilePhone("sample", "zh-HK");
     result = validator.isMobilePhone("sample", "zh-TW");
+    result = validator.isMobilePhone("sample", "dz-BT");
+    result = validator.isMobilePhone("sample", "ar-YE");
+    result = validator.isMobilePhone("sample", "ar-EH");
+    result = validator.isMobilePhone("sample", "fa-AF");
+    result = validator.isMobilePhone("sample", "mk-MK");
+    result = validator.isMobilePhone("sample", "en-CA");
+    result = validator.isMobilePhone("sample", "fr-CA");
+    result = validator.isMobilePhone("sample", "fr-BE");
+    result = validator.isMobilePhone("sample", "zh-HK");
+    result = validator.isMobilePhone("sample", "zh-MO");
+    result = validator.isMobilePhone("sample", "ga-IE");
+    result = validator.isMobilePhone("sample", "fr-CH");
+    result = validator.isMobilePhone("sample", "it-CH");
     result = validator.isMobilePhone("sample", "any");
     result = validator.isMobilePhone("sample");
     result = validator.isMobilePhone("sample", ["pl-PL", "pt-PT"]);
@@ -968,40 +1195,72 @@ const any: any = null;
 
     result = validator.isPort("sample");
 
+    result = validator.isPostalCode("sample", "AD");
     result = validator.isPostalCode("sample", "AT");
     result = validator.isPostalCode("sample", "AU");
+    result = validator.isPostalCode("sample", "AZ");
+    result = validator.isPostalCode("sample", "BA");
+    result = validator.isPostalCode("sample", "BD");
     result = validator.isPostalCode("sample", "BE");
     result = validator.isPostalCode("sample", "BG");
+    result = validator.isPostalCode("sample", "BR");
+    result = validator.isPostalCode("sample", "BY");
     result = validator.isPostalCode("sample", "CA");
     result = validator.isPostalCode("sample", "CH");
+    result = validator.isPostalCode("sample", "CN");
     result = validator.isPostalCode("sample", "CO");
     result = validator.isPostalCode("sample", "CZ");
     result = validator.isPostalCode("sample", "DE");
     result = validator.isPostalCode("sample", "DK");
+    result = validator.isPostalCode("sample", "DO");
     result = validator.isPostalCode("sample", "DZ");
+    result = validator.isPostalCode("sample", "EE");
     result = validator.isPostalCode("sample", "ES");
     result = validator.isPostalCode("sample", "FI");
     result = validator.isPostalCode("sample", "FR");
     result = validator.isPostalCode("sample", "GB");
     result = validator.isPostalCode("sample", "GR");
+    result = validator.isPostalCode("sample", "HR");
+    result = validator.isPostalCode("sample", "HT");
+    result = validator.isPostalCode("sample", "HU");
+    result = validator.isPostalCode("sample", "ID");
+    result = validator.isPostalCode("sample", "IE");
     result = validator.isPostalCode("sample", "IL");
     result = validator.isPostalCode("sample", "IN");
+    result = validator.isPostalCode("sample", "IR");
     result = validator.isPostalCode("sample", "IS");
     result = validator.isPostalCode("sample", "IT");
     result = validator.isPostalCode("sample", "JP");
-    result = validator.isPostalCode("sample", "KR");
     result = validator.isPostalCode("sample", "KE");
+    result = validator.isPostalCode("sample", "KR");
     result = validator.isPostalCode("sample", "LI");
+    result = validator.isPostalCode("sample", "LT");
+    result = validator.isPostalCode("sample", "LU");
+    result = validator.isPostalCode("sample", "LV");
+    result = validator.isPostalCode("sample", "LK");
+    result = validator.isPostalCode("sample", "MG");
     result = validator.isPostalCode("sample", "MX");
+    result = validator.isPostalCode("sample", "MT");
+    result = validator.isPostalCode("sample", "MY");
     result = validator.isPostalCode("sample", "NL");
     result = validator.isPostalCode("sample", "NO");
+    result = validator.isPostalCode("sample", "NP");
+    result = validator.isPostalCode("sample", "NZ");
+    result = validator.isPostalCode("sample", "PK");
     result = validator.isPostalCode("sample", "PL");
+    result = validator.isPostalCode("sample", "PR");
     result = validator.isPostalCode("sample", "PT");
     result = validator.isPostalCode("sample", "RO");
     result = validator.isPostalCode("sample", "RU");
     result = validator.isPostalCode("sample", "SA");
     result = validator.isPostalCode("sample", "SE");
+    result = validator.isPostalCode("sample", "SG");
+    result = validator.isPostalCode("sample", "SI");
+    result = validator.isPostalCode("sample", "SK");
+    result = validator.isPostalCode("sample", "TH");
+    result = validator.isPostalCode("sample", "TN");
     result = validator.isPostalCode("sample", "TW");
+    result = validator.isPostalCode("sample", "UA");
     result = validator.isPostalCode("sample", "US");
     result = validator.isPostalCode("sample", "ZA");
     result = validator.isPostalCode("sample", "ZM");
@@ -1011,9 +1270,13 @@ const any: any = null;
 
     result = validator.isSurrogatePair("sample");
 
-    const isTimeOptions: validator.IsTimeOptions = {};
     result = validator.isTime("sample");
-    result = validator.isTime("sample", isTimeOptions);
+    result = validator.isTime("sample", {} satisfies IsTimeOptions);
+    result = validator.isTime("sample", { hourFormat: "hour12" });
+    result = validator.isTime("sample", { hourFormat: "hour24" });
+    result = validator.isTime("sample", { mode: "default" });
+    result = validator.isTime("sample", { mode: "withSeconds" });
+    result = validator.isTime("sample", { mode: "withOptionalSeconds" });
 
     result = validator.isULID("sample");
 
@@ -1047,8 +1310,75 @@ const any: any = null;
     result = validator.isUppercase("sample");
 
     result = validator.isVariableWidth("sample");
-    validator.isVAT("GB999 9999 00", "GB"); // $ExpectType boolean
-    isVatFunc("foo", "GB"); // $ExpectType boolean
+
+    result = validator.isVAT("AT999 9999 00", "AT");
+    result = validator.isVAT("BE999 9999 00", "BE");
+    result = validator.isVAT("BG999 9999 00", "BG");
+    result = validator.isVAT("HR999 9999 00", "HR");
+    result = validator.isVAT("CY999 9999 00", "CY");
+    result = validator.isVAT("CZ999 9999 00", "CZ");
+    result = validator.isVAT("DK999 9999 00", "DK");
+    result = validator.isVAT("EE999 9999 00", "EE");
+    result = validator.isVAT("FI999 9999 00", "FI");
+    result = validator.isVAT("FR999 9999 00", "FR");
+    result = validator.isVAT("DE999 9999 00", "DE");
+    result = validator.isVAT("EL999 9999 00", "EL");
+    result = validator.isVAT("HU999 9999 00", "HU");
+    result = validator.isVAT("IE999 9999 00", "IE");
+    result = validator.isVAT("IT999 9999 00", "IT");
+    result = validator.isVAT("LV999 9999 00", "LV");
+    result = validator.isVAT("LT999 9999 00", "LT");
+    result = validator.isVAT("LU999 9999 00", "LU");
+    result = validator.isVAT("MT999 9999 00", "MT");
+    result = validator.isVAT("NL999 9999 00", "NL");
+    result = validator.isVAT("PL999 9999 00", "PL");
+    result = validator.isVAT("PT999 9999 00", "PT");
+    result = validator.isVAT("RO999 9999 00", "RO");
+    result = validator.isVAT("SK999 9999 00", "SK");
+    result = validator.isVAT("SI999 9999 00", "SI");
+    result = validator.isVAT("ES999 9999 00", "ES");
+    result = validator.isVAT("SE999 9999 00", "SE");
+    result = validator.isVAT("AL999 9999 00", "AL");
+    result = validator.isVAT("MK999 9999 00", "MK");
+    result = validator.isVAT("AU999 9999 00", "AU");
+    result = validator.isVAT("BY999 9999 00", "BY");
+    result = validator.isVAT("CA999 9999 00", "CA");
+    result = validator.isVAT("IS999 9999 00", "IS");
+    result = validator.isVAT("IN999 9999 00", "IN");
+    result = validator.isVAT("ID999 9999 00", "ID");
+    result = validator.isVAT("IL999 9999 00", "IL");
+    result = validator.isVAT("KZ999 9999 00", "KZ");
+    result = validator.isVAT("NZ999 9999 00", "NZ");
+    result = validator.isVAT("NG999 9999 00", "NG");
+    result = validator.isVAT("NO999 9999 00", "NO");
+    result = validator.isVAT("PH999 9999 00", "PH");
+    result = validator.isVAT("RU999 9999 00", "RU");
+    result = validator.isVAT("SM999 9999 00", "SM");
+    result = validator.isVAT("SA999 9999 00", "SA");
+    result = validator.isVAT("RS999 9999 00", "RS");
+    result = validator.isVAT("CH999 9999 00", "CH");
+    result = validator.isVAT("TR999 9999 00", "TR");
+    result = validator.isVAT("UA999 9999 00", "UA");
+    result = validator.isVAT("GB999 9999 00", "GB");
+    result = validator.isVAT("UZ999 9999 00", "UZ");
+    result = validator.isVAT("AR999 9999 00", "AR");
+    result = validator.isVAT("BO999 9999 00", "BO");
+    result = validator.isVAT("BR999 9999 00", "BR");
+    result = validator.isVAT("CL999 9999 00", "CL");
+    result = validator.isVAT("CO999 9999 00", "CO");
+    result = validator.isVAT("CR999 9999 00", "CR");
+    result = validator.isVAT("EC999 9999 00", "EC");
+    result = validator.isVAT("SV999 9999 00", "SV");
+    result = validator.isVAT("GT999 9999 00", "GT");
+    result = validator.isVAT("HN999 9999 00", "HN");
+    result = validator.isVAT("MX999 9999 00", "MX");
+    result = validator.isVAT("NI999 9999 00", "NI");
+    result = validator.isVAT("PA999 9999 00", "PA");
+    result = validator.isVAT("PY999 9999 00", "PY");
+    result = validator.isVAT("PE999 9999 00", "PE");
+    result = validator.isVAT("DO999 9999 00", "DO");
+    result = validator.isVAT("UY999 9999 00", "UY");
+    result = validator.isVAT("VE999 9999 00", "VE");
 
     result = validator.isWhitelisted("sample", "abc");
     result = validator.isWhitelisted("sample", ["a", "b", "c"]);
@@ -1113,20 +1443,27 @@ const any: any = null;
     // $ExpectType boolean
     validator.isStrongPassword("sample23#@test");
     // $ExpectType boolean
+    validator.isStrongPassword("sample23#@test", {});
+    // $ExpectType boolean
     validator.isStrongPassword("sample23#@test", {
-        minLength: 10,
+        minLength: -1,
+        minLowercase: -1,
+        minUppercase: -1,
+        minNumbers: -1,
+        minSymbols: -1,
+        pointsPerUnique: -1,
+        pointsPerRepeat: -1,
+        pointsForContainingLower: -1,
+        pointsForContainingUpper: -1,
+        pointsForContainingNumber: -1,
+        pointsForContainingSymbol: -1,
     });
     // $ExpectType boolean
     validator.isStrongPassword("sample23#@test", { returnScore: false });
-    // $ExpectType boolean
-    validator.isStrongPassword("abc", {
-        minLength: 10,
-        returnScore: false,
-    });
     // $ExpectType number
     validator.isStrongPassword("sample23#@test", { returnScore: true });
-    // $ExpectType number
-    validator.isStrongPassword("sample23#@test", { minLength: 10, returnScore: true });
+    // $ExpectType boolean | number
+    validator.isStrongPassword("sample23#@test", { returnScore: Math.random() > 0.5 });
 }
 
 {

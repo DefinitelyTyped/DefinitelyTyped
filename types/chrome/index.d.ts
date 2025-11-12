@@ -246,7 +246,7 @@ declare namespace chrome {
         ): void;
 
         /**
-         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermissions declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
+         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermission declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
          *
          * Can return its result via Promise.
          */
@@ -867,174 +867,120 @@ declare namespace chrome {
      */
     export namespace browserAction {
         export interface BadgeBackgroundColorDetails {
-            /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
+            /** An array of four integers in the range 0-255 that make up the RGBA color of the badge. Can also be a string with a CSS hex color value; for example, `#FF0000` or `#F00` (red). Renders colors at full opacity. */
             color: string | extensionTypes.ColorArray;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number | null | undefined;
         }
 
         export interface BadgeTextDetails {
-            /** Any number of characters can be passed, but only about four can fit in the space. */
+            /** Any number of characters can be passed, but only about four can fit into the space. If an empty string (`''`) is passed, the badge text is cleared. If `tabId` is specified and `text` is null, the text for the specified tab is cleared and defaults to the global badge text. */
             text?: string | null | undefined;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number | null | undefined;
         }
 
         export interface TitleDetails {
             /** The string the browser action should display when moused over. */
             title: string;
             /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | null;
+            tabId?: number | null | undefined;
         }
 
         export interface TabDetails {
-            /** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
-            tabId?: number | null;
+            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned. */
+            tabId?: number | null | undefined;
         }
 
-        export interface TabIconDetails {
-            /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-            path?: string | { [index: string]: string } | undefined;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
-        }
+        export type TabIconDetails =
+            & {
+                /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+                tabId?: number | null | undefined;
+            }
+            & (
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData: ImageData | { [index: number]: ImageData };
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path?: string | { [index: string]: string } | undefined;
+                }
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path: string | { [index: string]: string };
+                }
+            );
 
         export interface PopupDetails {
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | null;
-            /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number | null | undefined;
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown.*/
             popup: string;
         }
 
-        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
-
         /**
-         * @since Chrome 22
-         * Enables the browser action for a tab. By default, browser actions are enabled.
-         * @param tabId The id of the tab for which you want to modify the browser action.
-         * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function enable(tabId?: number | null): Promise<void>;
-        /**
-         * @since Chrome 22
-         * Enables the browser action for a tab. By default, browser actions are enabled.
-         * @param tabId The id of the tab for which you want to modify the browser action.
-         * @param callback Supported since Chrome 67
+         * Enables the browser action for a tab. Defaults to enabled.
+         * @param tabId The ID of the tab for which to modify the browser action.
+         * @param callback Since Chrome 67
          */
         export function enable(callback?: () => void): void;
         export function enable(tabId: number | null | undefined, callback?: () => void): void;
+
         /**
          * Sets the background color for the badge.
-         * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>;
-        /**
-         * Sets the background color for the badge.
-         * @param callback Supported since Chrome 67
+         * @param callback Since Chrome 67
          */
         export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+
         /**
          * Sets the badge text for the browser action. The badge is displayed on top of the icon.
-         * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         * @param callback Since Chrome 67
          */
-        export function setBadgeText(details: BadgeTextDetails): Promise<void>;
+        export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+
         /**
-         * Sets the badge text for the browser action. The badge is displayed on top of the icon.
-         * @param callback Supported since Chrome 67
+         * Sets the title of the browser action. This title appears in the tooltip.
+         * @param callback Since Chrome 67
          */
-        export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
-        /**
-         * Sets the title of the browser action. This shows up in the tooltip.
-         * @return The `setTitle` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function setTitle(details: TitleDetails): Promise<void>;
-        /**
-         * Sets the title of the browser action. This shows up in the tooltip.
-         * @param callback Supported since Chrome 67
-         */
-        export function setTitle(details: TitleDetails, callback: () => void): void;
-        /**
-         * @since Chrome 19
-         * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
-         * @param callback Supported since Chrome 67
-         */
+        export function setTitle(details: TitleDetails, callback?: () => void): void;
+
+        /** Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned. */
         export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
+
         /**
-         * @since Chrome 19
-         * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
-         * @return The `getBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getBadgeText(details: TabDetails): Promise<string>;
-        /**
-         * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
-         * @return The `setPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function setPopup(details: PopupDetails): Promise<void>;
-        /**
-         * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
-         * @param callback Supported since Chrome 67
+         * Sets the HTML document to be opened as a popup when the user clicks the browser action icon.
+         * @param callback Since Chrome 67
          */
         export function setPopup(details: PopupDetails, callback?: () => void): void;
+
         /**
-         * @since Chrome 22
          * Disables the browser action for a tab.
-         * @param tabId The id of the tab for which you want to modify the browser action.
-         * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         * @param tabId The ID of the tab for which to modify the browser action.
+         * @param callback since Chrome 67
          */
-        export function disable(tabId?: number | null): Promise<void>;
-        /**
-         * @since Chrome 22
-         * Disables the browser action for a tab.
-         * @param tabId The id of the tab for which you want to modify the browser action.
-         * @param callback Supported since Chrome 67
-         */
-        export function disable(callback: () => void): void;
-        export function disable(tabId?: number | null, callback?: () => void): void;
-        /**
-         * @since Chrome 19
-         * Gets the title of the browser action.
-         */
+        export function disable(callback?: () => void): void;
+        export function disable(tabId: number | null | undefined, callback?: () => void): void;
+
+        /** Gets the title of the browser action. */
         export function getTitle(details: TabDetails, callback: (result: string) => void): void;
-        /**
-         * @since Chrome 19
-         * Gets the title of the browser action.
-         * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getTitle(details: TabDetails): Promise<string>;
-        /**
-         * @since Chrome 19
-         * Gets the background color of the browser action.
-         */
+
+        /** Gets the background color of the browser action. */
         export function getBadgeBackgroundColor(
             details: TabDetails,
             callback: (result: extensionTypes.ColorArray) => void,
         ): void;
-        /**
-         * @since Chrome 19
-         * Gets the background color of the browser action.
-         * @return The `getBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getBadgeBackgroundColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
-        /**
-         * @since Chrome 19
-         * Gets the html document set as the popup for this browser action.
-         */
+
+        /** Gets the HTML document that is set as the popup for this browser action. */
         export function getPopup(details: TabDetails, callback: (result: string) => void): void;
+
         /**
-         * @since Chrome 19
-         * Gets the html document set as the popup for this browser action.
-         * @return The `getPopup` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getPopup(details: TabDetails): Promise<string>;
-        /**
-         * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
+         * Sets the icon for the browser action. The icon can be specified as the path to an image file, as the pixel data from a canvas element, or as a dictionary of one of those. Either the `path` or the `imageData` property must be specified.
          */
         export function setIcon(details: TabIconDetails, callback?: () => void): void;
 
-        /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
-        export var onClicked: BrowserClickedEvent;
+        /** Fired when a browser action icon is clicked. Does not fire if the browser action has a popup. */
+        export const onClicked: events.Event<(tab: chrome.tabs.Tab) => void>;
     }
 
     ////////////////////
@@ -1708,6 +1654,12 @@ declare namespace chrome {
         export enum Scope {
             REGULAR = "regular",
             INCOGNITO_SESSION_ONLY = "incognito_session_only",
+        }
+
+        /** @since Chrome 141 */
+        export enum SoundContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
         }
 
         /**
@@ -2489,109 +2441,258 @@ declare namespace chrome {
      * @deprecated Check out the {@link declarativeNetRequest} API instead
      */
     export namespace declarativeWebRequest {
+        /** Filters request headers for various criteria. Multiple criteria are evaluated as a conjunction. */
         export interface HeaderFilter {
+            /** Matches if the header name is equal to the specified string. */
             nameEquals?: string | undefined;
+            /** Matches if the header value contains all of the specified strings. */
             valueContains?: string | string[] | undefined;
+            /** Matches if the header name ends with the specified string. */
             nameSuffix?: string | undefined;
+            /** Matches if the header value ends with the specified string. */
             valueSuffix?: string | undefined;
+            /** Matches if the header value starts with the specified string. */
             valuePrefix?: string | undefined;
+            /** Matches if the header name contains all of the specified strings. */
             nameContains?: string | string[] | undefined;
+            /** Matches if the header value is equal to the specified string. */
             valueEquals?: string | undefined;
+            /** Matches if the header name starts with the specified string. */
             namePrefix?: string | undefined;
         }
 
+        /** Adds the response header to the response of this web request. As multiple response headers may share the same name, you need to first remove and then add a new response header in order to replace one. */
         export interface AddResponseHeader {
+            /** HTTP response header name. */
             name: string;
+            /** HTTP response header value. */
             value: string;
         }
 
+        /** Removes one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface RemoveResponseCookie {
-            filter: ResponseCookie;
+            /** Filter for cookies that will be removed. All empty entries are ignored. */
+            filter: FilterResponseCookie;
         }
 
+        /** Removes all response headers of the specified names and values. */
         export interface RemoveResponseHeader {
+            /** HTTP request header name (case-insensitive). */
             name: string;
+            /** HTTP request header value (case-insensitive). */
             value?: string | undefined;
         }
 
+        /** Matches network events by various criteria. */
         export interface RequestMatcher {
+            /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is contained in the list. */
             contentType?: string[] | undefined;
-            url?: chrome.events.UrlFilter | undefined;
+            /** Matches if the conditions of the UrlFilter are fulfilled for the URL of the request. */
+            url?: events.UrlFilter | undefined;
+            /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list. */
             excludeContentType?: string[] | undefined;
+            /** Matches if none of the request headers is matched by any of the HeaderFilters. */
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
+            /** Matches if none of the response headers is matched by any of the HeaderFilters. */
             excludeResponseHeader?: HeaderFilter[] | undefined;
-            resourceType?: string | undefined;
+            /**
+             * Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
+             * @deprecated since Chrome 82
+             */
+            firstPartyForCookiesUrl?: events.UrlFilter | undefined;
+            /** Matches if some of the request headers is matched by one of the HeaderFilters. */
+            requestHeaders?: HeaderFilter[] | undefined;
+            /** Matches if the request type of a request is contained in the list. Requests that cannot match any of the types will be filtered out. */
+            resourceType?: `${webRequest.ResourceType}`[] | undefined;
+            /** Matches if some of the response headers is matched by one of the HeaderFilters. */
             responseHeaders?: HeaderFilter[] | undefined;
+            /** Contains a list of strings describing stages. Allowed values are 'onBeforeRequest', 'onBeforeSendHeaders', 'onHeadersReceived', 'onAuthRequired'. If this attribute is present, then it limits the applicable stages to those listed. Note that the whole condition is only applicable in stages compatible with all attributes. */
+            stages?: `${Stage}`[] | undefined;
+            /**
+             * If set to true, matches requests that are subject to third-party cookie policies. If set to false, matches all other requests.
+             * @deprecated since Chrome 87
+             */
+            thirdPartyForCookies?: boolean | undefined;
         }
 
+        /** Masks all rules that match the specified criteria. */
         export interface IgnoreRules {
-            lowerPriorityThan: number;
+            /** If set, rules with the specified tag are ignored. This ignoring is not persisted, it affects only rules and their actions of the same network request stage. Note that rules are executed in descending order of their priorities. This action affects rules of lower priority than the current rule. Rules with the same priority may or may not be ignored. */
+            hasTag?: string | undefined;
+            /** If set, rules with a lower priority than the specified value are ignored. This boundary is not persisted, it affects only rules and their actions of the same network request stage. */
+            lowerPriorityThan?: number | undefined;
         }
 
+        /** Declarative event action that redirects a network request to an empty document. */
         export interface RedirectToEmptyDocument {}
 
+        /** Declarative event action that redirects a network request. */
         export interface RedirectRequest {
+            /** Destination to where the request is redirected. */
             redirectUrl: string;
         }
 
+        /** A specification of a cookie in HTTP Responses. */
         export interface ResponseCookie {
+            /** Value of the Domain cookie attribute. */
             domain?: string | undefined;
+            /** Name of a cookie. */
             name?: string | undefined;
+            /** Value of the Expires cookie attribute. */
             expires?: string | undefined;
+            /** Value of the Max-Age cookie attribute */
             maxAge?: number | undefined;
+            /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
+            /** Value of the Path cookie attribute. */
             path?: string | undefined;
+            /** Existence of the HttpOnly cookie attribute. */
             httpOnly?: string | undefined;
+            /** Existence of the Secure cookie attribute. */
             secure?: string | undefined;
         }
 
+        /** Adds a cookie to the response or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface AddResponseCookie {
             cookie: ResponseCookie;
         }
 
+        /** Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface EditResponseCookie {
+            /** Filter for cookies that will be modified. All empty entries are ignored. */
             filter: ResponseCookie;
+            /** Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
 
+        /** Declarative event action that cancels a network request. */
         export interface CancelRequest {}
 
+        /** Removes the request header of the specified name. Do not use SetRequestHeader and RemoveRequestHeader with the same header name on the same request. Each request header name occurs only once in each request. */
         export interface RemoveRequestHeader {
+            /** HTTP request header name (case-insensitive). */
             name: string;
         }
 
+        /** Edits one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface EditRequestCookie {
+            /** Filter for cookies that will be modified. All empty entries are ignored. */
             filter: RequestCookie;
+            /** Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed. */
             modification: RequestCookie;
         }
 
-        export interface SetRequestHeader {
-            name: string;
-            value: string;
-        }
-
-        export interface RequestCookie {
+        /** A filter of a cookie in HTTP Responses. */
+        export interface FilterResponseCookie {
+            /** Inclusive lower bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is set to 'now + ageLowerBound' or later fulfill this criterion. Session cookies do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime. */
+            ageLowerBound?: number | undefined;
+            /** Inclusive upper bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is in the interval [now, now + ageUpperBound] fulfill this criterion. Session cookies and cookies whose expiration date-time is in the past do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime. */
+            ageUpperBound?: number | undefined;
+            /** Value of the Domain cookie attribute. */
+            domain?: string | undefined;
+            /** Value of the Expires cookie attribute. */
+            expires?: string | undefined;
+            /** Existence of the HttpOnly cookie attribute. */
+            httpOnly?: string | undefined;
+            /** Value of the Max-Age cookie attribute */
+            maxAge?: number | undefined;
+            /** Name of a cookie. */
             name?: string | undefined;
+            /** Value of the Path cookie attribute. */
+            path?: string | undefined;
+            /** Existence of the Secure cookie attribute. */
+            secure?: string | undefined;
+            /** Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes. */
+            session?: boolean | undefined;
+            /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
         }
 
+        /** Sets the request header of the specified name to the specified value. If a header with the specified name did not exist before, a new one is created. Header name comparison is always case-insensitive. Each request header name occurs only once in each request. */
+        export interface SetRequestHeader {
+            /** HTTP request header name. */
+            name: string;
+            /** HTTP request header value. */
+            value: string;
+        }
+
+        /** A filter or specification of a cookie in HTTP Requests. */
+        export interface RequestCookie {
+            /** Name of a cookie. */
+            name?: string | undefined;
+            /** Value of a cookie, may be padded in double-quotes. */
+            value?: string | undefined;
+        }
+
+        /** Redirects a request by applying a regular expression on the URL. The regular expressions use the RE2 syntax. */
         export interface RedirectByRegEx {
+            /** Destination pattern. */
             to: string;
+            /** A match pattern that may contain capture groups. Capture groups are referenced in the Perl syntax ($1, $2, ...) instead of the RE2 syntax (\1, \2, ...) in order to be closer to JavaScript Regular Expressions. */
             from: string;
         }
 
+        /** Declarative event action that redirects a network request to a transparent image. */
         export interface RedirectToTransparentImage {}
 
+        /** Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface AddRequestCookie {
             cookie: RequestCookie;
         }
 
+        /** Removes one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         export interface RemoveRequestCookie {
+            /** Filter for cookies that will be removed. All empty entries are ignored. */
             filter: RequestCookie;
         }
 
-        export interface RequestedEvent extends chrome.events.Event<() => void> {}
+        export enum Stage {
+            ON_AUTH_REQUIRED = "onAuthRequired",
+            ON_BEFORE_REQUEST = "onBeforeRequest",
+            ON_BEFORE_SEND_HEADERS = "onBeforeSendHeaders",
+            ON_HEADERS_RECEIVED = "onHeadersReceived",
+        }
 
-        export var onRequest: RequestedEvent;
+        export interface MessageDetails {
+            /** A UUID of the document that made the request. */
+            documentId?: string;
+            /** The lifecycle the document is in. */
+            documentLifecycle: extensionTypes.DocumentLifecycle;
+            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
+            frameId: number;
+            /** The type of frame the navigation occurred in. */
+            frameType: extensionTypes.FrameType;
+            /** The message sent by the calling script. */
+            message: string;
+            /** Standard HTTP method. */
+            method: string;
+            /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
+            parentDocumentId?: string;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
+            requestId: string;
+            /** The stage of the network request during which the event was triggered. */
+            stage: `${Stage}`;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** How the requested resource will be used. */
+            type: `${webRequest.ResourceType}`;
+            url: string;
+        }
+
+        export interface SendMessageToExtension {
+            /** The value that will be passed in the message attribute of the dictionary that is passed to the event handler. */
+            message: string;
+        }
+
+        /** Fired when a message is sent via {@link declarativeWebRequest.SendMessageToExtension} from an action of the declarative web request API. */
+        export const onMessage: events.Event<(details: MessageDetails) => void>;
+
+        /** Provides the Declarative Event API consisting of `addRules`, `removeRules`, and `getRules`. */
+        export const onRequest: events.Event<() => void>;
     }
 
     ////////////////////
@@ -6901,16 +7002,26 @@ declare namespace chrome {
      */
     export namespace loginState {
         export enum ProfileType {
+            /** Specifies that the extension is in the signin profile. */
             SIGNIN_PROFILE = "SIGNIN_PROFILE",
+            /** Specifies that the extension is in the user profile. */
             USER_PROFILE = "USER_PROFILE",
+            /** Specifies that the extension is in the lock screen profile. */
+            LOCK_PROFILE = "LOCK_PROFILE",
         }
 
         export enum SessionState {
+            /** Specifies that the session state is unknown. */
             UNKNOWN = "UNKNOWN",
+            /** Specifies that the user is in the out-of-box-experience screen. */
             IN_OOBE_SCREEN = "IN_OOBE_SCREEN",
+            /** Specifies that the user is in the login screen. */
             IN_LOGIN_SCREEN = "IN_LOGIN_SCREEN",
+            /** Specifies that the user is in the session. */
             IN_SESSION = "IN_SESSION",
+            /** Specifies that the user is in the lock screen. */
             IN_LOCK_SCREEN = "IN_LOCK_SCREEN",
+            /** Specifies that the device is in RMA mode, finalizing repairs. */
             IN_RMA_SCREEN = "IN_RMA_SCREEN",
         }
 
@@ -7551,8 +7662,6 @@ declare namespace chrome {
      * MV2 only
      */
     export namespace pageAction {
-        export interface PageActionClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
-
         export interface TitleDetails {
             /** The id of the tab for which you want to modify the page action. */
             tabId: number;
@@ -7560,77 +7669,77 @@ declare namespace chrome {
             title: string;
         }
 
-        export interface GetDetails {
-            /** Specify the tab to get the title from. */
+        export interface TabDetails {
+            /** The ID of the tab to query state for. */
             tabId: number;
         }
 
         export interface PopupDetails {
             /** The id of the tab for which you want to modify the page action. */
             tabId: number;
-            /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
-        export interface IconDetails {
-            /** The id of the tab for which you want to modify the page action. */
-            tabId: number;
-            /**
-             * Optional.
-             * @deprecated This argument is ignored.
-             */
-            iconIndex?: number | undefined;
-            /**
-             * Optional.
-             * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
-             */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
-            /**
-             * Optional.
-             * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
-             */
-            path?: string | { [index: string]: string } | undefined;
-        }
+        export type IconDetails =
+            & {
+                /** @deprecated This argument is ignored. */
+                iconIndex?: number | undefined;
+                /** The id of the tab for which you want to modify the page action. */
+                tabId: number;
+            }
+            & (
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData: ImageData | { [index: number]: ImageData };
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path?: string | { [index: string]: string } | undefined;
+                }
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path: string | { [index: string]: string };
+                }
+            );
+
+        /**
+         * Hides the page action. Hidden page actions still appear in the Chrome toolbar, but are grayed out.
+         * @param tabId The id of the tab for which you want to modify the page action.
+         * @param callback Since Chrome 67
+         */
+        export function hide(tabId: number, callback?: () => void): void;
 
         /**
          * Shows the page action. The page action is shown whenever the tab is selected.
          * @param tabId The id of the tab for which you want to modify the page action.
-         * @param callback Supported since Chrome 67
-         */
-        export function hide(tabId: number, callback?: () => void): void;
-        /**
-         * Shows the page action. The page action is shown whenever the tab is selected.
-         * @param tabId The id of the tab for which you want to modify the page action.
-         * @param callback Supported since Chrome 67
+         * @param callback Since Chrome 67
          */
         export function show(tabId: number, callback?: () => void): void;
+
         /**
          * Sets the title of the page action. This is displayed in a tooltip over the page action.
-         * @param callback Supported since Chrome 67
+         * @param callback Since Chrome 67
          */
         export function setTitle(details: TitleDetails, callback?: () => void): void;
+
         /**
-         * Sets the html document to be opened as a popup when the user clicks on the page action's icon.
-         * @param callback Supported since Chrome 67
+         * Sets the HTML document to be opened as a popup when the user clicks on the page action's icon.
+         * @param callback Since Chrome 67
          */
         export function setPopup(details: PopupDetails, callback?: () => void): void;
-        /**
-         * Gets the title of the page action.
-         * @since Chrome 19
-         */
-        export function getTitle(details: GetDetails, callback: (result: string) => void): void;
-        /**
-         * Gets the html document set as the popup for this page action.
-         * @since Chrome 19
-         */
-        export function getPopup(details: GetDetails, callback: (result: string) => void): void;
-        /**
-         * Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
-         */
+
+        /** Gets the title of the page action. */
+        export function getTitle(details: TabDetails, callback: (result: string) => void): void;
+
+        /** Gets the html document set as the popup for this page action. */
+        export function getPopup(details: TabDetails, callback: (result: string) => void): void;
+
+        /** Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified. */
         export function setIcon(details: IconDetails, callback?: () => void): void;
 
         /** Fired when a page action icon is clicked. This event will not fire if the page action has a popup. */
-        export var onClicked: PageActionClickedEvent;
+        export const onClicked: events.Event<(tab: chrome.tabs.Tab) => void>;
     }
 
     ////////////////////
@@ -7667,7 +7776,7 @@ declare namespace chrome {
             /** The list of host permissions, including those specified in the `optional_permissions` or `permissions` keys in the manifest, and those associated with [Content Scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts). */
             origins?: string[];
             /** List of named permissions (does not include hosts or origins). */
-            permissions?: chrome.runtime.ManifestPermissions[];
+            permissions?: chrome.runtime.ManifestPermission[];
         }
 
         export interface AddHostAccessRequest {
@@ -8973,7 +9082,7 @@ declare namespace chrome {
         }
 
         /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
-        export type ManifestPermissions =
+        export type ManifestPermission =
             | "accessibilityFeatures.modify"
             | "accessibilityFeatures.read"
             | "activeTab"
@@ -9057,9 +9166,14 @@ declare namespace chrome {
             | "webRequestBlocking"
             | "webRequestAuthProvider";
 
+        /**
+         * @deprecated Use `ManifestPermission` instead.
+         */
+        export type ManifestPermissions = ManifestPermission;
+
         /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
-        export type ManifestOptionalPermissions = Exclude<
-            ManifestPermissions,
+        export type ManifestOptionalPermission = Exclude<
+            ManifestPermission,
             | "debugger"
             | "declarativeNetRequest"
             | "devtools"
@@ -9073,6 +9187,11 @@ declare namespace chrome {
             | "wallpaper"
             | "webAuthenticationProxy"
         >;
+
+        /**
+         * @deprecated Use `ManifestOptionalPermission` instead.
+         */
+        export type ManifestOptionalPermissions = ManifestOptionalPermission;
 
         export interface SearchProvider {
             name?: string | undefined;
@@ -9293,8 +9412,8 @@ declare namespace chrome {
                 }
                 | undefined;
             content_security_policy?: string | undefined;
-            optional_permissions?: ManifestOptionalPermissions[] | string[] | undefined;
-            permissions?: ManifestPermissions[] | string[] | undefined;
+            optional_permissions?: (ManifestOptionalPermission | string)[] | undefined;
+            permissions?: (ManifestPermission | string)[] | undefined;
             web_accessible_resources?: string[] | undefined;
         }
 
@@ -9329,9 +9448,9 @@ declare namespace chrome {
                 sandbox?: string;
             };
             host_permissions?: string[] | undefined;
-            optional_permissions?: ManifestOptionalPermissions[] | undefined;
+            optional_permissions?: ManifestOptionalPermission[] | undefined;
             optional_host_permissions?: string[] | undefined;
-            permissions?: ManifestPermissions[] | undefined;
+            permissions?: ManifestPermission[] | undefined;
             web_accessible_resources?:
                 | Array<
                     & {
@@ -13687,7 +13806,7 @@ declare namespace chrome {
          * @since Chrome 86
          */
         export enum HeaderOperation {
-            /** Adds a new entry for the specified header. This operation is not supported for request headers. */
+            /** Adds a new entry for the specified header. When modifying the headers of a request, this operation is only supported for specific headers. */
             APPEND = "append",
             /** Sets a new value for the specified header, removing any existing headers with the same name. */
             SET = "set",
@@ -13880,7 +13999,7 @@ declare namespace chrome {
             requestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
-             * List of {@link tabs.Tab.id} which the rule should not match.
+             * List of {@link tabs.Tab.id} which the rule should match.
              * An ID of {@link tabs.TAB_ID_NONE} matches requests which don't originate from a tab.
              * An empty list is not allowed. Only supported for session-scoped rules.
              * @since Chrome 92
@@ -14317,6 +14436,21 @@ declare namespace chrome {
      * @since Chrome 114, MV3
      */
     export namespace sidePanel {
+        /** @since Chrome 141 */
+        export type CloseOptions =
+            | {
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                tabId: number;
+                /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
+                windowId?: number | undefined;
+            }
+            | {
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                tabId?: number | undefined;
+                /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
+                windowId: number;
+            };
+
         export interface GetPanelOptions {
             /**
              * If specified, the side panel options for the given tab will be returned.
@@ -14354,9 +14488,29 @@ declare namespace chrome {
             openPanelOnActionClick?: boolean | undefined;
         }
 
+        /** @since Chrome 142 */
+        export interface PanelClosedInfo {
+            /** The path of the local resource within the extension package whose content is displayed in the panel. */
+            path: string;
+            /** The optional ID of the tab where the side panel was closed. This is provided only when the panel is tab-specific. */
+            tabId?: number;
+            /** The ID of the window where the side panel was closed. This is available for both global and tab-specific panels. */
+            windowId: number;
+        }
+
         /** @since Chrome 140 */
         export interface PanelLayout {
             side: `${Side}`;
+        }
+
+        /** @since Chrome 141 */
+        export interface PanelOpenedInfo {
+            /** The path of the local resource within the extension package whose content is displayed in the panel. */
+            path: string;
+            /** The optional ID of the tab where the side panel is opened. This is provided only when the panel is tab-specific. */
+            tabId?: number;
+            /** The ID of the window where the side panel is opened. This is available for both global and tab-specific panels. */
+            windowId: number;
         }
 
         export interface PanelOptions {
@@ -14437,6 +14591,12 @@ declare namespace chrome {
          */
         export function setPanelBehavior(behavior: PanelBehavior): Promise<void>;
         export function setPanelBehavior(behavior: PanelBehavior, callback: () => void): void;
+
+        /**
+         * Fired when the extension's side panel is opened.
+         * @since Chrome 141
+         */
+        const onOpened: events.Event<(info: PanelOpenedInfo) => void>;
     }
 
     ////////////////////
