@@ -4,7 +4,7 @@
     "version": "9.0.9999",
     "type": "module",
     "projects": [
-        "https://github.com/eslint/eslint-scope"
+        "https://github.com/eslint/js/tree/main/packages/eslint-scope"
     ],
     "dependencies": {
         "@types/esrecurse": "*",
