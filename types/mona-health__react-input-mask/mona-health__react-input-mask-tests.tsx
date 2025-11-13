@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactInputMask, { MaskedState } from '@mona-health/react-input-mask';
+import ReactInputMask = require('@mona-health/react-input-mask');
 
 const BasicExample: React.FC = () => {
     return <ReactInputMask mask="99/99/9999" />;
@@ -12,10 +12,10 @@ const RefExample: React.FC = () => {
 
 const FullExample: React.FC = () => {
     const handleBeforeMaskedStateChange = (states: {
-        previousState: MaskedState;
-        currentState: MaskedState;
-        nextState: MaskedState;
-    }): MaskedState => {
+        previousState: ReactInputMask.MaskedState;
+        currentState: ReactInputMask.MaskedState;
+        nextState: ReactInputMask.MaskedState;
+    }): ReactInputMask.MaskedState => {
         return states.nextState;
     };
 
