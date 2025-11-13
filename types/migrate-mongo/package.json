@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "mongodb": "^6.1.0"
+        "mongodb": "^7.0.0"
     },
     "devDependencies": {
         "@types/migrate-mongo": "workspace:."
