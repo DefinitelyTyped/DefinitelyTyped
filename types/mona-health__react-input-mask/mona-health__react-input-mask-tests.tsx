@@ -35,3 +35,4 @@ const FullExample: React.FC = () => {
 const ArrayMaskExample: React.FC = () => {
     return <ReactInputMask mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/]} />;
 };
+
