@@ -94,6 +94,7 @@ declare namespace OneLine {
             tiktok: boolean;
             twitter: boolean;
             vimeo: boolean;
+            wecantrack: boolean;
             youtube: boolean;
         };
     }

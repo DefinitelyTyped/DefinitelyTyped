@@ -31,6 +31,7 @@ interface SocialConsents {
         tiktok: boolean;
         twitter: boolean;
         vimeo: boolean;
+        wecantrack: boolean;
         youtube: boolean;
     };
 }
