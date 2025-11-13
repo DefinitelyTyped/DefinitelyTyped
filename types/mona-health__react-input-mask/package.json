@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mona-health__react-input-mask",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mona-health/react-input-mask"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+       "@types/mona-health__react-input-mask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman Krasikov",
+            "githubUsername": "romankrru"
+        }
+    ]
+}
