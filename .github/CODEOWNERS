@@ -1600,7 +1600,7 @@
 /types/draco3d/                                         @donmccurdy @horizon0514
 /types/draco3dgltf/                                     @donmccurdy
 /types/draft-convert/                                   @avaleriani @vadim-ch
-/types/draft-js/                                        @dmitryrogozhny @eelco @ghotiphud @schwers @michael-yx-wu @willisplummer @smvilar @sulf @pablopunk @claudiopro @khawkinson @PeterDekkers @ankitr
+/types/draft-js/                                        @dmitryrogozhny @eelco @ghotiphud @schwers @michael-yx-wu @willisplummer @smvilar @sulf @pablopunk @khawkinson @PeterDekkers @ankitr
 /types/draftjs-to-html/                                 @1cheese
 /types/drag-controls/                                   @MGHawes
 /types/drag-timetable/                                  @chinkan
@@ -3220,7 +3220,6 @@
 /types/html-escaper/                                    @panManfredini
 /types/html-minifier/                                   @tkrotoff @peterblazejewicz
 /types/html-minifier/v1/                                @tkrotoff
-/types/html-minifier-next/                              @orpheus6678
 /types/html-minifier-terser/                            @peterblazejewicz
 /types/html-parser/                                     @maxbogus
 /types/html-pdf/                                        @westy92
@@ -5600,7 +5599,6 @@
 /types/password-hash/                                   @mugeso
 /types/password-hash-and-salt/                          @alitaheri
 /types/path-browserify/                                 @Methuselah96
-/types/path-complete-extname/                           @melangue
 /types/path-is-absolute/                                @mhegazy
 /types/path-is-inside/                                  @aomarks
 /types/path-regex/                                      @BendingBender
@@ -6246,7 +6244,6 @@
 /types/react-gamepad/                                   @eventualbuddha
 /types/react-gateway/                                   @jsonunger
 /types/react-gauge-chart/                               @meirkl
-/types/react-geocode/                                   @stevemu
 /types/react-geosuggest/                                @brmenchl
 /types/react-github-button/                             @ifiokjr
 /types/react-global-configuration/                      @ryokik
