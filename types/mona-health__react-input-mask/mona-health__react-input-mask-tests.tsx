@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ReactInputMask, { MaskedState } from '@mona-health/react-input-mask';
 
 const BasicExample: React.FC = () => {
