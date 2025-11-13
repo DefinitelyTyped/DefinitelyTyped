@@ -44,6 +44,9 @@ api.patcher.before({}, "foo", () => true);
 GL.net.gamemode; // $ExpectType string
 api.net.gamemode; // $ExpectType string
 api.net.onLoad((type, gamemode) => {});
+api.net.modifyFetchRequest("/path/*/thing", (options) => null);
+api.net.modifyFetchRequest("/path/*/thing", (options) => options);
+api.net.modifyFetchResponse("/path/*/thing", (response) => response);
 
 GL.stores.phaser; // $ExpectType Phaser
 window.stores.phaser; // $ExpectType Phaser
