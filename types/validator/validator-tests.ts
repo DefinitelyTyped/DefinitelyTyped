@@ -1405,6 +1405,7 @@ const any: any = null;
 
     result = validator.matches("foobar", "foo/i");
     result = validator.matches("foobar", "foo", "i");
+    result = validator.matches("foobar", result ? "foo/i" : "foo");
 
     result = validator.isSlug("cs_67CZ");
 }
