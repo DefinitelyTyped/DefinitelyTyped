@@ -61,7 +61,7 @@ import isISSNFunc from "validator/lib/isISSN";
 import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
 import isLatLongFunc, { IsLatLongOptions } from "validator/lib/isLatLong";
-import isLengthFunc from "validator/lib/isLength";
+import isLengthFunc, { IsLengthOptions } from "validator/lib/isLength";
 import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
 import isLowercaseFunc from "validator/lib/isLowercase";
@@ -471,7 +471,7 @@ import isISSNFuncEs from "validator/es/lib/isISSN";
 import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
 import isLatLongFuncEs, { IsLatLongOptions as IsLatLongOptionsEs } from "validator/es/lib/isLatLong";
-import isLengthFuncEs from "validator/es/lib/isLength";
+import isLengthFuncEs, { IsLengthOptions as IsLengthOptionsEs } from "validator/es/lib/isLength";
 import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
 import isLowercaseFuncEs from "validator/es/lib/isLowercase";
@@ -987,9 +987,17 @@ const any: any = null;
     result = validator.isLatLong("sample", {});
     result = validator.isLatLong("sample", { checkDMS: true } satisfies IsLatLongOptions);
 
-    const isLengthOptions: validator.IsLengthOptions = {};
-    result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
+    result = validator.isLength("sample", {});
+    result = validator.isLength("sample", { min: 0, max: 3, discreteLengths: [1, 2] } satisfies IsLengthOptions);
+    result = validator.isLength("sample", 0);
+    result = validator.isLength("sample", 0, 3);
+    // Both overloads happen to allow using exactly two argument, [str, number] & [str, object]
+    // Hence if 2nd arg is of union type `number | object`, typechecking can pass.
+    result = validator.isLength("sample", result ? 0 : { min: 0, max: 3 });
+    // @ts-expect-error
+    // Using 3rd arg here is problematic, without first ensuring that the 2nd argument is a number.
+    result = validator.isLength("sample", result ? 0 : { min: 0, max: 3 }, 3);
 
     result = validator.isLicensePlate("sample", "cs-CZ" satisfies validator.LicensePlateLocale);
     result = validator.isLicensePlate("sample", "de-DE");
