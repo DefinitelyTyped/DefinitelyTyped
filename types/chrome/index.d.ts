@@ -2524,6 +2524,7 @@ declare namespace chrome {
         }
 
         /** Declarative event action that redirects a network request to an empty document. */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         export interface RedirectToEmptyDocument {}
 
         /** Declarative event action that redirects a network request. */
@@ -2566,6 +2567,7 @@ declare namespace chrome {
         }
 
         /** Declarative event action that cancels a network request. */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         export interface CancelRequest {}
 
         /** Removes the request header of the specified name. Do not use SetRequestHeader and RemoveRequestHeader with the same header name on the same request. Each request header name occurs only once in each request. */
@@ -2633,6 +2635,7 @@ declare namespace chrome {
         }
 
         /** Declarative event action that redirects a network request to a transparent image. */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         export interface RedirectToTransparentImage {}
 
         /** Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
@@ -10199,6 +10202,7 @@ declare namespace chrome {
         }
 
         /** @deprecated Use {@link CpuTime} instead. */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ProcessorUsage extends CpuTime {}
 
         export interface ProcessorInfo {
@@ -12423,6 +12427,7 @@ declare namespace chrome {
         }
 
         /** @deprecated Use {@link Parameters} instead */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface VpnSessionParameters extends Parameters {}
 
         /** The enum is used by the platform to notify the client of the VPN session status. */
