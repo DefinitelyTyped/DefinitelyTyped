@@ -452,6 +452,8 @@ declare global {
                 setCanInteractThroughColliders(canInteract: boolean): void;
                 setForceDisabled(forceDisabled: boolean): void;
                 setInfo(info: any): void;
+                remove(zone: CircleShort | Rect): void;
+                onInteraction?(): void;
             }
 
             interface DeviceInput {
@@ -515,6 +517,11 @@ declare global {
                 update(): void;
             }
 
+            interface SkinSetupOptions extends SkinOptions {
+                x?: number;
+                y?: number;
+            }
+
             interface SkinOptions {
                 id: string;
                 editStyles?: Record<string, string>;
@@ -527,7 +534,7 @@ declare global {
                 scene: Scene;
                 skinId: string;
                 applyEditStyles(options: SkinOptions): void;
-                setupSkin(position: Vector): void;
+                setupSkin(position: SkinSetupOptions): void;
                 updateSkin(options: SkinOptions): void;
             }
 
@@ -1077,6 +1084,8 @@ declare global {
                 device: Device;
                 scene: Scene;
                 angle: number;
+                x: number;
+                y: number;
             } & Partial<RectShort & CircleShort & Ellipse>;
 
             interface ColliderEntry {
@@ -2110,6 +2119,118 @@ declare global {
             }
         }
 
+        type SettingsChangeCallback = (value: any, remote: boolean) => void;
+
+        interface CustomSection {
+            type: "customsection";
+            id: string;
+            default?: any;
+            onChange?: (value: any, remote: boolean) => void;
+            render: (
+                container: HTMLElement,
+                currentValue: any,
+                onChange: (newValue: any) => void,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            ) => (() => void) | void;
+        }
+
+        interface CustomSetting extends BaseSetting<any> {
+            type: "custom";
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            render: (container: HTMLElement, currentValue: any, update: (newValue: any) => void) => (() => void) | void;
+        }
+
+        interface ColorSetting extends BaseSetting<string> {
+            type: "color";
+            rgba?: boolean;
+        }
+
+        interface RadioSetting extends BaseSetting<string> {
+            type: "radio";
+            options: {
+                label: string;
+                value: string;
+            }[];
+        }
+
+        interface SliderSetting extends BaseSetting<number> {
+            type: "slider";
+            min: number;
+            max: number;
+            step?: number;
+            ticks?: number[];
+            formatter?: (value: number) => string;
+        }
+
+        interface TextSetting extends BaseSetting<string> {
+            type: "text";
+            placeholder?: string;
+            maxLength?: number;
+        }
+
+        interface ToggleSetting extends BaseSetting<boolean> {
+            type: "toggle";
+        }
+
+        interface NumberSetting extends BaseSetting<number> {
+            type: "number";
+            min?: number;
+            max?: number;
+            step?: number;
+        }
+
+        interface MultiselectSetting extends BaseSetting<string[]> {
+            type: "multiselect";
+            options: {
+                label: string;
+                value: string;
+            }[];
+        }
+
+        interface BaseSetting<T> {
+            id: string;
+            default?: T;
+            title: string;
+            description?: string;
+            onChange?: (value: T, remote: boolean) => void;
+        }
+
+        interface DropdownSetting extends BaseSetting<string> {
+            type: "dropdown";
+            options: {
+                label: string;
+                value: string;
+            }[];
+            allowNone?: boolean;
+        }
+
+        type PluginSetting =
+            | DropdownSetting
+            | MultiselectSetting
+            | NumberSetting
+            | ToggleSetting
+            | TextSetting
+            | SliderSetting
+            | RadioSetting
+            | ColorSetting
+            | CustomSetting
+            | CustomSection;
+
+        interface SettingGroup {
+            type: "group";
+            title: string;
+            settings: PluginSetting[];
+        }
+
+        type PluginSettingsDescription = (PluginSetting | SettingGroup)[];
+
+        interface SettingsMethods {
+            create: (description: PluginSettingsDescription) => void;
+            listen: (key: string, callback: SettingsChangeCallback) => () => void;
+        }
+
+        type PluginSettings = SettingsMethods & Record<string, any>;
+
         class PluginsApi {
             /** A list of all the plugins installed */
             get list(): string[];
@@ -2127,8 +2248,9 @@ declare global {
                 webpage: string | null;
                 needsLib: string[];
                 optionalLib: string[];
-                syncEval: string;
+                deprecated: string | null;
                 gamemode: string[];
+                changelog: string[];
                 hasSettings: string;
             };
             /** Gets the exported values of a plugin, if it has been enabled */
@@ -2159,8 +2281,9 @@ declare global {
                 webpage: string | null;
                 needsLib: string[];
                 optionalLib: string[];
-                syncEval: string;
+                deprecated: string | null;
                 gamemode: string[];
+                changelog: string[];
                 hasSettings: string;
             };
             /** Gets the exported values of a library */
@@ -2354,6 +2477,10 @@ declare global {
                 callback: (type: ConnectionType, gamemode: string) => void,
                 gamemode?: string | string[],
             ): () => void;
+            /** Runs a callback when a request is made that matches a certain path (can have wildcards) */
+            modifyFetchRequest(path: string, callback: (options: RequesterOptions) => any): () => void;
+            /** Runs a callback when a response is recieved for a request under a certain path (can have wildcards) */
+            modifyFetchResponse(path: string, callback: (response: any) => any): () => void;
         }
 
         type ConnectionType = "None" | "Colyseus" | "Blueboat";
@@ -2372,6 +2499,16 @@ declare global {
             send(channel: string, message: any): void;
         }
 
+        interface RequesterOptions {
+            url: string;
+            method?: string;
+            data?: any;
+            cacheKey?: string;
+            success?: (response: any, cached: boolean) => void;
+            both?: () => void;
+            error?: (error: any) => void;
+        }
+
         interface NetApi extends BaseNetApi {
             new(): this;
             /**
@@ -2385,6 +2522,14 @@ declare global {
             ): () => void;
             /** Cancels any calls to {@link onLoad} with the same id */
             offLoad(id: string): void;
+            /** Runs a callback when a request is made that matches a certain path (can have wildcards) */
+            modifyFetchRequest(id: string, path: string, callback: (options: RequesterOptions) => any): () => void;
+            /** Runs a callback when a response is recieved for a request under a certain path (can have wildcards) */
+            modifyFetchResponse(id: string, path: string, callback: (response: any) => any): () => void;
+            /** Stops any modifications made by {@link modifyFetchRequest} with the same id */
+            stopModifyRequest(id: string): void;
+            /** Stops any modifications made by {@link modifyFetchResponse} with the same id */
+            stopModifyResponse(id: string): void;
             /**
              * @deprecated Methods for both transports are now on the base net api
              * @hidden
@@ -2653,6 +2798,8 @@ declare global {
             storage: Readonly<ScopedStorageApi>;
             /** Functions for intercepting the arguments and return values of functions */
             patcher: Readonly<ScopedPatcherApi>;
+            /** A utility for creating persistent settings menus, only available to plugins */
+            settings: PluginSettings;
             /** Methods for getting info on libraries */
             libs: Readonly<LibsApi>;
             /** Gets the exported values of a library */

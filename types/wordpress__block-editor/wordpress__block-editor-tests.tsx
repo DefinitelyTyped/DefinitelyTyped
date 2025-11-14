@@ -247,6 +247,15 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InspectorControls.Slot />;
 
 //
+// link-control
+//
+<be.LinkControl
+    onChange={item => console.log(item)}
+    onRemove={() => console.log("removed")}
+    settings={be.LinkControl.DEFAULT_LINK_SETTINGS}
+/>;
+
+//
 // media-placeholder
 //
 <be.MediaPlaceholder

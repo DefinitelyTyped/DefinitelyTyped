@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/path-complete-extname": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Marcin C",
-            "githubUsername": "melangue"
-        }
-    ]
+    "owners": []
 }

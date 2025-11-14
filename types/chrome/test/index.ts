@@ -153,25 +153,6 @@ function testBookmarks() {
     });
 }
 
-// https://developer.chrome.com/extensions/examples/api/browserAction/make_page_red/background.js
-function pageRedder() {
-    chrome.browserAction.onClicked.addListener(function(tab) {
-        // No tabs or host permissions needed!
-        console.log("Turning " + tab.url + " red!");
-        chrome.tabs.executeScript({
-            code: "document.body.style.backgroundColor=\"red\"",
-        });
-    });
-}
-
-// https://developer.chrome.com/extensions/examples/api/browserAction/print/background.js
-function printPage() {
-    chrome.browserAction.onClicked.addListener(function(tab) {
-        var action_url = "javascript:window.print();";
-        chrome.tabs.update(tab.id!, { url: action_url });
-    });
-}
-
 // https://developer.chrome.com/docs/extensions/reference/api/webNavigation
 function testWebNavigation() {
     /**
@@ -545,6 +526,9 @@ function testContentSettings() {
 
     chrome.contentSettings.Scope.INCOGNITO_SESSION_ONLY === "incognito_session_only";
     chrome.contentSettings.Scope.REGULAR === "regular";
+
+    chrome.contentSettings.SoundContentSetting.ALLOW === "allow";
+    chrome.contentSettings.SoundContentSetting.BLOCK === "block";
 
     const contentSettingsGetParams: chrome.contentSettings.ContentSettingGetParams = {
         primaryUrl: "https://example.com",
@@ -1052,8 +1036,13 @@ function testGetManifest() {
         manifest.content_security_policy; // $ExpectType string | undefined
 
         manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
+        manifest.optional_permissions; // $ExpectType string[] | undefined
+        manifest.permissions; // $ExpectType string[] | undefined
+        // Verify that string permissions can be added.
+        if (manifest.optional_permissions && manifest.permissions) {
+            manifest.optional_permissions.push("*://developer.mozilla.org/*");
+            manifest.permissions.push("*://developer.mozilla.org/*");
+        }
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
@@ -1067,9 +1056,9 @@ function testGetManifest() {
         };
 
         manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermission[] | undefined
 
         manifest.web_accessible_resources = [{
             resources: ["resource.js"],
@@ -2202,196 +2191,101 @@ function testSearch() {
     chrome.search.query(queryInfo1, () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
-function testBrowserAcionEnable() {
-    chrome.browserAction.enable();
-    chrome.browserAction.enable(console.log);
-    chrome.browserAction.enable(0);
-    chrome.browserAction.enable(0, console.log);
-    chrome.browserAction.enable(null);
-    chrome.browserAction.enable(null, console.log);
-    chrome.browserAction.enable(undefined);
-    chrome.browserAction.enable(undefined, console.log);
-}
+// https://developer.chrome.com/docs/extensions/mv2/reference/browserAction
+function testBrowserAction() {
+    const tabId = 0;
+    chrome.browserAction.disable(); // $ExpectType void
+    chrome.browserAction.disable(() => void 0); // $ExpectType void
+    chrome.browserAction.disable(tabId); // $ExpectType void
+    chrome.browserAction.disable(tabId, () => void 0); // $ExpectType void
+    chrome.browserAction.disable(null); // $ExpectType void
+    chrome.browserAction.disable(null, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-disable
-function testBrowserAcionDisable() {
-    chrome.browserAction.disable();
-    chrome.browserAction.disable(console.log);
-    chrome.browserAction.disable(0);
-    chrome.browserAction.disable(0, console.log);
-    chrome.browserAction.disable(null);
-    chrome.browserAction.disable(null, console.log);
-    chrome.browserAction.disable(undefined);
-    chrome.browserAction.disable(undefined, console.log);
-}
+    chrome.browserAction.enable(); // $ExpectType void
+    chrome.browserAction.enable(() => void 0); // $ExpectType void
+    chrome.browserAction.enable(tabId); // $ExpectType void
+    chrome.browserAction.enable(tabId, () => void 0); // $ExpectType void
+    chrome.browserAction.enable(null); // $ExpectType void
+    chrome.browserAction.enable(null, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeBackgroundColor
-function testBrowserAcionGetBadgeBackgroundColor() {
-    chrome.browserAction.getBadgeBackgroundColor({}, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: 0 }, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: null }, console.log);
-    chrome.browserAction.getBadgeBackgroundColor({ tabId: undefined }, console.log);
+    const getDetails: chrome.browserAction.TabDetails = { tabId };
 
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor();
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor(null);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeBackgroundColor(undefined);
-}
+    chrome.browserAction.getBadgeBackgroundColor(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType ColorArray
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getBadgeBackgroundColor(getDetails);
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getBadgeText
-function testBrowserAcionGetBadgeText() {
-    chrome.browserAction.getBadgeText({}, console.log);
-    chrome.browserAction.getBadgeText({ tabId: 0 }, console.log);
-    chrome.browserAction.getBadgeText({ tabId: null }, console.log);
-    chrome.browserAction.getBadgeText({ tabId: undefined }, console.log);
+    chrome.browserAction.getBadgeText(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getBadgeText(getDetails);
 
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText();
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(null);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getBadgeText(console.log);
-}
+    chrome.browserAction.getPopup(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getPopup(getDetails);
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
-function testBrowserAcionGetPopup() {
-    chrome.browserAction.getPopup({});
-    chrome.browserAction.getPopup({}, console.log);
-    chrome.browserAction.getPopup({ tabId: 0 });
-    chrome.browserAction.getPopup({ tabId: 0 }, console.log);
-    chrome.browserAction.getPopup({ tabId: null });
-    chrome.browserAction.getPopup({ tabId: null }, console.log);
-    chrome.browserAction.getPopup({ tabId: undefined });
-    chrome.browserAction.getPopup({ tabId: undefined }, console.log);
+    chrome.browserAction.getTitle(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.browserAction.getTitle(getDetails);
 
-    // @ts-expect-error
-    chrome.browserAction.getPopup();
-    // @ts-expect-error
-    chrome.browserAction.getPopup(null);
-    // @ts-expect-error
-    chrome.browserAction.getPopup(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getPopup(console.log);
-}
+    const badgeBackgroundColorDetails: chrome.browserAction.BadgeBackgroundColorDetails = {
+        color: [255, 0, 0, 255],
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-getPopup
-function testBrowserAcionGetTitle() {
-    chrome.browserAction.getTitle({});
-    chrome.browserAction.getTitle({}, console.log);
-    chrome.browserAction.getTitle({ tabId: 0 });
-    chrome.browserAction.getTitle({ tabId: 0 }, console.log);
-    chrome.browserAction.getTitle({ tabId: null });
-    chrome.browserAction.getTitle({ tabId: null }, console.log);
-    chrome.browserAction.getTitle({ tabId: undefined });
-    chrome.browserAction.getTitle({ tabId: undefined }, console.log);
+    chrome.browserAction.setBadgeBackgroundColor(badgeBackgroundColorDetails); // $ExpectType void
+    chrome.browserAction.setBadgeBackgroundColor(badgeBackgroundColorDetails, () => void 0); // $ExpectType void
 
-    // @ts-expect-error
-    chrome.browserAction.getTitle();
-    // @ts-expect-error
-    chrome.browserAction.getTitle(null);
-    // @ts-expect-error
-    chrome.browserAction.getTitle(undefined);
-    // @ts-expect-error
-    chrome.browserAction.getTitle(console.log);
-}
+    const badgeTextDetails: chrome.browserAction.BadgeTextDetails = {
+        text: "text",
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeBackgroundColor
-function testBrowserAcionSetBadgeBackgroundColor() {
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red" });
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red" }, console.log);
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red", tabId: 0 });
-    chrome.browserAction.setBadgeBackgroundColor({ color: "red", tabId: 0 }, console.log);
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 });
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3, 4], tabId: 0 }, console.log);
+    chrome.browserAction.setBadgeText(badgeTextDetails); // $ExpectType void
+    chrome.browserAction.setBadgeText(badgeTextDetails, () => void 0); // $ExpectType void
 
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor();
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({});
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({ tabId: 0 });
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor({ color: [1, 2, 3] }, console.log);
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(null);
-    // @ts-expect-error
-    chrome.browserAction.setBadgeBackgroundColor(undefined);
-}
+    const iconDetails: chrome.browserAction.TabIconDetails = {
+        imageData: { 16: new ImageData(16, 16) },
+        tabId,
+    };
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
-function testBrowserActionSetBrowserBadgeText() {
-    chrome.browserAction.setBadgeText({});
-    chrome.browserAction.setBadgeText({ text: "test" });
-    chrome.browserAction.setBadgeText({ text: null });
-    chrome.browserAction.setBadgeText({ text: undefined });
-    chrome.browserAction.setBadgeText({ tabId: 123 });
-    chrome.browserAction.setBadgeText({ text: "test", tabId: 123 });
-    chrome.browserAction.setBadgeText({}, () => {});
+    const iconDetails2: chrome.browserAction.TabIconDetails = {
+        path: "path/to/icon.png",
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.setBadgeText();
-    // @ts-expect-error
-    chrome.browserAction.setBadgeText(undefined);
-}
+    chrome.browserAction.setIcon(iconDetails); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails2); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails, () => void 0); // $ExpectType void
+    chrome.browserAction.setIcon(iconDetails2, () => void 0); // $ExpectType void
+    // @ts-expect-error Either the path or imageData property must be specified.
+    chrome.browserAction.setIcon({});
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setIcon
-function testBrowserAcionSetIcon() {
-    chrome.browserAction.setIcon({ path: "/icon.png" });
-    chrome.browserAction.setIcon({ path: "/icon.png" }, console.log);
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" } });
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" } }, console.log);
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" }, tabId: 0 });
-    chrome.browserAction.setIcon({ path: { 16: "/icon.png" }, tabId: 0 }, console.log);
+    const popupDetails: chrome.browserAction.PopupDetails = {
+        popup: "popup.html",
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.setIcon();
-    // @ts-expect-error
-    chrome.browserAction.setIcon(null);
-    // @ts-expect-error
-    chrome.browserAction.setIcon(undefined);
-}
+    chrome.browserAction.setPopup(popupDetails); // $ExpectType void
+    chrome.browserAction.setPopup(popupDetails, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setPopup
-function testBrowserAcionSetPopup() {
-    chrome.browserAction.setPopup({ popup: "index.html" });
-    chrome.browserAction.setPopup({ popup: "index.html" }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: 0 });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: 0 }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: null });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: null }, console.log);
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: undefined });
-    chrome.browserAction.setPopup({ popup: "index.html", tabId: undefined }, console.log);
+    const titleDetails: chrome.browserAction.TitleDetails = {
+        title: "title",
+        tabId,
+    };
 
-    // @ts-expect-error
-    chrome.browserAction.setPopup();
-    // @ts-expect-error
-    chrome.browserAction.setPopup(null);
-    // @ts-expect-error
-    chrome.browserAction.setPopup(undefined);
-}
+    chrome.browserAction.setTitle(titleDetails); // $ExpectType void
+    chrome.browserAction.setTitle(titleDetails, () => void 0); // $ExpectType void
 
-// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setTitle
-function testBrowserAcionSetTitle() {
-    chrome.browserAction.setTitle({ title: "Title" });
-    chrome.browserAction.setTitle({ title: "Title" }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: 0 });
-    chrome.browserAction.setTitle({ title: "Title", tabId: 0 }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: null });
-    chrome.browserAction.setTitle({ title: "Title", tabId: null }, console.log);
-    chrome.browserAction.setTitle({ title: "Title", tabId: undefined });
-    chrome.browserAction.setTitle({ title: "Title", tabId: undefined }, console.log);
-
-    // @ts-expect-error
-    chrome.browserAction.setTitle();
-    // @ts-expect-error
-    chrome.browserAction.setTitle(null);
-    // @ts-expect-error
-    chrome.browserAction.setTitle(undefined);
+    checkChromeEvent(chrome.browserAction.onClicked, (tab) => {
+        tab; // $ExpectType Tab
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/action
@@ -2680,20 +2574,6 @@ async function testBookmarksForPromise() {
     await chrome.bookmarks.getChildren("id1");
     await chrome.bookmarks.getSubTree("id1");
     await chrome.bookmarks.removeTree("id1");
-}
-
-// https://developer.chrome.com/docs/extensions/reference/browserAction
-async function testBrowserActionForPromise() {
-    await chrome.browserAction.enable(0);
-    await chrome.browserAction.setBadgeBackgroundColor({ color: "color1" });
-    await chrome.browserAction.setBadgeText({});
-    await chrome.browserAction.setTitle({ title: "title1" });
-    await chrome.browserAction.getBadgeText({});
-    await chrome.browserAction.setPopup({ popup: "popup1" });
-    await chrome.browserAction.disable(0);
-    await chrome.browserAction.getTitle({});
-    await chrome.browserAction.getBadgeBackgroundColor({});
-    await chrome.browserAction.getPopup({});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
@@ -4277,6 +4157,32 @@ async function testDeclarativeNetRequest() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
+function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
+    chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+
+    checkChromeEvent(chrome.declarativeWebRequest.onMessage, (details) => {
+        details.documentId; // $ExpectType string | undefined
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.message; // $ExpectType string
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.stage; // $ExpectType "onBeforeRequest" | "onBeforeSendHeaders" | "onHeadersReceived" | "onAuthRequired"
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "object" | "other" | "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle"
+        details.url; // $ExpectType string
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
@@ -4910,6 +4816,67 @@ function testI18n() {
     chrome.i18n.getMessage(messageName, 10);
 
     chrome.i18n.getUILanguage(); // $ExpectType string
+}
+
+// https://developer.chrome.com/docs/extensions/mv2/reference/pageAction
+function testPageAction() {
+    const tabId = 1;
+    const getDetails: chrome.pageAction.TabDetails = { tabId };
+
+    chrome.pageAction.getPopup(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getPopup(getDetails);
+
+    chrome.pageAction.getTitle(getDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error No matching signature
+    chrome.pageAction.getTitle(getDetails);
+
+    chrome.pageAction.hide(tabId); // $ExpectType void
+    chrome.pageAction.hide(tabId, () => void 0); // $ExpectType void
+
+    const iconDetails: chrome.pageAction.IconDetails = {
+        tabId,
+        path: "path/to/icon.png",
+    };
+
+    const iconDetails2: chrome.pageAction.IconDetails = {
+        tabId,
+        imageData: new ImageData(16, 16),
+    };
+
+    chrome.pageAction.setIcon(iconDetails); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails, () => void 0); // $ExpectType void
+    chrome.pageAction.setIcon(iconDetails2, () => void 0); // $ExpectType void
+    // @ts-expect-error Either the path or imageData property must be specified.
+    chrome.pageAction.setIcon({});
+
+    const popupDetails: chrome.pageAction.PopupDetails = {
+        popup: "popup.html",
+        tabId,
+    };
+
+    chrome.pageAction.setPopup(popupDetails); // $ExpectType void
+    chrome.pageAction.setPopup(popupDetails, () => void 0); // $ExpectType void
+
+    const titleDetails: chrome.pageAction.TitleDetails = {
+        title: "My Page Action",
+        tabId,
+    };
+
+    chrome.pageAction.setTitle(titleDetails); // $ExpectType void
+    chrome.pageAction.setTitle(titleDetails, () => void 0); // $ExpectType void
+
+    chrome.pageAction.show(tabId); // $ExpectType void
+    chrome.pageAction.show(tabId, () => void 0); // $ExpectType void
+
+    checkChromeEvent(chrome.pageAction.onClicked, (tab) => {
+        tab; // $ExpectType Tab
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/pageCapture
@@ -6297,6 +6264,12 @@ function testSidePanel() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.sidePanel.onOpened, (info) => {
+        info.path; // $ExpectType string
+        info.tabId; // $ExpectType number | undefined
+        info.windowId; // $ExpectType number
+    });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/instanceID
@@ -6349,6 +6322,7 @@ function testInstanceID() {
 function testLoginState() {
     chrome.loginState.ProfileType.SIGNIN_PROFILE === "SIGNIN_PROFILE";
     chrome.loginState.ProfileType.USER_PROFILE === "USER_PROFILE";
+    chrome.loginState.ProfileType.LOCK_PROFILE === "LOCK_PROFILE";
 
     chrome.loginState.SessionState.IN_LOCK_SCREEN === "IN_LOCK_SCREEN";
     chrome.loginState.SessionState.IN_LOGIN_SCREEN === "IN_LOGIN_SCREEN";
@@ -6357,9 +6331,9 @@ function testLoginState() {
     chrome.loginState.SessionState.IN_SESSION === "IN_SESSION";
     chrome.loginState.SessionState.UNKNOWN === "UNKNOWN";
 
-    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE">
+    chrome.loginState.getProfileType(); // $ExpectType Promise<"SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE">
     chrome.loginState.getProfileType((result) => { // $ExpectType void
-        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE"
+        result; // $ExpectType "SIGNIN_PROFILE" | "USER_PROFILE" | "LOCK_PROFILE"
     });
     // @ts-expect-error
     chrome.loginState.getProfileType(() => {}).then(() => {});

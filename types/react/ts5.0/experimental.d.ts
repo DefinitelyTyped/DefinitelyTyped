@@ -43,12 +43,13 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
     export interface SuspenseProps {
+        // @enableCPUSuspense
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
          * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
          * @see {@link https://github.com/facebook/react/pull/19936}
          */
-        unstable_expectedLoadTime?: number | undefined;
+        defer?: boolean | undefined;
     }
 
     export type SuspenseListRevealOrder = "forwards" | "backwards" | "together" | "independent";
@@ -68,17 +69,19 @@ declare module "." {
         children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
+         * @default "forwards"
          */
-        revealOrder: "forwards" | "backwards" | "unstable_legacy-backwards";
+        revealOrder?: "forwards" | "backwards" | "unstable_legacy-backwards" | undefined;
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
-         * - By default, `SuspenseList` will show all fallbacks in the list.
          * - `collapsed` shows only the next fallback in the list.
          * - `hidden` doesn't show any unloaded items.
          * - `visible` shows all fallbacks in the list.
+         *
+         * @default "hidden"
          */
-        tail: SuspenseListTailMode;
+        tail?: SuspenseListTailMode | undefined;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
@@ -86,7 +89,7 @@ declare module "." {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
+        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]>;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
