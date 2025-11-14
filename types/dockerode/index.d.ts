@@ -2043,6 +2043,14 @@ declare namespace Dockerode {
         SpaceReclaimed: number;
     }
 
+    interface PruneBuilderOptions {
+        abortSignal?: AbortSignal;
+    }
+
+    interface PruneBuilderInfo {
+        SpaceReclaimed: number;
+    }
+
     interface PruneVolumesInfo {
         VolumesDeleted: string[];
         SpaceReclaimed: number;
@@ -2268,6 +2276,10 @@ declare class Dockerode {
     pruneImages(options: {}, callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(options?: {}): Promise<Dockerode.PruneImagesInfo>;
+
+    pruneBuilder(options: Dockerode.PruneBuilderOptions, callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(options?: Dockerode.PruneBuilderOptions): Promise<Dockerode.PruneBuilderInfo>;
 
     pruneContainers(options: {}, callback: Callback<Dockerode.PruneContainersInfo>): void;
     pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;
