@@ -1,12 +1,4 @@
-import {
-    Case,
-    CASES,
-    Engine,
-    Gender,
-    Lemma,
-    LocativeForm,
-    LocativeFormAttribute,
-} from "russian-nouns-js";
+import { Case, CASES, Engine, Gender, Lemma, LocativeForm, LocativeFormAttribute } from "russian-nouns-js";
 
 const rne = new Engine();
 
