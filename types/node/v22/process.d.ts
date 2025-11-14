@@ -1791,7 +1791,7 @@ declare module "process" {
                  * If the Node.js process was not spawned with an IPC channel, `process.disconnect()` will be `undefined`.
                  * @since v0.7.2
                  */
-                disconnect(): void;
+                disconnect?(): void;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return `true` so long as the IPC
                  * channel is connected and will return `false` after `process.disconnect()` is called.
