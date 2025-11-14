@@ -1,8 +1,6 @@
 import {
     Case,
     CASES,
-    createLemma,
-    createLemmaOrNull,
     Engine,
     Gender,
     Lemma,
@@ -21,7 +19,7 @@ result = rne.decline({ text: "имя", gender: Gender.NEUTER }, Case.GENITIVE);
 
 result = rne.decline({ text: "имя", gender: Gender.NEUTER }, Case.INSTRUMENTAL);
 
-let coat: Lemma = createLemma({
+let coat: Lemma = Lemma.create({
     text: "пальто",
     gender: Gender.NEUTER,
     indeclinable: true,
@@ -31,7 +29,7 @@ result = rne.decline(coat, Case.GENITIVE);
 
 num = coat.getDeclension();
 
-let mountain: Lemma = createLemma({
+let mountain: Lemma = Lemma.create({
     text: "гора",
     gender: Gender.FEMININE,
 });
@@ -53,9 +51,9 @@ num = mountain.getSchoolDeclension();
 
 let mountainGender: Gender | undefined = mountain.getGender();
 
-let nothing: Lemma | null = createLemmaOrNull({ text: "абвгд" });
+let nothing: Lemma | null = Lemma.createOrNull({ text: "абвгд" });
 
-const x: Lemma | null = createLemmaOrNull({
+const x: Lemma | null = Lemma.createOrNull({
     text: "гора",
     gender: Gender.FEMININE,
 });
@@ -66,7 +64,7 @@ if (x != null) {
 
 // ----------------------------------------------------------------------------
 
-const cringe: Lemma = createLemma({
+const cringe: Lemma = Lemma.create({
     text: "кринж",
     gender: Gender.MASCULINE,
 });
@@ -80,7 +78,7 @@ const stressedEndings: boolean[] = rne.sd.hasStressedEndingSingular(cringe, Case
 
 // ----------------------------------------------------------------------------
 
-let row: Lemma = createLemma({
+let row: Lemma = Lemma.create({
     text: "ряд",
     gender: Gender.MASCULINE,
 });
