@@ -631,7 +631,7 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    export function isRgbColor(str: string, options?: IsRgbColorOptions): boolean;
+    export function isRgbColor(str: string, includePercentValuesOrOptions?: boolean | IsRgbColorOptions): boolean;
 
     export type IdentityCardLocale =
         | "ar-LY"

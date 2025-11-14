@@ -78,7 +78,7 @@ import isOctalFunc from "validator/lib/isOctal";
 import isPassportNumberFunc from "validator/lib/isPassportNumber";
 import isPortFunc from "validator/lib/isPort";
 import isPostalCodeFunc, { locales as isPostalCodeLocales } from "validator/lib/isPostalCode";
-import isRgbColorFunc from "validator/lib/isRgbColor";
+import isRgbColorFunc, { IsRgbColorOptions } from "validator/lib/isRgbColor";
 import isSemVerFunc from "validator/lib/isSemVer";
 import isSlugFunc from "validator/lib/isSlug";
 import isStrongPasswordFunc from "validator/lib/isStrongPassword";
@@ -488,7 +488,7 @@ import isOctalFuncEs from "validator/es/lib/isOctal";
 import isPassportNumberFuncEs from "validator/es/lib/isPassportNumber";
 import isPortFuncEs from "validator/es/lib/isPort";
 import isPostalCodeFuncEs, { locales as isPostalCodeLocalesEs } from "validator/es/lib/isPostalCode";
-import isRgbColorFuncEs from "validator/es/lib/isRgbColor";
+import isRgbColorFuncEs, { IsRgbColorOptions as IsRgbColorOptionsEs } from "validator/es/lib/isRgbColor";
 import isSemVerFuncEs from "validator/es/lib/isSemVer";
 import isSlugFuncEs from "validator/es/lib/isSlug";
 import isStrongPasswordFuncEs from "validator/es/lib/isStrongPassword";
@@ -900,10 +900,12 @@ const any: any = null;
     result = validator.isHSL("sample");
 
     result = validator.isRgbColor("sample");
-    result = validator.isRgbColor("sample", { includePercentValues: true });
-    result = validator.isRgbColor("sample", { includePercentValues: false });
-    result = validator.isRgbColor("sample", { includePercentValues: true, allowSpaces: true });
-    result = validator.isRgbColor("sample", { allowSpaces: false });
+    result = validator.isRgbColor("sample", true);
+    result = validator.isRgbColor("sample", {});
+    result = validator.isRgbColor(
+        "sample",
+        { includePercentValues: true, allowSpaces: true } satisfies IsRgbColorOptions,
+    );
 
     result = validator.isHexadecimal("sample");
 
