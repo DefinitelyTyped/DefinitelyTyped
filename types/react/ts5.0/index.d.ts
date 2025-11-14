@@ -4056,7 +4056,6 @@ declare namespace React {
          * Captures which component contained the exception, and its ancestors.
          */
         componentStack?: string | null;
-        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
