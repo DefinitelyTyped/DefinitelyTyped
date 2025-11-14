@@ -88,6 +88,9 @@ import { fileURLToPath } from "node:url";
         r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true }, (err: Error | null) => {});
         r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true }, (err: Error | null) => {});
     }
+    if (process.disconnect) {
+        process.disconnect();
+    }
 }
 
 {
