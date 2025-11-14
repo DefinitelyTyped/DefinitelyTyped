@@ -15,12 +15,12 @@ declare namespace ExpressMinifyInterfaces {
         /**
          * Customize UglifyJS instance (require('uglify-js')).
          */
-        uglifyJS?: NodeRequire | undefined;
+        uglifyJS?: NodeJS.Require | undefined;
 
         /**
          * Customize cssmin instance (require('cssmin')).
          */
-        cssmin?: NodeRequire | undefined;
+        cssmin?: NodeJS.Require | undefined;
 
         /**
          * Handle compiling errors or minifying errors. You can determine what to respond when facing such errors.

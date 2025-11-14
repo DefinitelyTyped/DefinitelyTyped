@@ -1237,7 +1237,7 @@ namespace MeteorTests {
         });
     }
 
-    function canAcceptUpdates(module: NodeModule) {
+    function canAcceptUpdates(module: NodeJS.Module) {
         return true;
     }
     if (module.hot) {
