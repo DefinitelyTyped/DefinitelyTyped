@@ -1599,8 +1599,8 @@
 /types/dplayer/                                         @Guanyunhan
 /types/draco3d/                                         @donmccurdy @horizon0514
 /types/draco3dgltf/                                     @donmccurdy
-/types/draft-convert/                                   @avaleriani @MunifTanjim @vadim-ch
-/types/draft-js/                                        @dmitryrogozhny @eelco @ghotiphud @schwers @michael-yx-wu @willisplummer @smvilar @sulf @pablopunk @claudiopro @khawkinson @MunifTanjim @PeterDekkers @ankitr
+/types/draft-convert/                                   @avaleriani @vadim-ch
+/types/draft-js/                                        @dmitryrogozhny @eelco @ghotiphud @schwers @michael-yx-wu @willisplummer @smvilar @sulf @pablopunk @claudiopro @khawkinson @PeterDekkers @ankitr
 /types/draftjs-to-html/                                 @1cheese
 /types/drag-controls/                                   @MGHawes
 /types/drag-timetable/                                  @chinkan
@@ -6213,7 +6213,7 @@
 /types/react-dom/v17/                                   @MartynasZilinskas @theruther4d @Jessidhia @eps1lon
 /types/react-dom/v18/                                   @MartynasZilinskas @theruther4d @Jessidhia @eps1lon
 /types/react-dom-factories/                             @jgoz
-/types/react-draft-wysiwyg/                             @imechZhangLY @brunoMaurice @ldanet @MunifTanjim @n-zeplo
+/types/react-draft-wysiwyg/                             @imechZhangLY @brunoMaurice @ldanet @n-zeplo
 /types/react-dragtastic/                                @nscarcella
 /types/react-dragula/                                   @AdrianMrn
 /types/react-dynamic-number/                            @eugrdn
@@ -6551,7 +6551,7 @@
 /types/react-router-redux/v4/                           @isman-usoh @noah79 @LKay @DovydasNavickas
 /types/react-router-tabs/                               @joakimunge
 /types/react-router-transition/                         @TheDSCPL
-/types/react-rte/                                       @jclyons52 @MunifTanjim
+/types/react-rte/                                       @jclyons52
 /types/react-s-alert/                                   @mitsuruog
 /types/react-scramble/                                  @fes300
 /types/react-scroll/                                    @sudoplz @GiedriusGrabauskas
@@ -8129,7 +8129,7 @@
 /types/validate-npm-package-license/                    @carboneater
 /types/validate-npm-package-name/                       @ffflorian @peterblazejewicz
 /types/validate-objectid/                               @ChocolateLoverRaj
-/types/validator/                                       @tgfjt @chrootsu @IOAyman @louy @deptno @builtinnya @qqilihq @keatz55 @MunifTanjim @vlapo @peterblazejewicz @Mattewn99 @dcfreire @WikiRik
+/types/validator/                                       @tgfjt @chrootsu @IOAyman @louy @deptno @builtinnya @qqilihq @keatz55 @vlapo @peterblazejewicz @Mattewn99 @dcfreire @WikiRik
 /types/validatorjs/                                     @LKay @danmana @MatiasOlivera
 /types/valvelet/                                        @bendingbender
 /types/vanilla-masker/                                  @BenLorantfy

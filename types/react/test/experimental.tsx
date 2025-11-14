@@ -15,66 +15,71 @@ function suspenseTest() {
 
     function FlameChart() {
         return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+            <React.Suspense fallback="computing..." defer>
                 <DisplayData />
             </React.Suspense>
         );
     }
 }
 
-// @ts-expect-error -- no revealOrder
-<React.unstable_SuspenseList>
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.unstable_SuspenseList>;
-// Unsupported `revealOrder` triggers a runtime warning
-// @ts-expect-error
-<React.unstable_SuspenseList revealOrder="something">
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.unstable_SuspenseList>;
+function suspenseListTests() {
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // @ts-expect-error -- Directional SuspenseList needs more than one child
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // Unsupported `revealOrder` triggers a runtime warning
+    // @ts-expect-error
+    <React.unstable_SuspenseList revealOrder="something">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-// @ts-expect-error -- no tail
-<React.unstable_SuspenseList revealOrder="forwards">
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="forwards">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-// @ts-expect-error -- Must have more than one static child
-<React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    // @ts-expect-error -- Must have more than one static child
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="unstable_legacy-backwards" tail="collapsed">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="unstable_legacy-backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="independent">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="independent">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="forwards" tail="hidden">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="forwards" tail="hidden">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="together">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
+    <React.unstable_SuspenseList revealOrder="together">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-function Page({ children }: { children: NonNullable<React.ReactNode> }) {
-    return (
-        // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
-        <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
-            {children}
-        </React.unstable_SuspenseList>
-    );
+    function Page({ children }: { children: NonNullable<React.ReactNode> }) {
+        return (
+            // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
+            <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
+                {children}
+            </React.unstable_SuspenseList>
+        );
+    }
 }
 
 function elementTypeTests() {
