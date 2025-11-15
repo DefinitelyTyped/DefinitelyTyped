@@ -3015,6 +3015,12 @@ declare namespace chrome {
             onHidden: events.Event<() => void>;
         }
 
+        /**
+         * Theme used by DevTools.
+         * @since Chrome 99
+         */
+        export type Theme = "default" | "dark";
+
         /** Elements panel. */
         export const elements: ElementsPanel;
 
@@ -3048,6 +3054,12 @@ declare namespace chrome {
         ): void;
 
         /**
+         * Specifies the function to be called when the current theme changes in DevTools. To unset the handler, either call the method with no parameters or pass `null` as the parameter.
+         * @since Chrome 99
+         */
+        export function setThemeChangeHandler(callback?: (theme: Theme) => void): void;
+
+        /**
          * Requests DevTools to open a URL in a Developer Tools panel.
          * @param url The URL of the resource to open.
          * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
@@ -3065,7 +3077,7 @@ declare namespace chrome {
          * The name of the color theme set in user's DevTools settings.
          * @since Chrome 59
          */
-        export const themeName: "default" | "dark";
+        export const themeName: Theme;
     }
 
     ////////////////////
@@ -3743,6 +3755,7 @@ declare namespace chrome {
             SAFE = "safe",
             /** The user has accepted the dangerous download. */
             ACCEPTED = "accepted",
+            /** Enterprise-related values. */
             ALLOWLISTED_BY_POLICY = "allowlistedByPolicy",
             ASYNC_SCANNING = "asyncScanning",
             ASYNC_LOCAL_PASSWORD_SCANNING = "asyncLocalPasswordScanning",
@@ -3757,6 +3770,8 @@ declare namespace chrome {
             PROMPT_FOR_LOCAL_PASSWORD_SCANNING = "promptForLocalPasswordScanning",
             ACCOUNT_COMPROMISE = "accountCompromise",
             BLOCKED_SCAN_FAILED = "blockedScanFailed",
+            /** For use by the Secure Enterprise Browser extension. When required, Chrome will block the download to disc and download the file directly to Google Drive. */
+            FORCE_SAVE_TO_GDRIVE = "forceSaveToGdrive",
         }
 
         export interface DownloadItem {
