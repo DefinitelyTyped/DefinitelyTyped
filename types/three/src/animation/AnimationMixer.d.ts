@@ -10,6 +10,21 @@ export interface AnimationMixerEventMap {
     finished: { action: AnimationAction; direction: number };
 }
 
+export interface AnimationMixerStats {
+    actions: {
+        readonly total: number;
+        readonly inUse: number;
+    };
+    bindings: {
+        readonly total: number;
+        readonly inUse: number;
+    };
+    controlInterpolants: {
+        readonly total: number;
+        readonly inUse: number;
+    };
+}
+
 /**
  * `AnimationMixer` is a player for animations on a particular object in
  * the scene. When multiple objects in the scene are animated independently,
@@ -28,6 +43,10 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
      * @default 0
      */
     time: number;
+    /**
+     * The AnimationMixer stats track the actions of the mixer.
+     */
+    stats: AnimationMixerStats;
     /**
      * A scaling factor for the global time.
      *
