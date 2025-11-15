@@ -25,7 +25,7 @@ import isByteLengthFunc, { IsByteLengthOptions } from "validator/lib/isByteLengt
 import isCreditCardFunc from "validator/lib/isCreditCard";
 import isCurrencyFunc from "validator/lib/isCurrency";
 import isDataURIFunc from "validator/lib/isDataURI";
-import isDateFunc from "validator/lib/isDate";
+import isDateFunc, { IsDateOptions } from "validator/lib/isDate";
 import isDecimalFunc from "validator/lib/isDecimal";
 import isDivisibleByFunc from "validator/lib/isDivisibleBy";
 import isEANFunc from "validator/lib/isEAN";
@@ -432,7 +432,7 @@ import isByteLengthFuncEs, { IsByteLengthOptions as IsByteLengthOptionsEs } from
 import isCreditCardFuncEs from "validator/es/lib/isCreditCard";
 import isCurrencyFuncEs from "validator/es/lib/isCurrency";
 import isDataURIFuncEs from "validator/es/lib/isDataURI";
-import isDateFuncEs from "validator/es/lib/isDate";
+import isDateFuncEs, { IsDateOptions as IsDateOptionsEs } from "validator/es/lib/isDate";
 import isDecimalFuncEs from "validator/es/lib/isDecimal";
 import isDivisibleByFuncEs from "validator/es/lib/isDivisibleBy";
 import isEANFuncEs from "validator/es/lib/isEAN";
@@ -788,9 +788,28 @@ const any: any = null;
 
     result = validator.isDataURI("sample");
 
-    const isDateOptions: validator.IsDateOptions = {};
     result = validator.isDate("sample");
-    result = validator.isDate("sample", isDateOptions);
+    result = validator.isDate("sample", "YYYY/MM/DD");
+    result = validator.isDate("sample", {} satisfies IsDateOptions);
+    result = validator.isDate("sample", { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false });
+    validator.isDate("sample", { strictMode: true }); // $ExpectType boolean
+    validator.isDate("sample", { strictMode: false }); // $ExpectType boolean
+    validator.isDate("sample", { strictMode: result }); // $ExpectType boolean
+
+    result = validator.isDate(new Date());
+    result = validator.isDate(new Date(), "YYYY/MM/DD");
+    result = validator.isDate(new Date(), {} satisfies IsDateOptions);
+    result = validator.isDate(new Date(), { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false });
+    // If options.strictMode is known to be true in compile time, we return false.
+    validator.isDate(new Date(), { strictMode: true }); // $ExpectType false
+    // If options.strictMode is false or unknown in compile time, we return a boolean type as fallback
+    validator.isDate(new Date(), { strictMode: false }); // $ExpectType boolean
+    validator.isDate(new Date(), { strictMode: result }); // $ExpectType boolean
+    // Let's test for union type as well.
+    result = validator.isDate(
+        result ? "sample" : new Date(),
+        result ? "YYYY/MM/DD" : { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false },
+    );
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal("sample");
