@@ -44,7 +44,7 @@ import isIBANFunc, { IBANLocale, IsIBANOptions, locales as isIBANLocales } from 
 import isIMEIFunc from "validator/lib/isIMEI";
 import isInFunc from "validator/lib/isIn";
 import isIntFunc from "validator/lib/isInt";
-import isIPFunc from "validator/lib/isIP";
+import isIPFunc, { IPVersion, IsIPOptions } from "validator/lib/isIP";
 import isIPRange from "validator/lib/isIPRange";
 import isISBNFunc from "validator/lib/isISBN";
 import isISINFunc from "validator/lib/isISIN";
@@ -60,7 +60,7 @@ import isISRCFunc from "validator/lib/isISRC";
 import isISSNFunc from "validator/lib/isISSN";
 import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
-import isLatLongFunc from "validator/lib/isLatLong";
+import isLatLongFunc, { IsLatLongOptions } from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
 import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
@@ -454,7 +454,7 @@ import isIBANFuncEs, {
 } from "validator/es/lib/isIBAN";
 import isInFuncEs from "validator/es/lib/isIn";
 import isIntFuncEs from "validator/es/lib/isInt";
-import isIPFuncEs from "validator/es/lib/isIP";
+import isIPFuncEs, { IPVersion as IPVersionEs, IsIPOptions as IsIPOptionsEs } from "validator/es/lib/isIP";
 import isIPRangeFuncEs from "validator/es/lib/isIPRange";
 import isISBNFuncEs from "validator/es/lib/isISBN";
 import isISINFuncEs from "validator/es/lib/isISIN";
@@ -470,7 +470,7 @@ import isISRCFuncEs from "validator/es/lib/isISRC";
 import isISSNFuncEs from "validator/es/lib/isISSN";
 import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
-import isLatLongFuncEs from "validator/es/lib/isLatLong";
+import isLatLongFuncEs, { IsLatLongOptions as IsLatLongOptionsEs } from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
 import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
@@ -925,7 +925,16 @@ const any: any = null;
     result = validator.isIdentityCard("sample", "zh-TW");
 
     result = validator.isIP("sample");
+    result = validator.isIP("sample", "4" satisfies IPVersion);
     result = validator.isIP("sample", "6");
+    result = validator.isIP("sample", 4);
+    result = validator.isIP("sample", 6);
+    result = validator.isIP("sample", {});
+    result = validator.isIP("sample", { version: "4" } satisfies IsIPOptions);
+    result = validator.isIP("sample", { version: "6" });
+    result = validator.isIP("sample", { version: 4 });
+    result = validator.isIP("sample", { version: 6 });
+    result = validator.isIP("sample", result ? 6 : { version: 6 });
 
     result = validator.isIPRange("sample");
     result = validator.isIPRange("sample", "6");
@@ -975,6 +984,8 @@ const any: any = null;
     result = validator.isJSON("sample", { allow_primitives: true });
 
     result = validator.isLatLong("sample");
+    result = validator.isLatLong("sample", {});
+    result = validator.isLatLong("sample", { checkDMS: true } satisfies IsLatLongOptions);
 
     const isLengthOptions: validator.IsLengthOptions = {};
     result = validator.isLength("sample", isLengthOptions);
@@ -1394,6 +1405,7 @@ const any: any = null;
 
     result = validator.matches("foobar", "foo/i");
     result = validator.matches("foobar", "foo", "i");
+    result = validator.matches("foobar", result ? "foo/i" : "foo");
 
     result = validator.isSlug("cs_67CZ");
 }

@@ -66,7 +66,7 @@ declare namespace requireDirectory {
  * @returns hash of modules in specified directory
  */
 declare function requireDirectory<T, U>(
-    m: NodeModule,
+    m: NodeJS.Module,
     path?: string | requireDirectory.RequireDirectoryOptions<T, U>,
     options?: requireDirectory.RequireDirectoryOptions<T, U>,
 ): requireDirectory.RequireDirectoryResult<U>;

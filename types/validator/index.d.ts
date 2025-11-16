@@ -714,12 +714,19 @@ declare namespace validator {
 
     export type IPVersion = "4" | "6" | 4 | 6;
 
+    export interface IsIPOptions {
+        /**
+         * Defines which IP version to compare to.
+         */
+        version?: IPVersion | undefined;
+    }
+
     /**
      * Check if the string is an IP (version 4 or 6).
      *
-     * @param [version] - IP Version
+     * @param [version] - Defines which IP version to compare to.
      */
-    export function isIP(str: string, version?: IPVersion): boolean;
+    export function isIP(str: string, versionOrOptions?: IPVersion | IsIPOptions): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 or 6).
@@ -849,12 +856,19 @@ declare namespace validator {
      */
     export function isJWT(str: string): boolean;
 
+    export interface IsLatLongOptions {
+        /**
+         * Pass `checkDMS` as true to validate DMS(degrees, minutes, and seconds) latitude-longitude format.
+         * @default false
+         */
+        checkDMS?: boolean | undefined;
+    }
     /**
      * Check if the string is a valid latitude-longitude coordinate in the format:
      *
      * `lat,long` or `lat, long`.
      */
-    export function isLatLong(str: string): boolean;
+    export function isLatLong(str: string, options?: IsLatLongOptions): boolean;
 
     export interface IsLengthOptions {
         /**
@@ -1505,13 +1519,7 @@ declare namespace validator {
      *
      * @param pattern - `/foo/i`
      */
-    export function matches(str: string, pattern: RegExp): boolean;
-    /**
-     * Check if string matches the pattern.
-     *
-     * @param pattern - `'foo'`
-     * @param [modifiers] - `'i'`
-     */
+    export function matches(str: string, pattern: RegExp | string): boolean;
     export function matches(str: string, pattern: string, modifiers?: string): boolean;
 
     /**

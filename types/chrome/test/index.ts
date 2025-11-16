@@ -1345,107 +1345,166 @@ function testDeclarativeContent() {
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
+    chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS === "TRUSTED_AND_UNTRUSTED_CONTEXTS";
+    chrome.storage.AccessLevel.TRUSTED_CONTEXTS === "TRUSTED_CONTEXTS";
+
+    const key = "key";
+    const badKey = "badKey";
+
     interface StorageData {
-        myKey: {
+        key: string;
+        key2: {
             x: number;
             y: number;
             z?: number;
         };
-        myKey2: string;
-    }
-
-    function getCallback(loadedData: { [key: string]: any }) {
-        console.log(loadedData.myKey.x + loadedData.myKey.y);
-    }
-
-    function getCallbackTyped(loadedData: StorageData) {
-        console.log(loadedData.myKey.x + loadedData.myKey.y);
     }
 
     // @ts-expect-error
     const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
 
-    chrome.storage.sync.get("myKey", getCallback);
-    chrome.storage.sync.get("badKey", getCallback);
-    // @ts-expect-error
-    chrome.storage.sync.get("badKey", getCallbackTyped);
-    // @ts-expect-error
-    chrome.storage.sync.get({ myKey: { badKey: true } }, getCallbackTyped);
-    chrome.storage.sync.get(null, (data) => {
-        console.log(data.myKey);
+    const StorageArea = ["sync", "managed", "local", "session"] as const;
+
+    StorageArea.forEach((area) => {
+        chrome.storage[area].clear(); // $ExpectType Promise<void>
+        chrome.storage[area].clear(() => void 0); // $ExpectType void
+        // @ts-expect-error
+        chrome.storage[area].clear(() => void 0).then(() => {});
+
+        chrome.storage[area].get(); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get(null); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get(key); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get([]); // $ExpectType Promise<{ [key: string]: never; }>
+        chrome.storage[area].get([key]); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get({}); // $ExpectType Promise<{ [key: string]: never; }>
+        chrome.storage[area].get({ key }); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get(badKey); // $ExpectType Promise<{ [key: string]: unknown; }>
+        chrome.storage[area].get<StorageData>(key); // $ExpectType Promise<StorageData>
+        chrome.storage[area].get(undefined, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get(null, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get(key, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get([], (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: never; }
+        });
+        chrome.storage[area].get([key], (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get({ key }, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get({}, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: never; }
+        });
+        chrome.storage[area].get(badKey, (items) => { // $ExpectType void
+            items; // $ExpectType { [key: string]: unknown; }
+        });
+        chrome.storage[area].get<StorageData>(key, (items) => { // $ExpectType void
+            items; // $ExpectType StorageData
+        });
+        // @ts-expect-error
+        chrome.storage[area].get<StorageData>(badKey);
+        // @ts-expect-error
+        chrome.storage[area].get(undefined, () => {}).then(() => {});
+
+        chrome.storage[area].getBytesInUse(); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse(null); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse(key); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse([key]); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse([]); // $ExpectType Promise<0>
+        chrome.storage[area].getBytesInUse(badKey); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse<StorageData>(key); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse<StorageData>(key); // $ExpectType Promise<number>
+        chrome.storage[area].getBytesInUse(undefined, (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        chrome.storage[area].getBytesInUse(null, (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        chrome.storage[area].getBytesInUse(key, (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        chrome.storage[area].getBytesInUse([key], (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        chrome.storage[area].getBytesInUse([], (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType 0
+        });
+        chrome.storage[area].getBytesInUse(badKey, (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        chrome.storage[area].getBytesInUse<StorageData>(key, (bytesInUse) => { // $ExpectType void
+            bytesInUse; // $ExpectType number
+        });
+        // @ts-expect-error
+        chrome.storage[area].getBytesInUse<StorageData>(badKey);
+        // @ts-expect-error
+        chrome.storage[area].getBytesInUse(() => {}).then(() => {});
+
+        chrome.storage[area].getKeys(); // $ExpectType Promise<string[]>
+        chrome.storage[area].getKeys((keys) => { // $ExpectType void
+            keys; // $ExpectType string[]
+        });
+        // @ts-expect-error
+        chrome.storage[area].getKeys(() => {}).then(() => {});
+
+        chrome.storage[area].remove(key); // $ExpectType Promise<void>
+        chrome.storage[area].remove([key]); // $ExpectType Promise<void>
+        chrome.storage[area].remove(badKey); // $ExpectType Promise<void>
+        chrome.storage[area].remove<StorageData>(key); // $ExpectType Promise<void>
+        chrome.storage[area].remove(key, () => {}); // $ExpectType void
+        chrome.storage[area].remove([key], () => {}); // $ExpectType void
+        chrome.storage[area].remove(badKey, () => {}); // $ExpectType void
+        chrome.storage[area].remove<StorageData>(key, () => {}); // $ExpectType void
+        // @ts-expect-error
+        chrome.storage[area].remove<StorageData>(badKey);
+        // @ts-expect-error
+        chrome.storage[area].remove(() => {}).then(() => {});
+
+        chrome.storage[area].set({ key }); // $ExpectType Promise<void>
+        chrome.storage[area].set({ badKey }); // $ExpectType Promise<void>
+        chrome.storage[area].set({ key }, () => void 0); // $ExpectType void
+        chrome.storage[area].set({ badKey }, () => void 0); // $ExpectType void
+        chrome.storage[area].set<StorageData>({ key }, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        chrome.storage[area].set<StorageData>({ badKey });
+        // @ts-expect-error
+        chrome.storage[area].set({}, () => {}).then(() => {});
+
+        const accessLevel = "TRUSTED_AND_UNTRUSTED_CONTEXTS";
+
+        chrome.storage[area].setAccessLevel({ accessLevel }); // $ExpectType Promise<void>
+        chrome.storage[area].setAccessLevel({ accessLevel }, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        chrome.storage[area].setAccessLevel({ accessLevel }, () => void 0).then(() => {});
+
+        checkChromeEvent(chrome.storage[area].onChanged, (changes) => {
+            changes[key].newValue; // $ExpectType unknown
+            changes[key].oldValue; // $ExpectType unknown
+        });
     });
-    chrome.storage.sync.get((data: any) => {
-        console.log(data.badKey);
+
+    chrome.storage.local.QUOTA_BYTES === 10485760;
+
+    chrome.storage.session.QUOTA_BYTES === 10485760;
+
+    chrome.storage.sync.MAX_ITEMS === 512;
+    chrome.storage.sync.MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE === 1000000;
+    chrome.storage.sync.MAX_WRITE_OPERATIONS_PER_HOUR === 1800;
+    chrome.storage.sync.MAX_WRITE_OPERATIONS_PER_MINUTE === 120;
+    chrome.storage.sync.QUOTA_BYTES === 102400;
+    chrome.storage.sync.QUOTA_BYTES_PER_ITEM === 8192;
+
+    checkChromeEvent(chrome.storage.onChanged, (changes, areaName) => {
+        changes[key].newValue; // $ExpectType unknown
+        changes[key].oldValue; // $ExpectType unknown
+        areaName; // $ExpectType AreaName
     });
-
-    chrome.storage.sync.get<StorageData>(getCallbackTyped);
-    chrome.storage.sync.get<StorageData>("myKey", getCallbackTyped);
-    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallbackTyped);
-    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallbackTyped);
-    // @ts-expect-error
-    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallback);
-    // @ts-expect-error
-    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallbackTyped);
-    chrome.storage.sync.get<StorageData>(null, getCallbackTyped);
-
-    function getBytesInUseCallback(bytesInUse: number) {
-        console.log(bytesInUse);
-    }
-
-    chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse("badKey", getBytesInUseCallback);
-
-    chrome.storage.sync.getBytesInUse<StorageData>("myKey", getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse<StorageData>(["myKey", "myKey2"], getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse<StorageData>(null, getBytesInUseCallback);
-    // @ts-expect-error
-    chrome.storage.sync.getBytesInUse<StorageData>(["badKey", "myKey2"], getBytesInUseCallback);
-
-    function doneCallback() {
-        console.log("done");
-    }
-
-    chrome.storage.sync.set({ badKey: true });
-    chrome.storage.sync.set<StorageData>({ myKey: { x: 1, y: 2 } });
-    chrome.storage.sync.set<StorageData>({ myKey2: "hello world" }, doneCallback);
-    // @ts-expect-error
-    chrome.storage.sync.set<StorageData>({ badKey: "hello world" }, doneCallback);
-
-    chrome.storage.sync.remove("badKey");
-    chrome.storage.sync.remove<StorageData>("myKey");
-    chrome.storage.sync.remove<StorageData>("myKey", doneCallback);
-    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"]);
-    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"], doneCallback);
-    // @ts-expect-error
-    chrome.storage.sync.remove<StorageData>(["badKey", "myKey2"], doneCallback);
-
-    chrome.storage.sync.clear();
-    chrome.storage.sync.clear(doneCallback);
-
-    chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS });
-    chrome.storage.sync.setAccessLevel(
-        { accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS },
-        doneCallback,
-    );
-
-    chrome.storage.sync.onChanged.addListener(function(changes) {
-        var myNewValue: { x: number } = changes["myKey"].newValue;
-        var myOldValue: { x: number } = changes["myKey"].oldValue;
-    });
-
-    chrome.storage.onChanged.addListener(function(changes, areaName) {
-        var area: string = areaName;
-        var myNewValue: { x: number } = changes["myKey"].newValue;
-        var myOldValue: { x: number } = changes["myKey"].oldValue;
-    });
-
-    chrome.storage.sync.getKeys(); // $ExpectType Promise<string[]>
-    chrome.storage.sync.getKeys((keys) => { // $ExpectType void
-        keys; // $ExpectType string[]
-    });
-    // @ts-expect-error
-    chrome.storage.sync.getKeys(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/tss
@@ -4181,31 +4240,6 @@ function testDeclarativeWebRequest() {
         details.type; // $ExpectType "object" | "other" | "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle"
         details.url; // $ExpectType string
     });
-}
-
-// https://developer.chrome.com/docs/extensions/reference/storage
-function testStorageForPromise() {
-    chrome.storage.sync.getBytesInUse().then(() => {});
-    chrome.storage.sync.getBytesInUse(null).then(() => {});
-    chrome.storage.sync.getBytesInUse("testKey").then(() => {});
-    chrome.storage.sync.getBytesInUse(["testKey"]).then(() => {});
-
-    chrome.storage.sync.clear().then(() => {});
-
-    chrome.storage.sync.set({ testKey: "testValue" }).then(() => {});
-
-    chrome.storage.sync.remove("testKey").then(() => {});
-    chrome.storage.sync.remove(["testKey"]).then(() => {});
-
-    chrome.storage.sync.get().then(() => {});
-    chrome.storage.sync.get(null).then(() => {});
-    chrome.storage.sync.get("testKey").then(() => {});
-    chrome.storage.sync.get(["testKey"]).then(() => {});
-    chrome.storage.sync.get({ testKey: "testDefaultValue" }).then(() => {});
-
-    chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(
-        () => {},
-    );
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/contextMenus
