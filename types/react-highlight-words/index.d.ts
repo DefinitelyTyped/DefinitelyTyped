@@ -33,7 +33,7 @@ export interface HighlighterProps {
      */
     findChunks?: ((options: FindChunks) => Chunk[]) | undefined;
     /** CSS class name applied to highlighted text */
-    highlightClassName?: string | undefined;
+    highlightClassName?: string | Record<string, string> | undefined;
     /** Inline styles applied to highlighted text */
     highlightStyle?: React.CSSProperties | undefined;
     /**
