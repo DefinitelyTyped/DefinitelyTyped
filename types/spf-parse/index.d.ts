@@ -2,14 +2,14 @@ export = spfParse;
 
 declare namespace spfParse {
     /** Qualifer prefix characters */
-    type Prefix = '+' | '-' | '~' | '?' | 'v';
+    type Prefix = "+" | "-" | "~" | "?" | "v";
 
     /** Prefix descriptions */
     interface PrefixDescriptions {
-        '+': 'Pass';
-        '-': 'Fail';
-        '~': 'SoftFail';
-        '?': 'Neutral';
+        "+": "Pass";
+        "-": "Fail";
+        "~": "SoftFail";
+        "?": "Neutral";
         v?: string;
     }
 
@@ -37,7 +37,7 @@ declare namespace spfParse {
         message: string;
 
         /** Message type: error or warning */
-        type: 'error' | 'warning';
+        type: "error" | "warning";
     }
 
     /** Result of parsing a single SPF record */
@@ -55,8 +55,8 @@ declare namespace spfParse {
     /** Error thrown by mechanism validators */
     class MechanismError extends Error {
         /** Error type */
-        type: 'warning' | 'error';
-        constructor(message: string, type?: 'warning' | 'error');
+        type: "warning" | "error";
+        constructor(message: string, type?: "warning" | "error");
     }
 
     /**
