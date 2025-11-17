@@ -55,7 +55,12 @@
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
  */
 declare module "node:worker_threads" {
-    import { EventEmitter, InternalEventEmitter, NodeEventTarget } from "node:events";
+    import {
+        EventEmitter,
+        InternalEventEmitter,
+        InternalEventTargetEventProperties,
+        NodeEventTarget,
+    } from "node:events";
     import { FileHandle } from "node:fs/promises";
     import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
@@ -579,10 +584,36 @@ declare module "node:worker_threads" {
     interface StructuredSerializeOptions {
         transfer?: Transferable[];
     }
-    interface BroadcastChannel extends EventTarget, NodeJS.RefCounted {
+    interface BroadcastChannelEventMap {
+        "message": MessageEvent;
+        "messageerror": MessageEvent;
+    }
+    interface BroadcastChannel
+        extends EventTarget, InternalEventTargetEventProperties<BroadcastChannelEventMap>, NodeJS.RefCounted
+    {
         readonly name: string;
         close(): void;
         postMessage(message: any): void;
+        addEventListener<K extends keyof BroadcastChannelEventMap>(
+            type: K,
+            listener: (ev: BroadcastChannelEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof BroadcastChannelEventMap>(
+            type: K,
+            listener: (ev: BroadcastChannelEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
     }
     var BroadcastChannel: {
         prototype: BroadcastChannel;
@@ -613,11 +644,37 @@ declare module "node:worker_threads" {
         prototype: MessageChannel;
         new(): MessageChannel;
     };
-    interface MessagePort extends NodeEventTarget {
+    interface MessagePortEventMap {
+        "close": Event;
+        "message": MessageEvent;
+        "messageerror": MessageEvent;
+    }
+    interface MessagePort extends NodeEventTarget, InternalEventTargetEventProperties<MessagePortEventMap> {
         close(): void;
         postMessage(message: any, transfer: Transferable[]): void;
         postMessage(message: any, options?: StructuredSerializeOptions): void;
         start(): void;
+        addEventListener<K extends keyof MessagePortEventMap>(
+            type: K,
+            listener: (ev: MessagePortEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof MessagePortEventMap>(
+            type: K,
+            listener: (ev: MessagePortEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        // #region NodeEventTarget
         addListener(event: "close", listener: (ev: Event) => void): this;
         addListener(event: "message", listener: (value: any) => void): this;
         addListener(event: "messageerror", listener: (error: Error) => void): this;
@@ -642,6 +699,7 @@ declare module "node:worker_threads" {
         removeListener(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
         removeListener(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
         removeListener(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+        // #endregion
     }
     var MessagePort: {
         prototype: MessagePort;

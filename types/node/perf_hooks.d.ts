@@ -30,6 +30,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/perf_hooks.js)
  */
 declare module "node:perf_hooks" {
+    import { InternalEventTargetEventProperties } from "node:events";
     // #region web types
     type EntryType =
         | "dns" // Node.js only
@@ -87,7 +88,10 @@ declare module "node:perf_hooks" {
         entryTypes?: EntryType[];
         type?: EntryType;
     }
-    interface Performance extends EventTarget {
+    interface PerformanceEventMap {
+        "resourcetimingbufferfull": Event;
+    }
+    interface Performance extends EventTarget, InternalEventTargetEventProperties<PerformanceEventMap> {
         readonly nodeTiming: PerformanceNodeTiming;
         readonly timeOrigin: number;
         clearMarks(markName?: string): void;
@@ -112,6 +116,26 @@ declare module "node:perf_hooks" {
         now(): number;
         setResourceTimingBufferSize(maxSize: number): void;
         toJSON(): any;
+        addEventListener<K extends keyof PerformanceEventMap>(
+            type: K,
+            listener: (ev: PerformanceEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof PerformanceEventMap>(
+            type: K,
+            listener: (ev: PerformanceEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
         /**
          * The `eventLoopUtilization()` method returns an object that contains the
          * cumulative duration of time the event loop has been both idle and active as a

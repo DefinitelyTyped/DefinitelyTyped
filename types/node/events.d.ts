@@ -1027,6 +1027,10 @@ declare module "node:events" {
              */
             removeListener(type: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
         }
+        /** @internal */
+        type InternalEventTargetEventProperties<T> = {
+            [K in keyof T & string as `on${K}`]: ((ev: T[K]) => void) | null;
+        };
     }
     global {
         import _ = EventEmitter;
