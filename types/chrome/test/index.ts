@@ -1760,7 +1760,7 @@ function testDevtoolsPanels() {
     });
     checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
 
-    chrome.devtools.panels.themeName; // $ExpectType "default" | "dark"
+    chrome.devtools.panels.themeName; // $ExpectType Theme
 
     chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
@@ -1784,6 +1784,11 @@ function testDevtoolsPanels() {
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
         resource; // $ExpectType Resource
         lineNumber; // $ExpectType number
+    });
+
+    chrome.devtools.panels.setThemeChangeHandler(); // $ExpectType void
+    chrome.devtools.panels.setThemeChangeHandler((theme) => { // $ExpectType void
+        theme; // $ExpectType Theme
     });
 }
 
@@ -4922,6 +4927,7 @@ function testDownloads() {
     chrome.downloads.DangerType.DEEP_SCANNED_OPENED_DANGEROUS === "deepScannedOpenedDangerous";
     chrome.downloads.DangerType.DEEP_SCANNED_SAFE === "deepScannedSafe";
     chrome.downloads.DangerType.FILE === "file";
+    chrome.downloads.DangerType.FORCE_SAVE_TO_GDRIVE === "forceSaveToGdrive";
     chrome.downloads.DangerType.HOST === "host";
     chrome.downloads.DangerType.PASSWORD_PROTECTED === "passwordProtected";
     chrome.downloads.DangerType.PROMPT_FOR_LOCAL_PASSWORD_SCANNING === "promptForLocalPasswordScanning";
@@ -5082,7 +5088,7 @@ function testDownloads() {
         result.byExtensionName; // $ExpectType string | undefined
         result.bytesReceived; // $ExpectType number
         result.canResume; // $ExpectType boolean
-        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive"
         result.endTime; // $ExpectType string | undefined
         result.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
         result.estimatedEndTime; // $ExpectType string | undefined
@@ -5140,7 +5146,7 @@ function testDownloads() {
         downloadItem.byExtensionName; // $ExpectType string | undefined
         downloadItem.bytesReceived; // $ExpectType number
         downloadItem.canResume; // $ExpectType boolean
-        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed"
+        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive"
         downloadItem.endTime; // $ExpectType string | undefined
         downloadItem.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
         downloadItem.estimatedEndTime; // $ExpectType string | undefined
