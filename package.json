@@ -47,5 +47,8 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "@types/isolated-web-apps": "^0.0.1"
+    }
 }

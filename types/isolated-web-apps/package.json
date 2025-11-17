@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "nonNpm": true,
+    "name": "@types/isolated-web-apps",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/WICG/isolated-web-apps"
+    ],
+    "devDependencies": {
+        "@types/isolated-web-apps": "workspace:.",
+        "@types/web": "*"
+    },
+    "owners": [
+        {
+            "name": "Paulina Gacek",
+            "githubUsername": "paulinagacek"
+        }
+    ]
+}
