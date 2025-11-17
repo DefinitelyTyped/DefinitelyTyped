@@ -794,14 +794,8 @@ declare namespace Sinon {
     interface SinonAssert {
         // Properties
         /**
-         * Defaults to AssertError.
-         */
-        failException: string;
-        /**
          * Every assertion fails by calling this method.
-         * By default it throws an error of type sinon.assert.failException.
-         * If the test framework looks for assertion errors by checking for a specific exception, you can simply override the kind of exception thrown.
-         * If that does not fit with your testing framework of choice, override the fail method to do the right thing.
+         * If your testing framework of choice looks for assertion errors by checking for a specific exception, you can override the `fail` method to do the right thing.
          */
         fail(message?: string): void; // Overridable
         /**
