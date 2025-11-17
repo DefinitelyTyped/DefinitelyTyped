@@ -883,7 +883,7 @@ declare namespace validator {
         /**
          * @default undefined
          */
-        discreteLengths?: number | Array<number> | undefined;
+        discreteLengths?: Array<number> | undefined;
     }
 
     /**
@@ -893,7 +893,8 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    export function isLength(str: string, options?: IsLengthOptions): boolean;
+    export function isLength(str: string, minOrOptions?: number | IsLengthOptions): boolean;
+    export function isLength(str: string, min: number, max: number): boolean;
 
     export type LicensePlateLocale =
         | "cs-CZ"
