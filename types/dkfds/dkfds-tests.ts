@@ -1,3 +1,5 @@
+import * as DKFDS from "dkfds";
+
 // Test init function
 DKFDS.init({ scope: document.body }); // $ExpectType void
 DKFDS.init({ scope: document.getElementById("app")! }); // $ExpectType void
