@@ -108,7 +108,7 @@
 /types/alexa-voice-service/                             @dolanmiu
 /types/algebra.js/                                      @CaselIT
 /types/ali-app/                                         @taoqf
-/types/ali-oss/                                         @ptrdu
+/types/ali-oss/                                         @ptrdu @StarHeartHunt
 /types/alicloud__log/                                   @RuixeWolf
 /types/align-text/                                      @claasahl
 /types/alipayjssdk/                                     @shlyren
@@ -3758,6 +3758,7 @@
 /types/js-sha1/                                         @yhaskell
 /types/js-string-escape/                                @viralpickaxe
 /types/js-to-java/                                      @skyitachi @zhaoleipeng
+/types/js-untar/                                        @aidinabedi
 /types/js-url/                                          @pine
 /types/js-worker-search/                                @pbalogh
 /types/js-yaml/                                         @Bartvds @sclausen @ExE-Boss @ArmaanT @LinusU
@@ -7411,6 +7412,7 @@
 /types/speedometer/                                     @Dylan-G @f-arki
 /types/speedtest-net/                                   @ffflorian
 /types/spellchecker/                                    @dalevfenton
+/types/spf-parse/                                       @ultraslayyy
 /types/sphere-engine-browser/                           @fatcerberus
 /types/sphere-engine-browser/v1/                        @Eggbertx
 /types/spinnies/                                        @benjamincburns
@@ -8014,6 +8016,7 @@
 /types/uni-app/                                         @dcloudio
 /types/unicode-dragon/                                  @richdouglasevans
 /types/unicode-escape/                                  @remcohaszing
+/types/unicode-name/                                    @gamrix
 /types/unicode-properties/                              @lionel-rowe
 /types/unicode-trie/                                    @esheppard
 /types/unidecode/                                       @vfernandestoptal
