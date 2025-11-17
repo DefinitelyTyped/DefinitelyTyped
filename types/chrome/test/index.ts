@@ -63,7 +63,7 @@ function testBookmarks() {
     chrome.bookmarks.get("1", () => {}).then(() => {});
 
     chrome.bookmarks.getChildren("1"); // $ExpectType Promise<BookmarkTreeNode[]>
-    chrome.bookmarks.getChildren("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void);
+    chrome.bookmarks.getChildren("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
     // @ts-expect-error
     chrome.bookmarks.getChildren("1", () => {}).then(() => {});
 
@@ -93,12 +93,12 @@ function testBookmarks() {
     chrome.bookmarks.move("1", destination, () => {}).then(() => {});
 
     chrome.bookmarks.remove("1"); // $ExpectType Promise<void>
-    chrome.bookmarks.remove("1", () => void 0);
+    chrome.bookmarks.remove("1", () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.bookmarks.remove("1", () => {}).then(() => {});
 
     chrome.bookmarks.removeTree("1"); // $ExpectType Promise<void>
-    chrome.bookmarks.removeTree("1", () => void 0);
+    chrome.bookmarks.removeTree("1", () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.bookmarks.removeTree("1", () => {}).then(() => {});
 
@@ -225,7 +225,7 @@ function testWebNavigation() {
 
     chrome.webNavigation.getFrame(getFrameDetails); // $ExpectType Promise<GetFrameResultDetails | null>
     chrome.webNavigation.getFrame(getFrameDetails2); // $ExpectType Promise<GetFrameResultDetails | null>
-    chrome.webNavigation.getFrame(getFrameDetails, (frame) => { // $ExpectType void;
+    chrome.webNavigation.getFrame(getFrameDetails, (frame) => { // $ExpectType void
         frame; // $ExpectType GetFrameResultDetails | null
     });
     chrome.webNavigation.getFrame(getFrameDetails2, (frame) => { // $ExpectType void
@@ -402,7 +402,7 @@ function testProxy() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/notifications
-function testNotification() {
+function testNotifications() {
     chrome.notifications.PermissionLevel.DENIED === "denied";
     chrome.notifications.PermissionLevel.GRANTED === "granted";
 
@@ -1298,7 +1298,7 @@ function testDeclarativeContent() {
         },
     };
 
-    const condition = new chrome.declarativeContent.PageStateMatcher(pageStateMatcherProperties); // ExpectType PageStateMatcher
+    const condition = new chrome.declarativeContent.PageStateMatcher(pageStateMatcherProperties); // $ExpectType PageStateMatcher
 
     const requestContentScriptProperties: chrome.declarativeContent.RequestContentScriptProperties = {
         allFrames: true,
@@ -1307,15 +1307,15 @@ function testDeclarativeContent() {
         matchAboutBlank: true,
     };
 
-    new chrome.declarativeContent.RequestContentScript(requestContentScriptProperties); // ExpectType RequestContentScript
+    new chrome.declarativeContent.RequestContentScript(requestContentScriptProperties); // $ExpectType RequestContentScript
 
     const imageData = new ImageData(32, 32);
 
-    new chrome.declarativeContent.SetIcon({ imageData }); // ExpectType SetIcon
+    new chrome.declarativeContent.SetIcon({ imageData }); // $ExpectType SetIcon
 
-    const action = new chrome.declarativeContent.ShowAction(); // ExpectType ShowAction
+    const action = new chrome.declarativeContent.ShowAction(); // $ExpectType ShowAction
 
-    new chrome.declarativeContent.ShowPageAction(); // ExpectType ShowPageAction
+    new chrome.declarativeContent.ShowPageAction(); // $ExpectType ShowPageAction
 
     const rule: chrome.events.Rule = {
         conditions: [condition],
@@ -1343,7 +1343,7 @@ function testDeclarativeContent() {
     chrome.declarativeContent.onPageChanged.removeRules(["identifier"], () => void 0); // $ExpectType void
 }
 
-// https://developer.chrome.com/extensions/storage#type-StorageArea
+// https://developer.chrome.com/docs/extensions/reference/api/storage
 function testStorage() {
     chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS === "TRUSTED_AND_UNTRUSTED_CONTEXTS";
     chrome.storage.AccessLevel.TRUSTED_CONTEXTS === "TRUSTED_CONTEXTS";
@@ -1507,7 +1507,7 @@ function testStorage() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/api/tss
+// https://developer.chrome.com/docs/extensions/reference/api/tts
 function testTts() {
     chrome.tts.EventType.CANCELLED === "cancelled";
     chrome.tts.EventType.END === "end";
@@ -1800,24 +1800,24 @@ function testDevtoolsInspectedWindow() {
     chrome.devtools.inspectedWindow.eval(expression); // $ExpectType void
     chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType void
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
-        result; // ExpectType object
+        result; // $ExpectType { [key: string]: unknown; }
 
-        exceptionInfo.code; // ExpectType string
-        exceptionInfo.description; // ExpectType string
-        exceptionInfo.details; // ExpectType unknown[]
-        exceptionInfo.isError; // ExpectType boolean
-        exceptionInfo.isException; // ExpectType boolean
-        exceptionInfo.value; // ExpectType string
+        exceptionInfo.code; // $ExpectType string
+        exceptionInfo.description; // $ExpectType string
+        exceptionInfo.details; // $ExpectType any[]
+        exceptionInfo.isError; // $ExpectType boolean
+        exceptionInfo.isException; // $ExpectType boolean
+        exceptionInfo.value; // $ExpectType string
     });
     chrome.devtools.inspectedWindow.eval(expression, (result) => { // $ExpectType void
-        result; // ExpectType object
+        result; // $ExpectType { [key: string]: unknown; }
     });
     chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
-        result.title; // ExpectType string
+        result.title; // $ExpectType string
     });
 
     chrome.devtools.inspectedWindow.getResources((resources) => { // $ExpectType void
-        resources; // ExpectType Resource[]
+        resources; // $ExpectType Resource[]
     });
 
     const reloadOptions: chrome.devtools.inspectedWindow.ReloadOptions = {
@@ -1830,12 +1830,12 @@ function testDevtoolsInspectedWindow() {
     chrome.devtools.inspectedWindow.reload(reloadOptions); // $ExpectType void
 
     checkChromeEvent(chrome.devtools.inspectedWindow.onResourceAdded, (resource) => {
-        resource; // ExpectType Resource
+        resource; // $ExpectType Resource
     });
 
     checkChromeEvent(chrome.devtools.inspectedWindow.onResourceContentCommitted, (resource, content) => {
-        resource; // ExpectType Resource
-        content; // ExpectType string
+        resource; // $ExpectType Resource
+        content; // $ExpectType string
     });
 }
 
@@ -1847,7 +1847,7 @@ function testDevtoolsPerformance() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/network
 function testDevtoolsNetwork() {
-    chrome.devtools.network.getHAR((harLog) => {
+    chrome.devtools.network.getHAR((harLog) => { // $ExpectType void
         harLog; // $ExpectType Log
     });
 
@@ -2426,7 +2426,7 @@ async function testAction() {
     chrome.action.isEnabled((isEnabled) => { // $ExpectType void
         isEnabled; // $ExpectType boolean
     });
-    chrome.action.isEnabled(tabId, (isEnabled) => {
+    chrome.action.isEnabled(tabId, (isEnabled) => { // $ExpectType void
         isEnabled; // $ExpectType boolean
     });
     // @ts-expect-error
@@ -2618,25 +2618,8 @@ function testAudio() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/bookmarks
-async function testBookmarksForPromise() {
-    await chrome.bookmarks.search("query1");
-    await chrome.bookmarks.search({});
-    await chrome.bookmarks.getTree();
-    await chrome.bookmarks.getRecent(0);
-    await chrome.bookmarks.get("id1");
-    await chrome.bookmarks.get(["id1"]);
-    await chrome.bookmarks.create({});
-    await chrome.bookmarks.move("id1", {});
-    await chrome.bookmarks.update("id1", {});
-    await chrome.bookmarks.remove("id1");
-    await chrome.bookmarks.getChildren("id1");
-    await chrome.bookmarks.getSubTree("id1");
-    await chrome.bookmarks.removeTree("id1");
-}
-
 // https://developer.chrome.com/docs/extensions/reference/api/cookies
-async function testCookie() {
+async function testCookies() {
     chrome.cookies.OnChangedCause.EVICTED === "evicted";
     chrome.cookies.OnChangedCause.EXPIRED === "expired";
     chrome.cookies.OnChangedCause.EXPIRED_OVERWRITE === "expired_overwrite";
@@ -2659,7 +2642,7 @@ async function testCookie() {
     };
 
     chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
-    chrome.cookies.get(cookieDetails, (cookie) => {
+    chrome.cookies.get(cookieDetails, (cookie) => { // $ExpectType void
         cookie; // $ExpectType Cookie | null
     });
     // @ts-expect-error
@@ -2680,14 +2663,14 @@ async function testCookie() {
     };
 
     chrome.cookies.getAll(cookiesAllDetails); // $ExpectType Promise<Cookie[]>
-    chrome.cookies.getAll(cookiesAllDetails, (cookies) => {
+    chrome.cookies.getAll(cookiesAllDetails, (cookies) => { // $ExpectType void
         cookies; // $ExpectType Cookie[]
     });
     // @ts-expect-error
     chrome.cookies.getAll(cookiesAllDetails, () => {}).then(() => {});
 
     chrome.cookies.getAllCookieStores(); // $ExpectType Promise<CookieStore[]>
-    chrome.cookies.getAllCookieStores((cookieStores) => {
+    chrome.cookies.getAllCookieStores((cookieStores) => { // $ExpectType void
         cookieStores; // $ExpectType CookieStore[]
     });
     // @ts-expect-error
@@ -2698,14 +2681,14 @@ async function testCookie() {
     };
 
     chrome.cookies.getPartitionKey(frameDetails); // $ExpectType Promise<{ partitionKey: CookiePartitionKey }>
-    chrome.cookies.getPartitionKey(frameDetails, ({ partitionKey }) => {
+    chrome.cookies.getPartitionKey(frameDetails, ({ partitionKey }) => { // $ExpectType void
         partitionKey; // $ExpectType CookiePartitionKey
     });
     // @ts-expect-error
     chrome.cookies.getPartitionKey(frameDetails, () => {}).then(() => {});
 
     chrome.cookies.remove(cookieDetails); // $ExpectType Promise<CookieDetails>
-    chrome.cookies.remove(cookieDetails, (details) => {
+    chrome.cookies.remove(cookieDetails, (details) => { // $ExpectType void
         details; // $ExpectType CookieDetails
     });
     // @ts-expect-error
@@ -2728,7 +2711,7 @@ async function testCookie() {
     };
 
     chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
-    chrome.cookies.set(cookieDetailsSet, (cookie) => {
+    chrome.cookies.set(cookieDetailsSet, (cookie) => { // $ExpectType void
         cookie; // $ExpectType Cookie | null
     });
     // @ts-expect-error
@@ -3272,7 +3255,7 @@ async function testTabs() {
     chrome.tabs.captureVisibleTab(windowId); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions); // $ExpectType Promise<string>
-    chrome.tabs.captureVisibleTab((dataUrl) => {
+    chrome.tabs.captureVisibleTab((dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
     });
     chrome.tabs.captureVisibleTab(windowId, (dataUrl) => { // $ExpectType void
@@ -3319,7 +3302,7 @@ async function testTabs() {
     chrome.tabs.detectLanguage((language) => { // $ExpectType void
         language; // $ExpectType string
     });
-    chrome.tabs.detectLanguage(tabId, (language) => {
+    chrome.tabs.detectLanguage(tabId, (language) => { // $ExpectType void
         language; // $ExpectType string
     });
     // @ts-expect-error
@@ -3337,7 +3320,7 @@ async function testTabs() {
     chrome.tabs.discard(() => {}).then(() => {});
 
     chrome.tabs.duplicate(tabId); // $ExpectType Promise<Tab | undefined>
-    chrome.tabs.duplicate(tabId, (tab) => {
+    chrome.tabs.duplicate(tabId, (tab) => { // $ExpectType void
         tab; // $ExpectType Tab | undefined
     });
     // @ts-expect-error
@@ -3430,7 +3413,7 @@ async function testTabs() {
     chrome.tabs.move(tabId, moveProperties, (tab) => { // $ExpectType void
         tab; // $ExpectType Tab
     });
-    chrome.tabs.move([tabId], moveProperties, (tabs) => {
+    chrome.tabs.move([tabId], moveProperties, (tabs) => { // $ExpectType void
         tabs; // $ExpectType Tab[]
     });
     // @ts-expect-error
@@ -3710,7 +3693,7 @@ async function testTabs() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/tabGroups
-async function testTabGroup() {
+async function testTabGroups() {
     chrome.tabGroups.Color.BLUE === "blue";
     chrome.tabGroups.Color.CYAN === "cyan";
     chrome.tabGroups.Color.GREEN === "green";
@@ -4820,7 +4803,7 @@ async function testCommands() {
 // https://developer.chrome.com/docs/extensions/reference/api/i18n
 function testI18n() {
     const text = "text";
-    chrome.i18n.detectLanguage(text); // ExpectType Promise<DetectLanguageResult>
+    chrome.i18n.detectLanguage(text); // $ExpectType Promise<LanguageDetectionResult>
     chrome.i18n.detectLanguage(text, (result) => { // $ExpectType void
         result.isReliable; // $ExpectType boolean
         result.languages[0].language; // $ExpectType string
@@ -5191,31 +5174,16 @@ function testDownloads() {
     });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/downloads
-async function testDownloadsForPromise() {
-    await chrome.downloads.search({});
-    await chrome.downloads.pause(1);
-    await chrome.downloads.getFileIcon(1);
-    await chrome.downloads.getFileIcon(1, {});
-    await chrome.downloads.resume(1);
-    await chrome.downloads.cancel(1);
-    await chrome.downloads.download({ url: "https://example.com" });
-    await chrome.downloads.erase({});
-    await chrome.downloads.removeFile(1);
-    await chrome.downloads.acceptDanger(1);
-    await chrome.downloads.setUiOptions({ enabled: true });
-}
-
 // https://developer.chrome.com/docs/extensions/reference/api/extension
 function testExtension() {
     chrome.extension.ViewType.POPUP === "popup";
     chrome.extension.ViewType.TAB === "tab";
 
-    chrome.extension.inIncognitoContext; // ExpectType boolean
+    chrome.extension.inIncognitoContext; // $ExpectType boolean
 
-    chrome.extension.lastError; // ExpectType chrome.runtime.LastError
+    chrome.extension.lastError; // $ExpectType LastError | undefined
 
-    chrome.extension.getBackgroundPage(); // ExpectType Window | null
+    chrome.extension.getBackgroundPage(); // $ExpectType Window | null
 
     const fetchProperties: chrome.extension.FetchProperties = {
         tabId: 1,
@@ -5223,57 +5191,57 @@ function testExtension() {
         windowId: 1,
     };
 
-    chrome.extension.getViews(fetchProperties); // ExpectType Window[]
+    chrome.extension.getViews(fetchProperties); // $ExpectType Window[]
 
-    chrome.extension.isAllowedFileSchemeAccess(); // ExpectType Promise<boolean>
-    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // ExpectType void
-        isAllowedAccess; // ExpectType boolean
+    chrome.extension.isAllowedFileSchemeAccess(); // $ExpectType Promise<boolean>
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // $ExpectType void
+        isAllowedAccess; // $ExpectType boolean
     });
     // @ts-expect-error
     chrome.extension.isAllowedFileSchemeAccess(() => {}).then(() => {});
 
-    chrome.extension.isAllowedIncognitoAccess(); // ExpectType Promise<boolean>
-    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // ExpectType void
-        isAllowedAccess; // ExpectType boolean
+    chrome.extension.isAllowedIncognitoAccess(); // $ExpectType Promise<boolean>
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => { // $ExpectType void
+        isAllowedAccess; // $ExpectType boolean
     });
     // @ts-expect-error
     chrome.extension.isAllowedIncognitoAccess(() => {}).then(() => {});
 
-    chrome.extension.setUpdateUrlData("data"); // ExpectType void
+    chrome.extension.setUpdateUrlData("data"); // $ExpectType void
 
-    chrome.extension.getExtensionTabs(); // ExpectType Window[]
-    chrome.extension.getExtensionTabs(1); // ExpectType Window[]
+    chrome.extension.getExtensionTabs(); // $ExpectType Window[]
+    chrome.extension.getExtensionTabs(1); // $ExpectType Window[]
 
-    chrome.extension.getURL("/path"); // ExpectType string
+    chrome.extension.getURL("/path"); // $ExpectType string
 
     const extensionId = "dummy-id";
     const request = {};
 
-    chrome.extension.sendRequest(request); // ExpectType void
-    chrome.extension.sendRequest(request, (response) => { // ExpectType void
-        response; // ExpectType any
+    chrome.extension.sendRequest(request); // $ExpectType void
+    chrome.extension.sendRequest(request, (response) => { // $ExpectType void
+        response; // $ExpectType any
     });
-    chrome.extension.sendRequest(extensionId, request); // ExpectType void
-    chrome.extension.sendRequest(extensionId, request, (response) => { // ExpectType void
-        response; // ExpectType any
+    chrome.extension.sendRequest(extensionId, request); // $ExpectType void
+    chrome.extension.sendRequest(extensionId, request, (response) => { // $ExpectType void
+        response; // $ExpectType any
     });
-    chrome.extension.sendRequest<number, boolean>(1, (response) => {
-        response; // ExpectType boolean
+    chrome.extension.sendRequest<number, boolean>(1, (response) => { // $ExpectType void
+        response; // $ExpectType boolean
     });
-    chrome.extension.sendRequest<number, boolean>(extensionId, 1, (response) => {
-        response; // ExpectType boolean
+    chrome.extension.sendRequest<number, boolean>(extensionId, 1, (response) => { // $ExpectType void
+        response; // $ExpectType boolean
     });
 
     checkChromeEvent(chrome.extension.onRequest, (request, sender, sendResponse) => {
-        request; // ExpectType any
-        sender; // ExpectType chrome.extension.MessageSender
-        sendResponse({}); // ExpectType void
+        request; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse({}); // $ExpectType void
     });
 
     checkChromeEvent(chrome.extension.onRequestExternal, (request, sender, sendResponse) => {
-        request; // ExpectType any
-        sender; // ExpectType chrome.extension.MessageSender
-        sendResponse({}); // ExpectType void
+        request; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse({}); // $ExpectType void
     });
 }
 
@@ -6498,7 +6466,7 @@ function testUserScripts() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
-function testEnterPrisePlatformKeys() {
+function testEnterprisePlatformKeys() {
     const tokenId = "tokenId";
 
     chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
@@ -6734,6 +6702,7 @@ function testPrinting() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/printingMetrics
 function testPrintingMetrics() {
     chrome.printingMetrics.ColorMode.BLACK_AND_WHITE === "BLACK_AND_WHITE";
     chrome.printingMetrics.ColorMode.COLOR === "COLOR";
@@ -8082,7 +8051,7 @@ function testDesktopCapture() {
     };
 
     chrome.desktopCapture.chooseDesktopMedia(sources, () => {}); // $ExpectType number
-    chrome.desktopCapture.chooseDesktopMedia(sources, tab, (streamId, options) => {
+    chrome.desktopCapture.chooseDesktopMedia(sources, tab, (streamId, options) => { // $ExpectType number
         streamId; // $ExpectType string
         options; // $ExpectType StreamOptions
     });
