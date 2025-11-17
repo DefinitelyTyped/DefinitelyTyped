@@ -34,7 +34,7 @@ export class CharacterLimit {
             characters_remaining: string;
             character_too_many: string;
             characters_too_many: string;
-        }
+        },
     );
 
     charactersLeft(): number;
