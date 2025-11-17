@@ -417,7 +417,8 @@ declare namespace validator {
     /**
      * Check if the string is a valid date.
      */
-    export function isDate(str: string, options?: IsDateOptions): boolean;
+    export function isDate(input: Date, formatOrOptions: IsDateOptions & { strictMode: true }): false;
+    export function isDate(input: string | Date, formatOrOptions?: string | IsDateOptions): boolean;
 
     export type DecimalLocale = FloatLocale;
 
