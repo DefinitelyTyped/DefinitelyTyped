@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/vscode",
     "version": "1.106.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "TypeScript definitions for the Visual Studio Code Extension API",
     "projects": [
         "https://github.com/microsoft/vscode"
     ],
