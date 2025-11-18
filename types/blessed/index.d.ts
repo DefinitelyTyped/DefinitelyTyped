@@ -3072,10 +3072,10 @@ export namespace Widgets {
          * scroll to bottom on input even if the user has scrolled up. default: false.
          */
         scrollOnInput: boolean;
-        
+
         /**
-         * forced to reassign align and valign because typescript is so script about inheritance. 
-         * Align text alignmentL left, center, right. 
+         * forced to reassign align and valign because typescript is so script about inheritance.
+         * Align text alignmentL left, center, right.
          */
         align?: "left" | "center" | "right" | undefined;
 
