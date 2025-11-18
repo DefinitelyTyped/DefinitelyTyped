@@ -24,6 +24,8 @@ export interface QueryOptions {
     headers?: HeadersInit;
     operation?: "get" | "postUrlencoded" | "postDirect";
     parameters?: { [key: string]: undefined | string | string[] };
+    defaultGraph?: string | string[];
+    namedGraph?: string | string[];
 }
 
 export interface Query<RAsk = unknown, RConstruct = unknown, RSelect = unknown, RUpdate = unknown> {
