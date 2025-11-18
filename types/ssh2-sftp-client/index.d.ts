@@ -76,7 +76,7 @@ declare namespace sftp {
         end?: () => void;
         close?: () => void;
     }
-    
+
     interface ConnectOptions extends ssh2.ConnectConfig {
         retries?: number;
         retry_factor?: number;
