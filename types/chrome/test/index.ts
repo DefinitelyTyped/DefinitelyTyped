@@ -1412,6 +1412,21 @@ function testStorage() {
         // @ts-expect-error
         chrome.storage[area].get(undefined, () => {}).then(() => {});
 
+        // Test for union type compatibility (chrome.storage | browser.storage)
+        interface BrowserStorageArea {
+            get(keys?: null | string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
+            getBytesInUse(keys?: null | string | string[]): Promise<number>;
+        }
+        interface BrowserStorage {
+            sync: BrowserStorageArea;
+            managed: BrowserStorageArea;
+            local: BrowserStorageArea;
+            session: BrowserStorageArea;
+        }
+        const storage: BrowserStorage | typeof chrome.storage = chrome.storage;
+        storage[area].get(); // $ExpectType Promise<{ [key: string]: unknown; }> | Promise<{ [key: string]: any; }>
+        storage[area].getBytesInUse([key]); // $ExpectType Promise<number>
+
         chrome.storage[area].getBytesInUse(); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse(null); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse(key); // $ExpectType Promise<number>
