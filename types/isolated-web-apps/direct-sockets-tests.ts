@@ -10,7 +10,6 @@ import {
     TCPServerSocketOpenInfo,
     SocketDnsQueryType,
     UDPMessage,
-    SocketOptions,
     MulticastController,
 } from 'isolated-web-apps';
 

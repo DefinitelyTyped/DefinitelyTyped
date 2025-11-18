@@ -18,6 +18,7 @@
         "screencapture-tests.ts",
         "direct-sockets-tests.ts",
         "smart-card-tests.ts",
-        "webusb-tests.ts"
+        "webusb-tests.ts",
+        "controlled-frame-tests.ts"
     ]
 }
