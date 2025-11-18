@@ -23,7 +23,7 @@ export {
 export interface QueryOptions {
     headers?: HeadersInit;
     operation?: "get" | "postUrlencoded" | "postDirect";
-    parameters?: Record<string, string> | Record<string, string[]>;
+    parameters?: { [key: string]: undefined | string | string[] };
 }
 
 export interface Query<RAsk = unknown, RConstruct = unknown, RSelect = unknown, RUpdate = unknown> {
