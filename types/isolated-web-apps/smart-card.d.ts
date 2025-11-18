@@ -11,10 +11,13 @@
  */
 
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
-export interface SmartCardResourceManager {
+declare global {
+  interface SmartCardResourceManager {
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardEstablishContext, RaisesException] */
   establishContext(): Promise<SmartCardContext>;
+  }
 }
+export type SmartCardResourceManager = globalThis.SmartCardResourceManager;
 
 export type SmartCardResponseCode =
   | "no-service"
@@ -113,14 +116,17 @@ export interface SmartCardConnectOptions {
 }
 
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
-export interface SmartCardContext {
+declare global {
+  interface SmartCardContext {
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
   listReaders(): Promise<string[]>;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
   getStatusChange(readerStates: SmartCardReaderStateIn[], options?: SmartCardGetStatusChangeOptions): Promise<SmartCardReaderStateOut[]>;
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardConnect, RaisesException] */
   connect(readerName: string, accessMode: SmartCardAccessMode, options?: SmartCardConnectOptions): Promise<SmartCardConnectResult>;
+  }
 }
+export type SmartCardContext = globalThis.SmartCardContext;
 
 export type SmartCardConnectionState =
   | "absent"
@@ -155,7 +161,8 @@ export interface SmartCardTransmitOptions {
 export type SmartCardTransactionCallback = () => Promise<SmartCardDisposition | null>;
 
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
-export interface SmartCardConnection {
+declare global {
+  interface SmartCardConnection {
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
   disconnect(disposition?: SmartCardDisposition): Promise<undefined>;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
@@ -170,13 +177,7 @@ export interface SmartCardConnection {
   setAttribute(tag: number, value: BufferSource): Promise<undefined>;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
   startTransaction(transaction: SmartCardTransactionCallback, options?: SmartCardTransactionOptions): Promise<undefined>;
-}
-
-/** @remarks Extended attributes: [Exposed=Window, ImplementedAs=SmartCardResourceManager, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
-declare global {
-  interface Navigator {
-  /** @remarks Extended attributes: [SameObject] */
-  readonly smartCard: SmartCardResourceManager;
   }
 }
+export type SmartCardConnection = globalThis.SmartCardConnection;
 

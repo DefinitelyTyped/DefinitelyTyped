@@ -15,14 +15,6 @@
  * @see https://www.w3.org/TR/screen-capture/
  */
 
-/** @remarks Extended attributes: [ImplementedAs=NavigatorMediaStream] */
-export interface Navigator {
-  /** @remarks Extended attributes: [HighEntropy, RaisesException, SecureContext, MeasureAs=GetUserMediaLegacy] */
-  getUserMedia(constraints: MediaStreamConstraints, successCallback: NavigatorUserMediaSuccessCallback, errorCallback: NavigatorUserMediaErrorCallback): void;
-  /** @remarks Extended attributes: [HighEntropy, RaisesException, SecureContext, ImplementedAs=getUserMedia, MeasureAs=GetUserMediaPrefixed] */
-  webkitGetUserMedia(constraints: MediaStreamConstraints, successCallback: NavigatorUserMediaSuccessCallback, errorCallback: NavigatorUserMediaErrorCallback): void;
-}
-
 export type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
 
 export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
@@ -91,26 +83,6 @@ export interface MediaStreamConstraints {
 export interface AudioOutputOptions {
   /** @default "" */
   deviceId?: string;
-}
-
-/** @remarks Extended attributes: [Exposed=Window, ActiveScriptWrappable, SecureContext] */
-export interface MediaDevices extends EventTarget {
-  ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, HighEntropy, MeasureAs=MediaDevicesEnumerateDevices] */
-  enumerateDevices(): Promise<MediaDeviceInfo[]>;
-  getSupportedConstraints(): MediaTrackSupportedConstraints;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, HighEntropy, MeasureAs=GetUserMediaPromise] */
-  getUserMedia(constraints?: UserMediaStreamConstraints): Promise<MediaStream>;
-  /** @remarks Extended attributes: [RuntimeEnabled=GetDisplayMedia, CallWith=ScriptState, RaisesException, MeasureAs=GetDisplayMedia] */
-  getDisplayMedia(constraints?: DisplayMediaStreamOptions): Promise<MediaStream>;
-  /** @remarks Extended attributes: [RuntimeEnabled=GetAllScreensMedia, CallWith=ScriptState, RaisesException, MeasureAs=GetAllScreensMedia, IsolatedContext] */
-  getAllScreensMedia(): Promise<MediaStream[]>;
-  /** @remarks Extended attributes: [RuntimeEnabled=SelectAudioOutput, CallWith=ScriptState, RaisesException, MeasureAs=SelectAudioOutput] */
-  selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
-  /** @remarks Extended attributes: [RuntimeEnabled=CaptureHandle, CallWith=ScriptState, RaisesException] */
-  setCaptureHandleConfig(config?: CaptureHandleConfig): void;
-  /** @remarks Extended attributes: [RuntimeEnabled=PreferredAudioOutputDevices, CallWith=ScriptState, RaisesException, MeasureAs=PreferredAudioOutputDevices] */
-  setPreferredSinkId(sinkId: string): Promise<undefined>;
 }
 
 export interface CaptureHandleConfig {

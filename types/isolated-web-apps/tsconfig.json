@@ -15,6 +15,9 @@
     },
     "files": [
         "index.d.ts",
-        "screencapture-tests.ts"
+        "screencapture-tests.ts",
+        "direct-sockets-tests.ts",
+        "smart-card-tests.ts",
+        "webusb-tests.ts"
     ]
 }

@@ -23,12 +23,6 @@
  * @see https://wicg.github.io/webusb/
  */
 
-/** @remarks Extended attributes: [Exposed, ImplementedAs=USB, SecureContext] */
-export interface WorkerNavigator {
-  /** @remarks Extended attributes: [SameObject] */
-  readonly usb: USB;
-}
-
 /** @remarks Extended attributes: [Exposed, SecureContext] */
 export class USBOutTransferResult {
   constructor(status: USBTransferStatus, bytesWritten?: number)
@@ -229,13 +223,5 @@ export interface USB extends EventTarget {
   getDevices(): Promise<USBDevice[]>;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, Exposed=Window, MeasureAs=UsbRequestDevice] */
   requestDevice(options: USBDeviceRequestOptions): Promise<USBDevice>;
-}
-
-/** @remarks Extended attributes: [Exposed=Window, ImplementedAs=USB, SecureContext] */
-declare global {
-  interface Navigator {
-  /** @remarks Extended attributes: [SameObject, RuntimeEnabled=WebUSB] */
-  readonly usb: USB;
-  }
 }
 

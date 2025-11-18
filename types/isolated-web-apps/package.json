@@ -1,6 +1,7 @@
 {
     "private": true,
     "nonNpm": true,
+    "nonNpmDescription": "Implementation of Isolated Web App (IWA) APIs resides in Chromium.",
     "name": "@types/isolated-web-apps",
     "version": "0.0.9999",
     "projects": [
