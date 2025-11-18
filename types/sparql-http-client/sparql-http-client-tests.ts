@@ -16,15 +16,15 @@ const endpointUrl = "";
 const query = "";
 const defaultGraph = "";
 const namedGraph = "";
-const parameters = { key1: 'value1', key2: ['value2a', 'value2b'] };
-const factory: Environment<DataFactory<TestQuad> | DatasetCoreFactory<TestQuad>> = <any>{};
-const headers: HeadersInit = <any>{};
-const password: string = <any>{};
-const user: string = <any>{};
-const storeUrl: string = <any>{};
-const updateUrl: string = <any>{};
-const graph: Quad_Graph = <any>{};
-const stream: Stream = <any>{};
+const parameters = { key1: "value1", key2: ["value2a", "value2b"] };
+const factory: Environment<DataFactory<TestQuad> | DatasetCoreFactory<TestQuad>> = <any> {};
+const headers: HeadersInit = <any> {};
+const password: string = <any> {};
+const user: string = <any> {};
+const storeUrl: string = <any> {};
+const updateUrl: string = <any> {};
+const graph: Quad_Graph = <any> {};
+const stream: Stream = <any> {};
 
 async function streamingClient() {
     // construct
