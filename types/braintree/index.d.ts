@@ -311,7 +311,7 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<{ plans: Plan[] }>;
+        all(): Promise<Plan[]>;
         find(planId: string): Promise<Plan>;
         create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
         update(planId: string, updates: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
