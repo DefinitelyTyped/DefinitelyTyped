@@ -311,7 +311,7 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<Plan[]>;
+        all(): Promise<{ plans: Plan[] }>;
         find(planId: string): Promise<Plan>;
         create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
         update(planId: string, updates: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
@@ -1277,28 +1277,33 @@ declare namespace braintree {
     }
 
     export interface PlanCreateRequest {
-        addOns?: {
-            add?: AddOnAddRequest[];
-            remove?: string[];
-            update?: AddOnUpdateRequest[];
-        }[];
-        billingDayOfMonth?: number | string;
-        billingFrequency?: number | string;
-        currencyIsoCode?: string;
-        description?: string;
-        discounts?: {
-            add?: DiscountAddRequest[];
-            remove?: string[];
-            update?: DiscountUpdateRequest[];
-        }[];
-        id?: string;
-        modificationTokens?: string;
-        neverExpires?: boolean | string;
-        numberOfBillingCycles?: number | string;
+        addOns?:
+            | {
+                add?: AddOnAddRequest[];
+                remove?: string[];
+                update?: AddOnUpdateRequest[];
+            }[]
+            | undefined;
+        billingDayOfMonth?: number | string | undefined;
+        billingFrequency: number | string;
+        currencyIsoCode: string;
+        description?: string | undefined;
+        discounts?:
+            | {
+                add?: DiscountAddRequest[];
+                remove?: string[];
+                update?: DiscountUpdateRequest[];
+            }[]
+            | undefined;
+        id?: string | undefined;
+        modificationTokens?: string | undefined;
+        name: string;
+        neverExpires?: boolean | string | undefined;
+        numberOfBillingCycles?: number | string | undefined;
         price: string | number;
-        trialDuration?: number;
-        trialDurationUnit?: string;
-        trialPeriod?: boolean;
+        trialDuration?: number | undefined;
+        trialDurationUnit?: string | undefined;
+        trialPeriod?: boolean | undefined;
     }
 
     /**
