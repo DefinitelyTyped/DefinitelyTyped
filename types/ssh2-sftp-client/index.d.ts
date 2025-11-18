@@ -5,7 +5,8 @@ export = sftp;
 type FileInfoType = "d" | "-" | "l";
 
 declare class sftp {
-    constructor(name?: string);
+    constructor(name?: string, callbacks?: sftp.Callbacks);
+
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, filter?: sftp.ListFilterFunction): Promise<sftp.FileInfo[]>;
@@ -70,6 +71,12 @@ declare class sftp {
 }
 
 declare namespace sftp {
+    interface Callbacks {
+        error?: (error: unknown) => void;
+        end?: () => void;
+        close?: () => void;
+    }
+    
     interface ConnectOptions extends ssh2.ConnectConfig {
         retries?: number;
         retry_factor?: number;
