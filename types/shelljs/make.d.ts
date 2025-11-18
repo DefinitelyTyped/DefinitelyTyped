@@ -10,5 +10,4 @@ declare global {
         all?: Target;
         [s: string]: Target | undefined;
     };
-
 }
