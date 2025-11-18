@@ -3431,8 +3431,10 @@ declare namespace googletag {
             /**
              * Displays the rewarded ad. This method should not be called until the user
              * has consented to view the ad.
+             *
+             * @return Whether the rewarded ad was successfully displayed.
              */
-            makeRewardedVisible(): void;
+            makeRewardedVisible(): boolean;
         }
 
         /**
@@ -3473,8 +3475,10 @@ declare namespace googletag {
          * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
          */
         interface GameManualInterstitialSlotReadyEvent extends Event {
-            /** Displays the game manual interstitial ad to the user. */
-            makeGameManualInterstitialVisible(): void;
+            /** Displays the game manual interstitial ad to the user.
+             *  Returns whether the ad was successfully displayed.
+             */
+            makeGameManualInterstitialVisible(): boolean;
         }
 
         /**

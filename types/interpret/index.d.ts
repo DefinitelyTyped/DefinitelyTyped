@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 export interface Hook {
-    (m: { extensions: string } | NodeModule): any;
+    (m: { extensions: string } | NodeJS.Module): any;
     install(m?: { extension: string; [key: string]: any }): void;
 }
 

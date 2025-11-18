@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "csstype": "^3.0.10"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/react-responsive-spritesheet": "workspace:."
