@@ -1,13 +1,24 @@
 {
     "private": true,
     "name": "@types/shelljs",
-    "version": "0.8.9999",
+    "version": "0.10.9999",
     "projects": [
         "http://shelljs.org",
         "https://github.com/shelljs/shelljs"
     ],
+    "exports": {
+        ".": "./index.d.ts",
+        "./global": "./global.js",
+        "./global.js": "./global.js",
+        "./make": "./make.d.ts",
+        "./make.js": "./make.d.ts",
+        "./package": "./package.json",
+        "./package.json": "./package.json",
+        "./plugin": "./plugin.d.ts",
+        "./plugin.js": "./plugin.d.ts"
+    },
     "dependencies": {
-        "glob": "^11.0.3",
+        "fast-glob": "^3.3.2",
         "@types/node": "*"
     },
     "devDependencies": {
