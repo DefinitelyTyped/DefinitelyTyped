@@ -25,7 +25,6 @@ import {
     ContextMenusClickEvent,
     WebRequest,
     WebRequestInterceptorOptions,
-    WebRequestInterceptor,
     WebRequestInterceptorEventMap,
     WebRequestBeforeRequestEvent,
     WebRequestAuthRequiredEvent,
@@ -47,32 +46,28 @@ const dummyDialog: DialogController = {} as DialogController;
 const dummyPermController: PermissionRequestController = {} as PermissionRequestController;
 const dummyNewWindowController: NewWindowController = {} as NewWindowController;
 const dummyResponse: WebRequestResponse = {} as WebRequestResponse;
-const dummyHeaders: Headers = {} as Headers; // Assuming Headers is available globally
+const dummyHeaders: Headers = {} as Headers;
 
-// Constants
 const urlPatternInput = { pathname: '/test/*' };
 const urlPattern = {} as URLPattern;
 const url = 'https://example.com/page';
 
-async function testControlledFrameApi() {
+async function testControlledFrame() {
 
     // --------------------------------------------------------------------------------
     // HTMLControlledFrameElement Properties (Attribute Checking)
     // --------------------------------------------------------------------------------
 
-    // R/W Properties
     // $ExpectType string
     dummyControlledFrame.src;
     // $ExpectType string
     dummyControlledFrame.partition;
 
-    // Readonly Properties
     // $ExpectType ContextMenus
     dummyControlledFrame.contextMenus;
     // $ExpectType WebRequest
     dummyControlledFrame.request;
 
-    // Autosize/Dimensions
     // $ExpectType boolean
     dummyControlledFrame.autosize;
     // $ExpectType number
@@ -83,7 +78,6 @@ async function testControlledFrameApi() {
     // HTMLControlledFrameElement Methods
     // --------------------------------------------------------------------------------
 
-    // Navigation Methods
     // $ExpectType Promise<boolean>
     dummyControlledFrame.back();
     // $ExpectType Promise<boolean>
@@ -93,7 +87,6 @@ async function testControlledFrameApi() {
     // $ExpectType void
     dummyControlledFrame.reload();
 
-    // Scripting Methods
     const contentScript: ContentScriptDetails = {
         name: 'myScript',
         urlPatterns: [urlPatternInput],
@@ -111,7 +104,6 @@ async function testControlledFrameApi() {
     // $ExpectType Promise<void>
     dummyControlledFrame.removeContentScripts(['myScript']);
 
-    // Configuration Methods
     const clearOptions: ClearDataOptions = { since: 0 };
     const clearTypes: ClearDataTypeSet = { cookies: true, localStorage: true };
     // $ExpectType Promise<void>
@@ -135,14 +127,12 @@ async function testControlledFrameApi() {
     // Complex Event Types
     // --------------------------------------------------------------------------------
 
-    // ConsoleMessageEvent
     const consoleEvent: ControlledFrameEventMap['consolemessage'] = {} as ConsoleMessageEvent;
     // $ExpectType number
     consoleEvent.level;
     // $ExpectType string
     consoleEvent.message;
 
-    // DialogEvent
     const dialogEvent: ControlledFrameEventMap['dialog'] = {
         messageType: 'prompt' as DialogType,
         messageText: 'What is your name?',
@@ -157,19 +147,16 @@ async function testControlledFrameApi() {
     // $ExpectType void
     dummyDialog.cancel();
 
-    // LoadAbortEvent
     const loadAbortEvent: ControlledFrameEventMap['loadabort'] = {} as LoadAbortEvent;
     // $ExpectType number
     loadAbortEvent.code;
 
-    // LoadRedirectEvent
     const loadRedirectEvent: ControlledFrameEventMap['loadredirect'] = {} as LoadRedirectEvent;
     // $ExpectType string
     loadRedirectEvent.oldUrl;
     // $ExpectType string
     loadRedirectEvent.newUrl;
 
-    // NewWindowEvent
     const newWindowEvent: ControlledFrameEventMap['newwindow'] = {
         window: dummyNewWindowController,
         targetUrl: url,
@@ -184,7 +171,6 @@ async function testControlledFrameApi() {
     // $ExpectType void
     dummyNewWindowController.discard();
 
-    // PermissionRequestEvent
     const permissionEvent: ControlledFrameEventMap['permissionrequest'] = {
         permission: 'media' as PermissionType,
         request: dummyPermController,
@@ -198,12 +184,10 @@ async function testControlledFrameApi() {
     // $ExpectType boolean | undefined
     dummyPermController.userGesture;
 
-    // SizeChangedEvent
     const sizeEvent: ControlledFrameEventMap['sizechanged'] = {} as SizeChangedEvent;
     // $ExpectType number
     sizeEvent.oldWidth;
 
-    // ZoomChangeEvent
     const zoomEvent: ControlledFrameEventMap['zoomchange'] = {} as ZoomChangeEvent;
     // $ExpectType number
     zoomEvent.oldZoomFactor;
@@ -220,7 +204,6 @@ async function testControlledFrameApi() {
         contexts: ['page', 'selection'],
     };
 
-    // Methods
     // $ExpectType Promise<void>
     contextMenus.create(createProps);
     // $ExpectType Promise<void>
@@ -230,7 +213,6 @@ async function testControlledFrameApi() {
     // $ExpectType Promise<void>
     contextMenus.update('1', { enabled: false });
 
-    // Event Listener (Type Check)
     // $ExpectType void
     contextMenus.addEventListener('click', (ev: ContextMenusClickEvent) => ev.menuItem.id);
 
@@ -247,12 +229,10 @@ async function testControlledFrameApi() {
         includeHeaders: 'all' as RequestedHeaders,
     };
 
-    // Method
     const interceptor = webRequest.createWebRequestInterceptor(interceptorOptions);
     // $ExpectType WebRequestInterceptor
     interceptor;
 
-    // WebRequestAuthRequiredEvent (Complex Method Check)
     const authEvent: WebRequestInterceptorEventMap['authrequired'] = {
         response: dummyResponse,
     } as WebRequestAuthRequiredEvent;
@@ -263,25 +243,20 @@ async function testControlledFrameApi() {
     // $ExpectType void
     authEvent.setCredentials(credentialsPromise, authOptions);
 
-    // WebRequestBeforeRequestEvent
     const beforeRequestEvent: WebRequestInterceptorEventMap['beforerequest'] = {} as WebRequestBeforeRequestEvent;
     // $ExpectType void
     beforeRequestEvent.redirect('https://new.url');
 
-    // WebRequestBeforeSendHeadersEvent
     const beforeSendHeadersEvent: WebRequestInterceptorEventMap['beforesendheaders'] = {} as WebRequestBeforeSendHeadersEvent;
     // $ExpectType void
     beforeSendHeadersEvent.setRequestHeader(dummyHeaders);
 
-    // WebRequestHeadersReceivedEvent
     const headersReceivedEvent: WebRequestInterceptorEventMap['headersreceived'] = {
         response: dummyResponse,
     } as WebRequestHeadersReceivedEvent;
     // $ExpectType void
     headersReceivedEvent.setResponseHeaders(dummyHeaders);
 
-    // WebRequestInterceptor Event Listener (Type Check)
     // $ExpectType void
     interceptor.addEventListener('beforerequest', (ev: WebRequestBeforeRequestEvent) => ev.redirect(url));
-
 }
