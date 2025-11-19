@@ -580,6 +580,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     fp.head("abc"); // $ExpectType string | undefined
     fp.head(list); // $ExpectType AbcObject | undefined
+    fp.head([1, 2, 3]); // $ExpectType number
+    fp.head([1, 2, 3] as number[]); // $ExpectType number | undefined
+    fp.head([]); // $ExpectType undefined
+    fp.head([] as []); // $ExpectType undefined
+    fp.head([1, 2, 3] as const); // $ExpectType 1
+    fp.head([1, 2, 3] as [number, number, number]); // $ExpectType number
+    fp.head([1, 2, 3] as [...number[]]); // $ExpectType number | undefined
+    fp.head([1, 2, 3] as [number, ...number[]]); // $ExpectType number
 }
 
 // _.indexOf
@@ -862,6 +870,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.last("abc"); // $ExpectType string | undefined
     _.last(list); // $ExpectType AbcObject | undefined
+    _.last([1, 2, 3]); // $ExpectType number
+    _.last([1, 2, 3] as number[]); // $ExpectType number | undefined
+    _.last([]); // $ExpectType undefined
+    _.last([] as []); // $ExpectType undefined
+    _.last([1, 2, 3] as const); // $ExpectType 3
+    _.last([1, 2, 3] as [number, number, number]); // $ExpectType number
+    _.last([1, 2, 3] as [...number[]]); // $ExpectType number | undefined
+    _.last([1, 2, 3] as [...number[], number]); // $ExpectType number
 
     _("abc").last(); // $ExpectType string | undefined
     _(list).last(); // $ExpectType AbcObject | undefined
@@ -871,6 +887,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     fp.last("abc"); // $ExpectType string | undefined
     fp.last(list); // $ExpectType AbcObject | undefined
+    fp.last([1, 2, 3]); // $ExpectType number
+    fp.last([1, 2, 3] as number[]); // $ExpectType number | undefined
+    fp.last([]); // $ExpectType undefined
+    fp.last([] as []); // $ExpectType undefined
+    fp.last([1, 2, 3] as const); // $ExpectType 3
+    fp.last([1, 2, 3] as [number, number, number]); // $ExpectType number
+    fp.last([1, 2, 3] as [...number[]]); // $ExpectType number | undefined
+    fp.last([1, 2, 3] as [...number[], number]); // $ExpectType number
 }
 
 // _.nth
@@ -4965,14 +4989,24 @@ fp.now(); // $ExpectType number
     const list: ArrayLike<string> = anything;
 
     _.max(list); // $ExpectType string | undefined
-     _(list).max(); // $ExpectType string | undefined
+    _(list).max(); // $ExpectType string | undefined
     _.chain(list).max(); // $ExpectType StringChain<string>
     fp.max(list); // $ExpectType string | undefined
 
     _.min(list); // $ExpectType string | undefined
-     _(list).min(); // $ExpectType string | undefined
+    _(list).min(); // $ExpectType string | undefined
     _.chain(list).min(); // $ExpectType StringChain<string>
     fp.min(list); // $ExpectType string | undefined
+
+    _.max([1, 2]); // $ExpectType number
+    _([1, 2]).max(); // $ExpectType number | undefined
+    _.chain([1, 2]).max(); // $ExpectType PrimitiveChain<number>
+    fp.max([1, 2]); // $ExpectType number
+
+    _.min([1, 2]); // $ExpectType number
+    _([1, 2]).min(); // $ExpectType number | undefined
+    _.chain([1, 2]).min(); // $ExpectType PrimitiveChain<number>
+    fp.min([1, 2]); // $ExpectType number
 }
 
 // _.maxBy
