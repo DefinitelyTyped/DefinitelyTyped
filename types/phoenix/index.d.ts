@@ -24,7 +24,7 @@ export class Channel {
     onError(callback: (reason?: any) => void | Promise<void>): number;
     onMessage(event: string, payload: any, ref: any): any;
 
-    on(event: string, callback: (response?: any) => void | Promise<void>): number;
+    on<TResponse>(event: string, callback: (response?: TResponse) => void | Promise<void>): number;
     off(event: string, ref?: number): void;
 
     push(event: string, payload: object, timeout?: number): Push;
