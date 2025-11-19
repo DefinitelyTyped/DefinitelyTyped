@@ -283,8 +283,8 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(callback: Callback<NetworkInspectInfo>): void;
+        inspect(): Promise<NetworkInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
