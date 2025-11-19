@@ -1279,9 +1279,9 @@ declare namespace braintree {
     export interface PlanCreateRequest {
         addOns?:
             | {
-                add?: AddOnAddRequest[];
-                remove?: string[];
-                update?: AddOnUpdateRequest[];
+                add?: AddOnAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: AddOnUpdateRequest[] | undefined;
             }[]
             | undefined;
         billingDayOfMonth?: number | string | undefined;
@@ -1290,9 +1290,9 @@ declare namespace braintree {
         description?: string | undefined;
         discounts?:
             | {
-                add?: DiscountAddRequest[];
-                remove?: string[];
-                update?: DiscountUpdateRequest[];
+                add?: DiscountAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: DiscountUpdateRequest[] | undefined;
             }[]
             | undefined;
         id?: string | undefined;
