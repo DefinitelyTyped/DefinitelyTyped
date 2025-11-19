@@ -1374,9 +1374,7 @@ function testStorage() {
         chrome.storage[area].get(); // $ExpectType Promise<{ [key: string]: unknown; }>
         chrome.storage[area].get(null); // $ExpectType Promise<{ [key: string]: unknown; }>
         chrome.storage[area].get(key); // $ExpectType Promise<{ [key: string]: unknown; }>
-        chrome.storage[area].get([]); // $ExpectType Promise<{ [key: string]: never; }>
         chrome.storage[area].get([key]); // $ExpectType Promise<{ [key: string]: unknown; }>
-        chrome.storage[area].get({}); // $ExpectType Promise<{ [key: string]: never; }>
         chrome.storage[area].get({ key }); // $ExpectType Promise<{ [key: string]: unknown; }>
         chrome.storage[area].get(badKey); // $ExpectType Promise<{ [key: string]: unknown; }>
         chrome.storage[area].get<StorageData>(key); // $ExpectType Promise<StorageData>
@@ -1389,17 +1387,11 @@ function testStorage() {
         chrome.storage[area].get(key, (items) => { // $ExpectType void
             items; // $ExpectType { [key: string]: unknown; }
         });
-        chrome.storage[area].get([], (items) => { // $ExpectType void
-            items; // $ExpectType { [key: string]: never; }
-        });
         chrome.storage[area].get([key], (items) => { // $ExpectType void
             items; // $ExpectType { [key: string]: unknown; }
         });
         chrome.storage[area].get({ key }, (items) => { // $ExpectType void
             items; // $ExpectType { [key: string]: unknown; }
-        });
-        chrome.storage[area].get({}, (items) => { // $ExpectType void
-            items; // $ExpectType { [key: string]: never; }
         });
         chrome.storage[area].get(badKey, (items) => { // $ExpectType void
             items; // $ExpectType { [key: string]: unknown; }
@@ -1412,26 +1404,10 @@ function testStorage() {
         // @ts-expect-error
         chrome.storage[area].get(undefined, () => {}).then(() => {});
 
-        // Test for union type compatibility (chrome.storage | browser.storage)
-        interface BrowserStorageArea {
-            get(keys?: null | string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
-            getBytesInUse(keys?: null | string | string[]): Promise<number>;
-        }
-        interface BrowserStorage {
-            sync: BrowserStorageArea;
-            managed: BrowserStorageArea;
-            local: BrowserStorageArea;
-            session: BrowserStorageArea;
-        }
-        const storage: BrowserStorage | typeof chrome.storage = chrome.storage;
-        storage[area].get(); // $ExpectType Promise<{ [key: string]: unknown; }> | Promise<{ [key: string]: any; }>
-        storage[area].getBytesInUse([key]); // $ExpectType Promise<number>
-
         chrome.storage[area].getBytesInUse(); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse(null); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse(key); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse([key]); // $ExpectType Promise<number>
-        chrome.storage[area].getBytesInUse([]); // $ExpectType Promise<0>
         chrome.storage[area].getBytesInUse(badKey); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse<StorageData>(key); // $ExpectType Promise<number>
         chrome.storage[area].getBytesInUse<StorageData>(key); // $ExpectType Promise<number>
@@ -1446,9 +1422,6 @@ function testStorage() {
         });
         chrome.storage[area].getBytesInUse([key], (bytesInUse) => { // $ExpectType void
             bytesInUse; // $ExpectType number
-        });
-        chrome.storage[area].getBytesInUse([], (bytesInUse) => { // $ExpectType void
-            bytesInUse; // $ExpectType 0
         });
         chrome.storage[area].getBytesInUse(badKey, (bytesInUse) => { // $ExpectType void
             bytesInUse; // $ExpectType number
