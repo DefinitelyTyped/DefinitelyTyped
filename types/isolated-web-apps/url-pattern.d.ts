@@ -43,9 +43,9 @@ export interface URLPatternComponentResult {
   groups?: Record<string, any>;
 }
 
-export type URLPatternInput = any;
+export type URLPatternInput = (string | URLPatternInit);
 
-export type URLPatternCompatible = any;
+export type URLPatternCompatible = (string | URLPatternInit | URLPattern);
 
 export type URLPatternComponent =
   | "protocol"

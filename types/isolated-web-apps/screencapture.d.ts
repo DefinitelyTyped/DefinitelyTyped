@@ -19,7 +19,7 @@ export type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
 
 export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
 
-export type MediaStreamError = any;
+export type MediaStreamError = (DOMException | OverconstrainedError);
 
 export type DisplayMediaIncludeOrExclude =
   | "include"
@@ -42,16 +42,16 @@ export type MonitorTypeSurfacesEnum = DisplayMediaIncludeOrExclude;
 
 export interface UserMediaStreamConstraints {
   /** @default false */
-  video?: any;
+  video?: (boolean | MediaTrackConstraints);
   /** @default false */
-  audio?: any;
+  audio?: (boolean | MediaTrackConstraints);
 }
 
 export interface DisplayMediaStreamOptions {
   /** @default true */
-  video?: any;
+  video?: (boolean | MediaTrackConstraints);
   /** @default false */
-  audio?: any;
+  audio?: (boolean | MediaTrackConstraints);
   /** @default false */
   preferCurrentTab?: boolean;
   /** @remarks Extended attributes: [RuntimeEnabled=CaptureController] */
@@ -66,9 +66,9 @@ export interface DisplayMediaStreamOptions {
 
 export interface MediaStreamConstraints {
   /** @default false */
-  video?: any;
+  video?: (boolean | MediaTrackConstraints);
   /** @default false */
-  audio?: any;
+  audio?: (boolean | MediaTrackConstraints);
   /** @default false */
   preferCurrentTab?: boolean;
   controller?: CaptureController;
@@ -106,7 +106,7 @@ export class CaptureController extends EventTarget {
   /** @remarks Extended attributes: [RaisesException, MeasureAs=ConditionalFocus] */
   setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedMouseEvents] */
-  oncapturedmousechange: ((this: CaptureController, ev: Event) => any) | null;
+  oncapturedmousechange: ((ev: Event) => any) | null;
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
   forwardWheel(element: HTMLElement | null): Promise<undefined>;
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, RaisesException] */
@@ -120,6 +120,6 @@ export class CaptureController extends EventTarget {
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
   resetZoomLevel(): Promise<undefined>;
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
-  onzoomlevelchange: ((this: CaptureController, ev: Event) => any) | null;
+  onzoomlevelchange: ((ev: Event) => any) | null;
 }
 

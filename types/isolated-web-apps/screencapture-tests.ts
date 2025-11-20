@@ -44,7 +44,7 @@ function testOptionInterfaces() {
         video: true,
         audio: { deviceId: 'default' },
     };
-    // $ExpectType any
+    // $ExpectType boolean | MediaTrackConstraints | undefined
     userConstraints.video;
 
     const displayOptions: DisplayMediaStreamOptions = {
@@ -93,9 +93,9 @@ function testCaptureController() {
     // $ExpectType void
     controller.setFocusBehavior('focus-capturing-application');
 
-    // $ExpectType ((this: CaptureController, ev: Event) => any) | null
+    // $ExpectType ((ev: Event) => any) | null
     controller.oncapturedmousechange;
-    // $ExpectType ((this: CaptureController, ev: Event) => any) | null
+    // $ExpectType ((ev: Event) => any) | null
     controller.onzoomlevelchange;
 
     // $ExpectType Promise<undefined>
@@ -130,7 +130,7 @@ async function testMediaDevicesAndNavigator() {
             stream;
         };
         const errorCallback: NavigatorUserMediaErrorCallback = (error) => {
-            // $ExpectType any
+            // $ExpectType MediaStreamError
             error;
         };
         // $ExpectType void

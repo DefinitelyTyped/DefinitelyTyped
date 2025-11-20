@@ -192,7 +192,7 @@ async function testWebUsbApi() {
         // $ExpectType USB
         usb;
 
-        // $ExpectType ((this: USB, ev: Event) => any) | null
+        // $ExpectType ((ev: Event) => any) | null
         usb.onconnect;
 
         // $ExpectType Promise<USBDevice[]>

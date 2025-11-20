@@ -1,493 +1,708 @@
-// Based on https://wicg.github.io/controlled-frame
+/**
+ * Generated from:
+ * - controlled-frame.idl
+ */
+
 import { URLPattern, URLPatternInput } from "./url-pattern";
 
-export interface HTMLElementTagNameMap {
-    controlledframe: HTMLControlledFrameElement;
-}
-
-export interface ControlledFrameEventMap extends HTMLElementEventMap {
-    consolemessage: ConsoleMessageEvent;
-    contentload: ContentLoadEvent;
-    dialog: DialogEvent;
-    loadabort: LoadAbortEvent;
-    loadcommit: LoadCommitEvent;
-    loadstart: LoadStartEvent;
-    loadstop: LoadStopEvent;
-    newwindow: NewWindowEvent;
-    permissionrequest: PermissionRequestEvent;
-    sizechanged: SizeChangedEvent;
-    zoomchange: ZoomChangeEvent;
-    loadredirect: LoadRedirectEvent;
-}
-
-export interface HTMLControlledFrameElement extends HTMLElement {
-    src: string;
-    partition: string;
-    readonly contentWindow: WindowProxy | null;
-
-    readonly contextMenus: ContextMenus;
-    readonly request: WebRequest;
-
-    autosize: boolean;
-    minwidth: number;
-    maxwidth: number;
-    minheight: number;
-    maxheight: number;
-
-    // Navigation methods.
-    back(): Promise<boolean>;
-    canGoBack(): Promise<boolean>;
-    forward(): Promise<boolean>;
-    canGoForward(): Promise<boolean>;
-    go(relativeIndex: number): Promise<boolean>;
-    reload(): void;
-    stop(): void;
-
-    // Scripting methods.
-    addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<void>;
-    executeScript(details?: InjectDetails): Promise<any>;
-    insertCSS(details?: InjectDetails): Promise<void>;
-    removeContentScripts(scriptNameList?: string[]): Promise<void>;
-
-    // Configuration methods.
-    clearData(
-        options?: ClearDataOptions,
-        types?: ClearDataTypeSet
-    ): Promise<void>;
-    getAudioState(): Promise<boolean>;
-    getZoom(): Promise<number>;
-    getZoomMode(): Promise<string>;
-    isAudioMuted(): Promise<boolean>;
-    setAudioMuted(mute: boolean): void;
-    setZoom(zoomFactor: number): Promise<void>;
-    setZoomMode(zoomMode: ZoomMode): Promise<void>;
-
-    // Capture methods.
-    captureVisibleRegion(options?: ImageDetails): Promise<void>;
-    print(): void;
-
-    addEventListener<K extends keyof ControlledFrameEventMap>(
-        type: K,
-        listener: (
-            this: HTMLControlledFrameElement,
-            ev: ControlledFrameEventMap[K]
-        ) => any,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof ControlledFrameEventMap>(
-        type: K,
-        listener: (
-            this: HTMLControlledFrameElement,
-            ev: ControlledFrameEventMap[K]
-        ) => any,
-        options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
-    ): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class HTMLControlledFrameElement extends HTMLElement {
+  /** @remarks Extended attributes: [HTMLConstructor] */
+  constructor()
+  /** @remarks Extended attributes: [CEReactions] */
+  src: string;
+  partition: string;
+  readonly contentWindow: WindowProxy | null;
+  readonly contextMenus: ContextMenus;
+  readonly request: WebRequest;
+  back(): Promise<boolean>;
+  canGoBack(): Promise<boolean>;
+  forward(): Promise<boolean>;
+  canGoForward(): Promise<boolean>;
+  go(relativeIndex: number): Promise<boolean>;
+  reload(): undefined;
+  stop(): undefined;
+  addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<undefined>;
+  executeScript(details?: InjectDetails): Promise<any>;
+  insertCSS(details?: InjectDetails): Promise<undefined>;
+  removeContentScripts(scriptNameList?: string[]): Promise<undefined>;
+  clearData(options?: ClearDataOptions, types?: ClearDataTypeSet): Promise<undefined>;
+  getAudioState(): Promise<boolean>;
+  getZoom(): Promise<number>;
+  getZoomMode(): Promise<string>;
+  isAudioMuted(): Promise<boolean>;
+  setAudioMuted(mute: boolean): undefined;
+  setZoom(zoomFactor: number): Promise<undefined>;
+  setZoomMode(zoomMode: string): Promise<undefined>;
+  captureVisibleRegion(options?: ImageDetails): Promise<undefined>;
+  print(): undefined;
+  onconsolemessage: ((ev: Event) => any) | null;
+  oncontentload: ((ev: Event) => any) | null;
+  ondialog: ((ev: Event) => any) | null;
+  onloadabort: ((ev: Event) => any) | null;
+  onloadcommit: ((ev: Event) => any) | null;
+  onloadstart: ((ev: Event) => any) | null;
+  onloadstop: ((ev: Event) => any) | null;
+  onnewwindow: ((ev: Event) => any) | null;
+  onpermissionrequest: ((ev: Event) => any) | null;
+  onsizechanged: ((ev: Event) => any) | null;
+  onzoomchange: ((ev: Event) => any) | null;
 }
 
 export interface InjectDetails {
-    code?: string;
-    file?: string;
+  code?: string;
+  file?: string;
 }
 
 export interface InjectionItems {
-    code?: string;
-    files?: string[];
+  code?: string;
+  files?: string[];
 }
 
-export type RunAt = 'document-start' | 'document-end' | 'document-idle';
+export type RunAt =
+  | "document-start"
+  | "document-end"
+  | "document-idle";
 
 export interface ContentScriptDetails {
-    name: string;
-    js?: InjectionItems;
-    css?: InjectionItems;
-    urlPatterns: (URLPattern | URLPatternInput)[];
-    excludeURLPatterns?: (URLPattern | URLPatternInput)[];
-    allFrames?: boolean;
-    matchAboutBlank?: boolean;
-    runAt?: RunAt;
+  name: string;
+  js?: InjectionItems;
+  css?: InjectionItems;
+  urlPatterns: (URLPattern | URLPatternInput)[];
+  excludeURLPatterns?: (URLPattern | URLPatternInput)[];
+  allFrames?: boolean;
+  matchAboutBlank?: boolean;
+  runAt?: RunAt;
 }
 
 export interface ClearDataOptions {
-    since?: number;
+  since?: number;
 }
 
 export interface ClearDataTypeSet {
-    cache?: boolean;
-    cookies?: boolean;
-    fileSystems?: boolean;
-    indexedDB?: boolean;
-    localStorage?: boolean;
-    persistentCookies?: boolean;
-    sessionCookies?: boolean;
+  cache?: boolean;
+  cookies?: boolean;
+  fileSystems?: boolean;
+  indexedDB?: boolean;
+  localStorage?: boolean;
+  persistentCookies?: boolean;
+  sessionCookies?: boolean;
 }
 
-export type ZoomMode = 'per-origin' | 'per-view' | 'disabled';
+export type ZoomMode =
+  | "per-origin"
+  | "per-view"
+  | "disabled";
 
-export interface ImageDetails{
-    format?: string;
-    quality?: string;
+export interface ImageDetails {
+  format?: string;
+  quality?: string;
 }
 
-export interface ConsoleMessageEvent extends Event {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface ConsoleMessage {
     readonly level: number;
     readonly message: string;
+  }
+}
+export type ConsoleMessage = globalThis.ConsoleMessage;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class ConsoleMessageEvent extends Event {
+  constructor(type: string, eventInitDict?: ConsoleMessageEventInit)
+  readonly consoleMessage: ConsoleMessage;
 }
 
-export type DialogType = 'alert' | 'confirm' | 'prompt';
-
-export interface DialogController {
-    okay(response?: string): void;
-    cancel(): void;
+export interface ConsoleMessageEventInit extends EventInit {
+  consoleMessage?: ConsoleMessage | null;
 }
 
-export interface DialogEvent extends Event {
+export type DialogType =
+  | "alert"
+  | "confirm"
+  | "prompt";
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface DialogController {
+    okay(response?: string): undefined;
+    cancel(): undefined;
+  }
+}
+export type DialogController = globalThis.DialogController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface DialogMessage {
     readonly messageType: DialogType;
     readonly messageText: string;
     readonly dialog: DialogController;
+  }
+}
+export type DialogMessage = globalThis.DialogMessage;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class DialogEvent extends Event {
+  constructor(type: string, eventInitDict?: DialogEventInit)
+  readonly dialogMessage: DialogMessage;
+}
+
+export interface DialogEventInit extends EventInit {
+  dialogMessage?: DialogMessage | null;
 }
 
 export type WindowOpenDisposition =
-    | 'ignore'
-    | 'save_to_disk'
-    | 'current_tab'
-    | 'new_background_tab'
-    | 'new_foreground_tab'
-    | 'new_window'
-    | 'new_popup';
+  | "ignore"
+  | "save_to_disk"
+  | "current_tab"
+  | "new_background_tab"
+  | "new_foreground_tab"
+  | "new_window"
+  | "new_popup";
 
-export interface NewWindowController {
-    attach(newControlledFrame: HTMLControlledFrameElement): void;
-    discard(): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface NewWindowController {
+    attach(newControlledFrame: HTMLControlledFrameElement): undefined;
+    discard(): undefined;
+  }
 }
+export type NewWindowController = globalThis.NewWindowController;
 
-export interface NewWindowEvent extends Event {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface NewWindow {
     readonly window: NewWindowController;
     readonly targetUrl: string;
     readonly name: string;
     readonly windowOpenDisposition: WindowOpenDisposition;
-    readonly partition: string;
-    readonly initialHeight: number;
-    readonly initialWidth: number;
+  }
+}
+export type NewWindow = globalThis.NewWindow;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class NewWindowEvent extends Event {
+  constructor(type: string, eventInitDict?: NewWindowEventInit)
+  readonly newWindow: NewWindow;
+}
+
+export interface NewWindowEventInit extends EventInit {
+  newWindow?: NewWindow | null;
 }
 
 export type PermissionType =
-    | 'media'
-    | 'geolocation'
-    | 'pointerLock'
-    | 'download'
-    | 'filesystem'
-    | 'fullscreen'
-    | 'hid';
+  | "media"
+  | "geolocation"
+  | "pointerLock"
+  | "download"
+  | "filesystem"
+  | "fullscreen"
+  | "hid";
 
-export interface PermissionRequestController {
-    allow(): void;
-    cancel(): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface PermissionRequestControllerBase {
+    allow(): undefined;
+    cancel(): undefined;
+  }
+}
+export type PermissionRequestControllerBase = globalThis.PermissionRequestControllerBase;
 
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface MediaPermissionRequestController extends PermissionRequestControllerBase {
     readonly url: string;
-    readonly origin?: string;
-    readonly requestMethod?: string;
-    readonly lastUnlockedBySelf?: boolean;
-    readonly userGesture?: boolean;
+  }
 }
+export type MediaPermissionRequestController = globalThis.MediaPermissionRequestController;
 
-export interface PermissionRequestEvent extends Event {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface GeolocationPermissionRequestController extends PermissionRequestControllerBase {
+    readonly url: string;
+  }
+}
+export type GeolocationPermissionRequestController = globalThis.GeolocationPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface PointerLockPermissionRequestController extends PermissionRequestControllerBase {
+    readonly lastUnlockedBySelf: boolean;
+    readonly userGesture: boolean;
+    readonly url: string;
+  }
+}
+export type PointerLockPermissionRequestController = globalThis.PointerLockPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface DownloadPermissionRequestController extends PermissionRequestControllerBase {
+    readonly requestMethod: string;
+    readonly url: string;
+  }
+}
+export type DownloadPermissionRequestController = globalThis.DownloadPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface FileSystemPermissionRequestController extends PermissionRequestControllerBase {
+    readonly url: string;
+  }
+}
+export type FileSystemPermissionRequestController = globalThis.FileSystemPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface FullscreenPermissionRequestController extends PermissionRequestControllerBase {
+    readonly origin: string;
+  }
+}
+export type FullscreenPermissionRequestController = globalThis.FullscreenPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface HidPermissionRequestController extends PermissionRequestControllerBase {
+    readonly url: string;
+  }
+}
+export type HidPermissionRequestController = globalThis.HidPermissionRequestController;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface PermissionRequest {
     readonly permission: PermissionType;
-    readonly request: PermissionRequestController;
+    readonly request: PermissionRequestControllerBase;
+  }
+}
+export type PermissionRequest = globalThis.PermissionRequest;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class PermissionRequestEvent extends Event {
+  constructor(type: string, eventInitDict?: PermissionRequestEventInit)
+  readonly permissionRequest: PermissionRequest;
 }
 
-export interface SizeChangedEvent extends Event {
+export interface PermissionRequestEventInit extends EventInit {
+  permissionRequest?: PermissionRequest | null;
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface SizeChange {
     readonly oldWidth: number;
     readonly oldHeight: number;
     readonly newWidth: number;
     readonly newHeight: number;
+  }
+}
+export type SizeChange = globalThis.SizeChange;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class SizeChangedEvent extends Event {
+  constructor(type: string, eventInitDict?: SizeChangedEventInit)
+  readonly sizeChange: SizeChange;
 }
 
-export interface ZoomChangeEvent extends Event {
+export interface SizeChangedEventInit extends EventInit {
+  sizeChange?: SizeChange | null;
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface ZoomChange {
     readonly oldZoomFactor: number;
     readonly newZoomFactor: number;
+  }
+}
+export type ZoomChange = globalThis.ZoomChange;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class ZoomChangeEvent extends Event {
+  constructor(type: string, eventInitDict?: ZoomChangeEventInit)
+  readonly zoomChange: ZoomChange;
 }
 
-export type ContentLoadEvent = Event;
+export interface ZoomChangeEventInit extends EventInit {
+  zoomChange?: ZoomChange | null;
+}
 
-export interface LoadAbortEvent extends Event {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class ContentLoadEvent extends Event {
+  constructor(type: string, eventInitDict?: EventInit)
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface LoadInfo {
     readonly url: string;
     readonly isTopLevel: boolean;
+  }
+}
+export type LoadInfo = globalThis.LoadInfo;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface LoadAbortInfo extends LoadInfo {
     readonly code: number;
     readonly reason: string;
+  }
 }
+export type LoadAbortInfo = globalThis.LoadAbortInfo;
 
-export interface LoadCommitEvent extends Event {
-    readonly url: string;
-    readonly isTopLevel: boolean;
-}
-
-export interface LoadStartEvent extends Event {
-    readonly url: string;
-    readonly isTopLevel: boolean;
-}
-
-export type LoadStopEvent = Event;
-
-export interface LoadRedirectEvent extends Event {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface LoadRedirectInfo {
     readonly oldUrl: string;
     readonly newUrl: string;
     readonly isTopLevel: boolean;
+  }
+}
+export type LoadRedirectInfo = globalThis.LoadRedirectInfo;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class LoadAbortEvent extends Event {
+  constructor(type: string, eventInitDict?: LoadAbortEventInit)
+  readonly loadAbortInfo: LoadAbortInfo;
+}
+
+export interface LoadAbortEventInit extends EventInit {
+  loadAbortInfo?: LoadAbortInfo | null;
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class LoadCommitEvent extends Event {
+  constructor(type: string, eventInitDict?: LoadCommitEventInit)
+  readonly loadInfo: LoadInfo;
+}
+
+export interface LoadCommitEventInit extends EventInit {
+  loadInfo?: LoadInfo | null;
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class LoadStartEvent extends Event {
+  constructor(type: string, eventInitDict?: LoadStartEventInit)
+  readonly loadInfo: LoadInfo;
+}
+
+export interface LoadStartEventInit extends EventInit {
+  loadInfo?: LoadInfo | null;
+}
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class LoadStopEvent extends Event {
+  constructor(type: string, eventInitDict?: LoadStopEventInit)
+}
+
+export type LoadStopEventInit = EventInit;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+export class LoadRedirectEvent extends Event {
+  constructor(type: string, eventInitDict?: LoadRedirectEventInit)
+  readonly loadRedirectInfo: LoadRedirectInfo;
+}
+
+export interface LoadRedirectEventInit extends EventInit {
+  loadRedirectInfo?: LoadRedirectInfo | null;
 }
 
 export type ResourceType =
-    | 'main-frame'
-    | 'sub-frame'
-    | 'stylesheet'
-    | 'script'
-    | 'image'
-    | 'font'
-    | 'object'
-    | 'xmlhttprequest'
-    | 'ping'
-    | 'csp-report'
-    | 'media'
-    | 'websocket'
-    | 'other';
+  | "main-frame"
+  | "sub-frame"
+  | "stylesheet"
+  | "script"
+  | "image"
+  | "font"
+  | "object"
+  | "xmlhttprequest"
+  | "ping"
+  | "csp-report"
+  | "media"
+  | "websocket"
+  | "other";
 
-export type RequestedHeaders = 'none' | 'cors' | 'all';
+export type RequestedHeaders =
+  | "none"
+  | "cors"
+  | "all";
 
 export interface WebRequestInterceptorOptions {
-    urlPatterns: (URLPattern | URLPatternInput)[];
-    resourceTypes?: ResourceType[];
-    blocking?: boolean;
-    includeRequestBody?: boolean;
-    includeHeaders?: RequestedHeaders;
+  urlPatterns: (URLPattern | URLPatternInput)[];
+  /** @default [] */
+  resourceTypes?: ResourceType[];
+  /** @default false */
+  blocking?: boolean;
+  /** @default false */
+  includeRequestBody?: boolean;
+  /** @default "none" */
+  includeHeaders?: RequestedHeaders;
 }
 
-export interface WebRequest {
-    createWebRequestInterceptor(
-        options: WebRequestInterceptorOptions
-    ): WebRequestInterceptor;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequest {
+    createWebRequestInterceptor(options: WebRequestInterceptorOptions): WebRequestInterceptor;
+  }
 }
+export type WebRequest = globalThis.WebRequest;
 
-export interface WebRequestInterceptorEventMap {
-    authrequired: WebRequestAuthRequiredEvent;
-    beforeredirect: WebRequestBeforeRedirectEvent;
-    beforerequest: WebRequestBeforeRequestEvent;
-    beforesendheaders: WebRequestBeforeSendHeadersEvent;
-    completed: WebRequestCompletedEvent;
-    erroroccurred: WebRequestErrorOccurredEvent;
-    headersreceived: WebRequestHeadersReceivedEvent;
-    sendheaders: WebRequestSendHeadersEvent;
-    responsestarted: WebRequestResponseStartedEvent;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestInterceptor extends EventTarget {
+    onauthrequired: ((ev: Event) => any) | null;
+    onbeforeredirect: ((ev: Event) => any) | null;
+    onbeforerequest: ((ev: Event) => any) | null;
+    onbeforesendheaders: ((ev: Event) => any) | null;
+    oncompleted: ((ev: Event) => any) | null;
+    onerroroccurred: ((ev: Event) => any) | null;
+    onheadersreceived: ((ev: Event) => any) | null;
+    onsendheaders: ((ev: Event) => any) | null;
+    onresponsestarted: ((ev: Event) => any) | null;
+  }
 }
+export type WebRequestInterceptor = globalThis.WebRequestInterceptor;
 
-export interface WebRequestInterceptor extends EventTarget {
-    addEventListener<K extends keyof WebRequestInterceptorEventMap>(
-        type: K,
-        listener: (
-            this: WebRequestInterceptor,
-            ev: WebRequestInterceptorEventMap[K]
-        ) => any,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof WebRequestInterceptorEventMap>(
-        type: K,
-        listener: (
-            this: WebRequestInterceptor,
-            ev: WebRequestInterceptorEventMap[K]
-        ) => any,
-        options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
-    ): void;
+export type DocumentLifecycle =
+  | "prerender"
+  | "active"
+  | "cached"
+  | "pending-deletion";
+
+export type FrameType =
+  | "outermost-frame"
+  | "fenced-frame"
+  | "sub-frame";
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface UploadData {
+    readonly bytes: ArrayBuffer | null;
+    readonly file: string | null;
+  }
 }
+export type UploadData = globalThis.UploadData;
 
-export type DocumentLifecycle = 'prerender' | 'active' | 'cached' | 'pending-deletion';
-
-export type FrameType = 'outermost-frame' | 'fenced-frame' | 'sub-frame';
-
-export interface WebRequestUploadData {
-    readonly bytes?: ArrayBuffer;
-    readonly file?: string;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface RequestBody {
+    readonly error: string | null;
+    readonly formData: any;
+    readonly raw: readonly UploadData[] | null;
+  }
 }
+export type RequestBody = globalThis.RequestBody;
 
-export interface WebRequestResponse {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestRequest {
+    readonly method: string;
+    readonly id: string;
+    readonly type: ResourceType;
+    readonly url: string;
+    readonly initiator: string | null;
+    readonly headers: Headers | null;
+    readonly body: RequestBody | null;
+  }
+}
+export type WebRequestRequest = globalThis.WebRequestRequest;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface AuthChallenger {
+    readonly host: string;
+    readonly port: number;
+  }
+}
+export type AuthChallenger = globalThis.AuthChallenger;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestAuthDetails {
+    readonly challenger: AuthChallenger;
+    readonly isProxy: boolean;
+    readonly scheme: string;
+    readonly realm: string | null;
+  }
+}
+export type WebRequestAuthDetails = globalThis.WebRequestAuthDetails;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestResponse {
     readonly statusCode: number;
     readonly statusLine: string;
     readonly fromCache: boolean;
-    readonly headers?: Headers;
-    readonly ip?: string;
-    readonly redirectURL?: string;
-    readonly auth?: {
-        readonly challenger: {
-            readonly host: string;
-            readonly port: number;
-        };
-        readonly isProxy: boolean;
-        readonly scheme: string;
-        readonly realm?: string;
-    };
+    readonly headers: Headers | null;
+    readonly ip: string | null;
+    readonly redirectURL: string | null;
+    readonly auth: WebRequestAuthDetails | null;
+  }
 }
+export type WebRequestResponse = globalThis.WebRequestResponse;
 
-export interface WebRequestEvent extends Event {
-    readonly request: {
-        readonly method: string;
-        readonly id: string;
-        readonly type: ResourceType;
-        readonly url: string;
-        readonly initiator?: string;
-        readonly headers?: Headers;
-        readonly body?: {
-            readonly error?: string;
-            readonly formData: any;
-            readonly raw?: readonly WebRequestUploadData[];
-        };
-    };
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestEvent extends Event {
+    readonly request: WebRequestRequest;
     readonly frameId: number;
-    readonly frameType?: FrameType;
-    readonly documentId?: string;
-    readonly documentLifecycle?: DocumentLifecycle;
-    readonly parentDocumentId?: string;
-    readonly parentFrameId?: number;
+    readonly frameType: FrameType | null;
+    readonly documentId: string | null;
+    readonly documentLifecycle: DocumentLifecycle | null;
+    readonly parentDocumentId: string | null;
+    readonly parentFrameId: number | null;
+  }
 }
+export type WebRequestEvent = globalThis.WebRequestEvent;
 
 export interface WebRequestAuthCredentials {
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 export interface WebRequestAuthOptions {
-    signal: AbortSignal;
+  signal?: AbortSignal;
 }
 
-export interface WebRequestAuthRequiredEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestAuthRequiredEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
-    setCredentials(
-        credentials: Promise<WebRequestAuthCredentials>,
-        options?: WebRequestAuthOptions
-    ): void;
+    setCredentials(credentials: Promise<WebRequestAuthCredentials>, options?: WebRequestAuthOptions): undefined;
+  }
 }
+export type WebRequestAuthRequiredEvent = globalThis.WebRequestAuthRequiredEvent;
 
-export interface WebRequestBeforeRedirectEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestBeforeRedirectEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
+  }
 }
+export type WebRequestBeforeRedirectEvent = globalThis.WebRequestBeforeRedirectEvent;
 
-export interface WebRequestBeforeRequestEvent extends WebRequestEvent {
-    redirect(redirectURL: string): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestBeforeRequestEvent extends WebRequestEvent {
+    redirect(redirectURL: string): undefined;
+  }
 }
+export type WebRequestBeforeRequestEvent = globalThis.WebRequestBeforeRequestEvent;
 
-export interface WebRequestBeforeSendHeadersEvent extends WebRequestEvent {
-    setRequestHeader(requestHeaders: Headers | HeadersInit): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestBeforeSendHeadersEvent extends WebRequestEvent {
+    setRequestHeaders(requestHeaders: (Headers | HeadersInit)): undefined;
+  }
 }
+export type WebRequestBeforeSendHeadersEvent = globalThis.WebRequestBeforeSendHeadersEvent;
 
-export interface WebRequestCompletedEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestCompletedEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
+  }
 }
+export type WebRequestCompletedEvent = globalThis.WebRequestCompletedEvent;
 
-export interface WebRequestErrorOccurredEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestErrorOccurredEvent extends WebRequestEvent {
     readonly error: string;
+  }
 }
+export type WebRequestErrorOccurredEvent = globalThis.WebRequestErrorOccurredEvent;
 
-export interface WebRequestHeadersReceivedEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestHeadersReceivedEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
-    redirect(redirectURL: string): void;
-    setResponseHeaders(responseHeaders: Headers | HeadersInit): void;
+    redirect(redirectURL: string): undefined;
+    setResponseHeaders(responseHeaders: (Headers | HeadersInit)): undefined;
+  }
 }
+export type WebRequestHeadersReceivedEvent = globalThis.WebRequestHeadersReceivedEvent;
 
-export interface WebRequestResponseStartedEvent extends WebRequestEvent {
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface WebRequestResponseStartedEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
+  }
 }
+export type WebRequestResponseStartedEvent = globalThis.WebRequestResponseStartedEvent;
 
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export type WebRequestSendHeadersEvent = WebRequestEvent;
 
-export type ContextMenusContextType =
-    | 'all'
-    | 'page'
-    | 'frame'
-    | 'selection'
-    | 'link'
-    | 'editable'
-    | 'image'
-    | 'video'
-    | 'audio';
+export type ContextType =
+  | "all"
+  | "page"
+  | "frame"
+  | "selection"
+  | "link"
+  | "editable"
+  | "image"
+  | "video"
+  | "audio";
 
-export type ContextMenusItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
+export type ItemType =
+  | "normal"
+  | "checkbox"
+  | "radio"
+  | "separator";
 
 export interface ContextMenusProperties {
-    checked?: boolean;
-    contexts?: ContextMenusContextType[];
-    documentURLPatterns?: (URLPattern | URLPatternInput)[];
-    enabled?: boolean;
-    parentId?: string;
-    targetURLPatterns?: (URLPattern | URLPatternInput)[];
-    title?: string;
-    type?: ContextMenusItemType;
+  checked?: boolean;
+  contexts?: ContextType[];
+  documentURLPatterns?: (URLPattern | URLPatternInput)[];
+  enabled?: boolean;
+  parentId?: string;
+  targetURLPatterns?: (URLPattern | URLPatternInput)[];
+  title?: string;
+  type?: ItemType;
 }
 
-export type ContextMenusCreateProperties = ContextMenusProperties & {
-    id: string;
-};
-
-export interface ContextMenusEventMap {
-    click: ContextMenusClickEvent;
-    show: Event;
+export interface ContextMenusCreateProperties extends ContextMenusProperties {
+  id: string;
 }
 
-export interface ContextMenus extends EventTarget {
-    create(properties: ContextMenusCreateProperties): Promise<void>;
-    remove(id: string): Promise<void>;
-    removeAll(): Promise<void>;
-    update(id: string, properties?: ContextMenusProperties): Promise<void>;
-
-    addEventListener<K extends keyof ContextMenusEventMap>(
-        type: K,
-        listener: (this: ContextMenus, ev: ContextMenusEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof ContextMenusEventMap>(
-        type: K,
-        listener: (this: ContextMenus, ev: ContextMenusEventMap[K]) => any,
-        options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
-    ): void;
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface ContextMenus extends EventTarget {
+    create(properties: ContextMenusCreateProperties): Promise<undefined>;
+    remove(id: string): Promise<undefined>;
+    removeAll(): Promise<undefined>;
+    update(id: string, properties?: ContextMenusProperties): Promise<undefined>;
+    onclick: ((ev: Event) => any) | null;
+    onshow: ((ev: Event) => any) | null;
+  }
 }
+export type ContextMenus = globalThis.ContextMenus;
 
-export interface ContextMenusClickEvent extends Event {
-    readonly menuItem: {
-        readonly id: string;
-        readonly parentMenuId?: string;
-        readonly checked?: boolean;
-        readonly wasChecked?: boolean;
-    };
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface MenuItemDetails {
+    readonly id: string;
+    readonly parentMenuId: string | null;
+    readonly checked: boolean | null;
+    readonly wasChecked: boolean | null;
+  }
+}
+export type MenuItemDetails = globalThis.MenuItemDetails;
+
+/** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
+declare global {
+  interface ContextMenusClickEvent extends Event {
+    readonly menuItem: MenuItemDetails;
     readonly frameId: number;
     readonly frameURL: string;
     readonly pageURL: string;
     readonly editable: boolean;
-    readonly linkURL?: string;
-    readonly mediaType?: string;
-    readonly selectionText?: string;
-    readonly srcURL?: string;
+    readonly linkURL: string | null;
+    readonly mediaType: string | null;
+    readonly selectionText: string | null;
+    readonly srcURL: string | null;
+  }
 }
+export type ContextMenusClickEvent = globalThis.ContextMenusClickEvent;
+

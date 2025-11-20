@@ -217,8 +217,8 @@ export class USBAlternateInterface {
 
 /** @remarks Extended attributes: [Exposed, SecureContext] */
 export interface USB extends EventTarget {
-  onconnect: ((this: USB, ev: Event) => any) | null;
-  ondisconnect: ((this: USB, ev: Event) => any) | null;
+  onconnect: ((ev: Event) => any) | null;
+  ondisconnect: ((ev: Event) => any) | null;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UsbGetDevices] */
   getDevices(): Promise<USBDevice[]>;
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, Exposed=Window, MeasureAs=UsbRequestDevice] */
