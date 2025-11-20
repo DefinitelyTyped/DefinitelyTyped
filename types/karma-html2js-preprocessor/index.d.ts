@@ -9,7 +9,6 @@ declare module "karma" {
     }
 
     interface HTML2JSPreprocessorOptions {
-
         /**
          * Strip this from the file path
          *

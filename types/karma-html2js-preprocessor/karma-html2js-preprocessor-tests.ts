@@ -4,7 +4,7 @@ import karma = require("karma");
 const mochaReporter: karma.HTML2JSPreprocessorOptions = {
     stripPrefix: "strip",
     prependPrefix: "prepend",
-    processPath: (filePath) => filePath
+    processPath: (filePath) => filePath,
 };
 
 module.exports = (config: karma.Config) => {
@@ -16,9 +16,9 @@ module.exports = (config: karma.Config) => {
         html2JsPreprocessor: {
             stripPrefix: "strip",
             prependPrefix: "$json",
-            processPath: (filePath) => filePath
+            processPath: (filePath) => filePath,
         },
     });
 };
 
-window.__html__['fixture'];
+window.__html__["fixture"];
