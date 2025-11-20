@@ -2359,7 +2359,25 @@ declare namespace braintree {
         | "unexpectedError"
         | "upgradeRequired";
 
-    export type BraintreeError = Error & { type: ErrorType };
+    export interface BraintreeError<T extends ErrorType> extends Error {
+        type: T;
+    }
+    export interface AuthenticationError extends BraintreeError<"authenticationError"> {}
+    export interface AuthorizationError extends BraintreeError<"authorizationError"> {}
+    export interface GatewayTimeoutError extends BraintreeError<"gatewayTimeoutError"> {}
+    export interface InvalidChallengeError extends BraintreeError<"invalidChallengeError"> {}
+    export interface InvalidKeysError extends BraintreeError<"invalidKeysError"> {}
+    export interface InvalidSignatureError extends BraintreeError<"invalidSignatureError"> {}
+    export interface NotFoundError extends BraintreeError<"notFoundError"> {}
+    export interface RequestTimeoutError extends BraintreeError<"requestTimeoutError"> {}
+    export interface ServerError extends BraintreeError<"serverError"> {}
+    export interface ServiceUnavailableError extends BraintreeError<"serviceUnavailableError"> {}
+    export interface TestOperationPerformedInProductionError
+        extends BraintreeError<"testOperationPerformedInProductionError">
+    {}
+    export interface TooManyRequestsError extends BraintreeError<"tooManyRequestsError"> {}
+    export interface UnexpectedError extends BraintreeError<"unexpectedError"> {}
+    export interface UpgradeRequired extends BraintreeError<"upgradeRequired"> {}
 
     /**
      * Validation errors
