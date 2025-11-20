@@ -14,7 +14,7 @@
 /** @remarks Extended attributes: [Exposed, ActiveScriptWrappable, SecureContext, IsolatedContext] */
 export class UDPSocket {
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UDPSocketConstructor] */
-  constructor(options: UDPSocketOptions)
+  constructor(options: UDPSocketOptions);
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketOpenedAttribute] */
   readonly opened: Promise<UDPSocketOpenInfo>;
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketClosedAttribute] */
@@ -33,7 +33,11 @@ export interface UDPMessage {
 /** @remarks Extended attributes: [Exposed, ActiveScriptWrappable, SecureContext, IsolatedContext] */
 export class TCPSocket {
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPSocketConstructor] */
-  constructor(remoteAddress: string, remotePort: number, options?: TCPSocketOptions)
+  constructor(
+    remoteAddress: string,
+    remotePort: number,
+    options?: TCPSocketOptions,
+  );
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketOpenedAttribute] */
   readonly opened: Promise<TCPSocketOpenInfo>;
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketClosedAttribute] */
@@ -45,7 +49,7 @@ export class TCPSocket {
 /** @remarks Extended attributes: [Exposed, SecureContext, IsolatedContext] */
 export class TCPServerSocket {
   /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPServerSocketConstructor] */
-  constructor(localAddress: string, options?: TCPServerSocketOptions)
+  constructor(localAddress: string, options?: TCPServerSocketOptions);
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketOpenedAttribute] */
   readonly opened: Promise<TCPServerSocketOpenInfo>;
   /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketClosedAttribute] */
@@ -54,9 +58,7 @@ export class TCPServerSocket {
   close(): Promise<undefined>;
 }
 
-export type SocketDnsQueryType =
-  | "ipv4"
-  | "ipv6";
+export type SocketDnsQueryType = "ipv4" | "ipv6";
 
 export interface SocketOptions {
   /** @remarks Extended attributes: [EnforceRange] */
@@ -132,4 +134,3 @@ declare global {
   }
 }
 export type MulticastController = globalThis.MulticastController;
-

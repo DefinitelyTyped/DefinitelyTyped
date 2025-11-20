@@ -43,7 +43,7 @@ export interface SmartCardErrorOptions {
 
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
 export class SmartCardError extends DOMException {
-  constructor(message: string, options: SmartCardErrorOptions)
+  constructor(message: string, options: SmartCardErrorOptions);
   readonly responseCode: SmartCardResponseCode;
 }
 
@@ -91,20 +91,14 @@ export interface SmartCardReaderStateFlagsOut extends SmartCardReaderStateFlags 
   unknown?: boolean;
 }
 
-export type SmartCardProtocol =
-  | "raw"
-  | "t0"
-  | "t1";
+export type SmartCardProtocol = "raw" | "t0" | "t1";
 
 export interface SmartCardConnectResult {
   connection: SmartCardConnection;
   activeProtocol?: SmartCardProtocol;
 }
 
-export type SmartCardAccessMode =
-  | "shared"
-  | "exclusive"
-  | "direct";
+export type SmartCardAccessMode = "shared" | "exclusive" | "direct";
 
 export interface SmartCardGetStatusChangeOptions {
   timeout?: DOMHighResTimeStamp;
@@ -121,9 +115,16 @@ declare global {
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
     listReaders(): Promise<string[]>;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-    getStatusChange(readerStates: SmartCardReaderStateIn[], options?: SmartCardGetStatusChangeOptions): Promise<SmartCardReaderStateOut[]>;
+    getStatusChange(
+      readerStates: SmartCardReaderStateIn[],
+      options?: SmartCardGetStatusChangeOptions,
+    ): Promise<SmartCardReaderStateOut[]>;
     /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardConnect, RaisesException] */
-    connect(readerName: string, accessMode: SmartCardAccessMode, options?: SmartCardConnectOptions): Promise<SmartCardConnectResult>;
+    connect(
+      readerName: string,
+      accessMode: SmartCardAccessMode,
+      options?: SmartCardConnectOptions,
+    ): Promise<SmartCardConnectResult>;
   }
 }
 export type SmartCardContext = globalThis.SmartCardContext;
@@ -144,11 +145,7 @@ export interface SmartCardConnectionStatus {
   answerToReset?: ArrayBuffer;
 }
 
-export type SmartCardDisposition =
-  | "leave"
-  | "reset"
-  | "unpower"
-  | "eject";
+export type SmartCardDisposition = "leave" | "reset" | "unpower" | "eject";
 
 export interface SmartCardTransactionOptions {
   signal?: AbortSignal;
@@ -166,7 +163,10 @@ declare global {
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
     disconnect(disposition?: SmartCardDisposition): Promise<undefined>;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-    transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
+    transmit(
+      sendBuffer: BufferSource,
+      options?: SmartCardTransmitOptions,
+    ): Promise<ArrayBuffer>;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
     status(): Promise<SmartCardConnectionStatus>;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
@@ -176,8 +176,10 @@ declare global {
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
     setAttribute(tag: number, value: BufferSource): Promise<undefined>;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-    startTransaction(transaction: SmartCardTransactionCallback, options?: SmartCardTransactionOptions): Promise<undefined>;
+    startTransaction(
+      transaction: SmartCardTransactionCallback,
+      options?: SmartCardTransactionOptions,
+    ): Promise<undefined>;
   }
 }
 export type SmartCardConnection = globalThis.SmartCardConnection;
-

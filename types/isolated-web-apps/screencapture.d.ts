@@ -19,16 +19,11 @@ export type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
 
 export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
 
-export type MediaStreamError = (DOMException | OverconstrainedError);
+export type MediaStreamError = DOMException | OverconstrainedError;
 
-export type DisplayMediaIncludeOrExclude =
-  | "include"
-  | "exclude";
+export type DisplayMediaIncludeOrExclude = "include" | "exclude";
 
-export type DisplayMediaSystemWindowOrExclude =
-  | "system"
-  | "window"
-  | "exclude";
+export type DisplayMediaSystemWindowOrExclude = "system" | "window" | "exclude";
 
 export type SystemAudioPreferenceEnum = DisplayMediaIncludeOrExclude;
 
@@ -42,16 +37,16 @@ export type MonitorTypeSurfacesEnum = DisplayMediaIncludeOrExclude;
 
 export interface UserMediaStreamConstraints {
   /** @default false */
-  video?: (boolean | MediaTrackConstraints);
+  video?: boolean | MediaTrackConstraints;
   /** @default false */
-  audio?: (boolean | MediaTrackConstraints);
+  audio?: boolean | MediaTrackConstraints;
 }
 
 export interface DisplayMediaStreamOptions {
   /** @default true */
-  video?: (boolean | MediaTrackConstraints);
+  video?: boolean | MediaTrackConstraints;
   /** @default false */
-  audio?: (boolean | MediaTrackConstraints);
+  audio?: boolean | MediaTrackConstraints;
   /** @default false */
   preferCurrentTab?: boolean;
   /** @remarks Extended attributes: [RuntimeEnabled=CaptureController] */
@@ -66,9 +61,9 @@ export interface DisplayMediaStreamOptions {
 
 export interface MediaStreamConstraints {
   /** @default false */
-  video?: (boolean | MediaTrackConstraints);
+  video?: boolean | MediaTrackConstraints;
   /** @default false */
-  audio?: (boolean | MediaTrackConstraints);
+  audio?: boolean | MediaTrackConstraints;
   /** @default false */
   preferCurrentTab?: boolean;
   controller?: CaptureController;
@@ -102,7 +97,7 @@ export type CaptureStartFocusBehavior =
 /** @remarks Extended attributes: [Exposed=Window, SecureContext, RuntimeEnabled=CaptureController] */
 export class CaptureController extends EventTarget {
   /** @remarks Extended attributes: [CallWith=ExecutionContext] */
-  constructor()
+  constructor();
   /** @remarks Extended attributes: [RaisesException, MeasureAs=ConditionalFocus] */
   setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedMouseEvents] */
@@ -122,4 +117,3 @@ export class CaptureController extends EventTarget {
   /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
   onzoomlevelchange: ((ev: Event) => any) | null;
 }
-

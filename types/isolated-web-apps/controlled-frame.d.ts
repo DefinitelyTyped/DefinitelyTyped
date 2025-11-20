@@ -44,9 +44,9 @@ export interface URLPatternComponentResult {
   groups?: Record<string, any>;
 }
 
-export type URLPatternInput = (string | URLPatternInit);
+export type URLPatternInput = string | URLPatternInit;
 
-export type URLPatternCompatible = (string | URLPatternInit | URLPattern);
+export type URLPatternCompatible = string | URLPatternInit | URLPattern;
 
 export type URLPatternComponent =
   | "protocol"
@@ -61,15 +61,22 @@ export type URLPatternComponent =
 /** @remarks Extended attributes: [Exposed=Window, Worker, ShadowRealm] */
 export class URLPattern {
   /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  constructor(input: URLPatternInput, baseURL: string, options?: URLPatternOptions)
+  constructor(
+    input: URLPatternInput,
+    baseURL: string,
+    options?: URLPatternOptions,
+  );
   /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  constructor(input?: URLPatternInput, options?: URLPatternOptions)
+  constructor(input?: URLPatternInput, options?: URLPatternOptions);
   /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
   test(input?: URLPatternInput, baseURL?: string): boolean;
   /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
   exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
   /** @remarks Extended attributes: [RuntimeEnabled=URLPatternGenerate, RaisesException, Measure] */
-  generate(component: URLPatternComponent, groups: Record<string, string>): string;
+  generate(
+    component: URLPatternComponent,
+    groups: Record<string, string>,
+  ): string;
   readonly protocol: string;
   readonly username: string;
   readonly password: string;
@@ -80,13 +87,17 @@ export class URLPattern {
   readonly hash: string;
   readonly hasRegExpGroups: boolean;
   /** @remarks Extended attributes: [RuntimeEnabled=URLPatternCompareComponent, Measure] */
-  compareComponent(component: URLPatternComponent, left: URLPattern, right: URLPattern): number;
+  compareComponent(
+    component: URLPatternComponent,
+    left: URLPattern,
+    right: URLPattern,
+  ): number;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class HTMLControlledFrameElement extends HTMLElement {
   /** @remarks Extended attributes: [HTMLConstructor] */
-  constructor()
+  constructor();
   /** @remarks Extended attributes: [CEReactions] */
   src: string;
   partition: string;
@@ -100,11 +111,16 @@ export class HTMLControlledFrameElement extends HTMLElement {
   go(relativeIndex: number): Promise<boolean>;
   reload(): undefined;
   stop(): undefined;
-  addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<undefined>;
+  addContentScripts(
+    contentScriptList: ContentScriptDetails[],
+  ): Promise<undefined>;
   executeScript(details?: InjectDetails): Promise<any>;
   insertCSS(details?: InjectDetails): Promise<undefined>;
   removeContentScripts(scriptNameList?: string[]): Promise<undefined>;
-  clearData(options?: ClearDataOptions, types?: ClearDataTypeSet): Promise<undefined>;
+  clearData(
+    options?: ClearDataOptions,
+    types?: ClearDataTypeSet,
+  ): Promise<undefined>;
   getAudioState(): Promise<boolean>;
   getZoom(): Promise<number>;
   getZoomMode(): Promise<string>;
@@ -137,10 +153,7 @@ export interface InjectionItems {
   files?: string[];
 }
 
-export type RunAt =
-  | "document-start"
-  | "document-end"
-  | "document-idle";
+export type RunAt = "document-start" | "document-end" | "document-idle";
 
 export interface ContentScriptDetails {
   name: string;
@@ -167,10 +180,7 @@ export interface ClearDataTypeSet {
   sessionCookies?: boolean;
 }
 
-export type ZoomMode =
-  | "per-origin"
-  | "per-view"
-  | "disabled";
+export type ZoomMode = "per-origin" | "per-view" | "disabled";
 
 export interface ImageDetails {
   format?: string;
@@ -188,7 +198,7 @@ export type ConsoleMessage = globalThis.ConsoleMessage;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class ConsoleMessageEvent extends Event {
-  constructor(type: string, eventInitDict?: ConsoleMessageEventInit)
+  constructor(type: string, eventInitDict?: ConsoleMessageEventInit);
   readonly consoleMessage: ConsoleMessage;
 }
 
@@ -196,10 +206,7 @@ export interface ConsoleMessageEventInit extends EventInit {
   consoleMessage?: ConsoleMessage | null;
 }
 
-export type DialogType =
-  | "alert"
-  | "confirm"
-  | "prompt";
+export type DialogType = "alert" | "confirm" | "prompt";
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
@@ -222,7 +229,7 @@ export type DialogMessage = globalThis.DialogMessage;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class DialogEvent extends Event {
-  constructor(type: string, eventInitDict?: DialogEventInit)
+  constructor(type: string, eventInitDict?: DialogEventInit);
   readonly dialogMessage: DialogMessage;
 }
 
@@ -261,7 +268,7 @@ export type NewWindow = globalThis.NewWindow;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class NewWindowEvent extends Event {
-  constructor(type: string, eventInitDict?: NewWindowEventInit)
+  constructor(type: string, eventInitDict?: NewWindowEventInit);
   readonly newWindow: NewWindow;
 }
 
@@ -357,7 +364,7 @@ export type PermissionRequest = globalThis.PermissionRequest;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class PermissionRequestEvent extends Event {
-  constructor(type: string, eventInitDict?: PermissionRequestEventInit)
+  constructor(type: string, eventInitDict?: PermissionRequestEventInit);
   readonly permissionRequest: PermissionRequest;
 }
 
@@ -378,7 +385,7 @@ export type SizeChange = globalThis.SizeChange;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class SizeChangedEvent extends Event {
-  constructor(type: string, eventInitDict?: SizeChangedEventInit)
+  constructor(type: string, eventInitDict?: SizeChangedEventInit);
   readonly sizeChange: SizeChange;
 }
 
@@ -397,7 +404,7 @@ export type ZoomChange = globalThis.ZoomChange;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class ZoomChangeEvent extends Event {
-  constructor(type: string, eventInitDict?: ZoomChangeEventInit)
+  constructor(type: string, eventInitDict?: ZoomChangeEventInit);
   readonly zoomChange: ZoomChange;
 }
 
@@ -407,7 +414,7 @@ export interface ZoomChangeEventInit extends EventInit {
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class ContentLoadEvent extends Event {
-  constructor(type: string, eventInitDict?: EventInit)
+  constructor(type: string, eventInitDict?: EventInit);
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
@@ -440,7 +447,7 @@ export type LoadRedirectInfo = globalThis.LoadRedirectInfo;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class LoadAbortEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadAbortEventInit)
+  constructor(type: string, eventInitDict?: LoadAbortEventInit);
   readonly loadAbortInfo: LoadAbortInfo;
 }
 
@@ -450,7 +457,7 @@ export interface LoadAbortEventInit extends EventInit {
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class LoadCommitEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadCommitEventInit)
+  constructor(type: string, eventInitDict?: LoadCommitEventInit);
   readonly loadInfo: LoadInfo;
 }
 
@@ -460,7 +467,7 @@ export interface LoadCommitEventInit extends EventInit {
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class LoadStartEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadStartEventInit)
+  constructor(type: string, eventInitDict?: LoadStartEventInit);
   readonly loadInfo: LoadInfo;
 }
 
@@ -470,14 +477,14 @@ export interface LoadStartEventInit extends EventInit {
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class LoadStopEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadStopEventInit)
+  constructor(type: string, eventInitDict?: LoadStopEventInit);
 }
 
 export type LoadStopEventInit = EventInit;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 export class LoadRedirectEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadRedirectEventInit)
+  constructor(type: string, eventInitDict?: LoadRedirectEventInit);
   readonly loadRedirectInfo: LoadRedirectInfo;
 }
 
@@ -500,10 +507,7 @@ export type ResourceType =
   | "websocket"
   | "other";
 
-export type RequestedHeaders =
-  | "none"
-  | "cors"
-  | "all";
+export type RequestedHeaders = "none" | "cors" | "all";
 
 export interface WebRequestInterceptorOptions {
   urlPatterns: (URLPattern | URLPatternInput)[];
@@ -520,7 +524,9 @@ export interface WebRequestInterceptorOptions {
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
   interface WebRequest {
-    createWebRequestInterceptor(options: WebRequestInterceptorOptions): WebRequestInterceptor;
+    createWebRequestInterceptor(
+      options: WebRequestInterceptorOptions,
+    ): WebRequestInterceptor;
   }
 }
 export type WebRequest = globalThis.WebRequest;
@@ -547,10 +553,7 @@ export type DocumentLifecycle =
   | "cached"
   | "pending-deletion";
 
-export type FrameType =
-  | "outermost-frame"
-  | "fenced-frame"
-  | "sub-frame";
+export type FrameType = "outermost-frame" | "fenced-frame" | "sub-frame";
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
@@ -646,7 +649,10 @@ export interface WebRequestAuthOptions {
 declare global {
   interface WebRequestAuthRequiredEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
-    setCredentials(credentials: Promise<WebRequestAuthCredentials>, options?: WebRequestAuthOptions): undefined;
+    setCredentials(
+      credentials: Promise<WebRequestAuthCredentials>,
+      options?: WebRequestAuthOptions,
+    ): undefined;
   }
 }
 export type WebRequestAuthRequiredEvent = globalThis.WebRequestAuthRequiredEvent;
@@ -670,7 +676,7 @@ export type WebRequestBeforeRequestEvent = globalThis.WebRequestBeforeRequestEve
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
   interface WebRequestBeforeSendHeadersEvent extends WebRequestEvent {
-    setRequestHeaders(requestHeaders: (Headers | HeadersInit)): undefined;
+    setRequestHeaders(requestHeaders: Headers | HeadersInit): undefined;
   }
 }
 export type WebRequestBeforeSendHeadersEvent = globalThis.WebRequestBeforeSendHeadersEvent;
@@ -696,7 +702,7 @@ declare global {
   interface WebRequestHeadersReceivedEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
     redirect(redirectURL: string): undefined;
-    setResponseHeaders(responseHeaders: (Headers | HeadersInit)): undefined;
+    setResponseHeaders(responseHeaders: Headers | HeadersInit): undefined;
   }
 }
 export type WebRequestHeadersReceivedEvent = globalThis.WebRequestHeadersReceivedEvent;
@@ -723,11 +729,7 @@ export type ContextType =
   | "video"
   | "audio";
 
-export type ItemType =
-  | "normal"
-  | "checkbox"
-  | "radio"
-  | "separator";
+export type ItemType = "normal" | "checkbox" | "radio" | "separator";
 
 export interface ContextMenusProperties {
   checked?: boolean;
@@ -783,4 +785,3 @@ declare global {
   }
 }
 export type ContextMenusClickEvent = globalThis.ContextMenusClickEvent;
-
