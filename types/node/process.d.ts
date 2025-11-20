@@ -119,7 +119,7 @@ declare module "node:process" {
     }
     type SignalsEventMap = { [S in NodeJS.Signals]: [signal: S] };
     interface ProcessEventMap extends SignalsEventMap {
-        "beforeExit": [];
+        "beforeExit": [code: number];
         "disconnect": [];
         "exit": [code: number];
         "message": [
@@ -127,15 +127,18 @@ declare module "node:process" {
             sendHandle: SendHandle | undefined,
         ];
         "rejectionHandled": [promise: Promise<unknown>];
-        "uncaughtException": Parameters<NodeJS.UncaughtExceptionListener>;
-        "uncaughtExceptionMonitor": Parameters<NodeJS.UncaughtExceptionListener>;
-        "unhandledRejection": Parameters<NodeJS.UnhandledRejectionListener>;
+        "uncaughtException": [error: Error, origin: NodeJS.UncaughtExceptionOrigin];
+        "uncaughtExceptionMonitor": [error: Error, origin: NodeJS.UncaughtExceptionOrigin];
+        "unhandledRejection": [reason: unknown, promise: Promise<unknown>];
         "warning": [warning: Error];
         "worker": [worker: Worker];
         "workerMessage": [value: any, source: number];
     }
     global {
         var process: NodeJS.Process;
+        namespace process {
+            export { ProcessEventMap };
+        }
         namespace NodeJS {
             // this namespace merge is here because these are specifically used
             // as the type for process.stdin, process.stdout, and process.stderr.
@@ -336,8 +339,129 @@ declare module "node:process" {
                 | "SIGLOST"
                 | "SIGINFO";
             type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
-            type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
-            type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['beforeExit']) => { ... };
+             * ```
+             */
+            type BeforeExitListener = (...args: ProcessEventMap["beforeExit"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['disconnect']) => { ... };
+             * ```
+             */
+            type DisconnectListener = (...args: ProcessEventMap["disconnect"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['exit']) => { ... };
+             * ```
+             */
+            type ExitListener = (...args: ProcessEventMap["exit"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['message']) => { ... };
+             * ```
+             */
+            type MessageListener = (...args: ProcessEventMap["message"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['rejectionHandled']) => { ... };
+             * ```
+             */
+            type RejectionHandledListener = (...args: ProcessEventMap["rejectionHandled"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             */
+            type SignalsListener = (signal: Signals) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['uncaughtException']) => { ... };
+             * ```
+             */
+            type UncaughtExceptionListener = (...args: ProcessEventMap["uncaughtException"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['unhandledRejection']) => { ... };
+             * ```
+             */
+            type UnhandledRejectionListener = (...args: ProcessEventMap["unhandledRejection"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['warning']) => { ... };
+             * ```
+             */
+            type WarningListener = (...args: ProcessEventMap["warning"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['worker']) => { ... };
+             * ```
+             */
+            type WorkerListener = (...args: ProcessEventMap["worker"]) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
             }
