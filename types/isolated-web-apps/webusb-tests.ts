@@ -28,7 +28,6 @@ const dataView: DataView = new DataView(bufferSource);
 const eventType = 'connect';
 const tag = 0x01;
 
-// Dummy instances for type checking interfaces that depend on others
 const dummyDevice: USBDevice = {} as USBDevice;
 const dummyConfiguration: USBConfiguration = {} as USBConfiguration;
 const dummyInterface: USBInterface = {} as USBInterface;
@@ -40,27 +39,22 @@ async function testWebUsbApi() {
     // Enums and Status Types
     // --------------------------------------------------------------------------------
 
-    // USBDirection
     const directionIn: USBDirection = 'in';
     // $ExpectType "in"
     directionIn;
 
-    // USBTransferStatus
     const transferStatusOk: USBTransferStatus = 'ok';
     // $ExpectType "ok"
     transferStatusOk;
 
-    // USBEndpointType
     const endpointTypeBulk: USBEndpointType = 'bulk';
     // $ExpectType "bulk"
     endpointTypeBulk;
 
-    // USBRequestType
     const requestType: USBRequestType = 'vendor';
     // $ExpectType "vendor"
     requestType;
 
-    // USBRecipient
     const recipient: USBRecipient = 'endpoint';
     // $ExpectType "endpoint"
     recipient;
@@ -69,7 +63,6 @@ async function testWebUsbApi() {
     // Transfer Result Constructors and Properties
     // --------------------------------------------------------------------------------
 
-    // USBOutTransferResult
     const outResult = new USBOutTransferResult('ok', 8);
     // $ExpectType USBOutTransferResult
     outResult;
@@ -78,29 +71,24 @@ async function testWebUsbApi() {
     // $ExpectType USBTransferStatus
     outResult.status;
 
-    // USBInTransferResult
     const inResult = new USBInTransferResult('stall', dataView);
     // $ExpectType USBInTransferResult
     inResult;
 
-    // USBIsochronousInTransferPacket
     const isocInPacket = new USBIsochronousInTransferPacket('babble', dataView);
     // $ExpectType USBIsochronousInTransferPacket
     isocInPacket;
 
-    // USBIsochronousInTransferResult
     const isocInResult = new USBIsochronousInTransferResult([isocInPacket], dataView);
     // $ExpectType USBIsochronousInTransferResult
     isocInResult;
     // $ExpectType readonly USBIsochronousInTransferPacket[]
     isocInResult.packets;
 
-    // USBIsochronousOutTransferPacket
     const isocOutPacket = new USBIsochronousOutTransferPacket('ok', 64);
     // $ExpectType USBIsochronousOutTransferPacket
     isocOutPacket;
 
-    // USBIsochronousOutTransferResult
     const isocOutResult = new USBIsochronousOutTransferResult([isocOutPacket]);
     // $ExpectType USBIsochronousOutTransferResult
     isocOutResult;
@@ -109,7 +97,6 @@ async function testWebUsbApi() {
     // Configuration and Interface Structures
     // --------------------------------------------------------------------------------
 
-    // USBAlternateInterface constructor/properties
     const alternate = new USBAlternateInterface(dummyInterface, 1);
     // $ExpectType USBAlternateInterface
     alternate;
@@ -118,7 +105,6 @@ async function testWebUsbApi() {
     // $ExpectType readonly USBEndpoint[]
     alternate.endpoints;
 
-    // USBEndpoint constructor/properties
     const endpoint = new USBEndpoint(alternate, 3, 'in');
     // $ExpectType USBEndpoint
     endpoint;
@@ -143,7 +129,6 @@ async function testWebUsbApi() {
     // $ExpectType readonly USBInterface[]
     config.interfaces;
 
-    // USBControlTransferParameters
     const controlParams: USBControlTransferParameters = {
         requestType: 'vendor',
         recipient: 'device',
@@ -154,7 +139,6 @@ async function testWebUsbApi() {
     // $ExpectType USBControlTransferParameters
     controlParams;
 
-    // USBDeviceFilter
     const deviceFilter: USBDeviceFilter = {
         vendorId: 0x1234,
         serialNumber: 'SN123',
@@ -162,7 +146,6 @@ async function testWebUsbApi() {
     // $ExpectType number | undefined
     deviceFilter.productId;
 
-    // USBDeviceRequestOptions
     const requestOptions: USBDeviceRequestOptions = {
         filters: [deviceFilter],
         exclusionFilters: [],
@@ -170,7 +153,6 @@ async function testWebUsbApi() {
     // $ExpectType USBDeviceFilter[]
     requestOptions.filters;
 
-    // USBConnectionEvent
     const connectionEventInit: USBConnectionEventInit = {
         device: dummyDevice,
         bubbles: true,
@@ -186,7 +168,6 @@ async function testWebUsbApi() {
     // USB Interface (Global Augmentation: navigator.usb)
     // --------------------------------------------------------------------------------
 
-    // Check for navigator.usb (Global USB interface)
     if (navigator.usb) {
         const usb: USB = navigator.usb;
         // $ExpectType USB
@@ -227,10 +208,8 @@ async function testWebUsbApi() {
     // $ExpectType Promise<undefined>
     dummyDevice.reset();
 
-    // controlTransferIn(setup, length)
-    const controlInPromise = dummyDevice.controlTransferIn(controlParams, 64);
     // $ExpectType Promise<USBInTransferResult>
-    controlInPromise;
+    dummyDevice.controlTransferIn(controlParams, 64);
 
     // $ExpectType Promise<USBOutTransferResult>
     dummyDevice.controlTransferOut(controlParams, bufferSource);
@@ -238,8 +217,6 @@ async function testWebUsbApi() {
     // $ExpectType Promise<USBInTransferResult>
     dummyDevice.transferIn(tag, 64);
 
-    // isochronousTransferIn(endpointNumber, packetLengths)
-    const isocInPromise = dummyDevice.isochronousTransferIn(tag, [64, 64]);
     // $ExpectType Promise<USBIsochronousInTransferResult>
-    isocInPromise;
+    dummyDevice.isochronousTransferIn(tag, [64, 64]);
 }

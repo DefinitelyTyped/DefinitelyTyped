@@ -123,12 +123,12 @@ export interface TCPServerSocketOpenInfo {
 /** @remarks Extended attributes: [RuntimeEnabled=MulticastInDirectSockets, Exposed=Window, DedicatedWorker, SharedWorker, ServiceWorker, SecureContext, IsolatedContext] */
 declare global {
   interface MulticastController {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=MulticastControllerJoinGroupFunction] */
-  joinGroup(ipAddress: string): Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=MulticastControllerLeaveGroupFunction] */
-  leaveGroup(ipAddress: string): Promise<undefined>;
-  /** @remarks Extended attributes: [MeasureAs=MulticastControllerJoinedGroupsAttribute] */
-  readonly joinedGroups: readonly string[];
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=MulticastControllerJoinGroupFunction] */
+    joinGroup(ipAddress: string): Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=MulticastControllerLeaveGroupFunction] */
+    leaveGroup(ipAddress: string): Promise<undefined>;
+    /** @remarks Extended attributes: [MeasureAs=MulticastControllerJoinedGroupsAttribute] */
+    readonly joinedGroups: readonly string[];
   }
 }
 export type MulticastController = globalThis.MulticastController;

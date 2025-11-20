@@ -106,7 +106,6 @@ async function testControlledFrame() {
     // $ExpectType Promise<undefined>
     dummyControlledFrame.setZoomMode('disabled' as ZoomMode);
 
-    // Capture Methods
     const imageDetails: ImageDetails = { format: 'jpeg', quality: '90' };
     // $ExpectType Promise<undefined>
     dummyControlledFrame.captureVisibleRegion(imageDetails);
@@ -122,8 +121,7 @@ async function testControlledFrame() {
     const consoleEvent = new ConsoleMessageEvent('consolemessage', { consoleMessage });
     // $ExpectType ConsoleMessage
     consoleEvent.consoleMessage;
-    
-    // DialogEvent
+
     const dialogMessage: DialogMessage = {
         messageType: 'prompt' as DialogType,
         messageText: 'Q',
@@ -133,7 +131,6 @@ async function testControlledFrame() {
     // $ExpectType DialogMessage
     dialogEvent.dialogMessage;
 
-    // NewWindowEvent
     const newWindow: NewWindow = {
         window: dummyNewWindowController,
         targetUrl: url,
@@ -144,7 +141,6 @@ async function testControlledFrame() {
     // $ExpectType NewWindow
     newWindowEvent.newWindow;
 
-    // PermissionRequestEvent
     const permRequest: PermissionRequest = {
         permission: 'media' as PermissionType,
         request: dummyPermController,
@@ -153,13 +149,11 @@ async function testControlledFrame() {
     // $ExpectType PermissionRequest
     permissionEvent.permissionRequest;
 
-    // SizeChangedEvent
     const sizeChange: SizeChange = { oldWidth: 100, oldHeight: 100, newWidth: 200, newHeight: 200 };
     const sizeEvent = new SizeChangedEvent('sizechanged', { sizeChange });
     // $ExpectType SizeChange
     sizeEvent.sizeChange;
 
-    // ZoomChangeEvent
     const zoomChange: ZoomChange = { oldZoomFactor: 1.0, newZoomFactor: 1.2 };
     const zoomEvent = new ZoomChangeEvent('zoomchange', { zoomChange });
     // $ExpectType ZoomChange
@@ -170,7 +164,7 @@ async function testControlledFrame() {
     const loadAbortEvent = new LoadAbortEvent('loadabort', { loadAbortInfo });
     // $ExpectType LoadAbortInfo
     loadAbortEvent.loadAbortInfo;
-    
+
     // LoadRedirectEvent
     const loadRedirectInfo: LoadRedirectInfo = { oldUrl: 'a', newUrl: 'b', isTopLevel: true } as LoadRedirectInfo;
     const loadRedirectEvent = new LoadRedirectEvent('loadredirect', { loadRedirectInfo });
@@ -189,8 +183,7 @@ async function testControlledFrame() {
         contexts: ['page', 'selection'],
         documentURLPatterns: [urlPatternInput],
     };
-    
-    // Methods
+
     // $ExpectType Promise<undefined>
     contextMenus.create(createProps);
     // $ExpectType Promise<undefined>
@@ -200,8 +193,6 @@ async function testControlledFrame() {
     // $ExpectType Promise<undefined>
     contextMenus.update('1', { enabled: false, targetURLPatterns: [urlPatternInput] });
 
-    // Event Listener (Type Check)
-    // Create a dummy click event object for property checking
     const clickEvent: ContextMenusClickEvent = {} as ContextMenusClickEvent;
     // $ExpectType number
     clickEvent.frameId;
@@ -216,8 +207,7 @@ async function testControlledFrame() {
     const clickListener: ContextMenusClickListener = (ev) => ev.menuItem.id;
     // $ExpectType void
     contextMenus.addEventListener('click', clickListener as EventListenerOrEventListenerObject);
-    
-    // Check on* handler property assignment
+
     // $ExpectType ((ev: Event) => any) | null
     contextMenus.onclick;
 
@@ -232,8 +222,7 @@ async function testControlledFrame() {
         blocking: true,
         includeHeaders: 'all' as RequestedHeaders,
     };
-    
-    // Method
+
     const interceptor = webRequest.createWebRequestInterceptor(interceptorOptions);
     // $ExpectType WebRequestInterceptor
     interceptor;
@@ -241,10 +230,10 @@ async function testControlledFrame() {
     const authEvent: WebRequestAuthRequiredEvent = {
         response: dummyResponse,
     } as WebRequestAuthRequiredEvent;
-    
+
     const credentialsPromise: Promise<WebRequestAuthCredentials> = Promise.resolve({ username: 'u', password: 'p' });
     const authOptions: WebRequestAuthOptions = { signal: {} as AbortSignal };
-    
+
     // $ExpectType undefined
     authEvent.setCredentials(credentialsPromise, authOptions);
 
@@ -253,11 +242,9 @@ async function testControlledFrame() {
     beforeRequestEvent.redirect('https://new.url');
 
     const beforeSendHeadersEvent: WebRequestBeforeSendHeadersEvent = {} as WebRequestBeforeSendHeadersEvent;
-    // FIX: Corrected method name to setRequestHeaders, expected type to undefined
     // $ExpectType undefined 
     beforeSendHeadersEvent.setRequestHeaders(dummyHeaders);
 
-    // WebRequestHeadersReceivedEvent
     const headersReceivedEvent: WebRequestHeadersReceivedEvent = {
         response: dummyResponse,
     } as WebRequestHeadersReceivedEvent;

@@ -27,27 +27,22 @@ async function testSmartCardApi() {
     // Synchronous Type Definitions (Enums, Interfaces)
     // --------------------------------------------------------------------------------
 
-    // SmartCardResponseCode (Enum Test)
     const responseCode: SmartCardResponseCode = 'no-service';
     // $ExpectType "no-service"
     responseCode;
 
-    // SmartCardProtocol (Enum Test)
     const protocolT0: SmartCardProtocol = 't0';
     // $ExpectType "t0"
     protocolT0;
 
-    // SmartCardAccessMode (Enum Test)
     const accessModeShared: SmartCardAccessMode = 'shared';
     // $ExpectType "shared"
     accessModeShared;
 
-    // SmartCardDisposition (Enum Test)
     const dispositionLeave: SmartCardDisposition = 'leave';
     // $ExpectType "leave"
     dispositionLeave;
 
-    // SmartCardReaderStateFlagsIn
     const flagsIn: SmartCardReaderStateFlagsIn = {
         present: true,
         unaware: false,
@@ -57,7 +52,6 @@ async function testSmartCardApi() {
     // $ExpectType boolean | undefined
     flagsIn.unaware;
 
-    // SmartCardReaderStateIn
     const readerStateIn: SmartCardReaderStateIn = {
         readerName: 'Reader A',
         currentState: flagsIn,
@@ -66,7 +60,6 @@ async function testSmartCardApi() {
     // $ExpectType string
     readerStateIn.readerName;
 
-    // SmartCardConnectionStatus
     const status: SmartCardConnectionStatus = {
         readerName: 'Reader A',
         state: 'present',
@@ -82,12 +75,10 @@ async function testSmartCardApi() {
         responseCode: 'removed-card',
     };
 
-    // Constructor
     const error = new SmartCardError('Card removed during transaction.', errorOptions);
     // $ExpectType SmartCardError
     error;
 
-    // Property check
     // $ExpectType SmartCardResponseCode
     error.responseCode;
     // $ExpectType string
@@ -105,26 +96,20 @@ async function testSmartCardApi() {
         // $ExpectType SmartCardResourceManager
         resourceManager;
 
-        // establishContext()
-        const contextPromise = resourceManager.establishContext();
         // $ExpectType Promise<SmartCardContext>
-        contextPromise;
+        resourceManager.establishContext();
     }
 
-    // Dummy context for subsequent tests
     const context: SmartCardContext = {} as SmartCardContext;
-
 
     // --------------------------------------------------------------------------------
     // SmartCardContext
     // --------------------------------------------------------------------------------
 
-    // listReaders()
     const readersPromise = context.listReaders();
     // $ExpectType Promise<string[]>
     readersPromise;
 
-    // getStatusChange(readerStates, options?)
     const statusOptions: SmartCardGetStatusChangeOptions = {
         timeout: 1000 as DOMHighResTimeStamp,
         signal: {} as AbortSignal,
@@ -133,7 +118,6 @@ async function testSmartCardApi() {
     // $ExpectType Promise<SmartCardReaderStateOut[]>
     statusChangePromise;
 
-    // connect(readerName, accessMode, options?)
     const connectOptions: SmartCardConnectOptions = {
         preferredProtocols: ['t1', 'raw'],
     };
@@ -141,21 +125,18 @@ async function testSmartCardApi() {
     // $ExpectType Promise<SmartCardConnectResult>
     connectPromise;
 
-    // Dummy connection for subsequent tests
-    const connection: SmartCardConnection = {} as SmartCardConnection;
-
     // --------------------------------------------------------------------------------
     // SmartCardConnection
     // --------------------------------------------------------------------------------
 
+    const connection: SmartCardConnection = {} as SmartCardConnection;
+
     // $ExpectType Promise<undefined>
     connection.disconnect('unpower');
 
-    // disconnect() without disposition
     // $ExpectType Promise<undefined>
     connection.disconnect();
 
-    // transmit(sendBuffer, options?)
     const transmitOptions: SmartCardTransmitOptions = {
         protocol: 't1',
     };
@@ -175,7 +156,6 @@ async function testSmartCardApi() {
     // $ExpectType Promise<undefined>
     connection.setAttribute(tag, bufferSource);
 
-    // startTransaction(transaction, options?)
     const transactionCallback: SmartCardTransactionCallback = async () => 'reset';
     const transactionOptions: SmartCardTransactionOptions = {
         signal: {} as AbortSignal,

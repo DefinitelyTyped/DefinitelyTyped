@@ -13,8 +13,8 @@
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
 declare global {
   interface SmartCardResourceManager {
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardEstablishContext, RaisesException] */
-  establishContext(): Promise<SmartCardContext>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardEstablishContext, RaisesException] */
+    establishContext(): Promise<SmartCardContext>;
   }
 }
 export type SmartCardResourceManager = globalThis.SmartCardResourceManager;
@@ -118,12 +118,12 @@ export interface SmartCardConnectOptions {
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
 declare global {
   interface SmartCardContext {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  listReaders(): Promise<string[]>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  getStatusChange(readerStates: SmartCardReaderStateIn[], options?: SmartCardGetStatusChangeOptions): Promise<SmartCardReaderStateOut[]>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardConnect, RaisesException] */
-  connect(readerName: string, accessMode: SmartCardAccessMode, options?: SmartCardConnectOptions): Promise<SmartCardConnectResult>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    listReaders(): Promise<string[]>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    getStatusChange(readerStates: SmartCardReaderStateIn[], options?: SmartCardGetStatusChangeOptions): Promise<SmartCardReaderStateOut[]>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=SmartCardConnect, RaisesException] */
+    connect(readerName: string, accessMode: SmartCardAccessMode, options?: SmartCardConnectOptions): Promise<SmartCardConnectResult>;
   }
 }
 export type SmartCardContext = globalThis.SmartCardContext;
@@ -163,20 +163,20 @@ export type SmartCardTransactionCallback = () => Promise<SmartCardDisposition | 
 /** @remarks Extended attributes: [Exposed=Window, RuntimeEnabled=SmartCard, SecureContext, IsolatedContext] */
 declare global {
   interface SmartCardConnection {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  disconnect(disposition?: SmartCardDisposition): Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  status(): Promise<SmartCardConnectionStatus>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  getAttribute(tag: number): Promise<ArrayBuffer>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  setAttribute(tag: number, value: BufferSource): Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
-  startTransaction(transaction: SmartCardTransactionCallback, options?: SmartCardTransactionOptions): Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    disconnect(disposition?: SmartCardDisposition): Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    status(): Promise<SmartCardConnectionStatus>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    getAttribute(tag: number): Promise<ArrayBuffer>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    setAttribute(tag: number, value: BufferSource): Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException] */
+    startTransaction(transaction: SmartCardTransactionCallback, options?: SmartCardTransactionOptions): Promise<undefined>;
   }
 }
 export type SmartCardConnection = globalThis.SmartCardConnection;
