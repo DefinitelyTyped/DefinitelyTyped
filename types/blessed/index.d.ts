@@ -3074,6 +3074,12 @@ export namespace Widgets {
         scrollOnInput: boolean;
 
         /**
+         * Content/Text alignment
+         */
+        align: "left" | "center" | "right";
+        valign: "top" | "middle" | "bottom";
+
+        /**
          * add a log line.
          */
         log(text: string): void;
