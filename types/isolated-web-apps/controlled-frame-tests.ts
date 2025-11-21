@@ -23,7 +23,6 @@ import {
   ResourceType,
   RunAt,
   SizeChangedEvent,
-  URLPattern,
   WebRequest,
   WebRequestAuthCredentials,
   WebRequestAuthOptions,

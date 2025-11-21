@@ -1,48 +1,9 @@
 /**
  * Generated from:
  * - controlled-frame.idl
- * - url_pattern.idl
- * - url_pattern_component_result.idl
- * - url_pattern_init.idl
- * - url_pattern_options.idl
- * - url_pattern_result.idl
  *
  * @see https://wicg.github.io/urlpattern/
  */
-
-export interface URLPatternResult {
-  inputs?: URLPatternInput[];
-  protocol?: URLPatternComponentResult;
-  username?: URLPatternComponentResult;
-  password?: URLPatternComponentResult;
-  hostname?: URLPatternComponentResult;
-  port?: URLPatternComponentResult;
-  pathname?: URLPatternComponentResult;
-  search?: URLPatternComponentResult;
-  hash?: URLPatternComponentResult;
-}
-
-export interface URLPatternOptions {
-  /** @default false */
-  ignoreCase?: boolean;
-}
-
-export interface URLPatternInit {
-  protocol?: string;
-  username?: string;
-  password?: string;
-  hostname?: string;
-  port?: string;
-  pathname?: string;
-  search?: string;
-  hash?: string;
-  baseURL?: string;
-}
-
-export interface URLPatternComponentResult {
-  input?: string;
-  groups?: Record<string, any>;
-}
 
 export type URLPatternInput = string | URLPatternInit;
 
@@ -59,89 +20,112 @@ export type URLPatternComponent =
   | "hash";
 
 /** @remarks Extended attributes: [Exposed=Window, Worker, ShadowRealm] */
-export class URLPattern {
-  /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  constructor(
-    input: URLPatternInput,
-    baseURL: string,
-    options?: URLPatternOptions,
-  );
-  /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  constructor(input?: URLPatternInput, options?: URLPatternOptions);
-  /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  test(input?: URLPatternInput, baseURL?: string): boolean;
-  /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
-  exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
-  /** @remarks Extended attributes: [RuntimeEnabled=URLPatternGenerate, RaisesException, Measure] */
-  generate(
-    component: URLPatternComponent,
-    groups: Record<string, string>,
-  ): string;
-  readonly protocol: string;
-  readonly username: string;
-  readonly password: string;
-  readonly hostname: string;
-  readonly port: string;
-  readonly pathname: string;
-  readonly search: string;
-  readonly hash: string;
-  readonly hasRegExpGroups: boolean;
-  /** @remarks Extended attributes: [RuntimeEnabled=URLPatternCompareComponent, Measure] */
-  compareComponent(
-    component: URLPatternComponent,
-    left: URLPattern,
-    right: URLPattern,
-  ): number;
+declare global {
+  /** @remarks Extended attributes: [Exposed=Window, Worker, ShadowRealm] */
+  interface URLPattern {
+    /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
+    test(input?: URLPatternInput, baseURL?: string): boolean;
+    /** @remarks Extended attributes: [RaisesException, CallWith=Isolate, Measure] */
+    exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
+    /** @remarks Extended attributes: [RuntimeEnabled=URLPatternGenerate, RaisesException, Measure] */
+    generate(component: URLPatternComponent, groups: Record<string, string>): string;
+    readonly protocol: string;
+    readonly username: string;
+    readonly password: string;
+    readonly hostname: string;
+    readonly port: string;
+    readonly pathname: string;
+    readonly search: string;
+    readonly hash: string;
+    readonly hasRegExpGroups: boolean;
+  }
+  var URLPattern: {
+    prototype: URLPattern;
+    new(input: URLPatternInput, baseURL: string | URL, options?: URLPatternOptions): URLPattern;
+    new(input?: URLPatternInput, options?: URLPatternOptions): URLPattern;
+  };
+}
+
+export interface URLPatternComponentResult {
+  input?: string;
+  groups?: Record<string, any>;
+}
+
+export interface URLPatternInit {
+  protocol?: string;
+  username?: string;
+  password?: string;
+  hostname?: string;
+  port?: string;
+  pathname?: string;
+  search?: string;
+  hash?: string;
+  baseURL?: string;
+}
+
+export interface URLPatternOptions {
+  /** @default false */
+  ignoreCase?: boolean;
+}
+
+export interface URLPatternResult {
+  inputs?: URLPatternInput[];
+  protocol?: URLPatternComponentResult;
+  username?: URLPatternComponentResult;
+  password?: URLPatternComponentResult;
+  hostname?: URLPatternComponentResult;
+  port?: URLPatternComponentResult;
+  pathname?: URLPatternComponentResult;
+  search?: URLPatternComponentResult;
+  hash?: URLPatternComponentResult;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class HTMLControlledFrameElement extends HTMLElement {
-  /** @remarks Extended attributes: [HTMLConstructor] */
-  constructor();
-  /** @remarks Extended attributes: [CEReactions] */
-  src: string;
-  partition: string;
-  readonly contentWindow: WindowProxy | null;
-  readonly contextMenus: ContextMenus;
-  readonly request: WebRequest;
-  back(): Promise<boolean>;
-  canGoBack(): Promise<boolean>;
-  forward(): Promise<boolean>;
-  canGoForward(): Promise<boolean>;
-  go(relativeIndex: number): Promise<boolean>;
-  reload(): undefined;
-  stop(): undefined;
-  addContentScripts(
-    contentScriptList: ContentScriptDetails[],
-  ): Promise<undefined>;
-  executeScript(details?: InjectDetails): Promise<any>;
-  insertCSS(details?: InjectDetails): Promise<undefined>;
-  removeContentScripts(scriptNameList?: string[]): Promise<undefined>;
-  clearData(
-    options?: ClearDataOptions,
-    types?: ClearDataTypeSet,
-  ): Promise<undefined>;
-  getAudioState(): Promise<boolean>;
-  getZoom(): Promise<number>;
-  getZoomMode(): Promise<string>;
-  isAudioMuted(): Promise<boolean>;
-  setAudioMuted(mute: boolean): undefined;
-  setZoom(zoomFactor: number): Promise<undefined>;
-  setZoomMode(zoomMode: string): Promise<undefined>;
-  captureVisibleRegion(options?: ImageDetails): Promise<undefined>;
-  print(): undefined;
-  onconsolemessage: ((ev: Event) => any) | null;
-  oncontentload: ((ev: Event) => any) | null;
-  ondialog: ((ev: Event) => any) | null;
-  onloadabort: ((ev: Event) => any) | null;
-  onloadcommit: ((ev: Event) => any) | null;
-  onloadstart: ((ev: Event) => any) | null;
-  onloadstop: ((ev: Event) => any) | null;
-  onnewwindow: ((ev: Event) => any) | null;
-  onpermissionrequest: ((ev: Event) => any) | null;
-  onsizechanged: ((ev: Event) => any) | null;
-  onzoomchange: ((ev: Event) => any) | null;
+declare global {
+  class HTMLControlledFrameElement extends HTMLElement {
+    /** @remarks Extended attributes: [HTMLConstructor] */
+    constructor();
+    /** @remarks Extended attributes: [CEReactions] */
+    src: string;
+    partition: string;
+    readonly contentWindow: WindowProxy | null;
+    readonly contextMenus: ContextMenus;
+    readonly request: WebRequest;
+    back(): Promise<boolean>;
+    canGoBack(): Promise<boolean>;
+    forward(): Promise<boolean>;
+    canGoForward(): Promise<boolean>;
+    go(relativeIndex: number): Promise<boolean>;
+    reload(): undefined;
+    stop(): undefined;
+    addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<undefined>;
+    executeScript(details?: InjectDetails): Promise<any>;
+    insertCSS(details?: InjectDetails): Promise<undefined>;
+    removeContentScripts(scriptNameList?: string[]): Promise<undefined>;
+    clearData(options?: ClearDataOptions, types?: ClearDataTypeSet): Promise<undefined>;
+    getAudioState(): Promise<boolean>;
+    getZoom(): Promise<number>;
+    getZoomMode(): Promise<string>;
+    isAudioMuted(): Promise<boolean>;
+    setAudioMuted(mute: boolean): undefined;
+    setZoom(zoomFactor: number): Promise<undefined>;
+    setZoomMode(zoomMode: string): Promise<undefined>;
+    captureVisibleRegion(options?: ImageDetails): Promise<undefined>;
+    print(): undefined;
+    onconsolemessage: ((ev: Event) => any) | null;
+    oncontentload: ((ev: Event) => any) | null;
+    ondialog: ((ev: Event) => any) | null;
+    onloadabort: ((ev: Event) => any) | null;
+    onloadcommit: ((ev: Event) => any) | null;
+    onloadstart: ((ev: Event) => any) | null;
+    onloadstop: ((ev: Event) => any) | null;
+    onnewwindow: ((ev: Event) => any) | null;
+    onpermissionrequest: ((ev: Event) => any) | null;
+    onsizechanged: ((ev: Event) => any) | null;
+    onzoomchange: ((ev: Event) => any) | null;
+  }
 }
+export type HTMLControlledFrameElement = globalThis.HTMLControlledFrameElement;
 
 export interface InjectDetails {
   code?: string;
@@ -153,7 +137,10 @@ export interface InjectionItems {
   files?: string[];
 }
 
-export type RunAt = "document-start" | "document-end" | "document-idle";
+export type RunAt =
+  | "document-start"
+  | "document-end"
+  | "document-idle";
 
 export interface ContentScriptDetails {
   name: string;
@@ -180,7 +167,10 @@ export interface ClearDataTypeSet {
   sessionCookies?: boolean;
 }
 
-export type ZoomMode = "per-origin" | "per-view" | "disabled";
+export type ZoomMode =
+  | "per-origin"
+  | "per-view"
+  | "disabled";
 
 export interface ImageDetails {
   format?: string;
@@ -197,16 +187,22 @@ declare global {
 export type ConsoleMessage = globalThis.ConsoleMessage;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class ConsoleMessageEvent extends Event {
-  constructor(type: string, eventInitDict?: ConsoleMessageEventInit);
-  readonly consoleMessage: ConsoleMessage;
+declare global {
+  class ConsoleMessageEvent extends Event {
+    constructor(type: string, eventInitDict?: ConsoleMessageEventInit);
+    readonly consoleMessage: ConsoleMessage;
+  }
 }
+export type ConsoleMessageEvent = globalThis.ConsoleMessageEvent;
 
 export interface ConsoleMessageEventInit extends EventInit {
   consoleMessage?: ConsoleMessage | null;
 }
 
-export type DialogType = "alert" | "confirm" | "prompt";
+export type DialogType =
+  | "alert"
+  | "confirm"
+  | "prompt";
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
@@ -228,10 +224,13 @@ declare global {
 export type DialogMessage = globalThis.DialogMessage;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class DialogEvent extends Event {
-  constructor(type: string, eventInitDict?: DialogEventInit);
-  readonly dialogMessage: DialogMessage;
+declare global {
+  class DialogEvent extends Event {
+    constructor(type: string, eventInitDict?: DialogEventInit);
+    readonly dialogMessage: DialogMessage;
+  }
 }
+export type DialogEvent = globalThis.DialogEvent;
 
 export interface DialogEventInit extends EventInit {
   dialogMessage?: DialogMessage | null;
@@ -267,10 +266,13 @@ declare global {
 export type NewWindow = globalThis.NewWindow;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class NewWindowEvent extends Event {
-  constructor(type: string, eventInitDict?: NewWindowEventInit);
-  readonly newWindow: NewWindow;
+declare global {
+  class NewWindowEvent extends Event {
+    constructor(type: string, eventInitDict?: NewWindowEventInit);
+    readonly newWindow: NewWindow;
+  }
 }
+export type NewWindowEvent = globalThis.NewWindowEvent;
 
 export interface NewWindowEventInit extends EventInit {
   newWindow?: NewWindow | null;
@@ -363,10 +365,13 @@ declare global {
 export type PermissionRequest = globalThis.PermissionRequest;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class PermissionRequestEvent extends Event {
-  constructor(type: string, eventInitDict?: PermissionRequestEventInit);
-  readonly permissionRequest: PermissionRequest;
+declare global {
+  class PermissionRequestEvent extends Event {
+    constructor(type: string, eventInitDict?: PermissionRequestEventInit);
+    readonly permissionRequest: PermissionRequest;
+  }
 }
+export type PermissionRequestEvent = globalThis.PermissionRequestEvent;
 
 export interface PermissionRequestEventInit extends EventInit {
   permissionRequest?: PermissionRequest | null;
@@ -384,10 +389,13 @@ declare global {
 export type SizeChange = globalThis.SizeChange;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class SizeChangedEvent extends Event {
-  constructor(type: string, eventInitDict?: SizeChangedEventInit);
-  readonly sizeChange: SizeChange;
+declare global {
+  class SizeChangedEvent extends Event {
+    constructor(type: string, eventInitDict?: SizeChangedEventInit);
+    readonly sizeChange: SizeChange;
+  }
 }
+export type SizeChangedEvent = globalThis.SizeChangedEvent;
 
 export interface SizeChangedEventInit extends EventInit {
   sizeChange?: SizeChange | null;
@@ -403,19 +411,25 @@ declare global {
 export type ZoomChange = globalThis.ZoomChange;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class ZoomChangeEvent extends Event {
-  constructor(type: string, eventInitDict?: ZoomChangeEventInit);
-  readonly zoomChange: ZoomChange;
+declare global {
+  class ZoomChangeEvent extends Event {
+    constructor(type: string, eventInitDict?: ZoomChangeEventInit);
+    readonly zoomChange: ZoomChange;
+  }
 }
+export type ZoomChangeEvent = globalThis.ZoomChangeEvent;
 
 export interface ZoomChangeEventInit extends EventInit {
   zoomChange?: ZoomChange | null;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class ContentLoadEvent extends Event {
-  constructor(type: string, eventInitDict?: EventInit);
+declare global {
+  class ContentLoadEvent extends Event {
+    constructor(type: string, eventInitDict?: EventInit);
+  }
 }
+export type ContentLoadEvent = globalThis.ContentLoadEvent;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
@@ -446,47 +460,62 @@ declare global {
 export type LoadRedirectInfo = globalThis.LoadRedirectInfo;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class LoadAbortEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadAbortEventInit);
-  readonly loadAbortInfo: LoadAbortInfo;
+declare global {
+  class LoadAbortEvent extends Event {
+    constructor(type: string, eventInitDict?: LoadAbortEventInit);
+    readonly loadAbortInfo: LoadAbortInfo;
+  }
 }
+export type LoadAbortEvent = globalThis.LoadAbortEvent;
 
 export interface LoadAbortEventInit extends EventInit {
   loadAbortInfo?: LoadAbortInfo | null;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class LoadCommitEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadCommitEventInit);
-  readonly loadInfo: LoadInfo;
+declare global {
+  class LoadCommitEvent extends Event {
+    constructor(type: string, eventInitDict?: LoadCommitEventInit);
+    readonly loadInfo: LoadInfo;
+  }
 }
+export type LoadCommitEvent = globalThis.LoadCommitEvent;
 
 export interface LoadCommitEventInit extends EventInit {
   loadInfo?: LoadInfo | null;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class LoadStartEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadStartEventInit);
-  readonly loadInfo: LoadInfo;
+declare global {
+  class LoadStartEvent extends Event {
+    constructor(type: string, eventInitDict?: LoadStartEventInit);
+    readonly loadInfo: LoadInfo;
+  }
 }
+export type LoadStartEvent = globalThis.LoadStartEvent;
 
 export interface LoadStartEventInit extends EventInit {
   loadInfo?: LoadInfo | null;
 }
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class LoadStopEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadStopEventInit);
+declare global {
+  class LoadStopEvent extends Event {
+    constructor(type: string, eventInitDict?: LoadStopEventInit);
+  }
 }
+export type LoadStopEvent = globalThis.LoadStopEvent;
 
 export type LoadStopEventInit = EventInit;
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
-export class LoadRedirectEvent extends Event {
-  constructor(type: string, eventInitDict?: LoadRedirectEventInit);
-  readonly loadRedirectInfo: LoadRedirectInfo;
+declare global {
+  class LoadRedirectEvent extends Event {
+    constructor(type: string, eventInitDict?: LoadRedirectEventInit);
+    readonly loadRedirectInfo: LoadRedirectInfo;
+  }
 }
+export type LoadRedirectEvent = globalThis.LoadRedirectEvent;
 
 export interface LoadRedirectEventInit extends EventInit {
   loadRedirectInfo?: LoadRedirectInfo | null;
@@ -507,7 +536,10 @@ export type ResourceType =
   | "websocket"
   | "other";
 
-export type RequestedHeaders = "none" | "cors" | "all";
+export type RequestedHeaders =
+  | "none"
+  | "cors"
+  | "all";
 
 export interface WebRequestInterceptorOptions {
   urlPatterns: (URLPattern | URLPatternInput)[];
@@ -524,9 +556,7 @@ export interface WebRequestInterceptorOptions {
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
   interface WebRequest {
-    createWebRequestInterceptor(
-      options: WebRequestInterceptorOptions,
-    ): WebRequestInterceptor;
+    createWebRequestInterceptor(options: WebRequestInterceptorOptions): WebRequestInterceptor;
   }
 }
 export type WebRequest = globalThis.WebRequest;
@@ -553,7 +583,10 @@ export type DocumentLifecycle =
   | "cached"
   | "pending-deletion";
 
-export type FrameType = "outermost-frame" | "fenced-frame" | "sub-frame";
+export type FrameType =
+  | "outermost-frame"
+  | "fenced-frame"
+  | "sub-frame";
 
 /** @remarks Extended attributes: [Exposed=Window, IsolatedContext] */
 declare global {
@@ -649,10 +682,7 @@ export interface WebRequestAuthOptions {
 declare global {
   interface WebRequestAuthRequiredEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
-    setCredentials(
-      credentials: Promise<WebRequestAuthCredentials>,
-      options?: WebRequestAuthOptions,
-    ): undefined;
+    setCredentials(credentials: Promise<WebRequestAuthCredentials>, options?: WebRequestAuthOptions): undefined;
   }
 }
 export type WebRequestAuthRequiredEvent = globalThis.WebRequestAuthRequiredEvent;
@@ -729,7 +759,11 @@ export type ContextType =
   | "video"
   | "audio";
 
-export type ItemType = "normal" | "checkbox" | "radio" | "separator";
+export type ItemType =
+  | "normal"
+  | "checkbox"
+  | "radio"
+  | "separator";
 
 export interface ContextMenusProperties {
   checked?: boolean;

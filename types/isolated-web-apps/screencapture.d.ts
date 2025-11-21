@@ -21,9 +21,14 @@ export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
 
 export type MediaStreamError = DOMException | OverconstrainedError;
 
-export type DisplayMediaIncludeOrExclude = "include" | "exclude";
+export type DisplayMediaIncludeOrExclude =
+  | "include"
+  | "exclude";
 
-export type DisplayMediaSystemWindowOrExclude = "system" | "window" | "exclude";
+export type DisplayMediaSystemWindowOrExclude =
+  | "system"
+  | "window"
+  | "exclude";
 
 export type SystemAudioPreferenceEnum = DisplayMediaIncludeOrExclude;
 
@@ -95,25 +100,28 @@ export type CaptureStartFocusBehavior =
   | "no-focus-change";
 
 /** @remarks Extended attributes: [Exposed=Window, SecureContext, RuntimeEnabled=CaptureController] */
-export class CaptureController extends EventTarget {
-  /** @remarks Extended attributes: [CallWith=ExecutionContext] */
-  constructor();
-  /** @remarks Extended attributes: [RaisesException, MeasureAs=ConditionalFocus] */
-  setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedMouseEvents] */
-  oncapturedmousechange: ((ev: Event) => any) | null;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-  forwardWheel(element: HTMLElement | null): Promise<undefined>;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, RaisesException] */
-  getSupportedZoomLevels(): number[];
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
-  readonly zoomLevel: number | null;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-  increaseZoomLevel(): Promise<undefined>;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-  decreaseZoomLevel(): Promise<undefined>;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-  resetZoomLevel(): Promise<undefined>;
-  /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
-  onzoomlevelchange: ((ev: Event) => any) | null;
+declare global {
+  class CaptureController extends EventTarget {
+    /** @remarks Extended attributes: [CallWith=ExecutionContext] */
+    constructor();
+    /** @remarks Extended attributes: [RaisesException, MeasureAs=ConditionalFocus] */
+    setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedMouseEvents] */
+    oncapturedmousechange: ((ev: Event) => any) | null;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
+    forwardWheel(element: HTMLElement | null): Promise<undefined>;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, RaisesException] */
+    getSupportedZoomLevels(): number[];
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
+    readonly zoomLevel: number | null;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
+    increaseZoomLevel(): Promise<undefined>;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
+    decreaseZoomLevel(): Promise<undefined>;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
+    resetZoomLevel(): Promise<undefined>;
+    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
+    onzoomlevelchange: ((ev: Event) => any) | null;
+  }
 }
+export type CaptureController = globalThis.CaptureController;

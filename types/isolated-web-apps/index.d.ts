@@ -20,7 +20,7 @@ import {
 import { SmartCardResourceManager } from "./smart-card";
 import { USB } from "./webusb";
 
-/** @remarks Extended attributes: [Exposed, ImplementedAs=USB, SecureContext] */
+/** @remarks Extended attributes: [Exposed=DedicatedWorker, ServiceWorker, ImplementedAs=USB, SecureContext] */
 declare global {
   interface WorkerNavigator {
     /** @remarks Extended attributes: [SameObject] */
@@ -58,13 +58,9 @@ declare global {
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, HighEntropy, MeasureAs=GetUserMediaPromise] */
-    getUserMedia(
-      constraints?: UserMediaStreamConstraints,
-    ): Promise<MediaStream>;
+    getUserMedia(constraints?: UserMediaStreamConstraints): Promise<MediaStream>;
     /** @remarks Extended attributes: [RuntimeEnabled=GetDisplayMedia, CallWith=ScriptState, RaisesException, MeasureAs=GetDisplayMedia] */
-    getDisplayMedia(
-      constraints?: DisplayMediaStreamOptions,
-    ): Promise<MediaStream>;
+    getDisplayMedia(constraints?: DisplayMediaStreamOptions): Promise<MediaStream>;
     /** @remarks Extended attributes: [RuntimeEnabled=GetAllScreensMedia, CallWith=ScriptState, RaisesException, MeasureAs=GetAllScreensMedia, IsolatedContext] */
     getAllScreensMedia(): Promise<MediaStream[]>;
     /** @remarks Extended attributes: [RuntimeEnabled=SelectAudioOutput, CallWith=ScriptState, RaisesException, MeasureAs=SelectAudioOutput] */

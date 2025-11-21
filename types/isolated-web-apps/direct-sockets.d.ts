@@ -11,17 +11,20 @@
  * @see https://github.com/WICG/direct-sockets/blob/main/docs/explainer.md
  */
 
-/** @remarks Extended attributes: [Exposed, ActiveScriptWrappable, SecureContext, IsolatedContext] */
-export class UDPSocket {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UDPSocketConstructor] */
-  constructor(options: UDPSocketOptions);
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketOpenedAttribute] */
-  readonly opened: Promise<UDPSocketOpenInfo>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketClosedAttribute] */
-  readonly closed: Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UDPSocketCloseFunction] */
-  close(): Promise<undefined>;
+/** @remarks Extended attributes: [Exposed=Window, DedicatedWorker, SharedWorker, ServiceWorker, ActiveScriptWrappable, SecureContext, IsolatedContext] */
+declare global {
+  class UDPSocket {
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UDPSocketConstructor] */
+    constructor(options: UDPSocketOptions);
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketOpenedAttribute] */
+    readonly opened: Promise<UDPSocketOpenInfo>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=UDPSocketClosedAttribute] */
+    readonly closed: Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=UDPSocketCloseFunction] */
+    close(): Promise<undefined>;
+  }
 }
+export type UDPSocket = globalThis.UDPSocket;
 
 export interface UDPMessage {
   data?: BufferSource;
@@ -30,35 +33,39 @@ export interface UDPMessage {
   dnsQueryType?: SocketDnsQueryType;
 }
 
-/** @remarks Extended attributes: [Exposed, ActiveScriptWrappable, SecureContext, IsolatedContext] */
-export class TCPSocket {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPSocketConstructor] */
-  constructor(
-    remoteAddress: string,
-    remotePort: number,
-    options?: TCPSocketOptions,
-  );
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketOpenedAttribute] */
-  readonly opened: Promise<TCPSocketOpenInfo>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketClosedAttribute] */
-  readonly closed: Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPSocketCloseFunction] */
-  close(): Promise<undefined>;
+/** @remarks Extended attributes: [Exposed=Window, DedicatedWorker, SharedWorker, ServiceWorker, ActiveScriptWrappable, SecureContext, IsolatedContext] */
+declare global {
+  class TCPSocket {
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPSocketConstructor] */
+    constructor(remoteAddress: string, remotePort: number, options?: TCPSocketOptions);
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketOpenedAttribute] */
+    readonly opened: Promise<TCPSocketOpenInfo>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPSocketClosedAttribute] */
+    readonly closed: Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPSocketCloseFunction] */
+    close(): Promise<undefined>;
+  }
 }
+export type TCPSocket = globalThis.TCPSocket;
 
-/** @remarks Extended attributes: [Exposed, SecureContext, IsolatedContext] */
-export class TCPServerSocket {
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPServerSocketConstructor] */
-  constructor(localAddress: string, options?: TCPServerSocketOptions);
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketOpenedAttribute] */
-  readonly opened: Promise<TCPServerSocketOpenInfo>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketClosedAttribute] */
-  readonly closed: Promise<undefined>;
-  /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPServerSocketCloseFunction] */
-  close(): Promise<undefined>;
+/** @remarks Extended attributes: [Exposed=Window, DedicatedWorker, SharedWorker, ServiceWorker, SecureContext, IsolatedContext] */
+declare global {
+  class TCPServerSocket {
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPServerSocketConstructor] */
+    constructor(localAddress: string, options?: TCPServerSocketOptions);
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketOpenedAttribute] */
+    readonly opened: Promise<TCPServerSocketOpenInfo>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, MeasureAs=TCPServerSocketClosedAttribute] */
+    readonly closed: Promise<undefined>;
+    /** @remarks Extended attributes: [CallWith=ScriptState, RaisesException, MeasureAs=TCPServerSocketCloseFunction] */
+    close(): Promise<undefined>;
+  }
 }
+export type TCPServerSocket = globalThis.TCPServerSocket;
 
-export type SocketDnsQueryType = "ipv4" | "ipv6";
+export type SocketDnsQueryType =
+  | "ipv4"
+  | "ipv6";
 
 export interface SocketOptions {
   /** @remarks Extended attributes: [EnforceRange] */
