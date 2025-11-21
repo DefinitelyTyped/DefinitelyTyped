@@ -73,6 +73,8 @@ import { promisify } from "node:util";
     new Promise((resolve): NodeJS.Immediate => timers.setImmediate(resolve));
     // @ts-expect-error single argument should not be optional if not of type `unknown`
     const timeout: NodeJS.Timeout = timers.setTimeout((s: string) => {}, 100);
+    // @ts-expect-error callback-argument mismatch should not be inferred as valid
+    const immediate: NodeJS.Immediate = timers.setImmediate(_ => {});
 }
 
 // globals

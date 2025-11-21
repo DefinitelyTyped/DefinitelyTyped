@@ -1,7 +1,7 @@
 /**
  * @since v0.3.7
  */
-declare module "module" {
+declare module "node:module" {
     import { URL } from "node:url";
     class Module {
         constructor(id: string, parent?: Module);
@@ -30,7 +30,7 @@ declare module "module" {
             /**
              * The following constants are returned as the `status` field in the object returned by
              * {@link enableCompileCache} to indicate the result of the attempt to enable the
-             * [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache).
+             * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
              * @since v22.8.0
              */
             namespace compileCacheStatus {
@@ -62,6 +62,24 @@ declare module "module" {
                 const DISABLED: number;
             }
         }
+        interface EnableCompileCacheOptions {
+            /**
+             * Optional. Directory to store the compile cache. If not specified,
+             * the directory specified by the `NODE_COMPILE_CACHE=dir` environment variable
+             * will be used if it's set, or `path.join(os.tmpdir(), 'node-compile-cache')`
+             * otherwise.
+             * @since v25.0.0
+             */
+            directory?: string | undefined;
+            /**
+             * Optional. If `true`, enables portable compile cache so that
+             * the cache can be reused even if the project directory is moved. This is a best-effort
+             * feature. If not specified, it will depend on whether the environment variable
+             * `NODE_COMPILE_CACHE_PORTABLE=1` is set.
+             * @since v25.0.0
+             */
+            portable?: boolean | undefined;
+        }
         interface EnableCompileCacheResult {
             /**
              * One of the {@link constants.compileCacheStatus}
@@ -81,25 +99,21 @@ declare module "module" {
             directory?: string;
         }
         /**
-         * Enable [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache)
+         * Enable [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * in the current Node.js instance.
          *
-         * If `cacheDir` is not specified, Node.js will either use the directory specified by the
-         * `NODE_COMPILE_CACHE=dir` environment variable if it's set, or use
-         * `path.join(os.tmpdir(), 'node-compile-cache')` otherwise. For general use cases, it's
-         * recommended to call `module.enableCompileCache()` without specifying the `cacheDir`,
-         * so that the directory can be overridden by the `NODE_COMPILE_CACHE` environment
-         * variable when necessary.
+         * For general use cases, it's recommended to call `module.enableCompileCache()` without
+         * specifying the `options.directory`, so that the directory can be overridden by the
+         * `NODE_COMPILE_CACHE` environment variable when necessary.
          *
-         * Since compile cache is supposed to be a quiet optimization that is not required for the
-         * application to be functional, this method is designed to not throw any exception when the
-         * compile cache cannot be enabled. Instead, it will return an object containing an error
-         * message in the `message` field to aid debugging.
-         * If compile cache is enabled successfully, the `directory` field in the returned object
-         * contains the path to the directory where the compile cache is stored. The `status`
-         * field in the returned object would be one of the `module.constants.compileCacheStatus`
+         * Since compile cache is supposed to be a optimization that is not mission critical, this
+         * method is designed to not throw any exception when the compile cache cannot be enabled.
+         * Instead, it will return an object containing an error message in the `message` field to
+         * aid debugging. If compile cache is enabled successfully, the `directory` field in the
+         * returned object contains the path to the directory where the compile cache is stored. The
+         * `status` field in the returned object would be one of the `module.constants.compileCacheStatus`
          * values to indicate the result of the attempt to enable the
-         * [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache).
+         * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
          *
          * This method only affects the current Node.js instance. To enable it in child worker threads,
          * either call this method in child worker threads too, or set the
@@ -107,12 +121,11 @@ declare module "module" {
          * be inherited into the child workers. The directory can be obtained either from the
          * `directory` field returned by this method, or with {@link getCompileCacheDir}.
          * @since v22.8.0
-         * @param cacheDir Optional path to specify the directory where the compile cache
-         * will be stored/retrieved.
+         * @param options Optional. If a string is passed, it is considered to be `options.directory`.
          */
-        function enableCompileCache(cacheDir?: string): EnableCompileCacheResult;
+        function enableCompileCache(options?: string | EnableCompileCacheOptions): EnableCompileCacheResult;
         /**
-         * Flush the [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache)
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * accumulated from modules already loaded
          * in the current Node.js instance to disk. This returns after all the flushing
          * file system operations come to an end, no matter they succeed or not. If there
@@ -123,7 +136,7 @@ declare module "module" {
         function flushCompileCache(): void;
         /**
          * @since v22.8.0
-         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v24.x/api/module.html#module-compile-cache)
+         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * directory if it is enabled, or `undefined` otherwise.
          */
         function getCompileCacheDir(): string | undefined;
@@ -194,7 +207,7 @@ declare module "module" {
              */
             data?: Data | undefined;
             /**
-             * [Transferable objects](https://nodejs.org/docs/latest-v24.x/api/worker_threads.html#portpostmessagevalue-transferlist)
+             * [Transferable objects](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist)
              * to be passed into the `initialize` hook.
              */
             transferList?: any[] | undefined;
@@ -203,10 +216,10 @@ declare module "module" {
         /**
          * Register a module that exports hooks that customize Node.js module
          * resolution and loading behavior. See
-         * [Customization hooks](https://nodejs.org/docs/latest-v24.x/api/module.html#customization-hooks).
+         * [Customization hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks).
          *
          * This feature requires `--allow-worker` if used with the
-         * [Permission Model](https://nodejs.org/docs/latest-v24.x/api/permissions.html#permission-model).
+         * [Permission Model](https://nodejs.org/docs/latest-v25.x/api/permissions.html#permission-model).
          * @since v20.6.0, v18.19.0
          * @param specifier Customization hooks to be registered; this should be
          * the same string that would be passed to `import()`, except that if it is
@@ -222,12 +235,12 @@ declare module "module" {
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         interface RegisterHooksOptions {
             /**
-             * See [load hook](https://nodejs.org/docs/latest-v24.x/api/module.html#loadurl-context-nextload).
+             * See [load hook](https://nodejs.org/docs/latest-v25.x/api/module.html#loadurl-context-nextload).
              * @default undefined
              */
             load?: LoadHookSync | undefined;
             /**
-             * See [resolve hook](https://nodejs.org/docs/latest-v24.x/api/module.html#resolvespecifier-context-nextresolve).
+             * See [resolve hook](https://nodejs.org/docs/latest-v25.x/api/module.html#resolvespecifier-context-nextresolve).
              * @default undefined
              */
             resolve?: ResolveHookSync | undefined;
@@ -239,7 +252,7 @@ declare module "module" {
             deregister(): void;
         }
         /**
-         * Register [hooks](https://nodejs.org/docs/latest-v24.x/api/module.html#customization-hooks)
+         * Register [hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks)
          * that customize Node.js module resolution and loading behavior.
          * @since v22.15.0
          * @experimental
@@ -270,9 +283,9 @@ declare module "module" {
          * with `vm.runInContext()` or `vm.compileFunction()`.
          * By default, it will throw an error if the code contains TypeScript features
          * that require transformation such as `Enums`,
-         * see [type-stripping](https://nodejs.org/docs/latest-v24.x/api/typescript.md#type-stripping) for more information.
+         * see [type-stripping](https://nodejs.org/docs/latest-v25.x/api/typescript.md#type-stripping) for more information.
          * When mode is `'transform'`, it also transforms TypeScript features to JavaScript,
-         * see [transform TypeScript features](https://nodejs.org/docs/latest-v24.x/api/typescript.md#typescript-features) for more information.
+         * see [transform TypeScript features](https://nodejs.org/docs/latest-v25.x/api/typescript.md#typescript-features) for more information.
          * When mode is `'strip'`, source maps are not generated, because locations are preserved.
          * If `sourceMap` is provided, when mode is `'strip'`, an error will be thrown.
          *
@@ -623,94 +636,6 @@ declare module "module" {
         function wrap(script: string): string;
     }
     global {
-        interface ImportMeta {
-            /**
-             * The directory name of the current module.
-             *
-             * This is the same as the `path.dirname()` of the `import.meta.filename`.
-             *
-             * > **Caveat**: only present on `file:` modules.
-             * @since v21.2.0, v20.11.0
-             */
-            dirname: string;
-            /**
-             * The full absolute path and filename of the current module, with
-             * symlinks resolved.
-             *
-             * This is the same as the `url.fileURLToPath()` of the `import.meta.url`.
-             *
-             * > **Caveat** only local modules support this property. Modules not using the
-             * > `file:` protocol will not provide it.
-             * @since v21.2.0, v20.11.0
-             */
-            filename: string;
-            /**
-             * The absolute `file:` URL of the module.
-             *
-             * This is defined exactly the same as it is in browsers providing the URL of the
-             * current module file.
-             *
-             * This enables useful patterns such as relative file loading:
-             *
-             * ```js
-             * import { readFileSync } from 'node:fs';
-             * const buffer = readFileSync(new URL('./data.proto', import.meta.url));
-             * ```
-             */
-            url: string;
-            /**
-             * `import.meta.resolve` is a module-relative resolution function scoped to
-             * each module, returning the URL string.
-             *
-             * ```js
-             * const dependencyAsset = import.meta.resolve('component-lib/asset.css');
-             * // file:///app/node_modules/component-lib/asset.css
-             * import.meta.resolve('./dep.js');
-             * // file:///app/dep.js
-             * ```
-             *
-             * All features of the Node.js module resolution are supported. Dependency
-             * resolutions are subject to the permitted exports resolutions within the package.
-             *
-             * **Caveats**:
-             *
-             * * This can result in synchronous file-system operations, which
-             *   can impact performance similarly to `require.resolve`.
-             * * This feature is not available within custom loaders (it would
-             *   create a deadlock).
-             * @since v13.9.0, v12.16.0
-             * @param specifier The module specifier to resolve relative to the
-             * current module.
-             * @param parent An optional absolute parent module URL to resolve from.
-             * **Default:** `import.meta.url`
-             * @returns The absolute URL string that the specifier would resolve to.
-             */
-            resolve(specifier: string, parent?: string | URL): string;
-            /**
-             * `true` when the current module is the entry point of the current process; `false` otherwise.
-             *
-             * Equivalent to `require.main === module` in CommonJS.
-             *
-             * Analogous to Python's `__name__ == "__main__"`.
-             *
-             * ```js
-             * export function foo() {
-             *   return 'Hello, world';
-             * }
-             *
-             * function main() {
-             *   const message = foo();
-             *   console.log(message);
-             * }
-             *
-             * if (import.meta.main) main();
-             * // `foo` can be imported from another module without possible side-effects from `main`
-             * ```
-             * @since v24.2.0
-             * @experimental
-             */
-            main: boolean;
-        }
         namespace NodeJS {
             interface Module {
                 /**
@@ -784,7 +709,7 @@ declare module "module" {
                  * Modules are cached in this object when they are required. By deleting a key
                  * value from this object, the next `require` will reload the module.
                  * This does not apply to
-                 * [native addons](https://nodejs.org/docs/latest-v24.x/api/addons.html),
+                 * [native addons](https://nodejs.org/docs/latest-v25.x/api/addons.html),
                  * for which reloading will result in an error.
                  * @since v0.3.0
                  */
@@ -818,7 +743,7 @@ declare module "module" {
                  * Paths to resolve module location from. If present, these
                  * paths are used instead of the default resolution paths, with the exception
                  * of
-                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v24.x/api/modules.html#loading-from-the-global-folders)
+                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v25.x/api/modules.html#loading-from-the-global-folders)
                  * like `$HOME/.node_modules`, which are
                  * always included. Each of these paths is used as a starting point for
                  * the module resolution algorithm, meaning that the `node_modules` hierarchy
@@ -888,7 +813,7 @@ declare module "module" {
     }
     export = Module;
 }
-declare module "node:module" {
-    import module = require("module");
+declare module "module" {
+    import module = require("node:module");
     export = module;
 }

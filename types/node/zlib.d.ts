@@ -9,7 +9,7 @@
  * ```
  *
  * Compression and decompression are built around the Node.js
- * [Streams API](https://nodejs.org/docs/latest-v24.x/api/stream.html).
+ * [Streams API](https://nodejs.org/docs/latest-v25.x/api/stream.html).
  *
  * Compressing or decompressing a stream (such as a file) can be accomplished by
  * piping the source stream through a `zlib` `Transform` stream into a destination
@@ -89,9 +89,9 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/zlib.js)
  */
-declare module "zlib" {
+declare module "node:zlib" {
     import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     interface ZlibOptions {
@@ -144,7 +144,7 @@ declare module "zlib" {
             }
             | undefined;
         /**
-         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -168,12 +168,12 @@ declare module "zlib" {
         chunkSize?: number | undefined;
         /**
          * Key-value object containing indexed
-         * [Zstd parameters](https://nodejs.org/docs/latest-v24.x/api/zlib.html#zstd-constants).
+         * [Zstd parameters](https://nodejs.org/docs/latest-v25.x/api/zlib.html#zstd-constants).
          */
         params?: { [key: number]: number | boolean } | undefined;
         /**
          * Limits output size when using
-         * [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
+         * [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -612,70 +612,7 @@ declare module "zlib" {
         const Z_SYNC_FLUSH: number;
         const Z_VERSION_ERROR: number;
     }
-    // Allowed flush values.
-    /** @deprecated Use `constants.Z_NO_FLUSH` */
-    const Z_NO_FLUSH: number;
-    /** @deprecated Use `constants.Z_PARTIAL_FLUSH` */
-    const Z_PARTIAL_FLUSH: number;
-    /** @deprecated Use `constants.Z_SYNC_FLUSH` */
-    const Z_SYNC_FLUSH: number;
-    /** @deprecated Use `constants.Z_FULL_FLUSH` */
-    const Z_FULL_FLUSH: number;
-    /** @deprecated Use `constants.Z_FINISH` */
-    const Z_FINISH: number;
-    /** @deprecated Use `constants.Z_BLOCK` */
-    const Z_BLOCK: number;
-    // Return codes for the compression/decompression functions.
-    // Negative values are errors, positive values are used for special but normal events.
-    /** @deprecated Use `constants.Z_OK` */
-    const Z_OK: number;
-    /** @deprecated Use `constants.Z_STREAM_END` */
-    const Z_STREAM_END: number;
-    /** @deprecated Use `constants.Z_NEED_DICT` */
-    const Z_NEED_DICT: number;
-    /** @deprecated Use `constants.Z_ERRNO` */
-    const Z_ERRNO: number;
-    /** @deprecated Use `constants.Z_STREAM_ERROR` */
-    const Z_STREAM_ERROR: number;
-    /** @deprecated Use `constants.Z_DATA_ERROR` */
-    const Z_DATA_ERROR: number;
-    /** @deprecated Use `constants.Z_MEM_ERROR` */
-    const Z_MEM_ERROR: number;
-    /** @deprecated Use `constants.Z_BUF_ERROR` */
-    const Z_BUF_ERROR: number;
-    /** @deprecated Use `constants.Z_VERSION_ERROR` */
-    const Z_VERSION_ERROR: number;
-    // Compression levels.
-    /** @deprecated Use `constants.Z_NO_COMPRESSION` */
-    const Z_NO_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_BEST_SPEED` */
-    const Z_BEST_SPEED: number;
-    /** @deprecated Use `constants.Z_BEST_COMPRESSION` */
-    const Z_BEST_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_DEFAULT_COMPRESSION` */
-    const Z_DEFAULT_COMPRESSION: number;
-    // Compression strategy.
-    /** @deprecated Use `constants.Z_FILTERED` */
-    const Z_FILTERED: number;
-    /** @deprecated Use `constants.Z_HUFFMAN_ONLY` */
-    const Z_HUFFMAN_ONLY: number;
-    /** @deprecated Use `constants.Z_RLE` */
-    const Z_RLE: number;
-    /** @deprecated Use `constants.Z_FIXED` */
-    const Z_FIXED: number;
-    /** @deprecated Use `constants.Z_DEFAULT_STRATEGY` */
-    const Z_DEFAULT_STRATEGY: number;
-    /** @deprecated */
-    const Z_BINARY: number;
-    /** @deprecated */
-    const Z_TEXT: number;
-    /** @deprecated */
-    const Z_ASCII: number;
-    /** @deprecated  */
-    const Z_UNKNOWN: number;
-    /** @deprecated */
-    const Z_DEFLATED: number;
 }
-declare module "node:zlib" {
-    export * from "zlib";
+declare module "zlib" {
+    export * from "node:zlib";
 }

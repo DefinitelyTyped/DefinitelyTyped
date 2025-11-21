@@ -1,10 +1,10 @@
 /**
  * The `node:inspector` module provides an API for interacting with the V8
  * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/inspector.js)
  */
-declare module "inspector" {
-    import EventEmitter = require("node:events");
+declare module "node:inspector" {
+    import { EventEmitter } from "node:events";
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
      * back-end and receiving message responses and notifications.
@@ -39,7 +39,7 @@ declare module "inspector" {
      * If wait is `true`, will block until a client has connected to the inspect port
      * and flow control has been passed to the debugger client.
      *
-     * See the [security warning](https://nodejs.org/docs/latest-v24.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
+     * See the [security warning](https://nodejs.org/docs/latest-v25.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
      * regarding the `host` parameter usage.
      * @param port Port to listen on for inspector connections. Defaults to what was specified on the CLI.
      * @param host Host to listen on for inspector connections. Defaults to what was specified on the CLI.
@@ -219,59 +219,6 @@ declare module "inspector" {
         function put(url: string, data: string): void;
     }
 }
-
-/**
- * The `node:inspector` module provides an API for interacting with the V8
- * inspector.
- */
-declare module "node:inspector" {
-    export * from "inspector";
-}
-
-/**
- * The `node:inspector/promises` module provides an API for interacting with the V8
- * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector/promises.js)
- * @since v19.0.0
- */
-declare module "inspector/promises" {
-    import EventEmitter = require("node:events");
-    export { close, console, NetworkResources, open, url, waitForDebugger } from "inspector";
-    /**
-     * The `inspector.Session` is used for dispatching messages to the V8 inspector
-     * back-end and receiving message responses and notifications.
-     * @since v19.0.0
-     */
-    export class Session extends EventEmitter {
-        /**
-         * Create a new instance of the inspector.Session class.
-         * The inspector session needs to be connected through `session.connect()` before the messages can be dispatched to the inspector backend.
-         */
-        constructor();
-        /**
-         * Connects a session to the inspector back-end.
-         */
-        connect(): void;
-        /**
-         * Connects a session to the inspector back-end.
-         * An exception will be thrown if this API was not called on a Worker thread.
-         * @since v12.11.0
-         */
-        connectToMainThread(): void;
-        /**
-         * Immediately close the session. All pending message callbacks will be called with an error.
-         * `session.connect()` will need to be called to be able to send messages again.
-         * Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
-         */
-        disconnect(): void;
-    }
-}
-
-/**
- * The `node:inspector/promises` module provides an API for interacting with the V8
- * inspector.
- * @since v19.0.0
- */
-declare module "node:inspector/promises" {
-    export * from "inspector/promises";
+declare module "inspector" {
+    export * from "node:inspector";
 }

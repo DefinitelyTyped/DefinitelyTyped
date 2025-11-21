@@ -33,10 +33,8 @@ import { fileURLToPath } from "node:url";
         (message: any, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {},
     );
     process.prependOnceListener("SIGBREAK", () => {});
-    process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
     process.once("removeListener", (event: string | symbol, listener: Function) => {});
-    process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("workerMessage", (value: any, source: number) => {});
     process.on("customEvent", () => {});
     process.on("worker", w => {

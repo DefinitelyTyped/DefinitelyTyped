@@ -758,10 +758,6 @@ async function testTransformStream() {
         transform(chunk, controller) {
             controller.enqueue(chunk.toUpperCase());
         },
-        cancel(reason) {
-            // $ExpectType any
-            reason;
-        },
     });
 
     const transformedStream = stream.pipeThrough(transform);

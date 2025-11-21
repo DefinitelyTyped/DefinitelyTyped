@@ -2,10 +2,10 @@
  * A stream is an abstract interface for working with streaming data in Node.js.
  * The `node:stream` module provides an API for implementing the stream interface.
  *
- * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v24.x/api/http.html#class-httpincomingmessage)
- * and [`process.stdout`](https://nodejs.org/docs/latest-v24.x/api/process.html#processstdout) are both stream instances.
+ * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v25.x/api/http.html#class-httpincomingmessage)
+ * and [`process.stdout`](https://nodejs.org/docs/latest-v25.x/api/process.html#processstdout) are both stream instances.
  *
- * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v24.x/api/events.html#class-eventemitter).
+ * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v25.x/api/events.html#class-eventemitter).
  *
  * To access the `node:stream` module:
  *
@@ -15,13 +15,13 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/stream.js)
  */
-declare module "stream" {
+declare module "node:stream" {
+    import { Blob } from "node:buffer";
     import { Abortable, EventEmitter } from "node:events";
-    import { Blob as NodeBlob } from "node:buffer";
-    import * as streamPromises from "node:stream/promises";
-    import * as streamWeb from "node:stream/web";
+    import * as promises from "node:stream/promises";
+    import * as web from "node:stream/web";
 
     type ComposeFnParam = (source: any) => void;
 
@@ -38,7 +38,7 @@ declare module "stream" {
         ): T;
     }
     namespace Stream {
-        export { Stream, streamPromises as promises };
+        export { promises, Stream };
     }
     namespace Stream {
         interface StreamOptions<T extends Stream> extends Abortable {
@@ -62,10 +62,20 @@ declare module "stream" {
             /** Allows destroying the stream if the signal is aborted. */
             signal?: AbortSignal | undefined;
         }
+        interface ReadableEventMap {
+            "close": [];
+            "data": [chunk: any];
+            "end": [];
+            "error": [err: Error];
+            "pause": [];
+            "readable": [];
+            "resume": [];
+        }
         /**
          * @since v0.9.4
          */
         class Readable extends Stream implements NodeJS.ReadableStream {
+            constructor(options?: ReadableOptions);
             /**
              * A utility method for creating Readable Streams out of iterators.
              * @since v12.3.0, v10.17.0
@@ -78,7 +88,7 @@ declare module "stream" {
              * @since v17.0.0
              */
             static fromWeb(
-                readableStream: streamWeb.ReadableStream,
+                readableStream: web.ReadableStream,
                 options?: Pick<ReadableOptions, "encoding" | "highWaterMark" | "objectMode" | "signal">,
             ): Readable;
             /**
@@ -88,9 +98,9 @@ declare module "stream" {
             static toWeb(
                 streamReadable: Readable,
                 options?: {
-                    strategy?: streamWeb.QueuingStrategy | undefined;
+                    strategy?: web.QueuingStrategy | undefined;
                 },
-            ): streamWeb.ReadableStream;
+            ): web.ReadableStream;
             /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
@@ -118,13 +128,13 @@ declare module "stream" {
              */
             readonly readableEncoding: BufferEncoding | null;
             /**
-             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v24.x/api/stream.html#event-end) event is emitted.
+             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v25.x/api/stream.html#event-end) event is emitted.
              * @since v12.9.0
              */
             readonly readableEnded: boolean;
             /**
              * This property reflects the current state of a `Readable` stream as described
-             * in the [Three states](https://nodejs.org/docs/latest-v24.x/api/stream.html#three-states) section.
+             * in the [Three states](https://nodejs.org/docs/latest-v25.x/api/stream.html#three-states) section.
              * @since v9.4.0
              */
             readonly readableFlowing: boolean | null;
@@ -160,7 +170,6 @@ declare module "stream" {
              * @since v18.0.0
              */
             readonly errored: Error | null;
-            constructor(opts?: ReadableOptions);
             _construct?(callback: (error?: Error | null) => void): void;
             _read(size: number): void;
             /**
@@ -626,73 +635,51 @@ declare module "stream" {
              * @since v20.4.0
              */
             [Symbol.asyncDispose](): Promise<void>;
-            /**
-             * Event emitter
-             * The defined events on documents including:
-             * 1. close
-             * 2. data
-             * 3. end
-             * 4. error
-             * 5. pause
-             * 6. readable
-             * 7. resume
-             */
-            addListener(event: "close", listener: () => void): this;
-            addListener(event: "data", listener: (chunk: any) => void): this;
-            addListener(event: "end", listener: () => void): this;
-            addListener(event: "error", listener: (err: Error) => void): this;
-            addListener(event: "pause", listener: () => void): this;
-            addListener(event: "readable", listener: () => void): this;
-            addListener(event: "resume", listener: () => void): this;
-            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            emit(event: "close"): boolean;
-            emit(event: "data", chunk: any): boolean;
-            emit(event: "end"): boolean;
-            emit(event: "error", err: Error): boolean;
-            emit(event: "pause"): boolean;
-            emit(event: "readable"): boolean;
-            emit(event: "resume"): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: any) => void): this;
-            on(event: "end", listener: () => void): this;
-            on(event: "error", listener: (err: Error) => void): this;
-            on(event: "pause", listener: () => void): this;
-            on(event: "readable", listener: () => void): this;
-            on(event: "resume", listener: () => void): this;
-            on(event: string | symbol, listener: (...args: any[]) => void): this;
-            once(event: "close", listener: () => void): this;
-            once(event: "data", listener: (chunk: any) => void): this;
-            once(event: "end", listener: () => void): this;
-            once(event: "error", listener: (err: Error) => void): this;
-            once(event: "pause", listener: () => void): this;
-            once(event: "readable", listener: () => void): this;
-            once(event: "resume", listener: () => void): this;
-            once(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "data", listener: (chunk: any) => void): this;
-            prependListener(event: "end", listener: () => void): this;
-            prependListener(event: "error", listener: (err: Error) => void): this;
-            prependListener(event: "pause", listener: () => void): this;
-            prependListener(event: "readable", listener: () => void): this;
-            prependListener(event: "resume", listener: () => void): this;
-            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "data", listener: (chunk: any) => void): this;
-            prependOnceListener(event: "end", listener: () => void): this;
-            prependOnceListener(event: "error", listener: (err: Error) => void): this;
-            prependOnceListener(event: "pause", listener: () => void): this;
-            prependOnceListener(event: "readable", listener: () => void): this;
-            prependOnceListener(event: "resume", listener: () => void): this;
-            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "data", listener: (chunk: any) => void): this;
-            removeListener(event: "end", listener: () => void): this;
-            removeListener(event: "error", listener: (err: Error) => void): this;
-            removeListener(event: "pause", listener: () => void): this;
-            removeListener(event: "readable", listener: () => void): this;
-            removeListener(event: "resume", listener: () => void): this;
-            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            // #region InternalEventEmitter
+            addListener<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener: (...args: ReadableEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof ReadableEventMap>(eventName: E, ...args: ReadableEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener?: (...args: ReadableEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof ReadableEventMap>(eventName: E): ((...args: ReadableEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof ReadableEventMap>(eventName: E, listener: (...args: ReadableEventMap[E]) => void): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof ReadableEventMap>(eventName: E, listener: (...args: ReadableEventMap[E]) => void): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener: (...args: ReadableEventMap[E]) => void,
+            ): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener: (...args: ReadableEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener: (...args: ReadableEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof ReadableEventMap>(eventName: E): ((...args: ReadableEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof ReadableEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof ReadableEventMap>(
+                eventName: E,
+                listener: (...args: ReadableEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
@@ -717,23 +704,32 @@ declare module "stream" {
                 | undefined;
             final?: ((this: T, callback: (error?: Error | null) => void) => void) | undefined;
         }
+        interface WritableEventMap {
+            "close": [];
+            "drain": [];
+            "error": [err: Error];
+            "finish": [];
+            "pipe": [src: Readable];
+            "unpipe": [src: Readable];
+        }
         /**
          * @since v0.9.4
          */
         class Writable extends Stream implements NodeJS.WritableStream {
+            constructor(options?: WritableOptions);
             /**
              * A utility method for creating a `Writable` from a web `WritableStream`.
              * @since v17.0.0
              */
             static fromWeb(
-                writableStream: streamWeb.WritableStream,
+                writableStream: web.WritableStream,
                 options?: Pick<WritableOptions, "decodeStrings" | "highWaterMark" | "objectMode" | "signal">,
             ): Writable;
             /**
              * A utility method for creating a web `WritableStream` from a `Writable`.
              * @since v17.0.0
              */
-            static toWeb(streamWritable: Writable): streamWeb.WritableStream;
+            static toWeb(streamWritable: Writable): web.WritableStream;
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored, or ended.
@@ -799,7 +795,6 @@ declare module "stream" {
              * @since v15.2.0, v14.17.0
              */
             readonly writableNeedDrain: boolean;
-            constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
                 chunks: Array<{
@@ -972,65 +967,51 @@ declare module "stream" {
              * @since v22.4.0, v20.16.0
              */
             [Symbol.asyncDispose](): Promise<void>;
-            /**
-             * Event emitter
-             * The defined events on documents including:
-             * 1. close
-             * 2. drain
-             * 3. error
-             * 4. finish
-             * 5. pipe
-             * 6. unpipe
-             */
-            addListener(event: "close", listener: () => void): this;
-            addListener(event: "drain", listener: () => void): this;
-            addListener(event: "error", listener: (err: Error) => void): this;
-            addListener(event: "finish", listener: () => void): this;
-            addListener(event: "pipe", listener: (src: Readable) => void): this;
-            addListener(event: "unpipe", listener: (src: Readable) => void): this;
-            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            emit(event: "close"): boolean;
-            emit(event: "drain"): boolean;
-            emit(event: "error", err: Error): boolean;
-            emit(event: "finish"): boolean;
-            emit(event: "pipe", src: Readable): boolean;
-            emit(event: "unpipe", src: Readable): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "close", listener: () => void): this;
-            on(event: "drain", listener: () => void): this;
-            on(event: "error", listener: (err: Error) => void): this;
-            on(event: "finish", listener: () => void): this;
-            on(event: "pipe", listener: (src: Readable) => void): this;
-            on(event: "unpipe", listener: (src: Readable) => void): this;
-            on(event: string | symbol, listener: (...args: any[]) => void): this;
-            once(event: "close", listener: () => void): this;
-            once(event: "drain", listener: () => void): this;
-            once(event: "error", listener: (err: Error) => void): this;
-            once(event: "finish", listener: () => void): this;
-            once(event: "pipe", listener: (src: Readable) => void): this;
-            once(event: "unpipe", listener: (src: Readable) => void): this;
-            once(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "drain", listener: () => void): this;
-            prependListener(event: "error", listener: (err: Error) => void): this;
-            prependListener(event: "finish", listener: () => void): this;
-            prependListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependListener(event: "unpipe", listener: (src: Readable) => void): this;
-            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "drain", listener: () => void): this;
-            prependOnceListener(event: "error", listener: (err: Error) => void): this;
-            prependOnceListener(event: "finish", listener: () => void): this;
-            prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
-            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "drain", listener: () => void): this;
-            removeListener(event: "error", listener: (err: Error) => void): this;
-            removeListener(event: "finish", listener: () => void): this;
-            removeListener(event: "pipe", listener: (src: Readable) => void): this;
-            removeListener(event: "unpipe", listener: (src: Readable) => void): this;
-            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            // #region InternalEventEmitter
+            addListener<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener: (...args: WritableEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof WritableEventMap>(eventName: E, ...args: WritableEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener?: (...args: WritableEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof WritableEventMap>(eventName: E): ((...args: WritableEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof WritableEventMap>(eventName: E, listener: (...args: WritableEventMap[E]) => void): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof WritableEventMap>(eventName: E, listener: (...args: WritableEventMap[E]) => void): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener: (...args: WritableEventMap[E]) => void,
+            ): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener: (...args: WritableEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener: (...args: WritableEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof WritableEventMap>(eventName: E): ((...args: WritableEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof WritableEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof WritableEventMap>(
+                eventName: E,
+                listener: (...args: WritableEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         interface DuplexOptions<T extends Duplex = Duplex> extends ReadableOptions<T>, WritableOptions<T> {
             allowHalfOpen?: boolean | undefined;
@@ -1040,6 +1021,7 @@ declare module "stream" {
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
         }
+        interface DuplexEventMap extends ReadableEventMap, WritableEventMap {}
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
          *
@@ -1051,17 +1033,7 @@ declare module "stream" {
          * @since v0.9.4
          */
         class Duplex extends Stream implements NodeJS.ReadWriteStream {
-            /**
-             * If `false` then the stream will automatically end the writable side when the
-             * readable side ends. Set initially by the `allowHalfOpen` constructor option,
-             * which defaults to `true`.
-             *
-             * This can be changed manually to change the half-open behavior of an existing
-             * `Duplex` stream instance, but must be changed before the `'end'` event is emitted.
-             * @since v0.9.4
-             */
-            allowHalfOpen: boolean;
-            constructor(opts?: DuplexOptions);
+            constructor(optionss?: DuplexOptions);
             /**
              * A utility method for creating duplex streams.
              *
@@ -1086,7 +1058,7 @@ declare module "stream" {
             static from(
                 src:
                     | Stream
-                    | NodeBlob
+                    | Blob
                     | ArrayBuffer
                     | string
                     | Iterable<any>
@@ -1100,8 +1072,8 @@ declare module "stream" {
              * @since v17.0.0
              */
             static toWeb(streamDuplex: Duplex): {
-                readable: streamWeb.ReadableStream;
-                writable: streamWeb.WritableStream;
+                readable: web.ReadableStream;
+                writable: web.WritableStream;
             };
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
@@ -1109,8 +1081,8 @@ declare module "stream" {
              */
             static fromWeb(
                 duplexStream: {
-                    readable: streamWeb.ReadableStream;
-                    writable: streamWeb.WritableStream;
+                    readable: web.ReadableStream;
+                    writable: web.WritableStream;
                 },
                 options?: Pick<
                     DuplexOptions,
@@ -1118,104 +1090,57 @@ declare module "stream" {
                 >,
             ): Duplex;
             /**
-             * Event emitter
-             * The defined events on documents including:
-             * 1.  close
-             * 2.  data
-             * 3.  drain
-             * 4.  end
-             * 5.  error
-             * 6.  finish
-             * 7.  pause
-             * 8.  pipe
-             * 9.  readable
-             * 10. resume
-             * 11. unpipe
+             * If `false` then the stream will automatically end the writable side when the
+             * readable side ends. Set initially by the `allowHalfOpen` constructor option,
+             * which defaults to `true`.
+             *
+             * This can be changed manually to change the half-open behavior of an existing
+             * `Duplex` stream instance, but must be changed before the `'end'` event is emitted.
+             * @since v0.9.4
              */
-            addListener(event: "close", listener: () => void): this;
-            addListener(event: "data", listener: (chunk: any) => void): this;
-            addListener(event: "drain", listener: () => void): this;
-            addListener(event: "end", listener: () => void): this;
-            addListener(event: "error", listener: (err: Error) => void): this;
-            addListener(event: "finish", listener: () => void): this;
-            addListener(event: "pause", listener: () => void): this;
-            addListener(event: "pipe", listener: (src: Readable) => void): this;
-            addListener(event: "readable", listener: () => void): this;
-            addListener(event: "resume", listener: () => void): this;
-            addListener(event: "unpipe", listener: (src: Readable) => void): this;
-            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            emit(event: "close"): boolean;
-            emit(event: "data", chunk: any): boolean;
-            emit(event: "drain"): boolean;
-            emit(event: "end"): boolean;
-            emit(event: "error", err: Error): boolean;
-            emit(event: "finish"): boolean;
-            emit(event: "pause"): boolean;
-            emit(event: "pipe", src: Readable): boolean;
-            emit(event: "readable"): boolean;
-            emit(event: "resume"): boolean;
-            emit(event: "unpipe", src: Readable): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: any) => void): this;
-            on(event: "drain", listener: () => void): this;
-            on(event: "end", listener: () => void): this;
-            on(event: "error", listener: (err: Error) => void): this;
-            on(event: "finish", listener: () => void): this;
-            on(event: "pause", listener: () => void): this;
-            on(event: "pipe", listener: (src: Readable) => void): this;
-            on(event: "readable", listener: () => void): this;
-            on(event: "resume", listener: () => void): this;
-            on(event: "unpipe", listener: (src: Readable) => void): this;
-            on(event: string | symbol, listener: (...args: any[]) => void): this;
-            once(event: "close", listener: () => void): this;
-            once(event: "data", listener: (chunk: any) => void): this;
-            once(event: "drain", listener: () => void): this;
-            once(event: "end", listener: () => void): this;
-            once(event: "error", listener: (err: Error) => void): this;
-            once(event: "finish", listener: () => void): this;
-            once(event: "pause", listener: () => void): this;
-            once(event: "pipe", listener: (src: Readable) => void): this;
-            once(event: "readable", listener: () => void): this;
-            once(event: "resume", listener: () => void): this;
-            once(event: "unpipe", listener: (src: Readable) => void): this;
-            once(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "data", listener: (chunk: any) => void): this;
-            prependListener(event: "drain", listener: () => void): this;
-            prependListener(event: "end", listener: () => void): this;
-            prependListener(event: "error", listener: (err: Error) => void): this;
-            prependListener(event: "finish", listener: () => void): this;
-            prependListener(event: "pause", listener: () => void): this;
-            prependListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependListener(event: "readable", listener: () => void): this;
-            prependListener(event: "resume", listener: () => void): this;
-            prependListener(event: "unpipe", listener: (src: Readable) => void): this;
-            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "data", listener: (chunk: any) => void): this;
-            prependOnceListener(event: "drain", listener: () => void): this;
-            prependOnceListener(event: "end", listener: () => void): this;
-            prependOnceListener(event: "error", listener: (err: Error) => void): this;
-            prependOnceListener(event: "finish", listener: () => void): this;
-            prependOnceListener(event: "pause", listener: () => void): this;
-            prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependOnceListener(event: "readable", listener: () => void): this;
-            prependOnceListener(event: "resume", listener: () => void): this;
-            prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
-            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "data", listener: (chunk: any) => void): this;
-            removeListener(event: "drain", listener: () => void): this;
-            removeListener(event: "end", listener: () => void): this;
-            removeListener(event: "error", listener: (err: Error) => void): this;
-            removeListener(event: "finish", listener: () => void): this;
-            removeListener(event: "pause", listener: () => void): this;
-            removeListener(event: "pipe", listener: (src: Readable) => void): this;
-            removeListener(event: "readable", listener: () => void): this;
-            removeListener(event: "resume", listener: () => void): this;
-            removeListener(event: "unpipe", listener: (src: Readable) => void): this;
-            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            allowHalfOpen: boolean;
+            // #region InternalEventEmitter
+            addListener<E extends keyof DuplexEventMap>(
+                eventName: E,
+                listener: (...args: DuplexEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof DuplexEventMap>(eventName: E, ...args: DuplexEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof DuplexEventMap>(
+                eventName: E,
+                listener?: (...args: DuplexEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof DuplexEventMap>(eventName: E): ((...args: DuplexEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof DuplexEventMap>(eventName: E, listener: (...args: DuplexEventMap[E]) => void): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof DuplexEventMap>(eventName: E, listener: (...args: DuplexEventMap[E]) => void): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof DuplexEventMap>(eventName: E, listener: (...args: DuplexEventMap[E]) => void): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof DuplexEventMap>(
+                eventName: E,
+                listener: (...args: DuplexEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof DuplexEventMap>(
+                eventName: E,
+                listener: (...args: DuplexEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof DuplexEventMap>(eventName: E): ((...args: DuplexEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof DuplexEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof DuplexEventMap>(
+                eventName: E,
+                listener: (...args: DuplexEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         interface Duplex extends Readable, Writable {}
         /**
@@ -1256,7 +1181,7 @@ declare module "stream" {
          * @since v0.9.4
          */
         class Transform extends Duplex {
-            constructor(opts?: TransformOptions);
+            constructor(options?: TransformOptions);
             _transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
             _flush(callback: TransformCallback): void;
         }
@@ -1388,7 +1313,7 @@ declare module "stream" {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v24.x/api/stream.html#streamfinishedstream-options).
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamfinishedstream-options).
          *
          * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1476,7 +1401,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v24.x/api/stream.html#streampipelinesource-transforms-destination-options).
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *
@@ -1649,13 +1574,6 @@ declare module "stream" {
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>
             ): Promise<void>;
         }
-        // TODO: this interface never existed; remove in next major
-        interface Pipe {
-            close(): void;
-            hasRef(): boolean;
-            ref(): void;
-            unref(): void;
-        }
         // TODO: these should all take webstream arguments
         /**
          * Returns whether the stream has encountered an error.
@@ -1677,7 +1595,7 @@ declare module "stream" {
     }
     export = Stream;
 }
-declare module "node:stream" {
-    import stream = require("stream");
+declare module "stream" {
+    import stream = require("node:stream");
     export = stream;
 }

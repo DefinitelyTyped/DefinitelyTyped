@@ -4,7 +4,7 @@
  * via `import { promises as dnsPromises } from 'node:dns'` or `import dnsPromises from 'node:dns/promises'`.
  * @since v10.6.0
  */
-declare module "dns/promises" {
+declare module "node:dns/promises" {
     import {
         AnyRecord,
         CaaRecord,
@@ -498,6 +498,6 @@ declare module "dns/promises" {
         setServers: typeof setServers;
     }
 }
-declare module "node:dns/promises" {
-    export * from "dns/promises";
+declare module "dns/promises" {
+    export * from "node:dns/promises";
 }

@@ -39,17 +39,31 @@ util.inspect(["This is nice"], {
 });
 assert(typeof util.inspect.custom === "symbol");
 
-util.inspect.replDefaults = {
-    colors: true,
-};
+{
+    const { styles } = util.inspect;
+    util.inspect.styles = {
+        ...styles,
+        name: "yellow",
+    };
+    util.inspect.styles.regexp.colors = ["red", "green", "blue"];
+    util.inspect.replDefaults = {
+        colors: true,
+    };
+}
 
-util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize("woop", "module")),
-});
-
-util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: "baz" })),
-});
+{
+    interface CustomInspectable extends util.Inspectable {}
+    const inspectable: CustomInspectable = {
+        [util.inspect.custom](depth, options, inspect) {
+            this; // $ExpectType CustomInspectable
+            depth; // $ExpectType number
+            options; // $ExpectType InspectContext
+            inspect; // $ExpectType typeof inspect
+            return options.stylize("CustomInspectable", "name");
+        },
+    };
+    util.inspect(inspectable);
+}
 
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
@@ -239,8 +253,8 @@ td.decode(new Float32Array(1));
 td.decode(new Float64Array(1));
 td.decode(new DataView(new Int8Array(1).buffer));
 td.decode(new ArrayBuffer(1));
-td.decode(null);
-td.decode(null, { stream: true });
+td.decode(undefined);
+td.decode(undefined, { stream: true });
 td.decode(new Int8Array(1), { stream: true });
 const decode: string = td.decode(new Int8Array(1));
 
@@ -252,7 +266,7 @@ const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 // Test global alias
 const te2 = new TextEncoder();
 
-const encIntoRes: util.EncodeIntoResult = te.encodeInto("asdf", new Uint8Array(16));
+const encIntoRes: util.TextEncoderEncodeIntoResult = te.encodeInto("asdf", new Uint8Array(16));
 
 const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 

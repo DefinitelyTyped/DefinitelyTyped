@@ -6,9 +6,9 @@
  * ```js
  * import tls from 'node:tls';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/tls.js)
  */
-declare module "tls" {
+declare module "node:tls" {
     import { NonSharedBuffer } from "node:buffer";
     import { X509Certificate } from "node:crypto";
     import * as net from "node:net";
@@ -206,6 +206,12 @@ declare module "tls" {
          * emitted on the socket before establishing a secure communication
          */
         requestOCSP?: boolean | undefined;
+    }
+    interface TLSSocketEventMap extends net.SocketEventMap {
+        "keylog": [line: NonSharedBuffer];
+        "OCSPResponse": [response: NonSharedBuffer];
+        "secureConnect": [];
+        "session": [session: NonSharedBuffer];
     }
     /**
      * Performs transparent encryption of written data and all required TLS
@@ -480,36 +486,48 @@ declare module "tls" {
          * @return requested bytes of the keying material
          */
         exportKeyingMaterial(length: number, label: string, context: Buffer): NonSharedBuffer;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
-        addListener(event: "secureConnect", listener: () => void): this;
-        addListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
-        addListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "OCSPResponse", response: NonSharedBuffer): boolean;
-        emit(event: "secureConnect"): boolean;
-        emit(event: "session", session: NonSharedBuffer): boolean;
-        emit(event: "keylog", line: NonSharedBuffer): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
-        on(event: "secureConnect", listener: () => void): this;
-        on(event: "session", listener: (session: NonSharedBuffer) => void): this;
-        on(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
-        once(event: "secureConnect", listener: () => void): this;
-        once(event: "session", listener: (session: NonSharedBuffer) => void): this;
-        once(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
-        prependListener(event: "secureConnect", listener: () => void): this;
-        prependListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
-        prependListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
-        prependOnceListener(event: "secureConnect", listener: () => void): this;
-        prependOnceListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
-        prependOnceListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
+        // #region InternalEventEmitter
+        addListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof TLSSocketEventMap>(eventName: E, ...args: TLSSocketEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener?: (...args: TLSSocketEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof TLSSocketEventMap>(eventName: E): ((...args: TLSSocketEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof TLSSocketEventMap>(eventName: E): ((...args: TLSSocketEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof TLSSocketEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     interface CommonConnectionOptions {
         /**
@@ -630,6 +648,19 @@ declare module "tls" {
          */
         pskCallback?: ((hint: string | null) => PSKCallbackNegotation | null) | undefined;
     }
+    interface ServerEventMap extends net.ServerEventMap {
+        "connection": [socket: net.Socket];
+        "keylog": [line: NonSharedBuffer, tlsSocket: TLSSocket];
+        "newSession": [sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void];
+        "OCSPRequest": [
+            certificate: NonSharedBuffer,
+            issuer: NonSharedBuffer,
+            callback: (err: Error | null, resp: Buffer | null) => void,
+        ];
+        "resumeSession": [sessionId: Buffer, callback: (err: Error | null, sessionData?: Buffer) => void];
+        "secureConnection": [tlsSocket: TLSSocket];
+        "tlsClientError": [exception: Error, tlsSocket: TLSSocket];
+    }
     /**
      * Accepts encrypted connections using TLS or SSL.
      * @since v0.3.2
@@ -675,151 +706,45 @@ declare module "tls" {
          * @param keys A 48-byte buffer containing the session ticket keys.
          */
         setTicketKeys(keys: Buffer): void;
-        /**
-         * events.EventEmitter
-         * 1. tlsClientError
-         * 2. newSession
-         * 3. OCSPRequest
-         * 4. resumeSession
-         * 5. secureConnection
-         * 6. keylog
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        addListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
+        // #region InternalEventEmitter
+        addListener<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ServerEventMap>(eventName: E, ...args: ServerEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener?: (...args: ServerEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ServerEventMap>(eventName: E): ((...args: ServerEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ServerEventMap>(eventName: E): ((...args: ServerEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ServerEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        addListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: TLSSocket) => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
-        emit(
-            event: "newSession",
-            sessionId: NonSharedBuffer,
-            sessionData: NonSharedBuffer,
-            callback: () => void,
-        ): boolean;
-        emit(
-            event: "OCSPRequest",
-            certificate: NonSharedBuffer,
-            issuer: NonSharedBuffer,
-            callback: (err: Error | null, resp: Buffer | null) => void,
-        ): boolean;
-        emit(
-            event: "resumeSession",
-            sessionId: NonSharedBuffer,
-            callback: (err: Error | null, sessionData: Buffer | null) => void,
-        ): boolean;
-        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
-        emit(event: "keylog", line: NonSharedBuffer, tlsSocket: TLSSocket): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        on(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        on(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        on(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        on(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: TLSSocket) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        once(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        once(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        once(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        once(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: TLSSocket) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        prependListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        prependListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        prependOnceListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependOnceListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: TLSSocket) => void): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
     interface SecureContextOptions {
@@ -1175,7 +1100,7 @@ declare module "tls" {
      * the `ciphers` option of `{@link createSecureContext}`.
      *
      * Not all supported ciphers are enabled by default. See
-     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v24.x/api/tls.html#modifying-the-default-tls-cipher-suite).
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v25.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.
@@ -1264,6 +1189,6 @@ declare module "tls" {
      */
     const rootCertificates: readonly string[];
 }
-declare module "node:tls" {
-    export * from "tls";
+declare module "tls" {
+    export * from "node:tls";
 }

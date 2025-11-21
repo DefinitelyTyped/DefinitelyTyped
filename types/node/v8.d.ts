@@ -4,9 +4,9 @@
  * ```js
  * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/v8.js)
  */
-declare module "v8" {
+declare module "node:v8" {
     import { NonSharedBuffer } from "node:buffer";
     import { Readable } from "node:stream";
     interface HeapSpaceInfo {
@@ -402,6 +402,21 @@ declare module "v8" {
      */
     function getHeapCodeStatistics(): HeapCodeStatistics;
     /**
+     * @since v25.0.0
+     */
+    interface SyncCPUProfileHandle {
+        /**
+         * Stopping collecting the profile and return the profile data.
+         * @since v25.0.0
+         */
+        stop(): string;
+        /**
+         * Stopping collecting the profile and the profile will be discarded.
+         * @since v25.0.0
+         */
+        [Symbol.dispose](): void;
+    }
+    /**
      * @since v24.8.0
      */
     interface CPUProfileHandle {
@@ -433,6 +448,18 @@ declare module "v8" {
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
+    /**
+     * Starting a CPU profile then return a `SyncCPUProfileHandle` object.
+     * This API supports `using` syntax.
+     *
+     * ```js
+     * const handle = v8.startCpuProfile();
+     * const profile = handle.stop();
+     * console.log(profile);
+     * ```
+     * @since v25.0.0
+     */
+    function startCPUProfile(): SyncCPUProfileHandle;
     /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;
@@ -613,7 +640,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @since v18.10.0, v16.18.0
      */
     function setHeapSnapshotNearHeapLimit(limit: number): void;
@@ -947,6 +974,6 @@ declare module "v8" {
         function isBuildingSnapshot(): boolean;
     }
 }
-declare module "node:v8" {
-    export * from "v8";
+declare module "v8" {
+    export * from "node:v8";
 }

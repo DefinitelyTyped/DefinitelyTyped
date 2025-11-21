@@ -11,12 +11,11 @@ import {
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
-    SlowBuffer,
     transcode,
     TranscodeEncoding,
 } from "node:buffer";
 import { Readable, Writable } from "node:stream";
-import { ReadableStream } from "stream/web";
+import { ReadableStream } from "node:stream/web";
 
 const utf8Buffer = new Buffer("test");
 const base64Buffer = new Buffer("", "base64");
@@ -313,14 +312,6 @@ result = b.write("asd", 123, 123, "hex");
     */
 }
 
-// SlowBuffer
-{
-    // $ExpectType Buffer || Buffer<ArrayBuffer>
-    new SlowBuffer(256);
-    // @ts-expect-error
-    SlowBuffer(256);
-}
-
 // NodeJS.BufferEncoding works properly
 {
     const encoding: NodeJS.BufferEncoding = "ascii";
@@ -563,7 +554,7 @@ declare class NodeFile implements File {
     slice(start?: number, end?: number, type?: string): NodeBlob;
     stream(): ReadableStream;
     arrayBuffer(): Promise<ArrayBuffer>;
-    bytes(): Promise<Uint8Array>;
+    bytes(): Promise<NodeJS.NonSharedUint8Array>;
     text(): Promise<string>;
 }
 

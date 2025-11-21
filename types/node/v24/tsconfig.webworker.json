@@ -1,0 +1,24 @@
+{
+    "files": [
+        "index.d.ts",
+        "node-tests.ts",
+        "node-tests-webworker.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "esnext",
+        "lib": [
+            "es6",
+            "webworker"
+        ],
+        "exactOptionalPropertyTypes": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    }
+}

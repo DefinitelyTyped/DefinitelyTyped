@@ -1,4 +1,5 @@
 import * as dns from "node:dns";
+import { EventEmitter } from "node:events";
 import * as http from "node:http";
 import * as net from "node:net";
 import * as stream from "node:stream";
@@ -378,9 +379,7 @@ import * as url from "node:url";
     http.request(url.parse("http://www.example.org/xyz"));
 
     // ensure extends from EventEmitter
-    agent.on("free", () => {});
-    agent.once("free", () => {});
-    agent.emit("free");
+    agent satisfies EventEmitter;
 
     agent.createConnection({ port: 1234 });
     agent.keepSocketAlive(new stream.Duplex());
@@ -496,7 +495,6 @@ import * as url from "node:url";
     let server = new http.Server();
     let _socket = new net.Socket();
     let _err = new Error();
-    let _bool = true;
 
     server = server.addListener("close", () => {});
     server = server.addListener("connection", (socket) => {
@@ -506,11 +504,6 @@ import * as url from "node:url";
         _err = err;
     });
     server = server.addListener("listening", () => {});
-
-    _bool = server.emit("close");
-    _bool = server.emit("connection", _socket);
-    _bool = server.emit("error", _err);
-    _bool = server.emit("listening");
 
     server = server.on("close", () => {});
     server = server.on("connection", (socket) => {
@@ -557,7 +550,6 @@ import * as url from "node:url";
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
     let _head: Buffer = Buffer.from("");
-    let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {
         _req = req;
@@ -585,14 +577,6 @@ import * as url from "node:url";
         _socket = socket;
         _head = head;
     });
-
-    _bool = server.emit("checkContinue", _req, _res);
-    _bool = server.emit("checkExpectation", _req, _res);
-    _bool = server.emit("clientError", _err, _socket);
-    _bool = server.emit("connect", _req, _socket, _head);
-    _bool = server.emit("dropRequest", _req, _res);
-    _bool = server.emit("request", _req, _res);
-    _bool = server.emit("upgrade", _req, _socket, _head);
 
     server = server.on("checkContinue", (req, res) => {
         _req = req;
