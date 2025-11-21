@@ -31,8 +31,10 @@ declare module "karma" {
 }
 
 declare global {
-    /**
-     * Collection of HTML files converted into JS strings by karma-html2js-preprocessor.
-     */
-    var __html__: Record<string, string>;
+    interface Window {
+        /**
+         * Collection of HTML files converted into JS strings by karma-html2js-preprocessor.
+         */
+        __html__: Record<string, string>;
+    }
 }
