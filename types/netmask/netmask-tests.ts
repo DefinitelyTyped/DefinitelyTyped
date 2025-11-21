@@ -10,6 +10,11 @@ if (block.contains("10.0.8.10")) {
 block = new netmask.Netmask("216.240.32.0", "255.255.255.0");
 block = new netmask.Netmask("216.240.32.0", 24);
 
+block = new netmask.Netmask("216.240.32.0");
+if (typeof block.broadcast === undefined) {
+    console.log("no broadcast address for /32 block")
+}
+
 class CustomizedNetmask extends netmask.Netmask {
     // Test that we can override `next` to return a CustomizedNetmask (as opposed to netmask.Netmask) object
     next(count: number = 1): CustomizedNetmask {
