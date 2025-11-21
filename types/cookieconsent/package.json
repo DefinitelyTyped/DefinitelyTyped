@@ -6,7 +6,7 @@
         "https://www.npmjs.com/package/cookieconsent"
     ],
     "dependencies": {
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/cookieconsent": "workspace:."

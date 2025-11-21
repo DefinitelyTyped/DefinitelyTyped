@@ -379,6 +379,7 @@ const customEmailSender: CustomEmailSenderTriggerHandler = async (event, _, call
     triggerSource === "CustomEmailSender_UpdateUserAttribute";
     triggerSource === "CustomEmailSender_ResendCode";
     triggerSource === "CustomEmailSender_SignUp";
+    triggerSource === "CustomEmailSender_Authentication";
     triggerSource === "CustomEmailSender_AccountTakeOverNotification";
 };
 

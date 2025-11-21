@@ -10047,10 +10047,8 @@ declare namespace chrome {
              *
              * Can return its result via Promise in Manifest V3 or later since Chrome 95.
              */
-            getBytesInUse(keys: never[]): Promise<0>;
             getBytesInUse<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | null): Promise<number>;
             getBytesInUse<T = { [key: string]: any }>(callback: (bytesInUse: number) => void): void;
-            getBytesInUse(keys: never[], callback: (bytesInUse: 0) => void): void;
             getBytesInUse<T = { [key: string]: any }>(
                 keys: keyof T | Array<keyof T> | null | undefined,
                 callback: (bytesInUse: number) => void,
@@ -10088,12 +10086,10 @@ declare namespace chrome {
              *
              * Can return its result via Promise in Manifest V3 or later since Chrome 95.
              */
-            get(keys: never[] | Record<string, never>): Promise<{ [key: string]: never }>;
             get<T = { [key: string]: unknown }>(
                 keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
             ): Promise<T>;
             get<T = { [key: string]: unknown }>(callback: (items: T) => void): void;
-            get(keys: never[] | Record<string, never>, callback: (items: { [key: string]: never }) => void): void;
             get<T = { [key: string]: unknown }>(
                 keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null | undefined,
                 callback: (items: T) => void,
