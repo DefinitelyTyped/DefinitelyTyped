@@ -27,7 +27,7 @@ export class Netmask {
     /**
      * The blocks broadcast address (eg: 192.168.1.0/24 => 192.168.1.255)
      */
-    broadcast: string;
+    broadcast: string | undefined;
     /**
      * The number of IP addresses in a block (eg: 256).
      */
