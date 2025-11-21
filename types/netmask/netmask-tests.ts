@@ -12,7 +12,7 @@ block = new netmask.Netmask("216.240.32.0", 24);
 
 block = new netmask.Netmask("216.240.32.0");
 if (typeof block.broadcast === undefined) {
-    console.log("no broadcast address for /32 block")
+    console.log("no broadcast address for /32 block");
 }
 
 class CustomizedNetmask extends netmask.Netmask {
