@@ -514,8 +514,6 @@ export namespace Widgets {
 
         type TAlign = "left" | "center" | "right";
 
-        type TValign = "top" | "middle" | "bottom";
-
         interface ListbarCommand {
             key: string;
             callback(): void;
