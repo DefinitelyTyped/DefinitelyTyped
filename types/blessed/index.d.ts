@@ -514,6 +514,8 @@ export namespace Widgets {
 
         type TAlign = "left" | "center" | "right";
 
+        type TValign = "top" | "middle" | "bottom";
+
         interface ListbarCommand {
             key: string;
             callback(): void;
@@ -3072,6 +3074,12 @@ export namespace Widgets {
          * scroll to bottom on input even if the user has scrolled up. default: false.
          */
         scrollOnInput: boolean;
+
+        /**
+         * Content/Text alignment
+         */
+        align: "left" | "center" | "right";
+        valign: "top" | "middle" | "bottom";
 
         /**
          * add a log line.
