@@ -1777,6 +1777,9 @@ declare module "node:fs" {
      * @since v0.1.21
      */
     function unlinkSync(path: PathLike): void;
+    /** @deprecated `rmdir()` no longer provides any options. This interface will be removed in a future version. */
+    // TODO: remove in future major
+    interface RmDirOptions {}
     /**
      * Asynchronous [`rmdir(2)`](http://man7.org/linux/man-pages/man2/rmdir.2.html). No arguments other than a possible exception are given
      * to the completion callback.

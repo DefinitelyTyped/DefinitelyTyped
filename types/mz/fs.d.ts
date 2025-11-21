@@ -7,6 +7,7 @@ import {
     MakeDirectoryOptions,
     NoParamCallback,
     PathLike,
+    RmDirOptions,
     Stats,
     symlink as symlinkNS,
     WriteFileOptions,
@@ -573,7 +574,7 @@ export function rmdir(path: PathLike, callback: NoParamCallback): void;
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options: object, callback: NoParamCallback): void;
+export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
 
 /**
  * Asynchronous `rmdir(2)`
@@ -582,7 +583,7 @@ export function rmdir(path: PathLike, options: object, callback: NoParamCallback
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options?: object): Promise<void>;
+export function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
 
 /**
  * Asynchronous `mkdir(2)`.
