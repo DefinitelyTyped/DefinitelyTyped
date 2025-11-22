@@ -93,6 +93,10 @@ import { fileURLToPath } from "node:url";
 }
 
 {
+    process.disconnect?.(); // $ExpectType void | undefined
+}
+
+{
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
 }
 
