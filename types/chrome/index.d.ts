@@ -9549,6 +9549,13 @@ declare namespace chrome {
          */
         export function getURL(path: string): string;
 
+        /**
+         * Returns the extension's version as declared in the manifest.
+         * @returns The extension's version.
+         * @since Chrome 143
+         */
+        export function getVersion(): string;
+
         /** Reloads the app or extension. This method is not supported in kiosk mode. For kiosk mode, use {@link chrome.runtime.restart()} method. */
         export function reload(): void;
 

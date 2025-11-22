@@ -872,6 +872,8 @@ function testRuntime() {
 
     chrome.runtime.getURL(""); // $ExpectType string
 
+    chrome.runtime.getVersion(); // $ExpectType string
+
     chrome.runtime.openOptionsPage(); // $ExpectType Promise<void>
     chrome.runtime.openOptionsPage(() => {}); // $ExpectType void
     // @ts-expect-error
