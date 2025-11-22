@@ -2,7 +2,11 @@ import Client = require("ssh2-sftp-client");
 import * as fs from "fs";
 
 (async () => {
-    const client = new Client("name");
+    const client = new Client("name", {
+        error: error => console.error("Error:", error),
+        close: () => console.log("Client has closed"),
+        end: () => console.log("Client has ended"),
+    });
 
     client
         .connect({
