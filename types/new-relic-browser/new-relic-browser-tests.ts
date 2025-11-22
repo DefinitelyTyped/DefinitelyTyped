@@ -1,5 +1,14 @@
-// The following tests are largely taken straight from the examples
-// at https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
+// The following tests are largely taken straight from the examples at
+// https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
+
+import { NewRelicAPI } from "new-relic-browser";
+
+// Test that we can import and use the newrelic type
+let newrelicCopy: NewRelicAPI = newrelic; // $ExpectType NewRelicAPI
+
+// Test whether the global newrelic object is defined (keeping the behavior
+// consistent with the original namespace version)
+newrelic; // $ExpectType NewRelicAPI
 
 // --- NewRelic.Browser methods ----------------------------------------------
 
