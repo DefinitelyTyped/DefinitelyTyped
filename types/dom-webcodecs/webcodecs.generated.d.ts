@@ -181,6 +181,7 @@ interface VideoFrameBufferInit {
 interface VideoFrameCopyToOptions {
     layout?: PlaneLayout[] | undefined;
     rect?: DOMRectInit | undefined;
+    format?: VideoPixelFormat;
 }
 
 interface VideoFrameInit {
