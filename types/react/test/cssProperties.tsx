@@ -38,11 +38,16 @@ const positionStyleTest = <div style={positionStyle} />;
 
 // SVG specific style attribute declarations
 
-const fillOpacityStyle: React.CSSProperties = { fillOpacity: 0.3 };
+const fillOpacityStyle: React.CSSSvgProperties = { fillOpacity: 0.3 };
 const fillOpacityStyleTest = <svg style={fillOpacityStyle} />;
 
-const strokeOpacityStyle: React.CSSProperties = { strokeOpacity: 0.3 };
+const strokeOpacityStyle: React.CSSSvgProperties = { strokeOpacity: 0.3 };
 const strokeOpacityStyleTest = <svg style={strokeOpacityStyle} />;
 
-const strokeWidthStyle: React.CSSProperties = { strokeWidth: "10px" };
+const strokeWidthStyle: React.CSSSvgProperties = { strokeWidth: "10px" };
 const strokeWidthStyleTest = <svg style={strokeWidthStyle} />;
+
+// @ts-expect-error -- position is not a valid attribute for svg style
+const invalidPositionStyle: React.CSSSvgProperties = { position: "relative" };
+// @ts-expect-error -- position is not a valid attribute for svg style
+const invalidPositionStyleTest = <svg style={{ position: "relative" }} />;
