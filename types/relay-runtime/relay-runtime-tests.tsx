@@ -15,7 +15,9 @@ import {
     getRefetchMetadata,
     getRequest,
     graphql,
+    isErrorResult,
     isPromise,
+    isValueResult,
     LiveState,
     Network,
     PreloadableConcreteRequest,
@@ -23,6 +25,7 @@ import {
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
+    readFragment,
     readInlineData,
     RecordProxy,
     RecordSource,
@@ -35,7 +38,13 @@ import {
     suspenseSentinel,
     Variables,
 } from "relay-runtime";
-import { observeFragment, observeQuery, waitForFragmentData } from "relay-runtime/experimental";
+import {
+    IdOf,
+    observeFragment,
+    observeQuery,
+    resolverDataInjector,
+    waitForFragmentData,
+} from "relay-runtime/experimental";
 
 import type { HandlerProvider } from "relay-runtime/lib/handlers/RelayDefaultHandlerProvider";
 import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
@@ -701,8 +710,6 @@ function multiActors() {
 // Relay Resolvers
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-const { readFragment } = __internal.ResolverFragments;
-
 // Regular fragment.
 interface UserComponent_user {
     readonly id: string;
@@ -921,6 +928,20 @@ export function handleResult<T, E>(result: Result<T, E>) {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleValueResult<T, E>(result: Result<T, E>) {
+    if (isValueResult(result)) {
+        const value: T = result.value;
+    }
+}
+
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleErrorResult<T, E>(result: Result<T, E>) {
+    if (isErrorResult(result)) {
+        const errors: readonly E[] = result.errors;
+    }
+}
+
 // ~~~~~~~~~~~~~~~~~~
 // Metadata
 // ~~~~~~~~~~~~~~~~~~
@@ -1047,4 +1068,62 @@ function observeQueryTest() {
     });
 
     subscription.unsubscribe();
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// resolverDataInjector
+// ~~~~~~~~~~~~~~~~~~
+
+const MyResolverType__id_graphql: ReaderFragment = {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "MyResolverType__id",
+    "selections": [
+        {
+            "kind": "ClientExtension",
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null,
+                },
+            ],
+        },
+    ],
+    "type": "MyResolverType",
+    "abstractKey": null,
+};
+
+interface MyResolverType {
+    id: string;
+}
+
+function myResolverTypeRelayModelInstanceResolver(id: DataID): MyResolverType {
+    return {
+        id,
+    };
+}
+
+export const resolverModule = resolverDataInjector(
+    MyResolverType__id_graphql,
+    myResolverTypeRelayModelInstanceResolver,
+    "id",
+    true,
+);
+
+// ~~~~~~~~~~~~~~~~~~
+// Client edge resolver
+// ~~~~~~~~~~~~~~~~~~
+
+export function myDog(): IdOf<"Dog"> {
+    return { id: "5" };
+}
+
+type AnimalTypenames = "Cat" | "Dog";
+
+export function myAnimal(): IdOf<"Animal", AnimalTypenames> {
+    return Math.random() > 0.5 ? { id: "5", __typename: "Dog" } : { id: "6", __typename: "Cat" };
 }
