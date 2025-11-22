@@ -897,9 +897,9 @@ declare module "stream" {
              * @param encoding The encoding if `chunk` is a string
              * @param callback Callback for when the stream is finished.
              */
-            end(cb?: () => void): this;
-            end(chunk: any, cb?: () => void): this;
-            end(chunk: any, encoding: BufferEncoding, cb?: () => void): this;
+            end(cb?: (error: Error | null | undefined) => void): this;
+            end(chunk: any, cb?: (error: Error | null | undefined) => void): this;
+            end(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): this;
             /**
              * The `writable.cork()` method forces all written data to be buffered in memory.
              * The buffered data will be flushed when either the {@link uncork} or {@link end} methods are called.
