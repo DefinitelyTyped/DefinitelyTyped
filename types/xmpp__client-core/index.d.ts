@@ -1,6 +1,6 @@
-import ClientCls = require("./lib/Client");
-import xmppXml = require("@xmpp/xml");
-import xmppJid = require("@xmpp/jid");
+import xmppJid from "@xmpp/jid";
+import xmppXml from "@xmpp/xml";
+import ClientCls from "./lib/Client.js";
 
 export const Client: typeof ClientCls;
 export type Client = ClientCls;

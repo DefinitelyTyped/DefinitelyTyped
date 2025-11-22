@@ -1,22 +1,20 @@
-import Connection = require("@xmpp/connection");
-import websocket = require("@xmpp/websocket");
-import ConnectionWebSocket = require("@xmpp/websocket/lib/Connection");
-import FramedParser = require("@xmpp/websocket/lib/FramedParser");
-import Socket = require("@xmpp/websocket/lib/Socket");
+import Connection from "@xmpp/connection";
+import websocket from "@xmpp/websocket";
+import ConnectionWebSocket from "@xmpp/websocket/lib/Connection.js";
+import FramedParser from "@xmpp/websocket/lib/FramedParser.js";
+import Socket from "@xmpp/websocket/lib/Socket.js";
 import { Element, Parser } from "@xmpp/xml";
 import { URL } from "url";
-import { CloseEvent } from "ws";
 
 // test type exports
-type Entity = websocket.Entity;
 type Conn = ConnectionWebSocket;
 type Sock = Socket;
 type SockEvents = Socket.Events;
 type Err = Socket.WebSocketError;
 
 const sock = new Socket();
-sock.url; // $ExpectType string | URL | undefined
-sock.socket; // $ExpectType WebSocket | undefined
+sock.url; // $ExpectType string | URL | null
+sock.socket; // $ExpectType WebSocket | null
 sock.connect("foo"); // $ExpectType void
 sock.connect(new URL("foo")); // $ExpectType void
 sock.end(); // $ExpectType void
@@ -29,20 +27,20 @@ sock.write("foo", err => {
 
 sock.addListener("connect", () => {});
 sock.addListener("data", data => {
-    data; // $ExpectType Data
+    data; // $ExpectType unknown
 });
 sock.addListener("close", () => {});
 sock.addListener("error", err => {
     err; // $ExpectType WebSocketError
     err.url; // $ExpectType string | URL
-    err.event; // $ExpectType ErrorEvent
+    err.event; // $ExpectType Event
     err.code; // $ExpectType "ECONNERROR" | undefined
     err.errno; // $ExpectType "ECONNERROR" | undefined
 });
 
 sock.on("connect", () => {});
 sock.on("data", data => {
-    data; // $ExpectType Data
+    data; // $ExpectType unknown
 });
 sock.on("close", () => {});
 sock.on("error", err => {
@@ -51,7 +49,7 @@ sock.on("error", err => {
 
 sock.once("connect", () => {});
 sock.once("data", data => {
-    data; // $ExpectType Data
+    data; // $ExpectType unknown
 });
 sock.once("close", () => {});
 sock.once("error", err => {
@@ -60,7 +58,7 @@ sock.once("error", err => {
 
 sock.prependListener("connect", () => {});
 sock.prependListener("data", data => {
-    data; // $ExpectType Data
+    data; // $ExpectType unknown
 });
 sock.prependListener("close", () => {});
 sock.prependListener("error", err => {
@@ -69,7 +67,7 @@ sock.prependListener("error", err => {
 
 sock.prependOnceListener("connect", () => {});
 sock.prependOnceListener("data", data => {
-    data; // $ExpectType Data
+    data; // $ExpectType unknown
 });
 sock.prependOnceListener("close", () => {});
 sock.prependOnceListener("error", err => {

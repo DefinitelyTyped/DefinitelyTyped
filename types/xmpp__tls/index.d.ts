@@ -1,11 +1,9 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 
-export = tls;
+export default tls;
 
-declare function tls({ entity }: { entity: tls.Entity }): void;
+declare function tls({ entity }: { entity: Entity }): void;
 
-declare namespace tls {
-    interface Entity {
-        transports: Array<typeof Connection>;
-    }
+export interface Entity {
+    transports: Array<typeof Connection>;
 }
