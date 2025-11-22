@@ -18,6 +18,7 @@ export const CASES: [Case];
 /**
  * Интерфейс с именованными параметрами для создания лемм.
  * Если параметр — уже лемма, вернет тот же объект, а не копию.
+ * То же, что и статический метод {@link Lemma.create}.
  *
  * @param {RussianNouns.Lemma|Object} o
  * @throws {Error} Ошибки из конструктора леммы.
@@ -27,6 +28,7 @@ export function createLemma(o: Lemma | LemmaOptions): Lemma;
 
 /**
  * Безопасное создание леммы с минимальными накладными расходами.
+ * То же, что и статический метод {@link Lemma.createOrNull}.
  *
  * @param {Object} options
  * @returns {RussianNouns.Lemma|null}
