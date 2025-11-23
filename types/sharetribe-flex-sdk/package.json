@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "@types/sharetribe-flex-sdk",
+  "version": "1.21.9999",
+  "projects": [
+    "https://github.com/sharetribe/flex-sdk-js"
+  ],
+  "minimumTypeScriptVersion": "4.5",
+  "devDependencies": {
+    "@types/sharetribe-flex-sdk": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "Jayen Ashar",
+      "githubUsername": "jayenashar"
+    }
+  ]
+}

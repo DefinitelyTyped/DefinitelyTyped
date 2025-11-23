@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [],
+    "lib": [
+      "es2016"
+    ],
+    "paths": {
+      "sharetribe-flex-integration-sdk": [
+        "./index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "sharetribe-flex-integration-sdk-tests.ts"
+  ]
+}
