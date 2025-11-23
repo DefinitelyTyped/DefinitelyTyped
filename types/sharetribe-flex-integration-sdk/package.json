@@ -1,18 +1,18 @@
 {
-  "private": true,
-  "name": "@types/sharetribe-flex-integration-sdk",
-  "version": "1.11.9999",
-  "projects": [
-    "https://github.com/sharetribe/flex-integration-sdk-js"
-  ],
-  "minimumTypeScriptVersion": "4.5",
-  "devDependencies": {
-    "@types/sharetribe-flex-integration-sdk": "workspace:."
-  },
-  "owners": [
-    {
-      "name": "Jayen Ashar",
-      "githubUsername": "jayenashar"
-    }
-  ]
+    "private": true,
+    "name": "@types/sharetribe-flex-integration-sdk",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/sharetribe/flex-integration-sdk-js"
+    ],
+    "minimumTypeScriptVersion": "4.5",
+    "devDependencies": {
+        "@types/sharetribe-flex-integration-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jayen Ashar",
+            "githubUsername": "jayenashar"
+        }
+    ]
 }
