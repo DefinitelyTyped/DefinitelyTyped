@@ -88,8 +88,8 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Tasks {
-        Tasklists?: Tasks.Collection.TasklistsCollection | undefined;
-        Tasks?: Tasks.Collection.TasksCollection | undefined;
+        Tasklists: Tasks.Collection.TasklistsCollection;
+        Tasks: Tasks.Collection.TasksCollection;
         // Create a new instance of Task
         newTask(): Tasks.Schema.Task;
         // Create a new instance of TaskLinks
@@ -99,4 +99,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Tasks: GoogleAppsScript.Tasks;
+/**
+ * The `Tasks` advanced service must be enabled.
+ */
+declare var Tasks: GoogleAppsScript.Tasks | undefined;

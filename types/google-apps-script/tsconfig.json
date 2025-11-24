@@ -15,6 +15,7 @@
     "files": [
         "index.d.ts",
         "test/google-apps-script-tests.ts",
-        "test/google-apps-script-tests.with-node.ts"
+        "test/google-apps-script-tests.with-node.ts",
+        "test/google-apps-script-apis-tests.ts"
     ]
 }
