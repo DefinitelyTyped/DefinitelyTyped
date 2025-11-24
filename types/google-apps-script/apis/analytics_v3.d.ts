@@ -592,34 +592,34 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface DataCollection {
-                Ga?: Analytics.Collection.Data.GaCollection | undefined;
-                Mcf?: Analytics.Collection.Data.McfCollection | undefined;
-                Realtime?: Analytics.Collection.Data.RealtimeCollection | undefined;
+                Ga: Analytics.Collection.Data.GaCollection;
+                Mcf: Analytics.Collection.Data.McfCollection;
+                Realtime: Analytics.Collection.Data.RealtimeCollection;
             }
             interface ManagementCollection {
-                AccountSummaries?: Analytics.Collection.Management.AccountSummariesCollection | undefined;
-                AccountUserLinks?: Analytics.Collection.Management.AccountUserLinksCollection | undefined;
-                Accounts?: Analytics.Collection.Management.AccountsCollection | undefined;
-                ClientId?: Analytics.Collection.Management.ClientIdCollection | undefined;
-                CustomDataSources?: Analytics.Collection.Management.CustomDataSourcesCollection | undefined;
-                CustomDimensions?: Analytics.Collection.Management.CustomDimensionsCollection | undefined;
-                CustomMetrics?: Analytics.Collection.Management.CustomMetricsCollection | undefined;
-                Experiments?: Analytics.Collection.Management.ExperimentsCollection | undefined;
-                Filters?: Analytics.Collection.Management.FiltersCollection | undefined;
-                Goals?: Analytics.Collection.Management.GoalsCollection | undefined;
-                ProfileFilterLinks?: Analytics.Collection.Management.ProfileFilterLinksCollection | undefined;
-                ProfileUserLinks?: Analytics.Collection.Management.ProfileUserLinksCollection | undefined;
-                Profiles?: Analytics.Collection.Management.ProfilesCollection | undefined;
-                RemarketingAudience?: Analytics.Collection.Management.RemarketingAudienceCollection | undefined;
-                Segments?: Analytics.Collection.Management.SegmentsCollection | undefined;
-                UnsampledReports?: Analytics.Collection.Management.UnsampledReportsCollection | undefined;
-                Uploads?: Analytics.Collection.Management.UploadsCollection | undefined;
-                WebPropertyAdWordsLinks?: Analytics.Collection.Management.WebPropertyAdWordsLinksCollection | undefined;
-                Webproperties?: Analytics.Collection.Management.WebpropertiesCollection | undefined;
-                WebpropertyUserLinks?: Analytics.Collection.Management.WebpropertyUserLinksCollection | undefined;
+                AccountSummaries: Analytics.Collection.Management.AccountSummariesCollection;
+                AccountUserLinks: Analytics.Collection.Management.AccountUserLinksCollection;
+                Accounts: Analytics.Collection.Management.AccountsCollection;
+                ClientId: Analytics.Collection.Management.ClientIdCollection;
+                CustomDataSources: Analytics.Collection.Management.CustomDataSourcesCollection;
+                CustomDimensions: Analytics.Collection.Management.CustomDimensionsCollection;
+                CustomMetrics: Analytics.Collection.Management.CustomMetricsCollection;
+                Experiments: Analytics.Collection.Management.ExperimentsCollection;
+                Filters: Analytics.Collection.Management.FiltersCollection;
+                Goals: Analytics.Collection.Management.GoalsCollection;
+                ProfileFilterLinks: Analytics.Collection.Management.ProfileFilterLinksCollection;
+                ProfileUserLinks: Analytics.Collection.Management.ProfileUserLinksCollection;
+                Profiles: Analytics.Collection.Management.ProfilesCollection;
+                RemarketingAudience: Analytics.Collection.Management.RemarketingAudienceCollection;
+                Segments: Analytics.Collection.Management.SegmentsCollection;
+                UnsampledReports: Analytics.Collection.Management.UnsampledReportsCollection;
+                Uploads: Analytics.Collection.Management.UploadsCollection;
+                WebPropertyAdWordsLinks: Analytics.Collection.Management.WebPropertyAdWordsLinksCollection;
+                Webproperties: Analytics.Collection.Management.WebpropertiesCollection;
+                WebpropertyUserLinks: Analytics.Collection.Management.WebpropertyUserLinksCollection;
             }
             interface MetadataCollection {
-                Columns?: Analytics.Collection.Metadata.ColumnsCollection | undefined;
+                Columns: Analytics.Collection.Metadata.ColumnsCollection;
             }
             interface ProvisioningCollection {
                 // Creates an account ticket.
@@ -628,7 +628,7 @@ declare namespace GoogleAppsScript {
                 createAccountTree(resource: Schema.AccountTreeRequest): Analytics.Schema.AccountTreeResponse;
             }
             interface UserDeletionCollection {
-                UserDeletionRequest?: Analytics.Collection.UserDeletion.UserDeletionRequestCollection | undefined;
+                UserDeletionRequest: Analytics.Collection.UserDeletion.UserDeletionRequestCollection;
             }
         }
         namespace Schema {
@@ -1524,11 +1524,11 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Analytics {
-        Data?: Analytics.Collection.DataCollection | undefined;
-        Management?: Analytics.Collection.ManagementCollection | undefined;
-        Metadata?: Analytics.Collection.MetadataCollection | undefined;
-        Provisioning?: Analytics.Collection.ProvisioningCollection | undefined;
-        UserDeletion?: Analytics.Collection.UserDeletionCollection | undefined;
+        Data: Analytics.Collection.DataCollection;
+        Management: Analytics.Collection.ManagementCollection;
+        Metadata: Analytics.Collection.MetadataCollection;
+        Provisioning: Analytics.Collection.ProvisioningCollection;
+        UserDeletion: Analytics.Collection.UserDeletionCollection;
         // Create a new instance of Account
         newAccount(): Analytics.Schema.Account;
         // Create a new instance of AccountChildLink
@@ -1652,4 +1652,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Analytics: GoogleAppsScript.Analytics;
+/**
+ * The `Analytics` advanced service must be enabled.
+ */
+declare var Analytics: GoogleAppsScript.Analytics | undefined;

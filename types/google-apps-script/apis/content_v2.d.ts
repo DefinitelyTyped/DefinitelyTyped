@@ -2337,22 +2337,22 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Content {
-        Accounts?: Content.Collection.AccountsCollection | undefined;
-        Accountstatuses?: Content.Collection.AccountstatusesCollection | undefined;
-        Accounttax?: Content.Collection.AccounttaxCollection | undefined;
-        Datafeeds?: Content.Collection.DatafeedsCollection | undefined;
-        Datafeedstatuses?: Content.Collection.DatafeedstatusesCollection | undefined;
-        Inventory?: Content.Collection.InventoryCollection | undefined;
-        Liasettings?: Content.Collection.LiasettingsCollection | undefined;
-        Orderinvoices?: Content.Collection.OrderinvoicesCollection | undefined;
-        Orderpayments?: Content.Collection.OrderpaymentsCollection | undefined;
-        Orderreports?: Content.Collection.OrderreportsCollection | undefined;
-        Orderreturns?: Content.Collection.OrderreturnsCollection | undefined;
-        Orders?: Content.Collection.OrdersCollection | undefined;
-        Pos?: Content.Collection.PosCollection | undefined;
-        Products?: Content.Collection.ProductsCollection | undefined;
-        Productstatuses?: Content.Collection.ProductstatusesCollection | undefined;
-        Shippingsettings?: Content.Collection.ShippingsettingsCollection | undefined;
+        Accounts: Content.Collection.AccountsCollection;
+        Accountstatuses: Content.Collection.AccountstatusesCollection;
+        Accounttax: Content.Collection.AccounttaxCollection;
+        Datafeeds: Content.Collection.DatafeedsCollection;
+        Datafeedstatuses: Content.Collection.DatafeedstatusesCollection;
+        Inventory: Content.Collection.InventoryCollection;
+        Liasettings: Content.Collection.LiasettingsCollection;
+        Orderinvoices: Content.Collection.OrderinvoicesCollection;
+        Orderpayments: Content.Collection.OrderpaymentsCollection;
+        Orderreports: Content.Collection.OrderreportsCollection;
+        Orderreturns: Content.Collection.OrderreturnsCollection;
+        Orders: Content.Collection.OrdersCollection;
+        Pos: Content.Collection.PosCollection;
+        Products: Content.Collection.ProductsCollection;
+        Productstatuses: Content.Collection.ProductstatusesCollection;
+        Shippingsettings: Content.Collection.ShippingsettingsCollection;
         // Create a new instance of Account
         newAccount(): Content.Schema.Account;
         // Create a new instance of AccountAddress
@@ -2650,4 +2650,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Content: GoogleAppsScript.Content;
+/**
+ * The `Content` advanced service must be enabled.
+ */
+declare var Content: GoogleAppsScript.Content | undefined;

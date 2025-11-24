@@ -77,10 +77,13 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminGroupsSettings {
-        Groups?: AdminGroupsSettings.Collection.GroupsCollection | undefined;
+        Groups: AdminGroupsSettings.Collection.GroupsCollection;
         // Create a new instance of Groups
         newGroups(): AdminGroupsSettings.Schema.Groups;
     }
 }
 
-declare var AdminGroupsSettings: GoogleAppsScript.AdminGroupsSettings;
+/**
+ * The `AdminGroupsSettings` advanced service must be enabled.
+ */
+declare var AdminGroupsSettings: GoogleAppsScript.AdminGroupsSettings | undefined;

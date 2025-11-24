@@ -146,9 +146,9 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface SpreadsheetsCollection {
-                DeveloperMetadata?: Sheets.Collection.Spreadsheets.DeveloperMetadataCollection | undefined;
-                Sheets?: Sheets.Collection.Spreadsheets.SheetsCollection | undefined;
-                Values?: Sheets.Collection.Spreadsheets.ValuesCollection | undefined;
+                DeveloperMetadata: Sheets.Collection.Spreadsheets.DeveloperMetadataCollection;
+                Sheets: Sheets.Collection.Spreadsheets.SheetsCollection;
+                Values: Sheets.Collection.Spreadsheets.ValuesCollection;
                 // Applies one or more updates to the spreadsheet.
                 // Each request is validated before
                 // being applied. If any request is not valid then the entire request will
@@ -1261,7 +1261,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Sheets {
-        Spreadsheets?: Sheets.Collection.SpreadsheetsCollection | undefined;
+        Spreadsheets: Sheets.Collection.SpreadsheetsCollection;
         // Create a new instance of AddBandingRequest
         newAddBandingRequest(): Sheets.Schema.AddBandingRequest;
         // Create a new instance of AddChartRequest
@@ -1569,4 +1569,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Sheets: GoogleAppsScript.Sheets;
+/**
+ * The `Sheets` advanced service must be enabled.
+ */
+declare var Sheets: GoogleAppsScript.Sheets | undefined;

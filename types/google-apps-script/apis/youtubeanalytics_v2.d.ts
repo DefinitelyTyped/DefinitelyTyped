@@ -117,9 +117,9 @@ declare namespace GoogleAppsScript {
         }
     }
     interface YouTubeAnalytics {
-        GroupItems?: YouTubeAnalytics.Collection.GroupItemsCollection | undefined;
-        Groups?: YouTubeAnalytics.Collection.GroupsCollection | undefined;
-        Reports?: YouTubeAnalytics.Collection.ReportsCollection | undefined;
+        GroupItems: YouTubeAnalytics.Collection.GroupItemsCollection;
+        Groups: YouTubeAnalytics.Collection.GroupsCollection;
+        Reports: YouTubeAnalytics.Collection.ReportsCollection;
         // Create a new instance of ErrorProto
         newErrorProto(): YouTubeAnalytics.Schema.ErrorProto;
         // Create a new instance of Errors
@@ -137,4 +137,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var YouTubeAnalytics: GoogleAppsScript.YouTubeAnalytics;
+/**
+ * The `YouTubeAnalytics` advanced service must be enabled.
+ */
+declare var YouTubeAnalytics: GoogleAppsScript.YouTubeAnalytics | undefined;

@@ -631,8 +631,8 @@ declare namespace GoogleAppsScript {
                 update(resource: Schema.RemarketingList, profileId: string): Dfareporting.Schema.RemarketingList;
             }
             interface ReportsCollection {
-                CompatibleFields?: Dfareporting.Collection.Reports.CompatibleFieldsCollection | undefined;
-                Files?: Dfareporting.Collection.Reports.FilesCollection | undefined;
+                CompatibleFields: Dfareporting.Collection.Reports.CompatibleFieldsCollection;
+                Files: Dfareporting.Collection.Reports.FilesCollection;
                 // Retrieves a report by its ID.
                 get(profileId: string, reportId: string): Dfareporting.Schema.Report;
                 // Creates a report.
@@ -2565,66 +2565,66 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Dfareporting {
-        AccountActiveAdSummaries?: Dfareporting.Collection.AccountActiveAdSummariesCollection | undefined;
-        AccountPermissionGroups?: Dfareporting.Collection.AccountPermissionGroupsCollection | undefined;
-        AccountPermissions?: Dfareporting.Collection.AccountPermissionsCollection | undefined;
-        AccountUserProfiles?: Dfareporting.Collection.AccountUserProfilesCollection | undefined;
-        Accounts?: Dfareporting.Collection.AccountsCollection | undefined;
-        Ads?: Dfareporting.Collection.AdsCollection | undefined;
-        AdvertiserGroups?: Dfareporting.Collection.AdvertiserGroupsCollection | undefined;
-        AdvertiserLandingPages?: Dfareporting.Collection.AdvertiserLandingPagesCollection | undefined;
-        Advertisers?: Dfareporting.Collection.AdvertisersCollection | undefined;
-        Browsers?: Dfareporting.Collection.BrowsersCollection | undefined;
-        CampaignCreativeAssociations?: Dfareporting.Collection.CampaignCreativeAssociationsCollection | undefined;
-        Campaigns?: Dfareporting.Collection.CampaignsCollection | undefined;
-        ChangeLogs?: Dfareporting.Collection.ChangeLogsCollection | undefined;
-        Cities?: Dfareporting.Collection.CitiesCollection | undefined;
-        ConnectionTypes?: Dfareporting.Collection.ConnectionTypesCollection | undefined;
-        ContentCategories?: Dfareporting.Collection.ContentCategoriesCollection | undefined;
-        Conversions?: Dfareporting.Collection.ConversionsCollection | undefined;
-        Countries?: Dfareporting.Collection.CountriesCollection | undefined;
-        CreativeAssets?: Dfareporting.Collection.CreativeAssetsCollection | undefined;
-        CreativeFieldValues?: Dfareporting.Collection.CreativeFieldValuesCollection | undefined;
-        CreativeFields?: Dfareporting.Collection.CreativeFieldsCollection | undefined;
-        CreativeGroups?: Dfareporting.Collection.CreativeGroupsCollection | undefined;
-        Creatives?: Dfareporting.Collection.CreativesCollection | undefined;
-        DimensionValues?: Dfareporting.Collection.DimensionValuesCollection | undefined;
-        DirectorySites?: Dfareporting.Collection.DirectorySitesCollection | undefined;
-        DynamicTargetingKeys?: Dfareporting.Collection.DynamicTargetingKeysCollection | undefined;
-        EventTags?: Dfareporting.Collection.EventTagsCollection | undefined;
-        Files?: Dfareporting.Collection.FilesCollection | undefined;
-        FloodlightActivities?: Dfareporting.Collection.FloodlightActivitiesCollection | undefined;
-        FloodlightActivityGroups?: Dfareporting.Collection.FloodlightActivityGroupsCollection | undefined;
-        FloodlightConfigurations?: Dfareporting.Collection.FloodlightConfigurationsCollection | undefined;
-        InventoryItems?: Dfareporting.Collection.InventoryItemsCollection | undefined;
-        Languages?: Dfareporting.Collection.LanguagesCollection | undefined;
-        Metros?: Dfareporting.Collection.MetrosCollection | undefined;
-        MobileApps?: Dfareporting.Collection.MobileAppsCollection | undefined;
-        MobileCarriers?: Dfareporting.Collection.MobileCarriersCollection | undefined;
-        OperatingSystemVersions?: Dfareporting.Collection.OperatingSystemVersionsCollection | undefined;
-        OperatingSystems?: Dfareporting.Collection.OperatingSystemsCollection | undefined;
-        OrderDocuments?: Dfareporting.Collection.OrderDocumentsCollection | undefined;
-        Orders?: Dfareporting.Collection.OrdersCollection | undefined;
-        PlacementGroups?: Dfareporting.Collection.PlacementGroupsCollection | undefined;
-        PlacementStrategies?: Dfareporting.Collection.PlacementStrategiesCollection | undefined;
-        Placements?: Dfareporting.Collection.PlacementsCollection | undefined;
-        PlatformTypes?: Dfareporting.Collection.PlatformTypesCollection | undefined;
-        PostalCodes?: Dfareporting.Collection.PostalCodesCollection | undefined;
-        Projects?: Dfareporting.Collection.ProjectsCollection | undefined;
-        Regions?: Dfareporting.Collection.RegionsCollection | undefined;
-        RemarketingListShares?: Dfareporting.Collection.RemarketingListSharesCollection | undefined;
-        RemarketingLists?: Dfareporting.Collection.RemarketingListsCollection | undefined;
-        Reports?: Dfareporting.Collection.ReportsCollection | undefined;
-        Sites?: Dfareporting.Collection.SitesCollection | undefined;
-        Sizes?: Dfareporting.Collection.SizesCollection | undefined;
-        Subaccounts?: Dfareporting.Collection.SubaccountsCollection | undefined;
-        TargetableRemarketingLists?: Dfareporting.Collection.TargetableRemarketingListsCollection | undefined;
-        TargetingTemplates?: Dfareporting.Collection.TargetingTemplatesCollection | undefined;
-        UserProfiles?: Dfareporting.Collection.UserProfilesCollection | undefined;
-        UserRolePermissionGroups?: Dfareporting.Collection.UserRolePermissionGroupsCollection | undefined;
-        UserRolePermissions?: Dfareporting.Collection.UserRolePermissionsCollection | undefined;
-        UserRoles?: Dfareporting.Collection.UserRolesCollection | undefined;
-        VideoFormats?: Dfareporting.Collection.VideoFormatsCollection | undefined;
+        AccountActiveAdSummaries: Dfareporting.Collection.AccountActiveAdSummariesCollection;
+        AccountPermissionGroups: Dfareporting.Collection.AccountPermissionGroupsCollection;
+        AccountPermissions: Dfareporting.Collection.AccountPermissionsCollection;
+        AccountUserProfiles: Dfareporting.Collection.AccountUserProfilesCollection;
+        Accounts: Dfareporting.Collection.AccountsCollection;
+        Ads: Dfareporting.Collection.AdsCollection;
+        AdvertiserGroups: Dfareporting.Collection.AdvertiserGroupsCollection;
+        AdvertiserLandingPages: Dfareporting.Collection.AdvertiserLandingPagesCollection;
+        Advertisers: Dfareporting.Collection.AdvertisersCollection;
+        Browsers: Dfareporting.Collection.BrowsersCollection;
+        CampaignCreativeAssociations: Dfareporting.Collection.CampaignCreativeAssociationsCollection;
+        Campaigns: Dfareporting.Collection.CampaignsCollection;
+        ChangeLogs: Dfareporting.Collection.ChangeLogsCollection;
+        Cities: Dfareporting.Collection.CitiesCollection;
+        ConnectionTypes: Dfareporting.Collection.ConnectionTypesCollection;
+        ContentCategories: Dfareporting.Collection.ContentCategoriesCollection;
+        Conversions: Dfareporting.Collection.ConversionsCollection;
+        Countries: Dfareporting.Collection.CountriesCollection;
+        CreativeAssets: Dfareporting.Collection.CreativeAssetsCollection;
+        CreativeFieldValues: Dfareporting.Collection.CreativeFieldValuesCollection;
+        CreativeFields: Dfareporting.Collection.CreativeFieldsCollection;
+        CreativeGroups: Dfareporting.Collection.CreativeGroupsCollection;
+        Creatives: Dfareporting.Collection.CreativesCollection;
+        DimensionValues: Dfareporting.Collection.DimensionValuesCollection;
+        DirectorySites: Dfareporting.Collection.DirectorySitesCollection;
+        DynamicTargetingKeys: Dfareporting.Collection.DynamicTargetingKeysCollection;
+        EventTags: Dfareporting.Collection.EventTagsCollection;
+        Files: Dfareporting.Collection.FilesCollection;
+        FloodlightActivities: Dfareporting.Collection.FloodlightActivitiesCollection;
+        FloodlightActivityGroups: Dfareporting.Collection.FloodlightActivityGroupsCollection;
+        FloodlightConfigurations: Dfareporting.Collection.FloodlightConfigurationsCollection;
+        InventoryItems: Dfareporting.Collection.InventoryItemsCollection;
+        Languages: Dfareporting.Collection.LanguagesCollection;
+        Metros: Dfareporting.Collection.MetrosCollection;
+        MobileApps: Dfareporting.Collection.MobileAppsCollection;
+        MobileCarriers: Dfareporting.Collection.MobileCarriersCollection;
+        OperatingSystemVersions: Dfareporting.Collection.OperatingSystemVersionsCollection;
+        OperatingSystems: Dfareporting.Collection.OperatingSystemsCollection;
+        OrderDocuments: Dfareporting.Collection.OrderDocumentsCollection;
+        Orders: Dfareporting.Collection.OrdersCollection;
+        PlacementGroups: Dfareporting.Collection.PlacementGroupsCollection;
+        PlacementStrategies: Dfareporting.Collection.PlacementStrategiesCollection;
+        Placements: Dfareporting.Collection.PlacementsCollection;
+        PlatformTypes: Dfareporting.Collection.PlatformTypesCollection;
+        PostalCodes: Dfareporting.Collection.PostalCodesCollection;
+        Projects: Dfareporting.Collection.ProjectsCollection;
+        Regions: Dfareporting.Collection.RegionsCollection;
+        RemarketingListShares: Dfareporting.Collection.RemarketingListSharesCollection;
+        RemarketingLists: Dfareporting.Collection.RemarketingListsCollection;
+        Reports: Dfareporting.Collection.ReportsCollection;
+        Sites: Dfareporting.Collection.SitesCollection;
+        Sizes: Dfareporting.Collection.SizesCollection;
+        Subaccounts: Dfareporting.Collection.SubaccountsCollection;
+        TargetableRemarketingLists: Dfareporting.Collection.TargetableRemarketingListsCollection;
+        TargetingTemplates: Dfareporting.Collection.TargetingTemplatesCollection;
+        UserProfiles: Dfareporting.Collection.UserProfilesCollection;
+        UserRolePermissionGroups: Dfareporting.Collection.UserRolePermissionGroupsCollection;
+        UserRolePermissions: Dfareporting.Collection.UserRolePermissionsCollection;
+        UserRoles: Dfareporting.Collection.UserRolesCollection;
+        VideoFormats: Dfareporting.Collection.VideoFormatsCollection;
         // Create a new instance of Account
         newAccount(): Dfareporting.Schema.Account;
         // Create a new instance of AccountUserProfile
@@ -2900,4 +2900,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Dfareporting: GoogleAppsScript.Dfareporting;
+/**
+ * The `Dfareporting` advanced service must be enabled.
+ */
+declare var Dfareporting: GoogleAppsScript.Dfareporting | undefined;

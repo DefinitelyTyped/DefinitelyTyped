@@ -138,14 +138,17 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminReports {
-        Activities?: AdminReports.Collection.ActivitiesCollection | undefined;
-        Channels?: AdminReports.Collection.ChannelsCollection | undefined;
-        CustomerUsageReports?: AdminReports.Collection.CustomerUsageReportsCollection | undefined;
-        EntityUsageReports?: AdminReports.Collection.EntityUsageReportsCollection | undefined;
-        UserUsageReport?: AdminReports.Collection.UserUsageReportCollection | undefined;
+        Activities: AdminReports.Collection.ActivitiesCollection;
+        Channels: AdminReports.Collection.ChannelsCollection;
+        CustomerUsageReports: AdminReports.Collection.CustomerUsageReportsCollection;
+        EntityUsageReports: AdminReports.Collection.EntityUsageReportsCollection;
+        UserUsageReport: AdminReports.Collection.UserUsageReportCollection;
         // Create a new instance of Channel
         newChannel(): AdminReports.Schema.Channel;
     }
 }
 
-declare var AdminReports: GoogleAppsScript.AdminReports;
+/**
+ * The `AdminReports` advanced service must be enabled.
+ */
+declare var AdminReports: GoogleAppsScript.AdminReports | undefined;
