@@ -34,8 +34,10 @@ export interface ProviderOptions {
     cookies?: {
         secure?: boolean | undefined;
         sameSite?: string | undefined;
+        domain?: string | undefined;
     } | undefined;
     devMode?: boolean | undefined;
+    ltiaas?: boolean | undefined;
     tokenMaxAge?: number | undefined;
     dynReg?: {
         url: string;
@@ -47,6 +49,19 @@ export interface ProviderOptions {
         autoActivate?: boolean | undefined;
         useDeepLinking?: boolean | undefined;
     } | undefined;
+
+    /**
+     * @deprecated Use `appRoute` property instead.
+     */
+    appUrl?: string | undefined;
+    /**
+     * @deprecated Use `loginRoute` property instead.
+     */
+    loginUrl?: string | undefined;
+    /**
+     * @deprecated Use `keysetRoute` property instead.
+     */
+    keysetUrl?: string | undefined;
 }
 
 export interface RequestCallback {

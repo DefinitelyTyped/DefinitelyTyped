@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ltijs",
-    "version": "4.0.9999",
+    "version": "5.9.9999",
     "projects": [
         "https://cvmcosta.github.io/ltijs"
     ],
