@@ -1309,7 +1309,6 @@ const people = () => {
     });
     console.log(listDirectoryPeopleResponse.people?.[0].names);
 
-
     // other contacts methods
     const otherContactsListResponse = People.OtherContacts.list({
         readMask: "names,emailAddresses",

@@ -161,7 +161,7 @@ function testDfareporting() {
     // $ExpectType AccountUserProfilesCollection
     const accountUserProfiles = dfareporting.AccountUserProfiles;
     // $ExpectType AccountUserProfilesListResponse
-    const list = accountUserProfiles.list('profile-id');
+    const list = accountUserProfiles.list("profile-id");
 }
 
 function testDocs() {
@@ -231,7 +231,7 @@ function testPeopleApi() {
     // $ExpectType PeopleCollection
     const peopleCollection = people.People;
     // $ExpectType ListConnectionsResponse
-    const list = peopleCollection.Connections.list('people/me');
+    const list = peopleCollection.Connections.list("people/me");
 }
 
 function testAdminReports() {
@@ -283,4 +283,3 @@ function testYoutubePartner() {
     // $ExpectType AssetListResponse
     const list = assets.list("id");
 }
-
