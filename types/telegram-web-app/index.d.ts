@@ -351,7 +351,7 @@ export interface WebApp {
      */
     openInvoice(url: string, callback: (status: "paid" | "cancelled" | "failed" | "pending") => void): void;
     /**
-     * Bot API 9.1+
+     * **Bot API 9.1+**
      *
      * A method that hides the on-screen keyboard, if it is currently visible.
      * Does nothing if the keyboard is not active.
