@@ -404,6 +404,15 @@ declare namespace google.payments.api {
          * @default false
          */
         phoneNumberRequired?: false | true | undefined;
+
+        /**
+         * Shipping address format.
+         *
+         * If omitted, defaults to [[ShippingAddressFormat|`FULL`]].
+         *
+         * * @default "FULL"
+         */
+        format?: ShippingAddressFormat | undefined;
     }
 
     /**
@@ -483,6 +492,14 @@ declare namespace google.payments.api {
          * number be returned.
          */
         phoneNumber?: string | undefined;
+
+        /**
+         * The 3166-2 administrative area code
+         *
+         * ISO 3166-2 administrative area code corresponding to administrativeArea.
+         * Only present if the shipping or billing address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeAreaCode?: string | undefined;
     }
 
     /**
@@ -516,6 +533,14 @@ declare namespace google.payments.api {
          * The locality (e.g. city or town).
          */
         locality: string;
+
+        /**
+         * The 3166-2 administrative area code
+         *
+         * ISO 3166-2 administrative area code corresponding to administrativeArea.
+         * Only present if the shipping address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeAreaCode?: string | undefined;
     }
 
     /**
@@ -1582,8 +1607,35 @@ declare namespace google.payments.api {
      *   Only select this format when it is required to process the order.
      *   Additional form entry or customer data requests can increase friction
      *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
      */
-    type BillingAddressFormat = "MIN" | "FULL";
+    type BillingAddressFormat = "MIN" | "FULL" | "FULL-ISO3166";
+
+    /**
+     * Shipping address format enum string.
+     *
+     * Options:
+     *
+     * - `FULL`:
+     *   Full shipping address
+     *
+     *   All the fields in [[Address|`Address`]] will
+     *   be returned, with the possible exception of
+     *   [[Address.phoneNumber|`Address.phoneNumber`]] which will only be
+     *   returned if
+     *   [[ShippingAddressParameters.phoneNumberRequired|`ShippingAddressParameters.phoneNumberRequired`]]
+     *   is set to `true`.
+     *
+     *   Only select this format when it is required to process the order.
+     *   Additional form entry or customer data requests can increase friction
+     *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
+     */
+    type ShippingAddressFormat = "MIN" | "FULL" | "FULL-ISO3166";
 
     /**
      * The status of the total price used.

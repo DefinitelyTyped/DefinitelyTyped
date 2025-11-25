@@ -201,6 +201,10 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         },
         allowedPaymentMethods,
         shippingAddressRequired: true,
+        shippingAddressParameters: {
+            phoneNumberRequired: true,
+            format: "FULL-ISO3166",
+        },
         callbackIntents: ["OFFER", "PAYMENT_AUTHORIZATION", "PAYMENT_METHOD"],
     };
 }
