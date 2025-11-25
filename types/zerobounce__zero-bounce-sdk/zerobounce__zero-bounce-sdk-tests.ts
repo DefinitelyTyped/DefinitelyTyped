@@ -20,7 +20,7 @@ sdk.getApiUsage("2024-01-01", "2024-12-31");
 // $ExpectType Promise<ValidateBatchResponse>
 sdk.validateBatch([
     { email_address: "test1@example.com" },
-    { email_address: "test2@example.com" }
+    { email_address: "test2@example.com" },
 ]);
 
 // $ExpectType Promise<EmailActivityResponse>
@@ -29,7 +29,7 @@ sdk.getEmailActivity("test@example.com");
 // $ExpectType Promise<SendFileResponse>
 sdk.sendFile({
     file: new File([], "test.csv"),
-    email_address_column: 1
+    email_address_column: 1,
 });
 
 // $ExpectType Promise<SendFileResponse>
@@ -42,14 +42,14 @@ sdk.sendFile({
     gender_column: 4,
     ip_address_column: 5,
     has_header_row: true,
-    remove_duplicate: false
+    remove_duplicate: false,
 });
 
 // $ExpectType Promise<SendFileResponse>
 sdk.sendScoringFile({
     file: new File([], "test.csv"),
     email_address_column: 1,
-    has_header_row: true
+    has_header_row: true,
 });
 
 // $ExpectType Promise<FileStatusResponse>
@@ -72,7 +72,7 @@ sdk.deleteScoringFile("file-456");
 
 // $ExpectType Promise<GuessFormatResponse>
 sdk.guessFormat({
-    domain: "example.com"
+    domain: "example.com",
 });
 
 // $ExpectType Promise<GuessFormatResponse>
@@ -80,5 +80,5 @@ sdk.guessFormat({
     domain: "example.com",
     first_name: "John",
     middle_name: "Michael",
-    last_name: "Doe"
+    last_name: "Doe",
 });
