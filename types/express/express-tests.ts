@@ -8,9 +8,6 @@ namespace express_tests {
     app.engine("jade", require("jade").__express);
     app.engine("html", require("ejs").renderFile);
 
-    express.static.mime.define({
-        "application/fx": ["fx"],
-    });
     app.use(
         "/static",
         express.static(__dirname + "/public", {
