@@ -351,6 +351,13 @@ export interface WebApp {
      */
     openInvoice(url: string, callback: (status: "paid" | "cancelled" | "failed" | "pending") => void): void;
     /**
+     * **Bot API 9.1+**
+     *
+     * A method that hides the on-screen keyboard, if it is currently visible.
+     * Does nothing if the keyboard is not active.
+     */
+    hideKeyboard(): void;
+    /**
      * A method that shows a native popup described by the params argument of
      * the type PopupParams. The Web App will receive the event popupClosed when
      * the popup is closed. If an optional callback parameter was passed, the
@@ -795,23 +802,31 @@ export interface BackButton {
      */
     isVisible: boolean;
     /**
-     * A method that sets the button press event handler. An alias for
-     * Telegram.WebApp.onEvent('backButtonClicked', callback)
+     * **Bot API 6.1+**
+     *
+     * A method that sets the button press event handler.
+     * An alias for `Telegram.WebApp.onEvent('backButtonClicked', callback)`
      */
     onClick(callback: () => void): BackButton;
     /**
-     *  A method that removes the button press event handler. An alias for
-     *  Telegram.WebApp.offEvent('backButtonClicked', callback)
+     * **Bot API 6.1+**
+     *
+     * A method that removes the button press event handler.
+     * An alias for `Telegram.WebApp.offEvent('backButtonClicked', callback)`
      */
     offClick(callback: () => void): BackButton;
     /**
+     * **Bot API 6.1+**
+     *
      * A method to make the button active and visible.
      */
-    show(): void;
+    show(): BackButton;
     /**
+     * **Bot API 6.1+**
+     *
      * A method to hide the button.
      */
-    hide(): void;
+    hide(): BackButton;
 }
 
 /**
