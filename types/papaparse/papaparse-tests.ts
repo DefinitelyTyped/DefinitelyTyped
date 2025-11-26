@@ -265,6 +265,17 @@ Papa.parse<[string, string, string]>("a,b,c", {
     },
 });
 
+// $ExpectType void
+Papa.parse<string[]>("a,b,c", { step() {}, downloadRequestBody: new Blob(["hello"]) });
+// $ExpectType void
+Papa.parse<string[]>("a,b,c", { step() {}, downloadRequestBody: new ArrayBuffer(10) });
+// $ExpectType void
+Papa.parse<string[]>("a,b,c", { step() {}, downloadRequestBody: new FormData() });
+// $ExpectType void
+Papa.parse<string[]>("a,b,c", { step() {}, downloadRequestBody: new URLSearchParams() });
+// $ExpectType void
+Papa.parse<string[]>("a,b,c", { step() {}, downloadRequestBody: "hello" });
+
 /**
  * Unparsing
  */
