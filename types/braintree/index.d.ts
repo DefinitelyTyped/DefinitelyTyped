@@ -793,9 +793,9 @@ declare namespace braintree {
         reason: string;
         reasonCode: string;
         reasonDescription: string;
-        receivedDate: Date;
+        receivedDate: string;
         referenceNumber: string;
-        replyByDate: Date;
+        replyByDate: string;
         status: DisputeStatus;
         statusHistory: DisputeStatusHistory[];
         transaction: {
@@ -812,17 +812,17 @@ declare namespace braintree {
     export type DisputeStatus = "Accepted" | "Disputed" | "Expired" | "Open" | "Lost" | "Won";
 
     export interface DisputeStatusHistory {
-        disbursementDate: Date;
-        effectiveDate: Date;
+        disbursementDate: string;
+        effectiveDate: string;
         status: DisputeStatus;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface Evidence {
         comment?: string | undefined;
         createdAt: string;
         id: string;
-        sendToProcessorAt: Date;
+        sendToProcessorAt: string;
         url?: string | undefined;
     }
 
@@ -838,7 +838,7 @@ declare namespace braintree {
 
         id: string;
         amount: string;
-        disbursementDate: Date;
+        disbursementDate: string;
         disbursementType: DisbursementType;
         transactionIds: string[];
         merchantAccount: DisbursementMerchantAccount;
@@ -1127,7 +1127,7 @@ declare namespace braintree {
      * Account Updater
      */
     export class AccountUpdaterDailyReport {
-        reportDate: Date;
+        reportDate: string;
         reportUrl: string;
     }
 
@@ -1142,7 +1142,7 @@ declare namespace braintree {
 
     export interface BaseWebhookNotification {
         kind: WebhookNotificationKind;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface TransactionNotification extends BaseWebhookNotification {
@@ -1339,7 +1339,7 @@ declare namespace braintree {
         descriptor?: Descriptor | undefined;
         discounts?: Discount[] | undefined;
         failureCount?: number | undefined;
-        firstBillingDate?: Date | undefined;
+        firstBillingDate?: string | undefined;
         id: string;
         merchantAccountId: string;
         neverExpires?: boolean | undefined;
@@ -1347,7 +1347,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate?: Date | undefined;
+        paidThroughDate?: string | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1540,7 +1540,7 @@ declare namespace braintree {
             }
             | undefined;
         authorizationAdjustments?: AuthorizationAdjustment[] | undefined;
-        authorizationExpiresAt?: Date | undefined;
+        authorizationExpiresAt?: string | undefined;
         avsErrorResponseCode: string;
         avsPostalCodeResponseCode: string;
         avsStreetAddressResponseCode: string;
@@ -1726,8 +1726,8 @@ declare namespace braintree {
         statusHistory?: TransactionStatusHistory[] | undefined;
         subscription?:
             | {
-                billingPeriodEndDate: Date;
-                billingPeriodStartDate: Date;
+                billingPeriodEndDate: string;
+                billingPeriodStartDate: string;
             }
             | undefined;
         subscriptionId?: string | undefined;
@@ -1913,7 +1913,7 @@ declare namespace braintree {
     export interface AuthorizationAdjustment {
         amount: string;
         success: boolean;
-        timestamp: Date;
+        timestamp: string;
         processorResponseType: string;
         processorResponseCode: string;
         processorResponseText: string;
@@ -1926,7 +1926,7 @@ declare namespace braintree {
     }
 
     export interface DisbursementDetails {
-        disbursementDate: Date;
+        disbursementDate: string;
         fundsHeld: boolean;
         settlementAmount: string;
         settlementCurrencyExchangeRate: string;
@@ -1998,8 +1998,8 @@ declare namespace braintree {
     export interface TransactionStatusHistory {
         amount: string;
         status: TransactionStatus;
-        timestamp: Date;
-        transactionsource: TransactionSource;
+        timestamp: string;
+        transactionSource: TransactionSource;
         user: string;
     }
 
