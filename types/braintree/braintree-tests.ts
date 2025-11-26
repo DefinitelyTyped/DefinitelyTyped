@@ -69,6 +69,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     createdAt.toUpperCase();
 })();
 
+/**
+ * CreditCard
+ */
 (async () => {
     const creditCardRequest = {
         cardholderName: "Johnny Dogood",
@@ -81,6 +84,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     createdAt.toUpperCase();
 })();
 
+/**
+ * Customer
+ */
 (async () => {
     const response = await gateway.customer.find("abcdef").catch(console.error);
     if (!response) return;
@@ -89,6 +95,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     createdAt.toUpperCase();
 })();
 
+/**
+ * PaymentMethod
+ */
 (async () => {
     const paymentMethodRequest = {
         customerId: "123456",
@@ -107,12 +116,18 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const masterpassCard = <MasterpassCard> response.paymentMethod;
 })();
 
+/**
+ * PaymentMethodNonce
+ */
 (async () => {
     const response = await gateway.paymentMethodNonce.create("token").catch(console.error);
     if (!response) return;
     const nonce: PaymentMethodNonce = response.paymentMethodNonce;
 })();
 
+/**
+ * Transaction
+ */
 (async () => {
     const transactionRequest: braintree.TransactionRequest = {
         amount: "128.00",
@@ -243,13 +258,17 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     gateway.transaction.search(() => true).on("data", transactions.push);
 })();
 
-// Plan Gateway
+/**
+ * Plan
+ */
 (async () => {
     // $ExpectType Plan[];
     await gateway.plan.all();
 })();
 
-// Subscription
+/**
+ * Subscription
+ */
 (async () => {
     // $ExpectType ValidatedResponse<Subscription>
     const result = await gateway.subscription.create({
@@ -261,6 +280,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     // $ExpectType string
     subscription.nextBillingDate;
+    subscription.firstBillingDate;
 
     // Assert overlap between subscription status and static field
     subscription.status === braintree.Subscription.Status.Active;
@@ -268,11 +288,17 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     subscription.status === braintree.Subscription.Status.Expired;
     subscription.status === braintree.Subscription.Status.PastDue;
     subscription.status === braintree.Subscription.Status.Pending;
+
+    // $ExpectType ValidatedResponse<Subscription>
+    const cancelResult = await gateway.subscription.cancel("subscriptionId");
 })();
 
 // $ExpectType () => string[]
 braintree.Subscription.Status.All;
 
+/**
+ * WebhookTesting
+ */
 (async () => {
     const kind: WebhookNotificationKind = "subscription_canceled";
     const subscriptionId = "123456";
@@ -291,6 +317,9 @@ braintree.Subscription.Status.All;
     const subscription = notification.subscription;
 })();
 
+/**
+ * WebhookNotification
+ */
 (async () => {
     const kind: WebhookNotificationKind = "payment_method_revoked_by_customer";
     const subscriptionId = "123456";
@@ -310,6 +339,9 @@ braintree.Subscription.Status.All;
     if (!metadata.revokedPaymentMethod) return;
 })();
 
+/**
+ * WebhookNotification
+ */
 (async () => {
     const kind: WebhookNotificationKind = "account_updater_daily_report";
     const subscriptionId = "123456";
@@ -339,6 +371,9 @@ const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
     privateKey: "xyz789",
 });
 
+/**
+ * MerchantAccount
+ */
 (async () => {
     const merchantAccount: MerchantAccountCreateRequest = {
         individual: {

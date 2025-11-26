@@ -325,7 +325,7 @@ declare namespace braintree {
     }
 
     interface SubscriptionGateway {
-        cancel(subscriptionId: string): Promise<Subscription>;
+        cancel(subscriptionId: string): Promise<ValidatedResponse<Subscription>>;
         create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
