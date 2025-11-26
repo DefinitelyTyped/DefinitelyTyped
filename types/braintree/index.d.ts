@@ -1451,9 +1451,9 @@ declare namespace braintree {
         };
 
         static Source: {
-            Api: "Api";
-            ControlPanel: "ControlPanel";
-            Recurring: "Recurring";
+            Api: "api";
+            ControlPanel: "control_panel";
+            Recurring: "recurring";
         };
 
         static CreatedUsing: {
@@ -2003,7 +2003,7 @@ declare namespace braintree {
         user: string;
     }
 
-    export type TransactionSource = "Api" | "ControlPanel" | "Recurring";
+    export type TransactionSource = "api" | "control_panel" | "recurring";
 
     export interface TransactionThreeDSecureInfo {
         enrolled: string;
