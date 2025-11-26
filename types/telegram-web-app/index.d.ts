@@ -599,6 +599,15 @@ export interface WebApp {
   readTextFromClipboard(callback?: (data: string | null) => void): void;
 
   /**
+   * A method that shows a native popup requesting permission for the bot to send messages to the user.
+   * If an optional callback parameter was passed,
+   * the callback function will be called when the popup is closed and the first argument will be a boolean indicating whether the user granted this access.
+   *
+   * @since Bot API 6.9+
+   */
+  requestWriteAccess(callback?: (success: boolean) => void): void;
+
+  /**
    * A method that shows a native popup prompting the user for their phone number.
    * If an optional callback parameter was passed,
    * the callback function will be called when the popup is closed and the first argument will be a boolean indicating whether the user shared its phone number.
