@@ -620,12 +620,12 @@ export type ShareMessageFailedCallback = (eventData: {
 export type EmojiStatusSetCallback = () => void;
 export type EmojiStatusFailedCallback = (eventData: {
     error:
-        | "UNSUPPORTED"
-        | "SUGGESTED_EMOJI_INVALID"
-        | "DURATION_INVALID"
-        | "USER_DECLINED"
-        | "SERVER_ERROR"
-        | "UNKNOWN_ERROR";
+    | "UNSUPPORTED"
+    | "SUGGESTED_EMOJI_INVALID"
+    | "DURATION_INVALID"
+    | "USER_DECLINED"
+    | "SERVER_ERROR"
+    | "UNKNOWN_ERROR";
 }) => void;
 export type EmojiStatusAccessRequestedCallback = (eventData: {
     status: "allowed" | "cancelled";
@@ -639,143 +639,143 @@ export type FileDownloadRequestedCallback = (eventData: {
  * This object contains the user's current theme setting
  */
 export interface ThemeParams {
-  /**
-   * *Optional.*
-   * Background color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-bg-color)`.
-   */
-  bg_color?: string;
+    /**
+     * *Optional.*
+     * Background color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-bg-color)`.
+     */
+    bg_color?: string;
 
-  /**
-   * *Optional.*
-   * Main text color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-text-color)`.
-   */
-  text_color?: string;
+    /**
+     * *Optional.*
+     * Main text color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-text-color)`.
+     */
+    text_color?: string;
 
-  /**
-   * *Optional.*
-   * Hint text color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-hint-color)`.
-   */
-  hint_color?: string;
+    /**
+     * *Optional.*
+     * Hint text color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-hint-color)`.
+     */
+    hint_color?: string;
 
-  /**
-   * *Optional.*
-   * Link color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-link-color)`.
-   */
-  link_color?: string;
+    /**
+     * *Optional.*
+     * Link color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-link-color)`.
+     */
+    link_color?: string;
 
-  /**
-   * *Optional.*
-   * Button color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-button-color)`.
-   */
-  button_color?: string;
+    /**
+     * *Optional.*
+     * Button color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-button-color)`.
+     */
+    button_color?: string;
 
-  /**
-   * *Optional.*
-   * Button text color in the `#RRGGBB` format.
-   *
-   * @see Available as the CSS variable `var(--tg-theme-button-text-color)`.
-   */
-  button_text_color?: string;
+    /**
+     * *Optional.*
+     * Button text color in the `#RRGGBB` format.
+     *
+     * @see Available as the CSS variable `var(--tg-theme-button-text-color)`.
+     */
+    button_text_color?: string;
 
-  /**
-   * *Optional.*
-   * Secondary background color in the `#RRGGBB` format.
-   *
-   * @since Bot API 6.1+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
-   */
-  secondary_bg_color?: string;
+    /**
+     * *Optional.*
+     * Secondary background color in the `#RRGGBB` format.
+     *
+     * @since Bot API 6.1+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
+     */
+    secondary_bg_color?: string;
 
-  /**
-   * *Optional.*
-   * Header background color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-header-bg-color)`.
-   */
-  header_bg_color?: string;
+    /**
+     * *Optional.*
+     * Header background color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-header-bg-color)`.
+     */
+    header_bg_color?: string;
 
-  /**
-   * *Optional.*
-   * Bottom background color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.10+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-bottom-bar-bg-color)`.
-   */
-  bottom_bar_bg_color?: string;
+    /**
+     * *Optional.*
+     * Bottom background color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.10+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-bottom-bar-bg-color)`.
+     */
+    bottom_bar_bg_color?: string;
 
-  /**
-   * *Optional.*
-   * Accent text color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-accent-text-color)`.
-   */
-  accent_text_color?: string;
+    /**
+     * *Optional.*
+     * Accent text color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-accent-text-color)`.
+     */
+    accent_text_color?: string;
 
-  /**
-   * *Optional.*
-   * Section background color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-section-bg-color)`.
-   */
-  section_bg_color?: string;
+    /**
+     * *Optional.*
+     * Section background color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-section-bg-color)`.
+     */
+    section_bg_color?: string;
 
-  /**
-   * *Optional.*
-   * Section header text color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-section-header-text-color)`.
-   */
-  section_header_text_color?: string;
+    /**
+     * *Optional.*
+     * Section header text color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-section-header-text-color)`.
+     */
+    section_header_text_color?: string;
 
-  /**
-   * *Optional.*
-   * Section separator color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.6+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-section-separator-color)`.
-   */
-  section_separator_color?: string;
+    /**
+     * *Optional.*
+     * Section separator color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.6+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-section-separator-color)`.
+     */
+    section_separator_color?: string;
 
-  /**
-   * *Optional.*
-   * Subtitle text color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
-   */
-  subtitle_text_color?: string;
+    /**
+     * *Optional.*
+     * Subtitle text color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
+     */
+    subtitle_text_color?: string;
 
-  /**
-   * *Optional.*
-   * Destructive text color in the `#RRGGBB` format.
-   *
-   * @since Bot API 7.0+
-   *
-   * @see Available as the CSS variable `var(--tg-theme-destructive-text-color)`.
-   */
-  destructive_text_color?: string;
+    /**
+     * *Optional.*
+     * Destructive text color in the `#RRGGBB` format.
+     *
+     * @since Bot API 7.0+
+     *
+     * @see Available as the CSS variable `var(--tg-theme-destructive-text-color)`.
+     */
+    destructive_text_color?: string;
 }
 
 /**
