@@ -640,7 +640,6 @@ export type FileDownloadRequestedCallback = (eventData: {
  */
 export interface ThemeParams {
     /**
-     * *Optional.*
      * Background color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-bg-color)`.
@@ -648,7 +647,6 @@ export interface ThemeParams {
     bg_color?: string;
 
     /**
-     * *Optional.*
      * Main text color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-text-color)`.
@@ -656,7 +654,6 @@ export interface ThemeParams {
     text_color?: string;
 
     /**
-     * *Optional.*
      * Hint text color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-hint-color)`.
@@ -664,7 +661,6 @@ export interface ThemeParams {
     hint_color?: string;
 
     /**
-     * *Optional.*
      * Link color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-link-color)`.
@@ -672,7 +668,6 @@ export interface ThemeParams {
     link_color?: string;
 
     /**
-     * *Optional.*
      * Button color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-button-color)`.
@@ -680,7 +675,6 @@ export interface ThemeParams {
     button_color?: string;
 
     /**
-     * *Optional.*
      * Button text color in the `#RRGGBB` format.
      *
      * @see Available as the CSS variable `var(--tg-theme-button-text-color)`.
@@ -688,7 +682,6 @@ export interface ThemeParams {
     button_text_color?: string;
 
     /**
-     * *Optional.*
      * Secondary background color in the `#RRGGBB` format.
      *
      * @since Bot API 6.1+
@@ -698,7 +691,6 @@ export interface ThemeParams {
     secondary_bg_color?: string;
 
     /**
-     * *Optional.*
      * Header background color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
@@ -708,7 +700,6 @@ export interface ThemeParams {
     header_bg_color?: string;
 
     /**
-     * *Optional.*
      * Bottom background color in the `#RRGGBB` format.
      *
      * @since Bot API 7.10+
@@ -718,7 +709,6 @@ export interface ThemeParams {
     bottom_bar_bg_color?: string;
 
     /**
-     * *Optional.*
      * Accent text color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
@@ -728,7 +718,6 @@ export interface ThemeParams {
     accent_text_color?: string;
 
     /**
-     * *Optional.*
      * Section background color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
@@ -738,7 +727,6 @@ export interface ThemeParams {
     section_bg_color?: string;
 
     /**
-     * *Optional.*
      * Section header text color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
@@ -748,7 +736,6 @@ export interface ThemeParams {
     section_header_text_color?: string;
 
     /**
-     * *Optional.*
      * Section separator color in the `#RRGGBB` format.
      *
      * @since Bot API 7.6+
@@ -758,7 +745,6 @@ export interface ThemeParams {
     section_separator_color?: string;
 
     /**
-     * *Optional.*
      * Subtitle text color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
@@ -768,7 +754,6 @@ export interface ThemeParams {
     subtitle_text_color?: string;
 
     /**
-     * *Optional.*
      * Destructive text color in the `#RRGGBB` format.
      *
      * @since Bot API 7.0+
