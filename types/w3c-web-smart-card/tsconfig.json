@@ -13,13 +13,13 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "w3c-smart-card": [
+            "w3c-web-smart-card": [
                 "./index.d.ts"
             ]
         }
     },
     "files": [
         "index.d.ts",
-        "w3c-smart-card-tests.ts"
+        "w3c-web-smart-card-tests.ts"
     ]
 }

@@ -2,14 +2,14 @@
     "private": true,
     "nonNpm": true,
     "nonNpmDescription": "Implementation of Isolated Web App (IWA) APIs resides in Chromium.",
-    "name": "@types/w3c-smart-card",
+    "name": "@types/w3c-web-smart-card",
     "version": "0.0.9999",
     "projects": [
-        "https://github.com/WICG/isolated-web-apps"
+        "https://wicg.github.io/web-smart-card/"
     ],
     "devDependencies": {
         "@types/web": "*",
-        "@types/w3c-smart-card": "workspace:."
+        "@types/w3c-web-smart-card": "workspace:."
     },
     "owners": [
         {
