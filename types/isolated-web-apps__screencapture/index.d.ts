@@ -16,18 +16,18 @@
  */
 
 declare global {
-  interface Navigator {
-    getUserMedia(
-      constraints: MediaStreamConstraints,
-      successCallback: NavigatorUserMediaSuccessCallback,
-      errorCallback: NavigatorUserMediaErrorCallback,
-    ): void;
-    webkitGetUserMedia(
-      constraints: MediaStreamConstraints,
-      successCallback: NavigatorUserMediaSuccessCallback,
-      errorCallback: NavigatorUserMediaErrorCallback,
-    ): void;
-  }
+    interface Navigator {
+        getUserMedia(
+            constraints: MediaStreamConstraints,
+            successCallback: NavigatorUserMediaSuccessCallback,
+            errorCallback: NavigatorUserMediaErrorCallback,
+        ): void;
+        webkitGetUserMedia(
+            constraints: MediaStreamConstraints,
+            successCallback: NavigatorUserMediaSuccessCallback,
+            errorCallback: NavigatorUserMediaErrorCallback,
+        ): void;
+    }
 }
 
 export type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
@@ -37,13 +37,13 @@ export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
 export type MediaStreamError = DOMException | OverconstrainedError;
 
 export type DisplayMediaIncludeOrExclude =
-  | "include"
-  | "exclude";
+    | "include"
+    | "exclude";
 
 export type DisplayMediaSystemWindowOrExclude =
-  | "system"
-  | "window"
-  | "exclude";
+    | "system"
+    | "window"
+    | "exclude";
 
 export type SystemAudioPreferenceEnum = DisplayMediaIncludeOrExclude;
 
@@ -56,84 +56,84 @@ export type SurfaceSwitchingPreferenceEnum = DisplayMediaIncludeOrExclude;
 export type MonitorTypeSurfacesEnum = DisplayMediaIncludeOrExclude;
 
 export interface UserMediaStreamConstraints {
-  /** @default false */
-  video?: boolean | MediaTrackConstraints;
-  /** @default false */
-  audio?: boolean | MediaTrackConstraints;
+    /** @default false */
+    video?: boolean | MediaTrackConstraints;
+    /** @default false */
+    audio?: boolean | MediaTrackConstraints;
 }
 
 export interface DisplayMediaStreamOptions {
-  /** @default true */
-  video?: boolean | MediaTrackConstraints;
-  /** @default false */
-  audio?: boolean | MediaTrackConstraints;
-  /** @default false */
-  preferCurrentTab?: boolean;
-  controller?: CaptureController;
-  selfBrowserSurface?: SelfCapturePreferenceEnum;
-  systemAudio?: SystemAudioPreferenceEnum;
-  windowAudio?: WindowAudioPreferenceEnum;
-  surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
-  monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
+    /** @default true */
+    video?: boolean | MediaTrackConstraints;
+    /** @default false */
+    audio?: boolean | MediaTrackConstraints;
+    /** @default false */
+    preferCurrentTab?: boolean;
+    controller?: CaptureController;
+    selfBrowserSurface?: SelfCapturePreferenceEnum;
+    systemAudio?: SystemAudioPreferenceEnum;
+    windowAudio?: WindowAudioPreferenceEnum;
+    surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
+    monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
 }
 
 export interface MediaStreamConstraints {
-  /** @default false */
-  video?: boolean | MediaTrackConstraints;
-  /** @default false */
-  audio?: boolean | MediaTrackConstraints;
-  /** @default false */
-  preferCurrentTab?: boolean;
-  controller?: CaptureController;
-  selfBrowserSurface?: SelfCapturePreferenceEnum;
-  systemAudio?: SystemAudioPreferenceEnum;
-  windowAudio?: WindowAudioPreferenceEnum;
-  surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
-  monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
+    /** @default false */
+    video?: boolean | MediaTrackConstraints;
+    /** @default false */
+    audio?: boolean | MediaTrackConstraints;
+    /** @default false */
+    preferCurrentTab?: boolean;
+    controller?: CaptureController;
+    selfBrowserSurface?: SelfCapturePreferenceEnum;
+    systemAudio?: SystemAudioPreferenceEnum;
+    windowAudio?: WindowAudioPreferenceEnum;
+    surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
+    monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
 }
 
 export interface AudioOutputOptions {
-  /** @default "" */
-  deviceId?: string;
+    /** @default "" */
+    deviceId?: string;
 }
 
 declare global {
-  interface MediaDevices extends EventTarget {
-    ondevicechange: ((ev: Event) => any) | null;
-    enumerateDevices(): Promise<MediaDeviceInfo[]>;
-    getSupportedConstraints(): MediaTrackSupportedConstraints;
-    getUserMedia(constraints?: UserMediaStreamConstraints): Promise<MediaStream>;
-    getDisplayMedia(constraints?: DisplayMediaStreamOptions): Promise<MediaStream>;
-    getAllScreensMedia(): Promise<MediaStream[]>;
-    selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
-    setCaptureHandleConfig(config?: CaptureHandleConfig): void;
-    setPreferredSinkId(sinkId: string): Promise<undefined>;
-  }
+    interface MediaDevices extends EventTarget {
+        ondevicechange: ((ev: Event) => any) | null;
+        enumerateDevices(): Promise<MediaDeviceInfo[]>;
+        getSupportedConstraints(): MediaTrackSupportedConstraints;
+        getUserMedia(constraints?: UserMediaStreamConstraints): Promise<MediaStream>;
+        getDisplayMedia(constraints?: DisplayMediaStreamOptions): Promise<MediaStream>;
+        getAllScreensMedia(): Promise<MediaStream[]>;
+        selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
+        setCaptureHandleConfig(config?: CaptureHandleConfig): void;
+        setPreferredSinkId(sinkId: string): Promise<undefined>;
+    }
 }
 
 export interface CaptureHandleConfig {
-  /** @default false */
-  exposeOrigin?: boolean;
-  /** @default "" */
-  handle?: string;
-  /** @default [] */
-  permittedOrigins?: string[];
+    /** @default false */
+    exposeOrigin?: boolean;
+    /** @default "" */
+    handle?: string;
+    /** @default [] */
+    permittedOrigins?: string[];
 }
 
 export type CaptureStartFocusBehavior =
-  | "focus-capturing-application"
-  | "focus-captured-surface"
-  | "no-focus-change";
+    | "focus-capturing-application"
+    | "focus-captured-surface"
+    | "no-focus-change";
 
 export class CaptureController extends EventTarget {
-  constructor();
-  setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
-  oncapturedmousechange: ((ev: Event) => any) | null;
-  forwardWheel(element: HTMLElement | null): Promise<undefined>;
-  getSupportedZoomLevels(): number[];
-  readonly zoomLevel: number | null;
-  increaseZoomLevel(): Promise<undefined>;
-  decreaseZoomLevel(): Promise<undefined>;
-  resetZoomLevel(): Promise<undefined>;
-  onzoomlevelchange: ((ev: Event) => any) | null;
+    constructor();
+    setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
+    oncapturedmousechange: ((ev: Event) => any) | null;
+    forwardWheel(element: HTMLElement | null): Promise<undefined>;
+    getSupportedZoomLevels(): number[];
+    readonly zoomLevel: number | null;
+    increaseZoomLevel(): Promise<undefined>;
+    decreaseZoomLevel(): Promise<undefined>;
+    resetZoomLevel(): Promise<undefined>;
+    onzoomlevelchange: ((ev: Event) => any) | null;
 }

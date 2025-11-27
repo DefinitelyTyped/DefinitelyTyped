@@ -1,15 +1,15 @@
 import {
-  AudioOutputOptions,
-  CaptureController,
-  CaptureHandleConfig,
-  CaptureStartFocusBehavior,
-  DisplayMediaStreamOptions,
-  MediaStreamConstraints,
-  NavigatorUserMediaErrorCallback,
-  NavigatorUserMediaSuccessCallback,
-  SystemAudioPreferenceEnum,
-  UserMediaStreamConstraints,
-  WindowAudioPreferenceEnum,
+    AudioOutputOptions,
+    CaptureController,
+    CaptureHandleConfig,
+    CaptureStartFocusBehavior,
+    DisplayMediaStreamOptions,
+    MediaStreamConstraints,
+    NavigatorUserMediaErrorCallback,
+    NavigatorUserMediaSuccessCallback,
+    SystemAudioPreferenceEnum,
+    UserMediaStreamConstraints,
+    WindowAudioPreferenceEnum,
 } from "isolated-web-apps/screencapture";
 
 const dummyElement: HTMLElement = {} as HTMLElement;
@@ -20,19 +20,19 @@ const dummyCaptureController = new CaptureController();
 // --------------------------------------------------------------------------------
 
 function testTypeAliases() {
-  const sysAudioInclude: SystemAudioPreferenceEnum = "include";
-  // $ExpectType "include"
-  sysAudioInclude;
-  // @ts-expect-error invalid enum value
-  const sysAudioInvalid: SystemAudioPreferenceEnum = "unknown";
+    const sysAudioInclude: SystemAudioPreferenceEnum = "include";
+    // $ExpectType "include"
+    sysAudioInclude;
+    // @ts-expect-error invalid enum value
+    const sysAudioInvalid: SystemAudioPreferenceEnum = "unknown";
 
-  const winAudioWindow: WindowAudioPreferenceEnum = "window";
-  // $ExpectType "window"
-  winAudioWindow;
+    const winAudioWindow: WindowAudioPreferenceEnum = "window";
+    // $ExpectType "window"
+    winAudioWindow;
 
-  const focusBehavior: CaptureStartFocusBehavior = "focus-captured-surface";
-  // $ExpectType "focus-captured-surface"
-  focusBehavior;
+    const focusBehavior: CaptureStartFocusBehavior = "focus-captured-surface";
+    // $ExpectType "focus-captured-surface"
+    focusBehavior;
 }
 
 // --------------------------------------------------------------------------------
@@ -40,46 +40,46 @@ function testTypeAliases() {
 // --------------------------------------------------------------------------------
 
 function testOptionInterfaces() {
-  const userConstraints: UserMediaStreamConstraints = {
-    video: true,
-    audio: { deviceId: "default" },
-  };
-  // $ExpectType boolean | MediaTrackConstraints | undefined
-  userConstraints.video;
+    const userConstraints: UserMediaStreamConstraints = {
+        video: true,
+        audio: { deviceId: "default" },
+    };
+    // $ExpectType boolean | MediaTrackConstraints | undefined
+    userConstraints.video;
 
-  const displayOptions: DisplayMediaStreamOptions = {
-    preferCurrentTab: true,
-    controller: dummyCaptureController,
-    selfBrowserSurface: "exclude",
-    systemAudio: "include",
-    windowAudio: "system",
-    surfaceSwitching: "include",
-    monitorTypeSurfaces: "exclude",
-  };
-  // $ExpectType DisplayMediaIncludeOrExclude | undefined
-  displayOptions.selfBrowserSurface;
+    const displayOptions: DisplayMediaStreamOptions = {
+        preferCurrentTab: true,
+        controller: dummyCaptureController,
+        selfBrowserSurface: "exclude",
+        systemAudio: "include",
+        windowAudio: "system",
+        surfaceSwitching: "include",
+        monitorTypeSurfaces: "exclude",
+    };
+    // $ExpectType DisplayMediaIncludeOrExclude | undefined
+    displayOptions.selfBrowserSurface;
 
-  const combinedConstraints: MediaStreamConstraints = {
-    audio: false,
-    selfBrowserSurface: "include",
-    systemAudio: "exclude",
-  };
-  // $ExpectType CaptureController | undefined
-  combinedConstraints.controller;
+    const combinedConstraints: MediaStreamConstraints = {
+        audio: false,
+        selfBrowserSurface: "include",
+        systemAudio: "exclude",
+    };
+    // $ExpectType CaptureController | undefined
+    combinedConstraints.controller;
 
-  const audioOutOptions: AudioOutputOptions = {
-    deviceId: "speaker-id",
-  };
-  // $ExpectType string | undefined
-  audioOutOptions.deviceId;
+    const audioOutOptions: AudioOutputOptions = {
+        deviceId: "speaker-id",
+    };
+    // $ExpectType string | undefined
+    audioOutOptions.deviceId;
 
-  const handleConfig: CaptureHandleConfig = {
-    exposeOrigin: true,
-    handle: "my-app-id",
-    permittedOrigins: ["*"],
-  };
-  // $ExpectType string[] | undefined
-  handleConfig.permittedOrigins;
+    const handleConfig: CaptureHandleConfig = {
+        exposeOrigin: true,
+        handle: "my-app-id",
+        permittedOrigins: ["*"],
+    };
+    // $ExpectType string[] | undefined
+    handleConfig.permittedOrigins;
 }
 
 // --------------------------------------------------------------------------------
@@ -87,32 +87,32 @@ function testOptionInterfaces() {
 // --------------------------------------------------------------------------------
 
 function testCaptureController() {
-  // $ExpectType CaptureController
-  const controller = new CaptureController();
+    // $ExpectType CaptureController
+    const controller = new CaptureController();
 
-  // $ExpectType void
-  controller.setFocusBehavior("focus-capturing-application");
+    // $ExpectType void
+    controller.setFocusBehavior("focus-capturing-application");
 
-  // $ExpectType ((ev: Event) => any) | null
-  controller.oncapturedmousechange;
-  // $ExpectType ((ev: Event) => any) | null
-  controller.onzoomlevelchange;
+    // $ExpectType ((ev: Event) => any) | null
+    controller.oncapturedmousechange;
+    // $ExpectType ((ev: Event) => any) | null
+    controller.onzoomlevelchange;
 
-  // $ExpectType Promise<undefined>
-  controller.forwardWheel(dummyElement);
-  // $ExpectType Promise<undefined>
-  controller.forwardWheel(null);
+    // $ExpectType Promise<undefined>
+    controller.forwardWheel(dummyElement);
+    // $ExpectType Promise<undefined>
+    controller.forwardWheel(null);
 
-  // $ExpectType number[]
-  controller.getSupportedZoomLevels();
-  // $ExpectType number | null
-  controller.zoomLevel;
-  // $ExpectType Promise<undefined>
-  controller.increaseZoomLevel();
-  // $ExpectType Promise<undefined>
-  controller.decreaseZoomLevel();
-  // $ExpectType Promise<undefined>
-  controller.resetZoomLevel();
+    // $ExpectType number[]
+    controller.getSupportedZoomLevels();
+    // $ExpectType number | null
+    controller.zoomLevel;
+    // $ExpectType Promise<undefined>
+    controller.increaseZoomLevel();
+    // $ExpectType Promise<undefined>
+    controller.decreaseZoomLevel();
+    // $ExpectType Promise<undefined>
+    controller.resetZoomLevel();
 }
 
 // --------------------------------------------------------------------------------
@@ -120,43 +120,43 @@ function testCaptureController() {
 // --------------------------------------------------------------------------------
 
 async function testMediaDevicesAndNavigator() {
-  const constraints: MediaStreamConstraints = { video: true };
-  const userConstraints: UserMediaStreamConstraints = { video: true };
-  const displayOptions: DisplayMediaStreamOptions = { video: true };
+    const constraints: MediaStreamConstraints = { video: true };
+    const userConstraints: UserMediaStreamConstraints = { video: true };
+    const displayOptions: DisplayMediaStreamOptions = { video: true };
 
-  if (navigator.getUserMedia) {
-    const successCallback: NavigatorUserMediaSuccessCallback = (stream) => {
-      // $ExpectType MediaStream
-      stream;
-    };
-    const errorCallback: NavigatorUserMediaErrorCallback = (error) => {
-      // $ExpectType MediaStreamError
-      error;
-    };
-    // $ExpectType void
-    navigator.getUserMedia(constraints, successCallback, errorCallback);
-  }
-
-  if (navigator.mediaDevices) {
-    // $ExpectType Promise<MediaStream>
-    navigator.mediaDevices.getUserMedia(userConstraints);
-
-    // $ExpectType Promise<MediaStream>
-    navigator.mediaDevices.getDisplayMedia(displayOptions);
-
-    if (navigator.mediaDevices.getAllScreensMedia) {
-      // $ExpectType Promise<MediaStream[]>
-      navigator.mediaDevices.getAllScreensMedia();
+    if (navigator.getUserMedia) {
+        const successCallback: NavigatorUserMediaSuccessCallback = (stream) => {
+            // $ExpectType MediaStream
+            stream;
+        };
+        const errorCallback: NavigatorUserMediaErrorCallback = (error) => {
+            // $ExpectType MediaStreamError
+            error;
+        };
+        // $ExpectType void
+        navigator.getUserMedia(constraints, successCallback, errorCallback);
     }
 
-    // $ExpectType Promise<MediaDeviceInfo>
-    navigator.mediaDevices.selectAudioOutput();
+    if (navigator.mediaDevices) {
+        // $ExpectType Promise<MediaStream>
+        navigator.mediaDevices.getUserMedia(userConstraints);
 
-    const config: CaptureHandleConfig = { exposeOrigin: true };
-    // $ExpectType void
-    navigator.mediaDevices.setCaptureHandleConfig(config);
+        // $ExpectType Promise<MediaStream>
+        navigator.mediaDevices.getDisplayMedia(displayOptions);
 
-    // $ExpectType Promise<undefined>
-    navigator.mediaDevices.setPreferredSinkId("id");
-  }
+        if (navigator.mediaDevices.getAllScreensMedia) {
+            // $ExpectType Promise<MediaStream[]>
+            navigator.mediaDevices.getAllScreensMedia();
+        }
+
+        // $ExpectType Promise<MediaDeviceInfo>
+        navigator.mediaDevices.selectAudioOutput();
+
+        const config: CaptureHandleConfig = { exposeOrigin: true };
+        // $ExpectType void
+        navigator.mediaDevices.setCaptureHandleConfig(config);
+
+        // $ExpectType Promise<undefined>
+        navigator.mediaDevices.setPreferredSinkId("id");
+    }
 }
