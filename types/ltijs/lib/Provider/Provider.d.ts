@@ -18,11 +18,10 @@ export interface DeploymentOptions {
 }
 
 export interface ProviderOptions {
-    appUrl?: string | undefined;
-    loginUrl?: string | undefined;
-    sessionTimeoutUrl?: string | undefined;
-    invalidTokenUrl?: string | undefined;
-    keysetUrl?: string | undefined;
+    appRoute?: string | undefined;
+    loginRoute?: string | undefined;
+    keysetRoute?: string | undefined;
+    dynregRoute?: string | undefined;
     https?: boolean | undefined;
     ssl?: {
         key: string;
@@ -35,15 +34,47 @@ export interface ProviderOptions {
     cookies?: {
         secure?: boolean | undefined;
         sameSite?: string | undefined;
+        domain?: string | undefined;
     } | undefined;
+    devMode?: boolean | undefined;
+    ltiaas?: boolean | undefined;
+    tokenMaxAge?: number | undefined;
+    dynReg?: {
+        url: string;
+        name: string;
+        logo?: string | undefined;
+        description?: string | undefined;
+        redirectUris?: string[] | undefined;
+        customParameters?: any;
+        autoActivate?: boolean | undefined;
+        useDeepLinking?: boolean | undefined;
+    } | undefined;
+
+    /**
+     * @deprecated Use `appRoute` property instead.
+     */
+    appUrl?: string | undefined;
+    /**
+     * @deprecated Use `loginRoute` property instead.
+     */
+    loginUrl?: string | undefined;
+    /**
+     * @deprecated Use `keysetRoute` property instead.
+     */
+    keysetUrl?: string | undefined;
 }
 
-export interface OnConnectCallback {
+export interface RequestCallback {
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    (connection: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
+    (request: Request, response: Response, next: NextFunction): Response | void;
 }
 
-export interface UnregisteredPlatformCallback {
+export interface TokenRequestCallback {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    (token: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
+}
+
+export interface FinalRequestCallback {
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (request: Request, response: Response): Response | void;
 }
@@ -57,6 +88,13 @@ export interface RedirectOptions {
     isNewResource?: boolean | undefined;
     ignoreRoot?: boolean | undefined;
 }
+
+export type GetPlatformFunction = (
+    url: string,
+    clientId?: string,
+    ENCRYPTIONKEY?: string,
+    Database?: Database
+) => Promise<Platform[] | Platform | false>;
 
 declare class Provider {
     app: Express;
@@ -72,34 +110,43 @@ declare class Provider {
 
     close(): Promise<boolean>;
 
-    onConnect(_connectCallback: OnConnectCallback, options?: OnConnectOptions): true;
+    onConnect(_connectCallback: TokenRequestCallback, options?: OnConnectOptions): true;
 
-    onDeepLinking(_connectCallback: OnConnectCallback, options?: OnConnectOptions): true;
+    onDeepLinking(_deepLinkingCallback: TokenRequestCallback): true;
 
-    onUnregisteredPlatform(_unregisteredPlatformCallback: UnregisteredPlatformCallback): true;
+    onDynamicRegistration(_dynamicRegistrationCallback: RequestCallback): true;
 
-    loginUrl(): string;
+    onSessionTimeout(_sessionTimeoutCallback: FinalRequestCallback): true;
 
-    appUrl(): string;
+    onInvalidToken(_invalidTokenCallback: FinalRequestCallback): true;
 
-    sessionTimeoutUrl(): string;
+    onUnregisteredPlatform(_unregisteredPlatformCallback: FinalRequestCallback): true;
 
-    invalidTokenUrl(): string;
+    appRoute(): string;
 
-    keysetUrl(): string;
+    loginRoute(): string;
+
+    keysetRoute(): string;
+
+    dynRegRoute(): string;
 
     whitelist(...urls: Array<string | { route: string; method: string }>): true;
 
-    registerPlatform(config: PlatformConfig): Promise<Platform | false>;
+    registerPlatform(platform: PlatformConfig, getPlatform?: GetPlatformFunction, ENCRYPTIONKEY?: string, Database?: Database): Promise<Platform>;
 
-    getPlatform(url: string): Promise<Platform[] | false>;
-    getPlatform(url: string, clientId: string): Promise<Platform | false>;
+    getPlatform(url: string, clientId?: string, ENCRYPTIONKEY?: string, Database?: Database): Promise<Platform[] | Platform | false>;
 
-    deletePlatform(url: string, clientId: string): Promise<boolean>;
+    updatePlatformById(platformId: string, platformInfo: PlatformConfig): Promise<Platform>;
 
-    getAllPlatforms(): Promise<Platform[] | false>;
+    deletePlatform(url: string, clientId: string): Promise<true>;
+
+    getAllPlatforms(): Promise<Platform[]>;
 
     redirect(response: Response, path: string, options?: RedirectOptions): void;
+
+    appUrl(): string;
+    loginUrl(): string;
+    keysetUrl(): string;
 }
 
 declare const defaultProvider: Provider;
