@@ -178,11 +178,13 @@ function testOAuthScopes() {
 }
 
 // Advanced Services
-Slides.Presentations?.Pages?.getThumbnail("presentationId", "pageId");
+if (Slides) {
+    Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
+}
 
 // Calendar (Advanced service)
 const createEvent = (): GoogleAppsScript.Calendar.Schema.Event => {
-    if (!Calendar.Events) throw new Error("Calendar.Events is not available");
+    if (!Calendar) throw new Error("Calendar is not available");
     const calendarId = "primary";
     const start = new Date();
     const end = new Date();
@@ -211,7 +213,7 @@ const createEvent = (): GoogleAppsScript.Calendar.Schema.Event => {
 
 // Calendar Working Locations (Advanced Service)
 const createWorkingLocationEvent = (): void => {
-    if (!Calendar.Events) return;
+    if (!Calendar) return;
     const calendarId = "primary";
     const start = new Date();
     const end = new Date();
@@ -248,7 +250,7 @@ const createWorkingLocationEvent = (): void => {
 // Admin Directory (Advanced service)
 const listAllUsers = () => {
     let pageToken: string | undefined = undefined;
-    if (!AdminDirectory.Users) return;
+    if (!AdminDirectory) return;
     do {
         const page: GoogleAppsScript.AdminDirectory.Schema.Users = AdminDirectory.Users.list({
             domain: "example.com",
@@ -271,7 +273,7 @@ const listAllUsers = () => {
 // Admin Directory - User Organization
 const listAllUserOrganizations = () => {
     let pageToken: string | undefined = undefined;
-    if (!AdminDirectory.Users) return;
+    if (!AdminDirectory) return;
     do {
         const page: GoogleAppsScript.AdminDirectory.Schema.Users = AdminDirectory.Users.list({
             domain: "example.com",
@@ -1031,7 +1033,7 @@ const handleScopeAction = () => {
 
 // Analytics Test
 const requestAnalyticsData = (): string => {
-    if (!Analytics.Data?.Ga) throw new Error();
+    if (!Analytics) throw new Error();
     const gaData = Analytics.Data.Ga.get("An Id", "2022-01-18", "2022-01-18", "Some metrics", {
         dimensions: "Some dimensions",
     });
@@ -1094,7 +1096,8 @@ const mimeTypes: string[] = [MimeType.GOOGLE_APPS_SCRIPT];
 
 // analytics reporting test
 const analyticsReporting = () => {
-    const gaData = AnalyticsReporting.Reports?.batchGet({
+    if (!AnalyticsReporting) return;
+    const gaData = AnalyticsReporting.Reports.batchGet({
         reportRequests: [
             {
                 viewId: "",
@@ -1231,7 +1234,8 @@ const sheetDataSource = () => {
 
 // Drive Activity (Advanced service)
 const driveActivity = () => {
-    const response = DriveActivity.Activity?.query({ pageSize: 10, filter: "time > 1452409200000" });
+    if (!DriveActivity) return;
+    const response = DriveActivity.Activity.query({ pageSize: 10, filter: "time > 1452409200000" });
     for (const activity of response?.activities ?? []) {
         const originalObject = activity.primaryActionDetail?.create?.copy?.originalObject;
         if (originalObject && originalObject.driveItem) {
@@ -1253,7 +1257,7 @@ const driveActivity = () => {
 
 // People_v1 (Advanced Service)
 const people = () => {
-    if (!People.People) return;
+    if (!People) return;
     // contacts batch methods
     const batchCreateContactsResponse = People.People.batchCreateContacts({
         readMask: "names,emailAddresses",
@@ -1305,7 +1309,6 @@ const people = () => {
     });
     console.log(listDirectoryPeopleResponse.people?.[0].names);
 
-    if (!People.OtherContacts) return;
     // other contacts methods
     const otherContactsListResponse = People.OtherContacts.list({
         readMask: "names,emailAddresses",
@@ -1394,6 +1397,7 @@ const sheetRange = () => {
 
 function driveFileOperations() {
     // Create a new file
+    if (!Drive) return;
     const createdFile = Drive.Files.create({
         name: "test_create",
         description: "This is a description for a test file.",
@@ -1459,6 +1463,7 @@ function driveFileOperations() {
 
 // Example showing how to create a folder
 function createFolder() {
+    if (!Drive) return;
     const folder = Drive.Files.create({
         name: "Test Folder",
         mimeType: MimeType.FOLDER,
@@ -1467,17 +1472,20 @@ function createFolder() {
 }
 
 function getFile() {
+    if (!Drive) return;
     const file = Drive.Files.get("FileID");
     console.log(file.name);
 }
 
 function getRawFile() {
+    if (!Drive) return;
     const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
     console.log(fileBlob);
 }
 
 // Example showing how to create a folder
 function createDrive() {
+    if (!Drive) return;
     const drive = Drive.Drives.create({
         name: "Test Folder",
     }, "request-id");
@@ -1486,6 +1494,7 @@ function createDrive() {
 
 // Example: List Drives (Shared Drives)
 function listDrives() {
+    if (!Drive) return;
     const driveList = Drive.Drives.list();
     if (driveList && driveList.drives && driveList.drives.length > 0) {
         console.log("Drives found:");
@@ -1499,6 +1508,7 @@ function listDrives() {
 
 // Example: Create a comment and a reply
 function commentAndReply() {
+    if (!Drive) return;
     const comment = Drive.Comments.create({ content: "Comment text" }, "FileID", { fields: "id" });
     if (!comment.id) return;
     const reply = Drive.Replies.create({ content: "Reply text" }, "FileID", comment.id, { fields: "id" });

@@ -478,6 +478,24 @@ MyTelegramBot.setMyCommands([{ command: "command", description: "description" }]
     // @ts-expect-error
     scope: { type: "default", chat_id: 1234 },
 });
+MyTelegramBot.setMyName({ name: "My Bot" });
+MyTelegramBot.setMyName({ name: "My Bot", language_code: "ru" });
+MyTelegramBot.setMyName({});
+MyTelegramBot.getMyName();
+MyTelegramBot.getMyName({ language_code: "en" });
+MyTelegramBot.getMyName({ language_code: "ru" });
+MyTelegramBot.setMyDescription({ description: "My Bot Description" });
+MyTelegramBot.setMyDescription({ description: "My Bot Description", language_code: "ru" });
+MyTelegramBot.setMyDescription({});
+MyTelegramBot.getMyDescription();
+MyTelegramBot.getMyDescription({ language_code: "en" });
+MyTelegramBot.getMyDescription({ language_code: "ru" });
+MyTelegramBot.setMyShortDescription({ short_description: "Short Description" });
+MyTelegramBot.setMyShortDescription({ short_description: "Short Description", language_code: "ru" });
+MyTelegramBot.setMyShortDescription({});
+MyTelegramBot.getMyShortDescription();
+MyTelegramBot.getMyShortDescription({ language_code: "en" });
+MyTelegramBot.getMyShortDescription({ language_code: "ru" });
 MyTelegramBot.banChatSenderChat(1234, 1234);
 MyTelegramBot.unbanChatSenderChat(1234, 1234);
 MyTelegramBot.setChatMenuButton({

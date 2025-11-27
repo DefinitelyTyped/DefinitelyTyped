@@ -849,6 +849,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the last element of array.
          */
+        last<T>(array: readonly [...unknown[], T]): T;
         last<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface Collection<T> {

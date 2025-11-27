@@ -1521,6 +1521,7 @@
 /types/diva.js/                                         @JRegimbal
 /types/django-bananas/                                  @eliassjogreen
 /types/djv/                                             @ffflorian
+/types/dkfds/                                           @chcederquist
 /types/dkim-signer/                                     @dex4er
 /types/dlv/                                             @ryansonshine
 /types/dmx/                                             @BendingBender
@@ -3943,6 +3944,7 @@
 /types/karma-firefox-launcher/                          @peterblazejewicz
 /types/karma-fixture/                                   @evictor @afshawnlotfi
 /types/karma-html-detailed-reporter/                    @peterblazejewicz
+/types/karma-html2js-preprocessor/                      @niksy
 /types/karma-ie-launcher/                               @peterblazejewicz
 /types/karma-image-snapshot/                            @peterblazejewicz
 /types/karma-jasmine/                                   @michelsalib @peterblazejewicz
@@ -4194,7 +4196,6 @@
 /types/leb128/                                          @remcohaszing
 /types/ledgerhq__hw-transport-u2f/                      @danwbyrne
 /types/legal-eagle/                                     @j-f1
-/types/leo-profanity/                                   @jackhumphries9
 /types/lerna-alias/                                     @ecraig12345
 /types/lerna-get-packages/                              @LogvinovLeon
 /types/lerna__child-process/                            @donmahallem
@@ -4832,7 +4833,7 @@
 /types/metrostations/                                   @peterblazejewicz
 /types/mfiles/                                          @avonwyss
 /types/mg-api-js/                                       @kadensharpin
-/types/micro-cors/                                      @CallumDenby @moonchanyong
+/types/micro-cors/                                      @moonchanyong
 /types/micro-events/                                    @AlexanderSychev
 /types/micromatch/                                      @vemoo
 /types/micromatch/v2/                                   @glen-84
@@ -7394,7 +7395,7 @@
 /types/spark-md5/                                       @bastienmoulia @ffflorian
 /types/sparkpost/                                       @geoffreak @bondz @vvu
 /types/sparkpost/v1/                                    @geoffreak
-/types/sparql-http-client/                              @tpluscode @ludovicm67
+/types/sparql-http-client/                              @tpluscode @ludovicm67 @giacomoronconiobda
 /types/sparqljs/                                        @AlexeyMz @rubensworks
 /types/sparqljs/v2/                                     @AlexeyMz
 /types/sparse-bitfield/                                 @BendingBender
@@ -7689,7 +7690,6 @@
 /types/system-service/                                  @leocwlam
 /types/system-sleep/                                    @ArthurKa
 /types/system-task/                                     @leocwlam
-/types/systemjs/                                        @jolyndenning
 /types/systemjs/v0/                                     @ludohenin @NathanWalker @GiedriusGrabauskas @aluanhaddad
 /types/table-resolver/                                  @junalmeida
 /types/tableau/                                         @protip
