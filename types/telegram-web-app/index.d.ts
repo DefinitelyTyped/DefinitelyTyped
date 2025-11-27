@@ -222,7 +222,7 @@ export interface WebApp {
      * Returns true if the user's app supports a version of the Bot API
      * that is equal to or higher than the version passed as the parameter.
      */
-    isVersionAtLeast(version: string): void;
+    isVersionAtLeast(version: string): boolean;
 
     /**
      * A method that sets the app header color in the `#RRGGBB` format.
