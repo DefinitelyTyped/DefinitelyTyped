@@ -63,7 +63,7 @@ const ltiAdvanced = Provider.setup(
             secure: true,
             sameSite: "None",
         },
-        serverAddon: app => { },
+        serverAddon: app => {},
     },
 );
 
@@ -164,7 +164,7 @@ ltiAdvanced.app.get("/any", (request: Request, response: Response) => {
 ltiAdvanced.getPlatform("https://platform.url").then(async (platform) => {
     if (!platform) return;
 
-    const p = (Array.isArray(platform) ? platform[0] : platform);
+    const p = Array.isArray(platform) ? platform[0] : platform;
 
     // $expectType string | boolean
     const name = await p.platformName();
@@ -173,7 +173,7 @@ ltiAdvanced.getPlatform("https://platform.url").then(async (platform) => {
 ltiAdvanced.getPlatform("https://platform.url", "123").then(async (platform) => {
     if (!platform) return;
 
-    const p = (Array.isArray(platform) ? platform[0] : platform);
+    const p = Array.isArray(platform) ? platform[0] : platform;
 
     // $expectType string | boolean
     const name = await p.platformName();

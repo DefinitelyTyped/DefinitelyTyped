@@ -93,7 +93,7 @@ export type GetPlatformFunction = (
     url: string,
     clientId?: string,
     ENCRYPTIONKEY?: string,
-    Database?: Database
+    Database?: Database,
 ) => Promise<Platform[] | Platform | false>;
 
 declare class Provider {
@@ -132,9 +132,19 @@ declare class Provider {
 
     whitelist(...urls: Array<string | { route: string; method: string }>): true;
 
-    registerPlatform(platform: PlatformConfig, getPlatform?: GetPlatformFunction, ENCRYPTIONKEY?: string, Database?: Database): Promise<Platform>;
+    registerPlatform(
+        platform: PlatformConfig,
+        getPlatform?: GetPlatformFunction,
+        ENCRYPTIONKEY?: string,
+        Database?: Database,
+    ): Promise<Platform>;
 
-    getPlatform(url: string, clientId?: string, ENCRYPTIONKEY?: string, Database?: Database): Promise<Platform[] | Platform | false>;
+    getPlatform(
+        url: string,
+        clientId?: string,
+        ENCRYPTIONKEY?: string,
+        Database?: Database,
+    ): Promise<Platform[] | Platform | false>;
 
     updatePlatformById(platformId: string, platformInfo: PlatformConfig): Promise<Platform>;
 
