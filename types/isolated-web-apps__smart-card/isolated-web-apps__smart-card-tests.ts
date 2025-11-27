@@ -15,7 +15,7 @@ import {
   SmartCardTransactionCallback,
   SmartCardTransactionOptions,
   SmartCardTransmitOptions,
-} from "isolated-web-apps";
+} from "isolated-web-apps/smart-card";
 
 const bufferSource: BufferSource = new ArrayBuffer(10);
 const controlCode = 1234;

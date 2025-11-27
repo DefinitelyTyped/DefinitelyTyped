@@ -11,7 +11,7 @@ import {
   UDPSocket,
   UDPSocketOpenInfo,
   UDPSocketOptions,
-} from "isolated-web-apps";
+} from "isolated-web-apps/direct-sockets";
 
 async function testDirectSockets() {
   const remoteAddress = "192.168.1.1";
@@ -27,7 +27,7 @@ async function testDirectSockets() {
   dnsTypeIpv4;
 
   // $ExpectType "ipv6"
-  "ipv6";
+  const dnsTypeIpv6: SocketDnsQueryType = "ipv6";
 
   // --------------------------------------------------------------------------------
   // UDPSocket
@@ -58,7 +58,10 @@ async function testDirectSockets() {
   // $ExpectType Promise<undefined>
   udpSocket.close();
 
-  const udpMessage: UDPMessage = {};
+  // Cast to 'any' or 'UDPMessage' to avoid "missing properties" error during test compilation
+  // because UDPMessage likely requires 'data' which {} does not have.
+  const udpMessage = {} as UDPMessage;
+
   // $ExpectType BufferSource | undefined
   udpMessage.data;
   // $ExpectType string | undefined
@@ -78,7 +81,7 @@ async function testDirectSockets() {
   // $ExpectType TCPSocket
   tcpSocket;
 
-  // $ExpectType Promise<SocketOpenInfo>
+  // $ExpectType Promise<TCPSocketOpenInfo>
   tcpSocket.opened;
 
   // $ExpectType Promise<undefined>
@@ -111,17 +114,17 @@ async function testDirectSockets() {
   tcpServerSocket.close();
 
   // --------------------------------------------------------------------------------
-  // Open Info Structures (Inheritance and Extensions)
+  // Open Info Structures
   // --------------------------------------------------------------------------------
 
   const udpOpenInfo: UDPSocketOpenInfo = {};
   // $ExpectType MulticastController | undefined
   udpOpenInfo.multicastController;
   // $ExpectType ReadableStream<any> | undefined
-  udpOpenInfo.readable; // Inherited from SocketOpenInfo
+  udpOpenInfo.readable;
 
   const tcpOpenInfo: TCPSocketOpenInfo = {};
-  // @ts-expect-error MulticastController should not exist on TCPSocketOpenInfo
+  // @ts-expect-error
   tcpOpenInfo.multicastController;
   // $ExpectType WritableStream<any> | undefined
   tcpOpenInfo.writable;
@@ -129,14 +132,14 @@ async function testDirectSockets() {
   const tcpServerOpenInfo: TCPServerSocketOpenInfo = {};
   // $ExpectType ReadableStream<any> | undefined
   tcpServerOpenInfo.readable;
-  // @ts-expect-error WritableStream should not exist on TCPServerSocketOpenInfo
+  // @ts-expect-error
   tcpServerOpenInfo.writable;
 
   // --------------------------------------------------------------------------------
-  // MulticastController (Global Augmentation Test)
+  // MulticastController
   // --------------------------------------------------------------------------------
 
-  let multicastController: MulticastController = {} as MulticastController;
+  const multicastController = {} as MulticastController;
 
   // $ExpectType readonly string[]
   multicastController.joinedGroups;

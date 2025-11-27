@@ -21,7 +21,7 @@ import {
   USBRecipient,
   USBRequestType,
   USBTransferStatus,
-} from "isolated-web-apps";
+} from "isolated-web-apps/webusb";
 
 const bufferSource: BufferSource = new ArrayBuffer(10);
 const dataView: DataView = new DataView(bufferSource);

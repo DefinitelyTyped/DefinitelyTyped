@@ -10,7 +10,7 @@ import {
   SystemAudioPreferenceEnum,
   UserMediaStreamConstraints,
   WindowAudioPreferenceEnum,
-} from "isolated-web-apps";
+} from "isolated-web-apps/screencapture";
 
 const dummyElement: HTMLElement = {} as HTMLElement;
 const dummyCaptureController = new CaptureController();

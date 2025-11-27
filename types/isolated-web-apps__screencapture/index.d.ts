@@ -15,6 +15,21 @@
  * @see https://www.w3.org/TR/screen-capture/
  */
 
+declare global {
+  interface Navigator {
+    getUserMedia(
+      constraints: MediaStreamConstraints,
+      successCallback: NavigatorUserMediaSuccessCallback,
+      errorCallback: NavigatorUserMediaErrorCallback,
+    ): void;
+    webkitGetUserMedia(
+      constraints: MediaStreamConstraints,
+      successCallback: NavigatorUserMediaSuccessCallback,
+      errorCallback: NavigatorUserMediaErrorCallback,
+    ): void;
+  }
+}
+
 export type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
 
 export type NavigatorUserMediaErrorCallback = (error: MediaStreamError) => void;
@@ -54,11 +69,9 @@ export interface DisplayMediaStreamOptions {
   audio?: boolean | MediaTrackConstraints;
   /** @default false */
   preferCurrentTab?: boolean;
-  /** @remarks Extended attributes: [RuntimeEnabled=CaptureController] */
   controller?: CaptureController;
   selfBrowserSurface?: SelfCapturePreferenceEnum;
   systemAudio?: SystemAudioPreferenceEnum;
-  /** @remarks Extended attributes: [RuntimeEnabled=GetDisplayMediaWindowAudioCapture] */
   windowAudio?: WindowAudioPreferenceEnum;
   surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
   monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
@@ -74,7 +87,6 @@ export interface MediaStreamConstraints {
   controller?: CaptureController;
   selfBrowserSurface?: SelfCapturePreferenceEnum;
   systemAudio?: SystemAudioPreferenceEnum;
-  /** @remarks Extended attributes: [RuntimeEnabled=GetDisplayMediaWindowAudioCapture] */
   windowAudio?: WindowAudioPreferenceEnum;
   surfaceSwitching?: SurfaceSwitchingPreferenceEnum;
   monitorTypeSurfaces?: MonitorTypeSurfacesEnum;
@@ -83,6 +95,20 @@ export interface MediaStreamConstraints {
 export interface AudioOutputOptions {
   /** @default "" */
   deviceId?: string;
+}
+
+declare global {
+  interface MediaDevices extends EventTarget {
+    ondevicechange: ((ev: Event) => any) | null;
+    enumerateDevices(): Promise<MediaDeviceInfo[]>;
+    getSupportedConstraints(): MediaTrackSupportedConstraints;
+    getUserMedia(constraints?: UserMediaStreamConstraints): Promise<MediaStream>;
+    getDisplayMedia(constraints?: DisplayMediaStreamOptions): Promise<MediaStream>;
+    getAllScreensMedia(): Promise<MediaStream[]>;
+    selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
+    setCaptureHandleConfig(config?: CaptureHandleConfig): void;
+    setPreferredSinkId(sinkId: string): Promise<undefined>;
+  }
 }
 
 export interface CaptureHandleConfig {
@@ -99,29 +125,15 @@ export type CaptureStartFocusBehavior =
   | "focus-captured-surface"
   | "no-focus-change";
 
-/** @remarks Extended attributes: [Exposed=Window, SecureContext, RuntimeEnabled=CaptureController] */
-declare global {
-  class CaptureController extends EventTarget {
-    /** @remarks Extended attributes: [CallWith=ExecutionContext] */
-    constructor();
-    /** @remarks Extended attributes: [RaisesException, MeasureAs=ConditionalFocus] */
-    setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedMouseEvents] */
-    oncapturedmousechange: ((ev: Event) => any) | null;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-    forwardWheel(element: HTMLElement | null): Promise<undefined>;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, RaisesException] */
-    getSupportedZoomLevels(): number[];
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
-    readonly zoomLevel: number | null;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-    increaseZoomLevel(): Promise<undefined>;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-    decreaseZoomLevel(): Promise<undefined>;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl, CallWith=ScriptState] */
-    resetZoomLevel(): Promise<undefined>;
-    /** @remarks Extended attributes: [RuntimeEnabled=CapturedSurfaceControl, MeasureAs=CapturedSurfaceControl] */
-    onzoomlevelchange: ((ev: Event) => any) | null;
-  }
+export class CaptureController extends EventTarget {
+  constructor();
+  setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
+  oncapturedmousechange: ((ev: Event) => any) | null;
+  forwardWheel(element: HTMLElement | null): Promise<undefined>;
+  getSupportedZoomLevels(): number[];
+  readonly zoomLevel: number | null;
+  increaseZoomLevel(): Promise<undefined>;
+  decreaseZoomLevel(): Promise<undefined>;
+  resetZoomLevel(): Promise<undefined>;
+  onzoomlevelchange: ((ev: Event) => any) | null;
 }
-export type CaptureController = globalThis.CaptureController;
