@@ -2183,7 +2183,7 @@ export namespace Widgets {
          * Original options object.
          */
         options: BoxOptions;
-        
+
         /**
          * Content/Text alignment
          */
