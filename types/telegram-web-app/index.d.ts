@@ -43,7 +43,7 @@ export interface WebApp {
      *
      * @see available as the CSS variable `var(--tg-color-scheme)`.
      */
-    colorScheme: 'light' | 'dark';
+    colorScheme: "light" | "dark";
 
     /**
      * An object containing the current theme settings used in the Telegram app.
@@ -234,7 +234,7 @@ export interface WebApp {
      *
      * @since Bot API 6.1+
      */
-    setHeaderColor(color: 'bg_color' | 'secondary_bg_color' | (string & {})): void;
+    setHeaderColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
 
     /**
      * A method that sets the app background color in the `#RRGGBB` format.
