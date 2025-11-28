@@ -1,13 +1,5 @@
 /**
- * Generated from:
- * - navigator_smart_card.idl
- * - smart_card_connection.idl
- * - smart_card_connection_status.idl
- * - smart_card_context.idl
- * - smart_card_error.idl
- * - smart_card_resource_manager.idl
- *
- * @see https://wicg.github.io/web-smart-card/
+ * @see https://wicg.github.io/web-smart-card
  */
 
 export interface SmartCardResourceManager {
