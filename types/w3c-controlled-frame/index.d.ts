@@ -1,8 +1,6 @@
 /**
- * Generated from:
- * - controlled-frame.idl
- *
- * @see https://wicg.github.io/urlpattern/
+ * @see https://wicg.github.io/controlled-frame
+ * @see https://wicg.github.io/urlpattern
  */
 
 export type URLPatternInput = string | URLPatternInit;
