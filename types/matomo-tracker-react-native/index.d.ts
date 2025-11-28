@@ -34,6 +34,7 @@ export interface Event {
     name?: string;
     value?: number;
     campaign?: string;
+    url?: string;
     userInfo?: UserInfo;
 }
 
