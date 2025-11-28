@@ -9,6 +9,8 @@ const instance = new MatomoTracker({
 // $ExpectType Promise<Response>
 instance.trackAction({ name: "" });
 // $ExpectType Promise<Response>
+instance.trackAction({ name: "", url: "" });
+// $ExpectType Promise<Response>
 instance.trackAppStart({});
 // $ExpectType Promise<Response>
 instance.trackDownload({ download: "" });
@@ -23,6 +25,8 @@ instance.trackSiteSearch({ keyword: "" });
 
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackAction({ name: "" });
+// $ExpectType Promise<Response> | undefined
+instance.trackAction({ name: "", url: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackAppStart({});
 // $ExpectType Promise<Response> | undefined
