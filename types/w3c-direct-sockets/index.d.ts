@@ -1,13 +1,4 @@
 /**
- * Generated from:
- * - multicast_controller.idl
- * - socket_connection.idl
- * - socket_options.idl
- * - tcp_server_socket.idl
- * - tcp_socket.idl
- * - udp_message.idl
- * - udp_socket.idl
- *
  * @see https://github.com/WICG/direct-sockets/blob/main/docs/explainer.md
  */
 
