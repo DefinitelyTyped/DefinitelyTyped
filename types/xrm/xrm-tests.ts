@@ -783,5 +783,5 @@ function getStepsFromActiveStage(formContext: Xrm.FormContext) {
     const process = formContext.data.process;
 
     // $ExpectType ItemCollection<Step>
-    const steps = process.getActiveStage().getSteps();    
+    const steps = process.getActiveStage().getSteps();
 }
