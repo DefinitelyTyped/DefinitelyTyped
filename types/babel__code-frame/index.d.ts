@@ -46,3 +46,12 @@ export default function codeFrame(
     colNumber: number,
     options?: BabelCodeFrameOptions,
 ): string;
+
+/**
+ * Add syntax highlighting to a code snippet, to be displayed in a terminal.
+ *
+ * @param code Raw code to be highlighted
+ *
+ * @returns Highlighted code
+ */
+export function highlight(code: string): string;
