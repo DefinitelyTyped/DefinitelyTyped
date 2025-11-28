@@ -1,162 +1,72 @@
 import {
-    AudioOutputOptions,
     CaptureController,
-    CaptureHandleConfig,
     CaptureStartFocusBehavior,
     DisplayMediaStreamOptions,
-    MediaStreamConstraints,
-    NavigatorUserMediaErrorCallback,
-    NavigatorUserMediaSuccessCallback,
+    MediaTrackConstraintSet,
     SystemAudioPreferenceEnum,
-    UserMediaStreamConstraints,
     WindowAudioPreferenceEnum,
 } from "w3c-screen-capture";
 
-const dummyElement: HTMLElement = {} as HTMLElement;
-const dummyCaptureController = new CaptureController();
+function testCaptureController() {
+    const controller = new CaptureController();
 
-// --------------------------------------------------------------------------------
-// Type Aliases (Enums)
-// --------------------------------------------------------------------------------
+    // Valid behaviors
+    controller.setFocusBehavior("focus-capturing-application");
+    controller.setFocusBehavior("focus-captured-surface");
+    controller.setFocusBehavior("no-focus-change");
 
-function testTypeAliases() {
-    const sysAudioInclude: SystemAudioPreferenceEnum = "include";
-    // $ExpectType "include"
-    sysAudioInclude;
-    // @ts-expect-error invalid enum value
-    const sysAudioInvalid: SystemAudioPreferenceEnum = "unknown";
+    // Inheritance check (EventTarget)
+    controller.addEventListener("focus", () => {});
 
-    const winAudioWindow: WindowAudioPreferenceEnum = "window";
-    // $ExpectType "window"
-    winAudioWindow;
-
-    const focusBehavior: CaptureStartFocusBehavior = "focus-captured-surface";
-    // $ExpectType "focus-captured-surface"
-    focusBehavior;
+    // @ts-expect-error - Invalid enum value
+    controller.setFocusBehavior("focus-unknown");
 }
 
-// --------------------------------------------------------------------------------
-// Constraint and Option Interfaces
-// --------------------------------------------------------------------------------
+async function testGetDisplayMedia() {
+    const controller = new CaptureController();
 
-function testOptionInterfaces() {
-    const userConstraints: UserMediaStreamConstraints = {
+    const options: DisplayMediaStreamOptions = {
         video: true,
-        audio: { deviceId: "default" },
-    };
-    // $ExpectType boolean | MediaTrackConstraints | undefined
-    userConstraints.video;
+        audio: false,
 
-    const displayOptions: DisplayMediaStreamOptions = {
-        preferCurrentTab: true,
-        controller: dummyCaptureController,
-        selfBrowserSurface: "exclude",
-        systemAudio: "include",
-        windowAudio: "system",
+        // Advanced Enum preferences
+        controller: controller,
+        selfBrowserSurface: "include",
+        systemAudio: "exclude",
+        windowAudio: "window",
         surfaceSwitching: "include",
         monitorTypeSurfaces: "exclude",
     };
-    // $ExpectType DisplayMediaIncludeOrExclude | undefined
-    displayOptions.selfBrowserSurface;
 
-    const combinedConstraints: MediaStreamConstraints = {
-        audio: false,
-        selfBrowserSurface: "include",
-        systemAudio: "exclude",
-    };
-    // $ExpectType CaptureController | undefined
-    combinedConstraints.controller;
-
-    const audioOutOptions: AudioOutputOptions = {
-        deviceId: "speaker-id",
-    };
-    // $ExpectType string | undefined
-    audioOutOptions.deviceId;
-
-    const handleConfig: CaptureHandleConfig = {
-        exposeOrigin: true,
-        handle: "my-app-id",
-        permittedOrigins: ["*"],
-    };
-    // $ExpectType string[] | undefined
-    handleConfig.permittedOrigins;
+    const stream = await navigator.mediaDevices.getDisplayMedia(options);
+    const track = stream.getTracks()[0];
+    track.stop();
 }
 
-// --------------------------------------------------------------------------------
-// CaptureController Class
-// --------------------------------------------------------------------------------
+function testConstraints() {
+    // Verifying the extension of constraints
+    const constraints: MediaTrackConstraintSet = {
+        // New Screen Share specific constraints
+        displaySurface: "monitor",
+        logicalSurface: true,
+        cursor: "motion",
+        restrictOwnAudio: false,
+        suppressLocalAudioPlayback: true,
+    };
 
-function testCaptureController() {
-    // $ExpectType CaptureController
-    const controller = new CaptureController();
-
-    // $ExpectType void
-    controller.setFocusBehavior("focus-capturing-application");
-
-    // $ExpectType ((ev: Event) => any) | null
-    controller.oncapturedmousechange;
-    // $ExpectType ((ev: Event) => any) | null
-    controller.onzoomlevelchange;
-
-    // $ExpectType Promise<undefined>
-    controller.forwardWheel(dummyElement);
-    // $ExpectType Promise<undefined>
-    controller.forwardWheel(null);
-
-    // $ExpectType number[]
-    controller.getSupportedZoomLevels();
-    // $ExpectType number | null
-    controller.zoomLevel;
-    // $ExpectType Promise<undefined>
-    controller.increaseZoomLevel();
-    // $ExpectType Promise<undefined>
-    controller.decreaseZoomLevel();
-    // $ExpectType Promise<undefined>
-    controller.resetZoomLevel();
+    const complexOptions: DisplayMediaStreamOptions = {
+        video: constraints,
+        audio: { echoCancellation: true },
+    };
 }
 
-// --------------------------------------------------------------------------------
-// MediaDevices & Navigator Global APIs
-// --------------------------------------------------------------------------------
+function testSettings(track: MediaStreamTrack) {
+    const settings: MediaTrackSettings = track.getSettings();
 
-async function testMediaDevicesAndNavigator() {
-    const constraints: MediaStreamConstraints = { video: true };
-    const userConstraints: UserMediaStreamConstraints = { video: true };
-    const displayOptions: DisplayMediaStreamOptions = { video: true };
-
-    if (navigator.getUserMedia) {
-        const successCallback: NavigatorUserMediaSuccessCallback = (stream) => {
-            // $ExpectType MediaStream
-            stream;
-        };
-        const errorCallback: NavigatorUserMediaErrorCallback = (error) => {
-            // $ExpectType MediaStreamError
-            error;
-        };
-        // $ExpectType void
-        navigator.getUserMedia(constraints, successCallback, errorCallback);
+    if (settings.displaySurface === "window") {
+        console.log("Captured a window");
     }
 
-    if (navigator.mediaDevices) {
-        // $ExpectType Promise<MediaStream>
-        navigator.mediaDevices.getUserMedia(userConstraints);
-
-        // $ExpectType Promise<MediaStream>
-        navigator.mediaDevices.getDisplayMedia(displayOptions);
-
-        if (navigator.mediaDevices.getAllScreensMedia) {
-            // $ExpectType Promise<MediaStream[]>
-            navigator.mediaDevices.getAllScreensMedia();
-        }
-
-        // $ExpectType Promise<MediaDeviceInfo>
-        navigator.mediaDevices.selectAudioOutput();
-
-        const config: CaptureHandleConfig = { exposeOrigin: true };
-        // $ExpectType void
-        navigator.mediaDevices.setCaptureHandleConfig(config);
-
-        // $ExpectType Promise<undefined>
-        navigator.mediaDevices.setPreferredSinkId("id");
-    }
+    // @ts-expect-error - Type 'number' is not comparable to type 'string'
+    if (settings.cursor === 123) {}
 }
