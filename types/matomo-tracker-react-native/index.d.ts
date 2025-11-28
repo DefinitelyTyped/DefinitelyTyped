@@ -24,6 +24,7 @@ export interface AppStart {
 
 export interface Action {
     name: string;
+    url?: string;
     userInfo?: UserInfo;
 }
 
