@@ -777,3 +777,11 @@ function testAttributeType(formContext: Xrm.FormContext) {
     const isNumberAttribute = attributeType === "number"; // This errors because the attribute is a StringAttribute, not a NumberAttribute
     const isStringAttribute = attributeType === "string"; // This works because the attribute is a StringAttribute
 }
+
+// Demonstrate getSteps from active stage returns collection of steps
+function getStepsFromActiveStage(formContext: Xrm.FormContext) {
+    const process = formContext.data.process;
+
+    // $ExpectType ItemCollection<Step>
+    const steps = process.getActiveStage().getSteps();    
+}
