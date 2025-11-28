@@ -26,7 +26,7 @@ instance.trackSiteSearch({ keyword: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackAction({ name: "" });
 // $ExpectType Promise<Response> | undefined
-instance.trackAction({ name: "", url: "" });
+useMatomo().trackAction({ name: "", url: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackAppStart({});
 // $ExpectType Promise<Response> | undefined
