@@ -1,5 +1,5 @@
 import express = require("express");
-import { ParamsArray, Request, RequestRanges } from "express-serve-static-core";
+import { Request, RequestRanges } from "express-serve-static-core";
 import * as http from "http";
 
 namespace express_tests {
@@ -140,24 +140,6 @@ namespace express_tests {
         req.params.foo; // $ExpectType string
         // @ts-expect-error
         req.params[0];
-    });
-
-    // Params can used as an array
-    router.get<ParamsArray>("/*", req => {
-        req.params[0]; // $ExpectType string
-        req.params.length; // $ExpectType number
-    });
-
-    // Params can used as an array and can be specified via an explicit param type (express-serve-static-core)
-    router.get("/*", (req: Request<ParamsArray>) => {
-        req.params[0]; // $ExpectType string
-        req.params.length; // $ExpectType number
-    });
-
-    // Params can used as an array and can be specified via an explicit param type (express)
-    router.get("/*", (req: express.Request<ParamsArray>) => {
-        req.params[0]; // $ExpectType string
-        req.params.length; // $ExpectType number
     });
 
     // Params can be a custom type
