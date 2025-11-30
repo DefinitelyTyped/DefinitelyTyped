@@ -248,7 +248,7 @@ app.get("/ar", (_req: Express.Request, res: i18n.Response) => {
     i18n.setLocale(res, "ar");
     i18n.setLocale(res.locals, "ar");
 
-    i18n.setLocale([req, res.locals], req.params.lang);
+    i18n.setLocale([req, res.locals], "ar");
     i18n.setLocale(res, "ar", true);
 });
 
