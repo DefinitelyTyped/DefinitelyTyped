@@ -1027,7 +1027,10 @@ declare namespace chrome {
             indexedDB?: boolean | undefined;
             /** The browser's cookies. */
             cookies?: boolean | undefined;
-            /** Stored passwords. */
+            /**
+             * Stored passwords.
+             * @deprecated Support for password deletion through extensions has been removed. This data type will be ignored.
+             */
             passwords?: boolean | undefined;
             /**
              * Server-bound certificates.
@@ -1122,6 +1125,7 @@ declare namespace chrome {
          * Clears the browser's stored passwords.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated Support for password deletion through extensions has been removed. This function has no effect.
          */
         export function removePasswords(options: RemovalOptions): Promise<void>;
         export function removePasswords(options: RemovalOptions, callback: () => void): void;
@@ -9548,6 +9552,13 @@ declare namespace chrome {
          * @returns The fully-qualified URL to the resource.
          */
         export function getURL(path: string): string;
+
+        /**
+         * Returns the extension's version as declared in the manifest.
+         * @returns The extension's version.
+         * @since Chrome 143
+         */
+        export function getVersion(): string;
 
         /** Reloads the app or extension. This method is not supported in kiosk mode. For kiosk mode, use {@link chrome.runtime.restart()} method. */
         export function reload(): void;
