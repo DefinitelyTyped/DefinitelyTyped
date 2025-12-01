@@ -1,6 +1,7 @@
 import { createReadStream, createWriteStream } from "node:fs";
 import {
     addAbortSignal,
+    compose,
     Duplex,
     duplexPair,
     finished,
@@ -220,15 +221,6 @@ function streamPipelineFinished() {
 }
 
 async function asyncStreamPipelineFinished() {
-    const fin = promisify(finished);
-    await fin(process.stdin);
-    await fin(process.stdin, { error: false });
-    await fin(process.stdin, { readable: false });
-    await fin(process.stdin, { writable: false });
-    await fin(process.stdin, { signal: new AbortSignal() });
-    // @ts-expect-error -- callback version does not allow `options.cleanup`
-    await fin(process.stdin, { cleanup: false });
-
     await finishedPromise(process.stdin);
     await finishedPromise(process.stdin, { error: false });
     await finishedPromise(process.stdin, { readable: false });
@@ -236,8 +228,10 @@ async function asyncStreamPipelineFinished() {
     await finishedPromise(process.stdin, { signal: new AbortSignal() });
     await finishedPromise(process.stdin, { cleanup: false });
 
-    const pipe = promisify(pipeline);
-    await pipe(process.stdin, process.stdout);
+    await pipelinePromise(process.stdin, process.stdout);
+
+    const fin: typeof finishedPromise = promisify(finished);
+    const pipe: typeof pipelinePromise = promisify(pipeline);
 }
 
 // https://nodejs.org/api/stream.html#stream_stream_pipeline_source_transforms_destination_callback
@@ -249,7 +243,7 @@ function streamPipelineAsyncTransform() {
             // $ExpectType ReadStream & { fd: 0; }
             source;
             source.setEncoding("utf8");
-            for await (const chunk of source as AsyncIterable<string>) {
+            for await (const chunk of source) {
                 yield chunk.toUpperCase();
             }
         },
@@ -264,8 +258,8 @@ function streamPipelineAsyncTransform() {
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async function*(source: AsyncIterable<string>) {
-        // $ExpectType AsyncIterable<string>
+    }, async function*(source) {
+        // $ExpectType AsyncGenerator<string, void, any>
         source;
         for await (const chunk of source) {
             console.log(chunk);
@@ -278,7 +272,10 @@ function streamPipelineAsyncTransform() {
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async (source: AsyncIterable<string>) => {
+    }, async (source) => {
+        for await (const chunk of source) {
+            chunk; // $ExpectType string
+        }
         return new Date();
     }, (err, val) => {
         // $ExpectType Date
@@ -319,9 +316,9 @@ function streamPipelineAsyncTransform() {
                 yield chunk.toFixed(3);
             }
         },
-        async function*(source: AsyncIterable<string>) {
+        async function*(source) {
             for await (const chunk of source) {
-                console.log(chunk);
+                chunk; // $ExpectType string
             }
             yield null;
         },
@@ -339,10 +336,8 @@ function streamPipelineAsyncTransform() {
 async function streamPipelineAsyncPromiseTransform() {
     // Transform through a stream, preserving the type of the source
     pipelinePromise(process.stdin, async function*(source) {
-        // $ExpectType ReadStream & { fd: 0; }
-        source;
         source.setEncoding("utf8");
-        for await (const chunk of source as AsyncIterable<string>) {
+        for await (const chunk of source) {
             yield chunk.toUpperCase();
         }
     }, process.stdout).then(r => {
@@ -352,16 +347,12 @@ async function streamPipelineAsyncPromiseTransform() {
 
     // Read from an iterable and write to a function accepting an AsyncIterable
     pipelinePromise("tasty", async function*(source) {
-        // $ExpectType string
-        source;
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async function*(source: AsyncIterable<string>) {
-        // $ExpectType AsyncIterable<string>
-        source;
+    }, async function*(source) {
         for await (const chunk of source) {
-            console.log(chunk);
+            chunk; // $ExpectType string
         }
         yield null;
     }).then(r => {
@@ -374,7 +365,7 @@ async function streamPipelineAsyncPromiseTransform() {
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async (source: AsyncIterable<string>) => {
+    }, async (source) => {
         return new Date();
     }).then(r => {
         // $ExpectType Date
@@ -412,10 +403,8 @@ async function streamPipelineAsyncPromiseAbortTransform() {
     pipelinePromise(
         process.stdin,
         async function*(source) {
-            // $ExpectType ReadStream & { fd: 0; }
-            source;
             source.setEncoding("utf8");
-            for await (const chunk of source as AsyncIterable<string>) {
+            for await (const chunk of source) {
                 yield chunk.toUpperCase();
             }
         },
@@ -428,16 +417,12 @@ async function streamPipelineAsyncPromiseAbortTransform() {
 
     // Read from an iterable and write to a function accepting an AsyncIterable
     pipelinePromise("tasty", async function*(source) {
-        // $ExpectType string
-        source;
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async function*(source: AsyncIterable<string>) {
-        // $ExpectType AsyncIterable<string>
-        source;
+    }, async function*(source) {
         for await (const chunk of source) {
-            console.log(chunk);
+            chunk; // $ExpectType string
         }
         yield null;
     }, { signal }).then(r => {
@@ -450,7 +435,10 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         for (const chunk of source) {
             yield chunk.toUpperCase();
         }
-    }, async (source: AsyncIterable<string>) => {
+    }, async (source) => {
+        for await (const chunk of source) {
+            chunk; // $ExpectType string
+        }
         return new Date();
     }, { signal }).then(r => {
         // $ExpectType Date
@@ -643,7 +631,7 @@ addAbortSignal(new AbortSignal(), new Readable());
 
 {
     const duplex = new Duplex();
-    // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
+    // $ExpectType ReadableWritablePair<any, any>
     Duplex.toWeb(duplex);
 }
 
@@ -826,4 +814,86 @@ async function testTransferringStreamWithPostMessage() {
 
     // $ExpectType void
     byobReader.releaseLock();
+}
+
+async function testStreamComposeExample1() {
+    const removeSpaces = new Transform({
+        transform(chunk, encoding, callback) {
+            callback(null, String(chunk).replace(" ", ""));
+        },
+    });
+
+    let res = "";
+    for await (
+        const buf of compose(removeSpaces, async function*(source) {
+            for await (const chunk of source) {
+                yield String(chunk).toUpperCase();
+            }
+        }).end("hello world")
+    ) {
+        res += buf;
+    }
+}
+
+async function testStreamComposeExample2() {
+    // Convert AsyncIterable into readable Duplex.
+    const s1 = compose(async function*() {
+        yield "Hello";
+        yield "World";
+    }());
+
+    // Convert AsyncGenerator into transform Duplex.
+    const s2 = compose(async function*(source) {
+        for await (const chunk of source) {
+            yield String(chunk).toUpperCase();
+        }
+    });
+
+    let res = "";
+
+    // Convert AsyncFunction into writable Duplex.
+    const s3 = compose(async function(source) {
+        for await (const chunk of source) {
+            res += chunk;
+        }
+    });
+
+    await finishedPromise(compose(s1, s2, s3));
+}
+
+async function testStreamComposeTypeChaining() {
+    compose(
+        [1, 2, 3],
+        async function*(source) {
+            for await (const chunk of source) {
+                chunk; // $ExpectType number
+                yield String(chunk);
+            }
+        },
+        async function*(source) {
+            for await (const chunk of source) {
+                chunk; // $ExpectType string
+                yield BigInt(chunk);
+            }
+        },
+        new TransformStream<bigint, object>(),
+        async function(source) {
+            for await (const chunk of source) {
+                chunk; // $ExpectType object
+            }
+        },
+    );
+}
+
+async function testReadableComposeExample() {
+    const wordsStream = Readable.from(["this is", "compose as operator"]).compose(async function* splitToWords(source) {
+        for await (const chunk of source) {
+            const words = String(chunk).split(" ");
+
+            for (const word of words) {
+                yield word;
+            }
+        }
+    });
+    const words = await wordsStream.toArray();
 }

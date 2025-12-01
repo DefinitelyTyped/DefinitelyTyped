@@ -22,25 +22,26 @@ declare module "node:stream" {
     import { Abortable, EventEmitter } from "node:events";
     import * as promises from "node:stream/promises";
     import * as web from "node:stream/web";
-
-    type ComposeFnParam = (source: any) => void;
-
     class Stream extends EventEmitter {
+        /**
+         * @since v0.9.4
+         */
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
-            options?: {
-                end?: boolean | undefined;
-            },
-        ): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
+            options?: Stream.PipeOptions,
         ): T;
     }
     namespace Stream {
         export { promises, Stream };
     }
     namespace Stream {
+        interface PipeOptions {
+            /**
+             * End the writer when the reader ends.
+             * @default true
+             */
+            end?: boolean | undefined;
+        }
         interface StreamOptions<T extends Stream> extends Abortable {
             emitClose?: boolean | undefined;
             highWaterMark?: number | undefined;
@@ -53,14 +54,33 @@ declare module "node:stream" {
             encoding?: BufferEncoding | undefined;
             read?: ((this: T, size: number) => void) | undefined;
         }
-        interface ArrayOptions {
+        interface ReadableIteratorOptions {
             /**
-             * The maximum concurrent invocations of `fn` to call on the stream at once.
+             * When set to `false`, calling `return` on the async iterator,
+             * or exiting a `for await...of` iteration using a `break`,
+             * `return`, or `throw` will not destroy the stream.
+             * @default true
+             */
+            destroyOnReturn?: boolean | undefined;
+        }
+        interface ReadableOperatorOptions extends Abortable {
+            /**
+             * The maximum concurrent invocations of `fn` to call
+             * on the stream at once.
              * @default 1
              */
             concurrency?: number | undefined;
-            /** Allows destroying the stream if the signal is aborted. */
-            signal?: AbortSignal | undefined;
+            /**
+             * How many items to buffer while waiting for user consumption
+             * of the output.
+             * @default concurrency * 2 - 1
+             */
+            highWaterMark?: number | undefined;
+        }
+        /** @deprecated Use `ReadableOperatorOptions` instead. */
+        interface ArrayOptions extends ReadableOperatorOptions {}
+        interface ReadableToWebOptions {
+            strategy?: web.QueuingStrategy | undefined;
         }
         interface ReadableEventMap {
             "close": [];
@@ -96,16 +116,14 @@ declare module "node:stream" {
              * @since v17.0.0
              */
             static toWeb(
-                streamReadable: Readable,
-                options?: {
-                    strategy?: web.QueuingStrategy | undefined;
-                },
+                streamReadable: NodeJS.ReadableStream,
+                options?: ReadableToWebOptions,
             ): web.ReadableStream;
             /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
              */
-            static isDisturbed(stream: Readable | NodeJS.ReadableStream): boolean;
+            static isDisturbed(stream: NodeJS.ReadableStream | web.ReadableStream): boolean;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
@@ -137,7 +155,7 @@ declare module "node:stream" {
              * in the [Three states](https://nodejs.org/docs/latest-v25.x/api/stream.html#three-states) section.
              * @since v9.4.0
              */
-            readonly readableFlowing: boolean | null;
+            readableFlowing: boolean | null;
             /**
              * Returns the value of `highWaterMark` passed when creating this `Readable`.
              * @since v9.3.0
@@ -454,15 +472,40 @@ declare module "node:stream" {
             wrap(stream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: BufferEncoding): boolean;
             /**
+             * ```js
+             * import { Readable } from 'node:stream';
+             *
+             * async function* splitToWords(source) {
+             *   for await (const chunk of source) {
+             *     const words = String(chunk).split(' ');
+             *
+             *     for (const word of words) {
+             *       yield word;
+             *     }
+             *   }
+             * }
+             *
+             * const wordsStream = Readable.from(['this is', 'compose as operator']).compose(splitToWords);
+             * const words = await wordsStream.toArray();
+             *
+             * console.log(words); // prints ['this', 'is', 'compose', 'as', 'operator']
+             * ```
+             *
+             * See [`stream.compose`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamcomposestreams) for more information.
+             * @since v19.1.0, v18.13.0
+             * @returns a stream composed with the stream `stream`.
+             */
+            compose(
+                stream: NodeJS.WritableStream | web.WritableStream | web.TransformStream | ((source: any) => void),
+                options?: Abortable,
+            ): Duplex;
+            /**
              * The iterator created by this method gives users the option to cancel the destruction
              * of the stream if the `for await...of` loop is exited by `return`, `break`, or `throw`,
              * or if the iterator should destroy the stream if the stream emitted an error during iteration.
              * @since v16.3.0
-             * @param options.destroyOnReturn When set to `false`, calling `return` on the async iterator,
-             * or exiting a `for await...of` iteration using a `break`, `return`, or `throw` will not destroy the stream.
-             * **Default: `true`**.
              */
-            iterator(options?: { destroyOnReturn?: boolean }): NodeJS.AsyncIterator<any>;
+            iterator(options?: ReadableIteratorOptions): NodeJS.AsyncIterator<any>;
             /**
              * This method allows mapping over the stream. The *fn* function will be called for every chunk in the stream.
              * If the *fn* function returns a promise - that promise will be `await`ed before being passed to the result stream.
@@ -470,7 +513,7 @@ declare module "node:stream" {
              * @param fn a function to map over every chunk in the stream. Async or not.
              * @returns a stream mapped with the function *fn*.
              */
-            map(fn: (data: any, options?: Pick<ArrayOptions, "signal">) => any, options?: ArrayOptions): Readable;
+            map(fn: (data: any, options?: Abortable) => any, options?: ReadableOperatorOptions): Readable;
             /**
              * This method allows filtering the stream. For each chunk in the stream the *fn* function will be called
              * and if it returns a truthy value, the chunk will be passed to the result stream.
@@ -480,8 +523,8 @@ declare module "node:stream" {
              * @returns a stream filtered with the predicate *fn*.
              */
             filter(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => boolean | Promise<boolean>,
+                options?: ReadableOperatorOptions,
             ): Readable;
             /**
              * This method allows iterating a stream. For each chunk in the stream the *fn* function will be called.
@@ -499,8 +542,8 @@ declare module "node:stream" {
              * @returns a promise for when the stream has finished.
              */
             forEach(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => void | Promise<void>,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => void | Promise<void>,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
             ): Promise<void>;
             /**
              * This method allows easily obtaining the contents of a stream.
@@ -510,7 +553,7 @@ declare module "node:stream" {
              * @since v17.5.0
              * @returns a promise containing an array with the contents of the stream.
              */
-            toArray(options?: Pick<ArrayOptions, "signal">): Promise<any[]>;
+            toArray(options?: Abortable): Promise<any[]>;
             /**
              * This method is similar to `Array.prototype.some` and calls *fn* on each chunk in the stream
              * until the awaited return value is `true` (or any truthy value). Once an *fn* call on a chunk
@@ -521,8 +564,8 @@ declare module "node:stream" {
              * @returns a promise evaluating to `true` if *fn* returned a truthy value for at least one of the chunks.
              */
             some(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => boolean | Promise<boolean>,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
             ): Promise<boolean>;
             /**
              * This method is similar to `Array.prototype.find` and calls *fn* on each chunk in the stream
@@ -535,12 +578,12 @@ declare module "node:stream" {
              * or `undefined` if no element was found.
              */
             find<T>(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => data is T,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => data is T,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
             ): Promise<T | undefined>;
             find(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => boolean | Promise<boolean>,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
             ): Promise<any>;
             /**
              * This method is similar to `Array.prototype.every` and calls *fn* on each chunk in the stream
@@ -552,8 +595,8 @@ declare module "node:stream" {
              * @returns a promise evaluating to `true` if *fn* returned a truthy value for every one of the chunks.
              */
             every(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
-                options?: ArrayOptions,
+                fn: (data: any, options?: Abortable) => boolean | Promise<boolean>,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
             ): Promise<boolean>;
             /**
              * This method returns a new stream by applying the given callback to each chunk of the stream
@@ -565,28 +608,24 @@ declare module "node:stream" {
              * @param fn a function to map over every chunk in the stream. May be async. May be a stream or generator.
              * @returns a stream flat-mapped with the function *fn*.
              */
-            flatMap(fn: (data: any, options?: Pick<ArrayOptions, "signal">) => any, options?: ArrayOptions): Readable;
+            flatMap(
+                fn: (data: any, options?: Abortable) => any,
+                options?: Pick<ReadableOperatorOptions, "concurrency" | "signal">,
+            ): Readable;
             /**
              * This method returns a new stream with the first *limit* chunks dropped from the start.
              * @since v17.5.0
              * @param limit the number of chunks to drop from the readable.
              * @returns a stream with *limit* chunks dropped from the start.
              */
-            drop(limit: number, options?: Pick<ArrayOptions, "signal">): Readable;
+            drop(limit: number, options?: Abortable): Readable;
             /**
              * This method returns a new stream with the first *limit* chunks.
              * @since v17.5.0
              * @param limit the number of chunks to take from the readable.
              * @returns a stream with *limit* chunks taken.
              */
-            take(limit: number, options?: Pick<ArrayOptions, "signal">): Readable;
-            /**
-             * This method returns a new stream with chunks of the underlying stream paired with a counter
-             * in the form `[index, chunk]`. The first index value is `0` and it increases by 1 for each chunk produced.
-             * @since v17.5.0
-             * @returns a stream of indexed pairs.
-             */
-            asIndexedPairs(options?: Pick<ArrayOptions, "signal">): Readable;
+            take(limit: number, options?: Abortable): Readable;
             /**
              * This method calls *fn* on each chunk of the stream in order, passing it the result from the calculation
              * on the previous element. It returns a promise for the final value of the reduction.
@@ -601,15 +640,11 @@ declare module "node:stream" {
              * @param initial the initial value to use in the reduction.
              * @returns a promise for the final value of the reduction.
              */
-            reduce<T = any>(
-                fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T,
-                initial?: undefined,
-                options?: Pick<ArrayOptions, "signal">,
-            ): Promise<T>;
-            reduce<T = any>(
-                fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T,
+            reduce<T>(fn: (previous: any, data: any, options?: Abortable) => T): Promise<T>;
+            reduce<T>(
+                fn: (previous: T, data: any, options?: Abortable) => T,
                 initial: T,
-                options?: Pick<ArrayOptions, "signal">,
+                options?: Abortable,
             ): Promise<T>;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             /**
@@ -695,10 +730,10 @@ declare module "node:stream" {
             writev?:
                 | ((
                     this: T,
-                    chunks: Array<{
+                    chunks: {
                         chunk: any;
                         encoding: BufferEncoding;
-                    }>,
+                    }[],
                     callback: (error?: Error | null) => void,
                 ) => void)
                 | undefined;
@@ -729,13 +764,13 @@ declare module "node:stream" {
              * A utility method for creating a web `WritableStream` from a `Writable`.
              * @since v17.0.0
              */
-            static toWeb(streamWritable: Writable): web.WritableStream;
+            static toWeb(streamWritable: NodeJS.WritableStream): web.WritableStream;
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored, or ended.
              * @since v11.4.0
              */
-            readonly writable: boolean;
+            writable: boolean;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'finish'`.
              * @since v18.0.0, v16.17.0
@@ -797,10 +832,10 @@ declare module "node:stream" {
             readonly writableNeedDrain: boolean;
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
-                chunks: Array<{
+                chunks: {
                     chunk: any;
                     encoding: BufferEncoding;
-                }>,
+                }[],
                 callback: (error?: Error | null) => void,
             ): void;
             _construct?(callback: (error?: Error | null) => void): void;
@@ -1033,7 +1068,7 @@ declare module "node:stream" {
          * @since v0.9.4
          */
         class Duplex extends Stream implements NodeJS.ReadWriteStream {
-            constructor(optionss?: DuplexOptions);
+            constructor(options?: DuplexOptions);
             /**
              * A utility method for creating duplex streams.
              *
@@ -1057,33 +1092,30 @@ declare module "node:stream" {
              */
             static from(
                 src:
-                    | Stream
+                    | NodeJS.ReadableStream
+                    | NodeJS.WritableStream
                     | Blob
-                    | ArrayBuffer
                     | string
                     | Iterable<any>
                     | AsyncIterable<any>
-                    | AsyncGeneratorFunction
+                    | ((source: AsyncIterable<any>) => AsyncIterable<any>)
+                    | ((source: AsyncIterable<any>) => Promise<void>)
                     | Promise<any>
-                    | Object,
+                    | web.ReadableWritablePair
+                    | web.ReadableStream
+                    | web.WritableStream,
             ): Duplex;
             /**
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
              */
-            static toWeb(streamDuplex: Duplex): {
-                readable: web.ReadableStream;
-                writable: web.WritableStream;
-            };
+            static toWeb(streamDuplex: NodeJS.ReadWriteStream): web.ReadableWritablePair;
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
              * @since v17.0.0
              */
             static fromWeb(
-                duplexStream: {
-                    readable: web.ReadableStream;
-                    writable: web.WritableStream;
-                },
+                duplexStream: web.ReadableWritablePair,
                 options?: Pick<
                     DuplexOptions,
                     "allowHalfOpen" | "decodeStrings" | "encoding" | "highWaterMark" | "objectMode" | "signal"
@@ -1269,7 +1301,9 @@ declare module "node:stream" {
          * @param signal A signal representing possible cancellation
          * @param stream A stream to attach a signal to.
          */
-        function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+        function addAbortSignal<
+            T extends NodeJS.ReadableStream | NodeJS.WritableStream | web.ReadableStream | web.WritableStream,
+        >(signal: AbortSignal, stream: T): T;
         /**
          * Returns the default highWaterMark used by streams.
          * Defaults to `65536` (64 KiB), or `16` for `objectMode`.
@@ -1333,46 +1367,57 @@ declare module "node:stream" {
          * @returns A cleanup function which removes all registered listeners.
          */
         function finished(
-            stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
+            stream: NodeJS.ReadableStream | NodeJS.WritableStream | web.ReadableStream | web.WritableStream,
             options: FinishedOptions,
             callback: (err?: NodeJS.ErrnoException | null) => void,
         ): () => void;
         function finished(
-            stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
+            stream: NodeJS.ReadableStream | NodeJS.WritableStream | web.ReadableStream | web.WritableStream,
             callback: (err?: NodeJS.ErrnoException | null) => void,
         ): () => void;
         namespace finished {
-            function __promisify__(
-                stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
-                options?: FinishedOptions,
-            ): Promise<void>;
+            import __promisify__ = promises.finished;
+            export { __promisify__ };
         }
-        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T>;
-        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | NodeJS.ReadableStream | PipelineSourceFunction<T>;
-        type PipelineTransform<S extends PipelineTransformSource<any>, U> =
-            | NodeJS.ReadWriteStream
-            | ((
-                source: S extends (...args: any[]) => Iterable<infer ST> | AsyncIterable<infer ST> ? AsyncIterable<ST>
-                    : S,
-            ) => AsyncIterable<U>);
-        type PipelineTransformSource<T> = PipelineSource<T> | PipelineTransform<any, T>;
-        type PipelineDestinationIterableFunction<T> = (source: AsyncIterable<T>) => AsyncIterable<any>;
-        type PipelineDestinationPromiseFunction<T, P> = (source: AsyncIterable<T>) => Promise<P>;
-        type PipelineDestination<S extends PipelineTransformSource<any>, P> = S extends
-            PipelineTransformSource<infer ST> ?
-                | NodeJS.WritableStream
-                | PipelineDestinationIterableFunction<ST>
-                | PipelineDestinationPromiseFunction<ST, P>
+        type PipelineSourceFunction<O> = (options?: Abortable) => Iterable<O> | AsyncIterable<O>;
+        type PipelineSource<O> =
+            | NodeJS.ReadableStream
+            | web.ReadableStream<O>
+            | web.TransformStream<any, O>
+            | Iterable<O>
+            | AsyncIterable<O>
+            | PipelineSourceFunction<O>;
+        type PipelineSourceArgument<T> = (T extends (...args: any[]) => infer R ? R : T) extends infer S
+            ? S extends web.TransformStream<any, infer O> ? web.ReadableStream<O> : S
             : never;
-        type PipelineCallback<S extends PipelineDestination<any, any>> = S extends
-            PipelineDestinationPromiseFunction<any, infer P> ? (err: NodeJS.ErrnoException | null, value: P) => void
-            : (err: NodeJS.ErrnoException | null) => void;
-        type PipelinePromise<S extends PipelineDestination<any, any>> = S extends
-            PipelineDestinationPromiseFunction<any, infer P> ? Promise<P> : Promise<void>;
-        interface PipelineOptions {
-            signal?: AbortSignal | undefined;
-            end?: boolean | undefined;
-        }
+        type PipelineTransformGenerator<S extends PipelineTransformSource<any>, O> = (
+            source: PipelineSourceArgument<S>,
+            options?: Abortable,
+        ) => AsyncIterable<O>;
+        type PipelineTransformStreams<I, O> =
+            | NodeJS.ReadWriteStream
+            | web.TransformStream<I, O>;
+        type PipelineTransform<S extends PipelineTransformSource<any>, O> = S extends
+            PipelineSource<infer I> | PipelineTransformStreams<any, infer I> | ((...args: any[]) => infer I)
+            ? PipelineTransformStreams<I, O> | PipelineTransformGenerator<S, O>
+            : never;
+        type PipelineTransformSource<O> = PipelineSource<O> | PipelineTransform<any, O>;
+        type PipelineDestinationFunction<S extends PipelineTransformSource<any>, R> = (
+            source: PipelineSourceArgument<S>,
+            options?: Abortable,
+        ) => R;
+        type PipelineDestination<S extends PipelineTransformSource<any>, R> = S extends
+            PipelineSource<infer I> | PipelineTransform<any, infer I> ?
+                | NodeJS.WritableStream
+                | web.WritableStream<I>
+                | web.TransformStream<I, any>
+                | PipelineDestinationFunction<S, R>
+            : never;
+        type PipelineCallback<S extends PipelineDestination<any, any>> = (
+            err: NodeJS.ErrnoException | null,
+            value: S extends (...args: any[]) => PromiseLike<infer R> ? R : undefined,
+        ) => void;
+        type PipelineResult<S extends PipelineDestination<any, any>> = S extends NodeJS.WritableStream ? S : Duplex;
         /**
          * A module method to pipe between streams and generators forwarding errors and
          * properly cleaning up and provide a callback when the pipeline is complete.
@@ -1438,160 +1483,242 @@ declare module "node:stream" {
          * @since v10.0.0
          * @param callback Called when the pipeline is fully done.
          */
-        function pipeline<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
-            source: A,
-            destination: B,
-            callback: PipelineCallback<B>,
-        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+        function pipeline<S extends PipelineSource<any>, D extends PipelineDestination<S, any>>(
+            source: S,
+            destination: D,
+            callback: PipelineCallback<D>,
+        ): PipelineResult<D>;
         function pipeline<
-            A extends PipelineSource<any>,
-            T1 extends PipelineTransform<A, any>,
-            B extends PipelineDestination<T1, any>,
+            S extends PipelineSource<any>,
+            T extends PipelineTransform<S, any>,
+            D extends PipelineDestination<T, any>,
         >(
-            source: A,
-            transform1: T1,
-            destination: B,
-            callback: PipelineCallback<B>,
-        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+            source: S,
+            transform: T,
+            destination: D,
+            callback: PipelineCallback<D>,
+        ): PipelineResult<D>;
         function pipeline<
-            A extends PipelineSource<any>,
-            T1 extends PipelineTransform<A, any>,
+            S extends PipelineSource<any>,
+            T1 extends PipelineTransform<S, any>,
             T2 extends PipelineTransform<T1, any>,
-            B extends PipelineDestination<T2, any>,
+            D extends PipelineDestination<T2, any>,
         >(
-            source: A,
+            source: S,
             transform1: T1,
             transform2: T2,
-            destination: B,
-            callback: PipelineCallback<B>,
-        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+            destination: D,
+            callback: PipelineCallback<D>,
+        ): PipelineResult<D>;
         function pipeline<
-            A extends PipelineSource<any>,
-            T1 extends PipelineTransform<A, any>,
+            S extends PipelineSource<any>,
+            T1 extends PipelineTransform<S, any>,
             T2 extends PipelineTransform<T1, any>,
             T3 extends PipelineTransform<T2, any>,
-            B extends PipelineDestination<T3, any>,
+            D extends PipelineDestination<T3, any>,
         >(
-            source: A,
+            source: S,
             transform1: T1,
             transform2: T2,
             transform3: T3,
-            destination: B,
-            callback: PipelineCallback<B>,
-        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+            destination: D,
+            callback: PipelineCallback<D>,
+        ): PipelineResult<D>;
         function pipeline<
-            A extends PipelineSource<any>,
-            T1 extends PipelineTransform<A, any>,
+            S extends PipelineSource<any>,
+            T1 extends PipelineTransform<S, any>,
             T2 extends PipelineTransform<T1, any>,
             T3 extends PipelineTransform<T2, any>,
             T4 extends PipelineTransform<T3, any>,
-            B extends PipelineDestination<T4, any>,
+            D extends PipelineDestination<T4, any>,
         >(
-            source: A,
+            source: S,
             transform1: T1,
             transform2: T2,
             transform3: T3,
             transform4: T4,
-            destination: B,
-            callback: PipelineCallback<B>,
-        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+            destination: D,
+            callback: PipelineCallback<D>,
+        ): PipelineResult<D>;
         function pipeline(
-            streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+            streams: ReadonlyArray<PipelineSource<any> | PipelineTransform<any, any> | PipelineDestination<any, any>>,
             callback: (err: NodeJS.ErrnoException | null) => void,
         ): NodeJS.WritableStream;
         function pipeline(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-            ...streams: Array<
-                NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException | null) => void)
-            >
+            ...streams: [
+                ...[PipelineSource<any>, ...PipelineTransform<any, any>[], PipelineDestination<any, any>],
+                callback: ((err: NodeJS.ErrnoException | null) => void),
+            ]
         ): NodeJS.WritableStream;
         namespace pipeline {
-            function __promisify__<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
-                source: A,
-                destination: B,
-                options?: PipelineOptions,
-            ): PipelinePromise<B>;
-            function __promisify__<
-                A extends PipelineSource<any>,
-                T1 extends PipelineTransform<A, any>,
-                B extends PipelineDestination<T1, any>,
-            >(
-                source: A,
-                transform1: T1,
-                destination: B,
-                options?: PipelineOptions,
-            ): PipelinePromise<B>;
-            function __promisify__<
-                A extends PipelineSource<any>,
-                T1 extends PipelineTransform<A, any>,
-                T2 extends PipelineTransform<T1, any>,
-                B extends PipelineDestination<T2, any>,
-            >(
-                source: A,
-                transform1: T1,
-                transform2: T2,
-                destination: B,
-                options?: PipelineOptions,
-            ): PipelinePromise<B>;
-            function __promisify__<
-                A extends PipelineSource<any>,
-                T1 extends PipelineTransform<A, any>,
-                T2 extends PipelineTransform<T1, any>,
-                T3 extends PipelineTransform<T2, any>,
-                B extends PipelineDestination<T3, any>,
-            >(
-                source: A,
-                transform1: T1,
-                transform2: T2,
-                transform3: T3,
-                destination: B,
-                options?: PipelineOptions,
-            ): PipelinePromise<B>;
-            function __promisify__<
-                A extends PipelineSource<any>,
-                T1 extends PipelineTransform<A, any>,
-                T2 extends PipelineTransform<T1, any>,
-                T3 extends PipelineTransform<T2, any>,
-                T4 extends PipelineTransform<T3, any>,
-                B extends PipelineDestination<T4, any>,
-            >(
-                source: A,
-                transform1: T1,
-                transform2: T2,
-                transform3: T3,
-                transform4: T4,
-                destination: B,
-                options?: PipelineOptions,
-            ): PipelinePromise<B>;
-            function __promisify__(
-                streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
-                options?: PipelineOptions,
-            ): Promise<void>;
-            function __promisify__(
-                stream1: NodeJS.ReadableStream,
-                stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>
-            ): Promise<void>;
+            import __promisify__ = promises.pipeline;
+            export { __promisify__ };
         }
-        // TODO: these should all take webstream arguments
+        type ComposeSource<O> =
+            | NodeJS.ReadableStream
+            | web.ReadableStream<O>
+            | Iterable<O>
+            | AsyncIterable<O>
+            | (() => AsyncIterable<O>);
+        type ComposeTransformStreams<I, O> = NodeJS.ReadWriteStream | web.TransformStream<I, O>;
+        type ComposeTransformGenerator<I, O> = (source: AsyncIterable<I>) => AsyncIterable<O>;
+        type ComposeTransform<S extends ComposeTransformSource<any>, O> = S extends
+            ComposeSource<infer I> | ComposeTransformStreams<any, infer I> | ComposeTransformGenerator<any, infer I>
+            ? ComposeTransformStreams<I, O> | ComposeTransformGenerator<I, O>
+            : never;
+        type ComposeTransformSource<O> = ComposeSource<O> | ComposeTransform<any, O>;
+        type ComposeDestination<S extends ComposeTransformSource<any>> = S extends ComposeTransformSource<infer I> ?
+                | NodeJS.WritableStream
+                | web.WritableStream<I>
+                | web.TransformStream<I, any>
+                | ((source: AsyncIterable<I>) => void)
+            : never;
+        /**
+         * Combines two or more streams into a `Duplex` stream that writes to the
+         * first stream and reads from the last. Each provided stream is piped into
+         * the next, using `stream.pipeline`. If any of the streams error then all
+         * are destroyed, including the outer `Duplex` stream.
+         *
+         * Because `stream.compose` returns a new stream that in turn can (and
+         * should) be piped into other streams, it enables composition. In contrast,
+         * when passing streams to `stream.pipeline`, typically the first stream is
+         * a readable stream and the last a writable stream, forming a closed
+         * circuit.
+         *
+         * If passed a `Function` it must be a factory method taking a `source`
+         * `Iterable`.
+         *
+         * ```js
+         * import { compose, Transform } from 'node:stream';
+         *
+         * const removeSpaces = new Transform({
+         *   transform(chunk, encoding, callback) {
+         *     callback(null, String(chunk).replace(' ', ''));
+         *   },
+         * });
+         *
+         * async function* toUpper(source) {
+         *   for await (const chunk of source) {
+         *     yield String(chunk).toUpperCase();
+         *   }
+         * }
+         *
+         * let res = '';
+         * for await (const buf of compose(removeSpaces, toUpper).end('hello world')) {
+         *   res += buf;
+         * }
+         *
+         * console.log(res); // prints 'HELLOWORLD'
+         * ```
+         *
+         * `stream.compose` can be used to convert async iterables, generators and
+         * functions into streams.
+         *
+         * * `AsyncIterable` converts into a readable `Duplex`. Cannot yield
+         *   `null`.
+         * * `AsyncGeneratorFunction` converts into a readable/writable transform `Duplex`.
+         *   Must take a source `AsyncIterable` as first parameter. Cannot yield
+         *   `null`.
+         * * `AsyncFunction` converts into a writable `Duplex`. Must return
+         *   either `null` or `undefined`.
+         *
+         * ```js
+         * import { compose } from 'node:stream';
+         * import { finished } from 'node:stream/promises';
+         *
+         * // Convert AsyncIterable into readable Duplex.
+         * const s1 = compose(async function*() {
+         *   yield 'Hello';
+         *   yield 'World';
+         * }());
+         *
+         * // Convert AsyncGenerator into transform Duplex.
+         * const s2 = compose(async function*(source) {
+         *   for await (const chunk of source) {
+         *     yield String(chunk).toUpperCase();
+         *   }
+         * });
+         *
+         * let res = '';
+         *
+         * // Convert AsyncFunction into writable Duplex.
+         * const s3 = compose(async function(source) {
+         *   for await (const chunk of source) {
+         *     res += chunk;
+         *   }
+         * });
+         *
+         * await finished(compose(s1, s2, s3));
+         *
+         * console.log(res); // prints 'HELLOWORLD'
+         * ```
+         *
+         * See [`readable.compose(stream)`](https://nodejs.org/docs/latest-v25.x/api/stream.html#readablecomposestream-options) for `stream.compose` as operator.
+         * @since v16.9.0
+         * @experimental
+         */
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
+        function compose(stream: ComposeSource<any> | ComposeDestination<any>): Duplex;
+        function compose<
+            S extends ComposeSource<any> | ComposeTransform<any, any>,
+            D extends ComposeTransform<S, any> | ComposeDestination<S>,
+        >(
+            source: S,
+            destination: D,
+        ): Duplex;
+        function compose<
+            S extends ComposeSource<any> | ComposeTransform<any, any>,
+            T extends ComposeTransform<S, any>,
+            D extends ComposeTransform<T, any> | ComposeDestination<T>,
+        >(source: S, transform: T, destination: D): Duplex;
+        function compose<
+            S extends ComposeSource<any> | ComposeTransform<any, any>,
+            T1 extends ComposeTransform<S, any>,
+            T2 extends ComposeTransform<T1, any>,
+            D extends ComposeTransform<T2, any> | ComposeDestination<T2>,
+        >(source: S, transform1: T1, transform2: T2, destination: D): Duplex;
+        function compose<
+            S extends ComposeSource<any> | ComposeTransform<any, any>,
+            T1 extends ComposeTransform<S, any>,
+            T2 extends ComposeTransform<T1, any>,
+            T3 extends ComposeTransform<T2, any>,
+            D extends ComposeTransform<T3, any> | ComposeDestination<T3>,
+        >(source: S, transform1: T1, transform2: T2, transform3: T3, destination: D): Duplex;
+        function compose<
+            S extends ComposeSource<any> | ComposeTransform<any, any>,
+            T1 extends ComposeTransform<S, any>,
+            T2 extends ComposeTransform<T1, any>,
+            T3 extends ComposeTransform<T2, any>,
+            T4 extends ComposeTransform<T3, any>,
+            D extends ComposeTransform<T4, any> | ComposeDestination<T4>,
+        >(source: S, transform1: T1, transform2: T2, transform3: T3, transform4: T4, destination: D): Duplex;
+        function compose(
+            ...streams: [
+                ComposeSource<any>,
+                ...ComposeTransform<any, any>[],
+                ComposeDestination<any>,
+            ]
+        ): Duplex;
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
         /**
          * Returns whether the stream has encountered an error.
          * @since v17.3.0, v16.14.0
          */
-        function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
+        function isErrored(
+            stream: NodeJS.ReadableStream | NodeJS.WritableStream | web.ReadableStream | web.WritableStream,
+        ): boolean;
         /**
          * Returns whether the stream is readable.
          * @since v17.4.0, v16.14.0
          * @returns Only returns `null` if `stream` is not a valid `Readable`, `Duplex` or `ReadableStream`.
          */
-        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean | null;
+        function isReadable(stream: NodeJS.ReadableStream | web.ReadableStream): boolean | null;
         /**
          * Returns whether the stream is writable.
          * @since v20.0.0
          * @returns Only returns `null` if `stream` is not a valid `Writable`, `Duplex` or `WritableStream`.
          */
-        function isWritable(stream: Writable | NodeJS.WritableStream): boolean | null;
+        function isWritable(stream: NodeJS.WritableStream | web.WritableStream): boolean | null;
     }
     global {
         namespace NodeJS {

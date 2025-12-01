@@ -26,8 +26,6 @@ interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObj
     [Symbol.asyncIterator](): StreamIterator<T>;
 }
 
-type ComposeFnParam = (source: any) => void;
-
 // @types/node's `EventEmitter.listeners()` returns true functions in >=v25, but `Function` objects
 // in <=v24. To maintain assignability to @types/node streams, use whichever variant is present.
 type EventListenerArray = ReturnType<NodeJS.EventEmitter["listeners"]>;
@@ -122,6 +120,16 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
+    compose(
+        stream: _Readable.Writable | ((source: any) => void),
+        options?: SignalOption,
+    ): _Readable.Duplex;
+    // (Incorrect) legacy definition from @types/node v18-24, added as an overload
+    // to maintain assignability to @types/node streams when using older versions.
+    compose<T extends NodeJS.ReadableStream>(
+        stream: T | ((source: any) => any) | Iterable<T> | AsyncIterable<T>,
+        options?: { signal: AbortSignal },
+    ): T;
     map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
     filter(
         fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>,
@@ -433,10 +441,6 @@ declare namespace _Readable {
 
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     // ==== _stream_transform ====
@@ -672,10 +676,6 @@ declare namespace _Readable {
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     const finished: typeof NodeStream.finished;
