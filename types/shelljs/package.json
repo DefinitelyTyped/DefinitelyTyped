@@ -8,8 +8,8 @@
     ],
     "exports": {
         ".": "./index.d.ts",
-        "./global": "./global.js",
-        "./global.js": "./global.js",
+        "./global": "./global.d.ts",
+        "./global.js": "./global.d.ts",
         "./make": "./make.d.ts",
         "./make.js": "./make.d.ts",
         "./package": "./package.json",

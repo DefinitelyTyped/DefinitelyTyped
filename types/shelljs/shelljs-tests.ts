@@ -207,7 +207,7 @@ const barr = shell.ShellString(["hello", "world"]);
 
 require("shelljs/make");
 
-// gobal works
+// global works
 cp("some/path", "/tmp/dst/");
 target.all = () => {
     ln("-sf", "some/path", "/tmp/dst");
