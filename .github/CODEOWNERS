@@ -7728,7 +7728,7 @@
 /types/teen_process/                                    @NotWoods
 /types/telebot/                                         @mariotsi @martin-badin
 /types/telegram-mini-app/                               @dartweider2000
-/types/telegram-web-app/                                @KnorpelSenf @MKRhere @deptyped
+/types/telegram-web-app/                                @KnorpelSenf @MKRhere @deptyped @sidorko
 /types/telnetlib/                                       @martin-badin
 /types/temp/                                            @DanielRosenwasser
 /types/tengitsui/                                       @1026385513
@@ -8604,6 +8604,7 @@
 /types/zengin-code/                                     @takahash
 /types/zenscroll/                                       @HamedFathi
 /types/zepto/                                           @jbaldwin
+/types/zerobounce__zero-bounce-sdk/                     @ralphr123
 /types/zeroclipboard/                                   @ejsmith @niemyjski @balassy @leonyu
 /types/zeroclipboard/v1/                                @ejsmith @niemyjski @balassy @leonyu
 /types/zetrix-encryption-nodejs/                        @armmarov @izadimrantan
