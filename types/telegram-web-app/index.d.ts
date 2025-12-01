@@ -694,12 +694,12 @@ export type ShareMessageFailedCallback = (eventData: {
 export type EmojiStatusSetCallback = () => void;
 export type EmojiStatusFailedCallback = (eventData: {
     error:
-    | "UNSUPPORTED"
-    | "SUGGESTED_EMOJI_INVALID"
-    | "DURATION_INVALID"
-    | "USER_DECLINED"
-    | "SERVER_ERROR"
-    | "UNKNOWN_ERROR";
+        | "UNSUPPORTED"
+        | "SUGGESTED_EMOJI_INVALID"
+        | "DURATION_INVALID"
+        | "USER_DECLINED"
+        | "SERVER_ERROR"
+        | "UNKNOWN_ERROR";
 }) => void;
 export type EmojiStatusAccessRequestedCallback = (eventData: {
     status: "allowed" | "cancelled";
