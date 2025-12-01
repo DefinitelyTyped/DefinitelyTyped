@@ -57,7 +57,7 @@ export interface ResponsiveMasonryProps {
      *
      * Default Value = { 350: '10px', 750: '10px', 900: '10px' }
      */
-    gutterBreakPoints?: { 
+    gutterBreakPoints?: {
         [key: number]: string;
     };
     className?: string;
