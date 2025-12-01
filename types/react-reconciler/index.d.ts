@@ -941,7 +941,6 @@ declare namespace ReactReconciler {
             onCaughtError: (error: Error, info: BaseErrorInfo) => void,
             onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
             onDefaultTransitionIndicator: () => void,
-            transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
         createPortal(
@@ -987,8 +986,12 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onRecoverableError: (error: Error) => void,
+            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
+            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
+            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
+            onDefaultTransitionIndicator: () => void,
             transitionCallbacks: null | TransitionTracingCallbacks,
+            formState: unknown,
         ): OpaqueRoot;
 
         updateContainer(
