@@ -1,4 +1,4 @@
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -21074,6 +21074,13 @@ declare module "sap/f/ShellBar" {
   import Button from "sap/m/Button";
 
   /**
+   * **Note:** `sap.f.ShellBar` is not UXC-compliant and will no longer be aligned with future UXC design
+   * updates. For UXC-compliant applications, use the ui5-shellbar web component instead. It can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828 Using Web Components}.
+   *
+   *
+   *
+   *
    * A horizontal bar control holding multiple child controls used as application shell header.
    *
    * Overview:
