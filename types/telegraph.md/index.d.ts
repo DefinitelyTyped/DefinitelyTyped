@@ -1,1 +1,3 @@
-export default function (markdown: string): unknown[];
+declare function telegraphmd(markdown: string): unknown[];
+
+export = telegraphmd
