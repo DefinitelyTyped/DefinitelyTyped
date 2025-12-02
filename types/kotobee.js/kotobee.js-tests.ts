@@ -1,18 +1,38 @@
-import KotobeeReader, { LanguageCode, Directions } from "./";
+import KotobeeReader, { Directions, LanguageCode } from "./";
 
 // ------------------- Create a mock instance -------------------
 const reader: KotobeeReader = {
-  clearCache: () => {},
-  clearListeners: () => {},
-  clearRemoteData: () => {},
-  setLanguage: (lang) => {},
-  setDirection: (dir) => {},
+    clearCache: () => {},
+    clearListeners: () => {},
+    clearRemoteData: () => {},
+    setLanguage: (lang) => {},
+    setDirection: (dir) => {},
 };
 
 // ------------------- Correct usage -------------------
 const validLanguages: LanguageCode[] = [
-  "ar","de","es","hu","jp","ms","no","pt","ru","tr","zh-tw",
-  "cy","en","fr","it","ko","nl","pl","ro","sw","zh-cn","zh"
+    "ar",
+    "de",
+    "es",
+    "hu",
+    "jp",
+    "ms",
+    "no",
+    "pt",
+    "ru",
+    "tr",
+    "zh-tw",
+    "cy",
+    "en",
+    "fr",
+    "it",
+    "ko",
+    "nl",
+    "pl",
+    "ro",
+    "sw",
+    "zh-cn",
+    "zh",
 ];
 
 const validDirections: Directions[] = ["ltr", "rtl"];
@@ -45,11 +65,11 @@ reader.clearListeners("test");
 
 // Assign valid types
 validLanguages.forEach(lang => {
-  const l: LanguageCode = lang;      // $ExpectType LanguageCode
+    const l: LanguageCode = lang; // $ExpectType LanguageCode
 });
 
 validDirections.forEach(dir => {
-  const d: Directions = dir;         // $ExpectType Directions
+    const d: Directions = dir; // $ExpectType Directions
 });
 
 // Invalid assignments
