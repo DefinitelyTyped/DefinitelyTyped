@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/base/assert" {
   /**
@@ -6693,8 +6693,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         treeState?: any;
         /**
-         * This parameter is experimental as of version 1.141.0.
-         *
          * Whether the tree state is restored on hierarchy maintenance, such as adding, removing, or deleting a
          * node. This is only supported if the following conditions are met:
          * 	 - The binding has to use {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server}
@@ -17347,10 +17345,11 @@ declare module "sap/ui/core/library" {
   export type ID = string;
 
   /**
-   * Marker interface for controls that can be used as content of `sap.ui.layout.form.Form` or `sap.ui.layout.form.SimpleForm`.
+   * Marker interface for controls that can be used as content of {@link sap.ui.layout.form.Form} or {@link sap.ui.layout.form.SimpleForm}.
    *
-   * If the control's width must not be adjusted by the `Form` control to meet the cell's width, the control
-   * must implement the `getFormDoNotAdjustWidth` function and return `true`.
+   * If the control's width must not be adjusted by the {@link sap.ui.layout.form.Form Form} control to meet
+   * the cell's width, the control must implement the {@link sap.ui.core.IFormContent.getFormDoNotAdjustWidth getFormDoNotAdjustWidth }
+   * function and return `true`.
    *
    * @since 1.48.0
    */
@@ -17358,17 +17357,18 @@ declare module "sap/ui/core/library" {
     __implements__sap_ui_core_IFormContent: boolean;
 
     /**
-     * Whether a control wants to keep its original width even when used in a `Form`.
+     * Whether a control wants to keep its original width even when used in a {@link sap.ui.layout.form.Form Form}.
      *
-     * In the `Form` control, all content controls are positioned on a grid cell base. By default, the controls
-     * use the full width of the used grid cell. But for some controls (like image controls), this is not the
-     * desired behavior. In this case the control must keep its original width.
+     * In the {@link sap.ui.layout.form.Form Form} control, all content controls are positioned on a grid cell
+     * base. By default, the controls use the full width of the used grid cell. But for some controls (like
+     * image controls), this is not the desired behavior. In this case the control must keep its original width.
      *
      * This is an optional method. When not defined, the width of the control might be adjusted.
      *
      * @since 1.48.0
      *
-     * @returns true if the `Form` is not allowed to adjust the width of the control to use the cell's width
+     * @returns `true` if the {@link sap.ui.layout.form.Form Form} is not allowed to adjust the width of the
+     * control to use the cell's width
      */
     getFormDoNotAdjustWidth?(): boolean;
   }
@@ -17576,7 +17576,7 @@ declare module "sap/ui/core/library" {
   /**
    * Marker interface for controls that can be used as content of {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement}.
    *
-   * If the value-holding property of the control is not `valuetext`, the name of the value-holding
+   * If the value-holding property of the control is not `value` or `text`, the name of the value-holding
    * property must be returned in the {@link sap.ui.core.ISemanticFormContent.getFormValueProperty getFormValueProperty }
    * function.
    *
@@ -66762,8 +66762,9 @@ declare module "sap/ui/model/odata/type/Boolean" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Boolean`.
+   * This class represents the OData primitive type `Edm.Boolean`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `boolean`.
@@ -66884,8 +66885,9 @@ declare module "sap/ui/model/odata/type/Byte" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Byte`.
+   * This class represents the OData primitive type `Edm.Byte`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -67185,7 +67187,7 @@ declare module "sap/ui/model/odata/type/Date" {
     /**
      * Constructor for an OData primitive type `Edm.Date`.
      * See:
-     * 	http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html
+     * 	https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530338
      */
     constructor(
       /**
@@ -67561,8 +67563,9 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
   import ParseException from "sap/ui/model/ParseException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.DateTimeOffset`.
+   * This class represents the OData primitive type `Edm.DateTimeOffset`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In {@link sap.ui.model.odata.v2.ODataModel} this type is represented as a `Date` instance in local time.
    * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string` like "1970-12-31T23:59:58Z".
@@ -67901,8 +67904,9 @@ declare module "sap/ui/model/odata/type/Decimal" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Decimal`.
+   * This class represents the OData primitive type `Edm.Decimal`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
@@ -68087,8 +68091,9 @@ declare module "sap/ui/model/odata/type/Double" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Double`.
+   * This class represents the OData primitive type `Edm.Double`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -68231,8 +68236,9 @@ declare module "sap/ui/model/odata/type/Guid" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Guid`.
+   * This class represents the OData primitive type `Edm.Guid`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
@@ -68356,8 +68362,10 @@ declare module "sap/ui/model/odata/type/Int" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This is an abstract base class for integer-based
-   * OData primitive types like `Edm.Int16` or `Edm.Int32`.
+   * This is an abstract base class for integer-based OData primitive types like `Edm.Int16` or `Edm.Int32`,
+   * see
+   * type definitions for OData V4.01 or
+   * type definitions for OData V2.
    *
    * @since 1.27.0
    */
@@ -68475,8 +68483,9 @@ declare module "sap/ui/model/odata/type/Int16" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Int16`.
+   * This class represents the OData primitive type `Edm.Int16`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -68566,8 +68575,9 @@ declare module "sap/ui/model/odata/type/Int32" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Int32`.
+   * This class represents the OData primitive type `Edm.Int32`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -68663,8 +68673,9 @@ declare module "sap/ui/model/odata/type/Int64" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Int64`.
+   * This class represents the OData primitive type `Edm.Int64`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
@@ -68806,8 +68817,8 @@ declare module "sap/ui/model/odata/type/ODataType" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * This class is an abstract base class for all OData primitive types (see {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element OData V4 Edm Types }
-   * and {@link http://www.odata.org/documentation/odata-version-2-0/overview#AbstractTypeSystem OData V2 Edm Types}).
+   * This class is an abstract base class for all OData primitive types (see {@link https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530338 OData V4.01 Edm Types }
+   * and {@link https://www.odata.org/documentation/odata-version-2-0/overview#AbstractTypeSystem OData V2 Edm Types}).
    * All subtypes implement the interface of {@link sap.ui.model.SimpleType}. That means they implement next
    * to the constructor:
    * 	 - {@link sap.ui.model.Type#getName getName}
@@ -69000,8 +69011,9 @@ declare module "sap/ui/model/odata/type/SByte" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.SByte`.
+   * This class represents the OData primitive type `Edm.SByte`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -69096,8 +69108,9 @@ declare module "sap/ui/model/odata/type/Single" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.Single`.
+   * This class represents the OData primitive type `Edm.Single`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `number`.
@@ -69239,7 +69252,7 @@ declare module "sap/ui/model/odata/type/Stream" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element `Edm.Stream`}.
+   * This class represents the OData V4 primitive type {@link https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530338 `Edm.Stream`}.
    * The values for stream properties do not appear in the entity payload. Instead, the values are read or
    * written through URLs.
    *
@@ -69359,8 +69372,9 @@ declare module "sap/ui/model/odata/type/String" {
   import ValidateException from "sap/ui/model/ValidateException";
 
   /**
-   * This class represents the OData primitive type
-   * `Edm.String`.
+   * This class represents the OData primitive type `Edm.String`, see
+   * type definition for OData V4.01 or
+   * type definition for OData V2.
    *
    * In both {@link sap.ui.model.odata.v2.ODataModel} and {@link sap.ui.model.odata.v4.ODataModel} this type
    * is represented as a `string`.
@@ -69675,7 +69689,7 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
   import ParseException from "sap/ui/model/ParseException";
 
   /**
-   * This class represents the OData V4 primitive type {@link http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part3-csdl/odata-v4.0-errata02-os-part3-csdl-complete.html#_The_edm:Documentation_Element `Edm.TimeOfDay`}.
+   * This class represents the OData V4 primitive type {@link https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530338 `Edm.TimeOfDay`}.
    * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string`.
    *
    * @since 1.37.0
@@ -76178,7 +76192,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         metadataUrlParams?: object;
         /**
-         * The version of the OData service. Supported values are "2.0", "4.0", and "4.01".
+         * The version of the OData service. Supported values are "2.0", "4.0", and "4.01". **Note:** "2.0" is deprecated
+         * since 1.143.0. We recommend migrating your service to OData V4.
          */
         odataVersion?: string;
         /**
@@ -76524,9 +76539,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * An array of navigation property names which are omitted from the main list request (since 1.137.0). Instead,
          * each of them is loaded in a separate request. This results in the main list becoming available faster,
          * while the separate properties are merged as soon as the data is received. Note that the separate properties
-         * must be single valued and part of the '$expand' system query option, either automatically via the "autoExpandSelect"
-         * model parameter (see {@link #constructor}) or manually. The `$$separate` parameter must not be combined
-         * with `$$aggregation`.
+         * must be single valued. If they are not part of the '$expand' system query option, either automatically
+         * via the "autoExpandSelect" model parameter (see {@link #constructor}) or manually, they are ignored.
+         * The `$$separate` parameter must not be combined with `$$aggregation`.
          */
         $$separate?: string[];
         /**

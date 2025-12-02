@@ -1,4 +1,4 @@
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2314,7 +2314,9 @@ declare module "sap/ui/integration/widgets/Card" {
   /**
    * Facade of the {@link sap.ui.integration.widgets.Card} control.
    *
-   * @experimental As of version 1.79.
+   * This facade contains methods accessible within the card extension. The available methods represent a
+   * limited subset of all card methods, since not all card methods function as expected when called from
+   * within the extension.
    */
   export interface CardFacade {
     __implements__sap_ui_integration_widgets_CardFacade: boolean;
@@ -2334,6 +2336,27 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       oActionDefinition: ActionDefinition
     ): this;
+    /**
+     * Destroys all the actionDefinitions in the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * @since 1.85
+     * @experimental As of version 1.85. Disclaimer: this aggregation is in a beta state - incompatible API
+     * changes may be done before its official public release. Use at your own discretion.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyActionDefinitions(): this;
+    /**
+     * Gets content of aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * Actions definitions from which actions in the header menu of the card are created. **Note**: This aggregation
+     * is destroyed when the property `manifest` changes.
+     *
+     * @since 1.85
+     * @experimental As of version 1.85. Disclaimer: this aggregation is in a beta state - incompatible API
+     * changes may be done before its official public release. Use at your own discretion.
+     */
+    getActionDefinitions(): ActionDefinition[];
     /**
      * Gets current value of property {@link #getBaseUrl baseUrl}.
      *
@@ -2370,6 +2393,11 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getCombinedParameters(): Record<string, any>;
     /**
+     * @deprecated As of version 1.143. Do not access the card dom reference, as this is not supported in a
+     * mobile native environment.
+     */
+    getDomRef(): void;
+    /**
      * Returns a value from the Manifest based on the specified path.
      *
      * **Note** Use this method when the manifest is ready. Check `manifestReady` event.
@@ -2385,14 +2413,18 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): any;
     /**
+     * @deprecated As of version 1.143. Avoid accessing the models directly, use the binding syntax instead.
+     */
+    getModel(): void;
+    /**
      * Gets current value of property {@link #getParameters parameters}.
      *
-     * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
-     * containing parameters in format `{parameterKey: parameterValue}`.
+     * Overrides the default values of the parameters, which are defined in the manifest. The returned value
+     * is an object containing parameters in format `{parameterKey: parameterValue}`.
      *
-     * @experimental As of version 1.65. This property might be changed in future.
+     * @deprecated As of version 1.143. Use `getCombinedParameters()` instead.
      *
-     * @returns Value of property `parameters`
+     * @returns Value of property parameters
      */
     getParameters(): object;
     /**
@@ -2584,6 +2616,11 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       sKey: string
     ): Promise<string>;
+    /**
+     * @deprecated As of version 1.143. Use `hide()` to hide a card opened by `showCard()`. The card facade
+     * does not provide methods for showing or hiding the main card itself.
+     */
+    setVisible(): void;
     /**
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
      * after the `cardReady` lifecycle hook in Component cards and Extensions.
@@ -3923,7 +3960,6 @@ declare module "sap/ui/integration/Host" {
    * Examples may include, but are not limited to options like: share a card, remove a card.
    *
    * @since 1.75
-   * @experimental As of version 1.75.
    */
   export default class Host extends UI5Element {
     /**
@@ -4484,6 +4520,7 @@ declare module "sap/ui/integration/Host" {
      * Editor.
      *
      * @since 1.83
+     * @experimental As of version 1.143.
      *
      * @returns A promise which contains the context structure.
      */
@@ -4500,6 +4537,7 @@ declare module "sap/ui/integration/Host" {
      * userId: { value: "{context>sap.workzone/currentUser/id}" resolves to UserId } }
      *
      * @since 1.83
+     * @experimental As of version 1.143.
      *
      * @returns A promise which resolves with the value of this context.
      */
@@ -4612,8 +4650,6 @@ declare module "sap/ui/integration/Host" {
   }
   /**
    * Describes the settings that can be provided to the Host constructor.
-   *
-   * @experimental As of version 1.75.
    */
   export interface $HostSettings extends $ElementSettings {
     /**
