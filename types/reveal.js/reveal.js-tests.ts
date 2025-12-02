@@ -372,7 +372,7 @@ deck.initialize({
     // highlight
     highlight: {
         highlightOnLoad: true,
-        excapeHTML: true,
+        escapeHTML: true,
         beforeHighlight: () => {},
     },
 

@@ -9,6 +9,7 @@ var PDFTilingPattern = PDFPattern.PDFTilingPattern;
 import mtext = require("pdfkit/js/mixins/text");
 
 import PDFDocument = require("pdfkit");
+import PDFDocumentStandalone = require("pdfkit/js/pdfkit.standalone");
 
 import font = require("pdfkit/js/mixins/fonts");
 import pdfData = require("pdfkit/js/data");
@@ -728,3 +729,5 @@ doc.boundsOfString("Bounds of string", 50, 100, {
 doc.boundsOfString("Bounds of string", {
     align: "left",
 });
+
+var docStandalone: PDFKit.PDFDocument = new PDFDocumentStandalone();
