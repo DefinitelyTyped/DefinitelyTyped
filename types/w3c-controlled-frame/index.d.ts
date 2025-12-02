@@ -368,8 +368,7 @@ export class LoadStopEvent extends Event {
     constructor(type: string, eventInitDict?: LoadStopEventInit);
 }
 
-export interface LoadStopEventInit extends EventInit {
-}
+export type LoadStopEventInit = EventInit;
 
 export class LoadRedirectEvent extends Event {
     constructor(type: string, eventInitDict?: LoadRedirectEventInit);
@@ -536,8 +535,7 @@ export interface WebRequestResponseStartedEvent extends WebRequestEvent {
     readonly response: WebRequestResponse;
 }
 
-export interface WebRequestSendHeadersEvent extends WebRequestEvent {
-}
+export type WebRequestSendHeadersEvent = WebRequestEvent;
 
 export type ContextType =
     | "all"
