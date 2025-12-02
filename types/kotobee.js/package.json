@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/kotobee.js",
+    "version": "0.1.9999",
+    "projects": [
+        "https://support.kotobee.com/en/support/solutions/articles/8000077857-using-the-kotobee-reader-api"
+    ],
+    "devDependencies": {
+        "@types/kotobee.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Naji",
+            "githubUsername": "Bashamega"
+        }
+    ]
+}
