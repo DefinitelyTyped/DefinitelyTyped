@@ -1,4 +1,4 @@
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -712,7 +712,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: VariantManagement$SelectEventParameters
     ): this;
     /**
-     * Gets the currently selected variant key.
+     * Gets the variant key that is currently selected in the VM control. Can be different to the actually selected
+     * variant in the state during a variant switch.
      *
      *
      * @returns Key of the currently selected variant. In case the model is not yet set `null` will be returned
@@ -1514,8 +1515,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewDataSource": undefined;
 
-    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
-
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewOutbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddTechnicalAttributes": undefined;
@@ -1545,8 +1544,6 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/ovp/ChangeCard": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/ovp/DeleteCard": undefined;
-
-    "sap/ui/fl/apply/_internal/changes/descriptor/Preprocessor": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/Registration": undefined;
 

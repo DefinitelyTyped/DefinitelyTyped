@@ -1,4 +1,4 @@
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -445,8 +445,9 @@ declare module "sap/ui/layout/library" {
       ResponsiveLayout = "ResponsiveLayout",
     }
     /**
-     * An `int` type that defines how many cells a control inside of a column of a `Form` control using the
-     * `ColumnLayout` control as layout can use.
+     * An `int` type that defines how many cells a control inside of a column of a {@link sap.ui.layout.form.Form Form }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can use.
      *
      * Allowed values are numbers from 1 to 12 and -1. -1 means the value is calculated.
      *
@@ -455,8 +456,9 @@ declare module "sap/ui/layout/library" {
     type ColumnCells = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has large size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has large size
      *
      * Allowed values are numbers from 1 to 4. **Note:** In versions lower than 1.122 only 3 columns are allowed.
      *
@@ -465,8 +467,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsL = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has medium size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has medium size
      *
      * Allowed values are numbers from 1 to 3. **Note:** In versions lower than 1.122 only 2 columns are allowed.
      *
@@ -475,8 +478,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsM = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has extra-large size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has extra-large size
      *
      * Allowed values are numbers from 1 to 6. **Note:** In versions lower than 1.89 only 4 columns are allowed.
      *
@@ -485,8 +489,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsXL = int;
 
     /**
-     * An `int` type that defines how many cells beside the controls inside of a column of a `Form` control
-     * using the `ColumnLayout` control as layout are empty.
+     * An `int` type that defines how many cells beside the controls inside of a column of a {@link sap.ui.layout.form.Form Form }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * are empty.
      *
      * Allowed values are numbers from 0 to 11.
      *
@@ -5816,10 +5821,12 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The `ColumnLayout`-specific layout data for the `FormContainer` element.
+   * The {@link sap.ui.layout.form.ColumnLayout ColumnLayout}-specific layout data for the {@link sap.ui.layout.form.FormContainer FormContainer }
+   * element.
    *
-   * Depending on its size, the `Form` control is divided into 1, 2, 3 or 4 columns by the `ColumnLayout`
-   * control. Using `ColumnContainerData`, the size of the `FormContainer` element can be influenced.
+   * Depending on its size, the {@link sap.ui.layout.form.Form Form} control is divided into 1, 2, 3 or 4
+   * columns by the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control. Using `ColumnContainerData`,
+   * the size of the {@link sap.ui.layout.form.FormContainer FormContainer} element can be influenced.
    *
    * @since 1.56.0
    */
@@ -5889,7 +5896,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsL columnsL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      *
@@ -5902,7 +5910,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsM columnsM}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      *
      * Default value is `1`.
      *
@@ -5913,7 +5922,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsXL columnsXL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      *
@@ -5926,7 +5936,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsL columnsL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      *
@@ -5946,7 +5957,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsM columnsM}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5964,7 +5976,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsXL columnsXL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      *
@@ -5987,21 +6000,24 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
    */
   export interface $ColumnContainerDataSettings extends $LayoutDataSettings {
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      */
     columnsXL?: form.ColumnsXL | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      */
     columnsL?: form.ColumnsL | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      */
     columnsM?: form.ColumnsM | PropertyBindingInfo | `{${string}}`;
   }
@@ -6020,10 +6036,12 @@ declare module "sap/ui/layout/form/ColumnElementData" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The `ColumnLayout`-specific layout data for the `FormElement` content fields.
+   * The {@link sap.ui.layout.form.ColumnLayout ColumnLayout}-specific layout data for the {@link sap.ui.layout.form.Form Form }
+   * content fields.
    *
-   * One `FormElement` element contains 12 cells and has two sizes, small and large. Using `ColumnElementData`,
-   * the default calculation of the cells used for a field or label can be overwritten.
+   * One {@link sap.ui.layout.form.FormElement FormElement} element contains 12 cells and has two sizes, small
+   * and large. Using `ColumnElementData`, the default calculation of the cells used for a field or label
+   * can be overwritten.
    *
    * @since 1.56.0
    */
@@ -6093,10 +6111,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Gets current value of property {@link #getCellsLarge cellsLarge}.
      *
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      *
      * Default value is `8`.
      *
@@ -6107,10 +6125,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Gets current value of property {@link #getCellsSmall cellsSmall}.
      *
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      *
      * Default value is `12`.
      *
@@ -6121,10 +6139,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Sets a new value for property {@link #getCellsLarge cellsLarge}.
      *
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6142,10 +6160,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Sets a new value for property {@link #getCellsSmall cellsSmall}.
      *
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6166,18 +6184,18 @@ declare module "sap/ui/layout/form/ColumnElementData" {
    */
   export interface $ColumnElementDataSettings extends $LayoutDataSettings {
     /**
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      */
     cellsLarge?: form.ColumnCells | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      */
     cellsSmall?: form.ColumnCells | PropertyBindingInfo | `{${string}}`;
   }
@@ -6223,7 +6241,7 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * of the used column. If there is enough space, the labels are beside the fields, otherwise above the fields.
    *
    * The default size of a content control of a {@link sap.ui.layout.form.FormElement FormElement} element
-   * can be overwritten using {@link sap.ui.layout.form.ColumnElementData ColumnElementData} as `LayoutData`.
+   * can be overwritten using {@link sap.ui.layout.form.ColumnElementData ColumnElementData} as {@link sap.ui.core.Element#setLayoutData LayoutData}.
    * If one control assigned to a {@link sap.ui.layout.form.FormElement FormElement} element has {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
    * set, the size calculation of the other controls assigned to the {@link sap.ui.layout.form.FormElement FormElement }
    * element might not lead to the expected result. In this case, use {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
@@ -6234,7 +6252,7 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * results than might be expected.
    *
    * **Note:** This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form }
-   * control, so it must be assigned to a {@link sap.ui.layout.form.Form Form} control using the `layout`
+   * control, so it must be assigned to a {@link sap.ui.layout.form.Form Form} control using the {@link sap.ui.layout.form.Form#setLayout layout }
    * aggregation.
    *
    * @since 1.56.0

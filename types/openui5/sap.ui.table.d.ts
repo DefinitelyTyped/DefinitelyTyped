@@ -1,4 +1,4 @@
-// For Library Version: 1.142.0
+// For Library Version: 1.143.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -4941,7 +4941,7 @@ declare module "sap/ui/table/RowActionItem" {
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
-    /*
+    /**
      * Sets a new value for property {@link #getIcon icon}.
      *
      * The icon of the item.
