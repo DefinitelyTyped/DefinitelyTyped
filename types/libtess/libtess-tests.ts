@@ -1,4 +1,4 @@
-import { GluTesselator, gluEnum, windingRule, primitiveType, errorType } from "libtess";
+import { errorType, gluEnum, GluTesselator, primitiveType, windingRule } from "libtess";
 
 // Create a tessellator
 const tess = new GluTesselator();
@@ -44,7 +44,7 @@ tess.gluTessCallback(
     gluEnum.GLU_TESS_COMBINE,
     (coords: number[], vertexData: any[], weight: number[]) => {
         return { coords };
-    }
+    },
 );
 
 // Callbacks with polygon data
@@ -84,7 +84,7 @@ tess.gluTessCallback(
     gluEnum.GLU_TESS_COMBINE_DATA,
     (coords: number[], vertexData: any[], weight: number[], data?: any) => {
         return { coords, data };
-    }
+    },
 );
 
 // Clear a callback
@@ -123,4 +123,3 @@ tess.gluTessEndPolygon();
 
 // Clean up
 tess.gluDeleteTess();
-
