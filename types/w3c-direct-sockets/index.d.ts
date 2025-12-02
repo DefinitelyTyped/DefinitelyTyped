@@ -73,8 +73,7 @@ export interface SocketOpenInfo {
     localPort?: number;
 }
 
-export interface TCPSocketOpenInfo extends SocketOpenInfo {
-}
+export type TCPSocketOpenInfo = SocketOpenInfo;
 
 export interface UDPSocketOpenInfo extends SocketOpenInfo {
     multicastController?: MulticastController;

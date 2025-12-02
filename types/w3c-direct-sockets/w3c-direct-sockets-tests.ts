@@ -81,7 +81,7 @@ async function testDirectSockets() {
     // $ExpectType TCPSocket
     tcpSocket;
 
-    // $ExpectType Promise<TCPSocketOpenInfo>
+    // $ExpectType Promise<SocketOpenInfo>
     tcpSocket.opened;
 
     // $ExpectType Promise<undefined>
