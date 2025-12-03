@@ -665,7 +665,11 @@ export interface MarketplaceSdk {
         /**
          * Delete current user
          */
-        delete: (params?: Record<string, never>, queryParams?: { expand?: boolean }, opts?: PerRequestOptions) => Promise<MutationResponse<CurrentUser>>;
+        delete: (
+            params?: Record<string, never>,
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<CurrentUser>>;
         /**
          * Verify current user email
          */
@@ -677,7 +681,11 @@ export interface MarketplaceSdk {
         /**
          * Send verification email to current user
          */
-        sendVerificationEmail: (params?: Record<string, never>, queryParams?: { expand?: boolean }, opts?: PerRequestOptions) => Promise<MutationResponse>;
+        sendVerificationEmail: (
+            params?: Record<string, never>,
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse>;
         /**
          * Create Stripe account for current user
          */
@@ -702,7 +710,11 @@ export interface MarketplaceSdk {
         /**
          * Delete Stripe account for current user
          */
-        deleteStripeAccount: (params?: Record<string, never>, queryParams?: { expand?: boolean }, opts?: PerRequestOptions) => Promise<MutationResponse<CurrentUser>>;
+        deleteStripeAccount: (
+            params?: Record<string, never>,
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<CurrentUser>>;
     };
 
     passwordReset: {
@@ -733,35 +745,39 @@ export interface MarketplaceSdk {
          * Query listings
          */
         query: (
-            params?: {
-                authorId?: UUID;
-                ids?: UUID[];
-                start?: string;
-                end?: string;
-                availability?: string;
-                states?: string[];
-                minPrice?: string;
-                maxPrice?: string;
-                keywords?: string;
-                sort?: string;
-                origin?: LatLng;
-                bounds?: LatLngBounds;
-                pub_category?: string;
-                [key: string]: unknown;
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    authorId?: UUID;
+                    ids?: UUID[];
+                    start?: string;
+                    end?: string;
+                    availability?: string;
+                    states?: string[];
+                    minPrice?: string;
+                    maxPrice?: string;
+                    keywords?: string;
+                    sort?: string;
+                    origin?: LatLng;
+                    bounds?: LatLngBounds;
+                    pub_category?: string;
+                    [key: string]: unknown;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Listing>>;
         /**
          * Search listings (alias for query with search-specific defaults)
          */
         search: (
-            params?: {
-                origin?: LatLng;
-                bounds?: LatLngBounds;
-                keywords?: string;
-                [key: string]: unknown;
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    origin?: LatLng;
+                    bounds?: LatLngBounds;
+                    keywords?: string;
+                    [key: string]: unknown;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Listing>>;
     };
 
@@ -910,11 +926,13 @@ export interface MarketplaceSdk {
          * Query transactions
          */
         query: (
-            params?: {
-                only?: string;
-                lastTransitions?: string[];
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    only?: string;
+                    lastTransitions?: string[];
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Transaction>>;
         /**
          * Initiate a new transaction
@@ -978,13 +996,15 @@ export interface MarketplaceSdk {
          * Query bookings
          */
         query: (
-            params?: {
-                listingId?: UUID;
-                start?: string;
-                end?: string;
-                state?: string;
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    listingId?: UUID;
+                    start?: string;
+                    end?: string;
+                    state?: string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Booking>>;
     };
 
@@ -1014,13 +1034,15 @@ export interface MarketplaceSdk {
          * Query reviews
          */
         query: (
-            params?: {
-                listingId?: UUID;
-                subjectId?: UUID;
-                state?: string;
-                type?: string;
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    listingId?: UUID;
+                    subjectId?: UUID;
+                    state?: string;
+                    type?: string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Review>>;
     };
 
@@ -1125,7 +1147,9 @@ export interface MarketplaceSdk {
         /**
          * Query stock adjustments for a listing
          */
-        query: (params: { listingId: UUID } & PaginationParams & BaseQueryParams) => Promise<QueryResponse<StockAdjustment>>;
+        query: (
+            params: { listingId: UUID } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<StockAdjustment>>;
         /**
          * Create stock adjustment
          */

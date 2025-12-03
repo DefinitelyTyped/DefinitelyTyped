@@ -526,12 +526,14 @@ export interface IntegrationSdk {
          * Query listings
          */
         query: (
-            params?: {
-                authorId?: UUID | string;
-                ids?: Array<UUID | string>;
-                states?: string[];
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    authorId?: UUID | string;
+                    ids?: Array<UUID | string>;
+                    states?: string[];
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Listing>>;
         /**
          * Create a new listing
@@ -599,13 +601,15 @@ export interface IntegrationSdk {
          * Query transactions
          */
         query: (
-            params?: {
-                customerId?: UUID | string;
-                providerId?: UUID | string;
-                listingId?: UUID | string;
-                lastTransitions?: string[];
-            } & PaginationParams &
-                BaseQueryParams,
+            params?:
+                & {
+                    customerId?: UUID | string;
+                    providerId?: UUID | string;
+                    listingId?: UUID | string;
+                    lastTransitions?: string[];
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Transaction>>;
         /**
          * Transition a transaction to a new state
