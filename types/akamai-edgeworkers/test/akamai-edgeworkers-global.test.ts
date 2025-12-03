@@ -24,6 +24,28 @@ export function onClientRequest(request: EW.IngressClientRequest) {
     }
 }
 
+export function onBogSegmentAvailable(request: EW.BotSegmentAvailableRequest) {
+    // Exercise headers
+    testHeaders(request.getHeaders());
+
+    // Exercise botScore
+    request.botScore.responseSegment.isHuman() === true;
+    request.botScore.responseSegment.isCautiousResponse() === true;
+    request.botScore.responseSegment.isStrictResponse() === true;
+    request.botScore.responseSegment.isSafeguardResponse() === true;
+    request.botScore.responseSegment.isAggressiveResponse() === true;
+    request.botScore.responseSegment.isUnexpected() === true;
+
+    // Variables
+    request.getVariable("key");
+    request.setVariable("key", "value");
+
+    // Exercise respondWith
+
+    request.respondWith(505, [], "Missing get-variable-present");
+    request.respondWith(505, { no: "bad" }, "Expected var to be missing");
+}
+
 export function onOriginRequest(request: EW.IngressOriginRequest) {
     // getHeader
     const h = request.getHeader("onOriginRequest-getHeader");
