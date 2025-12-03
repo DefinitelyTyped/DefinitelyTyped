@@ -950,8 +950,6 @@ declare namespace ReactReconciler {
             key?: string | null,
         ): ReactPortal;
 
-        registerMutableSourceForHydration(root: FiberRoot, mutableSource: MutableSource): void;
-
         createComponentSelector(component: React$AbstractComponent<never, unknown>): ComponentSelector;
 
         createHasPseudoClassSelector(selectors: Selector[]): HasPseudoClassSelector;
@@ -1001,16 +999,26 @@ declare namespace ReactReconciler {
             callback?: (() => void) | null,
         ): Lane;
 
+        updateContainerSync(
+            element: ReactNode,
+            container: OpaqueRoot,
+            parentComponent?: Component<any, any> | null,
+            callback?: (() => void) | null,
+        ): Lane;
+
         batchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
 
         deferredUpdates<A>(fn: () => A): A;
 
         discreteUpdates<A, B, C, D, R>(fn: (arg0: A, arg1: B, arg2: C, arg3: D) => R, a: A, b: B, c: C, d: D): R;
 
-        flushControlled(fn: () => any): void;
-
         flushSync(): void;
         flushSync<R>(fn: () => R): R;
+
+        flushSyncFromReconciler(): void;
+        flushSyncFromReconciler<R>(fn: () => R): R;
+
+        flushSyncWork(): boolean;
 
         isAlreadyRendering(): boolean;
 
@@ -1020,15 +1028,9 @@ declare namespace ReactReconciler {
 
         attemptSynchronousHydration(fiber: Fiber): void;
 
-        attemptDiscreteHydration(fiber: Fiber): void;
-
         attemptContinuousHydration(fiber: Fiber): void;
 
         attemptHydrationAtCurrentPriority(fiber: Fiber): void;
-
-        getCurrentUpdatePriority(): LanePriority;
-
-        runWithPriority<T>(priority: LanePriority, fn: () => T): T;
 
         findHostInstance(component: any): PublicInstance | null;
 
@@ -1042,6 +1044,17 @@ declare namespace ReactReconciler {
 
         injectIntoDevTools(devToolsConfig: DevToolsConfig<Instance, TextInstance, any>): boolean;
     }
+
+    function defaultOnUncaughtError(error: Error): void;
+    function defaultOnCaughtError(error: Error): void;
+    function defaultOnRecoverableError(error: Error): void;
+
+    function startHostTransition(
+        formFiber: Fiber,
+        pendingState: unknown,
+        action: ((formData: FormData) => void) | null,
+        formData: FormData,
+    ): void;
 }
 
 export = ReactReconciler;
