@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sharetribe-flex-sdk",
-    "version": "1.21.9999",
+    "version": "1.22.9999",
     "projects": [
         "https://github.com/sharetribe/flex-sdk-js"
     ],

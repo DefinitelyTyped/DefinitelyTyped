@@ -11,7 +11,7 @@ sdk.marketplace.show().then((response) => {
 
 sdk.users.query({ page: 1, include: ["profileImage"] }).then((response) => {
     const firstUser = response.data.data[0];
-    if (firstUser) {
+    if (firstUser && firstUser.attributes.email) {
         const email: string = firstUser.attributes.email;
     }
 });
