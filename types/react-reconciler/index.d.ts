@@ -610,7 +610,10 @@ declare namespace ReactReconciler {
     type LanePriority = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
 
     type Lanes = number;
-    type Lane = number;
+
+    // Use branded type to prevent type alias resolution in tests
+    const LaneBrand: unique symbol;
+    type Lane = number & { [LaneBrand]: true };
 
     type Flags = number;
 
@@ -825,7 +828,12 @@ declare namespace ReactReconciler {
     type MutableSource = any;
 
     type OpaqueHandle = any;
-    type OpaqueRoot = any;
+
+    // Use branded type to prevent type alias resolution in tests
+    const OpaqueRootBrand: unique symbol;
+    interface OpaqueRoot {
+        [OpaqueRootBrand]: true;
+    }
 
     // 0 is PROD, 1 is DEV.
     // Might add PROFILE later.
