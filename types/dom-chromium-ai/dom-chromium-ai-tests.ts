@@ -9,8 +9,8 @@ async function topLevel() {
     const languageModel = await LanguageModel.create({
         topK: 1,
         temperature: 0,
-        expectedInputs: [{ type: "text", languages: ["de"] }],
-        expectedOutputs: [{ type: "text", languages: ["de"] }],
+        expectedInputs: [{ type: "text", languages: ["en"] }],
+        expectedOutputs: [{ type: "text", languages: ["en"] }],
         tools: [
             {
                 name: "getWeather",
@@ -31,7 +31,7 @@ async function topLevel() {
             },
         ],
         signal: (new AbortController()).signal,
-        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo", prefix: true }],
+        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo" }],
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -46,7 +46,7 @@ async function topLevel() {
         topK: 1,
         temperature: 0,
         expectedInputs: [{ type: "image" }],
-        expectedOutputs: [{ type: "text", languages: ["de"] }],
+        expectedOutputs: [{ type: "text", languages: ["en"] }],
     });
     console.log(languageModelAvailability2);
 
@@ -167,8 +167,8 @@ async function topLevel() {
         type: "tldr",
         format: "plain-text",
         length: "short",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
@@ -186,8 +186,8 @@ async function topLevel() {
         type: "teaser",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
     console.log(summarizerAvailability2);
@@ -228,8 +228,8 @@ async function topLevel() {
         tone: "casual",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
@@ -247,8 +247,8 @@ async function topLevel() {
         tone: "casual",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
 
@@ -285,8 +285,8 @@ async function topLevel() {
         tone: "as-is",
         format: "plain-text",
         length: "as-is",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
@@ -304,8 +304,8 @@ async function topLevel() {
         tone: "more-casual",
         format: "plain-text",
         length: "as-is",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
     console.log(rewriterAvailability2);
@@ -343,8 +343,8 @@ async function topLevel() {
     // Translator
 
     const translator = await Translator.create({
-        sourceLanguage: "de",
-        targetLanguage: "en",
+        sourceLanguage: "en",
+        targetLanguage: "es",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
@@ -354,8 +354,8 @@ async function topLevel() {
     });
 
     const translatorAvailability: Availability = await Translator.availability({
-        sourceLanguage: "de",
-        targetLanguage: "en",
+        sourceLanguage: "en",
+        targetLanguage: "es",
     });
 
     const translatorResult: string = await translator.translate("foo", {
@@ -399,7 +399,7 @@ async function topLevel() {
     console.log(languageDetectorAvailability1);
 
     const languageDetectorAvailability2: Availability = await LanguageDetector.availability({
-        expectedInputLanguages: ["de"],
+        expectedInputLanguages: ["en"],
     });
     console.log(languageDetectorAvailability2);
 
@@ -430,7 +430,7 @@ async function topLevel() {
     console.log(proofreaderAvailability1);
 
     const proofreaderAvailability2: Availability = await Proofreader.availability({
-        expectedInputLanguages: ["de"],
+        expectedInputLanguages: ["en"],
     });
     console.log(proofreaderAvailability2);
 
