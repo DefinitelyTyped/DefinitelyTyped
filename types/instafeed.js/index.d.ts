@@ -19,8 +19,8 @@ declare namespace Instafeed {
         apiLimit?: number;
         before?: () => void;
         debug?: boolean;
-        error?: (err: unknown) => any;
-        filter?: (item: InstagramDataItem) => boolean;
+        error?: (err: Error) => any;
+        filter?: (item: T) => boolean;
         limit?: number;
         mock?: boolean;
         render?: (item: T, options: Instafeed.InstafeedOptions) => string;
@@ -29,30 +29,39 @@ declare namespace Instafeed {
         target?: string | Element;
         template?: string;
         templateBoundaries?: string[];
-        transform?: (item: InstagramDataItem) => Record<string, unknown>;
+        transform?: (item: InstafeedDefaultItem) => T;
     }
 
     interface InstafeedDefaultItem {
         caption: string;
-        tags: string[];
         id: string;
         image: string;
         link: string;
         model: InstagramDataItem;
+        tags: string[];
         timestamp: string;
         type: string;
         username: string;
     }
 
-    interface InstagramDataItem {
+    type InstagramDataItem = {
         caption: string;
         id: string;
-        media_type: string;
+        media_type: "CAROUSEL_ALBUM" | "IMAGE";
         media_url: string;
         permalink: string;
         timestamp: string;
         username: string;
-    }
+    } | {
+        caption: string;
+        id: string;
+        media_type: "VIDEO";
+        media_url: string;
+        permalink: string;
+        thumbnail_url: string;
+        timestamp: string;
+        username: string;
+    };
 
     interface InstagramPaging {
         cursors: {
