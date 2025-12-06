@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { webcrypto } from "crypto";
 import { Duplex } from "stream";
 
 export as namespace Papa;
@@ -338,7 +339,7 @@ interface ParseRemoteConfigBase<T = any> extends ParseAsyncConfigBase<T, string>
      * Use POST request on the URL of the download option. The value passed will be set as the body of the request.
      * @default undefined
      */
-    downloadRequestBody?: Blob | BufferSource | FormData | URLSearchParams | string | undefined;
+    downloadRequestBody?: Blob | webcrypto.BufferSource | FormData | URLSearchParams | string | undefined;
     /**
      * A boolean value passed directly into XMLHttpRequest's "withCredentials" property.
      * @default undefined
