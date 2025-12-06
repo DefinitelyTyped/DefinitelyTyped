@@ -599,6 +599,29 @@ function TestUntilModule() {
     conditionWebElements = webdriver.until.elementsLocated(webdriver.By.className("class"));
 }
 
+// Test for https://github.com/SeleniumHQ/selenium/issues/14239
+// driver.wait(until.elementsLocated(...)) should return Promise<WebElement[]>, not WebElementPromise
+async function TestElementsLocatedReturnsArray() {
+    let driver: webdriver.WebDriver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+
+    // elementsLocated should return Condition<WebElement[]>
+    // driver.wait should correctly resolve this to Promise<WebElement[]>
+    const elements: webdriver.WebElement[] = await driver.wait(
+        webdriver.until.elementsLocated(webdriver.By.css(".foo")),
+    );
+
+    // These should compile - elements is an array
+    const length: number = elements.length;
+    elements.forEach((el: webdriver.WebElement) => el.click());
+    const mapped: string[] = elements.map((el: webdriver.WebElement) => "test");
+
+    // elementLocated (singular) should still return WebElementPromise
+    const singleElement: webdriver.WebElement = await driver.wait(
+        webdriver.until.elementLocated(webdriver.By.css(".foo")),
+    );
+    singleElement.click();
+}
+
 function TestShadowRoot() {
     let driver: webdriver.WebDriver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
 
