@@ -1,7 +1,7 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 import { Element } from "@xmpp/xml";
 
-export = Client;
+export default Client;
 
 declare class Client extends Connection {
     transports: Array<typeof Connection>;

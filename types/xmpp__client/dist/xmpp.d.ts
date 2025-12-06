@@ -1,3 +1,3 @@
-export * from "../browser";
+export * from "..";
 
 export as namespace XMPP;

@@ -1,13 +1,9 @@
-import Connection = require("@xmpp/connection");
-import middleware = require("@xmpp/middleware");
-import streamFeatures = require("@xmpp/stream-features");
-import route = require("@xmpp/stream-features/route");
+import Connection from "@xmpp/connection";
+import middleware, { Entity } from "@xmpp/middleware";
+import streamFeatures, { StreamFeatures } from "@xmpp/stream-features";
 import { Element } from "@xmpp/xml";
 
-// test type exports
-type StreamFeatures<TEntity extends middleware.Entity> = streamFeatures.StreamFeatures<TEntity>;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
@@ -38,6 +34,3 @@ sf.use("foo", undefined, (ctx, next, features) => {
 
     return Promise.resolve();
 });
-
-route(); // $ExpectType (context: IncomingContext<Entity>, next: Next) => Promise<any>
-route()(null as any as middleware.IncomingContext<Foo>, async () => {}); // $ExpectType Promise<any>

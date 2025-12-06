@@ -1,6 +1,8 @@
 /// <reference types="node" />
 
-import events = require("events");
+import Connection from "@xmpp/connection";
+import { Element } from "@xmpp/xml";
+import * as events from "events";
 
 export const EventEmitter: typeof events.EventEmitter;
 export type EventEmitter = events.EventEmitter;
@@ -26,3 +28,11 @@ export class Deferred<TValue> {
     resolve(value: TValue | PromiseLike<TValue>): void;
     reject(reason?: any): void;
 }
+
+export function procedure<T>(
+    entity: Connection,
+    stanza: Element | null | undefined,
+    handler: (element: Element, done: (args: T) => void) => Promise<void>,
+): Promise<T>;
+
+export function tick(): Promise<void>;

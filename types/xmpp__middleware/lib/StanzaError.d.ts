@@ -1,7 +1,7 @@
-import XMPPError = require("@xmpp/error");
+import XMPPError from "@xmpp/error";
 import { Element } from "@xmpp/xml";
 
-export = StanzaError;
+export default StanzaError;
 
 declare class StanzaError extends XMPPError<"StanzaError"> {
     type?: string | undefined;

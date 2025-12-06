@@ -1,6 +1,6 @@
 import { Component as ComponentCore, jid as xmppJid, xml as xmppXml } from "@xmpp/component-core";
-import { IQCallee } from "@xmpp/iq/callee";
-import { IQCaller } from "@xmpp/iq/caller";
+import { IQCallee } from "@xmpp/iq/callee.js";
+import { IQCaller } from "@xmpp/iq/caller.js";
 import { Middleware } from "@xmpp/middleware";
 import { Reconnect } from "@xmpp/reconnect";
 

@@ -1,5 +1,5 @@
-import Connection = require("@xmpp/connection-tcp");
+import Connection from "@xmpp/connection-tcp";
 
-export = ConnectionTCP;
+export default ConnectionTCP;
 
 declare class ConnectionTCP extends Connection {}

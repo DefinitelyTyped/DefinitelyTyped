@@ -1,13 +1,15 @@
 {
     "private": true,
     "name": "@types/xmpp__client-core",
-    "version": "0.13.9999",
+    "version": "0.14.9999",
+    "type": "module",
     "projects": [
         "https://github.com/xmppjs/xmpp.js/tree/main/packages/client-core"
     ],
     "dependencies": {
         "@types/xmpp__connection": "*",
         "@types/xmpp__jid": "*",
+        "@types/xmpp__sasl2": "*",
         "@types/xmpp__xml": "*"
     },
     "devDependencies": {
