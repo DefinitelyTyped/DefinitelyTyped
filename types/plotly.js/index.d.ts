@@ -1684,6 +1684,7 @@ export interface PlotData {
     zsmooth: "fast" | "best" | false;
     zmin: number;
     zmax: number;
+    zorder: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
