@@ -14,6 +14,9 @@
     },
     "files": [
         "index.d.ts",
+        "global.d.ts",
+        "make.d.ts",
+        "plugin.d.ts",
         "shelljs-tests.ts"
     ]
 }

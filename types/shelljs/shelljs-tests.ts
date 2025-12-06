@@ -148,8 +148,6 @@ shell.chmod("u+x", "/Users/brandon");
 shell.chmod("-cR", 755, "/Users/brandon");
 shell.chmod("-Rv", "u+x", "/Users/brandon");
 
-shell.exit(0);
-
 shell.touch("/Users/brandom/test1");
 shell.touch("/Users/brandom/test1", "/Users/brandom/test2");
 
@@ -206,3 +204,13 @@ const farr = new shell.ShellString(["hello", "world"]);
 
 const boo = shell.ShellString("hello world");
 const barr = shell.ShellString(["hello", "world"]);
+
+require("shelljs/make");
+
+// global works
+cp("some/path", "/tmp/dst/");
+target.all = () => {
+    ln("-sf", "some/path", "/tmp/dst");
+};
+
+shell.exit(0);
