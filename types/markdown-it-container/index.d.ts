@@ -1,10 +1,11 @@
 import MarkdownIt = require("markdown-it");
+import Renderer = require("markdown-it/lib/renderer");
 
 declare namespace MarkdownItContainer {
     interface ContainerOpts {
         marker?: string | undefined;
         validate?(params: string): boolean;
-        render?: MarkdownIt.Renderer.RenderRule | undefined;
+        render?: Renderer.RenderRule | undefined;
     }
 }
 
