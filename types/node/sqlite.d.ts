@@ -40,7 +40,7 @@
  * ```
  * @since v22.5.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
     import { PathLike } from "node:fs";
@@ -320,7 +320,7 @@ declare module "node:sqlite" {
          * @param func The JavaScript function to call when the SQLite
          * function is invoked. The return value of this function should be a valid
          * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
          * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(

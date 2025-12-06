@@ -102,10 +102,10 @@ declare namespace Connection {
 
     /** Given in a 'message' event from ImapFetch */
     export interface ImapMessage extends NodeJS.EventEmitter {
-        on(event: string, listener: Function): this;
         on(event: "body", listener: (stream: NodeJS.ReadableStream, info: ImapMessageBodyInfo) => void): this;
         on(event: "attributes", listener: (attrs: ImapMessageAttributes) => void): this;
         on(event: "end", listener: () => void): this;
+        on(event: string | symbol, listener: (...args: any) => void): this;
     }
 
     export interface FetchOptions {
@@ -125,11 +125,12 @@ declare namespace Connection {
 
     /** Returned from fetch() */
     export interface ImapFetch extends NodeJS.EventEmitter {
-        on(event: string, listener: Function): this;
         on(event: "message", listener: (message: ImapMessage, seqno: number) => void): this;
         on(event: "error", listener: (error: Error) => void): this;
-        once(event: string, listener: Function): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: "message", listener: (message: ImapMessage, seqno: number) => void): this;
         once(event: "error", listener: (error: Error) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export interface Folder {
@@ -266,18 +267,6 @@ declare namespace Connection {
 
 declare class Connection extends EventEmitter implements Connection.MessageFunctions {
     constructor(config: Connection.Config);
-
-    // from NodeJS.EventEmitter
-    addListener(event: string, listener: Function): this;
-    on(event: string, listener: Function): this;
-    once(event: string, listener: Function): this;
-    removeListener(event: string, listener: Function): this;
-    removeAllListeners(event?: string): this;
-    setMaxListeners(n: number): this;
-    getMaxListeners(): number;
-    listeners(event: string): Function[];
-    emit(event: string, ...args: any[]): boolean;
-    listenerCount(type: string): number;
 
     // from MessageFunctions
     /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */

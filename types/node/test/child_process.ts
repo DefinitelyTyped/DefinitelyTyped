@@ -3,7 +3,7 @@ import * as dgram from "node:dgram";
 import * as fs from "node:fs";
 import * as net from "node:net";
 import assert = require("node:assert");
-import { Pipe, Readable, Writable } from "node:stream";
+import { Readable, Writable } from "node:stream";
 import { URL } from "node:url";
 import { promisify } from "node:util";
 
@@ -739,13 +739,6 @@ async function testPromisify() {
     });
     cp = cp.addListener("spawn", () => {
     });
-
-    _boolean = cp.emit("close", () => {});
-    _boolean = cp.emit("disconnect", () => {});
-    _boolean = cp.emit("error", () => {});
-    _boolean = cp.emit("exit", () => {});
-    _boolean = cp.emit("message", () => {});
-    _boolean = cp.emit("spawn", () => {});
 
     cp = cp.on("close", (code, signal) => {
         const _code: number | null = code;

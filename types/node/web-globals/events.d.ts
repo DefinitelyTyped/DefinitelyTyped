@@ -1,5 +1,6 @@
 export {};
 
+type _AddEventListenerOptions = typeof globalThis extends { onmessage: any } ? {} : AddEventListenerOptions;
 interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
     passive?: boolean;
@@ -43,10 +44,12 @@ interface EventInit {
     composed?: boolean;
 }
 
+type _EventListener = typeof globalThis extends { onmessage: any } ? {} : EventListener;
 interface EventListener {
     (evt: Event): void;
 }
 
+type _EventListenerObject = typeof globalThis extends { onmessage: any } ? {} : EventListenerObject;
 interface EventListenerObject {
     handleEvent(object: Event): void;
 }
@@ -72,6 +75,8 @@ interface EventTarget {
 }
 
 declare global {
+    interface AddEventListenerOptions extends _AddEventListenerOptions {}
+
     interface CustomEvent<T = any> extends _CustomEvent<T> {}
     var CustomEvent: typeof globalThis extends { onmessage: any; CustomEvent: infer T } ? T
         : {
@@ -85,6 +90,10 @@ declare global {
             prototype: Event;
             new(type: string, eventInitDict?: EventInit): Event;
         };
+
+    interface EventListener extends _EventListener {}
+
+    interface EventListenerObject extends _EventListenerObject {}
 
     interface EventListenerOptions extends _EventListenerOptions {}
 

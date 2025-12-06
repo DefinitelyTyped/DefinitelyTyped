@@ -26,8 +26,6 @@ interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObj
     [Symbol.asyncIterator](): StreamIterator<T>;
 }
 
-type ComposeFnParam = (source: any) => void;
-
 interface _IEventEmitter {
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
     emit(event: string | symbol, ...args: any[]): boolean;
@@ -41,12 +39,10 @@ interface _IEventEmitter {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+    rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 }
 
 interface SignalOption {
@@ -121,6 +117,10 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
+    compose(
+        stream: NodeJS.WritableStream | ((source: any) => void),
+        options?: { signal?: AbortSignal },
+    ): _Readable.Duplex;
     map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
     filter(
         fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>,
@@ -217,12 +217,10 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+    rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 
     iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
     [Symbol.asyncIterator](): StreamIterator<any>;
@@ -434,10 +432,6 @@ declare namespace _Readable {
 
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     // ==== _stream_transform ====
@@ -673,10 +667,6 @@ declare namespace _Readable {
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     const finished: typeof NodeStream.finished;

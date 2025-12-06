@@ -197,8 +197,8 @@ function testPipeline() {
     const _transform: stream.Transform = <any> {};
     const _writable: stream.Writable = <any> {};
 
-    RStream.pipeline([_readable], callback);
-    RStream.pipeline([_readable], _transform, _writable, callback);
+    RStream.pipeline([_readable, _transform, _writable], callback);
+    RStream.pipeline(_readable, _transform, _writable, callback);
 }
 
 function assertType<T>(value: T, msg?: string): T {

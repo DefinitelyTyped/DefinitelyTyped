@@ -1241,16 +1241,16 @@ const driveActivity = () => {
         if (originalObject && originalObject.driveItem) {
             console.log(originalObject.driveItem.file); // DriveFileReference.file is deprecated
             console.log(originalObject.driveItem.driveFile);
-            console.log(originalObject.driveItem.folder); // DriveFileReference.folder is deprecated
-            console.log(originalObject.driveItem.driveFolder);
+            console.log(originalObject.driveItem.folder ?? "none"); // DriveFileReference.folder is deprecated
+            console.log(originalObject.driveItem.driveFolder ?? "none");
         }
         for (const target of activity.targets ?? []) {
             const driveItem = target.driveItem;
             if (!driveItem) continue;
             console.log(driveItem.file); // DriveFile.file is deprecated
             console.log(driveItem.driveFile);
-            console.log(driveItem.folder); // DriveFile.folder is deprecated
-            console.log(driveItem.driveFolder);
+            console.log(driveItem.folder ?? "none"); // DriveFile.folder is deprecated
+            console.log(driveItem.driveFolder ?? "none");
         }
     }
 };
@@ -1268,7 +1268,7 @@ const people = () => {
             },
         }],
     });
-    console.log(batchCreateContactsResponse.createdPeople?.[0].person?.names);
+    console.log(batchCreateContactsResponse.createdPeople?.[0].person?.names ?? "none");
     const batchUpdateContactsResponse = People.People.batchUpdateContacts({
         updateMask: "names,emailAddresses",
         readMask: "names,emailAddresses",
@@ -1279,7 +1279,7 @@ const people = () => {
             },
         },
     });
-    console.log(batchUpdateContactsResponse.updateResult?.names);
+    console.log(batchUpdateContactsResponse.updateResult?.names ?? "none");
     People.People.batchDeleteContacts({ resourceNames: ["people/test1234"] });
 
     const image = DriveApp.getFileById("some-photo-data-file-id").getBlob();
@@ -1290,11 +1290,11 @@ const people = () => {
         photoBytes: baseImage,
         sources: ["READ_SOURCE_TYPE_PROFILE", "READ_SOURCE_TYPE_CONTACT"],
     }, "people/test0123");
-    console.log(updateContactPhotoResponse.person?.names);
+    console.log(updateContactPhotoResponse.person?.names ?? "none");
     const deleteContactPhotoResponse = People.People.deleteContactPhoto("people/test0123", {
         sources: ["READ_SOURCE_TYPE_PROFILE", "READ_SOURCE_TYPE_CONTACT"],
     });
-    console.log(deleteContactPhotoResponse.person?.names);
+    console.log(deleteContactPhotoResponse.person?.names ?? "none");
 
     // directory methods
     const searchDirectoryPeopleResponse = People.People.searchDirectoryPeople({
@@ -1302,28 +1302,28 @@ const people = () => {
         readMask: "names,emailAddresses",
         sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
     });
-    console.log(searchDirectoryPeopleResponse.people?.[0].names);
+    console.log(searchDirectoryPeopleResponse.people?.[0].names ?? "none");
     const listDirectoryPeopleResponse = People.People.listDirectoryPeople({
         readMask: "names,emailAddresses",
         sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
     });
-    console.log(listDirectoryPeopleResponse.people?.[0].names);
+    console.log(listDirectoryPeopleResponse.people?.[0].names ?? "none");
 
     // other contacts methods
     const otherContactsListResponse = People.OtherContacts.list({
         readMask: "names,emailAddresses",
         sources: ["READ_SOURCE_TYPE_CONTACT", "READ_SOURCE_TYPE_PROFILE"],
     });
-    console.log(otherContactsListResponse.otherContacts?.[0].names);
+    console.log(otherContactsListResponse.otherContacts?.[0].names ?? "none");
     const otherContactsSearchResponse = People.OtherContacts.search({
         query: "Foo",
         readMask: "names,emailAddresses",
     });
-    console.log(otherContactsSearchResponse.people?.[0].names);
+    console.log(otherContactsSearchResponse.people?.[0].names ?? "none");
     const otherContactsCopyResponse = People.OtherContacts.copyOtherContactToMyContactsGroup({
         copyMask: "names,emailAddresses,phoneNumbers",
     }, "people/test0123");
-    console.log(otherContactsCopyResponse.names);
+    console.log(otherContactsCopyResponse.names ?? "none");
 };
 
 // DataSourceFormula test
@@ -1443,7 +1443,7 @@ function driveFileOperations() {
 
     if (fileList.files && fileList.files.length > 0) {
         console.log("Files found:");
-        fileList.files.forEach(file => console.log(file.name, file.id));
+        fileList.files.forEach(file => console.log(file.name ?? "none", file.id));
     } else {
         console.log("No files found.");
     }
@@ -1474,7 +1474,7 @@ function createFolder() {
 function getFile() {
     if (!Drive) return;
     const file = Drive.Files.get("FileID");
-    console.log(file.name);
+    console.log(file.name ?? "none");
 }
 
 function getRawFile() {
@@ -1499,7 +1499,7 @@ function listDrives() {
     if (driveList && driveList.drives && driveList.drives.length > 0) {
         console.log("Drives found:");
         driveList.drives.forEach(drive => {
-            console.log(drive.name, drive.id);
+            console.log(drive.name ?? "none", drive.id);
         });
     } else {
         console.log("No shared Drives found.");
@@ -1512,7 +1512,7 @@ function commentAndReply() {
     const comment = Drive.Comments.create({ content: "Comment text" }, "FileID", { fields: "id" });
     if (!comment.id) return;
     const reply = Drive.Replies.create({ content: "Reply text" }, "FileID", comment.id, { fields: "id" });
-    console.log(reply.id);
+    console.log(reply.id ?? "none");
 }
 
 // Example: List tabs (Google Docs)

@@ -6,9 +6,9 @@
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/timers.js)
  */
-declare module "timers" {
+declare module "node:timers" {
     import { Abortable } from "node:events";
     import * as promises from "node:timers/promises";
     export interface TimerOptions extends Abortable {
@@ -145,132 +145,6 @@ declare module "timers" {
                 _onTimeout(...args: any[]): void;
             }
         }
-        /**
-         * Schedules the "immediate" execution of the `callback` after I/O events'
-         * callbacks.
-         *
-         * When multiple calls to `setImmediate()` are made, the `callback` functions are
-         * queued for execution in the order in which they are created. The entire callback
-         * queue is processed every event loop iteration. If an immediate timer is queued
-         * from inside an executing callback, that timer will not be triggered until the
-         * next event loop iteration.
-         *
-         * If `callback` is not a function, a `TypeError` will be thrown.
-         *
-         * This method has a custom variant for promises that is available using
-         * `timersPromises.setImmediate()`.
-         * @since v0.9.1
-         * @param callback The function to call at the end of this turn of
-         * the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout)
-         * @param args Optional arguments to pass when the `callback` is called.
-         * @returns for use with `clearImmediate()`
-         */
-        function setImmediate<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
-            ...args: TArgs
-        ): NodeJS.Immediate;
-        // Allow a single void-accepting argument to be optional in arguments lists.
-        // Allows usage such as `new Promise(resolve => setTimeout(resolve, ms))` (#54258)
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setImmediate(callback: (_: void) => void): NodeJS.Immediate;
-        namespace setImmediate {
-            import __promisify__ = promises.setImmediate;
-            export { __promisify__ };
-        }
-        /**
-         * Schedules repeated execution of `callback` every `delay` milliseconds.
-         *
-         * When `delay` is larger than `2147483647` or less than `1` or `NaN`, the `delay`
-         * will be set to `1`. Non-integer delays are truncated to an integer.
-         *
-         * If `callback` is not a function, a `TypeError` will be thrown.
-         *
-         * This method has a custom variant for promises that is available using
-         * `timersPromises.setInterval()`.
-         * @since v0.0.1
-         * @param callback The function to call when the timer elapses.
-         * @param delay The number of milliseconds to wait before calling the
-         * `callback`. **Default:** `1`.
-         * @param args Optional arguments to pass when the `callback` is called.
-         * @returns for use with `clearInterval()`
-         */
-        function setInterval<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
-            delay?: number,
-            ...args: TArgs
-        ): NodeJS.Timeout;
-        // Allow a single void-accepting argument to be optional in arguments lists.
-        // Allows usage such as `new Promise(resolve => setTimeout(resolve, ms))` (#54258)
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setInterval(callback: (_: void) => void, delay?: number): NodeJS.Timeout;
-        /**
-         * Schedules execution of a one-time `callback` after `delay` milliseconds.
-         *
-         * The `callback` will likely not be invoked in precisely `delay` milliseconds.
-         * Node.js makes no guarantees about the exact timing of when callbacks will fire,
-         * nor of their ordering. The callback will be called as close as possible to the
-         * time specified.
-         *
-         * When `delay` is larger than `2147483647` or less than `1` or `NaN`, the `delay`
-         * will be set to `1`. Non-integer delays are truncated to an integer.
-         *
-         * If `callback` is not a function, a `TypeError` will be thrown.
-         *
-         * This method has a custom variant for promises that is available using
-         * `timersPromises.setTimeout()`.
-         * @since v0.0.1
-         * @param callback The function to call when the timer elapses.
-         * @param delay The number of milliseconds to wait before calling the
-         * `callback`. **Default:** `1`.
-         * @param args Optional arguments to pass when the `callback` is called.
-         * @returns for use with `clearTimeout()`
-         */
-        function setTimeout<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
-            delay?: number,
-            ...args: TArgs
-        ): NodeJS.Timeout;
-        // Allow a single void-accepting argument to be optional in arguments lists.
-        // Allows usage such as `new Promise(resolve => setTimeout(resolve, ms))` (#54258)
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setTimeout(callback: (_: void) => void, delay?: number): NodeJS.Timeout;
-        namespace setTimeout {
-            import __promisify__ = promises.setTimeout;
-            export { __promisify__ };
-        }
-        /**
-         * Cancels an `Immediate` object created by `setImmediate()`.
-         * @since v0.9.1
-         * @param immediate An `Immediate` object as returned by `setImmediate()`.
-         */
-        function clearImmediate(immediate: NodeJS.Immediate | undefined): void;
-        /**
-         * Cancels a `Timeout` object created by `setInterval()`.
-         * @since v0.0.1
-         * @param timeout A `Timeout` object as returned by `setInterval()`
-         * or the primitive of the `Timeout` object as a string or a number.
-         */
-        function clearInterval(timeout: NodeJS.Timeout | string | number | undefined): void;
-        /**
-         * Cancels a `Timeout` object created by `setTimeout()`.
-         * @since v0.0.1
-         * @param timeout A `Timeout` object as returned by `setTimeout()`
-         * or the primitive of the `Timeout` object as a string or a number.
-         */
-        function clearTimeout(timeout: NodeJS.Timeout | string | number | undefined): void;
-        /**
-         * The `queueMicrotask()` method queues a microtask to invoke `callback`. If
-         * `callback` throws an exception, the `process` object `'uncaughtException'`
-         * event will be emitted.
-         *
-         * The microtask queue is managed by V8 and may be used in a similar manner to
-         * the `process.nextTick()` queue, which is managed by Node.js. The
-         * `process.nextTick()` queue is always processed before the microtask queue
-         * within each turn of the Node.js event loop.
-         * @since v11.0.0
-         * @param callback Function to be queued.
-         */
-        function queueMicrotask(callback: () => void): void;
     }
     import clearImmediate = globalThis.clearImmediate;
     import clearInterval = globalThis.clearInterval;
@@ -280,6 +154,6 @@ declare module "timers" {
     import setTimeout = globalThis.setTimeout;
     export { clearImmediate, clearInterval, clearTimeout, promises, setImmediate, setInterval, setTimeout };
 }
-declare module "node:timers" {
-    export * from "timers";
+declare module "timers" {
+    export * from "node:timers";
 }
