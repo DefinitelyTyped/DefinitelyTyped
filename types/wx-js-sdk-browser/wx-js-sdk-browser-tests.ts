@@ -18,9 +18,7 @@ wx.checkJsApi({
     jsApiList: [""],
     success: res => {
         res.checkResult;
-        if (res.errMsg) {
-            res.errMsg.msg;
-        }
+        res.errMsg;
     },
     complete: () => {
     },
