@@ -1926,7 +1926,31 @@ declare namespace React {
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
 
-    export type Usable<T> = PromiseLike<T> | Context<T>;
+    interface UntrackedReactPromise<T> extends PromiseLike<T> {
+        status?: void;
+    }
+
+    export interface PendingReactPromise<T> extends PromiseLike<T> {
+        status: "pending";
+    }
+
+    export interface FulfilledReactPromise<T> extends PromiseLike<T> {
+        status: "fulfilled";
+        value: T;
+    }
+
+    export interface RejectedReactPromise<T> extends PromiseLike<T> {
+        status: "rejected";
+        reason: unknown;
+    }
+
+    export type ReactPromise<T> =
+        | UntrackedReactPromise<T>
+        | PendingReactPromise<T>
+        | FulfilledReactPromise<T>
+        | RejectedReactPromise<T>;
+
+    export type Usable<T> = ReactPromise<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -4057,7 +4081,6 @@ declare namespace React {
          * Captures which component contained the exception, and its ancestors.
          */
         componentStack?: string | null;
-        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts

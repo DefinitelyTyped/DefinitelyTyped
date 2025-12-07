@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/react": "*",
         "react-native": "*",
-        "csstype": "^3.0.3"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/react-native-table-component": "workspace:."

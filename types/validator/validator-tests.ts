@@ -25,7 +25,7 @@ import isByteLengthFunc, { IsByteLengthOptions } from "validator/lib/isByteLengt
 import isCreditCardFunc from "validator/lib/isCreditCard";
 import isCurrencyFunc from "validator/lib/isCurrency";
 import isDataURIFunc from "validator/lib/isDataURI";
-import isDateFunc from "validator/lib/isDate";
+import isDateFunc, { IsDateOptions } from "validator/lib/isDate";
 import isDecimalFunc from "validator/lib/isDecimal";
 import isDivisibleByFunc from "validator/lib/isDivisibleBy";
 import isEANFunc from "validator/lib/isEAN";
@@ -44,7 +44,7 @@ import isIBANFunc, { IBANLocale, IsIBANOptions, locales as isIBANLocales } from 
 import isIMEIFunc from "validator/lib/isIMEI";
 import isInFunc from "validator/lib/isIn";
 import isIntFunc from "validator/lib/isInt";
-import isIPFunc from "validator/lib/isIP";
+import isIPFunc, { IPVersion, IsIPOptions } from "validator/lib/isIP";
 import isIPRange from "validator/lib/isIPRange";
 import isISBNFunc from "validator/lib/isISBN";
 import isISINFunc from "validator/lib/isISIN";
@@ -60,8 +60,8 @@ import isISRCFunc from "validator/lib/isISRC";
 import isISSNFunc from "validator/lib/isISSN";
 import isJSONFunc, { IsJSONOptions } from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
-import isLatLongFunc from "validator/lib/isLatLong";
-import isLengthFunc from "validator/lib/isLength";
+import isLatLongFunc, { IsLatLongOptions } from "validator/lib/isLatLong";
+import isLengthFunc, { IsLengthOptions } from "validator/lib/isLength";
 import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
 import isLowercaseFunc from "validator/lib/isLowercase";
@@ -78,7 +78,7 @@ import isOctalFunc from "validator/lib/isOctal";
 import isPassportNumberFunc from "validator/lib/isPassportNumber";
 import isPortFunc from "validator/lib/isPort";
 import isPostalCodeFunc, { locales as isPostalCodeLocales } from "validator/lib/isPostalCode";
-import isRgbColorFunc from "validator/lib/isRgbColor";
+import isRgbColorFunc, { IsRgbColorOptions } from "validator/lib/isRgbColor";
 import isSemVerFunc from "validator/lib/isSemVer";
 import isSlugFunc from "validator/lib/isSlug";
 import isStrongPasswordFunc from "validator/lib/isStrongPassword";
@@ -432,7 +432,7 @@ import isByteLengthFuncEs, { IsByteLengthOptions as IsByteLengthOptionsEs } from
 import isCreditCardFuncEs from "validator/es/lib/isCreditCard";
 import isCurrencyFuncEs from "validator/es/lib/isCurrency";
 import isDataURIFuncEs from "validator/es/lib/isDataURI";
-import isDateFuncEs from "validator/es/lib/isDate";
+import isDateFuncEs, { IsDateOptions as IsDateOptionsEs } from "validator/es/lib/isDate";
 import isDecimalFuncEs from "validator/es/lib/isDecimal";
 import isDivisibleByFuncEs from "validator/es/lib/isDivisibleBy";
 import isEANFuncEs from "validator/es/lib/isEAN";
@@ -454,7 +454,7 @@ import isIBANFuncEs, {
 } from "validator/es/lib/isIBAN";
 import isInFuncEs from "validator/es/lib/isIn";
 import isIntFuncEs from "validator/es/lib/isInt";
-import isIPFuncEs from "validator/es/lib/isIP";
+import isIPFuncEs, { IPVersion as IPVersionEs, IsIPOptions as IsIPOptionsEs } from "validator/es/lib/isIP";
 import isIPRangeFuncEs from "validator/es/lib/isIPRange";
 import isISBNFuncEs from "validator/es/lib/isISBN";
 import isISINFuncEs from "validator/es/lib/isISIN";
@@ -470,8 +470,8 @@ import isISRCFuncEs from "validator/es/lib/isISRC";
 import isISSNFuncEs from "validator/es/lib/isISSN";
 import isJSONFuncEs, { IsJSONOptions as IsJSONOptionsEs } from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
-import isLatLongFuncEs from "validator/es/lib/isLatLong";
-import isLengthFuncEs from "validator/es/lib/isLength";
+import isLatLongFuncEs, { IsLatLongOptions as IsLatLongOptionsEs } from "validator/es/lib/isLatLong";
+import isLengthFuncEs, { IsLengthOptions as IsLengthOptionsEs } from "validator/es/lib/isLength";
 import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
 import isLowercaseFuncEs from "validator/es/lib/isLowercase";
@@ -488,7 +488,7 @@ import isOctalFuncEs from "validator/es/lib/isOctal";
 import isPassportNumberFuncEs from "validator/es/lib/isPassportNumber";
 import isPortFuncEs from "validator/es/lib/isPort";
 import isPostalCodeFuncEs, { locales as isPostalCodeLocalesEs } from "validator/es/lib/isPostalCode";
-import isRgbColorFuncEs from "validator/es/lib/isRgbColor";
+import isRgbColorFuncEs, { IsRgbColorOptions as IsRgbColorOptionsEs } from "validator/es/lib/isRgbColor";
 import isSemVerFuncEs from "validator/es/lib/isSemVer";
 import isSlugFuncEs from "validator/es/lib/isSlug";
 import isStrongPasswordFuncEs from "validator/es/lib/isStrongPassword";
@@ -788,9 +788,28 @@ const any: any = null;
 
     result = validator.isDataURI("sample");
 
-    const isDateOptions: validator.IsDateOptions = {};
     result = validator.isDate("sample");
-    result = validator.isDate("sample", isDateOptions);
+    result = validator.isDate("sample", "YYYY/MM/DD");
+    result = validator.isDate("sample", {} satisfies IsDateOptions);
+    result = validator.isDate("sample", { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false });
+    validator.isDate("sample", { strictMode: true }); // $ExpectType boolean
+    validator.isDate("sample", { strictMode: false }); // $ExpectType boolean
+    validator.isDate("sample", { strictMode: result }); // $ExpectType boolean
+
+    result = validator.isDate(new Date());
+    result = validator.isDate(new Date(), "YYYY/MM/DD");
+    result = validator.isDate(new Date(), {} satisfies IsDateOptions);
+    result = validator.isDate(new Date(), { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false });
+    // If options.strictMode is known to be true in compile time, we return false.
+    validator.isDate(new Date(), { strictMode: true }); // $ExpectType false
+    // If options.strictMode is false or unknown in compile time, we return a boolean type as fallback
+    validator.isDate(new Date(), { strictMode: false }); // $ExpectType boolean
+    validator.isDate(new Date(), { strictMode: result }); // $ExpectType boolean
+    // Let's test for union type as well.
+    result = validator.isDate(
+        result ? "sample" : new Date(),
+        result ? "YYYY/MM/DD" : { format: "YYYY/MM/DD", delimiters: ["/", "-"], strictMode: false },
+    );
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal("sample");
@@ -900,10 +919,12 @@ const any: any = null;
     result = validator.isHSL("sample");
 
     result = validator.isRgbColor("sample");
-    result = validator.isRgbColor("sample", { includePercentValues: true });
-    result = validator.isRgbColor("sample", { includePercentValues: false });
-    result = validator.isRgbColor("sample", { includePercentValues: true, allowSpaces: true });
-    result = validator.isRgbColor("sample", { allowSpaces: false });
+    result = validator.isRgbColor("sample", true);
+    result = validator.isRgbColor("sample", {});
+    result = validator.isRgbColor(
+        "sample",
+        { includePercentValues: true, allowSpaces: true } satisfies IsRgbColorOptions,
+    );
 
     result = validator.isHexadecimal("sample");
 
@@ -925,7 +946,16 @@ const any: any = null;
     result = validator.isIdentityCard("sample", "zh-TW");
 
     result = validator.isIP("sample");
+    result = validator.isIP("sample", "4" satisfies IPVersion);
     result = validator.isIP("sample", "6");
+    result = validator.isIP("sample", 4);
+    result = validator.isIP("sample", 6);
+    result = validator.isIP("sample", {});
+    result = validator.isIP("sample", { version: "4" } satisfies IsIPOptions);
+    result = validator.isIP("sample", { version: "6" });
+    result = validator.isIP("sample", { version: 4 });
+    result = validator.isIP("sample", { version: 6 });
+    result = validator.isIP("sample", result ? 6 : { version: 6 });
 
     result = validator.isIPRange("sample");
     result = validator.isIPRange("sample", "6");
@@ -975,10 +1005,20 @@ const any: any = null;
     result = validator.isJSON("sample", { allow_primitives: true });
 
     result = validator.isLatLong("sample");
+    result = validator.isLatLong("sample", {});
+    result = validator.isLatLong("sample", { checkDMS: true } satisfies IsLatLongOptions);
 
-    const isLengthOptions: validator.IsLengthOptions = {};
-    result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
+    result = validator.isLength("sample", {});
+    result = validator.isLength("sample", { min: 0, max: 3, discreteLengths: [1, 2] } satisfies IsLengthOptions);
+    result = validator.isLength("sample", 0);
+    result = validator.isLength("sample", 0, 3);
+    // Both overloads happen to allow using exactly two argument, [str, number] & [str, object]
+    // Hence if 2nd arg is of union type `number | object`, typechecking can pass.
+    result = validator.isLength("sample", result ? 0 : { min: 0, max: 3 });
+    // @ts-expect-error
+    // Using 3rd arg here is problematic, without first ensuring that the 2nd argument is a number.
+    result = validator.isLength("sample", result ? 0 : { min: 0, max: 3 }, 3);
 
     result = validator.isLicensePlate("sample", "cs-CZ" satisfies validator.LicensePlateLocale);
     result = validator.isLicensePlate("sample", "de-DE");
@@ -1394,6 +1434,7 @@ const any: any = null;
 
     result = validator.matches("foobar", "foo/i");
     result = validator.matches("foobar", "foo", "i");
+    result = validator.matches("foobar", result ? "foo/i" : "foo");
 
     result = validator.isSlug("cs_67CZ");
 }

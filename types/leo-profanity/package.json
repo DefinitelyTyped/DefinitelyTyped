@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/leo-profanity": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Jack Humphries",
-            "githubUsername": "jackhumphries9"
-        }
-    ]
+    "owners": []
 }

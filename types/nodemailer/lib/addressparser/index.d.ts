@@ -6,7 +6,7 @@ declare namespace addressparser {
 
     interface Group {
         name: string;
-        group: AddressOrGroup[];
+        group: Address[];
     }
 
     type AddressOrGroup = Address | Group;

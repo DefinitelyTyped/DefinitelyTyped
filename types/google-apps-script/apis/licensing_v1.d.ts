@@ -72,7 +72,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminLicenseManager {
-        LicenseAssignments?: AdminLicenseManager.Collection.LicenseAssignmentsCollection | undefined;
+        LicenseAssignments: AdminLicenseManager.Collection.LicenseAssignmentsCollection;
         // Create a new instance of LicenseAssignment
         newLicenseAssignment(): AdminLicenseManager.Schema.LicenseAssignment;
         // Create a new instance of LicenseAssignmentInsert
@@ -80,4 +80,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var AdminLicenseManager: GoogleAppsScript.AdminLicenseManager;
+/**
+ * The `AdminLicenseManager` advanced service must be enabled.
+ */
+declare var AdminLicenseManager: GoogleAppsScript.AdminLicenseManager | undefined;

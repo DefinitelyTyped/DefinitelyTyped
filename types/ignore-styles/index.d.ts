@@ -1,6 +1,6 @@
 /// <reference types='node' />
 
-export type Handler = (m: NodeModule, filename: string) => any;
+export type Handler = (m: NodeJS.Module, filename: string) => any;
 
 export const DEFAULT_EXTENSIONS: string[];
 

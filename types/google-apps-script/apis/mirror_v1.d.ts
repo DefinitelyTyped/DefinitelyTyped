@@ -59,7 +59,7 @@ declare namespace GoogleAppsScript {
                 update(resource: Schema.Subscription, id: string): Mirror.Schema.Subscription;
             }
             interface TimelineCollection {
-                Attachments?: Mirror.Collection.Timeline.AttachmentsCollection | undefined;
+                Attachments: Mirror.Collection.Timeline.AttachmentsCollection;
                 // Gets a single timeline item by ID.
                 get(id: string): Mirror.Schema.TimelineItem;
                 // Inserts a new item into the timeline.
@@ -225,12 +225,12 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Mirror {
-        Accounts?: Mirror.Collection.AccountsCollection | undefined;
-        Contacts?: Mirror.Collection.ContactsCollection | undefined;
-        Locations?: Mirror.Collection.LocationsCollection | undefined;
-        Settings?: Mirror.Collection.SettingsCollection | undefined;
-        Subscriptions?: Mirror.Collection.SubscriptionsCollection | undefined;
-        Timeline?: Mirror.Collection.TimelineCollection | undefined;
+        Accounts: Mirror.Collection.AccountsCollection;
+        Contacts: Mirror.Collection.ContactsCollection;
+        Locations: Mirror.Collection.LocationsCollection;
+        Settings: Mirror.Collection.SettingsCollection;
+        Subscriptions: Mirror.Collection.SubscriptionsCollection;
+        Timeline: Mirror.Collection.TimelineCollection;
         // Create a new instance of Account
         newAccount(): Mirror.Schema.Account;
         // Create a new instance of Attachment
@@ -262,4 +262,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Mirror: GoogleAppsScript.Mirror;
+/**
+ * The `Mirror` advanced service must be enabled.
+ */
+declare var Mirror: GoogleAppsScript.Mirror | undefined;

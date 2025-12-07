@@ -5,11 +5,11 @@
     "projects": [
         "https://github.com/Updater/rollup-plugin-peer-deps-external"
     ],
-    "dependencies": {
-        "rollup": "^0.63.4"
-    },
     "devDependencies": {
         "@types/rollup-plugin-peer-deps-external": "workspace:."
+    },
+    "peerDependencies": {
+        "rollup": "*"
     },
     "owners": [
         {

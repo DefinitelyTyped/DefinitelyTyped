@@ -283,8 +283,8 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(callback: Callback<NetworkInspectInfo>): void;
+        inspect(): Promise<NetworkInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -2043,6 +2043,14 @@ declare namespace Dockerode {
         SpaceReclaimed: number;
     }
 
+    interface PruneBuilderOptions {
+        abortSignal?: AbortSignal;
+    }
+
+    interface PruneBuilderInfo {
+        SpaceReclaimed: number;
+    }
+
     interface PruneVolumesInfo {
         VolumesDeleted: string[];
         SpaceReclaimed: number;
@@ -2268,6 +2276,10 @@ declare class Dockerode {
     pruneImages(options: {}, callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(options?: {}): Promise<Dockerode.PruneImagesInfo>;
+
+    pruneBuilder(options: Dockerode.PruneBuilderOptions, callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(options?: Dockerode.PruneBuilderOptions): Promise<Dockerode.PruneBuilderInfo>;
 
     pruneContainers(options: {}, callback: Callback<Dockerode.PruneContainersInfo>): void;
     pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;

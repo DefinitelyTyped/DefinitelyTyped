@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zerobounce__zero-bounce-sdk",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/zerobounce/zero-bounce-javascript#readme"
+    ],
+    "devDependencies": {
+        "@types/zerobounce__zero-bounce-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ralph Rouhana",
+            "githubUsername": "ralphr123"
+        }
+    ]
+}

@@ -120,6 +120,10 @@ declare namespace braintree {
         voidedAt: RangeFieldSearchFn<Date>;
     }) => void;
 
+    export type DisputeSearchFn = (search: {
+        status: MultiValueSearchFn<DisputeStatus>;
+    }) => void;
+
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
 
     export class Environment {
@@ -262,7 +266,7 @@ declare namespace braintree {
         finalize(disputeId: string): Promise<ValidatedResponse<Dispute>>;
         find(disputeId: string): Promise<Dispute>;
         removeEvidence(disputeId: string, evidenceId: string): Promise<ValidatedResponse<Dispute>>;
-        search(searchFn: any): stream.Readable;
+        search(searchFn: DisputeSearchFn): stream.Readable;
     }
 
     interface MerchantAccountGateway {
@@ -307,7 +311,10 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<{ plans: Plan[] }>;
+        all(): Promise<Plan[]>;
+        find(planId: string): Promise<Plan>;
+        create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
+        update(planId: string, updates: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -318,14 +325,14 @@ declare namespace braintree {
     }
 
     interface SubscriptionGateway {
-        cancel(subscriptionId: string): Promise<void>;
+        cancel(subscriptionId: string): Promise<Subscription>;
         create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
             amount?: string,
             submitForSettlement?: boolean,
-        ): Promise<ValidatedResponse<Subscription>>;
+        ): Promise<ValidatedResponse<Transaction>>;
         search(searchFn: any): stream.Readable;
         update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
     }
@@ -1267,6 +1274,36 @@ declare namespace braintree {
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
         updatedAt: string;
+    }
+
+    export interface PlanCreateRequest {
+        addOns?:
+            | {
+                add?: AddOnAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: AddOnUpdateRequest[] | undefined;
+            }[]
+            | undefined;
+        billingDayOfMonth?: number | string | undefined;
+        billingFrequency: number | string;
+        currencyIsoCode: string;
+        description?: string | undefined;
+        discounts?:
+            | {
+                add?: DiscountAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: DiscountUpdateRequest[] | undefined;
+            }[]
+            | undefined;
+        id?: string | undefined;
+        modificationTokens?: string | undefined;
+        name: string;
+        neverExpires?: boolean | string | undefined;
+        numberOfBillingCycles?: number | string | undefined;
+        price: string | number;
+        trialDuration?: number | undefined;
+        trialDurationUnit?: string | undefined;
+        trialPeriod?: boolean | undefined;
     }
 
     /**
@@ -2306,20 +2343,41 @@ declare namespace braintree {
      * Errors
      */
 
-    export interface AuthenticationError extends Error {}
-    export interface AuthorizationError extends Error {}
-    export interface GatewayTimeoutError extends Error {}
-    export interface InvalidChallengeError extends Error {}
-    export interface InvalidKeysError extends Error {}
-    export interface InvalidSignatureError extends Error {}
-    export interface NotFoundError extends Error {}
-    export interface RequestTimeoutError extends Error {}
-    export interface ServerError extends Error {}
-    export interface ServiceUnavailableError extends Error {}
-    export interface TestOperationPerformedInProductionError extends Error {}
-    export interface TooManyRequestsError extends Error {}
-    export interface UnexpectedError extends Error {}
-    export interface UpgradeRequired extends Error {}
+    type ErrorType =
+        | "authenticationError"
+        | "authorizationError"
+        | "gatewayTimeoutError"
+        | "invalidChallengeError"
+        | "invalidKeysError"
+        | "invalidSignatureError"
+        | "notFoundError"
+        | "requestTimeoutError"
+        | "serverError"
+        | "serviceUnavailableError"
+        | "testOperationPerformedInProductionError"
+        | "tooManyRequestsError"
+        | "unexpectedError"
+        | "upgradeRequired";
+
+    export interface BraintreeError<T extends ErrorType> extends Error {
+        type: T;
+    }
+    export interface AuthenticationError extends BraintreeError<"authenticationError"> {}
+    export interface AuthorizationError extends BraintreeError<"authorizationError"> {}
+    export interface GatewayTimeoutError extends BraintreeError<"gatewayTimeoutError"> {}
+    export interface InvalidChallengeError extends BraintreeError<"invalidChallengeError"> {}
+    export interface InvalidKeysError extends BraintreeError<"invalidKeysError"> {}
+    export interface InvalidSignatureError extends BraintreeError<"invalidSignatureError"> {}
+    export interface NotFoundError extends BraintreeError<"notFoundError"> {}
+    export interface RequestTimeoutError extends BraintreeError<"requestTimeoutError"> {}
+    export interface ServerError extends BraintreeError<"serverError"> {}
+    export interface ServiceUnavailableError extends BraintreeError<"serviceUnavailableError"> {}
+    export interface TestOperationPerformedInProductionError
+        extends BraintreeError<"testOperationPerformedInProductionError">
+    {}
+    export interface TooManyRequestsError extends BraintreeError<"tooManyRequestsError"> {}
+    export interface UnexpectedError extends BraintreeError<"unexpectedError"> {}
+    export interface UpgradeRequired extends BraintreeError<"upgradeRequired"> {}
 
     /**
      * Validation errors

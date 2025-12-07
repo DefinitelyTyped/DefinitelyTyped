@@ -1525,6 +1525,19 @@ declare namespace TelegramBot {
         | BotCommandScopeChat
         | BotCommandScopeChatAdministrators
         | BotCommandScopeChatMember;
+
+    interface BotName {
+        name: string;
+    }
+
+    interface BotDescription {
+        description: string;
+    }
+
+    interface BotShortDescription {
+        short_description: string;
+    }
+
     interface WebAppInfo {
         url: string;
     }
@@ -2177,15 +2190,36 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
 
     setChatAdministratorCustomTitle(chatId: TelegramBot.ChatId, userId: number, customTitle: string): Promise<boolean>;
 
-    getMyCommands(scope?: TelegramBot.BotCommandScope, language_code?: string): Promise<TelegramBot.BotCommand[]>;
+    getMyCommands(
+        form?: { scope?: TelegramBot.BotCommandScope; language_code?: string },
+    ): Promise<TelegramBot.BotCommand[]>;
 
     setMyCommands(
         commands: TelegramBot.BotCommand[],
-        options?: {
+        form?: {
             language_code?: string;
             scope?: TelegramBot.BotCommandScope;
         },
     ): Promise<boolean>;
+
+    deleteMyCommands(
+        form?: {
+            language_code?: string;
+            scope?: TelegramBot.BotCommandScope;
+        },
+    ): Promise<boolean>;
+
+    setMyName(form?: { name?: string; language_code?: string }): Promise<boolean>;
+
+    getMyName(form?: { language_code?: string }): Promise<TelegramBot.BotName>;
+
+    setMyDescription(form?: { description?: string; language_code?: string }): Promise<boolean>;
+
+    getMyDescription(form?: { language_code?: string }): Promise<TelegramBot.BotDescription>;
+
+    setMyShortDescription(form?: { short_description?: string; language_code?: string }): Promise<boolean>;
+
+    getMyShortDescription(form?: { language_code?: string }): Promise<TelegramBot.BotShortDescription>;
 
     setChatMenuButton(form: { chat_id?: number; menu_button?: TelegramBot.MenuButton }): Promise<boolean>;
 

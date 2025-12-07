@@ -20,16 +20,27 @@ export {
     StreamStore,
 };
 
-export interface QueryOptions {
+export interface BaseQueryOptions {
     headers?: HeadersInit;
     operation?: "get" | "postUrlencoded" | "postDirect";
+    parameters?: { [key: string]: undefined | string | string[] };
+}
+
+export interface QueryOptions extends BaseQueryOptions {
+    defaultGraph?: string | string[];
+    namedGraph?: string | string[];
+}
+
+export interface UpdateOptions extends BaseQueryOptions {
+    usingGraph?: string | string[];
+    usingNamedGraph?: string | string[];
 }
 
 export interface Query<RAsk = unknown, RConstruct = unknown, RSelect = unknown, RUpdate = unknown> {
     ask(query: string, options?: QueryOptions): RAsk;
     construct(query: string, options?: QueryOptions): RConstruct;
     select(query: string, options?: QueryOptions): RSelect;
-    update(query: string, options?: QueryOptions): RUpdate;
+    update(query: string, options?: UpdateOptions): RUpdate;
 }
 
 export interface Store<Q extends BaseQuad> {

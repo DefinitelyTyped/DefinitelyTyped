@@ -295,7 +295,7 @@ declare namespace OSS {
         /** only search current dir, not including subdir */
         delimiter?: string | number;
         /** max objects, default is 100, limit to 1000  */
-        "max-keys"?: string;
+        "max-keys"?: string | number;
         /**
          * The name of the object from which the list operation begins.
          * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned.
@@ -693,9 +693,24 @@ declare namespace OSS {
 
         deleteMulti(names: string[], options?: DeleteMultiOptions): Promise<DeleteMultiResult>;
 
-        signatureUrl(name: string, options?: SignatureUrlOptions): string;
+        signatureUrl(name: string, options?: SignatureUrlOptions, strictObjectNameValidation?: boolean): string;
 
-        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
+        signatureUrlV4(
+            method: HTTPMethods,
+            expires: number,
+            request?: {
+                headers?: object | undefined;
+                queries?: object | undefined;
+            },
+            objectName?: string,
+            additionalHeaders?: string[],
+        ): Promise<string>;
+
+        asyncSignatureUrl(
+            name: string,
+            options?: SignatureUrlOptions,
+            strictObjectNameValidation?: boolean,
+        ): Promise<string>;
 
         putACL(name: string, acl: ACLType, options?: RequestOptions): Promise<NormalSuccessResponse>;
 
@@ -991,7 +1006,7 @@ declare class OSS {
     /**
      * List Objects in the bucket.(V2)
      */
-    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+    listV2(query: OSS.ListV2ObjectsQuery | null, options?: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
 
     /**
      * Add an object to the bucket.

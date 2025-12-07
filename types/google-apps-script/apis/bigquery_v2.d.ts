@@ -698,11 +698,11 @@ declare namespace GoogleAppsScript {
         }
     }
     interface BigQuery {
-        Datasets?: BigQuery.Collection.DatasetsCollection | undefined;
-        Jobs?: BigQuery.Collection.JobsCollection | undefined;
-        Projects?: BigQuery.Collection.ProjectsCollection | undefined;
-        Tabledata?: BigQuery.Collection.TabledataCollection | undefined;
-        Tables?: BigQuery.Collection.TablesCollection | undefined;
+        Datasets: BigQuery.Collection.DatasetsCollection;
+        Jobs: BigQuery.Collection.JobsCollection;
+        Projects: BigQuery.Collection.ProjectsCollection;
+        Tabledata: BigQuery.Collection.TabledataCollection;
+        Tables: BigQuery.Collection.TablesCollection;
         // Create a new instance of BigQueryModelTraining
         newBigQueryModelTraining(): BigQuery.Schema.BigQueryModelTraining;
         // Create a new instance of BigtableColumn
@@ -818,4 +818,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var BigQuery: GoogleAppsScript.BigQuery;
+/**
+ * The `BigQuery` advanced service must be enabled.
+ */
+declare var BigQuery: GoogleAppsScript.BigQuery | undefined;

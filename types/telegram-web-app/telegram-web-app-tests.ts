@@ -27,6 +27,8 @@ app.onEvent("viewportChanged", (e) => {
     else console.log("Changing, currently at ", app.viewportHeight);
 });
 
+app.hideKeyboard();
+
 app.showPopup(
     {
         message: "Hello",

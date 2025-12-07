@@ -1665,4 +1665,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Drive: GoogleAppsScript.Drive;
+/**
+ * The `Drive` advanced service must be enabled.
+ */
+declare var Drive: GoogleAppsScript.Drive | undefined;

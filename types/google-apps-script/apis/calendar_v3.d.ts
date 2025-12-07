@@ -653,14 +653,14 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Calendar {
-        Acl?: Calendar.Collection.AclCollection | undefined;
-        CalendarList?: Calendar.Collection.CalendarListCollection | undefined;
-        Calendars?: Calendar.Collection.CalendarsCollection | undefined;
-        Channels?: Calendar.Collection.ChannelsCollection | undefined;
-        Colors?: Calendar.Collection.ColorsCollection | undefined;
-        Events?: Calendar.Collection.EventsCollection | undefined;
-        Freebusy?: Calendar.Collection.FreebusyCollection | undefined;
-        Settings?: Calendar.Collection.SettingsCollection | undefined;
+        Acl: Calendar.Collection.AclCollection;
+        CalendarList: Calendar.Collection.CalendarListCollection;
+        Calendars: Calendar.Collection.CalendarsCollection;
+        Channels: Calendar.Collection.ChannelsCollection;
+        Colors: Calendar.Collection.ColorsCollection;
+        Events: Calendar.Collection.EventsCollection;
+        Freebusy: Calendar.Collection.FreebusyCollection;
+        Settings: Calendar.Collection.SettingsCollection;
         // Create a new instance of AclRule
         newAclRule(): Calendar.Schema.AclRule;
         // Create a new instance of AclRuleScope
@@ -728,4 +728,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Calendar: GoogleAppsScript.Calendar;
+/**
+ * The `Calendar` advanced service must be enabled.
+ */
+declare var Calendar: GoogleAppsScript.Calendar | undefined;

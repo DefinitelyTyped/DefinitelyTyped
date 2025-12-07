@@ -363,6 +363,12 @@ const videoDecoderConfig: VideoDecoderConfig = {
     codec: "avc1.64000c",
 };
 
+const videoDecoderConfigWithRotationAndFlip: VideoDecoderConfig = {
+    codec: "avc1.64000c",
+    rotation: 180,
+    flip: false,
+};
+
 // @ts-expect-error
 VideoDecoder.isConfigSupported();
 
@@ -370,6 +376,13 @@ VideoDecoder.isConfigSupported();
 VideoDecoder.isConfigSupported({ description: new Uint8Array(0) });
 
 VideoDecoder.isConfigSupported(videoDecoderConfig).then((result: VideoDecoderSupport) => {
+    // $ExpectType boolean | undefined
+    result.supported;
+    // $ExpectType VideoDecoderConfig | undefined
+    result.config;
+});
+
+VideoDecoder.isConfigSupported(videoDecoderConfigWithRotationAndFlip).then((result: VideoDecoderSupport) => {
     // $ExpectType boolean | undefined
     result.supported;
     // $ExpectType VideoDecoderConfig | undefined
@@ -417,6 +430,9 @@ videoDecoder.configure({ description: new Uint8Array(0) });
 
 // $ExpectType void
 videoDecoder.configure(videoDecoderConfig);
+
+// $ExpectType void
+videoDecoder.configure(videoDecoderConfigWithRotationAndFlip);
 
 // additional properties are allowed
 const futureVideoDecoderConfig = {
@@ -593,6 +609,10 @@ videoFrame.visibleRect?.height;
 videoFrame.displayWidth;
 // $ExpectType number
 videoFrame.displayHeight;
+// $ExpectType number | undefined
+videoFrame.rotation;
+// $ExpectType boolean | undefined
+videoFrame.flip;
 
 // @ts-expect-error
 new VideoFrame(new ArrayBuffer(1024), {

@@ -16,8 +16,11 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminGroupsMigration {
-        Archive?: AdminGroupsMigration.Collection.ArchiveCollection | undefined;
+        Archive: AdminGroupsMigration.Collection.ArchiveCollection;
     }
 }
 
-declare var AdminGroupsMigration: GoogleAppsScript.AdminGroupsMigration;
+/**
+ * The `AdminGroupsMigration` advanced service must be enabled.
+ */
+declare var AdminGroupsMigration: GoogleAppsScript.AdminGroupsMigration | undefined;
