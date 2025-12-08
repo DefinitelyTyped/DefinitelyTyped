@@ -99,7 +99,7 @@
 /types/ajv-async/                                       @dmitriismitnov
 /types/ajv-bsontype/                                    @adjerbetian
 /types/ajv-pack/                                        @qm3ster @ChristianMurphy
-/types/akamai-edgeworkers/                              @evan-hughes @wabain @swathimr @ananner @bmatthew
+/types/akamai-edgeworkers/                              @cdaley-akamai @wabain @yanakad @miliworking @lperra
 /types/akumina-core/                                    @akumina @jasonarden @MarshHawk
 /types/akumina-core/v4/                                 @akumina @jasonarden @MarshHawk
 /types/alcides/                                         @asaidimu
@@ -5493,7 +5493,7 @@
 /types/palx/                                            @mikefowler
 /types/pangu/                                           @plantain-00 @AH-dark
 /types/pannellum/                                       @zhirzh
-/types/papaparse/                                       @torpedro @rainshen49 @jfloff @johnnyreilly @albertorestifo @jliuhtonen @rbarbazz @peterblazejewicz @emmanuelgautier @OpportunityLiu @matsuby
+/types/papaparse/                                       @torpedro @rainshen49 @jfloff @johnnyreilly @albertorestifo @jliuhtonen @peterblazejewicz @emmanuelgautier @OpportunityLiu @matsuby
 /types/parallel-transform/                              @djcsdy
 /types/paralleljs/                                      @jbaldwin
 /types/parameter/                                       @zhyupe @Runtu4378
@@ -7209,6 +7209,8 @@
 /types/share-api-polyfill/                              @jnv
 /types/sharedb/                                         @soney @ericyhwang @pxpeterxu @alecgibson @pypmannetjies @craigbeck
 /types/sharepoint/                                      @gandjustas @andrei-markeev @teroarvola @dennispg @SPWizard01 @betlgtu
+/types/sharetribe-flex-integration-sdk/                 @jayenashar @venmartin
+/types/sharetribe-flex-sdk/                             @jayenashar @venmartin
 /types/sharpie/                                         @peterblazejewicz
 /types/shasum/                                          @TeamworkGuy2
 /types/shebang-command/                                 @BendingBender
@@ -7968,7 +7970,7 @@
 /types/typeof/                                          @OpenByteDev
 /types/typescript-deferred/                             @DirtyHairy
 /types/typo-js/                                         @whawker
-/types/typography/                                      @krzysztofzuraw @dominicfallows
+/types/typography/                                      @dominicfallows
 /types/typography-breakpoint-constants/                 @goblindegook
 /types/typopo/                                          @peterblazejewicz
 /types/typpy/                                           @BendingBender
