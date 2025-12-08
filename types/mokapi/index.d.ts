@@ -164,7 +164,7 @@ export interface HttpRequest {
     readonly operationId: string;
 
     /** Returns a string representing this HttpRequest object.  */
-    toString(): string
+    toString(): string;
 }
 
 /**

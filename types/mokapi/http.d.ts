@@ -113,7 +113,7 @@ export function options(url: string, body?: JSONValue, args?: Args): Response;
  *   maxRedirects: 2
  * });
  */
-export function fetch(url: string, opts?: FetchOptions): Promise<Response>
+export function fetch(url: string, opts?: FetchOptions): Promise<Response>;
 
 /**
  * Options for the {@link fetch} function.
