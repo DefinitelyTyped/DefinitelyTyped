@@ -162,6 +162,9 @@ export interface HttpRequest {
 
     /** OperationId defined in OpenAPI */
     readonly operationId: string;
+
+    /** Returns a string representing this HttpRequest object.  */
+    toString(): string
 }
 
 /**
@@ -170,7 +173,7 @@ export interface HttpRequest {
  */
 export interface HttpResponse {
     /** Object contains header parameters specified by OpenAPI header parameters. */
-    headers: { [key: string]: string };
+    headers: { [key: string]: any };
 
     /** Specifies the http status used to select the OpenAPI response definition. */
     statusCode: number;
@@ -192,11 +195,17 @@ export interface Url {
     /** URL host. */
     readonly host: string;
 
+    /** URL port */
+    readonly port: number;
+
     /** URL path. */
     readonly path: string;
 
     /** URL query string. */
     readonly query: string;
+
+    /** Returns a string representing this Url object.  */
+    toString(): string;
 }
 
 /**
@@ -429,20 +438,20 @@ export type DateLayout =
  */
 export interface EventArgs {
     /**
-     * Optional key-value pairs used to label the event in the dashboard.
+     * Adds or overrides existing tags used to label the event in dashboard
      */
     tags?: { [key: string]: string };
 
     /**
      * Set to `true` to enable tracking of this event handler in the dashboard.
-     * If omitted, Mokapi automatically checks whether the response object has
-     * been modified and tracks the handler only if a change is detected.
+     * Set to `false` to disable tracking. If omitted, Mokapi checks the response
+     * object to determine if the handler changed it, and tracks it accordingly.
      */
     track?: boolean;
 }
 
 /**
- * cheduledEventArgs is an object used by every and cron function.
+ * ScheduledEventHandler is an object used by every and cron function.
  * https://mokapi.io/docs/javascript-api/mokapi/eventhandler/scheduledeventargs
  * @example
  * export default function() {
