@@ -335,12 +335,14 @@ pool.on("remove", (client) => {
 });
 
 const listeners: {
-  [K in "error" | "release" | "connect" | "remove" | "acquire"]?: K extends "error" | "release" ? (err: Error, client: pg.PoolClient) => void : (client: pg.PoolClient) => void;
+    [K in "error" | "release" | "connect" | "remove" | "acquire"]?: K extends "error" | "release"
+        ? (err: Error, client: pg.PoolClient) => void
+        : (client: pg.PoolClient) => void;
 } = {};
 
-for(const eventName in listeners) {
+for (const eventName in listeners) {
     const listener = listeners[eventName as keyof typeof listeners];
-    if(listener) {
+    if (listener) {
         pool.on(eventName as keyof typeof listeners, listener);
     }
 }
