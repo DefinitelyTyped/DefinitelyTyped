@@ -33,6 +33,10 @@ export namespace DataSource {
         manual?: InvoiceHandlingMode;
         automatic?: InvoiceHandlingMode;
     }
+    interface AutoChurnSubscriptionSetting {
+        enabled: boolean;
+        interval: number | null;
+    }
     interface ExtraDataSourceParams {
         with_processing_status?: boolean;
         with_auto_churn_subscription_setting?: boolean;
@@ -45,7 +49,7 @@ export namespace DataSource {
         status?: DataSourceStatus;
         system?: string;
         processing_status?: ProcessingStatus;
-        auto_churn_subscription_setting?: boolean;
+        auto_churn_subscription_setting?: AutoChurnSubscriptionSetting;
         invoice_handling_setting?: InvoiceHandlingSetting;
     }
     interface DataSources {

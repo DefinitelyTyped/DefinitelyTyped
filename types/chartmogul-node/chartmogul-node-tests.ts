@@ -45,7 +45,8 @@ ChartMogul.DataSource.all(config).then(data => {
     data.data_sources[0].processing_status!.processed!; // $ExpectType number
     data.data_sources[0].processing_status!.pending!; // $ExpectType number
     data.data_sources[0].processing_status!.failed!; // $ExpectType number
-    data.data_sources[0].auto_churn_subscription_setting!; // $ExpectType boolean
+    data.data_sources[0].auto_churn_subscription_setting!.enabled; // $ExpectType boolean
+    data.data_sources[0].auto_churn_subscription_setting!.interval; // $ExpectType number | null
     data.data_sources[0].invoice_handling_setting!.manual!.create_subscription_when_invoice_is; // $ExpectType InvoiceHandlingTrigger
     data.data_sources[0].invoice_handling_setting!.manual!.update_subscription_when_invoice_is; // $ExpectType InvoiceHandlingTrigger
     data.data_sources[0].invoice_handling_setting!.manual!.prevent_subscription_for_invoice_voided; // $ExpectType boolean
