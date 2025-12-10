@@ -1,6 +1,11 @@
+import { JSONMeta } from "../core/Object3D.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
 import { Vector3 } from "../math/Vector3.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+
+export interface HemisphereLightJSON extends LightJSON {
+    groundColor: number;
+}
 
 /**
  * A light source positioned directly above the scene, with color fading from the sky color to the ground color.
@@ -58,4 +63,6 @@ export class HemisphereLight extends Light<undefined> {
      * @defaultValue `new THREE.Color()` set to white _(0xffffff)_.
      */
     groundColor: Color;
+
+    toJSON(meta?: JSONMeta): HemisphereLightJSON;
 }

@@ -1,4 +1,5 @@
 import ClippingNode from "../../nodes/accessors/ClippingNode.js";
+import ContextNode from "../../nodes/core/ContextNode.js";
 import LightingModel from "../../nodes/core/LightingModel.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
 import Node from "../../nodes/core/Node.js";
@@ -272,6 +273,12 @@ export interface NodeMaterialNodeProperties {
      * @default null
      */
     vertexNode: Node | null;
+    /**
+     * This node can be used as a global context management component for this material.
+     *
+     * @default null
+     */
+    contextNode: ContextNode | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

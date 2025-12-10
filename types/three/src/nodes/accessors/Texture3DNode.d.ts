@@ -15,3 +15,15 @@ export const texture3D: (
     uvNode?: Node | null,
     levelNode?: Node | number | null,
 ) => Texture3DNode;
+
+export const texture3DLoad: (
+    value: Texture,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+) => Texture3DNode;
+
+export const texture3DLevel: (
+    value: Texture,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+) => Texture3DNode;

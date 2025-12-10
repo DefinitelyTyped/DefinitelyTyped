@@ -36,7 +36,6 @@ export interface WebGLProgramParameters {
     instancingColor: boolean;
     instancingMorph: boolean;
 
-    supportsVertexTextures: boolean;
     outputColorSpace: string;
     alphaToCoverage: boolean;
 
