@@ -1,5 +1,6 @@
 import SteamUser = require("steam-user");
 import SteamID = require("steamid");
+import { AppInfoContent } from "steam-user";
 
 console.log(SteamUser.formatCurrency(12.34, SteamUser.ECurrencyCode.USD));
 console.log(SteamUser.formatCurrency(12345, SteamUser.ECurrencyCode.JPY));
@@ -94,7 +95,15 @@ user.getProductChanges(2)
 
 user.getProductInfo([730], [420])
     .then((response: SteamUser.ProductInfo) => {
-        // do something with response
+        // $ExpectType AppInfoContent
+        response.apps[0].appinfo;
+        const appinfo: AppInfoContent = response.apps[0].appinfo;
+        if (appinfo.common) {
+            void appinfo.extended.developer;
+            void appinfo.config.systemprofile;
+            void appinfo.common.associations["0"].name;
+            void appinfo.depots["0"].manifests.public.download;
+        }
     })
     .catch(err => console.error(err));
 

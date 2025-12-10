@@ -1462,12 +1462,12 @@ declare namespace SteamUser {
         [key: string]: any;
     }
 
-    type SteamDeckCompatibilityTest = {
+    interface SteamDeckCompatibilityTest {
       display: '4' | '1' | `${number}`;
       token: '#SteamDeckVerified_TestResult_DefaultControllerConfigFullyFunctional' | string;
-    };
+    }
 
-    type SteamDeckCompatibilityConfiguration = {
+    interface SteamDeckCompatibilityConfiguration {
       supported_input: 'gamepad' | string;
       requires_manual_keyboard_invoke: '0' | `${number}`;
       requires_non_controller_launcher_nav: '0' | `${number}`;
@@ -1481,9 +1481,9 @@ declare namespace SteamUser {
       requires_voice_files: '0' | `${number}`;
       gamescope_frame_limiter_not_supported: '0' | `${number}`;
       hdr_support: '0' | `${number}`;
-    };
+    }
 
-    type SteamDeckCompatibility = {
+    interface SteamDeckCompatibility {
       category: '3' | `${number}`;
       steamos_compatibility: '2' | `${number}`;
       test_timestamp: '1700265600' | `${number}`;
@@ -1491,16 +1491,16 @@ declare namespace SteamUser {
       tests: Record<`${number}`, SteamDeckCompatibilityTest>;
       steamos_tests: Record<`${number}`, SteamDeckCompatibilityTest>;
       configuration: SteamDeckCompatibilityConfiguration;
-    };
+    }
 
-    type SupportedLanguageData = {
+    interface SupportedLanguageData {
       english: {
         supported: 'true' | string;
         full_audio: 'true' | string;
       };
-    };
+    }
 
-    type LibraryAssets = {
+    interface LibraryAssets {
       library_capsule: 'en' | string;
       library_hero: 'en' | string;
       library_logo: 'en' | string;
@@ -1509,9 +1509,9 @@ declare namespace SteamUser {
         width_pct: '77.01516064953753' | `${number}`;
         height_pct: '43.685387882494695' | `${number}`;
       };
-    };
+    }
 
-    type LibraryAssetsFull = {
+    interface LibraryAssetsFull {
       library_capsule: {
         image: {
           english: 'library_600x900.jpg' | string;
@@ -1541,9 +1541,9 @@ declare namespace SteamUser {
           english: 'logo_2x.png' | string;
         };
       };
-    };
+    }
 
-    type AppInfoCommon = {
+    interface AppInfoCommon {
       clienticon: 'd991f95d96e1c76d2acb944bb09447628cd96caa' | string;
       clienttga: 'b3f33e2fd5e6eee2f2f27fe5b10b1c78683a3363' | string;
       icon: '95be6d131fc61f145797317ca437c9765f24b41c' | string;
@@ -1587,15 +1587,15 @@ declare namespace SteamUser {
       store_tags: Record<`${number}`, `${number}`>;
       review_score: `${number}`;
       review_percentage: `${number}`;
-    };
+    }
 
-    type DepotManifest = {
+    interface DepotManifest {
       gid: '724247850320422500' | `${number}`;
       size: '49814373' | `${number}`;
       download: '19297632' | `${number}`;
-    };
+    }
 
-    type AppInfoDepot = {
+    interface AppInfoDepot {
       config: {
         oslist?: 'windows' | string;
         language: '' | 'french' | string;
@@ -1606,26 +1606,26 @@ declare namespace SteamUser {
         steam_legacy: DepotManifest;
         beta: DepotManifest;
       };
-    };
+    }
 
-    type SaveFile = {
+    interface SaveFile {
       root: 'gameinstall' | string;
       path: 'valve/SAVE' | 'valve' | string;
       pattern: '*.*' | '*.cfg' | string;
       recursive?: '1';
       platforms: Record<`${number}`, 'all' | string>;
-    };
+    }
 
-    type Launch = {
+    interface Launch {
       executable: 'hl.exe' | 'hl.sh' | string;
       arguments: '-steam' | string;
       vacmodulefilename: 'resource\\sourceinit.dat' | 'resource\\sourceinit_macos.dat' | string;
       config: {
         oslist: 'windows' | 'macos' | 'linux';
       };
-    };
+    }
 
-    type AppInfoExtended = {
+    interface AppInfoExtended {
       developer: 'Valve' | string;
       gamedir: 'valve' | string;
       homepage: 'http://www.half-life.com/' | string;
@@ -1642,9 +1642,9 @@ declare namespace SteamUser {
       publisher: 'Valve' | string;
       aliases: 'hl1' | string;
       listofdlc: '632440' | `${number}`;
-    };
+    }
 
-    type AppInfoConfig = {
+    interface AppInfoConfig {
       launch: Record<`${number}`, Launch>;
       systemprofile: '1' | `${number}`;
       contenttype: '3' | `${number}`;
@@ -1664,19 +1664,19 @@ declare namespace SteamUser {
       uselaunchcommandline: '1' | `${number}`;
       steaminputmanifestpath: 'valve\\controller_configs\\hl1_manifest.vdf' | string;
       steamconfigurator3rdpartynative: '65531' | `${number}`;
-    };
+    }
 
-    type AppInfoContentUnpublished = {
+    interface AppInfoContentUnpublished {
       appid: `${number}`;
       public_only: '1';
       common?: never;
-    };
+    }
 
     /**
      * this type definition was based on a specific data sample - there may, possibly,
      * be other fields in this structure, and some of the fields may, possibly, be optional
      */
-    export type AppInfoContentPublished = {
+    export interface AppInfoContentPublished {
       appid: `${number}`;
       common: AppInfoCommon;
       extended: AppInfoExtended;
@@ -1687,7 +1687,7 @@ declare namespace SteamUser {
         maxnumfiles: '500' | `${number}`;
         savefiles: Record<`${number}`, SaveFile>;
       };
-    };
+    }
 
     export type AppInfoContent = AppInfoContentUnpublished | AppInfoContentPublished;
 
