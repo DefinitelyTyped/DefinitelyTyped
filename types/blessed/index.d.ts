@@ -2183,6 +2183,12 @@ export namespace Widgets {
          * Original options object.
          */
         options: BoxOptions;
+
+        /**
+         * Content/Text alignment
+         */
+        align: "left" | "center" | "right";
+        valign: "top" | "middle" | "bottom";
     }
 
     interface TextOptions extends ElementOptions {

@@ -23,6 +23,8 @@ export interface GsiButtonConfiguration {
     logo_alignment?: "left" | "center";
     width?: number;
     locale?: string;
+    click_listener?: () => void;
+    state?: string;
 }
 
 export interface CredentialResponse {

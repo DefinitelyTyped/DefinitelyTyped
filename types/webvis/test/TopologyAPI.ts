@@ -65,6 +65,8 @@ function test(testContext: webvis.ContextAPI): void {
         topoHandle1,
     ]);
 
+    const shapeHandles: Promise<webvis.TopologyHandle[]> = testContext.requestShapeHandles(1);
+
     const topoDescriptor: Promise<webvis.TopologyDescriptor> = testContext.requestTopologyDescriptor(
         topoHandle0,
     );
@@ -88,4 +90,7 @@ function test(testContext: webvis.ContextAPI): void {
 
     const setTopoSelectionPromise: Promise<void> = testContext.setTopologySelection(topoHandle0);
     const setToposSelectionPromise: Promise<void> = testContext.setTopologySelection([topoHandle0, topoHandle1]);
+
+    const neighboringEdgesPromise: Promise<webvis.TopologyHandle[]> = testContext.requestNeighboringEdges(topoHandle0);
+    const neighboringFacesPromise: Promise<webvis.TopologyHandle[]> = testContext.requestNeighboringFaces(topoHandle0);
 }
