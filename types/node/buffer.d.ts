@@ -203,7 +203,7 @@ declare module "buffer" {
          * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
          * @since v16.7.0
          */
-        stream(): WebReadableStream;
+        stream(): WebReadableStream<Uint8Array>;
     }
     export interface FileOptions {
         /**
