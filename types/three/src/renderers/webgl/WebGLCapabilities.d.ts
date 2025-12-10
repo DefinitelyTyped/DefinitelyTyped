@@ -42,7 +42,7 @@ export class WebGLCapabilities {
     maxVaryings: number;
     maxFragmentUniforms: number;
 
-    vertexTextures: boolean;
-
     maxSamples: number;
+
+    samples: number;
 }

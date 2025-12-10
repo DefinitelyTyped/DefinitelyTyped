@@ -1,9 +1,22 @@
-import { Object3D } from "../core/Object3D.js";
+import { JSONMeta, Object3D } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Texture } from "../textures/Texture.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+import { LightShadowJSON } from "./LightShadow.js";
 import { SpotLightShadow } from "./SpotLightShadow.js";
+
+export interface SpotLightJSON extends LightJSON {
+    distance: number;
+    angle: number;
+    decay: number;
+    penumbra: number;
+
+    target: string;
+    map?: string | undefined;
+
+    shadow: LightShadowJSON;
+}
 
 /**
  * This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.
@@ -161,4 +174,6 @@ export class SpotLight extends Light<SpotLightShadow> {
      * @remarks **Warning**: {@link SpotLight.map} is disabled if {@link SpotLight.castShadow} is `false`.
      */
     map: Texture | null;
+
+    toJSON(meta?: JSONMeta): SpotLightJSON;
 }

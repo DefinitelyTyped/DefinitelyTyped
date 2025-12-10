@@ -1,5 +1,5 @@
 import { Camera } from "../cameras/Camera.js";
-import { CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { CullFace, ShadowMapType, TextureDataType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
 import { TypedArray } from "../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
@@ -76,6 +76,11 @@ export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
      * default is false.
      */
     failIfMajorPerformanceCaveat?: boolean | undefined;
+
+    /**
+     * @default UnsignedByteType
+     */
+    outputBufferType?: TextureDataType | undefined;
 }
 
 export interface WebGLDebug {
@@ -98,6 +103,17 @@ export interface WebGLDebug {
             glFragmentShader: WebGLShader,
         ) => void)
         | null;
+}
+
+export interface Effect {
+    setSize(width: number, height: number): void;
+    render(
+        renderer: WebGLRenderer,
+        writeBuffer: WebGLRenderTarget,
+        readBuffer: WebGLRenderTarget,
+        deltaTime: number,
+        maskActive: boolean,
+    ): void;
 }
 
 /**
@@ -228,15 +244,17 @@ export class WebGLRenderer {
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
 
-    getDrawingBufferSize(target: Vector2): Vector2;
-    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
-
     getSize(target: Vector2): Vector2;
 
     /**
      * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
      */
     setSize(width: number, height: number, updateStyle?: boolean): void;
+
+    getDrawingBufferSize(target: Vector2): Vector2;
+    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
+
+    setEffects(effects: Effect[] | null): void;
 
     getCurrentViewport(target: Vector4): Vector4;
 

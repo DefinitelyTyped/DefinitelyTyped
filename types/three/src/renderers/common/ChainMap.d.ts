@@ -8,11 +8,18 @@ type RecursiveWeakMap<K extends readonly object[], V> = WeakMap<K[number], V | R
  * @private
  */
 declare class ChainMap<K extends readonly object[], V> {
-    weakMap: RecursiveWeakMap<K, V>;
+    weakMaps: Record<number, RecursiveWeakMap<K, V>>;
     /**
      * Constructs a new Chain Map.
      */
     constructor();
+    /**
+     * Returns the Weak Map for the given keys.
+     *
+     * @param {Array<Object>} keys - List of keys.
+     * @return {WeakMap} The weak map.
+     */
+    _getWeakMap(keys: K): RecursiveWeakMap<K, V>;
     /**
      * Returns the value for the given array of keys.
      *

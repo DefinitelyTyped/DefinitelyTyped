@@ -25,3 +25,5 @@ export const VSMShadowFilter: (
 ) => Node;
 
 export const getShadowMaterial: (light: Light) => NodeMaterial;
+
+export const disposeShadowMaterial: (light: Light) => void;

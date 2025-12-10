@@ -26,7 +26,7 @@ export interface ShaderMaterialProperties extends MaterialProperties {
      * #define BAR true
      * ```
      */
-    defines: { [key: string]: any };
+    defines: Record<string, unknown>;
     /**
      * An object of the form:
      * ```js
@@ -85,8 +85,21 @@ export interface ShaderMaterialProperties extends MaterialProperties {
      */
     wireframeLinewidth: number;
     /**
-     * Define whether the material color is affected by global fog settings; `true`
+     * Defines whether the material color is affected by global fog settings; `true`
      * to pass fog uniforms to the shader.
+     *
+     * Setting this property to `true` requires the definition of fog uniforms. It is
+     * recommended to use `UniformsUtils.merge()` to combine the custom shader uniforms
+     * with predefined fog uniforms.
+     *
+     * ```js
+     * const material = new ShaderMaterial( {
+     *     uniforms: UniformsUtils.merge( [ UniformsLib[ 'fog' ], shaderUniforms ] );
+     *     vertexShader: vertexShader,
+     *     fragmentShader: fragmentShader,
+     *     fog: true
+     * } );
+     * ```
      *
      * @default false
      */
@@ -248,4 +261,6 @@ export class ShaderMaterial extends Material {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ShaderMaterial extends ShaderMaterialProperties {}
+export interface ShaderMaterial extends ShaderMaterialProperties {
+    defines: Record<string, unknown>;
+}

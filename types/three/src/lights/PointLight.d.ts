@@ -1,6 +1,15 @@
+import { JSONMeta } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+import { LightShadowJSON } from "./LightShadow.js";
 import { PointLightShadow } from "./PointLightShadow.js";
+
+export interface PointLightJSON extends LightJSON {
+    distance: number;
+    decay: number;
+
+    shadow: LightShadowJSON;
+}
 
 /**
  * A light that gets emitted from a single point in all directions
@@ -99,4 +108,6 @@ export class PointLight extends Light<PointLightShadow> {
      * @remarks Expects a `Float`
      */
     power: number;
+
+    toJSON(meta?: JSONMeta): PointLightJSON;
 }
