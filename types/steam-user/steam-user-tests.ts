@@ -98,11 +98,25 @@ user.getProductInfo([730], [420])
         // $ExpectType AppInfoContent
         response.apps[0].appinfo;
         const appinfo: AppInfoContent = response.apps[0].appinfo;
-        if (appinfo.common) {
-            void appinfo.extended.developer;
-            void appinfo.config.systemprofile;
+        if (!appinfo.common) {
+            return;
+        }
+        if (appinfo.common.associations) {
             void appinfo.common.associations["0"].name;
-            void appinfo.depots["0"].manifests.public.download;
+        }
+        if (
+            "extended" in appinfo
+            && appinfo.extended
+            && "developer" in appinfo.extended
+        ) {
+            void appinfo.extended.developer;
+        }
+        if (
+            "config" in appinfo
+            && appinfo.config
+            && "installdir" in appinfo.config
+        ) {
+            void appinfo.config.installdir;
         }
     })
     .catch(err => console.error(err));
@@ -361,3 +375,392 @@ user.on("packageUpdate", (packageid: number, data: SteamUser.PackageInfo) => {
     // $ExpectType PackageInfo
     data;
 });
+
+const DLC_EXAMPLE: AppInfoContent = {
+    "appid": "4079770",
+    "common": {
+        "name": "Skull & Bones - Seasonal Boatload Bundle Y2S3 Ubisoft Activation",
+        "type": "DLC",
+        "parent": "2853730",
+        "releasestate": "released",
+        "oslist": "windows",
+        "osarch": "64",
+        "osextended": "",
+        "gameid": "4079770",
+        "exfgls": "9",
+    },
+    "extended": {
+        "dlcforappid": "2853730",
+        "mustownapptopurchase": "2853730",
+        "legacykeyproofofpurchaseticket": "1",
+        "legacykeylinkedexternally": "1",
+        "legacykeyregistrationmethod": "api",
+        "proofofpurchaseticketrevision": "2",
+    },
+};
+
+const GAME_EXAMPLE_WITHOUT_EXTENSION_EXAMPLE: AppInfoContent = {
+    "appid": "3822170",
+    "public_only": "1",
+    "common": {
+        "name": "Mythical Haven",
+        "type": "Game",
+        "releasestate": "prerelease",
+        "oslist": "windows,linux",
+        "osarch": "",
+        "osextended": "",
+        "icon": "382426adc9164d18f252372d6e3f1863231128bc",
+        "clienttga": "068c5e7b9badc6e501553b8a8ca0d50f457c4562",
+        "clienticon": "5a5f3ca693e70b6f09053cc9d4acfd26177816a4",
+        "community_hub_visible": "1",
+        "gameid": "3822170",
+        "exfgls": "8",
+        "store_tags": {
+            "0": "597",
+            "1": "122",
+        },
+    },
+};
+
+const DEMO_EXAMPLE: AppInfoContent = {
+    "appid": "3592810",
+    "common": {
+        "name": "LOCURA Demo",
+        "type": "Demo",
+        "parent": "2492990",
+        "clienttga": "57446c0b1de50d238a53901c7a525d9cee8af7c4",
+        "clienticon": "4f3ee44d3e136ee3c56d30318b4ae386e64b1b40",
+        "oslist": "windows",
+        "osarch": "",
+        "osextended": "",
+        "icon": "7600c38504523ef3f10d6fe50d20b065bdef192f",
+        "releasestate": "released",
+        "gameid": "3592810",
+        "exfgls": "6",
+    },
+    "config": {
+        "installdir": "LOCURA Demo",
+        "launch": {
+            "0": {
+                "executable": "Locura_demo.exe",
+                "type": "default",
+                "config": {
+                    "oslist": "windows",
+                },
+            },
+        },
+    },
+    "depots": {
+        "3592811": {
+            "config": {
+                "oslist": "windows",
+            },
+            "manifests": {
+                "public": {
+                    "gid": "228799882111373695",
+                    "size": "11798240078",
+                    "download": "10862096800",
+                },
+            },
+        },
+        "baselanguages": "english",
+        "branches": {
+            "public": {
+                "buildid": "20162272",
+                "timeupdated": "1759341545",
+            },
+        },
+    },
+};
+
+const MEDIA_EXAMPLE: AppInfoContent = {
+    "appid": "5004",
+    "common": {
+        "clienttga": "e9722032ee5aa7bccb26cfdda0bb1b263cf8854d",
+        "name": "Alpha Prime Trailer 2",
+        "type": "media",
+        "freeondemand": "1",
+        "gameid": "5004",
+    },
+    "extended": {
+        "developer": "Black Element Software",
+        "gamedir": "seet",
+        "homepage": "http://www.alpha-prime.com/",
+        "icon": "steam/games/icon_movie",
+        "ismediafile": "1",
+        "mediafiletype": "Movie",
+        "order": "1",
+        "primarycache": "5004",
+    },
+    "config": {
+        "shortname": "5004Media",
+        "installdir": "Alpha Prime Trailer 2",
+        "contenttype": "3",
+        "launch": {
+            "main": {
+                "executable": "smp.exe",
+                "arguments": "/redirect steam://advertise/2590 ap_trailer.wmv",
+                "description": "Alpha Prime Trailer 2",
+            },
+        },
+    },
+    "depots": {
+        "910": {
+            "systemdefined": "1",
+            "manifests": {
+                "public": {
+                    "gid": "1332084816209327708",
+                    "size": "266240",
+                    "download": "0",
+                },
+            },
+        },
+        "5004": {
+            "systemdefined": "1",
+            "manifests": {
+                "public": {
+                    "gid": "4121846428408586738",
+                    "size": "94262425",
+                    "download": "0",
+                },
+            },
+        },
+        "overridescddb": "1",
+        "branches": {
+            "public": {
+                "buildid": "250795",
+            },
+        },
+    },
+};
+
+const TEST_DLC_EXAMPLE: AppInfoContent = {
+    "appid": "20004",
+    "common": {
+        "type": "dlc",
+        "parent": "20000",
+        "name": "ValveTestApp20004",
+        "gameid": "20004",
+    },
+};
+
+const GUIDE_EXAMPLE: AppInfoContent = {
+    "appid": "22800",
+    "common": {
+        "name": "Far Cry 2: Prima Official eGuide",
+        "type": "guide",
+        "gameid": "22800",
+    },
+    "extended": {
+        "developer": "",
+        "gamedir": "Far Cry 2 Prima Official Strategy Guide",
+        "guideurl": "http://steam.primagames.com/?CDKey=%cdkey%",
+        "homepage": "",
+        "icon": "",
+        "legacykeyregistrationmethod": "registry",
+        "legacykeyregistrylocation": "HKEY_CURRENT_USER\\Software\\Valve\\TestApp22800\\SteamKey",
+        "noservers": "1",
+        "order": "1",
+        "primarycache": "7",
+        "serverbrowsername": "",
+        "state": "eStateAvailable",
+        "visibleonlywhensubscribed": "1",
+    },
+};
+
+const CONFIG_EXAMPLE: AppInfoContent = {
+    "appid": "203230",
+    "common": {
+        "name": "Risen 2 Continued",
+        "type": "config",
+        "gameid": "203230",
+    },
+    "config": {
+        "contenttype": "3",
+        "installdir": "Risen 2",
+    },
+};
+
+const BETA_EXAMPLE: AppInfoContent = {
+    "appid": "219540",
+    "common": {
+        "name": "Arma 2: Operation Arrowhead Beta (Obsolete)",
+        "type": "Beta",
+        "logo": "c2ea07874fb1a776e4c5bfc659e5f296d656777d",
+        "logo_small": "c2ea07874fb1a776e4c5bfc659e5f296d656777d_thumb",
+        "clienticon": "46fbb4263cc8ab442cd939c5434d05b49d9d945f",
+        "clienttga": "66c958a4ce9cb6a72409ab7c8772b40ba3cd24ee",
+        "icon": "32431d84014bf4652181f45bc7c06f1ca3f34363",
+        "parent": "33930",
+        "community_hub_visible": "1",
+        "gameid": "219540",
+        "exfgls": "6",
+    },
+    "extended": {
+        "developer": "",
+        "gamedir": "ValveTestApp219540",
+        "homepage": "",
+        "icon": "",
+        "noservers": "0",
+        "sourcegame": "1",
+        "state": "eStateAvailable",
+        "thirdpartycdkey": "1",
+        "visibleonlywhensubscribed": "1",
+        "no_revenue_accumulation": "1",
+    },
+    "config": {
+        "contenttype": "3",
+        "installdir": "arma 2 operation arrowhead",
+        "launch": {
+            "0": {
+                "executable": "Expansion\\beta\\Arma2OA.exe",
+                "arguments": "-beta=Expansion\\beta;Expansion\\beta\\Expansion",
+                "description": "Launch Beta",
+                "workingdir": ".\\",
+            },
+        },
+        "installscriptsignature":
+            "072d84fde2ef0ae5baf2e9dc1178cfcf141cba641b98854cb3ebe850f01729917320c9220d55f15f72f92a2a9d6f16a181050b8a3a4be357fdb238c7da4e35bb840c4a16b3e95a39e0115aff6d833a959ad1228d72fe2307a4ea49579e53c9fca6fbcc2162524f17602c60fef0b3b2a0a3884fecab217320d74083530c2cc01c",
+        "installscriptoverride": "1",
+        "externalregistrationurl": {
+            "english": "http://www.arma2.com",
+        },
+    },
+    "install": {
+        "registry if not present": {},
+        "registry": {},
+        "run process": {
+            "battleyeoabeta": {
+                "hasrunkey": "HKEY_LOCAL_MACHINE\\Software\\Valve\\Steam\\Apps\\219540",
+                "description": "BattlEye Anti-Cheat software for ARMA 2 OA beta",
+                "process 1": "%INSTALLDIR%\\expansion\\beta\\setup_BattlEyeARMA2OA.exe",
+                "ignoreexitcode": "0",
+                "nocleanup": "0",
+                "minimumhasrunvalue": "2",
+                "ascurrentuser": "0",
+            },
+        },
+        "arma 2 cd key": {
+            "registrypath": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive Studio\\ArmA 2 OA\\KEY",
+        },
+        "ea oreg": {
+            "string": {
+                "english": {
+                    "url": "http://www.arma2.com",
+                },
+            },
+        },
+    },
+    "depots": {
+        "219541": {
+            "systemdefined": "1",
+            "manifests": {
+                "public": {
+                    "gid": "6550263247666884023",
+                    "size": "52543197",
+                    "download": "0",
+                },
+                "beta108074": {
+                    "gid": "7888478692897229357",
+                    "size": "40378810",
+                    "download": "0",
+                },
+                "beta112555": {
+                    "gid": "3651664637375018602",
+                    "size": "40379023",
+                    "download": "0",
+                },
+                "test": {
+                    "gid": "6550263247666884023",
+                    "size": "52543197",
+                    "download": "0",
+                },
+            },
+        },
+        "preloadonly": "1",
+        "overridescddb": "1",
+        "branches": {
+            "public": {
+                "buildid": "238935",
+            },
+            "beta108074": {
+                "buildid": "93738",
+            },
+            "beta112555": {
+                "buildid": "145144",
+            },
+            "test": {
+                "buildid": "238935",
+            },
+        },
+    },
+};
+
+const APPLICATION_EXAMPLE: AppInfoContent = {
+    "appid": "227980",
+    "common": {
+        "name": "Construct 2 Personal",
+        "type": "Application",
+        "icon": "fd7e273e97b6ec0a0102bf5fe6768d58317cfabb",
+        "clienttga": "74746519eca10cd477396d1ed44aa2475ee09931",
+        "clienticon": "c142f28be4fd1fae021a7e5233a7b765b56f1fa9",
+        "oslist": "windows",
+        "community_hub_visible": "1",
+        "gameid": "227980",
+        "exfgls": "6",
+    },
+    "extended": {
+        "checkpkgstate": "1",
+        "developer": "",
+        "disableoverlay": "1",
+        "gamedir": "ValveTestApp227980",
+        "homepage": "",
+        "icon": "",
+        "noservers": "0",
+        "sourcegame": "1",
+        "state": "eStateComingSoonNoPreload",
+        "visibleonlywhensubscribed": "1",
+    },
+    "config": {
+        "contenttype": "3",
+        "installdir": "Construct2",
+        "launch": {
+            "0": {
+                "executable": "Construct2.exe",
+                "description": "Launch Construct 2",
+                "config": {
+                    "oslist": "windows",
+                },
+            },
+        },
+    },
+    "depots": {
+        "227241": {
+            "systemdefined": "1",
+            "config": {
+                "language": "english",
+                "oslist": "windows",
+            },
+            "depotfromapp": "227240",
+            "sharedinstall": "2",
+        },
+        "overridescddb": "1",
+    },
+};
+
+const VIDEO_EXAMPLE: AppInfoContent = {
+    "appid": "373022",
+    "common": {
+        "name": "Blender: 1.3 UI Basics - Layout Customization",
+        "type": "Video",
+        "parent": "373020",
+        "oslist": "windows,macos,linux",
+        "releasestate": "released",
+        "community_hub_visible": "1",
+        "gameid": "373022",
+        "exfgls": "6",
+    },
+    "config": {
+        "videoid": "7527155574822378568",
+    },
+};

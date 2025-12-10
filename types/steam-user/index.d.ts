@@ -1463,233 +1463,515 @@ declare namespace SteamUser {
     }
 
     interface SteamDeckCompatibilityTest {
-      display: '4' | '1' | `${number}`;
-      token: '#SteamDeckVerified_TestResult_DefaultControllerConfigFullyFunctional' | string;
+        display: "4" | "1" | `${number}`;
+        token: "#SteamDeckVerified_TestResult_DefaultControllerConfigFullyFunctional" | string;
     }
 
     interface SteamDeckCompatibilityConfiguration {
-      supported_input: 'gamepad' | string;
-      requires_manual_keyboard_invoke: '0' | `${number}`;
-      requires_non_controller_launcher_nav: '0' | `${number}`;
-      primary_player_is_controller_slot_0: '1' | `${number}`;
-      non_deck_display_glyphs: '0' | `${number}`;
-      small_text: '0' | `${number}`;
-      requires_internet_for_setup: '0' | `${number}`;
-      requires_internet_for_singleplayer: '0' | `${number}`;
-      recommended_runtime: 'native' | string;
-      requires_h264: '0' | `${number}`;
-      requires_voice_files: '0' | `${number}`;
-      gamescope_frame_limiter_not_supported: '0' | `${number}`;
-      hdr_support: '0' | `${number}`;
+        supported_input: "gamepad" | string;
+        requires_manual_keyboard_invoke: "0" | `${number}`;
+        requires_non_controller_launcher_nav: "0" | `${number}`;
+        primary_player_is_controller_slot_0: "1" | `${number}`;
+        non_deck_display_glyphs: "0" | `${number}`;
+        small_text: "0" | `${number}`;
+        requires_internet_for_setup: "0" | `${number}`;
+        requires_internet_for_singleplayer: "0" | `${number}`;
+        recommended_runtime: "native" | string;
+        requires_h264: "0" | `${number}`;
+        requires_voice_files: "0" | `${number}`;
+        gamescope_frame_limiter_not_supported: "0" | `${number}`;
+        hdr_support: "0" | `${number}`;
     }
 
     interface SteamDeckCompatibility {
-      category: '3' | `${number}`;
-      steamos_compatibility: '2' | `${number}`;
-      test_timestamp: '1700265600' | `${number}`;
-      tested_build_id: '12705647' | `${number}`;
-      tests: Record<`${number}`, SteamDeckCompatibilityTest>;
-      steamos_tests: Record<`${number}`, SteamDeckCompatibilityTest>;
-      configuration: SteamDeckCompatibilityConfiguration;
+        category: "3" | `${number}`;
+        steamos_compatibility: "2" | `${number}`;
+        test_timestamp: "1700265600" | `${number}`;
+        tested_build_id: "12705647" | `${number}`;
+        tests: Record<`${number}`, SteamDeckCompatibilityTest>;
+        steamos_tests: Record<`${number}`, SteamDeckCompatibilityTest>;
+        configuration: SteamDeckCompatibilityConfiguration;
     }
 
     interface SupportedLanguageData {
-      english: {
-        supported: 'true' | string;
-        full_audio: 'true' | string;
-      };
+        english: {
+            supported: "true" | string;
+            full_audio: "true" | string;
+        };
     }
 
     interface LibraryAssets {
-      library_capsule: 'en' | string;
-      library_hero: 'en' | string;
-      library_logo: 'en' | string;
-      logo_position: {
-        pinned_position: 'BottomCenter' | string;
-        width_pct: '77.01516064953753' | `${number}`;
-        height_pct: '43.685387882494695' | `${number}`;
-      };
+        library_capsule: "en" | string;
+        library_hero: "en" | string;
+        library_logo: "en" | string;
+        logo_position: {
+            pinned_position: "BottomCenter" | string;
+            width_pct: "77.01516064953753" | `${number}`;
+            height_pct: "43.685387882494695" | `${number}`;
+        };
     }
 
     interface LibraryAssetsFull {
-      library_capsule: {
-        image: {
-          english: 'library_600x900.jpg' | string;
+        library_capsule: {
+            image: {
+                english: "library_600x900.jpg" | string;
+            };
+            image2x: {
+                english: "library_600x900_2x.jpg" | string;
+            };
         };
-        image2x: {
-          english: 'library_600x900_2x.jpg' | string;
+        library_hero: {
+            image: {
+                english: "library_hero.jpg" | string;
+            };
+            image2x: {
+                english: "library_hero_2x.jpg" | string;
+            };
         };
-      };
-      library_hero: {
-        image: {
-          english: 'library_hero.jpg' | string;
+        library_logo: {
+            logo_position: {
+                pinned_position: "BottomCenter" | string;
+                width_pct: "77.01516064953753" | `${number}`;
+                height_pct: "43.685387882494695" | `${number}`;
+            };
+            image: {
+                english: "logo.png" | string;
+            };
+            image2x: {
+                english: "logo_2x.png" | string;
+            };
         };
-        image2x: {
-          english: 'library_hero_2x.jpg' | string;
-        };
-      };
-      library_logo: {
-        logo_position: {
-          pinned_position: 'BottomCenter' | string;
-          width_pct: '77.01516064953753' | `${number}`;
-          height_pct: '43.685387882494695' | `${number}`;
-        };
-        image: {
-          english: 'logo.png' | string;
-        };
-        image2x: {
-          english: 'logo_2x.png' | string;
-        };
-      };
     }
 
-    interface AppInfoCommon {
-      clienticon: 'd991f95d96e1c76d2acb944bb09447628cd96caa' | string;
-      clienttga: 'b3f33e2fd5e6eee2f2f27fe5b10b1c78683a3363' | string;
-      icon: '95be6d131fc61f145797317ca437c9765f24b41c' | string;
-      logo: '6bd76ff700a8c7a5460fbae3cf60cb930279897d' | string;
-      logo_small: '698efe72e4316c1cde3c4ce2d6ce229be50e698c' | string;
-      metacritic_url: 'pc/halflife' | string;
-      name: 'Half-Life' | string;
-      oslist: 'windows,macos,linux' | string;
-      linuxclienticon: '87bda297bfca8fa26490f4a35d634d978c7da319' | string;
-      clienticns: '34953436dec82b4e45699ac618cf4c2015a12005' | string;
-      type: 'game' | string;
-      content_descriptors: Record<`${number}`, `${number}`>;
-      steam_deck_compatibility: SteamDeckCompatibility;
-      metacritic_name: 'Half-Life' | string;
-      controllertagwizard: '1' | `${number}`;
-      controller_support: 'full' | string;
-      small_capsule: Record<'english' | string, '25bee0c9572a4f0dc4de6c773c54d067a4204760/capsule_231x87.jpg' | string>;
-      header_image: {
-        english: 'header.jpg';
-      };
-      library_assets: LibraryAssets;
-      library_assets_full: LibraryAssetsFull;
-      store_asset_mtime: '1745368459' | `${number}`;
-      associations: Record<
+    type Associations = Record<
         `${number}`,
         {
-          type: 'developer' | 'publisher' | 'franchise';
-          name: 'Valve' | 'Half-Life' | string;
+            type: "developer" | "publisher" | "franchise";
+            name: "Valve" | "Half-Life" | string;
         }
-      >;
-      primary_genre: '1' | `${number}`;
-      genres: Record<`${number}`, `${number}`>;
-      category: Record<`category_${number}`, `${number}`>;
-      supported_languages: Record<'english' | 'french' | string, SupportedLanguageData>;
-      steam_release_date: '911462400' | `${number}`;
-      metacritic_score: '96' | `${number}`;
-      metacritic_fullurl: 'https://www.metacritic.com/game/pc/half-life?ftag=MCD-06-10aaa1f' | string;
-      community_hub_visible: '1' | `${number}`;
-      gameid: '70' | `${number}`;
-      content_descriptors_including_dlc: Record<`${number}`, `${number}`>;
-      store_tags: Record<`${number}`, `${number}`>;
-      review_score: `${number}`;
-      review_percentage: `${number}`;
+    >;
+
+    interface AppInfoCommonBase {
+        name: "Source Dedicated Server" | "Half-Life" | string;
+        type: string;
+        gameid: "210" | "70" | `${number}`;
+        clienttga?: "cf1ac7ec6ac21d099a2fe81bf269bfd50a550a0c" | "b3f33e2fd5e6eee2f2f27fe5b10b1c78683a3363" | string;
+        clienticon?: "4f3ee44d3e136ee3c56d30318b4ae386e64b1b40" | string;
+        icon?: "7600c38504523ef3f10d6fe50d20b065bdef192f" | string;
+        logo?: "c2ea07874fb1a776e4c5bfc659e5f296d656777d";
+        small_capsule?: Record<
+            "english" | string,
+            "25bee0c9572a4f0dc4de6c773c54d067a4204760/capsule_231x87.jpg" | string
+        >;
+        header_image?: Record<"english" | string, "header.jpg" | string>;
+        community_hub_visible?: "1" | `${number}`;
+        releasestate?: "prerelease" | string;
+        osarch?: "" | string;
+        osextended?: "" | string;
+        exfgls?: "8" | `${number}`;
+        oslist?: "windows" | string;
+        associations?: Associations;
+        store_tags?: Record<`${number}`, `${number}`>;
     }
 
+    type AppInfoCommonGame = AppInfoCommonBase & {
+        type: "game" | "Game";
+        logo_small: "698efe72e4316c1cde3c4ce2d6ce229be50e698c" | string;
+        metacritic_url: "pc/halflife" | string;
+        linuxclienticon: "87bda297bfca8fa26490f4a35d634d978c7da319" | string;
+        clienticns: "34953436dec82b4e45699ac618cf4c2015a12005" | string;
+        content_descriptors: Record<`${number}`, `${number}`>;
+        steam_deck_compatibility: SteamDeckCompatibility;
+        metacritic_name: "Half-Life" | string;
+        controllertagwizard: "1" | `${number}`;
+        controller_support: "full" | string;
+        library_assets: LibraryAssets;
+        library_assets_full: LibraryAssetsFull;
+        store_asset_mtime: "1745368459" | `${number}`;
+        associations: Associations;
+        primary_genre: "1" | `${number}`;
+        genres: Record<`${number}`, `${number}`>;
+        category: Record<`category_${number}`, `${number}`>;
+        supported_languages: Record<"english" | "french" | string, SupportedLanguageData>;
+        steam_release_date: "911462400" | `${number}`;
+        metacritic_score: "96" | `${number}`;
+        metacritic_fullurl: "https://www.metacritic.com/game/pc/half-life?ftag=MCD-06-10aaa1f" | string;
+        content_descriptors_including_dlc: Record<`${number}`, `${number}`>;
+        review_score: `${number}`;
+        review_percentage: `${number}`;
+    };
+
     interface DepotManifest {
-      gid: '724247850320422500' | `${number}`;
-      size: '49814373' | `${number}`;
-      download: '19297632' | `${number}`;
+        gid: "724247850320422500" | `${number}`;
+        size: "49814373" | `${number}`;
+        download: "19297632" | `${number}`;
     }
 
     interface AppInfoDepot {
-      config: {
-        oslist?: 'windows' | string;
-        language: '' | 'french' | string;
-      };
-      systemdefined: '1';
-      manifests: {
-        public: DepotManifest;
-        steam_legacy: DepotManifest;
-        beta: DepotManifest;
-      };
+        config?: {
+            oslist?: "windows" | string;
+            language?: "" | "french" | string;
+        };
+        systemdefined?: "1";
+        manifests: {
+            public: DepotManifest;
+            steam_legacy?: DepotManifest;
+            beta?: DepotManifest;
+        };
     }
 
     interface SaveFile {
-      root: 'gameinstall' | string;
-      path: 'valve/SAVE' | 'valve' | string;
-      pattern: '*.*' | '*.cfg' | string;
-      recursive?: '1';
-      platforms: Record<`${number}`, 'all' | string>;
+        root: "gameinstall" | string;
+        path: "valve/SAVE" | "valve" | string;
+        pattern: "*.*" | "*.cfg" | string;
+        recursive?: "1";
+        platforms: Record<`${number}`, "all" | string>;
     }
 
     interface Launch {
-      executable: 'hl.exe' | 'hl.sh' | string;
-      arguments: '-steam' | string;
-      vacmodulefilename: 'resource\\sourceinit.dat' | 'resource\\sourceinit_macos.dat' | string;
-      config: {
-        oslist: 'windows' | 'macos' | 'linux';
-      };
+        executable: "hl.exe" | "hl.sh" | string;
+        type?: "default" | string;
+        arguments?: "-steam" | string;
+        description?: string;
+        vacmodulefilename?: "resource\\sourceinit.dat" | "resource\\sourceinit_macos.dat" | string;
+        workingdir?: ".\\";
+        config?: {
+            oslist: "windows" | "macos" | "linux" | string;
+        };
     }
 
-    interface AppInfoExtended {
-      developer: 'Valve' | string;
-      gamedir: 'valve' | string;
-      homepage: 'http://www.half-life.com/' | string;
-      icon: 'steam/games/icon_hl' | string;
-      icon2: 'steam/games/icon_hl_dull' | string;
-      minclientversion: '1000000' | `${number}`;
-      order: '15' | `${number}`;
-      primarycache: '1' | `${number}`;
-      serverbrowsername: 'Half-Life' | string;
-      vacmacmodulecache: '160' | `${number}`;
-      vacmodulecache: '202' | `${number}`;
-      vacmodulefilename: 'sourceinit.dat' | string;
-      developer_url: 'http://www.valvesoftware.com' | string;
-      publisher: 'Valve' | string;
-      aliases: 'hl1' | string;
-      listofdlc: '632440' | `${number}`;
+    interface AppInfoExtendedBase {
+        developer: "Valve" | "" | string;
+        gamedir: "valve" | "ValveTestApp90" | string;
+        homepage: "http://www.half-life.com/" | "" | string;
+        icon: "steam/games/icon_hl" | "" | string;
     }
 
-    interface AppInfoConfig {
-      launch: Record<`${number}`, Launch>;
-      systemprofile: '1' | `${number}`;
-      contenttype: '3' | `${number}`;
-      installdir: 'Half-Life' | string;
-      convertgcfs: '1' | `${number}`;
-      steamcontrollertouchtemplateindex: '1' | `${number}`;
-      steamcontrollertouchconfigdetails: Record<
-        '2063295774' | `${number}`,
-        {
-          controller_type: 'controller_mobile_touch' | string;
-          enabled_branches: 'default' | string;
-          use_action_block: 'false' | string;
-        }
-      >;
-      steamdecktouchscreen: '1' | `${number}`;
-      steamcontrollertemplateindex: '13' | `${number}`;
-      uselaunchcommandline: '1' | `${number}`;
-      steaminputmanifestpath: 'valve\\controller_configs\\hl1_manifest.vdf' | string;
-      steamconfigurator3rdpartynative: '65531' | `${number}`;
+    type AppInfoExtendedTool = AppInfoExtendedBase & {
+        checkpkgstate: "1";
+        noservers: "0";
+        sourcegame: "1";
+        state: "eStateComingSoonNoPreload";
+        visibleonlywhensubscribed: "1";
+    };
+
+    type AppInfoExtendedGame = AppInfoExtendedBase & {
+        icon2: "steam/games/icon_hl_dull" | string;
+        minclientversion: "1000000" | `${number}`;
+        order: "15" | `${number}`;
+        primarycache: "1" | `${number}`;
+        serverbrowsername: "Half-Life" | string;
+        vacmacmodulecache: "160" | `${number}`;
+        vacmodulecache: "202" | `${number}`;
+        vacmodulefilename: "sourceinit.dat" | string;
+        developer_url: "http://www.valvesoftware.com" | string;
+        publisher: "Valve" | string;
+        aliases: "hl1" | string;
+        listofdlc: "632440" | `${number}`;
+    };
+
+    interface AppInfoConfigBase {
+        contenttype?: "3" | `${number}`;
+        installdir: "Half-Life" | string;
+        shortname?: "5004Media" | string;
+        launch?: Record<`${number}` | "main" | string, Launch>;
+        installscriptsignature?:
+            | "072d84fde2ef0ae5baf2e9dc1178cfcf141cba641b98854cb3ebe850f01729917320c9220d55f15f72f92a2a9d6f16a181050b8a3a4be357fdb238c7da4e35bb840c4a16b3e95a39e0115aff6d833a959ad1228d72fe2307a4ea49579e53c9fca6fbcc2162524f17602c60fef0b3b2a0a3884fecab217320d74083530c2cc01c"
+            | string;
+        installscriptoverride?: "1" | `${number}`;
+        externalregistrationurl?: Record<"english" | string, "http://www.arma2.com" | string>;
     }
+
+    type AppInfoConfig = AppInfoConfigBase & {
+        systemprofile: "1" | `${number}`;
+        convertgcfs: "1" | `${number}`;
+        steamcontrollertouchtemplateindex: "1" | `${number}`;
+        steamcontrollertouchconfigdetails: Record<
+            "2063295774" | `${number}`,
+            {
+                controller_type: "controller_mobile_touch" | string;
+                enabled_branches: "default" | string;
+                use_action_block: "false" | string;
+            }
+        >;
+        steamdecktouchscreen: "1" | `${number}`;
+        steamcontrollertemplateindex: "13" | `${number}`;
+        uselaunchcommandline: "1" | `${number}`;
+        steaminputmanifestpath: "valve\\controller_configs\\hl1_manifest.vdf" | string;
+        steamconfigurator3rdpartynative: "65531" | `${number}`;
+    };
 
     interface AppInfoContentUnpublished {
-      appid: `${number}`;
-      public_only: '1';
-      common?: never;
+        appid: `${number}`;
+        public_only: "1";
+        common?: never;
     }
 
     /**
      * this type definition was based on a specific data sample - there may, possibly,
      * be other fields in this structure, and some of the fields may, possibly, be optional
      */
-    export interface AppInfoContentPublished {
-      appid: `${number}`;
-      common: AppInfoCommon;
-      extended: AppInfoExtended;
-      config: AppInfoConfig;
-      depots: Record<`${number}`, AppInfoDepot>;
-      ufs: {
-        quota: '104857600' | `${number}`;
-        maxnumfiles: '500' | `${number}`;
-        savefiles: Record<`${number}`, SaveFile>;
-      };
+    export interface AppInfoContentGame {
+        appid: `${number}`;
+        public_only?: "1" | `${number}`;
+        common:
+            | AppInfoCommonGame
+            | (AppInfoCommonBase & {
+                type: "game" | "Game";
+            });
+        extended?: AppInfoExtendedGame;
+        config?: AppInfoConfig;
+        depots?: Record<`${number}`, AppInfoDepot>;
+        ufs?: {
+            quota: "104857600" | `${number}`;
+            maxnumfiles: "500" | `${number}`;
+            savefiles: Record<`${number}`, SaveFile>;
+        };
     }
 
-    export type AppInfoContent = AppInfoContentUnpublished | AppInfoContentPublished;
+    interface AppInfoContentConfig {
+        appid: "8" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Config" | "config";
+        };
+        config?: AppInfoConfigBase;
+    }
+
+    interface AppInfoContentTool {
+        appid: "90" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Tool";
+        };
+        extended: AppInfoExtendedTool;
+        config: AppInfoConfigBase;
+        depots: Record<`${number}`, AppInfoDepot> & {
+            overridescddb: "1" | `${number}`;
+            branches: {
+                public: DepotManifest;
+                steam_legacy: DepotManifest;
+                beta: DepotManifest;
+            };
+            privatebranches: "1" | `${number}`;
+        };
+    }
+
+    interface AppInfoContentDlc {
+        appid: "4079770" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "DLC" | "dlc";
+            parent: "2853730" | `${number}`;
+        };
+        extended?: {
+            dlcforappid: "2853730" | string;
+            mustownapptopurchase: "2853730" | string;
+            legacykeyproofofpurchaseticket: "1" | `${number}`;
+            legacykeylinkedexternally: "1" | `${number}`;
+            legacykeyregistrationmethod: "api" | string;
+            proofofpurchaseticketrevision: "2" | `${number}`;
+        };
+    }
+
+    interface MusicTrack {
+        discnumber: "1" | `${number}`;
+        tracknumber: "1" | `${number}`;
+        originalname: "白の語り部" | string;
+        m: "1" | `${number}`;
+        s: "32" | `${number}`;
+        internationalname: "Storyteller in White" | string;
+        languagecode: "jp" | string;
+        isrc: "JPA232500241" | string;
+    }
+
+    interface Branches {
+        public: BuildBranch & {
+            timeupdated: "1761703865" | `${number}`;
+        };
+    }
+
+    interface Depots {
+        [k: "3592811" | `${number}`]: AppInfoDepot;
+        baselanguages?: "english" | string;
+        branches: Branches;
+    }
+
+    interface AppInfoContentMusic {
+        appid: "4044730" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Music";
+            parent: "3837380" | `${number}`;
+            name_localized: {
+                japanese: "魔女ガミ 音楽集 ー ディレクターズ セレクション ー" | string;
+            };
+        };
+        extended: {
+            musicalbumforappid: "3837380" | `${number}`;
+            activationonlydlc: "1" | `${number}`;
+        };
+        config: AppInfoConfigBase;
+        depots: Depots;
+        albummetadata: {
+            metadata: {
+                artist: Record<"english" | "french" | string, "III" | "" | string>;
+                composer: Record<"english" | "french" | string, "山田 一法、武田 葵、佐藤 巧、酒井 祐輔" | "" | string>;
+                label: Record<"english" | "french" | string, "インティ・クリエイツ" | "" | string>;
+                othercredits: Record<
+                    "english" | "french" | string,
+                    | "編曲、演奏: 梅垣 ルナ\r\nミックス: 栗原 務\r\n\r\nプロデュース、監修: 山田 一法\r\nマスタリング: 川上 領"
+                    | ""
+                    | string
+                >;
+            };
+            tracks: Record<`${number}`, MusicTrack>;
+            cdn_assets: {
+                album_cover: "d847c0f58c835c719746938fdebda327a7e1a854" | string;
+            };
+        };
+    }
+
+    interface AppInfoContentDemo {
+        appid: "3592810" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Demo";
+            parent: "2492990" | `${number}`;
+        };
+        config: AppInfoConfigBase;
+        depots: Depots;
+    }
+
+    interface BuildBranch {
+        buildid: "250795" | `${number}`;
+    }
+
+    interface AppInfoContentMedia {
+        appid: "5004" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "media";
+            freeondemand: "1" | `${number}`;
+        };
+        extended: AppInfoExtendedBase & {
+            ismediafile: "1" | `${number}`;
+            mediafiletype: "Movie" | string;
+            order: "1" | `${number}`;
+            primarycache: "5004" | `${number}`;
+        };
+        config: AppInfoConfigBase;
+        depots: {
+            [k: `${number}`]: AppInfoDepot;
+            overridescddb: "1";
+            branches: {
+                public: BuildBranch;
+            };
+        };
+    }
+
+    interface AppInfoContentGuide {
+        appid: "22800" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "guide";
+        };
+        extended: AppInfoExtendedBase & {
+            guideurl: "http://steam.primagames.com/?CDKey=%cdkey%" | string;
+            legacykeyregistrationmethod: "registry" | string;
+            legacykeyregistrylocation: "HKEY_CURRENT_USER\\Software\\Valve\\TestApp22800\\SteamKey" | string;
+            noservers: "1" | `${number}`;
+            order: "1" | `${number}`;
+            primarycache: "7" | `${number}`;
+            serverbrowsername: "" | string;
+            state: "eStateAvailable" | string;
+            visibleonlywhensubscribed: "1" | `${number}`;
+        };
+    }
+
+    interface AppInfoContentBeta {
+        appid: "219540" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Beta";
+            logo_small: "c2ea07874fb1a776e4c5bfc659e5f296d656777d_thumb" | string;
+            parent: "33930" | `${number}`;
+        };
+        extended: AppInfoExtendedBase & {
+            noservers: "0" | `${number}`;
+            sourcegame: "1" | `${number}`;
+            state: "eStateAvailable" | string;
+            thirdpartycdkey: "1" | `${number}`;
+            visibleonlywhensubscribed: "1" | `${number}`;
+            no_revenue_accumulation: "1" | `${number}`;
+        };
+        config: AppInfoConfigBase;
+        install: Record<string, unknown>;
+        depots: {
+            [k: "219541" | `${number}`]: {
+                systemdefined: "1";
+                manifests: {
+                    public: DepotManifest;
+                    beta108074: DepotManifest;
+                    beta112555: DepotManifest;
+                    test: DepotManifest;
+                };
+            };
+            preloadonly: "1" | `${number}`;
+            overridescddb: "1" | `${number}`;
+            branches: {
+                public: BuildBranch;
+                beta108074: BuildBranch;
+                beta112555: BuildBranch;
+                test: BuildBranch;
+            };
+        };
+    }
+
+    interface AppInfoContentApplication {
+        appid: "227980" | `${number}`;
+        common: AppInfoCommonBase & {
+            type: "Application";
+        };
+        extended: AppInfoExtendedBase & {
+            checkpkgstate: "1" | `${number}`;
+            disableoverlay: "1" | `${number}`;
+            noservers: "0" | `${number}`;
+            sourcegame: "1" | `${number}`;
+            state: "eStateComingSoonNoPreload";
+            visibleonlywhensubscribed: "1" | `${number}`;
+        };
+        config: AppInfoConfigBase;
+        depots: {
+            [k: "227241" | `${number}`]: {
+                systemdefined: "1" | `${number}`;
+                config: {
+                    language: "english";
+                    oslist: "windows";
+                };
+                depotfromapp: "227240" | `${number}`;
+                sharedinstall: "2" | `${number}`;
+            };
+            overridescddb: "1" | `${number}`;
+        };
+    }
+
+    interface AppInfoContentVideo {
+        appid: "373022";
+        common: AppInfoCommonBase & {
+            type: "Video";
+            parent: "373020";
+        };
+        config: {
+            videoid: "7527155574822378568" | string;
+        };
+    }
+
+    export type AppInfoContent =
+        | AppInfoContentUnpublished
+        | AppInfoContentGame
+        | AppInfoContentConfig
+        | AppInfoContentTool
+        | AppInfoContentApplication
+        | AppInfoContentGuide
+        | AppInfoContentDlc
+        | AppInfoContentBeta
+        | AppInfoContentDemo
+        | AppInfoContentMedia
+        | AppInfoContentVideo
+        | AppInfoContentMusic;
 
     // #endregion "Response Interfaces"
 
