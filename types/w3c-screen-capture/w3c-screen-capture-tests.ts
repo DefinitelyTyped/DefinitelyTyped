@@ -1,11 +1,4 @@
-import {
-    CaptureController,
-    CaptureStartFocusBehavior,
-    DisplayMediaStreamOptions,
-    MediaTrackConstraintSet,
-    SystemAudioPreferenceEnum,
-    WindowAudioPreferenceEnum,
-} from "w3c-screen-capture";
+import { DisplayMediaStreamOptions, MediaTrackConstraintSet } from "w3c-screen-capture";
 
 function testCaptureController() {
     const controller = new CaptureController();

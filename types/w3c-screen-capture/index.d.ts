@@ -8,14 +8,23 @@ declare global {
     }
 }
 
+export interface UserMediaStreamConstraints {
+    /** @default false */
+    video?: boolean | MediaTrackConstraints;
+    /** @default false */
+    audio?: boolean | MediaTrackConstraints;
+}
+
 export type CaptureStartFocusBehavior =
     | "focus-capturing-application"
     | "focus-captured-surface"
     | "no-focus-change";
 
-export class CaptureController extends EventTarget {
-    constructor();
-    setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): undefined;
+declare global {
+    class CaptureController extends EventTarget {
+        constructor();
+        setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): undefined;
+    }
 }
 
 export type SelfCapturePreferenceEnum =
