@@ -40,11 +40,11 @@
  * To deactivate the colors, use the `NO_COLOR` or `NODE_DISABLE_COLORS`
  * environment variables. This will also deactivate the colors in the REPL. For
  * more on color support in terminal environments, read the tty
- * [`getColorDepth()`](https://nodejs.org/docs/latest-v24.x/api/tty.html#writestreamgetcolordepthenv) documentation.
+ * [`getColorDepth()`](https://nodejs.org/docs/latest-v25.x/api/tty.html#writestreamgetcolordepthenv) documentation.
  * @since v15.0.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/assert/strict.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/assert/strict.js)
  */
-declare module "assert/strict" {
+declare module "node:assert/strict" {
     import {
         Assert,
         AssertionError,
@@ -52,9 +52,6 @@ declare module "assert/strict" {
         AssertOptions,
         AssertPredicate,
         AssertStrict,
-        CallTracker,
-        CallTrackerCall,
-        CallTrackerReportInformation,
         deepStrictEqual,
         doesNotMatch,
         doesNotReject,
@@ -79,9 +76,6 @@ declare module "assert/strict" {
             AssertOptions,
             AssertPredicate,
             AssertStrict,
-            CallTracker,
-            CallTrackerCall,
-            CallTrackerReportInformation,
             deepStrictEqual,
             deepStrictEqual as deepEqual,
             doesNotMatch,
@@ -105,7 +99,7 @@ declare module "assert/strict" {
     }
     export = strict;
 }
-declare module "node:assert/strict" {
-    import strict = require("assert/strict");
+declare module "assert/strict" {
+    import strict = require("node:assert/strict");
     export = strict;
 }

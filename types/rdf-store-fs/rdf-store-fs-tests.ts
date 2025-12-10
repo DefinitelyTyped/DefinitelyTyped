@@ -45,20 +45,20 @@ function store_match() {
 
 function store_import() {
     const stream: Stream = <any> {};
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     let imported = flatStore.import(stream);
     imported = flatStore.import(stream, { truncate: true });
 }
 
 function store_remove() {
     const stream: Stream = <any> {};
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     const event = flatStore.remove(stream);
 }
 
 function store_removeMatches() {
     const term: Term = <any> {};
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     let event = flatStore.removeMatches();
     event = flatStore.removeMatches(term);
     event = flatStore.removeMatches(term, term);
@@ -68,7 +68,7 @@ function store_removeMatches() {
 
 function store_deleteGraph() {
     const graph: Quad_Graph = <any> {};
-    // $ExpectType EventEmitter<DefaultEventMap>
+    // $ExpectType EventEmitter<any>
     const event = flatStore.deleteGraph(graph);
 }
 
