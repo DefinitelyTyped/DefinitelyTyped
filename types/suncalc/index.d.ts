@@ -29,7 +29,7 @@ export interface GetMoonIlluminationResult {
     phase: number;
     angle: number;
 }
-export interface GetMoonTimes {
+export interface GetMoonTimesResult {
     rise: Date;
     set: Date;
     alwaysUp?: true;
@@ -41,4 +41,4 @@ export function addTime(angleInDegrees: number, morningName: string, eveningName
 export function getPosition(timeAndDate: Date, latitude: number, longitude: number): GetSunPositionResult;
 export function getMoonPosition(timeAndDate: Date, latitude: number, longitude: number): GetMoonPositionResult;
 export function getMoonIllumination(timeAndDate: Date): GetMoonIlluminationResult;
-export function getMoonTimes(date: Date, latitude: number, longitude: number, inUTC?: boolean): GetMoonTimes;
+export function getMoonTimes(date: Date, latitude: number, longitude: number, inUTC?: boolean): GetMoonTimesResult;
