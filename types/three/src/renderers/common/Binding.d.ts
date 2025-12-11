@@ -23,6 +23,12 @@ declare class Binding {
      */
     setVisibility(visibility: number): void;
     /**
+     * The shader stages in which the binding's resource is visible.
+     *
+     * @return {number} The visibility bitmask.
+     */
+    getVisibility(): number;
+    /**
      * Clones the binding.
      *
      * @return {Binding} The cloned binding.

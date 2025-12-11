@@ -36,9 +36,9 @@
  * decoder.write(Buffer.from([0x82]));
  * console.log(decoder.end(Buffer.from([0xAC]))); // Prints: €
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/string_decoder.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/string_decoder.js)
  */
-declare module "string_decoder" {
+declare module "node:string_decoder" {
     class StringDecoder {
         constructor(encoding?: BufferEncoding);
         /**
@@ -62,6 +62,6 @@ declare module "string_decoder" {
         end(buffer?: string | NodeJS.ArrayBufferView): string;
     }
 }
-declare module "node:string_decoder" {
-    export * from "string_decoder";
+declare module "string_decoder" {
+    export * from "node:string_decoder";
 }

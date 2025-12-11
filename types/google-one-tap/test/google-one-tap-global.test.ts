@@ -59,6 +59,8 @@ const buttonOptions: google.GsiButtonConfiguration = {
     theme: "outline",
     size: "large",
     text: "continue_with",
+    click_listener: () => {},
+    state: "test_state",
 };
 
 const button: HTMLElement = new HTMLDivElement();

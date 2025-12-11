@@ -312,6 +312,8 @@ pool.on("connect", (client) => {
     // $ExpectType PoolClient
     client;
 });
+// @ts-expect-error - test wrong number of arguments
+pool.on("connect", (error, client) => {});
 pool.on("acquire", (client) => {
     // $ExpectType PoolClient
     client;
@@ -323,10 +325,27 @@ pool.on("release", (err, client) => {
         console.error("connection released to pool: ", err.message);
     }
 });
+pool.on("release", (error) => {
+    // $ExpectType Error
+    error;
+});
 pool.on("remove", (client) => {
     // $ExpectType PoolClient
     client;
 });
+
+const listeners: {
+    [K in "error" | "release" | "connect" | "remove" | "acquire"]?: K extends "error" | "release"
+        ? (err: Error, client: pg.PoolClient) => void
+        : (client: pg.PoolClient) => void;
+} = {};
+
+for (const eventName in listeners) {
+    const listener = listeners[eventName as keyof typeof listeners];
+    if (listener) {
+        pool.on(eventName as keyof typeof listeners, listener);
+    }
+}
 
 (async () => {
     const client = await pool.connect();

@@ -1,5 +1,6 @@
 import { Camera } from "../../cameras/Camera.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
+import MRTNode from "../../nodes/core/MRTNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import ChainMap from "./ChainMap.js";
 import RenderContext from "./RenderContext.js";
@@ -22,9 +23,10 @@ declare class RenderContexts {
      * @param {Scene} scene - The scene.
      * @param {Camera} camera - The camera that is used to render the scene.
      * @param {?RenderTarget} [renderTarget=null] - The active render target.
+     * @param {?MRT} [mrt=null] - The active multiple render target.
      * @return {RenderContext} The render context.
      */
-    get(scene: Scene, camera: Camera, renderTarget?: RenderTarget | null): RenderContext;
+    get(scene: Scene, camera: Camera, renderTarget?: RenderTarget | null, mrt?: MRTNode | null): RenderContext;
     /**
      * Returns a render context intended for clear operations.
      *

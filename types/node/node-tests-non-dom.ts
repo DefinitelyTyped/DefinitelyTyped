@@ -1,3 +1,3 @@
-import "./test/events-non-dom";
-import "./test/globals-non-dom";
-import "./test/perf_hooks-non-dom";
+import "./node-tests/events-non-dom";
+import "./node-tests/globals-non-dom";
+import "./node-tests/perf_hooks-non-dom";

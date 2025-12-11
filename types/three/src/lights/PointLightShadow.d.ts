@@ -1,5 +1,4 @@
 import { PerspectiveCamera } from "../cameras/PerspectiveCamera.js";
-import { Light } from "./Light.js";
 import { LightShadow } from "./LightShadow.js";
 
 /**
@@ -12,11 +11,5 @@ export class PointLightShadow extends LightShadow<PerspectiveCamera> {
      * @remarks This is a _constant_ value
      * @defaultValue `true`
      */
-    readonly isPointLightShadow = true;
-
-    /**
-     * Update the matrices for the camera and shadow, used internally by the renderer.
-     * @param light The light for which the shadow is being rendered.
-     */
-    override updateMatrices(light: Light, viewportIndex?: number): void;
+    readonly isPointLightShadow: true;
 }
