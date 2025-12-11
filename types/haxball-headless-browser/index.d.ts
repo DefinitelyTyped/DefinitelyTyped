@@ -14,13 +14,13 @@
  * room.setTimeLimit(0);
  * ```
  */
-export declare function HBInit(roomConfig: RoomConfigObject): RoomObject;
+export function HBInit(roomConfig: RoomConfigObject): RoomObject;
 
 /**
  * Configuration object for initializing a Haxball room.
  * All properties are optional.
  */
-interface RoomConfigObject {
+export interface RoomConfigObject {
     /** The name for the room. */
     roomName?: string;
     /** The name for the host player. */
@@ -47,13 +47,13 @@ interface RoomConfigObject {
  * Main interface for controlling the room and listening to its events.
  * @note All API functions that modify the game's state execute asynchronously.
  */
-declare class RoomObject {
+export class RoomObject {
     /**
      * Sends a chat message using the host player.
      * @param msg - The message to send.
      * @param targetId - If null/undefined, message is sent to all players. Otherwise, sent only to player with matching id.
      */
-    sendChat(msg: string, targetId: number): void;
+    sendChat(msg: string, targetId?: number): void;
 
     /**
      * Changes the admin status of the specified player.
@@ -154,7 +154,7 @@ declare class RoomObject {
      * @param playerId - The ID of the player.
      * @returns The player object or null if the player doesn't exist.
      */
-    getPlayer(playerId: number): PlayerObject;
+    getPlayer(playerId: number): PlayerObject | null;
 
     /**
      * Returns the current list of players.
@@ -165,13 +165,13 @@ declare class RoomObject {
      * Returns the current score information if a game is in progress.
      * @returns The scores object or null if no game is in progress.
      */
-    getScores(): ScoresObject;
+    getScores(): ScoresObject | null;
 
     /**
      * Returns the ball's position in the field.
      * @returns The ball's position or null if no game is in progress.
      */
-    getBallPosition(): { "x": number; "y": number };
+    getBallPosition(): { "x": number; "y": number } | null;
 
     /**
      * Starts recording of a haxball replay.
@@ -183,7 +183,7 @@ declare class RoomObject {
      * Stops the recording previously started with startRecording and returns the replay file contents.
      * @returns The replay file contents as a Uint8Array, or null if recording was not started or had already been stopped.
      */
-    stopRecording(): Uint8Array;
+    stopRecording(): Uint8Array | null;
 
     /**
      * Changes the password of the room.
@@ -214,7 +214,7 @@ declare class RoomObject {
      * @param style - Text style: "normal", "bold", "italic", "small", "small-bold", "small-italic". Default: "normal".
      * @param sound - 0 = no sound, 1 = normal chat sound, 2 = notification sound.
      */
-    sendAnnouncement(msg: string, targetId?: number, color?: number, style?: string, sound?: number): void;
+    sendAnnouncement(msg: string, targetId?: number | null, color?: number, style?: string, sound?: number): void;
 
     /**
      * Sets the room's kick rate limits.
@@ -249,7 +249,7 @@ declare class RoomObject {
      * @param discIndex - The index of the disc.
      * @returns The disc properties or null if discIndex is out of bounds.
      */
-    getDiscProperties(discIndex: number): DiscPropertiesObject;
+    getDiscProperties(discIndex: number): DiscPropertiesObject | null;
 
     /**
      * Same as setDiscProperties but targets the disc belonging to a player with the given Id.
@@ -310,7 +310,7 @@ declare class RoomObject {
      * @param msg - The message text.
      * @returns Return false to filter the message and prevent it from reaching other players.
      */
-    onPlayerChat(player: PlayerObject, msg: string): void | boolean;
+    onPlayerChat(player: PlayerObject, msg: string): boolean | void;
 
     /**
      * Event called when a player kicks the ball.
@@ -328,27 +328,27 @@ declare class RoomObject {
      * Event called when a game starts.
      * @param byPlayer - The player who caused the event (can be null if not caused by a player).
      */
-    onGameStart(byPlayer: PlayerObject): void;
+    onGameStart(byPlayer: PlayerObject | null): void;
 
     /**
      * Event called when a game stops.
      * @param byPlayer - The player who caused the event (can be null if not caused by a player).
      */
-    onGameStop(byPlayer: PlayerObject): void;
+    onGameStop(byPlayer: PlayerObject | null): void;
 
     /**
      * Event called when a player's admin rights are changed.
      * @param changedPlayer - The player whose admin rights changed.
      * @param byPlayer - The player who caused the event (can be null if not caused by a player).
      */
-    onPlayerAdminChange(changedPlayer: PlayerObject, byPlayer: PlayerObject): void;
+    onPlayerAdminChange(changedPlayer: PlayerObject, byPlayer: PlayerObject | null): void;
 
     /**
      * Event called when a player's team is changed.
      * @param changedPlayer - The player who changed teams.
      * @param byPlayer - The player who caused the event (can be null if not caused by a player).
      */
-    onPlayerTeamChange(changedPlayer: PlayerObject, byPlayer: PlayerObject): void;
+    onPlayerTeamChange(changedPlayer: PlayerObject, byPlayer: PlayerObject | null): void;
 
     /**
      * Event called when a player has been kicked from the room.
@@ -358,7 +358,7 @@ declare class RoomObject {
      * @param ban - Whether the player was banned.
      * @param byPlayer - The player who caused the event (can be null if not caused by a player).
      */
-    onPlayerKicked(kickedPlayer: PlayerObject, reason: string, ban: boolean, byPlayer: PlayerObject): void;
+    onPlayerKicked(kickedPlayer: PlayerObject, reason: string, ban: boolean, byPlayer: PlayerObject | null): void;
 
     /**
      * Event called once for every game tick (60 times per second).
@@ -419,7 +419,7 @@ declare class RoomObject {
 /**
  * Holds information about a player.
  */
-declare class PlayerObject {
+export class PlayerObject {
     /** The unique id of the player. Each player gets a unique id that will never change. */
     id: number;
     /** The name of the player. */
@@ -429,14 +429,14 @@ declare class PlayerObject {
     /** Whether the player has admin rights. */
     admin: boolean;
     /** The player's position in the field, or null if the player is not in the field. */
-    position: { "x": number; "y": number };
+    position: { "x": number; "y": number } | null;
     /**
      * The player's public ID. Players can view their own ID at https://www.haxball.com/playerauth
      * Useful for validating a player is who they claim to be, but not for verifying they aren't someone else.
      * Good for user accounts, not suitable for banning systems.
      * Can be null if ID validation fails. Only set in the onPlayerJoin event.
      */
-    auth: string;
+    auth: string | null;
     /**
      * A string that uniquely identifies the player's connection.
      * If two players join using the same network, this string will be equal.
@@ -448,7 +448,7 @@ declare class PlayerObject {
 /**
  * Holds information relevant to the current game scores.
  */
-declare class ScoresObject {
+export class ScoresObject {
     /** The number of goals scored by the red team. */
     red: number;
     /** The number of goals scored by the blue team. */
@@ -467,12 +467,12 @@ declare class ScoresObject {
  * - 1 = Red Team
  * - 2 = Blue Team
  */
-type TeamID = 0 | 1 | 2;
+export type TeamID = 0 | 1 | 2;
 
 /**
  * Holds information about a game physics disc.
  */
-declare class DiscPropertiesObject {
+export class DiscPropertiesObject {
     /** The x coordinate of the disc's position. */
     x: number;
     /** The y coordinate of the disc's position. */
@@ -510,7 +510,7 @@ declare class DiscPropertiesObject {
  * 
  * @see https://github.com/haxball/haxball-issues/wiki/Collision-Flags
  */
-interface CollisionFlagsObject {
+export interface CollisionFlagsObject {
     /** Default collision group of the ball. */
     "ball": number;
     /** Automatically added to players of the red team. */
@@ -543,7 +543,7 @@ interface CollisionFlagsObject {
  * Root object of a stadium file (.hbs).
  * A HaxBall stadium file is a text file with JSON5 format containing a single StadiumObject.
  */
-interface StadiumObject {
+export interface StadiumObject {
     /** The name of the stadium. */
     name?: string;
     /** Width of the rectangle centered at <0,0> in which the camera will be contained. */
@@ -615,13 +615,13 @@ interface StadiumObject {
      * Setting to "disc0" uses the first disc as the ball (cGroup left unmodified).
      * If omitted, default ball physics will be used.
      */
-    ballPhysics?: Disc;
+    ballPhysics?: Disc | "disc0";
 }
 
 /**
  * Describes the background for the stadium.
  */
-interface BackgroundObject {
+export interface BackgroundObject {
     /** Type of background: "grass", "hockey", or "none". Default: "none" */
     type?: "grass" | "hockey" | "none";
     /** Width of the background rectangle. Default: 0 */
@@ -641,7 +641,7 @@ interface BackgroundObject {
 /**
  * A vertex is a point which can collide with discs but cannot move and is not visible.
  */
-interface Vertex {
+export interface Vertex {
     /** The x position for the vertex. */
     x?: number;
     /** The y position for the vertex. */
@@ -660,7 +660,7 @@ interface Vertex {
  * A segment is a line (curved or straight) that connects two vertexes.
  * Discs can collide with segments and they can also be used as decoration.
  */
-interface Segment {
+export interface Segment {
     /** Index of a vertex in the stadium vertex list to be used as first point of the segment. */
     v0?: number;
     /** Index of a vertex in the stadium vertex list to be used as the second point of the segment. */
@@ -693,7 +693,7 @@ interface Segment {
 /**
  * Goals are lines belonging to a team. When the ball crosses this line, the opposite team scores.
  */
-interface Goal {
+export interface Goal {
     /** The coordinates of the first point of the line in array form [x, y]. */
     p0?: number[];
     /** The coordinates of the second point of the line in array form [x, y]. */
@@ -708,7 +708,7 @@ interface Goal {
  * Planes are collision objects that divide the map in two by an infinite line.
  * Useful for creating the boundaries of the stadium.
  */
-interface Plane {
+export interface Plane {
     /** The direction vector of the plane in array form [x, y]. */
     normal?: number[];
     /** The distance from coordinates [0,0] (in direction of the normal) where the plane is located. */
@@ -726,7 +726,7 @@ interface Plane {
 /**
  * Discs are circular physical objects placed in the stadium. They can move and collide with other discs.
  */
-interface Disc {
+export interface Disc {
     /** The starting position of the object in array form [x, y]. */
     pos?: number[];
     /** The starting speed of the object in array form [x, y]. */
@@ -754,7 +754,7 @@ interface Disc {
 /**
  * Describes physical constants affecting the players.
  */
-interface PlayerPhysics {
+export interface PlayerPhysics {
     /** The gravity vector affecting players. */
     gravity?: number[];
     /** The radius of the player disc. */
@@ -782,7 +782,7 @@ interface PlayerPhysics {
 /**
  * Joints are physical connections between two discs.
  */
-interface Joint {
+export interface Joint {
     /** 
      * Index of one of the two discs connected by the joint.
      * Note: Index 0 is used by the ball disc if StadiumObject.ballPhysics is not set to "disc0".
