@@ -1246,6 +1246,9 @@ declare module "node:util" {
         text: string,
         options?: StyleTextOptions,
     ): string;
+    /** @deprecated This alias will be removed in a future version. Use the canonical `TextEncoderEncodeIntoResult` instead. */
+    // TODO: remove in future major
+    export interface EncodeIntoResult extends TextEncoderEncodeIntoResult {}
     //// parseArgs
     /**
      * Provides a higher level API for command-line argument parsing than interacting
