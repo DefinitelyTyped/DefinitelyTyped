@@ -4,8 +4,13 @@ function testCaptureController() {
     const controller = new CaptureController();
 
     // Valid behaviors
-    controller.setFocusBehavior("focus-capturing-application");
+    // $ExpectType void
     controller.setFocusBehavior("focus-captured-surface");
+
+    // $ExpectType void
+    controller.setFocusBehavior("focus-capturing-application");
+
+    // $ExpectType void
     controller.setFocusBehavior("no-focus-change");
 
     // Inheritance check (EventTarget)

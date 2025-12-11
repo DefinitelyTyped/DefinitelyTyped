@@ -23,7 +23,7 @@ export type CaptureStartFocusBehavior =
 declare global {
     class CaptureController extends EventTarget {
         constructor();
-        setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): undefined;
+        setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
     }
 }
 
