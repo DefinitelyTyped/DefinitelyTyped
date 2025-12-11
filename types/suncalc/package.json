@@ -10,6 +10,10 @@
     },
     "owners": [
         {
+            "name": "City of Vernonia, Oregon",
+            "githubUsername": "COV-GIS"
+        },
+        {
             "name": "horiuchi",
             "githubUsername": "horiuchi"
         }
