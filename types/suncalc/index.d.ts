@@ -132,10 +132,14 @@ export interface GetMoonIlluminationResult {
 export interface GetMoonTimesResult {
     /**
      * moonrise (top edge of the moon appears on the horizon)
+     * 
+     * `undefined` if there is no moonrise at location and date (calendar day) provided
      */
     rise?: Date;
     /**
      * moonset (moon disappears below the horizon)
+     * 
+     * `undefined` if there is no moonset at location and date (calendar day) provided
      */
     set?: Date;
     /**
@@ -204,6 +208,6 @@ export function getMoonIllumination(timeAndDate?: Date): GetMoonIlluminationResu
  * @param date - Date
  * @param latitude - Latitude of the location
  * @param longitude - Longitude of the location
- * @param inUTC - By default, it will search for moon rise and set during user system day (from 0 to 24 hours); if `inUTC` is set to true, it will instead search the specified date from 0 to 24 UTC hours
+ * @param inUTC - By default, `getMoonTimes()` will search for moon rise and set during user system day (from 0 to 24 hours); if `inUTC` is set to true, it will instead search the specified date from 0 to 24 UTC hours
  */
 export function getMoonTimes(date: Date, latitude: number, longitude: number, inUTC?: boolean): GetMoonTimesResult;
