@@ -1,8 +1,8 @@
-import { IQCaller } from "@xmpp/iq/caller";
+import { IQCaller } from "@xmpp/iq/caller.js";
 import { Entity } from "@xmpp/middleware";
 import { StreamFeatures } from "@xmpp/stream-features";
 
-export = sessionEstablishment;
+export default sessionEstablishment;
 
 declare function sessionEstablishment<TEntity extends Entity>({
     iqCaller,

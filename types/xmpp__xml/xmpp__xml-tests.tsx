@@ -1,6 +1,6 @@
 /** @jsx xml */
 
-import xml = require("@xmpp/xml");
+import xml from "@xmpp/xml";
 
 const recipient = "user@example.com";
 const days = ["Monday", "Tuesday"];

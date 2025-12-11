@@ -2,24 +2,12 @@ import { EventEmitter } from "@xmpp/events";
 import { JID } from "@xmpp/jid";
 import { Element, Parser } from "@xmpp/xml";
 
-export = Connection;
+export default Connection;
 
 declare abstract class Connection extends EventEmitter {
     jid: JID | null;
     timeout: number;
-    options: Partial<Connection.Options>;
-    socketListeners: {
-        data?: (data: Buffer) => void;
-        close?: (hadError: boolean, event?: string) => void;
-        connect?: () => void;
-        error?: (error: Error) => void;
-    };
-    parserListeners: {
-        element?: (element: Element) => void;
-        error?: (error: Error) => void;
-        end?: (element: Element) => void;
-        start?: (element: Element) => void;
-    };
+    options: Partial<Options>;
     /**
      * `online` indicates that `xmpp` is authenticated and addressable. It is emitted every time there is a successful (re)connection.
      *
@@ -36,16 +24,21 @@ declare abstract class Connection extends EventEmitter {
      * - `disconnecting`: Socket is disconnecting
      * - `disconnect`: Socket is disconnected
      */
-    status: Connection.Status;
-    socket: Connection.SocketBase | null;
+    status: Status;
+    socket: SocketBase | null;
     parser: Parser | null;
     root: Element | null;
 
     NS: string;
-    Socket: Connection.SocketConstructor | null;
+    Socket: SocketConstructor | null;
     Parser: typeof Parser | null;
 
-    constructor(options: Connection.Options);
+    constructor(options: Options);
+
+    /**
+     * Returns whether the connection is considered secure.
+     */
+    isSecure(): boolean;
 
     /**
      * Opens the socket then opens the stream
@@ -64,7 +57,7 @@ declare abstract class Connection extends EventEmitter {
     /**
      * Opens the stream
      */
-    open(options: string | Connection.OpenOptions): Promise<Element>;
+    open(options: OpenOptions): Promise<Element>;
     /**
      * Closes the stream then closes the socket
      * https://xmpp.org/rfcs/rfc6120.html#streams-close
@@ -94,145 +87,147 @@ declare abstract class Connection extends EventEmitter {
     footerElement(): Element;
     abstract socketParameters(service: string): unknown | undefined;
 
-    addListener<TEvent extends keyof Connection.ConnectionEvents>(
+    addListener<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    on<TEvent extends keyof Connection.ConnectionEvents>(
+    on<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    once<TEvent extends keyof Connection.ConnectionEvents>(
+    once<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependListener<TEvent extends keyof Connection.ConnectionEvents>(
+    prependListener<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependOnceListener<TEvent extends keyof Connection.ConnectionEvents>(
+    prependOnceListener<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    removeListener<TEvent extends keyof Connection.ConnectionEvents>(
+    removeListener<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    off<TEvent extends keyof Connection.ConnectionEvents>(
+    off<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        listener: Connection.ConnectionEvents[TEvent],
+        listener: ConnectionEvents[TEvent],
     ): this;
     off(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    emit<TStatus extends keyof Connection.StatusEvents>(
+    emit<TStatus extends keyof StatusEvents>(
         event: "status",
         status: TStatus,
-        ...args: Parameters<Connection.StatusEvents[TStatus]>
+        ...args: Parameters<StatusEvents[TStatus]>
     ): boolean;
-    emit<TEvent extends keyof Connection.ConnectionEvents>(
+    emit<TEvent extends keyof ConnectionEvents>(
         event: TEvent,
-        ...args: Parameters<Connection.ConnectionEvents[TEvent]>
+        ...args: Parameters<ConnectionEvents[TEvent]>
     ): boolean;
     emit(event: string | symbol, ...args: any[]): boolean;
 }
 
-declare namespace Connection {
-    type Status = keyof StatusEvents;
+export type Status = keyof StatusEvents;
 
-    interface Options {
-        /**
-         * The service to connect to, accepts an URI or a domain.
-         *
-         * - `domain` lookup and connect to the most secure endpoint using `@xmpp/resolve`
-         * - `xmpp://hostname:port` plain TCP, may be upgraded to TLS by `@xmpp/starttls`
-         * - `xmpps://hostname:port` direct TLS
-         * - `ws://hostname:port/path` plain WebSocket
-         * - `wss://hostname:port/path` secure WebSocket
-         */
-        service?: string;
-        /**
-         * Domain of the service. Useful when the service domain is different than the service hostname.
-         */
-        domain?: string;
-        lang?: string | undefined;
-    }
+export interface Options {
+    /**
+     * The service to connect to, accepts an URI or a domain.
+     *
+     * - `domain` lookup and connect to the most secure endpoint using `@xmpp/resolve`
+     * - `xmpp://hostname:port` plain TCP, may be upgraded to TLS by `@xmpp/starttls`
+     * - `xmpps://hostname:port` direct TLS
+     * - `ws://hostname:port/path` plain WebSocket
+     * - `wss://hostname:port/path` secure WebSocket
+     */
+    service?: string;
+    /**
+     * Domain of the service. Useful when the service domain is different than the service hostname.
+     */
+    domain?: string;
+    lang?: string | undefined;
 
-    interface OpenOptions {
-        domain: string;
-        lang?: string | undefined;
-        timeout?: number | undefined;
-    }
+    /**
+     * Number of milliseconds to wait before timing out (default is `2000`)
+     */
+    timeout?: number;
+}
 
-    interface ConnectionEvents extends StatusEvents {
-        input: (input: string) => void;
-        send: (el: Element) => void;
-        error: (error: Error) => void;
-        element: (el: Element) => void;
-        stanza: (el: Element) => void;
-        nonza: (el: Element) => void;
-        status: <TStatus extends keyof StatusEvents>(
-            status: TStatus,
-            ...args: Parameters<StatusEvents[TStatus]>
-        ) => void;
-    }
+export interface OpenOptions {
+    domain: string;
+    lang?: string | undefined;
+}
 
-    interface StatusEvents {
-        online: (jid: JID) => void;
-        offline: (el: Element) => void;
-        connect: () => void;
-        connecting: (service: string) => void;
-        disconnect: (result: { clean: boolean; event: unknown }) => void;
-        disconnecting: () => void;
-        open: (el: Element) => void;
-        opening: () => void;
-        close: (el: Element) => void;
-        closing: () => void;
-    }
+export interface ConnectionEvents extends StatusEvents {
+    input: (input: string) => void;
+    send: (el: Element) => void;
+    error: (error: Error) => void;
+    element: (el: Element) => void;
+    stanza: (el: Element) => void;
+    nonza: (el: Element) => void;
+    status: <TStatus extends keyof StatusEvents>(
+        status: TStatus,
+        ...args: Parameters<StatusEvents[TStatus]>
+    ) => void;
+}
 
-    interface SocketConstructor {
-        new(): SocketBase;
-    }
+export interface StatusEvents {
+    online: (jid: JID) => void;
+    offline: (el: Element) => void;
+    connect: () => void;
+    connecting: (service: string) => void;
+    disconnect: (result: { clean: boolean; event: unknown }) => void;
+    disconnecting: () => void;
+    open: (el: Element) => void;
+    opening: () => void;
+    close: (el: Element) => void;
+    closing: () => void;
+}
 
-    interface SocketBase extends EventEmitter {
-        connect(parameters: unknown): void;
-        write(str: string, cb: (err?: Error) => void): void;
-        end(): void;
+export interface SocketConstructor {
+    new(): SocketBase;
+}
 
-        addListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+export interface SocketBase extends EventEmitter {
+    connect(parameters: unknown): void;
+    write(str: string, cb: (err?: Error) => void): void;
+    end(): void;
 
-        on<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
+    addListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
+    addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+    on<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    once<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
+    prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit<TEvent extends keyof SocketEvents>(event: TEvent, ...args: Parameters<SocketEvents[TEvent]>): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-    }
+    prependOnceListener<TEvent extends keyof SocketEvents>(event: TEvent, listener: SocketEvents[TEvent]): this;
+    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    interface SocketEvents {
-        close: (hadError: boolean) => void;
-        connect: () => void;
-        data: (data: Buffer) => void;
-        error: (err: Error) => void;
-    }
+    emit<TEvent extends keyof SocketEvents>(event: TEvent, ...args: Parameters<SocketEvents[TEvent]>): boolean;
+    emit(event: string | symbol, ...args: any[]): boolean;
+}
+
+export interface SocketEvents {
+    close: (hadError: boolean) => void;
+    connect: () => void;
+    data: (data: Buffer) => void;
+    error: (err: Error) => void;
 }

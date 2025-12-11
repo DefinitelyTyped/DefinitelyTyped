@@ -1,5 +1,5 @@
 import { SASL } from "@xmpp/sasl";
 
-export = saslAnonymous;
+export default saslAnonymous;
 
 declare function saslAnonymous(sasl: SASL): void;

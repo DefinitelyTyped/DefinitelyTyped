@@ -1,9 +1,9 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 import { Element } from "@xmpp/xml";
-import FramedParser = require("./FramedParser");
-import Socket = require("./Socket");
+import FramedParser from "./FramedParser.js";
+import Socket from "./Socket.js";
 
-export = ConnectionWebSocket;
+export default ConnectionWebSocket;
 
 declare class ConnectionWebSocket extends Connection {
     sendMany(elements: Iterable<Element>): Promise<void>;

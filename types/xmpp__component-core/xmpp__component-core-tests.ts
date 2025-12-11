@@ -1,5 +1,5 @@
 import { Component, jid, SocketParameters, xml } from "@xmpp/component-core";
-import ConnectionTCP = require("@xmpp/connection-tcp");
+import ConnectionTCP from "@xmpp/connection-tcp";
 
 // test type exports
 type Comp = Component;
