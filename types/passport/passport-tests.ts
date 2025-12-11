@@ -191,7 +191,10 @@ app.post("/logout", (req, res, next) => {
     });
 });
 
-app.post("/auth/token", passport.authenticate(["basic", "oauth2-client-password"], { session: false }));
+app.post(
+    "/auth/token",
+    passport.authenticate(["basic", "oauth2-client-password"], { session: false, state: { test: "test" } }),
+);
 
 function authSetting(): void {
     const authOption = {
