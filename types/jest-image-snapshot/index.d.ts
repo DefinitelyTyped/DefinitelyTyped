@@ -134,7 +134,10 @@ export interface MatchImageSnapshotOptions {
  *   import { toMatchImageSnapshot } from 'jest-image-snapshot';
  *   expect.extend({ toMatchImageSnapshot });
  */
-export function toMatchImageSnapshot(received: Buffer, options?: MatchImageSnapshotOptions): { message(): string; pass: boolean };
+export function toMatchImageSnapshot(
+    received: Buffer,
+    options?: MatchImageSnapshotOptions,
+): { message(): string; pass: boolean };
 
 /**
  * Configurable function that can be passed to jest's expect.extend.
