@@ -1,6 +1,7 @@
 import * as SunCalc from "suncalc";
 
 let d: Date;
+let c: Date | undefined;
 let x: number;
 let b: boolean | undefined;
 
@@ -59,7 +60,7 @@ x = mi.phase;
 x = mi.angle;
 
 const mt = SunCalc.getMoonTimes(date, latitude, longitude, true);
-d = mt.rise;
-d = mt.set;
+c = mt.rise;
+c = mt.set;
 b = mt.alwaysUp;
 b = mt.alwaysDown;
