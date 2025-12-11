@@ -71,7 +71,7 @@ const container: ReactTestHostConfig.Container = {
 };
 
 // Test createContainer signature (10 arguments, no transitionCallbacks)
-// $ExpectType OpaqueRoot
+// $ExpectType any
 const root = TestReconciler.createContainer(
     container,
     ReactReconcilerConstants.ConcurrentRoot,
@@ -86,7 +86,7 @@ const root = TestReconciler.createContainer(
 );
 
 // Test createHydrationContainer signature (14 arguments including new error handlers and formState)
-// $ExpectType OpaqueRoot
+// $ExpectType any
 const hydrationRoot = TestReconciler.createHydrationContainer(
     null, // initialChildren
     null, // callback
